@@ -1229,6 +1229,13 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
             $('.content_tono_detalle').removeClass('borde_seleccion_tono');
             $('#fav_tono_' + obj.CUV).addClass("borde_seleccion_tono");
             $('#hdCuvFichaProductoFAVSelect').val(obj.CUV);
+
+            $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".CUV").val(obj.CUV);
+            $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".rsFBRutaImagen").val(obj.ImagenProductoSugerido);
+            $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".rsWARutaImagen").val(obj.ImagenProductoSugerido);
+            $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Nombre").val(obj.Descripcion);
+            $('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".ProductoDescripcion").val(obj.DescripcionComercial);
+            //$('#hdCuvFichaProductoFAVSelect').parents("[data-item]").find("[data-compartir-campos]").find(".Volumen").val(obj.Volumen);
         }
     }
 }
