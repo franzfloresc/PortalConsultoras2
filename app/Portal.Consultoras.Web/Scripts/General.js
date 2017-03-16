@@ -908,6 +908,10 @@ function CompartirRedesSociales(e) {
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
 
+function CompartirRedesSocialesTexto(texto) {
+    return "whatsapp://send?text=" + texto;
+}
+
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
     id = $.trim(id);
     if (id == "0" || id == "")
@@ -939,9 +943,12 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         texto = texto.ReplaceAll(" ", "%32");
         texto = texto.ReplaceAll("+", "%43");
 
-        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
-        $("#HiddenRedesSocialesWA").click();
+        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
+
+        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=CompartirRedesSocialesTexto('" + texto + ruta + "')");
+        $("#HiddenRedesSocialesWA")[0].click();
+        //document.getElementById('HiddenRedesSocialesWA').click();
     }
 }
 
