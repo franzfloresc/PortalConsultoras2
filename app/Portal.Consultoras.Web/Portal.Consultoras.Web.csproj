@@ -200,6 +200,7 @@
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
@@ -3105,6 +3106,7 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
+    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />

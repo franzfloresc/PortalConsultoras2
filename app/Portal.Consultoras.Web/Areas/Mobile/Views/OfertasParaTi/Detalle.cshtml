@@ -1,0 +1,126 @@
+﻿@model Portal.Consultoras.Web.Models.ProductoModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+
+}
+
+@section styles
+{
+    <style>
+    footer {
+         display: none;
+    }
+    </style>
+}
+
+<div class="titulo_mobile">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+    &nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI
+</div>
+<div class="" style="border-bottom:0">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->   
+</div>
+<div class="wrapper_resumen_mobile" style="padding-bottom:96px;">      
+    <div class="content_oferta_guia_negocio">
+        <div class="content_imagen_ficha">
+            <img id="fav_imagen_prod" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/CL_200085015.jpg" alt="PRODUCTO" class="imagen_producto">
+        </div>
+        <div class="marca_oferta048">L'Bel</div>
+        <div id="fav_nombre_prod" class="titulo_ficha_producto">LABIAL COLOR HD 4G / 4.OZ</div>
+        <div class="precio_tachado_048">$ 5.990</div>
+        <div class="precio_para_ti_048">Precio para ti <b>$ 3.990</b></div>
+        
+
+        <div>
+            <!--TONOS-->
+            <div class="content_tonos_producto">
+                <div class="tono_select_opt">
+                    <span class="texto_sin_tono">ELIGE  TU TONO</span>
+                    @*<div class="content_tono_elegido">
+                        <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
+                        <div class="texto_tono_seleccionado">Sangre latina</div>
+                        <hr class="clear" />
+                    </div>*@ 
+                    <div class="content_tonos_select">
+                        <div class="content_tono_elegido">
+                            <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
+                            <div class="texto_tono_seleccionado">Sangre latina</div>
+                            <hr class="clear" />
+                        </div>
+                        <div class="content_tono_elegido">
+                            <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
+                            <div class="texto_tono_seleccionado">Sangre latina</div>
+                            <hr class="clear" />
+                        </div>
+                        <div class="content_tono_elegido">
+                            <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
+                            <div class="texto_tono_seleccionado">Sangre latina</div>
+                            <hr class="clear" />
+                        </div>
+
+                    </div>               
+                </div>
+                
+                
+                <div>
+                    <div class="content_tono_detalle">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude">
+                    </div>
+                    <div class="content_tono_detalle">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude">
+                    </div>
+                    <div class="content_tono_detalle">
+                        <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude">
+                    </div>
+                    
+                </div>
+                <hr class="clear">
+            </div>
+        </div>
+
+        <div>
+            <div class="content_redes_ficha" data-item="">
+                <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+
+            <div style="display: none;">
+                <input type="hidden" class="urlbasewsp" value="https://sb2qa.somosbelcorp.com/Pdto.aspx?id=CL_[valor]">
+            </div>
+            <hr class="clear">
+
+        </div>
+        <div class="alerta_notificacion">Sólo 5 productos por consultora</div>
+    </div>
+    <div class="row">
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
+                <hr class="clear">
+            </div>
+        </div>
+    </div>
+   
+</div>
+@section scripts{
+<script type="text/javascript">
+    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+        $(document).ready(function () {
+            $("#IrPaso1").on("click", function () {
+                $('.content_registro_reclamos').hide(); //muestro mediante id
+                $('.content_general_reclamos').show(); //oculto mediante id
+
+            });     
+
+        });
+</script>
+
+}
