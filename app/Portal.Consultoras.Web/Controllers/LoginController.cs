@@ -738,20 +738,25 @@ namespace Portal.Consultoras.Web.Controllers
             string Hostname = string.Empty;
             try
             {
-                if (!string.IsNullOrEmpty(HttpContext.ApplicationInstance.Server.MachineName)) //System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
+                if (System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_HOST"] != null)
                 {
-                    Hostname = HttpContext.ApplicationInstance.Server.MachineName; //System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
-                    //if (Hostname.Split('.').Count() > 1)
-                    //{
-                    //    Hostname = Hostname.Split('.')[0];
-                    //}
+                    Hostname = System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_HOST"]).HostName;
+                    if (Hostname.Split('.').Count() > 1) Hostname = Hostname.Split('.')[0];
+
                 }
                 return Hostname;
             }
             catch (Exception)
             {
-                return "Unknown host";
-                throw;
+                try
+                {
+                    Hostname = Util.GetHostName();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return Hostname;
             }
         }
 
