@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Data
         }
 
         // R20151003 - Inicio
-        public DataSet UpdPedidoDDIndicadorEnviadoDD(int nroLote, bool firmarPedido, DateTime FechaHoraPais, byte Estado, string Mensaje, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
+        public DataSet UpdPedidoDDIndicadorEnviadoDD(int nroLote, bool firmarPedido, DateTime FechaHoraPais, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ESE_INT_OUT_DD_TRX_PEDIDO_FIRMAR_DD");
             command.CommandTimeout = 0;
@@ -108,6 +108,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@datFechaHoraPais", DbType.DateTime, FechaHoraPais);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
             Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);

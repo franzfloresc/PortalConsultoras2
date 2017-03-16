@@ -92,10 +92,11 @@ namespace Portal.Consultoras.Common
         
         public static string GetExceptionMessage(Exception exception)
         {
-            string message = exception.Message + "(" + exception.StackTrace + ")." + Environment.NewLine;
+            string message = string.Empty, separadorExcepciones = string.Empty;
             while (exception != null)
             {
-                message = exception.Message + "(" + exception.StackTrace + ")." + Environment.NewLine;
+                message += separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").";
+                separadorExcepciones = Environment.NewLine + Environment.NewLine;
                 exception = exception.InnerException;
             }
             return message;
