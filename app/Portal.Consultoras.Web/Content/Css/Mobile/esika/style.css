@@ -11509,8 +11509,11 @@ a{
     width:100%;
 }
 .content_detalle_set_showroom{
-    overflow:hidden;
-    margin-top:13px;
+    overflow: hidden;
+    margin-top: 13px;
+    border-bottom: 1px solid #9B9B9B;
+    padding-bottom: 13px;
+    margin-bottom: 7px;
 }
 .content_promocion{
     position:fixed;
