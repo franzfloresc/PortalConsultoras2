@@ -485,8 +485,75 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return listaReportePedidos;
-        }      
+        }
+
+        #region AppCatalogo
+
+        /*      EPD-2035        */
+
+        public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(int paisID, long consultoraID, string dispositivoID, int tipoUsuario, int campania)
+        {
+            BEResultadoMisPedidosAppCatalogo resultado = null;
+            try
+            {
+                resultado = new BEResultadoMisPedidosAppCatalogo(false, "OK");
+                var DAMisPedidos = new DAConsultoraOnline(paisID);
+                var misPedidos = new List<BEMisPedidosAppCatalogo>();
+
+                IDataReader reader;
+                
+                if(tipoUsuario == 1) reader = DAMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
+                else reader = DAMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
+
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEMisPedidosAppCatalogo(reader);
+                        misPedidos.Add(entidad);
+                    }
+                }
+                resultado.Data = misPedidos;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEResultadoMisPedidosAppCatalogo(true, ex.Message.ToString());
+                return resultado;
+            }
+        }
+
+        public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalle(int PaisID, long PedidoID)
+        {
+            BEResultadoPedidoDetalleAppCatalogo resultado = null;
+            try
+            {
+                resultado = new BEResultadoPedidoDetalleAppCatalogo(false, "OK");
+                
+                var DAMisPedidos = new DAConsultoraOnline(PaisID);
+                var miPedidoDetalles = new List<BEMisPedidosDetalleAppCatalogo>();
+
+                using (IDataReader reader = DAMisPedidos.GetDetallePedidoAppCatalogo(PedidoID))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEMisPedidosDetalleAppCatalogo(reader);
+                        miPedidoDetalles.Add(entidad);
+                    }
+                    resultado.Data = miPedidoDetalles;
+                }
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEResultadoPedidoDetalleAppCatalogo(true, ex.Message.ToString());
+                return resultado;
+            }
+        }
 
 
+        /*      FIN EPD-2035        */
+
+        #endregion
     }
 }

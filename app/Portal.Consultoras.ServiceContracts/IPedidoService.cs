@@ -962,5 +962,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
+
+        [OperationContract]
+        BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania);
+
+        [OperationContract]
+        BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID);
     }
 }
