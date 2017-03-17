@@ -622,9 +622,7 @@ namespace Portal.Consultoras.Web.Controllers
             string codregion, string codzona, string codseccion, string codterritorio, string direccion)
         {
             int InitialStatus = 0;
-
             var solicitudPostulanteID = Convert.ToInt32(id);
-            int InitialStatus = 0;
             var actualizado = false;
 
             using (var sv = new PortalServiceClient())
@@ -1930,9 +1928,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
                 }
-
-
-            }
             }
         }
 
@@ -2475,11 +2470,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
                     }
-
-                    var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
-                   {
-                       Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
-                     };
 
                     if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
                            && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
