@@ -190,14 +190,14 @@ namespace Portal.Consultoras.Service
         public int InsLogClienteRegistraConsultoraCatalogo(string PaisISO, int consultoraId, string codigoConsultora,
             int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo,
             string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente,
-            string telefonoCliente)
+            string telefonoCliente, int nuevaConsultora)
         {
             int PaisID = GetPaisID(PaisISO);
 
             BLConsultoraCatalogo oConsultoraCatalogo = new BLConsultoraCatalogo();
             int Result = oConsultoraCatalogo.InsLogClienteRegistraConsultoraCatalogo(PaisID, consultoraId, codigoConsultora, campaniaId,
                     tipoBusqueda, conoceConsultora, codigoDispositivo, soDispotivivo, unidadGeo1, unidadGeo2, unidadGeo3,
-                    nombreCliente, emailCliente, telefonoCliente);
+                    nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
             return Result;
         }
     }
