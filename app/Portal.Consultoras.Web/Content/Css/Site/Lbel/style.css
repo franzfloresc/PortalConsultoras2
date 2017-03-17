@@ -34715,5 +34715,7 @@ h1#penmostreo .campana {
 }
 .content_producto_tono:last-child{
     border-bottom:0px !important;
-
+}
+.content_tono_detalle:hover{
+    border: 1px solid black
 }
