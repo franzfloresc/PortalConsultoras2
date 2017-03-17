@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ProductoModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -110,17 +111,20 @@
     </div>
    
 </div>
+
 @section scripts{
-<script type="text/javascript">
-    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-        $(document).ready(function () {
-            $("#IrPaso1").on("click", function () {
-                $('.content_registro_reclamos').hide(); //muestro mediante id
-                $('.content_general_reclamos').show(); //oculto mediante id
+    <script type="text/javascript">
+        
+        var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
 
-            });     
+        var viewBagPaisID = '@Model.PaisID';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
-        });
-</script>
+        var tipoOrigenEstrategia = 262;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/OfertasParaTi.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 
 }

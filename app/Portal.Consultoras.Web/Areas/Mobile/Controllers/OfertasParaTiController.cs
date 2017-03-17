@@ -1,13 +1,10 @@
 ﻿using Portal.Consultoras.Web.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Portal.Consultoras.Web.Models;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class OfertasParaTiController : BaseController
+    public class OfertasParaTiController : BaseEstrategiaController
     {
         
         public ActionResult Index()
@@ -16,7 +13,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
         public ActionResult Detalle()
         {
-            return View();
+            var modelo = EstrategiaGetDetalle(4244);
+            return View(modelo);
         }
+
     }
 }
