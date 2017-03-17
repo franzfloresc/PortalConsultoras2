@@ -89,5 +89,38 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /* SB20-463 - FIN */
+
+
+        #region AppCatalogo
+        
+        /*  EPD-2035    */
+        public IDataReader GetPedidosClienteAppCatalogo(string DispositivoID, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.GetMisPedidosCliente");
+            Context.Database.AddInParameter(command, "@CodigoDispositivo", DbType.String, DispositivoID);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetPedidosConsultoraAppCatalogo(long ConsultoraId, int Campania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.GetMisPedidosConsultora");
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetDetallePedidoAppCatalogo(long PedidoId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.GetSolicitudesPedidoDetalle");
+            Context.Database.AddInParameter(command, "@SolicitudClienteID", DbType.Int64, PedidoId);
+
+            return Context.ExecuteReader(command);
+        }
+        /*      FIN EPD-2035    */
+
+        #endregion
     }
 }
