@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Data
         public int InsLogClienteRegistraConsultoraCatalogo(int consultoraId, string codigoConsultora, 
             int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo, 
             string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente, 
-            string telefonoCliente)
+            string telefonoCliente, int nuevaConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("AppCatalogos.InsLogClienteRegistraConsultora");
             command.CommandTimeout = 0;
@@ -85,6 +85,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NombreCliente", DbType.String, nombreCliente);
             Context.Database.AddInParameter(command, "@EmailCliente", DbType.String, emailCliente);
             Context.Database.AddInParameter(command, "@TelefonoCliente", DbType.String, telefonoCliente);
+            Context.Database.AddInParameter(command, "@NuevaConsultora", DbType.Int32, nuevaConsultora);
             Context.Database.AddOutParameter(command, "@IdRegistro", DbType.Int32, 0);
 
             Context.ExecuteNonQuery(command);

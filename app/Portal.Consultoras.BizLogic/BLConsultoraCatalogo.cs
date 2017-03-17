@@ -206,7 +206,7 @@ namespace Portal.Consultoras.BizLogic
         public int InsLogClienteRegistraConsultoraCatalogo(int paisID, int consultoraId, string codigoConsultora,
             int campaniaId, string tipoBusqueda, int conoceConsultora, string codigoDispositivo, string soDispotivivo,
             string unidadGeo1, string unidadGeo2, string unidadGeo3, string nombreCliente, string emailCliente,
-            string telefonoCliente)
+            string telefonoCliente, int nuevaConsultora)
         {
         
             try
@@ -214,7 +214,7 @@ namespace Portal.Consultoras.BizLogic
                 DAConsultoraCatalogo da = new DAConsultoraCatalogo(paisID);
                 int registro = da.InsLogClienteRegistraConsultoraCatalogo(consultoraId, codigoConsultora, campaniaId, 
                     tipoBusqueda, conoceConsultora, codigoDispositivo, soDispotivivo, unidadGeo1, unidadGeo2, unidadGeo3,
-                    nombreCliente, emailCliente, telefonoCliente);
+                    nombreCliente, emailCliente, telefonoCliente, nuevaConsultora);
                 return registro;
             }
             catch (Exception e)
