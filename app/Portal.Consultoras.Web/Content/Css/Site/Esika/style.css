@@ -34252,11 +34252,12 @@ h1#penmostreo .campana {
 
 .ficha_btn_agregar {
     width: 358px;
-    background: #d6d6d6;
+    background: black;
     color: white;
     font-weight: 400;
     letter-spacing: 0.4px;
-        border: none;
+    border: none;
+    line-height:47px;
 }
 
 .tooltip_tono {
