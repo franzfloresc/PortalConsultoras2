@@ -2901,8 +2901,8 @@ namespace Portal.Consultoras.Common
             try
             {
                 String Hostname = string.Empty;
-                Hostname = Dns.GetHostName();
-                if (string.IsNullOrEmpty(Hostname))
+                Hostname = Dns.GetHostEntry("").HostName; //Dns.GetHostName();
+                if (!string.IsNullOrEmpty(Hostname))
                 {
                     return Hostname;
                 }
@@ -2914,7 +2914,7 @@ namespace Portal.Consultoras.Common
                 //log exception (manage it)
                 throw;
             }
-            return null;
+            return "Unknown host"; ;
         }
 
         public static string ValidarUsuarioADFS(string usuario, string clave)
