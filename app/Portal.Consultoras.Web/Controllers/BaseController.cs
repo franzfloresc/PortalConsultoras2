@@ -116,6 +116,15 @@ namespace Portal.Consultoras.Web.Controllers
                         //if (ValidarPedidoReservado(out msg))
                         //    ViewBag.TieneOfertaDelDia = false;
                     }
+
+                    if (NoMostrarBannerODD())
+                    {
+                        ViewBag.MostrarODD = true;
+                    }
+                    else
+                    {
+                        ViewBag.MostrarODD = false;
+                    }
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -758,17 +767,17 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
                 ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
-            ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
-            ViewBag.CerrarRechazado = model.CerrarRechazado;
-            ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+                ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
+                ViewBag.CerrarRechazado = model.CerrarRechazado;
+                ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
                 ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
-            ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
-            return model;
+                ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
+                return model;
 
-            #endregion
-        }
+                #endregion
+            }
 
             return model;
         }
@@ -1702,6 +1711,18 @@ namespace Portal.Consultoras.Web.Controllers
             return urlBase_fb;
         }
 
+        private bool NoMostrarBannerODD()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
+            if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "CatalogoPersonalizado") return true;
+            if (controllerName == "MisPedidos") return true;
+            if (controllerName == "Pedido") return true;
+            if (controllerName == "ShowRoom") return true;
+            return false;
+        }
     }
 }
+
