@@ -488,10 +488,15 @@ namespace Portal.Consultoras.BizLogic
 
                     if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
                     {
-                        errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
-                        try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, ErrorCoDat, errorExcepcion, string.Empty, string.Empty); }
+                        if (exceptionCoDat != null)
+                        {
+                            error = ErrorCoDat;
+                            errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
+                        }
+
+                        try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, ErrorCoDat, errorExcepcion);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                     }
                 }
                 throw;
