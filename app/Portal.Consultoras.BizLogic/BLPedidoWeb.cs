@@ -1031,7 +1031,6 @@ namespace Portal.Consultoras.BizLogic
                     case "VALIDADO": item = row["Validado"].ToString(); break;
                     case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
                     case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
-                    case "IPHOSTNAME": item = row["HostName"] == DBNull.Value ? string.Empty : row["Hostname"].ToString(); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);

@@ -506,8 +506,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
-                oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
-                oBePedidoWebDetalle.HostName = userData.HostName;
+                oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;               
                 oBePedidoWebDetalle.CampaniaID = userData.CampaniaID;
                 oBePedidoWebDetalle.ConsultoraID = userData.ConsultoraID;
                 oBePedidoWebDetalle.PaisID = userData.PaisID;

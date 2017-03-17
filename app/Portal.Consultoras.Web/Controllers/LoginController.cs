@@ -474,8 +474,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
-                    model.IPUsuario = GetIPCliente();
-                    model.HostName = GetHostname();
+                    model.IPUsuario = GetIPCliente();                   
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -756,19 +755,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 return Hostname;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message.ToString());
-
-                try
-                {
-                    Hostname = Util.GetHostName();
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-                }
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                 return "Unknown host";
+
             }
         }
 

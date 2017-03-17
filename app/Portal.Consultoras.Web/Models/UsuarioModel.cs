@@ -176,8 +176,7 @@ namespace Portal.Consultoras.Web.Models
         public long ConsultoraAsociadaID { get; set; }
 
         public string Direccion { get; set; }
-        public string IPUsuario { get; set; }
-        public string HostName { get; set; }
+        public string IPUsuario { get; set; }       
         public bool MostrarBotonValidar { get; set; }
         public bool HabilitarRestriccionHoraria { get; set; }
 

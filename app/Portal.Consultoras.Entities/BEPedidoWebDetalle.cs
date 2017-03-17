@@ -83,8 +83,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string IPUsuario { get; set; }
         [DataMember]
-        public string HostName { get; set; }
-        [DataMember]
         public string CodigoUsuarioCreacion { get; set; }
         [DataMember]
         public string CodigoUsuarioModificacion { get; set; }
