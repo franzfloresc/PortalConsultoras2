@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ProductoModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -242,23 +243,17 @@
     </div>
    
 </div>
-@section scripts{
-<script type="text/javascript">
-    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-        $(document).ready(function () {
-            
-            $(".texto_sin_tono").on("click", function () {
-                $('.content_tonos_select').show(); //muestro mediante id  
-                $(".texto_sin_tono").parent().addClass("tono_por_elegir");
-            });
-            $(".content_tono_elegido").on("click", function () {
-                $('.content_tonos_select').hide();
-                $(".texto_sin_tono").parent().removeClass("tono_por_elegir");
-                
-            });
-        });
-</script>
 
+@section scripts{
+    <script type="text/javascript">
+
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+
+        var tipoOrigenEstrategia = 262;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/OfertasParaTi.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     @*ALAN LA CLASES PARA AÑADIR SON A LA MISMA ALTURA QUE EL DIV "tono_select_opt"
     ".tono_escogido"-> añadir cuando ya se escogio el tono
     "tono_no_seleccionado" -> CUANDO SE DA AGREGAR Y NO SE HA SELECCIONADO TONO A TODOS LOS COMBOS Q FALTAN
