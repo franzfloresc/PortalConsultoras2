@@ -25,7 +25,7 @@
     <img src="@Url.Content("~/Content/Images/mobile/img-showroom/BARRA_SUPERIOR_TEXTOJUNTO_CATEGORIA.png")" />
 </div>
 <div class="wrapper_resumen_mobile">
-    <div id="orderby-filter">        
+    <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
             @if (Model.FiltersBySorting != null)
             {
@@ -53,13 +53,14 @@
     </div>
     <div class="row">
         <div id="custom-filters" style="display: none;" class="filtros_new">
-            <div class="titulo_mobile" style="color:black; background:white">
-                <a onclick="showOrderbyFilter();" class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
+            <div class="titulo_mobile" style="color: black; background: white">
+                <a onclick=" showOrderbyFilter(); " class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
                 &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
             </div>
-            <div id="divProductosEncontrados" class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
+            <div id="divProductosEncontrados" class="texto_filtros" style="text-align: center;"><b>2</b> productos encontrados
+            </div>
             <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
-            <br />
+            <br/>
             <div id="content-filters" style="">
                 <div class="panel-group" id="accordion">
                     @if (Model.TieneCategoria)
@@ -94,7 +95,7 @@
                             </div>
                         }
                     }
-                    
+
                     <div class="content_panel">
                         <div class="titulo_filtro">
                             <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
@@ -127,10 +128,10 @@
             </div>
 
             <div class="content_btn_filtros">
-                <a href="#" class="link-ffc" onclick="deleteFilters();">BORRAR FILTROS</a>
+                <a href="#" class="link-ffc" onclick=" deleteFilters(); ">BORRAR FILTROS</a>
 
                 <div id="save-filters" class="save-filters">
-                    <input id="btnBuscarShowRoom" type="button" class="btn-ffc" value="APLICAR" />
+                    <input id="btnBuscarShowRoom" type="button" class="btn-ffc" value="APLICAR"/>
                 </div>
             </div>
         </div>
@@ -169,59 +170,55 @@
                 {
                     posicions++;
                 }
-            }*@             
-        </div>
-                
-       @if (Model.TieneCompraXcompra)
-       {
-           if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-           {
-            <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
-                <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" /></div>
-                <div class="content_banner_right">
-                    <div class="texto_banner_compra">
-                        <b>@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
-                        <b>A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
-                        <span>Por la compra de 2 Sets o más</span>
-                    </div>
-                    <a class="btn_ver_detalle_pop_compra">VER DETALLE</a>
-                </div>
-                <hr class="clear" />
-            </div>
-           }
-       }
-
-        
-       
+            }*@
         </div>
     </div>
+</div>
 
 <hr class="clear" />
 <!--FIN-->
 
 <div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.UrlTerminosCondiciones" target="_blank">
-        T&eacute;rminos y condiciones de la @Model.Nombre<br />
+    <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
+        T&eacute;rminos y condiciones de la @Model.Nombre<br/>
         @Model.Tema
     </a>
 </div>
-<div class="content_promocion">
-    <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
-    <div class="content_desplegable_banner" id="BannerCompra">
-        <div class="content_carrusel_intriga" style="background:white;" id="LlamarPopCompra">
-            <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" /></div>
-            <div class="content_banner_right">
-                <div class="texto_banner_compra">
-                    <b style="margin-top:10px;">@Model.ListaShowRoomCompraPorCompra[0].Descripcion</b>
-                    <b style="font-size:18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
-                    <span class="set_dia_banner">POR LA COMPRA DE 2 SETS <br/>DEL DÍA DE LA MADRE</span>
+
+@if (Model.TieneCompraXcompra)
+{
+    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    {
+        <div class="content_promocion">
+            <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
+            <div class="content_desplegable_banner" id="BannerCompra">
+                <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra">
+                    <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto"/>
+                    </div>
+                    <div class="content_banner_right">
+                        <div class="texto_banner_compra">
+                            <b style="margin-top: 10px;">
+                                @{
+                                    var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                                    if (descripcion != null && descripcion.Length > 41)
+                                    {
+                                        descripcion = descripcion.Substring(0, 40) + " ...";
+                                    }
+                                }
+                                @descripcion
+                            </b>
+                            <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
+                            <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
+                        </div>
+                        @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
+                    </div>
+                    <hr class="clear"/>
                 </div>
-                @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
             </div>
-            <hr class="clear" />
         </div>
-    </div>
-</div>
+    }
+}
+    
 
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
@@ -245,7 +242,6 @@
             <div class="titulo_compra_POP">PROMOCIÓN</div>
         </div>
        
-
         @if (Model.TieneCompraXcompra)
         {
             if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
@@ -254,7 +250,11 @@
                     @{ var posicionCpc = 1; }
                     @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                     {
-
+                        var descripcion = item.Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
                         <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
                             <div data-campos="">
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
@@ -265,9 +265,7 @@
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
                             </div>
-                            <div class="set_dia_compra_pop">POR LA COMPRA DE 2 SETS<br/> DEL DÍA DE LA MADRE
-                            </div>
-                            
+                            <div class="set_dia_compra_pop">@Model.TextoCondicionCompraCpc</div>
                             <div class="content_imagen_carrusel_compra">
                                 @if (item.ImagenProducto != "")
                                 {
@@ -279,16 +277,12 @@
                                 }
                             </div>
                             <div style="height: 130px;">
-                                <div class="nombre_producto_pop_compra">Reloj Espheric</div>
+                                <div class="nombre_producto_pop_compra">@descripcion</div>
                                 <div class="precio_set_compra">
                                     A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
                                 </div>
                                 <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
-                                <div class="precio_producto_compra">@item.Descripcion</div>
-                                
-                                
-                                @*<div class="descripcion_compra">@item.DescripcionLegal</div>*@
-                               
+                                <div class="precio_producto_compra">@item.DescripcionLegal</div>
                             </div>
                             <div>
                                 <div class="content_cantidad_ficha_producto">
@@ -296,7 +290,7 @@
                                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                                     <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                 </div>
-                                <a class="btn_agregar_ficha_producto" onclick="" style="background:black;">AGRÉGALO</a>
+                                <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;">AGRÉGALO</a>
                                 <hr class="clear">
                             </div>
                             @*<a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>*@
@@ -309,8 +303,7 @@
             }
         }
         <div class="legal_footer_compra">
-            La validación del cumplimiento de la condición de compra será al cerrar su facturación.
-            Promoción válida hasta agotar stock.
+            @Model.TextoDescripcionLegalCpc
         </div>
     </div>
 </div>

@@ -11466,10 +11466,8 @@ a{
 }
 .texto_banner_compra b{
     display: block;
-    /* font-size: 16px; */
     line-height: 16px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    margin-bottom: 5px;    
 }
 .btn_ver_detalle_pop_compra{
    text-align:center;

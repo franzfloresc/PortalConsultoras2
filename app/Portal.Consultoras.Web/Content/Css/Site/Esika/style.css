@@ -34953,16 +34953,11 @@ h1#penmostreo .campana {
     font-weight: 700;
     text-align: center;
     color: white;
-    /* LETTER-SPACING: 4.6PX; */
-    /* margin-top: 20px; */
 }
 .precio_set_compra{
     font-family: 'LAto';
-    font-size: 15px;
-    /* color: white; */
-    /* margin-top: 5px; */
+    font-size: 24px;
     text-align: center;
-    /* font-weight: 300; */
 }
 
 .content_carrusel_pop_compra{
@@ -35026,8 +35021,8 @@ h1#penmostreo .campana {
 .content_imagen_carrusel_compra{
     width:80%;
     margin:0 auto;
-    margin-top:10px;
-    margin-bottom:10px;
+    margin-top:15px;
+    margin-bottom:15px;
     cursor: pointer;
     position: relative;
 }
@@ -35044,7 +35039,7 @@ h1#penmostreo .campana {
     line-height:45px;
     font-size:13px;
     text-align:center;
-    margin-top:30px;
+    margin-top:5px;
     margin-bottom:10px;
     border:1px solid black;
     font-weight:700;
@@ -35078,7 +35073,7 @@ h1#penmostreo .campana {
 .content_oferta{
     font-family: 'Lato';
     font-size: 12px;
-    padding-top: 17px;
+    padding-top: 11px;
     margin-left: 15px;
     float: left;
     width:330px;
@@ -35089,6 +35084,7 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-weight: 900;
     letter-spacing: 0.5px;
+    line-height: 15px;
 }
 .solo_falta_compra{
     color:#747474;
@@ -35186,10 +35182,11 @@ h1#penmostreo .campana {
 }
 .titulo_producto_compra_carrusel {
     font-family: 'Lato';
-    font-size:14.5px;
-    margin-top:21px;
-    line-height:17px;
-    text-align:center;
+    font-size: 14.5px;
+    margin-top: 10px;
+    line-height: 17px;
+    text-align: center;
+    margin-bottom: 3px;
 }
 .content_titulo_pop{
     background:#bda571;
@@ -35197,12 +35194,16 @@ h1#penmostreo .campana {
 .titulo_pop_compra{
     font-family:'Lato';
     font-size:20px;
+    line-height: 24px;
+    margin-bottom: 5px;
 }
-.legal_footer_compra{
-    font-family:'Lato';
-    font-size:12px;
-    font-weight:300;
-    margin-bottom:20px;
-    text-align:center;
-    margin-top:15px;
+.legal_footer_compra {
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }

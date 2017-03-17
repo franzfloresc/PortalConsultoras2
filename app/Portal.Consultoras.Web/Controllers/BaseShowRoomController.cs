@@ -768,6 +768,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCategoria.Add(beCategoria);
                 }
 
+                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
+
                 showRoomEventoModel.ListaCategoria = listaCategoria;
 
                 bool esMovil = Request.Browser.IsMobileDevice;        
