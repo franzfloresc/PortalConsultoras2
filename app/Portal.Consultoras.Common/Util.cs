@@ -1169,9 +1169,9 @@ namespace Portal.Consultoras.Common
             int RecordCount = lst.Count;
             item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
 
-            int PageCount = RecordCount/item.PageSize;
+            int PageCount = RecordCount / item.PageSize;
             PageCount = PageCount < 1 ? 1 : PageCount;
-            PageCount += RecordCount > (PageCount*item.PageSize) ? 1 : 0;
+            PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
             
             pag.RecordCount = RecordCount;
             pag.PageCount = PageCount;
@@ -2744,7 +2744,7 @@ namespace Portal.Consultoras.Common
             {
                 cant = len - inicio;
             }
-            if (inicio + cant + 1> len)
+            if (inicio + cant + 1 > len)
             {
                 cant = len - inicio;
             }
@@ -2800,7 +2800,7 @@ namespace Portal.Consultoras.Common
             var montoval = string.IsNullOrEmpty(monto) ? "" : monto.Trim();
             if (montoval != "")
             {
-                if (montoval == "0" || montoval == "0.00"  || montoval == "0,00"
+                if (montoval == "0" || montoval == "0.00" || montoval == "0,00"
                     || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
                     || montoval == "99,999,999.00" || montoval == "99.999.999"
                     || montoval == "999,999,999.00" || montoval == "999.999.999"
@@ -2896,14 +2896,15 @@ namespace Portal.Consultoras.Common
             return ISO;
         }
 
-        public static string GetHostName(string IPAddress) {
-            if (string.IsNullOrEmpty(IPAddress)) return null;
+        public static string GetHostName()
+        {
             try
             {
-                IPHostEntry Entry = Dns.GetHostEntry(IPAddress);
-                if (Entry != null)
+                String Hostname = string.Empty;
+                Hostname = Dns.GetHostName();
+                if (string.IsNullOrEmpty(Hostname))
                 {
-                    return Entry.HostName;
+                    return Hostname;
                 }
             }
             catch (Exception)
@@ -2997,7 +2998,7 @@ namespace Portal.Consultoras.Common
             return resultado;
         }
     }
-    
+
     public static class DataRecord
     {
         public static bool HasColumn(this IDataRecord r, string columnName)
@@ -3039,7 +3040,7 @@ namespace Portal.Consultoras.Common
             {
                 name = name ?? "";
                 name = name.Trim();
-                if(HasColumn(lector, name))
+                if (HasColumn(lector, name))
                     return (T)lector.GetValue(lector.GetOrdinal(name));
                 
                 return default(T);
