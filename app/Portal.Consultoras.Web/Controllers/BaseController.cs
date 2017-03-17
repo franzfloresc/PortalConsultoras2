@@ -116,6 +116,15 @@ namespace Portal.Consultoras.Web.Controllers
                         //if (ValidarPedidoReservado(out msg))
                         //    ViewBag.TieneOfertaDelDia = false;
                     }
+
+                    if (NoMostrarBannerODD())
+                    {
+                        ViewBag.MostrarODD = true;
+                    }
+                    else
+                    {
+                        ViewBag.MostrarODD = false;
+                    }
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -1703,5 +1712,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
+        }
+
+        private bool NoMostrarBannerODD()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "CatalogoPersonalizado") return true;
+            if (controllerName == "MisPedidos") return true;
+            if (controllerName == "Pedido") return true;
+            if (controllerName == "ShowRoom") return true;
+            return false;
     }
 }
