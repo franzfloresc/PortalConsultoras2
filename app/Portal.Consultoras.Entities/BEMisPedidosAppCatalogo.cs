@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public long PedidoId { get; set; }
         [DataMember]
-        public string ConsultoraID { get; set; }
+        public int ConsultoraID { get; set; }
         [DataMember]
         public string ConsultoraCodigo { get; set; }
         [DataMember]
@@ -56,8 +56,8 @@ namespace Portal.Consultoras.Entities
         public BEMisPedidosAppCatalogo(IDataRecord row)
         {
             this.PedidoId = Convert.ToInt64(row["SolicitudClienteID"]);
-
-            this.ConsultoraID = Convert.ToString(row["ConsultoraID"]);
+       
+            this.ConsultoraID = Convert.ToInt32(row["ConsultoraID"]);
             this.ConsultoraCodigo = Convert.ToString(row["ConsultoraCodigo"]);
             this.ConsultoraNombre = Convert.ToString(row["ConsultoraNombre"]);
             this.ConsultoraCorreo = Convert.ToString(row["ConsultoraCorreo"]);
@@ -118,7 +118,6 @@ namespace Portal.Consultoras.Entities
             this.Error = error;
             this.Mensaje = mensaje;
         }
-
     }
 
     [DataContract]
@@ -164,7 +163,6 @@ namespace Portal.Consultoras.Entities
         }
     }
 
-
     [DataContract]
     public class BEResultadoPedidoDetalleAppCatalogo
     {
@@ -191,8 +189,5 @@ namespace Portal.Consultoras.Entities
             this.Error = error;
             this.Mensaje = mensaje;
         }
-
     }
-
-
 }
