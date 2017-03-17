@@ -58,7 +58,7 @@
                     {
                         alert(data);
                     }
-                     
+
 
                     limpiarM();
                     fnGrilla();
@@ -127,13 +127,13 @@
         'CANTON_CENTRO_POBLADO',
         'CENTRO_POBLADO',
         'ZONA_CIUDAD',
-  
+
         'BARRIO_COLONIA_URBANIZACION_REFERENCIAS',
-      
+
         'BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS',
         'BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS',
-       
-      
+
+
 
     ];
 
@@ -189,7 +189,7 @@
             height: 'auto',
             width: 1200,
             shrinkToFit: true,
-     
+
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
@@ -205,7 +205,7 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DISTRITO');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS');
                     $('#jqgh_gvwSolicitudesPostulante_BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS').parent().css('width', 370);
-                 
+
                 } else if ('@ViewBag.CodigoISO' == 'PA') {
 
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'PROVINCIA');
@@ -213,7 +213,7 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DISTRITO');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'BARRIO_COLONIA_URBANIZACION_REFERENCIAS');
                     $('#jqgh_gvwSolicitudesPostulante_BARRIO_COLONIA_URBANIZACION_REFERENCIAS').parent().css('width', 370);
-   
+
                 } else if ('@ViewBag.CodigoISO' == 'GT') {
 
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'DEPARTAMENTO');
@@ -222,7 +222,7 @@
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'ZONA_CIUDAD');
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS');
                     $('#jqgh_gvwSolicitudesPostulante_BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS').parent().css('width', 330);
-          
+
                 }
                 else if ('@ViewBag.CodigoISO' == 'SV') {
 
@@ -286,13 +286,13 @@
                             <div id="divuplArchivo" class="titB">
                                 <input id="uplArchivo" name="uplArchivo" type="file" />
                             </div>
-                            
+
                         </div>
 
                         <div style="float:left">
                             <div class="div-3">
                                 <div class="input_validar">
-                                    <input type="button" value="Grabar" id="btnProcesar" style="float:left;margin-left: 25px;" onclick="Procesar();" />  
+                                    <input type="button" value="Grabar" id="btnProcesar" style="float:left;margin-left: 25px;" onclick="Procesar();" />
                                 </div>
                             </div>
                         </div>
@@ -316,7 +316,7 @@
                                 <span style="font-size:10px; font-weight:bold">Formato sugerido: REG, ZONA, SECC, TERRITO, UBIGEO, DEPARTAMENTO	MUNICIPIO, CENTRO_POBLADO, ZONA_CIUDAD, BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS</span>
                             }
                         </div>
-                     
+
 
                         @*<div class="div-4">
                                 <div class="noti3">
