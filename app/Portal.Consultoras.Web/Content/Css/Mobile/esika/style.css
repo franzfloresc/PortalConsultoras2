@@ -10168,7 +10168,7 @@ a{
 .content_tonos_producto{
     width:292px;
     margin:0 auto;
-    margin-top:15px;
+    /*margin-top:15px;*/
 }
 
 .content_tono_detalle{
@@ -10178,7 +10178,7 @@ a{
     margin-right:2.5%;
     float:left;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .content_tono_detalle:nth-child(5n){
@@ -10919,7 +10919,7 @@ a{
     background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
     background-position: 95% 19px;
     position:relative;
-    margin-bottom:15px;
+    margin-bottom:5px;
     
 }
 .texto_redes{
@@ -10972,10 +10972,56 @@ a{
     top: 43px;
     z-index: 105;
     left: -2px;
+    display:none;
 }
 .content_tonos_select .content_tono_elegido{
     border-bottom: 1px solid #b0b0b0;
 }
 .content_tonos_select .content_tono_elegido:last-child{
     border-bottom:0px;
+}
+.titulo_contenido{
+    font-family:'Lato';
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;
+    margin-top: 15px;
+}
+.nombre_producto_opt{
+    font-size:13px;
+    font-weight:700;
+    margin-top: 12px;
+    margin-bottom:15px;
+    height: 15px;
+}
+.cantidad_producto_opt{
+    margin-right:10px;
+}
+.content_producto_individual{
+    border-bottom:1px solid #d7d7d7;
+    padding-bottom: 5px;
+}
+.content_producto_individual:last-child{
+    border-bottom:0;
+}
+.content_producto_compuesto{
+    padding-bottom:5px;
+}
+.tono_no_seleccionado{
+    background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background-position: 95% 19px;
+    color:white;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 95% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
 }
