@@ -17,17 +17,9 @@
 <div class="content_belcorp" style="min-height: 600px;">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
 
-    @if (Model.EsCDRWebZonaValida == 0 && Model.ListaCDRWeb.Count <= 0)
+    @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
     {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
-    }
-    else if (Model.IndicadorBloqueoCDR == 1 && Model.ListaCDRWeb.Count <= 0)
-    {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
-    }
-    else if (Model.CumpleRangoCampaniaCDR == 0 && Model.ListaCDRWeb.Count <= 0)
-    {
-        <div class="texto_reclamos_bloqueada">Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class="enlace_chat belcorpChat"><a>Chat en Línea</a></span>.</div>
+        <div class="texto_reclamos_bloqueada">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
     }
     else
     {
@@ -101,6 +93,7 @@
                         <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado"/>
                         <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania"/>
                         <input type="hidden" class="cdrweb_resumenresolucion" value="@item.ResumenResolucion"/>
+                        <input type="hidden" class="cdrweb_consultorasaldo" value="@item.ConsultoraSaldo" />
 
                         <div class="listado_fecha_general">
                             @item.FechaRegistro.Day.ToString().PadLeft(2, '0')/@item.FechaRegistro.Month.ToString().PadLeft(2, '0')/@item.FechaRegistro.Year
@@ -148,9 +141,6 @@
 </div>
 
 <input type="hidden" id="hdPedidoIdActual"/>
-<input type="hidden" id="hdIndicadorBloqueoCDR" value="@Model.IndicadorBloqueoCDR"/>
-<input type="hidden" id="hdEsCDRWebZonaValida" value="@Model.EsCDRWebZonaValida" />
-<input type="hidden" id="hdCumpleRangoCampaniaCDR" value="@Model.CumpleRangoCampaniaCDR" />
 
 <div class="contenedor_popup_percepciones" id="PopSolicitud">
     <div class="popup_Pendientes">
@@ -178,6 +168,10 @@
             </div>
             <div class="sub_detalle_estado">
                 Resumen: <b><span id="spnResumenResolucion">2 productos aprobados, 1 rechazado</span></b>
+            </div>
+            <div class="sub_detalle_saldo" style="display: none;">
+                Tu saldo actualizado es de: <b>@ViewBag.Simbolo <span id="spnConsultoraSaldo">S/. 598.45</span></b>
+                @*&nbsp;&nbsp;<a href="#" style="text-decoration: underline;">ver estado de cuenta</a>*@
             </div>
         </div>
         <div class="content_pop_grilla">
@@ -403,10 +397,10 @@
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
 
-        var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
 
-        $(document).ready(function() {
-            $(".verDetalle").on("click", function() {
+        $(document).ready(function () {
+            $(".verDetalle").on("click", function () {
                 var elemento = $(this);
 
                 var parent = $(elemento).parents(".content_listado_reclamo");
@@ -417,6 +411,7 @@
                 var formatoFechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
                 var formatoCampania = $(parent).find(".cdrweb_formatocampania").val();
                 var resumenResolucion = $(parent).find(".cdrweb_resumenresolucion").val();
+                var consultoraSaldo = $(parent).find(".cdrweb_consultorasaldo").val();
 
                 $("#hdPedidoIdActual").val(pedidoId);
 
@@ -448,6 +443,11 @@
                         $("#spnFormatoCampania").html(formatoCampania);
                         $("#spnResumenResolucion").html(resumenResolucion);
 
+                        // EPD-1665
+                        $('#spnConsultoraSaldo').html(consultoraSaldo);
+                        $('#PopSolicitud').find('div.sub_detalle_saldo').show();
+                        // EPD-1665
+
                         $("#PopSolicitud").show();
                         break;
                     case "4": //Observado
@@ -465,20 +465,17 @@
                 }
             });
 
-            $(document).on('click', '[data-accion]', function() {
+            $(document).on('click', '[data-accion]', function () {
                 DetalleAccion(this);
             });
 
             $("#btnFinalizar").on("click", function () {
                 var pedidoId = $("#hdPedidoIdActual").val();
-
                 var lista = new Array();
 
                 $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
                     var elemento = $(value);
-
                     var parent = $(elemento).parents(".content_listado_reclamo").eq(0);
-
                     var pedidoDetalleId = $(parent).attr("data-pedidodetalleid");
                     var cantidad = $(elemento).val();
 
@@ -486,36 +483,16 @@
                         CDRWebDetalleID: pedidoDetalleId,
                         Cantidad: cantidad
                     };
-
                     lista.push(item);
-
                 });
 
                 var actualizado = ActualizarDetalleObservado(lista);
-
-                if (actualizado)
-                    window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
+                if (actualizado) window.location.href = urlReclamo + "?pedidoId=" + pedidoId;
             });
 
             $("#IrPaso1").on("click", function () {
-                var estaBloqueado = $("#hdIndicadorBloqueoCDR").val();
-                var cumpleRangoCampania = $("#hdCumpleRangoCampaniaCDR").val();
-                var esZonaValida = $("#hdEsCDRWebZonaValida").val();
-
-                if (cumpleRangoCampania == 0) {
-                    alert_msg("Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                if (esZonaValida == 0) {
-                    alert_msg("Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                if (estaBloqueado == 1) {
-                    alert_msg("Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    return false;
-                }
-                if (mensajePeriodoInvalido != '') {
-                    alert_msg(mensajePeriodoInvalido);
+                if (mensajeGestionCdrInhabilitada != '') {
+                    alert_msg(mensajeGestionCdrInhabilitada);
                     return false;
                 }
                 window.location.href = urlReclamo;
@@ -536,7 +513,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(item),
                 cache: false,
-                success: function(data) {
+                success: function (data) {
                     closeWaitingDialog();
                     if (!checkTimeout(data))
                         return false;
@@ -550,7 +527,6 @@
                         if (data.cantobservado > 0) {
                             SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
                         }
-                        
                         if (data.cantaprobado > 0) {
                             SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
                         }
@@ -559,7 +535,7 @@
                         SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
                     }
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     closeWaitingDialog();
                 }
             });
@@ -607,7 +583,7 @@
                 data: JSON.stringify(item),
                 async: false,
                 cache: false,
-                success: function(data) {
+                success: function (data) {
                     closeWaitingDialog();
                     if (!checkTimeout(data)) {
                         return false;
@@ -617,7 +593,7 @@
                         resultado = true;
                     }
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     closeWaitingDialog();
                 }
             });

@@ -992,6 +992,12 @@ namespace Portal.Consultoras.ServiceContracts
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
 
         [OperationContract]
+        int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
+        
+        [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
     }
 }

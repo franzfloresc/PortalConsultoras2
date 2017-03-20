@@ -40,9 +40,6 @@
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
-
-        var estadoPedido = '@ViewBag.EstadoPedido';
-        var validacionAbierta = '@ViewBag.ValidacionAbierta';
     </script>
 
     @RenderSection("styles", required: false)
@@ -218,10 +215,13 @@
                             <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
                         </div>
                         <div class="mensajes_estadoPedido">
-                            <span class="mensaje_estadoActualPedido">TU PEDIDO HA SIDO RECHAZADO</span>
-                            <span class="mensaje_horarioIngresoPedido">
-                                Tienes una deuda de S/. <span>200</span> que debes regularizar.
-                                <a href="#" title="MIRA LOS LUGARES DE PAGO">MIRA LOS LUGARES DE PAGO</a>
+                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
+                    <span class="mensaje_horarioIngresoPedido">
+                        @ViewBag.GPRBannerMensaje
+                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                        {
+                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
+                        }
                             </span>
                         </div>
                     </div>
@@ -602,6 +602,22 @@
         </div>
     </div>
     <!--FIN-->
+
+    <!--POP MENSAJE SESION FINALIZADA Error-->
+    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
+            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'" class="btn_ok_mobile"><b>OK</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+
     <!--POP MENSAJE LO LOGRASTE-->
     <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -614,6 +630,10 @@
             <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
+    </div>
+
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
     @Scripts.Render("~/Scripts/Mobile")
@@ -647,7 +667,6 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
-        var motivoRechazo = '@ViewBag.MotivoRechazo';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
@@ -660,6 +679,8 @@
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+
+        var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -747,18 +768,27 @@
 
                         seconds = Math.floor((date_future - (date_now)) / 1000);
                         minutes = Math.floor(seconds / 60);
-                        hours = Math.floor(minutes / 60);
+                        hours = Math.floor(minutes / 60);                        
                         days = Math.floor(hours / 24);
 
                         hours = hours - (days * 24);
                         minutes = minutes - (days * 24 * 60) - (hours * 60);
                         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
+                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);                        
+                        $(".clsDia").html(days);
+                        $(".clsHora").html(hours);
+                        $(".clsMinuto").html(minutes);
+                        $(".clsSegundo").html(seconds);
 
                         if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
                             clearInterval(calcNewYear);
                         }
                         if (days < 0) {
+                            $(".clsDia").html(0);
+                            $(".clsHora").html(0);
+                            $(".clsMinuto").html(0);
+                            $(".clsSegundo").html(0);
                             clearInterval(calcNewYear);
                         }
                     }, 1000);
@@ -788,12 +818,18 @@
                         url: urlCloseBannerPL20,
                         cache: false,
                         success: function (response) {
-                            if (response.success) {
-                                $('#content_slider_banner').hide();
-                                $('#content').css('margin-top', '');
+                            if (checkTimeout(data)) {
+                                if (response.success) {
+                                    $('#content_slider_banner').hide();
+                                    $('#content').css('margin-top', '');
+                                }
                             }
                         },
-                        error: function (err) { console.log(err); }
+                        error: function (err) { 
+                            if (checkTimeout(data)) {
+                                console.log(err); 
+                            }
+                        }
                     });
                 };
 
@@ -891,6 +927,7 @@
                                         ShowLoading();
 
                                         ActualizarGanancia(data.DataBarra);
+                                        
                                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
 
                                         if (typeof origenPagina !== 'undefined') {
@@ -946,12 +983,14 @@
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function (response) {
-                            if (response.success) {
-                                var _data = response.data;
-                                var tq = _data.TeQuedan;
+                            if (checkTimeout(response)) {
+                                if (response.success) {
+                                    var _data = response.data;
+                                    var tq = _data.TeQuedan;
 
-                                if (tq.TotalSeconds <= 0)
-                                    ok = false;
+                                    if (tq.TotalSeconds <= 0)
+                                        ok = false;
+                                }
                             }
                         },
                         error: function (err) {
@@ -974,8 +1013,10 @@
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
                         success: function (response) {
-                            if (response.success) {
-                                qty = parseInt(response.cantidad);
+                            if (checkTimeout(response)) {
+                                if (response.success) {
+                                    qty = parseInt(response.cantidad);
+                                }
                             }
                         },
                         error: function (err) {
@@ -1082,11 +1123,12 @@
 
                     if ($(e.target).is(':visible')) {
 
-                        var functionHide = $('[data-popup-main]').attr("data-popup-function-hide");
+                        var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
                         if (functionHide != "") {
                             setTimeout(functionHide + "()", 100);
                         }
                         $(e.target).hide();
+                        $('body').css({ 'overflow-y': 'scroll' });
                     }
                 }
             });
@@ -1095,11 +1137,12 @@
             $("body").on("click", "[data-popup-close]", function (e) {
                 var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
-                var functionHide = $(popupClose).attr("data-popup-function-hide");
+                var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
                 $(popupClose).hide();
+                $('body').css({ 'overflow-y': 'scroll' });
             });
 
             $("#btn_cerrar_oferta_mobile").click(function () {

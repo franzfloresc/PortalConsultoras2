@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Models
         public string CUV { get; set; }
         [Required(ErrorMessage = "Debe ingresar el Producto")]
         public string DescripcionProd { get; set; }
+        public string DescripcionCortadaProd { get; set; }
         public int PaisID { get; set; }
         public string Nombre { get; set; }
         public string eMail { get; set; }
@@ -198,6 +199,15 @@ namespace Portal.Consultoras.Web.Models
         public string CUVPedidoNombre { get; set; }
         public string CUVPedidoImagen { get; set; }
         public bool TipoCross { get; set; }
+
+        public int Digitable { get; set; }
+        public int Orden { get; set; }
+        public string Grupo { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     [Serializable]

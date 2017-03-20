@@ -624,7 +624,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
         }
-
         //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {

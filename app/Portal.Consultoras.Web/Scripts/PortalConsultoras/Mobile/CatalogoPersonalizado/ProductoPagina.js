@@ -83,69 +83,72 @@ function ObtenerOfertaRevista2(item) {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             
-            if (!response.success) {
-                DialogLoadingCerrar();
-                return false;
-            }
+            if (checkTimeout(response)) {
 
-            response.data.dataPROL.Simbolo = vbSimbolo;
-            response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
-            response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
-
-            var settings = $.extend({}, response.data.dataPROL, obj);
-            settings.productoRevista = response.data.producto;
-            TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
-            
-            if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
-                switch (settings.tipo_oferta) {
-                    case '003':
-                        codTipoOferta = '003';
-                        
-                        SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
-                        
-                        $('#Ficha_003A').show();
-                        break;
-
-                    case '048':
-                        if (settings.lista_oObjPack.length > 0) {
-                            codTipoOferta = '048P';
-                            settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
-                            settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
-                            
-                            settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
-                            dataOfertaEnRevista = settings;
-                            
-                            SetHandlebars("#template-oferta048P", settings, '#Ficha_048B');
-                            
-                            $('#Ficha_048B').show();
-                        }
-                        else if (settings.lista_ObjNivel.length > 0) {
-                            codTipoOferta = '048N';
-                            settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
-                            settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
-                            var lista = Clone(settings.lista_ObjNivel);
-                            settings.lista_ObjNivel = new Array();
-                            $.each(lista, function (ind, nivel) {
-                                if (nivel.escala_nivel > 1) {
-                                    settings.lista_ObjNivel.push(nivel);
-                                }
-                            });
-                            
-                            dataOfertaEnRevista = settings;
-                            
-                            SetHandlebars("#template-oferta048N", settings, '#Ficha_048A');
-                            
-                            $('#Ficha_048A').show();
-                        }
-                        break;
+                if (!response.success) {
+                    DialogLoadingCerrar();
+                    return false;
                 }
+
+                response.data.dataPROL.Simbolo = vbSimbolo;
+                response.data.dataPROL.TxtGanancia = response.data.txtGanancia;
+                response.data.dataPROL.TxtRecibeGratis = response.data.txtRecibeGratis;
+
+                var settings = $.extend({}, response.data.dataPROL, obj);
+                settings.productoRevista = response.data.producto;
+                TrackingJetloreView(cuv, $("#hdCampaniaCodigo").val())
+            
+                if (response.data.dataPROL != 'undefined' && response.data.dataPROL != null) {
+                    switch (settings.tipo_oferta) {
+                        case '003':
+                            codTipoOferta = '003';
+                        
+                            SetHandlebars("#template-oferta003", settings, '#Ficha_003A');
+
+                            $('#Ficha_003A').show();
+                            break;
+
+                        case '048':
+                            if (settings.lista_oObjPack.length > 0) {
+                                codTipoOferta = '048P';
+                                settings.lista_oObjPack = RemoverRepetidos(settings.lista_oObjPack);
+                                settings.lista_oObjItemPack = RemoverRepetidos(settings.lista_oObjItemPack);
+                            
+                                settings.lista_oObjPack[settings.lista_oObjPack.length - 1].EsUltimo = 1;
+                                dataOfertaEnRevista = settings;
+                            
+                                SetHandlebars("#template-oferta048P", settings, '#Ficha_048B');
+
+                                $('#Ficha_048B').show();
+                            }
+                            else if (settings.lista_ObjNivel.length > 0) {
+                                codTipoOferta = '048N';
+                                settings.lista_ObjNivel = RemoverRepetidos(settings.lista_ObjNivel);
+                                settings.lista_oObjGratis = RemoverRepetidos(settings.lista_oObjGratis);
+                                var lista = Clone(settings.lista_ObjNivel);
+                                settings.lista_ObjNivel = new Array();
+                                $.each(lista, function (ind, nivel) {
+                                    if (nivel.escala_nivel > 1) {
+                                        settings.lista_ObjNivel.push(nivel);
+                                    }
+                                });
+                            
+                                dataOfertaEnRevista = settings;
+                            
+                                SetHandlebars("#template-oferta048N", settings, '#Ficha_048A');
+
+                                $('#Ficha_048A').show();
+                            }
+                            break;
+                    }
+                }
+                DialogLoadingCerrar();
             }
-
-
-            DialogLoadingCerrar();
         },
         error: function (response, error) {
-            DialogLoadingCerrar();
+            if (checkTimeout(response)) {
+                DialogLoadingCerrar();
+            }
         }
     });
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Enumeradores
     {
@@ -203,6 +197,20 @@ namespace Portal.Consultoras.Common
             Agotado = 0,
             IngresadoPedido = 1,
             YaTengo = 2
+        }
+
+        public enum RechazoBannerUrl
+        {
+            Ninguna = 0,
+            Deuda = 1,
+            ModificaPedido = 2
+        }
+
+        public enum IndicadorGPR
+        {
+            SinAccion = 0,
+            Descargado = 1,
+            Rechazado = 2
         }
     }
 }

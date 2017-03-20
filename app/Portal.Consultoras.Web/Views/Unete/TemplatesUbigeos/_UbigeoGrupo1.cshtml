@@ -3,11 +3,14 @@
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
 
 @* Template para los países Colombia y Chile *@
+@{
 
+    var tit1 = "";
+}
 <div class="div-3">
-    <div class="titC">@Dictionaries.LabelLugar1[Model.CodigoPais]</div>
-    <div class="selectP2 borde_redondeado">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, "-- Seleccionar --", new { @class = "field_85" })
+ 
+    <div class="selectP2 seleccion_pagina textboxSB2">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, Dictionaries.LabelLugar1[Model.CodigoPais], new { @class = "field_85 textboxSB" })
     </div>
 </div>
 <div class="div-3">
@@ -18,9 +21,9 @@
 </div>
 
 <div class="div-3">
-    <div class="titC">@Dictionaries.LabelLugar2[Model.CodigoPais]</div>
-    <div class="selectP2 borde_redondeado">
-        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), "-- Seleccionar --", new { @class = "field_85" })
+  
+    <div class="selectP2 seleccion_pagina textboxSB2">
+        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), Dictionaries.LabelLugar2[Model.CodigoPais], new { @class = "field_85 textboxSB" })
     </div>
 </div>
 <div class="div-3">
@@ -32,16 +35,22 @@
 <div class="div-3">
     @if (Model.CodigoPais == "CO")
     {
-        <div class="titC">Barrio</div>
+        tit1= "Barrio";
+    
     }
     else
     {
-        <div class="titC">Calle &oacute; avenida</div>
+        tit1 = "Calle &oacute; avenida";
+       
     }
     
-    <div class="selectP2 borde_redondeado">
-        @Html.TextBoxFor(m => Model.CalleOAvenida, new {@class = "field_85", @placeholder = "Ejm: Av. Castellana 100"})
+    <div class="selectP2 seleccion_pagina textboxSB2">
+         
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85 textboxSB", @placeholder = tit1 + " Ejm: Av. Castellana 100" })
     </div>
+
+   
+
 </div>
 <div class="div-3">
     <div class="validation_clear"></div>
@@ -53,10 +62,10 @@
 @if (Model.CodigoPais == "CO")
 {
     <div class="div-3">
-        <div class="titC">Dirección</div>
-        <div class="selectP2 borde_redondeado">
-            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, "-- Seleccionar --", new {@class = "field_85"})
-        </div>
+    
+         <div class="selectP2 seleccion_pagina textboxSB2" >
+             @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, "Dirección", new { @class = "field_85 textboxSB", })
+         </div>
     </div>
     <div class="div-3">
         <div class="validation_clear"></div>
@@ -66,9 +75,10 @@
     </div>
     <div class="div-3">
 
-        <div class="titC"></div>
-        <div class="selectP2 borde_redondeado">
-            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new {@class = "field_85", @placeholder = "Ejm: 97B 35 2"})
+ 
+
+        <div class="selectP2 seleccion_pagina textboxSB2">
+            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85 textboxSB", @placeholder = "Ejm: 97B 35 2" })
         </div>
     </div>
     <div class="div-3">
@@ -81,9 +91,9 @@
 else
 {
     <div class="div-3">
-        <div class="titC">Numero</div>
-        <div class="selectP2 borde_redondeado">
-            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85", @placeholder = "Ejm: 100", @maxlength = 5 })
+         
+        <div class="selectP2 seleccion_pagina textboxSB2">
+            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85 textboxSB", @placeholder = "Ejm: 100", @maxlength = 5 })
         </div>
     </div>
     <div class="div-3">
@@ -93,9 +103,10 @@ else
         </div>
     </div>
     <div class="div-3">
-        <div class="titC">Referencia</div>
-        <div class="selectP2 borde_redondeado">
-            @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85", @placeholder = "Ej. entre calle 1 y calle 3" })
+       
+
+        <div class="selectP2 seleccion_pagina textboxSB2">
+            @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85 textboxSB", @placeholder = "Ej. entre calle 1 y calle 3" })
         </div>
     </div>
     <div class="div-3">
@@ -105,3 +116,5 @@ else
         </div>
     </div>
 }
+
+

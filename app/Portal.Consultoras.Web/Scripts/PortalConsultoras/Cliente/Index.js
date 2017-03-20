@@ -123,19 +123,23 @@ function CargarListaCliente(page, rows) {
         data: JSON.stringify(obj),
         async: true,
         success: function (data) {
-            var html = ArmarListaCliente(data.rows);
-            $('#divListaCliente').html(html);
+            if (checkTimeout(data)) {
+                var html = ArmarListaCliente(data.rows);
+                $('#divListaCliente').html(html);
 
-            var htmlPaginador = ArmarListaClientePaginador(data);
-            $('#paginadorCab').html(htmlPaginador);
-            $('#paginadorPie').html(htmlPaginador);
+                var htmlPaginador = ArmarListaClientePaginador(data);
+                $('#paginadorCab').html(htmlPaginador);
+                $('#paginadorPie').html(htmlPaginador);
 
-            $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-            $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
+            }
         },
-        error: function (error) {
-            alert(error);
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                alert(error);
+            }
         }
     });
 }

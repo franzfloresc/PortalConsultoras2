@@ -230,9 +230,21 @@ namespace Portal.Consultoras.Web.Controllers
                         UsuarioModelSession.EMail = entidad.EMail;
                         SetUserData(UsuarioModelSession);
 
-                        cadena = cadena + "<br /><br /> Estimada consultora " + entidad.Nombre + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                      "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
-                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
+                        //1774
+                        bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                        string nomconsultora = string.Empty;
+
+                        if (String.IsNullOrEmpty(entidad.Sobrenombre))
+                        {
+                            nomconsultora = userData.PrimerNombre;
+                        }
+                        else
+                        {
+                            nomconsultora = entidad.Sobrenombre;
+                        }
+                        cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
+                        
+                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "Confirmación de Correo", cadena, true, entidad.Nombre);
                         //Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
 
                         return Json(new

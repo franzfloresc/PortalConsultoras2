@@ -108,6 +108,19 @@ jQuery(document).ready(function () {
 
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
+        var campoVal = $.trim(campo);
+        if (campoVal == "") {
+            $.each(this, function (index, item) {
+                if (item == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            });
+            return array;
+        }
         $.each(this, function (index, item) {
             if (typeof (campo) == "string") {
                 if (item[campo] == valor) {
@@ -161,7 +174,7 @@ jQuery(document).ready(function () {
                         break;
                     case 'ContainsArray':
                         var array = (JSON.parse(b) instanceof Array) ? JSON.parse(b) : [b];
-                        bool = array.indexOf(a) > -1;
+                        bool = array.Find(null, a).length > 0;
                         break;
                     default:
                         throw "Unknown operator " + operator;
@@ -497,11 +510,11 @@ function isInt(n) {
 }
 
 function checkTimeout(data) {
-    var thereIsStillTime = true;
+    var thereIsStillTime = true
 
     if (data) {
         if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
+            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
                 thereIsStillTime = false;
         }
         else {
@@ -510,7 +523,17 @@ function checkTimeout(data) {
         }
 
         if (!thereIsStillTime) {
-            window.location.href = "/Login/SesionExpirada";
+            //window.location.href = "/Login/SesionExpirada";
+            
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+            }
+            else {
+                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                $('#popupInformacionSB2SesionFinalizada').show();
+            }
         }
     }
     else {
@@ -749,55 +772,33 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
 
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
-    if (cerrarRechazado == '1')
-        return false;
+    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
 
-    if (estaRechazado == 0)
-        return false;
-
-    if (estaRechazado == 2 && estadoPedido == 202 && !validacionAbierta) {
-        return false;
-    }
-
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (mostrarBannerRechazo == 'True') { 
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
-    }
-    else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
-    }
-    else {
-        return false;
-    }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-
     return true;
 }
 
 function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
-    var identi = url.indexOf("/mobile/") > 0;
-    var wheight = $(window).innerHeight();
+    var esMobile = url.indexOf("/mobile/") > 0;
+    var esBienvenida = url.indexOf("/bienvenida") > 0;
+
     if (estado) {
-        $("#bloquemensajesPedido").show();
+        var wheight = $(window).innerHeight();
+        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
         ResizeMensajeEstadoPedido();
         var wtop = $("#bloquemensajesPedido").height();
 
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": wtop + "px" });
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
+            if (esBienvenida) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
 
-                $('.content_slider_home').css('margin-top', '126px');
-                $('.ubicacion_web ').css('margin-top', '145px');
             }
             else {
                 $(".oscurecer_animacion").css({ "display": "none" });
@@ -820,27 +821,14 @@ function xMensajeEstadoPedido(estado) {
     }
     else {
         $("#bloquemensajesPedido").slideUp();
-        if (identi) {
+        if (esMobile) {
             $("[data-content]").animate({ "top": "0px" });
             $(".footer-page").animate({ "top": "0px" });
         }
         else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-
-                $("[data-content]").animate({ "top": "61px" });
-
-                if (estaRechazado == "2" && estadoPedido == "202" && validacionAbierta == "False") {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
-
-                if (estaRechazado === "0") {
-                $("[data-content]").animate({ "top": "0px" });
-            }
-
-                if (cerrarRechazado == 1) {
-                    $("[data-content]").animate({ "top": "0px" });
-                }
+            if (esBienvenida) {                
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
+                else $("[data-content]").animate({ "top": "64px" });
             }
             else {
                 if ($('.content_banner_intriga').length > 0) {
@@ -858,7 +846,6 @@ function xMensajeEstadoPedido(estado) {
         }
     }
     }
-
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -913,7 +900,6 @@ function cerrarMensajeEstadoPedido() {
 
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
@@ -946,6 +932,10 @@ function CompartirRedesSociales(e) {
     if (ruta == "") return false;
 
     CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
+}
+
+function CompartirRedesSocialesTexto(texto) {
+    return "whatsapp://send?text=" + texto;
 }
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
@@ -983,9 +973,14 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         texto = texto.ReplaceAll("=", "%3D");
         texto = texto.ReplaceAll(" ", "%32");
         texto = texto.ReplaceAll("+", "%43");
-    }
 
-    return "whatsapp://send?text=" + texto + ruta;
+        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
+        //return "whatsapp://send?text=" + texto + ruta;
+
+        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=CompartirRedesSocialesTexto('" + texto + ruta + "')");
+        $("#HiddenRedesSocialesWA")[0].click();
+        //document.getElementById('HiddenRedesSocialesWA').click();
+    }
 }
 
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {

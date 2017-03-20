@@ -7,11 +7,14 @@
 @if (Model.TipoDocumento == Enumeradores.TipoDocumento.Ruc.ToInt() && Model.NumeroDocumento.StartsWith("20"))
 {
     <div class="elements border_modal" style="padding-top: 15px !important">
-        <div class="div-3 div_3_fix">
-            <div class="titC">RUC:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxForExpressionRequiredIf(m => m.NumeroDocumento)
+      
+        <div class="div-3 estilo2">
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxForExpressionRequiredIf(m => m.NumeroDocumento, new { @class = " textboxSB", @placeholder = "RUC" })
+                </div>
             </div>
+           
         </div>
 
         <div class="div-3 div_3_fix">
@@ -21,20 +24,25 @@
             </div>
         </div>
 
-        <div class="div-3 div_3_fix">
-            <div class="titC">Razón Social:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.RazonSocial)
+         
+        <div class="div-3 estilo2">
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.RazonSocial, new { @class = " textboxSB", @placeholder = "Razón Social" })
+                </div>
             </div>
-            <div class="titC">1er. Nombre Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.PrimerNombre, new { @class = "texto" })
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.PrimerNombre, new { @class = "texto textboxSB", @placeholder = "1er. Nombre Representante Legal" })
+                </div>
             </div>
-            <div class="titC">2do. Nombre Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.SegundoNombre, new { @class = "texto" })
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.SegundoNombre, new { @class = "texto textboxSB", @placeholder = "2do. Nombre Representante Legal" })
+                </div>
             </div>
         </div>
+
         <div class="div-3 div_3_fix">
             <div class="validation_clear"></div>
             <div class="validation">
@@ -49,18 +57,22 @@
                 @Html.ValidationMessageFor(m => m.SegundoNombre)
             </div>
         </div>
-        <div class="div-3 div_3_fix">
-            <div class="titC">Ape. Paterno Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "texto" })
+         
+        <div class="div-3 estilo2">
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.ApellidoPaterno, new { @class = "texto textboxSB", @placeholder = "Ape. Paterno Representante Legal" })
+                </div>
             </div>
-            <div class="titC">Ape. Materno Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.ApellidoMaterno, new { @class = "texto" })
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.ApellidoMaterno, new { @class = "texto textboxSB", @placeholder = "Ape. Materno Representante Legal" })
+                </div>
             </div>
-            <div class="titC">Fecha de Nacimiento:</div>
-            <div class="selectP2 borde_redondeado calendar">
-                @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "texto" })
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "texto textboxSB", @placeholder = "Fecha de Nacimiento" })
+                </div>
             </div>
         </div>
         <div class="div-3 div_3_fix">
@@ -77,19 +89,22 @@
                 @Html.ValidationMessageFor(m => m.FechaNacimiento)
             </div>
         </div>
-        <div class="div-3 div_3_fix">
-            <div class="titC">Tipo Documento Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.DropDownListFor(m => m.TipoDocumentoLegal, ViewBag.TiposDocumentos as SelectList, "Seleccione")
+         
+        <div class="div-3 estilo2">
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.DropDownListFor(m => m.TipoDocumentoLegal, ViewBag.TiposDocumentos as SelectList, "Tipo Documento Representante Legal", new { @class = "field_85 textboxSBEdit" })
+                </div>
             </div>
-            <div class="titC">Doc. Identidad de Representante Legal:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxForExpressionRequiredIf(m => m.NumeroDocumentoLegal)
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxForExpressionRequiredIf(m => m.NumeroDocumentoLegal, new { @class = "  textboxSB", @placeholder = "Fecha de Nacimiento" }))
+                </div>
             </div>
-
-            <div class="titC">Correo:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxFor(m => m.CorreoElectronico)
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "textboxSB", @placeholder = "Correo Electronico" })
+                </div>
             </div>
         </div>
         <div class="div-3 div_3_fix">
@@ -106,24 +121,27 @@
                 @Html.ValidationMessageFor(m => m.CorreoElectronico)
             </div>
         </div>
-        <div class="div-3 div_3_fix">
-            <div class="titC">Sexo:</div>
-            <div class="selectP2 borde_redondeado" style="display: flex; align-items: center; font-size: 11px;">
-                @Html.RadioButtonFor(m => m.Sexo, 'F', new { @style = "float:none;width:auto" }) &nbsp; Femenino&nbsp; <br />
-                @Html.RadioButtonFor(m => m.Sexo, 'M', new { @style = "float:none;width:auto" }) &nbsp; Masculino
-            </div>
+        
+        <div class="div-3 estilo2">
+            @Html.RadioButtonFor(m => m.Sexo, 'F', new { @style = "float:none;width:auto", @class = "RadioSB" })<span style="color:black">&nbsp; Femenino&nbsp; </span>
+            @Html.RadioButtonFor(m => m.Sexo, 'M', new { @style = "float:none;width:auto", @class = "RadioSB" })<span style="color:black">&nbsp; Masculino </span>  
         </div>
-        <div class="div-3 div_3_fix">
-            <div class="titC">Telf. Fijo:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxForExpressionRequiredIf(m => m.Telefono, new { @class = "numero" })
-            </div>
+     
 
-            <div class="titC">Celular:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.TextBoxForExpressionRequiredIf(m => m.Celular, new { @class = "numero" })
+        <div class="div-3 estilo2">
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxForExpressionRequiredIf(m => m.Telefono, new { @class = "numero  textboxSB", @placeholder = "Telf. Fijo" }))
+                </div>
             </div>
+            <div class="filterEdit">
+                <div class="selectP2 seleccion_pagina textboxSBEdit2">
+                    @Html.TextBoxForExpressionRequiredIf(m => m.Celular, new { @class = "numero  textboxSB", @placeholder = "Celular" }))
+                </div>
+            </div>
+            
         </div>
+
         <div class="div-3 div_3_fix">
             <div class="validation_clear"></div>
             <div class="validation">

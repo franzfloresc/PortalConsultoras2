@@ -13,12 +13,10 @@
         $(this).find("div.marcador_tab").removeClass("oculto");
     });
 
-    $('ul[data-tab="tab"]').mouseover(function () {
-        $("#barCursor").css("opacity", "1");
-    }).mouseout(function () {
-        $("#barCursor").css("opacity", "0");
-    });
-    $('ul[data-tab="tab"] li a')[0].click();
+    $('ul[data-tab="tab"]').mouseover(function () { $("#barCursor").css("opacity", "1"); })
+        .mouseout(function () { $("#barCursor").css("opacity", "0"); });
+
+    $('ul[data-tab="tab"] li a[data-tag="' + pestanhaInicial + '"]').click();
 
     $("#lblCorreoEnviar").click(function () {
         fnEnviarCorreo();
@@ -97,11 +95,13 @@ function fnGrilla() {
         async: true,
         cache: false,
         success: function (data) {
-            if (data.Rows.length > 0) {
-                RenderGrilla(data);
-            }
-            else {
-                $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+            if (checkTimeout(data)) {
+                if (data.Rows.length > 0) {
+                    RenderGrilla(data);
+                }
+                else {
+                    $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+                }
             }
         },
         error: function (data, error) {
@@ -225,7 +225,9 @@ function getLugarPago() {
         async: true,
         cache: false,
         success: function (data) {
-            SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            if (checkTimeout(data)) {
+                SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            }
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");
