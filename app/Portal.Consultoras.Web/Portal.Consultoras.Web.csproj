@@ -1911,7 +1911,6 @@
     <Content Include="Content\Images\Esika\revista.png" />
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\right_compra.png" />
-    <Content Include="Content\Images\Esika\ShowRoom-Complemento.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
@@ -2445,10 +2444,8 @@
     <Content Include="Content\Images\mobile\Esika\menu_mobile.png" />
     <Content Include="Content\Images\mobile\Esika\next.png" />
     <Content Include="Content\Images\mobile\Esika\notificaciones.png" />
-    <Content Include="Content\Images\mobile\Esika\oc_image_small.png" />
     <Content Include="Content\Images\mobile\Esika\pestana_esika.png" />
     <Content Include="Content\Images\mobile\Esika\previous_ofertas_home.png" />
-    <Content Include="Content\Images\mobile\Esika\promo_watch.png" />
     <Content Include="Content\Images\mobile\Esika\revista_c09.png" />
     <Content Include="Content\Images\mobile\Esika\tarjeta.png" />
     <Content Include="Content\Images\mobile\Esika\triangulo.png" />
