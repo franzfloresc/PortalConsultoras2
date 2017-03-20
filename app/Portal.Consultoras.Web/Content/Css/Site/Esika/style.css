@@ -21789,10 +21789,10 @@ label.checkpop.c_on {
     -webkit-transition: all 0.3s ease;
 }
 
-    .boton_Agregalo_home:hover {
+    /*/*.boton_Agregalo_home:hover {
         background: #000;
         color: #FFF;
-}
+}*/
 
 .liquidacion_rango_home {
     width: 68px;
@@ -34107,11 +34107,10 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto_nueva {
-    width: 850px;
-    height: 450px;
+    width: 892px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -225px auto auto auto;
+    margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }
@@ -34193,20 +34192,21 @@ h1#penmostreo .campana {
 
 .content_tonos {
     width: 100%;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 .content_tonos_maquillaje {
     margin-top: 15px;
-    max-height: 118px;
+    overflow:hidden;
+    /*max-height: 118px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: hidden;*/
 }
 
 .content_tono_detalle {
     position: relative;
     width: 10%;
-    height: 41px;
+    height: 44px;
     margin-right: 1.25%;
     float: left;    
     margin-bottom: 3px;
@@ -34215,7 +34215,7 @@ h1#penmostreo .campana {
     border: 1px solid white;
 }
 
-    .content_tono_detalle:nth-child(6n) {
+    .content_tono_detalle:nth-child(9n) {
         margin-right: 0;
 }
 
@@ -34251,11 +34251,13 @@ h1#penmostreo .campana {
 }
 
 .ficha_btn_agregar {
-    width: 336px;
+    width: 358px;
     background: black;
     color: white;
     font-weight: 400;
     letter-spacing: 0.4px;
+    border: none;
+    line-height:47px;
 }
 
 .tooltip_tono {
@@ -34562,7 +34564,7 @@ h1#penmostreo .campana {
 }
 
 .content_producto_tono{
-    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
     width:100%;  
     padding-top:15px;
     padding-bottom:10px;
@@ -34646,4 +34648,89 @@ h1#penmostreo .campana {
 
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
+}
+
+/*HOMOLOGAR OPT*/
+
+.tono_select_opt {
+    border: 2px solid black;
+    height: 45px;
+    width: 100%;
+    /* padding-left: 10px; */
+    font-family: 'Lato';
+    /* font-weight: bold; */
+    /* line-height: 45px; */
+    font-size: 13px;
+    color: black;
+    /*margin-top: 5px;*/
+    background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
+    background-position: 97% 19px;
+    position: relative;
+    margin-bottom: 5px;
+}
+.texto_sin_tono {
+    display: block;
+    /*padding-left: 10px;*/
+    font-weight: bold;
+    /*line-height: 41px;*/
+}
+.tono_seleccionado {
+    width: 41px;
+    height: 43px;
+    float: left;
+    overflow: hidden;
+}
+.tono_seleccionado img {
+    width: 100%;
+}
+.texto_tono_seleccionado {
+    float: left;
+    width: 70%;
+    margin-left: 10px;
+    /* line-height: 42px; */
+    margin-top: 11px;
+    height: 17px;
+    overflow: hidden;
+}
+.content_tonos_select {
+    width: 101%;
+    border: 1px solid #b0b0b0;
+    position: absolute;
+    /* bottom: 0; */
+    background: white;
+    top: 43px;
+    z-index: 105;
+    left: -2px;
+    display: none;
+}
+.content_tonos_select .content_tono_elegido {
+    border-bottom: 1px solid #b0b0b0;
+}
+.content_tonos_select .content_tono_elegido:last-child {
+    border-bottom: 0px;
+}
+
+.tono_no_seleccionado{
+    background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background-position: 95% 19px;
+    color:white;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 95% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
+.content_producto_tono:last-child{
+    border-bottom:0px !important;
+}
+.content_tono_detalle:hover{
+    border: 1px solid black
 }

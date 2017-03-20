@@ -9403,7 +9403,7 @@ span.icon-advertencia{
     font-family: 'Lato';
     color: #6a6a6a;
     font-size: 12px;
-    text-align:center;
+    /*text-align:center;*/
     margin-top:-3px;
     letter-spacing: 0.2px
 }
@@ -9413,8 +9413,8 @@ span.icon-advertencia{
     color: black;
     font-size: 12.5px;
     line-height:16px;
-    text-align:center;
-    padding:0 14px;
+    /*text-align:center;*/
+    /*padding:0 14px;*/
     margin-top:6px;
     margin-bottom:7px;
 }
@@ -10254,7 +10254,7 @@ span.icon-advertencia{
 }
 .content_producto_individual{
     border-bottom:1px solid #d7d7d7;
-    padding-bottom: 5px;
+    padding-bottom: 18px;
 }
 .content_producto_individual:last-child{
     border-bottom:0;
