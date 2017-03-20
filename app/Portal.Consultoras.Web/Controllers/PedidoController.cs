@@ -2603,7 +2603,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BEPedidoWebDetalle> olstPedidoReserva = new List<BEPedidoWebDetalle>();
 
-            if (RespuestaPROL.ListaObservaciones.Any())
+            if (RespuestaPROL.ListaObservaciones != null)
             {
                 foreach (var item in RespuestaPROL.ListaObservaciones)
                 {
