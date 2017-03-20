@@ -23,18 +23,117 @@
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->   
 </div>
-<div class="wrapper_resumen_mobile" style="padding-bottom:96px;">      
+<div class="wrapper_resumen_mobile" style="padding-bottom:96px;" data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar">    
     <div class="content_oferta_guia_negocio">
         <div class="content_imagen_ficha">
-            <img id="fav_imagen_prod" src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/CL_200085015.jpg" alt="PRODUCTO" class="imagen_producto">
+            <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
         </div>
-        <div class="marca_oferta048">L'Bel</div>
-        <div id="fav_nombre_prod" class="titulo_ficha_producto">LABIAL COLOR HD 4G / 4.OZ</div>
-        <div class="precio_tachado_048">$ 5.990</div>
-        <div class="precio_para_ti_048">Precio para ti <b>$ 3.990</b></div>
-        
+        <div class="marca_oferta048">@Model.DescripcionMarca</div>
+        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        @if (Model.Precio > 0)
+        {
+            <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
+        }        
+        <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="@Model.CUV2" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+            <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+            <input type="hidden" class="ProductoDescripcion" value="" />
+            <input type="hidden" class="Volumen" value="" />
+            <input type="hidden" class="Palanca" value="OPT" />
+        </div>
+        @if (Model.CodigoEstrategia != "")
+        {
+            <div data-estrategia="@Model.CodigoEstrategia">
+
+            @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+            {
+                if ((Model.TieneVariedad == 1 && Model.Hermanos.Any()) || true)
+                {
+                    <div class="content_tonos_producto">
+                        <div class="tono_select_opt">
+                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" >
+                                <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
+                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                <hr class="clear" />
+                            </div>
+                            <div class="content_tonos_select" style="display:none;">
+                                @foreach (var Hermano in Model.Hermanos)
+                                {
+                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Hermano.CUV" data-tono-nombre="@Hermano.NombreBulk" data-tono-descripcion="@Hermano.NombreComercial">
+                                        <div class="tono_seleccionado"><img src="@Hermano.ImagenBulk" alt=""></div>
+                                        <div class="texto_tono_seleccionado">@Hermano.NombreBulk</div>
+                                        <hr class="clear" />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <hr class="clear">
+                        <div>
+                            @foreach (var Hermano in Model.Hermanos)
+                            {
+                                <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
+                                    <img src="@Hermano.ImagenBulk" alt="">
+                                </div>
+                            }
+                        </div>
+                        <hr class="clear">
+                    </div>
+                }
+            }
+            else if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+            {
+                var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                <div class="titulo_contenido">CONTENIDO</div>
+                <div class="@claseItem">
+                    @foreach (var Hermano in Model.Hermanos)
+                    {
+                        <div class="@claseItem3" data-set-componente="">
+                            <div class="nombre_producto_opt" data-tono-nombrecomercial="">
+                                @*<span class="cantidad_producto_opt">x1</span>*@
+                                @Hermano.NombreComercial
+                            </div>
+                            @if (Hermano.Digitable == 1)
+                            {
+                            <div class="content_tonos_producto">
+                                <div class="tono_select_opt">
+                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" >
+                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                        <hr class="clear" />
+                                    </div>
+                                    <div class="content_tonos_select" style="display:none;">
+                                        @foreach (var Tono in Hermano.Hermanos)
+                                        {
+                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                            <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                            <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                            <hr class="clear" />
+                                        </div>
+                                        }
+                                    </div>
+                                </div>
+                                <hr class="clear">
+                            </div>
+                            }
+                            <hr class="clear" />
+                        </div>
+                    }
+                </div>
+            }
+            </div>
+        }
         <!--OFERTAS PARA TI CASO 1-->
-        <div>
+        <div style="display: none;">
             <!--TONOS-->
             <div class="content_tonos_producto">
                 <div class="tono_select_opt">
@@ -43,7 +142,7 @@
                         <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
                         <div class="texto_tono_seleccionado">Sangre latina</div>
                         <hr class="clear" />
-                    </div> 
+                    </div>
                     <div class="content_tonos_select" style="display:none;">
                         <div class="content_tono_elegido">
                             <div class="tono_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude"></div>
@@ -60,11 +159,8 @@
                             <div class="texto_tono_seleccionado">Sangre latina</div>
                             <hr class="clear" />
                         </div>
-
-                    </div>               
+                    </div>
                 </div>
-                
-                
                 <div>
                     <div class="content_tono_detalle">
                         <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude">
@@ -75,14 +171,14 @@
                     <div class="content_tono_detalle">
                         <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CL/201705/E/productos/bulk/CL_200085007_B.jpg " alt="Rosado nude">
                     </div>
-                    
+
                 </div>
                 <hr class="clear">
             </div>
         </div>
         <!--FIN-->
         <!--OFERTAS PARA TI CASO 2-->
-        <div>           
+        <div style="display: none;">           
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="content_producto_individual">
                 <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
@@ -152,7 +248,7 @@
         </div>
         <!--FIN-->
         <!--OFERTAS PARA TI CASO 3-->
-        <div>
+        <div style="display: none;">
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="content_producto_individual">
                 <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
@@ -163,12 +259,12 @@
                 <hr class="clear" />
                 <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
                 <hr class="clear" />
-                
-            </div>           
+
+            </div>
         </div>
         <!--FIN-->
         <!--OFERTAS PARA TI CASO 4-->
-        <div>
+        <div style="display: none;">
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="content_producto_compuesto">
                 <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
@@ -203,7 +299,7 @@
                 </div>
             </div>
             <div class="content_producto_compuesto">
-                <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>                
+                <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
             </div>
             <div class="content_producto_compuesto">
                 <div class="nombre_producto_opt"><span class="cantidad_producto_opt">x1</span>Labial Mad 4 color</div>
@@ -211,22 +307,19 @@
         </div>
         <!--FIN-->
 
-
         <!--REDES-->
         <div>
-            <div class="content_redes_ficha" data-item="">
+            <div class="content_redes_ficha">
                 <div class="texto_redes">Comparte el producto con tus clientes:</div>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
-
-            <div style="display: none;">
-                <input type="hidden" class="urlbasewsp" value="https://sb2qa.somosbelcorp.com/Pdto.aspx?id=CL_[valor]">
-            </div>
             <hr class="clear">
-
         </div>
-        <div class="alerta_notificacion">Sólo 5 productos por consultora</div>
+        @if (Model.TextoLibre != "")
+        {
+            <div class="alerta_notificacion">@Model.TextoLibre</div>
+        }
     </div>
     <div class="row">
         <div class="content_btn_agregar">
@@ -234,7 +327,7 @@
                 <div class="content_cantidad_ficha_producto">
                     <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                    <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
                 <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
                 <hr class="clear">
@@ -253,7 +346,8 @@
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/OfertasParaTi.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
     @*ALAN LA CLASES PARA AÑADIR SON A LA MISMA ALTURA QUE EL DIV "tono_select_opt"
     ".tono_escogido"-> añadir cuando ya se escogio el tono
     "tono_no_seleccionado" -> CUANDO SE DA AGREGAR Y NO SE HA SELECCIONADO TONO A TODOS LOS COMBOS Q FALTAN

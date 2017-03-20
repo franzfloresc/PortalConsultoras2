@@ -10199,7 +10199,7 @@ span.icon-advertencia{
    display:block;
    padding-left: 10px;
     font-weight: bold;
-    line-height: 41px;
+    /*line-height: 41px;*/
 }
 .tono_seleccionado{
     width:41px;

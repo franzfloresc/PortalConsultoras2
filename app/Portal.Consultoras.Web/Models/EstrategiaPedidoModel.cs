@@ -55,14 +55,17 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionMarca { get; set; }
         public string DescripcionCategoria { get; set; }
         public string DescripcionEstrategia { get; set; }
+        public string Descripcion { get; set; }
         public int FlagNueva { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
         public bool TieneStockProl { get; set; }
         public int FlagMostrarImg { get; set; }
         public bool IsAgregado { get; set; }
+        public int TieneVariedad { get; set; }
 
         public string UrlCompartirFB { get; set; }
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
+        public List<ProductoModel> Hermanos { get; set; }
     }
 }

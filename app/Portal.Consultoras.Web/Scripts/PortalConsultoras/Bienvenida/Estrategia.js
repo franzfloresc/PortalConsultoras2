@@ -346,7 +346,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
         item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
-        item.DescripcionCompleta = item.DescripcionCUV2;
+        item.DescripcionCompleta = item.DescripcionCUV2.split('|')[0];
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
