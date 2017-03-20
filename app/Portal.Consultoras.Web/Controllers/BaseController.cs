@@ -978,9 +978,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 //    Session["MostrarShowRoomProductos"] = false;
                             }
                             Session["carpetaPais"] = carpetaPais;
+
+                            model.CargoEntidadesShowRoom = true;
                         }
                     }
-                    model.CargoEntidadesShowRoom = true;
+                    
                 }
                 catch (Exception ex)
                 {
