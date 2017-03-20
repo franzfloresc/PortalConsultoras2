@@ -9,14 +9,14 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 
-<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
 <input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
-<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
-<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
-<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
 <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
 
 @{
@@ -65,7 +65,7 @@
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
-        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
+        <div class="content_carrusel_catalogo" id="divCatalogo">
             <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
             <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
         </div>

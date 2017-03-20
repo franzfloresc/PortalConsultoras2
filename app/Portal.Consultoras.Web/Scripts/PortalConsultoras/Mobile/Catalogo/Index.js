@@ -235,7 +235,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     $.ajaxSetup({ cache: false });
 
-    var idPais = $("#hdPaisId").val();
+    var paisNombre = $("#hdPaisNombre").val();
 
     var defered = new Object();
 
@@ -265,7 +265,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado || "0")
 
-        var catalogo = tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + nro + "." + anio;
+        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 
         //defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
         //defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
@@ -311,27 +311,6 @@ function GetCatalogosLinksByCampania(data, campania) {
     //$.when(defered[tagLbel], defered[tagEsika], defered[tagCyzone]).done(function () {
     FinRenderCatalogo();
     //});
-}
-
-function ObtenerNombrePais(idPais) {
-    var pais = parseInt(idPais);
-    switch (pais) {
-        case 1: return "argentina";
-        case 2: return "bolivia";
-        case 3: return "chile";
-        case 4: return "colombia";
-        case 5: return "costarica";
-        case 6: return "ecuador";
-        case 7: return "elsalvador";
-        case 8: return "guatemala";
-        case 9: return "mexico";
-        case 10: return "panama";
-        case 11: return "peru";
-        case 12: return "puertorico";
-        case 13: return "republicadominicana";
-        case 14: return "venezuela";
-        default: return "sinpais";
-    }
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
