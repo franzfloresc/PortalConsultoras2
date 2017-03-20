@@ -82,6 +82,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
+                if (NoMostrarBannerODD())
+                {
+                    ViewBag.MostrarODD = true;
+                }
+                else
+                {
+                    ViewBag.MostrarODD = false;
+                }
+
                 /*FIN: PL20-1289*/
             }
             catch (Exception ex)
@@ -263,6 +272,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
             if (controllerName == "ShowRoom") return true;
             if (controllerName == "Pedido") return true;
+            return false;
+        }
+
+        private bool NoMostrarBannerODD()
+        {
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+
+            if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "CatalogoPersonalizado") return true;
+            if (controllerName == "MisPedidos") return true;
+            if (controllerName == "Pedido") return true;
+            if (controllerName == "ShowRoom") return true;
             return false;
         }
     }
