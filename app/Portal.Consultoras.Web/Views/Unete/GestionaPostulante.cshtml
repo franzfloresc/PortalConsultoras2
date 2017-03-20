@@ -91,12 +91,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.FechaDesde, new { @class = "textEbel ", @placeholder = "Fecha Desde" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.FechaHasta, new { @class = "textEbel ", @placeholder = "Fecha Hasta" })
                     </div>
                 </div>
@@ -109,12 +109,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.Nombre, new { @style = "text-transform: uppercase;", @class = "textEbel ", @placeholder = "Nombre" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.DropDownListFor(m => Model.Estado, estadoPostulantes, new {   @class = "textEbel ", @placeholder = "Estado" })
                     </div>
                 </div>
@@ -122,12 +122,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.DocumentoIdentidad, new { @style = "text-transform: uppercase;", @class = "textEbel ", @placeholder = "Cedula Identidad" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.CodigoZona, new { @style = "text-transform: uppercase;", @id = "CodigoZonaFiltro", @class = "textEbel ", @placeholder = "Zona" })
                     </div>
                 </div>
@@ -923,8 +923,13 @@
                         </div>               
                      </div>
                     <div class="tab02Content tabDocContent" style="display:none">
-                        <ul id="list02" style="list-style:none">
-                        </ul>
+                        <div class="style1">
+                            <ul id="list02" style="list-style:none; "></ul>
+                        </div>
+                        <div class="style2">
+                            <img id="image02Visor" src='' height='350' />
+
+                        </div>  
                     </div>
 
                 </div> 
@@ -1052,6 +1057,7 @@
 
     function setImageSrc(element, image)
     {
+        
         $("#" + element).parent().hide();
         if (image != '') {
             $("#" + element).attr("src", image);
@@ -1070,6 +1076,20 @@
         }).done(function () {
          
             
+        });
+    }
+
+    function verAdjunto3(nombreArchivo, tipo) {
+        setImageSrc('image02Visor', '');
+        generalLoading();
+
+        $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
+
+            setImageSrc('image02Visor', img);
+            generalCloseLoading();
+        }).done(function () {
+
+
         });
     }
     function CerrarDiv(opt) {
@@ -1469,6 +1489,13 @@
             return '';
     }
 
+    function buildItemList2(item, tipo, label) {
+        if (item != '')
+            return '<li><img class="img18" src="/Content/Images/icono-ver-estado.png" onclick="verAdjunto3(' + "'" + item + "'" + ', ' + tipo + ')">  <span class="mensaje_eliminarCliente imgSpan"  onclick="verAdjunto3(' + "'" + item + "'" + ', ' + tipo + ')" >' + label + ' </span></li>';
+        else
+            return '';
+    }
+
     function buildDocsCO(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Cedula'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
@@ -1542,13 +1569,14 @@
 
 
 
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');
+        setImageSrc('image02Visor', '');
     }
 
 
@@ -2649,6 +2677,11 @@
         color: black !important;
     }
 
+    .txtFiltro
+    {
+    width: 75% !important;
+    border-color: rgba(0, 0, 0, 0.66) !important;
+    }
     .textboxSB2 {
     width: 75% !important;
     border-color: rgba(0, 0, 0, 0.66) !important;
