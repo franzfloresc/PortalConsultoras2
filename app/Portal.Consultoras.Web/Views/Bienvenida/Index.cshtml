@@ -1626,12 +1626,27 @@
 </script>
 
 <script id="lanzamiento-template" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva" data-popup-body="">
+    <div class="content_ficha_producto_nueva" data-popup-body="" data-item="" >
         <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
         <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                <input type="hidden" class="Palanca" value="OPT" />
+            </div>
             <div class="content_left_ficha">
                 {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
@@ -1645,7 +1660,7 @@
                 </div>
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCompleta}}", Cuv:"{{CUV2}}"});'>
+                    <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                         <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
                     @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
@@ -1653,12 +1668,12 @@
                 </div>
             </div>
             <div class="content_right_ficha">
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_left_ficha" {{/iff}} style="width:50%; margin-right:0">
+                <div style="width:50%; margin-right:0">
                     <div class="marca_producto">{{DescripcionMarca}}</div>
                     <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCompleta}}</div>
                     @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                 </div>
-                <div {{#iff CodigoEstrategia '==' '2002'}} class="content_right_ficha" style="text-align:right; width:50%;" {{/iff}}>
+                <div>
                     <div class="precio_ficha_producto">
                         {{#iff Precio '>' 0}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
@@ -1702,8 +1717,8 @@
                             <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                         </div>
                         <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
-                            <div class="marca_producto">{{item1.DescripcionMarca}}</div>
-                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.DescripcionComercial}}</div>
+                            @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
+                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.NombreComercial}}</div>
                             @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
                         </div>
                         {{#iff item1.Digitable '==' '1'}}
@@ -1716,7 +1731,7 @@
                                 <div class="content_tonos_ficha">
                                     {{#each item1.Hermanos as |tono|}}
                                     <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.DescripcionComercial}}" alt="PRODUCTO">
+                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
                                     </div>
                                     {{/each}}
                                 </div>
@@ -2306,6 +2321,21 @@
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
             <input type="hidden" class="hdItemEsMaquillaje" value="{{EsMaquillaje}}" />
         </div>
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{CUV}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{Descripcion}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+            <input type="hidden" class="Volumen" value="{{Volumen}}" />
+            <input type="hidden" class="Palanca" value="FAV" />
+        </div>
         <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
         </a>
@@ -2315,8 +2345,7 @@
             </div>
             <div class="compartir_redes_ficha" style="margin-left: -20px; padding-left: 0px;">
                 <div class="texto_compartelo">Compártelo con tus clientes</div>
-                <a class="btn_compartir_facebook_ficha" href="javascript:void(0);"
-                   onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "FAV", RutaImagen: "{{ImagenProductoSugerido}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{Descripcion}}", Volumen: "{{Volumen}}", DescProducto:"{{DescripcionComercial}}"});'>
+                <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                     <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
                 </a>
                 @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">

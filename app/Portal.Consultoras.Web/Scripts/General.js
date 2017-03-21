@@ -3,6 +3,10 @@ var formatDecimalPais = formatDecimalPais || new Object();
 
 jQuery(document).ready(function () {
     CreateLoading();
+
+    $("body").on("click", "[data-compartir]", function (e) {
+        CompartirRedesSociales(e);
+    });
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -858,58 +862,100 @@ function MostrarMensajePedidoRechazado() {
 
 // Compartir Face y WS
 
-function CompartirWsp(UrlBase, objParameter) {
-    var _id = InsertarProductoCompartido(objParameter, 'W');
-    UrlBase = UrlBase.replace("[valor]", _id);
+function CompartirRedesSociales(e) {
+    var obj = $(e.target);
+    var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
+    if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
+    if (tipoRedes == "") return false;
 
-    UrlBase = UrlBase.ReplaceAll('/', '%2F');
-    UrlBase = UrlBase.ReplaceAll(":", "%3A");
-    UrlBase = UrlBase.ReplaceAll("?", "%3F");
-    UrlBase = UrlBase.ReplaceAll("=", "%3D");
+    var padre = obj.parents("[data-item]");
+    var article = $(padre).find("[data-compartir-campos]").eq(0);
 
-    return "whatsapp://send?text=" + UrlBase;
+    var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+
+    if (label != "") {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas Showroom',
+            'action': 'Compartir ' + tipoRedes,
+            'label': label,
+            'value': 0
+        });
+    }
+
+    if (ruta == "") return false;
+
+    CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
 }
 
-function CompartirFacebook(urlBase, objParameter) {
-    urlBase = $.trim(urlBase);
-    if (urlBase == "") 
-        return false;
-    
-    var _id = InsertarProductoCompartido(objParameter, 'F');
-    if ($.trim(_id) == "0" || $.trim(_id) == "")
-        return false;
-    
-    urlBase = urlBase.replace('[valor]', _id);
-
-    var popWwidth = 570;
-    var popHeight = 420;
-    var left = (screen.width / 2) - (popWwidth / 2);
-    var top = (screen.height / 2) - (popHeight / 2);
-    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-
-    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+function CompartirRedesSocialesTexto(texto) {
+    return "whatsapp://send?text=" + texto;
 }
 
-function InsertarProductoCompartido(objParameter, app) {
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+    id = $.trim(id);
+    if (id == "0" || id == "")
+        return false;
+    ruta = $.trim(ruta);
+    if (ruta == "") return false;
+
+    ruta = ruta.replace('[valor]', id);
+
+    if (tipoRedes == "FB") {
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    } else if (tipoRedes == "WA") {
+        ruta = ruta.ReplaceAll('/', '%2F');
+        ruta = ruta.ReplaceAll(":", "%3A");
+        ruta = ruta.ReplaceAll("?", "%3F");
+        ruta = ruta.ReplaceAll("=", "%3D");
+
+        if (texto != "")
+            texto = texto + " - ";
+        texto = texto.ReplaceAll("/", '%2F');
+        texto = texto.ReplaceAll(":", "%3A");
+        texto = texto.ReplaceAll("?", "%3F");
+        texto = texto.ReplaceAll("=", "%3D");
+        texto = texto.ReplaceAll(" ", "%32");
+        texto = texto.ReplaceAll("+", "%43");
+
+        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
+        //return "whatsapp://send?text=" + texto + ruta;
+
+        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=CompartirRedesSocialesTexto('" + texto + ruta + "')");
+        $("#HiddenRedesSocialesWA")[0].click();
+        //document.getElementById('HiddenRedesSocialesWA').click();
+    }
+}
+
+function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
+    //AbrirLoad();
+
     //Capturando valores
-    var _rutaImagen = objParameter.RutaImagen;
-    var _marcaID = $.trim(objParameter.MarcaID);
-    var _marcaDesc = $.trim(objParameter.MarcaDesc);
-    var _nombre = $.trim(objParameter.NombrePro);
-    var _vol = $.trim(objParameter.Volumen);
-    var _descProd = $.trim(objParameter.DescProducto);
+    var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
+    var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
+    var _nombre = $.trim($(article).find(".Nombre").val());
+    var _marcaID = $.trim($(article).find(".MarcaID").val());
+    var _marcaDesc = $.trim($(article).find(".MarcaNombre").val());
+    var _descProd = $.trim($(article).find(".ProductoDescripcion").val());
+    var _vol = $.trim($(article).find(".Volumen").val());
+    var _palanca = $.trim($(article).find(".Palanca").val());
 
     var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (objParameter.Palanca == "FAV") {
+    if (_palanca == "FAV") {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
 
-    var ID = 0;
     var Item = {
-        mCUV: objParameter.Cuv,
-        mPalanca: objParameter.Palanca,
+        mCUV: $(article).find(".CUV").val(),
+        mPalanca: _palanca,
         mDetalle: pcDetalle,
-        mApplicacion: app
+        mApplicacion: tipoRedes
     };
 
     jQuery.ajax({
@@ -918,24 +964,22 @@ function InsertarProductoCompartido(objParameter, app) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(Item),
-        async: false,
         success: function (response) {
+            //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
-                    var datos = response.data;
-                    ID = datos.id;
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
                 } else {
                     window.messageInfo(response.message);
                 }
             }
+            //CerrarLoad();
         },
         error: function (response, error) {
+            //CloseLoading();
             if (checkTimeout(response)) {
                 console.log(response);
             }
         }
     });
-    return ID;
 }
-
-// Compartir Face

@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Models
     }
 
     [Serializable()]
-    public class ProductoModel
+    public class ProductoModel : CompartirRedesSocialesModel
     {
         public string CUV { get; set; }
         public string Descripcion { get; set; }
