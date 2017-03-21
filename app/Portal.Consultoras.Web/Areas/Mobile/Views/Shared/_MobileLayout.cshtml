@@ -140,6 +140,7 @@
     <header id="new-header">
     @if (ViewBag.MostrarBannerTopPL20 == true)
     {
+
         <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
          
                 <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
@@ -172,33 +173,39 @@
                         <!--FIN-->
                     </li>
                 }
-               
-                @if (showRoomBannerLateral.MostrarShowRoomProductos == true)
+                
+                @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
                 {
-                    <li>
-                        <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
-                            <div class="content_banner_header_showroom">
-                                <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
-                            </div>
-                        </a>
+                    if (showRoomBannerLateral.MostrarShowRoomProductos == true)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                <div class="content_banner_header_showroom">
+                                    <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
+                                </div>
+                            </a>
 
-                    </li>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                <div class="content_banner_header_showroom">
+                                    <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+
+                                    <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
+                                    <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                                </div>
+                            </a>
+
+                        </li>
+
+                    }
                 }
-                else
-                {
-                    <li>
-                        <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                            <div class="content_banner_header_showroom">
-                                <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
 
-                                <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
-                                <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
-                            </div>
-                        </a>
 
-                    </li>
-                    
-                }
+                
 
             </ul>
         </div>
@@ -1141,6 +1148,25 @@
                 $('.header_slider').slideUp();
                 $("#content").css({ 'margin-top': '63px' });
             }
+
+            var URLactual = window.location.href;
+            var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+            if (urlBienvenida > 0){
+                if (sesionEsShowRoom != null && sesionEsShowRoom == "1"){
+                    $("#content").css({ 'margin-top': '0px' });
+                }else{
+                    $("#content").css({ 'margin-top': '63px' });
+                }
+            }else{
+                if($('#flexslidertop ul.slides li').length == 0){
+                    $("#content").css({ 'margin-top': '63px' });
+                }
+            }
+
+            
+
+            
         });
 
         function loadBannerLP20() {
