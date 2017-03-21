@@ -918,6 +918,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsBackOrderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsCompraPorCompraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsKitNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1333,6 +1336,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.EsBackOrderField.Equals(value) != true)) {
                     this.EsBackOrderField = value;
                     this.RaisePropertyChanged("EsBackOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsCompraPorCompra {
+            get {
+                return this.EsCompraPorCompraField;
+            }
+            set {
+                if ((this.EsCompraPorCompraField.Equals(value) != true)) {
+                    this.EsCompraPorCompraField = value;
+                    this.RaisePropertyChanged("EsCompraPorCompra");
                 }
             }
         }

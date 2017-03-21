@@ -361,7 +361,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "SeguimientoPedido") return true;
             if (controllerName == "PedidosFacturados") return true;
             if (controllerName == "OfertaLiquidacion") return true;
-            return false
+            return false;
         }
         
         private bool NoMostrarBannerODD()
