@@ -670,6 +670,8 @@
                             <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                             <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
+                            <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
+                            <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
@@ -738,7 +740,7 @@
             <div class="marca_ficha_producto">{{DescripcionMarca}}</div>
             <div class="titulo_ficha_producto" style="line-height:16px;">{{NombreComercial}}</div>
             <div class="precio_ficha_producto">
-                {{#iff PrecioValorizadoString '!=' '0'}}
+                {{#iff PrecioValorizado '>' '0'}}
                 <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
                 {{/iff}}
                 <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
