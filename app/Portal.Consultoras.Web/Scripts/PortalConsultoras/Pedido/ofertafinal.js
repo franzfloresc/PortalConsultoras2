@@ -535,11 +535,15 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         data: JSON.stringify(param),
         async: true,
         success: function (response) {
-            if (response.success == true) {
+            if (checkTimeout(response)) {
+                if (response.success == true) {
+                }
             }
         },
         error: function (data, error) {
-            AjaxError(data, error);
+            if (checkTimeout(data)) {
+                AjaxError(data, error);
+            }
         }
     });
 }

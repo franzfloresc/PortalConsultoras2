@@ -5,64 +5,163 @@
 @Html.HiddenFor(m => Model.SolicitudPostulanteID)
 @Html.HiddenFor(m => Model.EstadoBuroCrediticioID)
 
+<div class="popup_eliminarCliente popup_EvaluacionCred">
+    <div class="btn_cerrar_agregarUnidades">
+        <a href="javascript:;" onclick="CerrarDiv(1);">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+            <span class="texto_btn_cerrar">CERRAR</span>
+        </a>
+    </div>
+    <h6>EVALUACION<b>CREDITICIA</b></h6>
+    <div class="contenido_popUp eliminarCliente">
+        <div >
+            <div class="div-3 caja borde_redondeado" style="padding-left: 10% !important;width: 80%;">
+                <div style="text-align:left;">
+                  <span class="elementsFont" style="text-align:left;">Se volvio a consultar el servicio de integracion de VALIDACI&Oacute;N CREDITICIA obteniendo la siguiente respuesta:</span><br />
+                </div> <div style="text-align:center;margin-top: 15px;">
+                    <span class="elementsFont" style="font-weight: bold; text-align:center; color: @(Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PuedeSerConsultora) || Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PodriaSerConsultoraCuandoTengaAval) ? "#009EE4" : "#e51437")">@Model.Mensaje</span>
+                </div> 
+            </div>
+
+
+            <div id="opcionManual" class="div-3 caja borde_redondeado" style="padding-left: 10% !important;width: 80%;display: none; ">
+                <div style="text-align:left; margin-bottom:15px;">
+                    <span class="elementsFont" style="text-align:left;">Debes seleccionar una respuesta manualmente que te asignar&aacute; a est&aacute; postulante.</span><br />
+                    @*<span class="elementsFont" style="text-align:left;">Respuesta:</span><br />*@
+                </div> 
+                <div class="selectP2 seleccion_pagina selectUbicacion" >
+                    @Html.DropDownList("EstadoBuroIDServicio", ViewBag.EstadosEvaluacionCrediticia as SelectList, "Seleccione", new { @style = "color:black" })
+                </div>
+            </div>
+
+        </div> 
+
+        <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
+            <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEvaCred"  id="btnAsignar"   >Asignar</button>
+     
+            <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEvaCred"  id="btnCancelar">
+                Cancelar
+            </button>
+            <button type="button" name="btn_noEliminarCliente" class="btn_noEliminarCliente btnEvaCred" id="btnGestionarManualmente" >Gestionar Manualmente</button>
+            
+        </div>
+    </div>
+</div>
+
 
 <style>
-    .boton_celeste {
-        width: 130px !important;
-        background-color: #009EE4;
-        color: white;
-        border: none;
-        outline: none;
-        border-radius: 15px;
+    .btnEvaCred {
+         float: none !important;
+    text-align: center;
+    font-weight: normal !important;
+    width: 25% !important;
+    font-size: 13px;
+    line-height: normal !important;
     }
-    .boton_celeste:disabled {
-        background-color: #BABABA;
-        cursor: default;
+ 
+      button:disabled  {
+ 
+    background-color:#B75D9F;
+    cursor:default;
     }
-    .caja {
-        border: 1px solid lightgray !important;
-        padding: 10px !important;
-        width: 94% !important;
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
+    .popup_EvaluacionCred h6 {
+            display: block !Important;
+    margin: 0 0 30px 0 !Important;
+    padding: 0 !Important;
+    font-family: 'Lato' !Important;
+    font-size: 20px !Important;
+ 
+    color: #000 !Important;
+    text-align: center!Important;
+    font-weight: normal !Important;
+    line-height: 1.25 !Important;
     }
-</style>
 
-<div class="wrap_cab">
-    <div class="filtros2">
-        <div class="div-2">
-            <h2>
-                Evaluaci&oacute;n Crediticia
-                <img id="imgCerrar" src="@Url.Content("~/Content/Images/btnCerrar_AD.png")" class="float_rigth" style="cursor: pointer;" />
-            </h2>
-        </div>
-    </div>
-</div>
-<div class="elements">
-    <div class="div-3 caja borde_redondeado" style="padding: 15px !important;">
-        <h6 style="font-size:12px;">se volvio a consultar el servicio de integracion de VALIDACI&Oacute;N CREDITICIA obteniendo la siguiente respuesta:</h6>
-        <h5 style="text-align:center; color: @(Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PuedeSerConsultora) || Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PodriaSerConsultoraCuandoTengaAval) ? "#009EE4" : "red")">@Model.Mensaje</h5>
-    </div>
-</div>
-<div class="elements" id="opcionManual" style="display: none; padding-top: 0px !important;">
-    <div class="div-3 caja borde_redondeado" style="padding: 15px !important;">
-        <h6>Debes seleccionar una respuesta manualmente que te asignar&aacute; a est&aacute; postulante.</h6>
-        <div class="titC">respuesta: </div>
-        <div class="selectP2 borde_redondeado" style="width:260px;">
-            @Html.DropDownList("EstadoBuroIDServicio", ViewBag.EstadosEvaluacionCrediticia as SelectList, "Seleccione", new { @style = "width:250px;" })
-        </div>
-    </div>
-</div>
-<div class="elements">
-    <div class="div-2">
-        <div class="input_search" style="text-align: center;">
-            <input type="submit" class="boton_celeste borde_redondeado" id="btnAsignar" value="Asignar" />
-            <input type="button" class="boton_celeste borde_redondeado" id="btnCancelar" value="Cancelar" />
-            <input type="button" class="boton_celeste borde_redondeado" id="btnGestionarManualmente" value="Gestionar Manualmente" style="width: 180px !important;" />
-        </div>
-    </div>
-</div>
+    .popup_EvaluacionCred {
+ 
+    max-width: 600px !important; 
+        margin: -200px auto 0 auto !important; 
+}
+    .elementsFont {
+    
+        width: 100%;
+    font-family: 'lato';
+    font-size: 11pt;
+    font-weight: 300;
+    color: black;
+    margin-top: 10px;
+    }
+
+    .selectP2 select {
+        height: 24px;
+            font-family: 'Lato';
+    color: black;
+    font-size: 11.7px;
+        cursor: pointer;
+            box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width:300px;
+    
+    }
+    .selectUbicacion {
+          width:300px !important;
+    }
+
+        .selectUbicacion select {
+            width:300px !important;
+        }
+
+    keygen, select, select[size="0"], select[size="1"] {
+    border-radius: 0px;
+    border-color: rgb(169, 169, 169);
+}
+user agent stylesheet
+select:not(:-internal-list-box) {
+    overflow: visible !important;
+}
+user agent stylesheet
+select {
+    -webkit-appearance: menulist;
+    box-sizing: border-box;
+    align-items: center;
+    white-space: pre;
+    -webkit-rtl-ordering: logical;
+    color: black;
+    background-color: white;
+    cursor: default;
+    border-width: 1px;
+    border-style: solid;
+    border-color: initial;
+    border-image: initial;
+}
+user agent stylesheet
+keygen, select {
+    border-radius: 5px;
+}
+user agent stylesheet
+input, textarea, keygen, select, button {
+    text-rendering: auto;
+    color: initial;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em 0em 0em 0em;
+    font: 13.3333px Arial;
+}
+user agent stylesheet
+input, textarea, keygen, select, button, meter, progress {
+    -webkit-writing-mode: horizontal-tb;
+}
+ 
+</style>
+ 
+
+@Html.Hidden("EstadoBuroIDServicio", Model.EstadoBuroCrediticioID)
 
 <script>
     
@@ -72,11 +171,12 @@
     });
 
     $('#imgCerrar, #btnCancelar').click(function () {
-        modal.dialog('close');
+      //  modal.dialog('close');
+        $('#divEvaluacionCrediticia').hide();
     });
 
     $('#btnGestionarManualmente').click(function () {
-        modal.dialog("option", "height", 425);
+        //modal.dialog("option", "height", 425);
         $('#opcionManual').fadeIn();
         $('#btnAsignar').attr('disabled', true);
 
@@ -101,16 +201,19 @@
             id: $('#SolicitudPostulanteID').val(),
             idEstado: $('#EstadoBuroCrediticioID').val() == '' ? $('#EstadoBuroIDServicio').val() : $('#EstadoBuroCrediticioID').val()
         };
-
-        waitingDialog({});
+         
+      //  waitingDialog({});
+        generalLoading();
 
         $.post('@Url.Action("ConsultarEstadoCrediticia", "Unete")', data, function (actualizado) {
             if (actualizado) {
-                modal.dialog('close');
+                //modal.dialog('close');
+                $('#divEvaluacionCrediticia').hide();
                 fnGrilla();
             }
         }).done(function () {
-            closeWaitingDialog({});
+            //  closeWaitingDialog({});
+            generalCloseLoading();
         });
 
     });

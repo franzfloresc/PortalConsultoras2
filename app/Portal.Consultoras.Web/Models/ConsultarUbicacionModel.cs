@@ -27,7 +27,8 @@ namespace Portal.Consultoras.Web.Models
         public decimal? Latitud { get; set; }
         public decimal? Longitud { get; set; }
         public string FuenteIngreso { get; set; }
-        
+        public string SeccionOrigen { get; set; }
+        public string ZonaOrigen { get; set; }
 
         public ConsultarUbicacionModel()
         {

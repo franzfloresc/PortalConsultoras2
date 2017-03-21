@@ -62,6 +62,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string DescripcionProd { get; set; }
 
+        public string DescripcionCortadaProd { get; set; }
+
         public decimal ImporteTotal { get; set; }
 
         public string FormatoImporteTotal

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.Service
@@ -1820,10 +1817,21 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
-
+        
         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
+        }
+
+        // producto estrategia
+        public int InsertarEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            return new BLEstrategiaProducto().InsertEstrategiaProducto(entidad);
+        }
+
+        public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
+        {
+            return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
     }
 }

@@ -78,8 +78,10 @@ function CargarPedido() {
             $(".btn_guardarPedido").show();
             $("footer").hide();
         },
-        error: function (error) {
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
 }
@@ -184,18 +186,19 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
             data: JSON.stringify(param),
             async: true,
             success: function (datos) {
-                CloseLoading();
-                if (!datos.result) {
+                if (checkTimeout(datos)) {
+                    CloseLoading();
+                    if (!datos.result) {
 
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
-                    $('#popupInformacionSB2Error').show();
+                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(datos.message);
+                        $('#popupInformacionSB2Error').show();
 
-                    $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
-                    return false;
+                        $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
+                        return false;
+                    }
+
+                    Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
                 }
-
-                Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBackOrder);
-                
             },
             error: function (data, error) {
                 CloseLoading();
@@ -504,7 +507,11 @@ function AceptarBackOrder(campaniaId, pedidoId, pedidoDetalleId, clienteId) {
             CargarPedido();
             CloseLoading();
         },
-        error: function (data, error) { CloseLoading(); }
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+            }
+        }
     });
 }
 
@@ -629,9 +636,10 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
         },
-        error: function (error) {
-            console.log(error);
-            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {                
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            }
         }
     });
     return restringido;
@@ -870,7 +878,9 @@ function EjecutarServicioPROL() {
         async: true,
         cache: false,
         success: function (response) {
-            RespuestaEjecutarServicioPROL(response);
+            if (checkTimeout(response)) {
+                RespuestaEjecutarServicioPROL(response);
+            }
         },
         error: function (data, error) {
             CloseLoading();
@@ -897,7 +907,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         async: true,
         cache: false,
         success: function (response) {
-            RespuestaEjecutarServicioPROL(response, false);
+            if (checkTimeout(response)) {
+                RespuestaEjecutarServicioPROL(response, false);
+            }
         },
         error: function (data, error) {
             CloseLoading();
@@ -1141,9 +1153,9 @@ function AceptarObsInformativas() {
         },
         error: function (data, error) {
             CloseLoading();
-            if (checkTimeout(data))
-
+            if (checkTimeout(data)) {
                 messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            } 
         }
     });
 }

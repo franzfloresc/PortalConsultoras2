@@ -128,31 +128,36 @@ function AceptarPedido(id, tipo) {
             async: true,
             success: function (response) {
                 CloseLoading();
-                if (response.success) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
                     
-                    if (tipo == 1) {
-                        $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' producto(s) a tu pedido');
+                        if (tipo == 1) {
+                            $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' producto(s) a tu pedido');
+                        }
+                        else {
+                            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+                        }
+
+                        ActualizarGanancia(response.DataBarra);
+                        $('#PedidoAceptado').show();
                     }
                     else {
-                        $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-                    }
-
-                    ActualizarGanancia(response.DataBarra);
-                    $('#PedidoAceptado').show();
-                }
-                else {
-                    if (response.code == 1) {
+                        if (response.code == 1) {
                         AbrirMensaje(response.message);
-                    }
-                    else if (response.code == 2) {
-                        $('#MensajePedidoReservado').text(response.message);
-                        $('#AlertaPedidoReservado').show();
+                        }
+                        else if (response.code == 2) {
+                            $('#MensajePedidoReservado').text(response.message);
+                            $('#AlertaPedidoReservado').show();
+                        }
                     }
                 }
             },
-            error: function (error) {
+            error: function (data, error) {
                 CloseLoading();
-                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                
+                if (checkTimeout(data)) {
+                    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
             }
         });
     }

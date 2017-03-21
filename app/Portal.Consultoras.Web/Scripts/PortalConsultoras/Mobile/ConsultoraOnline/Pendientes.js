@@ -112,24 +112,29 @@ function AceptarPedido(id, tipo) {
             async: true,
             success: function (response) {
                 CloseLoading();
-                if (response.success) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
                     
-                    if (tipo == 1) {
-                        $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' productos a tu pedido');
+                        if (tipo == 1) {
+                            $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' productos a tu pedido');
+                        }
+                        else {
+                            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+                        }
+
+                        $('#PedidoAceptado').show();
                     }
                     else {
-                        $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
-                    }
-
-                    $('#PedidoAceptado').show();
-                }
-                else {
                     AbrirMensaje(response.message);
+                    }
                 }
             },
-            error: function (error) {
+            error: function (data, error) {
                 CloseLoading();
-                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                
+                if (checkTimeout(data)) {
+                    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
             }
         });
     }
