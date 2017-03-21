@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
-                {
+                {                   
                     if (userData.PedidoID == 0)
                     {
                         userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
@@ -2431,90 +2431,102 @@ namespace Portal.Consultoras.Web.Controllers
             out decimal montoAhorroCatalogo, out decimal montoAhorroRevista, out decimal montoDescuento, out decimal montoEscala, out string codigoMensaje)
         {
             Restrictivas = false; Informativas = false; Error = false; Reserva = false;
-            montoAhorroCatalogo = 0; montoAhorroRevista = 0;
-            montoDescuento = 0; montoEscala = 0; codigoMensaje = "";
+            montoAhorroCatalogo = 0;
+            montoAhorroRevista = 0;
+            montoDescuento = 0;
+            montoEscala = 0;
+            codigoMensaje = "";
 
-            if (!olstPedidoWebDetalle.Any()) return new List<ObservacionModel>();
-
-            string ListaProductos = string.Join("|", olstPedidoWebDetalle.Select(x => x.CUV).ToArray());
-            string ListaCantidades = string.Join("|", olstPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
-            string ListaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
-
+            DataSet ds = DataSetPedidoDetalleParaProl(olstPedidoWebDetalle);
             decimal montodescontar = 0;
             decimal montoenviar = 0;
 
             montoenviar = userData.MontoMinimo - montodescontar;
 
             if (montoenviar < 0) montoenviar = 0;
-            ServicePROL.RespuestaProl RespuestaPROL = null;
+            ServicePROL.TransferirDatos datos = null;
+            if (ds.Tables[0].Rows.Count == 0) return new List<ObservacionModel>();
+            bool EsReservaPedidoPROL = true;
 
             using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
             {
                 if (userData.DiaPROL && userData.MostrarBotonValidar)
                 {
+                    EsReservaPedidoPROL = true;
                     sv.Url = ConfigurarUrlServiceProl();
-                    RespuestaPROL = sv.wsValidacionInteractiva(ListaProductos, ListaCantidades, ListaRecuperacion, userData.CodigoConsultora, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
+                    datos = sv.wsValidarPedidoInteractivo(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
                 }
                 else
                 {
+                    EsReservaPedidoPROL = false;
                     sv.Url = ConfigurarUrlServiceProl();
-                    RespuestaPROL = sv.wsValidacionEstrategia(ListaProductos, ListaCantidades, ListaRecuperacion, userData.CodigoConsultora, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
+                    datos = sv.wsValidarEstrategia(ds, montoenviar, userData.CodigoZona, userData.CodigoISO, userData.CampaniaID.ToString(), userData.ConsultoraNueva, userData.MontoMaximo);
                 }
             }
 
             List<ObservacionModel> olstPedidoWebDetalleObs = new List<ObservacionModel>();
             List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
-            if (RespuestaPROL != null)
+            if (datos != null)
             {
-                ViewBag.MontoTotalPROL = RespuestaPROL.montototal;
-
+                ViewBag.MontoTotalPROL = datos.montototal;
+                DataTable dtr = datos.data.Tables[0];
                 bool ValidacionPROLMM = false;
                 string CUV_Val = string.Empty;
                 int ValidacionReemplazo = 0;
-                decimal MontoTotalPROL = 0, DescuentoPROL = 0;
-                Decimal.TryParse(RespuestaPROL.montototal, out MontoTotalPROL);
-                Decimal.TryParse(RespuestaPROL.montoDescuento, out DescuentoPROL);
+                decimal montoTotalPROL = 0, descuentoPROL = 0;
+                Decimal.TryParse(datos.montototal, out montoTotalPROL);
+                Decimal.TryParse(datos.montoDescuento, out descuentoPROL);
 
                 #region Actualizar montos del servicio de prol a Pedido
 
-                Decimal.TryParse(RespuestaPROL.montoAhorroCatalogo, out montoAhorroCatalogo);
-                Decimal.TryParse(RespuestaPROL.montoAhorroRevista, out montoAhorroRevista);
-                Decimal.TryParse(RespuestaPROL.montoDescuento, out montoDescuento);
-                Decimal.TryParse(RespuestaPROL.montoEscala, out montoEscala);
-                codigoMensaje = RespuestaPROL.codigoMensaje;
+                Decimal.TryParse(datos.montoAhorroCatalogo, out montoAhorroCatalogo);
+                Decimal.TryParse(datos.montoAhorroRevista, out montoAhorroRevista);
+                Decimal.TryParse(datos.montoDescuento, out montoDescuento);
+                Decimal.TryParse(datos.montoEscala, out montoEscala);
+
+                codigoMensaje = datos.codigoMensaje;
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    BEPedidoWeb bePedidoWeb = new BEPedidoWeb()
-                    {
-                        PaisID = userData.PaisID,
-                        CampaniaID = userData.CampaniaID,
-                        ConsultoraID = userData.ConsultoraID,
-                        CodigoConsultora = userData.CodigoConsultora,
-                        MontoAhorroCatalogo = montoAhorroCatalogo,
-                        MontoAhorroRevista = montoAhorroRevista,
-                        DescuentoProl = montoDescuento,
-                        MontoEscala = montoEscala
-                    };
+                    BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+                    bePedidoWeb.PaisID = userData.PaisID;
+                    bePedidoWeb.CampaniaID = userData.CampaniaID;
+                    bePedidoWeb.ConsultoraID = userData.ConsultoraID;
+                    bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+                    bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
+                    bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
+                    bePedidoWeb.DescuentoProl = montoDescuento;
+                    bePedidoWeb.MontoEscala = montoEscala;
+
                     sv.UpdateMontosPedidoWeb(bePedidoWeb);
+
                     Session["PedidoWeb"] = null;
                 }
 
                 #endregion
 
-                if (RespuestaPROL.codigoMensaje != "00")
+                if (datos.codigoMensaje != "00")
                 {
-                    foreach (var item in RespuestaPROL.ListaObservaciones)
+                    foreach (DataRow row in dtr.Rows)
                     {
                         int TipoObs = 0;
                         string CUV = string.Empty;
                         string Observacion = string.Empty;
 
-                        TipoObs = Convert.ToInt32(item.cod_observacion);
-                        CUV = item.codvta;
-                        Observacion = item.observacion.Replace("+", "");
+                        if (EsReservaPedidoPROL)
+                        {
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(6));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(0));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(7)).Replace("+", "");
+                        }
+                        else
+                        {
+                            TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
+                            CUV = Convert.ToString(row.ItemArray.GetValue(1));
+                            Observacion = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
+                        }
 
-                        if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
+                        if (TipoObs == 8) lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(item => item.CUV == CUV));
                         else
                         {
                             if (TipoObs == 0) ValidacionReemplazo += 1;
@@ -2543,11 +2555,11 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     Session["PedidoWebDetalle"] = null;
 
-                    if (RespuestaPROL.ListaObservaciones.Count() == ValidacionReemplazo)
+                    if (dtr.Rows.Count == ValidacionReemplazo)
                     {
                         if (userData.DiaPROL && userData.MostrarBotonValidar)
                         {
-                            EjecutarReservaPortalv2(RespuestaPROL, olstPedidoWebDetalle, MontoTotalPROL, DescuentoPROL);
+                            EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                             Reserva = true;
                         }
                     }
@@ -2556,7 +2568,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (userData.DiaPROL && userData.MostrarBotonValidar)
                     {
-                        EjecutarReservaPortalv2(RespuestaPROL, olstPedidoWebDetalle, MontoTotalPROL, DescuentoPROL);
+                        EjecutarReservaPortalv2(dtr, olstPedidoWebDetalle, montoTotalPROL, descuentoPROL);
                         Reserva = true;
                     }
                 }
@@ -2584,7 +2596,7 @@ namespace Portal.Consultoras.Web.Controllers
             return ds;
         }
 
-        private void EjecutarReservaPortalv2(ServicePROL.RespuestaProl RespuestaPROL, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
+        private void EjecutarReservaPortalv2(DataTable dtr, List<BEPedidoWebDetalle> olstPedidoWebDetalle, decimal MontoTotalProl = 0, decimal DescuentoProl = 0)
         {
             int PaisID = userData.PaisID;
             int CampaniaID = userData.CampaniaID;
@@ -2603,48 +2615,43 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BEPedidoWebDetalle> olstPedidoReserva = new List<BEPedidoWebDetalle>();
 
-            if (RespuestaPROL.ListaObservaciones != null)
+            foreach (DataRow row in dtr.Rows)
             {
-                foreach (var item in RespuestaPROL.ListaObservaciones)
+                var temp = olstPedidoWebDetalle.Where(p => p.CUV == Convert.ToString(row.ItemArray.GetValue(0)));
+                if (temp != null)
                 {
-                    var temp = olstPedidoWebDetalle.Where(p => p.CUV == item.codvta);
-                    if (temp != null)
+                    foreach (var item in temp)
                     {
-                        foreach (var PedidoDetalle in temp)
-                        {
-                            BEPedidoWebDetalle detalle = new BEPedidoWebDetalle()
-                            {
-                                CampaniaID = PedidoDetalle.CampaniaID,
-                                PedidoID = PedidoDetalle.PedidoID,
-                                PedidoDetalleID = PedidoDetalle.PedidoDetalleID,
-                                ObservacionPROL = item.observacion
-                            };
-                            olstPedidoReserva.Add(detalle);
-                        }
+                        BEPedidoWebDetalle detalle = new BEPedidoWebDetalle();
+                        detalle.CampaniaID = item.CampaniaID;
+                        detalle.PedidoID = item.PedidoID;
+                        detalle.PedidoDetalleID = item.PedidoDetalleID;
+                        detalle.ObservacionPROL = Convert.ToString(row.ItemArray.GetValue(7));
+                        olstPedidoReserva.Add(detalle);
                     }
                 }
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+            }
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                if (userData.PROLSinStock) //1510
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
+                else
+                    sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
+                // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
+                if (userData.IndicadorGPRSB == 2 )
                 {
-                    if (userData.PROLSinStock) //1510
-                        sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Pendiente, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
-                    else
-                        sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
-                    // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
-                    if (userData.IndicadorGPRSB == 2)
-                    {
-                        userData.MostrarBannerRechazo = false;
-                        userData.CerrarRechazado = 1;
-                        SetUserData(userData);
-                        //ObtenerMotivoRechazo(userData);
-                    }
+                    userData.MostrarBannerRechazo = false;
+                    userData.CerrarRechazado = 1;
+                    SetUserData(userData);
+                    //ObtenerMotivoRechazo(userData);
                 }
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    //Se reutiliza la lista, pues desde el método origen devuelve la información de los productos del pedido de BD.
-                    decimal totalPedido = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                    decimal gananciaEstimada = CalcularGananciaEstimada(PaisID, CampaniaID, PedidoID, totalPedido);
-                    sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
-                }
+            }
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                //Se reutiliza la lista, pues desde el método origen devuelve la información de los productos del pedido de BD.
+                decimal totalPedido = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                decimal gananciaEstimada = CalcularGananciaEstimada(PaisID, CampaniaID, PedidoID, totalPedido);
+                sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
             }
         }
 
@@ -2714,7 +2721,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
             }
             // GPR - Si tiene GPR activo: ocultar el banner de rechazados.
-            if (userData.IndicadorGPRSB == 2)
+            if (userData.IndicadorGPRSB == 2 )
             {
                 userData.MostrarBannerRechazo = false;
                 userData.CerrarRechazado = 1;
@@ -4154,7 +4161,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return lst;
         }
-
+        
         [HttpGet]
         public JsonResult ConsultarEstrategiaSet(string cuv)
         {
@@ -4162,10 +4169,10 @@ namespace Portal.Consultoras.Web.Controllers
             cuv = Util.SubStr(cuv, 0);
             if (cuv == "")
                 return Json(listaHermanos, JsonRequestBehavior.AllowGet);
-
+           
             var listaEstrategia = ConsultarEstrategias("");
 
-            var estrategia = listaEstrategia.SingleOrDefault(e => e.CUV2 == cuv) ?? new BEEstrategia();
+            var estrategia = listaEstrategia.SingleOrDefault(e=>e.CUV2 == cuv) ?? new BEEstrategia();
 
             if (estrategia.EstrategiaID == 0)
                 return Json(listaHermanos, JsonRequestBehavior.AllowGet);
@@ -4203,7 +4210,7 @@ namespace Portal.Consultoras.Web.Controllers
                     joinCuv += item.SAP + "|";
                 }
             }
-
+            
             if (joinCuv == "")
                 return Json(listaHermanos, JsonRequestBehavior.AllowGet);
 
@@ -4214,7 +4221,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
             }
-
+            
             if (!listaAppCatalogo.Any())
                 return Json(listaHermanos, JsonRequestBehavior.AllowGet);
 
@@ -4237,7 +4244,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (estrategia.CodigoEstrategia == "2002")
                 {
-                    listaHermanos.Update(h => h.Digitable = 0);
+                    listaHermanos.Update(h=>h.Digitable = 0);
                 }
                 else if (estrategia.CodigoEstrategia == "2003")
                 {

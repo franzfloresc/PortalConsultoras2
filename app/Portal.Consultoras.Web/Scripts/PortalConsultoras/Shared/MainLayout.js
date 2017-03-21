@@ -3,11 +3,10 @@ var showDisplayODD = 0;
 
 $(document).ready(function () {
 
-    
     /*PL20-1226*/
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
-    }
+    }    
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
@@ -1045,12 +1044,7 @@ function loadOfertaDelDia() {
                     $('#OfertaDelDia').show();
 
                     $('.content_slider_home').css('margin-top', '160px');
-                    if (MostrarODD == "True") {
-                        $('.ubicacion_web ').css('margin-top', '85px');
-                    } else {
-                        $('.ubicacion_web ').css('margin-top', '185px');
-                    }
-                    
+                    $('.ubicacion_web ').css('margin-top', '185px');
 
                     var int1odd = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
