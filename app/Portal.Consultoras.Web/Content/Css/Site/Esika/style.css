@@ -34578,7 +34578,7 @@ h1#penmostreo .campana {
     vertical-align: top;
     /* float: right; */
     display: inline-block;
-    width: 28%;
+    width: 27%;
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
@@ -34625,7 +34625,7 @@ h1#penmostreo .campana {
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 25px;
     font-family: 'Lato';
     font-size: 10.5px;
     width: 90%;
@@ -34646,7 +34646,7 @@ h1#penmostreo .campana {
 .check_intriga:before{
     content: "✓";
     line-height: 11.5px;
-    padding-left: 2px;
+    padding-left: 1px;
 }
 .btn_enviar_correo_intriga{
     width:100%;
@@ -34692,10 +34692,12 @@ h1#penmostreo .campana {
     font-family:'Lato';
     font-size:11px;
     text-transform:uppercase;
-    margin-top:30px;
+    margin-top:40px;
+    margin-bottom:5px;
     text-align:center;
     text-decoration:underline;
     text-align:center;
+    display:inline-block;
 }
 .texto_confirmacion b{
     display:block;
@@ -35205,4 +35207,10 @@ h1#penmostreo .campana {
     margin-bottom:20px;
     text-align:center;
     margin-top:15px;
+}
+.icono_celular{
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
 }

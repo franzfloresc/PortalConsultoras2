@@ -6478,6 +6478,7 @@ body {
     position: relative;
     background: white;
     margin-top: 15px;
+    margin-bottom:15px;
     padding: 20px;
     overflow: hidden;
     font-family:'Lato';
@@ -10863,7 +10864,8 @@ a{
 .correo_showroon{
     width:253px;
     margin:0 auto;
-    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/YCvCk8eQKHYcmxc/page-1.png)no-repeat left bottom;
+    margin-bottom:20px;
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
     padding-left:32px;
 }
 .correo_showroon input{ 
@@ -10895,7 +10897,7 @@ a{
     margin:0 auto;
     margin-top:20px;
     font-family:'Lato';
-    font-size:10px;
+    font-size:10.5px;
     width:251px;    
    text-align: left;
 }
@@ -11592,4 +11594,39 @@ a{
     height:13px;
     top:0;
     left:0;
+}
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
+.titulo_confirmacion {
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10px;
+    text-align: center;
+    font-family: 'LAto';
+    text-transform: uppercase;
+}
+.texto_confirmacion {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    font-family: 'LAto';
+    margin-top: 5px;
+}
+.link_cambiar_correo {
+    font-family: 'Lato';
+    font-size: 11px;
+    text-transform: uppercase;
+        margin-top: 27px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+    text-align: center;
+    display: inline-block;
+}
+.texto_confirmacion b {
+    display: block;
 }
