@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using System.Data.OleDb;
+using System.Data;
 using Portal.Consultoras.Web.ServiceUnete;
 using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
 using Portal.Consultoras.Common;
@@ -1168,7 +1170,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? string.Empty
                                 : i.CodigoPais == Pais.Peru
                                   ? ((string.IsNullOrEmpty(i.LugarPadre) && string.IsNullOrEmpty(i.LugarHijo)) ? i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper() : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())
-                                  : ((string.IsNullOrEmpty(i.LugarPadre) && string.IsNullOrEmpty(i.LugarHijo)) ? i.Direccion.Replace("|", " ").ToUpper() : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper()), //9
+                                  : 
+                                  ((string.IsNullOrEmpty(i.LugarPadre) && string.IsNullOrEmpty(i.LugarHijo)) ? i.Direccion.Replace("|", " ").ToUpper() : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper()), //9
                 CodigoConsultora = i.CodigoConsultora,
                 FechaIngreso = i.FechaIngreso,
                 IconUbicacion = (i.EstadoGEOID == 2 ? "webtracking/si.png" : "Esika/icono_advertencia_notificacion.png"),
@@ -1717,6 +1720,100 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public static List<V> ReadXmlFile<V>(string filepath, V Source, bool ReadAllSheets, ref bool IsCorrect) where V : new()
+        {
+            string connectionString = string.Empty;
+            // declaramos una lista de entidades
+            List<V> list = null;
+
+            try
+            {
+                string extension = System.IO.Path.GetExtension(@filepath).ToLower();
+                if (extension.Equals(".xls"))
+                {
+                    // para lectura de archivos 97-2003
+                    connectionString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};" +
+                    "Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"", filepath);
+                }
+                else if (extension.Equals(".xlsx"))
+                {
+                    // para lectura de archivos 2007 o posterior
+                    connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
+                        "Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"", filepath);
+                }
+                // crea una lista, para guardar las hojas que contenga el documento
+                List<string> sheets = new List<string>();
+
+                using (OleDbConnection con = new OleDbConnection(connectionString))
+                {
+                    con.Open();
+                    // Obtiene todas las hojas que tenga el documento Excel
+                    DataTable schemas = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    if (schemas != null)
+                    {
+                        if (ReadAllSheets)
+                        {
+                            // obtiene todos los sheet names
+                            sheets = schemas.AsEnumerable().Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString().EndsWith("$"))
+                                .Select(name => name["TABLE_NAME"].ToString()).ToList();
+                        }
+                        else
+                        {
+                            // obtiene el primer sheet name
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
+                        }
+                    }
+                    // itera cada hoja del excel
+                    foreach (string sheetName in sheets)
+                    {
+                        string commandText = "Select * From [" + sheetName + "]";
+
+                        using (OleDbCommand select = new OleDbCommand(commandText, con))
+                        {
+                            using (OleDbDataReader reader = select.ExecuteReader())
+                            {
+                                reader.GetSchemaTable();
+                                //string firstColumnName = (string)sheetSchema.Rows[0]["ColumnName"];
+                                //string firstColumnDataType = (string)sheetSchema.Rows[0]["DataType"];
+
+                                // declaramos una variable del mismo tipo que la entidad
+                                V entity;
+                                if (reader.HasRows)
+                                {
+                                    list = new List<V>();
+                                    while (reader.Read())
+                                    {
+                                        entity = new V();
+                                        foreach (System.Reflection.PropertyInfo property in Source.GetType().GetProperties())
+                                        {
+                                            if (reader.HasColumn(property.Name))
+                                            {
+                                                System.Reflection.PropertyInfo prop = entity.GetType().GetProperty(property.Name);
+                                                Type tipo = prop.PropertyType;
+                                                object changed = Convert.ChangeType(reader[property.Name], tipo);
+                                                prop.SetValue(entity, changed, null);
+                                            }
+                                        }
+                                        list.Add(entity);
+                                        //firstCellValue = Convert.ToString(reader["ZONA"]);
+                                    }
+                                }
+                                //else
+                                //   firstCellValue = "No Rows Returned";
+                            }
+                        }
+                    }
+                    IsCorrect = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml","xnmkl");
+                IsCorrect = false;
+            }
+            return list;
+        }
 
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
@@ -1747,18 +1844,56 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return message = "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
                 }
+                string pathfaltante = "";
+                string fileName = "";
+                try
+                {
+                      fileName = Guid.NewGuid().ToString();
+                      pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
+                    httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
 
-                string fileName = Guid.NewGuid().ToString();
-                string pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
-                httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
-                if (!Directory.Exists(pathfaltante))
-                    Directory.CreateDirectory(pathfaltante);
-                finalPath = Path.Combine(pathfaltante, fileName + fileextension);
-                uplArchivo.SaveAs(finalPath);
+                }
+                catch (Exception ex )
+                {
 
-                bool IsCorrect = false;
-                NivelesGeograficosModel prod = new NivelesGeograficosModel();
-                IList<NivelesGeograficosModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora +" File 01", UserData().CodigoISO);
+                }
+
+                try
+                {
+                    if (!Directory.Exists(pathfaltante))
+                        Directory.CreateDirectory(pathfaltante);
+
+
+                }
+                catch (Exception ex)
+                {
+
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " directorio 02", UserData().CodigoISO);
+                }
+
+                try
+                {
+
+                    finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                    uplArchivo.SaveAs(finalPath);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " guarda archuvo", UserData().CodigoISO);
+                }
+                IList<NivelesGeograficosModel> lista = null;
+                try
+                {
+                    bool IsCorrect = false;
+                    NivelesGeograficosModel prod = new NivelesGeograficosModel();
+                   lista = ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                }
+                catch (Exception ex)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " lee archuvo", UserData().CodigoISO);
+                }
+       
 
                 //elimina el documento, una vez que haya sido procesado
                 System.IO.File.Delete(finalPath);
