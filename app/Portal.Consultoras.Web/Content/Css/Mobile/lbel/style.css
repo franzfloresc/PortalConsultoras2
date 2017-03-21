@@ -9506,7 +9506,9 @@ span.icon-advertencia{
     overflow:hidden;
     float:left;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+}
 .btn_agregar_ficha_producto{
     width:50%;
     height:48px;
@@ -9518,7 +9520,7 @@ span.icon-advertencia{
     float:left;
     text-align:center;
     line-height:47px;
-    background:#d6d6d6;
+    background:black;
 }
 .btn_compartir_ofertas{
 

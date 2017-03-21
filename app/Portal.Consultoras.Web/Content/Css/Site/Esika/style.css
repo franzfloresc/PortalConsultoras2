@@ -34249,7 +34249,9 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+}
 .ficha_btn_agregar {
     width: 358px;
     background: black;

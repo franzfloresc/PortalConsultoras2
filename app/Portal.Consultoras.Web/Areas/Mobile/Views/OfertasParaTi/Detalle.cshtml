@@ -23,6 +23,10 @@
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->   
 </div>
+@{ 
+    var btnDesabled = 0;
+    var btnDesabledClass = "";
+}
 <div class="wrapper_resumen_mobile" style="padding-bottom:96px;" data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar">    
     <div class="content_oferta_guia_negocio">
         <div class="content_imagen_ficha">
@@ -56,9 +60,10 @@
 
             @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
             {
-                if ((Model.TieneVariedad == 1 && Model.Hermanos.Any()) || true)
+                if (( Model.Hermanos.Any()))
                 {
-                    <div class="content_tonos_producto">
+                    btnDesabled = 1;
+                    <div class="content_tonos_producto" data-tono="">
                         <div class="tono_select_opt">
                             <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" >
                                 <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
@@ -80,6 +85,10 @@
                         <div>
                             @foreach (var Hermano in Model.Hermanos)
                             {
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                </div>
                                 <div class="content_tono_detalle" data-tono-cuv="@Hermano.CUV" data-tono-change="2" data-tono-nombre="@Hermano.NombreBulk">
                                     <img src="@Hermano.ImagenBulk" alt="">
                                 </div>
@@ -97,35 +106,42 @@
                 <div class="@claseItem">
                     @foreach (var Hermano in Model.Hermanos)
                     {
-                        <div class="@claseItem3" data-set-componente="">
-                            <div class="nombre_producto_opt" data-tono-nombrecomercial="">
-                                @*<span class="cantidad_producto_opt">x1</span>*@
-                                @Hermano.NombreComercial
-                            </div>
-                            @if (Hermano.Digitable == 1)
-                            {
-                            <div class="content_tonos_producto">
-                                <div class="tono_select_opt">
-                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" >
-                                        <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                        <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                        <hr class="clear" />
-                                    </div>
-                                    <div class="content_tonos_select" style="display:none;">
-                                        @foreach (var Tono in Hermano.Hermanos)
-                                        {
-                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                            <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
-                                            <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
-                                            <hr class="clear" />
-                                        </div>
-                                        }
-                                    </div>
+                        <div>
+                            <div class="@claseItem3" data-tono="">
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                 </div>
-                                <hr class="clear">
+                                <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                    @*<span class="cantidad_producto_opt">x1</span>*@
+                                    @Hermano.NombreComercial
+                                </div>
+                                @if (Hermano.Digitable == 1)
+                                {
+                                    <div class="content_tonos_producto">
+                                        <div class="tono_select_opt">
+                                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                <hr class="clear" />
+                                            </div>
+                                            <div class="content_tonos_select" style="display:none;">
+                                                @foreach (var Tono in Hermano.Hermanos)
+                                                {
+                                                    btnDesabled = 1;
+                                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                        <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                        <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                                        <hr class="clear" />
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <hr class="clear">
+                                    </div>
+                                }
+                                <hr class="clear" />
                             </div>
-                            }
-                            <hr class="clear" />
                         </div>
                     }
                 </div>
@@ -329,7 +345,11 @@
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                     <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
-                <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
+                @if (btnDesabled == 1)
+                {
+                    btnDesabledClass = "btn_desactivado_general";
+                }
+                <a class="btn_agregar_ficha_producto @btnDesabledClass" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID' , TipoEstrategiaID: '@Model.TipoEstrategiaID' , Posicion: '@Model.Orden' , FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
                 <hr class="clear">
             </div>
         </div>
@@ -346,7 +366,7 @@
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/OfertasParaTi.js")"></script>
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
     @*ALAN LA CLASES PARA AÑADIR SON A LA MISMA ALTURA QUE EL DIV "tono_select_opt"
     ".tono_escogido"-> añadir cuando ya se escogio el tono
