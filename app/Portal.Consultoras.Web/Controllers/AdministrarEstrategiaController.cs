@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -683,6 +684,20 @@ namespace Portal.Consultoras.Web.Controllers
                 if (respuestaServiceCdr.Any())
                 {
                     entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
+                    if (entidad.CodigoEstrategia == "2001")
+                    {
+                        var listaHermanosE = new List<BEProducto>();
+                        using (ODSServiceClient svc = new ODSServiceClient())
+                        {
+                            listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, entidad.CUV1).ToList();
+                        }
+                        listaHermanosE = listaHermanosE ?? new List<BEProducto>();
+                        entidad.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                    }
+                    else if (entidad.CodigoEstrategia == "2003")
+                    {
+                        entidad.TieneVariedad = 1;
+                    }
                 }
 
                 if (string.IsNullOrEmpty(NumeroPedido))
