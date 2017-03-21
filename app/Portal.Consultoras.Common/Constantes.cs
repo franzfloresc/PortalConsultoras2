@@ -192,6 +192,10 @@ namespace Portal.Consultoras.Common
             // Tabla LOgica
 
             public const string TablaLogicaDatos = "TablaLogicaDatos";
+            
+            //ShowRoom
+            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
+            public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -384,7 +388,7 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-        
+
 
         public class OfertaEspecialMensajes
         {
@@ -399,6 +403,61 @@ namespace Portal.Consultoras.Common
             public const string EstadoCuenta = "EstadoCuenta";
             public const string LugaresPago = "LugaresPago";
             public const string MisPercepciones = "MisPercepciones";
+        }
+
+        public class ShowRoomPersonalizacion
+        {
+            public class Desktop
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+            }
+
+            public class Mobile
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+            }
+
+            public class TipoAplicacion
+            {
+                public const string Desktop = "Desktop";
+                public const string Mobile = "Mobile";
+            }
+
+            public class TipoPersonalizacion
+            {
+                public const string Evento = "EVENTO";
+                public const string Categoria = "CATEGORIA";
+            }
+        }
+
+        public class ShowRoomTipoFiltro
+        {
+            public const string Categoria = "CATEGORIA";
+            public const string RangoPrecios = "RANGOPRECIOS";
+        }
+
+        public class ShowRoomTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
         }
     }
 }

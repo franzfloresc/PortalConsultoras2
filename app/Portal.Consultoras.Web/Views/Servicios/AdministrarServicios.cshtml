@@ -89,13 +89,12 @@
                     ddlSegmentoServicio.empty();
                     if (data.listasegmento.length > 0) {                       
                         for (var item in data.listasegmento) {
-                            if (data.listasegmento.hasOwnProperty(+item)) {                                
-                                /*RE2544 - CS(CGI) - 13/05/2014 */       
+                            if (data.listasegmento.hasOwnProperty(+item)) {
+
                                 ddlSegmentoServicio.append('<input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" />' + data.listasegmento[item].BannerSegmentoDes + '<br>');                               
                             }
                         }
 
-                        /*CGI(RSA) - REQ 2544 INICIO*/
                         var ServicioId = $("#hdSeccionIdSegZon").val();
                         var CampaniaId = $('#ddlCampaniaServSegZona').val();
                         
@@ -115,7 +114,7 @@
                                     }
                                 }
                             });
-                        /*CGI(RSA) - REQ 2544 FIN*/
+
                     }
                 }
             });
@@ -206,9 +205,8 @@
         }
 
         var ServicioId = $("#hdSeccionIdSegZon").val();
-        var Segmento = -100; //$('#ddlSegmentoServicio').val();
+        var Segmento = -100;
 
-        /*RE2544 - CS(CGI) - INI - 14/05/2015*/      
         var SegmentoInterno = "";
 
         $("#ddlSegmentoServicio").find('input[type="checkbox"]').each(function () {
@@ -219,7 +217,6 @@
         if (SegmentoInterno != "") {
             SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
         }
-        /*RE2544 - CS(CGI) - FIN - 14/05/2015*/     
 
         var zonas = "";
         $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
@@ -294,7 +291,7 @@
                             if (zonas != "") {
                                 zonas = zonas.substring(0, zonas.length - 1);
                             }
-                            //$("#hdBannerIdSegZon").val(zonas);
+
                             $("#chkSeleccionar").attr("checked", true);
                         }
                         $('#arbolRegionZona').jstree('close_all');
@@ -398,9 +395,9 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                // valida si ha habido un timeout
+
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
+
                     if (data.success == true) {
                         var item = data.items;
                         alert(data.message);
@@ -414,9 +411,9 @@
                 closeWaitingDialog();
             },
             error: function (data, error) {
-                // valida si ha habido un timeout
+
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
+
                     alert(data.message);
                 }
                 closeWaitingDialog();
@@ -647,7 +644,7 @@
             $("#arbolRegionZona").html("");
             $('#ddlSegmentoBanner').empty();
             $('#ddlCampaniaServSegZona').empty();
-            $('#ddlSegmentoServicio').empty();/*RE2544 - CS*/
+            $('#ddlSegmentoServicio').empty();
 
 
             $.ajaxSetup({ cache: false });
@@ -697,9 +694,9 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                // valida si ha habido un timeout
+
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
+
                     if (data.success == true) {
                         var item = data.items;
                         $("#ddlParametro").val("");
@@ -712,9 +709,9 @@
                 closeWaitingDialog();
             },
             error: function (data, error) {
-                // valida si ha habido un timeout
+
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
+
                     alert(data.message);
                 }
                 closeWaitingDialog();
@@ -810,7 +807,6 @@
         <div class="div-3">
             <div class="titC">Segmento:</div>
             <div class="selectA borde_redondeado">
-                @*RE2544 - CS(CGI)<select id="ddlSegmentoServicio"></select>*@     
                 <ul id="ddlSegmentoServicio"></ul>&nbsp;
             </div>
         </div>

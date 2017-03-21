@@ -11,43 +11,16 @@
         IniDialogRegistroLugaresPago();
 
         $("#ddlPais").change(function () {
-            
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                //$.getJSON(baseUrl + 'AdministrarLugaresPago/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                //    if (checkTimeout(data)) {
-                //        var ddlCampania = $("#ddlCampania");
-
-                //        if (Id != "") {
-                //            if (data.lstCampania.length > 0) {
-                //                for (var item in data.lstCampania) {
-                //                    if (data.lstCampania.hasOwnProperty(item)) {
-                //                        ddlCampania.append($('<option/>', {
-                //                            value: data.lstCampania[item].CampaniaID,
-                //                            text: data.lstCampania[item].Codigo
-                //                        }));
-                //                    }
-                //                }
-                //            }
-                //        }
-                //        closeWaitingDialog();
-                //    }
-                //});
                 $.getJSON(baseUrl + 'OfertaNueva/ObtenerISOPais', { paisID: Id }, function (data) {
-                    
                     isoPAIS = data.ISO;
                     closeWaitingDialog();
                 });
                 jQuery("#gvwLugaresPago").jqGrid("clearGridData");
             } else {
-                //var ddlCampania = $("#ddlCampania");
-                //ddlCampania.empty();
-                //ddlCampania.append($('<option/>', {
-                //    value: "",
-                //    text: "-- Seleccionar --"
-                //}));
                 jQuery("#gvwLugaresPago").jqGrid("clearGridData");
             }
         });
@@ -58,11 +31,6 @@
                 alert("Debe seleccionar un País, verifique");
                 return false;
             }
-
-            //if ($("#ddlCampania").val() == "") {
-            //    alert("Debe seleccionar una Campaña, verifique");
-            //    return false;
-            //}
 
             fnGrilla();
         });
@@ -75,17 +43,11 @@
                 if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
                     message += "- Debe seleccionar un País.\n";
 
-                //if (jQuery.trim($('#ddlCampaniaDialogo').val()) == "")
-                //    message += "- Debe seleccionar una Campaña.\n";
-
                 if (jQuery.trim($('#Nombre').val()) == "")
                     message += "- Debe ingresar el Nombre.\n";
 
                 if (jQuery.trim($('#UrlSitio').val()) == "")
                     message += "- Debe ingresar el Site.\n";
-
-                //if (jQuery.trim($('#ArchivoInstructivo').val()) == "")
-                //    message += "- Debe ingresar el Instructivo.\n";
 
                 if (jQuery.trim($('#ArchivoLogo').val()) == "")
                     message += "- Debe adjuntar una imagen de Logo.\n";
@@ -133,7 +95,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    
                     var vMessage = "";
                     $('#frmLugarPago').submit();
 
@@ -156,8 +117,7 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                vpaisID: function () { return $("#ddlPais").val() }//,
-                //vCampaniaID: function () { return $("#ddlCampania").val() }
+                vpaisID: function () { return $("#ddlPais").val() }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -165,10 +125,7 @@
             colModel: [
                 { name: 'LugarPagoID', index: 'LugarPagoID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'CampaniaID', index: 'CampaniaID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'ArchivoLogo', index: 'ArchivoLogo', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'CodigoCampania', index: 'CodigoCampania', width: 8, editable: true, resizable: false },
-                //{ name: 'PaisNombre', index: 'PaisNombre', width: 10, editable: true, resizable: false },
                 { name: 'Lugar', index: 'Lugar', width: 20, editable: true, resizable: false },
                 { name: 'UrlSitio', index: 'UrlSitio', width: 25, editable: true, resizable: false, formatter: ShowUrl },
                 { name: 'Imagen', index: 'Imagen', width: 22, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
@@ -222,8 +179,6 @@
             
             var image = "";
             if (rowObject[2] !== "")
-                // image = '<img src="' + '@Url.Content("~/Content/LugaresPago/")' + isoPAIS + "/" + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
             else
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -258,25 +213,20 @@
                 $('#LugarPagoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
                 $('#ddlPaisDialogo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
-                //$('#ddlCampaniaDialogo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'CampaniaID'));
                 $('#Nombre').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'Lugar'));
                 $('#UrlSitio').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'UrlSitioOculto'));
                 $('#ArchivoLogo').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
                 $('#ArchivoLogoAnterior').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
 
                 if ($.trim($("#ArchivoLogo").val()) != "") {
-                    // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/LugaresPago/")' + isoPAIS + "/" + $("#ArchivoLogo").val());
-                    // 1664
                     $('#imgPreviaLogo').attr('src', $("#ArchivoLogo").val());
 
-                    // 1664
                     var img01 = $('#ArchivoLogo').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
                         $('#ArchivoLogo').val(img01);
                     }
 
-                    // 1664
                     img01 = $('#ArchivoLogoAnterior').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -354,16 +304,12 @@
     function limpiarPopup() {
         
         $('#PaisID').val("");
-        //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
-        //$('#ddlCampaniaDialogo')[0].selectedIndex = 0;;
         $('#Nombre').val("");
         $('#UrlSitio').val("");
         $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
         $('#ArchivoLogo').val("");
-        $('#ArchivoInstructivo').val("");
-        //$('#flArchivoInstructivo').val("");
         $('#ArchivoInstructivo').val("");
         $('#LugarPagoID').val("0");
     }
@@ -380,13 +326,6 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                @*<div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    <select id="ddlCampania">
-                        <option value="">-- Seleccionar --
-                        </option>
-                    </select>
-                </div>*@
                 <div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="btnBuscar">
                 </div>
@@ -423,10 +362,6 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisDialogo" })
                 </div>
-                @*<div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), "-- Seleccionar --", new { id = "ddlCampaniaDialogo" })
-                </div>*@
                 <div class="titG">Lugar:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBox("Nombre", null, new { maxlength = 80 })
@@ -449,7 +384,6 @@
                         <div class="titG">Url Instructivo:</div>
                         <div class="selectA borde_redondeado">
                             @Html.TextBox("ArchivoInstructivo", null, new { maxlength = 3000 })
-                            @*<input type="file" id="flArchivoInstructivo" name="flArchivoInstructivo" />*@
                         </div>
                     </div>
                 </div>
@@ -471,8 +405,6 @@
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
                                             $("#ArchivoLogo").val(responseJSON.name);
-                                            // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/TemporalesLugaresPago/")' + responseJSON.name);
-                                            // 1664
                                             $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                         }
                                         else {

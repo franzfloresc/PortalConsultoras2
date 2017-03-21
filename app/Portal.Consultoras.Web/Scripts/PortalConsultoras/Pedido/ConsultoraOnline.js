@@ -22,22 +22,9 @@ $(document).ready(function () {
         $('.contenedor_eliminacion_pedido').show();
         $('.contenedor_banners').show();
         $('.info_tiempo_oportunidad.inicial').show();
-        //$('.truco_bloqueo').hide();
         $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
         $('#pedmostreo').removeClass('cambio_bk_pendientes');
         $('.datos_para_movil').show();
-
-        //var idPedido = $("#pedmostreo").attr("data-pedido");
-        //if(idPedido == "1"){
-        //    $('.content_T_T').removeClass("fondo_lateral");
-
-        //}else{
-        //    $('.content_T_T').addClass("fondo_lateral");
-        //}
-
-        //if (flagHuboPedidosPend) {
-        //    CargarDetallePedido();
-        //}
 
         $('#penmostreo').attr("data-tab-activo", '0');
         $('#pedmostreo').attr("data-tab-activo", '1');
@@ -58,8 +45,6 @@ $(document).ready(function () {
         $('.contenedor_eliminacion_pedido').hide();
         $('.contenedor_banners').hide();
         $('.info_tiempo_oportunidad.inicial').hide();
-        //TRUCOS BLOQUES
-        //$('.truco_bloqueo').hide();
         $('#pedmostreo').addClass('cambio_bk_pendientes');
         $('.datos_para_movil').hide();
         $('#penmostreo').attr("data-tab-activo", '1');
@@ -77,64 +62,10 @@ $(document).ready(function () {
         }
     });
 
-    //APP CATALOGO
-    //$('a.RevisionPendientes').on('click', function () {
-    //    $('#popup_pendientes').show();
-    //});
-
-    //$('.btn_revisalo_pendientes1').on('click', function () {
-    //    $('#popup_pendientes').show();
-    //});
-
     $('.regresaPendientes').on('click', function () {
         $('#popup_pendientes').hide();
     });
 
-    //$('button.sedetiene').on('click', function () {
-    //    $('#dialog_confirmacionRechazo').hide();
-    //});
-
-    //$('#rechazarPendientes').on('click', function () {
-    //    $('#dialog_confirmacionRechazo').show();
-    //});
-
-    //$('#cierreRechazoPendientes').on('click', function () {
-    //    $('#dialog_confirmacionRechazo').hide();
-    //});
-
-    //$('button.btn_eliminarCliente.venderecha.prosigue').on('click', function () {
-    //    $('#dialog_confirmacionRechazo').hide();
-    //    $('#dialog_motivoRechazo').show();
-    //});
-
-    //$('#cierreMotivoRechazo').on('click', function () {
-    //    $('#dialog_motivoRechazo').hide();
-    //    $('#popup_pendientes').hide();
-    //    $('.popupPendientesPORTAL').hide();
-    //});
-
-    //$('button.btn_eliminarCliente.btn-negro').on('click', function () {
-    //    $('#dialog_motivoRechazo').hide();
-    //    $('#popup_pendientes').hide();
-    //    $('.popupPendientesPORTAL').hide();
-    //});
-
-    //$('#aceptarPendientes').on('click', function () {
-    //    $('#popup_pendientes').hide();
-    //    //$('#dialog_aceptasPendientes').show();
-    //});
-
-    //$('.ok_aceptaPedido').on('click', function () {
-    //    $('#dialog_aceptasPendientes').hide();
-    //    $('.popupPendientesPORTAL').hide();
-    //});
-
-    //$('#aceptandoPendientes').on('click', function () {
-    //    //$('#dialog_aceptasPendientes').hide();
-    //    $('.popupPendientesPORTAL').hide();
-    //});
-
-    //PORTAL LBEL
     $('.btn_revisalo_pendientes2').on('click', function () {
         $('.popupPendientesPORTAL').show();
     });
@@ -142,17 +73,6 @@ $(document).ready(function () {
     $('.cerrarPendientesPORTAL').on('click', function () {
         $('.popupPendientesPORTAL').hide();
     });
-
-    //$('#rechazarPendientesPORTAL').on('click', function () {
-    //    $('#dialog_confirmacionRechazo').show();
-    //});
-
-    //$('#aceptarPendientesPORTAL').on('click', function () {
-    //    $('#dialog_aceptasPendientes').show();
-    //});
-
-    //$('.paginador_pedidos.mostrarPaginadorPedidos').hide();
-    //$('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
 
     CargarPedidosPend();
 });
@@ -185,18 +105,10 @@ function CargarPedidosPend(page, rows) {
                         $('#cont2PedidosPend').text(data.RegistrosTotal);
                         $('#fecPedidoPendRec').text(data.FechaPedidoReciente);
 
-                        //var html = ArmarListado(data.ListaPedidos);
                         var html = SetHandlebars("#pedidopend-template", data.ListaPedidos);
                         $('#divPedidosPend').html(html);
 
                         flagHuboPedidosPend = true;
-
-                        //var htmlPaginador = ArmarListadoPaginador(data);
-                        //$('#paginadorCab').html(htmlPaginador);
-                        //$('#paginadorPie').html(htmlPaginador);
-
-                        //$("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                        //$("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
                         $('#penmostreo').show();
 
@@ -215,8 +127,6 @@ function CargarPedidosPend(page, rows) {
                             $('.contenedor_eliminacion_pedido').hide();
                             $('.contenedor_banners').hide();
                             $('.info_tiempo_oportunidad.inicial').hide();
-                            //TRUCOS BLOQUES
-                            //$('.truco_bloqueo').hide();
                             $('#pedmostreo').addClass('cambio_bk_pendientes');
                             $('.datos_para_movil').hide();
 
@@ -233,9 +143,6 @@ function CargarPedidosPend(page, rows) {
                             $('.content_T_T').removeClass("fondo_lateral");
                             $(".fondo_pendiente").fadeOut();
                             $(".bloque_left").fadeOut();
-                            //$('#pedmostreo').addClass('bordespacive');
-                            //$('#penmostreo').removeClass('bordespacive');
-                            //$('#penmostreo').addClass('tab_pendiente_es');
                             $('#infoPedido').show();
                             $('#infoPendientes').hide();
                             $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
@@ -244,7 +151,6 @@ function CargarPedidosPend(page, rows) {
                             $('.contenedor_eliminacion_pedido').show();
                             $('.contenedor_banners').show();
                             $('.info_tiempo_oportunidad.inicial').show();
-                            //$('.truco_bloqueo').hide();
                             $('.caja_carousel_productos::after').removeClass('aparece_bloqueo');
                             $('#pedmostreo').removeClass('cambio_bk_pendientes');
                             $('.datos_para_movil').show();
@@ -265,7 +171,6 @@ function CargarPedidosPend(page, rows) {
             }
         },
         error: function (data, error) {
-            //alert(error);
             if (checkTimeout(data)) {
                 alert_msg("Ocurrió un error inesperado al buscar los pedidos. Consulte con su administrador del sistema para obtener mayor información");
             }
@@ -302,9 +207,6 @@ function CargarPopupPedidoPend(pedidoId) {
                         var row = $('#pedidopend_' + pedidoId).val();
                         var arr = row.split('|');
                         var t = 1;
-                        //console.log(arr);
-
-                        // 0=App de catalogos, >0=Portal Marca
                         if (arr[1] > 0) {
                             t = 2;
                         }
@@ -328,9 +230,6 @@ function CargarPopupPedidoPend(pedidoId) {
                             SaldoHoras: arr[14],
                             FlagConsultora: (arr[15] == 'true') ? 1 : 0,
                         }
-
-                        //console.log(d1);
-
                         if (t == 1) {
                             var html = SetHandlebars("#popup-pedidopend-template", d1);
                             $('#divPopupPedidoPend').html(html);
@@ -361,7 +260,6 @@ function CargarPopupPedidoPend(pedidoId) {
             }
         },
         error: function (data, error) {
-            //alert(error);
             closeWaitingDialog();
             if (checkTimeout(data)) {
                 alert_msg("Ocurrió un error inesperado al buscar los detalles del pedido. Consulte con su administrador del sistema para obtener mayor información");
@@ -375,16 +273,10 @@ function ShowPopupRechazoPedido(pedidoId, tipo) {
     $('#hdePedidoIdRechazo').val(pedidoId);
 }
 
-//function ShowPopupAceptoPedido(pedidoId, tipo) {
-//    $('#dialog_aceptasPendientes').show();
-//    $('#hdePedidoIdAcepto').val(pedidoId);
-//}
-
 function ShowPopupMotivoRechazo() {
     var id = $('#hdePedidoIdRechazo').val();
     var row = $('#pedidopend_' + id).val();
     var arr = row.split('|');
-    //console.log(arr);
 
     $('#SolicitudId').val(arr[0]);
     $('#MarcaID').val(arr[1]);
@@ -397,15 +289,11 @@ function ShowPopupMotivoRechazo() {
 }
 
 function RechazarPedido() {
-
-    //$('#dialog_motivoRechazo').hide();
     $('#btnRechazarPedido').prop('disabled', true);
 
-    //var opc = $('input[name=checkbox]:checked', '#frmRechazoPedido').val();
-    //var objHtmlPanelPedidoRechazado = $("#DivPanelPedidoRechazado").val();
     var opt = $('.optionsRechazoSelect').data('id');
     if (typeof opt == 'undefined') {
-        opt = 11;   // otros
+        opt = 11;
     }
 
     var obj = {
@@ -416,10 +304,9 @@ function RechazarPedido() {
         MarcaId: $("#MarcaID").val(),
         OpcionRechazo: opt,
         RazonMotivoRechazo: $("#txtOtrosRechazo").val(),
-        typeAction: '1'     // desktop
+        typeAction: '1'
     };
 
-    //console.log(obj);
     waitingDialog({});
 
     $.ajax({
@@ -432,17 +319,6 @@ function RechazarPedido() {
             closeWaitingDialog();
             if (checkTimeout(data)) {                
                 if (data.success == true) {
-                    //$('#modal_rechazar_pedido').fuzemodal('close');
-                    //$('#modal_rechazar_pedido').fuzemodal('close');
-                    //var htmlRechazado = '<div class="text_gris_azul">RECHAZADO</div><p class="font_size_11">' + data.message + '</p>';
-                    //$('#DivPanel' + objHtmlPanelPedidoRechazado).html(htmlRechazado);
-                    //var imgRechazado = '<img class="margin_right_10 vertical_align_top" src="/Content/Images/ConsultoraOnline/ic_cerrar.png" width="19" height="19" alt="" />';
-                    //$('#alertImage' + objHtmlPanelPedidoRechazado).html(imgRechazado);
-                    //$('#telefonoDisplay' + objHtmlPanelPedidoRechazado).css('display', 'none');
-                    //$('#datosDisplay' + objHtmlPanelPedidoRechazado).css('display', 'none');
-                    //$('#MensajeConsultora' + objHtmlPanelPedidoRechazado).css('display', 'none');
-                    //updateCantidadPedidos();
-
                     $('#btnRechazarPedido').prop('disabled', false);
                     $('#dialog_motivoRechazo').hide();
                     $('#dialog_mensajeRechazado').show();
@@ -459,9 +335,6 @@ function RechazarPedido() {
             }
         }
     });
-
-    //$('#modal_cancelar_pedido').fuzemodal('close');
-    //$('#dialog_confirmacionRechazo').hide();
 };
 
 function CerrarMensajeRechazado() {
@@ -470,14 +343,6 @@ function CerrarMensajeRechazado() {
     $('#popup2_pendientes').hide();
     CargarPedidosPend();
 }
-
-//function AbrirSplash() {
-//    waitingDialog({});
-//}
-
-//function CerrarSplash() {
-//    closeWaitingDialog();
-//}
 
 function AceptarPedido(pedidoId, tipo) {
 
@@ -494,7 +359,6 @@ function AceptarPedido(pedidoId, tipo) {
 
         if (typeof val2 !== 'undefined') {
             if (val2 == "") {
-                //alert_msg("Importante Seleccione como atenderá el producto");
                 $('#dialog_mensajeComoAtender').show();
                 isOk = false;
                 return false;
@@ -510,13 +374,11 @@ function AceptarPedido(pedidoId, tipo) {
         var d = {
             PedidoDetalleId: val1,
             OpcionAcepta: opt,
-            typeAction: '1'     // desktop
+            typeAction: '1'
         }
 
         detalle.push(d);
     });
-
-    //console.log(detalle);
 
     if (isOk) {
         var pedido = {
@@ -525,11 +387,6 @@ function AceptarPedido(pedidoId, tipo) {
         }
 
         waitingDialog({});
-
-        //if (HorarioRestringido()) {
-        //    closeWaitingDialog();
-        //    return false;
-        //}
 
         $.ajax({
             type: 'POST',
@@ -542,8 +399,6 @@ function AceptarPedido(pedidoId, tipo) {
                 closeWaitingDialog();
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        //alert(response.message);
-
                         if (tipo == 1) {
                             $('#popup_pendientes').hide();
                             $('#msgPedidoAceptado1').text('Se han agregado ' + totalIng + ' productos a tu pedido')
@@ -561,7 +416,6 @@ function AceptarPedido(pedidoId, tipo) {
             },
             error: function (data, error) {
                 closeWaitingDialog();
-                //alert(error);
                 if (checkTimeout(data)) {
                     alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 }
@@ -603,7 +457,7 @@ function HorarioRestringido(mostrarAlerta) {
         async: false,
         success: function (data) {
             if (checkTimeout(data)) {
-                // esta en horario restringido
+
                 if (data.success == true) {
                     if (mostrarAlerta == true) {
                         closeWaitingDialog();

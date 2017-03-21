@@ -347,6 +347,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidowebdetalle.CodigoUsuarioCreacion);
 
             Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
+            Context.Database.AddInParameter(command, "@EsCompraPorCompra", DbType.Boolean, pedidowebdetalle.EsCompraPorCompra);
 
             return Context.ExecuteNonQuery(command);
         }

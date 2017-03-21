@@ -8,7 +8,6 @@
     var isoPAIS = "";
     jQuery(document).ready(function () {
         $("input[name$='grupoUrlPDF']").click(function () {
-            
             var test = $(this).val();
             $("div.zona").hide(100);
             $("#zona" + test).show(100);
@@ -95,9 +94,8 @@
                 if (jQuery.trim($('#ArchivoPortada').val()) == "")
                     message += "- Debe ingresar el archivo o url de la Portada.\n";
 
-                // se captura el elemento de radio seleccionado
                 var urlpdf = $('input[name=grupoUrlPDF]:checked', '#frmIncentivo').val();
-                // el campo correspondiente al boton de radio seleccionado debe estar ingresado
+                
                 if (urlpdf == "url") {
                     if (jQuery.trim($('#Url').val()) == "") {
                         message += "- Debe ingresar la url del Incentivo.\n";
@@ -107,7 +105,6 @@
                     if (jQuery.trim($('#ArchivoPDF').val()) == "" && fileValue == "") {
                         message += "- Debe ingresar el pdf del Incentivo.\n";
                     }
-                        //validar la extension del archivo
                     else {
                         get_ext = fileValue.split('.');
                         get_ext = get_ext.reverse();
@@ -156,7 +153,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    
                     var vMessage = "";
                     $('#frmIncentivo').submit();
                 },
@@ -245,8 +241,6 @@
             
             var image = "";
             if (rowObject[4] !== "")
-                // image = '<img src="' + '@Url.Content("~/Content/Incentivos/")' + isoPAIS + "/" + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[4] + '" alt="" width="160px" height="60px" title="" border="0" />';
             else
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -289,18 +283,14 @@
                 $('#ArchivoPortadaAnterior').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
 
                 if ($.trim($("#ArchivoPortada").val()) != "") {
-                    // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Incentivos/")' + isoPAIS + "/" + $("#ArchivoPortada").val());
-                    // 1664
                     $('#imgPreviaLogo').attr('src', $("#ArchivoPortada").val());
 
-                    // 1664
                     var img01 = $('#ArchivoPortada').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
                         $('#ArchivoPortada').val(img01);
                     }
 
-                    // 1664
                     img01 = $('#ArchivoPortadaAnterior').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -311,7 +301,6 @@
 
                 $('#ArchivoPDF').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPDFOculto'));
 
-                // 1664
                 var file01 = $('#ArchivoPDF').val().replace(/^.*[\\\/]/, '');
                 if (file01.lastIndexOf("?") >= 0) {
                     file01 = file01.substring(0, file01.lastIndexOf("?"));
@@ -321,7 +310,6 @@
                 $('#Url').val(jQuery("#gvwIncentivos").jqGrid('getCell', Id, 'UrlOculto'));
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
 
-                // se marca la opcion de radio que corresponda
                 if ($.trim($("#Url").val()) != "")
                     $("input[name=grupoUrlPDF][value=url]").attr('checked', 'checked').click();
                 if ($.trim($("#ArchivoPDF").val()) != "")
@@ -396,7 +384,6 @@
     function limpiarPopup() {
         
         $('#PaisID').val("");
-        //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
         $('#ddlPaisDialogo').removeAttr("disabled");
@@ -409,7 +396,6 @@
         $('#ArchivoPDF').val("");
         $('#Url').val("");
 
-        // se renueva el control file
         var control = $("#flArchivoPDF");
         control.replaceWith(control = control.clone(true));
 

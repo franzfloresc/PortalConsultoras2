@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 
-namespace Portal.Consultoras.Entities
+namespace Portal.Consultoras.Entities.ShowRoom
 {
     [DataContract]
     public class BEShowRoomEventoConsultora
@@ -30,6 +30,10 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool MostrarPopup { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        public bool MostrarPopupVenta { get; set; }
 
         [DataMember]
         public DateTime FechaCreacion { get; set; }
@@ -56,7 +60,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "Segmento") && datarec["Segmento"] != DBNull.Value)
                 Segmento = DbConvert.ToString(datarec["Segmento"]);
             if (DataRecord.HasColumn(datarec, "MostrarPopup") && datarec["MostrarPopup"] != DBNull.Value)
-                MostrarPopup = DbConvert.ToBoolean(datarec["MostrarPopup"]);            
+                MostrarPopup = DbConvert.ToBoolean(datarec["MostrarPopup"]);
+            if (DataRecord.HasColumn(datarec, "MostrarPopupVenta") && datarec["MostrarPopupVenta"] != DBNull.Value)
+                MostrarPopupVenta = DbConvert.ToBoolean(datarec["MostrarPopupVenta"]);
             if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)

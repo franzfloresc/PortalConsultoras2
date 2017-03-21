@@ -2,7 +2,6 @@
 var offset = 0;
 var puedeCargar = true;
 $(document).ready(function () {
-    //TagManagerOfertaLiquidacion();
     $(document).on('click', '#boton_vermas', function () {
         puedeCargar = false;
         CargarOfertasLiquidacion();
@@ -73,21 +72,20 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         }
                         if (mostrarAlerta == true) {
                             CloseLoading();
-                            messageInfoValidado(data.message, fnRedireccionar);
+                            AbrirMensaje(data.message, '', fnRedireccionar);
                         }
 
                         else fnRedireccionar();
 
                     }
                     else if (mostrarAlerta == true)
-                        messageInfoValidado(data.message);
+                        AbrirMensaje(data.message);
                 }
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.log(error);
-                messageInfoValidado('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            if (checkTimeout(data)) {                
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
     });

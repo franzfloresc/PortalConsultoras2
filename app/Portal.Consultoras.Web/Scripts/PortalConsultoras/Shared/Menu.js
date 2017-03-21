@@ -1,9 +1,8 @@
 ﻿
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
-    // se valida si la URL es externa (no tiene Controladora)
     var URL = '';
     if (ControllerName == '') URL = ActionName;
-    else // la url es interna
+    else
     {
         if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;
         else URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;

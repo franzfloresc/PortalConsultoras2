@@ -72,16 +72,10 @@
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
             </div>
-            @*<a class="subir_foto_mobile">
-                <div class="tooltip_foto">
-                    Prepara tu foto, pronto podrás subirla a tu portal.
-                </div>
-            </a>*@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
             <div class="saludo_mobile">¡Hola&nbsp;</div>
-@*            <span style="margin-top: -0.5px!important;">@((Model.CodigoISO == "PA" || Model.CodigoISO == "CR" || Model.CodigoISO == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
             @if (Model.PortalLideres && Model.Lider == 1)
@@ -257,8 +251,6 @@
         <div class="comartir_home_mobile">
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
-            @*<a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Model.UrlEnterateMas">ENTÉRATE MÁS</a>*@
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
                class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
 
@@ -423,9 +415,6 @@
 @if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
-    @*<div class="banner_inferior_mobile">
-        <a href="@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })"><img src="@Model.UrlImagenCatalogoPersonalizado" alt="Los favoritos de tus clientes" /></a>
-    </div>*@
 }
 <div class="disclaimer_b">@(pieEscala)</div>
 
@@ -612,14 +601,6 @@
 <div id="VideoIntroductorio" class="MensajeAlertaMobile" style="display:none">
     <div class="content_video_introductorio">
         <a class="cerrar_video" href="javascript:;" id="cerrarVideoIntroductorio"><img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Icono Check" /></a>
-        @*@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(Model.CodigoISO))
-        {
-            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/jNoP8OoMmW4?rel=0" frameborder="0" allowfullscreen></iframe>
-        }
-        else
-        {
-            <iframe id="divPlayer" width="560" height="315" src="https://www.youtube.com/embed/djSn0tFcQ0w?rel=0" frameborder="0" allowfullscreen></iframe>
-        }*@
         <div id="divPlayer"></div>
         <script type="text/javascript">
             var tag = document.createElement("script");
@@ -748,7 +729,6 @@
             <div class="modal-body" style="padding: 0; min-height: 384px;">
                 <div id="btnCerrarPopShowroom" class="CerrarPopMobile"></div>
                 <div class="pestana_pop_m">
-                    @*<img src="@Url.Content("~/Content/Images/mobile/img-showroom/titulo_mobil.jpg")" alt="-" />*@
                     <img id="imgPestaniaShowRoom" alt="imgPestaniaShowRoom" style="max-width: 100% !important;" />
                 </div>
                 <div class="datos_pop_m">
@@ -756,8 +736,6 @@
                     <div class="titulo_nombre_pop_m" style="width:21px"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/deco_nombre.png")" alt=""></div>
                     <div class="titulo_nombre_pop_m" style="width:131px">te invitamos a la</div>
                     <div class="titulo_nombre_pop_m" style="width:21px"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/deco_nombre.png")" alt=""></div>
-                    @*<div class="titulo_preventa_m">PRE · VENTA</div>
-                        <div class="titulo_digital_m">DIGITAL</div>*@
                     <div class="evento_tema_hoy_m">
                         <img id="imgPreventaDigital" alt="imgPreventaDigital" style="max-width: 94% !important;" />
                     </div>
@@ -779,20 +757,15 @@
             <div class="modal-body" style="padding: 0; min-height: 420px;">
                 <div id="btnCerrarPopShowroomHoy" class="CerrarPopMobile"></div>
                 <div class="pestana_pop_m">
-                    @*<img src="@Url.Content("~/Content/Images/mobile/img-showroom/titulo_mobil.jpg")" alt="-" />*@
                     <img id="imgPestaniaShowRoomHoy" alt="imgPestaniaShowRoomHoy" style="max-width: 100% !important;" />
                 </div>
                 <div class="datos_pop_m">
                     <div class="hoy_mobile"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/Showroom-hoy.gif")" alt="-" /></div>
-                    @*<div class="titulo_preventa_m">PRE · VENTA</div>
-                        <div class="titulo_digital_m">DIGITAL</div>*@
                     <div class="evento_tema_hoy_m">
                         <img id="imgPreventaDigitalHoy" alt="imgPreventaDigitalHoy" style="max-width: 94% !important;" />
                     </div>
                     <div class="titulo_padre_m"><span id="spnShowRoomEventoHoy">DÍA DEL PADRE</span></div>
                     <div class="img_pop_m" style="width: 210px; margin-left: -13px;">
-                        @*<div class="imagen_set_pop_up"><img src="@Url.Content("~/Content/Images/mobile/img-showroom/set_hoy.png")" alt="-" /></div>
-                            <div class="precio_hoy">SETS DESDE<br /><span>$5,990</span></div>*@
                         <img id="imgVentaSetPopupHoy" alt="imgVentaSetPopupHoy" />
                     </div>
                     <hr class="clear" />
@@ -905,8 +878,8 @@
             </div>
         </div>
         <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
        @* <div></div>
         <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
@@ -952,12 +925,12 @@
             var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
             var contadorFondoPopUp = 0;
             var viewBagVioTutorial = '@Model.VioTutorial';
-            var origenPagina = 1;//PL20-1233
+            var origenPagina = 1;
             var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
             var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
             var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
-            var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
-            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+            var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})';
+            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
 
             var tipoOrigenEstrategia = 2;
