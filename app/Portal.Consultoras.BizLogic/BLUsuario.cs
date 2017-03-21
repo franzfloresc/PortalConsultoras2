@@ -1165,5 +1165,43 @@ namespace Portal.Consultoras.BizLogic
 
             return resultado;
         }
+
+        /*EPD-1837*/
+        public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.InsUsuarioExterno(usuarioExterno);
+        }
+
+        public BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion)
+        {
+            BEUsuarioExterno usuarioExterno = null;
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetUsuarioExterno(proveedor, idAplicacion))
+            {
+                if (reader.Read())
+                    usuarioExterno = new BEUsuarioExterno(reader);
+            }
+
+            return usuarioExterno;
+        }
+
+        public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, String codigoUsuario)
+        {
+            List<BEUsuarioExterno> lstLoginExterno = new List<BEUsuarioExterno>();
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetListaLoginExterno(codigoUsuario))
+            {
+                if (reader.Read())
+                {
+                    lstLoginExterno.Add(new BEUsuarioExterno(reader));
+                }
+            }
+
+            return lstLoginExterno;
+        }
+        /*EPD-1837*/
     }
 }

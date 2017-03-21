@@ -99,6 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
@@ -112,6 +113,39 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validaLogin != null && validaLogin.Result == 3)
                 {
+                    //MC-EPD1837
+                    if (model.UsuarioExterno != null)
+                    {
+                        var usuarioExterno = model.UsuarioExterno;
+                        if (!string.IsNullOrEmpty(usuarioExterno.IdAplicacion))
+                        {
+                            using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
+                            {
+                                var result = svc.GetUsuarioExterno(model.PaisID, usuarioExterno.Proveedor, usuarioExterno.IdAplicacion);
+                                if (result == null)
+                                {
+                                    BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
+                                    beUsuarioExterno.CodigoUsuario = model.CodigoUsuario;
+                                    beUsuarioExterno.Proveedor = usuarioExterno.Proveedor;
+                                    beUsuarioExterno.IdAplicacion = usuarioExterno.IdAplicacion;
+                                    beUsuarioExterno.Login = usuarioExterno.Login;
+                                    beUsuarioExterno.Nombres = usuarioExterno.Nombres;
+                                    beUsuarioExterno.Apellidos = usuarioExterno.Apellidos;
+                                    beUsuarioExterno.FechaNacimiento = usuarioExterno.FechaNacimiento;
+                                    beUsuarioExterno.Correo = usuarioExterno.Correo;
+                                    beUsuarioExterno.Genero = usuarioExterno.Genero;
+                                    beUsuarioExterno.Ubicacion = usuarioExterno.Ubicacion;
+                                    beUsuarioExterno.LinkPerfil = usuarioExterno.LinkPerfil;
+                                    beUsuarioExterno.FotoPerfil = usuarioExterno.FotoPerfil;
+
+                                    svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+                                }
+                            }
+                        }
+                        
+                    }
+                    //MC-EPD1837
+
                     return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
                 }
                 else
@@ -158,12 +192,11 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null)
         {
             pasoLog = "Login.Redireccionar";
-
             UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
+
             if (usuario != null)
             {
                 pasoLog = "Login.Redireccionar.SetAuthCookie";
-
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
                 //EPD-1968
@@ -185,7 +218,19 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                            if (Request.IsAjaxRequest())
+                            {
+                                return Json(new
+                                {
+                                    success = true,
+                                    exists = true,
+                                    redirectTo = Url.Action("Index", "Bienvenida", new { area = "Mobile" })
+                                });
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                            }
                         }
                     }
                     else
@@ -202,7 +247,19 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("Index", "Bienvenida");
+                            if (Request.IsAjaxRequest())
+                            {
+                                return Json(new { 
+                                    success = true, 
+                                    exists = true,
+                                    redirectTo = Url.Action("Index", "Bienvenida")
+                                });
+                            }
+                            else
+                            {
+                                return RedirectToAction("Index", "Bienvenida");
+                            }
+                            
                         }
                     }
                 }
@@ -684,6 +741,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                             /*PL20-1226*/
                         }
+
+                        //EPD-1837
+                        if (oBEUsuario.TieneLoginExterno)
+                        {
+                            model.TieneLoginExterno = true;
+                            using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
+                            {
+                                List<BEUsuarioExterno> lstLoginExterno = svc.GetListaLoginExterno(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario).ToList();
+                                if (lstLoginExterno.Any())
+                                {
+                                    model.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
+                                }
+                            }
+                        }
+                        //EPD-1837
                     }
                 }
 
@@ -1394,6 +1466,61 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return clearText;
+        }
+
+        //MC-EPD1837
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult ValidExternalUser(string codigoISO, string provider, string idapp)
+        {
+            pasoLog = "Login.POST.ValidExternalUser";
+
+            try
+            {
+                var paisId = 0;
+                var lstPaises = DropDowListPaises();
+
+                foreach (var item in lstPaises)
+                {
+                    if (item.CodigoISO == codigoISO)
+                    {
+                        paisId = item.PaisID;
+                        break;
+                    }
+                }
+
+                if (paisId > 0)
+                {
+                    using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
+                    {
+                        var beUsuarioExterno = svc.GetUsuarioExterno(paisId, provider, idapp);
+                        if (beUsuarioExterno != null)
+                        {
+                            return Redireccionar(paisId, beUsuarioExterno.CodigoUsuario, null);
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    exists = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, "", codigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "Error al procesar la solicitud"
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

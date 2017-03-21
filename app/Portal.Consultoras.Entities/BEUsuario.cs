@@ -143,8 +143,6 @@ namespace Portal.Consultoras.Entities
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
-
-
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
@@ -386,6 +384,10 @@ namespace Portal.Consultoras.Entities
                 ConsultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
             else
                 ConsultoraAsociadoID = 0;
+
+            if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
+                TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
+
 
         }
 
@@ -1099,6 +1101,9 @@ namespace Portal.Consultoras.Entities
         /*PL20-1226*/
         [DataMember]
         public bool OfertaDelDia { get; set; }
+
+        [DataMember]
+        public bool TieneLoginExterno { get; set; }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }

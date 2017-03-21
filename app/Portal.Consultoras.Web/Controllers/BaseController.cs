@@ -101,9 +101,6 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                   
-                   
-
                     if (ViewBag.TieneOfertaDelDia)
                     {
                         // validar si se cerro el banner

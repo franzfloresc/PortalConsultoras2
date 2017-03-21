@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
         public int CampaniaID { get; set; }
-        
+
         public string CampaniaAnio
         {
             get
@@ -325,5 +325,9 @@ namespace Portal.Consultoras.Web.Models
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
+
+        //MC-EPD1837
+        public bool TieneLoginExterno { get; set; }
+        public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
     }
 }

@@ -376,6 +376,15 @@ namespace Portal.Consultoras.Web.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
+
+                if (userData.TieneLoginExterno)
+                {
+                    var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
+                    if (loginFacebook != null)
+                    {
+                        ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                    }
+                }
             }
             catch (FaultException ex)
             {

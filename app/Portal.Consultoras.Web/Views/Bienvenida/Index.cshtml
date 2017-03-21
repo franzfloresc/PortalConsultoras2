@@ -43,8 +43,12 @@
                         Prepara tu foto, pronto podrás subirla a tu portal.
                     </div>
                 </div>*@
+
+            <img src="@ViewBag.FotoPerfil" style="width: 50px; height: 50px; border: 0;" />
+
             <div class="clear"></div>
         </div>
+
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
@@ -2482,6 +2486,11 @@
         
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;
+
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('div.contenedor_img_perfil').show();
+        }
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

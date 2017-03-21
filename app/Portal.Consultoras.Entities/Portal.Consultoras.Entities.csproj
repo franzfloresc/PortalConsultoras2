@@ -256,6 +256,7 @@
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BEUsuarioExterno.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

@@ -137,6 +137,8 @@ $(document).ready(function () {
         $('#txtUsuario').attr('readonly', true);
         $('#txtContrasenia').attr('readonly', true);
         $('#btnLogin').prop('disabled', true);
+
+        $('#btnLoginFB').prop('disabled', true);
     });
 
     $("#txtUsuario").keypress(
