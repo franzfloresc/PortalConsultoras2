@@ -435,9 +435,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
         //}
 
-        $('#popupDetalleCarousel_lanzamiento').show();
-        $('body').css({ 'overflow-x': 'hidden' });
-        $('body').css({ 'overflow-y': 'hidden' });
+        AbrirPopup('#popupDetalleCarousel_lanzamiento');
         $(".indicador_tono").click();
         $(".indicador_tono").click();
 
@@ -521,7 +519,12 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        AbrirMensaje("Seleccione Tono")
+        //AbrirMensaje("Seleccione Tono")
+        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+        setTimeout(function () {
+            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+        }
+            , 300);
         return false;
     }
 
@@ -580,7 +583,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 var cuvs = $("[data-tono][data-tono-select]");
 
                 $.each(cuvs, function (i, item) {
-                    var cuv = $(item).attr("data-tono-select") 
+                    var cuv = $(item).attr("data-tono-select");
                     if ( cuv != "") {
                         datos.data.CUV2 = cuv;
                         if (codigoEstrategia == "2003") {
@@ -876,8 +879,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         CerrarLoad();
                         if (popup) {
+                            CerrarPopup('#popupDetalleCarousel_lanzamiento');
                             HidePopupEstrategiasEspeciales();
-                            $('body').css({ 'overflow-y': 'scroll' });
                         }
                     },
                     error: function (data, error) {
@@ -897,7 +900,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 };
 
 function HidePopupEstrategiasEspeciales() {
-    $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
 };
 

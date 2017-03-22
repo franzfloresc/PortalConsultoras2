@@ -12068,9 +12068,9 @@ a.mover{
     border-radius: 5px; /* CSS3 */
     behavior: url(/Content/Css/Pie/PIE.htc); /* Para IE */    
 }
-html {
+/*html {
     overflow-x:hidden;
-}
+}*/
 .no_margin_right {
     margin-right:0 !important;
 }

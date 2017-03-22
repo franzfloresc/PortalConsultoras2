@@ -4229,6 +4229,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (estrategia.CodigoEstrategia == "2001")
             {
+
+                listaHermanos.ForEach(h =>
+                {
+                    h.CUV = Util.Trim(h.CUV);
+                });
+
                 listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
             }
             else if (estrategia.CodigoEstrategia == "2002" || estrategia.CodigoEstrategia == "2003")
@@ -4240,6 +4246,7 @@ namespace Portal.Consultoras.Web.Controllers
                     h.Grupo = prod.Grupo;
                     h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
                     h.Digitable = prod.Digitable;
+                    h.CUV = Util.Trim(h.CUV);
                 });
 
                 if (estrategia.CodigoEstrategia == "2002")

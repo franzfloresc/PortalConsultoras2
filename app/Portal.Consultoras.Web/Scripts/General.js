@@ -860,8 +860,6 @@ function MostrarMensajePedidoRechazado() {
 // FIN Pedido Rechazado
 
 
-// Compartir Face y WS
-
 function CompartirRedesSociales(e) {
     var obj = $(e.target);
     var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
@@ -982,4 +980,16 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             }
         }
     });
+}
+
+function AbrirPopup(ident) {
+    $(ident).show();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopup(ident) {
+    $(ident).hide();
+    $('body').css({ 'overflow-y': 'scroll' });
+    $('body').css({ 'overflow-x': 'scroll' });
 }

@@ -1687,7 +1687,7 @@
                     <div data-estrategia="{{CodigoEstrategia}}">
                         {{#iff CodigoEstrategia '!=' ''}}
                         {{#iff CodigoEstrategia '==' '2001'}}
-                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}">
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                             @*<div class="linea_gris" style="height:1px;"></div>*@
                             <!--SELECCION DE TONOS-->
                             <!--NUEVA MAQUETA-->
@@ -1733,7 +1733,7 @@
                         <div class="linea_gris" style="height:1px;"></div>
                         {{#each this.Detalle as |item1|}}
                         
-                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" style="border-bottom: {{../Linea}};">
+                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
                             <div style="display: none;">
                                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
                                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
