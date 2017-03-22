@@ -24,7 +24,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -32,7 +32,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -1130,7 +1130,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -1138,7 +1138,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -2236,7 +2236,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -2244,7 +2244,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -3342,7 +3342,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -3350,7 +3350,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -4448,7 +4448,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -4456,7 +4456,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -5554,7 +5554,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -5562,7 +5562,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -6660,7 +6660,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -6668,7 +6668,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -7766,7 +7766,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -7774,7 +7774,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -8872,7 +8872,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -8880,7 +8880,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -9978,7 +9978,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -9986,7 +9986,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -11084,7 +11084,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -11092,7 +11092,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -12190,7 +12190,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -12198,7 +12198,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -13296,7 +13296,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','Menor precio')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -13304,7 +13304,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','Mayor precio')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
