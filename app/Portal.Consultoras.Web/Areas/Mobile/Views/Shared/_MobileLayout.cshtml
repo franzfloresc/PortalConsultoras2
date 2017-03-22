@@ -237,138 +237,133 @@
             </div>
         }
 
-        if (ViewBag.MostrarODD == false)
-        {
-            <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-                @if (ViewBag.PermitirCerrarBannerPL20 == true)
-                {
-                    <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-                }
-                <div id="flexslider">
-                    <ul class="slides">
-                        @if (ViewBag.MostrarShowRoomBannerLateral == true)
+        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+            @if (ViewBag.PermitirCerrarBannerPL20 == true)
+            {
+                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+            }        
+            <div id="flexslider">
+                <ul class="slides">
+                    @if (ViewBag.MostrarShowRoomBannerLateral == true)
                     {
                         if (showRoomBannerLateral.MostrarShowRoomProductos)
                         {
-                                <li>
-                                    <div id="divShowRoomHoy" class="divShowRoom">
-                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                        <div class="imagen_preventa">
-                                            <div class="etiqueta_2">
-                                                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                            </div>
-                                            <div class="titulo_contador_m">
-                                                @*PRE · VENTA DIGITAL*@
-                                                <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                            </div>
-                                        </div>
-                                        <div class="fondo_white" style="height:80px; overflow:hidden">
-                                            <div class="row_contador">
-                                                <div style="text-align: center;">
-                                                    <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                        <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="contenedor_encuentralos2">
-                                            <div class="row_contador">
-                                                <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                            }
-                            else if (ViewBag.MostrarOfertaDelDia == false)
-                            {
-                                <li>
-                                    <div id="divShowRoom" class="divShowRoom">
-                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                        <div class="imagen_preventa">
-                                            <div class="etiqueta_2">
-                                                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                            </div>
-                                            <div class="titulo_contador_m">
-                                                @*PRE · VENTA DIGITAL*@
-                                                <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                            </div>
-                                        </div>
-                                        <div class="fondo_m">
-                                            <div class="row_contador">
-                                                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                                                    <div class="texto_dias_m">
-                                                        SÓLO FALTAN
-                                                    </div>
-                                                    <div class="texto_fecha_m">
-                                                        <span id="spnDiasFaltantes" class="clsDia">12</span>
-                                                    </div>
-                                                    <div class="texto_dias_m">
-                                                        DÍAS
-                                                    </div>
-                                                </div>
-                                                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                                                    <div style="height: 20px; width: 135px;">
-                                                        <div class="text_hora_m">hrs</div>
-                                                        <div class="text_hora_m">min</div>
-                                                        <div class="text_hora_m no_margin_right">sec</div>
-                                                    </div>
-                                                    <div class="fondo_contador">
-                                                        <div class="text_numero"><span id="spnHorasFaltantes" class="clsHora">18</span></div>
-                                                        <div class="text_bolita">•</div>
-                                                        <div class="text_numero"><span id="spnMinutosFaltantes" class="clsMinuto">25</span></div>
-                                                        <div class="text_bolita">•</div>
-                                                        <div class="text_numero"><span id="spnSegundosFaltantes" class="clsSegundo">02</span></div>
-                                                    </div>
-                                                    <div style="margin-top: 6px;">
-                                                        <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </li>
-                            }
-                        }
-                        @if (ViewBag.MostrarOfertaDelDia == true)
-                    {
                             <li>
-                                <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                    <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                                        <div class="float_left">
-                                            <div class="solo_hoy_mobile">
-                                                <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+                                <div id="divShowRoomHoy" class="divShowRoom">
+                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+        <div class="imagen_preventa">
+            <div class="etiqueta_2">
+                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+            </div>
+            <div class="titulo_contador_m">
+                @*PRE · VENTA DIGITAL*@
+                                            <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
+            </div>
+        </div>
+                                    <div class="fondo_white" style="height:80px; overflow:hidden">
+                                        <div class="row_contador">
+                                            <div style="text-align: center;">
+                                                <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
+                                                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
+                                                </a>
                                             </div>
-                                            <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                            <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
                                         </div>
-                                        <div class="imagen_set_oferta_mobile">
-                                            <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+                                    </div>
+                                    <div class="contenedor_encuentralos2">
+                                        <div class="row_contador">
+                                            <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
                                         </div>
-                                        <hr class="clear" />
-
-                                        <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                                        <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                                        <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                                        <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                                        <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                                        <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                                        <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                                        <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                                        <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                                     </div>
                                 </div>
                             </li>
                         }
-                    </ul>
+                        else if(ViewBag.MostrarOfertaDelDia == false)
+                        {
+                            <li>
+                                <div id="divShowRoom" class="divShowRoom">
+                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                    <div class="imagen_preventa">
+                                        <div class="etiqueta_2">
+                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
+                                        </div>
+                                        <div class="titulo_contador_m">
+                                            @*PRE · VENTA DIGITAL*@
+                                            <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
+                                        </div>
+                                    </div>
+        <div class="fondo_m">
+            <div class="row_contador">
+                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
+                    <div class="texto_dias_m">
+                        SÓLO FALTAN
+                    </div>
+                    <div class="texto_fecha_m">
+                        <span id="spnDiasFaltantes" class="clsDia">12</span>
+                    </div>
+                    <div class="texto_dias_m">
+                        DÍAS
+                    </div>
+                </div>
+                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
+                    <div style="height: 20px; width: 135px;">
+                        <div class="text_hora_m">hrs</div>
+                        <div class="text_hora_m">min</div>
+                        <div class="text_hora_m no_margin_right">sec</div>
+                    </div>
+                    <div class="fondo_contador">
+                        <div class="text_numero"><span id="spnHorasFaltantes" class="clsHora">18</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnMinutosFaltantes" class="clsMinuto">25</span></div>
+                        <div class="text_bolita">•</div>
+                        <div class="text_numero"><span id="spnSegundosFaltantes" class="clsSegundo">02</span></div>
+                    </div>
+                    <div style="margin-top: 6px;">
+                                                    <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+                            </li>
+                        }
+                    }
+                    @if (ViewBag.MostrarOfertaDelDia == true)
+                    {
+                        <li>
+                            <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
+                                <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
+                                    <div class="float_left">
+                                        <div class="solo_hoy_mobile">
+                                            <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+            </div>
+                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+            </div>
+                                    <div class="imagen_set_oferta_mobile">
+                                        <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+        </div>
+                                    <hr class="clear" />
+
+                                    <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                    <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                    <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                    <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                    <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                    <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                    <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                    <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                    <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                 </div>
             </div>
-        }
-
-
+                        </li>
+                    }
+                </ul>
+        </div>
+            </div>
     }
 
     <!-- content -->
