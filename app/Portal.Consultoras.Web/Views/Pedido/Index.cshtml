@@ -2082,6 +2082,8 @@
                     <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
@@ -2180,7 +2182,7 @@
                 <div class="peso_ficha_producto">{{Volumen}}</div>
                 <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
                 <div class="precio_ficha_producto">
-                    {{#iff PrecioValorizadoString '!=' '0'}}
+                    {{#iff PrecioValorizado '>' 0}}
                     <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     {{/iff}}
                     {{Simbolo}} {{PrecioCatalogoString}}
