@@ -3,13 +3,15 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -673,7 +675,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoModel = new ProductoModel();
+                var productoModel = new ProductoModel(); 
                 var listaProductoModel = new List<ProductoModel>();
                 listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
 
@@ -738,8 +740,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 ImagenBulk = item.ImagenBulk
                             });
                         }
+
+                                    var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                                    productoModel.Tonos = ListaTonos;
                     }
 
+                               
                     Session["ProductosCatalogoPersonalizadoFilter"] = listaProductoModel;
                 }
                 else

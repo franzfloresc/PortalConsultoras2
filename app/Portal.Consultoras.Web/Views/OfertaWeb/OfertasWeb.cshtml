@@ -45,9 +45,6 @@
                     AgregarOfertaProducto(object, 0);
             }
         })
-
-        @*if (HorarioRestringido())
-            setTimeout(function () { location.href = '@Url.Action("Index", "Bienvenida")'; }, 2500);*@
     });
 
     function IniDialog() {
@@ -58,39 +55,6 @@
             closeOnEscape: true,
             width: 500,
             draggable: true
-        });
-
-        $('#DialogMensajesBanner').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: true,
-            width: 400,
-            draggable: true,
-            title: ":: Mensaje ::",
-            buttons:
-            {
-                "Aceptar": function () {
-                    $(this).dialog('close');
-                }
-            }
-        });
-
-        $('#DialogMensajeHorario').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: false,
-            width: 400,
-            draggable: true,
-            title: ":: Mensaje ::",
-            open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-            buttons:
-            {
-                "Aceptar": function () {
-                    location.href = '@Url.Action("Index", "Bienvenida")';
-            }
-            }
         });
 
     }
@@ -114,7 +78,7 @@
                     // esta en horario restringido
                     if (data.success == true) {
                         if (mostrarAlerta == true)
-                            alert_msg(data.message);
+                            AbrirMensaje(data.message);
                         horarioRestringido = true;
                     }
                     // no esta en horario restringido
@@ -127,21 +91,11 @@
             error: function (data, error) {
                 
                 if (checkTimeout(data)) {
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         });
         return horarioRestringido;
-    }
-
-    function alert_msg(message) {
-        $('#DialogMensajesBanner .message_text').html(message);
-        $('#DialogMensajesBanner').dialog('open');
-    }
-
-    function alert_msgHorario(message) {
-        $('#DialogMensajeHorario .message_text').html(message);
-        $('#DialogMensajeHorario').dialog('open');
     }
 
 </script>
@@ -192,15 +146,5 @@
                 <input type="button" value="Cerrar" onclick="$('#DialogMensajeProducto').dialog('close');" />
             </div>
         </div>
-    </div>
-</div>
-<div id="DialogMensajesBanner" style="display: none;">
-    <div class="message_text">
-        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.        
-    </div>
-</div>
-<div id="DialogMensajeHorario" style="display: none;">
-    <div class="message_text">
-        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.        
     </div>
 </div>

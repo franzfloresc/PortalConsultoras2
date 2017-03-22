@@ -1012,13 +1012,11 @@
                     if (data.listasegmento.length > 0) {
                         for (var item in data.listasegmento) {
                             if (data.listasegmento.hasOwnProperty(+item)) {
-                                /*RE2544 - CS(CGI) - 13/05/2014 */
                                 ddlSegmentoBanner.append('<input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" />' + data.listasegmento[item].BannerSegmentoDes + '<br>');
                             }
 
                         }
 
-                        /*CGI(RSA) - REQ 2544 INICIO*/
                         var BannerId = $("#hdBannerIdSegZon").val();
                         var CampaniaId = $('#ddlCampania').val();
 
@@ -1038,7 +1036,6 @@
                                     }
                                 }
                             });
-                        /*CGI(RSA) - REQ 2544 FIN*/
                     }
                 }
             });
@@ -1077,8 +1074,6 @@
         return ConfiguracionZona;
     }
 
-    //R2133
-    /*RE2544 - CS(CGI) - 13/05/2015 */
     function GuardarInformacionBannerSegmentoZona()
     {
         var PaisId = $('#ddlPaisesBanSegZona').val();
@@ -1135,7 +1130,7 @@
 
     function fnEventos() {
         $('#frmCargarGrupoBanner').ajaxForm({
-            beforeSubmit: function () {/*validaciones*/
+            beforeSubmit: function () {
                 var GrupoBannerId = $('#hdGrupoBannerIdArchivo').val();
                 var fileValue = $('#flConsultoras').val();
                 var extensiones = ['xlsx'];
@@ -1161,7 +1156,7 @@
         });
 
         $('#frmCargarBanner').ajaxForm({
-            beforeSubmit: function () {/*validaciones*/
+            beforeSubmit: function () {
                 var GrupoBannerId = $('#hdGrupoBannerIdBanner').val();
                 var TiempoRotacion = $("#list").jqGrid('getCell', GrupoBannerId, 'TiempoRotacion');
                 var fileValue = $('#imagenProducto01').val();
@@ -1740,30 +1735,24 @@
             var subgrid = $(obj).closest('table');
             var Titulo = subgrid.jqGrid('getCell', id, 'Titulo');
 
-            //Variable global Operacion indica si actualiza grilla o subgrilla
             flgBnOperacionAct = flgBnOperacion.eliminar;
-
-            //Setear variable global IdSubGrilla para actualizarla
             idSubGrid = subgrid.attr('id');
-
-            //Setear el Banner a eliminar
             DltBannerID = id;
 
             $('#DialogEliminarBanner').dialog('option', 'title', 'Eliminar Banner: ' + Titulo);
             $('#DialogEliminarBanner').dialog('open');
             return false;
         },
-        //RQ_BS - R2133
+
         SegZonaBanner: function (id, obj) {
             var subgrid = $(obj).closest('table');
             var Titulo = subgrid.jqGrid('getCell', id, 'Titulo');
             var CampaniaId = $('#ddlCampania').val();
             $('#hdBannerIdSegZon').val(id);
-            $('#ddlSegmentoBanner').empty();/*re2544 - cs*/
-            //Variable global Operacion indica si actualiza grilla o subgrilla
+            $('#ddlSegmentoBanner').empty();
+
             flgBnOperacionAct = flgBnOperacion.editar;
 
-            //Setear variable global IdSubGrilla para actualizarla
             idSubGrid = subgrid.attr('id');
             $("#arbolRegionZona").html("");
             $('#ddlSegmentoBanner').empty();
@@ -2088,7 +2077,6 @@
         <div id="divContenedorGrid" class="border-wrapper">
             <div class="grilla_banner">
                 <table id="list"></table>
-                @*<div id="pager"></div>*@
             </div>
         </div>
         <div class="sep"></div>
@@ -2141,7 +2129,6 @@
         @Html.HiddenFor(model => model.Alto, new { id = "hdAlto" })
         @Html.HiddenFor(model => model.ImagenActualizar, new { id = "imagenProducto01" })
         @Html.HiddenFor(model => model.Accion, new { id = "hdnAccion" })
-        @*@Html.HiddenFor(model => model.TipoContenido, new { id = "hdTipoContenido" })*@
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titG">Título de banner:</div>
@@ -2191,7 +2178,6 @@
                 </div>
             </div>
             <div class="div-3" id="contenedorArchivoCargado2" style="height: 25px; padding: 0px; margin: 0px;">
-                @*<div class="titF"></div>*@
                 <div class="titAuto" style="height: 22px; padding: 0px;"><span id="lblArchivoCargado2"></span></div>
             </div>
             <div class="div-3" id="TipoContenido" style="display: none;">
@@ -2242,21 +2228,7 @@
                     </div>
                 </div>
             </div>
-
-            @*Requerimiento marquesinas
-
-                <div id="div_Url_IdCurso" style="display: none;">
-                    <div class="div-3">
-                        <div class="titG" id="lblUrlIdCurso">Id Curso:</div>
-                        <div class="selectP borde_redondeado" style="width: 335px;">
-                            @Html.TextBoxFor(model => model.URL, new { @class = "input_search_form", maxlength = 300, id = "txtUrl" })
-                        </div>
-                    </div>
-                </div>
-
-                @*End RequerimientoMarquesinas*@
-
-
+            
             <div id="div_cuv" style="display: none;">
                 <div class="div-3">
                     <div class="titG">CUV:</div>
@@ -2297,7 +2269,6 @@
         <div class="div-3">
             <div class="titC">Segmento:</div>
             <div class="selectA borde_redondeado">
-                @*RE2544 - CS(CGI) <select id="ddlSegmentoBanner"></select>*@
                 <ul id="ddlSegmentoBanner"></ul>&nbsp;
             </div>
         </div>

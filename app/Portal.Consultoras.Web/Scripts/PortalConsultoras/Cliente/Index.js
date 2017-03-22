@@ -1,8 +1,4 @@
 ﻿$(document).ready(function () {
-    //if (checkTimeout()) {
-    //    fnGrilla();
-    //    IniDialog();
-    //}
 
     $(".input-correo").keypress(
         function (evt) {
@@ -20,19 +16,6 @@
             }
         });
 
-    //$(".ui-pg-input").keypress(
-    //function (evt) {
-    //    var charCode = (evt.which) ? evt.which : window.event.keyCode;
-    //    if (charCode <= 13) {
-    //        return false;
-    //    }
-    //    else {
-    //        var keyChar = String.fromCharCode(charCode);
-    //        var re = /[0-9]/;
-    //        return re.test(keyChar);
-    //    }
-    //});
-
     $(".input-nombre").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -47,32 +30,11 @@
                 return re.test(keyChar);
             }
         });
-
-    //$("#txtBusqueda").keypress(
-    //function (evt) {
-    //    var charCode = (evt.which) ? evt.which : window.event.keyCode;
-    //    if (charCode <= 13) {
-    //        return false;
-    //    }
-    //    else {
-    //        var keyChar = String.fromCharCode(charCode);
-    //        var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
-    //        return re.test(keyChar);
-    //    }
-    //});
-
-    //$("#btnBuscar").click(function () {
-    //    if (checkTimeout()) {
-    //        fnGrilla();
-    //        $("#txtBusqueda").focus();
-    //    }
-    //});
-
+    
     $("#txtBusqueda").keypress(function (e) {
         if (e.which == 13) {
             if (checkTimeout()) {
                 CargarListaCliente();
-                //$("#txtBusqueda").focus();
             }
         }
     });
@@ -115,14 +77,6 @@ function CrearDialogs() {
             }
         }
     });
-}
-
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#DialogMensajes .terminos_title_2').html(titulo);
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-    CerrarSplash();
 }
 
 function AbrirSplash() {
@@ -168,50 +122,6 @@ function CargarListaCliente(page, rows) {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-            //var data = response.data;
-
-            //ActualizarMontosPedido(data.FormatoTotal, data.Total, data.TotalCliente);
-
-            //$("#pCantidadProductosPedido").html(data.TotalProductos);
-
-            //Index
-            /*
-            $("#hdnRegistrosPaginar").val(data.Registros);
-            $("#hdnRegistrosDePaginar").val(data.RegistrosDe);
-            $("#hdnRegistrosTotalPaginar").val(data.RegistrosTotal);
-            $("#hdnPaginaPaginar").val(data.Pagina);
-            $("#hdnPaginaDePaginar").val(data.PaginaDe);
-            */
-
-            //ListadoPedido
-            /*
-            $("#hdnRegistros").val(data.Registros);
-            $("#hdnRegistrosDe").val(data.RegistrosDe);
-            $("#hdnRegistrosTotal").val(data.RegistrosTotal);
-            $("#hdnPagina").val(data.Pagina);
-            $("#hdnPaginaDe").val(data.PaginaDe);
-            */
-
-            //Listado Cliente en la Vista ListadoPedido
-            //var htmlCliente = "";
-
-            //$("#ddlClientes").empty();
-
-            /*
-            $.each(data.ListaCliente, function (index, value) {
-                if (value.ClienteID == -1) {
-                    htmlCliente += '<option value="-1">Cliente</option>';
-                } else {
-                    htmlCliente += '<option value="' + value.ClienteID + '">' + value.Nombre + '</option>';
-                }
-            });
-            */
-
-            /*
-            $("#ddlClientes").append(htmlCliente);
-            $("#ddlClientes").val(clienteId);
-            */
-
             var html = ArmarListaCliente(data.rows);
             $('#divListaCliente').html(html);
 
@@ -222,10 +132,6 @@ function CargarListaCliente(page, rows) {
             $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
             $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
-            //MostrarInformacionCliente(clienteId);
-
-            //if (tieneMicroefecto)
-            //MostrarMicroEfecto();
             }
         },
         error: function (data, error) {
@@ -307,13 +213,6 @@ function MantenerCliente(opt) {
     }
 
     if (vcont > 0) {
-
-        //$(div).find('#divValidationSummary').html(vMessage);
-       // $(div).find('#divValidationSummary').show()
-        
-        //alert_msg(vMessage);
-
-        //$('#Nombres').focus();
         return false;
     }
 
@@ -332,14 +231,6 @@ function MantenerCliente(opt) {
         correo = $(div).find('#Correo2').val();
     }
 
-    //alert('OK');
-    //return;
-
-    //if ($('#hdNombreAnt').val().toUpperCase() == jQuery('#Nombres').val().toUpperCase())
-    //    $("#hdFlag").val("0");
-    //else
-    //    $("#hdFlag").val("1");
-
     var item = {
         ClienteID: id,
         Nombre: nombre,
@@ -357,34 +248,15 @@ function MantenerCliente(opt) {
         data: JSON.stringify(item),
         async: true,
         success: function (data) {
-            // valida si ha habido un timeout
             if (checkTimeout(data)) {
-                // si no ha habido timeout continua el procesamiento normal
                 if (data.success == true) {
-                    //if (jQuery('#hdClienteId').val() == "0") {
-                    //}
-                    //else {
-                    //}
-
-                    //var item = data.items;
-                    //alert(data.message);
-                    alert_msg(data.message);
-                    //HideDialog("DialogClientes");
+                    AbrirMensaje(data.message);
                     CerrarSplash();
 
                     $(div).hide();
 
                     Limpiar();
                     CargarListaCliente();
-                    // jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-
-                    ///*2505 DCG*/
-                    //dataLayer.push({
-                    //    'event': 'virtualEvent',
-                    //    'category': 'Clientes',
-                    //    'action': 'Agregar',
-                    //    'label': 'Satisfactorio',
-                    //});
 
                 }
                 else {
@@ -394,26 +266,15 @@ function MantenerCliente(opt) {
             }
         },
         error: function (data, error) {
-            // valida si ha habido un timeout
-            if (checkTimeout(data)) {
-  
+            if (checkTimeout(data)) {  
                 $(div).hide();
-                
-                // si no ha habido timeout continua el procesamiento normal
                 alert(data.message);
-                //HideDialog("DialogClientes");
             }
         }
     });
 }
 
 function EliminarCliente() {
-
-    //var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
-    //if (!elimina)
-    //    return false;
-    //waitingDialog({});
-
     var id = $('#divEliminarCliente').find('#hdeClienteID').val();
 
     AbrirSplash();
@@ -427,29 +288,22 @@ function EliminarCliente() {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                //closeWaitingDialog();
                 Limpiar();
 
                 CerrarSplash();
 
                 if (data.success == true) {
-                    //alert(data.message);
-                    alert_msg(data.message);
-
+                    AbrirMensaje(data.message);
                     $('#divEliminarCliente').hide();
-
                     CargarListaCliente();
-                    //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 }
                 else {
-                    //alert(data.message);
-                    alert_msg(data.message);
+                    AbrirMensaje(data.message);
                 }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                //closeWaitingDialog();
                 alert("ERROR");
             }
         }
@@ -529,7 +383,7 @@ function validarExportarMC()
     if ($('#divListaCliente .content_listado_notificaciones').length > 0) {
         DownloadAttachExcelMC();
     } else {
-        alert_msg("No hay datos para poder generar el archivo.");
+        AbrirMensaje("No hay datos para poder generar el archivo.");
         return false;
     }
 }

@@ -1049,8 +1049,6 @@
 
         
    
-
-  
   
 </div>
 <script>
@@ -1157,7 +1155,6 @@
 
     }
 </script>
-
 <script>
     //Nueva funcionalidad
     var colNames = [];
@@ -1387,8 +1384,6 @@
         });
     }
 
-    //Exportar a Excel
-
     function ExportExcel() {
         var m = true;
         if ($("#gvwSolicitudesPostulante").getGridParam("reccount") == 0) {
@@ -1404,7 +1399,7 @@
         var Estado = $("#Estado").val();
         var DocumentoIdentidad = $("#DocumentoIdentidad").val();
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
-
+        
         generalLoading();
 
         setTimeout(function () {
@@ -1690,7 +1685,6 @@
 
         $.get('@Url.Action("EnviarAFFVV", "Unete")', { id: solicitudPostulanteID }, function (html) {
             $('#modal_content').html(html);
-            //modal.dialog('open');
         }).done(function () {
             closeWaitingDialog({});
             fnGrilla();
@@ -1734,24 +1728,18 @@
     }
 
     function IntegerNumber(e) {
-        // Allow: backspace, delete, tab, escape, enter
         if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
-            // Allow: Ctrl+A
             (e.keyCode == 65 && e.ctrlKey === true) ||
-            // Allow: home, end, left, right
             (e.keyCode >= 35 && e.keyCode <= 39)) {
-            // let it happen, don't do anything
             return true;
         }
 
-        // Allow copy, cut and don't allow paste
-        var ctrlDown = e.ctrlKey || e.metaKey; // Mac support
+        var ctrlDown = e.ctrlKey || e.metaKey;
         if (ctrlDown && e.altKey) return true;
-        else if (ctrlDown && e.keyCode == 67) return true; // c
-        else if (ctrlDown && e.keyCode == 86) return false; // v
-        else if (ctrlDown && e.keyCode == 88) return true; // x
+        else if (ctrlDown && e.keyCode == 67) return true; 
+        else if (ctrlDown && e.keyCode == 86) return false;
+        else if (ctrlDown && e.keyCode == 88) return true;
 
-        // Ensure that it is a number and stop the keypress
         if ((e.shiftKey || e.altKey || e.ctrlKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
             e.preventDefault();
         }

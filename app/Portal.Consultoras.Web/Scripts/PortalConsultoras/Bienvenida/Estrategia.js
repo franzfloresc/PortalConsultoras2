@@ -4,84 +4,84 @@
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
 $(document).ready(function () {
-    $(document).on('click', '.combo_select_tono', function (e) {
-        var AbrirTono = $(this).attr("data-tono-show") || "0";
-        var signo = "";
-        if (AbrirTono == 0) {
-            $(this).parents("[data-tono]").find(".content_tonos_ficha").slideUp();
-            $(this).parents("[data-tono]").find(".combo_select_tono").attr("data-tono-show", 0);
-            $(this).parents("[data-tono]").find(".combo_select_tono span.mas_info_tono").html("+");
+    //$(document).on('click', '.combo_select_tono', function (e) {
+    //    var AbrirTono = $(this).attr("data-tono-show") || "0";
+    //    var signo = "";
+    //    if (AbrirTono == 0) {
+    //        $(this).parents("[data-tono]").find(".content_tonos_ficha").slideUp();
+    //        $(this).parents("[data-tono]").find(".combo_select_tono").attr("data-tono-show", 0);
+    //        $(this).parents("[data-tono]").find(".combo_select_tono span.mas_info_tono").html("+");
 
-            $(this).parent().find(".content_tonos_ficha").slideDown(); //muestro mediante id 
-            signo = "-";
-            AbrirTono = 1;
-        }
-        else {
-            $(this).parent().find(".content_tonos_ficha").slideUp(); //muestro mediante id
-            signo = "+";
-            AbrirTono = 0;
-        }
-        $(this).find("span[class='mas_info_tono']").html(signo);
-        $(this).attr("data-tono-show", AbrirTono);
-    });
+    //        $(this).parent().find(".content_tonos_ficha").slideDown(); //muestro mediante id 
+    //        signo = "-";
+    //        AbrirTono = 1;
+    //    }
+    //    else {
+    //        $(this).parent().find(".content_tonos_ficha").slideUp(); //muestro mediante id
+    //        signo = "+";
+    //        AbrirTono = 0;
+    //    }
+    //    $(this).find("span[class='mas_info_tono']").html(signo);
+    //    $(this).attr("data-tono-show", AbrirTono);
+    //});
 
-    $(document).on('click', 'div[data-tono-change]', function (e) {
-        var cuv = $(this).attr("data-tono-cuv");
-        $("select[data-tono-change]").val(cuv);
-        $(this).parents("[data-tono]").attr("data-tono-select", cuv);
-        $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
-            .removeClass("borde_seleccion_tono")
-            .parent().find("[data-tono-cuv='" + cuv + "']")
-            .addClass("borde_seleccion_tono");
+    //$(document).on('click', 'div[data-tono-change]', function (e) {
+    //    var cuv = $(this).attr("data-tono-cuv");
+    //    $("select[data-tono-change]").val(cuv);
+    //    $(this).parents("[data-tono]").attr("data-tono-select", cuv);
+    //    $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
+    //        .removeClass("borde_seleccion_tono")
+    //        .parent().find("[data-tono-cuv='" + cuv + "']")
+    //        .addClass("borde_seleccion_tono");
 
-        $(this).parents("[data-tono]").find(".content_tono_principal img").attr("src", $(this).find("img").attr("src"));
-        var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-        if (estrategia == "2003" || estrategia == "2001") {
-            var nombre = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-nombre");
-            var descripcionComercial = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
-            nombre = nombre || $(this).find("img").attr("data-tono-nombre");
-            descripcionComercial = descripcionComercial || $(this).find("img").attr("data-tono-descripcionComercial");
-            $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
-            $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
-        }
+    //    $(this).parents("[data-tono]").find(".content_tono_principal img").attr("src", $(this).find("img").attr("src"));
+    //    var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
+    //    if (estrategia == "2003" || estrategia == "2001") {
+    //        var nombre = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-nombre");
+    //        var descripcionComercial = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
+    //        nombre = nombre || $(this).find("img").attr("data-tono-nombre");
+    //        descripcionComercial = descripcionComercial || $(this).find("img").attr("data-tono-descripcionComercial");
+    //        $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
+    //        $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
+    //    }
 
-    });
-    $(document).on('change', 'select[data-tono-change]', function (e) {
-        var cuv = $(this).val();
-        $("select[data-tono-change]").val(cuv);
-        $(this).parents("[data-tono]").attr("data-tono-select", cuv);
-        $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
-            .removeClass("borde_seleccion_tono")
-            .parent().find("[data-tono-cuv='" + cuv + "']")
-            .addClass("borde_seleccion_tono");
+    //});
+    //$(document).on('change', 'select[data-tono-change]', function (e) {
+    //    var cuv = $(this).val();
+    //    $("select[data-tono-change]").val(cuv);
+    //    $(this).parents("[data-tono]").attr("data-tono-select", cuv);
+    //    $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
+    //        .removeClass("borde_seleccion_tono")
+    //        .parent().find("[data-tono-cuv='" + cuv + "']")
+    //        .addClass("borde_seleccion_tono");
 
-        var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-        if ((estrategia == "2003" || estrategia == "2001") && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
-            var nombre = $(this).find("img").attr("data-tono-nombre");
-            var descripcionComercial = $(this).find("img").attr("data-tono-descripcionComercial");
-            nombre = nombre || $(this).find("[value='" + cuv + "']").attr("data-tono-nombre");
-            descripcionComercial = descripcionComercial || $(this).find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
-            $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
-            $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
-        }
-    });
+    //    var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
+    //    if ((estrategia == "2003" || estrategia == "2001") && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
+    //        var nombre = $(this).find("img").attr("data-tono-nombre");
+    //        var descripcionComercial = $(this).find("img").attr("data-tono-descripcionComercial");
+    //        nombre = nombre || $(this).find("[value='" + cuv + "']").attr("data-tono-nombre");
+    //        descripcionComercial = descripcionComercial || $(this).find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
+    //        $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
+    //        $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
+    //    }
+    //});
     
-    $(document).on('click', '.indicador_tono', function (e) {
-        var AbrirTono = $(this).attr("data-tono-show") || "0";
-        var signo = "";
-        if (AbrirTono == 0) {
-            EstrategiaMostrarMasTonos(false);
-            signo = "-";
-            AbrirTono = 1;
-        }
-        else {
-            EstrategiaMostrarMasTonos(true);
-            signo = "+";
-            AbrirTono = 0;
-        }
-        $(this).find("p").html(" " + signo + " TONOS");
-        $(this).attr("data-tono-show", AbrirTono);
-    });
+    //$(document).on('click', '.indicador_tono', function (e) {
+    //    var AbrirTono = $(this).attr("data-tono-show") || "0";
+    //    var signo = "";
+    //    if (AbrirTono == 0) {
+    //        EstrategiaMostrarMasTonos(false);
+    //        signo = "-";
+    //        AbrirTono = 1;
+    //    }
+    //    else {
+    //        EstrategiaMostrarMasTonos(true);
+    //        signo = "+";
+    //        AbrirTono = 0;
+    //    }
+    //    $(this).find("p").html(" " + signo + " TONOS");
+    //    $(this).attr("data-tono-show", AbrirTono);
+    //});
 
 });
 
@@ -346,7 +346,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 function EstructurarDataCarousel(array) {
     $.each(array, function (i, item) {
         item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
-        item.DescripcionCompleta = item.DescripcionCUV2;
+        item.DescripcionCompleta = item.DescripcionCUV2.split('|')[0];
         if (item.FlagNueva == 1) {
             item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
             item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
@@ -377,21 +377,27 @@ function CargarEstrategiasEspeciales(objInput, e) {
     } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
         estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia) || "";
         estrategia.Detalle = new Array();
+        var btnDesabled = 0;
         if (estrategia.CodigoEstrategia != "") {
             estrategia.Detalle = CargarEstrategiaSet(estrategia.CUV2);
             AbrirLoad();
+            estrategia.Linea = "0px";
             if (estrategia.Detalle.length > 0) {
                 $.each(estrategia.Detalle, function (i, item) {
                     item.Hermanos = item.Hermanos || new Array();
-                    item.CUVSelect = i == 0 ? item.CUV : "";
+                    //item.CUVSelect = i == 0 ? item.CUV : "";
+                    item.CUVSelect = "";
                     item.ImagenBulkSelect = i == 0 ? item.ImagenBulk : "";
                     item.NombreBulkSelect = i == 0 ? item.NombreBulk : "";
+
+                    if (estrategia.CodigoEstrategia == "2001")
+                        btnDesabled = 1;
 
                     if (item.Hermanos.length > 0) {
                         $.each(item.Hermanos, function (i, itemH) {
                             itemH.CUVSelect = "";
                         });
-                        item.CUVSelect = item.Hermanos[0].CUV;
+                        //item.CUVSelect = item.Hermanos[0].CUV;
                         item.ImagenBulkSelect = item.Hermanos[0].ImagenBulk;
                         item.NombreBulkSelect = item.Hermanos[0].NombreBulk;
 
@@ -400,9 +406,12 @@ function CargarEstrategiasEspeciales(objInput, e) {
                         item.Hermanos[0].NombreBulkSelect = item.Hermanos[0].NombreBulk;
 
                         item.NombreComercial = item.Hermanos[0].NombreComercial;
+
+                        estrategia.Linea = "1px solid #ccc";
+                        btnDesabled = 1;
                     }
                 });
-                estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
+                //estrategia.CUVSelect = estrategia.Detalle[0].CUVSelect;
                 estrategia.ImagenBulkSelect = estrategia.Detalle[0].ImagenBulkSelect;
                 estrategia.NombreBulkSelect = estrategia.Detalle[0].NombreBulkSelect;
             }
@@ -412,6 +421,13 @@ function CargarEstrategiasEspeciales(objInput, e) {
         }
         var html = ArmarPopupLanzamiento(estrategia);
         $('#popupDetalleCarousel_lanzamiento').html(html);
+
+        if (btnDesabled == 0) {
+            $('#popupDetalleCarousel_lanzamiento').find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+        }
+        else {
+            $('#popupDetalleCarousel_lanzamiento').find("#tbnAgregarProducto").addClass("btn_desactivado_general");
+        }
 
         //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
         //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
@@ -502,6 +518,12 @@ function ArmarPopupLanzamiento(obj) {
 };
 
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
+
+    var attrClass = $.trim($(objInput).attr("class"));
+    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+        AbrirMensaje("Seleccione Tono")
+        return false;
+    }
 
     if (ReservadoOEnHorarioRestringido())
         return false;
@@ -838,13 +860,19 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CargarDetallePedido();
                             MostrarBarra(data);
                         }
-                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
+                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
                             ActualizarGanancia(data.DataBarra);
-                            CargarCarouselEstrategias(cuv);
+                            if (tipoOrigenEstrategia == 262) {
+                                AbrirMensaje("Se proceso con exito.");
+                            }
+                            else {
+                                CargarCarouselEstrategias(cuv);
+
+                            }
                         }
 
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                        TagManagerClickAgregarProducto();
+                        //TagManagerClickAgregarProducto();
 
                         CerrarLoad();
                         if (popup) {
@@ -904,7 +932,7 @@ function AbrirMensaje(txt) {
     else if (tipoOrigenEstrategia == 11) {
         alert_msg(txt);
     }
-    else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
+    else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
         messageInfo(txt);
     }
 }

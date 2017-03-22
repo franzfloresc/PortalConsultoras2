@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Portal.Consultoras.Common;
+
 namespace Portal.Consultoras.Web.Models
 {
-    [Serializable()]
-    public class ShowRoomOfertaModel
+    [Serializable]
+    public class ShowRoomOfertaModel: CompartirRedesSocialesModel
     {
         public int OfertaShowRoomID { get; set; }
 
@@ -72,10 +74,65 @@ namespace Portal.Consultoras.Web.Models
 
         public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
 
+        public IList<ShowRoomOfertaModel> ListaOfertaShowRoom { get; set; }
+
+        public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+
         public string Subtitulo { get; set; }
 
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
+
+        public string CodigoCategoria { get; set; }
+        public string TipNegocio { get; set; }
+
+        public string CodigoISO { get; set; }
+        public string Simbolo { get; set; }
+
+        public string Agregado { get; set; }
+
+        public bool TieneCompraXcompra { get; set; }
+
+        public string DescripcionCategoria { get; set; }
+
+        public string TextoCondicionCompraCpc { get; set; }
+
+        public string TextoDescripcionLegalCpc { get; set; }
+
+        public decimal Gana {
+            set
+            {
+                this.Gana = value;
+            }
+            get
+            {
+                return Math.Abs(PrecioCatalogo - PrecioOferta);
+            }
+        }
+
+        public string FormatoPrecioCatalogo
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioCatalogo, CodigoISO);
+            }
+        }
+
+        public string FormatoPrecioOferta
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
+            }
+        }
+
+        public string FormatoGana
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(Gana, CodigoISO);
+            }
+        }
     }
 }

@@ -59,7 +59,6 @@
                     <div class="nombreProducto" id="divNombreProducto"></div>
                     <div class="precioProducto">
                         <span id="spnTextoPrecio"></span>
-                        @*<span class="precioNormal">S/. 00.00</span>*@
                         <span class="precioOferta" id="spnPrecio"></span>
                     </div>
                     <div class="contenedor_cantidadProductos">
@@ -89,16 +88,8 @@
             <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
-                    @*<div style="position:relative; overflow:hidden;">*@
                         <div class="textos_resumen">
-                            @*<div class="separador_montos_mobile"></div>*@
                             <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
-                            <!--SB20-343 - INICIO -->
-                            @*<span style="margin-left:30px; padding-bottom:0px;">TOTAL SIN DSCTO. :</span>
-                            <span class="desc_por_niveles_texto" style="margin-left: 30px; margin-bottom:17px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
-                            <!--SB20-343 - FIN -->
-
-                            @*<span id="lblTotalResumen" style="margin-left:30px;">*@
                             <span id="lblTotalResumen">
 
                                 <div class="info_validado">
@@ -118,7 +109,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--FIN-->
                                 </div>
 
 
@@ -182,30 +172,14 @@
                             <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                             <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                             <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-
-                            @*<div class="mi_ganancia" style=" margin-left: 30px;">
-                                @(cabezaEscala.ToUpper().Trim()) :
-
-                                <div class="info_validado abrir_popupMisGanancias" style="position: absolute; top: 8px; left:-29px;">
-                                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
-                                </div>
-
-                            </div>*@
                             <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
-
                         </div>
 
                         <div class="montos_resumen">
                             <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
-                            <!--SB20-483 - INICIO -->
-                            @*<span><b>@Model.Simbolo @Model.DescripcionTotal</b></span>
-                            <span style="margin-bottom:24px;"><b>@Model.Simbolo @Model.DescuentoStr</span>*@
-                            <!--SB20-483 - FIN -->
-
                             <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                             <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                         </div>
-                    @*</div>*@
                 </div>
                 <button type="button" class="btn_verMiPedido">
                     VER MI PEDIDO
@@ -556,6 +530,21 @@
     <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="content_popMobile" data-popup-body="" style="padding-bottom:0; max-width:450px;">
         <a class="btn_cerrar_escala" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar" style="float:left;" href="javascript:void(0);">REGRESAR</a>
         <hr class="clear" />
+        <div data-compartir-campos="" style="display:none;">
+            <input type="hidden" class="CUV" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBMensaje" value="" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWAMensaje" value="" />
+            <input type="hidden" class="rsWARuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+            <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+            <input type="hidden" class="Nombre" value="{{DescripcionCUV2}}" />
+            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+            <input type="hidden" class="Volumen" value="{{Volumen}}" />
+            <input type="hidden" class="Palanca" value="OPT" />
+        </div>
         <div data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi" />
             {{#if_eq FlagMostrarImg '1'}}
@@ -637,8 +626,8 @@
             </div>
         </div>
         <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href='javascript:window.location=CompartirWsp("{{UrlCompartirFB}}", {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});' data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-            <a class="btn_compartir_ofertas" href="javascript:void(0);" onclick='javascript:CompartirFacebook("{{UrlCompartirFB}}",  {Palanca: "OPT", RutaImagen: "{{FotoProducto01}}", MarcaID:"{{MarcaID}}", MarcaDesc:"{{DescripcionMarca}}", NombrePro:"{{DescripcionCUV2}}", Cuv:"{{CUV2}}"});'><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
         <hr class="clear" />
         {{#if MostrarTextoLibre}}
@@ -669,7 +658,6 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
-    //Mensajes CUV
     var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
     var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
     if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaMobile';
