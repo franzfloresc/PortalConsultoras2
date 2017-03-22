@@ -577,8 +577,8 @@
                                         <b>{{NombreComercial}}</b>
                                     </p>
                                     <div class="producto_precio">
-                                        {{#iff PrecioValorizadoString '!=' ''}}
-                                        <span class="producto_precio_normal" style="display:none;">{{Simbolo}} {{PrecioValorizadoString}}</span>
+                                        {{#iff PrecioValorizado '>' '0'}}
+                                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                                         {{/iff}}
                                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
                                     </div>
