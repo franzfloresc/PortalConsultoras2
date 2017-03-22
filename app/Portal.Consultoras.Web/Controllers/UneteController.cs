@@ -24,6 +24,7 @@ using System.ServiceModel;
 using System.Web;
 using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -905,6 +906,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                actualziarCampaniaRegistro(ref solicitudPostulante);
+
                 sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 //sv.ActualizarEstado(CodigoISO, solicitudPostulanteID, EnumsTipoParametro.EstadoGEO,
                 //    solicitudPostulante.EstadoGEO.Value);
@@ -925,6 +928,17 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Json(actualizado, JsonRequestBehavior.AllowGet);
+        }
+
+
+        private void actualziarCampaniaRegistro(ref SolicitudPostulante solicitudPostulante)
+        {
+        
+            using (BelcorpPaisServiceClient svc = new BelcorpPaisServiceClient())
+            {
+                solicitudPostulante.CampaniaDeRegistro = svc.ObtenerIdCampaniaActivaPorZona(CodigoISO, solicitudPostulante.CodigoZona);
+            }
+            
         }
 
         public ActionResult ConsultarEstadoCrediticia(int id)
@@ -1356,7 +1370,7 @@ namespace Portal.Consultoras.Web.Controllers
                 NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
                 TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
                 Correo = i.CorreoElectronico,
-                CampanaRegistro =string.Empty,// i.CampaniaDeRegistro,
+                CampanaRegistro = i.CampaniaDeRegistro,
                 CampanaIngreso = string.Empty,
                 DiferenciaDias = i.DiferenciaDias.ToString(),
                 ZonaOrigen = i.EsConsultora == 1 ? i.ZonaConsultoraLider : i.ZonaGZ,
@@ -1373,6 +1387,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
                 && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
                  string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
+ 
  
             }).ToList();
 
@@ -2341,7 +2356,7 @@ namespace Portal.Consultoras.Web.Controllers
                         solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
                     }
 
-
+                    actualziarCampaniaRegistro(ref solicitudPostulante);
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
@@ -2382,7 +2397,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.CodigoSeccion = model.CodigoSeccion;
                     solicitudPostulante.CodigoTerritorio = model.CodigoTerritorio;
                     solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
-
+                    actualziarCampaniaRegistro(ref solicitudPostulante);
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
 
                     solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
