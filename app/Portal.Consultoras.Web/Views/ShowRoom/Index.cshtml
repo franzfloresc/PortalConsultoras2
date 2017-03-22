@@ -153,18 +153,23 @@
             <div class="content_banner_compra">
                 <div class="titulo_promocion">PROMOCIÓN</div>
                 <div class="content_interno_banner">
-                    <div class="content_imagen_banner_compra">
-                        <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
+                    <div style="width: 69%; margin: 0 auto;">
+                        <div class="content_imagen_banner_compra">
+                            <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
+                        </div>
+                        <div class="content_oferta">
+                            <b class="content_oferta_promocion">
+                                @descripcion<span style="font-size: 17px;">
+                                    <br />
+                                    A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo
+                                </span>
+                            </b><br />
+                            @Model.TextoCondicionCompraCpc
+                        </div>
+                        <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
+                        <hr class="clear" />
                     </div>
-                    <div class="content_oferta">
-                        <b class="content_oferta_promocion">
-                            @descripcion<span style="font-size: 17px;"><br />
-                            A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo</span> 
-                        </b><br />
-                        @Model.TextoCondicionCompraCpc
-                    </div>
-                    <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
-                    <hr class="clear" />
+                    
                 </div>
             </div>
         }

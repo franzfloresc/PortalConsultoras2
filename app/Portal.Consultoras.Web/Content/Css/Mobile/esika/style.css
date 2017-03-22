@@ -11053,7 +11053,7 @@ a{
 
 .content_room_product_sheet .product_sheet_image{
 	text-align: center;
-	padding: 25px 0 30px 0;
+	padding: 25px 0 10px 0;
 	background: url(../../../images/Esika/background-showroom-product.jpg) no-repeat top center;
 	background-size: 100% auto;
 }
@@ -11062,7 +11062,7 @@ a{
 	margin: 0;
 	font-size: 19px;
 	font-weight: 700;
-	padding-bottom: 15px;
+	padding-bottom: 5px;
 }
 
 .content_room_product_sheet .price_product{
@@ -11087,6 +11087,7 @@ a{
 
 .content_room_product_sheet .price_product .comment{
 	color: #E81C36;
+    text-transform:uppercase;
 }
 
 .content_room_product_sheet .item_product{
@@ -11575,6 +11576,7 @@ a{
     font-weight:700;
     letter-spacing:0.5px;
     text-align: center;
+    text-transform:uppercase;
 }
 .nombre_producto_pop_compra{
     font-family:'Lato';

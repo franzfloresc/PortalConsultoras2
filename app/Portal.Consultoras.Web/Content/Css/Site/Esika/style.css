@@ -35027,6 +35027,7 @@ h1#penmostreo .campana {
     font-size:13px;
     color:#e81c36;
     text-align:right;
+    text-transform:uppercase;
 }
 .titulo_separador{
     width:100%;
@@ -35225,7 +35226,7 @@ h1#penmostreo .campana {
 }
 .content_interno_banner{
    /*width:600px;*/
-   margin-left:28%;
+   margin-left:27%;
 }
 .content_imagen_banner_compra{
     width:58px;
