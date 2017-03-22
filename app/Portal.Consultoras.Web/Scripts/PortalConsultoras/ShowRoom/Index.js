@@ -106,6 +106,8 @@ $(document).ready(function () {
         };
 
         CargarProductosShowRoom(busquedaModel);
+
+        $(this).hide();
     });
 
     $("#linkTerminosCondicionesShowRoom").attr("href", urlTerminosCondiciones);
@@ -162,6 +164,7 @@ function CargarFiltroRangoPrecio() {
 
 function filterShowRoomDesktop() {
     var busquedaModel = null;
+    var mostrarBorrarFiltros = false;
    
     var listaFiltro = null;
     var ordenamiento = null;
@@ -198,6 +201,8 @@ function filterShowRoomDesktop() {
             Tipo: tipoBusqueda,
             Valores: valores
         };
+
+        mostrarBorrarFiltros = true;
     }
     
     var filtroRangoPrecio = null;
@@ -216,6 +221,8 @@ function filterShowRoomDesktop() {
             Tipo: tipoBusquedaRangoPRecio,
             Valores: valoresRangoPrecio
         };
+
+        mostrarBorrarFiltros = true;
     }
 
     if (filtroCategoria != null || filtroRangoPrecio != null) {
@@ -227,6 +234,12 @@ function filterShowRoomDesktop() {
         if (filtroRangoPrecio != null)
             listaFiltro.push(filtroRangoPrecio);
     }           
+
+    if (mostrarBorrarFiltros) {
+        $("#divBorrarFiltros").show();
+    } else {
+        $("#divBorrarFiltros").hide();
+    }
 
     busquedaModel = {
         ListaFiltro: listaFiltro,
