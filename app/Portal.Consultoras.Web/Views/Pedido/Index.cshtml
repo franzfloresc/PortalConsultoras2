@@ -1906,9 +1906,12 @@
             </div>
             <div class="content_right_ficha">
                 <div style="min-height:300px">
-                    <div style="width:50%; margin-right:0">
+                    <div style="margin-right:0">
                         <div class="marca_producto">{{DescripcionMarca}}</div>
-                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion="">{{DescripcionCompleta}}</div>
+                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
+                             {{#iff CodigoEstrategia '==' ''}} style="font-size:22px; line-height:25px;" {{/iff}}>
+                            {{DescripcionCompleta}}
+                        </div>
                         @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                     </div>
                     <div>
@@ -1967,7 +1970,8 @@
                         </div>
                         {{/iff}}
                         {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
-                        <div class="linea_gris" style="height:1px;"></div>
+                        <div class="titulo_contenido">CONTENIDO</div>
+                        @*<div class="linea_gris" style="height:1px;"></div>*@
                         {{#each this.Detalle as |item1|}}
 
                         <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">

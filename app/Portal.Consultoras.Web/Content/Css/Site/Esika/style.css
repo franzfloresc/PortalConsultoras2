@@ -34147,6 +34147,7 @@ h1#penmostreo .campana {
     letter-spacing: 0.3px;
     margin-top: 3px;
     margin-bottom: 10px;
+    text-transform:uppercase;
 }
 
 .cerrar_fichaProducto {
@@ -34716,7 +34717,7 @@ h1#penmostreo .campana {
 
 .tono_no_seleccionado{
     background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
-    background-position: 95% 19px;
+    background-position: 97% 19px;
     color:white;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -34737,4 +34738,11 @@ h1#penmostreo .campana {
 }
 .content_tono_detalle:hover{
     border: 1px solid black
+}
+.titulo_contenido{
+    font-family:'Lato';
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;
+    /*margin-top: 15px;*/
 }

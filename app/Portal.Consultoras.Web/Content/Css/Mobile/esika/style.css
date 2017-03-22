@@ -10174,7 +10174,7 @@ a{
 .content_tono_detalle{
     position:relative;
     width:18%;
-    height:52px;   
+    height:54px;   
     margin-right:2.5%;
     float:left;
     overflow: hidden;
@@ -10555,7 +10555,7 @@ a{
 /*FICHA 048B*/
 .content_oferta_guia_negocio{
     width:100%;
-    max-width:320px;
+    max-width:292px;
     margin:0 auto;
     height:auto;
     /*padding-left:14px;
@@ -10600,6 +10600,7 @@ a{
 .marca_oferta048{    
     font-size:11px;
     color:#5b5b5b;    
+    text-transform:uppercase;
 }
 .nombre_producto_048{
     font-weight:700;
@@ -10966,7 +10967,7 @@ a{
     overflow: hidden;
 }
 .content_tonos_select{
-    width: 292px;
+    width:101%;
     max-height: 178px;
     overflow-y: auto;
     border: 1px solid #b0b0b0;
@@ -11011,6 +11012,15 @@ a{
 .content_producto_compuesto{
     padding-bottom:5px;
 }
+
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 95% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
 .tono_no_seleccionado{
     background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
     background-position: 95% 19px;
@@ -11020,12 +11030,4 @@ a{
     -o-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
-}
-.tono_por_elegir{
-     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
-    background-position: 95% 17px;
-}
-.tono_escogido{
-    border: 1px solid #b0b0b0;
-    padding-top: 1px;
 }
