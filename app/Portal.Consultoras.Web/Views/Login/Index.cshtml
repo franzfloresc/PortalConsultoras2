@@ -65,9 +65,19 @@
     <script>
         window.fbAsyncInit = function () {
             FB.init({
-                appId: '597549647104849',
+                appId: fbAppId,
                 xfbml: true,
                 version: 'v2.8'
+            });
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    console.log('Logged in.');
+                    getInfoFB(2);
+                }
+                //else {
+                //    FB.login();
+                //}
             });
         };
 
@@ -83,7 +93,7 @@
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     console.log('We are connected.');
-                    getInfoFB();
+                    getInfoFB(1);
                 }
                 else if (response.status === 'not_authorized') {
                     console.log('We are not logged in.');
@@ -94,11 +104,16 @@
             }, { scope: 'public_profile,email,user_birthday,user_location' });
         }
 
-        function getInfoFB() {
+        function getInfoFB(opt) {
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture' }, function (response) {
                 console.log(response);
                 if (response.id != null) {
-                    validExternalUser('Facebook', response);
+                    if (opt == 1) {
+                        validExternalUser('Facebook', response);
+                    }
+                    else if (opt == 2) {
+                        $('#btnLoginFB').text("Continuar como " + response.name);
+                    }
                 }
             });
         }
@@ -138,9 +153,9 @@
                             $('#hdeLinkPerfil').val(data.link);
                             $('#hdeFotoPerfil').val(data.picture.data.url);
 
-                            $('#divAsociarLoginExterno').show();
                             $('#btnLoginFB').hide();
                             $('#spnLoginFB').text(data.name);
+                            $('#divAsociarLoginExterno').show();
 
                             // disable prevent submit
                             $('#ddlPais option:not(:selected)').prop('disabled', false);
@@ -155,13 +170,13 @@
                         }
                     }
                     else {
-                        console.log(response.message);
+                        console.log(response);
                         alert("Error al procesar la solicitud")
                     }
                 },
                 error: function (response) {
-                    alert("Error al procesar la solicitud");
                     console.log(response);
+                    alert("Error al procesar la solicitud");
                 }
             });
         }
@@ -410,6 +425,7 @@
     <!-- webForm -->
 
     <script type="text/javascript">
+        var fbAppId = '@ViewBag.FBAppId';
         var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
         var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
 

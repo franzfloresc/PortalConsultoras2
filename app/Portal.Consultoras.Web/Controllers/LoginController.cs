@@ -93,6 +93,8 @@ namespace Portal.Consultoras.Web.Controllers
                     LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
                 }
 
+                ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
+
                 return View(model);
             }
         }
