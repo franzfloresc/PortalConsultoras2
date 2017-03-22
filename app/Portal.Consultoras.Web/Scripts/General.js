@@ -990,6 +990,7 @@ function AbrirPopup(ident) {
 
 function CerrarPopup(ident) {
     $(ident).hide();
-    $('body').css({ 'overflow-y': 'scroll' });
-    $('body').css({ 'overflow-x': 'scroll' });
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
 }

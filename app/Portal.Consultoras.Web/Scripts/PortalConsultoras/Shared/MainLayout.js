@@ -29,8 +29,7 @@ $(document).ready(function () {
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
-                $('[data-popup-main]').hide();
-                $('body').css({ 'overflow-y': 'scroll' });
+                CerrarPopup('[data-popup-main]');
             }
 
             //EPD-1780
@@ -69,7 +68,7 @@ $(document).ready(function () {
         if (!$(e.target).closest('[data-popup-body]').length) {
 
             if ($(e.target).is(':visible')) {
-                $(e.target).hide();
+                CerrarPopup(e.target);
             }
         }
     });
@@ -83,8 +82,8 @@ $(document).ready(function () {
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
-                $(e.target).hide();
-                $('body').css({ 'overflow-y': 'scroll' });
+
+                CerrarPopup(e.target);
             }
         }
     });
@@ -97,8 +96,8 @@ $(document).ready(function () {
         if (functionHide != "") {
             setTimeout(functionHide + "()", 100);
         }
-        $(popupClose).hide();
-        $('body').css({ 'overflow-y': 'scroll' });
+
+        CerrarPopup(popupClose);
     });
 
     // cerrar popup ofertas 003,048
