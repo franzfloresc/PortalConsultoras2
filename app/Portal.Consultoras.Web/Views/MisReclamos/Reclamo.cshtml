@@ -1,4 +1,4 @@
-﻿
+﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 
 @{
@@ -234,9 +234,10 @@
         <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:30px;">IR AL FINAL</a>
     </div>
     <!--FIN SOLICITUDES-->
+
     </div>
    
-    <!--SOLICITUD ENVIADA-->
+    <!--SOLICITUD ENVIADA--> 
     <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
         <br /><br />
         <div class="icono_mensaje_alerta icono_check_alerta"></div>
@@ -271,6 +272,8 @@
         <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
     <!--FIN-->
+   
+    
 </div>
 <div class="mensaje_alerta_belcorp" id="divPopupPedido" style="display: none;">
     <div class="content_mensaje_alerta">
@@ -428,7 +431,8 @@
     var urlRegresar = '@Url.Action("Index","MisReclamos")';
     var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
 
-    var mensajePeriodoInvalido = '@Model.MensajePeriodoInvalido';
+    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }

@@ -72,6 +72,10 @@ namespace Portal.Consultoras.Web.Models
 
         public string UrlTerminosCondiciones { get; set; }
 
+        public string TextoCondicionCompraCpc { get; set; }
+
+        public string TextoDescripcionLegalCpc { get; set; }
+
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }

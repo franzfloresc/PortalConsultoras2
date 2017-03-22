@@ -52,6 +52,35 @@ $(document).ready(function () {
         });
     }
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
+        $(".verDetalleCompraPorCompra").click(function () {
+            var padre = $(this).parents("[data-item]");
+            var article = $(padre).find("[data-campos]").eq(0);
+            var posicion = $(article).find(".posicionEstrategia").val();
+
+            $('body').css({ 'overflow-x': 'hidden' });
+            $('body').css({ 'overflow-y': 'hidden' });
+            $('#PopCompra').show();
+
+            $('.content_pop_compra.slick-initialized').slick('unslick');
+
+            $('.content_pop_compra').slick({
+                dots: false,
+                infinite: true,
+                vertical: false,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+            });
+
+            $('.content_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
+        });
+
+        $("#CerrarPopCompra").click(function () {
+            $('body').css({ 'overflow-y': 'scroll' });
+            $('#PopCompra').hide();
+        });
 
         $("footer").hide();
         $("#content").css("margin-top", "63px");
@@ -118,9 +147,14 @@ $(document).ready(function () {
     $("body").on("click", "[data-btn-agregar-cpc]", function (e) {
         var padre = $(this).parents("[data-item]");
         var article = $(padre).find("[data-campos]").eq(0);
-        var cantidad = 1;
+        var cantidad = $(padre).find("[data-input='cantidad']").val();
 
-        AgregarProductoAlCarrito(padre);
+        if (cantidad == "" || cantidad == 0) {
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
+            return false;
+        }
+
+        //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoomCpc(article, cantidad);
         e.preventDefault();
         (this).blur();
@@ -259,59 +293,60 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
+     
+    AbrirLoad();
 
-    if (cantidad == "" || cantidad == 0) {
-        AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
-    } else {
-        AbrirLoad();
-        $.ajaxSetup({
-            cache: false
-        });
+    AgregarProductoAlCarrito($(article).parents("[data-item]"));
 
-        var Item = {
-            MarcaID: MarcaID,
-            Cantidad: cantidad,
-            PrecioUnidad: PrecioUnidad,
-            CUV: CUV
-        };
+    $.ajaxSetup({
+        cache: false
+    });
 
-        $.ajaxSetup({ cache: false });
+    var Item = {
+        MarcaID: MarcaID,
+        Cantidad: cantidad,
+        PrecioUnidad: PrecioUnidad,
+        CUV: CUV
+    };
 
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'ShowRoom/InsertOfertaWebPortalCpc',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(Item),
-            async: true,
-            success: function(response) {
-                CerrarLoad();
+    $.ajaxSetup({ cache: false });
 
-                if (response.success == true) {
-                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
-                        CargarResumenCampaniaHeader(true);
-                        $("#PopDetalleCompra").hide();
-                    }
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'ShowRoom/InsertOfertaWebPortalCpc',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        async: true,
+        success: function(response) {
+            CerrarLoad();
 
-                    if ($.trim(tipoOrigenPantalla)[0] == '2') {
-                        CargarCantidadProductosPedidos();
-                    }
-
-                    if (tipoOrigenPantalla == 2) {
-                        $('#PopCompra').hide();
-                        $('body').css({ 'overflow-x': 'auto' });
-                        $('body').css({ 'overflow-y': 'auto' });
-                    }
-                } else messageInfoError(response.message);
-            },
-            error: function(response, error) {
-                if (checkTimeout(response)) {
-                    CerrarLoad();
-                    console.log(response);
+            if (response.success == true) {
+                if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                    CargarResumenCampaniaHeader(true);
+                    $("#PopDetalleCompra").hide();
                 }
+
+                if ($.trim(tipoOrigenPantalla)[0] == '2') {
+                    CargarCantidadProductosPedidos();
+
+                    $('#PopCompra').hide();
+                    $('body').css({ 'overflow-x': 'auto' });
+                    $('body').css({ 'overflow-y': 'auto' });
+                }
+
+                var padre = $(article).parents("[data-item]");
+                $(padre).find("[data-input='cantidad']").val(1);
+
+            } else messageInfoError(response.message);
+        },
+        error: function(response, error) {
+            if (checkTimeout(response)) {
+                CerrarLoad();
+                console.log(response);
             }
-        });
-    }
+        }
+    });
 }
 
 function AgregarProductoAlCarrito(padre) {

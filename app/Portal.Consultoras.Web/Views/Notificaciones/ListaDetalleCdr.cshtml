@@ -24,6 +24,13 @@
         <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
     </div>
     <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
+    @if (Model.Estado == Constantes.EstadoCDRWeb.Aceptado)
+    {
+        <div class="saldo_aprobado_cdr">
+            Tu saldo actualizado es de: <b>@Model.Simbolo @Model.ConsultoraSaldo</b>
+            @*&nbsp;&nbsp;<a href="#">ver estado de cuenta</a>*@
+        </div>
+    }
     <div class="subtitulo_cdr">DETALLE DE LA SOLICITUD</div>
     @foreach (var item in Model.ListaDetalle)
     {

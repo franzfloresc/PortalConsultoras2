@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public string DescripcionOriginal { get; set; }
         [DataMember]
+        [ViewProperty]
+        public string DescripcionProductoComercial { get; set; }
+        [DataMember]
         public string Descripcion { get; set; }
         [DataMember]
         [ViewProperty]
@@ -72,6 +75,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionOriginal = Convert.ToString(row["DescripcionOriginal"]);
             if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
                 Descripcion = Convert.ToString(row["Descripcion"]);
+            if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
+                DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = Convert.ToString(row["FotoProducto01"]);
             if (DataRecord.HasColumn(row, "FotoProducto02") && row["FotoProducto02"] != DBNull.Value)

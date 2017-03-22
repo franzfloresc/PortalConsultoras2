@@ -154,6 +154,11 @@ namespace Portal.Consultoras.Common
             public const int Lanzamiento = 5;
         }
 
+        public class TipoEstrategiaCodigo
+        {
+            public const string OfertaParaTi = "001";
+        }
+
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -177,6 +182,10 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
 
+            // Tabla LOgica
+
+            public const string TablaLogicaDatos = "TablaLogicaDatos";
+            
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
@@ -309,10 +318,15 @@ namespace Portal.Consultoras.Common
             public const string UnidadesPermitidasFaltante = "UnidadesPermitidasFaltante";
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
-        }
+        }
+
         public class CdrWebMensajes
         {
-            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida";
+            public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
+            public const string ConsultoraBloqueada = "Lo sentimos, por el momento te encuentras bloqueada para realizar esta operación.";
+            public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
+            public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
+            public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
         }
 
         public class CodigoOperacionCDR
@@ -360,6 +374,13 @@ namespace Portal.Consultoras.Common
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
         }
+        
+        public class PestanhasMisPagos
+        {
+            public const string EstadoCuenta = "EstadoCuenta";
+            public const string LugaresPago = "LugaresPago";
+            public const string MisPercepciones = "MisPercepciones";
+        }
 
         public class ShowRoomPersonalizacion
         {
@@ -370,6 +391,8 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
             }
 
             public class Mobile
@@ -379,7 +402,9 @@ namespace Portal.Consultoras.Common
                 public const string BannerImagenIntriga = "BannerImagenIntriga";
                 public const string BannerImagenVenta = "BannerImagenVenta";
                 public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
-                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";               
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
             }
 
             public class TipoAplicacion

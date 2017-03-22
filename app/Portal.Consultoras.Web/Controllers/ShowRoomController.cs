@@ -75,13 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida");
 
                 var showRoomEventoModel = CargarValoresModel();                
-
-                var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
-                        p => p.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones);
-                showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
-                    ? ""
-                    : terminosCondiciones.Valor;
-
+                
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
@@ -889,6 +883,110 @@ namespace Portal.Consultoras.Web.Controllers
                 if (registros > 0)
                 {
                     message = "Se realizó la carga de " + registros + " set(s)";
+                }
+                else
+                {
+                    message = "No se actualizó ninguna carga de las consultoras que estaban dentro del archivo (CSV), verifique que el código sea correcto.";
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                message = "Se actualizaron solo la carga de " + registros + " set(s).";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                message = "Se actualizaron solo la carga de " + registros + " set(s).";
+            }
+
+            return message;
+        }
+
+        [HttpPost]
+        public string CargarProductoCpc(HttpPostedFileBase flCargarProductoCpc, int hdCargarProductoCpcEventoID,
+            int hdCargarProductoCpcCampaniaID)
+        {
+            string message = string.Empty;
+            int registros = 0;
+
+            try
+            {
+                #region Procesar Carga Masiva Consultoras Archivo CSV
+
+                string finalPath = string.Empty;
+                List<BEShowRoomCompraPorCompra> listaProductoCpc = new List<BEShowRoomCompraPorCompra>();
+
+                if (flCargarProductoCpc != null)
+                {
+                    string fileName = Path.GetFileName(flCargarProductoCpc.FileName);
+                    string extension = Path.GetExtension(flCargarProductoCpc.FileName);
+                    string newfileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
+                    string pathFile = Server.MapPath("~/Content/FileShowRoomCargaConsultora");
+
+                    if (!Directory.Exists(pathFile))
+                        Directory.CreateDirectory(pathFile);
+                    finalPath = Path.Combine(pathFile, newfileName);
+                    flCargarProductoCpc.SaveAs(finalPath);
+
+                    string inputLine = "";
+
+                    string[] values = null;
+
+                    int contador = 0;
+
+                    using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
+                    {
+                        while ((inputLine = sr.ReadLine()) != null)
+                        {
+                            if (contador == 0)
+                            {
+                                contador++;
+                                continue;
+                            }
+
+                            values = inputLine.Split(',');
+                            if (values.Length > 1)
+                            {
+                                BEShowRoomCompraPorCompra ent = new BEShowRoomCompraPorCompra();
+                                ent.CUV = values[0].Trim().Replace("\"", "");
+                                ent.SAP = values[1].Replace("\"", "0");
+                                ent.Orden = values[2].Trim().Replace("\"", "").ToInt();
+                                ent.PrecioValorizado = decimal.Parse(values[3].Trim().Replace("\"", ""));
+
+                                listaProductoCpc.Add(ent);
+                            }
+                        }
+                    }
+
+                    if (listaProductoCpc.Count > 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            int paisID = userData.PaisID;
+                            if (paisID > 0)
+                            {
+                                try
+                                {
+                                    registros += sv.CargarProductoCpc(paisID, hdCargarProductoCpcEventoID, userData.CodigoConsultora, listaProductoCpc.ToArray());
+                                }
+                                catch (FaultException ex)
+                                {
+                                    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                                }
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                if (registros > 0)
+                {
+                    message = "Se realizó la carga de " + registros + " producto(s) de Compra por Compra";
                 }
                 else
                 {

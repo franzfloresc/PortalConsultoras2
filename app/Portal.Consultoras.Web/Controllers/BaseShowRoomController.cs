@@ -567,7 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
                         item.ImagenProducto = beCatalogoPro.Imagen;
                         item.Descripcion = beCatalogoPro.NombreComercial;
                         item.DescripcionLegal = beCatalogoPro.Descripcion;
-                        item.PrecioOferta = beCatalogoPro.PrecioValorizado;
+                        //item.PrecioOferta = beCatalogoPro.PrecioValorizado;
                     }
                 }
 
@@ -652,6 +652,20 @@ namespace Portal.Consultoras.Web.Controllers
                 d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
                 nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
             });
+
+            bool esMovil = Request.Browser.IsMobileDevice;
+
+            if (esMovil)
+            {
+                modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc);
+                modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc);
+            }
+            else
+            {
+                modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoCondicionCompraCpc);
+                modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoDescripcionLegalCpc);
+            }
+
             return modelo;
         }
 
@@ -754,7 +768,24 @@ namespace Portal.Consultoras.Web.Controllers
                     listaCategoria.Add(beCategoria);
                 }
 
+                listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
+
                 showRoomEventoModel.ListaCategoria = listaCategoria;
+
+                bool esMovil = Request.Browser.IsMobileDevice;        
+
+                if (esMovil)
+                {
+                    showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
+                    showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc);
+                    showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc);                    
+                }
+                else
+                {
+                    showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones);
+                    showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoCondicionCompraCpc);
+                    showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoDescripcionLegalCpc);
+                }                
             }
             catch (Exception ex)
             {
@@ -762,6 +793,15 @@ namespace Portal.Consultoras.Web.Controllers
             }            
 
             return showRoomEventoModel;
+        }
+
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo)
+        {
+            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo);
+
+            return model == null
+                ? ""
+                : model.Valor;
         }
     }
 }

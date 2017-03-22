@@ -60,7 +60,7 @@
     }
 
     function HorarioRestringido(mostrarAlerta) {
-        //debugger;
+        
         mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
         var horarioRestringido = false;
         $.ajaxSetup({
@@ -73,7 +73,7 @@
             contentType: 'application/json; charset=utf-8',
             async: false,
             success: function (data) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     // esta en horario restringido
                     if (data.success == true) {
@@ -89,7 +89,7 @@
                 }
             },
             error: function (data, error) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     AbrirMensaje(data.message);
                 }

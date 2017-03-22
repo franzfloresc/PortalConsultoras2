@@ -27,6 +27,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
             try
             {
+                ViewBag.EsMobile = 2;//EPD-1780
                 BuildMenuMobile(userData);
                 CargarValoresGenerales(userData);
 

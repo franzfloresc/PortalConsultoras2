@@ -378,12 +378,16 @@ function CargarOfertasLiquidacion() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
-            if (!data.verMas) UnlinkCargarOfertasToScroll();
-            offsetRegistros += cantidadRegistros;
+            if (checkTimeout(data)) {
+                if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+                if (!data.verMas) UnlinkCargarOfertasToScroll();
+                offsetRegistros += cantidadRegistros;
+            }
         },
         error: function (data, error) {
-            console.log(error);
+            if (checkTimeout(data)) {
+                console.log(error);
+            }
         },
         complete: function (data) {
             closeWaitingDialog();
@@ -603,9 +607,10 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             else if (mostrarAlerta == true)
                 AbrirMensaje(data.message, "LO SENTIMOS");
         },
-        error: function (error) {
-            console.log(error);
-            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+            }
         }
     });
     return restringido;
@@ -641,9 +646,10 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             }
             fnRestringido();
         },
-        error: function (error) {
-            console.log(error);
-            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+            }
         }
     });
 }

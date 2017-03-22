@@ -784,6 +784,9 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle);
 
         [OperationContract]
+        int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra);
+
+        [OperationContract]
         BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora);
 
         [OperationContract]
@@ -988,6 +991,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
 
+        [OperationContract]
+        int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
+
+        [OperationContract]
+        List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
+        
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
     }

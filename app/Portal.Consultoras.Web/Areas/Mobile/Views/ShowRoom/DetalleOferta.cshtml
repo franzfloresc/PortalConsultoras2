@@ -146,7 +146,12 @@
                     <div class="content_compra_carrusel">
                         @{ var posicionCpc = 1; }
                         @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                    {
+                        {
+                            var descripcion = item.Descripcion;
+                            if (descripcion != null && descripcion.Length > 41)
+                            {
+                                descripcion = descripcion.Substring(0, 40) + " ...";
+                            }
                             <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
                                 <div data-campos="">
                                     <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
@@ -157,7 +162,7 @@
                                     <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                     <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                                 </div>
-                                <div class="nombre_producto_pop_compra">Reloj Espheric</div>
+                                <div class="nombre_producto_pop_compra">@descripcion</div>
                                 <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</div>
                                 <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
                                 <div class="content_imagen_carrusel_compra">
@@ -172,14 +177,11 @@
                                 </div>
                                 <div style="height:50px;">
                                     <div class="texto_banner_compra" style="text-align:center">
-                                        <span>POR LA COMPRA DE 2 SETS<br/> DEL DÍA DE LA MADRE</span>
+                                        <span>@Model.TextoCondicionCompraCpc</span>
                                     </div>
-                                    @*<div class="precio_producto_compra">@item.Descripcion</div>
-                                    <div class="descripcion_compra">@item.DescripcionLegal</div>*@
-                                    
                                 </div>
                                 
-                                <a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>
+                                <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
                             </div>
                             {
                                 posicionCpc++;
@@ -290,6 +292,82 @@
     </div>
 </div>
 
+<div class="PopMobile1" id="PopCompra" data-popup-main="">
+    <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
+        <a class="cerrar_popMobile" id="CerrarPopCompra" style="position:absolute;right: 10px;top: 10px;">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="-">
+        </a>
+        <div style="margin:-20px -20px 0 -20px;">
+            <div class="titulo_compra_POP">PROMOCIÓN</div>
+        </div>
+
+        @if (Model.TieneCompraXcompra)
+        {
+            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            {
+                <div class="content_pop_compra">
+                    @{ var posicionCpc = 1; }
+                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+                    {
+                        var descripcion = item.Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
+                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
+                            </div>
+                            <div class="set_dia_compra_pop">
+                                @Model.TextoCondicionCompraCpc
+                            </div>
+                            <div class="content_imagen_carrusel_compra">
+                                @if (item.ImagenProducto != "")
+                                {
+                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                }
+                            </div>
+                            <div style="height: 130px;">
+                                <div class="nombre_producto_pop_compra">@descripcion</div>
+                                <div class="precio_set_compra">
+                                    A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
+                                </div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="precio_producto_compra">@item.DescripcionLegal</div>
+                            </div>
+                            <div>
+                                <div class="content_cantidad_ficha_producto">
+                                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                    <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                </div>
+                                <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;">AGRÉGALO</a>
+                                <hr class="clear">
+                            </div>
+                            @*<a class="btn_agrega_compra" data-btn-agregar-cpc="">AGRÉGALO</a>*@
+                        </div>
+                        {
+                            posicionCpc++;
+                        }
+                    }
+                </div>
+                            }
+                        }
+        <div class="legal_footer_compra">
+            @Model.TextoDescripcionLegalCpc
+        </div>
+    </div>
+</div>
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -301,5 +379,4 @@
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 }

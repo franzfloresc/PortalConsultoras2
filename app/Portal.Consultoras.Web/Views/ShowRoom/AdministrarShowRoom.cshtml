@@ -107,21 +107,28 @@
             <div class="titC" style="width: 160px; margin-top: 6px;">Carga de Consultoras</div>
             <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
                 <a href="#" id="lnkConsultoras">
-                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt="" alt=""/>
+                    <img title="Cargar Consultoras" src='@Url.Content("~/Content/Images/email_admin.png")' alt=""/>
                 </a>
             </div>
 
-            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Sets</div>
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 10px;">Carga de Sets</div>
             <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
                 <a href="#" id="lnkStock">
                     <img title="Cargar Stock" src='@Url.Content("~/Content/Images/stok.png")' alt=""/>
                 </a>
             </div>
 
-            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 30px;">Carga de Descripción de Sets/Productos</div>
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 10px;">Carga de Descripción de Sets/Productos</div>
             <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
                 <a href="#" id="lnkDescripcionSets">
-                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
+                    <img title="Descripción Sets" src='@Url.Content("~/Content/Images/stok.png")' alt=""/>
+                </a>
+            </div>
+
+            <div class="titC" style="width: 160px; margin-top: 6px; padding-left: 10px;">Carga de Productos Compra por Compra</div>
+            <div class="titC" style="padding: 0; margin-top: 15px; width: 50px;">
+                <a href="#" id="lnkProductoCpc">
+                    <img title="Cargar Productos Compra por Compra" src='@Url.Content("~/Content/Images/stok.png")' alt="" />
                 </a>
             </div>
         </div>
@@ -336,31 +343,60 @@
 </div>
 
 <div id="DialogCargarDescripcionSets" style="display: none;">
-    @using (Html.BeginForm("ActualizarDescripcionSetsMasivo", "ShowRoom", FormMethod.Post, new { id = "frmCargarDescripcionSets", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("ActualizarDescripcionSetsMasivo", "ShowRoom", FormMethod.Post, new {id = "frmCargarDescripcionSets", enctype = "multipart/form-data"}))
     {
-        <input type="hidden" id="hdCargaDescripcionSetsCampaniaID" name="hdCargaDescripcionSetsCampaniaID" />
-        <input type="hidden" id="hdCargaDescripcionSetsEventoID" name="hdCargaDescripcionSetsEventoID" />
+        <input type="hidden" id="hdCargaDescripcionSetsCampaniaID" name="hdCargaDescripcionSetsCampaniaID"/>
+        <input type="hidden" id="hdCargaDescripcionSetsEventoID" name="hdCargaDescripcionSetsEventoID"/>
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titC">
                     Archivo :
                 </div>
                 <div class="selectA borde_redondeado">
-                    <input type="file" id="flDescripcionSets" name="flDescripcionSets" />
+                    <input type="file" id="flDescripcionSets" name="flDescripcionSets"/>
                 </div>
             </div>
             <div class="div-3">
                 <div class="titC">
                 </div>
-                <div class="titAuto" style="text-align:left;">
+                <div class="titAuto" style="text-align: left;">
                     <div>Formato de archivo (*.csv):</div>
                     <div>- CUV</div>
-                    <div>- Posición</div>                    
+                    <div>- Posición</div>
                     <div>- NombreProducto</div>
                     <div>- Descripcion1</div>
                     <div>- Descripcion2</div>
                     <div>- Descripcion3</div>
                     <div>- MarcaProducto</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div id="DialogCargarProductoCpc" style="display: none;">
+    @using (Html.BeginForm("CargarProductoCpc", "ShowRoom", FormMethod.Post, new { id = "frmCargarProductoCpc", enctype = "multipart/form-data" }))
+    {
+        <input type="hidden" id="hdCargarProductoCpcCampaniaID" name="hdCargarProductoCpcCampaniaID" />
+        <input type="hidden" id="hdCargarProductoCpcEventoID" name="hdCargarProductoCpcEventoID" />
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo :
+                </div>
+                <div class="selectA borde_redondeado">
+                    <input type="file" id="flCargarProductoCpc" name="flCargarProductoCpc" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align: left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- CUV</div>
+                    <div>- Codigo SAP</div>
+                    <div>- Orden</div>
+                    <div>- PrecioValorizado</div>
                 </div>
             </div>
         </div>
@@ -866,6 +902,25 @@
             }
         });
 
+        $('#DialogCargarProductoCpc').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 480,
+            draggable: true,
+            title: "Carga de Descripcion de Sets/Productos",
+            buttons:
+            {
+                "Cargar": function () {
+                    $('#frmCargarProductoCpc').submit();
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+
         $('#DialogRegistroOfertaShowRoom').dialog({
             autoOpen: false,
             resizable: false,
@@ -1123,6 +1178,36 @@
                 }
             }
         });
+
+        $('#frmCargarProductoCpc').ajaxForm({
+            beforeSubmit: function () {
+                waitingDialog({});
+                var fileValue = $('#flCargarProductoCpc').val();
+                var extensiones = ['csv'];
+                var get_ext;
+                var message = '';
+
+                //validar la extension del archivo
+                get_ext = fileValue.split('.');
+                get_ext = get_ext.reverse();
+
+                if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
+                    message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
+
+                if (message.length > 0) {
+                    closeWaitingDialog();
+                    alert(message);
+                    return false;
+                }
+            },
+            success: function (response) {
+                closeWaitingDialog();
+                if (checkTimeout(response)) {                    
+                    alert(response);
+                    $('#DialogCargarProductoCpc').dialog('close');
+                }
+            }
+        });
     }
 
     function CargarEventos() {
@@ -1229,6 +1314,12 @@
         $("#lnkDescripcionSets").click(function () {
             showDialog("DialogCargarDescripcionSets");
             LimpiarCargaDescripcionSets();
+            return false;
+        });
+
+        $("#lnkProductoCpc").click(function () {
+            showDialog("DialogCargarProductoCpc");
+            LimpiarCargaProductoCpc();
             return false;
         });
 
@@ -1776,6 +1867,9 @@
                     //Carga de Descripcion de Sets
                     $("#hdCargaDescripcionSetsEventoID").val("0");
                     $("#hdCargaDescripcionSetsCampaniaID").val("");
+                    //Carga de Productos Compra por Compra
+                    $("#hdCargarProductoCpcEventoID").val("0");
+                    $("#hdCargarProductoCpcCampaniaID").val("");
 
                     $("#divShowRoomEventoNuevo").css("display", "");
                     $("#divCargaArchivos").css("display", "none");
@@ -2115,6 +2209,9 @@
         //Carga de Descripcion de Sets
         $("#hdCargaDescripcionSetsEventoID").val(options.rowId);
         $("#hdCargaDescripcionSetsCampaniaID").val(rowObject[13]);
+        //Carga de Productos Compra por Compra
+        $("#hdCargarProductoCpcEventoID").val(options.rowId);
+        $("#hdCargarProductoCpcCampaniaID").val(rowObject[13]);
 
         return resultado;
     }
@@ -2170,6 +2267,9 @@
                         //Carga de Descripcion de Sets
                         $("#hdCargaDescripcionSetsEventoID").val(id);
                         $("#hdCargaDescripcionSetsCampaniaID").val(campaniaID);
+                        //Carga de Productos Compra por Compra
+                        $("#hdCargarProductoCpcEventoID").val(id);
+                        $("#hdCargarProductoCpcCampaniaID").val(campaniaID);
 
                         HideDialog("DialogDatosShowRoom");
                         jQuery("#listEvento").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
@@ -2922,6 +3022,11 @@
 
     function LimpiarCargaDescripcionSets() {
         var divcontainer = $('#flDescripcionSets').closest('div');
+        divcontainer.html(divcontainer.html());
+    }
+
+    function LimpiarCargaProductoCpc() {
+        var divcontainer = $('#flCargarProductoCpc').closest('div');
         divcontainer.html(divcontainer.html());
     }
 
