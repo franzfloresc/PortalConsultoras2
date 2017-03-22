@@ -34696,6 +34696,8 @@ h1#penmostreo .campana {
 }
 .content_tonos_select {
     width: 101%;
+    max-height: 176px;
+    overflow-y: auto;
     border: 1px solid #b0b0b0;
     position: absolute;
     /* bottom: 0; */
