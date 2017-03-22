@@ -1796,6 +1796,7 @@
     <Content Include="Content\Images\Esika\cdr_paso3.png" />
     <Content Include="Content\Images\Esika\cdr_paso3_activo.png" />
     <Content Include="Content\Images\Esika\celular.png" />
+    <Content Include="Content\Images\Esika\celular_mailing.png" />
     <Content Include="Content\Images\Esika\check_liquidacion.png" />
     <Content Include="Content\Images\Esika\circulo.png" />
     <Content Include="Content\Images\Esika\consultora_online.png" />
@@ -1912,6 +1913,7 @@
     <Content Include="Content\Images\Esika\revista_c09.png" />
     <Content Include="Content\Images\Esika\right_compra.png" />
     <Content Include="Content\Images\Esika\slider-adelante.png" />
+    <Content Include="Content\Images\Esika\sobre_mailing.png" />
     <Content Include="Content\Images\Esika\sombra.png" />
     <Content Include="Content\Images\Esika\star_reco.png" />
     <Content Include="Content\Images\Esika\subir.png" />

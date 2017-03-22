@@ -64,11 +64,12 @@
         </div>
 
     </div>
-    <div class="content_confirmacion_correo" style="display: none;">
+    <div class="content_confirmacion_correo">
         <div>
             <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
             <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
             <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"></div>
+            <div class="correo_showroon icono_celular"><input type="text" value=""></div>
             <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
             <a class="btn_enviar_correo_intriga">CONFIRMA TU CORREO</a>
         </div>
@@ -79,14 +80,15 @@
         </div>       
         <div style="text-align:center; display:none;">
             <img src="@Url.Content("~/Content/Images/showroom/notificacion.png")" />
-            <div class="titulo_confirmacion" style="margin-bottom: 30px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
+            <div class="titulo_confirmacion" style="margin-bottom: 20px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
             <div class="texto_confirmacion">Te hemos enviado un correo a:<b>sandra@gmail.com</b>Entra a tu cuenta para confirmarlo</div>
+            <a class="link_cambiar_correo">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;  
             <a class="link_cambiar_correo">CAMBIAR CORREO</a>
         </div>  
     </div>
     <hr class="clear" />
     <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?.
-        <a href="@ViewBag.urlTerminosyCondiciones">Resuélvelas aquí.</a>
+        <a href="@ViewBag.urlTerminosyCondiciones" style="display:inline-block">Resuélvelas aquí.</a>
     </div>
 </div>
 
