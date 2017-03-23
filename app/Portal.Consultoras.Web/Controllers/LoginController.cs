@@ -554,32 +554,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
-                        if (model.TieneHana == 1)
-                        {
-                            ActualizarDatosHana(ref model);
-                        }
+                        if (model.TieneHana == 1) ActualizarDatosHana(ref model);
                         else
                         {
                             model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
                             model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
                             model.FechaLimPago = oBEUsuario.FechaLimPago;
-
-                            BEResumenCampania[] infoDeuda = null;
+                            
                             using (ContenidoServiceClient sv = new ContenidoServiceClient())
                             {
-                                if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
-                                {
-                                    infoDeuda = sv.GetDeudaTotal(model.PaisID, Convert.ToInt32(model.ConsultoraID));
-                                }
-                                else
-                                {
-                                    infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, Convert.ToInt32(model.ConsultoraID));
-                                }
-                            }
-
-                            if (infoDeuda != null && infoDeuda.Length > 0)
-                            {
-                                model.MontoDeuda = infoDeuda[0].SaldoPendiente;
+                                model.MontoDeuda = sv.GetMontoDeuda(model.PaisID, model.CampaniaID, model.ConsultoraID, model.CodigoUsuario, false);
                             }
 
                             model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
@@ -1017,18 +1001,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             catch { }
-        }
-
-        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
-        {
-            CampaniaActual = CampaniaActual ?? "";
-            CampaniaActual = CampaniaActual.Trim();
-            if (CampaniaActual.Length < 6)
-                return "";
-
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == nroCampanias.ToString()) return "01";
-            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
         }
 
         private void ActualizarDatosHana(ref UsuarioModel model)
