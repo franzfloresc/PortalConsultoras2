@@ -25,48 +25,51 @@
 
 <div class="popup_eliminarCliente popup_RechazarPost">
     <div class="btn_cerrar_agregarUnidades">
-        <a href="javascript:;" onclick="closeAprobar();">
+        <a href="javascript:;" onclick="cerrarRechazar();">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
     </div>
 
     <div class="contenido_popUp eliminarCliente">
-        <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding: 25px;">
+        <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding-top: 25px;  padding-left: 25px;  padding-right: 25px;">
 
             ¿Est&aacute; seguro de rechazar a esta postulante?
+            <br />
+            <br />
+            <div class="div-3">
 
-        </div>
+                <div class="selectP2 seleccion_pagina textboxSB2">
+                    @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.TipoRechazo)
+                </div>
+            </div>
 
-        <div class="div-3">
+            <div class="div-3">
 
-            <div class="selectP2 seleccion_pagina textboxSB2">
-                @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                <div class="selectP2 seleccion_pagina textboxSB2">
+                    @Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="validation_clear"></div>
+                <div class="validation">
+                    @Html.ValidationMessageFor(m => Model.MotivoRechazo)
+                </div>
             </div>
         </div>
-        <div class="div-3">
-            <div class="validation_clear"></div>
-            <div class="validation">
-                @Html.ValidationMessageFor(m => Model.TipoRechazo)
-            </div>
-        </div>
 
-        <div class="div-3">
 
-            <div class="selectP2 seleccion_pagina textboxSB2">
-                @Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB" })
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="validation_clear"></div>
-            <div class="validation">
-                @Html.ValidationMessageFor(m => Model.MotivoRechazo)
-            </div>
-        </div>
+
 
         <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
             <input type="submit" class="btn_noEliminarCliente btnRechazarPost" id="btnAceptar" value="Aceptar" />
-            <input type="submit" class="btn_noEliminarCliente btnRechazarPost" id="btnCancelar" value="Cancelar" />
+            <input type="submit" class="btn_noEliminarCliente btnRechazarPost" id="btnCancelar" onclick="cerrarRechazar()" value="Cancelar" />
         </div>
     </div>
 </div>
@@ -100,8 +103,8 @@
     }
 
     .popup_RechazarPost {
-        max-width: 600px !important;
-        margin: -100px auto 0 auto !important;
+        max-width: 400px !important;
+        margin: -300px auto 0 auto !important;
         /*posicion*/
     }
 
@@ -181,7 +184,7 @@
     }
 </style>
 
- 
+
 
 <script>
     $('#imgCerrar, #btnCancelar').click(function () {
@@ -198,7 +201,7 @@
             };
             $.post('@Url.Action("RechazarPostulante", "Unete")', data, function (reactivada) {
                 if (reactivada) {
-                    modal.dialog('close');
+                    $('#divRechazarPostulante').hide();
                     fnGrilla();
                 }
             });
@@ -208,4 +211,9 @@
         }
 
     });
+
+
+    function cerrarRechazar() {
+        $('#divRechazarPostulante').hide();
+    }
 </script>
