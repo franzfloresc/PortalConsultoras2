@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new PedidoSb2Model();
-
+            
             try
             {
                 model.EsPais = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
