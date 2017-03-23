@@ -733,11 +733,11 @@
                         AGR&Eacute;GALO
                     </a>
                     {{else}}
-                    <div>
+                    <div class="texto_elige_tono">
                         ¡AHORA ELIGE TU TONO!
                     </div>
                     <div class="clear"></div>
-                    <a class="boton_Agregalo_home" href="@Url.Action("Detalle", "OfertasParaTi", new { area = "Mobile" })?id={{EstrategiaID}}&&origen=@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi">
+                    <a class="btn_elige_tono" href="@Url.Action("Detalle", "OfertasParaTi", new { area = "Mobile" })?id={{EstrategiaID}}&&origen=@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi">
                         ELIGE TU OPCIÓN
                     </a>
                     {{/iff}}
