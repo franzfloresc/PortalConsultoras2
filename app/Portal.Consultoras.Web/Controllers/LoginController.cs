@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
+        private bool hizoLoginExterno;
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -141,6 +142,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUsuarioExterno.FotoPerfil = usuarioExterno.FotoPerfil;
 
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+
+                                    hizoLoginExterno = true;
                                 }
                             }
                         }
@@ -200,6 +203,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 pasoLog = "Login.Redireccionar.SetAuthCookie";
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
+
+                // EPD-1837
+                if (hizoLoginExterno)
+                {
+                    usuario.HizoLoginExterno = true;
+                    Session["UserData"] = usuario;
+                }
 
                 //EPD-1968
                 string decodedUrl = "";
@@ -1498,6 +1508,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var beUsuarioExterno = svc.GetUsuarioExterno(paisId, provider, idapp);
                         if (beUsuarioExterno != null)
                         {
+                            hizoLoginExterno = true;
                             return Redireccionar(paisId, beUsuarioExterno.CodigoUsuario, null);
                         }
                     }

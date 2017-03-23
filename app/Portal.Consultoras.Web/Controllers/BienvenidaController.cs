@@ -378,12 +378,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 //EPD-1837
-                if (userData.TieneLoginExterno)
+                if (userData.HizoLoginExterno)
                 {
-                    var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
-                    if (loginFacebook != null)
+                    if (userData.TieneLoginExterno)
                     {
-                        ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                        var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
+                        if (loginFacebook != null)
+                        {
+                            ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                        }
                     }
                 }
             }

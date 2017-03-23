@@ -327,6 +327,7 @@ namespace Portal.Consultoras.Web.Models
         /*PL20-1226*/
 
         //MC-EPD1837
+        public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
     }
