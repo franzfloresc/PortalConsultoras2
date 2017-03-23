@@ -162,9 +162,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta()
         {
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            var listSession = ObtenerEstadoCuenta();
+            var list = new List<EstadoCuentaModel>();
 
-            return lst;
+            listSession.ForEach((item) =>
+            {
+                list.Add(new EstadoCuentaModel
+                {
+                    Abono = item.Abono,
+                    Cargo = item.Cargo,
+                    CorreoConsultora = item.CorreoConsultora,
+                    Fecha = item.Fecha,
+                    FechaVencimiento = item.FechaVencimiento,
+                    Glosa = item.Glosa,
+                    MontoPagar = item.MontoPagar,
+                    Simbolo = item.Simbolo,
+                    TipoMovimiento = item.TipoMovimiento
+                });
+            });
+            return list;
         }
 
         private string ConstruirContenidoCorreo(List<EstadoCuentaModel> lst)

@@ -1367,5 +1367,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return clearText;
         }
+
+        [AllowAnonymous]
+        public ActionResult IngresoExternoChatbot(string token)
+        {
+            const string SecretKey = "belcorptest"; //Debe registrarse en web.config
+
+            try
+            {
+                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, SecretKey); //Revisar los campos del Model
+
+                if (model != null)
+                {
+                    var paisID = Util.GetPaisID(model.Pais);
+
+                    var usuario = GetUserData(paisID, model.CodigoConsultora, 1); //Crear un GetUserDataByCodigoConsultora, pero que cargue información basica 
+
+                    if (usuario != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
+
+                        Session.Add("IngresoExternoChatbot", model.Version);
+                        
+                        switch (model.Pagina.ToUpper())
+                        {
+                            case "ESTADOCUENTA": //Mapear en constantes los nombre de las paginas a donde se va ingresar
+                                return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(404, ex.Message); //Mostrar una vista con un mejor mensaje
+            }
+
+            return HttpNotFound("Token incorrecto"); //Mostrar una vista con un mejor mensaje
+        }
     }
 }
