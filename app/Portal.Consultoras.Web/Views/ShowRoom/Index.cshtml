@@ -17,13 +17,13 @@
 <!--MAQUETADO NUEVO-->
 <div class="catalogoPersonalizadoBloque">
     <div class="content_banner_intriga">
-        <img src="@Url.Content("~/Content/Images/showroom/BARRA SUPERIOR_COMPRA.png")" />
+        @*<img src="@Url.Content("~/Content/Images/showroom/BARRA SUPERIOR_COMPRA.png")" />*@
     </div>
     <div class="content_belcorp">
         <div class="content_filtros_left">
             <span class="titulo_filtro_fav">FILTROS</span>
             <div class="linea_separadora" style="height: 3px;"></div>
-            <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer;"> BORRAR FILTROS</div>
+            <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
             <div id="limiteFlt" class="linea_separadora"></div>
 
             <!--PRIMER FILTRO-->
@@ -153,18 +153,23 @@
             <div class="content_banner_compra">
                 <div class="titulo_promocion">PROMOCIÓN</div>
                 <div class="content_interno_banner">
-                    <div class="content_imagen_banner_compra">
-                        <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
+                    <div style="width: 65%; margin: 0 auto;">
+                        <div class="content_imagen_banner_compra">
+                            <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
+                        </div>
+                        <div class="content_oferta">
+                            <b class="content_oferta_promocion">
+                                @descripcion<span class="solo_inferior">
+                                    
+                                    A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo
+                                </span>
+                            </b>
+                            @Model.TextoCondicionCompraCpc
+                        </div>
+                        <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
+                        <hr class="clear" />
                     </div>
-                    <div class="content_oferta">
-                        <b class="content_oferta_promocion">
-                            @descripcion<span style="font-size: 17px;"><br />
-                            A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].PrecioCatalogo</span> 
-                        </b><br />
-                        @Model.TextoCondicionCompraCpc
-                    </div>
-                    <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
-                    <hr class="clear" />
+                    
                 </div>
             </div>
         }
@@ -216,8 +221,8 @@
                            
                             <div class="content_datos_carrusel">
                                 <div class="titulo_pop_compra">@item.Descripcion</div>
-                                <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.PrecioCatalogo</b></div>
-                                <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.PrecioOferta</div>
+                                <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b></div>
+                                <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
                                 <div class="producto_compra">@item.DescripcionLegal</div>
 
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">

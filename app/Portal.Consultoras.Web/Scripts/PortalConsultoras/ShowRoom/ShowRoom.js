@@ -7,7 +7,7 @@ var tipoOrigenPantalla = tipoOrigenPantalla || "";
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
         $(".verDetalleCompraPorCompra").click(function () {
-            var padre = $(this).parents("[data-item]");
+            var padre = $(this).parents("[data-item]")[0];
             var article = $(padre).find("[data-campos]").eq(0);
             var posicion = $(article).find(".posicionEstrategia").val();
 

@@ -1,6 +1,11 @@
 USE BelcorpBolivia
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -11,7 +16,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -19,7 +24,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -27,7 +32,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -184,7 +189,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -255,8 +260,8 @@ create procedure ShowRoom.GetShowRoomPersonalizacionNivel
 @CategoriaId int = 0
 as
 /*
-ShowRoom.GetShowRoomPersonalizacionNivel 2006,1,0
-ShowRoom.GetShowRoomPersonalizacionNivel 2006,0,1
+ShowRoom.GetShowRoomPersonalizacionNivel 5,1,0
+ShowRoom.GetShowRoomPersonalizacionNivel 5,0,1
 */
 begin
 
@@ -682,7 +687,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -700,7 +706,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -1100,6 +1107,11 @@ GO
 USE BelcorpChile
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -1110,7 +1122,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -1118,7 +1130,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -1126,7 +1138,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -1283,7 +1295,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -1781,7 +1793,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -1799,7 +1812,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -2199,6 +2213,11 @@ GO
 USE BelcorpColombia
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -2209,7 +2228,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -2217,7 +2236,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -2225,7 +2244,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -2382,7 +2401,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -2880,7 +2899,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -2898,7 +2918,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -3298,6 +3319,11 @@ GO
 USE BelcorpCostaRica
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -3308,7 +3334,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -3316,7 +3342,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -3324,7 +3350,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -3481,7 +3507,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -3979,7 +4005,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -3997,7 +4024,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -4397,6 +4425,11 @@ GO
 USE BelcorpDominicana
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -4407,7 +4440,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -4415,7 +4448,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -4423,7 +4456,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -4580,7 +4613,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -5078,7 +5111,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -5096,7 +5130,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -5496,6 +5531,11 @@ GO
 USE BelcorpEcuador
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -5506,7 +5546,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -5514,7 +5554,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -5522,7 +5562,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -5679,7 +5719,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -6177,7 +6217,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -6195,7 +6236,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -6595,6 +6637,11 @@ GO
 USE BelcorpGuatemala
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -6605,7 +6652,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -6613,7 +6660,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -6621,7 +6668,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -6778,7 +6825,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -7276,7 +7323,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -7294,7 +7342,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -7694,6 +7743,11 @@ GO
 USE BelcorpMexico
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -7704,7 +7758,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -7712,7 +7766,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -7720,7 +7774,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -7877,7 +7931,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -8375,7 +8429,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -8393,7 +8448,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -8793,6 +8849,11 @@ GO
 USE BelcorpPanama
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -8803,7 +8864,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -8811,7 +8872,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -8819,7 +8880,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -8976,7 +9037,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -9474,7 +9535,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -9492,7 +9554,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -9892,6 +9955,11 @@ GO
 USE BelcorpPeru
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -9902,7 +9970,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -9910,7 +9978,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -9918,7 +9986,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -10075,7 +10143,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -10573,7 +10641,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -10591,7 +10660,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -10991,6 +11061,11 @@ GO
 USE BelcorpPuertoRico
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -11001,7 +11076,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -11009,7 +11084,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -11017,7 +11092,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -11174,7 +11249,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -11672,7 +11747,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -11690,7 +11766,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -12090,6 +12167,11 @@ GO
 USE BelcorpSalvador
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -12100,7 +12182,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -12108,7 +12190,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -12116,7 +12198,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -12273,7 +12355,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -12771,7 +12853,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -12789,7 +12872,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end
@@ -13189,6 +13273,11 @@ GO
 USE BelcorpVenezuela
 go
 
+delete from dbo.TablaLogicaDatos where TablaLogicaID = 99
+delete from dbo.TablaLogica where TablaLogicaID = 99
+
+go
+
 if not exists (select 1 from dbo.TablaLogica where TablaLogicaID = 99)
 begin
 	insert into dbo.TablaLogica(TablaLogicaID,Descripcion) values (99,'OrdenamientoShowRoom')
@@ -13199,7 +13288,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='01')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9901,99,'01','Predefinido')
+	values (9901,99,'01','Los más vendidos')
 end
 
 go
@@ -13207,7 +13296,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='02')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9902,99,'02','PRECIO | menor a mayor')
+	values (9902,99,'02','Menor a mayor precio')
 end
 
 go
@@ -13215,7 +13304,7 @@ go
 if not exists (select 1 from dbo.TablaLogicaDatos where TablaLogicaID = 99 and Codigo='03')
 begin
 	insert into dbo.TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion) 
-	values (9903,99,'03','PRECIO | mayor a menor')
+	values (9903,99,'03','Mayor a menor precio')
 end
 
 go
@@ -13372,7 +13461,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -13870,7 +13959,8 @@ alter procedure ShowRoom.UpdateShowRoomEvento
 @NumeroPerfiles int,
 @UsuarioModificacion varchar(20),
 @Estado int,
-@TieneCategoria bit
+@TieneCategoria bit,
+@TieneCompraXcompra bit
 as
 begin
 
@@ -13888,7 +13978,8 @@ set
 	FechaModificacion = @FechaGeneral,
 	UsuarioModificacion = @UsuarioModificacion,
 	Estado = @Estado,
-	TieneCategoria = @TieneCategoria
+	TieneCategoria = @TieneCategoria,
+	TieneCompraXcompra = @TieneCompraXcompra
 where EventoID = @EventoID
 
 end

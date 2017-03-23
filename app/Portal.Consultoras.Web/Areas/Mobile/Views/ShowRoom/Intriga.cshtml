@@ -23,12 +23,21 @@
     <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
 </div>
-<div class="fondo_gris" style="padding-top:20px; padding-bottom:15px; display:none;">   
-    <div class="titulo_mensaje_landing">¡no te quedes fuera!</div>
-    <div class="mensaje_landing">Confirma tu correo y entérate primero</div>
-    <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"/></div>
-    <a href="#" class="btn_correo_showroom">QUIERO ENTERARME PRIMERO</a>
-    <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
+<div class="fondo_gris" style="padding-top:20px; padding-bottom:15px;">   
+    <div>
+        <div class="titulo_mensaje_landing">¡no te quedes fuera!</div>
+        <div class="mensaje_landing">Confirma tu correo y entérate primero</div>
+        <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz" /></div>
+        <div class="correo_showroon icono_celular"><input type="text" value=""></div>
+        <a href="#" class="btn_correo_showroom">CONFIRMA TU CORREO</a>
+        <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
+    </div>
+    <div style="/* display:none; */">
+        <div class="titulo_confirmacion" style="margin-bottom: 17px;">¡ahora serás la primera en enterarte!</div>
+        <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b>sandra@gmail.com</b></div>
+        <a class="link_cambiar_correo">CAMBIAR CORREO</a>
+    </div>
+    
 </div>   
 <div class="texto_adelanto">Mira el adelanto…</div>
 <div class="content_carrusel_intriga">
@@ -68,7 +77,22 @@
         </div>
     </div>
 </div>
+<!--POP UP AVISO DE CORREO-->
+<div class="PopMobile1" style="display:block" id="MailingShowroom">
+    <div class="content_popMobile" style="text-align:center">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#MailingShowroom').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear" />
+        <img src="/Content/Images/Esika/sobre_mailing.png">
+        <div class="titulo_confirmacion" style="margin-bottom:15px; font-size:17px; margin-top:15px;">AHORA SÓLO DEBES <br/> CONFIRMAR TU CORREO</div>
+        <div class="texto_confirmacion">Te hemos enviado un correo a:<b>sandra@gmail.com</b>Entra a tu cuenta para confirmarlo</div>
+        <a class="link_cambiar_correo">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="link_cambiar_correo">CAMBIAR CORREO</a>
 
+    </div>
+
+</div>
 
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

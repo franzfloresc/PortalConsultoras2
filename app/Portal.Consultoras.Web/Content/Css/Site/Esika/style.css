@@ -33645,7 +33645,7 @@ h1#penmostreo .campana {
     vertical-align: top;
     /* float: right; */
     display: inline-block;
-    width: 28%;
+    width: 27%;
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
@@ -33692,7 +33692,7 @@ h1#penmostreo .campana {
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
-    margin-top: 30px;
+    margin-top: 25px;
     font-family: 'Lato';
     font-size: 10.5px;
     width: 90%;
@@ -33713,7 +33713,7 @@ h1#penmostreo .campana {
 .check_intriga:before{
     content: "✓";
     line-height: 11.5px;
-    padding-left: 2px;
+    padding-left: 1px;
 }
 .btn_enviar_correo_intriga{
     width:100%;
@@ -33759,10 +33759,12 @@ h1#penmostreo .campana {
     font-family:'Lato';
     font-size:11px;
     text-transform:uppercase;
-    margin-top:30px;
+    margin-top:40px;
+    margin-bottom:5px;
     text-align:center;
     text-decoration:underline;
     text-align:center;
+    display:inline-block;
 }
 .texto_confirmacion b{
     display:block;
@@ -33879,7 +33881,7 @@ h1#penmostreo .campana {
 }
 .content_producto_set{
     float:left;
-    width:35%;
+    width:25%;
     height:373px;
     margin-top:60px;
     text-align:center;
@@ -33888,7 +33890,7 @@ h1#penmostreo .campana {
     width:100%;
 }*/
 .content_detalle_set{
-    width:60%;
+    width:45%;
     float:left;
     min-height:100px;
     background:white;
@@ -33897,7 +33899,7 @@ h1#penmostreo .campana {
     font-family:'Lato';
 }
 .content_solo_ficha_set{
-    width:78%;
+    width:100%;
     float:left;
 }
 .titulo_set{
@@ -33929,6 +33931,7 @@ h1#penmostreo .campana {
     font-size:13px;
     color:#e81c36;
     text-align:right;
+    text-transform:uppercase;
 }
 .titulo_separador{
     width:100%;
@@ -33974,12 +33977,14 @@ h1#penmostreo .campana {
     font-size:12px;
     font-weight:300;
 }
-.btn_aregar_set{
-    width: 82%;
+.btn_aregar_set {
+    /*width: 82%;*/
     float: right;
     /* text-align: right; */
     background: black;
     color: white;
+    width: -moz-calc(100% -80px);
+    width: calc(100% - 80px);
 }
 @media only screen and (max-width : 1027px) {
     .btn_aregar_set {
@@ -34127,7 +34132,7 @@ h1#penmostreo .campana {
 }
 .content_interno_banner{
    /*width:600px;*/
-   margin-left:28%;
+   margin-left:27%;
 }
 .content_imagen_banner_compra{
     width:58px;
@@ -34141,9 +34146,9 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 12px;
     padding-top: 11px;
-    margin-left: 15px;
+    padding-left: 15px;
     float: left;
-    width:330px;
+    width: 51%;
     /* font-weight: 300; */
 }
 .content_oferta_promocion {
@@ -34152,22 +34157,23 @@ h1#penmostreo .campana {
     font-weight: 900;
     letter-spacing: 0.5px;
     line-height: 15px;
+    display:block;
 }
 .solo_falta_compra{
     color:#747474;
     display:block;
 }
 .btn_ver_detalle_compra{
-    width:200px;
-    height:31px;
-    font-size:13px;
-    font-family:'Lato';
-    line-height:30px;
-    text-align:center;
-    float:left;
-    border:1px solid black;
-        margin-top: 21px;
-    margin-left: 33px;
+       width: 29%;
+    height: 31px;
+    font-size: 13px;
+    font-family: 'Lato';
+    line-height: 30px;
+    text-align: center;
+    float: left;
+    border: 1px solid black;
+    margin-top: 21px;
+    margin-left: 3%;
 }
 
 .enlace_chat a{
@@ -34363,3 +34369,22 @@ h1#penmostreo .campana {
 .content_tono_detalle:hover{
     border: 1px solid black
 }
+.icono_celular{
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
+.solo_inferior{
+    font-size:17px;
+    display:block;
+     height: 18px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1262px) {
+    .solo_inferior{
+        display:inline-block;
+        margin-left:5px;
+        }
+    }
