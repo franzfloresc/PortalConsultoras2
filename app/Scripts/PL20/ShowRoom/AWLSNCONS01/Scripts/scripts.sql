@@ -189,7 +189,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -260,8 +260,8 @@ create procedure ShowRoom.GetShowRoomPersonalizacionNivel
 @CategoriaId int = 0
 as
 /*
-ShowRoom.GetShowRoomPersonalizacionNivel 2006,1,0
-ShowRoom.GetShowRoomPersonalizacionNivel 2006,0,1
+ShowRoom.GetShowRoomPersonalizacionNivel 5,1,0
+ShowRoom.GetShowRoomPersonalizacionNivel 5,0,1
 */
 begin
 
@@ -1295,7 +1295,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -2401,7 +2401,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -3507,7 +3507,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -4613,7 +4613,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -5719,7 +5719,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -6825,7 +6825,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -7931,7 +7931,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -9037,7 +9037,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -10143,7 +10143,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -11249,7 +11249,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -12355,7 +12355,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 
@@ -13461,7 +13461,7 @@ values ('Mobile','BannerImagenVenta','Banner Superior Venta Otras Paginas (1024p
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','UrlTerminosCondiciones','Link Terminos y Condiciones','TEXTO','EVENTO',6,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','TextoCondicionCompra','Texto Condición de Compra','TEXTO','EVENTO',7,1)
+values ('Mobile','TextoCondicionCompraCpc','Texto Condición de Compra','TEXTO','EVENTO',7,1)
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
 values ('Mobile','TextoDescripcionLegalCpc','Texto Descripción Legal Compra por Compra','TEXTO','EVENTO',8,1)
 

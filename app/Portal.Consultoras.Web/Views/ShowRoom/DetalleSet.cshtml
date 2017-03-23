@@ -3,6 +3,26 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
 }
+
+@{
+    var styleWidth = "";
+    if (Model.TieneCompraXcompra)
+    {
+        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+        {
+            styleWidth = "";
+        }
+        else
+        {
+            styleWidth = "width: 65%;";
+        }
+    }
+    else
+    {
+        styleWidth = "width: 65%;";
+    }
+}
+
 <div class="fondo_set">
     <div class="content_belcorp">
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
@@ -26,34 +46,35 @@
 
                 <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
-                    <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB" style="float:left;">
+                    <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB" style="float: left;">
                         <img src="/Content/Images/Esika/facebook.png">
                     </a>
                     <hr class="clear">
                 </div>
                 <hr class="clear">
             </div>
-            <div class="content_detalle_set">
+            <div class="content_detalle_set" style="@styleWidth">
                 <div data-campos="" style="display: none;">
-                    <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID"/>
-                    <input type="hidden" class="valorCuv" value="@Model.CUV"/>
-                    <input type="hidden" class="claseMarcaID" value="@Model.MarcaID"/>
-                    <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo"/>
-                    <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID"/>
-                    <input type="hidden" class="DescripcionProd" value="@Model.Descripcion"/>
-                    <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca"/>
-                    <input type="hidden" class="posicionEstrategia" value="0"/>
+                    <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+                    <input type="hidden" class="valorCuv" value="@Model.CUV" />
+                    <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+                    <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+                    <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
+                    <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="posicionEstrategia" value="0" />
                 </div>
                 <div class="content_left_ficha">
                     <div class="titulo_set">@Model.Descripcion</div>
                 </div>
                 <div class="content_right_ficha" style="text-align: right">
                     <div class="precio_valorizado_showroom">@Model.Simbolo @Model.FormatoPrecioOferta</div>
-                    <div class="precio_oferta_venta">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b>
+                    <div class="precio_oferta_venta">
+                        Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b>
                     </div>
                     <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
-                <hr class="clear"/>
+                <hr class="clear" />
                 <div class="titulo_separador">CONTENIDO</div>
                 @foreach (var detalle in Model.ListaDetalleOfertaShowRoom)
                 {
@@ -87,65 +108,64 @@
                 </div>
                 <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
             </div>
-            <hr class="clear"/>
-        </div>
-        @if (Model.TieneCompraXcompra)
-        {
-            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            @if (Model.TieneCompraXcompra)
             {
-                <div class="content_ficha_compra slider center" style="margin-top: 0px !important;">
-                    
-                    @{ var posicionCpcVertical = 1; }
-                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
-                    {
-                        var descripcion = item.Descripcion;
-                        if (descripcion != null && descripcion.Length > 41)
-                        {
-                            descripcion = descripcion.Substring(0, 40) + " ...";
-                        }
+                if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+                {
+                    <div class="content_ficha_compra slider center" style="margin-top: 0px !important;">
 
-                        <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 430px!important;">
-                            <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
-                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical"/>
-                            </div>
-                            <div style="height: 350px;">
-                                <div class="titulo_compra_POP" style="font-size: 21px; color: #bda571;">PROMOCIÓN</div>
-                                <div class="titulo_producto_compra_carrusel">@descripcion</div>
-                                <div class="precio_set_compra" style="font-size: 16px;">
-                                    <b style="font-weight: 900;">A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b>
-                                </div>
-                                <div class="descripcion_producto_compra" style="text-align: center;">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
-                                <div class="content_imagen_carrusel_compra" data-img="" style="cursor: auto;">
-                                    @if (item.ImagenProducto != "")
-                                    {
-                                        <img src="@item.ImagenProducto" class="imagen_producto">
-                                    }
-                                    else
-                                    {
-                                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-                                    }
-                                </div>
-                                <div class="precio_set_compra" style="font-size: 14px; line-height:17px;">@Model.TextoCondicionCompraCpc</div>
-                                @*<div class="producto_compra">@item.Descripcion</div>*@
-                                @*<div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>*@
-                            </div>                            
-                           
-                            <hr class="clear"/>
-                            <a class="btn_agrega_carrusel_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>                            
-                        </div>
+                        @{ var posicionCpcVertical = 1; }
+                        @foreach (var item in Model.ListaShowRoomCompraPorCompra)
                         {
-                            posicionCpcVertical++;
+                            var descripcion = item.Descripcion;
+                            if (descripcion != null && descripcion.Length > 41)
+                            {
+                                descripcion = descripcion.Substring(0, 40) + " ...";
+                            }
+
+                            <div data-posicion="@posicionCpcVertical" data-item="@item.OfertaShowRoomID" style="height: 430px !important;">
+                                <div data-campos="">
+                                    <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
+                                    <input type="hidden" class="valorCuv" value="@item.CUV"/>
+                                    <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
+                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
+                                    <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
+                                    <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
+                                    <input type="hidden" class="posicionEstrategia" value="@posicionCpcVertical"/>
+                                </div>
+                                <div style="height: 350px;">
+                                    <div class="titulo_compra_POP" style="font-size: 21px; color: #bda571;">PROMOCIÓN</div>
+                                    <div class="titulo_producto_compra_carrusel">@descripcion</div>
+                                    <div class="precio_set_compra" style="font-size: 16px;">
+                                        <b style="font-weight: 900;">A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b>
+                                    </div>
+                                    <div class="descripcion_producto_compra" style="text-align: center;">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                    <div class="content_imagen_carrusel_compra" data-img="" style="cursor: auto;">
+                                        @if (item.ImagenProducto != "")
+                                        {
+                                            <img src="@item.ImagenProducto" class="imagen_producto">
+                                        }
+                                        else
+                                        {
+                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                        }
+                                    </div>
+                                    <div class="precio_set_compra" style="font-size: 14px; line-height: 17px;">@Model.TextoCondicionCompraCpc</div>
+                                    @*<div class="producto_compra">@item.Descripcion</div>*@
+                                    @*<div class="descripcion_producto_compra" style="text-align: center;">@item.DescripcionLegal</div>*@
+                                </div>
+
+                                <hr class="clear"/>
+                                <a class="btn_agrega_carrusel_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
+                            </div>
+                            {
+                                posicionCpcVertical++;
+                            }
                         }
-                    }
-                </div>
+                    </div>
+                }
             }
-        }
+        </div>        
         <hr class="clear" />
     </div>    
 </div>

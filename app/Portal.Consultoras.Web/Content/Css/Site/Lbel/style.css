@@ -34806,7 +34806,7 @@ h1#penmostreo .campana {
 }
 .content_producto_set{
     float:left;
-    width:35%;
+    width:25%;
     height:373px;
     margin-top:60px;
     text-align:center;
@@ -34815,7 +34815,7 @@ h1#penmostreo .campana {
     width:100%;
 }*/
 .content_detalle_set{
-    width:60%;
+    width:45%;
     float:left;
     min-height:100px;
     background:white;
@@ -34824,7 +34824,7 @@ h1#penmostreo .campana {
     font-family:'Lato';
 }
 .content_solo_ficha_set{
-    width:78%;
+    width:100%;
     float:left;
 }
 .titulo_set{
@@ -34903,11 +34903,13 @@ h1#penmostreo .campana {
     font-weight:300;
 }
 .btn_aregar_set{
-    width: 82%;
+    /*width: 82%;*/
     float: right;
     /* text-align: right; */
     background: black;
     color: white;
+    width: -moz-calc(100% -80px);
+    width: calc(100% - 80px);
 }
 @media only screen and (max-width : 1027px) {
     .btn_aregar_set {
