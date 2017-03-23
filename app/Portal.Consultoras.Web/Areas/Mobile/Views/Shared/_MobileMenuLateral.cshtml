@@ -42,9 +42,10 @@
 
 @foreach (var item in itemsMenu)
 {
-    if (item.Descripcion.Trim() != "GRAN VENTA ONLINE")
-    {
+
         if (item.SubMenu.Count == 0)
+        {
+        if (item.Descripcion.Trim() != "GRAN VENTA ONLINE")
         {
             var target = item.PaginaNueva ? "_blank" : "_self";
             var url = item.Version == "Completa"
@@ -65,6 +66,8 @@
                     @item.Descripcion
                 </a>
             }
+        }
+        
         }
         else
         {
