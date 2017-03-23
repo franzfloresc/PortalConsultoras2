@@ -30,6 +30,7 @@ using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Common
 {
@@ -2975,6 +2976,13 @@ namespace Portal.Consultoras.Common
             resultado = codigoMensaje + "|" + mensaje + "|" + paisIso;
 
             return resultado;
+        }
+
+        public static RouteValueDictionary QueryStringToRouteValueDictionary(string queryString)
+        {
+            var parsed = HttpUtility.ParseQueryString(queryString);
+            var queryStringDic = parsed.AllKeys.ToDictionary(k => k, k => (object)parsed[k]);
+            return new RouteValueDictionary(queryStringDic);
         }
     }
 

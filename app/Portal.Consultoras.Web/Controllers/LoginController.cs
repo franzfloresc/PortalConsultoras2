@@ -18,6 +18,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -1380,19 +1381,22 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model != null)
                 {
                     var paisID = Util.GetPaisID(model.Pais);
-
                     var usuario = GetUserData(paisID, model.CodigoConsultora, 1); //Crear un GetUserDataByCodigoConsultora, pero que cargue información basica 
 
                     if (usuario != null)
                     {
                         FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
-
                         Session.Add("IngresoExternoChatbot", model.Version);
-                        
+
+                        var routeValueDictionary = Util.QueryStringToRouteValueDictionary(model.QueryString);
+                        routeValueDictionary.Add("Area", "Mobile");
+
                         switch (model.Pagina.ToUpper())
                         {
                             case "ESTADOCUENTA": //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                                return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                                return RedirectToAction("Index", "EstadoCuenta", routeValueDictionary);
+                            case "SEGUIMIENTOPEDIDO": //Mapear en constantes los nombre de las paginas a donde se va ingresar
+                                return RedirectToAction("Index", "SeguimientoPedido", routeValueDictionary);
                         }
                     }
                 }
