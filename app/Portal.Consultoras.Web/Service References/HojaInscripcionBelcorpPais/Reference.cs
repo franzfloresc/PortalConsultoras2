@@ -326,6 +326,9 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AutorizaPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -371,6 +374,19 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AutorizaPedido {
+            get {
+                return this.AutorizaPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AutorizaPedidoField, value) != true)) {
+                    this.AutorizaPedidoField = value;
+                    this.RaisePropertyChanged("AutorizaPedido");
+                }
             }
         }
         
@@ -776,6 +792,75 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.CollectionDataContractAttribute(Name="CampaniaCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
+        "ions", ItemName="CampaniaBE")]
+    [System.SerializableAttribute()]
+    public class CampaniaCollection : System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaBE> {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="CampaniaBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class CampaniaBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaInicioFacturacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaInicioFacturacion {
+            get {
+                return this.FechaInicioFacturacionField;
+            }
+            set {
+                if ((this.FechaInicioFacturacionField.Equals(value) != true)) {
+                    this.FechaInicioFacturacionField = value;
+                    this.RaisePropertyChanged("FechaInicioFacturacion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HojaInscripcionBelcorpPais.IBelcorpPaisService")]
     public interface IBelcorpPaisService {
@@ -863,6 +948,20 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombre", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombreResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteCollection> ObtenerParametrosUnetePorNombreAsync(string codigoIso, int idTipoParametro, string nombre, System.Nullable<int> idTipoParametroUnetePadre);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZona", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZonaResponse")]
+        System.Nullable<int> ObtenerIdCampaniaActivaPorZona(string codigoISO, string codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZona", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZonaResponse")]
+        System.Threading.Tasks.Task<System.Nullable<int>> ObtenerIdCampaniaActivaPorZonaAsync(string codigoISO, string codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActualRespo" +
+            "nse")]
+        Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection ObtenerCampaniasAnterioresDesdeActual(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActualRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection> ObtenerCampaniasAnterioresDesdeActualAsync(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1002,6 +1101,22 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteCollection> ObtenerParametrosUnetePorNombreAsync(string codigoIso, int idTipoParametro, string nombre, System.Nullable<int> idTipoParametroUnetePadre) {
             return base.Channel.ObtenerParametrosUnetePorNombreAsync(codigoIso, idTipoParametro, nombre, idTipoParametroUnetePadre);
+        }
+        
+        public System.Nullable<int> ObtenerIdCampaniaActivaPorZona(string codigoISO, string codigoZona) {
+            return base.Channel.ObtenerIdCampaniaActivaPorZona(codigoISO, codigoZona);
+        }
+        
+        public System.Threading.Tasks.Task<System.Nullable<int>> ObtenerIdCampaniaActivaPorZonaAsync(string codigoISO, string codigoZona) {
+            return base.Channel.ObtenerIdCampaniaActivaPorZonaAsync(codigoISO, codigoZona);
+        }
+        
+        public Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection ObtenerCampaniasAnterioresDesdeActual(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona) {
+            return base.Channel.ObtenerCampaniasAnterioresDesdeActual(codigoISO, campaniaActual, numeroCampanias, codigoZona);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection> ObtenerCampaniasAnterioresDesdeActualAsync(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona) {
+            return base.Channel.ObtenerCampaniasAnterioresDesdeActualAsync(codigoISO, campaniaActual, numeroCampanias, codigoZona);
         }
     }
 }
