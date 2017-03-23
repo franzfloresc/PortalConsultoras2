@@ -58,7 +58,8 @@ BEGIN
 	 CUV varchar(20) null,
 	 Cantidad int null,
 	 PedidoDetalleIDPadre bit,
-	 OrigenPedidoWeb int
+	 OrigenPedidoWeb int, 
+	 IPUsuario varchar(25)
 	)
 	declare @tabla_pedido table
 	(
@@ -74,7 +75,8 @@ BEGIN
 	 CodigoRegion varchar(8) null,
 	 CodigoZona varchar(8) null,
 	 CampaniaIdSicc int null,
-	 ZonaId int
+	 ZonaId int,
+	 IPUsuario varchar(25)
 	)
 	if @TipoCronograma = 1
 	begin
@@ -98,7 +100,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID AND isnull(PD.EsKitNueva, '0') != 1
 	  join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -114,7 +117,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID AND isnull(PD.EsKitNueva, '0') != 1
 	  join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -149,7 +153,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario	
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID AND isnull(PD.EsKitNueva, '0') != 1
 	  join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -165,7 +170,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID AND isnull(PD.EsKitNueva, '0') != 1
 	  join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -185,10 +191,10 @@ BEGIN
 
 	insert into @tabla_pedido
 	select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
 	from @tabla_pedido_detalle
 	group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
 
 	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
 	select @NroLote, p.CampaniaID, p.PedidoID
@@ -202,7 +208,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, p.CodigoConsultora,
 		p.Clientes, p.CodigoRegion,
 		p.CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from @tabla_pedido p
 	 inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 	where pk.NroLote = @NroLote;
@@ -320,7 +327,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario		
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -459,7 +467,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -588,7 +597,8 @@ select p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 	p.Clientes, r.Codigo as CodigoRegion,
 	z.Codigo as CodigoZona,
 	--case p.EstadoPedido when 202 then 1 else 0 end as Validado
-	(case p.EstadoPedido when 202 then (case when p.ModificaPedidoReservadoMovil = 0 then 1 else 0 end) else 0 end) as Validado	
+	(case p.EstadoPedido when 202 then (case when p.ModificaPedidoReservadoMovil = 0 then 1 else 0 end) else 0 end) as Validado,
+	p.IPUsuario
 from dbo.PedidoWeb p with(nolock)
 	join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 	join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -722,7 +732,8 @@ BEGIN
 	select p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -858,7 +869,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -990,7 +1002,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -1126,7 +1139,8 @@ BEGIN
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
 		--(case p.EstadoPedido when 202 then (case when p.ModificaPedidoReservadoMovil = 0 then 1 else 0 end) else 0 end) as Validado
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
@@ -1229,7 +1243,8 @@ BEGIN
 		Cantidad int null,
 		PedidoDetalleIDPadre bit,
 		TipoProceso int,
-		OrigenPedidoWeb int		
+		OrigenPedidoWeb int,
+		IPUsuario varchar(25)
 	)
 
 	declare @tabla_pedido table
@@ -1247,7 +1262,8 @@ BEGIN
 		CodigoZona varchar(8) null,
 		CampaniaIdSicc int null,
 		ZonaId int,
-		TipoProceso int
+		TipoProceso int,
+		IPUsuario varchar(25)
 	)
 
 	IF @TipoCronograma = 1
@@ -1279,7 +1295,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1  
@@ -1296,7 +1313,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1  
@@ -1333,7 +1351,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1  
@@ -1350,7 +1369,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1  
@@ -1367,10 +1387,10 @@ BEGIN
 
 	insert into @tabla_pedido
 	select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso,IPUsuario
 	from @tabla_pedido_detalle
 	group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso,IPUsuario
 
 	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
 	select @NroLote, p.CampaniaID, p.PedidoID
@@ -1393,7 +1413,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, p.CodigoConsultora,
 		p.Clientes, p.CodigoRegion,
 		p.CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario		
 	from @tabla_pedido p
 	 inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 	where pk.NroLote = @NroLote
@@ -1509,7 +1530,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario		
 	from dbo.PedidoWeb p
 		join dbo.TempPedidoWebID pk on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c on p.ConsultoraID = c.ConsultoraID
@@ -1608,7 +1630,8 @@ BEGIN
 		Cantidad int null,
 		PedidoDetalleIDPadre bit,
 		TipoProceso int,
-		OrigenPedidoWeb int		
+		OrigenPedidoWeb int,
+		IPUsuario VARCHAR(25)
 	)
 
 	declare @tabla_pedido table
@@ -1626,7 +1649,8 @@ BEGIN
 		CodigoZona varchar(8) null,
 		CampaniaIdSicc int null,
 		ZonaId int,
-		TipoProceso int 
+		TipoProceso int ,
+		IPUsuario varchar(25)
 	)
 
 	IF @TipoCronograma = 1
@@ -1658,7 +1682,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1
@@ -1675,7 +1700,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1
@@ -1711,7 +1737,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario				
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			and isnull(pd.EsKitNueva, '0') != 1
@@ -1728,7 +1755,8 @@ BEGIN
 			select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 				c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 				IIF(pd.PedidoDetalleIDPadre IS NULL,0,1), cr.TipoProceso,
-				pd.OrigenPedidoWeb				
+				pd.OrigenPedidoWeb,
+				p.IPUsuario			
 			from dbo.PedidoWeb p with(nolock)
 			join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 			join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
@@ -1744,10 +1772,10 @@ BEGIN
 
 	insert into @tabla_pedido
 	select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso,IPUsuario
 	from @tabla_pedido_detalle
 	group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,TipoProceso,IPUsuario
 
 	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
 	select @NroLote, p.CampaniaID, p.PedidoID
@@ -1770,7 +1798,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, p.CodigoConsultora,
 		p.Clientes, p.CodigoRegion,
 		p.CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado	
+		IIF(p.EstadoPedido = 202 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from @tabla_pedido p
 	 inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 	where pk.NroLote = @NroLote
@@ -1851,7 +1880,8 @@ BEGIN
 	 CUV varchar(20) null,
 	 Cantidad int null,
 	 PedidoDetalleIDPadre bit,
-	 OrigenPedidoWeb int	
+	 OrigenPedidoWeb int,
+	 IPUsuario varchar(25)
 	)
 
 	declare @tabla_pedido table
@@ -1868,7 +1898,8 @@ BEGIN
 	 CodigoRegion varchar(8) null,
 	 CodigoZona varchar(8) null,
 	 CampaniaIdSicc int null,
-	 ZonaId int	 
+	 ZonaId int,
+	 IPUsuario varchar(25)
 	)
 
 	if @TipoCronograma = 1
@@ -1893,7 +1924,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 	  and isnull(pd.EsKitNueva, '0') != 1
@@ -1910,7 +1942,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 	  and isnull(pd.EsKitNueva, '0') != 1
@@ -1942,7 +1975,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 	  and isnull(pd.EsKitNueva, '0') != 1
@@ -1959,7 +1993,8 @@ BEGIN
 	  select p.CampaniaId,p.PedidoId,p.Clientes,p.EstadoPedido,p.ValidacionAbierta,p.Bloqueado,p.IndicadorEnviado,p.ModificaPedidoReservadoMovil,
 		c.Codigo,cr.CodigoRegion,cr.CodigoZona,cr.CampaniaID, cr.ZonaId, pd.CUV, pd.Cantidad,
 		IIF(pd.PedidoDetalleIDPadre IS NULL,0,1),
-		pd.OrigenPedidoWeb		
+		pd.OrigenPedidoWeb,
+		p.IPUsuario
 	  from dbo.PedidoWeb p with(nolock)
 	  join dbo.PedidoWebDetalle pd with(nolock) on pd.CampaniaID = p.CampaniaID and pd.PedidoID = p.PedidoID
 	  and isnull(pd.EsKitNueva, '0') != 1
@@ -1977,10 +2012,10 @@ BEGIN
 
 	insert into @tabla_pedido
 	select CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
 	from @tabla_pedido_detalle
 	group by CampaniaId,PedidoId,Clientes,EstadoPedido,ValidacionAbierta,Bloqueado,IndicadorEnviado,ModificaPedidoReservadoMovil,
-	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId
+	CodigoConsultora,CodigoRegion,CodigoZona,CampaniaIdSicc,ZonaId,IPUsuario
 
 	insert into dbo.TempPedidoWebID (NroLote, CampaniaID, PedidoID)
 	select @NroLote, p.CampaniaID, p.PedidoID
@@ -1994,7 +2029,8 @@ BEGIN
 		p.PedidoID, p.CampaniaID, p.CodigoConsultora,
 		p.Clientes, p.CodigoRegion,
 		p.CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ModificaPedidoReservadoMovil = 0 AND p.ValidacionAbierta = 0,1,0) as Validado		
+		IIF(p.EstadoPedido = 202 AND p.ModificaPedidoReservadoMovil = 0 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from @tabla_pedido p
 	 inner join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 	where pk.NroLote = @NroLote
@@ -2111,7 +2147,8 @@ BEGIN
 	select p.PedidoID, p.CampaniaID, c.Codigo as CodigoConsultora,
 		p.Clientes, r.Codigo as CodigoRegion,
 		z.Codigo as CodigoZona,
-		IIF(p.EstadoPedido = 202 AND p.ModificaPedidoReservadoMovil = 0 AND p.ValidacionAbierta = 0,1,0) as Validado
+		IIF(p.EstadoPedido = 202 AND p.ModificaPedidoReservadoMovil = 0 AND p.ValidacionAbierta = 0,1,0) as Validado,
+		p.IPUsuario
 	from dbo.PedidoWeb p with(nolock)
 		join dbo.TempPedidoWebID pk with(nolock) on p.CampaniaID = pk.CampaniaID and p.PedidoID = pk.PedidoID
 		join ods.Consultora c with(nolock) on p.ConsultoraID = c.ConsultoraID
