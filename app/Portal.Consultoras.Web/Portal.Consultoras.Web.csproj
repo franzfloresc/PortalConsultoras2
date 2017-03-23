@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\CatalogoBrasilController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
@@ -3106,6 +3107,10 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
+    <Content Include="Areas\Mobile\Views\CatalogoBrasil\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoBrasil\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoBrasil\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3805,6 +3810,7 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\MisCatalogosRevistasBrasil\Index.cshtml" />
     <Content Include="Views\MisCatalogosRevistasBrasil\MiRevista.cshtml" />
+    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />

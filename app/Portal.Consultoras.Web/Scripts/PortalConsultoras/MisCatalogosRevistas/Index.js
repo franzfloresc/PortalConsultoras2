@@ -227,7 +227,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
-        url: baseUrl + 'MisCatalogosRevistas/Detalle',
+        url: urlDetalle,
         dataType: "json",
         data: { campania: campana },
         success: function (result) {
@@ -246,9 +246,7 @@ function ObtenerEstadoCatalogo(campana, defered) {
 
 function GetCatalogosLinksByCampania(data, campania) {    
     waitingDialog();
-
-    $.ajaxSetup({ cache: false });
-
+    $.ajaxSetup({ cache: false });    
     var paisNombre = $("#hdPaisNombre").val();
 
     //var defered = new Object();
@@ -360,6 +358,7 @@ function CatalogoMostrar(accion, btn) {
     }
 
     // Centrar segun cantidad de catalgos
+    debugger
     var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
     if (cata.length < 3) {
         var wUnit = 24.7;//%
@@ -367,8 +366,15 @@ function CatalogoMostrar(accion, btn) {
         var wVacio = 100 - wTotalRender;
         var wVacioUnit = wVacio / cata.length;
         cata.removeClass("no_margin_right");
-        cata.css("margin-right", (wVacioUnit / 2) + "%");
-        cata.css("margin-left", (wVacioUnit / 2) + "%");
+
+        if (_Pagina == 1) {
+            cata.css("margin-right", (wVacioUnit / 2) + "%");
+            cata.css("margin-left", (wVacioUnit / 2) + "%");
+        }
+        else {
+            cata.css("margin-right", "0%");
+            cata.css("margin-left", "0%");
+        }
     }
     if (btn != null) {
         dataLayer.push({
@@ -617,7 +623,7 @@ jQuery(document).ready(function () {
     rCampSelect = $("#hdrCampaniaActual").val();
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
 
-    waitingDialog({ title: "Cargando Imagen" });
+    waitingDialog({ title: "Cargando Imagen" });    
     MostrarRevistaCorrecta(rCampSelect);
 });
 
@@ -660,7 +666,7 @@ function MostrarMiRevista() {
     frmMiRevista.submit();
 }
 
-function MostrarRevistaCorrecta(campania) {    
+function MostrarRevistaCorrecta(campania) {
     var urlImagen = "";
     var defered = jQuery.Deferred();
     defered = ObtenerImagenRevista(campania, defered);

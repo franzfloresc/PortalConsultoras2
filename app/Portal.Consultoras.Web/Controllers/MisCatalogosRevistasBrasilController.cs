@@ -17,13 +17,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MisCatalogosRevistasBrasilController : Controller
     {
-        private const string paisISO = "BR";
-        private const string paisNombre = "brasil";
+        private const string paisISO = "MX";
+        private const string paisNombre = "mexico";
         private const int nroCampanias = 18;
 
         public ActionResult Index()
         {
-            int campaniaActual = 201615;
+            int campaniaActual = 201704;
 
             var clienteModel = new MisCatalogosRevistasModel();
             clienteModel.PaisNombre = paisNombre;
@@ -35,6 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
             
             ViewBag.EsConsultoraNueva = true;
+            ViewBag.PaisAnalytics = paisISO;
 
             return View(clienteModel);
         }
@@ -43,10 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<Catalogo> listCatalogo = this.GetCatalogosPublicados(paisISO, campania.ToString());
             
-            string estadoLbel = "1";
+            string estadoLbel = "0";
             string estadoEsika = "1";
             string estadoCyzone = "1";
-            string estadoFinart = "1";
+            string estadoFinart = "0";
             string catalogoUnificado = "0";
 
             if (EsCatalogoUnificado(campania))

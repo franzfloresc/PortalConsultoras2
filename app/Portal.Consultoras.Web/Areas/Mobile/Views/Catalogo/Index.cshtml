@@ -222,8 +222,9 @@
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
-            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'        
         };
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })'; 
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>

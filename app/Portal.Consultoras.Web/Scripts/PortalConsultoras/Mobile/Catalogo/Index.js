@@ -213,7 +213,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
-        url: baseUrl + 'MisCatalogosRevistas/Detalle',
+        url: urlDetalle,
         dataType: "json",
         data: { campania: campana },
         success: function (result) {
@@ -232,7 +232,6 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 function GetCatalogosLinksByCampania(data, campania) {
     ShowLoading();
-
     $.ajaxSetup({ cache: false });
 
     var paisNombre = $("#hdPaisNombre").val();
