@@ -11,7 +11,8 @@
     jQuery(document).ready(function () {        
         fnGrilla();
      
-        $("#btnBuscar").click(function () {            
+        $("#btnBuscar").click(function () {
+            debugger
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -24,13 +25,13 @@
                 return false;
             }
                 
-            if (jQuery.trim($("#ddlRegion").val()) == "") {
-                alert("Debe seleccionar una Región, verifique");
-                return false;
-            } else {
+            //if (jQuery.trim($("#ddlRegion").val()) == "") {
+            //    alert("Debe seleccionar una Región, verifique");
+            //    return false;
+            //} else {
                 $("#hdTipoConsulta").val('1');
                 fnGrilla();
-            }            
+            //}            
         });
 
         $('#ddlCampania').click(function () {
