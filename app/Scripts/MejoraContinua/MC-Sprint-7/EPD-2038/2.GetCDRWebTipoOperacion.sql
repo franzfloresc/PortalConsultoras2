@@ -1,193 +1,278 @@
-use [BelcorpBolivia]
+USE [BelcorpBolivia]
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
 end
 go
-
-
-use [BelcorpChile]
-go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpColombia]
+USE [BelcorpChile]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpCostaRica]
+USE [BelcorpColombia]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpDominicana]
+
+USE [BelcorpCostaRica]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpEcuador]
+
+USE [BelcorpDominicana]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpGuatemala]
+
+USE [BelcorpEcuador]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpMexico]
+
+USE [BelcorpGuatemala]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpPanama]
+
+USE [BelcorpMexico]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpPeru]
+USE [BelcorpPanama]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpPuertoRico]
+
+USE [BelcorpPeru]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpSalvador]
+USE [BelcorpPuertoRico]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
 
 
-use [BelcorpVenezuela]
+
+USE [BelcorpSalvador]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
 go
 CREATE PROC GetCDRWebTipoOperacion
 as
 begin
-select 
-	CodigoOperacion,
-	DescripcionOperacion,
-	NumeroDiasAtrasOperacion
-from [dbo].[TipoOperacionesCDR]
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
 end
 go
 
+
+
+USE [BelcorpVenezuela]
+go
+if exists (select * from sys.objects where type = 'P' and name like '%GetCDRWebTipoOperacion%')
+begin
+	DROP PROCEDURE dbo.GetCDRWebTipoOperacion
+	PRINT 'elimino'
+end
+go
+CREATE PROC GetCDRWebTipoOperacion
+as
+begin
+	select 
+		CodigoOperacion,
+		DescripcionOperacion,
+		NumeroDiasAtrasOperacion
+	from [dbo].[TipoOperacionesCDR]
+end
+go
 
