@@ -79,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BECDRWebDetalleReporte> GetCDRWebDetalleReporte(int PaisID, BECDRWeb entity);
 
-        [OperationContract]
-        List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID);
+        //[OperationContract]
+        //List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID);
     }
 }

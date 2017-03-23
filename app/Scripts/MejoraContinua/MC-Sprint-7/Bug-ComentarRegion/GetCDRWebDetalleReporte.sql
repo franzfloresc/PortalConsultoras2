@@ -71,7 +71,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -233,7 +233,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -314,7 +314,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -395,7 +395,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -476,7 +476,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -557,7 +557,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -638,7 +638,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -719,7 +719,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -881,7 +881,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -962,7 +962,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
@@ -1043,7 +1043,7 @@ a.ConsultoraID = pd.ConsultoraID AND
 b.CUV = pd.CUV
 WHERE b.Eliminado = 0 AND
 a.CampaniaID = @CampaniaID AND
-(c.RegionID = @RegionID OR 0 = @RegionID) AND
+c.RegionID = @RegionID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)

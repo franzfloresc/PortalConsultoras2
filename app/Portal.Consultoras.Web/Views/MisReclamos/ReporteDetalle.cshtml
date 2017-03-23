@@ -11,8 +11,7 @@
     jQuery(document).ready(function () {        
         fnGrilla();
      
-        $("#btnBuscar").click(function () {
-            debugger
+        $("#btnBuscar").click(function () {            
             if (jQuery.trim($("#ddlPais").val()) == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -24,14 +23,22 @@
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
-                
-            //if (jQuery.trim($("#ddlRegion").val()) == "") {
-            //    alert("Debe seleccionar una Región, verifique");
-            //    return false;
-            //} else {
+
+            //if (jQuery.trim($("#ddlPais").val()) == 3 || jQuery.trim($("#ddlPais").val()) == 11) {
                 $("#hdTipoConsulta").val('1');
                 fnGrilla();
-            //}            
+            //}
+            //else {
+            //    if (jQuery.trim($("#ddlRegion").val()) == "") {
+            //        alert("Debe seleccionar una Región, verifique");
+            //        return false;
+            //    } else {
+            //        $("#hdTipoConsulta").val('1');
+            //        fnGrilla();
+            //    } 
+            //}
+                
+           
         });
 
         $('#ddlCampania').click(function () {
