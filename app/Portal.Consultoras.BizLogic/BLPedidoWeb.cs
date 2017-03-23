@@ -728,7 +728,7 @@ namespace Portal.Consultoras.BizLogic
                         string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                         try { DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, false, FechaHoraPais, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, Enumeradores.TipoDescargaPedidos.DigitacionDistribuidaParcial.ToString(), error, errorExcepcion);                        
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, Enumeradores.TipoDescargaPedidos.DigitacionDistribuidaParcial.ToString(), error, errorExcepcion);
                     }
                 }
                 throw;
@@ -1036,6 +1036,7 @@ namespace Portal.Consultoras.BizLogic
                     case "VALIDADO": item = row["Validado"].ToString(); break;
                     case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
                     case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
+                    case "IPUSUARIO": item = (row["IPUsuario"] == DBNull.Value ? string.Empty : row["IPUsuario"].ToString()); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
