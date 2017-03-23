@@ -154,9 +154,9 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.GetCDRWebDetalleReporte(PaisID, entity);
         }
 
-        public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
-        {
-            return BLCDRWebMotivoOperacion.GetCDRWebTipoOperacion(PaisID);
-        }
+        //public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
+        //{
+        //    return BLCDRWebMotivoOperacion.GetCDRWebTipoOperacion(PaisID);
+        //}
     }
 }
