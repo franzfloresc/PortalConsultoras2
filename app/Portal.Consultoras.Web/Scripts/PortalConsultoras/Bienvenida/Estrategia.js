@@ -360,6 +360,10 @@ function EstructurarDataCarousel(array) {
     return array;
 };
 
+function EstrategiaVerDetalle(id, origen) {
+    window.location = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+}
+
 function CargarEstrategiasEspeciales(objInput, e) {
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
@@ -523,8 +527,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
         setTimeout(function () {
             $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-        }
-            , 300);
+        }, 300);
         return false;
     }
 
@@ -599,6 +602,9 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
 
+            if (origenRetorno != "") {
+                window.location = origenRetorno;
+            }
            
         },
         error: function (data, error) {
@@ -817,7 +823,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
-        async: true,
+        async: false,
         success: function (datos) {
             if (!datos.result) {
                 AbrirMensaje(datos.message);

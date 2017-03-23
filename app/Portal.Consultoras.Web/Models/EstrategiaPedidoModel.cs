@@ -67,5 +67,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
+
+        public int Origen { get; set; }
     }
 }

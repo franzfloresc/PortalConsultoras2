@@ -11,9 +11,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return View();
         }
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(int id, int origen)
         {
             var modelo = EstrategiaGetDetalle(id);
+            modelo.Origen = origen;
             return View(modelo);
         }
 
