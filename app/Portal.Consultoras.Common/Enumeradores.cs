@@ -212,5 +212,15 @@
             Descargado = 1,
             Rechazado = 2
         }
+
+        public enum TipoDescargaPedidos
+        {
+            Regular = 1,
+            DemandaAnticipada = 2,
+            DemandaAnticipadaPRD = 3,
+            FIC = 4,
+            GenerarLideres = 5,
+            DigitacionDistribuidaParcial = 6
+        }
     }
 }
