@@ -6478,7 +6478,7 @@ body {
     position: relative;
     background: white;
     margin-top: 15px;
-    margin-bottom: 15px;
+    margin-bottom:15px;
     padding: 20px;
     overflow: hidden;
     font-family:'Lato';
@@ -10884,7 +10884,8 @@ a{
 .correo_showroon{
     width:253px;
     margin:0 auto;
-    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/YCvCk8eQKHYcmxc/page-1.png)no-repeat left bottom;
+    margin-bottom:20px;
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
     padding-left:32px;
 }
 .correo_showroon input{ 
@@ -10916,7 +10917,7 @@ a{
     margin:0 auto;
     margin-top:20px;
     font-family:'Lato';
-    font-size:10px;
+    font-size:10.5px;
     width:251px;    
    text-align: left;
 }
@@ -11052,7 +11053,7 @@ a{
 
 .content_room_product_sheet .product_sheet_image{
 	text-align: center;
-	padding: 25px 0 30px 0;
+	padding: 25px 0 10px 0;
 	background: url(../../../images/Esika/background-showroom-product.jpg) no-repeat top center;
 	background-size: 100% auto;
 }
@@ -11061,7 +11062,7 @@ a{
 	margin: 0;
 	font-size: 19px;
 	font-weight: 700;
-	padding-bottom: 15px;
+	padding-bottom: 5px;
 }
 
 .content_room_product_sheet .price_product{
@@ -11086,6 +11087,7 @@ a{
 
 .content_room_product_sheet .price_product .comment{
 	color: #E81C36;
+    text-transform:uppercase;
 }
 
 .content_room_product_sheet .item_product{
@@ -11574,6 +11576,7 @@ a{
     font-weight:700;
     letter-spacing:0.5px;
     text-align: center;
+    text-transform:uppercase;
 }
 .nombre_producto_pop_compra{
     font-family:'Lato';
@@ -11611,6 +11614,41 @@ a{
     height:13px;
     top:0;
     left:0;
+}
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
+.titulo_confirmacion {
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10px;
+    text-align: center;
+    font-family: 'LAto';
+    text-transform: uppercase;
+}
+.texto_confirmacion {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    font-family: 'LAto';
+    margin-top: 5px;
+}
+.link_cambiar_correo {
+    font-family: 'Lato';
+    font-size: 11px;
+    text-transform: uppercase;
+        margin-top: 27px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+    text-align: center;
+    display: inline-block;
+}
+.texto_confirmacion b {
+    display: block;
 }
 .content_detalle_producto{
     margin-top:13px;
