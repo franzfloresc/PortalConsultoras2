@@ -1683,65 +1683,70 @@
         <script id="estrategia-template" type="text/x-handlebars-template">
             {{#each this as |item|}}
             <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-                <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
-                    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
-                    <div class="producto_img">
-                        <img src="{{FotoProducto01}}" />
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                        <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
-                        {{/iff}}
-                    </div>
-                    {{#if_eq FlagMostrarImg '1'}}
-                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                    {{#if_eq FlagEstrella '1' }}
-                    <div class="etiqueta_producto">
-                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                    </div>
-                    {{/if_eq}}
-                    {{/if_eq}}
-                    {{/if_eq}}
-                    <div class="producto_nombre_descripcion">
-                        <h6>{{DescripcionMarca}}</h6>
-                        {{#if_eq FlagNueva '1'}}
-                        <p class="nombre_producto">
-                            <b>{{DescripcionCUVSplit}}</b>
-                        </p>
-                        {{else}}
-                        <p class="nombre_producto">
-                            <b>{{DescripcionCUV2}}</b>
-                        </p>
-                        {{/if_eq}}
+                <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
 
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                        {{#if_eq EtiquetaID '1'}}
-                        <div class="producto_precio">
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
+                        <div class="producto_img">
+                            <img src="{{FotoProducto01}}" />
+                            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+                            <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                             {{/iff}}
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        {{#if_eq FlagMostrarImg '1'}}
+                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                        {{#if_eq FlagEstrella '1' }}
+                        <div class="etiqueta_producto">
+                            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
                         </div>
                         {{/if_eq}}
+                        {{/if_eq}}
+                        {{/if_eq}}
+                        <div class="producto_nombre_descripcion">
+                            <h6>{{DescripcionMarca}}</h6>
+                            {{#if_eq FlagNueva '1'}}
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUVSplit}}</b>
+                            </p>
+                            {{else}}
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUV2}}</b>
+                            </p>
+                            {{/if_eq}}
 
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                            {{#if_eq EtiquetaID '1'}}
+                            <div class="producto_precio">
+                                {{#iff Precio '>' 0}}
+                                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                                {{/iff}}
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{else}}
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{/if_eq}}
+
+                            {{else}}
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{/iff}}
                         </div>
-                        {{/iff}}
-
+                    </div>
+                    <div class="producto_nombre_descripcion">
                         <div class="contenedor_cantidad_producto">
+                            {{#iff TieneVariedad '==' '0'}}
                             {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled="" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" data-input='cantidad' />
@@ -1781,6 +1786,17 @@
                             <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                                 AGREGAR
                             </a>
+                            {{/iff}}
+                            {{else}}
+                            <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                                <div class="texto_elige_tono">
+                                    ¡AHORA ELIGE TU TONO!
+                                </div>
+                                <div class="clear"></div>
+                                <a class="btn_elige_tono js-no-popup">
+                                    <div>ELIGE TU OPCIÓN</div>
+                                </a>
+                            </div>
                             {{/iff}}
                             <div class="clear"></div>
                             <div style="padding-top:9px; height: 15px;">
