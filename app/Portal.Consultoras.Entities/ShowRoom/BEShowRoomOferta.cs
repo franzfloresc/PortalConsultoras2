@@ -142,6 +142,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string TipNegocio { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public string DescripcionCategoria { get; set; }
 
         public BEShowRoomOferta(IDataRecord row)
