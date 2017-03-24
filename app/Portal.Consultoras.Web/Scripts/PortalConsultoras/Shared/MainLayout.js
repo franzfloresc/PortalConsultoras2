@@ -339,11 +339,11 @@ $(document).ready(function () {
         var urlBienvenida = URLactual.indexOf("Bienvenida");
 
         if (urlIntriga > 0) {
-            $("#content").css("margin-top", "163px")
+            $("#contentmain").css("margin-top", "163px")
         }
 
         if (urlBienvenida > 0) {
-            $("#content").css("margin-top", "0px")
+            $("#contentmain").css("margin-top", "0px")
         }
 
     }
@@ -1079,7 +1079,7 @@ function closeOfertaDelDia() {
             if (response.success) {
                 $('#OfertaDelDia').hide();
 
-                $("#content").css("margin-top", "63px")
+                $("#contentmain").css("margin-top", "63px")
 
                 $('.content_slider_home ').css('margin-top', '60px');
 
