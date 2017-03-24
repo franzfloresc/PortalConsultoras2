@@ -188,7 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\Mobile\Controllers\CatalogoBrasilController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
@@ -300,7 +300,7 @@
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
-    <Compile Include="Controllers\MisCatalogosRevistasBrasilController.cs" />
+    <Compile Include="Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -3107,9 +3107,9 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
-    <Content Include="Areas\Mobile\Views\CatalogoBrasil\EnterateMas.cshtml" />
-    <Content Include="Areas\Mobile\Views\CatalogoBrasil\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\CatalogoBrasil\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
@@ -3808,8 +3808,8 @@
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
-    <Content Include="Views\MisCatalogosRevistasBrasil\Index.cshtml" />
-    <Content Include="Views\MisCatalogosRevistasBrasil\MiRevista.cshtml" />
+    <Content Include="Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />

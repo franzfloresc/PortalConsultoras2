@@ -16,32 +16,49 @@ using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
-    public class CatalogoBrasilController : Controller
+    public class CatalogoRevistaController : Controller
     {
         private const string TextoMensajeSaludoCorreo = "Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.";
 
-        private const string CodigoISO = "MX";
-        private const string CampaniaID = "201704";
+        private const string CodigoISO = "BR";
+        //private const string CampaniaID = "201704";
         private const int NroCampanias = 18;
-        
 
-        public ActionResult Index()
+
+        public ActionResult Index(string ID = "")
         {
+
+            string scampaniaAnterior = "";
+            string scampaniaActual = "";
+            string scampaniaSiguiente = "";
+
+            if (ID != "")
+            {
+                var vcampania = ID.Split('|');
+                if (vcampania.Length != 3)
+                    return RedirectToAction("Index", "Login", new { area = "" });
+                scampaniaAnterior = vcampania[0];
+                scampaniaActual = vcampania[1];
+                scampaniaSiguiente = vcampania[2];
+            }
+            else {
+                return RedirectToAction("Index", "Login", new { area = "" });
+            }
+
             var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisNombre = CodigoISO;//getPaisNombreByISO(userData.CodigoISO);
-            clienteModel.CampaniaActual = CampaniaID;//userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
-            clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
+            clienteModel.PaisNombre = CodigoISO;
+            clienteModel.CampaniaActual = scampaniaActual;
+            clienteModel.CampaniaAnterior = scampaniaAnterior;
+            clienteModel.CampaniaSiguiente = scampaniaSiguiente;
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
-            ViewBag.CodigoISO = CodigoISO;//userData.CodigoISO;
-            ViewBag.EsConsultoraNueva = true;/*userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;*/
+            ViewBag.CodigoISO = CodigoISO;
+            ViewBag.EsConsultoraNueva = true;
 
             string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
-            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(CodigoISO/*userData.CodigoISO*/) ? 1 : 0;
+            ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(CodigoISO) ? 1 : 0;
 
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
             ViewBag.PaisAnalytics = CodigoISO;

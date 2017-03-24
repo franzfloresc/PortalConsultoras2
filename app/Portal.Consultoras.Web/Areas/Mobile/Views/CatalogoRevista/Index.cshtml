@@ -175,7 +175,7 @@
 <!--FIN--> 
 
 <div style="display: none;">
-    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))
+    @using (Html.BeginForm("MiRevista", "CatalogoRevista", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))
     {
         <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
     }
@@ -188,9 +188,9 @@
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
-            <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');" style="width: 24%; margin-left: 25.25%;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;" style="float:right; width:24%; margin-right: 25.25%"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+            <div style="width: 216px; margin:0 auto;">
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');" style="width: 48%;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
+                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;" style="float:right; width:48%;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 @*<a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>*@
             </div>
             
@@ -214,7 +214,7 @@
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "CatalogoBrasil", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "CatalogoRevista", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
         var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
@@ -224,7 +224,7 @@
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
             '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         };
-        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistasBrasil", new { area = "" })';
+        var urlDetalle = '@Url.Action("Detalle", "CatalogoRevista", new { area = "" })';
     </script>
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>

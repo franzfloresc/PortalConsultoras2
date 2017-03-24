@@ -24,7 +24,7 @@
         <script type="text/javascript">
 
             $(document).ready(function () {
-                $.getJSON('/MisCatalogosRevistasBrasil/GetUrlRevistaIssuu', { campania: '@ViewBag.campania' }, function (response) {
+                $.getJSON('/CatalogoRevista/GetUrlRevistaIssuu', { campania: '@ViewBag.campania' }, function (response) {
                     if (response.success) $('#ifr-revista').attr('src', response.urlRevista)
                 })
             })

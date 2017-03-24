@@ -15,21 +15,39 @@ using System.Globalization;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class MisCatalogosRevistasBrasilController : Controller
+    public class CatalogoRevistaController : Controller
     {
-        private const string paisISO = "MX";
-        private const string paisNombre = "mexico";
+        private const string paisISO = "BR";
+        private const string paisNombre = "brasil";
         private const int nroCampanias = 18;
 
-        public ActionResult Index()
+        public ActionResult Index(string ID = "")
         {
-            int campaniaActual = 201704;
+            //int campaniaActual = 201704;
+            string scampaniaAnterior = "";
+            string scampaniaActual = "";
+            string scampaniaSiguiente = "";
+
+            if (ID != "")
+            {
+                var vcampania = ID.Split('|');
+                if (vcampania.Length != 3)
+                    return RedirectToAction("Index", "Login", new { area = "" });
+                scampaniaAnterior = vcampania[0];
+                scampaniaActual = vcampania[1];
+                scampaniaSiguiente = vcampania[2];
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
 
             var clienteModel = new MisCatalogosRevistasModel();
             clienteModel.PaisNombre = paisNombre;
-            clienteModel.CampaniaActual = campaniaActual.ToString();
-            clienteModel.CampaniaAnterior = AddCampaniaAndNumero(campaniaActual, -1, nroCampanias).ToString();
-            clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(campaniaActual, 1, nroCampanias).ToString();
+            clienteModel.CampaniaActual = scampaniaActual;//campaniaActual.ToString();
+            clienteModel.CampaniaAnterior = scampaniaAnterior;//AddCampaniaAndNumero(campaniaActual, -1, nroCampanias).ToString();
+            clienteModel.CampaniaSiguiente = scampaniaSiguiente;//AddCampaniaAndNumero(campaniaActual, 1, nroCampanias).ToString();
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);

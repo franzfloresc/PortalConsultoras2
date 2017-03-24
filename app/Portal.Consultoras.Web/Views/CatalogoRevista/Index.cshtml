@@ -26,14 +26,14 @@
 
     <!-- CATALOGO -->
     <div>
-        <div id="contentCatalogo">
-            <div class="titulo_central" id="TextoCampania"></div>
-            <span class="arrow_catalogo" style="margin-left: 36%;"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="CatalogoMostrar(-1, this)" data-accion="a" /></span>
+        <div id="contentCatalogo" style="float:left; width:56%;">
+            <div class="titulo_central" id="TextoCampania" style="margin-left: 26px;"></div>
+            <span class="arrow_catalogo" style="margin-left: 30%; margin-right: 4%;"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="CatalogoMostrar(-1, this)" data-accion="a" /></span>
             <div>
                 <div class="content_carrusel_catalogo_Brasil" id="divCatalogo">
                 </div>
             </div>
-            <span class="arrow_catalogo2"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
+            <span class="arrow_catalogo2" style="margin-left: 3%;"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="CatalogoMostrar(1, this)" data-accion="s" /></span>
             <hr class="clear" />
         </div>
         
@@ -53,16 +53,17 @@
     </div>
     <!-- FIN CATALOGO -->
 
-    <div class="expoferta_revista">
+    <div class="expoferta_revista" style="float:left;">
 
         <!-- REVISTA -->
         <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
             <div class="titulo_central" data-titulo='revista'></div>
+            <div style="height: 28px;"></div>
             <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
             <a class="revista_carrusel" id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
                 <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
             </a>
-            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
+            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>            
         </div>
         <!-- FIN REVISTA -->
 
@@ -164,7 +165,7 @@
 </div>
 
 <div style="display: none;">
-    @using (Html.BeginForm("MiRevista", "MisCatalogosRevistasBrasil", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
+    @using (Html.BeginForm("MiRevista", "CatalogoRevista", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
 {
     <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
 }
@@ -212,7 +213,7 @@
         var rCampSelectI = 1;
         var cantCamRev = 3;
         var aCamRev = new Array();
-        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "CatalogoBrasil", new { area = "Mobile" })';
+        var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "CatalogoRevista", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var RevistaCodigoIssuu = {
@@ -220,7 +221,7 @@
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
             '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         }
-        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistasBrasil", new { area = "" })';
+        var urlDetalle = '@Url.Action("Detalle", "CatalogoRevista", new { area = "" })';
         var _Pagina = 0;
     </script>
 

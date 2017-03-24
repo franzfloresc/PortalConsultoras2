@@ -28,8 +28,10 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $.getJSON('/MisCatalogosRevistas/GetUrlRevistaIssuu', { campania: '@ViewBag.campania' }, function (response) {
+            debugger
+            $.getJSON('/CatalogoRevista/GetUrlRevistaIssuu', { campania: '@ViewBag.campania' }, function (response) {
                 if (response.success) {
+                    debugger
                     $('#ifr-revista').attr('src', response.urlRevista)
                 }
             })
