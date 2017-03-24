@@ -4115,18 +4115,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var beEstrategia in listaTemporal)
                 {
-                    var add = false;
+                    var add = true;
                     if (beEstrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                     {
-                        bool tieneStockProl = false;
+                        add = false;
                         var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beEstrategia.CodigoProducto);
                         if (itemStockProl != null)
-                            tieneStockProl = itemStockProl.estado == 1;
-
-                        add = tieneStockProl || add;
+                            add = itemStockProl.estado == 1;
                     }
-                    else
-                        add = true;
 
                     if (add)
                     {
