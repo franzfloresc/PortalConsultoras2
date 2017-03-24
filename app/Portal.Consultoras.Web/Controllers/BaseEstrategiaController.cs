@@ -85,18 +85,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var beEstrategia in listaTemporal)
                 {
-                    var add = false;
+                    var add = true;
                     if (beEstrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                     {
-                        bool tieneStockProl = false;
+                        add = false;
                         var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beEstrategia.CodigoProducto);
                         if (itemStockProl != null)
-                            tieneStockProl = itemStockProl.estado == 1;
-
-                        add = tieneStockProl || add;
+                            add = itemStockProl.estado == 1;
                     }
-                    else
-                        add = true;
 
                     if (add)
                     {
@@ -218,6 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                         h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
                         h.Digitable = prod.Digitable;
                         h.CUV = Util.Trim(h.CUV);
+                        h.Cantidad = prod.Cantidad;
                     });
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
@@ -254,6 +251,24 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 estrategia.Hermanos = listaHermanos ?? new List<ProductoModel>();
+            }
+            catch (Exception ex)
+            {
+                estrategia = new EstrategiaPedidoModel();
+                estrategia.Hermanos = new List<ProductoModel>();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return estrategia;
+        }
+
+        public EstrategiaPedidoModel EstrategiaGetDetalleCuv(string cuv)
+        {
+            var estrategia = new EstrategiaPedidoModel();
+            try
+            {
+                var lista = ConsultarEstrategias("") ?? new List<BEEstrategia>();
+                estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.FirstOrDefault(e => e.CUV2 == cuv) ?? new BEEstrategia());
+                estrategia = EstrategiaGetDetalle(estrategia.EstrategiaID);
             }
             catch (Exception ex)
             {

@@ -34497,6 +34497,9 @@ h1#penmostreo .campana {
     font-weight:700;
     font-family: 'lato';
 }
+.cantidad_producto_opt{
+    margin-right: 5px;
+}
 .sub_precio{
     font-family: 'lato';
     font-size:11px;
