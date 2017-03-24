@@ -81,6 +81,7 @@ function ObtenerProductosShowRoom() {
 
 function filterShowRoomMobile() {
     var busquedaModel = null;
+    var mostrarBorrarFiltros = false;
 
     var listaFiltro = null;
     var ordenamiento = null;
@@ -115,6 +116,8 @@ function filterShowRoomMobile() {
             Tipo: tipoBusqueda,
             Valores: valores
         };
+
+        mostrarBorrarFiltros = true;
     }
 
     var filtroRangoPrecio = null;
@@ -133,6 +136,8 @@ function filterShowRoomMobile() {
             Tipo: tipoBusquedaRangoPRecio,
             Valores: valoresRangoPrecio
         };
+
+        mostrarBorrarFiltros = true;
     }
 
     if (filtroCategoria != null || filtroRangoPrecio != null) {
@@ -143,6 +148,12 @@ function filterShowRoomMobile() {
 
         if (filtroRangoPrecio != null)
             listaFiltro.push(filtroRangoPrecio);
+    }
+
+    if (mostrarBorrarFiltros) {
+        $('#div-delete-filters').show();
+    } else {
+        $('#div-delete-filters').hide();
     }
 
     busquedaModel = {

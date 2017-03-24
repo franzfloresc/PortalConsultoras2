@@ -3,6 +3,8 @@
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
+var origenRetorno = $.trim(origenRetorno);
+
 $(document).ready(function () {
     //$(document).on('click', '.combo_select_tono', function (e) {
     //    var AbrirTono = $(this).attr("data-tono-show") || "0";
@@ -360,6 +362,10 @@ function EstructurarDataCarousel(array) {
     return array;
 };
 
+function EstrategiaVerDetalle(id, origen) {
+    window.location = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+}
+
 function CargarEstrategiasEspeciales(objInput, e) {
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
@@ -435,9 +441,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
         //}
 
-        $('#popupDetalleCarousel_lanzamiento').show();
-        $('body').css({ 'overflow-x': 'hidden' });
-        $('body').css({ 'overflow-y': 'hidden' });
+        AbrirPopup('#popupDetalleCarousel_lanzamiento');
         $(".indicador_tono").click();
         $(".indicador_tono").click();
 
@@ -521,7 +525,11 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        AbrirMensaje("Seleccione Tono")
+        //AbrirMensaje("Seleccione Tono")
+        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+        setTimeout(function () {
+            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+        }, 500);
         return false;
     }
 
@@ -580,7 +588,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 var cuvs = $("[data-tono][data-tono-select]");
 
                 $.each(cuvs, function (i, item) {
-                    var cuv = $(item).attr("data-tono-select") 
+                    var cuv = $(item).attr("data-tono-select");
                     if ( cuv != "") {
                         datos.data.CUV2 = cuv;
                         if (codigoEstrategia == "2003") {
@@ -596,6 +604,10 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
 
+            origenRetorno = $.trim(origenRetorno);
+            if (origenRetorno != "") {
+                window.location = origenRetorno;
+            }
            
         },
         error: function (data, error) {
@@ -814,7 +826,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
-        async: true,
+        async: false,
         success: function (datos) {
             if (!datos.result) {
                 AbrirMensaje(datos.message);
@@ -876,8 +888,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 
                         CerrarLoad();
                         if (popup) {
+                            CerrarPopup('#popupDetalleCarousel_lanzamiento');
                             HidePopupEstrategiasEspeciales();
-                            $('body').css({ 'overflow-y': 'scroll' });
                         }
                     },
                     error: function (data, error) {
@@ -897,7 +909,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
 };
 
 function HidePopupEstrategiasEspeciales() {
-    $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
 };
 

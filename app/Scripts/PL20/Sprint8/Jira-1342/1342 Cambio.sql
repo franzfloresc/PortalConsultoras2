@@ -186,7 +186,7 @@ BEGIN
 			INNER JOIN ods.ProductoComercial pc WITH(NOLOCK) ON pd.CampaniaID = pc.AnoCampania
 				AND pd.CUV = pc.CUV
 				AND pc.IndicadorDigitable = 1
-				AND pc.CodigoCatalago IN (9,10,13, 24)
+				--AND pc.CodigoCatalago IN (9,10,13, 24)
 			INNER JOIN ods.Consultora c WITH(NOLOCK) ON pd.ConsultoraID = c.ConsultoraID
 		WHERE pd.CampaniaID = @CampaniaID 
 		AND c.Codigo = @CodigoConsultora
@@ -373,7 +373,7 @@ BEGIN
 	INNER JOIN ods.ProductoComercial pc WITH(NOLOCK) ON pd.CampaniaID = pc.AnoCampania
 		AND pd.CUV = pc.CUV
 		AND pc.IndicadorDigitable = 1
-		AND pc.CodigoCatalago IN (9,10,13, 24)
+		--AND pc.CodigoCatalago IN (9,10,13, 24)
 	INNER JOIN ods.Consultora c WITH(NOLOCK) ON pd.ConsultoraID = c.ConsultoraID
 	WHERE pd.CampaniaID = @CampaniaID AND c.Codigo = @CodigoConsultora
 
@@ -596,12 +596,12 @@ END
 	UPDATE tc SET tc.CUV2 = pc.CUV
 	FROM @TablaCross tc
 	INNER JOIN ods.ProductoComercial pc WITH(NOLOCK) ON tc.CampaniaID = pc.CampaniaID AND tc.CodigoSap = pc.CodigoProducto 
-		AND pc.CodigoCatalago = (
-			CASE tc.MarcaID 
-			WHEN 1 THEN 9 
-			WHEN 2 THEN 13 
-			WHEN 3 THEN 10 
-			ELSE 0 END) 
+		--AND pc.CodigoCatalago = (
+		--	CASE tc.MarcaID 
+		--	WHEN 1 THEN 9 
+		--	WHEN 2 THEN 13 
+		--	WHEN 3 THEN 10 
+		--	ELSE 0 END) 
 		AND pc.IndicadorDigitable = 1
 	WHERE tc.EstaEnPedido = 0
 

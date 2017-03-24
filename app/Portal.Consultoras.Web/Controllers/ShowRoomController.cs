@@ -945,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             }
 
-                            values = inputLine.Split(',');
+                            values = inputLine.Split('|');
                             if (values.Length > 1)
                             {
                                 BEShowRoomCompraPorCompra ent = new BEShowRoomCompraPorCompra();

@@ -654,17 +654,12 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
             bool esMovil = Request.Browser.IsMobileDevice;
-
-            if (esMovil)
-            {
-                modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc);
-                modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc);
-            }
-            else
-            {
-                modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoCondicionCompraCpc);
-                modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoDescripcionLegalCpc);
-            }
+            var tipoAplicacion = esMovil
+                    ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
+            
+            modelo.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
+            modelo.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);            
 
             return modelo;
         }
@@ -772,20 +767,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 showRoomEventoModel.ListaCategoria = listaCategoria;
 
-                bool esMovil = Request.Browser.IsMobileDevice;        
-
-                if (esMovil)
-                {
-                    showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
-                    showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc);
-                    showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc);                    
-                }
-                else
-                {
-                    showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones);
-                    showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoCondicionCompraCpc);
-                    showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.TextoDescripcionLegalCpc);
-                }                
+                bool esMovil = Request.Browser.IsMobileDevice;
+                var tipoAplicacion = esMovil
+                    ? Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile
+                    : Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;      
+                
+                showRoomEventoModel.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones, tipoAplicacion);
+                showRoomEventoModel.TextoCondicionCompraCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoCondicionCompraCpc, tipoAplicacion);
+                showRoomEventoModel.TextoDescripcionLegalCpc = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.TextoDescripcionLegalCpc, tipoAplicacion);                                                 
             }
             catch (Exception ex)
             {
@@ -795,9 +784,9 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
-        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo)
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo);
+            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
             return model == null
                 ? ""

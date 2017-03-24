@@ -1040,3 +1040,16 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         }
     });
 }
+
+function AbrirPopup(ident) {
+    $(ident).show();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopup(ident) {
+    $(ident).hide();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
