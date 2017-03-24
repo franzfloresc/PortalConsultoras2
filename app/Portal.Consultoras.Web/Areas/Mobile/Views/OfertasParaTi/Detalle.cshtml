@@ -63,7 +63,7 @@
                 if (( Model.Hermanos.Any()))
                 {
                     btnDesabled = 1;
-                    <div class="content_tonos_producto" data-tono="">
+                    <div class="content_tonos_producto" data-tono="" data-tono-select="" data-tono-digitable="1" >
                         <div class="tono_select_opt">
                             <div class="content_tono_elegido texto_sin_tono" data-tono-change="1" >
                                 <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" /></div>
@@ -82,7 +82,7 @@
                             </div>
                         </div>
                         <hr class="clear">
-                        <div>
+                        <div data-tono-div="">
                             @foreach (var Hermano in Model.Hermanos)
                             {
                                 <div style="display: none;">
@@ -107,7 +107,7 @@
                     @foreach (var Hermano in Model.Hermanos)
                     {
                         <div>
-                            <div class="@claseItem3" data-tono="">
+                            <div class="@claseItem3" data-tono=""  data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                 <div style="display: none;">
                                     <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
@@ -363,7 +363,14 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
         var tipoOrigenEstrategia = 262;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
+        var origenRetorno = '';
+        if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi') {
+            origenRetorno = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'
+        }
+        else if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi') {
+            origenRetorno = '@Url.Action("Index", "Pedido", new { area = "Mobile" })'
+        }
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/OfertasParaTi.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>

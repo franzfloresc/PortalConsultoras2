@@ -3456,6 +3456,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-family:'Lato';
     letter-spacing:0.2px;
     text-align:center;
+    position:relative;
 }
 
 .producto_nombre_descripcion h6{
@@ -3489,7 +3490,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-family:'Lato';
     letter-spacing:0.2px;
     color:#000;
-    margin-bottom:16px;
+    margin-bottom: 22px;
 }
 
 .producto_precio_normal {
@@ -19403,10 +19404,9 @@ a.mover{
     padding: 8px;
     font-weight:700;
      
-}
-html {
+/*html {
     overflow-x:hidden;
-}
+}*/
 .btnCerrarShowroom {
     width: 25px;
     height: 24px;
@@ -21144,12 +21144,12 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    /*background: #FFF;*/
-    color: #000;
+    background: black;
+    color: #fff;
     text-align: center;
     border: 2px solid #000;
-    font-size: 12.5px;
-    font-weight: bold;
+    font-size: 13px;
+    /*font-weight: bold;*/
     transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
@@ -33017,6 +33017,7 @@ h1#penmostreo .campana {
     letter-spacing: 0.3px;
     margin-top: 3px;
     margin-bottom: 10px;
+    text-transform:uppercase;
 }
 
 .cerrar_fichaProducto {
@@ -34317,6 +34318,8 @@ h1#penmostreo .campana {
 }
 .content_tonos_select {
     width: 101%;
+    max-height: 176px;
+    overflow-y: auto;
     border: 1px solid #b0b0b0;
     position: absolute;
     /* bottom: 0; */
@@ -34335,7 +34338,7 @@ h1#penmostreo .campana {
 
 .tono_no_seleccionado{
     background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
-    background-position: 95% 19px;
+    background-position: 97% 19px;
     color:white;
     transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -34345,7 +34348,7 @@ h1#penmostreo .campana {
 }
 .tono_por_elegir{
      background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
-    background-position: 95% 17px;
+    background-position: 97% 17px;
 }
 .tono_escogido{
     border: 1px solid #b0b0b0;
@@ -34356,6 +34359,40 @@ h1#penmostreo .campana {
 }
 .content_tono_detalle:hover{
     border: 1px solid black
+}
+.titulo_contenido{
+    font-family:'Lato';
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;
+    /*margin-top: 15px;*/
+}
+.texto_elige_tono {
+    position:absolute;
+    font-family: 'LAto';
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #e81c36;
+    text-align: center;
+    height: 20px;
+    width:100%;   
+    left: 0;
+    top: -19px;
+    letter-spacing:0.2px;
+}
+.btn_elige_tono{
+    display: block;
+    margin-top: 7px;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    /*font-weight: 700;*/
+    cursor: pointer;
 }
 .solo_inferior{
     font-size:17px;

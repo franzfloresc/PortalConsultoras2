@@ -202,6 +202,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
                 {
+                    listaHermanos.ForEach(h =>
+                    {
+                        h.CUV = Util.Trim(h.CUV);
+                    });
                     listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
                 }
                 if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
@@ -213,6 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                         h.Grupo = prod.Grupo;
                         h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
                         h.Digitable = prod.Digitable;
+                        h.CUV = Util.Trim(h.CUV);
                     });
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
