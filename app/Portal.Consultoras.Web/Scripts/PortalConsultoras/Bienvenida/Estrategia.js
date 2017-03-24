@@ -3,6 +3,8 @@
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
+var origenRetorno = $.trim(origenRetorno);
+
 $(document).ready(function () {
     //$(document).on('click', '.combo_select_tono', function (e) {
     //    var AbrirTono = $(this).attr("data-tono-show") || "0";
@@ -527,7 +529,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
         setTimeout(function () {
             $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-        }, 300);
+        }, 500);
         return false;
     }
 
@@ -602,6 +604,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
 
+            origenRetorno = $.trim(origenRetorno);
             if (origenRetorno != "") {
                 window.location = origenRetorno;
             }
