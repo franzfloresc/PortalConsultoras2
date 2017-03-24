@@ -326,10 +326,27 @@ $(document).ready(function () {
         $(".ui-button-text").trigger("click");
     });
 
+
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
     OrdenarCabecera();
+
+    if (tieneOfertaDelDia == "True") {
+        debugger;
+        var URLactual = window.location.href;
+        var urlIntriga = URLactual.indexOf("ShowRoom");
+        var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+        if (urlIntriga > 0) {
+            $("#content").css("margin-top", "163px")
+        }
+
+        if (urlBienvenida > 0) {
+            $("#content").css("margin-top", "0px")
+        }
+
+    }
 });
 
 function OrdenarCabecera() {
@@ -1061,6 +1078,8 @@ function closeOfertaDelDia() {
         success: function (response) {
             if (response.success) {
                 $('#OfertaDelDia').hide();
+
+                $("#content").css("margin-top", "63px")
 
                 $('.content_slider_home ').css('margin-top', '60px');
 
