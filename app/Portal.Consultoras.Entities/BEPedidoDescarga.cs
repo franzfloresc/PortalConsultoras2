@@ -37,7 +37,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public Boolean Desmarcado { get; set; }
-
+        //EPD1973
+        [DataMember]
+        public DateTime FechaProceso { get; set; }
+        [DataMember]
+        public DateTime FechaEnvio { get; set; }
+        //!EPD1973
         public BEPedidoDescarga()
         {
         }
@@ -73,6 +78,13 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Desmarcado") && row["Desmarcado"] != DBNull.Value)
                 Desmarcado = Convert.ToBoolean(row["Desmarcado"]);
+
+            if (DataRecord.HasColumn(row, "FechaProceso") && row["FechaProceso"] != DBNull.Value)
+                FechaProceso = Convert.ToDateTime(row["FechaProceso"]);
+
+            if (DataRecord.HasColumn(row, "FechaEnvio") && row["FechaEnvio"] != DBNull.Value)
+                FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);
+
         }
     }
 }

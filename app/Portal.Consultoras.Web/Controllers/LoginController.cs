@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                bool esMovil = Request.Browser.IsMobileDevice; 
+                bool esMovil = Request.Browser.IsMobileDevice;
                 if (esMovil)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -474,7 +474,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
-                    model.IPUsuario = GetIPCliente();
+                    model.IPUsuario = GetIPCliente();                   
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -730,6 +730,37 @@ namespace Portal.Consultoras.Web.Controllers
                 throw;
             }
             return model;
+        }
+
+        private string GetHostname()
+        {
+            string Hostname = string.Empty;
+            try
+            {
+                if (System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_HOST"] != null)
+                {
+                    Hostname = System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_HOST"];
+                }
+                else
+                {
+                    if (System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"] != null)
+                    {
+                        Hostname = System.Net.Dns.GetHostEntry(System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]).HostName;
+                        if (Hostname.Split('.').Count() > 1) Hostname = Hostname.Split('.')[0];
+                    }
+                    else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
+                    {
+                        Hostname = System.Web.HttpContext.Current.Request.UserHostName;
+                    }
+                }
+                return Hostname;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+                return "Unknown host";
+
+            }
         }
 
         private void CalcularMotivoRechazo(UsuarioModel model)
@@ -1175,16 +1206,15 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var resultado = "";
             var paso = "1";
-            var esEsika = false;
 
             try
             {
                 var mailBody = "";
-                // Validamos si pertenece a Peru, Bolivia, Chile, Guatemala, El Salvador, Colombia (Paises ESIKA)
-                if (paisId == 11 || paisId == 2 || paisId == 3 || paisId == 8 || paisId == 7 || paisId == 4)
-                    esEsika = true;
+                string paisISO = Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
 
-                using (ServiceUsuario.UsuarioServiceClient sv = new ServiceUsuario.UsuarioServiceClient())
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     List<BEUsuarioCorreo> lst = sv.SelectByEmail(correo, paisId).ToList();
                     paso = "2";
