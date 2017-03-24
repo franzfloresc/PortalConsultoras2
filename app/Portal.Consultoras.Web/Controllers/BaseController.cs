@@ -1711,8 +1711,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
-            if (controllerName == "MisPedidos") return true;
-            if (controllerName == "Pedido") return true;
+            //if (controllerName == "MisPedidos") return true;
+            //if (controllerName == "Pedido") return true;
             if (controllerName == "ShowRoom") return true;
             return false;
         }
