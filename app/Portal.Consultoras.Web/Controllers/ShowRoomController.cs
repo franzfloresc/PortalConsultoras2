@@ -84,6 +84,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
                 ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
 
+                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+
                 return View(showRoomEventoModel);
 
             }
@@ -1555,8 +1557,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1634,8 +1636,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1649,7 +1651,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.SubTipoOfertaSisID = 0;
                     entidad.EsSugerido = false;
                     entidad.EsKitNueva = false;
-                    entidad.OrigenPedidoWeb = 0;
                     entidad.IPUsuario = userData.IPUsuario;
                     entidad.EsCompraPorCompra = true;
 
@@ -2576,6 +2577,31 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "Error al cargar los productos"
                 });
             }            
+        }
+
+        [HttpPost]
+        public JsonResult CerrarBannerCompraPorCompra()
+        {
+            try
+            {
+                userData.CloseBannerCompraPorCompra = true;
+
+                SetUserData(userData);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error"
+                });
+            }
         }
     }
 }

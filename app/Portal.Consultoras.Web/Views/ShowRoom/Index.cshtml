@@ -150,7 +150,7 @@
                 descripcion = descripcion.Substring(0, 40) + " ...";
             }
 
-            <div class="content_banner_compra">
+            <div class="content_banner_compra" id="divBannerCompraPorCompra">
                 <div class="titulo_promocion">PROMOCIÓN</div>
                 <div class="content_interno_banner">
                     <div style="width: 65%; margin: 0 auto;">
@@ -167,10 +167,11 @@
                             @Model.TextoCondicionCompraCpc
                         </div>
                         <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
-                        <hr class="clear" />
+                        <hr class="clear"/>
                     </div>
-                    
+
                 </div>
+                <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeCompraPorCompra();" style="color: black;">x</a>
             </div>
         }
     }
@@ -347,6 +348,10 @@
         var precioMax = '@ViewBag.PrecioMax';
         var simbolo = '@Model.Simbolo';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var closeBannerCompraPorCompra = '@ViewBag.CloseBannerCompraPorCompra';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompraTactica';
+        var origenPedidoWebCarrusel = -1;
     </script>
 
 }

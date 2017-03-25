@@ -332,8 +332,7 @@ $(document).ready(function () {
 
     OrdenarCabecera();
 
-    if (tieneOfertaDelDia == "True") {
-        debugger;
+    if (tieneOfertaDelDia == "True") {        
         var URLactual = window.location.href;
         var urlIntriga = URLactual.indexOf("ShowRoom");
         var urlBienvenida = URLactual.indexOf("Bienvenida");
@@ -1014,7 +1013,6 @@ function loadOfertaDelDia() {
                     var URLactual = window.location.href;
                     var urlIntriga = URLactual.indexOf("Intriga");
 
-                    debugger;
                     if (urlIntriga > 0) {
                         $('#OfertaDelDia').hide();
                     } else {

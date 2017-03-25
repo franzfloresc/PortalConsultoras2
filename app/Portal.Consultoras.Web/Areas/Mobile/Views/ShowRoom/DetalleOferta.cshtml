@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -378,6 +379,8 @@
 
         var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
-
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPage';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPageTactica';
+        var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.MobileShowRoomProductPageCarrusel';
     </script>
 }

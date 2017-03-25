@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
@@ -317,5 +318,8 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 11;
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPage';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageTactica';
+        var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageCarrusel';
     </script>
 }
