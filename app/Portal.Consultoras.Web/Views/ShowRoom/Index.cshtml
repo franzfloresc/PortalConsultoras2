@@ -72,69 +72,69 @@
                 </div>
             }
 
-            <hr class="clear"/>
+            <hr class="clear" />
             <div id="divProductosShowRoom">
                 @*@{ var posicionx = 1; }
-                @foreach (var item in Model.ListaShowRoomOferta)
-                {
-                    <div class="set-productos-showroom" data-posicion="@posicionx" data-item="@item.OfertaShowRoomID">
-                        <div data-campos="">
-                            <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-                            <input type="hidden" class="valorCuv" value="@item.CUV" />
-                            <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                            <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-                            <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
-                            <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-                            <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-                            <input type="hidden" class="posicionEstrategia" value="@posicionx" />
-                        </div>
-
-                        <div class="producto_img_home mini" data-img="">
-                            @if (string.IsNullOrEmpty(item.ImagenMini))
-                            {
-                                <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-                            }
-                            else
-                            {
-                                <img src="@item.ImagenMini" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
-                            }
-
-                            <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID})">VER DETALLE</a>
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <p class="nombre-producto-set">@item.Descripcion</p>
-                            <div class="producto_precio" style="margin-bottom: 3px;">
-                                <span class="precio-oferta-normal">@Model.Simbolo @item.FormatoPrecioOferta</span>
-                                <span class="precio-oferta-venta"><b>@Model.Simbolo @item.FormatoPrecioCatalogo</b></span>
-                            </div>
-                            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                                <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
-                                       class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                       oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
-                                       data-input="cantidad" data-cantidad-input="-">
-                                <div class="liquidacion_rango_right_pedido">
-                                    <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                    <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                </div>
-                            </div>
-                            <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                                AGRÉGALO
-                            </a>
-                            <div class="clear"></div>
-                            <div style="padding-top: 9px; height: 15px;">
-                                <div class="agregado product-add" style="text-align: right; display: @item.Agregado;">
-                                    AGREGADO
-                                    <div class="icono"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @foreach (var item in Model.ListaShowRoomOferta)
                     {
-                        posicionx++;
-                    }
-                }
+                        <div class="set-productos-showroom" data-posicion="@posicionx" data-item="@item.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionx" />
+                            </div>
 
-                <hr class="clear" />*@
+                            <div class="producto_img_home mini" data-img="">
+                                @if (string.IsNullOrEmpty(item.ImagenMini))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
+                                }
+                                else
+                                {
+                                    <img src="@item.ImagenMini" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                                }
+
+                                <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID})">VER DETALLE</a>
+                            </div>
+                            <div class="producto_nombre_descripcion">
+                                <p class="nombre-producto-set">@item.Descripcion</p>
+                                <div class="producto_precio" style="margin-bottom: 3px;">
+                                    <span class="precio-oferta-normal">@Model.Simbolo @item.FormatoPrecioOferta</span>
+                                    <span class="precio-oferta-venta"><b>@Model.Simbolo @item.FormatoPrecioCatalogo</b></span>
+                                </div>
+                                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                           oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
+                                           data-input="cantidad" data-cantidad-input="-">
+                                    <div class="liquidacion_rango_right_pedido">
+                                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                    </div>
+                                </div>
+                                <a class="boton_Agregalo_home" data-btn-agregar-sr="">
+                                    AGRÉGALO
+                                </a>
+                                <div class="clear"></div>
+                                <div style="padding-top: 9px; height: 15px;">
+                                    <div class="agregado product-add" style="text-align: right; display: @item.Agregado;">
+                                        AGREGADO
+                                        <div class="icono"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            posicionx++;
+                        }
+                    }
+
+                    <hr class="clear" />*@
             </div>
         </div>
 
@@ -160,14 +160,14 @@
                         <div class="content_oferta">
                             <b class="content_oferta_promocion">
                                 @descripcion<span class="solo_inferior">
-                                    
+
                                     A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo
                                 </span>
                             </b>
                             @Model.TextoCondicionCompraCpc
                         </div>
                         <a class="btn_ver_detalle_compra" id="btnVerDetalleCompraPorCompra">DESCÚBRELO AQUÍ</a>
-                        <hr class="clear"/>
+                        <hr class="clear" />
                     </div>
 
                 </div>
@@ -200,13 +200,13 @@
                     {
                         <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
                             <div data-campos="">
-                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
-                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
-                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
-                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
-                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
-                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
+                                <input type="hidden" class="valorCuv" value="@item.CUV" />
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                             </div>
 
                             <div class="content_imagen_compra" data-img="">
@@ -216,10 +216,10 @@
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
                                 }
                             </div>
-                           
+
                             <div class="content_datos_carrusel">
                                 <div class="titulo_pop_compra">@item.Descripcion</div>
                                 <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b></div>
@@ -239,9 +239,9 @@
                                 <a data-btn-agregar-cpc="" class="boton_Agregalo_home btn_aregar_set" onclick="" style="width: 70%;">
                                     AGRÉGALO
                                 </a>
-                                <hr class="clear"/>
+                                <hr class="clear" />
                             </div>
-                            <hr class="clear"/>
+                            <hr class="clear" />
                         </div>
                         {
                             posicionCpc++;
@@ -251,10 +251,8 @@
                 <div class="legal_footer_compra">@Model.TextoDescripcionLegalCpc</div>
             </div>
         </div>
-    }
-}
-
-
+                            }
+                        }
 <!--FIN-->
 
 <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
@@ -330,16 +328,11 @@
             </div>
         </div>
     </div>
-    {{/each}}    
+    {{/each}}
     <hr class="clear" />
 </script>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var tipoOrigenPantalla = 1;
@@ -352,6 +345,11 @@
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompraTactica';
         var origenPedidoWebCarrusel = -1;
+        var iconoLluvia = '@ViewBag.IconoLLuvia';
     </script>
-
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 }

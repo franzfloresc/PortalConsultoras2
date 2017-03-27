@@ -74,8 +74,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
 
-                var showRoomEventoModel = CargarValoresModel();                
-                
+                var showRoomEventoModel = CargarValoresModel();
+
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
@@ -85,6 +85,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 return View(showRoomEventoModel);
 
@@ -260,7 +262,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.TextoEstrategia,
                                 a.OfertaEstrategia.ToString(),
                                 a.Estado.ToString(),
-                                a.TieneCategoria.ToString()
+                                a.TieneCategoria.ToString(),
+                                a.TieneCompraXcompra.ToString()
                             }
                         }
                 };
@@ -2496,6 +2499,8 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.BeShowRoom.CampaniaID);
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View("DetalleSet", modelo);
 

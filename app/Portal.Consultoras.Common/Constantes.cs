@@ -403,6 +403,10 @@ namespace Portal.Consultoras.Common
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string IconoLluvia = "IconoLluvia";
+                public const string BannerEnvioCorreo = "BannerEnvioCorreo";
+                public const string TextoEnvioCorreo = "TextoEnvioCorreo";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
             }
 
             public class Mobile
@@ -415,6 +419,7 @@ namespace Portal.Consultoras.Common
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
             }
 
             public class TipoAplicacion
