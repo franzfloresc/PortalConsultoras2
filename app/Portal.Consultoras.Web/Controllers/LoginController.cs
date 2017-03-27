@@ -1387,16 +1387,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
                         Session.Add("IngresoExternoChatbot", model.Version);
-
-                        var routeValueDictionary = Util.QueryStringToRouteValueDictionary(model.QueryString);
-                        routeValueDictionary.Add("Area", "Mobile");
-
+                        
                         switch (model.Pagina.ToUpper())
                         {
                             case "ESTADOCUENTA": //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                                return RedirectToAction("Index", "EstadoCuenta", routeValueDictionary);
+                                return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
                             case "SEGUIMIENTOPEDIDO": //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                                return RedirectToAction("Index", "SeguimientoPedido", routeValueDictionary);
+                                return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                         }
                     }
                 }

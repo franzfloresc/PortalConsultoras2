@@ -6,6 +6,7 @@
         public string CodigoConsultora { get; set; }
         public string Pagina { get; set; }
         public string Version { get; set; }
-        public string QueryString { get; set; }
+        public string Campania { get; set; }
+        public string NumeroPedido { get; set; }
     }
 }
