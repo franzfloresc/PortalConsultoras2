@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Models
                 return Estado == Constantes.EstadoCDRWeb.Pendiente
                     ? "PENDIENTE"
                     : Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "EN EVALUACION"
+                        ? "EN EVALUACIÓN"
                         : Estado == Constantes.EstadoCDRWeb.Observado
                         ? "OBSERVADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
