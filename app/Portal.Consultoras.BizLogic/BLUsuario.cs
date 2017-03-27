@@ -1165,5 +1165,77 @@ namespace Portal.Consultoras.BizLogic
 
             return resultado;
         }
+
+        //EPD-1836
+        public int InsUsuarioPostulante(int paisID, BEUsuarioPostulante entidad)
+        {
+            int r = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(entidad.NumeroDocumento) && 
+                    !string.IsNullOrEmpty(entidad.NombreCompleto) && 
+                    !string.IsNullOrEmpty(entidad.Zona) &&
+                    !string.IsNullOrEmpty(entidad.Seccion) &&
+                    !string.IsNullOrEmpty(entidad.Correo))
+                {
+                    var DAUsuario = new DAUsuario(paisID);
+
+                    BEUsuario usuario = new BEUsuario();
+                    usuario.CodigoUsuario = entidad.NumeroDocumento;
+                    usuario.PaisID = paisID;
+                    usuario.Nombre = entidad.NombreCompleto;
+                    usuario.ClaveSecreta = entidad.NumeroDocumento;
+                    usuario.EMail = entidad.Correo;
+                    usuario.Activo = true;
+                    usuario.TipoUsuario = 2;
+                    usuario.DocumentoIdentidad = entidad.NumeroDocumento;
+
+                    int r1 = DAUsuario.InsUsuario(usuario);
+                    if (r1 > 0)
+                    {
+                        BEUsuarioRol usuarioRol = new BEUsuarioRol();
+                        usuarioRol.CodigoUsuario = entidad.NumeroDocumento;
+                        usuarioRol.RolID = 1;
+                        usuarioRol.Activo = true;
+
+                        var DARol = new DARol(paisID);
+                        int r2 = DARol.InsUsuarioRol(usuarioRol);
+
+                        if (r2 > 0)
+                        {
+                            entidad.CodigoUsuario = entidad.NumeroDocumento;
+                            int r3 = DAUsuario.InsUsuarioPostulante(entidad);
+                            r = (r3 > 0) ? 1 : 0;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return r;
+        }
+
+        public int DelUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            int r = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(numeroDocumento))
+                {
+                    var DAUsuario = new DAUsuario(paisID);
+                    int r1 = DAUsuario.DelUsuarioPostulante(numeroDocumento);
+                    r = (r1 > 0) ? 1 : 0;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return r;
+        }
     }
 }
