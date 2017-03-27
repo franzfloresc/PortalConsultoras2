@@ -3624,6 +3624,7 @@ a.subir_carousel, a.bajar_carousel {
         color: #000;
         margin-top: 8px;
         margin-bottom: 2px;
+        text-transform:uppercase;
 }
 
     .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas {
@@ -3639,6 +3640,7 @@ a.subir_carousel, a.bajar_carousel {
     justify-content: center;
     align-content: center;
     flex-direction: column;
+    line-height:18px;
 }
 
 .producto_precio {
