@@ -236,9 +236,34 @@ namespace Portal.Consultoras.Web.Controllers
                 //int buscar = int.Parse(txtBuscar);
                 BEPager pag = new BEPager();
                 IEnumerable<BEEstrategia> items = lst;
-
+                    if (lst.Any())
+                    {
+                        if (sord == "asc")
+                        {
+                            switch (sidx)
+                            {
+                                case "CUV2":
+                                    items = lst.OrderBy(x => x.CUV2);
+                                    break;
+                                case "CodigoProducto":
+                                    items = lst.OrderBy(x => x.CodigoProducto);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            switch (sidx)
+                            {
+                                case "CUV2":
+                                    items = lst.OrderByDescending(x => x.CUV2);
+                                    break;
+                                case "CodigoProducto":
+                                    items = lst.OrderByDescending(x => x.CodigoProducto);
+                                    break;
+                            }
+                        }
+                    }
                 items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
