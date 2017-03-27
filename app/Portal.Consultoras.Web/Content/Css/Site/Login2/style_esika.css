@@ -179,7 +179,7 @@ h6, .h6 {
 
 .logo-esika {
     /*margin-bottom: 30px;*/
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-align: center;
     font-family: 'logo_esika';
     /*margin-left: -25px;*/
@@ -286,7 +286,7 @@ Image .nav0:hover {
     padding-left: 18%;
     padding-right: 18%;
     padding-bottom: 36px;
-    padding-top: 65px;
+    padding-top: 45px;
     /*background: url('../images/bg_form_esika.png') 0px 0px repeat;*/
     position: relative;
 }
@@ -415,7 +415,7 @@ Image .nav0:hover {
         letter-spacing: 0.5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .formbtn label a {

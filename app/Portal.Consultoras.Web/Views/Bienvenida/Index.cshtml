@@ -46,7 +46,10 @@
 
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <img src="@ViewBag.FotoPerfil" style="width: 50px; height: 50px; border: 0;" />
+                <div class="foto_perfil_home">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 70px; height: 70px;" />
+                </div>
+                
             }
             
             <div class="clear"></div>
@@ -2494,6 +2497,9 @@
         //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('div.content_datos').css('max-width', '100%');
+            $('div.resumen_belcorp_cam').css('margin-left', '3%');
+            $('div.resumen_belcorp_cam').css('margin-right', '3%');
             $('div.contenedor_img_perfil').show();
         }
 

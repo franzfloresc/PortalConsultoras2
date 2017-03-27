@@ -21047,13 +21047,14 @@ label.checkpop.c_on {
 }
 
 .foto_perfil_home {
-    width: 104px;
-    height: 104px;
+    width: 70px;
+    height: 70px;
     border-radius: 100px;
     -moz-border-radius: 100px;
     -webkit-border-radius: 100px;
     position: relative;
     float: left;
+    overflow: hidden;
 }
 
     .foto_perfil_home img {

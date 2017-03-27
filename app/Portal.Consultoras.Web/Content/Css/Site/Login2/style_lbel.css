@@ -148,7 +148,7 @@ span {
 }
 
 .logo-esika {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     font-family: icomoon;
 }
@@ -226,7 +226,7 @@ span {
 
 .webForm {
     max-width: 349px;
-    padding: 65px 18% 36px;
+    padding: 45px 18% 36px;
 }
 
     .webForm .title {
@@ -335,7 +335,7 @@ span {
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .formbtn label a {
