@@ -2309,16 +2309,18 @@
                 var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
                 var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
-                var urlPedido = '@Url.Action("Index","Pedido")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
+                var urlPedido = '@Url.Action("Index","Pedido")';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
+                /*PL20-1227*/
                 var origenPagina = 2;
                 var tipoOrigenEstrategia = 11;
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
+            <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {

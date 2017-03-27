@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
+    <Compile Include="Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -3148,6 +3150,10 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
@@ -3326,6 +3332,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -3843,6 +3850,9 @@
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
+    <Content Include="Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Views\CatalogoRevista\MiRevista.cshtml" />
+    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

@@ -2,8 +2,7 @@
 {
     public class MisCatalogosRevistasModel
     {
-        public int PaisID { get; set; }
-        public string CodigoZona { get; set; }
+        public string PaisNombre { get; set; }
 
         public string CampaniaAnterior { get; set; }
         public string CampaniaActual { get; set; }

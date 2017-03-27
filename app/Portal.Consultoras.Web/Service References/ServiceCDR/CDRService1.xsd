@@ -360,18 +360,4 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetCDRWebTipoOperacion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetCDRWebTipoOperacionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" minOccurs="0" name="GetCDRWebTipoOperacionResult" nillable="true" type="q31:ArrayOfBECDRTipoOperacion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
 </xs:schema>

@@ -6,14 +6,12 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
-
-using System.Globalization;
-
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -24,11 +22,10 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            clienteModel.PaisID = userData.PaisID;
-            clienteModel.CodigoZona = userData.CodigoZona; //R20160204
+            clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
-            clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
-            clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
+            clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
+            clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
@@ -60,28 +57,10 @@ namespace Portal.Consultoras.Web.Controllers
             string estadoFinart = CampaniaInicioFin(lstCatalogoConfiguracion.Where(l => l.MarcaID == (int)Enumeradores.TypeMarca.Finart).FirstOrDefault(), campania);
             string catalogoUnificado = "0";
 
-            if (ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Contains(ISO))
+            if (EsCatalogoUnificado(campania))
             {
-                string[] paises = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"].Split(';');
-                if (paises.Length > 0)
-                {
-                    foreach (var pais in paises)
-                    {
-                        if (pais.Contains(ISO))
-                        {
-                            string[] PaisCamp = pais.Split(',');
-                            if (PaisCamp.Length > 0)
-                            {
-                                int CampaniaInicio = Convert.ToInt32(PaisCamp[1]);
-                                if (campania >= CampaniaInicio)
-                                {
-                                    estadoEsika = "1";
-                                    catalogoUnificado = "1";
-                                }
-                            }
-                        }
-                    }
-                }
+                estadoEsika = "1";
+                catalogoUnificado = "1";
             }
 
             var data = new
@@ -143,24 +122,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception) { catalogos = new List<Catalogo>(); }
             return catalogos;
-        }
-        
-        private string CalcularCampaniaAnterior(string CampaniaActual)
-        {
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == "01")
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) - 1).ToString() + userData.NroCampanias.ToString();
-            else
-                return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(campAct) - 1).ToString().PadLeft(2, '0');
-        }
-
-        private string CalcularCampaniaSiguiente(string CampaniaActual)
-        {
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == userData.NroCampanias.ToString())
-                return (Convert.ToInt32(CampaniaActual.Substring(0, 4)) + 1).ToString() + "01";
-            else
-                return CampaniaActual.Substring(0, 4) + (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
         }
 
         public JsonResult AutocompleteCorreo()
@@ -607,28 +568,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        [AllowAnonymous]
-        public ActionResult DescargarAppCatalogos()
-        {
-            var redirect = "";
-            if (System.Web.HttpContext.Current.Request.UserAgent != null)
-            {
-                var userAgent = System.Web.HttpContext.Current.Request.UserAgent.ToLower();
-
-                if (userAgent.Contains("iphone;"))
-                {
-                    redirect = "<script>window.location = 'https://itunes.apple.com/pe/app/catalogos-esika-lbel-cyzone/id1052948837?mt=8';</script>";
-
-                }
-                else
-                {
-                    redirect = "<script>window.location = 'https://play.google.com/store/apps/details?id=belcorp.modobeta.catalogov2&hl=es_419';</script>";
-                }
-            }
-
-            return Content(redirect);
-        }
-
         public ActionResult MiRevista(string campaniaRevista)
         {
             ViewBag.Campania = campaniaRevista;
@@ -650,6 +589,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch { }
             return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        private bool EsCatalogoUnificado(int campania)
+        {
+            string paisesCatalogoUnificado = ConfigurationManager.AppSettings["PaisesCatalogoUnificado"] ?? "";
+            if (!paisesCatalogoUnificado.Contains(userData.CodigoISO)) return false;
+
+            string paisUnificado = paisesCatalogoUnificado.Split(';').FirstOrDefault(pais => pais.Contains(userData.CodigoISO));
+            if (paisUnificado == null) return false;
+
+            string[] paisCamp = paisUnificado.Split(',');
+            if (paisCamp.Length < 2) return false;
+
+            int campaniaInicio = Convert.ToInt32(paisCamp[1]);
+            return campania >= campaniaInicio;
         }
     }
 }

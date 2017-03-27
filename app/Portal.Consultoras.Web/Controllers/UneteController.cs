@@ -523,8 +523,8 @@ namespace Portal.Consultoras.Web.Controllers
                 resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
 
             if (obtenerPuntosPorDireccionResult.HasValues &&
-                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() ==
-                "OK")
+                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() =="OK" &&
+                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google")==false)
             {
                 var jsonPuntos =
                     obtenerPuntosPorDireccionResult.SelectToken("Resultado")
@@ -565,8 +565,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-
-
+        
         private void GetLocationInfo(ref ConsultarUbicacionModel model)
         {
             var punto = model.Puntos.First();
