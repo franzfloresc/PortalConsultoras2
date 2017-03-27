@@ -649,8 +649,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
 
                             if (obtenerPuntosPorDireccionResult.HasValues &&
-                                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() ==
-                                "OK")
+                                obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() =="OK" &&
+                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google")==false)
                             {
                                 var jsonPuntos =
                                     obtenerPuntosPorDireccionResult.SelectToken("Resultado")
@@ -698,7 +698,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                             if (obtenerTerritorioPorPuntoResult.HasValues &&
                                                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                                                    .ToObject<string>() == "OK")
+                                                    .ToObject<string>() == "OK" &&
+                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                                             {
                                                 var resultado =
                                                     obtenerTerritorioPorPuntoResult.SelectToken("Resultado")
@@ -720,7 +721,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                                 if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
                                                     obtenerVerticesTerritorioPorCodigoResult.SelectToken(
-                                                        "MensajeRespuesta").ToObject<string>() == "OK")
+                                                        "MensajeRespuesta").ToObject<string>() == "OK" &&
+                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                                                 {
                                                     model.Vertices =
                                                         obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
