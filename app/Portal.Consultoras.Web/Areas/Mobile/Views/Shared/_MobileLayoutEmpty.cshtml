@@ -195,18 +195,13 @@
 
             HandlebarsRegisterHelper();
 
-            $("body").on("click", ".enlace_regresar", function (e) {
-                switch (ingresoExternoChatbot) {
-                    case "Soporta":
-                        MessengerExtensions.requestCloseBrowser(function success() { }, function error(err) { console.warn('Problems closing browser:' + err); });
-                        break;
-                    case "NoSoporta":
-                        windows.location = 'https://m.me/574479909422587';
-                        break;
-                    default:
-                        break;
-                }
-            });
+            if (ingresoExternoChatbot == "Soporta") {
+                $(".enlace_regresar").hide();
+            } else {
+                $("body").on("click", ".enlace_regresar", function (e) {
+                    window.location.href = 'http://m.me/EsikaLoPuedenTodoPrueba';
+                });
+            }
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {
                 var theEvent = evt || window.event;
@@ -272,7 +267,6 @@
                     }
                 }
             });
-
 
             $("body").on("click", "[data-popup-close]", function (e) {
                 var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");

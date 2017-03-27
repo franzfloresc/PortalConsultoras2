@@ -1376,34 +1376,50 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, SecretKey); //Revisar los campos del Model
+                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, SecretKey);
 
                 if (model != null)
                 {
                     var paisID = Util.GetPaisID(model.Pais);
-                    var usuario = GetUserData(paisID, model.CodigoConsultora, 1); //Crear un GetUserDataByCodigoConsultora, pero que cargue información basica 
+                    var userData = (UsuarioModel)Session["UserData"];
 
-                    if (usuario != null)
+                    if (userData == null)
                     {
-                        FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
-                        Session.Add("IngresoExternoChatbot", model.Version);
-                        
-                        switch (model.Pagina.ToUpper())
+                        userData = GetUserData(paisID, model.CodigoConsultora, 1); 
+
+                        if (userData == null)
                         {
-                            case "ESTADOCUENTA": //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                                return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
-                            case "SEGUIMIENTOPEDIDO": //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                                return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
+                            return RedirectToAction("UserUnknown");
                         }
+
+                        FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
+
+                        Session.Add("IngresoExternoChatbot", model.Version);
+                    }
+                    else
+                    {
+                        if (userData.CodigoConsultora.CompareTo(model.CodigoConsultora) != 0)
+                        {
+                            return RedirectToAction("UserUnknown");
+                        }
+                    }
+
+                    //Mapear en constantes los nombre de las paginas a donde se va ingresar
+                    switch (model.Pagina.ToUpper())
+                    {
+                        case "ESTADOCUENTA": 
+                            return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                        case "SEGUIMIENTOPEDIDO": 
+                            return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                     }
                 }
             }
             catch (Exception ex)
             {
-                return new HttpStatusCodeResult(404, ex.Message); //Mostrar una vista con un mejor mensaje
+                return HttpNotFound("Error: " + ex.Message);
             }
 
-            return HttpNotFound("Token incorrecto"); //Mostrar una vista con un mejor mensaje
+            return RedirectToAction("UserUnknown");
         }
     }
 }
