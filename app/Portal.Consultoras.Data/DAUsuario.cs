@@ -115,6 +115,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, usuario.Activo);
             Context.Database.AddInParameter(command, "@TipoUsuario", DbType.Byte, usuario.TipoUsuario);
             Context.Database.AddInParameter(command, "@CambioClave", DbType.Boolean, usuario.CambioClave);
+            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, usuario.DocumentoIdentidad); //EPD-1836
 
             return Context.ExecuteNonQuery(command);
         }
@@ -591,5 +592,30 @@ namespace Portal.Consultoras.Data
 
         //    return Convert.ToInt16(Context.ExecuteScalar(command));
         //}
+
+        public int InsUsuarioPostulante(BEUsuarioPostulante entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioPostulante");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
+            //Context.Database.AddInParameter(command, "@NombreCompleto", DbType.AnsiString, entidad.NombreCompleto);
+            //Context.Database.AddInParameter(command, "@TipoDocumento", DbType.AnsiString, entidad.TipoDocumento);
+            //Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
+            Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, entidad.Zona);
+            Context.Database.AddInParameter(command, "@Seccion", DbType.AnsiString, entidad.Seccion);
+            //Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
+            Context.Database.AddInParameter(command, "@EnvioCorreo", DbType.AnsiString, entidad.EnvioCorreo);
+            Context.Database.AddInParameter(command, "@UsuarioReal", DbType.AnsiString, entidad.UsuarioReal);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int DelUsuarioPostulante(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelUsuarioPostulante");
+            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
+            Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }
