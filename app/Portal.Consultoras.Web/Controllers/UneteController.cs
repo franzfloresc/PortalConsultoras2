@@ -565,8 +565,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-
-
+        
         private void GetLocationInfo(ref ConsultarUbicacionModel model)
         {
             var punto = model.Puntos.First();
@@ -585,8 +584,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (obtenerTerritorioPorPuntoResult.HasValues &&
                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                .ToObject<string>() == "OK" &&
-                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
+                    .ToObject<string>() == "OK")
             {
                 var resultado =
                     obtenerTerritorioPorPuntoResult.SelectToken("Resultado")
@@ -608,8 +606,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
                     obtenerVerticesTerritorioPorCodigoResult.SelectToken(
-                    "MensajeRespuesta").ToObject<string>() == "OK" &&
-                    obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
+                        "MensajeRespuesta").ToObject<string>() == "OK")
                 {
                     model.Vertices =
                         obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
