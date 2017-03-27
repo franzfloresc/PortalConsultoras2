@@ -334,11 +334,11 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (direccion.Length)
                         {
                             case 1:
-                                model.DireccionCadena = direccion[0]; break;
+                                model.DireccionCadena = ""; break;
                             case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                                model.DireccionCadena = direccion[1]; break;
                             case 3:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1] + " " + direccion[2]; break;
+                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
                             default:
                                 model.DireccionCadena = ""; break;
                         }
