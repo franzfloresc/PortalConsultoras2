@@ -1172,7 +1172,7 @@ namespace Portal.Consultoras.Common
             int PageCount = RecordCount / item.PageSize;
             PageCount = PageCount < 1 ? 1 : PageCount;
             PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
-            
+
             pag.RecordCount = RecordCount;
             pag.PageCount = PageCount;
 
@@ -1919,7 +1919,7 @@ namespace Portal.Consultoras.Common
         public static string DesencriptarQueryString(string ParametroQueryString)
         {
             StringBuilder oStringBuilder = new StringBuilder();
-            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString);
+            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, HttpUtility.UrlDecode(ParametroQueryString));
             for (int i = 0; i < QueryString.Count; i++)
             {
                 oStringBuilder.Append(QueryString[i]);
@@ -1989,7 +1989,7 @@ namespace Portal.Consultoras.Common
             string output = System.Text.Encoding.UTF8.GetString(outputbytes);
             return output;
         }
-        
+
         public static RSACryptoServiceProvider CargarLlave(string xmlKeysPath, RSACryptoServiceProvider rsa)
         {
             FileStream fs = new FileStream(xmlKeysPath, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -1999,7 +1999,7 @@ namespace Portal.Consultoras.Common
             rsa.FromXmlString(llave);
             return rsa;
         }
-        
+
         public static string enletras(string num)
         {
             string res, dec = "";
@@ -2729,7 +2729,7 @@ namespace Portal.Consultoras.Common
             cadena = cadena.Trim();
             if (cadena == "")
                 return "";
-            
+
             inicio = inicio < 0 ? 0 : inicio;
             cant = cant < 0 ? cadena.Length : cant;
 
@@ -2964,7 +2964,7 @@ namespace Portal.Consultoras.Common
                 {
                     codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
                     mensaje = "Ocurrió un error durante la validación ADFS.";
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3021,7 +3021,7 @@ namespace Portal.Consultoras.Common
                 name = name.Trim();
                 if (HasColumn(lector, name))
                     return (T)lector.GetValue(lector.GetOrdinal(name));
-                
+
                 return default(T);
             }
             catch (Exception)
@@ -3041,5 +3041,5 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }    
+    }
 }

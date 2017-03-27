@@ -334,11 +334,11 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (direccion.Length)
                         {
                             case 1:
-                                model.DireccionCadena = direccion[0]; break;
+                                model.DireccionCadena = ""; break;
                             case 2:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1]; break;
+                                model.DireccionCadena = direccion[1]; break;
                             case 3:
-                                model.DireccionCadena = direccion[0] + " " + direccion[1] + " " + direccion[2]; break;
+                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
                             default:
                                 model.DireccionCadena = ""; break;
                         }
@@ -584,7 +584,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (obtenerTerritorioPorPuntoResult.HasValues &&
                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                    .ToObject<string>() == "OK")
+                .ToObject<string>() == "OK" &&
+                obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
             {
                 var resultado =
                     obtenerTerritorioPorPuntoResult.SelectToken("Resultado")
@@ -657,7 +658,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var obtenerTerritorioPorPuntoResult = resultadoGEO.SelectToken("ObtenerTerritorioPorPuntoResult");
 
                         if (obtenerTerritorioPorPuntoResult.HasValues &&
-                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta").ToObject<string>() == "OK")
+                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
+                            .ToObject<string>() == "OK" &&
+                            obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                         {
                             var resultado = obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
                             if (!string.IsNullOrWhiteSpace(resultado))
@@ -2380,7 +2383,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         if (obtenerTerritorioPorPuntoResult.HasValues &&
                                             obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                                                .ToObject<string>() == "OK")
+                                            .ToObject<string>() == "OK" &&
+                                            obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                                         {
                                             var resultado =
                                                 obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
