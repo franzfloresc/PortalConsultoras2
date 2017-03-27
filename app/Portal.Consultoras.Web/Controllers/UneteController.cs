@@ -584,7 +584,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (obtenerTerritorioPorPuntoResult.HasValues &&
                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                    .ToObject<string>() == "OK")
+                .ToObject<string>() == "OK" &&
+                obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
             {
                 var resultado =
                     obtenerTerritorioPorPuntoResult.SelectToken("Resultado")
@@ -657,7 +658,9 @@ namespace Portal.Consultoras.Web.Controllers
                         var obtenerTerritorioPorPuntoResult = resultadoGEO.SelectToken("ObtenerTerritorioPorPuntoResult");
 
                         if (obtenerTerritorioPorPuntoResult.HasValues &&
-                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta").ToObject<string>() == "OK")
+                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
+                            .ToObject<string>() == "OK" &&
+                            obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                         {
                             var resultado = obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
                             if (!string.IsNullOrWhiteSpace(resultado))
@@ -2380,7 +2383,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         if (obtenerTerritorioPorPuntoResult.HasValues &&
                                             obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
-                                                .ToObject<string>() == "OK")
+                                            .ToObject<string>() == "OK" &&
+                                            obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == false)
                                         {
                                             var resultado =
                                                 obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
