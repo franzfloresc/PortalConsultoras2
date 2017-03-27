@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new PedidoSb2Model();
-
+            
             try
             {
                 model.EsPais = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
@@ -4855,7 +4855,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.Simbolo = userData.Simbolo;
                 p.UrlCompartirFB = GetUrlCompartirFB();
                 p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
-                p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
+                //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                 string imagenUrl = Util.SubStr(p.Imagen, 0);
 
                 if (!TipoCross)

@@ -151,12 +151,6 @@
   <wsdl:message name="ICDRService_GetCDRWebDetalleReporte_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCDRWebDetalleReporteResponse" />
   </wsdl:message>
-  <wsdl:message name="ICDRService_GetCDRWebTipoOperacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetCDRWebTipoOperacion" />
-  </wsdl:message>
-  <wsdl:message name="ICDRService_GetCDRWebTipoOperacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetCDRWebTipoOperacionResponse" />
-  </wsdl:message>
   <wsdl:portType name="ICDRService">
     <wsdl:operation name="InsCDRWeb">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/InsCDRWeb" message="tns:ICDRService_InsCDRWeb_InputMessage" />
@@ -253,10 +247,6 @@
     <wsdl:operation name="GetCDRWebDetalleReporte">
       <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleReporte" message="tns:ICDRService_GetCDRWebDetalleReporte_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebDetalleReporteResponse" message="tns:ICDRService_GetCDRWebDetalleReporte_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetCDRWebTipoOperacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebTipoOperacion" message="tns:ICDRService_GetCDRWebTipoOperacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ICDRService/GetCDRWebTipoOperacionResponse" message="tns:ICDRService_GetCDRWebTipoOperacion_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICDRService" type="tns:ICDRService">
@@ -470,15 +460,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCDRWebDetalleReporte">
       <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebDetalleReporte" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetCDRWebTipoOperacion">
-      <soap:operation soapAction="http://tempuri.org/ICDRService/GetCDRWebTipoOperacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

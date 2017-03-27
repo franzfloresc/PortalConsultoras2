@@ -6,15 +6,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -27,15 +27,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -48,15 +48,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -70,15 +70,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -92,15 +92,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -114,15 +114,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -136,15 +136,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -158,15 +158,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -179,15 +179,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -201,15 +201,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -222,15 +222,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -244,15 +244,15 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 
 
@@ -265,14 +265,14 @@ begin
 	PRINT 'elimino'
 end
 go
-CREATE PROC GetCDRWebTipoOperacion
-as
-begin
-	select 
-		CodigoOperacion,
-		DescripcionOperacion,
-		NumeroDiasAtrasOperacion
-	from [dbo].[TipoOperacionesCDR]
-end
+--CREATE PROC GetCDRWebTipoOperacion
+--as
+--begin
+--	select 
+--		CodigoOperacion,
+--		DescripcionOperacion,
+--		NumeroDiasAtrasOperacion
+--	from [dbo].[TipoOperacionesCDR]
+--end
 go
 

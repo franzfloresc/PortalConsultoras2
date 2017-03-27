@@ -214,10 +214,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECDRWebDetalleReporte" nillable="true" type="tns:BECDRWebDetalleReporte" />
-  <xs:complexType name="ArrayOfBECDRTipoOperacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECDRTipoOperacion" nillable="true" type="tns:BECDRTipoOperacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBECDRTipoOperacion" nillable="true" type="tns:ArrayOfBECDRTipoOperacion" />
 </xs:schema>

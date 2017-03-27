@@ -49,11 +49,11 @@ namespace Portal.Consultoras.Data.CDR
         }
 
         //EPD-2038
-        public IDataReader GetCDRWebTipoOperacion()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebTipoOperacion");
+        //public IDataReader GetCDRWebTipoOperacion()
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebTipoOperacion");
 
-            return Context.ExecuteReader(command);
-        }
+        //    return Context.ExecuteReader(command);
+        //}
     }
 }
