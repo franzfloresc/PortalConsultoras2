@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                bool esMovil = Request.Browser.IsMobileDevice; 
+                bool esMovil = Request.Browser.IsMobileDevice;
                 if (esMovil)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         //EPD-1968
-                        if (Url.IsLocalUrl(decodedUrl))
+                        if (Url.IsLocalUrl(Server.UrlDecode(Request.UrlReferrer.PathAndQuery)) && !string.IsNullOrEmpty(decodedUrl))
                         {
                             return Redirect(decodedUrl);
                         }
