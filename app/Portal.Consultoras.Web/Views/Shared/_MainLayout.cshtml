@@ -139,8 +139,12 @@
     <header>
 
         <!--OFERTA DEL DIA -->
-        <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none">
-        </div>  
+        @if (ViewBag.MostrarODD == false)
+        {
+            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none">
+            </div>
+        }
+         
         <!--OFERTA DEL DIA -->
 
         <div id="bloquemensajesPedido" style="display: none">
@@ -646,6 +650,8 @@
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+
+        var MostrarODD = '@ViewBag.MostrarODD';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
