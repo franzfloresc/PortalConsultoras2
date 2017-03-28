@@ -30,14 +30,21 @@
         <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
         <div class="correo_showroon icono_celular"><input type="text" value="@Model.Celular" id="txtIntrigaCelular"  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
         <a class="btn_correo_showroom" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
-        <a class="termino_condiciones_intriga" href="@Model.UrlTerminosCondiciones" target="_blank" style="display:block;" >Estoy de acuerdo con los términos y condiciones.</a>
+        <div class="termino_condiciones_intriga"><a href="@Model.UrlTerminosCondiciones" target="_blank" >Estoy de acuerdo con los términos y condiciones.</a></div>
     </div>
     <div id="divIntrigaEmailRespuestaOk">
         <div class="titulo_confirmacion" style="margin-bottom: 17px;">¡ahora serás la primera en enterarte!</div>
         <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b data-email-registrado="">@Model.EMail</b></div>
         <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
     </div>
-    
+    <div style="text-align:center" id="divIntrigaEmailRespuestaConfirmar">
+        <img src="/Content/Images/Esika/sobre_mailing.png">
+        <div class="titulo_confirmacion" style="margin-bottom:15px; font-size:17px; margin-top:15px;">AHORA SÓLO DEBES <br /> CONFIRMAR TU CORREO</div>
+        <div class="texto_confirmacion">Te hemos enviado un correo a:<b data-email-registrado="">@Model.EMail</b>Entra a tu cuenta para confirmarlo</div>
+        <a class="link_cambiar_correo" data-email-reenviar="">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;
+        <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
+
+    </div> 
 </div>   
 <div class="texto_adelanto">Mira el adelanto…</div>
 <div class="content_carrusel_intriga">
@@ -78,7 +85,7 @@
     </div>
 </div>
 <!--POP UP AVISO DE CORREO-->
-<div class="PopMobile1" style="display:none;" id="divIntrigaEmailRespuestaConfirmar">
+<div class="PopMobile1" style="display:none;">
     <div class="content_popMobile" style="text-align:center">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#divIntrigaEmailRespuestaConfirmar').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">

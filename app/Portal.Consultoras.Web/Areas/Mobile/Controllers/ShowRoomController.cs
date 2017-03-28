@@ -38,13 +38,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Intriga()
         {
 
-            if (!ValidarIngresoShowRoom(true))
-            {
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-            }
-
             try
             {
+                if (!ValidarIngresoShowRoom(true))
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
                 var listaShowRoomOferta = new List<BEShowRoomOferta>();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
