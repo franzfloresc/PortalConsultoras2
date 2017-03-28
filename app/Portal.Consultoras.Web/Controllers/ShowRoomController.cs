@@ -86,6 +86,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
+                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 return View(showRoomEventoModel);

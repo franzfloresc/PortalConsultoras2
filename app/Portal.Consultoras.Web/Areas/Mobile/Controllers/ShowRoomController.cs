@@ -144,6 +144,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
                 ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
+                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
                 return showRoomEventoModel;                
             }
