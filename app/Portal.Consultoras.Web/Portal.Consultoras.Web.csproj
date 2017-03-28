@@ -253,6 +253,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\IncentivosSMSController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
@@ -1111,6 +1112,7 @@
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
     <Content Include="Content\Css\Site\flipclock.css" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
@@ -2018,6 +2020,8 @@
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
+    <Content Include="Content\Images\IncentivosSMS\licuadora.png" />
+    <Content Include="Content\Images\IncentivosSMS\producto1.png" />
     <Content Include="Content\Images\indicador.png" />
     <Content Include="Content\Images\interbank.png" />
     <Content Include="Content\Images\kit-nuevo-producto.png" />
@@ -2854,6 +2858,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Login\FormsSignIn.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\IncentivosSMS\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
@@ -3809,6 +3814,7 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
