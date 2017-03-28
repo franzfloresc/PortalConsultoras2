@@ -246,9 +246,19 @@ namespace Portal.Consultoras.Common
             public const int DesktopCatalogoPersonalizado = 1431;
             public const int DesktopCatalogoPersonalizadoPopUp = 1432;
 
-            public const int DesktopShowRoom = 1571;
-            public const int DesktopConsultoraOnline = 1281;
-
+            /*Para ShowRoom Aplica nuevo formato*/
+            public const int DesktopShowRoomLandingIntriga = 1511;
+            public const int DesktopShowRoomLandingCompra = 1521;
+            public const int DesktopShowRoomLandingCompraTactica = 1522;
+            public const int DesktopShowRoomProductPage = 1531;
+            public const int DesktopShowRoomProductPageCarrusel = 1532;
+            public const int DesktopShowRoomProductPageTactica = 1533;
+            public const int MobileShowRoomLandingIntriga = 2511;
+            public const int MobileShowRoomLandingCompraTactica = 2522;
+            public const int MobileShowRoomProductPage = 2531;
+            public const int MobileShowRoomProductPageCarrusel = 2532;
+            public const int MobileShowRoomProductPageTactica = 2533;
+            
             public const int MobileHomeOfertasParaTi = 2121;
 
             public const int MobilePedidoOfertasParaTi = 2221;
@@ -416,6 +426,10 @@ namespace Portal.Consultoras.Common
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string IconoLluvia = "IconoLluvia";
+                public const string BannerEnvioCorreo = "BannerEnvioCorreo";
+                public const string TextoEnvioCorreo = "TextoEnvioCorreo";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
             }
 
             public class Mobile
@@ -428,6 +442,7 @@ namespace Portal.Consultoras.Common
                 public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
             }
 
             public class TipoAplicacion
@@ -458,6 +473,11 @@ namespace Portal.Consultoras.Common
                 public const string MenorAMayor = "02";
                 public const string MayorAMenor = "03";
             }
+        }
+
+        public class IncentivosSMS
+        {
+            public const string MensajeAgregarMasProductos = "Para agregar otros productos ingresa aquí";
         }
     }
 }

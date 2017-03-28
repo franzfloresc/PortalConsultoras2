@@ -1905,21 +1905,22 @@ namespace Portal.Consultoras.Common
 
         public static string EncriptarQueryString(params string[] Parametros)
         {
-            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
-
+            TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
+            QueryString = new TSHAK.Components.SecureQueryString( new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });      
             for (int i = 0; i < Parametros.Length; i++)
             {
-                QueryString[i.ToString()] = Parametros[i];
+                QueryString[i.ToString()] = Parametros[i].Trim();
             }
 
             return HttpUtility.UrlEncode(QueryString.ToString());
-
         }
 
         public static string DesencriptarQueryString(string ParametroQueryString)
         {
             StringBuilder oStringBuilder = new StringBuilder();
-            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, HttpUtility.UrlDecode(ParametroQueryString));
+            
+            TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
+            QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString.Replace(" ", "+"));
             for (int i = 0; i < QueryString.Count; i++)
             {
                 oStringBuilder.Append(QueryString[i]);

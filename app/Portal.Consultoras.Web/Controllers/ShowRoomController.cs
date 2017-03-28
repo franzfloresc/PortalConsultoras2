@@ -74,8 +74,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
 
-                var showRoomEventoModel = CargarValoresModel();                
-                
+                var showRoomEventoModel = CargarValoresModel();
+
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
@@ -83,6 +83,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
                 ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
+
+                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 return View(showRoomEventoModel);
 
@@ -258,7 +262,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.TextoEstrategia,
                                 a.OfertaEstrategia.ToString(),
                                 a.Estado.ToString(),
-                                a.TieneCategoria.ToString()
+                                a.TieneCategoria.ToString(),
+                                a.TieneCompraXcompra.ToString()
                             }
                         }
                 };
@@ -1555,8 +1560,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1634,8 +1639,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1649,7 +1654,6 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.SubTipoOfertaSisID = 0;
                     entidad.EsSugerido = false;
                     entidad.EsKitNueva = false;
-                    entidad.OrigenPedidoWeb = 0;
                     entidad.IPUsuario = userData.IPUsuario;
                     entidad.EsCompraPorCompra = true;
 
@@ -2496,6 +2500,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
             return View("DetalleSet", modelo);
 
         }        
@@ -2576,6 +2582,31 @@ namespace Portal.Consultoras.Web.Controllers
                     data = "Error al cargar los productos"
                 });
             }            
+        }
+
+        [HttpPost]
+        public JsonResult CerrarBannerCompraPorCompra()
+        {
+            try
+            {
+                userData.CloseBannerCompraPorCompra = true;
+
+                SetUserData(userData);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error"
+                });
+            }
         }
     }
 }
