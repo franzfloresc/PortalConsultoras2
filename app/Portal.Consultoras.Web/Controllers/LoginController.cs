@@ -1372,11 +1372,10 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExternoChatbot(string token)
         {
-            const string SecretKey = "belcorptest"; //Debe registrarse en web.config
-
+            string secretKey = ConfigurationManager.AppSettings["ChatbotSecretKey"] ?? "";
             try
             {
-                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, SecretKey);
+                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, secretKey);
 
                 if (model != null)
                 {
@@ -1385,12 +1384,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData == null)
                     {
-                        userData = GetUserData(paisID, model.CodigoConsultora, 1); 
-
-                        if (userData == null)
-                        {
-                            return RedirectToAction("UserUnknown");
-                        }
+                        userData = GetUserData(paisID, model.CodigoConsultora, 1);
+                        if (userData == null) return RedirectToAction("UserUnknown");
 
                         FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
 
