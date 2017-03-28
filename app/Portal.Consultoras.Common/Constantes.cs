@@ -385,6 +385,11 @@ namespace Portal.Consultoras.Common
             public const string LugaresPago = "LugaresPago";
             public const string MisPercepciones = "MisPercepciones";
         }
+
+        public class IncentivosSMS
+        {
+            public const string MensajeAgregarMasProductos = "Para agregar otros productos ingresa aquí";
+        }
     }
 }
 
