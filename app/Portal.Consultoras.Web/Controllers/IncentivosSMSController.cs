@@ -2,7 +2,7 @@
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class BelcorpNoticiasController : BaseController
+    public class IncentivosSMSController : BaseController
     {
         public ActionResult Index()
         {
