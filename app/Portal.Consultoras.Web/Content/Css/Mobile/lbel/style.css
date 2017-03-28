@@ -10151,3 +10151,20 @@ span.icon-advertencia{
     margin-right: 7px;
     background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) center center no-repeat;
 }
+
+/***EPD 2107***/
+.btnwspDesktop {
+    display:none;
+}
+.btnfbDesktop {
+    margin-left: 55px;
+    width: 48%;
+}
+.btnwspMobile {
+    width:48%;
+}
+.btnfbMobile {
+    float:right; 
+    width:48%;
+}
+/*** FIN ******/
