@@ -111,6 +111,8 @@ namespace Portal.Consultoras.Data
 
             command.Parameters.Add("@CodigoDispositivo",SqlDbType.VarChar, 50).Value = entidadSolicitud.CodigoDispositivo;
             command.Parameters.Add("@SODispositivo", SqlDbType.VarChar, 20).Value = entidadSolicitud.SODispositivo;
+            command.Parameters.Add("@TipoUsuario", SqlDbType.Int).Value = entidadSolicitud.TipoUsuario;
+            command.Parameters.Add("@UsuarioAppID", SqlDbType.BigInt).Value = entidadSolicitud.UsuarioAppID;
 
             List<DESolicitudClienteDetalleAppCatalogo> listDEDetalleSolicitud = new List<DESolicitudClienteDetalleAppCatalogo>();
             if(entidadSolicitud.DetalleSolicitud != null) entidadSolicitud.DetalleSolicitud.ToList().ForEach(x => listDEDetalleSolicitud.Add(new DESolicitudClienteDetalleAppCatalogo(x)));
