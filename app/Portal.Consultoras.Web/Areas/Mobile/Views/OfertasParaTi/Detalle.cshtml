@@ -113,8 +113,8 @@
                                     <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                 </div>
                                 <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                    @*<span class="cantidad_producto_opt">x1</span>*@
-                                    @Hermano.NombreComercial
+                                    <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                    <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
                                 </div>
                                 @if (Hermano.Digitable == 1)
                                 {

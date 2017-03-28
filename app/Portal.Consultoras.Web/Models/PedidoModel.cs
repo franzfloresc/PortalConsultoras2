@@ -204,6 +204,8 @@ namespace Portal.Consultoras.Web.Models
         public int Orden { get; set; }
         public string Grupo { get; set; }
 
+        public int Cantidad { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

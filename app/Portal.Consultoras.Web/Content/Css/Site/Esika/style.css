@@ -3516,20 +3516,22 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     color:#000;
     margin-top:8px;
     margin-bottom:2px;
+        text-transform:uppercase;
 }
 
 .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas{
-    padding: 0;
-    font-size: 13px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 177px;
-    overflow: hidden;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height:18px;
 }
 
 .producto_precio{
@@ -33410,6 +33412,9 @@ h1#penmostreo .campana {
     font-size:13px;
     font-weight:700;
     font-family: 'lato';
+}
+.cantidad_producto_opt{
+    margin-right: 5px;
 }
 .sub_precio{
     font-family: 'lato';

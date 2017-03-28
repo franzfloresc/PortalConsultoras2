@@ -102,7 +102,7 @@ function CargarCarouselEstrategias(cuv) {
 
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'Pedido/JsonConsultarEstrategias?cuv=' + cuv,
+        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -497,7 +497,7 @@ function CargarEstrategiaSet(cuv) {
     var detalle = new Array();
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'Pedido/ConsultarEstrategiaSet?cuv=' + cuv,
+        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaSet?cuv=' + cuv,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,
