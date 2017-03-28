@@ -1,15 +1,33 @@
 var fallingObjects = new Array();
 
-function newObject(url, height, width) {
-    fallingObjects[fallingObjects.length] = new Array(url, height, width);
-}
+var closeImagenRain = 0;    //si es 0 se mostrara,
+var timeCloseRain = 30000;   //tiempo de visualización del efecto
 
 var numObjects = 8,
 	waft = 50,
 	fallSpeed = 4,
 	wind = 0;
-newObject("https://gallery.mailchimp.com/883823c911a0035bf43f31618/images/9e284583-5cb7-4ae0-9cd1-5a4e59afb5c8.png", 22, 22);
-newObject("https://gallery.mailchimp.com/883823c911a0035bf43f31618/images/9e284583-5cb7-4ae0-9cd1-5a4e59afb5c8.png", 35, 35);
+newObject(iconoLluvia, 22, 22);
+newObject(iconoLluvia, 35, 35);
+
+var objects = new Array(),
+	winOffset = 0,
+	winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
+winSize();
+for (i = 0; i < numObjects; i++) {
+    fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
+}
+
+fall();
+
+setTimeout(function () {
+    closeImagenRain = 1;
+    $("img[id^='fO']").hide();
+}, timeCloseRain);
+
+function newObject(url, height, width) {
+    fallingObjects[fallingObjects.length] = new Array(url, height, width);
+}
 
 function winSize() {
     winWidthSR = (moz) ? window.innerWidth - 180 : document.body.clientWidth - 180;
@@ -44,15 +62,9 @@ function fall() {
 			opacity = k;
 		}
 	}
-	setTimeout("fall()", 30);
-	$("img[id^='fO']").show();
-}
 
-var objects = new Array(),
-	winOffset = 0,
-	winHeightSR, winWidthSR, togvis, moz = (document.getElementById && !document.all) ? 1 : 0;
-winSize();
-for (i = 0; i < numObjects; i++) {
-    fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
+	if (closeImagenRain == 0) {
+	    setTimeout("fall()", 30);
+	    $("img[id^='fO']").show();
+	}
 }
-fall();

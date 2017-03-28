@@ -111,10 +111,12 @@
 </div>
 
 @section scripts{
-    
+
     <script type="text/javascript">
         var emailOriginal = $.trim('@Model.EMail').toLowerCase();
         var emailActivo = $.trim('@Model.EMailActivo');
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingIntriga';
+
         var celularOriginal = $.trim('@Model.Celular').toLowerCase();
         var suscrito = $.trim('@Model.Suscripcion');
 
@@ -197,7 +199,8 @@
                     Cantidad: cantidad,
                     PrecioUnidad: PrecioUnidad,
                     CUV: CUV,
-                    ConfiguracionOfertaID: ConfiguracionOfertaID
+                    ConfiguracionOfertaID: ConfiguracionOfertaID,
+                    OrigenPedidoWeb: origenPedidoWeb
                 };
 
                 $.ajaxSetup({ cache: false });

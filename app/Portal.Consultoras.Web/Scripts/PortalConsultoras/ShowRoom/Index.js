@@ -114,6 +114,12 @@ $(document).ready(function () {
 
     CargarFiltroRangoPrecio();
     CargarProductosShowRoom(null);
+
+    if (closeBannerCompraPorCompra == "True") {
+        $("#divBannerCompraPorCompra").hide();
+    } else {
+        $("#divBannerCompraPorCompra").show();
+    }
 });
 
 function ObtenerProductosShowRoom() {
@@ -248,6 +254,28 @@ function filterShowRoomDesktop() {
 
     return busquedaModel;
     //CargarProductosShowRoom(busquedaModel);
+}
+
+function closeCompraPorCompra() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'ShowRoom/CerrarBannerCompraPorCompra',
+        dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        //data: JSON.stringify(busquedaModel),
+        async: true,
+        success: function (response) {            
+            if (response.success == true) {
+                $("#divBannerCompraPorCompra").hide();
+            } else messageInfoError(response.message);
+        },
+        error: function (response, error) {
+            if (checkTimeout(response)) {
+                CerrarLoad();
+                console.log(response);
+            }
+        }
+    });    
 }
 
 function maxLengthCheck(object, cantidadMaxima) {

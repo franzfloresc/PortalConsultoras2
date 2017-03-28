@@ -104,6 +104,8 @@
 
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new {area = ""})';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new {area = ""})';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingIntriga';
+
         $(document).ready(function () {
 
             $('.variable-width').on('init', function (event, slick) {
@@ -156,7 +158,8 @@
                     Cantidad: cantidad,
                     PrecioUnidad: PrecioUnidad,
                     CUV: CUV,
-                    ConfiguracionOfertaID: ConfiguracionOfertaID
+                    ConfiguracionOfertaID: ConfiguracionOfertaID,
+                    OrigenPedidoWeb: origenPedidoWeb
                 };
 
                 $.ajaxSetup({ cache: false });

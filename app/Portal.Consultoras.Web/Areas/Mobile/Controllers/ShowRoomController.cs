@@ -163,6 +163,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
             modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
 
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
             return View("DetalleOferta", modelo);
         }

@@ -333,5 +333,7 @@ namespace Portal.Consultoras.Web.Models
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
+
+        public bool CloseBannerCompraPorCompra { get; set; }
     }
 }
