@@ -30,7 +30,7 @@
         <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
         <div class="correo_showroon icono_celular"><input type="text" value="@Model.Celular" id="txtIntrigaCelular"  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
         <a class="btn_correo_showroom" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
-        <div class="termino_condiciones_intriga"><a href="@Model.UrlTerminosCondiciones" target="_blank" >Estoy de acuerdo con los términos y condiciones.</a></div>
+        <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
     </div>
     <div id="divIntrigaEmailRespuestaOk">
         <div class="titulo_confirmacion" style="margin-bottom: 17px;">¡ahora serás la primera en enterarte!</div>
