@@ -114,11 +114,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetPedidoWebDetalleByOfertaWeb(paisID, CampaniaID, ConsultoraID, OfertaWeb);
         }
 
-        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
+        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso)
         {
             try
             {
-                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario, descripcionProceso);
             }
             catch (BizLogicException ex)
             {
@@ -1766,6 +1766,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+            return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
+        }
+
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
@@ -1832,6 +1836,12 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
+        }
+
+
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
         }
     }
 }

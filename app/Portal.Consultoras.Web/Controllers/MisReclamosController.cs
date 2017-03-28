@@ -186,6 +186,22 @@ namespace Portal.Consultoras.Web.Controllers
                     listaMotivoOperacion = sv.GetCDRWebMotivoOperacion(userData.PaisID, new BECDRWebMotivoOperacion()).ToList();
                 }
 
+                //EPD-2038
+                //var lstCDRWebTipoOperacion = new List<BECDRTipoOperacion>();
+                //using (CDRServiceClient sv = new CDRServiceClient())
+                //{
+                //    lstCDRWebTipoOperacion = sv.GetCDRWebTipoOperacion(userData.PaisID).ToList();
+                //}
+                //foreach (var item in lstCDRWebTipoOperacion)
+                //{
+                //    listaMotivoOperacion.Where(mo => item.CodigoOperacion.Contains(mo.CodigoOperacion))
+                //        .Update(mo =>
+                //        {
+                //            mo.CDRTipoOperacion.NumeroDiasAtrasOperacion = Math.Min(item.NumeroDiasAtrasOperacion, mo.CDRTipoOperacion.NumeroDiasAtrasOperacion);
+                //        });
+                //}
+                //fin
+
                 int diasFaltantes = 0;
                 BECDRWebDatos cDRWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.ValidacionDiasFaltante);
                 if(cDRWebDatos != null) Int32.TryParse(cDRWebDatos.Valor, out diasFaltantes);

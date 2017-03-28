@@ -56,7 +56,7 @@
                 error: function (data, error) {
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
-                        alert("Ocurrio un error del Sistema.");
+                        alert("Error del sistema. Por favor, volver a ejecutar el proceso de carga de solicitudes.");
                     }
                     console.error(data);
                 }

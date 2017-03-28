@@ -1169,10 +1169,10 @@ namespace Portal.Consultoras.Common
             int RecordCount = lst.Count;
             item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
 
-            int PageCount = RecordCount/item.PageSize;
+            int PageCount = RecordCount / item.PageSize;
             PageCount = PageCount < 1 ? 1 : PageCount;
-            PageCount += RecordCount > (PageCount*item.PageSize) ? 1 : 0;
-            
+            PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
+
             pag.RecordCount = RecordCount;
             pag.PageCount = PageCount;
 
@@ -1989,7 +1989,7 @@ namespace Portal.Consultoras.Common
             string output = System.Text.Encoding.UTF8.GetString(outputbytes);
             return output;
         }
-        
+
         public static RSACryptoServiceProvider CargarLlave(string xmlKeysPath, RSACryptoServiceProvider rsa)
         {
             FileStream fs = new FileStream(xmlKeysPath, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -1999,7 +1999,7 @@ namespace Portal.Consultoras.Common
             rsa.FromXmlString(llave);
             return rsa;
         }
-        
+
         public static string enletras(string num)
         {
             string res, dec = "";
@@ -2729,7 +2729,7 @@ namespace Portal.Consultoras.Common
             cadena = cadena.Trim();
             if (cadena == "")
                 return "";
-            
+
             inicio = inicio < 0 ? 0 : inicio;
             cant = cant < 0 ? cadena.Length : cant;
 
@@ -2744,7 +2744,7 @@ namespace Portal.Consultoras.Common
             {
                 cant = len - inicio;
             }
-            if (inicio + cant + 1> len)
+            if (inicio + cant + 1 > len)
             {
                 cant = len - inicio;
             }
@@ -2800,7 +2800,7 @@ namespace Portal.Consultoras.Common
             var montoval = string.IsNullOrEmpty(monto) ? "" : monto.Trim();
             if (montoval != "")
             {
-                if (montoval == "0" || montoval == "0.00"  || montoval == "0,00"
+                if (montoval == "0" || montoval == "0.00" || montoval == "0,00"
                     || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
                     || montoval == "99,999,999.00" || montoval == "99.999.999"
                     || montoval == "999,999,999.00" || montoval == "999.999.999"
@@ -2964,7 +2964,7 @@ namespace Portal.Consultoras.Common
                 {
                     codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
                     mensaje = "Ocurrió un error durante la validación ADFS.";
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3013,16 +3013,16 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
-        
+
         public static dynamic GetColumn<T>(IDataRecord lector, string name, T tipoDato)
         {
             try
             {
                 name = name ?? "";
                 name = name.Trim();
-                if(HasColumn(lector, name))
+                if (HasColumn(lector, name))
                     return (T)lector.GetValue(lector.GetOrdinal(name));
-                
+
                 return default(T);
             }
             catch (Exception)
@@ -3042,5 +3042,5 @@ namespace Portal.Consultoras.Common
                 updator(item);
             }
         }
-    }    
+    }
 }

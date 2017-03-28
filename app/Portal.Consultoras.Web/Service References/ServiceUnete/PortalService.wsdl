@@ -138,6 +138,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudesPostulanteV3_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulanteV3Response" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulantePorBusqueda_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulantePorBusqueda" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudesPostulantePorBusqueda_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudesPostulantePorBusquedaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCantidadNuevasSolicitudesPostulante" />
   </wsdl:message>
@@ -167,6 +173,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulantePorId_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulantePorIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteApta" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoZonificacion" />
@@ -301,6 +313,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3" message="tns:IPortalService_ObtenerSolicitudesPostulanteV3_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulanteV3Response" message="tns:IPortalService_ObtenerSolicitudesPostulanteV3_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulantePorBusqueda">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorBusqueda" message="tns:IPortalService_ObtenerSolicitudesPostulantePorBusqueda_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorBusquedaResponse" message="tns:IPortalService_ObtenerSolicitudesPostulantePorBusqueda_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulanteResponse" message="tns:IPortalService_ObtenerCantidadNuevasSolicitudesPostulante_OutputMessage" />
@@ -320,6 +336,10 @@
     <wsdl:operation name="ObtenerSolicitudPostulantePorId">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorId" message="tns:IPortalService_ObtenerSolicitudPostulantePorId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorIdResponse" message="tns:IPortalService_ObtenerSolicitudPostulantePorId_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteApta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoPostulanteRechazoZonificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacion" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage" />
@@ -545,6 +565,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudesPostulantePorBusqueda">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudesPostulantePorBusqueda" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerCantidadNuevasSolicitudesPostulante">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerCantidadNuevasSolicitudesPostulante" style="document" />
       <wsdl:input>
@@ -583,6 +612,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulantePorId">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteApta">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

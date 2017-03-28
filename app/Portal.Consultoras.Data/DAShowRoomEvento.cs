@@ -630,5 +630,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EventoConsultoraID", DbType.Int32, entity.EventoConsultoraID);
             return Context.ExecuteNonQuery(command);
         }
+
+
+        public int ShowRoomProgramarAviso(BEShowRoomEventoConsultora entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdateEventoConsultoraProgramarAviso");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entity.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@Suscripcion", DbType.Boolean, entity.Suscripcion);
+            Context.Database.AddInParameter(command, "@CorreoEnvioAviso", DbType.String, entity.CorreoEnvioAviso);
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

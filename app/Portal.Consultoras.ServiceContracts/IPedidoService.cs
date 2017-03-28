@@ -54,7 +54,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura);
 
         [OperationContract]
-        string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
+        string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
 
         // R20151003 - Inicio
         [OperationContract]
@@ -963,6 +963,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         /*EPD-1025*/
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
 
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
@@ -999,5 +1001,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
+
+        [OperationContract]
+        int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
     }
 }

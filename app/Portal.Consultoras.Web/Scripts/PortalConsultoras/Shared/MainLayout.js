@@ -3,9 +3,10 @@ var showDisplayODD = 0;
 
 $(document).ready(function () {
 
+    
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
-    }    
+    }
 
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
@@ -1022,6 +1023,12 @@ function loadOfertaDelDia() {
                     
 
                     $('.content_slider_home').css('margin-top', '160px');
+                    if (MostrarODD == "True") {
+                        $('.ubicacion_web ').css('margin-top', '85px');
+                    } else {
+                        $('.ubicacion_web ').css('margin-top', '185px');
+                    }
+                    
                     
                     var intv1 = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
