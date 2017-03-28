@@ -520,14 +520,12 @@ function checkTimeout(data) {
     var thereIsStillTime = true;
 
     if (data) {
-        if (data.responseText) {
-            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
+        var eval = data.responseText ? data.responseText : data;
+        if (jQuery.type(eval) === "string")
+        {
+            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
                 thereIsStillTime = false;
-        }
-        else {
-            if (data == "_Logon_")
-                thereIsStillTime = false;
-        }
+        }        
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
