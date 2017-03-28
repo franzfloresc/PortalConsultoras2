@@ -472,8 +472,11 @@ function checkTimeout(data) {
 
     if (data) {
         var eval = data.responseText ? data.responseText : data;
-        if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
-            thereIsStillTime = false;
+        if (jQuery.type(eval) === "string")
+        {
+            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
+                thereIsStillTime = false;
+        }        
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
