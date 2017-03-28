@@ -10547,8 +10547,8 @@ span.icon-advertencia{
 .content_room_product_sheet .product_sheet_image{
 	text-align: center;
 	padding: 25px 0 10px 0;
-	background: url(../../../images/Esika/background-showroom-product.jpg) no-repeat top center;
-	background-size: 100% auto;
+	/*background: url(../../../images/Esika/background-showroom-product.jpg) no-repeat top center;
+	background-size: 100% auto;*/
 }
 
 .content_room_product_sheet h1{

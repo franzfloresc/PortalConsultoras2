@@ -3,6 +3,9 @@ Escritorio  => 1: Index    | 11: Detalle Oferta
 Mobile      => 2: Index    | 21: Detalle Oferta
 */
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
+var origenPedidoWeb = origenPedidoWeb || 0;
+var origenPedidoWebTactica = origenPedidoWebTactica || 0;
+var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
@@ -129,14 +132,14 @@ $(document).ready(function () {
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
-        var padre = $(this).parents("[data-item]");
+        var padre = $(this).parents("[data-item]");        
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
 
         if (cantidad == "" || cantidad == 0) {
             AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
             return false;
-        }
+        }        
 
         //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
@@ -216,6 +219,16 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
 
+    var origen;
+    if (posicion != "0") {
+        if (origenPedidoWebCarrusel != -1)
+            origen = origenPedidoWebCarrusel;
+        else
+            origen = origenPedidoWeb;
+    } else {
+        origen = origenPedidoWeb;
+    }
+
     AbrirLoad();
     $.ajaxSetup({
         cache: false
@@ -241,7 +254,8 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 Cantidad: cantidad,
                 PrecioUnidad: PrecioUnidad,
                 CUV: CUV,
-                ConfiguracionOfertaID: ConfiguracionOfertaID
+                ConfiguracionOfertaID: ConfiguracionOfertaID,
+                OrigenPedidoWeb: origen
             };
 
             AgregarProductoAlCarrito($(article).parents("[data-item]"));
@@ -306,7 +320,8 @@ function AgregarOfertaShowRoomCpc(article, cantidad) {
         MarcaID: MarcaID,
         Cantidad: cantidad,
         PrecioUnidad: PrecioUnidad,
-        CUV: CUV
+        CUV: CUV,
+        OrigenPedidoWeb: origenPedidoWebTactica
     };
 
     $.ajaxSetup({ cache: false });

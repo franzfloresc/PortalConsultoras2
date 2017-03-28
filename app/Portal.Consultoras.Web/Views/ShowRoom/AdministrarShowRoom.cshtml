@@ -2188,7 +2188,7 @@
     }
 
     function ShowActionsEvento(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "','"+ rowObject[18] +"');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[19] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
@@ -2739,7 +2739,7 @@
             });
             return false;
         },
-        EditarEvento: function(ID, campaniaID, estado, tieneCategoria) {
+        EditarEvento: function(ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra) {
             $("#txtEventoPaisID").val(paisNombre);
             $("#txtEventoCampaniaID").val(campaniaID);
             $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
@@ -2750,16 +2750,10 @@
             $('#txtEventoRutaShowRoomPopup').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomPopup'));
             $('#txtEventoRutaShowRoomBannerLateral').val(jQuery("#listEvento").jqGrid('getCell', ID, 'RutaShowRoomBannerLateral'));
 
-            if (estado == "1")
-                $("#chkEventoEstado").prop('checked', true);
-            else
-                $("#chkEventoEstado").prop('checked', false);
-
-            if (tieneCategoria == "True")
-                $("#chkEventoTieneCategoria").prop('checked', true);
-            else
-                $("#chkEventoTieneCategoria").prop('checked', false);
-
+            $("#chkEventoEstado").prop('checked', estado == "1");            
+            $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
+            $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
+            
             $("#divEventoEstado").css("display", "");
 
             showDialog("DialogDatosShowRoom");
