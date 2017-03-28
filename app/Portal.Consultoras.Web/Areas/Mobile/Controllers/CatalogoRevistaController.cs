@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
             clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
             clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
-            var EsMobile = true;//Request.Browser.IsMobileDevice; 
+            var EsMobile = Request.Browser.IsMobileDevice; 
             if (EsMobile)
             {
                 clienteModel.NombreClasefb = "btnfbMobile";
