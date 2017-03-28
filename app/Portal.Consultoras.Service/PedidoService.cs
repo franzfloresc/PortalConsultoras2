@@ -1833,5 +1833,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
+
+
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
+        }
     }
 }
