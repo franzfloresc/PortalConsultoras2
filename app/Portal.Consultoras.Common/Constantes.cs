@@ -474,6 +474,11 @@ namespace Portal.Consultoras.Common
                 public const string MayorAMenor = "03";
             }
         }
+
+        public class IncentivosSMS
+        {
+            public const string MensajeAgregarMasProductos = "Para agregar otros productos ingresa aquí";
+        }
     }
 }
 
