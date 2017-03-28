@@ -477,7 +477,7 @@ namespace Portal.Consultoras.Common
 
         public class IncentivosSMS
         {
-            public const string MensajeAgregarMasProductos = "Para agregar otros productos ingresa aquí";
+            public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
     }
 }
