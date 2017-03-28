@@ -34647,3 +34647,22 @@ h1#penmostreo .campana {
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
 }
+
+.compartir_catalogo_facebook_Brasil
+{
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+ }

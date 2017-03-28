@@ -79,7 +79,7 @@ namespace Portal.Consultoras.BizLogic
                         oBEPedidoWeb.CampaniaID = pedidowebdetalle.CampaniaID;
                         oBEPedidoWeb.ConsultoraID = pedidowebdetalle.ConsultoraID;
                         oBEPedidoWeb.PaisID = pedidowebdetalle.PaisID;
-                        oBEPedidoWeb.IPUsuario = pedidowebdetalle.IPUsuario;
+                        oBEPedidoWeb.IPUsuario = pedidowebdetalle.IPUsuario;                       
                         oBEPedidoWeb.CodigoUsuarioCreacion = pedidowebdetalle.CodigoUsuarioCreacion;
                         pedidowebdetalle.PedidoID = DAPedidoWeb.InsPedidoWeb(oBEPedidoWeb);
                     }

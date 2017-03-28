@@ -851,14 +851,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                                 {
                                     item.EstaEnRevista = 1;
-                                    if (isEsika)
-                                    {
-                                        item.MensajeValidacion = "Producto en la Guía de Negocio Ésika con oferta especial.";
-                                    }
-                                    else
-                                    {
-                                        item.MensajeValidacion = "Producto en la revista Somos Belcorp con oferta especial.";
-                                    }
+                                    if (isEsika) item.MensajeValidacion = Constantes.OfertaEspecialMensajes.EsikaWeb;
+                                    else item.MensajeValidacion = Constantes.OfertaEspecialMensajes.LbelWeb;
                                 }
                             }
                             else
