@@ -1007,5 +1007,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
+
+        [OperationContract]
+        int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
     }
 }

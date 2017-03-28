@@ -1877,6 +1877,10 @@ namespace Portal.Consultoras.Service
 
         /*      FIN EPD-2035        */
         #endregion
-
+        
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
+        }
     }
 }

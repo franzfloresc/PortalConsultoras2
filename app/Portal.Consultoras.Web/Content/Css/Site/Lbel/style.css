@@ -34255,7 +34255,20 @@ h1#penmostreo .campana {
     padding-top: 30px;
     padding-bottom: 30px;
 }
+.solo_inferior{
+    font-size:17px;
+    display:block;
+     height: 18px;
+    margin-top: 5px;
+}
 
+@media screen and (max-width: 1262px) {
+    .solo_inferior{
+        display:inline-block;
+        margin-left:5px;
+        }
+    }
+    
 .enlace_chat a {
     display: inline;
     font-weight: bold;
@@ -34418,16 +34431,3 @@ h1#penmostreo .campana {
     /*font-weight: 700;*/
     cursor: pointer;
 }
-.solo_inferior{
-    font-size:17px;
-    display:block;
-     height: 18px;
-    margin-top: 5px;
-}
-
-@media screen and (max-width: 1262px) {
-    .solo_inferior{
-        display:inline-block;
-        margin-left:5px;
-        }
-    }

@@ -134,5 +134,12 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(Gana, CodigoISO);
             }
         }
+
+        public bool EMailActivo { get; set; }
+        public string EMail { get; set; }
+        public string Celular { get; set; }
+        public bool Suscripcion { get; set; }
+
+        public string UrlTerminosCondiciones { get; set; }
     }
 }
