@@ -305,7 +305,6 @@
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
-    <Compile Include="Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -2919,6 +2918,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
+    <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
     <Content Include="Scripts\respond.js" />
@@ -3156,11 +3156,11 @@
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
+    <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\EnterateMas.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
-    <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
@@ -3857,8 +3857,6 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
-    <Content Include="Views\CatalogoRevista\Index.cshtml" />
-    <Content Include="Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />

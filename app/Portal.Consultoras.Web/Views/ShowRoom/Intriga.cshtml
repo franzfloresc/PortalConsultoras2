@@ -42,7 +42,7 @@
             
             <div class="linea_separadora_intriga"></div>
             <div class="nombre_set_showroom">@Model.Descripcion</div>
-            <div class="precio_showroom_intriga">  <span class="precio_oferta_showroom">@ViewBag.Simbolo @Model.FormatoPrecioCatalogo, </span>@ViewBag.Simbolo @Model.FormatoPrecioOferta </div>
+            <div class="precio_showroom_intriga">  <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioCatalogo, </span>@Model.Simbolo @Model.FormatoPrecioOferta </div>
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
@@ -64,27 +64,27 @@
         </div>
 
     </div>
-    <div class="content_confirmacion_correo">
-        <div>
+    <div class="content_confirmacion_correo" id="divIntrigaProgramarAviso" style="display: none;" >
+        <div id="divIntrigaProgramarAvisoDatos">
             <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
             <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
-            <div class="correo_showroon"><input type="text" value="ashimabukuro@belcorp.biz"></div>
-            <div class="correo_showroon icono_celular"><input type="text" value=""></div>
-            <div class="termino_condiciones_intriga">Estoy de acuerdo con los términos y condiciones.</div>
-            <a class="btn_enviar_correo_intriga">CONFIRMA TU CORREO</a>
+            <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
+            <div class="correo_showroon icono_celular"><input type="text" value="@Model.Celular" id="txtIntrigaCelular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
+            <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
+            <a class="btn_enviar_correo_intriga" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
         </div>
-        <div style="display:none;">
+        <div id="divIntrigaEmailRespuestaOk">
             <div class="titulo_confirmacion" style="margin-top:25px;margin-bottom: 30px;">¡ahora serás la primera en enterarte!</div>
-            <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b>sandra@gmail.com</b></div>
-            <a class="link_cambiar_correo">CAMBIAR CORREO</a>            
+            <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b data-email-registrado="">@Model.EMail</b></div>
+            <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
         </div>       
-        <div style="text-align:center; display:none;">
+        <div style="text-align:center;" id="divIntrigaEmailRespuestaConfirmar">
             <img src="@Url.Content("~/Content/Images/showroom/notificacion.png")" />
             <div class="titulo_confirmacion" style="margin-bottom: 20px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
-            <div class="texto_confirmacion">Te hemos enviado un correo a:<b>sandra@gmail.com</b>Entra a tu cuenta para confirmarlo</div>
-            <a class="link_cambiar_correo">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;  
-            <a class="link_cambiar_correo">CAMBIAR CORREO</a>
-        </div>  
+            <div class="texto_confirmacion">Te hemos enviado un correo a:<b data-email-registrado="">@Model.EMail</b>Entra a tu cuenta para confirmarlo</div>
+            <a class="link_cambiar_correo" data-email-reenviar="">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;  
+            <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
+        </div>
     </div>
     <hr class="clear" />
     <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?.
@@ -113,16 +113,17 @@
 @section scripts{
 
     <script type="text/javascript">
+        var emailOriginal = $.trim('@Model.EMail').toLowerCase();
+        var emailActivo = $.trim('@Model.EMailActivo');
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingIntriga';
+
+        var celularOriginal = $.trim('@Model.Celular').toLowerCase();
+        var suscrito = $.trim('@Model.Suscripcion');
 
         $(document).ready(function () {
             $('.ubicacion_web').find('span').eq(0).hide();
             $('.ubicacion_web').find('span').eq(1).hide();
             //$('.ubicacion_web').css('margin-top', '162px');
-
-            $(".termino_condiciones_intriga").click(function () {              
-                $(this).toggleClass('check_intriga'); 
-            });
 
             $('#DialogMensajesBanner').dialog({
                 autoOpen: false,
@@ -319,4 +320,5 @@
 
     </script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Intriga.js")"></script>
 }

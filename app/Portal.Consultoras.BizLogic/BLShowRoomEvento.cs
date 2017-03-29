@@ -478,5 +478,13 @@ namespace Portal.Consultoras.BizLogic
                 }
             return lst;
         }
+
+
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.ShowRoomProgramarAviso(entity);
+        }
+
     }
 }

@@ -67,6 +67,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -479,6 +499,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -795,7 +839,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso,Recibido
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -809,7 +854,7 @@ ALTER procedure ShowRoom.GetShowRoomOfertasConsultora
 @CodigoConsultora varchar(20)
 as
 /*
-ShowRoom.GetShowRoomOfertasConsultora 201705,'9900126709'
+ShowRoom.GetShowRoomOfertasConsultora 201705,'9900083060'
 */
 begin
 
@@ -1181,6 +1226,26 @@ go
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'MostrarPopupVenta') = 0
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
 go
 
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
@@ -1595,6 +1660,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -1911,7 +2000,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -2299,6 +2389,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -2711,6 +2821,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -3027,7 +3161,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -3415,6 +3550,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -3827,6 +3982,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -4143,7 +4322,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -4531,6 +4711,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -4943,6 +5143,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -5259,7 +5483,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -5647,6 +5872,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -6059,6 +6304,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -6375,7 +6644,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -6763,6 +7033,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -7175,6 +7465,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -7491,7 +7805,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -7879,6 +8194,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -8291,6 +8626,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -8607,7 +8966,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -8995,6 +9355,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -9407,6 +9787,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -9723,7 +10127,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -10111,6 +10516,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -10523,6 +10948,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -10839,7 +11288,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -11227,6 +11677,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -11639,6 +12109,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -11955,7 +12449,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -12343,6 +12838,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -12755,6 +13270,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -13071,7 +13610,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc
@@ -13459,6 +13999,26 @@ if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.
 	ALTER TABLE ShowRoom.EventoConsultora ADD MostrarPopupVenta bit
 go
 
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Suscripcion') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Suscripcion bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Envio') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Envio bit
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'CorreoEnvioAviso') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD CorreoEnvioAviso varchar(100)
+go
+
+if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.EventoConsultora') and SYSCOLUMNS.NAME = N'Recibido') = 0
+	ALTER TABLE ShowRoom.EventoConsultora ADD Recibido bit
+go
+
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ShowRoom].[Nivel]') AND (type = 'U') )
 	DROP TABLE ShowRoom.Nivel
 GO
@@ -13871,6 +14431,30 @@ end
 
 go
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdateEventoConsultoraProgramarAviso]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [ShowRoom].UpdateEventoConsultoraProgramarAviso
+GO
+
+create procedure ShowRoom.UpdateEventoConsultoraProgramarAviso
+@CodigoConsultora varchar(20),
+@CampaniaID int,
+@Suscripcion bit,
+@CorreoEnvioAviso varchar(100)
+as
+begin
+
+update ShowRoom.EventoConsultora
+set
+	Suscripcion = @Suscripcion,
+	CorreoEnvioAviso = @CorreoEnvioAviso
+where
+	CodigoConsultora = @CodigoConsultora
+	and CampaniaID = @CampaniaID
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[UpdStockOfertaShowRoomMasivo]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].UpdStockOfertaShowRoomMasivo
 GO
@@ -14187,7 +14771,8 @@ begin
 
 select top 1
 EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
-MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
 from ShowRoom.EventoConsultora
 where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
 order by FechaCreacion desc

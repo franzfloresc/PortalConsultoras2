@@ -34291,7 +34291,6 @@ h1#penmostreo .campana {
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
 }
-
 /*HOMOLOGAR OPT*/
 
 .tono_select_opt {
@@ -34310,24 +34309,6 @@ h1#penmostreo .campana {
     position: relative;
     margin-bottom: 5px;
 }
-.compartir_catalogo_facebook_Brasil
-{
-    width: 48%;
-    margin: auto;
-    height: 30px;
-    line-height: 41px;
-    text-align: center;
-    background: #336699;
-    margin-top: 10px;
-}
-
-.content_carrusel_catalogo_Brasil {
-    width: 198px;
-    float: left;
-    height: 320px;
-    overflow: hidden;
-    margin-bottom: 40px;
- }
 .texto_sin_tono {
     display: block;
     /*padding-left: 10px;*/
@@ -34449,3 +34430,21 @@ h1#penmostreo .campana {
         margin-left:5px;
         }
     }
+.compartir_catalogo_facebook_Brasil
+{
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+ }

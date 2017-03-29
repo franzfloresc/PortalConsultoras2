@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Common
             public const string RolSociaEmpresaria = "SE";
         }
 
-
+        
         public class OfertaEspecialMensajes
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
