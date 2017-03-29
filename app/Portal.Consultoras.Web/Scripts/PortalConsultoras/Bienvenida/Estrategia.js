@@ -3,95 +3,84 @@
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
+// Cuarto Dígito
+// 0. Sin popUp         1. Con popUp
+var conPopup = conPopup || "";
+
 var origenRetorno = $.trim(origenRetorno);
 
 $(document).ready(function () {
-    //$(document).on('click', '.combo_select_tono', function (e) {
-    //    var AbrirTono = $(this).attr("data-tono-show") || "0";
-    //    var signo = "";
-    //    if (AbrirTono == 0) {
-    //        $(this).parents("[data-tono]").find(".content_tonos_ficha").slideUp();
-    //        $(this).parents("[data-tono]").find(".combo_select_tono").attr("data-tono-show", 0);
-    //        $(this).parents("[data-tono]").find(".combo_select_tono span.mas_info_tono").html("+");
+    $(document).on('click', '[data-tono-change]', function (e) {
+        var accion = $(this).attr("data-tono-change");
 
-    //        $(this).parent().find(".content_tonos_ficha").slideDown(); //muestro mediante id 
-    //        signo = "-";
-    //        AbrirTono = 1;
-    //    }
-    //    else {
-    //        $(this).parent().find(".content_tonos_ficha").slideUp(); //muestro mediante id
-    //        signo = "+";
-    //        AbrirTono = 0;
-    //    }
-    //    $(this).find("span[class='mas_info_tono']").html(signo);
-    //    $(this).attr("data-tono-show", AbrirTono);
-    //});
+        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
+        if (hideSelect == "1") {
+            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
+            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
+            if (accion == 1)
+                return true;
+        }
 
-    //$(document).on('click', 'div[data-tono-change]', function (e) {
-    //    var cuv = $(this).attr("data-tono-cuv");
-    //    $("select[data-tono-change]").val(cuv);
-    //    $(this).parents("[data-tono]").attr("data-tono-select", cuv);
-    //    $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
-    //        .removeClass("borde_seleccion_tono")
-    //        .parent().find("[data-tono-cuv='" + cuv + "']")
-    //        .addClass("borde_seleccion_tono");
+        if (accion == 1) {
+            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
+            $(this).parents("[data-tono]").find('.content_tonos_select').show();
+            $(this).parent().addClass("tono_por_elegir");
+            return true;
+        }
 
-    //    $(this).parents("[data-tono]").find(".content_tono_principal img").attr("src", $(this).find("img").attr("src"));
-    //    var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-    //    if (estrategia == "2003" || estrategia == "2001") {
-    //        var nombre = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-nombre");
-    //        var descripcionComercial = $(this).parents("[data-tono]").find("select").find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
-    //        nombre = nombre || $(this).find("img").attr("data-tono-nombre");
-    //        descripcionComercial = descripcionComercial || $(this).find("img").attr("data-tono-descripcionComercial");
-    //        $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
-    //        $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
-    //    }
+        var cuv = $.trim($(this).attr("data-tono-cuv"));
+        var prod = $(this).parents("[data-tono]");
+        var objSet = prod.find("[data-tono-change='1']");
+        objSet.find("img").attr("src", $(this).find("img").attr("src"));
+        objSet.find(".tono_seleccionado").show();
+        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
 
-    //});
-    //$(document).on('change', 'select[data-tono-change]', function (e) {
-    //    var cuv = $(this).val();
-    //    $("select[data-tono-change]").val(cuv);
-    //    $(this).parents("[data-tono]").attr("data-tono-select", cuv);
-    //    $(this).parents("[data-tono]").find("[data-tono-div] [data-tono-change]")
-    //        .removeClass("borde_seleccion_tono")
-    //        .parent().find("[data-tono-cuv='" + cuv + "']")
-    //        .addClass("borde_seleccion_tono");
+        objSet.parent().addClass("tono_escogido");
+        prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
+        prod.attr("data-tono-select", cuv);
 
-    //    var estrategia = $(this).parents("[data-estrategia]").attr("data-estrategia");
-    //    if ((estrategia == "2003" || estrategia == "2001") && (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21)) {
-    //        var nombre = $(this).find("img").attr("data-tono-nombre");
-    //        var descripcionComercial = $(this).find("img").attr("data-tono-descripcionComercial");
-    //        nombre = nombre || $(this).find("[value='" + cuv + "']").attr("data-tono-nombre");
-    //        descripcionComercial = descripcionComercial || $(this).find("[value='" + cuv + "']").attr("data-tono-descripcionComercial");
-    //        $(this).parents("[data-tono]").find("[data-tono-visible]").find("[data-tono-nombre]").html(descripcionComercial);
-    //        $(this).parents("[data-tono]").find("[data-tono-select-html]").html(nombre);
-    //    }
-    //});
-    
-    //$(document).on('click', '.indicador_tono', function (e) {
-    //    var AbrirTono = $(this).attr("data-tono-show") || "0";
-    //    var signo = "";
-    //    if (AbrirTono == 0) {
-    //        EstrategiaMostrarMasTonos(false);
-    //        signo = "-";
-    //        AbrirTono = 1;
-    //    }
-    //    else {
-    //        EstrategiaMostrarMasTonos(true);
-    //        signo = "+";
-    //        AbrirTono = 0;
-    //    }
-    //    $(this).find("p").html(" " + signo + " TONOS");
-    //    $(this).attr("data-tono-show", AbrirTono);
-    //});
+        prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
+        var estrategia = prod.parents("[data-estrategia='2001']").length;
+        if (estrategia > 0) {
+            prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
+        }
+
+        var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
+        objCompartir.find(".CUV").val(cuv);
+        objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
+
+        var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
+        var btnActivar = true;
+        $.each(listaDigitables, function (i, item) {
+            var cuv = $.trim($(item).attr("data-tono-select"));
+            btnActivar = btnActivar ? !(cuv == "") : btnActivar;
+        });
+
+        if (btnActivar) {
+            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
+        }
+
+    });
+
+    var so = $.trim(tipoOrigenEstrategia)[0];
+    if (so == 1) {
+        $(document).on('mousemove', '[data-tono-change]', function (e) {
+            var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
+            if (activo == 1) {
+                $(this).parents("[data-tono]").find('.content_tonos_select').show();
+            }
+        });
+
+        $(document).on('mouseleave', '.content_tonos_select', function (e) {
+            $(this).hide();
+            $(this).attr("data-visible", "0");
+        });
+    }
 
 });
 
 function CargarCarouselEstrategias(cuv) {
-    $('#divListaEstrategias').hide();
-    $('.js-slick-prev').remove();
-    $('.js-slick-next').remove();
-    $('#divListadoEstrategia.slick-initialized').slick('unslick');
 
     // if tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21
     //$('#divListadoEstrategia').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
@@ -116,6 +105,9 @@ function CargarCarouselEstrategias(cuv) {
 
 function ArmarCarouselEstrategias(data) {
     $('#divListaEstrategias').hide();
+    $('.js-slick-prev').remove();
+    $('.js-slick-next').remove();
+    $('#divListadoEstrategia.slick-initialized').slick('unslick');
 
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;

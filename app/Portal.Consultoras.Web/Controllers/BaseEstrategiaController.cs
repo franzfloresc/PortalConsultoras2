@@ -211,9 +211,10 @@ namespace Portal.Consultoras.Web.Controllers
                         var prod = listaProducto.Find(p => p.SAP == h.CodigoProducto) ?? new BEEstrategiaProducto();
                         h.Orden = prod.Orden;
                         h.Grupo = prod.Grupo;
+                        h.PrecioCatalogo = prod.Precio;
                         h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
                         h.Digitable = prod.Digitable;
-                        h.CUV = Util.Trim(h.CUV);
+                        h.CUV = Util.Trim(prod.CUV);
                         h.Cantidad = prod.Cantidad;
                     });
 
