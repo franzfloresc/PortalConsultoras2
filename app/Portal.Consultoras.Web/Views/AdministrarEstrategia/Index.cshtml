@@ -749,7 +749,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(params),
                 async: true,
-                success: function (data) {                    
+                success: function (data) {
                     alert(data.message);
                     fnGrilla();
                     closeWaitingDialog();
@@ -1796,16 +1796,16 @@
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
-                { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false },
-                { name: 'ID', index: 'ID', width: 20, editable: true, hidden: false },
-                { name: 'NumeroPedido', index: 'NumeroPedido', width: 40, editable: true, hidden: false },
-                { name: 'Precio2', index: 'Precio2', width: 70, editable: true, align: 'center', resizable: false },
-                { name: 'CUV2', index: 'CUV2', width: 70, editable: true, resizable: false, sortable: false, align: 'center' },
-                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false },
-                { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false },
-                { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false },
-                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
-                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
+                { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
+                { name: 'ID', index: 'ID', width: 20, editable: true, hidden: false, sortable: false },
+                { name: 'NumeroPedido', index: 'NumeroPedido', width: 40, editable: true, hidden: false, sortable: false },
+                { name: 'Precio2', index: 'Precio2', width: 70, editable: true, align: 'center', resizable: false, sortable: false },
+                { name: 'CUV2', index: 'CUV2', width: 70, editable: true, resizable: false, sortable: true, align: 'center' },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false, sortable: false },
+                { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false, sortable: false },
+                { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: true },
+                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions }
             ],
             jsonReader:
             {
@@ -1833,6 +1833,7 @@
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function (data) {
+
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == '1') {
@@ -1844,7 +1845,6 @@
             //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-
         //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
         // allRowsInGrid = $('#list').getGridParam('data');
         if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
@@ -2654,7 +2654,7 @@
 
                         $("#hdCampania").val($("#ddlCampania").val());
                         $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);                       
+                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
                         $("#hdnCodigoSAP").val(data.CodigoSAP);
                         SeleccionarTipoOferta();
 

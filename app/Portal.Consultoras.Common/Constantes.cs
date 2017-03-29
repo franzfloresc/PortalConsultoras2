@@ -371,11 +371,24 @@ namespace Portal.Consultoras.Common
             public const int Existe = 2;
         }
 
+        public class OfertaEspecialMensajes
+        {
+            public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
+            public const string LbelWeb = "Producto en Mi Negocio L’Bel con oferta especial.";
+            public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
+            public const string LbelMobile = "Este producto está en Mi Negocio L’Bel con oferta especial.";
+        }
+        
         public class PestanhasMisPagos
         {
             public const string EstadoCuenta = "EstadoCuenta";
             public const string LugaresPago = "LugaresPago";
             public const string MisPercepciones = "MisPercepciones";
+        }
+
+        public class IncentivosSMS
+        {
+            public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
     }
 }

@@ -188,6 +188,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\IncentivosSMSController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Controllers\ConfiguracionTipoProcesoCargaPedidosController.cs" />
     <Compile Include="Controllers\EscalaDescuentosController.cs" />
@@ -299,6 +301,7 @@
     <Compile Include="Controllers\MatrizCampaniaController.cs" />
     <Compile Include="Controllers\MatrizComercialController.cs" />
     <Compile Include="Controllers\MisBeneficiosController.cs" />
+    <Compile Include="Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Controllers\MisCatalogosRevistasController.cs" />
     <Compile Include="Controllers\MisDatosController.cs" />
     <Compile Include="Controllers\MisPedidosController.cs" />
@@ -1110,6 +1113,7 @@
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
     <Content Include="Content\Css\Site\flipclock.css" />
     <Content Include="Content\Css\Site\fonts\flexslider-icon.svg" />
@@ -2017,6 +2021,8 @@
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
+    <Content Include="Content\Images\IncentivosSMS\licuadora.png" />
+    <Content Include="Content\Images\IncentivosSMS\producto1.png" />
     <Content Include="Content\Images\indicador.png" />
     <Content Include="Content\Images\interbank.png" />
     <Content Include="Content\Images\kit-nuevo-producto.png" />
@@ -2853,6 +2859,7 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Login\FormsSignIn.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\IncentivosSMS\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisPedidos\ClienteOnline.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\MisReclamos\Index.js" />
@@ -3106,6 +3113,10 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\EnterateMas.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3271,12 +3282,12 @@
     <None Include="Service References\ServiceSAC\SACService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <Content Include="Service References\ServicePedido\configuration.svcinfo" />
-    <Content Include="Service References\ServicePedido\Reference.svcmap">
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -3287,7 +3298,7 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3803,6 +3814,10 @@
     <Content Include="Views\Notificaciones\ListaDetalleCdrCulminado.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
+    <Content Include="Views\CatalogoRevista\Index.cshtml" />
+    <Content Include="Views\IncentivosSMS\Index.cshtml" />
+    <Content Include="Views\CatalogoRevista\MiRevista.cshtml" />
+    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <None Include="Web References\ServiceGestionWebPROL\WsGestionWeb.wsdl" />

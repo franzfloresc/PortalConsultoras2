@@ -91,12 +91,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.FechaDesde, new { @class = "textEbel ", @placeholder = "Fecha Desde" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.FechaHasta, new { @class = "textEbel ", @placeholder = "Fecha Hasta" })
                     </div>
                 </div>
@@ -109,12 +109,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.Nombre, new { @style = "text-transform: uppercase;", @class = "textEbel ", @placeholder = "Nombre" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.DropDownListFor(m => Model.Estado, estadoPostulantes, new {   @class = "textEbel ", @placeholder = "Estado" })
                     </div>
                 </div>
@@ -122,12 +122,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.DocumentoIdentidad, new { @style = "text-transform: uppercase;", @class = "textEbel ", @placeholder = "Cedula Identidad" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
                         @Html.TextBoxFor(m => Model.CodigoZona, new { @style = "text-transform: uppercase;", @id = "CodigoZonaFiltro", @class = "textEbel ", @placeholder = "Zona" })
                     </div>
                 </div>
@@ -274,8 +274,8 @@
 
     $(document).ready(function () {
 
-    $('.headerGrid').hide();
-    $('.container_landing').css('overflow-y', 'scroll');
+        $('.headerGrid').hide();
+        $('.container_landing').css('overflow-y', 'scroll');
 
         $("#Estado").val(2);
 
@@ -301,53 +301,49 @@
         fnGrilla(null, null, 2);
     });
 
-    function getValueFromDataAttrib(id, col)
-    {
+    function getValueFromDataAttrib(id, col) {
 
-       
-        var parent =   $('[data-id="' + id + '"]');
 
-        if(  $(parent).length>0)
-        {
-            var child = $(parent).filter('[data-colname="' + col + '"]'); 
+        var parent = $('[data-id="' + id + '"]');
 
-            if ($(child).length == 1)
-            {
+        if ($(parent).length > 0) {
+            var child = $(parent).filter('[data-colname="' + col + '"]');
+
+            if ($(child).length == 1) {
                 return $(child[0]).html();
             }
-            else{
+            else {
                 return '';
             }
         }
-        else{
+        else {
             return '';
         }
     }
 
-   function loadExtraData(solicitudPostulanteID)
-    {
-       
-       var option = $('#Estado').val();
+    function loadExtraData(solicitudPostulanteID) {
 
-       switch (option) {
-           case "0":  // Pendiente de confirmar correo.
-               $('#extraZonaOrigenDiv').show();
-               $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
-               $('#extraSeccionOrigenDiv').show();
-               $('#extraSeccionOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'SeccionOrigen'));
-               break;
-           case "9":  // Pendiente de confirmar correo.
-               $('#extraZonaOrigenDiv').show();               
-               $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
-               $('#extraSeccionOrigenDiv').show();
-               $('#extraSeccionOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'SeccionOrigen'));
-           break;
+        var option = $('#Estado').val();
 
-       }
-   }
+        switch (option) {
+            case "0":  // Pendiente de confirmar correo.
+                $('#extraZonaOrigenDiv').show();
+                $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
+                $('#extraSeccionOrigenDiv').show();
+                $('#extraSeccionOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'SeccionOrigen'));
+                break;
+            case "9":  // Pendiente de confirmar correo.
+                $('#extraZonaOrigenDiv').show();
+                $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
+                $('#extraSeccionOrigenDiv').show();
+                $('#extraSeccionOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'SeccionOrigen'));
+                break;
+
+        }
+    }
 
     function OrderListByColumnn(element, currentSidx) {
-       
+
         sidx = currentSidx;
 
         if ($(element).hasClass('desc') == true) {
@@ -394,7 +390,7 @@
     function fnGrilla(page, rows, defaultStatus) {
 
         $('#btnBuscar').attr('disabled', true);
- 
+
 
 
         $('#divListaCliente').html('<div style="text-align: center;">Cargando Lista de solicitudes<br><img src="' + urlLoad + '" /></div>');
@@ -407,7 +403,7 @@
                 FechaHasta: $("#FechaHasta").val(),
                 Nombre: $('#Nombre').val(),
                 Estado: defaultStatus == null ? $("#Estado").val() : 2,
-                DocumentoIdentidad:  $("#DocumentoIdentidad").val(),
+                DocumentoIdentidad: $("#DocumentoIdentidad").val(),
                 CodigoZona: $("#CodigoZonaFiltro").val(),
                 sidx: sidx,
                 sord: sord,
@@ -441,7 +437,7 @@
             error: function (error) {
 
                 $('#btnBuscar').removeAttr('disabled');
-               
+
             }
         });
     }
@@ -462,7 +458,7 @@
     function configureGrid() {
 
         var option = $('#Estado').val();
-      
+
         if (typeof option != 'undefined' && option != null) {
 
             switch (option) {
@@ -513,14 +509,14 @@
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
                     showColumn('FuenteIngreso'); $('[data-colname="FuenteIngreso"]').css('width', '50px');
-                    showColumn('NombreCompleto'); $('[data-colname="NombreCompleto"]').css('width', '150px');
+                    showColumn('NombreCompleto'); $('[data-colname="NombreCompleto"]').css('width', '130px');
                     showColumn('TipoDocumento'); $('[data-colname="TipoDocumento"]').css('width', '45px');
                     showColumn('NumeroDocumento'); $('[data-colname="NumeroDocumento"]').css('width', '100px');
                     hideColumn('Correo'); $('[data-colname="Correo"]').css('width', '120px');
                     showColumn('CodigoZona'); $('[data-colname="CodigoZona"]').css('width', '45px');
                     showColumn('CodigoSeccion'); $('[data-colname="CodigoSeccion"]').css('width', '45px');
                     showColumn('CodigoTerritorio'); $('[data-colname="CodigoTerritorio"]').css('width', '45px');
-                    showColumn('Direccion'); $('[data-colname="Direccion"]').css('width', '200px');
+                    showColumn('Direccion'); $('[data-colname="Direccion"]').css('width', '170px');
                     hideColumn('CodigoConsultora'); $('[data-colname="CodigoConsultora"]').css('width', '150px');
                     hideColumn('FechaIngreso'); $('[data-colname="FechaIngreso"]').css('width', '150px');
                     showColumn('Ubicacion'); $('[data-colname="Ubicacion"]').css('width', '55px');
@@ -530,11 +526,11 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
-             
+
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
-                    hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
+                    showColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '60px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
                     hideColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
@@ -549,7 +545,7 @@
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
                 case "3": //En aprobacion FFVV
-                    $('#blackGrid').css('width', '1300px')
+                    $('#blackGrid').css('width', '1350px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
@@ -571,7 +567,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
-          
+                    $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -610,7 +606,7 @@
                     showColumn('EvaluacionCrediticia'); $('[data-colname="EvaluacionCrediticia"]').css('width', '55px');
                     hideColumn('EvaluacionTelefonica'); $('[data-colname="EvaluacionTelefonica"]').css('width', '60px');
                     hideColumn('Estado'); $('[data-colname="Estado"]').css('width', '100px');
-                    showColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '50px');
+                    showColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '80px');
                     showColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
                     $('.editarBtnGrid').remove();
@@ -664,7 +660,7 @@
                     showColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
                     showColumn('CampanaCreacionCodigo'); $('[data-colname="CampanaCreacionCodigo"]').css('width', '60px');
                     showColumn('campania1erPasePedido'); $('[data-colname="campania1erPasePedido"]').css('width', '60px');
-                    showColumn('Documentos'); $('[data-colname="Documentos"]').css('width', '50px');
+                    hideColumn('Documentos'); $('[data-colname="Documentos"]').css('width', '50px');
                     hideColumn('NumDiasAprobadoFFVV'); $('[data-colname="NumDiasAprobadoFFVV"]').css('width', '40px');
                     hideColumn('NumDiasRechazado'); $('[data-colname="NumDiasRechazado"]').css('width', '45px');
                     showColumn('DiferenciaDias'); $('[data-colname="DiferenciaDias"]').css('width', '55px');
@@ -715,7 +711,7 @@
                     break;
                 //    // inicio pendiente por confirmar Estado 8 para Perú
                 case "8": //En aprobacion SAC
-                    $('#blackGrid').css('width', '1300px')
+                    $('#blackGrid').css('width', '1350px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
@@ -740,8 +736,8 @@
                     $('.editarBtnGrid').remove();
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
-                    hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
-                    hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
+                    showColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    showColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '60px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
                     hideColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
@@ -799,12 +795,12 @@
                     break;
             }
 
-            
+
 
             if (('@Model.CodigoIso' == 'MX') && ($('[data-colname="EvaluacionCrediticia"]').css('display') != "none")) {
                 hideColumn('EvaluacionCrediticia');
                 showColumn('EvaluacionTelefonica');
-            }  
+            }
 
         }
 
@@ -923,8 +919,13 @@
                         </div>               
                      </div>
                     <div class="tab02Content tabDocContent" style="display:none">
-                        <ul id="list02" style="list-style:none">
-                        </ul>
+                        <div class="style1">
+                            <ul id="list02" style="list-style:none; "></ul>
+                        </div>
+                        <div class="style2">
+                            <img id="image02Visor" src='' height='350' />
+
+                        </div>  
                     </div>
 
                 </div> 
@@ -1052,6 +1053,7 @@
 
     function setImageSrc(element, image)
     {
+        
         $("#" + element).parent().hide();
         if (image != '') {
             $("#" + element).attr("src", image);
@@ -1070,6 +1072,20 @@
         }).done(function () {
          
             
+        });
+    }
+
+    function verAdjunto3(nombreArchivo, tipo) {
+        setImageSrc('image02Visor', '');
+        generalLoading();
+
+        $.post('@Url.Action("ConsultarAdjuntoImageSource", "Unete")', { nombreArchivo: nombreArchivo, tipo: tipo }, function (img) {
+
+            setImageSrc('image02Visor', img);
+            generalCloseLoading();
+        }).done(function () {
+
+
         });
     }
     function CerrarDiv(opt) {
@@ -1469,6 +1485,13 @@
             return '';
     }
 
+    function buildItemList2(item, tipo, label) {
+        if (item != '')
+            return '<li><img class="img18" src="/Content/Images/icono-ver-estado.png" onclick="verAdjunto3(' + "'" + item + "'" + ', ' + tipo + ')">  <span class="mensaje_eliminarCliente imgSpan"  onclick="verAdjunto3(' + "'" + item + "'" + ', ' + tipo + ')" >' + label + ' </span></li>';
+        else
+            return '';
+    }
+
     function buildDocsCO(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Cedula'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
@@ -1542,13 +1565,14 @@
 
 
 
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');
+        setImageSrc('image02Visor', '');
     }
 
 
@@ -2649,6 +2673,11 @@
         color: black !important;
     }
 
+    .txtFiltro
+    {
+    width: 75% !important;
+    border-color: rgba(0, 0, 0, 0.66) !important;
+    }
     .textboxSB2 {
     width: 75% !important;
     border-color: rgba(0, 0, 0, 0.66) !important;

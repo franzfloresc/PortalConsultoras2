@@ -2104,6 +2104,8 @@
                     <input type="hidden" class="hdOfertaFinalDescripcionCategoria" value="{{DescripcionCategoria}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionMarca" value="{{DescripcionMarca}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioValorizado" value="{{PrecioValorizado}}" />
+                    <input type="hidden" class="hdOfertaFinalPrecioCatalogo" value="{{PrecioCatalogo}}" />
                     <input type="hidden" class="hdOfertaFinalImagenProductoSugerido" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
@@ -2127,7 +2129,7 @@
                             </p>
                         </div>
                         <div class="producto_precio">
-                            {{#iff PrecioValorizadoString '!=' '0'}}
+                            {{#iff PrecioValorizado '>' '0'}}
                             <span class="producto_precio_normal">{{Simbolo}} {{PrecioValorizadoString}}</span>
                             {{/iff}}
                             <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioCatalogoString}}</b></span>
@@ -2205,7 +2207,7 @@
                 <div class="peso_ficha_producto">{{Volumen}}</div>
                 <div class="descripcion_ficha_producto">{{DescripcionComercial}}</div>
                 <div class="precio_ficha_producto">
-                    {{#iff PrecioValorizadoString '!=' '0'}}
+                    {{#iff PrecioValorizado '>' 0}}
                     <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span>
                     {{/iff}}
                     {{Simbolo}} {{PrecioCatalogoString}}
@@ -2273,6 +2275,9 @@
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
                 var urlPedido = '@Url.Action("Index","Pedido")';
+        
+        if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
+        else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
 
                 /*PL20-1227*/
                 var origenPagina = 2;
