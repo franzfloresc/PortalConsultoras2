@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Marca { get; set; }
         [DataMember]
+        public int TipoUsuario { get; set; }
+        [DataMember]
         public bool FlagConsultora { get; set; }
         [DataMember]
         public DateTime FechaSolicitud { get; set; }
@@ -70,6 +72,9 @@ namespace Portal.Consultoras.Entities
 
             this.MarcaID = Convert.ToInt32(row["MarcaID"]);
             this.Marca = Convert.ToString(row["Marca"]);
+
+            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+                this.TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
 
             if (DataRecord.HasColumn(row, "FlagConsultora") && row["FlagConsultora"] != DBNull.Value)
                 this.FlagConsultora = Convert.ToBoolean(row["FlagConsultora"]);
