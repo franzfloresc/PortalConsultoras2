@@ -196,7 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         //EPD-1968
-                        if (Url.IsLocalUrl(Server.UrlDecode(Request.UrlReferrer.PathAndQuery)) && !string.IsNullOrEmpty(decodedUrl))
+                        if (Url.IsLocalUrl(decodedUrl))//Url.IsLocalUrl(Server.UrlDecode(Request.UrlReferrer.PathAndQuery)) && !string.IsNullOrEmpty(decodedUrl))
                         {
                             return Redirect(decodedUrl);
                         }
