@@ -377,6 +377,11 @@ namespace Portal.Consultoras.Common
             public const string LugaresPago = "LugaresPago";
             public const string MisPercepciones = "MisPercepciones";
         }
+
+        public class ChatbotPagina
+        {
+            public const string EstadoCuenta = "ESTADOCUENTA";
+            public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
+        }
     }
 }
-
