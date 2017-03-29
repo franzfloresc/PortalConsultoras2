@@ -1054,7 +1054,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SetUserData(userData);
 
                 string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
-                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: REGISTRADO", contenidoMailCulminado, true, userData.NombreConsultora);
+                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
 
                 //Proceso de envio de correo en caso el email sea nuevo.
                 if (SiNoEmail == 1)

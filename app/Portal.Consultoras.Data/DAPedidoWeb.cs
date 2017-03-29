@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Data
         public DataSet GetPedidoWebByFechaFacturacion(DateTime FechaFacturacion, int TipoCronograma, int NroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SB2");
+            command.CommandTimeout = 400;
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, FechaFacturacion);
             Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
