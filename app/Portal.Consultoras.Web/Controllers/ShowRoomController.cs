@@ -2720,7 +2720,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                    !emailValidado
+                    emailValidado = !emailValidado
                 });
             }
             catch (FaultException ex)
