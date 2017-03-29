@@ -75,9 +75,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                             CloseLoading();
                             messageInfoValidado(data.message, fnRedireccionar);
                         }
-
                         else fnRedireccionar();
-
                     }
                     else if (mostrarAlerta == true)
                         messageInfoValidado(data.message);
