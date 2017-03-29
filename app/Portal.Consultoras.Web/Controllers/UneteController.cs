@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (direccion.Length)
                         {
                             case 1:
-                                model.DireccionCadena = ""; break;
+                                model.DireccionCadena = direccion[0]; break;
                             case 2:
                                 model.DireccionCadena = direccion[1]; break;
                             case 3:
@@ -389,26 +389,85 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-
-                                model.Puntos.Add(new Tuple<decimal, decimal, string>
-                                                (
-                                               model.Latitud.Value,
-                                                model.Longitud.Value,
-                                                 model.DireccionCadena
-                                                ));
-
-                                if (model.Puntos.Count == 1)
+                                var param = new
                                 {
-                                    var punto = model.Puntos.First();
-                                    var noEncontroDireccion = false; //punto.Item3.Contains("");
+                                    direccion = CodigoISO == Pais.Peru ? direccion[0] + " " + model.DireccionCadena : model.DireccionCadena,
+                                    pais = CodigoISO,
+                                    ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
+                                    area = CodigoISO == Pais.Peru ? direccion[0]
+                                                    : CodigoISO == Pais.Ecuador
+                                                    ? direccion[0]
+                                                      : solicitudPostulante.LugarHijo,
+                                    aplicacion = 1
+                                };
 
-                                    if (noEncontroDireccion)
+                                var resultadoGEO = ConsultarServicio(param, "ObtenerPuntosPorDireccion");
+
+
+                                bool puntosPorDfault = false;
+
+                                var resGeo = resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
+                                if (resGeo!=null)
+                                { 
+                                        var jsonPuntos =
+                                           resGeo.SelectToken("Resultado")
+                                               .ToObject<JValue>()
+                                               .Value.ToString();
+
+                                    var puntos = JArray.Parse(jsonPuntos);
+                                    if (puntos.HasValues)
                                     {
+                                        var pts = new List<Tuple<decimal, decimal, string>>();
+                                        foreach (var item in puntos)
+                                        {
+                                          
 
+                                            pts.Add(new Tuple<decimal, decimal, string>
+                                                (
+                                                item.SelectToken("Latitud").ToObject<decimal>(),
+                                                item.SelectToken("Longitud").ToObject<decimal>(),
+                                                item.SelectToken("formatted_address").ToObject<string>()
+                                                )); 
+                                        }
+
+                                        var punto = pts.First();
+
+
+                                        if (
+                                            (resGeo.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == true)
+                                            && (punto.Item1 == model.Latitud.Value) 
+                                            && (punto.Item2 == model.Longitud.Value)
+                                            )
+                                        {
+                                            puntosPorDfault = true;
+                                        }
                                     }
-                                    else
+                                }
+
+
+                                if (puntosPorDfault == false)
+                                {
+
+                                    model.Puntos.Add(new Tuple<decimal, decimal, string>
+                                                    (
+                                                   model.Latitud.Value,
+                                                    model.Longitud.Value,
+                                                     model.DireccionCadena
+                                                    ));
+
+                                    if (model.Puntos.Count == 1)
                                     {
-                                        GetLocationInfo(ref model);
+                                        var punto = model.Puntos.First();
+                                        var noEncontroDireccion = false; //punto.Item3.Contains("");
+
+                                        if (noEncontroDireccion)
+                                        {
+
+                                        }
+                                        else
+                                        {
+                                            GetLocationInfo(ref model);
+                                        }
                                     }
                                 }
                             }
