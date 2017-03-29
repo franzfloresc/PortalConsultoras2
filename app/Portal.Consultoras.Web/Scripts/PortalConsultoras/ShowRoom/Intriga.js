@@ -2,12 +2,14 @@
 
 $(document).ready(function () {
 
+    emailActivo = (emailActivo || "").toLowerCase();
+
     if (suscrito == "True") {
         $("#divIntrigaProgramarAvisoDatos").hide();
         $("#divIntrigaEmailRespuestaOk").hide();
         $("#divIntrigaEmailRespuestaConfirmar").hide();
 
-        if (emailActivo == "False") {
+        if (emailActivo == "false") {
             $("#divIntrigaEmailRespuestaOk").show();
         }
         else {
@@ -83,19 +85,21 @@ function IntrigaActualizarDatos() {
         success: function (data) {
             CerrarLoad();
             if (checkTimeout(data)) {
+
                 if (data.success != true) {
                     AbrirMensaje(data.message);
                     $("#divIntrigaProgramarAvisoDatos").show();
                     return false;
                 }
+
+                emailActivo = $.trim(data.emailValidado).toLowerCase();
                 $("[data-email-registrado]").html(emailNuevo);
 
                 $("#divIntrigaProgramarAvisoDatos").hide();
                 $("#divIntrigaEmailRespuestaOk").hide();
                 $("#divIntrigaEmailRespuestaConfirmar").hide();
-
                 if (emailOriginal == emailNuevo) {
-                    if (emailActivo == "False") {
+                    if (emailActivo == "false") {
                         $("#divIntrigaEmailRespuestaOk").show();
                         $("[data-email-reenviar]").hide();
                         return true;

@@ -98,6 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
+                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                 return View(showRoomEventoModel);
@@ -2687,9 +2688,10 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "- El correo no puede ser vacio."
                     });
                 }
-                
+                var emailValidado = true;
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && userData.EMailActivo == true))
                 {
+                    emailValidado = false;
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
@@ -2717,7 +2719,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada."
+                    message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                    !emailValidado
                 });
             }
             catch (FaultException ex)
