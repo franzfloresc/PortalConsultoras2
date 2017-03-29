@@ -1176,8 +1176,7 @@ namespace Portal.Consultoras.BizLogic
                 if (!string.IsNullOrEmpty(entidad.NumeroDocumento) && 
                     !string.IsNullOrEmpty(entidad.NombreCompleto) && 
                     !string.IsNullOrEmpty(entidad.Zona) &&
-                    !string.IsNullOrEmpty(entidad.Seccion) &&
-                    !string.IsNullOrEmpty(entidad.Correo))
+                    !string.IsNullOrEmpty(entidad.Seccion))
                 {
                     var DAUsuario = new DAUsuario(paisID);
 
@@ -1191,20 +1190,26 @@ namespace Portal.Consultoras.BizLogic
                     usuario.TipoUsuario = 2;
                     usuario.DocumentoIdentidad = entidad.NumeroDocumento;
 
+                    // insertar usuario
                     int r1 = DAUsuario.InsUsuario(usuario);
                     if (r1 > 0)
                     {
+                        // encriptar clave
+                        DAUsuario.UpdUsuarioClaveSecreta(usuario.CodigoUsuario, usuario.ClaveSecreta, false);
+
                         BEUsuarioRol usuarioRol = new BEUsuarioRol();
                         usuarioRol.CodigoUsuario = entidad.NumeroDocumento;
                         usuarioRol.RolID = 1;
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
+                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)
                         {
                             entidad.CodigoUsuario = entidad.NumeroDocumento;
+                            // insertar usuario postulante
                             int r3 = DAUsuario.InsUsuarioPostulante(entidad);
                             r = (r3 > 0) ? 1 : 0;
                         }
