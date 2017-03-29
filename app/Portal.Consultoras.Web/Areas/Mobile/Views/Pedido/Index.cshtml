@@ -660,11 +660,8 @@
 
     var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
     var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
-    if (isEsika) {
-        var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
-    } else {
-        var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
-    }
+    if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaMobile';
+    else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelMobile';
     var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
     var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 

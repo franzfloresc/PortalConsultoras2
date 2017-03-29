@@ -17,8 +17,16 @@ namespace Portal.Consultoras.Web.Models
         public string PROVINCIA { set; get; }
         public string CANTON { set; get; }
         public string DISTRITO { set; get; }
+        public string CORREGIMIENTO { set; get; }
         public string BARRIO_COLONIA_URBANIZACION_REFERENCIAS { set; get; }
+        public string BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS { set; get; }
+        public string BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS { set; get; }
+        public string DEPARTAMENTO { set; get; }
+        public string MUNICIPIO { set; get; }
+        public string CANTON_CENTRO_POBLADO { set; get; }
+        public string CENTRO_POBLADO { get; set; }
 
+        public string ZONA_CIUDAD { get; set; }
         public string sidx { get; set; }
 
         public string sord { get; set; }

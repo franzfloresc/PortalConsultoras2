@@ -114,11 +114,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetPedidoWebDetalleByOfertaWeb(paisID, CampaniaID, ConsultoraID, OfertaWeb);
         }
 
-        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
+        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso)
         {
             try
             {
-                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario, descripcionProceso);
             }
             catch (BizLogicException ex)
             {
@@ -1764,6 +1764,10 @@ namespace Portal.Consultoras.Service
         public BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID)
         {
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+            return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
 
         public void DeshacerUltimaDescargaPedido(int PaisID)

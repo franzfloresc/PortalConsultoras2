@@ -309,21 +309,23 @@
             </div>
         }
 
-        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-            @if (ViewBag.PermitirCerrarBannerPL20 == true)
-            {
-                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-            }        
-            <div id="flexslider">
-                <ul class="slides">
-                    @if (ViewBag.MostrarShowRoomBannerLateral == true)
+        if (ViewBag.MostrarODD == false)
+        {
+            <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                {
+                    <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                }
+                <div id="flexslider">
+                    <ul class="slides">
+                        @if (ViewBag.MostrarShowRoomBannerLateral == true)
                     {
                         if (showRoomBannerLateral.MostrarShowRoomProductos)
                         {
-                            <li>
-                                <div id="divShowRoomHoy" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                <li>
+                                    <div id="divShowRoomHoy" class="divShowRoom">
+                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
                                         <div class="fondo_m">
                                             <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                 <div class="content_banner_new_showroom">
@@ -333,14 +335,14 @@
                                             </a>
                                         </div>
                                 </div>
-                            </li>
-                        }
-                        else if(showRoomBannerLateral.MostrarShowRoomProductos == false)
-                        {
-                            <li>
-                                <div id="divShowRoom" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                </li>
+                            }
+                             else if(showRoomBannerLateral.MostrarShowRoomProductos == false)
+                            {
+                                <li>
+                                    <div id="divShowRoom" class="divShowRoom">
+                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
                                     <div class="fondo_m">
                                         <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                             <div class="content_banner_new_showroom">
@@ -350,42 +352,45 @@
                                         </a>
                                      </div>
                                 </div>
-                            </li>
+                                </li>
+                            }
                         }
-                    }
 
-                    @if (ViewBag.MostrarOfertaDelDia == true)
+                        @if (ViewBag.MostrarOfertaDelDia == true)
                     {
-                        <li>
-                            <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
+                            <li>
+                                <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
                                 <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
                                     <div class="solo_hoy_mobile">
                                         <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
                                     </div>
-                                    <div class="imagen_set_oferta_mobile">
-                                        <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+                                        <div class="imagen_set_oferta_mobile">
+                                            <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
                                     </div>
                                     <div class="float_left" style="width:50%; margin-left:3%;">                                       
                                         <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                         <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
                                      </div>
-                                    <hr class="clear" />
-                                    <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                                    <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                                    <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                                    <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                                    <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                                    <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                                    <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                                    <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                                    <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+                                        <hr class="clear" />
+                                        <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                        <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                        <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                        <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                        <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                        <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                        <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                        <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                        <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
                                 </div>
                             </div>
-                        </li>
-                    }
-                </ul>
+                            </li>
+                        }
+                    </ul>
             </div>
         </div>
+        }
+
+
     }
     else
     {

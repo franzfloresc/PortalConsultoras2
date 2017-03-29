@@ -203,7 +203,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
-        url: baseUrl + 'MisCatalogosRevistas/Detalle',
+        url: urlDetalle,
         dataType: "json",
         data: { campania: campana },
         success: function (result) {
@@ -222,10 +222,9 @@ function ObtenerEstadoCatalogo(campana, defered) {
 }
 function GetCatalogosLinksByCampania(data, campania) {
     ShowLoading();
-
     $.ajaxSetup({ cache: false });
 
-    var idPais = $("#hdPaisId").val();
+    var paisNombre = $("#hdPaisNombre").val();
 
     var defered = new Object();
 
@@ -255,7 +254,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado || "0")
 
-        var catalogo = tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + nro + "." + anio;
+        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
@@ -294,27 +293,6 @@ function GetCatalogosLinksByCampania(data, campania) {
     }
 
     FinRenderCatalogo();
-}
-
-function ObtenerNombrePais(idPais) {
-    var pais = parseInt(idPais);
-    switch (pais) {
-        case 1: return "argentina";
-        case 2: return "bolivia";
-        case 3: return "chile";
-        case 4: return "colombia";
-        case 5: return "costarica";
-        case 6: return "ecuador";
-        case 7: return "elsalvador";
-        case 8: return "guatemala";
-        case 9: return "mexico";
-        case 10: return "panama";
-        case 11: return "peru";
-        case 12: return "puertorico";
-        case 13: return "republicadominicana";
-        case 14: return "venezuela";
-        default: return "sinpais";
-    }
 }
 
 function SetGoogleAnalytics(Imagen, Accion, Label) {
