@@ -383,5 +383,11 @@ namespace Portal.Consultoras.Common
             public const string EstadoCuenta = "ESTADOCUENTA";
             public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
         }
+
+        public class EstadoCuentaTipoMovimiento
+        {
+            public const int Abono = 2;
+            public const int Cargo = 1;
+        }
     }
 }
