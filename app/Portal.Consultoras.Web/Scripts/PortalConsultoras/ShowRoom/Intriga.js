@@ -4,11 +4,11 @@ $(document).ready(function () {
 
     emailActivo = (emailActivo || "").toLowerCase();
 
-    if (suscrito == "True") {
-        $("#divIntrigaProgramarAvisoDatos").hide();
-        $("#divIntrigaEmailRespuestaOk").hide();
-        $("#divIntrigaEmailRespuestaConfirmar").hide();
+    $("#divIntrigaProgramarAvisoDatos").hide();
+    $("#divIntrigaEmailRespuestaOk").hide();
+    $("#divIntrigaEmailRespuestaConfirmar").hide();
 
+    if (suscrito == "True") {
         if (emailActivo == "false") {
             $("#divIntrigaEmailRespuestaOk").show();
         }
@@ -16,6 +16,10 @@ $(document).ready(function () {
             $("#divIntrigaEmailRespuestaConfirmar").show();
         }
     }
+    else {
+        $("#divIntrigaProgramarAvisoDatos").show();
+    }
+
     $("#divIntrigaProgramarAviso").show();
 
     $(".termino_condiciones_intriga").click(function () {
