@@ -1376,37 +1376,24 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, secretKey);
-
-                if (model != null)
+                if (model == null) return RedirectToAction("UserUnknown");
+                
+                var userData = (UsuarioModel)Session["UserData"];
+                if (userData == null || userData.CodigoConsultora.CompareTo(model.CodigoConsultora) != 0)
                 {
-                    var paisID = Util.GetPaisID(model.Pais);
-                    var userData = (UsuarioModel)Session["UserData"];
+                    userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoConsultora, 1);
+                }
+                if (userData == null) return RedirectToAction("UserUnknown");
 
-                    if (userData == null)
-                    {
-                        userData = GetUserData(paisID, model.CodigoConsultora, 1);
-                        if (userData == null) return RedirectToAction("UserUnknown");
-
-                        FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
-
-                        Session.Add("IngresoExternoChatbot", model.Version);
-                    }
-                    else
-                    {
-                        if (userData.CodigoConsultora.CompareTo(model.CodigoConsultora) != 0)
-                        {
-                            return RedirectToAction("UserUnknown");
-                        }
-                    }
-
-                    //Mapear en constantes los nombre de las paginas a donde se va ingresar
-                    switch (model.Pagina.ToUpper())
-                    {
-                        case "ESTADOCUENTA": 
-                            return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
-                        case "SEGUIMIENTOPEDIDO": 
-                            return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
-                    }
+                FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
+                Session.Add("IngresoExternoChatbot", model.Version);
+                
+                switch (model.Pagina.ToUpper())
+                {
+                    case Constantes.ChatbotPagina.EstadoCuenta:
+                        return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                    case Constantes.ChatbotPagina.SeguimientoPedido:
+                        return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                 }
             }
             catch (Exception ex)
