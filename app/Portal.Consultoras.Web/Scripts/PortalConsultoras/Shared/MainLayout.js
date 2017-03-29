@@ -4,7 +4,7 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
-    
+
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
@@ -351,12 +351,13 @@ function OrdenarCabecera() {
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);
-    if (ventanaChat == null || (ventanaChat.closed)) {
-        ventanaChat = open(res, '', 'top=0,left=0,width=400,height=500');
+  
+    if (localStorage.getItem('ventana') == null) {
+        ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
         ventanaChat.focus();
+        localStorage.setItem('ventana', 'existe');
     } else {
-        //ventanaChat.location.href = res;
-        ventanaChat.focus();
+        window.open("", "ventanaChat");
     }
 }
 
@@ -985,6 +986,7 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
+    localStorage.clear();
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -1036,7 +1038,7 @@ function loadOfertaDelDia() {
                     } else {
                         $('.ubicacion_web ').css('margin-top', '185px');
                     }
-                    
+
                     
                     var intv1 = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
