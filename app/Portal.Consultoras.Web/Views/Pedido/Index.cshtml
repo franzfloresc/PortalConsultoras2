@@ -6,7 +6,6 @@
 }
 
 @section styles{
-    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
@@ -77,20 +76,17 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
-                @*Descripción Producto*@
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
                        onkeyup="PreValidarCUV();" placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
-                @*Precio*@
                 <br />
                 <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
             </div>
 
             <div class="pedido_ingreso_datos campo_cantidad">
-                @*Cantidad*@
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido">
                     <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -103,7 +99,6 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_cliente">
-                @*Cliente*@
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus();"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
@@ -378,7 +373,6 @@
                         <span class="icon-advertencia"></span>
                         <span>
                             El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                            @*Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.*@
                         </span>
                     </p>
                 </div>
@@ -807,7 +801,6 @@
     <br />
     <ul id="OfertasResultados" class="listaOfertas"></ul>
 
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
     <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
     <div class="zonaCantidad texto-centrado">
         <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
@@ -831,7 +824,6 @@
             </tr>
         </table>
     </div>
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
     <br />
     <div class="div-3 texto-centrado">
         <input class="btnBotonRojo" type="button" value="Agregar" onclick="javascript: AgregarProductoDestacado(this);" />
@@ -1092,14 +1084,7 @@
                         <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
                         <input type="hidden" name="Campania" id="Campania" />
                         <input type="hidden" name="MarcaID" id="MarcaID" />
-                        @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
-
                         <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                        @*<div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
-                            <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
-                            <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                            <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
 
                         @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
                 {
@@ -1179,9 +1164,6 @@
                         Portal {{Marca}}
                         {{/if_eq}}
                     </div>
-
-                    @*<div class="padding_tabla_percepcion dinamicostable">{{DetallePedido[0].FechaCreacion}}</div>
-                        <div class="padding_tabla_percepcion dinamicostablemedio">{{DetallePedido[0].PrecioTotal}}</div>*@
 
                     <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
                     <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
@@ -1610,7 +1592,6 @@
                 </div>
                 <div class="texto_pedidos clientePedido">
                     {{#if EsKitNueva}}
-                    @*<div style="padding: 0 10px; text-align: center;">{{Nombre}}</div>*@
                     {{else}}
                     <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" id="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
                     <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" id="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
@@ -1900,7 +1881,6 @@
                     <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                         <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
-                    @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
                     <hr class="clear">
                 </div>
             </div>
@@ -2020,9 +2000,6 @@
                     {{#each this}}
                     {{#each Detalle}}
                     <tr>
-                        @*{{#iff @@index '==' 0}}
-                                <td rowspan="{{../CantidadDetalles}}">{{../Categoria}}</td>
-                            {{/iff}}*@
                         <td class="categoria_productoAgotado">{{../Categoria}}</td>
                         <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
                         <td class="producto_productoAgotado">{{Descripcion}}</td>
@@ -2078,7 +2055,6 @@
                             <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/iff}}
                     </div>
-                    @*<div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>*@
                 </div>
 
             </div>
@@ -2117,10 +2093,8 @@
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;" data-tooltip-text="{{CUVPedidoNombre}}">
-                        @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                         <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                     </div>
-                    @*<div class="etiqueta_producto"></div>*@
                     <div class="producto_nombre_descripcion">
                         <div onclick="javascript:CargarVerDetalleOF(this, event);">
                             <h6>{{DescripcionMarca}}</h6>
@@ -2196,7 +2170,6 @@
                 <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB" >
                     <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" />
                 </a>
-                @*<a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>*@
                 <hr class="clear" />
             </div>
         </div>
@@ -2278,8 +2251,6 @@
         
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
-
-                /*PL20-1227*/
                 var origenPagina = 2;
                 var tipoOrigenEstrategia = 11;
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;

@@ -275,7 +275,15 @@ namespace Portal.Consultoras.Web.Models
 
         public bool CargoEntidadesShowRoom { get; set; } // GR-1776
         public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; } // GR-1776
-        public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776
+        public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776    
+        
+        public List<BEShowRoomNivel> ListaShowRoomNivel { get; set; }
+
+        public List<BEShowRoomPersonalizacion> ListaShowRoomPersonalizacion { get; set; }
+
+        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; } 
+
+        public int ShowRoomNivelId { get; set; }        
 
         public int OfertaFinal { get; set; }
 
@@ -325,5 +333,7 @@ namespace Portal.Consultoras.Web.Models
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
+
+        public bool CloseBannerCompraPorCompra { get; set; }
     }
 }

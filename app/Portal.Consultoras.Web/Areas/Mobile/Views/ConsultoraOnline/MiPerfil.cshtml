@@ -487,7 +487,7 @@
 
         Date.prototype.yyyymmdd = function () {
             var yyyy = this.getFullYear();
-            var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
+            var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1);
             var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
             return "".concat(dd).concat("/").concat(mm).concat("/").concat(yyyy);
         };

@@ -11,5 +11,8 @@
         public string CodigoRevistaAnterior { get; set; }
         public string CodigoRevistaActual { get; set; }
         public string CodigoRevistaSiguiente { get; set; }
+
+        public string NombreClasefb { get; set; }
+        public string NombreClasews { get; set; }
     }
 }

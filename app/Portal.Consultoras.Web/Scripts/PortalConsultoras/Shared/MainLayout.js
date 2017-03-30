@@ -4,13 +4,12 @@ var showDisplayODD = 0;
 $(document).ready(function () {
 
     
-    /*PL20-1226*/
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
 
     $(document).keyup(function (e) {
-        if (e.keyCode == 27) { // esc keycode
+        if (e.keyCode == 27) {
             if ($('#PopOfertaDia').is(':visible')) {
                 $('#PopOfertaDia').slideUp();
                 $('.circulo_hoy span').html('+');
@@ -102,7 +101,6 @@ $(document).ready(function () {
         $('body').css({ 'overflow-y': 'scroll' });
     });
 
-    // cerrar popup ofertas 003,048
     $('[data-oferta]').click(function (e) {
         if (!$(e.target).closest('.cuerpo-mod').length) {
             if ($('[data-oferta]').is(':visible')) {
@@ -329,19 +327,38 @@ $(document).ready(function () {
         $(".ui-button-text").trigger("click");
     });
 
-    Scrolling();
-    MostrarShowRoomBannerLateral();
 
-    /*PL20-1226*/
+    Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
+    OrdenarCabecera();
+
+    if (tieneOfertaDelDia == "True") {        
+        var URLactual = window.location.href;
+        var urlIntriga = URLactual.indexOf("ShowRoom");
+        var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+        if (urlIntriga > 0) {
+            $("#contentmain").css("margin-top", "63px")
+        }
+
+        if (urlBienvenida > 0) {
+            $("#contentmain").css("margin-top", "0px")
+        }
+
+    } else {
+        
+    }
 });
 
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
-    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-    $('#alertDialogMensajes').dialog('open');
+function OrdenarCabecera() {
+    var hC = $("header").innerHeight() + 2;
+    var htmlSub = $.trim($(".ubicacion_web").html());
+    if (htmlSub == "") {
+        $(".SubHeader").html("");
+    }
+    hC += $(".SubHeader").innerHeight();
+    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
 }
 
 function messageInfoError(message, titulo) {
@@ -384,23 +401,9 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $('#SinProductos').hide();
 
                         SetHandlebars("#resumenCampania-template", data, "#carrito_items");
-
-                        //$("#carrito_items").html('');
-                        //var source = $("#resumenCampania-template").html();
-                        //var template = Handlebars.compile(source);
-                        //var context = data;
-                        //var html = template(context);
-                        //$("#carrito_items").append(html);
                     }
 
                     if (showPopup == true) {
-                        //$('.info_cam').fadeIn(200);
-                        //setTimeout(function () {
-                        //    $('.info_cam').fadeOut(200);
-                        //    setTimeout(function () {
-                        //        $('.info_cam').removeAttr("style");
-                        //    }, 300);
-                        //}, 5000);
                         microefectoPedidoGuardado();
                         setTimeout(function(){
                             $(".contenedor_circulos").fadeOut();
@@ -455,7 +458,6 @@ function CargarCantidadNotificacionesSinLeer() {
     });
 };
 function Scrolling() {
-    //ToDown & ToUp
     var y = $(window).scrollTop();
     $('#toUp').hide();
     $('#toUp').attr("style", "top: 580px !important");
@@ -476,7 +478,6 @@ function Scrolling() {
             $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
         }
 
-        //ToDown & ToUp
         if ($(window).scrollTop() + $(window).height() === $(document).height()) {
             $('#toDown').hide("slow");
             $('#toUp').show("slow");
@@ -489,7 +490,6 @@ function Scrolling() {
 function AbrirModalFeErratas() {
     waitingDialog({});
 
-    // llamada para cargar banners y llenar su template
     $.ajax({
         type: 'GET',
         url: baseUrl + 'FeErratas/Index',
@@ -525,8 +525,6 @@ function AbrirModalFeErratas() {
     return false;
 };
 function SeparadorMiles(pnumero) {
-    // Función que colocará el caracter "." como separador de miles.
-
     var resultado = "";
     var numero = pnumero.replace(/\,/g, '');
     var nuevoNumero = "";
@@ -544,7 +542,6 @@ function SeparadorMiles(pnumero) {
     else return resultado;
 };
 
-/*Inicio Cambios_Landing_Comunidad*/
 function ValidarCorreoComunidad(tipo) {
     $.ajaxSetup({
         cache: false
@@ -779,9 +776,7 @@ function ValidarCorreo(correo) {
     var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
-/*Fin Cambios_Landing_Comunidad*/
 
-/*Inicio ShowRoom*/
 function MostrarShowRoomBannerLateral() {
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
@@ -847,21 +842,16 @@ function MostrarShowRoomBannerLateral() {
                                 if (response.mostrarShowRoomProductos) {
                                     $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
 
-                                    //Carga de Imagenes
                                     $("#imgVentaTagLateralHoy").attr("src", evento.ImagenVentaTagLateral);
                                     $("#imgPestaniaShowRoomLateralHoy").attr("src", evento.ImagenPestaniaShowRoom);
 
-                                    //$("#ctras").hide();
                                     $("#ctrasHoy").show();
-
-                                    //animacion parea mostrar                                    
+                                 
                                     $('.caja-traslado').animate({
                                         'right': '0'
                                     }, 800);
 
                                     setTimeout(function () {
-                                        //fanimacion para ocultar
-
                                         $('.caja-traslado').animate({
                                             'right': '-181px'
                                         }, 800);
@@ -871,20 +861,15 @@ function MostrarShowRoomBannerLateral() {
                                     $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
                                     AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
 
-                                    //Carga de Imagenes
                                     $("#imgPestaniaShowRoomLateral").attr("src", evento.ImagenPestaniaShowRoom);
 
-                                    //$("#ctrasHoy").hide();
                                     $("#ctras").show();
-
-                                    //animacion parea mostrar                                    
+                                 
                                     $('.caja-traslado').animate({
                                         'right': '0'
                                     }, 800);
 
                                     setTimeout(function () {
-                                        //fanimacion para ocultar
-
                                         $('.caja-traslado').animate({
                                             'right': '-181px'
                                         }, 800);
@@ -899,7 +884,6 @@ function MostrarShowRoomBannerLateral() {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
                     console.log("Ocurrió un error en ShowRoom");
-                    //alert("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -909,7 +893,6 @@ function MostrarShowRoomBannerLateral() {
 
 function AgregarTimerShowRoom(dia, mes, anio) {
     var calcNewYear = setInterval(function () {
-        //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
         date_future = new Date(anio, mes - 1, dia);
         date_now = new Date();
 
@@ -922,7 +905,6 @@ function AgregarTimerShowRoom(dia, mes, anio) {
         minutes = minutes - (days * 24 * 60) - (hours * 60);
         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
         $("#spnDiasFaltantes").html(days);
         $("#spnHorasFaltantes").html(hours);
         $("#spnMinutosFaltantes").html(minutes);
@@ -992,9 +974,7 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
         }
     });
 }
-/* Fin ShowRoom */
 
-/* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
@@ -1007,19 +987,11 @@ function Notificaciones() {
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
-/* Fin Marcaciones */
 
-/* Tracking Jetlore */
-// Se creo un JS => TrackingJetlore.js
-/* Fin Tracking Jetlore */
-
-
-/*PL20-1226*/
 function loadOfertaDelDia() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
-        //data: '{}',
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1030,7 +1002,6 @@ function loadOfertaDelDia() {
                 var tq = _data.TeQuedan;
 
                 if (tq.TotalSeconds > 0) {
-                    // config ODD
                     $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
                     $('#banner-odd').css('background-color', _data.ColorFondo1);
                     $('#img-banner-odd').attr('src', _data.ImagenBanner);
@@ -1042,7 +1013,16 @@ function loadOfertaDelDia() {
                     var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
                     obj1.html(obj1.text());
 
-                    $('#OfertaDelDia').show();
+                    var URLactual = window.location.href;
+                    var urlIntriga = URLactual.indexOf("Intriga");
+
+                    if (urlIntriga > 0) {
+                        $('#OfertaDelDia').hide();
+                    } else {
+                        $('#OfertaDelDia').show();
+                    }
+
+                    
 
                     $('.content_slider_home').css('margin-top', '160px');
                     if (MostrarODD == "True") {
@@ -1051,11 +1031,18 @@ function loadOfertaDelDia() {
                         $('.ubicacion_web ').css('margin-top', '185px');
                     }
                     
-
-                    var int1odd = setInterval(function () {
+                    
+                    var intv1 = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
-                            $('.ubicacion_web ').css('margin-top', '185px');
-                            clearInterval(int1odd);
+
+                            if ($('.content_banner_intriga').length > 0) {
+                                $('.ubicacion_web ').css('margin-top', '162px');
+                            }
+                            else {
+                                $('.ubicacion_web ').css('margin-top', '185px');
+                            }
+                            
+                            clearInterval(intv1);
                         }
                     }, 300);
 
@@ -1064,18 +1051,17 @@ function loadOfertaDelDia() {
                         countdown: true
                     });
 
-                    //var cambio = 0;
                     $('.btn_detalle_hoy').on('click', function () {
                         if (showDisplayODD == 0) {
                             $('#PopOfertaDia').slideDown();
                             $('.circulo_hoy span').html('-');
-                            //cambio = 1;
+                            
                             showDisplayODD = 1;
                         }
                         else {
                             $('#PopOfertaDia').slideUp();
                             $('.circulo_hoy span').html('+');
-                            //cambio = 0;
+                            
                             showDisplayODD = 0;
                         }
                     });
@@ -1095,16 +1081,21 @@ function closeOfertaDelDia() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
-        //data: {},
         cache: false,
-        //dataType: 'json',
-        //contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (response.success) {
                 $('#OfertaDelDia').hide();
 
+                $("#contentmain").css("margin-top", "63px")
+
                 $('.content_slider_home ').css('margin-top', '60px');
-                $('.ubicacion_web ').css('margin-top', '83px');
+
+                if ($('.content_banner_intriga').length > 0) {
+                    $('.ubicacion_web ').css('margin-top', '62px');
+                }
+                else {
+                    $('.ubicacion_web ').css('margin-top', '83px');
+                }
             }
         },
         error: function (err) {
@@ -1114,7 +1105,6 @@ function closeOfertaDelDia() {
 };
 
 function addOfertaDelDiaPedido(tipo) {
-    
     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
     var estrategiaID = $('#estrategia-id-odd').val();
     var marcaID = $('#marca-id-odd').val();
@@ -1134,15 +1124,15 @@ function addOfertaDelDiaPedido(tipo) {
         return;
     }
 
-    if (tipo == 1) {    // banner    
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1991; // general
-        else if (origenPagina == 1) origenPedidoWeb = 1191; // home
-        else if (origenPagina == 2) origenPedidoWeb = 1291; // pedido
+    if (tipo == 1) {
+        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1991;
+        else if (origenPagina == 1) origenPedidoWeb = 1191;
+        else if (origenPagina == 2) origenPedidoWeb = 1291;
     }
-    else {      // display
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1992; // general
-        else if (origenPagina == 1) origenPedidoWeb = 1192; // home
-        else if (origenPagina == 2) origenPedidoWeb = 1292; // pedido
+    else {
+        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1992;
+        else if (origenPagina == 1) origenPedidoWeb = 1192;
+        else if (origenPagina == 2) origenPedidoWeb = 1292;
 
         if (cantidad > limiteVenta) {
             $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
@@ -1151,13 +1141,11 @@ function addOfertaDelDiaPedido(tipo) {
         }
     }
 
-    // validar si la oferta aun esta activa
     if (!checkCountdownODD()) {
         alert_msg_pedido('La Oferta del Día se termino');
         return false;
     }
 
-    // validar cantidad a agregar (nuevas unidades o ya existentes)
     var cqty = getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
     if (cqty > 0) {
         var tqty = cqty + cantidad;
@@ -1168,14 +1156,11 @@ function addOfertaDelDiaPedido(tipo) {
         }
     }
 
-    // validar horario restringido y pedido reservado
     if (ReservadoOEnHorarioRestringido())
         return false;
 
-    // microefecto
     var objImg = (tipo == 1) ? $('#img-banner-odd') : $('#img-display-odd');
-    //agregarProductoAlCarrito(objImg);
-
+    
     var obj = ({
         MarcaID: marcaID,
         CUV: cuv2,
@@ -1190,8 +1175,6 @@ function addOfertaDelDiaPedido(tipo) {
     });
 
     waitingDialog({});
-
-    //console.log(obj);
 
     jQuery.ajax({
         type: 'POST',
@@ -1231,24 +1214,18 @@ function addOfertaDelDiaPedido(tipo) {
                             TagManagerClickAgregarProducto();
                         }
                         
-                        //CargarCarouselEstrategias(cuv);
                         CargarResumenCampaniaHeader(true);
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                         closeWaitingDialog();
-                        //if (popup) {
-                        //    HidePopupEstrategiasEspeciales();
-                        //}
-
+                                                
                         if (tipo == 2) {
-                            // ocultar display
                             $('#PopOfertaDia').slideUp();
                             $('.circulo_hoy span').html('+');
                             $('#txtcantidad-odd').val('1');
                         }
 
-                        // si es pagina de pedido, recargar el detalle
                         if (typeof origenPagina !== 'undefined') {
-                            if (origenPagina == 2) {    // pedido
+                            if (origenPagina == 2) {
                                 CargarDetallePedido();
                             }
                         }
@@ -1305,7 +1282,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 alert_msg_pedido(data.message);
         },
         error: function (error) {
-            //console.log(error);
             alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
@@ -1317,7 +1293,6 @@ function alert_msg_pedido(message) {
     $('#DialogMensajes').dialog('open');
 };
 
-// MICROEFECTO FLECHA HOME
 function animacionFlechaScroll() {
     $(".flecha_scroll").animate({
         'top': '87%'
@@ -1352,11 +1327,7 @@ function agregarProductoAlCarrito(o) {
         }, 450, 'swing', function () {
             $(this).animate({
                 'top': carrito.offset().top,
-                'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
+                'opacity': 0
             }, 150, 'swing', function () {
                 $(this).remove();
             });
@@ -1369,7 +1340,6 @@ function checkCountdownODD() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
-        //data: '{}',
         async: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1413,7 +1383,6 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
 
     return qty;
 };
-/*PL20-1226*/
 
 function messageConfirmacion(title, message, fnAceptar) {
     title = $.trim(title);
