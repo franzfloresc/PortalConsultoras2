@@ -1983,6 +1983,7 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 }
 
 function EjecutarPROL() {
+    // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
     if (HorarioRestringido())
         return;
 
