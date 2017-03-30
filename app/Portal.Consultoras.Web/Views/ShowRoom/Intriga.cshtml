@@ -37,7 +37,14 @@
         </div>
         <div class="set_visible_intriga">
             <div class="content_set_imagen_intriga">
+            @if (Model.ImagenProducto != "")
+            {
                 <img class="set_img" src="@Model.ImagenProducto">
+            }
+            else
+            {
+                <img class="set_img" src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+            }                
             </div>
             
             <div class="linea_separadora_intriga"></div>

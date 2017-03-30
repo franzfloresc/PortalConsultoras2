@@ -1634,7 +1634,10 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
 
-                        int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                        //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                        TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
+                        int df = DiasFalta.Days;
+
                         var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
 
                         return Json(new
