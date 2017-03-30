@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         //ViewBag.MostrarShowRoomBannerLateral = false;
                     }
 
-                    if (showRoomBannerLateral.DiasFalta == 0)
+                    if (showRoomBannerLateral.DiasFalta > 0)
                     {
                         if (showRoomBannerLateral.DiasFalta > 1)
                         {
