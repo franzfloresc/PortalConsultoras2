@@ -33220,6 +33220,9 @@ h1#penmostreo .campana {
 .buscar_icono:hover{
     background: #ecebf0 url(../../../Images/Esika/lupa.png) no-repeat center right;
 }
+.content_texto_oferta{
+    margin-bottom:65px;
+}
 
 /*OFERTA FINAL*/
 
