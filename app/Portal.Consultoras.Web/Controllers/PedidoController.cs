@@ -4775,7 +4775,6 @@ namespace Portal.Consultoras.Web.Controllers
                 // Si ya esta en pedido detalle no se debe mostrar
                 //var pedidoDetalle = ObtenerPedidoWebDetalle();
                 //var listaRetorno = new List<ProductoModel>();
-
                 //foreach (var item in listaProductoModel)
                 //{
                 //    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
@@ -4902,7 +4901,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                 p.Simbolo = userData.Simbolo;
                 p.UrlCompartirFB = GetUrlCompartirFB();
-                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
+                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
                 //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                 string imagenUrl = Util.SubStr(p.Imagen, 0);
 
