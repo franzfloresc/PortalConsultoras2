@@ -17,7 +17,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -5008,6 +5007,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseBannerPL20 = true;
+                
                 Session["UserData"] = userData;
 
                 return Json(new
@@ -5025,6 +5025,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult OcultarBannerTop()
+        {
+            try
+            {
+                Session["OcultarBannerTop"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
 
         /*PL20-1226*/
 

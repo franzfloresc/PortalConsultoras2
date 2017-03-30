@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using OpenSource.Library.DataAccess;
+﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
+using System;
+using System.Data;
+using System.Runtime.Serialization;
 
-namespace Portal.Consultoras.Entities
+namespace Portal.Consultoras.Entities.ShowRoom
 {
     [DataContract]
     public class BEShowRoomEventoConsultora
@@ -32,6 +28,10 @@ namespace Portal.Consultoras.Entities
         public bool MostrarPopup { get; set; }
 
         [DataMember]
+        [ViewProperty]
+        public bool MostrarPopupVenta { get; set; }
+
+        [DataMember]
         public DateTime FechaCreacion { get; set; }
 
         [DataMember]
@@ -42,6 +42,15 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string UsuarioModificacion { get; set; }
+
+        [DataMember]
+        public bool Suscripcion { get; set; }
+
+        [DataMember]
+        public int Envio { get; set; }
+
+        [DataMember]
+        public string CorreoEnvioAviso { get; set; }
 
         public BEShowRoomEventoConsultora(IDataRecord datarec)
         {
@@ -56,7 +65,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "Segmento") && datarec["Segmento"] != DBNull.Value)
                 Segmento = DbConvert.ToString(datarec["Segmento"]);
             if (DataRecord.HasColumn(datarec, "MostrarPopup") && datarec["MostrarPopup"] != DBNull.Value)
-                MostrarPopup = DbConvert.ToBoolean(datarec["MostrarPopup"]);            
+                MostrarPopup = DbConvert.ToBoolean(datarec["MostrarPopup"]);
+            if (DataRecord.HasColumn(datarec, "MostrarPopupVenta") && datarec["MostrarPopupVenta"] != DBNull.Value)
+                MostrarPopupVenta = DbConvert.ToBoolean(datarec["MostrarPopupVenta"]);
             if (DataRecord.HasColumn(datarec, "FechaCreacion") && datarec["FechaCreacion"] != DBNull.Value)
                 FechaCreacion = DbConvert.ToDateTime(datarec["FechaCreacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioCreacion") && datarec["UsuarioCreacion"] != DBNull.Value)
@@ -65,6 +76,13 @@ namespace Portal.Consultoras.Entities
                 FechaModificacion = DbConvert.ToDateTime(datarec["FechaModificacion"]);
             if (DataRecord.HasColumn(datarec, "UsuarioModificacion") && datarec["UsuarioModificacion"] != DBNull.Value)
                 UsuarioModificacion = DbConvert.ToString(datarec["UsuarioModificacion"]);
+            
+            if (DataRecord.HasColumn(datarec, "Suscripcion") && datarec["Suscripcion"] != DBNull.Value)
+                Suscripcion = DbConvert.ToBoolean(datarec["Suscripcion"]);
+            if (DataRecord.HasColumn(datarec, "Envio") && datarec["Envio"] != DBNull.Value)
+                Envio = DbConvert.ToInt32(datarec["Envio"]);
+            if (DataRecord.HasColumn(datarec, "CorreoEnvioAviso") && datarec["CorreoEnvioAviso"] != DBNull.Value)
+                CorreoEnvioAviso = DbConvert.ToString(datarec["CorreoEnvioAviso"]);
         }
     }
 }

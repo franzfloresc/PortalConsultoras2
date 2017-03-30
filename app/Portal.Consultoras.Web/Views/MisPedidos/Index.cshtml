@@ -126,7 +126,6 @@
                 </div>
                 <div class="popup_content">
                     <div class="pedidosFacturados_campania">
-                        @*<span></span>*@
                         <h1>PEDIDO&nbsp;<b> FACTURADO</b></h1>
                         <form>
                             <select data-selectcamp="" data-selectpedidoid=""></select>
@@ -169,7 +168,6 @@
                 <div class="popup_content">
                     <div>
                         <div class="pedidosFacturados_campania">
-                            @*<span></span>*@
                             <h1>PEDIDO&nbsp;<b> INGRESADO</b></h1>
                             <form>
                                 <select data-selectcamp="" data-selectpedidoid=""></select>
@@ -228,51 +226,6 @@
                     </div>
                     <!-- FIN CABECERA DE TABLAS -->
                     <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <!--CONTENIDO DE TABLAS -->
-                    <!--Pedido Actual -->
-                    @*@if (Model.PedidoActual.CampaniaID != 0)
-                        {
-                            <div class="content_datos_mispedidos" data-camp="@Model.PedidoActual.CampaniaID" data-estado="@Model.PedidoActual.EstadoPedidoDesc">
-                                <div class="nombre_campania texto_bold" data-campnro="@campaniaNro" data-campformat="@formatoCampania">@formatoCampania</div>
-                                <div class="fecha_pedido">@formatoFecha</div>
-                                <div class="monto_totalPedido"
-                                     data-facturado="@(Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.PedidoActual.ImporteTotal, Model.UserIso))">
-                                    @Model.Simbolo @(Portal.Consultoras.Common.Util.DecimalToStringFormat(Model.PedidoActual.ImporteTotal, Model.UserIso))
-                                </div>
-                                <div class="canal_ingreso">@Model.PedidoActual.CanalIngreso</div>
-                                <div class="cantidad_prod">@Model.PedidoActual.CantidadProductos</div>
-                                <div class="seguimiento ingresado">
-                                    <a href="javascript:;" title="Seguimiento">
-                                        <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
-                                    </a>
-                                </div>
-                                <div class="pack_documentario ingresado">
-                                    <a href="javascript:;" title="Pack Documentario">
-                                        <img src="@Url.Content("~/Content/Images/icono-pack-documentario.png")" alt="Pack Documentario" />
-                                    </a>
-                                </div>
-                                <div class="estado_detalles">
-                                    <div data-accion="detalle" data-estado="@Model.PedidoActual.EstadoPedidoDesc">
-                                        <span class="estado_texto estado_detalleIngresado">
-                                            @if (Model.PedidoActual.EstadoPedidoDesc.ToUpper() == "RECHAZADO")
-                                        {
-                                                <span class="estado_rechazado_icono">
-                                                    <img src="@Url.Content("~/Content/Images/icono-rechazado.png")" alt="Rechazado" />
-                                                </span>
-                                        }
-                                            @Model.PedidoActual.EstadoPedidoDesc.ToUpper()
-                                        </span>
-                                        <span>
-                                            <a href="javascript:;" title="Ver Estado / Detalles" class="icono_verDetalle">
-                                                <img src="@Url.Content("~/Content/Images/icono-ver-estado.png")" alt="Ver Estado / Detalles" />
-                                            </a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        }*@
-                    <!--Fin Pedido Actual -->
-                    <!--Pedidos Facturados-->
                     @foreach (var item in Model.ListaFacturados)
 {
     var campaniaFacturadoNro = (item.CampaniaID == 0) ? "" : item.CampaniaID.ToString().Substring(4, 2);
@@ -398,14 +351,6 @@
                     </div>
                 </div>
 
-                @*<div class="content_datos_pendientes">
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Producto</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio Unitario</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
-                </div>
-                <div class="linea_separadora" style="margin-top:-1px"></div>*@
-
                 <div id="divTablaClienteOnlineDetalles" style="max-height: 419px; overflow: auto; margin-top: 38px;">
                 </div>
                 <div class="linea_separadora" style="height:2px;"></div>
@@ -437,7 +382,6 @@
             <div class="contenido_popUp confirmacionRechazo">
                 <div class="icono_exclamacion" id="apro_o_excla"></div>
                 <h1 class="titulo_confirma"><b>¿SEGURO QUE QUIERES CANCELAR TODO EL PEDIDO?</b></h1>
-                @*<span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>*@
                 <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="NoAceptarConfirmacionCancelado();">
                     NO, DÉJAME VERLO
                 </button>
@@ -463,8 +407,6 @@
                 <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
                 <input type="hidden" name="Campania" id="Campania" />
                 <input type="hidden" name="MarcaID" id="MarcaID" />
-                @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
-
                 <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO CANCELASTE!</b></h1>
                 @foreach(var motivoRechazo in Model.MotivosRechazo)
                 {

@@ -36,8 +36,6 @@
         <div class="texto_complementario_fav">
             Porque conocemos a tus clientes, seleccionamos              los productos que podrás venderles fácilmente.
         </div>
-        @*<div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores favoritosClientes"><span>LOS FAVORITOS </span> DE TUS CLIENTES ESTA CAMPAÑA</div>*@
         <div data-maq onclick="AbrirMaqueta(2)" style="display: none;"><span>Niveles</span></div>
         <div data-maq onclick="AbrirMaqueta(3)" style="display: none;"><span>Pack</span></div>
     </div>
@@ -49,7 +47,6 @@
         <div class="content_belcorp content_belcorp_misPedidos" id="contenidoGrilla">
            
             <div class="clear"></div>
-            @*<div class="texto_descripcionCatalogoPersonalizado paginaCatalogo">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
             <div class="content_filtros_left">
                 <span class="titulo_filtro_fav">FILTROS</span>
                 <div class="linea_separadora" style="height:3px;"></div>
@@ -158,19 +155,9 @@
         </div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     </div>
 </div>
-<!-- POPUP MENSAJE -->
-<div id="DialogMensajes" style="display: none;">
-    <div class="terminos_title_2">
-        MENSAJE
-    </div>
-    <div class="linea_superior margin_10"></div>
-    <div class="pop_pedido_mensaje">
-    </div>
-</div>
-<!-- FIN POPUP MENSAJE -->
 
 <div data-oferta=""></div>
-<div id="divmaquetaof48nivel" class="mod-ofer2" @*data-oferta=""*@>
+<div id="divmaquetaof48nivel" class="mod-ofer2">
     <div class="cuerpo-mod" data-oferta-popup="">
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -213,36 +200,6 @@
                             <hr class="clear">
 
                         </div>
-                        @*<div class="content_sub_items">
-                        <div class="text-center" style="margin-bottom:5px">
-                            <div class="new_content_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                        </div>
-                        <div class="sub_descripcion_oferta_new">4 &nbsp;Pulso 100ml</div>
-                        <div class="text-center" style="margin-bottom:5px">
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                        </div>
-                        <div class="text-center" style="margin-bottom:10px">
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-                            <div class="signo_producto">+</div>
-                            <div class="new_content_img"><img src="https://s-media-cache-ak0.pinimg.com/originals/03/44/5f/03445f71184fd00fd04e86969386a76e.jpg" alt=""></div>
-
-                        </div>
-                        <div class="sub_descripcion_oferta_new">2 &nbsp;Pulso 100ml</div>
-                    </div>*@
                     </div>
                 </div>
             </div>
@@ -312,7 +269,7 @@
     </div>
 </div>
 
-<div id="divmaquetaof48pack" class="mod-ofer3" @*data-oferta=""*@>
+<div id="divmaquetaof48pack" class="mod-ofer3">
     <div class="cuerpo-mod" data-oferta-popup="">
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
         <div class="encabezado_popupCatalogoPersonalizado">
@@ -455,62 +412,7 @@
 </div>
 
 <!--POP UP FICHA PRODUCTO NUEVA-->
-<div id="PopFichaProductoNueva" class="Content_general_pop_up">
-    @*<div class="content_ficha_producto_nueva">
-        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
-        </a>
-        <div class="content_left_ficha">
-            <div class="content_ficha_producto">
-                <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO">
-            </div>
-        </div>
-        <div class="content_right_ficha">
-            <div class="titulo_ficha_producto">Perfect Match volumen</div>
-            <div class="peso_ficha_producto">4g / 14 oz</div>
-            <div class="descripcion_ficha_producto">Labial FPS 20 + delineador para máximo volumen</div>
-            <div class="precio_ficha_producto"><span class="precio_tachado_ficha">S/.55.00</span>S/.35.00</div>
-            <div class="content_tonos">
-                <div class="linea_gris" style="height:1px;"></div>
-                <!--SELECCION DE TONOS-->
-                <div class="content_tonos_maquillaje">
-                    <div class="content_tono_detalle borde_seleccion_tono">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
-                        <div class="content_mascara_maquillaje">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                        </div>
-                        <div class="tooltip_tono">CORAL Cautivante</div>
-                    </div>
-                    <div class="content_tono_detalle">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
-                        <div class="content_mascara_maquillaje">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                        </div>
-                        <div class="tooltip_tono">CORAL Cautivante</div>
-                    </div>
-                </div>
-                <select class="tono_labial_select">
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                </select>
-
-                <!--FIN-->
-            </div>
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                </div>
-            </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar">
-                AGRÉGALO
-            </a>
-        </div>
-    </div>*@
-</div>
+<div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
 <!--FIN-->
 
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
@@ -626,9 +528,6 @@
             </div>
 
             <div class="producto_nombre_descripcion">
-                @*<div class="etiqueta_producto nuevofavorito">
-                        <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
-                    </div>*@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
                 <span>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</span>
@@ -713,7 +612,6 @@
             <div class="content_carrusel_pack" id="divCarruselNivel">
                 <div class="item_pack_personalizado linea_d">
                     <div class="content_item_pack">
-                        @*<div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X1</div>
                         <br />
                         <div class="img_principal_pack" style="margin-top:16px;">
@@ -729,7 +627,6 @@
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="item_pack_personalizado  linea_d">
                     <div class="content_item_pack">
-                        @*<div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X{{nivel.escala_nivel}}</div>
                         <div class="pack_inter width_100">
                             <div class="contenido_compra_nivel">
@@ -880,11 +777,6 @@
                     <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
                     <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
                     <div class="content_item_pack">
-                        @*{{#if_eq pack.EsUltimo "1"}}
-                        <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
-                        {{else}}
-                        <div class="fondo_negro_pack">PACK GANANCIA</div>
-                        {{/if_eq}}*@
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
@@ -908,9 +800,6 @@
                                     <div class="peso_ficha_producto">{{item.volumen}}</div>
                                 </div>
                                 <hr class="clear" />
-                                @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                                <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
-                                <hr class="clear" />*@
                                 {{/if_eq}}
                                 {{/each}}
                             </div>
@@ -1066,9 +955,6 @@
                 <a class="btn_compartir_facebook_ficha"  href="javascript: void(0);" data-compartir="FB">
                     <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
                 </a>
-                @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">
-                    <img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" />
-                </a>*@
                 <hr class="clear" />
             </div>
         </div>
@@ -1087,16 +973,13 @@
                     {{#each Hermanos as |item1|}}
                     <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
-                        @*<div class="content_mascara_maquillaje">
-                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                            </div>*@
                         <div class="tooltip_tono">{{item1.NombreBulk}}</div>
                     </div>
                     {{/each}}
                 </div>
 
                 <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
-                    {{#each Hermanos as |item2|}}
+                    {{#each Tonos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
                 </select>
