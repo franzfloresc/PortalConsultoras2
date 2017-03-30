@@ -348,8 +348,19 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+    $("#txtTelefonoTrabajo, #txtTelefonoTrabajoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode; 
         if (charCode <= 13) {
             return false;
         }
@@ -448,6 +459,43 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
+
+/*** EPD-1089 ***/
+function limitarMaximo(e, contenido, caracteres, id) {
+    debugger
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40)
+        return true;
+
+    if (contenido.length >= caracteres) {
+        selectedText = document.getSelection();
+        if (selectedText == "") {
+            return false;
+        } else {
+            $("#" + id).val("");
+        }
+    }
+    return true;
+}
+
+function limitarMinimo(contenido, caracteres, a) {
+    if (contenido.length < caracteres && contenido.trim() != "")
+    {
+        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
+        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        return false;
+    }
+    return true;
+}
+
+//function limite(value, id)
+//{
+//    debugger
+//    var b = value
+//    var c = $("#" + id).val();
+//    $("#" + id).val("");
+//}
+/*** FIN EPD-1089 ***/
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -1710,6 +1758,7 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
+    debugger
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1726,6 +1775,23 @@ function ActualizarMD() {
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
         return false;
     }
+
+    //Validando cantidad de caracteres minimos.
+    var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
+    if (!MinCaracterTelefono) 
+        return false;
+
+    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+    if (!MinCaracterCelular)
+        return false;
+
+    if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+        debugger
+        var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
+        if (!MinCaracterOtroTelefono)
+            return false;
+    }
+    //
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
