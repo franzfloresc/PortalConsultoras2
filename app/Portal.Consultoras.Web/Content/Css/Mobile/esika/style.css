@@ -10929,10 +10929,11 @@ a{
     height:13px;
     border:1px solid #979797;
 }
-.content_imagen_intriga{
-    width:250px;
-    height:auto;
-    text-align:center;
+.content_imagen_intriga {
+    width: 250px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
 }
 .content_imagen_intriga img{
    
