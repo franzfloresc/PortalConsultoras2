@@ -311,6 +311,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             $('[data-toggle="tooltip"]').tooltip('hide');
             return false;
         }
+        texto = "Porque compraste " + texto;
         $("#img-tooltip").attr('data-original-title', texto);
         var p = $("#img-tooltip").attr('aria-describedby');
         $('#' + p).css("z-index",10000);
