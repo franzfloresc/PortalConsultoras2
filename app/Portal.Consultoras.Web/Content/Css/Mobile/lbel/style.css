@@ -10965,3 +10965,20 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .texto_confirmacion b {
     display: block;
 }
+
+/***EPD 2107***/
+.btnwspDesktop {
+    display:none;
+}
+.btnfbDesktop {
+    margin-left: 55px;
+    width: 48%;
+}
+.btnwspMobile {
+    width:48%;
+}
+.btnfbMobile {
+    float:right; 
+    width:48%;
+}
+/*** FIN ******/
