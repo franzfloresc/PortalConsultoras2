@@ -431,10 +431,13 @@ function limitarMaximo(e, contenido, caracteres, id) {
 
     if (contenido.length >= caracteres) {
         selectedText = document.getSelection();
-        if (selectedText == "") {
-            return false;
-        } else {
+        if (selectedText == contenido) {
             $("#" + id).val("");
+            return true;
+        } else if (selectedText != "") {
+            return true;
+        } else {
+            return false;
         }
     }
     return true;
