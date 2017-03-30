@@ -138,8 +138,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
             }
 
-            
-
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;

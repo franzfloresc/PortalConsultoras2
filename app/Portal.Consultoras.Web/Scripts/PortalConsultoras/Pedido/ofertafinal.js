@@ -313,7 +313,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         if (objOf.Detalle.length > 0) {
             var objProdIni = objOf.Detalle[0];
             if (objProdIni.CUV == cuvOfertaProl) {
-                var input = $("#divOfertaFinal").find(".hdOfertaFinalCuv").find("[value=" + cuvOfertaProl + "]").parents("[data-item]").find("[data-id]")[0];
+                var input = $($("#divOfertaFinal").find(".hdOfertaFinalCuv[value=" + cuvOfertaProl + "]")[0]).parents("[data-item]").find("[data-verdetalle]")[0];
                 CargarVerDetalleOF(input);
             }
         }
