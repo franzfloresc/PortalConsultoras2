@@ -24,17 +24,21 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var bePedidoWeb = ObtenerPedidoWeb();
-                if (bePedidoWeb != null)
+                //EPD-2058
+                if (userData.TipoUsuario == 1)
                 {
-                    model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
-                    model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
-                }
+                    var bePedidoWeb = ObtenerPedidoWeb();
+                    if (bePedidoWeb != null)
+                    {
+                        model.MontoAhorroCatalogo = bePedidoWeb.MontoAhorroCatalogo;
+                        model.MontoAhorroRevista = bePedidoWeb.MontoAhorroRevista;
+                    }
 
-                var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
-                if (bePedidoWebDetalle != null)
-                {
-                    model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
+                    var bePedidoWebDetalle = ObtenerPedidoWebDetalle();
+                    if (bePedidoWebDetalle != null)
+                    {
+                        model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
+                    }
                 }
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
@@ -189,8 +193,12 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaTiempoVentana = 0;
                     model.ValidaDatosActualizados = 0;
                 }
-                model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
 
+                if (userData.TipoUsuario == 1)
+                {
+                    model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
+                }
+                
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
@@ -342,17 +350,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
                             {
-                                List<BEComunicado> comunicados = new List<BEComunicado>();
-                                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                                if (userData.TipoUsuario == 1)
                                 {
-                                    var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                                    if (tempComunicados != null && tempComunicados.Length > 0)
-                                    {       //
-                                        comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-                                        if (comunicados.Any())
-                                        {
-                                            TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
-                                            break;
+                                    List<BEComunicado> comunicados = new List<BEComunicado>();
+                                    using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                                    {
+                                        var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                                        if (tempComunicados != null && tempComunicados.Length > 0)
+                                        {       //
+                                            comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                                            if (comunicados.Any())
+                                            {
+                                                TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
+                                                break;
+                                            }
                                         }
                                     }
                                 }

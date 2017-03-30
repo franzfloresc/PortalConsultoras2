@@ -79,9 +79,13 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();                  
 
-                    ObtenerPedidoWeb();
-                    ObtenerPedidoWebDetalle();
-
+                    //EPD-2058
+                    if (userData.TipoUsuario == 1)
+                    {
+                        ObtenerPedidoWeb();
+                        ObtenerPedidoWebDetalle();
+                    }
+                    
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
                     ViewBag.EsMobile = 1;//EPD-1780
 
@@ -100,9 +104,6 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.TieneOfertaDelDia = false;
                         }
                     }
-
-                   
-                   
 
                     if (ViewBag.TieneOfertaDelDia)
                     {
@@ -580,7 +581,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Cargar variables
 
-                CargarEntidadesShowRoom(model);
+                //EPD-2058
+                if (model.TipoUsuario == 1)
+                {
+                    CargarEntidadesShowRoom(model);
+                }
+                
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
@@ -649,12 +655,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Dias = GetDiasFaltantesFacturacion(model.FechaInicioCampania, model.ZonaHoraria);
                 //ViewBag.Dias = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? 0 : (model.FechaInicioCampania.Subtract(DateTime.Now.AddHours(model.ZonaHoraria)).Days + 1);
 
-            ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
-            ViewBag.SemanaAnalytics = "No Disponible";
+                ViewBag.PeriodoAnalytics = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date ? "Facturacion" : "Venta";
+                ViewBag.SemanaAnalytics = "No Disponible";
                 DateTime FechaHoraActual = DateTime.Now.AddHours(model.ZonaHoraria);
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
                 //Mensaje Cierre Campania y Fecha Promesa
+                #region mensaje fecha promesa
                 var TextoPromesaEspecial = false;
                 var TextoPromesa = ".";
                 var TextoNuevoPROL = "";
@@ -729,6 +736,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                #endregion
+
                 ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month);
                 ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
@@ -765,6 +774,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
+
+                //EPD-2058
+                ViewBag.TipoUsuario = model.TipoUsuario;
+
                 return model;
 
                 #endregion

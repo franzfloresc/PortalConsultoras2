@@ -282,7 +282,8 @@ namespace Portal.Consultoras.Data
         /*EPD-1012*/
         public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
 
@@ -593,6 +594,7 @@ namespace Portal.Consultoras.Data
         //    return Convert.ToInt16(Context.ExecuteScalar(command));
         //}
 
+        //EPD-1836
         public int InsUsuarioPostulante(BEUsuarioPostulante entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioPostulante");
@@ -616,6 +618,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
 
             return Context.ExecuteNonQuery(command);
+        }
+
+        //EPD-2058
+        public IDataReader GetUsuarioPostulante(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioPostulante");
+            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
+            Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteReader(command);
         }
     }
 }

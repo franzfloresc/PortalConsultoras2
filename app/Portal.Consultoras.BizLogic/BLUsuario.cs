@@ -182,17 +182,23 @@ namespace Portal.Consultoras.BizLogic
             BEConfiguracionCampania configuracion = null;
             var DAUsuario = new DAUsuario(paisID);
             var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
+
             using (IDataReader reader = DAUsuario.GetSesionUsuario(codigoUsuario))
+            {
                 if (reader.Read())
                     usuario = new BEUsuario(reader, true);
-
+            }
+                
             if (usuario != null)
             {
                 if (usuario.ConsultoraID != 0)
                 {
                     using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
+                    {
                         if (reader.Read())
                             configuracion = new BEConfiguracionCampania(reader);
+                    }
+                        
                     if (configuracion != null)
                     {
                         usuario.CampaniaID = configuracion.CampaniaID;
@@ -226,6 +232,65 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaActualPais = configuracion.FechaActualPais;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                    }
+                }
+
+                // EPD-2058
+                if (usuario.TipoUsuario == 2)
+                {
+                    BEUsuarioPostulante postulante = null;
+
+                    using (IDataReader reader = DAUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
+                    {
+                        if (reader.Read())
+                            postulante = new BEUsuarioPostulante(reader);
+                    }
+
+                    if (postulante != null)
+                    {
+                        usuario.ZonaID = postulante.ZonaID;
+                        usuario.RegionID = postulante.RegionID;
+
+                        using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
+                        {
+                            if (reader.Read())
+                                configuracion = new BEConfiguracionCampania(reader);
+                        }
+                            
+                        if (configuracion != null)
+                        {
+                            usuario.CampaniaID = configuracion.CampaniaID;
+                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
+                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
+                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
+                            usuario.HoraInicio = configuracion.HoraInicio;
+                            usuario.HoraFin = configuracion.HoraFin;
+                            usuario.ZonaValida = configuracion.ZonaValida;
+                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
+                            usuario.HoraCierreNoFacturable = configuracion.HoraCierreNoFacturable;
+                            usuario.DiasAntes = configuracion.DiasAntes;
+                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
+                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
+                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
+                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
+                            usuario.DiasDuracionCronograma = configuracion.DiasDuracionCronograma;
+                            usuario.HabilitarRestriccionHoraria = configuracion.HabilitarRestriccionHoraria;
+                            usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
+                            usuario.NroCampanias = configuracion.NroCampanias;
+                            usuario.FechaFinFIC = configuracion.FechaFinFIC;
+                            usuario.PROLSinStock = configuracion.PROLSinStock;
+                            usuario.NuevoPROL = configuracion.NuevoPROL;
+                            usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                            usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
+                            usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
+                            usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
+                            usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
+                            usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
+                            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                            usuario.FechaActualPais = configuracion.FechaActualPais;
+                            usuario.EstadoPedido = configuracion.EstadoPedido;
+                            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                        }
                     }
                 }
             }
@@ -1176,14 +1241,14 @@ namespace Portal.Consultoras.BizLogic
                 if (!string.IsNullOrEmpty(entidad.NumeroDocumento) && 
                     !string.IsNullOrEmpty(entidad.NombreCompleto) && 
                     !string.IsNullOrEmpty(entidad.Zona) &&
-                    !string.IsNullOrEmpty(entidad.Seccion) &&
-                    !string.IsNullOrEmpty(entidad.Correo))
+                    !string.IsNullOrEmpty(entidad.Seccion))
                 {
                     var DAUsuario = new DAUsuario(paisID);
 
                     BEUsuario usuario = new BEUsuario();
                     usuario.CodigoUsuario = entidad.NumeroDocumento;
                     usuario.PaisID = paisID;
+                    usuario.CodigoConsultora = entidad.NumeroDocumento;
                     usuario.Nombre = entidad.NombreCompleto;
                     usuario.ClaveSecreta = entidad.NumeroDocumento;
                     usuario.EMail = entidad.Correo;
@@ -1191,20 +1256,26 @@ namespace Portal.Consultoras.BizLogic
                     usuario.TipoUsuario = 2;
                     usuario.DocumentoIdentidad = entidad.NumeroDocumento;
 
+                    // insertar usuario
                     int r1 = DAUsuario.InsUsuario(usuario);
                     if (r1 > 0)
                     {
+                        // encriptar clave
+                        DAUsuario.UpdUsuarioClaveSecreta(usuario.CodigoUsuario, usuario.ClaveSecreta, false);
+
                         BEUsuarioRol usuarioRol = new BEUsuarioRol();
                         usuarioRol.CodigoUsuario = entidad.NumeroDocumento;
                         usuarioRol.RolID = 1;
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
+                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)
                         {
                             entidad.CodigoUsuario = entidad.NumeroDocumento;
+                            // insertar usuario postulante
                             int r3 = DAUsuario.InsUsuarioPostulante(entidad);
                             r = (r3 > 0) ? 1 : 0;
                         }
@@ -1237,5 +1308,26 @@ namespace Portal.Consultoras.BizLogic
 
             return r;
         }
+
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            var postulante = new BEUsuarioPostulante();
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisID);
+                using (IDataReader reader = DAUsuario.GetUsuarioPostulante(numeroDocumento))
+                {
+                    if (reader.Read())
+                        postulante = new BEUsuarioPostulante(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return postulante;
+        }
+
     }
 }

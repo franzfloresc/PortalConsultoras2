@@ -661,5 +661,11 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.DelUsuarioPostulante(paisID, numeroDocumento);
         }
+
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
+        }
     }
 }

@@ -1896,6 +1896,15 @@ function Ignorar(tipo) {
 }
 
 function HorarioRestringido(mostrarAlerta) {
+    //EPD-2058
+    if (typeof gTipoUsuario !== 'undefined') {
+        console.log('gTipoUsuario');
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -3695,8 +3704,20 @@ function AnalyticsPedidoValidado(response) {
 }
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
+
+    if (mostrarAlerta) {
+        //EPD-2058
+        if (typeof gTipoUsuario !== 'undefined') {
+            console.log('gTipoUsuario');
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

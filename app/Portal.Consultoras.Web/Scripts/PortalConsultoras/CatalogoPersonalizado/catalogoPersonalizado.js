@@ -1045,6 +1045,15 @@ function DialogLoadingAbrir() {
 }
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    //EPD-2058
+    if (typeof gTipoUsuario !== 'undefined') {
+        console.log('gTipoUsuario');
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
