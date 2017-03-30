@@ -43,8 +43,8 @@
 @foreach (var item in itemsMenu)
 {
 
-        if (item.SubMenu.Count == 0)
-        {
+    if (item.SubMenu.Count == 0)
+    {
         if (item.Descripcion.Trim() != "GRAN VENTA ONLINE")
         {
             var target = item.PaginaNueva ? "_blank" : "_self";
@@ -67,10 +67,10 @@
                 </a>
             }
         }
-        
-        }
-        else
-        {
+
+    }
+    else
+    {
             <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion"
                class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
             <div class="panel-collapse collapse submenu_1" id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
@@ -105,9 +105,7 @@
                 </a>
                 }
             </div>
-        }
     }
-
-
 }
+
 </div>
