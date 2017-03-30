@@ -329,13 +329,15 @@ $(document).ready(function () {
         var urlBienvenida = URLactual.indexOf("Bienvenida");
 
         if (urlIntriga > 0) {
-            $("#contentmain").css("margin-top", "163px")
+            $("#contentmain").css("margin-top", "63px")
         }
 
         if (urlBienvenida > 0) {
             $("#contentmain").css("margin-top", "0px")
         }
 
+    } else {
+        
     }
 });
 
