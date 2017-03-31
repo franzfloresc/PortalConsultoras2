@@ -68,10 +68,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 if (mostrarBanner)
                 {
-                     if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                    if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
                     {
                         ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }else if (userData.IndicadorGPRSB == 0)
+                    }
+                    else if (userData.IndicadorGPRSB == 0)
                     {
                         ViewBag.MostrarBannerPL20 = mostrarBanner;
                     }

@@ -1394,6 +1394,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
                     case Constantes.ChatbotPagina.SeguimientoPedido:
                         return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
+                    case Constantes.ChatbotPagina.PedidoDetalle:
+                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

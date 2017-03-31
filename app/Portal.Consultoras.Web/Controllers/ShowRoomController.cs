@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
                                                         ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
                                     }                                    
-                                }                                
+                                }
 
                                 Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
                                     .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
