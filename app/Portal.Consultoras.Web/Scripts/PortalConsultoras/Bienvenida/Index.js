@@ -461,8 +461,7 @@ $(document).ready(function () {
 });
 
 /*** EPD-1089 ***/
-function limitarMaximo(e, contenido, caracteres, id) {
-    debugger
+function limitarMaximo(e, contenido, caracteres, id) {    
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40)
         return true;
@@ -1761,7 +1760,7 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
-    debugger
+
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1770,6 +1769,11 @@ function ActualizarMD() {
     if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
         $('#txtEMailMD').focus();
         alert("El formato del correo electrónico ingresado no es correcto.\n");
+        return false;
+    }
+    
+    if (!ValidarTelefono($("#txtCelularMD").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
         return false;
     }
     if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
@@ -1789,7 +1793,7 @@ function ActualizarMD() {
         return false;
 
     if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
-        debugger
+        
         var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
         if (!MinCaracterOtroTelefono)
             return false;
@@ -1965,6 +1969,11 @@ function ActualizarDatos() {
     var celular = $('#txtCelular').val();
     var correoElectronico = $('#txtEMail').val();
     var confirmacionCorreoElectronico = $('#txtConfirmarEMail').val();
+
+    if (!ValidarTelefono($("#txtCelular").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }        
 
     if ((telefono == '' || telefono == null) &&
         celular == '' || celular == null) {
@@ -3474,4 +3483,35 @@ function PopupCerrar(idPopup) {
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
+}
+
+function ValidarTelefono(celular) {
+    var resultado = false;
+
+    var item = {
+        Telefono: celular //$("#txtCelular").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                resultado = false;
+            else
+                resultado = data.success;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) { }
+        }
+    });
+
+    return resultado;
 }
