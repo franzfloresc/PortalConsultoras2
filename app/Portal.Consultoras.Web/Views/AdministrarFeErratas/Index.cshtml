@@ -73,7 +73,6 @@
                 alert("Debe seleccionar una Campaña, verifique");
                 return false;
             }
-            
             limpiarPopup();
             $('#PaisID').val($('#ddlPais').val());
             $('#ddlPaisDialogo').val($('#ddlPais').val());
@@ -93,7 +92,6 @@
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode == 13) {
-                
                 fnGrillaEntradas();
                 jQuery("#gvwFeErratasEntradas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
             }
@@ -104,7 +102,7 @@
         });
 
         $("#btnAgregarActualizar").click(function () {
-            // validaciones
+            
             if ($("#Pagina").val() == "") {
                 alert("Debe ingresar el campo Página, verifique");
                 return false;
@@ -118,7 +116,7 @@
                 return false;
             }
 
-            // si es agregar
+            
             if ($(this).val() == 'Agregar') {
                 
                 var item = {
@@ -157,7 +155,7 @@
                     }
                 });
             }
-            // si es actualizar
+            
             if ($(this).val() == 'Actualizar') {
                 
                 var item = {
@@ -255,11 +253,8 @@
             },
             close: function (event, ui) {
                 
-                //window.location.href = "Index";
-                
-                
                 $.getJSON(baseUrl + 'AdministrarFeErratas/EliminarSesion', {}, function (data) {
-                    //data.success;
+                    
                 });
             }
         });
@@ -355,7 +350,7 @@
                 $('#Titulo').val(jQuery("#gvwFeErratas").jqGrid('getCell', Id, 'Titulo'));
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
                 $('#ddlCampaniaDialogo').prop('disabled', 'disabled');
-                //$('#gvwFeErratasEntradas').jqGrid('GridUnload');
+                
                 fnGrillaEntradas();
                 jQuery("#gvwFeErratasEntradas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 showDialog("DialogRegistroFeErratas");
@@ -400,9 +395,7 @@
         }
     });
 
-    // grilla del popup
     function fnGrillaEntradas() {
-        
         jQuery("#gvwFeErratasEntradas").jqGrid({
             ajaxGridOptions: { cache: false },
             url: baseUrl + "AdministrarFeErratas/ConsultarEntradas",
@@ -445,7 +438,6 @@
             multiselect: false,
             height: 'auto',
             width: 830,
-            //autowidth: true,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass'
@@ -537,16 +529,10 @@
     }
 
     function limpiarPopup() {
-        
-        //$('#PaisID').val("");
-        //$('#PaisID').val($("#ddlPais").val());
-        //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlCampaniaDialogo').prop('disabled', false);
-        //$('#ddlPaisDialogo')[0].selectedIndex = 0;
         $('#ddlPaisDialogo').removeAttr("disabled");
         $('#ddlCampaniaDialogo').removeAttr("disabled");
-        //$('#ddlCampaniaDialogo')[0].selectedIndex = 0;;
         $('#Titulo').val("");
         $('#Dice').val("");
         $('#DebeDecir').val("");

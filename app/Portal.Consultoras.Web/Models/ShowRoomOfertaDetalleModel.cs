@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    [Serializable()]
+    [Serializable]
     public class ShowRoomOfertaDetalleModel
     {
         public int OfertaShowRoomDetalleID { get; set; }
@@ -35,5 +32,9 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { get; set; }
 
         public string ImagenAnterior { get; set; }
+
+        public string MarcaProducto { get; set; }
+
+        public string Posicion { get; set; }
     }
 }

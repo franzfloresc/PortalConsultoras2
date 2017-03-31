@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -53,7 +54,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura);
 
         [OperationContract]
-        string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario);
+        string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
 
         // R20151003 - Inicio
         [OperationContract]
@@ -783,6 +784,9 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle);
 
         [OperationContract]
+        int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra);
+
+        [OperationContract]
         BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora);
 
         [OperationContract]
@@ -862,6 +866,36 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
+
+        [OperationContract]
+        IList<BEShowRoomNivel> GetShowRoomNivel(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId);
+
+        [OperationContract]
+        IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId, int nivelId, int categoriaId);
+
+        [OperationContract]
+        int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+
+        [OperationContract]
+        int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel);
+
+        [OperationContract]
+        List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId);
+
+        [OperationContract]
+        BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId);
+
+        [OperationContract]
+        void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria);
+
+        [OperationContract]
+        void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria);
+
+        [OperationContract]
+        List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
         #endregion
 
         #region Producto SUgerido
@@ -900,7 +934,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
-        
+
         [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
@@ -909,10 +943,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv);
-        
+
         [OperationContract]
         BEProcesoPedidoRechazado ObtenerProcesoPedidoRechazadoGPR(int paisID, int campaniaID, long consultoraID);
-        
+
         [OperationContract]
         List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias);
         //GPR397
@@ -925,10 +959,12 @@ namespace Portal.Consultoras.ServiceContracts
         /*EPD-1025*/
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
-        
+
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         /*EPD-1025*/
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
 
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
@@ -950,17 +986,23 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
-        
+
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
-        
+
         [OperationContract]
         int InsertarEstrategiaProducto(BEEstrategiaProducto entidad);
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
+        
+        [OperationContract]
+        int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
+
+        [OperationContract]
+        int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
     }
 }

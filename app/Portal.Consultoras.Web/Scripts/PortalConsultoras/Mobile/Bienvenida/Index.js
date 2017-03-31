@@ -1,4 +1,4 @@
-﻿var arrayOfertasParaTi = [];
+var arrayOfertasParaTi = [];
 
 $(document).ready(function () {    
     $('.flexsliderTutorialMobile').flexslider({
@@ -56,11 +56,7 @@ $(document).ready(function () {
             }
         });
     });
-
-    CrearPopShow();
-    MostrarShowRoom();
-
-    
+         
 });
 
 function CrearPopShow() {
@@ -89,7 +85,7 @@ function CrearPopShow() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    messageInfo("Ocurrió un error al intentar no mostrar el popup de showroom.");
+                    messageInfo("Ocurri� un error al intentar no mostrar el popup de showroom.");
                 }
             }
         });
@@ -131,7 +127,6 @@ function MostrarShowRoom() {
                                 $("#PopShowroomHoy").modal("show");
                                 $("#lnkConoceMasShowRoomPopupHoy").attr("href", urlShowRoomBienvenida);
 
-                                //Carga de Imagenes
                                 $("#imgPestaniaShowRoomHoy").attr("src", evento.ImagenPestaniaShowRoom);
                                 $("#imgPreventaDigitalHoy").attr("src", evento.ImagenPreventaDigital);
                                 $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
@@ -150,24 +145,20 @@ function MostrarShowRoom() {
                                 $("#PopShowroom").modal("show");
                                 $("#lnkConoceMasShowRoomPopup").attr("href", response.rutaShowRoomPopup);
 
-                                //Carga de Imagenes
                                 $("#imgPestaniaShowRoom").attr("src", evento.ImagenPestaniaShowRoom);
                                 $("#imgPreventaDigital").attr("src", evento.ImagenPreventaDigital);
 
                                 AgregarTagManagerShowRoomPopup(evento.Tema, false);
                             }
 
-                            //$("#imgShowRoomGif").attr("src", evento.Imagen1);
                         }
                     }
                 }
             }
         },
         error: function (response, error) {
-            /* EPD-180 */
             checkUserSession();
-            /* EPD-180 */
-            if (checkTimeout(response)) messageInfo("Ocurrió un error al validar showroom.");
+            if (checkTimeout(response)) messageInfo("Ocurri? un error al validar showroom.");
         }
     });
 }
@@ -235,14 +226,13 @@ function mostrarTutorialMobile() {
     }
 };
 
-//Video youtube
 function stopVideo() {
     if (player) {
         if (player.stopVideo) {
             player.stopVideo();
         }
         else {
-            //document.getElementById("divPlayer").contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}','*');
+
             var urlVideo = $("#divPlayer").attr("src");
             $("#divPlayer").attr("src", "");
             $("#divPlayer").attr("src", urlVideo);
@@ -329,60 +319,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             CloseLoading();
             if (checkTimeout(data)) {
                 console.log(error);
-                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                messageInfo('Ocurri� un error al intentar validar el horario restringido o si el pedido est� reservado. Por favor int�ntelo en unos minutos.');
             }
         }
     });
     return restringido;
 };
 
-// CARGAR POPUPS HOME MOBILE
 function CargarPopupsConsultora() {
-    //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
-    //    AbrirAceptacionContrato();
-    //}
-    //else {
-    //    if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
-    //        if (contadorFondoPopUp == 0) {
-    //            $("#fondoComunPopUp").show();
-    //        }
-    //        $("#popupActualizarMisDatosMexico").show();
-    //        contadorFondoPopUp++;
-    //    } else {
-    //        if (viewBagPrimeraVez == "0" || viewBagPrimeraVezSession == "0") {
-    //            if (viewBagPaisID == 11) { //Peru
-    //                $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
-    //            } else {
-    //                $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
-    //            }
-    //            if (contadorFondoPopUp == 0) {
-    //                $("#fondoComunPopUp").show();
-    //            }
-    //            $("#popupActualizarMisDatos").show();
-    //            contadorFondoPopUp++;
-    //        }
-    //        else {
-    //            if (viewBagPrimeraVez == "1" && viewBagPaisID == 4) { //Colombia
-    //                AbrirAceptacionContrato();
-    //            }
-    //        }
-    //    }
-    //}
-
-    //AbrirPopupFlexipago();
-    //AbrirComunicado();
-
-    //if (viewBagPrefijoPais == "EC") {
-    //    AbrirComunicadoVisualizacion();
-    //};
-
+  
     MostrarDemandaAnticipada();
-
-    //MostrarShowRoom();
-
-    //if (viewBagValidaSuenioNavidad == 0) {
-    //    showDialog('idSueniosNavidad');
-    //}
+    
 };
 
 function MostrarDemandaAnticipada() {
@@ -407,9 +354,9 @@ function MostrarDemandaAnticipada() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al validar demanda anticipada.");
+                    alert("Ocurri� un error al validar demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al validar la demanda anticipada.");
+                    alert("Ocurri� un error al validar la demanda anticipada.");
                 }
             }
         }
@@ -445,9 +392,9 @@ function InsertarDemandaAnticipada(tipo) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al aceptar la demanda anticipada.");
+                    alert("Ocurri� un error al aceptar la demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al cancelar la demanda anticipada.");
+                    alert("Ocurri� un error al cancelar la demanda anticipada.");
                 }
             }
         }
@@ -471,7 +418,6 @@ function TagManagerCatalogosPersonalizados() {
     }
 };
 
-//Google Analytics
 function TagManagerCarruselInicio(arrayItems) {
     var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
 
@@ -485,7 +431,7 @@ function TagManagerCarruselInicio(arrayItems) {
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – Home',
+            'list': 'Ofertas para ti ? Home',
             'position': recomendado.Posicion
         };
 
@@ -506,7 +452,7 @@ function TagManagerClickAgregarProducto() {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
-                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'actionField': { 'list': 'Ofertas para ti ? Home' },
                 'products': [
                     {
                         'name': $("#txtCantidadZE").attr("est-descripcion"),
@@ -537,7 +483,7 @@ function TagManagerCarruselPrevia() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti ? Home',
         'position': recomendado.Posicion
     };
 
@@ -570,7 +516,7 @@ function TagManagerCarruselSiguiente() {
         'brand': recomendado.DescripcionMarca,
         'category': 'NO DISPONIBLE',
         'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti – Home',
+        'list': 'Ofertas para ti ? Home',
         'position': recomendado.Posicion
     };
 
@@ -591,63 +537,11 @@ function TagManagerCarruselSiguiente() {
 
 }
 
+
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
 });
 
-//function CompartirFacebook(urlBase, objParameter) {
-//    var _id = InsertarProductoCompartido(objParameter,'F');
-//    urlBase = urlBase.replace('[valor]', _id);
-//    var popWwidth = 570;
-//    var popHeight = 420;
-//    var left = (screen.width / 2) - (popWwidth / 2);
-//    var top = (screen.height / 2) - (popHeight / 2);
-//    var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-//    window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-//}
-
-//function InsertarProductoCompartido(objParameter, app) {
-//    //Capturando valores
-//    var _rutaImagen = objParameter.RutaImagen;
-//    var _marcaID = objParameter.MarcaID;
-//    var _marcaDesc = objParameter.MarcaDesc;
-//    var _nombre = objParameter.NombrePro;
-//    var pcCuv = objParameter.Cuv;
-//    var pcPalanca = "OPT";
-//    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-//    var pcApp = app;
-//    var ID = 0;
-//    var Item = {
-//        mCUV: pcCuv,
-//        mPalanca: pcPalanca,
-//        mDetalle: pcDetalle,
-//        mApplicacion: pcApp
-//    };
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: urlInsertarProductoCompartido,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(Item),
-//        async: false,
-//        success: function (response) {
-//            if (checkTimeout(response)) {
-//                if (response.success) {
-//                    var datos = response.data;
-//                    ID = datos.id;
-//                } else {
-//                    window.messageInfo(response.message);
-//                }
-//            }
-//        },
-//        error: function (response, error) {
-//            if (checkTimeout(response)) {
-//                console.log(response);
-//            }
-//        }
-//    });
-//    return ID;
-//}
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;

@@ -90,7 +90,7 @@ header {
 
 .menu_new_esika {
     float: left;
-    width: 60%;
+    width: 62%;
     height: 60px;
     position: relative;
 }
@@ -98,7 +98,7 @@ header {
 .menu_esika_b {
     height: 60px;
     float: left;
-    width: 30%;
+    width: 28%;
     /*overflow: hidden;*/
 }
 
@@ -235,7 +235,7 @@ header {
 
 .new_menu {
     margin-top: 21px;
-    margin-left: 4.8%;
+    margin-left: 4%;
     height: 40px;
     float: left;
     position: relative;
@@ -253,7 +253,7 @@ header {
 }
 
 .menu_socia_empresaria > .new_menu {
-    margin-left: 4.2%;
+    margin-left: 2%;
     margin-top: 21px;
     /*width: 15%;*/
 }
@@ -19849,11 +19849,14 @@ float: right;
     }
 
 .check_01 {
-    float: left;
-    width: 100%;
+       position: absolute;
+    /* float: left; */
+     width: 100%; 
     height: 20px;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     margin-top: 10px;
+    bottom: -8px;
+    color: white;
 }
 
 .caja-traslado {
@@ -20247,12 +20250,32 @@ label.checkpop {
   padding-left: 21px;
   padding-top: 2px;
   font-size: 10pt;
-  color: black;
+  color: white;
     font-family: 'lato';
   transition: .3s;
     font-weight: 300;
    background: url("/Content/Images/showroom/check_off.png") left center no-repeat;
+   margin-left:170px;
+   text-decoration:underline;
 }
+
+label.checkpop2 {
+    /*width: 100%; */
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    /* padding-left: 21px; */
+    padding-top: 2px;
+    font-size: 9pt;
+    color: white;
+    font-family: 'lato';
+    transition: .3s;
+    font-weight: 300;
+    /* background: url(/Content/Images/showroom/check_off.png) left center no-repeat; */
+    /* margin-left: 170px; */
+    text-decoration: underline;
+}
+
 
 label.checkpop input {
   position: absolute;
@@ -20549,7 +20572,7 @@ label.checkpop.c_on {
 .footerTerminos a {
     background: #f7f7f7;
     display: block;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     text-align: center;
     padding: 20px;
     text-transform: uppercase;
@@ -22942,8 +22965,12 @@ body {
 
 @media screen and (max-width: 1132px) {
     .menu_socia_empresaria > .new_menu {
-        margin-left: 2.5%;
+        margin-left: 2.4%;
     }
+    .menu_socia_empresaria > .new_menu > .new_menu_a {
+    font-size: 9.5px !important;
+    letter-spacing: 0.5px;
+}
 
      .escala_ganancia {
         padding-left: 0.8%;
@@ -28978,6 +29005,9 @@ span.datoPedidoCliente {
         font-size: 12px;
         width: 124%;
     }
+    .new_menu {    
+    margin-left: 3%;    
+    }
 }
 
 @media screen and (max-width:1100px) {
@@ -34108,10 +34138,10 @@ h1#penmostreo .campana {
 
 .content_ficha_producto_nueva {
     width: 850px;
-    height: 450px;
+    height: 520px;
     position: relative;
     top: 50%;
-    margin: -225px auto auto auto;
+    margin: -260px auto auto auto;
     background: white;
     padding: 43px 51px;
 }
@@ -34638,12 +34668,752 @@ h1#penmostreo .campana {
     
 }
 
+/*SPRINT 6*/
+.content_banner_intriga{
+    position:relative;
+    width:100%;
+}
+.content_banner_intriga img{
+    display: block;
+    width: 100vw;
+    height: 171px;
+    object-fit: cover;
+}
+.texto_dias_intriga{
+    position:absolute;
+    font-weight:900;
+    top:66px;
+    font-family:'Lato';
+    font-size:38px;
+    color:white;
+    text-align:center;
+    width:100%;
+    letter-spacing: 3px;  
+    text-shadow: -0.1em 0.1em black;
+}
+/*.texto_dias_intriga b{
+    
+    text-shadow: -0.1em 0.1em black;
+}*/
+.texto_menor_intriga{
+    display:block;
+    /*margin-top:5px;*/
+    font-size:20px;
+}
+.content_set_intriga{
+    width:65%;
+    display:inline-block;
+    /*float:left;*/
+    overflow:hidden;
+    padding-top:30px;
+}
+.set_visible_intriga{
+    width:30%;
+    float:left;
+}
+.set_img{
+    height:213px;
+    width:auto;
+    display:block;
+    margin:0 auto;
+}
+.linea_separadora_intriga {
+    width: 100%;
+    height: 10px;
+    background: black;
+    margin-bottom: 20px;
+    -webkit-box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+    -moz-box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+    box-shadow: 3px 4px 9px 1px rgba(212,210,212,1);
+}
+.set_silueta_intriga{
+    width:35%;
+    float:left;
+}
+.set_silueta_intriga img{
+    height: 205px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    padding-top: 16px;
+}
+.content_confirmacion_correo{
+    vertical-align: top;
+    /* float: right; */
+    display: inline-block;
+    width: 27%;
+    background:#f0f0f0;
+    padding:26px;
+    min-height:100px;
+    margin-top: -52px;
+    margin-left:6%;
+        -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
+}
+.titulo_confirmacion{
+    font-size:17px;
+    font-weight:700;
+    padding-top:10px;
+    text-align:center;
+    font-family:'LAto';
+    text-transform:uppercase;
+}
+.texto_confirmacion{
+    font-size:14px;
+    line-height:16px;
+    text-align:center;
+    font-family:'LAto';
+    margin-top:5px;
+}
+.correo_showroon {
+    width:100%;
+    margin-top:20px;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
+    padding-left: 10%;
+}
+.correo_showroon input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #979797;
+    /* padding-bottom: 2px; */
+    /* height: 15px; */
+    font-size: 13px;
+    font-family: 'Lato';
+    display: block;
+    background: none;
+    color:black;
+}
+.termino_condiciones_intriga {
+    position: relative;
+    padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 25px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color:#979797;
+    text-align: left;
+}
+.termino_condiciones_intriga:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    width: 13px;
+    height: 13px;
+    border: 1px solid #979797;
+    z-index: 10;
+    line-height: 11.5px;
+    padding-left: 2px;
+}
+.check_intriga:before{
+    content: "✓";
+    line-height: 11.5px;
+    padding-left: 1px;
+}
+.btn_enviar_correo_intriga{
+    width:100%;
+    color:white;
+    background:#e81c36;
+    height:45px;
+    line-height:43px;
+    text-align:center;
+    font-family: 'Lato';
+    font-size: 14px;
+    margin-top:10px;
+}
+.texto_final_intriga{
+    font-family: 'Lato';
+    font-size: 12px;
+    margin-top:60px;
+    /*font-weight:300;*/
+    margin-bottom:35px;
+    letter-spacing:0.5px;
+    text-align:center;
+ }
+
+.content_pop_up_intriga{
+    position:relative;
+    width:615px;
+    height:409px;
+    top:50%;
+    margin:-205px auto auto auto;
+}
+.dias_intriga_home{
+    font-family:'Lato';
+    font-size:55px;
+    letter-spacing:4px;
+    color:white;
+    text-align:center;
+    width:100%;
+    text-shadow: -0.1em 0.1em black;
+    position: absolute;
+    top: 36%;
+    font-weight: 700;
+}
+.link_cambiar_correo{
+    font-family:'Lato';
+    font-size:11px;
+    text-transform:uppercase;
+    margin-top:40px;
+    margin-bottom:5px;
+    text-align:center;
+    text-decoration:underline;
+    text-align:center;
+    display:inline-block;
+}
+.texto_confirmacion b{
+    display:block;
+}
+.nombre_set_showroom{
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:700;
+    margin-top:20px;
+    margin-bottom:5px;
+    text-align:center;
+}
+.precio_showroom_intriga{
+    font-family:'Lato';
+    font-size:16px;    
+    
+    font-weight:700;
+    text-align:center;
+    margin-bottom:5px;
+   
+}
+.precio_oferta_showroom{
+    font-family:'Lato';
+    font-size:12px;   
+    text-decoration:line-through;
+    margin-bottom:10px;
+    margin-right:13px;
+}
+.saludo_consultora_showroom{
+    position: absolute;
+    font-family: 'LAto';
+    color: white;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.7px;
+    top: 56px;
+    width: 100%;
+    text-align: center;
+    font-weight: 300;
+}
+.content_set_imagen_intriga{
+    height:205px;
+    overflow:hidden;
+}
+.texto_adelanto_intriga{
+       font-family: 'Lato';
+    /* margin-top: 50px; */
+    font-size: 17px;
+    margin-bottom: 40px;
+    letter-spacing: 0.6px;
+}
+.agregado {
+    
+    font-family: Lato;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-align: center;
+    color: #a18328;
+}
+/*SHOWROOM*/
+.set-productos-showroom{
+    background-color: white;
+    margin-right: 2%;
+    float: left;
+    position: relative;
+    width: 32%;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-bottom: 12px;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.set-productos-showroom:nth-child(3n){
+      margin-right:0;
+}
+.nombre-producto-set{
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 177px;
+    overflow: hidden;
+    height: 41px;
+    margin-top: 9px;
+    font-weight:700;
+}
+.precio-oferta-venta{
+        margin: 0px;
+    padding: 0px;
+    text-align: left;
+    font-size: 18px;
+    width: 50%;
+    padding-left: 5px;
+}
+.precio-oferta-normal{
+    margin: 0px;
+    padding: 0px;
+    text-align: right;
+    text-decoration: line-through;
+    font-size: 14px;
+    width: 50%;
+    padding-right: 5px;
+}
+
+.fondo_set{
+    width:100%;
+    /*height:396px;*/
+    /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;*/
+    /*background-size: contain;*/
+    padding-top: 60px;
+}
+.content_producto_set{
+    float:left;
+    width:25%;
+    height:373px;
+    margin-top:60px;
+    text-align:center;
+}
+/*.content_producto_set img{
+    width:100%;
+}*/
+.content_detalle_set{
+    width:45%;
+    float:left;
+    min-height:100px;
+    background:white;
+    margin-left:5%;
+    padding:30px;
+    font-family:'Lato';
+}
+.content_solo_ficha_set{
+    width:100%;
+    float:left;
+}
+.titulo_set{
+    font-size:20px;
+    line-height:22px;
+    color:black;
+    font-weight:700;
+    text-transform:uppercase;
+}
+.precio_valorizado_showroom{
+    text-align:right;
+    font-size:13px;
+    font-weight:300;
+    height: 16px;
+    text-decoration:line-through;
+
+}
+.precio_oferta_venta{
+    font-size:13px;
+    text-align:right;
+    height: 28px;
+
+}
+.precio_oferta_venta b{
+    font-size:20px;
+    margin-left:7px;
+}
+.ganancia_showroom{
+    font-size:13px;
+    color:#e81c36;
+    text-align:right;
+    text-transform:uppercase;
+}
+.titulo_separador{
+    width:100%;
+    margin-top:20px;
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;    
+}
+.nombre_marca_set{
+    margin-top:21px;
+    font-size:11px;
+    text-transform:uppercase;
+    color:black;
+    width:100%;
+    /*padding-left: 5%;*/
+    font-weight: 300;
+}
+.content_detalle_showroom{
+    width:100%;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.cantidad_set_individual{
+    width:5%;
+    font-size:13px;
+    float:left;
+}
+.nombre_set_individual{
+    width:60%;
+    float:left;
+    font-size: 13px;
+    
+}
+.detalle_set_showroom{
+    font-size:13px;
+    font-weight:300;
+    display:block;
+}
+.precio_regular_set{
+    width:25%;
+    text-align:right;
+    float:right;
+    font-size:12px;
+    font-weight:300;
+}
+.btn_aregar_set {
+    /*width: 82%;*/
+    float: right;
+    /* text-align: right; */
+    background: black;
+    color: white;
+    width: -moz-calc(100% -80px);
+    width: calc(100% - 80px);
+}
+@media only screen and (max-width : 1027px) {
+    .btn_aregar_set {
+        width: 81%;
+    }
+}
+.titulo_carrusel_showroom{
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:300;
+    color:black;
+    text-align:center;
+    margin-top:28px;
+    margin-bottom:40px;
+}
+.content_tip_negocio{
+    margin-top:50px;
+    border-top:1px solid black;
+    padding-top:20px;
+}
+.titulo_tip{
+    text-transform:uppercase;
+    display:block;
+    font-size:16px;
+
+}
+.tip_negocio_showroom{
+    font-size:13px;
+    font-family:'Lato';
+    background:url(../../../Images/Showroom/icono_tip.png) no-repeat;
+    padding-left: 55px;
+    padding-top:15px;
+    margin-bottom:50px;
+}
+.titulo_compra_POP{
+    font-family: 'LAto';
+    font-size: 58px;
+    font-weight: 700;
+    text-align: center;
+    color: white;
+}
+.precio_set_compra{
+    font-family: 'LAto';
+    font-size: 24px;
+    text-align: center;
+}
+
+.content_carrusel_pop_compra{
+    margin-top:30px;
+    width:80%;
+    margin:0 auto;
+}
+.content_imagen_compra{
+    width:40%;
+    height:250px;
+    text-align:center;
+    float:left;
+    margin-top:25px;
+}
+.content_imagen_compra img{
+    /*height: 250px;*/ 
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+}
+.content_datos_carrusel{
+    width:50%;
+    margin-left:10%;
+    float:left;
+    padding-top:40px;
+    font-family:'Lato';
+}
+.producto_compra{
+    font-size:13.5px;
+    line-height:14.5px;
+    margin-bottom:7px;
+    font-weight:300;
+}
+.descripcion_producto_compra{
+    font-size:13px;
+    letter-spacing:0.2px;
+    font-weight:300;
+    margin-bottom:15px;
+    line-height:15px;
+}
+.notificacion_compra{
+   margin-left: 29%;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat;
+    background-size: 16px 16px;
+    font-family: 'Lato';
+    font-size: 11px;
+    padding-left: 20px;
+    margin-top: 15px;
+}
+.content_ficha_compra{
+    float:left;
+    width:20%;
+    height:auto;
+    background:white;
+    margin-left:2%;
+    padding:40px 25px 25px 25px;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+}
+.content_imagen_carrusel_compra{
+    width:80%;
+    margin:0 auto;
+    margin-top:15px;
+    margin-bottom:15px;
+    cursor: pointer;
+    position: relative;
+}
+.content_imagen_carrusel_compra:hover .ver_detalle_carrusel{
+    opacity: 1;
+}
+.content_imagen_carrusel_compra img{
+    width:100%;
+}
+.btn_agrega_carrusel_compra{
+    width:100%;
+    height:45px;
+    display:block;
+    line-height:45px;
+    font-size:13px;
+    text-align:center;
+    margin-top:5px;
+    margin-bottom:10px;
+    border:1px solid black;
+    font-weight:700;
+}
+
+.content_banner_compra{
+    position:fixed;
+    bottom:0;
+    background: white;
+    width:100%;
+    height:73px;
+   
+    /*margin-top:50px;*/
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    z-index:1000;
+}
+.content_interno_banner{
+   /*width:600px;*/
+   margin-left:27%;
+}
+.content_imagen_banner_compra{
+    width:58px;
+   
+}
+.content_imagen_banner_compra img{
+    height:73px;
+    float:left;
+}
+.content_oferta{
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-top: 11px;
+    padding-left: 15px;
+    float: left;
+    width: 51%;
+    /* font-weight: 300; */
+}
+.content_oferta_promocion {
+    font-size: 13.5px;
+    font-family: 'Lato';
+    font-weight: 900;
+    letter-spacing: 0.5px;
+    line-height: 15px;
+    display:block;
+}
+.solo_falta_compra{
+    color:#747474;
+    display:block;
+}
+.btn_ver_detalle_compra{
+       width: 29%;
+    height: 31px;
+    font-size: 13px;
+    font-family: 'Lato';
+    line-height: 30px;
+    text-align: center;
+    float: left;
+    border: 1px solid black;
+    margin-top: 21px;
+    margin-left: 3%;
+}
+
 .enlace_chat a {
     display: inline;
     font-weight: bold;
     text-decoration: underline;
 }
+.menu_socia_empresaria > .new_menu > .new_menu_a{
+    font-size:10.5px;
+    letter-spacing:0.5px;
+    height: 18px;
+}
+@media screen and (max-width: 1104px) {
+
+    .new_menu {    
+    margin-left: 2.2%;    
+    }
+    .menu_socia_empresaria > .new_menu {
+          margin-left: 1% !important;
+    }
+}
+@media screen and (max-width: 1150px) {
+
+    .menu_socia_empresaria > .new_menu {
+        margin-left: 1.8%;
+    }
+}
+
+.menu_socia_empresaria > .new_menu:first-child {
+    margin-left: 0%;
+}
+
+.etiqueta_showroom {
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png) no-repeat;
+    padding-left: 19px;
+}
+.content_imagen_individual{
+    width: 9%;
+    margin-right: 2%;
+    float: left;
+}
+.titulo_promocion{
+    font-family:'Lato';
+    font-weight:900;
+    font-size:34px;
+    line-height:73px;
+    letter-spacing:2.6px;
+    color:white;
+    background:rgba(171,136,59,0.8);
+    position:absolute;
+    width: 23%;
+    height: 73px;
+    left: 0;
+    text-align: right;
+    padding-right: 20px;
+}
+.titulo_promocion:after{
+    content:'';
+        content: '';
+    position: absolute;
+    top: 0;
+    z-index: 2000;
+    right: -50px;    
+    width: 0;
+    height: 0;    
+    border-top: 73px solid transparent;
+    border-left: 50px solid rgba(171,136,59,0.8);
+    border-bottom: 73px solid rgba(171,136,59,0.8);
+}
+.content_ficha_compra:after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background: #bda571;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.titulo_producto_compra_carrusel {
+    font-family: 'Lato';
+    font-size: 14.5px;
+    margin-top: 10px;
+    line-height: 17px;
+    text-align: center;
+    margin-bottom: 3px;
+}
+.content_titulo_pop{
+    background:#bda571;
+}
+.titulo_pop_compra{
+    font-family:'Lato';
+    font-size:20px;
+    line-height: 24px;
+    margin-bottom: 5px;
+}
+.legal_footer_compra {
+    font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+}
 
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
 }
+.icono_celular{
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
+.solo_inferior{
+    font-size:17px;
+    display:block;
+     height: 18px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1262px) {
+    .solo_inferior{
+        display:inline-block;
+        margin-left:5px;
+        }
+    }
+.compartir_catalogo_facebook_Brasil
+{
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+ }
