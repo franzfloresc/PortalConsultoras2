@@ -35,6 +35,7 @@
                 <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
                 <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini"/>
+                <input type="hidden" class="Nombre" value="@Model.Descripcion" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
                 <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
                 <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
@@ -148,7 +149,7 @@
                                         }
                                         else
                                         {
-                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
                                         }
                                     </div>
                                     <div class="precio_set_compra" style="font-size: 14px; line-height: 17px;">@Model.TextoCondicionCompraCpc</div>
@@ -273,7 +274,7 @@
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
                                 }
                             </div>
 

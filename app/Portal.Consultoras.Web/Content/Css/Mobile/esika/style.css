@@ -10929,10 +10929,11 @@ a{
     height:13px;
     border:1px solid #979797;
 }
-.content_imagen_intriga{
-    width:250px;
-    height:auto;
-    text-align:center;
+.content_imagen_intriga {
+    width: 250px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
 }
 .content_imagen_intriga img{
    
@@ -11712,3 +11713,19 @@ a{
     background: url(../../../Images/Esika/icono_advertencia_notificacion.png) center center no-repeat;
 }
 
+/***EPD 2107***/
+.btnwspDesktop {
+    display:none;
+}
+.btnfbDesktop {
+    margin-left: 55px;
+    width: 48%;
+}
+.btnwspMobile {
+    width:48%;
+}
+.btnfbMobile {
+    float:right; 
+    width:48%;
+}
+/*** FIN ******/

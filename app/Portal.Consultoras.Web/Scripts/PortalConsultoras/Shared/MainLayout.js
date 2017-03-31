@@ -332,7 +332,7 @@ $(document).ready(function () {
     setInterval(animacionFlechaScroll, 1000);
 
     OrdenarCabecera();
-    debugger;
+
     if (tieneOfertaDelDia == "True") {        
         var URLactual = window.location.href;
         var urlIntriga = URLactual.indexOf("ShowRoom");

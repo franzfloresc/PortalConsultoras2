@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-
+                ActionExecutingMobile();
                 var listaShowRoomOferta = new List<BEShowRoomOferta>();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
                 model.Celular = userData.Celular;
                 model.Suscripcion = eventoConsultora.Suscripcion;
-                model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 
                 return View(model);
             }

@@ -4775,7 +4775,6 @@ namespace Portal.Consultoras.Web.Controllers
                 // Si ya esta en pedido detalle no se debe mostrar
                 //var pedidoDetalle = ObtenerPedidoWebDetalle();
                 //var listaRetorno = new List<ProductoModel>();
-
                 //foreach (var item in listaProductoModel)
                 //{
                 //    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
@@ -4902,7 +4901,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                 p.Simbolo = userData.Simbolo;
                 p.UrlCompartirFB = GetUrlCompartirFB();
-                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
+                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
                 //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                 string imagenUrl = Util.SubStr(p.Imagen, 0);
 
@@ -5154,24 +5153,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult AccederOfertasVALAUTOPROL(string script)
-        {
-            if (userData?.CampaniaID <= 0)
+        public ActionResult AccederOfertasVALAUTOPROL(string script)
+        {
+            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+            if (userData.CampaniaID <= 0)
             {
-                return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login", new { area = area });
             }
 
             var obj = Util.Trim(Util.DesencriptarQueryString(script));
             var listaParemetros = obj.Split(';');
 
             // ISO del país, código de la campaña y código de la consultora
-            var codigoIso = listaParemetros[0];
-            var campaniaID = listaParemetros[1];
-            var codigoConsultora = listaParemetros[2];
-            TempData["CUVOfertaProl"] = listaParemetros[3];            
+            var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
+            var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
+            var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
+            TempData["CUVOfertaProl"] = listaParemetros.Length > 3 ? listaParemetros[3] : "";            
             if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
             {
-                return RedirectToAction("Index", "Bienvenida");
+                return RedirectToAction("Index", "Bienvenida", new { area = area });
             }
 
             BEConfiguracionCampania oBEConfiguracionCampania;
@@ -5188,11 +5188,11 @@ namespace Portal.Consultoras.Web.Controllers
                 var mensaje = PedidoValidadoDeshacer("PV"); // copiar en una sola funccion
                 if (mensaje != "")
                 {
-                    return RedirectToAction("Index", "Bienvenida");
+                    return RedirectToAction("Index", "Bienvenida", new { area = area });
                 }
             }
 
-            return RedirectToAction("Index", "Pedido");
+            return RedirectToAction("Index", "Pedido", new { area = area });
         }
     }
 }
