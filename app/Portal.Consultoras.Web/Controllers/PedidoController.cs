@@ -17,7 +17,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -4704,7 +4703,6 @@ namespace Portal.Consultoras.Web.Controllers
                 // Si ya esta en pedido detalle no se debe mostrar
                 //var pedidoDetalle = ObtenerPedidoWebDetalle();
                 //var listaRetorno = new List<ProductoModel>();
-
                 //foreach (var item in listaProductoModel)
                 //{
                 //    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
@@ -4831,7 +4829,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
                 p.Simbolo = userData.Simbolo;
                 p.UrlCompartirFB = GetUrlCompartirFB();
-                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 25, "...");
+                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
                 //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
                 string imagenUrl = Util.SubStr(p.Imagen, 0);
 
@@ -5008,6 +5006,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseBannerPL20 = true;
+                
                 Session["UserData"] = userData;
 
                 return Json(new
@@ -5025,6 +5024,29 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult OcultarBannerTop()
+        {
+            try
+            {
+                Session["OcultarBannerTop"] = true;
+
+                return Json(new
+                {
+                    success = true,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
 
         /*PL20-1226*/
 

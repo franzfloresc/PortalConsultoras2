@@ -100,6 +100,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                                 ImagenBulk = item.ImagenBulk
                                             });
                                         }
+
+                                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                                        productoModel.Tonos = ListaTonos;
                                     }
                                     else
                                     {
