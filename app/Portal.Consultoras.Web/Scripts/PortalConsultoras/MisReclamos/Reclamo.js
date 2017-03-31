@@ -1124,7 +1124,7 @@ function SolicitudEnviar() {
         var esTelefonoValido = ValidarTelefono(celular);
         if (!esTelefonoValido) {
             $("#spnTelefonoError").css("display", "");
-            $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
+            $("#spnTelefonoError").html("*Este número de celular ya está siendo utilizado. Intenta con otro.");
             $("#txtTelefono").css("border-color", "red");
             ok = false;
         }
@@ -1405,17 +1405,19 @@ function ValidarCorreoDuplicado(correo) {
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
-    debugger
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 || unicode == 39 || unicode == 38 || unicode == 40)
         return true;
 
     if (contenido.length >= caracteres) {
         selectedText = document.getSelection();
-        if (selectedText == "") {
-            return false;
-        } else {
+        if (selectedText == contenido) {
             $("#" + id).val("");
+            return true;
+        } else if (selectedText != "") {
+            return true;
+        } else {
+            return false;
         }
     }
     return true;

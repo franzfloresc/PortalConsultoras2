@@ -1216,7 +1216,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "*Este teléfono ya está siendo utilizado. Intenta con otro",
+                            message = "*Este número de celular ya está siendo utilizado. Intenta con otro.",
                             extra = ""
                         }, JsonRequestBehavior.AllowGet);
                     }
