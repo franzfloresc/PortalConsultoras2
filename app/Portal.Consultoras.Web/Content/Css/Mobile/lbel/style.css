@@ -10918,6 +10918,7 @@ span.icon-advertencia{
     font-weight: 700;
     font-size: 14.5px;
     height:40px;
+    overflow: hidden;
 }
 .box_promotions{
     background:white;

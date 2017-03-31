@@ -649,8 +649,14 @@ namespace Portal.Consultoras.Web.Controllers
             var nombreMarca = "";
             modelo.ListaDetalleOfertaShowRoom.Update(d =>
             {
-                d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
-                nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
+                d.MarcaProducto = d.MarcaProducto == nombreMarca 
+                    ? "" : 
+                    d.MarcaProducto;
+                nombreMarca = d.MarcaProducto == ""
+                    ? nombreMarca
+                    : d.MarcaProducto == nombreMarca
+                        ? nombreMarca
+                        : d.MarcaProducto;
             });
 
             bool esMovil = Request.Browser.IsMobileDevice;
