@@ -423,7 +423,6 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                 }
                             }
-
                         }
                         detailFile = headerFile = dataConFile = null;
                         detailFileAct = null; //CGI (VVA) 2450
