@@ -206,6 +206,12 @@
             <div class="variable-width">
                 @foreach (var oferta in Model.ListaOfertaShowRoom)
                 {
+                    var descripcion = oferta.Descripcion;
+                    if (descripcion != null && descripcion.Length > 41)
+                    {
+                        descripcion = descripcion.Substring(0, 40) + " ...";
+                    }
+
                     posicionx++;
                     <div class="slider_item" data-posicion="@posicionx" data-item="@oferta.OfertaShowRoomID" data-position="@posicionx">
                         <div data-campos="" style="display:none;">
@@ -222,8 +228,8 @@
                             <div data-img="">
                                 <img src="@oferta.ImagenMini" />
                             </div>
-                            <span class="title">@oferta.Descripcion</span>
-                            <span class="precio_tachado_carrusel_set">$ 90.000</span>
+                            <span class="title">@descripcion</span>
+                            <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
                             <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo </b></span>
                         </a>
                     </div>
@@ -240,7 +246,7 @@
         </div>
        
     </div>
-    @if (Model.TipNegocio != "")
+    @if (!string.IsNullOrEmpty(Model.TipNegocio))
     {
         <div class="business_tips">
             <h3 class="title">tip de negocio</h3>
