@@ -5156,7 +5156,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
             var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
-            if (userData?.CampaniaID <= 0)
+            if (userData.CampaniaID <= 0)
             {
                 return RedirectToAction("Index", "Login", new { area = area });
             }
