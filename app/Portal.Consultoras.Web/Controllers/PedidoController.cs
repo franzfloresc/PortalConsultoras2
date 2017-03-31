@@ -3981,7 +3981,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ReservadoOEnHorarioRestringido()
+        public ActionResult ReservadoOEnHorarioRestringido(string tipoAccion = null)
         {
             try
             {
@@ -4006,8 +4006,28 @@ namespace Portal.Consultoras.Web.Controllers
                     //EPD-2058
                     if (userData.TipoUsuario == 2)
                     {
-                        estado = true;
-                        mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                        /*
+                         *  tipoAccion:
+                         *  1: Agregar
+                         *  2: Listar
+                         */
+                        if (!string.IsNullOrEmpty(tipoAccion))
+                        {
+                            if (tipoAccion == "1")
+                            {
+                                estado = true;
+                                mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                            }
+                            else if (tipoAccion == "2")
+                            {
+                                estado = false;
+                            }
+                        }
+                        else
+                        {
+                            estado = true;
+                            mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                        }
                     }
                 }
 

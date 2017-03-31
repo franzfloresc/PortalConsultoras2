@@ -8,7 +8,7 @@ $(document).ready(function () {
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
-
+    
     $(document).keyup(function (e) {
         if (e.keyCode == 27) { // esc keycode
             if ($('#PopOfertaDia').is(':visible')) {
@@ -701,6 +701,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -783,6 +789,12 @@ function ValidarCorreo(correo) {
 
 /*Inicio ShowRoom*/
 function MostrarShowRoomBannerLateral() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
     });
@@ -1016,6 +1028,12 @@ function SetMarcaGoogleAnalyticsTermino() {
 
 /*PL20-1226*/
 function loadOfertaDelDia() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -1272,6 +1290,15 @@ function addOfertaDelDiaPedido(tipo) {
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
+
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

@@ -803,6 +803,12 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
     //    AbrirAceptacionContrato();
     //}
@@ -848,9 +854,7 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    //EPD-2058
     if (typeof gTipoUsuario !== 'undefined') {
-        console.log('gTipoUsuario');
         if (gTipoUsuario == '2') {
             alert('Acceso restringido, aun no puede agregar pedidos');
             return true;
@@ -919,6 +923,12 @@ function alert_unidadesAgregadas(message, exito) {
 
 //Metodos para carousel Liquidaciones
 function CargarCarouselLiquidaciones() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
     $('#divCarruselLiquidaciones.slick-initialized').slick('unslick');
@@ -1823,6 +1833,11 @@ function DownloadAttachContratoActualizarDatos() {
 
 /* Métodos Mis Cursos */
 function CargarMisCursos() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
 
     $(window).scroll(function () {
         if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
@@ -2417,6 +2432,12 @@ function AceptarComunicado() {
 
 // Métodos Flexipago
 function AbrirPopupFlexipago() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     if (viewBagPaisID == 4 || viewBagPaisID == 3) { // Colombia || Chile
         if (viewBagInvitacionRechazada == "False" || viewBagInvitacionRechazada == "0" || viewBagInvitacionRechazada == "") {
             if (viewBagInscritaFlexipago == "0") {
@@ -2899,6 +2920,12 @@ function playVideo() {
 
 //ShowRoom
 function CrearPopShow() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $("body").on("click", "div.check_01 label.checkpop input", function (event) {
         event.preventDefault();
         if ($(this).parent().hasClass("c_on")) {
@@ -2969,6 +2996,12 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
             return;
