@@ -141,7 +141,7 @@ Así como el precio, la fecha y dirección de entrega.
                         else if (item.Estado.Trim().Equals("R"))
                         {
                             <div class="text_gris_azul">RECHAZADO</div>
-                            <p class="font_size_11">El día @String.Format("{0:dd/MM}", item.FechaModificacion) @*item.FechaModificacion.ToString("dd/MM") *@ a las  @String.Format("{0:hh:mm tt}", item.FechaModificacion)</p>
+                            <p class="font_size_11">El día @String.Format("{0:dd/MM}", item.FechaModificacion) a las  @String.Format("{0:hh:mm tt}", item.FechaModificacion)</p>
                         }
                         else if (item.Estado.Trim().Equals("C"))
                         {

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomEventoModel
     {
         public int EventoID { get; set; }
@@ -50,11 +52,11 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenPreventaDigital { get; set; }
 
-        public string RutaShowRoomPopup { get; set; }
-
-        public string RutaShowRoomBannerLateral { get; set; }
-
         public int Estado { get; set; }
+
+        public bool TieneCategoria { get; set; }
+
+        public bool TieneCompraXcompra { get; set; }
 
         public string Simbolo { get; set; }
 
@@ -65,5 +67,17 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string FormatoCampania { get; set; }
+
+        public List<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+
+        public string UrlTerminosCondiciones { get; set; }
+
+        public string TextoCondicionCompraCpc { get; set; }
+
+        public string TextoDescripcionLegalCpc { get; set; }
+
+        public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
+
+        public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
     }
 }

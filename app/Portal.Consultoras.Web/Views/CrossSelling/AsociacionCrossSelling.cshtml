@@ -206,10 +206,6 @@
 
             if ($("#ddlTC").val() == "")
                 msjex += " - Debe seleccionar el tipo de CrossSelling .\n";
-
-            @*if ($("#txtCUVSearch").val().length < 2)
-                msjex += " - Debe ingresar por lo menos 2 carácteres para realizar la búsqueda por CUV .\n";
-            *@
             if (msjex == "") {
                 paisNombre = $("#ddlPais option:selected").text();
                 paisID = $("#ddlPais").val();
@@ -298,12 +294,8 @@
                     }
                     
                     if (TipoCros == 1) {
-                        /*
-                        if (jQuery.trim($('#txtEtiquetaPrecio').val()) == '')
-                            vMessage += "- Debe Ingresar la Etiqueta de Precio.\n";
-                            */
                         if (jQuery.trim($('#txtDescripcionAsociadoModal').val()) == '')
-                            vMessage += "- Debe Ingresar la descripción.\n";@*1673CC*@
+                            vMessage += "- Debe Ingresar la descripción.\n";
                     }
                     if (vMessage != "") {
                         alert(vMessage);
@@ -1014,12 +1006,10 @@
                 <div class="selectA borde_redondeado">
                     <input id="txtSegmentoPla" type="text" readonly="true" />
                 </div>
-                @*1673 begin*@
                 <div class="titB" style="display:none">etiqueta de precio:</div>
                 <div class="selectA borde_redondeado" style="display:none">
-                    <input type="text" id="txtEtiquetaPrecio" /> @*1673CC*@
+                    <input type="text" id="txtEtiquetaPrecio" />
                 </div>
-                @*1673 end*@
             </div>
         </div>
 
