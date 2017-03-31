@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-
+                ActionExecutingMobile();
                 var listaShowRoomOferta = new List<BEShowRoomOferta>();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
