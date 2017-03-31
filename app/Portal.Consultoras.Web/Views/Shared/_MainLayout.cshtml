@@ -192,7 +192,6 @@
             <div class="menu_esika_b">
                 <div class="campana user-profile">
                     <img class="mostrar_perfil oculto" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
-                    @*CAMBIAR LA CLASE POR "OCULTAR_PERFIL"*@
                 </div>
 
                 <div class="campana">
@@ -274,13 +273,14 @@
         <div class="clear"></div>
     </header>
     <div class="fondo_oscuro"></div>
-    <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
-        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span>| @ViewBag.Title</span>
+    <div class="SubHeader">
+        <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
+        </div>
     </div>
 
     <!-- end cabecera -->
     <!-- contenedor -->
-    <div class="content" data-content="">
+    <div id="contentmain" class="content" data-content="">
         @RenderBody()
 
         @if (ViewBag.TerminoMostrar == 1)
@@ -405,7 +405,6 @@
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="hdNombreEventoShowRoom" />
         <a href="#" class="mover">
-            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
             <img id="imgPestaniaShowRoomLateral" alt="imgPestaniaShowRoomLateral" style="max-width: 100% !important;" />
         </a>
         <div class="contenido-ct">
@@ -438,7 +437,6 @@
 
     <div id="ctrasHoy" class="caja-traslado" style="display: none;">
         <a href="#" class="mover">
-            @*<img src="@Url.Content("~/Content/Images/showroom/preventa_pop.jpg")" alt="" />*@
             <img id="imgPestaniaShowRoomLateralHoy" alt="imgPestaniaShowRoomLateralHoy" style="max-width: 100% !important;" />
         </a>
         <div class="contenido-ct">
@@ -520,7 +518,6 @@
         <div class="productos_agregado_carrito">
             <div class="marca_belcorp">{{DescripcionLarga}}</div>
             <hr class="clear" />
-            @*<div class="descripcion_producto_carrito">{{DescripcionProd}}</div>*@
             <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
             <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
             <div class="precio_carrito">{{../Simbolo}}{{ImporteTotal}}</div>
@@ -558,12 +555,11 @@
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
         <div class="content_oferta_dia" id="banner-odd">
             <div class="reloj_oferta">
-                TE QUEDAN @*<span>05:00:20</span>*@
+                TE QUEDAN
                 <div class="clock"></div>
                 <div class="message"></div>
             </div>
             <div class="solo_hoy">
-                @*<img src="@Url.Content("~/Content/Images/PL20/solo_hoy.png")" alt="" />*@
                 <img id="img-solohoy-odd" alt="" />
             </div>
             <div class="producto_set">
@@ -595,11 +591,6 @@
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display: none;">
-            @*<a href="javascript:;" onclick="javascript: $('#PopOfertaDia').slideUp();" title="Cerrar" class="cerrar_pop_oferta">
-                <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
-            </a>*@
-
-            @*<div class="reloj_popOferta">05:00:20</div>*@
             <hr class="clear" />
             <div class="content_set_pop_hoy">
                 <div class="imagen_set_Oferta_pop">
@@ -658,7 +649,6 @@
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
-        /*PL20-1226*/
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
 
         var MostrarODD = '@ViewBag.MostrarODD';
@@ -667,34 +657,15 @@
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
 
-
-    @*<script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>*@
     <script type="text/javascript">
 		var clock;
 
 		$(document).ready(function() {
 
-			//clock = $('.clock').FlipClock({
-		    //    clockFace: 'HourlyCounter'
-		    //});
 		});
     </script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            //var cambio=0;
-            //$(".btn_detalle_hoy").on("click", function () {
-            //    if(cambio==0){
-            //        $('#PopOfertaDia').slideDown(); //muestro mediante id 
-            //        $(".circulo_hoy span").html("+");
-            //        cambio=1;
-            //    }
-            //    else{
-            //        $('#PopOfertaDia').slideUp(); //muestro mediante id 
-            //        $(".circulo_hoy span").html("x");
-            //        cambio=0;
-            //    }
-            
-            //});     
+        $(document).ready(function () {    
         });
 
     </script>
