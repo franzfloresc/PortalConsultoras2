@@ -804,6 +804,7 @@
             <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
             <input type="hidden" id="hdn_NombreCompletoMD" value="" />
             <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
 
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
@@ -844,17 +845,17 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu teléfono:</label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,1)" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,2)" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
-                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,3)" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">

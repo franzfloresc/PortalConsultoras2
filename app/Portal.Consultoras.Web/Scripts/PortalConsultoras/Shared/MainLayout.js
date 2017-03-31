@@ -341,15 +341,6 @@ $(document).ready(function () {
     }
 });
 
-function OrdenarCabecera() {
-    var hC = $("header").innerHeight() + 2;
-    var htmlSub = $.trim($(".ubicacion_web").html());
-    if (htmlSub == "") {
-        $(".SubHeader").html("");
-    }
-    hC += $(".SubHeader").innerHeight();
-    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
-}
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);
@@ -361,6 +352,16 @@ function AbrirVentanaBelcorpChat(url) {
     } else {
         window.open("", "ventanaChat");
     }
+}
+
+function OrdenarCabecera() {
+    var hC = $("header").innerHeight() + 2;
+    var htmlSub = $.trim($(".ubicacion_web").html());
+    if (htmlSub == "") {
+        $(".SubHeader").html("");
+    }
+    hC += $(".SubHeader").innerHeight();
+    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
 }
 
 function messageInfoError(message, titulo) {

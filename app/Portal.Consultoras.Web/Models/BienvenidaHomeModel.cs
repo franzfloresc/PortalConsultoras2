@@ -86,7 +86,10 @@ namespace Portal.Consultoras.Web.Models
         public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
-        
+
+        public int limiteMaximoTelef{ get; set; }
+
+        public int limiteMinimoTelef { get; set; }        
         #region Propiedades para POPUps
         public int TipoPopUpMostrar { get; set; }
         // DemandaAnticipada

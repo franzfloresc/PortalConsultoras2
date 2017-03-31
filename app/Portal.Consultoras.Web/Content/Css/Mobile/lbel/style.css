@@ -10372,8 +10372,7 @@ span.icon-advertencia{
     background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
     background-position: 95% 19px;
     position:relative;
-    margin-bottom:5px;
-    
+    margin-bottom:5px;   
 }
 .texto_redes{
     font-family: 'Lato';
@@ -10502,7 +10501,6 @@ span.icon-advertencia{
     text-align:center;
     height:48px;
     line-height:47px;
-}
 .check_intriga:before{
     content: "?";
     line-height: 11.5px;
@@ -10920,6 +10918,7 @@ span.icon-advertencia{
     font-weight: 700;
     font-size: 14.5px;
     height:40px;
+    overflow: hidden;
 }
 .box_promotions{
     background:white;
