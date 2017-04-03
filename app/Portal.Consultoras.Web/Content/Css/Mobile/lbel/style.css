@@ -10493,14 +10493,15 @@ span.icon-advertencia{
     font-weight: 900;
     cursor: pointer;
 }
-.texto_elige_tono{
-    font-family:'LAto';
-    font-size:11px;
+.texto_elige_tono {
+    font-family: 'LAto';
+    font-size: 11px;
     font-weight: 700;
-    color:#613c87;
-    text-align:center;
-    height:48px;
-    line-height:47px;
+    color: #613c87;
+    text-align: center;
+    height: 48px;
+    line-height: 47px;
+}
 .check_intriga:before{
     content: "?";
     line-height: 11.5px;
