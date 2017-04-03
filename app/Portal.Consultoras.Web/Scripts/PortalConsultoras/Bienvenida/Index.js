@@ -12,6 +12,7 @@ var tipoOrigen = '3';
 var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
+var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
     $('.contenedor_img_perfil').on('click', CargarCamara);
@@ -66,8 +67,7 @@ $(document).ready(function () {
             }
         }
     });
-
-
+    
     //Fin EDP-1564
 
     document.onkeydown = function (evt) {
@@ -171,6 +171,9 @@ $(document).ready(function () {
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
+    if (showRoomMostrarLista == 1) {
+        CargarProductosShowRoom({ Limite: 6 });
+    }
 
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:

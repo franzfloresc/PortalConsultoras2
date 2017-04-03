@@ -2525,6 +2525,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (!ValidarIngresoShowRoom(false))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Ok",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -2575,6 +2587,9 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 }
                 
+                if (model.Limite > 0)
+                    listaFinal = listaFinal.Take(model.Limite).ToList();
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new
