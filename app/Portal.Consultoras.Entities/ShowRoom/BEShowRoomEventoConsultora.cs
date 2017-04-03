@@ -44,12 +44,15 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public string UsuarioModificacion { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public bool Suscripcion { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public int Envio { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public string CorreoEnvioAviso { get; set; }
 
         public BEShowRoomEventoConsultora(IDataRecord datarec)

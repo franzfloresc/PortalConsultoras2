@@ -9592,6 +9592,7 @@ span.icon-advertencia{
     margin: 0 auto;
     position: relative;
     margin-top: 5%;
+    height:39px;
 }
 .solo_hoy_mobile img{
     width:100%;
@@ -9601,7 +9602,7 @@ span.icon-advertencia{
     font-size: 13px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 16%;
+    margin-top: 1%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10104,7 +10105,8 @@ span.icon-advertencia{
 }
 .solo_hoy_mobile2{
     width: 200px;
-    margin-top: 6px;
+    /*margin-top: 6px;*/
+    height:34px;
 }
 .solo_hoy_mobile2 img{
     width:100%;
@@ -10745,6 +10747,7 @@ span.icon-advertencia{
     font-weight: 700;
     font-size: 14.5px;
     height:40px;
+    overflow:hidden;
 }
 .box_promotions{
     background:white;
