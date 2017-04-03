@@ -35321,6 +35321,12 @@ h1#penmostreo .campana {
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
 }
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
 
 .btnnotificacion {
     text-decoration: none;
