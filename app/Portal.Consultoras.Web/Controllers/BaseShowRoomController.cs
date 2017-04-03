@@ -638,11 +638,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             // redes sociales
             modelo.FBRuta = GetUrlCompartirFB();
-            var mensaje = "";
-            modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
-            mensaje = Util.Trim(mensaje);
-            mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
-            modelo.FBMensaje = modelo.Descripcion + ": " + Util.Trim(mensaje);
+            //var mensaje = "";
+            //modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
+            //mensaje = Util.Trim(mensaje);
+            //mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
+            modelo.FBMensaje = ""; //modelo.Descripcion + ": " + Util.Trim(mensaje);
 
             // agrupar por marca
             modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
