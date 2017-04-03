@@ -1483,7 +1483,7 @@ namespace Portal.Consultoras.Web.Controllers
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            if (!userData.CargoEntidadesShowRoom) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
             model.BEShowRoom = userData.BeShowRoom;
 

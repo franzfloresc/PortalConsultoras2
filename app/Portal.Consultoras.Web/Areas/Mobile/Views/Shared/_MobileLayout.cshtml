@@ -189,7 +189,7 @@
                         <li>
                             <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                 <div class="content_banner_header_showroom">
-                                    <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+                                    <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
 
                                     <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
                                     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
@@ -445,7 +445,7 @@
 
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="content" data-content="">
+        <div id="contentmobile" data-content="">
             @RenderBody()
         </div>
         <div class="clear">
@@ -833,7 +833,7 @@
                             if (checkTimeout(data)) {
                                 if (response.success) {
                                     $('#content_slider_banner').hide();
-                                    $('#content').css('margin-top', '');
+                                    $('#contentmobile').css('margin-top', '');
                                 }
                             }
                         },
@@ -1159,11 +1159,13 @@
 
             $("#btn_cerrar_oferta_mobile").click(function () {
                 $('.header_slider').slideUp();
-                $("#content").css({ 'margin-top': '63px' });
+                $("#contentmobile").css({ 'margin-top': '63px' });
 
                 OcultarBannerTop();
 
             }); 
+
+            debugger;
 
             if(MostrarBannerPL20){
                 loadBannerLP20();
@@ -1175,14 +1177,14 @@
                 var urlBienvenida = URLactual.indexOf("Bienvenida");
 
                 if (urlBienvenida > 0){
-                    $("#content").css({ 'margin-top': '0px' });
+                    $("#contentmobile").css({ 'margin-top': '0px' });
                 }else{
-                    $("#content").css({ 'margin-top': '63px' });
+                    $("#contentmobile").css({ 'margin-top': '63px' });
                 }
             }else{
                 var URLactual = window.location.href;
                 var urlPagina = URLactual.indexOf("Cliente");
-                $("#content").css({ 'margin-top': '123px' });
+                $("#contentmobile").css({ 'margin-top': '123px' });
             }
             
             var URLactual = window.location.href;
@@ -1202,13 +1204,13 @@
 
             if (urlBienvenida > 0){
                 if (sesionEsShowRoom != null && sesionEsShowRoom == "1"){
-                    $("#content").css({ 'margin-top': '0px' });
+                    $("#contentmobile").css({ 'margin-top': '0px' });
                 }else{
-                    $("#content").css({ 'margin-top': '63px' });
+                    $("#contentmobile").css({ 'margin-top': '0px' });
                 }
             }else{
                 if($('#flexslidertop ul.slides li').length == 0){
-                    $("#content").css({ 'margin-top': '63px' });
+                    $("#contentmobile").css({ 'margin-top': '63px' });
                 }
             }
 
@@ -1236,7 +1238,7 @@
             }); 
 
             if($('#flexslider ul.slides li').length > 0){
-                $("#content").css("margin-top", "0px");
+                $("#contentmobile").css("margin-top", "0px");
                 $('#content_slider_banner').show();
 
                 $('#flexslider').flexslider({ 
