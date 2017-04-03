@@ -995,7 +995,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult RechazarPostulante(int id)
+        public ActionResult RechazarPostulante(int id, string nombre)
         {
             var rechazoModel = new RechazoModel();
             using (var sv = new PortalServiceClient())
@@ -1005,6 +1005,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             rechazoModel.SolicitudPostulanteID = id;
             rechazoModel.CodigoISO = CodigoISO;
+            rechazoModel.NombreCompleto = nombre;
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
@@ -2813,7 +2814,7 @@ namespace Portal.Consultoras.Web.Controllers
                     FechaIngreso = c.FechaIngreso,
                     Latitud=c.Latitud,
                     Longitud= c.Longitud,
-                   //CampaniaDeRegistro = c.CampaniaDeRegistro,
+                    CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico
 
@@ -2826,7 +2827,7 @@ namespace Portal.Consultoras.Web.Controllers
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
                 {"Fecha Registro", "FechaCreacion"},
-              //  {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Campaña Registro", "CampaniaDeRegistro"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},

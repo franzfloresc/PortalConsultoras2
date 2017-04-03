@@ -244,7 +244,7 @@
         <div class="cellGrid " data-colName="PendienteConfirmacion"><span class="buttonGrid"  onclick="reenviar('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowPendienteConfirmacion}}">Correo</span></div>
         <div class="cellGrid " data-colName="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}" >Reactivar</span></div>
         <div class="cellGrid " data-colName="Aprobar"><span class="buttonGrid" onclick="Aprobar('{{SolicitudPostulanteID}}')" >Aprobar</span></div>
-        <div class="cellGrid " data-colName="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}')">Rechazar</span></div>
+        <div class="cellGrid " data-colName="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">Rechazar</span></div>
         <div class="cellGrid " data-colName="EnviarAFFVV"><span class="buttonGrid" onclick="enviarFFVV('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowEnviarAFFVV}}">Enviar a<br />FFVV</span></div>
         <div class="cellGrid " data-colName="DiasEnEspera">{{DiasEnEspera}}</div>
         <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colName="ZonaOrigen">{{ZonaOrigen}}</div>
@@ -1675,13 +1675,13 @@
 
     }
 
-    function Rechazar(solicitudPostulanteID) {
+    function Rechazar(solicitudPostulanteID,nombreCompleto) {
         limpiarPopUps();
 
         $('#divRechazarPostulante').empty();
         $('#divRechazarPostulante').show();
         LoadSpinner('divRechazarPostulante');
-    $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+        $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID, nombre: nombreCompleto }, function (html) {
             $('#divRechazarPostulante').html(html);
             $('#divRechazarPostulante').show();
         }).done(function () { });

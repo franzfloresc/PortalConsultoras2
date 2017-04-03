@@ -3,7 +3,7 @@
 
 @Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
 @Html.Hidden("CodigoISO", Model.CodigoISO)
-
+@Html.Hidden("NombreCompleto", Model.NombreCompleto)
 
 <style>
     .boton_celeste { behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important; }
@@ -36,7 +36,7 @@
         <div class="contenido_popUp rechazarPostulante">
 
             <h1>RECHAZAR <span class="texto_enNegritas">POSTULANTE</span></h1>
-            <div class="usuario_por_rechazar">Estás a punto de rechazar a <span>Karina Elizabeth Chávez Malca.</span></div>
+            <div class="usuario_por_rechazar">Estás a punto de rechazar a <span>@Model.NombreCompleto</span></div>
 
             <div class="contenedor_motivoRechazo">
 
@@ -66,7 +66,7 @@
 
                     <div class="selectP2 seleccion_pagina textboxSB2">
                         @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
-                        @Html.TextAreaFor(m => m.MotivoRechazo, 3, 37, new { @class = "", @placeholder = "Comentarios adicionales...", maxlength = 255 })
+                        @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "", @placeholder = "Comentarios adicionales...", maxlength = 255 })
                     </div>
                 </div>
                 <div class="div-3">
