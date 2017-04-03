@@ -999,6 +999,11 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
+    //EPD-1871
+    if (typeof (Storage) !== 'undefined') {
+        localStorage.clear();
+    }
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
