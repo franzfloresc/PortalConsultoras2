@@ -150,7 +150,7 @@
                         <!--OFERTA DEL DIA HEADER-->
                         <div class="BloqueOfertaDiaHeader">
                             <div class="row_contador" style="padding:0;">
-                                <div class="float_left">
+                                <div class="float_left" style="margin-left:16px;">
                                     <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
                                     <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                 </div>
@@ -367,7 +367,7 @@
                                         <div class="imagen_set_oferta_mobile">
                                             <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
                                     </div>
-                                    <div class="float_left" style="width:50%; margin-left:3%;">                                       
+                                    <div class="float_left" style="width:50%; margin-left:1%;">                                       
                                         <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                         <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
                                      </div>
@@ -1206,7 +1206,7 @@
                 if (sesionEsShowRoom != null && sesionEsShowRoom == "1"){
                     $("#contentmobile").css({ 'margin-top': '0px' });
                 }else{
-                    $("#contentmobile").css({ 'margin-top': '0px' });
+                    $("#contentmobile").css({ 'margin-top': '63px' });
                 }
             }else{
                 if($('#flexslidertop ul.slides li').length == 0){

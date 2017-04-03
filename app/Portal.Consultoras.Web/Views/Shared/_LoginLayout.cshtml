@@ -34,7 +34,10 @@
         var esPaisLbel = '@ViewBag.EsPaisLbel';
 
         var _gaq = _gaq || [];
+        /*
+        EPD-1871
         _gaq.push(['_setAccount', 'UA-38299403-1']);
+        */
         _gaq.push(['_setDomainName', 'none']);
         _gaq.push(['_setAllowLinker', true]);
         _gaq.push(['_trackPageview']);
@@ -44,6 +47,7 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
+
     </script>
 
     <script type="text/javascript">
@@ -64,7 +68,10 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Google Tag Manager -->
+
+    <!-- EPD-1871
     <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        -->
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({

@@ -32698,7 +32698,7 @@ h1#penmostreo .campana {
     height: auto;
     float: left;
     margin-left: 12px;
-    margin-top: 6px;
+    margin-top: 12px;
     text-align: center;
 }
    
@@ -34192,6 +34192,12 @@ h1#penmostreo .campana {
 
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
+}
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
 }
 
 .btnnotificacion {
