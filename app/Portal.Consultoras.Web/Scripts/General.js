@@ -940,6 +940,8 @@ function CompartirRedesSocialesTexto(texto) {
     texto = texto.ReplaceAll(" ", "%32");
     texto = texto.ReplaceAll("+", "%43");
 
+    texto = texto.ReplaceAll("&", "y");
+
     return "whatsapp://send?text=" + texto;
 }
 
