@@ -901,7 +901,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             if (model.CargoEntidadesShowRoom)
             {
-                Session["EsShowRoom"] = "1";
+                //Session["EsShowRoom"] = "1";
                 return;
             }
 
@@ -988,6 +988,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 //if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date) //beShowRoomConsultora.MostrarPopup = false;
                                 //    Session["MostrarShowRoomProductos"] = false;
                             }
+                            else
+                            {
+                                Session["EsShowRoom"] = "0";
+                                Session["MostrarShowRoomProductos"] = "0";
+                            }
+
                             Session["carpetaPais"] = carpetaPais;
 
                             model.CargoEntidadesShowRoom = true;
