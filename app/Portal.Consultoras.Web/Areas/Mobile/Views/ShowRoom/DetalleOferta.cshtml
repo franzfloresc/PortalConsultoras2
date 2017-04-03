@@ -17,7 +17,7 @@
             <div class="pestana_esika"></div><!--PESTANA ESIKA-->
             <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
         </div>
-        <img src="@Model.ImagenProducto" width="236">
+        <img src="@Model.ImagenProducto" width="236" style="margin-top:20px;">
     </div>
     <div class="wrapper_resumen_mobile" style="margin-top:10px;">
         <h1>@Model.Descripcion</h1>
@@ -220,7 +220,7 @@
                         </div>
                         <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area="Mobile"})" class="slider_item_content">
                             <div data-img="">
-                                <img src="@oferta.ImagenMini" />
+                                <img src="@oferta.ImagenMini" style="margin-top:18px;" />
                             </div>
                             <span class="title">@oferta.Descripcion</span>
                             <span class="precio_tachado_carrusel_set">$ 90.000</span>
