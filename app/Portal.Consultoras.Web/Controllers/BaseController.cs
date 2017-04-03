@@ -926,7 +926,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         model.ShowRoomNivelId = showRoomNivelId.NivelId;                        
 
-                        if (model.BeShowRoom != null)
+                        if (model.BeShowRoom != null && model.BeShowRoom.Estado != 0)
                         {
                             var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
