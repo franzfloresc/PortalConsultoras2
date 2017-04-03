@@ -69,6 +69,8 @@ $(document).ready(function () {
         numImagen = 1;
     }
 
+    /*
+    EPD-1871
     $(document).on('change', '.seleccion_pagina select', function () {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -77,6 +79,7 @@ $(document).ready(function () {
             'label': $(this).find('option:selected').text()
         });
     });
+    */
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -1153,12 +1156,25 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 
     if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
+        //EPD-1871
+        var sentListEstrategia = false;
+        if (typeof (Storage) !== 'undefined') {
+            var sle = localStorage.getItem('sentListEstrategia2');
+            if (sle != null && sle == '1') {
+                sentListEstrategia = true;
             }
-        });
+            else {
+                localStorage.setItem('sentListEstrategia2', '1');
+            }
+        }
+        if (!sentListEstrategia) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
     }
 }
 function TagManagerClickAgregarProducto() {
@@ -3260,6 +3276,8 @@ function CambioPagina(obj) {
         return false;
     }
 
+    /*
+    EPD-1871
     var accion = obj.attr("data-paginacion");
     if (accion === "back" || accion === "next") {
         dataLayer.push({
@@ -3269,6 +3287,8 @@ function CambioPagina(obj) {
             'label': 'Pág. ' + rpt.page
         });
     }
+    */
+
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
