@@ -416,6 +416,7 @@ namespace Portal.Consultoras.Common
                 public const string BannerEnvioCorreo = "BannerEnvioCorreo";
                 public const string TextoEnvioCorreo = "TextoEnvioCorreo";
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+                public const string BannerLateralBienvenida = "BannerLateralBienvenida";
             }
 
             public class Mobile

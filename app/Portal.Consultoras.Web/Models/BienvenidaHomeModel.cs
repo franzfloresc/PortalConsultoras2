@@ -92,5 +92,6 @@ namespace Portal.Consultoras.Web.Models
         #endregion
 
         public int ShowRoomMostrarLista { get; set; }
+        public string ShowRoomBannerUrl { get; set; }
     }
 }

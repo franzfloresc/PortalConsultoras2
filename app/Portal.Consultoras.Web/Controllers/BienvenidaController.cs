@@ -390,6 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
                     : userData.EsCatalogoPersonalizadoZonaValida
                         ? 0
                         : 1;
+                model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
             {
