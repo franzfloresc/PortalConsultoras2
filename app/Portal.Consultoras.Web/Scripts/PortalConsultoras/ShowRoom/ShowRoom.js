@@ -187,8 +187,21 @@ function CargarProductosShowRoom(busquedaModel) {
                 var lista = response.lista;
 
                 $.each(lista, function (index, value) {
+                    var descripcion = "";
+
+                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                        descripcion = value.Descripcion.length > 41
+                        ? value.Descripcion.substring(0, 40) + "..."
+                        : value.Descripcion;
+                    } else {
+                        descripcion = value.Descripcion.length > 31
+                        ? value.Descripcion.substring(0, 30) + "..."
+                        : value.Descripcion;
+                    }
+                    
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
+                    value.Descripcion = descripcion;
                 });
 
                 $("#divProductosShowRoom").html("");
