@@ -630,17 +630,17 @@
                     </div>
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,1)" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,2)" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
-                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajo')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,3)" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -839,7 +839,7 @@
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
