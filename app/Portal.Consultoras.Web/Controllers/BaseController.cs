@@ -893,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             if (model.CargoEntidadesShowRoom)
             {
-                Session["EsShowRoom"] = "1";
+                //Session["EsShowRoom"] = "1";
                 return;
             }
 
@@ -918,7 +918,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         model.ShowRoomNivelId = showRoomNivelId.NivelId;                        
 
-                        if (model.BeShowRoom != null)
+                        if (model.BeShowRoom != null && model.BeShowRoom.Estado != 0)
                         {
                             var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
@@ -980,6 +980,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 //if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date) //beShowRoomConsultora.MostrarPopup = false;
                                 //    Session["MostrarShowRoomProductos"] = false;
                             }
+                            else
+                            {
+                                Session["EsShowRoom"] = "0";
+                                Session["MostrarShowRoomProductos"] = "0";
+                            }
+
                             Session["carpetaPais"] = carpetaPais;
 
                             model.CargoEntidadesShowRoom = true;
@@ -1475,7 +1481,7 @@ namespace Portal.Consultoras.Web.Controllers
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            if (!userData.CargoEntidadesShowRoom) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
             model.BEShowRoom = userData.BeShowRoom;
 
