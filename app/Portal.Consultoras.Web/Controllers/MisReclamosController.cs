@@ -109,17 +109,17 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (userData.PaisID == 4)
             {
-                model.limiteMinimoTelef = 0;
+                model.limiteMinimoTelef = 7;
                 model.limiteMaximoTelef = 7;
             }
             else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
             {
-                model.limiteMinimoTelef = 0;
+                model.limiteMinimoTelef = 8;
                 model.limiteMaximoTelef = 8;
             }
             else if (userData.PaisID == 6)
             {
-                model.limiteMinimoTelef = 0;
+                model.limiteMinimoTelef = 9;
                 model.limiteMaximoTelef = 10;
             }
             else
