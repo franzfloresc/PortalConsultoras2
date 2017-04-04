@@ -190,7 +190,8 @@
             <div class="float_left">
                 <span class="texto_correo">Correo Electrónico</span>
                 <input type="hidden" id="hdEmail" value="@Model.Email"/>
-                @Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})
+                @*@Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})*@
+                <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
                 <br />
                 <div class="correo_reclamo_error">
                     <span id="spnEmailError" style="display: none;">
