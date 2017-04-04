@@ -60,20 +60,22 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
-                List<int> num = new List<int> { 2, 3, 4, 5, 7, 8, 9 };
+                //List<int> num = new List<int> { 2, 3, 4, 5, 7, 8, 9,10 };
+                List<int> num = new List<int> { 
+                EnumsEstadoPostulante.EnGestionServicioAlCliente.ToInt(),//2
+                EnumsEstadoPostulante.EnAprobacionFFVV.ToInt(),//3
+                EnumsEstadoPostulante.Rechazada.ToInt(),//4
+                EnumsEstadoPostulante.YaConCodigo.ToInt(),//5
+                EnumsEstadoPostulante.GenerandoCodigo.ToInt(),//7
+                EnumsEstadoPostulante.EnAprobacionSAC.ToInt(),//8
+                EnumsEstadoPostulante.YaConCodigoOCR.ToInt(),//9
+                EnumsEstadoPostulante.PendienteConfirmarCorreo.ToInt()};//10
 
-                //Aprobación FFVV  = 3
-                //Aprobación SAC   = 8
-                //Gestión SAC      = 2
-                //Rechazada        = 4
-                //Generando Código = 7
-                //Ya con Código    = 5
-                //Pendiente Confirmar Correo  9
 
                 estadoPostulantes = estados.Where(p => num.Contains(p.Valor.Value)).ToList();
-                var parametoUnete = new ServiceUnete.ParametroUneteBE();
-                parametoUnete.Valor = 9;
-                parametoUnete.Nombre = "PENDIENTE DE CONFIRMAR CORREO";
+                //var parametoUnete = new ServiceUnete.ParametroUneteBE();
+                //parametoUnete.Valor = 9;
+                //parametoUnete.Nombre = "PENDIENTE DE CONFIRMAR CORREO";
 
                 var parametroTodos = new ServiceUnete.ParametroUneteBE
                 {
@@ -81,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Nombre = "Todos"
                 };
 
-                estadoPostulantes.Add(parametoUnete);
+                //estadoPostulantes.Add(parametoUnete);
                 estadoPostulantes.Insert(0, parametroTodos);
             }
 
@@ -1030,7 +1032,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult RechazarPostulante(int id)
+        public ActionResult RechazarPostulante(int id, string nombre)
         {
             var rechazoModel = new RechazoModel();
             using (var sv = new PortalServiceClient())
@@ -1040,6 +1042,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             rechazoModel.SolicitudPostulanteID = id;
             rechazoModel.CodigoISO = CodigoISO;
+            rechazoModel.NombreCompleto = nombre;
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
@@ -2930,7 +2933,7 @@ namespace Portal.Consultoras.Web.Controllers
                     FechaIngreso = c.FechaIngreso,
                     Latitud=c.Latitud,
                     Longitud= c.Longitud,
-                   //CampaniaDeRegistro = c.CampaniaDeRegistro,
+                    CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico
 
@@ -2943,7 +2946,7 @@ namespace Portal.Consultoras.Web.Controllers
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
                 {"Fecha Registro", "FechaCreacion"},
-              //  {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Campaña Registro", "CampaniaDeRegistro"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
@@ -3022,11 +3025,23 @@ namespace Portal.Consultoras.Web.Controllers
                 dic.Add("Diferencia Dias", "DiferenciaDias");
 
             }
-            else if (Estado == 9) // PENDIENTE CONFIRMACION DE CODIGO
+            else if (Estado == 10) // PENDIENTE CONFIRMACION DE CODIGO
             {
                 dic.Add("Dias en Espera", "DiasEnEspera");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
+            }
+            else if (Estado == 9)// YA CON CODIGO OCR
+            {
+                dic.Add("Codigo de Consultora", "CodigoConsultora");
+                dic.Add("Fecha de Ingreso", "FechaIngreso");
+                dic.Add("Zona Origen", "ZonaGZ");
+                dic.Add("Seccion Origen", "SeccionOrigen");
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Campaña Ingreso", "CodigoCampania");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");
+                dic.Add("Diferencia Dias", "DiferenciaDias");
+
             }
 
             dic.Add("Latitud", "Latitud");
@@ -3169,6 +3184,10 @@ namespace Portal.Consultoras.Web.Controllers
                     return EnumsEstadoPostulante.GenerandoCodigo;
                 case (int)EnumsEstadoPostulante.EnAprobacionSAC:
                     return EnumsEstadoPostulante.EnAprobacionSAC;
+                case (int)EnumsEstadoPostulante.YaConCodigoOCR:
+                    return EnumsEstadoPostulante.YaConCodigoOCR;
+                case (int)EnumsEstadoPostulante.PendienteConfirmarCorreo:
+                    return EnumsEstadoPostulante.PendienteConfirmarCorreo;
                 default:
                     return EnumsEstadoPostulante.Todos;
             }
