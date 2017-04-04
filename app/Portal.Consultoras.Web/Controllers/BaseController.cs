@@ -576,7 +576,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Cargar variables
 
-                CargarEntidadesShowRoom(model);
+                if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
+
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
@@ -890,14 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
             if (model == null) return;
-            
-            if (model.CargoEntidadesShowRoom)
-            {
-                //Session["EsShowRoom"] = "1";
-                return;
-            }
 
-          
             Session["EsShowRoom"] = "0";
             var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
             if (paisesShowRoom.Contains(model.CodigoISO))
@@ -986,12 +980,16 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session["MostrarShowRoomProductos"] = "0";
                             }
 
-                            Session["carpetaPais"] = carpetaPais;
-
-                            model.CargoEntidadesShowRoom = true;
+                            Session["carpetaPais"] = carpetaPais;                            
                         }
-                    }
-                    
+                        else
+                        {
+                            Session["EsShowRoom"] = "0";
+                            Session["MostrarShowRoomProductos"] = "0";
+                        }
+
+                        model.CargoEntidadesShowRoom = true;
+                    }                    
                 }
                 catch (Exception ex)
                 {
@@ -1005,6 +1003,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.BeShowRoom = null;
                 model.CargoEntidadesShowRoom = true;
             }
+
+            SetUserData(model);
         }
 
         #endregion
