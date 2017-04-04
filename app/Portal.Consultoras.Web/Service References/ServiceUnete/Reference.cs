@@ -1119,6 +1119,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         EnAprobacionSAC = 8,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        YaConCodigoOCR = 9,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        PendienteConfirmarCorreo = 10,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
