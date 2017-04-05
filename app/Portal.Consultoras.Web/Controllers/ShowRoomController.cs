@@ -2707,7 +2707,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && userData.EMailActivo == true))
                 {
                     emailValidado = false;
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn=ShowRoomIntriga" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 

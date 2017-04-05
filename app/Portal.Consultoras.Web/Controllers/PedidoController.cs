@@ -3322,7 +3322,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string PedidoValidadoDeshacer(string Tipo)
         {
-            var mensaje = "";
+            var mensaje = "";
+
             if (EstaProcesoFacturacion(out mensaje))
                 return mensaje;
 
@@ -3351,7 +3352,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ValidacionAbierta = true;
                     Estado = Constantes.EstadoPedido.Procesado;
-                }
+                }
+
                 olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
                 if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any())
@@ -3360,8 +3362,10 @@ namespace Portal.Consultoras.Web.Controllers
                     Estado = Constantes.EstadoPedido.Pendiente;
                 }
 
-                var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
-                sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
+                var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+
+                sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
+
                 if (Tipo == "PI")
                 {
                     List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
@@ -3369,7 +3373,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
                     }
-                }
+                }
+
                 BEConfiguracionCampania oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
 
                 if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
@@ -3381,7 +3386,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return "";
-        }
+        }
+
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult InsertarDesglose()
@@ -5167,8 +5173,10 @@ namespace Portal.Consultoras.Web.Controllers
             // ISO del país, código de la campaña y código de la consultora
             var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
             var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
-            var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
-            TempData["CUVOfertaProl"] = listaParemetros.Length > 3 ? listaParemetros[3] : "";            
+            var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
+
+            TempData["CUVOfertaProl"] = listaParemetros.Length > 3 ? listaParemetros[3] : "";
+            
             if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
@@ -5184,7 +5192,8 @@ namespace Portal.Consultoras.Web.Controllers
                         !oBEConfiguracionCampania.ModificaPedidoReservado &&
                         !oBEConfiguracionCampania.ValidacionAbierta)
             {
-                // pasar a pase de pedido
+                // pasar a pase de pedido
+
                 var mensaje = PedidoValidadoDeshacer("PV"); // copiar en una sola funccion
                 if (mensaje != "")
                 {

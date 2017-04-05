@@ -38,6 +38,10 @@ $(document).ready(function () {
     });
 
     $("[data-email-reenviar]").click(function (e) {
+        if (!intrigaAceptoTerminos) {
+            $(this).toggleClass('check_intriga');
+        }
+        intrigaAceptoTerminos = true;
         IntrigaConfirmarCorreo();
     });
 });
