@@ -287,6 +287,8 @@
       <xs:enumeration value="Reactivada" />
       <xs:enumeration value="GenerandoCodigo" />
       <xs:enumeration value="EnAprobacionSAC" />
+      <xs:enumeration value="YaConCodigoOCR" />
+      <xs:enumeration value="PendienteConfirmarCorreo" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enums.EstadoPostulante" nillable="true" type="tns:Enums.EstadoPostulante" />

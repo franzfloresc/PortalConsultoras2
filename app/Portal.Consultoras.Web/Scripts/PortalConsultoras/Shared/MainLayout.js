@@ -1,9 +1,10 @@
 ﻿
 var showDisplayODD = 0;
+var ventanaChat = null;
 
 $(document).ready(function () {
 
-    
+
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
@@ -250,8 +251,8 @@ $(document).ready(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
-    
-    $("body").on('click','.belcorpChat', function () {
+
+    $("body").on('click', '.belcorpChat', function () {
         var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
@@ -259,40 +260,30 @@ $(document).ready(function () {
 
         if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
 
-            if (fechaActual >= FechaChatPais)
-            {
+            if (fechaActual >= FechaChatPais) {
                 var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
-                var res = encodeURI(url);
-                open(res, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(url);
             }
             else {
 
-                if (PaisISO == "PA")
-                {
+                if (PaisISO == "PA") {
                     var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                    var urlPA_ = encodeURI(urlPA);
-                    open(urlPA_, '', 'top=0,left=0,width=400,height=500');
+                    AbrirVentanaBelcorpChat(urlPA);
                 }
-                else if (PaisISO == "CR")
-                {
+                else if (PaisISO == "CR") {
                     var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                    var urlCR_ = encodeURI(urlCR);
-                    open(urlCR_, '', 'top=0,left=0,width=400,height=500');
+                    AbrirVentanaBelcorpChat(urlCR);
                 }
-                else if (PaisISO == "SV")
-                {
+                else if (PaisISO == "SV") {
                     var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                    var urlSV_ = encodeURI(urlSV);
-                    open(urlSV_, '', 'top=0,left=0,width=400,height=500');
+                    AbrirVentanaBelcorpChat(urlSV);
                 }
                 else if (PaisISO == "GT") {
                     var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                    var urlGT_ = encodeURI(urlGT);
-                    open(urlGT_, '', 'top=0,left=0,width=400,height=500');
+                    AbrirVentanaBelcorpChat(urlGT);
                 }
                 else {
-                    var res2 = encodeURI(UrlChatAnterior);
-                    open(res2, '', 'top=0,left=0,width=400,height=500');
+                    AbrirVentanaBelcorpChat(res2);
                 }
             }
         }
@@ -300,27 +291,22 @@ $(document).ready(function () {
 
             if (PaisISO == "PA") {
                 var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                var urlPA_ = encodeURI(urlPA);
-                open(urlPA_, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(urlPA);
             }
             else if (PaisISO == "CR") {
                 var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                var urlCR_ = encodeURI(urlCR);
-                open(urlCR_, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(urlCR);
             }
             else if (PaisISO == "SV") {
                 var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                var urlSV_ = encodeURI(urlSV);
-                open(urlSV_, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(urlSV);
             }
             else if (PaisISO == "GT") {
                 var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                var urlGT_ = encodeURI(urlGT);
-                open(urlGT_, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(urlGT);
             }
             else {
-                var res2 = encodeURI(UrlChatAnterior);
-                open(res2, '', 'top=0,left=0,width=400,height=500');
+                AbrirVentanaBelcorpChat(UrlChatAnterior);
             }
         }
         //cerrar Popup
@@ -350,6 +336,18 @@ $(document).ready(function () {
         
     }
 });
+
+function AbrirVentanaBelcorpChat(url) {
+    var res = encodeURI(url);
+  
+    if (localStorage.getItem('ventana') == null) {
+        ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
+        ventanaChat.focus();
+        localStorage.setItem('ventana', 'existe');
+    } else {
+        window.open("", "ventanaChat");
+    }
+}
 
 function OrdenarCabecera() {
     var hC = $("header").innerHeight() + 2;
@@ -382,11 +380,11 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    
+
                     data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
 
                     $("#pCantidadProductosPedido").html(data.cantidadProductos > 0 ? data.cantidadProductos : 0);
-                    
+
                     $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
                     $.each(data.ultimosTresPedidos, function (index, item) {
@@ -405,7 +403,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
                     if (showPopup == true) {
                         microefectoPedidoGuardado();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $(".contenedor_circulos").fadeOut();
                         }, 2700);
                     }
@@ -693,6 +691,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+function alert_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
+}
+
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
@@ -772,7 +777,7 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 };
-function ValidarCorreo(correo) {   
+function ValidarCorreo(correo) {
     var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
@@ -979,6 +984,7 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
+    localStorage.clear();
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -1030,7 +1036,7 @@ function loadOfertaDelDia() {
                     } else {
                         $('.ubicacion_web ').css('margin-top', '185px');
                     }
-                    
+
                     
                     var intv1 = setInterval(function () {
                         if ($('#OfertaDelDia:visible').length > 0) {
@@ -1213,7 +1219,7 @@ function addOfertaDelDiaPedido(tipo) {
                             ActualizarGanancia(data.DataBarra);
                             TagManagerClickAgregarProducto();
                         }
-                        
+
                         CargarResumenCampaniaHeader(true);
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                         closeWaitingDialog();

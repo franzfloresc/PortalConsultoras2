@@ -630,17 +630,17 @@
                     </div>
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
-                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajo')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -804,6 +804,7 @@
             <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
             <input type="hidden" id="hdn_NombreCompletoMD" value="" />
             <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
 
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
@@ -838,23 +839,23 @@
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu teléfono:</label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
-                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">

@@ -319,7 +319,7 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+    $("#txtTelefonoTrabajo, #txtTelefonoTrabajoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
@@ -330,14 +330,25 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
-    $("#txtEMailMD").keypress(function (evt) {
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode; 
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtEMailMD, #txtConfirmarEMail").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
         }
         else {
             var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            var re = /^[a-zA-Z@._0-9\-]*$/;
             return re.test(keyChar);
         }
     });
@@ -414,6 +425,38 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
+
+/*** EPD-1089 ***/
+function limitarMaximo(e, contenido, caracteres, id) {
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
+        unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
+        return true;
+
+    if (contenido.length >= caracteres) {
+        selectedText = document.getSelection();
+        if (selectedText == contenido) {
+            $("#" + id).val("");
+            return true;
+        } else if (selectedText != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+function limitarMinimo(contenido, caracteres, a) {
+    if (contenido.length < caracteres && contenido.trim() != "")
+    {
+        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
+        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        return false;
+    }
+    return true;
+}
+/*** FIN EPD-1089 ***/
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -1567,6 +1610,7 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
+
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1577,12 +1621,34 @@ function ActualizarMD() {
         alert("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
+    
+    if (!ValidarTelefono($("#txtCelularMD").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }
     if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
         ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
         $('#txtTelefonoMD').focus();
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
         return false;
     }
+
+    //Validando cantidad de caracteres minimos.
+    var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
+    if (!MinCaracterTelefono) 
+        return false;
+
+    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+    if (!MinCaracterCelular)
+        return false;
+
+    if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+        
+        var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
+        if (!MinCaracterOtroTelefono)
+            return false;
+    }
+    //
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
@@ -1743,6 +1809,11 @@ function ActualizarDatos() {
     var celular = $('#txtCelular').val();
     var correoElectronico = $('#txtEMail').val();
     var confirmacionCorreoElectronico = $('#txtConfirmarEMail').val();
+
+    if (!ValidarTelefono($("#txtCelular").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }        
 
     if ((telefono == '' || telefono == null) &&
         celular == '' || celular == null) {
@@ -3154,6 +3225,37 @@ function PopupCerrar(idPopup) {
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
+}
+
+function ValidarTelefono(celular) {
+    var resultado = false;
+
+    var item = {
+        Telefono: celular //$("#txtCelular").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                resultado = false;
+            else
+                resultado = data.success;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) { }
+        }
+    });
+
+    return resultado;
 }
 
 function VerShowRoomIntriga() {
