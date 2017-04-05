@@ -691,6 +691,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+function alert_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
+}
+
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
