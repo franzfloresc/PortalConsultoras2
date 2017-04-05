@@ -101,22 +101,6 @@
 
                 <div class="importe_reservado">@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</div>
             </div>
-            @*@if (!string.IsNullOrEmpty(item.ObservacionPROL))
-                {
-                    <div>
-                        @{string[] obser = item.ObservacionPROL.Split('|');}
-                        @if (obser != null)
-                        {
-                            foreach (string ob in obser)
-                            {
-                                if (!string.IsNullOrEmpty(ob))
-                                {
-                                    <span>@ob</span>
-                                }
-                            }
-                        }
-                    </div>
-                }*@
         </div>
     }
 

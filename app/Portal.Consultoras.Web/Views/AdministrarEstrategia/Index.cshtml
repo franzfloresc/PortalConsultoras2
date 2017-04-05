@@ -33,7 +33,6 @@
             <div class="div-3">
                 <div class="titG">Tipo de Estrategia:</div>
                 <div class="selectA borde_redondeado">
-                    @*Html.DropDownListFor(model => model.TipoEstrategiaID, new SelectList(Model.ListaTipoEstrategia, "TipoEstrategiaID", "Descripcion"), new { id = "ddlTipoEstrategia" })*@
                     <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
                         @if (Model.ListaTipoEstrategia != null)
                         {
@@ -209,7 +208,6 @@
                 <div class="div-3">
                     <div class="titG">                        
                         <div class="input_search">
-                            @*<img src='@Url.Content("~/Content/Images/subirimagen.png")' id="imgBuscar" class="img-matriz-preview">*@
                             <input type="hidden" id="hdnCodigoSAP" class="input-imagen-producto" />
                            <input type="hidden" id="hdnimagenProducto" class="input-imagen-producto" />
                             <input type="hidden" id="hdnDescripcion" class="input-imagen-producto" />
@@ -228,12 +226,11 @@
                                      action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
                                      onComplete: function (id, fileName, responseJSON) {
                                          if (checkTimeout(responseJSON)) {
-                                             //$(".qq-upload-list").css("display", "none");
+
                                              if (responseJSON.success) {
                                                  $("#hdnimagenProducto").val(responseJSON.name);
                                                  $("#imagenProductoAnterior").val("");
                                                  $("#fotoProducto_Id").val(('0' + ($("#ContenidoImagenes .titG").length + 1)).substr(-2));
-                                                 // req. 1664   
 
                                                  ActualizarImagenMatriz();
                                                  mostrarInformacionCUV($("#txtCUV2").val());
@@ -246,7 +243,6 @@
                                      onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                                  });
 
-                                 // $('.qq-upload-button').text("cargar imagen");
                                  function ActualizarImagenMatriz() {
                                      var fotosProductos = [];
                                      var imagenNueva = {
@@ -313,10 +309,6 @@
                                                  closeWaitingDialog();
                                                  if (data.success == true) {
                                                      alert(data.message);
-                                                     //HideDialog("DialogMatrizComercial");
-                                                     //LimpiarDatos();
-                                                     //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-
                                                  }
                                                  else {
                                                      alert(data.message);
@@ -327,7 +319,6 @@
                                              if (checkTimeout(data)) {
                                                  closeWaitingDialog();
                                                  alert(data.message);
-                                                 // HideDialog("DialogMatrizComercial");
                                              }
                                          }
                                      });
@@ -626,7 +617,6 @@
             $('#chkOfertaUltimoMinuto').attr('checked', false);
             $('#hdZonas').val('');
 
-            /*Limpiar datos*/
             $('#txtCUV2').val('');
             $('#txtPrecio2').val('');
             $('#txtCUV').val('');
@@ -656,7 +646,6 @@
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             $("#btnActivarDesactivar").hide();
 
-            /* SB20-312 - INICIO */
             if (aux1 == "4") {
                 $("#txtOrden").val("");
                 $('#div-orden').hide();
@@ -666,7 +655,6 @@
                 $("#btnActivarDesactivar").show();
             }
             else {
-                //$("#txtOrden").val("");
                 $('#div-orden').show();
 
                 $('#txt1-estrella').html('Mostrar estrella');
@@ -707,24 +695,15 @@
                 $("#ddlEtiqueta2").children('option').hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").show();
 
-                $('#div-orden').hide(); //Ocultando Orden
+                $('#div-orden').hide();
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('5');
-
-                //$('#txtLimite').prop('readonly', true); //Modo lectura on
             }
-            //else {
-            //    $('#div-orden').show(); //Ocultando Orden
-            //    //$('#txtLimite').prop('readonly', false); //Modo lectura off
-            //}
-            /*********************/
-            /* SB20-312 - FIN */
 
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
         });
-        // Activar/Desactivar las estrategias de Ofertas de forma masiva
         $("#btnActivarDesactivar").click(function () {
 
             var proceder = confirm('¿ Desea habilitar/deshabiltar las estrategias?');
@@ -749,7 +728,7 @@
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify(params),
                 async: true,
-                success: function (data) {                    
+                success: function (data) {
                     alert(data.message);
                     fnGrilla();
                     closeWaitingDialog();
@@ -791,7 +770,6 @@
             $("#hdTipoConsulta").attr("value", "0");
             $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
             var Id = $(this).val();
-            //if (Id != "") {
             waitingDialog({});
             $.ajaxSetup({ cache: false });
             $.ajax({
@@ -902,9 +880,8 @@
                 var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
                 var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
                 var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+                var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
 
-                /**** PL20-1225 *****/
                 var flagOD = "";
                 if (auxOD == '7' || auxOD == '4') {
                     flagOD = '1';
@@ -912,14 +889,13 @@
                 else {
                     flagOD = '0';
                 }
-                /********/
 
                 var params = {
                     CampaniaID: $("#ddlCampania").val(),
                     CUV2: $("#txtCUV2").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                     CUV1: $("#txtCUV").val(),
-                    flag: flagOD,//"1",
+                    flag: flagOD,
                     FlagNueva: flagNueva,
                     FlagRecoProduc: flagRecoProduc,
                     FlagRecoPerfil: flagRecoPerfil
@@ -1084,9 +1060,6 @@
             $("#divPaso3").addClass("boton_redondo_admcontenido_off");
 
             fnGrillaEstrategias1();
-
-            //$(".ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset").css("float", "none");
-            //$(".ui-dialog .ui-dialog-buttonpane").css("text-align", "center");
             showDialog("DialogNuevoMasivo");
         });
 
@@ -1141,7 +1114,6 @@
                 success: function (data) {
                     if (data.success) {
                         closeWaitingDialog();
-                        //fnGrillaEstrategias2();
                         $("#divMasivoPaso1").hide();
                         $("#divMasivoPaso2").hide();
                         $("#divMasivoPaso3").show();
@@ -1223,9 +1195,8 @@
             var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
             var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
             var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id'); // PL20-1225
+            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
 
-            /**** PL20-1225 *****/
             var flagOD = "";
             if (auxOD == '7') {
                 flagOD = '4';
@@ -1233,7 +1204,6 @@
             else {
                 flagOD = '0';
             }
-            /********/
 
             var params = {
                 CampaniaID: $("#ddlCampania").val(),
@@ -1284,11 +1254,7 @@
                             $("#txtPrecio2").focus();
                         }
 
-                        //$("#txtPrecio").val("");
-                        //$("#txtCUV").val("");
-
                         $("#ContenidoImagenes").empty();
-                        //$("#imgSeleccionada").attr("src", rutaImagenVacia);
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
                         imagenesProductos = [];
@@ -1380,13 +1346,11 @@
         $("#divImagenEstrategiaContenido").hide();
     });
 
-    ///////////////
     $(document).keydown(function (e) {
         if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
             e.preventDefault();
         }
     });
-    //////////////
 
     function fnGrillaEstrategias1() {
         $("#listCargaMasiva1").jqGrid("GridUnload");
@@ -1399,7 +1363,6 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            //colNames: ['Descripcion', 'Cantidad'],
             colNames: ['Id', 'Descripción', 'Cantidad'],
             colModel: [
                 { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
@@ -1457,7 +1420,6 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            //colNames: ['Descripcion', 'Cantidad'],
             colNames: ['Id', 'Descripción', 'Cantidad'],
             colModel: [
                 { name: 'Id', index: 'Id', width: 100, editable: true, resizable: false, hidden: true },
@@ -1513,7 +1475,6 @@
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
-    // 2209 - Inicio
     function CerrarTallaColor() {
 
         var params = {
@@ -1552,7 +1513,7 @@
             }
         });
     }
-    // 2209 - Fin
+
     function MostrarVistaPrevia(id) {
         $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
         if (id == "preview0") $("#imgZonaEstrategia").attr("src", rutaImagenVacia);
@@ -1682,7 +1643,6 @@
     }
 
     function PedidoAsociadoChecks() {
-        // $(".checksPedidosAsociados").html('');
         waitingDialog({});
         $.ajaxSetup({ cache: false });
         var codigoPrograma = $("#ddlTipoEstrategia option:selected").attr("Codigo-Programa");
@@ -1757,7 +1717,6 @@
                     error: function (XMLHttpRequest, textStatus, errorThrown) { },
                     success: function (data, textStatus, jqXHR) { },
                     complete: function () {
-                        // $.jstree._reference($("#arbolRegionZona")).check_all();
                         $("#arbolRegionZona").jstree("set_theme", "apple", rutastylejstree);
                         closeWaitingDialog();
                     }
@@ -1792,20 +1751,19 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4') ? true : false,
-            //multiPageSelection: (tipo == '4') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
-                { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false },
-                { name: 'ID', index: 'ID', width: 20, editable: true, hidden: false },
-                { name: 'NumeroPedido', index: 'NumeroPedido', width: 40, editable: true, hidden: false },
-                { name: 'Precio2', index: 'Precio2', width: 70, editable: true, align: 'center', resizable: false },
-                { name: 'CUV2', index: 'CUV2', width: 70, editable: true, resizable: false, sortable: false, align: 'center' },
-                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false },
-                { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false },
-                { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false },
-                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, formatter: ShowImage },
-                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, formatter: ShowActions }
+                { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
+                { name: 'ID', index: 'ID', width: 20, editable: true, hidden: false, sortable: false },
+                { name: 'NumeroPedido', index: 'NumeroPedido', width: 40, editable: true, hidden: false, sortable: false },
+                { name: 'Precio2', index: 'Precio2', width: 70, editable: true, align: 'center', resizable: false, sortable: false },
+                { name: 'CUV2', index: 'CUV2', width: 70, editable: true, resizable: false, sortable: true, align: 'center' },
+                { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false, sortable: false },
+                { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false, sortable: false },
+                { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: true },
+                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
+                { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions }
             ],
             jsonReader:
             {
@@ -1833,6 +1791,7 @@
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function (data) {
+
                 if (data.rows.length > 0) {
                     for (var i = 0; i < data.rows.length; i++) {
                         if (data.rows[i].cell[10] == '1') {
@@ -1841,12 +1800,8 @@
                     }
                 }
             }
-            //gridComplete: function () { }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-
-        //jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        // allRowsInGrid = $('#list').getGridParam('data');
         if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
     }
 
@@ -2150,21 +2105,12 @@
             closeOnEscape: true,
             width: 830,
             close: function () {
-                //$('input:checkbox').removeAttr('checked');               
-                //$(this).dialog('destroy');
-                //$("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
             },
-            //open: function (event, ui) {
-            //    originalContent = $("#DialogAdministracionEstrategia").html();
-            //},
             draggable: false,
             title: "Registro de Estrategias",
             buttons:
             {
                 "Guardar": function () {
-                    //if (!$("#chkVisible2").attr("checked")) {
-                    //    $('#mensajeErrorCUV').val('');
-                    //}
 
                     if ($('#mensajeErrorCUV').val() != "") {
                         alert($('#mensajeErrorCUV').val());
@@ -2188,7 +2134,6 @@
                         }
                     }
 
-                    /**** // PL20-1225 ****/
                     var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
                     if (auxOD == "7") {
                         var desc1 = $("#txtDescripcion").val();
@@ -2216,42 +2161,25 @@
                             }
                         }
                     }
-                    /****/
-
 
                     var valor = $("#txtDescripcion").val();
                     if ($.trim(valor) == "") {
                         alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
                         return false;
                     }
-
-                    //if ($("#chkVisible2").attr("checked")) {
                     var m = "";
-                    //if ($.trim($("#txtCUV").val()) == "" && $("#txtCUV").css("visibility") == "visible") { NO ES OBLIGATORIO
-                    //    m += "- Ingrese un valor para el CUV1." + "\n";
-                    //}
-                    //if ($.trim($("#ddlEtiqueta1 option:selected").html()) == "-- Seleccionar --") {
-                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
-                    //}
+
                     if (($.trim($("#txtCUV").val()) != "" && $.trim($("#txtPrecio").val()) == "") || ($.trim($("#txtCUV").val()) != "" && $.isNumeric($("#txtPrecio").val()) == false)) {
                         m += "- Digite un valor correspondiente para el precio." + "\n";
                     }
                     if ($.trim($("#txtCUV").val()) != "" && $("#txtPrecio").val() <= 0) {
                         m += "- Ingrese un valor para el precio mayor a cero." + "\n";
                     }
-                    //if (m != "") {
-                    //    alert(m);
-                    //    return false;
-                    //}
-                    // }
-                    //if ($("#chkVisible3").attr("checked")) {
-                    //   var m = "";
+
                     if ($.trim($("#txtCUV2").val()) == "") {
                         m += "- Ingrese un valor para el CUV2." + "\n";
                     }
-                    //if ($.trim($("#ddlEtiqueta2 option:selected").html()) == "-- Seleccionar --") {
-                    //    m += "- Seleccione la etiqueta correspondiente." + "\n";
-                    //}
+
                     if ($.trim($("#txtPrecio2").val()) == "" || $.isNumeric($("#txtPrecio2").val()) == false) {
                         m += "- Digite un valor correspondiente para el precio." + "\n";
                     }
@@ -2275,9 +2203,8 @@
                         return false;
                     }
 
-                    /* SB20-312 - INICIO */
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    if (aux2 != "4" && aux2 != '7') { /**** PL20-1225 *****/
+                    if (aux2 != "4" && aux2 != '7') {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -2287,7 +2214,7 @@
                             return false;
                         }
                     }
-                    /* SB20-312 - FIN */
+
                     if ($("#hdZonas").val() == "") {
                         alert("Debe seleccionar el alcance de la estrategia.");
                         return false;
@@ -2309,19 +2236,19 @@
                     var ImagenURL = imagenEstrategiaProducto.substr(imagenEstrategiaProducto.lastIndexOf("/") + 1);
                     var LimiteVenta = $("#txtLimite").val();
                     var DescripcionCUV2 = $("#txtDescripcion").val();
-                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0"; //($("#chkVisible1").attr("checked")) ? "1" : "0";
+                    var FlagDescripcion = (DescripcionCUV2 != "") ? "1" : "0";
                     var CUV = $("#txtCUV").val();
-                    var EtiquetaID = $("#hdnEtiqueta1").val(); //$("#ddlEtiqueta1").val();
+                    var EtiquetaID = $("#hdnEtiqueta1").val();
                     var Precio = $("#txtPrecio").val();
-                    var FlagCEP = (CUV != "") ? "1" : "0"; //($("#chkVisible2").attr("checked")) ? "1" : "0";
+                    var FlagCEP = (CUV != "") ? "1" : "0";
                     var CUV2 = $("#txtCUV2").val();
-                    var EtiquetaID2 = $("#hdnEtiqueta2").val();//$("#ddlEtiqueta2").val();
+                    var EtiquetaID2 = $("#hdnEtiqueta2").val();
                     var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = (CUV2 != "") ? "1" : "0"; //($("#chkVisible3").attr("checked")) ? "1" : "0";
+                    var FlagCEP2 = (CUV2 != "") ? "1" : "0"; 
                     var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0"; //($("#chkVisible4").attr("checked")) ? "1" : "0";
-                    var Cantidad = "";//$("#txtCantidad").val();
-                    var FlagCantidad = "0"; //($("#chkVisible5").attr("checked")) ? "1" : "0";
+                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0"; 
+                    var Cantidad = "";
+                    var FlagCantidad = "0"; 
                     var Zona = $("#hdZonas").val();
                     var Orden = $("#txtOrden").val();
                     var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
@@ -2376,7 +2303,6 @@
                                 alert(data.message);
                                 $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
                                 HideDialog("DialogAdministracionEstrategia");
-                                //fnGrilla(); Observación.
                                 $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
                             } else {
                                 alert(data.message);
@@ -2390,7 +2316,6 @@
                 },
                 "Salir": function () {
                     $("#ddlTipoEstrategia").val($("#hdEstrategiaIDConsulta").val());
-                    //$('input:checkbox').removeAttr('checked');
                     $(this).dialog('close');
                 }
             }
@@ -2654,7 +2579,7 @@
 
                         $("#hdCampania").val($("#ddlCampania").val());
                         $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);                       
+                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
                         $("#hdnCodigoSAP").val(data.CodigoSAP);
                         SeleccionarTipoOferta();
 
@@ -2739,7 +2664,7 @@
                         }
 
                         var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                        /* SB20-312 - INICIO */
+
                         if (aux1 == "4") {
                             $("#txtOrden").val("");
                             $('#div-orden').hide();
@@ -2780,12 +2705,9 @@
                             $("#ddlEtiqueta2").children('option').hide();
                             $("#ddlEtiqueta2").children("option[data-id='5']").show();
 
-                            $('#div-orden').hide(); //Ocultando Orden
-
-                            //$('#txtLimite').prop('readonly', true); //Modo lectura on
+                            $('#div-orden').hide();
                         }
 
-                        /* SB20-312 - FIN */
                         if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
                         else $("#chkEstrella").attr("checked", false);
                         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');

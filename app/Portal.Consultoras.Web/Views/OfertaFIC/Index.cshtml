@@ -552,7 +552,6 @@
                     <div class="titF">Código de Venta:</div>
 
                     <div class="select_tab">
-                        @*<input id="txtCUV" type="text" />*@
                         @Html.TextBoxFor(model => model.CUV, new { id = "txtCUV", maxlength = "5" })
                         <input type="hidden" id="VentaID" name="VentaID" />
                         <div class="mensaje_tab">
@@ -566,7 +565,7 @@
                     @Html.TextArea("txtDescripcion", new
                     {
                         @readonly = "readonly",
-                        maxlength = 500, // or other value 
+                        maxlength = 500,
                         style = "width: 700px; height: 30px"
                     })
                 </div>
