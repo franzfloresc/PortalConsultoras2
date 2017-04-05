@@ -187,8 +187,8 @@ h6, .h6 {
 
     .logo-esika:before {
         content: "\e911";
-        font-size: 78px;
-        color: #df022f;
+        font-size: 55px;
+        color: #fff;
     }
 
 .logo {
@@ -307,7 +307,7 @@ Image .nav0:hover {
 
 .formcontrol {
     display: block;
-    border-bottom: 1px solid #959595;
+    border-bottom: 1px solid #5d5c5c;
     width: 80%;
     height: 30px;
     margin-bottom: 24px;
@@ -347,7 +347,7 @@ Image .nav0:hover {
         font-size: 13px;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.1pt;
+        letter-spacing: 0.3px;
         float: left;
     }
 
@@ -358,16 +358,17 @@ Image .nav0:hover {
         padding: 4px;
         background: transparent;
         width: 90%;
-        font-size: 13px;
+        font-size: 13.2px;
         border: none;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.1pt;
+        letter-spacing: 0.2px;
         -webkit-appearance: none;
         -moz-appearance: none;
         -ms-appearance: none;
         -o-appearance: none;
         appearance: none;
+        text-transform:uppercase;
     }
 
         .formcontrol select option {
@@ -391,7 +392,7 @@ Image .nav0:hover {
     padding-left: 10px;
     padding-bottom: 3px;
     box-sizing: border-box;
-    border-bottom: 1px solid #959595;
+    border-bottom: 1px solid #5d5c5c;
 }
 
     .btn a {
@@ -602,8 +603,11 @@ Image .nav0:hover {
     font-family: 'lato';
     text-align: justify;
     color: white;
-    font-size: 16px;
-    margin-bottom: 30px;
+    font-size: 15px;
+    text-align:center;
+    margin-bottom: 23px;
+    line-height: 24px;
+    letter-spacing:0.2px;
 }
 
 .helper:hover .alerta_esika {
@@ -637,7 +641,8 @@ Image .nav0:hover {
     left: 0;
     width: 34%;
     height: 100%;
-    background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+    /*background: url('../Images/bg_form_esika.png') 0px 0px repeat;*/
+    background: rgba(0,0,0,0.7);
 }
 /* -------------------------------------------------- */
 /*  Main Navigation
@@ -808,12 +813,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear {
+   background: none;
+    border: 0;
     clear: both;
-    height: 0;
-    width: 0;
+    display: block;
+    float: none;
+    font-size: 0;
     margin: 0;
     padding: 0;
-    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
 .p-right {

@@ -155,7 +155,7 @@ span {
 
     .logo-esika:before {
         content: "\e905";
-        font-size: 64px;
+        font-size: 43px;
         color: #fff;
     }
 
@@ -243,7 +243,7 @@ span {
 }
 
 .formcontrol {
-    border-bottom: 1px solid #959595;
+    border-bottom: 1px solid #5d5c5c;
     width: 80%;
     height: 30px;
     margin-bottom: 24px;
@@ -274,9 +274,10 @@ span {
         border: none;
         color: #fff;
         font-family: lato;
-        letter-spacing: .1pt;
-        font-size: 13px;
+        letter-spacing: 0.3px;
+        font-size: 13.2px;
         float: left;
+        text-transform:uppercase;
     }
 
     .formcontrol .inputForm {
@@ -312,7 +313,7 @@ span {
     padding-left: 10px;
     padding-bottom: 3px;
     box-sizing: border-box;
-    border-bottom: 1px solid #959595;
+    border-bottom: 1px solid #5d5c5c;
 }
 
 .email, .formbtn, .pais {
@@ -495,8 +496,11 @@ span {
 
 .text_bienvenida_esika {
     color: #fff;
-    font-size: 16px;
-    margin-bottom: 30px;
+    font-size: 15px;
+    margin-bottom: 23px;
+    text-align:center;
+    line-height: 24px;
+    letter-spacing:0.2px;
 }
 
 @font-face {
@@ -523,7 +527,8 @@ span {
     left: 0;
     width: 34%;
     height: 100%;
-    background: url(../Images/bg_form_esika.png);
+    /*background: url(../Images/bg_form_esika.png);*/
+    background: rgba(0,0,0,0.7);
 }
 
 .ui-dialog.ui-widget-content {
@@ -665,12 +670,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear {
+    background: none;
+    border: 0;
     clear: both;
-    height: 0;
-    width: 0;
+    display: block;
+    float: none;
+    font-size: 0;
     margin: 0;
     padding: 0;
-    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
 .p-right {
