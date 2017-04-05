@@ -190,7 +190,8 @@
             <div class="float_left">
                 <span class="texto_correo">Correo Electrónico</span>
                 <input type="hidden" id="hdEmail" value="@Model.Email"/>
-                @Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})
+                @*@Html.TextBox("txtEmail", (string) Model.Email, new {@class = "correo_reclamo"})*@
+                <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
                 <br />
                 <div class="correo_reclamo_error">
                     <span id="spnEmailError" style="display: none;">
@@ -201,7 +202,8 @@
             <div class="float_left">
                 <span class="texto_correo">Celular de contacto</span>
                 <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                @Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})
+                @*@Html.TextBox("txtTelefono", (string) Model.Telefono, new {@class = "correo_reclamo"})*@
+                <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" onblur="limitarMinimo(this.value,@Model.limiteMinimoTelef,2)" />
                 <br />
                 <div class="correo_reclamo_error">
                     <span id="spnTelefonoError" style="display: none;">
