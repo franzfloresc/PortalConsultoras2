@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
+                 var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 //List<int> num = new List<int> { 2, 3, 4, 5, 7, 8, 9,10 };
                 List<int> num = new List<int> { 
                 EnumsEstadoPostulante.EnGestionServicioAlCliente.ToInt(),//2
@@ -69,13 +69,14 @@ namespace Portal.Consultoras.Web.Controllers
                 EnumsEstadoPostulante.GenerandoCodigo.ToInt(),//7
                 EnumsEstadoPostulante.EnAprobacionSAC.ToInt(),//8
                 EnumsEstadoPostulante.YaConCodigoOCR.ToInt(),//9
-                EnumsEstadoPostulante.PendienteConfirmarCorreo.ToInt()};//10
+                //EnumsEstadoPostulante.PendienteConfirmarCorreo.ToInt()
+                };//10
 
 
                 estadoPostulantes = estados.Where(p => num.Contains(p.Valor.Value)).ToList();
-                //var parametoUnete = new ServiceUnete.ParametroUneteBE();
-                //parametoUnete.Valor = 9;
-                //parametoUnete.Nombre = "PENDIENTE DE CONFIRMAR CORREO";
+                var parametoUnete = new ServiceUnete.ParametroUneteBE();
+                parametoUnete.Valor = 10;
+                parametoUnete.Nombre = "PENDIENTE DE CONFIRMAR CORREO";
 
                 var parametroTodos = new ServiceUnete.ParametroUneteBE
                 {
@@ -83,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Nombre = "Todos"
                 };
 
-                //estadoPostulantes.Add(parametoUnete);
+                estadoPostulantes.Add(parametoUnete);
                 estadoPostulantes.Insert(0, parametroTodos);
             }
 
@@ -1247,7 +1248,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
                 && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
                  string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
- 
+                //VieneDe = i.Vi
  
             }).ToList();
 
@@ -3067,8 +3068,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return EnumsEstadoPostulante.EnAprobacionSAC;
                 case (int)EnumsEstadoPostulante.YaConCodigoOCR:
                     return EnumsEstadoPostulante.YaConCodigoOCR;
-                case (int)EnumsEstadoPostulante.PendienteConfirmarCorreo:
-                    return EnumsEstadoPostulante.PendienteConfirmarCorreo;
+                //case (int)EnumsEstadoPostulante.PendienteConfirmarCorreo:
+                //    return EnumsEstadoPostulante.PendienteConfirmarCorreo;
                 default:
                     return EnumsEstadoPostulante.Todos;
             }
