@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
-        intrigaAceptoTerminos = true;
+        intrigaAceptoTerminos = !intrigaAceptoTerminos;
     });
 
     $("#btnIntrigaConfirmarCorreo").click(function (e) {
@@ -38,6 +38,10 @@ $(document).ready(function () {
     });
 
     $("[data-email-reenviar]").click(function (e) {
+        if (!intrigaAceptoTerminos) {
+            $(this).toggleClass('check_intriga');
+        }
+        intrigaAceptoTerminos = true;
         IntrigaConfirmarCorreo();
     });
 });

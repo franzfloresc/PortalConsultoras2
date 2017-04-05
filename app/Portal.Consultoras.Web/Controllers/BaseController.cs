@@ -1820,5 +1820,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (controllerName == "ShowRoom") return true;
             return false;
         }
+        
+        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
+        {
+            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+
+            return model == null
+                ? ""
+                : model.Valor;
+        }
     }
 }
