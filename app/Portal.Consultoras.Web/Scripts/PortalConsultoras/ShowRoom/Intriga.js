@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#divIntrigaEmailRespuestaConfirmar").hide();
 
     if (suscrito == "True") {
-        if (emailActivo == "false") {
+        if (emailActivo == "true") {
             $("#divIntrigaEmailRespuestaOk").show();
         }
         else {
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
     $(".termino_condiciones_intriga").click(function () {
         $(this).toggleClass('check_intriga');
-        intrigaAceptoTerminos = true;
+        intrigaAceptoTerminos = !intrigaAceptoTerminos;
     });
 
     $("#btnIntrigaConfirmarCorreo").click(function (e) {
@@ -38,6 +38,10 @@ $(document).ready(function () {
     });
 
     $("[data-email-reenviar]").click(function (e) {
+        if (!intrigaAceptoTerminos) {
+            $(this).toggleClass('check_intriga');
+        }
+        intrigaAceptoTerminos = true;
         IntrigaConfirmarCorreo();
     });
 });
@@ -103,14 +107,12 @@ function IntrigaActualizarDatos() {
                 $("#divIntrigaEmailRespuestaOk").hide();
                 $("#divIntrigaEmailRespuestaConfirmar").hide();
                 if (emailOriginal == emailNuevo) {
-                    if (emailActivo == "false") {
+                    if (emailActivo == "true") {
                         $("#divIntrigaEmailRespuestaOk").show();
-                        $("[data-email-reenviar]").hide();
                         return true;
                     }
                 }
-
-                $("[data-email-reenviar]").show();
+                
                 $("#divIntrigaEmailRespuestaConfirmar").show();
             }
         },

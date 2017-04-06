@@ -244,6 +244,9 @@
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
+<!--SHOWROOM -->
+<div class="content_belcorp" id="divProductosShowRoom"></div>
+<!-- FIN-->
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
@@ -1625,6 +1628,71 @@
     {{/each}}
 </script>
 
+<script id="template-showroom" type="text/x-handlebars-template">
+    <div class="content-favclientes content_carrusel_agregado">
+        <div class="linea_separadora"></div>
+        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","ShowRoom")'">
+            <img src="@Model.ShowRoomBannerUrl" alt="" />
+        </div>
+        <div style="width:71%;float:left;">
+            <div class="clear"></div>
+            <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos.</span><a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS</a></div>
+            <hr class="clear">
+            <div class="" style="position:relative;">
+                {{#each this as |item|}}
+                <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
+                    <div data-campos="" style="display:none;">
+                        <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
+                        <input type="hidden" class="valorCuv" value="{{CUV}}" />
+                        <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+                        <input type="hidden" class="clasePrecioUnidad" value="{{PrecioCatalogo}}" />
+                        <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                        <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+                        <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+                        <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
+                    </div>
+                    <div class="producto_img_home mini" data-img="">
+                        {{#IsNullOrEmpty ImagenMini '=='}}
+                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" />
+                        {{else}}
+                        <img src="{{ImagenMini}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                        {{/IsNullOrEmpty}}
+                        <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <p class="nombre-producto-set">{{Descripcion}}</p>
+                        <div class="producto_precio" style="margin-bottom: 3px;">
+                            <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
+                            <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
+                        </div>
+                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                            <input type="text" value="1" min="1" max="99" size="2" maxlength="2" 
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                                   oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " 
+                                   data-input="cantidad" data-cantidad-input="-">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
+                        <div class="clear"></div>
+                        <div style="padding-top: 9px; height: 15px;">
+                            <div class="agregado product-add" style="text-align: right; display: {{Agregado}};" >
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                <div class="clear"></div>
+            </div>
+        </div>
+        <hr class="clear">
+    </div>
+</script>
+
 <script id="template-catalogopersonalizado" type="text/x-handlebars-template">
     <div class="clear"></div>
     <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
@@ -2201,7 +2269,7 @@
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
         </a>
-        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
+        <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
       
         <div class="check_01">
             <label class="checkpop2">
@@ -2287,13 +2355,17 @@
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
-        
+
         var tipoOrigenEstrategia = 1;
-        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
 
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
+        var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
+        var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
+        var tipoOrigenPantalla = 1;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
