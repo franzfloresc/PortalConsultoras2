@@ -1,0 +1,45 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Mi Revista 2</title>
+    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
+
+    <style type="text/css">
+        html, body, div, iframe {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            @*$.getJSON('/CatalogoRevista/GetUrlRevistaIssuu', { campania: '@ViewBag.campania' }, function (response) {*@
+                //if (response.success) {
+                    //$('#ifr-revista').attr('src', '~/Mobile/CatalogoRevista?ID=201704|201705|201706')
+                //}
+            //})
+        })
+
+    </script>
+</head>
+
+<body>
+    <iframe id="ifr-revista" src="http://localhost:20267/Mobile/CatalogoRevista?ID=201704|201705|201706"></iframe>
+</body>
+
+</html>
