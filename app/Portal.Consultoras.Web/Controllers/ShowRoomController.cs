@@ -2606,8 +2606,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ok",
-                    data = "Error al cargar los productos"
+                    message = "Error al cargar los productos",
+                    data = ""
                 });
             }            
         }

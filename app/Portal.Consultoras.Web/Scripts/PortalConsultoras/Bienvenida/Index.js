@@ -2775,7 +2775,7 @@ function MostrarShowRoom() {
                                         AgregarTagManagerShowRoomPopup(evento.Tema, false);
                                         
                                         var container = $('#PopShowroomVenta');
-                                        var txtSaludoIntriga = response.nombre + ' prepárate para la';
+                                        var txtSaludoIntriga = response.nombre + ' YA COMENZÓ LA';
                                         $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
                                         $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                                         $(container).show();
