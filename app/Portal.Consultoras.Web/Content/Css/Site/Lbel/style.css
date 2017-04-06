@@ -34440,3 +34440,16 @@ h1#penmostreo .campana {
     /*font-weight: 700;*/
     cursor: pointer;
 }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+    
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}

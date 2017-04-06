@@ -133,7 +133,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
- 
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -267,7 +266,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
-                      
+
+            ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
             return View(model);
         }
         
