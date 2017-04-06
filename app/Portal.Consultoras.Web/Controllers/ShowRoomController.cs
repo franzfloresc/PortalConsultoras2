@@ -2589,6 +2589,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaFinal = listaFinal.Take(model.Limite).ToList();
 
+                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new

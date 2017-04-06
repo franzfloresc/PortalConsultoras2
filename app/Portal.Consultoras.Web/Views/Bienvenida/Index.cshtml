@@ -1588,10 +1588,10 @@
                         <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
                     </div>
                     <div class="producto_img_home mini" data-img="">
-                        {{#IsNullOrEmpty ImagenMini '=='}}
+                        {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" />
                         {{else}}
-                        <img src="{{ImagenMini}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                        <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
                         {{/IsNullOrEmpty}}
                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                     </div>
@@ -2208,7 +2208,7 @@
       
         <div class="check_01">
             <label class="checkpop2">
-                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')";>NO VOLVER A VER ESTE ANUNCIO</a>
+                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>
             </label>
         </div>
         <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
