@@ -711,7 +711,7 @@ FuncionesGenerales = {
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
-        'Fecha': '',
+        'Fecha': new Date().getTime(),
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
