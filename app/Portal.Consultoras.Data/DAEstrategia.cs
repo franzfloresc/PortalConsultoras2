@@ -99,6 +99,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ColorFondo", DbType.String, entidad.ColorFondo);
                 Context.Database.AddInParameter(command, "@FlagEstrella", DbType.String, entidad.FlagEstrella);
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
+                Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
