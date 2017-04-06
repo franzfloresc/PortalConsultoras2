@@ -187,24 +187,9 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Session["PrimeraVezSession"] = 0;
                         }
-                        /*EPD1618: Ir a Pedidos/Mispagos en correo de PedidoRechazado.*/
-                        if (Request.UrlReferrer.ToString().Contains("Pedido"))
-                        {
-                            return RedirectToAction("Index", "Pedido");
-                        }
-                        else
-                        {
-                            if (Request.UrlReferrer.ToString().Contains("MisPagos"))
-                            {
-                                return RedirectToAction("Index", "MisPagos");
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
+                        
                         //EPD-1968
-                        if (Url.IsLocalUrl(decodedUrl))//Url.IsLocalUrl(Server.UrlDecode(Request.UrlReferrer.PathAndQuery)) && !string.IsNullOrEmpty(decodedUrl))
+                        if (Url.IsLocalUrl(decodedUrl))
                         {
                             return Redirect(decodedUrl);
                         }
