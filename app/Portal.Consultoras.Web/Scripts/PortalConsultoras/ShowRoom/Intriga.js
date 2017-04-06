@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#divIntrigaEmailRespuestaConfirmar").hide();
 
     if (suscrito == "True") {
-        if (emailActivo == "false") {
+        if (emailActivo == "true") {
             $("#divIntrigaEmailRespuestaOk").show();
         }
         else {
@@ -107,14 +107,12 @@ function IntrigaActualizarDatos() {
                 $("#divIntrigaEmailRespuestaOk").hide();
                 $("#divIntrigaEmailRespuestaConfirmar").hide();
                 if (emailOriginal == emailNuevo) {
-                    if (emailActivo == "false") {
+                    if (emailActivo == "true") {
                         $("#divIntrigaEmailRespuestaOk").show();
-                        $("[data-email-reenviar]").hide();
                         return true;
                     }
                 }
-
-                $("[data-email-reenviar]").show();
+                
                 $("#divIntrigaEmailRespuestaConfirmar").show();
             }
         },
