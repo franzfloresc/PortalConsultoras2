@@ -2817,8 +2817,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Longitud= c.Longitud,
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
-                    CorreoElectronico = c.CorreoElectronico
-
+                    CorreoElectronico = c.CorreoElectronico,
+                    VieneDe = c.VieneDe
                 };
                 
             });
@@ -2829,6 +2829,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Fecha Registro", "FechaCreacion"},
                 {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Origen", "VieneDe"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
