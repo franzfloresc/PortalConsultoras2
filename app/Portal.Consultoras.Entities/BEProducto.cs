@@ -152,6 +152,12 @@ namespace Portal.Consultoras.Entities
         //}
 
         [DataMember]
+        public string ImagenProducto { get; set; }
+
+        [DataMember]
+        public string FotoProducto { get; set; }
+
+        [DataMember]
         public string ImagenProductoSugerido { get; set; }
 
         [DataMember]
@@ -170,8 +176,11 @@ namespace Portal.Consultoras.Entities
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         [DataMember]
-        public string TipoOfertaRevista { get; set; }
-        
+        public string TipoOfertaRevista { get; set; }        
+
+        [DataMember]
+        public string CatalogoDescripcion { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
@@ -246,7 +255,16 @@ namespace Portal.Consultoras.Entities
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
             
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
-                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();    
+                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
+
+            if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
+                CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "ImagenProducto") && datarec["ImagenProducto"] != DBNull.Value)
+                ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
+
+            if (DataRecord.HasColumn(datarec, "FotoProducto") && datarec["FotoProducto"] != DBNull.Value)
+                FotoProducto = Convert.ToString(datarec["FotoProducto"]);
         }
 
         public BEProducto()

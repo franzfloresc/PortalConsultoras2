@@ -24,6 +24,10 @@ namespace Portal.Consultoras.ServiceContracts
             int rowCount, bool validarOpt);
 
         [OperationContract]
+        IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(int paisID, int campaniaID,
+            int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, string textoBusqueda, int criterio, int rowCount);
+
+        [OperationContract]
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
         string codigoDescripcion, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
         

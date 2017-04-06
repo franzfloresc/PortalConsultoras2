@@ -116,6 +116,21 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
+        public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(int paisID, int campaniaID,
+            int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            var dAProducto = new DAProducto(paisID);
+
+            using (IDataReader reader = dAProducto.SearchListProductoChatbotByCampaniaRegionZona(campaniaID,
+                regionID, zonaID, codigoRegion, codigoZona, textoBusqueda, criterio, rowCount))
+            {
+                while (reader.Read()) productos.Add(new BEProducto(reader));
+            }
+
+            return productos.OrderBy(p => criterio == 1 ? p.CUV : p.Descripcion).ToList();
+        }
+
         public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
         {
             IList<BEProducto> productos = new List<BEProducto>();
