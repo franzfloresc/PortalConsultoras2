@@ -47,7 +47,7 @@
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_perfil_home">
-                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 70px; height: 70px;" />
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
                 </div>
                 
             }
@@ -2499,7 +2499,9 @@
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('div.content_datos').css('max-width', '100%');
             $('div.resumen_belcorp_cam').css('margin-left', '3%');
-            $('div.resumen_belcorp_cam').css('margin-right', '3%');
+            $('div.resumen_belcorp_cam').css('margin-right', '0%');
+            $('div.socia_negocio_home').css('margin-left', '4%');
+            
             $('div.contenedor_img_perfil').show();
         }
 

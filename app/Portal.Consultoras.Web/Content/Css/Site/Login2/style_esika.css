@@ -417,6 +417,7 @@ Image .nav0:hover {
         font-size: 13px;
         font-weight: 700;
         margin-top: 20px;
+        border-radius:2px;
     }
 
     .formbtn label a {
@@ -1417,7 +1418,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: url('../images/bg_form_esika.png') 0px 0px repeat;
+        /*background: url('../images/bg_form_esika.png') 0px 0px repeat;*/
+        background:rgba(0,0,0,0.7);
         height: 100%;
     }
 
@@ -1660,10 +1662,7 @@ h1, h2, h3, h4, h5, h6 {
         zoom: 90%;
     }
 
-    #container {
-        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
-        height: 100%;
-    }
+   
 
     .content-left, .content-right {
         background: none;

@@ -337,6 +337,7 @@ span {
         font-size: 13px;
         font-weight: 700;
         margin-top: 20px;
+        border-radius:2px;
     }
 
     .formbtn label a {
@@ -1274,7 +1275,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+        /*background: url('../Images/bg_form_esika.png') 0px 0px repeat;*/
+        background:rgba(0,0,0,0.7)
         height: 100%;
     }
 
