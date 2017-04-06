@@ -249,4 +249,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUbigeoTemplate" nillable="true" type="tns:ArrayOfUbigeoTemplate" />
+      <xs:enumeration value="YaConCodigoOCR" />
+      <xs:enumeration value="PendienteConfirmarCorreo" />
 </xs:schema>

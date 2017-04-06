@@ -62,4 +62,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplateCollection" nillable="true" type="tns:UbigeoTemplateCollection" />
+  <xs:element name="ObtenerSolicitudPrePostulante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="correoElectronico" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerSolicitudPrePostulanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPrePostulanteResult" nillable="true" type="q43:SolicitudPrePostulante" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AgregarSolicitudPrePostulante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPrePostulante" nillable="true" type="q44:SolicitudPrePostulante" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AgregarSolicitudPrePostulanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AgregarSolicitudPrePostulanteResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
