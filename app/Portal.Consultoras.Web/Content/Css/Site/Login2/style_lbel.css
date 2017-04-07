@@ -494,9 +494,15 @@ span {
 }
 
 .text_bienvenida_esika {
-    color: #fff;
+    font-family: 'lato';
+    text-align: center;
+    color: white;
     font-size: 16px;
     margin-bottom: 30px;
+}
+
+.text_bienvenida_esika span {
+    font-size: 20px;
 }
 
 @font-face {
