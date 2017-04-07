@@ -2352,51 +2352,6 @@ function ConoceFlex() {
     return false;
 };
 
-function CrearPopupComunicadoVisualizacion() {
-    $('#divComunicadoVisualizacion').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 650,
-        position: ['center', 22],
-        draggable: true,
-        close: function (event, ui) {
-            $('#divComunicadoVisualizacion').dialog('close');
-        }
-    });
-};
-function AbrirComunicadoVisualizacion() {
-    if (viewBagVisualizoComunicadoConfigurable == "0") {
-        showDialog("divComunicadoVisualizacion");
-        $("#divComunicadoVisualizacion").siblings(".ui-dialog-titlebar").hide();
-    }
-};
-function AceptarComunicadoVisualizacion() {
-    if ($('#chkMostrarComunicado').is(':checked')) {
-        waitingDialog({});
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
-            contentType: 'application/json',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    $('#divComunicadoVisualizacion').dialog('close');
-                    closeWaitingDialog();
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert("Ocurrió un error al aceptar el comunicado.");
-                }
-            }
-        });
-    }
-
-    $("#divComunicadoVisualizacion").dialog('close');
-};
-
 function RedirectPagaEnLineaAnalytics() {
     if (ViewBagRutaChile != "") {
         window.open(ViewBagRutaChile + viewBagUrlChileEncriptada, "_blank");

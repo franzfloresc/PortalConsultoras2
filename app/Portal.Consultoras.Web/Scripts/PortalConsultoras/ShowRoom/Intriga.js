@@ -59,11 +59,11 @@ function IntrigaConfirmarCorreo() {
         return false;
     }
 
-    if ($.trim($("#txtIntrigaCelular").val()) == "") {
-        $('#txtIntrigaCelular').focus();
-        AbrirMensaje("Debe ingresar celular.\n");
-        return false;
-    }
+    //if ($.trim($("#txtIntrigaCelular").val()) == "") {
+    //    $('#txtIntrigaCelular').focus();
+    //    AbrirMensaje("Debe ingresar celular.\n");
+    //    return false;
+    //}
 
     if (!intrigaAceptoTerminos) {
         AbrirMensaje('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
