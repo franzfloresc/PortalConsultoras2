@@ -2681,7 +2681,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 entidad.Celular = Util.Trim(entidad.Celular);
-                var emailValidado = true;
                 if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
                 {
                     entidad.CodigoUsuario = userData.CodigoUsuario;
@@ -2702,9 +2701,9 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.Celular = entidad.Celular;
                     userData.EMailActivo = false;
                     SetUserData(userData);
-
-                    emailValidado = false;
                 }
+
+                var emailValidado = userData.EMailActivo;
 
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
