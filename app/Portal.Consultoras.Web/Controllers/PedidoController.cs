@@ -150,6 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.AccionBoton = "validar";
                         model.Prol = "RESERVA TU PEDIDO";
                         model.ProlTooltip = "Haz click aqui para reservar tu pedido";
+                        model.IndicadorGPRSB = oBEConfiguracionCampania.IndicadorGPRSB;
 
                         if (diaActual <= userData.FechaInicioCampania)
                         {

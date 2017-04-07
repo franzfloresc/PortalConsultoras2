@@ -209,7 +209,13 @@ $(document).ready(function () {
         }
     });
     $('#btnValidarPROL').click(function () {
-        EjecutarPROL();        
+        console.log('indicadorGPRSB ' + indicadorGPRSB);
+        if (indicadorGPRSB == 1) {
+            ConfirmarModificar();            
+        }
+        else {
+            EjecutarPROL();
+        }
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
@@ -3550,3 +3556,38 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 };
+
+function ConfirmarModificar() {
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
+                    location.href = baseUrl + 'Pedido/Index';
+                }
+                else {
+                    closeWaitingDialog();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+    return false;
+}
