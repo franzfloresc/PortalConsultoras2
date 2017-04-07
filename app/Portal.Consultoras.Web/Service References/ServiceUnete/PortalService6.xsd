@@ -203,6 +203,19 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
+  <xs:complexType name="UbigeoPA">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="UbigeoSV">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -230,23 +243,25 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoGT" nillable="true" type="tns:UbigeoGT" />
-  <xs:complexType name="UbigeoPA">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="ArrayOfUbigeoTemplate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfUbigeoTemplate" nillable="true" type="tns:ArrayOfUbigeoTemplate" />
+  <xs:complexType name="SolicitudPrePostulante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPrePostulanteID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SolicitudPrePostulante" nillable="true" type="tns:SolicitudPrePostulante" />
 </xs:schema>
