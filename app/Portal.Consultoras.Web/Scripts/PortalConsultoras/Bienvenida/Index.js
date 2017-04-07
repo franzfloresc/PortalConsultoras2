@@ -2067,7 +2067,7 @@ function AceptarContrato() {
                 PopupCerrar('popupAceptacionContrato');
                 if (viewBagCambioClave == 0) {
                     //EPD - 2121
-                    PopupMostrar('popupActualizarMisDatos');
+                    PopupMostrar('popupActualizarMisDatos'); 
                 }
             }
         },
