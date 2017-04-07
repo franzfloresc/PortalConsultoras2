@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
-                
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
-               
+
 
                 if (PopUps.Any())
                 {
@@ -289,15 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
                             {
-                                bool mostrarShowRoomProductos = false;
-                                mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
-                                //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                                if (mostrarShowRoomProductos)
-                                {
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
-                                    break;
-                                }
-                                else
+                                if (ValidarMostrarShowroomPopUp())
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                                     break;
@@ -376,7 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //PL20-1283
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
-                
+
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
@@ -384,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 // validar si se muestra Show Room en Bienvenida
-                model.ShowRoomMostrarLista = 
+                model.ShowRoomMostrarLista =
                     userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2
                     ? 1
                     : userData.EsCatalogoPersonalizadoZonaValida
@@ -416,7 +408,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (paisesShowRoom.Contains(userData.CodigoISO))
             {
-                //if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
                 if (!userData.CargoEntidadesShowRoom) return false;
                 var beShowRoomConsultora = userData.BeShowRoomConsultora;
                 var beShowRoom = userData.BeShowRoom;
@@ -425,28 +416,38 @@ namespace Portal.Consultoras.Web.Controllers
                 if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
 
                 if (beShowRoom.Estado == 1)
-                {   // var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                {
                     var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                     int diasAntes = beShowRoom.DiasAntes;
                     int diasDespues = beShowRoom.DiasDespues;
 
+                    mostrarShowRoomProductos = true;
+                    var esCompra = false;
                     if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                    {
-                        // rutaShowRoomPopup = Url.Action("Index", "ShowRoom");                      
-                        mostrarShowRoomProductos = true;
-                    }
+                        esCompra = true;
+
                     if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                    {
-                        beShowRoomConsultora.MostrarPopup = false;
-                    }
-                    if (!beShowRoomConsultora.MostrarPopup && beShowRoomConsultora.EventoConsultoraID == 0)
+                        mostrarShowRoomProductos = false;
+
+                    if (beShowRoomConsultora.EventoConsultoraID == 0)
                     {
                         mostrarShowRoomProductos = false;
                     }
-                    else if (beShowRoomConsultora.MostrarPopup)
+                    else
                     {
-                        mostrarShowRoomProductos = true;
+                        if (!esCompra)
+                        {
+                            if (!beShowRoomConsultora.MostrarPopup)
+                                mostrarShowRoomProductos = false;
+
+                        }
+                        else
+                        {
+                            if (!beShowRoomConsultora.MostrarPopupVenta)
+                                mostrarShowRoomProductos = false;
+
+                        }
                     }
                 }
             }
@@ -820,7 +821,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            
+
             return Json(new
             {
                 result = retorno
@@ -1605,7 +1606,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-            
+
         }
 
 
@@ -1635,13 +1636,13 @@ namespace Portal.Consultoras.Web.Controllers
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
                             && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                             mostrarShowRoomProductos = true;
                         }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
 
                         //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
                         TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
@@ -1701,8 +1702,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
+        
         [HttpPost]
         public JsonResult MostrarShowRoomBannerLateral()
         {
