@@ -788,6 +788,28 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 actualziarCampaniaRegistro(ref solicitudPostulante);
 
+                var EstadosIniciales = new List<int>() {
+                    Enumeradores.EstadoGEO.NoEncontroTerritorioNoLatLong.ToInt() ,
+                    Enumeradores.EstadoGEO.NoEncontroTerritorioSiLatLong.ToInt(),
+                     Enumeradores.EstadoGEO.SinConsultar.ToInt() ,
+                   Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt() ,};
+
+                var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
+                {
+                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                };
+
+                if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
+                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) 
+                            && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
+                {
+
+                    var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO,
+                 solicitudPostulante);
+
+                    solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
+                }
+
 
                 sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 //sv.ActualizarEstado(CodigoISO, solicitudPostulanteID, EnumsTipoParametro.EstadoGEO,
@@ -2655,8 +2677,8 @@ namespace Portal.Consultoras.Web.Controllers
                        Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                      };
 
-                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
-                           && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() 
+                        && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)                          
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                     {
 
@@ -2936,8 +2958,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Longitud= c.Longitud,
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
-                    CorreoElectronico = c.CorreoElectronico
-
+                    CorreoElectronico = c.CorreoElectronico,
+                    VieneDe = c.VieneDe
                 };
 
             });
@@ -2948,6 +2970,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Fecha Registro", "FechaCreacion"},
                 {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Origen", "VieneDe"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
