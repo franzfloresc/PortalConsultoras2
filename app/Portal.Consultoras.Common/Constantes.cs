@@ -477,5 +477,12 @@ namespace Portal.Consultoras.Common
             public const int Abono = 2;
             public const int Cargo = 1;
         }
+
+        public class TamaniosImagenIssuu
+        {
+            public const string ThumbSmall = "_thumb_small";
+            public const string ThumbMedium = "_thumb_medium";
+            public const string ThumbLarge = "_thumb_large";
+        }
     }
 }
