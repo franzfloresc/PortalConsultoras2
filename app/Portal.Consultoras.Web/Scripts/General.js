@@ -410,7 +410,7 @@ function closeWaitingDialog() {
 
 }
 
-function AbrirLoad(opcion){
+function AbrirLoad(opcion) {
     try {
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
         if (isUrlMobile > 0) {
@@ -420,11 +420,11 @@ function AbrirLoad(opcion){
             waitingDialog(opcion);
         }
     } catch (e) {
-    
+
     }
 }
 
-function CerrarLoad(opcion){
+function CerrarLoad(opcion) {
     try {
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
         if (isUrlMobile > 0) {
@@ -434,7 +434,7 @@ function CerrarLoad(opcion){
             closeWaitingDialog(opcion);
         }
     } catch (e) {
-    
+
     }
 }
 
@@ -514,15 +514,14 @@ function checkTimeout(data) {
 
     if (data) {
         var eval = data.responseText ? data.responseText : data;
-        if (jQuery.type(eval) === "string")
-        {
+        if (jQuery.type(eval) === "string") {
             if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
                 thereIsStillTime = false;
-        }        
+        }
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
-            
+
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
@@ -728,17 +727,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
-}
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -789,7 +788,14 @@ function xMensajeEstadoPedido(estado) {
         var wtop = $("#bloquemensajesPedido").height();
 
         if (esMobile) {
-            $("[data-content]").animate({ "top": wtop + "px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": wtop + "px" });
+            }
+
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
@@ -802,7 +808,6 @@ function xMensajeEstadoPedido(estado) {
                 $(".oscurecer_animacion").css({ "display": "none" });
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
-
                 if ($('.content_banner_intriga').length > 0) {
                     if ($('#OfertaDelDia:visible').length > 0) {
                         $('.ubicacion_web').css('margin-top', '162px');
@@ -812,21 +817,30 @@ function xMensajeEstadoPedido(estado) {
                     }
                 }
                 else {
-                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                }
             }
         }
-    }
     }
     else {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
-            $("[data-content]").animate({ "top": "0px" });
-            $(".footer-page").animate({ "top": "0px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
+            }
+            $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
         }
         else {
-            if (esBienvenida) {                
-                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
-                else $("[data-content]").animate({ "top": "64px" });
+            if (esBienvenida) {
+
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                    $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
+                }
+                else { $("[data-content]").animate({ "top": "64px", "margin-top": "0px" }); }
             }
             else {
                 if ($('.content_banner_intriga').length > 0) {
@@ -838,11 +852,15 @@ function xMensajeEstadoPedido(estado) {
                     }
                 }
                 else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-                $('.content_slider_home ').css('margin-top', '60px');
+                    $(".ubicacion_web").animate({ "margin-top": "83px" });
+                    $('.content_slider_home ').css('margin-top', '60px');
+                    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                        $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+                    }
+                    else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
+                }
             }
         }
-    }
     }
 }
 
@@ -1028,4 +1046,17 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             }
         }
     });
+}
+
+function AbrirPopup(ident) {
+    $(ident).show();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopup(ident) {
+    $(ident).hide();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
 }
