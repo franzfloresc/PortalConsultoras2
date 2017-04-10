@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.WebPages
                         var opcional = query.Length > 4 ? query[4].Trim() : "";
                         if (opcional != "")
                         {
-                            var opcionalLista = opcional.Split('=');
+                            var opcionalLista = opcional.Split(',');
                             if (opcionalLista.Length > 1)
                             {
                                 if (opcionalLista[0].ToLower() == "urlreturn")
