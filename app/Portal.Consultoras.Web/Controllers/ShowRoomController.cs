@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Web.Controllers
     public class ShowRoomController : BaseShowRoomController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private int OfertaID = 0;
+        private bool blnRecibido = false;
 
         public ActionResult Intriga()
         {
@@ -76,14 +79,54 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
+            
             ViewBag.TerminoMostrar = 1;
 
             try
             {
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
+
+                //actualizar showroom.eventoconsultora. campo recibido.
+
+                if (query != null)
+                {
+                    string param = Util.DesencriptarQueryString(query);
+                    string[] lista = param.Split(new char[] { ';' });
+
+                    if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+
+                    if(lista[0] == CodigoProceso)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                        }
+
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                        {
+                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                            Entidad.CodigoConsultora = lista[2];
+                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+                }
+
 
                 var showRoomEventoModel = CargarValoresModel();
 
@@ -2496,6 +2539,53 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Comprar desde Página de Oferta
+
+        public ActionResult DetalleOfertaCUV(string query)
+        {
+            if (query != null)
+            {
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                        OfertaID = intID;
+
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+  
+            }
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
+        }
 
         public ActionResult DetalleOferta(int id)
         {
