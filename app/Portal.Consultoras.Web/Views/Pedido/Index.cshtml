@@ -2313,12 +2313,14 @@
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
                 var urlPedido = '@Url.Action("Index","Pedido")';
-        
+
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
                 var origenPagina = 2;
                 var tipoOrigenEstrategia = 11;
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
+
+                var indicadorGPRSB = '@Model.IndicadorGPRSB';
 
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
