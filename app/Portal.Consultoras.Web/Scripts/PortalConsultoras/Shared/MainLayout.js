@@ -1295,8 +1295,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 }
 
 function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
 };
 
 function animacionFlechaScroll() {
