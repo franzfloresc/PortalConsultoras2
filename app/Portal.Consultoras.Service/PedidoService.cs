@@ -1848,5 +1848,15 @@ namespace Portal.Consultoras.Service
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
         }
+
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
+        }
+
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
     }
 }

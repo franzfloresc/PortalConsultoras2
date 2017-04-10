@@ -11,7 +11,7 @@
 
 <div class="content_room_product_sheet">
     <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
-        <div class="titulo_mobile" style="margin-top:-28px; margin-bottom.20px;">
+        <div class="titulo_mobile" style="margin-top:-28px; margin-bottom:20px;">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
             &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
             <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -226,7 +226,7 @@
                         </div>
                         <a href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID, area="Mobile"})" class="slider_item_content">
                             <div data-img="">
-                                <img src="@oferta.ImagenMini" style="margin-top:18px;" />
+                                <img src="@oferta.ImagenProducto" />
                             </div>
                             <span class="title">@descripcion</span>
                             <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
@@ -261,7 +261,7 @@
             <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje" />
             <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
             <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto" />
-            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini" />
+            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto" />
             <input type="hidden" class="Nombre" value="@Model.Descripcion" />
             <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
             <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
@@ -296,7 +296,7 @@
             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
         </div>
-        <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="">AGRÉGALO</a>
+        <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
         <hr class="clear">
     </div>
 </div>

@@ -658,5 +658,22 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CorreoEnvioAviso", DbType.String, entity.CorreoEnvioAviso);
             return Context.ExecuteNonQuery(command);
         }
+
+        public int ShowRoomEventoConsultoraEmailRecibido(BEShowRoomEventoConsultora entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.EventoConsultoraEmailRecibido");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entity.CodigoConsultora);
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public bool GetEventoConsultoraRecibido(string CodigoConsultora, int CampaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetEventoConsultoraRecibido");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+
+            return (bool) Context.ExecuteScalar(command);
+        }
     }
 }

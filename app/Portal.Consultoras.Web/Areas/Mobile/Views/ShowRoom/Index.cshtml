@@ -312,12 +312,10 @@
         <div class="liquidacion_item" data-posicion="{{Posicion}}">
             <div class="producto_img_mobile">
                 <a class="btnVerDetalleOfertaShowRoom" href="{{UrlDetalle}}">
-                    {{#IsNullOrEmpty ImagenMini '=='}}
+                    {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
-                    {{/IsNullOrEmpty}}
-                    
-                    {{#IsNullOrEmpty ImagenMini '!='}}
-                        <img src="{{ImagenMini}}" alt="" />
+                    {{else}}
+                        <img src="{{ImagenProducto}}" alt="" />
                     {{/IsNullOrEmpty}}
                 </a>
             </div>

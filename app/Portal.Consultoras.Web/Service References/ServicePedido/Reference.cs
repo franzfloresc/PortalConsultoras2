@@ -19252,6 +19252,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ShowRoomProgramarAviso", ReplyAction="http://tempuri.org/IPedidoService/ShowRoomProgramarAvisoResponse")]
         System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido", ReplyAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoRespons" +
+            "e")]
+        int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido", ReplyAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoRespons" +
+            "e")]
+        System.Threading.Tasks.Task<int> UpdShowRoomEventoConsultoraEmailRecibidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido", ReplyAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse")]
+        bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido", ReplyAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse")]
+        System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLog", ReplyAction="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLogResponse")]
         void UpdValidacionMovilPROLLog(Portal.Consultoras.Web.ServicePedido.BEValidacionMovil oBEValidacionMovil);
         
@@ -21182,6 +21196,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
             return base.Channel.ShowRoomProgramarAvisoAsync(paisID, entity);
+        }
+        
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
+            return base.Channel.UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdShowRoomEventoConsultoraEmailRecibidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
+            return base.Channel.UpdShowRoomEventoConsultoraEmailRecibidoAsync(paisID, entity);
+        }
+        
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetEventoConsultoraRecibidoAsync(paisID, CodigoConsultora, CampaniaID);
         }
         
         public void UpdValidacionMovilPROLLog(Portal.Consultoras.Web.ServicePedido.BEValidacionMovil oBEValidacionMovil) {
