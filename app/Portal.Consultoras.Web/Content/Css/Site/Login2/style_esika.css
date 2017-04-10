@@ -600,10 +600,14 @@ Image .nav0:hover {
 /*ESTILOS NUEVOS NOHELY*/
 .text_bienvenida_esika {
     font-family: 'lato';
-    text-align: justify;
+    text-align: center;
     color: white;
     font-size: 16px;
     margin-bottom: 30px;
+}
+
+.text_bienvenida_esika span {
+    font-size: 20px !important;
 }
 
 .helper:hover .alerta_esika {
