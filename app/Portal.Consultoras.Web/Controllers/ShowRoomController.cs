@@ -2547,7 +2547,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string param = Util.DesencriptarQueryString(query);
                 string[] lista = param.Split(new char[] { ';' });
 
-                if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                 {
                     return RedirectToAction("Index", "Bienvenida");
                 }
@@ -2797,7 +2797,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn=ShowRoomIntriga" };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,ShowRoomIntriga" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 
