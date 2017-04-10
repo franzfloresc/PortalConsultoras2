@@ -4391,18 +4391,18 @@ width:100%;
     width: 100%;
     height: 45px;
     line-height: 44px;
-    background: #fff;
-    color: #000;
+    background: black;
+    color: white;
     text-align: center;
     border: 1px solid #000;
     font-size: 12px;
     font-weight: 700;
     cursor:pointer;
 }
-.boton_Agregalo_home:hover{
+/*.boton_Agregalo_home:hover{
     color:black;
     text-decoration:none;
-}
+}*/
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -9393,8 +9393,10 @@ span.icon-advertencia{
     color: black;
     font-size: 17px;
     font-weight:700;
-    text-align:center;
+    /*text-align:center;*/
     letter-spacing: 0.3px;
+    line-height: 20px;
+    text-transform: uppercase;
 
 }
 
@@ -9402,7 +9404,7 @@ span.icon-advertencia{
     font-family: 'Lato';
     color: #6a6a6a;
     font-size: 12px;
-    text-align:center;
+    /*text-align:center;*/
     margin-top:-3px;
     letter-spacing: 0.2px
 }
@@ -9412,8 +9414,8 @@ span.icon-advertencia{
     color: black;
     font-size: 12.5px;
     line-height:16px;
-    text-align:center;
-    padding:0 14px;
+    /*text-align:center;*/
+    /*padding:0 14px;*/
     margin-top:6px;
     margin-bottom:7px;
 }
@@ -9437,18 +9439,19 @@ span.icon-advertencia{
 }
 
 .content_tonos_producto{
-    width:292px;
+    /*width:292px;*/
     margin:0 auto;
+    /*margin-top:15px;*/
 }
 
 .content_tono_detalle{
     position:relative;
     width:18%;
-    height:52px;   
+    height:54px;   
     margin-right:2.5%;
     float:left;
     overflow: hidden;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .content_tono_detalle:nth-child(5n){
@@ -9468,7 +9471,7 @@ span.icon-advertencia{
 
 .tono_labial_select {
     margin:0 auto;
-    width: 292px;
+    width: 100%;
     height: 45px;
     border: 1px solid #b0b0b0;
     padding: 7px;
@@ -9480,15 +9483,17 @@ span.icon-advertencia{
 }
 
 .content_redes_ficha{
-    margin:0 auto;
-    text-align:center;
-    width:292px;
-    margin-bottom:15px;
-    overflow:hidden;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 292px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    border-top: 1px solid #9b9b9b;
 }
 
 .content_btn_agregar{
-    background:#d4d4d4;   
+    background:#ececec;   
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -9502,7 +9507,9 @@ span.icon-advertencia{
     overflow:hidden;
     float:left;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+}
 .btn_agregar_ficha_producto{
     width:50%;
     height:48px;
@@ -9824,12 +9831,12 @@ span.icon-advertencia{
 /*FICHA 048B*/
 .content_oferta_guia_negocio{
     width:100%;
-    max-width:400px;
+    max-width:292px;
     margin:0 auto;
     height:auto;
-    padding-left:14px;
-    padding-right:14px;
-    text-align:center;
+    /*padding-left:14px;
+    padding-right:14px;*/
+    text-align:left;
     font-family:'Lato';
     position:relative;
 }
@@ -9868,7 +9875,8 @@ span.icon-advertencia{
 }
 .marca_oferta048{    
     font-size:11px;
-    color:#5b5b5b;    
+    color:#5b5b5b; 
+    text-transform:uppercase;   
 }
 .nombre_producto_048{
     font-weight:700;
@@ -9878,10 +9886,11 @@ span.icon-advertencia{
     /*margin-bottom:2px;*/
 }
 .precio_tachado_048{
-    color: black;
+   color: black;
     font-size: 13.5px;
-    font-weight: 300;
+    /* font-weight: 300; */
     height: 15px;
+    margin-top: 5px;
     text-decoration: line-through;
 }
 .precio_para_ti_048{
@@ -10328,6 +10337,155 @@ span.icon-advertencia{
     top: 1px;
     margin-right: 7px;
     background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) center center no-repeat;
+}
+/*HOMOLOGAR OPT*/
+.content_tono_detalle:hover{
+    border:1px solid black;
+}
+.tono_select_opt{
+    border: 2px solid black;
+    height: 45px;
+    width: 100%;
+    /*padding-left: 10px;*/
+    font-family: 'Lato';
+    /*font-weight: bold;*/
+    /*line-height: 45px;*/
+    font-size: 13px;
+    color: black;
+    margin-top: 5px;
+    background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
+    background-position: 95% 19px;
+    position:relative;
+    margin-bottom:5px;
+    
+}
+.texto_redes{
+    font-family: 'Lato';
+    font-size: 13px;
+    margin-top: 17px;
+    text-align: center;
+    margin-bottom: 4px;
+}
+.alerta_notificacion{
+     font-family: 'Lato';
+    width: 74%;
+    height: 20px;
+    margin: 0 auto;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    padding-left: 29px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.png) no-repeat;
+}
+.texto_sin_tono{
+   display:block;
+   /*padding-left: 10px;*/
+    font-weight: bold;
+    /*line-height: 41px;*/
+}
+.tono_seleccionado{
+    width:41px;
+    height:43px;
+    float:left;
+    overflow:hidden;
+}
+.tono_seleccionado img{
+    width:100%;
+}
+.texto_tono_seleccionado{
+    float: left;
+    width: 70%;
+    margin-left: 10px;
+    /* line-height: 42px; */
+    margin-top: 11px;
+    height: 17px;
+    overflow: hidden;
+}
+.content_tonos_select{
+   width:101%;
+   max-height: 178px;
+    overflow-y: auto;
+    border: 1px solid #b0b0b0;
+    position: absolute;
+    /* bottom: 0; */
+    background: white;
+    top: 43px;
+    z-index: 105;
+    left: -2px;
+}
+.content_tonos_select .content_tono_elegido{
+    border-bottom: 1px solid #b0b0b0;
+}
+.content_tonos_select .content_tono_elegido:last-child{
+    border-bottom:0px;
+}
+.titulo_contenido{
+    font-family:'Lato';
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;
+    margin-top: 15px;
+}
+.nombre_producto_opt{
+    font-size:13px;
+    font-weight:700;
+    margin-top: 12px;
+    margin-bottom:15px;
+    height: 15px;
+}
+.cantidad_producto_opt{
+    margin-right:10px;
+}
+.content_producto_individual{
+    border-bottom:1px solid #d7d7d7;
+    padding-bottom: 18px;
+}
+.content_producto_individual:last-child{
+    border-bottom:0;
+}
+.content_producto_compuesto{
+    padding-bottom:5px;
+}
+
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 95% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
+.tono_no_seleccionado{
+    background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background-position: 95% 19px;
+    color:white;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.btn_elige_tono{
+    display: block;
+    margin-top: 12px;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+}
+.texto_elige_tono{
+    font-family:'LAto';
+    font-size:11px;
+    font-weight: 700;
+    color:#613c87;
+    text-align:center;
+    height:48px;
+    line-height:47px;
 }
 
 .check_intriga:before{
