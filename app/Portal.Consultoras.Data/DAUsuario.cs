@@ -282,8 +282,8 @@ namespace Portal.Consultoras.Data
         /*EPD-1012*/
         public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
         {
-            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
 
