@@ -517,7 +517,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        //AbrirMensaje("Seleccione Tono")
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
         setTimeout(function () {
             $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
@@ -595,12 +594,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             else {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
-
-            origenRetorno = $.trim(origenRetorno);
-            if (origenRetorno != "") {
-                window.location = origenRetorno;
-            }
-           
+            
         },
         error: function (data, error) {
             alert(datos.data.message);
@@ -867,7 +861,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
-                                AbrirMensaje("Se proceso con exito.");
+                                origenRetorno = $.trim(origenRetorno);
+                                if (origenRetorno != "") {
+                                    window.location = origenRetorno;
+                                }
                             }
                             else {
                                 CargarCarouselEstrategias(cuv);
