@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 string param = Util.DesencriptarQueryString(query);
                 string[] lista = param.Split(new char[] { ';' });
 
-                if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                 {
                     RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
