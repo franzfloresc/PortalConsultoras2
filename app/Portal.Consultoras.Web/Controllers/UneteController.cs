@@ -1226,7 +1226,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DiasEnEspera = CalcularDias(i.FechaCreacion),
                 FechaCreacionCodigo = i.FechaCreacionCodigo == null ? "" : i.FechaCreacionCodigo.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
                 CampanaCreacionCodigo = i.AnoCampanaIngreso,
-                campana1Pedido = i.campania1erPasePedido,
+                campania1erPasePedido = i.campania1erPasePedido,
                 NumDiasAprobadoFFVV = ((CalcularDias(i.FechaAproFVVV) == "-1") ? "-" : CalcularDias(i.FechaAproFVVV)).ToString(),
                 NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
                 TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
