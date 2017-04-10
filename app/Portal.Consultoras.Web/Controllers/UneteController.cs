@@ -2829,7 +2829,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Fecha Registro", "FechaCreacion"},
                 {"Campaña Registro", "CampaniaDeRegistro"},
-                {"Origen", "VieneDe"},
+                {"Viene De", "VieneDe"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
