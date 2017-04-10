@@ -337,15 +337,9 @@ $(document).ready(function () {
 });
 
 function AbrirVentanaBelcorpChat(url) {
-    var res = encodeURI(url);
-  
-    if (localStorage.getItem('ventana') == null) {
-        ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
-        ventanaChat.focus();
-        localStorage.setItem('ventana', 'existe');
-    } else {
-        window.open("", "ventanaChat");
-    }
+    var res = encodeURI(url);  
+    ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
+    ventanaChat.focus();
 }
 
 function OrdenarCabecera() {
