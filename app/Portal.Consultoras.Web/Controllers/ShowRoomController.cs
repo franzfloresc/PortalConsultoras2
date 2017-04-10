@@ -70,11 +70,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
-            model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-            model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
-            model.Celular = userData.Celular;
             model.Suscripcion = eventoConsultora.Suscripcion;
+            model.EMail = userData.EMail;
+            model.EMailActivo = userData.EMailActivo;
+            model.Celular = userData.Celular;
             model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View(model);
@@ -2615,6 +2614,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (!ValidarIngresoShowRoom(false))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Ok",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -2665,6 +2676,11 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 }
                 
+                if (model.Limite > 0)
+                    listaFinal = listaFinal.Take(model.Limite).ToList();
+
+                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new
@@ -2681,8 +2697,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ok",
-                    data = "Error al cargar los productos"
+                    message = "Error al cargar los productos",
+                    data = ""
                 });
             }            
         }
@@ -2744,13 +2760,20 @@ namespace Portal.Consultoras.Web.Controllers
                 string CorreoAnterior = Util.Trim(userData.EMail);
                 string CorreoNuevo = entidad.EMail;
                 bool emailActivo = userData.EMailActivo;
+                
+                if (CorreoNuevo == "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "- El correo no puede ser vacio."
+                    });
+                }
 
                 entidad.Celular = Util.Trim(entidad.Celular);
-                if (entidad.Celular != Util.Trim(userData.Celular) && entidad.Celular != "")
+                if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
                 {
                     entidad.CodigoUsuario = userData.CodigoUsuario;
-                    entidad.EMail = userData.EMail;
-                    //entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                     entidad.Telefono = userData.Telefono;
                     entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
                     entidad.Sobrenombre = userData.Sobrenombre;
@@ -2763,26 +2786,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sv.UpdateDatos(entidad, CorreoAnterior);
                     }
+
+                    userData.EMail = entidad.EMail;
+                    userData.Celular = entidad.Celular;
+                    userData.EMailActivo = false;
+                    SetUserData(userData);
                 }
 
-                //UsuarioModel UsuarioModelSession = userData;
-                //UsuarioModelSession.EMail = entidad.EMail;
-                //UsuarioModelSession.Celular = entidad.Celular;
-                //SetUserData(UsuarioModelSession);
+                var emailValidado = userData.EMailActivo;
 
-                if (CorreoNuevo == "")
+                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "- El correo no puede ser vacio."
-                    });
-                }
-                var emailValidado = true;
-                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && userData.EMailActivo == true))
-                {
-                    emailValidado = false;
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn=ShowRoomIntriga" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 
@@ -2810,7 +2825,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                    emailValidado = !emailValidado
+                    emailValidado = emailValidado
                 });
             }
             catch (FaultException ex)

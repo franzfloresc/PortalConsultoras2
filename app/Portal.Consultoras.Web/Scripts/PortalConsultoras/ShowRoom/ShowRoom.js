@@ -223,6 +223,9 @@ function AgregarOfertaShowRoom(article, cantidad) {
     if (posicion != "0") {
         if (origenPedidoWebCarrusel != -1)
             origen = origenPedidoWebCarrusel;
+        else if (tipoOrigenPantalla == 1) {
+            origen = showRoomOrigenInsertar;
+        }
         else
             origen = origenPedidoWeb;
     } else {

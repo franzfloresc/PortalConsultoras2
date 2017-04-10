@@ -193,6 +193,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Pedido", "ConsultarEstrategias");
             providerSession.Add("Pedido", "CargarDetallePedido");
             providerSession.Add("Pedido", "ObtenerProductosOfertaFinal");
+            providerSession.Add("Pedido", "AccederOfertasVALAUTOPROL");
 
             providerSession.Add("PedidoWebAnteriores", "PedidoWebAnteriores");
             providerSession.Add("PedidoWebAnteriores", "ConsultarPedidoWebAnteriores");

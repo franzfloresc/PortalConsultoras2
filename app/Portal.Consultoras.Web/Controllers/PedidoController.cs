@@ -3322,7 +3322,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string PedidoValidadoDeshacer(string Tipo)
         {
-            var mensaje = "";
+            var mensaje = "";
+
             if (EstaProcesoFacturacion(out mensaje))
                 return mensaje;
 
@@ -3351,7 +3352,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ValidacionAbierta = true;
                     Estado = Constantes.EstadoPedido.Procesado;
-                }
+                }
+
                 olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
                 if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any())
@@ -3360,8 +3362,10 @@ namespace Portal.Consultoras.Web.Controllers
                     Estado = Constantes.EstadoPedido.Pendiente;
                 }
 
-                var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
-                sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
+                var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
+
+                sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
+
                 if (Tipo == "PI")
                 {
                     List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
@@ -3369,7 +3373,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
                     }
-                }
+                }
+
                 BEConfiguracionCampania oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
 
                 if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
@@ -3381,7 +3386,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return "";
-        }
+        }
+
         [HttpPost]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult InsertarDesglose()
@@ -5155,44 +5161,59 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
-            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
-            if (userData.CampaniaID <= 0)
+            var area = "";
+            try
             {
-                return RedirectToAction("Index", "Login", new { area = area });
-            }
+                area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+                if (userData.CampaniaID <= 0)
+                {
+                    return RedirectToAction("Index", "Login", new { area = area });
+                }
 
-            var obj = Util.Trim(Util.DesencriptarQueryString(script));
-            var listaParemetros = obj.Split(';');
+                var obj = Util.Trim(Util.DesencriptarQueryString(script));
+                var listaParemetros = obj.Split(';');
+                var ultimo = listaParemetros.Length > 0 ? listaParemetros[listaParemetros.Length - 1] : "";
 
-            // ISO del país, código de la campaña y código de la consultora
-            var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
-            var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
-            var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
-            TempData["CUVOfertaProl"] = listaParemetros.Length > 3 ? listaParemetros[3] : "";            
-            if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
-            {
-                return RedirectToAction("Index", "Bienvenida", new { area = area });
-            }
+                // ISO del país, código de la campaña y código de la consultora
+                var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
+                var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
+                var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
+                var cuv = listaParemetros.Length > 3 ? listaParemetros[3] : "";
+                int cuvx = 0;
 
-            BEConfiguracionCampania oBEConfiguracionCampania;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
+                TempData["CUVOfertaProl"] = Int32.TryParse(cuv, out cuvx) ? cuv : "";
 
-            if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
-                        !oBEConfiguracionCampania.ModificaPedidoReservado &&
-                        !oBEConfiguracionCampania.ValidacionAbierta)
-            {
-                // pasar a pase de pedido
-                var mensaje = PedidoValidadoDeshacer("PV"); // copiar en una sola funccion
-                if (mensaje != "")
+                if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = area });
                 }
-            }
 
-            return RedirectToAction("Index", "Pedido", new { area = area });
+                BEConfiguracionCampania oBEConfiguracionCampania;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                }
+
+                if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                            !oBEConfiguracionCampania.ModificaPedidoReservado &&
+                            !oBEConfiguracionCampania.ValidacionAbierta)
+                {
+                    // pasar a pase de pedido
+
+                    var mensaje = PedidoValidadoDeshacer("PV");
+                    if (mensaje != "")
+                    {
+                        return RedirectToAction("Index", "Bienvenida", new { area = area });
+                    }
+                }
+
+                return RedirectToAction("Index", "Pedido", new { area = area });
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = area });
+            }
         }
     }
 }

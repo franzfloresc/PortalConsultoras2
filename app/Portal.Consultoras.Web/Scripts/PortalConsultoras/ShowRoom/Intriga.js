@@ -9,7 +9,7 @@ $(document).ready(function () {
     $("#divIntrigaEmailRespuestaConfirmar").hide();
 
     if (suscrito == "True") {
-        if (emailActivo == "false") {
+        if (emailActivo == "true") {
             $("#divIntrigaEmailRespuestaOk").show();
         }
         else {
@@ -38,6 +38,10 @@ $(document).ready(function () {
     });
 
     $("[data-email-reenviar]").click(function (e) {
+        if (!intrigaAceptoTerminos) {
+            $(this).toggleClass('check_intriga');
+        }
+        intrigaAceptoTerminos = true;
         IntrigaConfirmarCorreo();
     });
 });
@@ -55,11 +59,11 @@ function IntrigaConfirmarCorreo() {
         return false;
     }
 
-    if ($.trim($("#txtIntrigaCelular").val()) == "") {
-        $('#txtIntrigaCelular').focus();
-        AbrirMensaje("Debe ingresar celular.\n");
-        return false;
-    }
+    //if ($.trim($("#txtIntrigaCelular").val()) == "") {
+    //    $('#txtIntrigaCelular').focus();
+    //    AbrirMensaje("Debe ingresar celular.\n");
+    //    return false;
+    //}
 
     if (!intrigaAceptoTerminos) {
         AbrirMensaje('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
@@ -103,14 +107,12 @@ function IntrigaActualizarDatos() {
                 $("#divIntrigaEmailRespuestaOk").hide();
                 $("#divIntrigaEmailRespuestaConfirmar").hide();
                 if (emailOriginal == emailNuevo) {
-                    if (emailActivo == "false") {
+                    if (emailActivo == "true") {
                         $("#divIntrigaEmailRespuestaOk").show();
-                        $("[data-email-reenviar]").hide();
                         return true;
                     }
                 }
-
-                $("[data-email-reenviar]").show();
+                
                 $("#divIntrigaEmailRespuestaConfirmar").show();
             }
         },
