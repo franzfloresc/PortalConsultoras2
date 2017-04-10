@@ -206,17 +206,54 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
-                    listaHermanos.ForEach(h =>
+                    //listaHermanos.ForEach(h =>
+                    //{
+                    //    var prod = listaProducto.Find(p => p.SAP == h.CodigoProducto) ?? new BEEstrategiaProducto();
+                    //    h.Orden = prod.Orden;
+                    //    h.Grupo = prod.Grupo;
+                    //    h.PrecioCatalogo = prod.Precio;
+                    //    h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
+                    //    h.Digitable = prod.Digitable;
+                    //    h.CUV = Util.Trim(prod.CUV);
+                    //    h.Cantidad = prod.Cantidad;
+                    //});
+
+                    var listaHermanosX = new List<ProductoModel>();
+                    listaProducto = listaProducto.OrderBy(p=>p.Grupo).ToList();
+                    listaHermanos = listaHermanos.OrderBy(p=>p.CodigoProducto).ToList();
+
+                    var idPk = 1;
+                    listaHermanos.Update(h => h.ID = idPk++);
+
+                    idPk = 0;
+                    foreach (var item in listaProducto)
                     {
-                        var prod = listaProducto.Find(p => p.SAP == h.CodigoProducto) ?? new BEEstrategiaProducto();
-                        h.Orden = prod.Orden;
-                        h.Grupo = prod.Grupo;
-                        h.PrecioCatalogo = prod.Precio;
-                        h.PrecioCatalogoString = Util.DecimalToStringFormat(prod.Precio, userData.CodigoISO);
-                        h.Digitable = prod.Digitable;
-                        h.CUV = Util.Trim(prod.CUV);
-                        h.Cantidad = prod.Cantidad;
-                    });
+                        var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto) ?? new ProductoModel()).Clone();
+                        if (Util.Trim(prod.CodigoProducto) == "")
+                            continue;
+
+                        var listaIgual = listaHermanos.Where(p => item.SAP == p.CodigoProducto);
+                        if (listaIgual.Count() > 1)
+                        {
+                            //var existe = listaHermanosX.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.Grupo == item.Grupo) ?? new ProductoModel();
+                            //if (Util.Trim(existe.CodigoProducto) != "")
+                            //    prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.Grupo == item.Grupo && p.ID > idPk) ?? new ProductoModel()).Clone();
+                            //else
+                                prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.SAP == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
+                        }
+
+                        prod.Orden = item.Orden;
+                        prod.Grupo = item.Grupo;
+                        prod.PrecioCatalogo = item.Precio;
+                        prod.PrecioCatalogoString = Util.DecimalToStringFormat(item.Precio, userData.CodigoISO);
+                        prod.Digitable = item.Digitable;
+                        prod.CUV = Util.Trim(item.CUV);
+                        prod.Cantidad = item.Cantidad;
+                        listaHermanosX.Add(prod);
+                        idPk = prod.ID;
+                    }
+
+                    listaHermanos = listaHermanosX;
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
                     {
