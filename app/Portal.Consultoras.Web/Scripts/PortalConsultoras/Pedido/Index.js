@@ -546,6 +546,12 @@ function CrearDialogs() {
 }
 
 function CargarDetallePedido(page, rows) {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $(".pMontoCliente").css("display", "none");
 
     $('#tbobyDetallePedido').html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -1030,6 +1036,13 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return false;
+        }
+    }
+
     $('#Nombres').val($('#txtClienteDescripcion').val());
     $("#divClientes").show();
 }
@@ -1736,6 +1749,13 @@ function Ignorar(tipo) {
 }
 
 function HorarioRestringido(mostrarAlerta) {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -3517,6 +3537,15 @@ function AnalyticsPedidoValidado(response) {
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
+
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

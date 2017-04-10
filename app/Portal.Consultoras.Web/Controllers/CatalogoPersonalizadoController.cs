@@ -114,6 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
    
             try
             {
+                #region obtener catalogo personalizado
                 if (Session["ProductosCatalogoPersonalizado"] == null)
                 {
                     string paisesConPcm = ConfigurationManager.AppSettings.Get("PaisesConPcm");
@@ -238,10 +239,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaProductoModel = (List<ProductoModel>)Session["ProductosCatalogoPersonalizado"] ?? new List<ProductoModel>();
                 }
-                    
+                #endregion
+
                 var listaPedido = ObtenerPedidoWebDetalle();
                 listaProductoModel.Update(c => c.IsAgregado = listaPedido.Where(p => p.CUV == c.CUV).Count() > 0);
 
+                #region filtros
                 //SB20-1197
                 //var totalRegistros = listaProductoModel.Count;
                 var totalRegistros = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizado"));
@@ -378,6 +381,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaProductoModel = lstProductoModelFilter;
                     totalRegistrosFilter = lstProductoModelFilter.Count;
                 }
+
+                #endregion
 
                 listaProductoModel = listaProductoModel.Skip(offset).Take(cantidad).ToList();
 

@@ -235,7 +235,21 @@
                         {
                             <li class="new_menu">
                                 <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @menuPadre.Descripcion
+                                    @if (menuPadre.EsSoloImagen)
+                                    {
+                                        if ((menuPadre.UrlImagen ?? "") != "")
+                                        {
+                                            <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" />
+                                        }
+                                        else
+                                        {
+                                            @menuPadre.Descripcion
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @menuPadre.Descripcion
+                                    }
                                 </a>
                             </li>
                         }

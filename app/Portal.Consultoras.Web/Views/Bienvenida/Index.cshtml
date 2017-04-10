@@ -1937,7 +1937,11 @@
 
                                     {{#IsNullOrEmpty item.imagen_gratis '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
+                                        
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
@@ -2071,7 +2075,10 @@
 
                                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>

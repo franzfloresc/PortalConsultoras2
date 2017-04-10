@@ -705,6 +705,10 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
+
+        //EPD-2058
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
@@ -1264,6 +1268,15 @@
             mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
             var restringido = true;
 
+            if (mostrarAlerta) {
+                if (typeof gTipoUsuario !== 'undefined') {
+                    if (gTipoUsuario == '2') {
+                        alert('Acceso restringido, aun no puede agregar pedidos');
+                        return true;
+                    }
+                }
+            }
+
             $.ajaxSetup({ cache: false });
             jQuery.ajax({
                 type: 'GET',
@@ -1300,7 +1313,8 @@
                     console.log(error);
                     messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
                 }
-        });
+            });
+
             return restringido;
         };
 

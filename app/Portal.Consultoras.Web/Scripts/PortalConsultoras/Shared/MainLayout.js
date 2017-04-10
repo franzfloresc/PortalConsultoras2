@@ -8,7 +8,7 @@ $(document).ready(function () {
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
-
+    
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
             if ($('#PopOfertaDia').is(':visible')) {
@@ -708,6 +708,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -788,6 +794,12 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
     });
@@ -1004,6 +1016,12 @@ function SetMarcaGoogleAnalyticsTermino() {
 };
 
 function loadOfertaDelDia() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -1265,6 +1283,15 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -1304,8 +1331,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 }
 
 function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
 };
 
 function animacionFlechaScroll() {
