@@ -1749,6 +1749,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width : 320px) {
+    
     .content-alerta-red-user {
         top: 245px;
     }
@@ -1788,6 +1789,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width : 681px) {
+    .texto_login{
+        line-height:20px;
+    }
+   .etiqueta_usuario{
+       width:41% !important;
+   }
+   .campo_input{
+       width:59% !important;
+   }
+   .btn_validar_usuario{
+       width:100% !important;
+       margin-left:0 !important;
+   }
     .nav a {
         display: inline-block;
         /*width: 100%;*/
