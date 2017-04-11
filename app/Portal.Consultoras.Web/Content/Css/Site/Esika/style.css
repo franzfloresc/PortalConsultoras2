@@ -32938,10 +32938,9 @@ h1#penmostreo .campana {
 
 .content_ficha_producto_nueva {
     width: 892px;
-    height: 520px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -260px auto auto auto;
+    margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }

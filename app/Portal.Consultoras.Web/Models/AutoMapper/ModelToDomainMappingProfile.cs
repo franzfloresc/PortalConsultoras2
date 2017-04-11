@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
-
+            
             Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>();
                         
             Mapper.CreateMap<ProductoModel, Producto>()

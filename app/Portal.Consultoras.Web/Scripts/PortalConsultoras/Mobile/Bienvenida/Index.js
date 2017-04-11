@@ -563,7 +563,6 @@ $("#content_oferta_dia_mobile").click(function () {
 });
 
 
-
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
