@@ -19,7 +19,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
 }
 <div class="content_banner_header_showroom">
-    <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+    <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
     <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
 </div>
@@ -73,15 +73,15 @@
                 <span class="precio_tachado_ficha">@Model.Simbolo @Model.PrecioOferta </span>@Model.Simbolo @Model.PrecioCatalogo
             </div>
             <div class="liquidacion_rango_home">
-                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <a class="cantidad_menos_home" tabindex="0"  href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <a class="cantidad_mas_home" tabindex="0" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
             </div>
             <hr class="clear" />
             <input id="hdCampaniaCodigo" type="hidden" value="@Model.CodigoCampania" />
             <input id="hdProductoNombre" type="hidden" value="@Model.Descripcion" />
             <input id="hdMarcaDescripcion" type="hidden" value="@Model.DescripcionMarca == null ? '' : @Model.DescripcionMarca" />
-            <a class="boton_Agregalo_home">
+            <a class="boton_Agregalo_home" href="javascript: void(0);">
                 AGRÉGALO
             </a>
         </div>       
