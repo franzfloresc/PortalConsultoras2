@@ -228,6 +228,18 @@
   <wsdl:message name="IPortalService_ObtenerListaNivelesGeograficosGeneral_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerListaNivelesGeograficosGeneralResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AgregarSolicitudPrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarSolicitudPrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_AgregarSolicitudPrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AgregarSolicitudPrePostulanteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
@@ -372,6 +384,14 @@
     <wsdl:operation name="ObtenerListaNivelesGeograficosGeneral">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosGeneral" message="tns:IPortalService_ObtenerListaNivelesGeograficosGeneral_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosGeneralResponse" message="tns:IPortalService_ObtenerListaNivelesGeograficosGeneral_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse" message="tns:IPortalService_ObtenerSolicitudPrePostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AgregarSolicitudPrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" message="tns:IPortalService_AgregarSolicitudPrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulanteResponse" message="tns:IPortalService_AgregarSolicitudPrePostulante_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
@@ -693,6 +713,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerListaNivelesGeograficosGeneral">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerListaNivelesGeograficosGeneral" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarSolicitudPrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/AgregarSolicitudPrePostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
