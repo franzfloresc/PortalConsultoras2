@@ -156,7 +156,7 @@ span {
     .logo-esika:before {
         content: "\e905";
         font-size: 43px;
-        color: #fff;
+        color: #613c87;
     }
 
 .logo {
@@ -243,7 +243,7 @@ span {
 }
 
 .formcontrol {
-    border-bottom: 1px solid #5d5c5c;
+    border-bottom: 1px solid #959595;
     width: 80%;
     height: 30px;
     margin-bottom: 24px;
@@ -277,7 +277,7 @@ span {
         letter-spacing: 0.3px;
         font-size: 13.2px;
         float: left;
-        text-transform:uppercase;
+        
     }
 
     .formcontrol .inputForm {
@@ -313,7 +313,7 @@ span {
     padding-left: 10px;
     padding-bottom: 3px;
     box-sizing: border-box;
-    border-bottom: 1px solid #5d5c5c;
+    border-bottom: 1px solid #959595;
 }
 
 .email, .formbtn, .pais {
@@ -529,7 +529,7 @@ span {
     width: 34%;
     height: 100%;
     /*background: url(../Images/bg_form_esika.png);*/
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.6);
 }
 
 .ui-dialog.ui-widget-content {
@@ -1289,7 +1289,7 @@ h1, h2, h3, h4, h5, h6 {
 
     #container {
         /*background: url('../Images/bg_form_esika.png') 0px 0px repeat;*/
-        background:rgba(0,0,0,0.7)
+        background:rgba(0,0,0,0.6)
         height: 100%;
     }
 

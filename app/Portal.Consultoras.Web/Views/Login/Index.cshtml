@@ -86,13 +86,10 @@
         height:1px;
         background:#959595;
     }
-    .formcontrol .inputForm::-webkit-input-placeholder { color: white; text-transform:uppercase; opacity:0.5}
-    .formcontrol .inputForm:-moz-placeholder { color: white; text-transform:uppercase; opacity:0.5 }
-    .formcontrol .inputForm::-moz-placeholder { color: white; text-transform:uppercase; opacity:0.5}
-    .formcontrol .inputForm:-ms-input-placeholder { color: white; text-transform:uppercase; opacity:0.5}
+   
     .content_btn_face{
         position: relative;
-        height: 53px;
+        height: 48px;
         overflow: hidden;
         border-radius: 3px;
     }
@@ -199,6 +196,9 @@
         box-sizing:border-box;
         border-radius:2px;
         line-height: 18px;
+   }
+   .center_facebook{
+       text-align:center;
    }
 </style>
 
@@ -525,7 +525,7 @@
                 <!--- FORM CONTROL USUARIO --->
                 <div class="boxform">
                     <div class="formcontrol user">
-                        <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario" />
+                        <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
                     </div>
                     <div id="Div3" class="btn">
                         <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
@@ -622,12 +622,12 @@
             <hr class="clear" />
             <div class="etiqueta_usuario">USUARIO</div>
             <div class="campo_input">
-                <input type="text" value="" class="usuario_facebook" id="txtUsuario2" />
+                <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
             </div>
             <hr class="clear" />
             <div class="etiqueta_usuario">CONTRASEÑA</div>
             <div class="campo_input">
-                <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" />
+                <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
             </div>
             <hr class="clear" />
             <br />
