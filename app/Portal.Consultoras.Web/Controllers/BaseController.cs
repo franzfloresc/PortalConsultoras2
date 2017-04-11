@@ -462,6 +462,17 @@ namespace Portal.Consultoras.Web.Controllers
                 List<PermisoModel> lstModel = new List<PermisoModel>();
                 foreach (var permiso in lst)
                 {
+                    if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                    {
+                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                            permiso.UrlItem = "ShowRoom/Index";
+                        else
+                            permiso.UrlItem = "ShowRoom/Intriga";
+
+                        permiso.EsSoloImagen = true;
+                        permiso.UrlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                    }
+
                     lstModel.Add(new PermisoModel
                     {
                         PermisoID = permiso.PermisoID,
@@ -925,12 +936,12 @@ namespace Portal.Consultoras.Web.Controllers
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
 
                         model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();
-                        model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();                        
+                        model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
 
                         //Por ahora es nivel pais
                         var showRoomNivelId = model.ListaShowRoomNivel.FirstOrDefault(p => p.Codigo == "PAIS") ?? new BEShowRoomNivel();
 
-                        model.ShowRoomNivelId = showRoomNivelId.NivelId;                        
+                        model.ShowRoomNivelId = showRoomNivelId.NivelId;
 
                         if (model.BeShowRoom != null && model.BeShowRoom.Estado != 0)
                         {
@@ -984,7 +995,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session["MostrarShowRoomProductos"] = "0";
                                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                                if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date 
+                                if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                                     && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                                 {
                                     //rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
@@ -1536,7 +1547,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MesFaltante = userData.FechaInicioCampania.Month;
             model.AnioFaltante = userData.FechaInicioCampania.Year;
-            
+
 
             foreach (var Item in userData.ListaShowRoomPersonalizacionConsultora)
             {
@@ -1561,7 +1572,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            
+
 
             return model;
         }
@@ -1706,7 +1717,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
         }
-       
+
         protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
         {
             DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
@@ -1854,7 +1865,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (controllerName == "ShowRoom") return true;
             return false;
         }
-        
+
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
             var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);

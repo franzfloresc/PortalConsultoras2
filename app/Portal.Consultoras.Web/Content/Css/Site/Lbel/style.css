@@ -32980,10 +32980,10 @@ h1#penmostreo .campana {
 
 .content_ficha_producto_nueva {
     width: 892px;
-    height: 520px;
+    width: 892px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -260px auto auto auto;
+   margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }
@@ -34199,7 +34199,6 @@ h1#penmostreo .campana {
     height: 24px;
     padding-top: 3px;
 }
-
 .btnnotificacion {
     text-decoration: none;
     font-family: 'Lato';
@@ -34264,20 +34263,6 @@ h1#penmostreo .campana {
     padding-top: 30px;
     padding-bottom: 30px;
 }
-.solo_inferior{
-    font-size:17px;
-    display:block;
-     height: 18px;
-    margin-top: 5px;
-}
-
-@media screen and (max-width: 1262px) {
-    .solo_inferior{
-        display:inline-block;
-        margin-left:5px;
-        }
-    }
-    
 .enlace_chat a {
     display: inline;
     font-weight: bold;
@@ -34301,24 +34286,6 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 25px;
 }
-.compartir_catalogo_facebook_Brasil
-{
-    width: 48%;
-    margin: auto;
-    height: 30px;
-    line-height: 41px;
-    text-align: center;
-    background: #336699;
-    margin-top: 10px;
-}
-
-.content_carrusel_catalogo_Brasil {
-    width: 198px;
-    float: left;
-    height: 320px;
-    overflow: hidden;
-    margin-bottom: 40px;
- }
 
 /*HOMOLOGAR OPT*/
 
@@ -34440,6 +34407,51 @@ h1#penmostreo .campana {
     /*font-weight: 700;*/
     cursor: pointer;
 }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+    
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}
+.solo_inferior{
+    font-size:17px;
+    display:block;
+     height: 18px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1262px) {
+    .solo_inferior{
+        display:inline-block;
+        margin-left:5px;
+        }
+    }
+       
+.compartir_catalogo_facebook_Brasil
+{
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+ }
 .banner_showroom_home{
     width: 29%;
     min-height: 703px;

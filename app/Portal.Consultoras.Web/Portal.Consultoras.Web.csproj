@@ -3153,8 +3153,8 @@
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.eot" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.ttf" />
     <Content Include="Content\Css\Site\fonts\icomoon\logo_esika.woff" />
-    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\ShowRoom\DetalleOferta.cshtml" />
+    <Content Include="Areas\Mobile\Views\OfertasParaTi\Detalle.cshtml" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-left.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow-slide-promotions-right.svg" />
     <Content Include="Content\Images\mobile\Esika\arrow_select_variant.svg" />
