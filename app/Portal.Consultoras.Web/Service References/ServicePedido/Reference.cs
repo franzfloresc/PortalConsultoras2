@@ -4331,6 +4331,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneStockProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneVariedadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoEstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5124,6 +5127,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneStockProlField.Equals(value) != true)) {
                     this.TieneStockProlField = value;
                     this.RaisePropertyChanged("TieneStockProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneVariedad {
+            get {
+                return this.TieneVariedadField;
+            }
+            set {
+                if ((this.TieneVariedadField.Equals(value) != true)) {
+                    this.TieneVariedadField = value;
+                    this.RaisePropertyChanged("TieneVariedad");
                 }
             }
         }

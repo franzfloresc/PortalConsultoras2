@@ -30,8 +30,7 @@ $(document).ready(function () {
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
-                $('[data-popup-main]').hide();
-                $('body').css({ 'overflow-y': 'scroll' });
+                CerrarPopup('[data-popup-main]');
             }
 
             //EPD-1780
@@ -70,7 +69,7 @@ $(document).ready(function () {
         if (!$(e.target).closest('[data-popup-body]').length) {
 
             if ($(e.target).is(':visible')) {
-                $(e.target).hide();
+                CerrarPopup(e.target);
             }
         }
     });
@@ -84,8 +83,8 @@ $(document).ready(function () {
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }
-                $(e.target).hide();
-                $('body').css({ 'overflow-y': 'scroll' });
+
+                CerrarPopup(e.target);
             }
         }
     });
@@ -98,8 +97,8 @@ $(document).ready(function () {
         if (functionHide != "") {
             setTimeout(functionHide + "()", 100);
         }
-        $(popupClose).hide();
-        $('body').css({ 'overflow-y': 'scroll' });
+
+        CerrarPopup(popupClose);
     });
 
     $('[data-oferta]').click(function (e) {
@@ -338,15 +337,9 @@ $(document).ready(function () {
 });
 
 function AbrirVentanaBelcorpChat(url) {
-    var res = encodeURI(url);
-  
-    if (localStorage.getItem('ventana') == null) {
-        ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
-        ventanaChat.focus();
-        localStorage.setItem('ventana', 'existe');
-    } else {
-        window.open("", "ventanaChat");
-    }
+    var res = encodeURI(url);  
+    ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
+    ventanaChat.focus();
 }
 
 function OrdenarCabecera() {
@@ -1295,8 +1288,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 }
 
 function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
 };
 
 function animacionFlechaScroll() {
