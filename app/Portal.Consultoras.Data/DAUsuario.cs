@@ -621,6 +621,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public bool GetExisteEmailActivo(string email)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteEmailActivo");
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
         public IDataReader GetListaLoginExterno(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaLoginExterno");

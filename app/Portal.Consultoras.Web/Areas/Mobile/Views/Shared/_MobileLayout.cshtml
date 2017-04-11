@@ -111,12 +111,21 @@
             </div>
         </div>
         <div class="foto_menu">
+            <!--
             <div class="content_foto">
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
                 @*<a class="subir_foto_mobile"></a>*@
             </div>
+                -->
+
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
+            }
         </div>
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
@@ -628,6 +637,13 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
+
+        //EPD-1837
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.foto_menu').show();
+        }
+
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true)

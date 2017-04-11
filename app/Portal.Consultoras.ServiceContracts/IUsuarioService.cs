@@ -291,6 +291,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion);
 
         [OperationContract]
+        bool GetExisteEmailActivo(int paisID, string email);
+
+        [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
         /*EPD-1837*/
     }

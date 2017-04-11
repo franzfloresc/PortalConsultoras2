@@ -665,6 +665,12 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
         }
+
+        public bool GetExisteEmailActivo(int paisID, string email)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetExisteEmailActivo(paisID, email);
+        }
         /*EPD-1837*/
     }
 }

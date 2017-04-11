@@ -1202,6 +1202,13 @@ namespace Portal.Consultoras.BizLogic
 
             return lstLoginExterno;
         }
+
+        public bool GetExisteEmailActivo(int paisID, string email)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.GetExisteEmailActivo(email);
+        }
+        
         /*EPD-1837*/
     }
 }

@@ -124,8 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                             {
-                                var result = svc.GetUsuarioExterno(model.PaisID, usuarioExterno.Proveedor, usuarioExterno.IdAplicacion);
-                                if (result == null)
+                                var userExt = svc.GetUsuarioExterno(model.PaisID, usuarioExterno.Proveedor, usuarioExterno.IdAplicacion);
+                                if (userExt == null)
                                 {
                                     BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
                                     beUsuarioExterno.CodigoUsuario = model.CodigoUsuario;
@@ -147,7 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-                        
                     }
                     //MC-EPD1837
 
@@ -1513,7 +1512,7 @@ namespace Portal.Consultoras.Web.Controllers
         //MC-EPD1837
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult ValidExternalUser(string codigoISO, string provider, string idapp)
+        public ActionResult ValidExternalUser(string codigoISO, UsuarioExternoModel usuarioExt)
         {
             pasoLog = "Login.POST.ValidExternalUser";
 
@@ -1521,6 +1520,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var paisId = 0;
                 var lstPaises = DropDowListPaises();
+                var emailOk = false;
 
                 foreach (var item in lstPaises)
                 {
@@ -1535,11 +1535,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                     {
-                        var beUsuarioExterno = svc.GetUsuarioExterno(paisId, provider, idapp);
-                        if (beUsuarioExterno != null)
+                        var beUsuarioExt = svc.GetUsuarioExterno(paisId, usuarioExt.Proveedor, usuarioExt.IdAplicacion);
+                        if (beUsuarioExt != null)
                         {
                             hizoLoginExterno = true;
-                            return Redireccionar(paisId, beUsuarioExterno.CodigoUsuario, null);
+                            return Redireccionar(paisId, beUsuarioExt.CodigoUsuario, null);
+                        }
+
+                        if (!string.IsNullOrEmpty(usuarioExt.Correo))
+                        {
+                            emailOk = svc.GetExisteEmailActivo(paisId, usuarioExt.Correo);
                         }
                     }
                 }
@@ -1547,7 +1552,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    exists = false
+                    exists = false,
+                    emailActive = emailOk
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)

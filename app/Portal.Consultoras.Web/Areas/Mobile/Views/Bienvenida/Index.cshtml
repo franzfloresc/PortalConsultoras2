@@ -66,12 +66,20 @@
 <div class="wrapper_resumen_mobile sombra_wrapper">
     <div class="content_320" style="text-align:center;"> <!--QUITAR CENTER CUANDO HAY FOTO-->
         <div class="content_foto">
-            <div class="foto_usuaria_mobile">
+            @*<div class="foto_usuaria_mobile">
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/user.jpg")" alt="-" />
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
                 </div>
-            </div>
+            </div>*@
+
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
+            }
+
             @*<a class="subir_foto_mobile">
                 <div class="tooltip_foto">
                     Prepara tu foto, pronto podrás subirla a tu portal.
@@ -932,35 +940,41 @@
     </div>
 </script>
 
-    @section scripts{
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        <script type="text/javascript">            
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript">            
 
-            var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
-            var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
-            var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-            var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-            var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-            var ViewBagRutaChile = '@Model.RutaChile';
-            var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-            var viewBagPaisID = '@Model.PaisID';
-            var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
-            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-            var contadorFondoPopUp = 0;
-            var viewBagVioTutorial = '@Model.VioTutorial';
-            var origenPagina = 1;//PL20-1233
-            var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
-            var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
-            var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
-            var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
-            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
-            var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+        var urlGetEstrategiasCarousel = '@Url.Action("JsonConsultarEstrategias", "Pedido", new { area = "" })';
+        var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var ViewBagRutaChile = '@Model.RutaChile';
+        var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+        var viewBagPaisID = '@Model.PaisID';
+        var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var contadorFondoPopUp = 0;
+        var viewBagVioTutorial = '@Model.VioTutorial';
+        var origenPagina = 1;//PL20-1233
+        var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
+        var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
+        var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+        var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
+        var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+        var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
 
-            var tipoOrigenEstrategia = 2;
-            var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
-        </script>
+        var tipoOrigenEstrategia = 2;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
+
+        //EPD-1837
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.content_foto').show();
+        }
+    </script>
                 
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
         
-    }
+}

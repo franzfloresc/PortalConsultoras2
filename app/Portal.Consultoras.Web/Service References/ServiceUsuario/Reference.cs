@@ -5927,6 +5927,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoAsync(int paisID, string proveedor, string idAplicacion);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo", ReplyAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse")]
+        bool GetExisteEmailActivo(int paisID, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo", ReplyAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse")]
+        System.Threading.Tasks.Task<bool> GetExisteEmailActivoAsync(int paisID, string email);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario);
         
@@ -6551,6 +6557,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoAsync(int paisID, string proveedor, string idAplicacion) {
             return base.Channel.GetUsuarioExternoAsync(paisID, proveedor, idAplicacion);
+        }
+        
+        public bool GetExisteEmailActivo(int paisID, string email) {
+            return base.Channel.GetExisteEmailActivo(paisID, email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetExisteEmailActivoAsync(int paisID, string email) {
+            return base.Channel.GetExisteEmailActivoAsync(paisID, email);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario) {

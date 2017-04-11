@@ -121,6 +121,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.MostrarODD = false;
                     }
+
+                    if (userData.HizoLoginExterno)
+                    {
+                        if (userData.TieneLoginExterno)
+                        {
+                            var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
+                            if (loginFacebook != null)
+                            {
+                                ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                            }
+                        }
+                    }
                 }
 
                 base.OnActionExecuting(filterContext);

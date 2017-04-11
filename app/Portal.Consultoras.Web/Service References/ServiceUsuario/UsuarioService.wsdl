@@ -183,6 +183,12 @@
   <wsdl:message name="IUsuarioService_GetUsuarioExterno_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuarioExternoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetExisteEmailActivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetExisteEmailActivo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetExisteEmailActivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetExisteEmailActivoResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetListaLoginExterno_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaLoginExterno" />
   </wsdl:message>
@@ -674,6 +680,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExterno" message="tns:IUsuarioService_GetUsuarioExterno_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoResponse" message="tns:IUsuarioService_GetUsuarioExterno_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetExisteEmailActivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo" message="tns:IUsuarioService_GetExisteEmailActivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse" message="tns:IUsuarioService_GetExisteEmailActivo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetListaLoginExterno">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno" message="tns:IUsuarioService_GetListaLoginExterno_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse" message="tns:IUsuarioService_GetListaLoginExterno_OutputMessage" />
@@ -1155,6 +1165,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioExterno">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExterno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExisteEmailActivo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1969,6 +1988,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetUsuarioExterno">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExterno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetExisteEmailActivo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

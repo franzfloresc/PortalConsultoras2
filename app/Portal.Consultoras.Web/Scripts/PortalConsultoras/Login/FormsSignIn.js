@@ -5,8 +5,17 @@ var val_comboLogin = "";
 var temp = "";
 
 $(document).ready(function () {
+
+    $(window).resize(function () {
+        //resize just happened, pixels changed
+        resizeNameUserExt();
+    });
+
+
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
+    $('#ddlPais2').val(isoPais);
+
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) {
@@ -495,3 +504,72 @@ function EsconderLogoEsikaPanama(imgISO) {
     };
 }
 
+function login2() {
+    var valid = true;
+    var CodigoISO = $('#ddlPais2').val();
+    var PaisID = $('#ddlPais2 :selected').data('id');
+    var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
+    var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
+    $('#hdeCodigoISO').val(CodigoISO);
+    var mensaje = "";
+
+    if (typeof CodigoISO == 'undefined' || PaisID == "")
+        mensaje += "- Debe seleccionar el País del Usuario.\n";
+    if (CodigoUsuario == "")
+        mensaje += "- Debe ingresar el Usuario.\n";
+    if (Contrasenia == "")
+        mensaje += "- Debe ingresar la Clave Secreta.\n";
+
+    if (mensaje != "") {
+        valid = false;
+        alert(mensaje);
+        $('#ddlPais2').focus();
+    }
+
+    if (!valid) {
+        //e.preventDefault();
+        return false;
+    }
+
+    $('#ddlPais').val(CodigoISO);
+    $('#txtUsuario').val(CodigoUsuario);
+    $('#txtContrasenia').val(Contrasenia);
+
+    $('#HdePaisID').val(PaisID);
+    $('#ddlPais option:not(:selected)').prop('disabled', true);
+    $('#txtUsuario').attr('readonly', true);
+    $('#txtContrasenia').attr('readonly', true);
+    $('#btnLogin').prop('disabled', true);
+
+    $('.content_pop_login').hide();
+    $('#btnLoginFB').prop('disabled', true);
+
+    $('#frmLogin').submit();
+}
+
+function closePopupAsociarLoginExt() {
+    // disable prevent submit
+    $('#ddlPais option:not(:selected)').prop('disabled', false);
+    $('#txtUsuario').attr('readonly', false);
+    $('#txtContrasenia').attr('readonly', false);
+    $('#btnLogin').prop('disabled', false);
+
+    $('.content_pop_login').hide();
+}
+
+function resizeNameUserExt() {
+    var w = $(window).width();  //1366,1093
+    //console.log(w);
+    var ml = 8;
+    if (w <= 1093) ml = 16;
+    var name = $('#hdeNameUserExt').val();
+
+    if (typeof name !== 'undefined' && name != "") {
+        if (name.length > ml) {
+            var p = name.indexOf(' ');
+            name = name.substring(0, p).trim() + '..';
+        }
+
+        $('#btnLoginFB').text('Continuar como ' + name);
+    }
+}
