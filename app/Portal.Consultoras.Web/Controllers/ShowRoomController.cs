@@ -2619,7 +2619,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Ok",
+                        message = "",
                         lista = new List<ShowRoomOfertaModel>(),
                         cantidadTotal = 0,
                         cantidad = 0
