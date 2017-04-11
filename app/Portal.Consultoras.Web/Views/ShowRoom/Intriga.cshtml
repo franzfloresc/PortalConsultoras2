@@ -37,12 +37,21 @@
         </div>
         <div class="set_visible_intriga">
             <div class="content_set_imagen_intriga">
+            @if (Model.ImagenProducto != "")
+            {
                 <img class="set_img" src="@Model.ImagenProducto">
+            }
+            else
+            {
+                <img class="set_img" src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+            }                
             </div>
             
             <div class="linea_separadora_intriga"></div>
             <div class="nombre_set_showroom">@Model.Descripcion</div>
-            <div class="precio_showroom_intriga">  <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioCatalogo, </span>@Model.Simbolo @Model.FormatoPrecioOferta </div>
+            <div class="precio_showroom_intriga">
+                <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioOferta, </span>@Model.Simbolo @Model.FormatoPrecioCatalogo
+            </div>
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                 <div class="liquidacion_rango_right_pedido">
@@ -87,7 +96,7 @@
         </div>
     </div>
     <hr class="clear" />
-    <div class="texto_final_intriga">¿Tienes dudas sobre la Gran Venta Online?.
+    <div class="texto_final_intriga">¿Tienes dudas sobre la Venta Exclusiva Web?.
         <a href="@ViewBag.urlTerminosyCondiciones" style="display:inline-block">Resuélvelas aquí.</a>
     </div>
 </div>

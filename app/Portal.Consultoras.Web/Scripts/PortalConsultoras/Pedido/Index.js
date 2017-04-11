@@ -69,6 +69,8 @@ $(document).ready(function () {
         numImagen = 1;
     }
 
+    /*
+    EPD-1871
     $(document).on('change', '.seleccion_pagina select', function () {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -77,6 +79,7 @@ $(document).ready(function () {
             'label': $(this).find('option:selected').text()
         });
     });
+    */
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
@@ -206,7 +209,13 @@ $(document).ready(function () {
         }
     });
     $('#btnValidarPROL').click(function () {
-        EjecutarPROL();        
+        console.log('indicadorGPRSB ' + indicadorGPRSB);
+        if (indicadorGPRSB == 1) {
+            ConfirmarModificar();            
+        }
+        else {
+            EjecutarPROL();
+        }
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
@@ -537,6 +546,12 @@ function CrearDialogs() {
 }
 
 function CargarDetallePedido(page, rows) {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $(".pMontoCliente").css("display", "none");
 
     $('#tbobyDetallePedido').html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -1021,6 +1036,13 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return false;
+        }
+    }
+
     $('#Nombres').val($('#txtClienteDescripcion').val());
     $("#divClientes").show();
 }
@@ -1153,12 +1175,25 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 
     if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
+        //EPD-1871
+        var sentListEstrategia = false;
+        if (typeof (Storage) !== 'undefined') {
+            var sle = localStorage.getItem('sentListEstrategia2');
+            if (sle != null && sle == '1') {
+                sentListEstrategia = true;
             }
-        });
+            else {
+                localStorage.setItem('sentListEstrategia2', '1');
+            }
+        }
+        if (!sentListEstrategia) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
     }
 }
 function TagManagerClickAgregarProducto() {
@@ -1714,6 +1749,13 @@ function Ignorar(tipo) {
 }
 
 function HorarioRestringido(mostrarAlerta) {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -1994,6 +2036,7 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 }
 
 function EjecutarPROL() {
+    // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
     if (HorarioRestringido())
         return;
 
@@ -3260,6 +3303,8 @@ function CambioPagina(obj) {
         return false;
     }
 
+    /*
+    EPD-1871
     var accion = obj.attr("data-paginacion");
     if (accion === "back" || accion === "next") {
         dataLayer.push({
@@ -3269,6 +3314,8 @@ function CambioPagina(obj) {
             'label': 'Pág. ' + rpt.page
         });
     }
+    */
+
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
@@ -3491,6 +3538,15 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -3529,3 +3585,38 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 };
+
+function ConfirmarModificar() {
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
+                    location.href = baseUrl + 'Pedido/Index';
+                }
+                else {
+                    closeWaitingDialog();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+    return false;
+}

@@ -21,14 +21,53 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private const string keyFechaGetCantidadProductos = "fechaGetCantidadProductos";
         private const string keyCantidadGetCantidadProductos = "cantidadGetCantidadProductos";
 
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private int OfertaID = 0;
+        private bool blnRecibido = false;
         #endregion
 
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
 
             ActionExecutingMobile();
-
             var showRoomEventoModel = OfertaShowRoom();
+            
+            if (query != null)
+            {
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+                    }
+                }
+                else
+                {
+                    RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+            }
+
 
             return showRoomEventoModel == null
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
@@ -44,7 +83,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-
+                ActionExecutingMobile();
                 var listaShowRoomOferta = new List<BEShowRoomOferta>();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -86,7 +125,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
                 model.Celular = userData.Celular;
                 model.Suscripcion = eventoConsultora.Suscripcion;
-                model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 
                 return View(model);
             }
@@ -120,7 +159,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             try
-            {               
+            {      
                 var showRoomEventoModel = CargarValoresModel();
 
                 var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
@@ -148,6 +187,53 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return null;
         }
         
+        public ActionResult DetalleOfertaCUV(string query)
+        {
+            if (query != null)
+            {
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                        OfertaID = intID;
+
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                }
+
+            }
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { area = "Mobile", id = OfertaID });
+        }
+
         public ActionResult DetalleOferta(int id)
         {
             ActionExecutingMobile();

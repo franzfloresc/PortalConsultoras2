@@ -22,6 +22,9 @@ namespace Portal.Consultoras.Web.Controllers
     public class ShowRoomController : BaseShowRoomController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private int OfertaID = 0;
+        private bool blnRecibido = false;
 
         public ActionResult Intriga()
         {
@@ -67,24 +70,63 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
-            model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-            model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
-            model.Celular = userData.Celular;
             model.Suscripcion = eventoConsultora.Suscripcion;
+            model.EMail = userData.EMail;
+            model.EMailActivo = userData.EMailActivo;
+            model.Celular = userData.Celular;
             model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View(model);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
+            
             ViewBag.TerminoMostrar = 1;
 
             try
             {
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
+
+                //actualizar showroom.eventoconsultora. campo recibido.
+
+                if (query != null)
+                {
+                    string param = Util.DesencriptarQueryString(query);
+                    string[] lista = param.Split(new char[] { ';' });
+
+                    if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+
+                    if(lista[0] == CodigoProceso)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                        }
+
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                        {
+                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                            Entidad.CodigoConsultora = lista[2];
+                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+                }
+
 
                 var showRoomEventoModel = CargarValoresModel();
 
@@ -2498,6 +2540,53 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Comprar desde Página de Oferta
 
+        public ActionResult DetalleOfertaCUV(string query)
+        {
+            if (query != null)
+            {
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                        OfertaID = intID;
+
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+  
+            }
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
+        }
+
         public ActionResult DetalleOferta(int id)
         {
             if (!ValidarIngresoShowRoom(false))
@@ -2525,6 +2614,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (!ValidarIngresoShowRoom(false))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Ok",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -2575,6 +2676,11 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 }
                 
+                if (model.Limite > 0)
+                    listaFinal = listaFinal.Take(model.Limite).ToList();
+
+                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new
@@ -2591,8 +2697,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ok",
-                    data = "Error al cargar los productos"
+                    message = "Error al cargar los productos",
+                    data = ""
                 });
             }            
         }
@@ -2653,7 +2759,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string CorreoAnterior = Util.Trim(userData.EMail);
                 string CorreoNuevo = entidad.EMail;
                 bool emailActivo = userData.EMailActivo;
-
+                
                 if (CorreoNuevo == "")
                 {
                     return Json(new

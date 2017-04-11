@@ -1,4 +1,4 @@
-body {
+Ôªøbody {
     background: #f3f3f3;
     font-weight: 400;
     font-size: 15px;
@@ -4535,7 +4535,7 @@ width:100%;
 
 /*ESTILOS GIOVANNI*/
 
-/* PANTALLA INGRESO DE PEDIDO VERSI”N MOBILE */
+/* PANTALLA INGRESO DE PEDIDO VERSI√ìN MOBILE */
 
 body{
     background:#FFF;
@@ -5579,7 +5579,7 @@ body{
     }
 }
 
-/*CAT¡LOGOS*/
+/*CAT√ÅLOGOS*/
 .content_app{
     float:left;
     padding-left:50px;
@@ -5906,8 +5906,8 @@ body{
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "¶"; /* el valor de la propiedad content tambiÈn puede ser cualquier imagen, sÛlo tendrÌamos que pasarle la ruta de la imagen*/
-    content: "¶";
+    content: "¬¶"; /* el valor de la propiedad content tambi√©n puede ser cualquier imagen, s√≥lo tendr√≠amos que pasarle la ruta de la imagen*/
+    content: "¬¶";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -5952,7 +5952,7 @@ input[type="checkbox"]:checked + span:after {
     width:100%;
 }
 
-/*MENSAJES DE ALERTA CAT¡LOGOS*/
+/*MENSAJES DE ALERTA CAT√ÅLOGOS*/
 .MensajeAlertaMobile{
     position:fixed;
     z-index:2010;    
@@ -8341,7 +8341,7 @@ a{
 .fondo_white{
     background:white;
 }
-/*CAT¡LOGO PERSONALIZADO*/
+/*CAT√ÅLOGO PERSONALIZADO*/
 .content_PopOferta{
     width: 100%;
     height: 100%;
@@ -9613,13 +9613,14 @@ span.icon-advertencia{
     margin: 0 auto;
     position: relative;
     margin-top: 5%;
+    height: 35px;
 }
 .solo_hoy_mobile img{
     width:100%;
 }
 .nombre_set_oferta_mobile{
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
     margin-top: 16%;
@@ -10131,7 +10132,7 @@ span.icon-advertencia{
 }
 .solo_hoy_mobile2{
     width: 200px;
-    margin-top: 6px;
+    height:34px;
 }
 .solo_hoy_mobile2 img{
     width:100%;
@@ -10211,10 +10212,11 @@ span.icon-advertencia{
     height:13px;
     border:1px solid #979797;
 }
-.content_imagen_intriga{
-    width:250px;
-    height:auto;
-    text-align:center;
+.content_imagen_intriga {
+    width: 250px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
 }
 .content_imagen_intriga img{
    
@@ -10372,7 +10374,6 @@ span.icon-advertencia{
     background-position: 95% 19px;
     position:relative;
     margin-bottom:5px;
-    
 }
 .texto_redes{
     font-family: 'Lato';
@@ -10502,8 +10503,50 @@ span.icon-advertencia{
     height:48px;
     line-height:47px;
 }
+
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 95% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
+.tono_no_seleccionado{
+    background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background-position: 95% 19px;
+    color:white;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.btn_elige_tono{
+    display: block;
+    margin-top: 12px;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 12px;
+    font-weight: 900;
+    cursor: pointer;
+}
+.texto_elige_tono {
+    font-family: 'LAto';
+    font-size: 11px;
+    font-weight: 700;
+    color: #613c87;
+    text-align: center;
+    height: 48px;
+    line-height: 47px;
+}
 .check_intriga:before{
-    content: "?";
+    content: "‚úì";
     line-height: 11.5px;
     padding-left: 2px;
 }
@@ -10919,6 +10962,7 @@ span.icon-advertencia{
     font-weight: 700;
     font-size: 14.5px;
     height:40px;
+    overflow:hidden;
 }
 .box_promotions{
     background:white;

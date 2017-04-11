@@ -12,8 +12,10 @@ var tipoOrigen = '3';
 var timeoutTooltipTutorial;
 var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
+var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -66,8 +68,7 @@ $(document).ready(function () {
             }
         }
     });
-
-
+    
     //Fin EDP-1564
 
     document.onkeydown = function (evt) {
@@ -167,6 +168,9 @@ $(document).ready(function () {
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
+    if (showRoomMostrarLista == 1) {
+        CargarProductosShowRoom({ Limite: 6 });
+    }
 
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
@@ -315,7 +319,7 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
-    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+    $("#txtTelefonoTrabajo, #txtTelefonoTrabajoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
@@ -326,14 +330,25 @@ $(document).ready(function () {
             return re.test(keyChar);
         }
     });
-    $("#txtEMailMD").keypress(function (evt) {
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode; 
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtEMailMD, #txtConfirmarEMail").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
         }
         else {
             var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            var re = /^[a-zA-Z@._0-9\-]*$/;
             return re.test(keyChar);
         }
     });
@@ -410,6 +425,38 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
+
+/*** EPD-1089 ***/
+function limitarMaximo(e, contenido, caracteres, id) {
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
+        unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
+        return true;
+
+    if (contenido.length >= caracteres) {
+        selectedText = document.getSelection();
+        if (selectedText == contenido) {
+            $("#" + id).val("");
+            return true;
+        } else if (selectedText != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+function limitarMinimo(contenido, caracteres, a) {
+    if (contenido.length < caracteres && contenido.trim() != "")
+    {
+        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
+        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        return false;
+    }
+    return true;
+}
+/*** FIN EPD-1089 ***/
 
 function CargarCamara() {
     //https://github.com/jhuckaby/webcamjs
@@ -686,6 +733,12 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
     } else {
@@ -715,6 +768,13 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
@@ -773,6 +833,12 @@ function alert_unidadesAgregadas(message, exito) {
 }
 
 function CargarCarouselLiquidaciones() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
     $('#divCarruselLiquidaciones.slick-initialized').slick('unslick');
@@ -1561,6 +1627,7 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
+
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1571,12 +1638,34 @@ function ActualizarMD() {
         alert("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
+    
+    if (!ValidarTelefono($("#txtCelularMD").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }
     if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
         ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
         $('#txtTelefonoMD').focus();
         alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
         return false;
     }
+
+    //Validando cantidad de caracteres minimos.
+    var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
+    if (!MinCaracterTelefono) 
+        return false;
+
+    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+    if (!MinCaracterCelular)
+        return false;
+
+    if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+        
+        var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
+        if (!MinCaracterOtroTelefono)
+            return false;
+    }
+    //
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
@@ -1659,6 +1748,11 @@ function DownloadAttachContratoActualizarDatos() {
 }
 
 function CargarMisCursos() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
 
     $(window).scroll(function () {
         if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
@@ -1737,6 +1831,11 @@ function ActualizarDatos() {
     var celular = $('#txtCelular').val();
     var correoElectronico = $('#txtEMail').val();
     var confirmacionCorreoElectronico = $('#txtConfirmarEMail').val();
+
+    if (!ValidarTelefono($("#txtCelular").val())) {
+        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }        
 
     if ((telefono == '' || telefono == null) &&
         celular == '' || celular == null) {
@@ -2055,9 +2154,9 @@ function AceptarContrato() {
                 }
 
                 PopupCerrar('popupAceptacionContrato');
-
                 if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
+                    //EPD - 2121
+                    PopupMostrar('popupActualizarMisDatos'); 
                 }
             }
         },
@@ -2213,6 +2312,12 @@ function AceptarComunicado() {
 };
 
 function AbrirPopupFlexipago() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     if (viewBagPaisID == 4 || viewBagPaisID == 3) { // Colombia || Chile
         if (viewBagInvitacionRechazada == "False" || viewBagInvitacionRechazada == "0" || viewBagInvitacionRechazada == "") {
             if (viewBagInscritaFlexipago == "0") {
@@ -2275,51 +2380,6 @@ function ConoceFlex() {
         window.open("http://FLEXIPAGO.SOMOSBELCORP.COM/FlexipagoCO/index.html?PP=" + String(pp) + "&CC=" + String(cc) + "&CA=" + String(ca), "_blank");
     }
     return false;
-};
-
-function CrearPopupComunicadoVisualizacion() {
-    $('#divComunicadoVisualizacion').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 650,
-        position: ['center', 22],
-        draggable: true,
-        close: function (event, ui) {
-            $('#divComunicadoVisualizacion').dialog('close');
-        }
-    });
-};
-function AbrirComunicadoVisualizacion() {
-    if (viewBagVisualizoComunicadoConfigurable == "0") {
-        showDialog("divComunicadoVisualizacion");
-        $("#divComunicadoVisualizacion").siblings(".ui-dialog-titlebar").hide();
-    }
-};
-function AceptarComunicadoVisualizacion() {
-    if ($('#chkMostrarComunicado').is(':checked')) {
-        waitingDialog({});
-        $.ajax({
-            type: "POST",
-            url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
-            contentType: 'application/json',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    $('#divComunicadoVisualizacion').dialog('close');
-                    closeWaitingDialog();
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert("Ocurrió un error al aceptar el comunicado.");
-                }
-            }
-        });
-    }
-
-    $("#divComunicadoVisualizacion").dialog('close');
 };
 
 function RedirectPagaEnLineaAnalytics() {
@@ -2687,6 +2747,12 @@ function playVideo() {
 };
 
 function CrearPopShow() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     var noMostrarShowRoom = true;
     
     $("#cbNoMostrarPopupShowRoom").click(function () {
@@ -2723,6 +2789,12 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
             return;
@@ -2766,7 +2838,7 @@ function MostrarShowRoom() {
                                         AgregarTagManagerShowRoomPopup(evento.Tema, false);
                                         
                                         var container = $('#PopShowroomVenta');
-                                        var txtSaludoIntriga = response.nombre + ' prepárate para la';
+                                        var txtSaludoIntriga = response.nombre + ' YA COMENZÓ LA';
                                         $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
                                         $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                                         $(container).show();
@@ -3147,6 +3219,37 @@ function PopupCerrar(idPopup) {
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
+}
+
+function ValidarTelefono(celular) {
+    var resultado = false;
+
+    var item = {
+        Telefono: celular //$("#txtCelular").val()
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(item),
+        async: false,
+        cache: false,
+        success: function (data) {
+            closeWaitingDialog();
+            if (!checkTimeout(data))
+                resultado = false;
+            else
+                resultado = data.success;
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) { }
+        }
+    });
+
+    return resultado;
 }
 
 function VerShowRoomIntriga() {

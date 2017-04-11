@@ -34,7 +34,8 @@
                 <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
                 <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
-                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini"/>
+                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
+                <input type="hidden" class="Nombre" value="@Model.Descripcion" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
                 <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
                 <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
@@ -148,7 +149,7 @@
                                         }
                                         else
                                         {
-                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
                                         }
                                     </div>
                                     <div class="precio_set_compra" style="font-size: 14px; line-height: 17px;">@Model.TextoCondicionCompraCpc</div>
@@ -170,7 +171,7 @@
         <hr class="clear" />
     </div>    
 </div>
-<div class="catalogoPersonalizadoBloque" style="margin-top:85px; margin-bottom:30px; padding-bottom: 30px; overflow:hidden;">
+<div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
    <div class="content_belcorp">
        <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
        <!--CARRUSEL-->
@@ -178,6 +179,11 @@
            @{ var posicionx = 1; }
            @foreach (var oferta in Model.ListaOfertaShowRoom)
            {
+               var descripcion = oferta.Descripcion;
+               if (descripcion != null && descripcion.Length > 41)
+               {
+                   descripcion = descripcion.Substring(0, 40) + " ...";
+               }
                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
                    <div data-campos="">
                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
@@ -190,11 +196,11 @@
                        <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
                    </div>
                    <div class="producto_img_home mini" data-img="">
-                       <img src="@oferta.ImagenMini" style="width: auto; height: 100%;" class="imagen_producto">
+                       <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
                    </div>
                    <div class="producto_nombre_descripcion">
-                       <p class="nombre-producto-set">@oferta.Descripcion</p>
+                       <p class="nombre-producto-set">@descripcion</p>
                        <div class="producto_precio" style="margin-bottom: 3px;">
                            <span class="precio-oferta-normal">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
                            <span class="precio-oferta-venta"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo</b></span>
@@ -223,12 +229,12 @@
        </div>
    </div>
 </div>
-@if (Model.TipNegocio != "")
+@if (!string.IsNullOrEmpty(Model.TipNegocio))
 {
-    <div class="content_belcorp">
+    <div class="content_belcorp" style="margin-top:30px;">
         <div class="content_tip_negocio">
             <div class="tip_negocio_showroom">
-                <span class="titulo_tip">tip deEXCLUSIVOS  negocio</span>@Model.TipNegocio
+                <span class="titulo_tip">tip de negocio</span>@Model.TipNegocio
             </div>
         </div>
     </div>
@@ -273,7 +279,7 @@
                                 }
                                 else
                                 {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" class="imagen_producto"/>
                                 }
                             </div>
 

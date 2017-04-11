@@ -5677,6 +5677,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private long PedidoIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal TotalField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -5945,6 +5948,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PedidoIdField.Equals(value) != true)) {
                     this.PedidoIdField = value;
                     this.RaisePropertyChanged("PedidoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoUsuario {
+            get {
+                return this.TipoUsuarioField;
+            }
+            set {
+                if ((this.TipoUsuarioField.Equals(value) != true)) {
+                    this.TipoUsuarioField = value;
+                    this.RaisePropertyChanged("TipoUsuario");
                 }
             }
         }
@@ -10030,6 +10046,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SODispositivoField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long UsuarioAppIDField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10231,6 +10253,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SODispositivoField, value) != true)) {
                     this.SODispositivoField = value;
                     this.RaisePropertyChanged("SODispositivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=15)]
+        public int TipoUsuario {
+            get {
+                return this.TipoUsuarioField;
+            }
+            set {
+                if ((this.TipoUsuarioField.Equals(value) != true)) {
+                    this.TipoUsuarioField = value;
+                    this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=16)]
+        public long UsuarioAppID {
+            get {
+                return this.UsuarioAppIDField;
+            }
+            set {
+                if ((this.UsuarioAppIDField.Equals(value) != true)) {
+                    this.UsuarioAppIDField = value;
+                    this.RaisePropertyChanged("UsuarioAppID");
                 }
             }
         }
@@ -19831,6 +19879,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ShowRoomProgramarAviso", ReplyAction="http://tempuri.org/IPedidoService/ShowRoomProgramarAvisoResponse")]
         System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido", ReplyAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoRespons" +
+            "e")]
+        int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido", ReplyAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoRespons" +
+            "e")]
+        System.Threading.Tasks.Task<int> UpdShowRoomEventoConsultoraEmailRecibidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido", ReplyAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse")]
+        bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido", ReplyAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse")]
+        System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia", ReplyAction="http://tempuri.org/IPedidoService/InsertarTipoEstrategiaResponse")]
         int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
@@ -21771,6 +21833,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> ShowRoomProgramarAvisoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
             return base.Channel.ShowRoomProgramarAvisoAsync(paisID, entity);
+        }
+        
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
+            return base.Channel.UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdShowRoomEventoConsultoraEmailRecibidoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {
+            return base.Channel.UpdShowRoomEventoConsultoraEmailRecibidoAsync(paisID, entity);
+        }
+        
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID) {
+            return base.Channel.GetEventoConsultoraRecibidoAsync(paisID, CodigoConsultora, CampaniaID);
         }
         
         public int InsertarTipoEstrategia(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad) {

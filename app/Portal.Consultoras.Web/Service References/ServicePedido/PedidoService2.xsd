@@ -403,6 +403,7 @@
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:long" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
       <xs:element minOccurs="0" name="Total" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
@@ -779,6 +780,8 @@
       <xs:element minOccurs="0" name="FlagMedio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoDispositivo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SODispositivo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioAppID" type="xs:long" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BESolicitudClienteAppCatalogo" nillable="true" type="tns:BESolicitudClienteAppCatalogo" />

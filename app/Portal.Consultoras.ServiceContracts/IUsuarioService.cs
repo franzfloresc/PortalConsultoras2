@@ -289,5 +289,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
+
+        //EPD-2058
+        [OperationContract]
+        BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
     }
 }

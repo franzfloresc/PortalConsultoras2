@@ -417,7 +417,7 @@ function closeWaitingDialog() {
 
 }
 
-function AbrirLoad(opcion){
+function AbrirLoad(opcion) {
     try {
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
         if (isUrlMobile > 0) {
@@ -427,11 +427,11 @@ function AbrirLoad(opcion){
             waitingDialog(opcion);
         }
     } catch (e) {
-    
+
     }
 }
 
-function CerrarLoad(opcion){
+function CerrarLoad(opcion) {
     try {
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
         if (isUrlMobile > 0) {
@@ -441,7 +441,7 @@ function CerrarLoad(opcion){
             closeWaitingDialog(opcion);
         }
     } catch (e) {
-    
+
     }
 }
 
@@ -521,15 +521,14 @@ function checkTimeout(data) {
 
     if (data) {
         var eval = data.responseText ? data.responseText : data;
-        if (jQuery.type(eval) === "string")
-        {
+        if (jQuery.type(eval) === "string") {
             if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
                 thereIsStillTime = false;
-        }        
+        }
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
-            
+
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
@@ -719,7 +718,7 @@ FuncionesGenerales = {
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
-        'Fecha': '',
+        'Fecha': new Date().getTime(),
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
@@ -736,17 +735,17 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Extra': extra
     }
     if (urlLogDynamo != "") {
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
-}
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -797,7 +796,14 @@ function xMensajeEstadoPedido(estado) {
         var wtop = $("#bloquemensajesPedido").height();
 
         if (esMobile) {
-            $("[data-content]").animate({ "top": wtop + "px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": wtop + "px" });
+            }
+
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
@@ -810,7 +816,6 @@ function xMensajeEstadoPedido(estado) {
                 $(".oscurecer_animacion").css({ "display": "none" });
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
-
                 if ($('.content_banner_intriga').length > 0) {
                     if ($('#OfertaDelDia:visible').length > 0) {
                         $('.ubicacion_web').css('margin-top', '162px');
@@ -820,21 +825,30 @@ function xMensajeEstadoPedido(estado) {
                     }
                 }
                 else {
-                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                }
             }
         }
-    }
     }
     else {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
-            $("[data-content]").animate({ "top": "0px" });
-            $(".footer-page").animate({ "top": "0px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
+            }
+            $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
         }
         else {
-            if (esBienvenida) {                
-                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
-                else $("[data-content]").animate({ "top": "64px" });
+            if (esBienvenida) {
+
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                    $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
+                }
+                else { $("[data-content]").animate({ "top": "64px", "margin-top": "0px" }); }
             }
             else {
                 if ($('.content_banner_intriga').length > 0) {
@@ -846,11 +860,15 @@ function xMensajeEstadoPedido(estado) {
                     }
                 }
                 else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-                $('.content_slider_home ').css('margin-top', '60px');
+                    $(".ubicacion_web").animate({ "margin-top": "83px" });
+                    $('.content_slider_home ').css('margin-top', '60px');
+                    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                        $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+                    }
+                    else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
+                }
             }
         }
-    }
     }
 }
 
@@ -941,6 +959,15 @@ function CompartirRedesSociales(e) {
 }
 
 function CompartirRedesSocialesTexto(texto) {
+    texto = texto.ReplaceAll("/", '%2F');
+    texto = texto.ReplaceAll(":", "%3A");
+    texto = texto.ReplaceAll("?", "%3F");
+    texto = texto.ReplaceAll("=", "%3D");
+    texto = texto.ReplaceAll(" ", "%32");
+    texto = texto.ReplaceAll("+", "%43");
+
+    texto = texto.ReplaceAll("&", "y");
+
     return "whatsapp://send?text=" + texto;
 }
 
@@ -966,24 +993,14 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
-        ruta = ruta.ReplaceAll('/', '%2F');
-        ruta = ruta.ReplaceAll(":", "%3A");
-        ruta = ruta.ReplaceAll("?", "%3F");
-        ruta = ruta.ReplaceAll("=", "%3D");
 
         if (texto != "")
             texto = texto + " - ";
-        texto = texto.ReplaceAll("/", '%2F');
-        texto = texto.ReplaceAll(":", "%3A");
-        texto = texto.ReplaceAll("?", "%3F");
-        texto = texto.ReplaceAll("=", "%3D");
-        texto = texto.ReplaceAll(" ", "%32");
-        texto = texto.ReplaceAll("+", "%43");
 
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
 
-        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=CompartirRedesSocialesTexto('" + texto + ruta + "')");
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
         $("#HiddenRedesSocialesWA")[0].click();
         //document.getElementById('HiddenRedesSocialesWA').click();
     }

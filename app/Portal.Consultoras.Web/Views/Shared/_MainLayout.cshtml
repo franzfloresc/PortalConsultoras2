@@ -117,8 +117,8 @@
         switch (nombre_pais)
         {
             case "EC":
-        <div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>
-                break;
+            @*<div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>*@
+            //break;
             case "CO":
             case "BO":
             case "CL":
@@ -628,6 +628,9 @@
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
 
         var MostrarODD = '@ViewBag.MostrarODD';
+
+        //EPD-2058
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     @*<script src="https://webchat-cls1-cgn-bct.i6.inconcertcc.com/v2/click_to_chat?token=@ViewBag.TokenAtento&container_id=belcorpChat"></script>*@

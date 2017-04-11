@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -86,7 +83,10 @@ namespace Portal.Consultoras.Web.Models
         public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
-        
+
+        public int limiteMaximoTelef{ get; set; }
+
+        public int limiteMinimoTelef { get; set; }        
         #region Propiedades para POPUps
         public int TipoPopUpMostrar { get; set; }
         // DemandaAnticipada
@@ -94,5 +94,8 @@ namespace Portal.Consultoras.Web.Models
         // Actualizar datos
         public int MostrarPopupActualizarDatosXPais { get; set; }
         #endregion
+
+        public int ShowRoomMostrarLista { get; set; }
+        public string ShowRoomBannerUrl { get; set; }
     }
 }

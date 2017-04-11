@@ -32698,7 +32698,7 @@ h1#penmostreo .campana {
     height: auto;
     float: left;
     margin-left: 12px;
-    margin-top: 6px;
+    margin-top: 12px;
     text-align: center;
 }
    
@@ -32719,7 +32719,7 @@ h1#penmostreo .campana {
 }
 
     .precio_set_dia span {
-        font-size: 24px;
+        font-size: 19px;
      display: block;
      text-align: center;
 }
@@ -32980,10 +32980,10 @@ h1#penmostreo .campana {
 
 .content_ficha_producto_nueva {
     width: 892px;
-    height: 520px;
+    width: 892px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -260px auto auto auto;
+   margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }
@@ -33219,6 +33219,9 @@ h1#penmostreo .campana {
 }
 .buscar_icono:hover{
     background: #ecebf0 url(../../../Images/Esika/lupa.png) no-repeat center right;
+}
+.content_texto_oferta{
+    margin-bottom:65px;
 }
 
 /*OFERTA FINAL*/
@@ -34190,7 +34193,12 @@ h1#penmostreo .campana {
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
 }
-
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
 .btnnotificacion {
     text-decoration: none;
     font-family: 'Lato';
@@ -34255,20 +34263,6 @@ h1#penmostreo .campana {
     padding-top: 30px;
     padding-bottom: 30px;
 }
-.solo_inferior{
-    font-size:17px;
-    display:block;
-     height: 18px;
-    margin-top: 5px;
-}
-
-@media screen and (max-width: 1262px) {
-    .solo_inferior{
-        display:inline-block;
-        margin-left:5px;
-        }
-    }
-    
 .enlace_chat a {
     display: inline;
     font-weight: bold;
@@ -34292,24 +34286,6 @@ h1#penmostreo .campana {
     margin: 0 auto;
     margin-top: 25px;
 }
-.compartir_catalogo_facebook_Brasil
-{
-    width: 48%;
-    margin: auto;
-    height: 30px;
-    line-height: 41px;
-    text-align: center;
-    background: #336699;
-    margin-top: 10px;
-}
-
-.content_carrusel_catalogo_Brasil {
-    width: 198px;
-    float: left;
-    height: 320px;
-    overflow: hidden;
-    margin-bottom: 40px;
- }
 
 /*HOMOLOGAR OPT*/
 
@@ -34430,4 +34406,62 @@ h1#penmostreo .campana {
     font-size: 13px;
     /*font-weight: 700;*/
     cursor: pointer;
+}
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+    
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}
+.solo_inferior{
+    font-size:17px;
+    display:block;
+     height: 18px;
+    margin-top: 5px;
+}
+
+@media screen and (max-width: 1262px) {
+    .solo_inferior{
+        display:inline-block;
+        margin-left:5px;
+        }
+    }
+       
+.compartir_catalogo_facebook_Brasil
+{
+    width: 48%;
+    margin: auto;
+    height: 30px;
+    line-height: 41px;
+    text-align: center;
+    background: #336699;
+    margin-top: 10px;
+}
+
+.content_carrusel_catalogo_Brasil {
+    width: 198px;
+    float: left;
+    height: 320px;
+    overflow: hidden;
+    margin-bottom: 40px;
+ }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+    
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
 }

@@ -3,6 +3,7 @@ var agregoOfertaFinal = 0;
 var idProdOf = 0;
 
 var esParaOFGanaMas = false;
+var cuvOfertaProl = cuvOfertaProl || "";
 
 $(document).ready(function () {
     $("body").on("click", ".agregarOfertaFinal", function () {
@@ -202,6 +203,10 @@ $(document).ready(function () {
             CloseLoading();
         }
     });
+
+    if (cuvOfertaProl != "") {
+        EjecutarPROL();
+    }
 });
 
 function PopupOfertaFinalCerrar() {
@@ -292,6 +297,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             $('[data-toggle="tooltip"]').tooltip('hide');
             return false;
         }
+        texto = "Porque compraste " + texto;
         $("#img-tooltip").attr('data-original-title', texto);
         var p = $("#img-tooltip").attr('aria-describedby');
         $('#' + p).css("z-index",10000);
@@ -303,6 +309,16 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         $('[data-toggle="tooltip"]').tooltip('hide');
     });
 
+    if (cuvOfertaProl != "") {
+        objOf.Detalle = objOf.Detalle || new Array();
+        if (objOf.Detalle.length > 0) {
+            var objProdIni = objOf.Detalle[0];
+            if (objProdIni.CUV == cuvOfertaProl) {
+                var input = $($("#divOfertaFinal").find(".hdOfertaFinalCuv[value=" + cuvOfertaProl + "]")[0]).parents("[data-item]").find("[data-verdetalle]")[0];
+                CargarVerDetalleOF(input);
+            }
+        }
+    }
     return true;
 }
 

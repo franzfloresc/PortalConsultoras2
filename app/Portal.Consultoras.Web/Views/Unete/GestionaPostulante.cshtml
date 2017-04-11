@@ -244,7 +244,7 @@
         <div class="cellGrid " data-colName="PendienteConfirmacion"><span class="buttonGrid"  onclick="reenviar('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowPendienteConfirmacion}}">Correo</span></div>
         <div class="cellGrid " data-colName="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}" >Reactivar</span></div>
         <div class="cellGrid " data-colName="Aprobar"><span class="buttonGrid" onclick="Aprobar('{{SolicitudPostulanteID}}')" >Aprobar</span></div>
-        <div class="cellGrid " data-colName="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}')">Rechazar</span></div>
+        <div class="cellGrid " data-colName="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">Rechazar</span></div>
         <div class="cellGrid " data-colName="EnviarAFFVV"><span class="buttonGrid" onclick="enviarFFVV('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowEnviarAFFVV}}">Enviar a<br />FFVV</span></div>
         <div class="cellGrid " data-colName="DiasEnEspera">{{DiasEnEspera}}</div>
         <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colName="ZonaOrigen">{{ZonaOrigen}}</div>
@@ -277,7 +277,7 @@
         $('.headerGrid').hide();
         $('.container_landing').css('overflow-y', 'scroll');
 
-        $("#Estado").val(2);
+        $("#Estado").val(@Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt());
 
         $("body").on("click", "[data-paginacion]", function (e) {
             e.preventDefault();
@@ -326,13 +326,13 @@
         var option = $('#Estado').val();
 
         switch (option) {
-            case "0":  // Pendiente de confirmar correo.
+            case "@Enumeradores.EstadoPostulante.Todos.ToInt()":  // Pendiente de confirmar correo.
                 $('#extraZonaOrigenDiv').show();
                 $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
                 $('#extraSeccionOrigenDiv').show();
                 $('#extraSeccionOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'SeccionOrigen'));
                 break;
-            case "9":  // Pendiente de confirmar correo.
+            case "@Enumeradores.EstadoPostulante.PendienteConfirmarCorreo.ToInt()":  // Pendiente de confirmar correo.
                 $('#extraZonaOrigenDiv').show();
                 $('#extraZonaOrigen').html(getValueFromDataAttrib(solicitudPostulanteID, 'ZonaOrigen'));
                 $('#extraSeccionOrigenDiv').show();
@@ -462,7 +462,7 @@
         if (typeof option != 'undefined' && option != null) {
 
             switch (option) {
-                case "0": // TODOS
+                case "@Enumeradores.EstadoPostulante.Todos.ToInt()": // TODOS
                     $('#blackGrid').css('width', '1550px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -503,7 +503,7 @@
                     hideColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
-                case "2": //Gestion servicio al cliente
+                case "@Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()": //Gestion servicio al cliente
                     $('#blackGrid').css('width', '1300px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -544,7 +544,7 @@
                     hideColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
-                case "3": //En aprobacion FFVV
+                case "@Enumeradores.EstadoPostulante.EnAprobacionFFVV.ToInt()": //En aprobacion FFVV
                     $('#blackGrid').css('width', '1350px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -567,7 +567,7 @@
                     hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
-                    $('.editarBtnGrid').remove();
+
                     hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
@@ -586,7 +586,7 @@
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     //showColumn('@Dictionaries.CabeceraNumeroDocumento[Model.CodigoIso]');
                     break;
-                case "4": // Rechazado
+                case "@Enumeradores.EstadoPostulante.Rechazada.ToInt()": // Rechazado
                     $('#blackGrid').css('width', '1650px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -627,7 +627,7 @@
                     hideColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
-                case "5":  // Ya con codigo
+                case "@Enumeradores.EstadoPostulante.YaConCodigo.ToInt()":  // Ya con codigo
                     $('#blackGrid').css('width', '1400px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -668,7 +668,7 @@
                     showColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
                     showColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
-                case "7": // Generando Codigo
+                case "@Enumeradores.EstadoPostulante.GenerandoCodigo.ToInt()": // Generando Codigo
                     $('#blackGrid').css('width', '1300px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -710,7 +710,7 @@
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
                 //    // inicio pendiente por confirmar Estado 8 para Perú
-                case "8": //En aprobacion SAC
+                case "@Enumeradores.EstadoPostulante.EnAprobacionSAC.ToInt()": //En aprobacion SAC
                     $('#blackGrid').css('width', '1350px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -752,7 +752,9 @@
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
                     // fin pendiente por confirmar Estado 8 para Perú
-                case "9":  // Pendiente de confirmar correo.
+                    //30-03-2017
+                    //Se cambio a 10, antes era el codigo 9 pero ahora se utilizará dicho codigo para el estado YA CON CODIGO OCR
+                case "@Enumeradores.EstadoPostulante.PendienteConfirmarCorreo.ToInt()":  // Pendiente de confirmar correo.
                     $('#blackGrid').css('width', '1270px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
@@ -776,7 +778,7 @@
                     hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
                     showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
                     $('.editarBtnGrid').remove();
-                    hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
+                    showColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
@@ -792,6 +794,47 @@
                     hideColumn('CampanaIngreso'); $('[data-colname="CampanaIngreso"]').css('width', '45px');
                     hideColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
                     hideColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
+                    break;
+                case "@Enumeradores.EstadoPostulante.YaConCodigoOCR.ToInt()":  // YA CON CODIGO OCR
+                    $('#blackGrid').css('width', '1400px')
+                    showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
+                    showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
+                    hideColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
+                    showColumn('FuenteIngreso'); $('[data-colname="FuenteIngreso"]').css('width', '50px');
+                    showColumn('NombreCompleto'); $('[data-colname="NombreCompleto"]').css('width', '150px');
+                    showColumn('TipoDocumento'); $('[data-colname="TipoDocumento"]').css('width', '45px');
+                    showColumn('NumeroDocumento'); $('[data-colname="NumeroDocumento"]').css('width', '100px');
+                    hideColumn('Correo'); $('[data-colname="Correo"]').css('width', '120px');
+                    showColumn('CodigoZona'); $('[data-colname="CodigoZona"]').css('width', '45px');
+                    showColumn('CodigoSeccion'); $('[data-colname="CodigoSeccion"]').css('width', '45px');
+                    showColumn('CodigoTerritorio'); $('[data-colname="CodigoTerritorio"]').css('width', '45px');
+                    hideColumn('Direccion'); $('[data-colname="Direccion"]').css('width', '200px');
+                    showColumn('CodigoConsultora'); $('[data-colname="CodigoConsultora"]').css('width', '65px');
+                    showColumn('FechaIngreso'); $('[data-colname="FechaIngreso"]').css('width', '65px');
+                    hideColumn('Ubicacion'); $('[data-colname="Ubicacion"]').css('width', '55px');
+                    hideColumn('EvaluacionCrediticia'); $('[data-colname="EvaluacionCrediticia"]').css('width', '55px');
+                    hideColumn('EvaluacionTelefonica'); $('[data-colname="EvaluacionTelefonica"]').css('width', '60px');
+                    hideColumn('Estado'); $('[data-colname="Estado"]').css('width', '100px');
+                    hideColumn('TipoRechazo'); $('[data-colname="TipoRechazo"]').css('width', '150px');
+                    hideColumn('MotivoRechazo'); $('[data-colname="MotivoRechazo"]').css('width', '150px');
+                    showColumn('Editar'); $('[data-colname="Editar"]').css('width', '70px');
+                    $('.editarBtnGrid').remove();
+                    hideColumn('PendienteConfirmacion'); $('[data-colname="PendienteConfirmacion"]').css('width', '70px');
+                    hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '50px');
+                    hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '50px');
+                    hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '50px');
+                    hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '50px');
+                    hideColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
+                    showColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
+                    showColumn('CampanaCreacionCodigo'); $('[data-colname="CampanaCreacionCodigo"]').css('width', '60px');
+                    showColumn('campania1erPasePedido'); $('[data-colname="campania1erPasePedido"]').css('width', '60px');
+                    hideColumn('Documentos'); $('[data-colname="Documentos"]').css('width', '50px');
+                    hideColumn('NumDiasAprobadoFFVV'); $('[data-colname="NumDiasAprobadoFFVV"]').css('width', '40px');
+                    hideColumn('NumDiasRechazado'); $('[data-colname="NumDiasRechazado"]').css('width', '45px');
+                    showColumn('DiferenciaDias'); $('[data-colname="DiferenciaDias"]').css('width', '55px');
+                    showColumn('CampanaIngreso'); $('[data-colname="CampanaIngreso"]').css('width', '55px');
+                    showColumn('ZonaOrigen'); $('[data-colname="ZonaOrigen"]').css('width', '45px');
+                    showColumn('SeccionOrigen'); $('[data-colname="SeccionOrigen"]').css('width', '45px');
                     break;
             }
 
@@ -1644,13 +1687,13 @@
 
     }
 
-    function Rechazar(solicitudPostulanteID) {
+    function Rechazar(solicitudPostulanteID,nombreCompleto) {
         limpiarPopUps();
 
         $('#divRechazarPostulante').empty();
         $('#divRechazarPostulante').show();
         LoadSpinner('divRechazarPostulante');
-    $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID }, function (html) {
+        $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID, nombre: nombreCompleto }, function (html) {
             $('#divRechazarPostulante').html(html);
             $('#divRechazarPostulante').show();
         }).done(function () { });

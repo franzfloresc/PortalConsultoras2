@@ -32687,7 +32687,7 @@ h1#penmostreo .campana {
     height: auto;
     float: left;
     margin-left: 12px;
-    margin-top: 6px;
+    margin-top: 12px;
     text-align: center;
 }
    
@@ -32708,7 +32708,7 @@ h1#penmostreo .campana {
 }
 
     .precio_set_dia span {
-        font-size: 24px;
+        font-size: 19px;
      display: block;
      text-align: center;
 }
@@ -32938,10 +32938,9 @@ h1#penmostreo .campana {
 
 .content_ficha_producto_nueva {
     width: 892px;
-    height: 520px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -260px auto auto auto;
+    margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }
@@ -34448,3 +34447,15 @@ h1#penmostreo .campana {
     overflow: hidden;
     margin-bottom: 40px;
  }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}
