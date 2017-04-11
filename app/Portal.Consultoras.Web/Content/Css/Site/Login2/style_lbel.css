@@ -782,7 +782,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -1;
 }
 
-.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after {
+.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after, .alerta_red_pr_clave.right::after, alerta_red_pr_user.right::after {
     top: 10px;
     right: -10px;
     bottom: auto;
