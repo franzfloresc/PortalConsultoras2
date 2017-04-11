@@ -2,7 +2,7 @@
 @model Portal.Consultoras.Web.Models.BienvenidaHomeModel
 
 @section styles{
-    @*<link href="http://foliotek.github.io/Croppie/croppie.css" rel="stylesheet" type="text/css" />*@
+
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
@@ -31,18 +31,6 @@
 <div class="content_belcorp">
     <div class="content_datos">
         <div class="contenedor_img_perfil" style="display:none">
-            @*<a class="subir_foto">
-                    <div class="tooltip_foto">
-                        Prepara tu foto, pronto podrás subirla a tu portal.
-                    </div>
-                </a>
-                <div class="foto_perfil_home">
-                    <img id="imgFotoUsuario" src="@Model.ImagenUsuario" alt="" />
-                    <img id="imgFotoUsuarioDefault" src="@Url.Content("~/Content/Images/Esika/user.jpg")" style="display:none;" />
-                    <div class="tooltip_foto">
-                        Prepara tu foto, pronto podrás subirla a tu portal.
-                    </div>
-                </div>*@
             <div class="clear"></div>
         </div>
         <div class="resumen_belcorp_cam">
@@ -68,7 +56,6 @@
             {
                 <div class="nombre_consultora">
                     <span style="margin-top: -0.5px!important;">¡Hola</span>
-@*                    <span style="margin-top: -0.5px!important;">@((Model.PrefijoPais == "PA" || Model.PrefijoPais == "CR" || Model.PrefijoPais == "MX") ? "¡Ilumina la Navidad" : "¡Feliz Navidad")</span>*@
                 </div>
                 <div class="consultora_home">
                     <span>@(nombreConsultora)</span>
@@ -263,9 +250,6 @@
     <div class="content_belcorp">
         <div class="content-favclientes content_carrusel_agregado" id="divMainCatalogoPersonalizado" style="display:none;">
             <div class="linea_separadora"></div>
-            @*<div class="pestania"><h5><b>LOS FAVORITOS</b> DE TUS CLIENTES ESTA CAMPAÑA</h5><div class="imagen-curvatura"></div></div>
-
-                <a class="ver_mas_favoritos" style="z-index:inherit;" href="@Url.Action("Index", "CatalogoPersonalizado")">Ver más +</a>*@
             <div class="banner_favoritos_home" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
                 <div class="titulo_banner_fav">
                     @ViewBag.NombreConsultoraFAV, estos son los 
@@ -370,182 +354,6 @@
     <a href="#" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
-<div>
-    <!-- POPUP COMUNICADO -->
-    @*<div id="divComunicado">
-            <div class="terminos_title_2">
-                Mensaje IMPORTANTE ¡V Retiro de producto
-            </div>
-            @if (ViewBag.NombrePais != "Ecuador")
-            {
-                if (ViewBag.NombrePais == "Colombia")
-                {
-                    <div class="border-wrapper">
-                        <p>
-                            Querida Consultora,
-                        </p>
-                        <p align="justify">
-                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
-                        </p>
-                        <p align="justify">
-                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la crema depilatoria Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
-                        </p>
-                        <p align="justify">
-                            Por eso te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona lo antes posible.
-                        </p>
-                        <p align="justify">
-                            El reembolso del dinero (precio cat&aacute;logo) de las unidades solicitadas por ti se abon&oacute; en t&uacute; cuenta el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
-                        </p>
-                        <p align="justify">
-                            <u>Importante:</u> todas las consultoras que entreguen los productos lo antes posible, recibir&aacute;n una fragancia de Obsequio que ser&aacute; entregado por tu gerente de Zona.
-                        </p>
-                        <p align="justify">
-                            Qu&eacute; decir a tus clientes cuando pidas el producto?: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
-                        </p>
-                        <p align="justify">
-                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
-                        </p>
-                        <p align="justify">
-                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques a Belcorp al tel&eacute;fono 5948060 en Bogot&aacute; &oacute; 01 8000 937452 en el resto del pa&iacute;s o a trav&eacute;s del chat en la p&aacute;gina www.somosbelcorp.com ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
-                        </p>
-                        <p align="justify">
-                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes y te presentamos disculpas y estamos comprometidos con el servicio, por eso continuaremos trabajando para evitar estos inconvenientes.
-                        </p>
-                        <p align="justify">
-                            Nota: En caso de no haber entregado el producto a tu Gerente de Zona, lo puedes llevar a la Conferencia de cierre de C13 o entregar al transportador cuando recibas el pedido de C13.
-                        </p>
-                        <p>
-                            Atentamente,
-                        </p>
-                        <p>
-                            Servicio al Cliente Belcorp
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <div class="border-wrapper">
-                        <p>
-                            Querida Consultora,
-                        </p>
-                        <p align="justify">
-                            Nos vemos en la necesidad de comunicarte que, como resultado del esfuerzo por proteger a nuestros consumidores,  detectamos que el nuevo producto de depilaci&oacute;n  Xpress Your Body de Cyzone presenta a la fecha algunos casos aislados de reacci&oacute;n adversa en la piel.
-                        </p>
-                        <p align="justify">
-                            Comprometidos siempre con el bienestar de nuestros clientes, hemos decidido  retirar del mercado la Crema Depilatoria para rostro, axilas y bikini con extracto de Cal&eacute;ndula x 50 g Xpress Your Body de Cyzone adquirida en la C-10 y C-11 de 2014.
-                        </p>
-                        <p align="justify">
-                            Por eso <strong>te pedimos que nos apoyes  recogiendo, a la brevedad posible, el producto Xpress Your Body de Cyzone de tus clientes y se lo hagas llegar a tu gerente de Zona antes del 1 de Agosto.</strong>
-                        </p>
-                        <p align="justify">
-                            El reembolso del dinero (precio de cat&aacute;logo) de las unidades colocadas por ti se  abon&oacute; en t&uacute; cuenta Belcorp el d&iacute;a 23 de Julio para que puedas reembolsar a t&uacute; cliente en el momento del recojo.
-                        </p>
-                        <p align="justify">
-                            <u>Importante:</u> todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por tu gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
-                        </p>
-                        <p align="justify">
-                            Qu&eacute; decir a tus clientes cuando pidas el producto: ¡§La crema depilatoria de Cyzone est&aacute; presentando algunos casos aislados de irritaci&oacute;n. Belcorp nos ha pedido recoger el producto y regresarte el dinero¡¨
-                        </p>
-                        <p align="justify">
-                            En caso de recibir reclamos o comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos dar la siguiente respuesta:
-                        </p>
-                        <p align="justify">
-                            <strong>¡§Entiendo tu situaci&oacute;n y por ello, es importante que te comuniques con la l&iacute;nea de atenci&oacute;n al cliente de Belcorp y marques opci&oacute;n 1 ".</strong> Siendo servicio al cliente quien dar&aacute; soluci&oacute;n de inmediato.
-                        </p>
-                        <p align="justify">
-                            Queremos agradecerte por el apoyo y la comprensi&oacute;n para recoger cuanto antes este producto de tus clientes.
-                        </p>
-                        <p>
-                            Atentamente,
-                        </p>
-                        <p>
-                            Servicio al Cliente Belcorp
-                        </p>
-                        <p align="justify">
-                            <u><strong>NOTA: Comunicado para uso exclusivo de la consultora Belcorp. No compartir este documento a trav&eacute;s de copias o redes sociales (Facebook, correo electr&oacute;nico, etc).</strong></u>
-                        </p>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="border-wrapper">
-                    <p>
-                        Querida Consultora Belcorp:
-                    </p>
-                    <p align="justify">
-                        A trav&eacute;s de la presente queremos informarte que, por pol&iacute;tica interna de la compañ&iacute;a, hemos decidido que el nuevo producto de depilaci&oacute;n Xpress Your Body de Cyzone adquirido en la C-10 y C-11 de 2014, sea retirado del mercado.
-                    </p>
-                    <p align="justify">
-                        Por eso te solicitamos que nos apoyes recogiendo, a la brevedad posible el producto Xpress Your Body de Cyzone a tus clientes y se  lo  entregues directamente a la  Gerente de tu Zona hasta  1 de Agosto de 2014.
-                    </p>
-                    <p align="justify">
-                        El reembolso del dinero de las unidades adquiriste, ha sido abonado en t&uacute; cuenta Belcorp a precio de cat&aacute;logo (7.99 USD por unidad)  el d&iacute;a 24 de Julio, para que en el momento del recojo  puedas reembolsar  el valor del producto a tu cliente.
-                    </p>
-                    <p align="justify">
-                        Todas las consultoras que entreguen los productos hasta el 1 de agosto de 2014, recibir&aacute;n un incentivo que ser&aacute; entregado por la  Gerente de Zona  (Consulta a tu l&iacute;nea Belcorp Responde para mayor informaci&oacute;n).
-                    </p>
-                    <p align="justify">
-                        En caso de recibir comentarios de tus clientes personalmente o en las redes sociales como Facebook, te pedimos les indiques que sean  remitidos al <strong>Call Center Belcorp 1800-766672 o  al buz&oacute;n callcenterec@belcorp.biz "</strong>, a fin de que Servicio al Cliente brinde una soluci&oacute;n inmediata
-                    </p>
-                    <p align="justify">
-                        Queremos agradecerte por el apoyo, comprensi&oacute;n  y compromiso para recoger cuanto antes este  producto  a  tus clientes.
-                    </p>
-                    <p align="justify">
-                        Atentamente,
-                    </p>
-                    <p>
-                        Servicio al Cliente<br />
-                        Belcorp-Ecuador
-                    </p>
-                </div>
-            }
-        </div>*@
-    <!-- FIN POPUP COMUNICADO -->
-    <!-- POPUP COMUNICADO VISUALIZACION -->
-    @*<div id="divComunicadoVisualizacion">
-            <div class="tituloC">
-                &nbsp;
-                <div id="btnCerrarComunicado" class="btnCerrar"></div>
-            </div>
-            <a href="https://www.facebook.com/SomosBelcorpOficial/posts/1084375931585422:0" target="_blank">
-                <img src="~/Content/Images/ComunicadoEC.jpg" />
-            </a>
-            <div>
-                <div>
-                    <label class="lblComunicadoV">
-                        <input type="checkbox" id="chkMostrarComunicado" class="chkComunicadoV" />
-                        No volver a mostrar
-                    </label>
-                </div>
-            </div>
-        </div>*@
-    <!-- FIN POPUP COMUNICADO VISUALIZACION -->
-    <!-- POPUP SUEÑOS NAVIDAD -->
-    @*<div id="idSueniosNavidad">
-            <img id="imgSuenioNavidad" onclick="MostrarCajaSuenioNavidad()" src="@Url.Content("~/Content/Images/Pop_Up_Navidad_2_01.png")" />
-            <img id="imgSuenioNavidad2" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-02.png")" />
-            <div id="registroSuenioNavidad">
-                <div class="textoSuenio">
-                    <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-05.png")" />
-                </div>
-                <div style="text-align: center">
-                    <textarea maxlength="500" id="txtSuenioNavidad"></textarea>
-                </div>
-                <div style="float: right">
-                    <a href="javascript:void(0)" onclick="AgregarSuenio()">
-                        <img src="@Url.Content("~/Content/Images/Pop Up Navidad 2-06.png")" />
-                    </a>
-                </div>
-            </div>
-            <a href="javascript:void(0)" onclick="cerrarSueniosNavidad();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
-        </div>
-        <div id="divSuenioConfirmacion">
-            <img id="imgSuenioConfirmacion" src="@Url.Content("~/Content/Images/Pop Up Navidad 2-04.png")" />
-            <a href="javascript:void(0)" onclick="cerrarSuenioConfirmacion();" class="close"><span class="ui-icon ui-icon-closethick">close</span></a>
-        </div>*@
-    <!-- FIN POPUP SUEÑOS NAVIDAD -->
-</div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
     <div class="Content_modal_ZE texto-centrado" style="overflow: hidden;">
@@ -590,16 +398,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-<!-- POPUP MENSAJE -->
-<div id="DialogMensajes" style="display: none;">
-    <div class="terminos_title_2">
-        MENSAJE
-    </div>
-    <div class="linea_superior margin_10"></div>
-    <div class="pop_pedido_mensaje">
-    </div>
-</div>
-<!-- FIN POPUP MENSAJE -->
+
 <!-- POPUP ESCOGER TONO -->
 <div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
     <div class="popup_escogerTono" id="divTonosTallas">
@@ -626,15 +425,12 @@
                     <div class="producto_img">
                         <img id="imgPopupTonoTalla" src="/Content/Images/Esika/img_producto.png" alt="Alternate Text" />
                     </div>
-                    @*<div class="oferta_web"></div>
-                        <div class="reco_star"></div>*@
                     <div class="producto_nombre_descripcion">
                         <h6 id="marcaPopupTonoTalla">ÉSIKA</h6>
                         <p class="nombre_producto">
                             <b>Máscara Mirada Hechizante 8 g / .28 oz.</b>
                         </p>
                         <div class="producto_precio">
-                            @*<span class="producto_precio_normal">S/. 47.00</span>*@
                             <span class="producto_precio_oferta"><b>S/. 21.00</b></span>
                         </div>
                         <div class="producto_talla_color">
@@ -834,17 +630,17 @@
                     </div>
                     <div>
                         <label>Teléfono</label>
-                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" />
+                        <input type="text" name="telefono" id="txtTelefono" value="@Model.Telefono" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" />
+                        <input type="text" name="celular" id="txtCelular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
-                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" />
+                        <input type="text" name="telefonoTrabajo" id="txtTelefonoTrabajo" value="@Model.TelefonoTrabajo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajo')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos">
@@ -1008,6 +804,7 @@
             <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
             <input type="hidden" id="hdn_NombreCompletoMD" value="" />
             <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+            <input type="hidden" id="hdn_CaracterMinimo" value="@Model.limiteMinimoTelef" />
 
             <form class="formulario_actualizar_datos">
                 <div class="datos_consultora">
@@ -1042,23 +839,23 @@
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu Correo Electrónico:</label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD" />
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu teléfono:</label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" />
+                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
                     </div>
                     <div>
                         <label><span class="asterisco_actualizar_datos">(*)&nbsp;</span>Tu celular:</label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD" />
+                        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
-                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" />
+                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
@@ -1175,7 +972,6 @@
         <div id="my_camera"></div>
         <input type="button" value="Tomar Foto" onclick="TomarFoto()">
         <div class="results"><img id="imgFotoTomada" /></div>
-        @*<input type="button" id="btnSubirFoto" value="Subir Foto" onclick="SubirFoto()">*@
         <div class="results"><div id="demo"></div></div>
         <input type="button" value="Cortar Foto" onclick="CortarFoto()">
     </div>
@@ -1278,16 +1074,11 @@
             <img id="imgIntriga" alt="imgIntriga" />
         </div>
         <div class="content_show_right">
-            @*<div class="borde_superior"><img src="@Url.Content("~/Content/Images/showroom/borde_superior.png")" alt="" /></div>*@
             <div class="slider_pop_up">
                 <img id="imgShowRoomGif" alt="imgShowRoomGif" />
             </div>
 
             <div class="check_01">
-                <label class="checkpop">
-                    <input type="checkbox" id="cbNoMostrarPopupShowRoom" />
-                    No quiero volver a ver éste comunicado
-                </label>
             </div>
 
         </div>
@@ -1333,65 +1124,9 @@
 </div>
 
 <!--POP UP FICHA PRODUCTO NUEVA-->
-<div id="PopFichaProductoNueva" class="Content_general_pop_up">
-    @*<div class="content_ficha_producto_nueva">
-        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#PopFichaProductoNueva').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt=" alternate text">
-        </a>
-        <div class="content_left_ficha">
-            <div class="content_ficha_producto">
-                <img src="https://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Matriz/PE/PE_200080472_201612367_01_pwifsvbxar.png" alt="PRODUCTO">
-            </div>
-        </div>
-        <div class="content_right_ficha">
-            <div class="titulo_ficha_producto">Perfect Match volumen</div>
-            <div class="peso_ficha_producto">4g / 14 oz</div>
-            <div class="descripcion_ficha_producto">Labial FPS 20 + delineador para máximo volumen</div>
-            <div class="precio_ficha_producto"><span class="precio_tachado_ficha">S/.55.00</span>S/.35.00</div>
-            <div class="content_tonos">
-                <div class="linea_gris" style="height:1px;"></div>
-                <!--SELECCION DE TONOS-->
-                <div class="content_tonos_maquillaje">
-                    <div class="content_tono_detalle borde_seleccion_tono">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
-                        <div class="content_mascara_maquillaje">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                        </div>
-                        <div class="tooltip_tono">CORAL Cautivante</div>
-                    </div>
-                    <div class="content_tono_detalle">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/PYi4dINUiOsYQ7e/labial_color.png" alt="PRODUCTO">
-                        <div class="content_mascara_maquillaje">
-                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                        </div>
-                        <div class="tooltip_tono">CORAL Cautivante</div>
-                    </div>                    
-                </div>
-                <select class="tono_labial_select">
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                    <option>Coral Cautivante</option>
-                </select>
-
-                <!--FIN-->
-            </div>
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                <div class="liquidacion_rango_right_pedido">
-                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                </div>
-            </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar">
-                AGRÉGALO
-            </a>
-        </div>
-    </div>*@
-</div>
+<div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
 <!--FIN-->
 
-@*SB20 - 1110*@
 <div id="divConfirmarCUVBanner" style="display: none;">
     <div class="terminos_title_2">
         IMPORTANTE
@@ -1410,64 +1145,67 @@
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
-        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
-            <div class="producto_img_home">
-                <img src="{{FotoProducto01}}" class="imagen_producto" />
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                <a class="ver_detalle_carrusel">VER DETALLE</a>
-                {{/iff}}
-            </div>
-
-            {{#if_eq FlagMostrarImg '1'}}
-            {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-            <div class="etiqueta_producto">
-                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-            </div>
-
-            {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-            {{#if_eq FlagEstrella '1' }}
-            <div class="etiqueta_producto">
-                <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-            </div>
-            {{/if_eq}}
-            {{/if_eq}}
-            {{/if_eq}}
-            <div class="producto_nombre_descripcion">
-                <h6>{{DescripcionMarca}}</h6>
-                {{#if_eq FlagNueva '1'}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUVSplit}}</b>
-                </p>
-                {{else}}
-                <p class="nombre_producto">
-                    <b>{{DescripcionCUV2}}</b>
-                </p>
-                {{/if_eq}}
-
-                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                {{#if_eq EtiquetaID '1'}}
-                <div class="producto_precio">
-                    {{#iff Precio '>' 0}}
-                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+                <div class="producto_img_home">
+                    <img src="{{FotoProducto01}}" class="imagen_producto" />
+                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+                    <a class="ver_detalle_carrusel">VER DETALLE</a>
                     {{/iff}}
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                 </div>
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+
+                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                {{#if_eq FlagEstrella '1' }}
+                <div class="etiqueta_producto">
+                    <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
                 </div>
                 {{/if_eq}}
+                {{/if_eq}}
+                {{/if_eq}}
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    {{#if_eq FlagNueva '1'}}
+                    <p class="nombre_producto">
+                        <b>{{DescripcionCUVSplit}}</b>
+                    </p>
+                    {{else}}
+                    <p class="nombre_producto">
+                        <b>{{DescripcionCUV2}}</b>
+                    </p>
+                    {{/if_eq}}
 
-                {{else}}
-                <div class="producto_precio">
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                    {{#if_eq EtiquetaID '1'}}
+                    <div class="producto_precio">
+                        {{#iff Precio '>' 0}}
+                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                        {{/iff}}
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{else}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{/if_eq}}
+
+                    {{else}}
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                    </div>
+                    {{/iff}}
                 </div>
-                {{/iff}}
-
+            </div>
+            <div class="producto_nombre_descripcion">
+                {{#iff TieneVariedad '==' '0'}}
                 {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
@@ -1497,6 +1235,17 @@
                 <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                     AGR&Eacute;GALO
                 </a>
+                {{/iff}}
+                {{else}}
+                <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                    <div class="texto_elige_tono">
+                        ¡AHORA ELIGE TU TONO!
+                    </div>
+                    <div class="clear"></div>
+                    <a class="btn_elige_tono js-no-popup">
+                        <div>ELIGE TU OPCIÓN</div>
+                    </a>
+                </div>
                 {{/iff}}
 
                 <div class="clear"></div>
@@ -1663,87 +1412,135 @@
                     <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                         <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
-                    @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
                     <hr class="clear">
                 </div>
             </div>
             <div class="content_right_ficha">
-                <div style="width:50%; margin-right:0">
-                    <div class="marca_producto">{{DescripcionMarca}}</div>
-                    <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCompleta}}</div>
-                    @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
-                </div>
-                <div>
-                    <div class="precio_ficha_producto">
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                        {{/iff}}
-                        <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
-                        @*<div class="ganancia_ficha">Gana S/.90</div>*@
+                <div style="min-height:300px;">
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}class="content_left_ficha"{{/iff}} >
+                        <div class="marca_producto">{{DescripcionMarca}}</div>
+                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion="" 
+                           {{#iff CodigoEstrategia '==' ''}}  style="font-size:22px; line-height:30px;" {{/iff}}>
+                        {{DescripcionCompleta}}
+                        </div>
+                        @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                     </div>
-                </div>
-                <hr class="clear">
-                <div data-estrategia="{{CodigoEstrategia}}">
-                    {{#iff CodigoEstrategia '!=' ''}}
-                    {{#iff CodigoEstrategia '==' '2001'}}
-                    <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}">
-                        <div class="linea_gris" style="height:1px;"></div>
-                        <!--SELECCION DE TONOS-->
-                        <div class="content_tonos_maquillaje" data-tono-div="">
-                            {{#each this.Detalle as |item1|}}
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}class="content_right_ficha" style="text-align:right;" {{/iff}} >
+                        <div class="precio_ficha_producto">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            {{/iff}}
+                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
+                            @*<div class="ganancia_ficha">Gana S/.90</div>*@
+                        </div>
+                    </div>
+                    <hr class="clear">
+                    <div data-estrategia="{{CodigoEstrategia}}">
+                        {{#iff CodigoEstrategia '!=' ''}}
+                        {{#iff CodigoEstrategia '==' '2001'}}
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                            @*<div class="linea_gris" style="height:1px;"></div>*@
+                            <!--SELECCION DE TONOS-->
+                            <!--NUEVA MAQUETA-->
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
+                                </div>
+
+                                <div class="content_tonos_select" style="display:none;">
+                                    {{#each this.Detalle as |Tono|}}
+                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
+                                            <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
+                                            <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
+                                            <hr class="clear" />
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <!--FIN-->
+                            @*<select class="tono_labial_select" data-tono-change="">
+                                {{#each this.Detalle as |item2|}}
+                                <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                                {{/each}}
+                            </select>*@
+                            <div class="content_tonos_maquillaje" data-tono-div="">
+                                {{#each this.Detalle as |item1|}}
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                                </div>
+                                <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="2" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcion="{{item1.NombreComercial}}">
+                                    <img src="{{item1.ImagenBulk}}" alt="">
+                                    @*<div class="tooltip_tono">{{item1.NombreBulk}}</div>*@
+                                </div>
+                                {{/each}}
+                            </div>
+                            <!--FIN-->
+                        </div>
+                        {{/iff}}
+                        {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
+                        <div class="titulo_contenido">CONTENIDO</div>
+                        
+                        {{#each this.Detalle as |item1|}}
+                        
+                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
                             <div style="display: none;">
                                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
                                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                             </div>
-                            <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="">
-                                <img src="{{item1.ImagenBulk}}" alt="">
-                                <div class="tooltip_tono">{{item1.NombreBulk}}</div>
-                            </div>
-                            {{/each}}
-                        </div>
-                        <select class="tono_labial_select" data-tono-change="">
-                            {{#each this.Detalle as |item2|}}
-                            <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
-                            {{/each}}
-                        </select>
-                        <!--FIN-->
-                    </div>
-                    {{/iff}}
-                    {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
-                    {{#each this.Detalle as |item1|}}
-                    <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}">
-                        <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
-                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                        </div>
-                        <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
-                            @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
-                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.NombreComercial}}</div>
-                            @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
-                        </div>
-                        {{#iff item1.Digitable '==' '1'}}
-                        <div class="content_right_ficha" style="width:50%;">
-                            <div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
-                            <div>
-                                <div class="combo_select_tono">
-                                    <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
+                            <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
+                                @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
+                                <div class="sub_nombre_producto">
+                                    <span class="cantidad_producto_opt">x{{item1.Cantidad}} </span>
+                                    <span data-tono-select-nombrecomercial="">{{item1.NombreComercial}}</span>
                                 </div>
-                                <div class="content_tonos_ficha">
-                                    {{#each item1.Hermanos as |tono|}}
-                                    <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
+                            </div>
+                            {{#iff item1.Digitable '==' '1'}}
+                            <div class="content_right_ficha" style="width:50%;">
+                                <!--MAQUETADO NUEVO-->
+                                <div class="tono_select_opt">
+                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                        <hr class="clear">
                                     </div>
-                                    {{/each}}
+                                    <div class="content_tonos_select" style="width:102%;">
+                                        {{#each item1.Hermanos as |tono|}}
+                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                            <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
+                                            <div class="texto_tono_seleccionado">{{tono.NombreBulk}}</div>
+                                            <hr class="clear">
+                                        </div>
+                                        {{/each}}
+                                    </div>
                                 </div>
+                                <!--FIN-->
+                                @*<div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
+                                <div>
+                                    <div class="combo_select_tono">
+                                        <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
+                                    </div>
+                                    <div class="content_tonos_ficha">
+                                        {{#each item1.Hermanos as |tono|}}
+                                        <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
+                                            <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>*@
                             </div>
+                            {{/iff}}
+                            <hr class="clear" />
                         </div>
+                        {{/each}}
                         {{/iff}}
-                        <hr class="clear" />
+                        {{/iff}}
                     </div>
-                    {{/each}}
-                    {{/iff}}
-                    {{/iff}}
                 </div>
+                <hr class="clear" />
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
@@ -1751,7 +1548,7 @@
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>
                 {{#if MostrarTextoLibre}}
@@ -1832,7 +1629,6 @@
     <div class="clear"></div>
     <div class="texto_filtros_fav"><span id="fav-home-total">Te mostramos 6 de 32 productos.</span><a class="btn_ver_todo_filtros" href="@Url.Action("Index", "CatalogoPersonalizado")">VER TODOS</a></div>
     <hr class="clear" />
-    @*<div class="texto_descripcionCatalogoPersonalizado">Encuentra una selección de los productos que tus clientes de seguro te solicitarán</div>*@
     <div class="" style="position:relative;">
         {{#each this as |item|}}
         <div class="contiene-productos" data-item="catalogopersonalizado">
@@ -1857,11 +1653,6 @@
                 <img src="{{ImagenProductoSugerido}}" style="width: auto; height: 100%;" class="imagen_producto">
                 <a class="ver_detalle_carrusel" href="javascript:;" onclick="mostrarFichaProductoFAV2('{{CUV}}')">VER DETALLE</a>
             </div>
-            <!--ETIQUETA GUIA DE NEGOCIO -->
-            @*<div class="etiqueta_guia_negocio">GUÍA DE NEGOCIO</div> <!--ETIQUETA PARA ESIKA--> DESCOMENTAR LUEGO*@
-            @*<div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>*@ <!--ETIQUETA PARA LBEL-->
-
-            <!--FIN-->
             {{#if item.TieneLanzamientoCatalogoPersonalizado}}
             <div class="etiqueta_producto nuevofavorito">
                 <img src="@Url.Content("~/Content/Images/producto_lanzamiento_CP.png")" alt="Etiqueta Producto" />
@@ -1949,9 +1740,6 @@
             </div>
 
             <div class="producto_nombre_descripcion">
-                @*<div class="etiqueta_producto nuevofavorito">
-                        <img src="/Content/Images/ofertarevista.png" alt="Etiqueta Producto">
-                    </div>*@
                 <h6></h6>
                 <span>{{Descripcion}}</span>
                 <span>{{Simbolo}} {{DecimalToStringFormat precio_revista}}</span>
@@ -2036,7 +1824,6 @@
             <div class="content_carrusel_pack" id="divCarruselNivel">
                 <div class="item_pack_personalizado">
                     <div class="content_item_pack">
-                        @*<div class="fondo_negro_pack">COMPRA 1 {{Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X1</div>
                         <br />
                         <div class="img_principal_pack" style="margin-top:16px;">
@@ -2052,7 +1839,6 @@
                 {{#each lista_ObjNivel as |nivel|}}
                 <div class="item_pack_personalizado  linea_d">
                     <div class="content_item_pack">
-                        @*<div class="fondo_negro_pack">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
                         <div class="fondo_negro_pack">OFERTA X{{nivel.escala_nivel}}</div>
                         <div class="pack_inter width_100">
                             <div class="contenido_compra_nivel">
@@ -2207,11 +1993,6 @@
                     <input type="hidden" class="hdItemPackValorizado" value="{{pack.valorizado}}" />
                     <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
                     <div class="content_item_pack">
-                        @*{{#if_eq pack.EsUltimo "1"}}
-                            <div class="fondo_negro_pack" style="width: 90%;">PACK MÁXIMA GANANCIA</div>
-                            {{else}}
-                            <div class="fondo_negro_pack">PACK GANANCIA</div>
-                            {{/if_eq}}*@
                         <div class="fondo_negro_pack">{{pack.nombre_pack}}</div>
                         <div class="pack_inter width_100">
                             <div class="titulo_pack" style="height: auto">Precio para ti: {{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
@@ -2238,9 +2019,6 @@
                                     <div class="peso_ficha_producto">{{item.volumen}}</div>
                                 </div>
                                 <hr class="clear" />
-                                @*<div class="sub_imagen_oferta"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201616/C/productos/PE_200069929.jpg" alt=""></div>
-                                    <div class="sub_descripcion_oferta"><p><span>x2</span>&nbsp;Desodorante roll-on. Girlink</p></div>
-                                    <hr class="clear" />*@
                                 {{/if_eq}}
                                 {{/each}}
                             </div>
@@ -2355,9 +2133,6 @@
                 <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                     <img src="@Url.Content("~/Content/Images/Esika/facebook.png")" />
                 </a>
-                @*<a class="btn_compartir_facebook_ficha" href="javascript:void(0);">
-                    <img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" />
-                </a>*@
                 <hr class="clear" />
             </div>
         </div>
@@ -2376,16 +2151,13 @@
                     {{#each Hermanos as |item1|}}
                     <div id="fav_tono_{{CUV}}" class="content_tono_detalle" onclick="cambiarInfoFichaProductoFAV(1,'{{item1.CUV}}',1)">
                         <img src="{{item1.ImagenBulk}}" alt="PRODUCTO">
-                        @*<div class="content_mascara_maquillaje">
-                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/HfQTTPvWfVXwt3R/textura_labial.png" alt="PRODUCTO">
-                            </div>*@
                         <div class="tooltip_tono">{{item1.NombreBulk}}</div>
                     </div>
                     {{/each}}
                 </div>
 
                 <select id="fav_cbo_tono" class="tono_labial_select" onchange="cambiarInfoFichaProductoFAV(2,null,1)">
-                    {{#each Hermanos as |item2|}}
+                    {{#each Tonos as |item2|}}
                     <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
                     {{/each}}
                 </select>
@@ -2408,9 +2180,47 @@
 
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
+<!--NUEVO POP UP DE SHOWROOM INTRIGA-->
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main>
+    <div class="content_pop_up_intriga" data-popup-body>
+        <input type="hidden" id="hdEventoIDShowRoom" />
+        <input type="hidden" id="spnShowRoomEvento" />
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
+        </a>
+        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
+        <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
+        <div class="check_01">
+            <label class="checkpop2">
+                <a id="cbNoMostrarPopupShowRoomIntriga" onclick="NoMostrarPopupShowRoomIntrigaVenta('I');">NO QUIERO VOLVER A VER &Eacute;STE COMUNICADO</a>
+            </label>
+        </div>
+        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
+    </div>
+  
+</div>
+<!--FIN-->
+
+<!--NUEVO POP UP DE SHOWROOM Venta-->
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
+    <div class="content_pop_up_intriga" data-popup-body>        
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
+        </a>
+        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
+      
+        <div class="check_01">
+            <label class="checkpop2">
+                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')";>NO VOLVER A VER ESTE ANUNCIO</a>
+            </label>
+        </div>
+        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
+    </div>
+
+</div>
+<!--FIN-->
+
 @section scripts{
-    @*<script type="text/javascript" src="http://pixlcore.com/demos/webcamjs/webcam.js"></script>
-        <script type="text/javascript" src="http://foliotek.github.io/Croppie/croppie.js"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
@@ -2466,10 +2276,8 @@
 
         var UrlPdfTerminosyCondiciones = '@ViewBag.UrlPdfTerminosyCondiciones';
         var cantidadRegistros = 8;
-        //SB20-1095
         var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
         var viewBagMostrarUbicacionTutorial = '@ViewBag.MostrarUbicacionTutorial';
-        //Tipos de Popups.
         var popupVideoIntroductorio = '@Constantes.TipoPopUp.VideoIntroductorio';
         var popupGPR = '@Constantes.TipoPopUp.GPR';
         var popupDemandaAnticipada = '@Constantes.TipoPopUp.DemandaAnticipada';
@@ -2477,18 +2285,21 @@
         var popupShowRoom = '@Constantes.TipoPopUp.Showroom';
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
-        var popupComunicado = '@Constantes.TipoPopUp.Comunicado'
-        //data para Popup Actualizar datos
+        var popupComunicado = '@Constantes.TipoPopUp.Comunicado';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 
-        var origenPagina = 1;   /*PL20-1227*/     
-        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';    //PL20-1268
-        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })'; 
+        var origenPagina = 1;
+        var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';
+        var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
         
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;
+
+        var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
+
+        var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

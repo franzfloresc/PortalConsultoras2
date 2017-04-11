@@ -185,7 +185,7 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                var optsx = opts == undefined ? operator : opts;
                 operator = opts == undefined ? '==' : (operator || '==');
                 opts = optsx;
                 switch (operator) {
@@ -308,7 +308,6 @@ jQuery(document).ready(function () {
         pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
         pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        // recorremos la parte entera para poner el separador
         var pEnteraFinal = "";
         do {
             var x = pEntera.length;
@@ -375,35 +374,29 @@ function CreateLoading() {
         minHeight: 50,
         modal: true,
         buttons: {},
-        resizable: false,
-        //create: function (event, ui) {
-        //    $("html").css({ overflow: 'hidden' })
-        //},
-        //beforeClose: function (event, ui) {
-        //    $("html").css({ overflow: 'auto' })
-        //}
+        resizable: false
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
 function waitingDialog(waiting) {
-    if (!$("#loadingScreen")) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-    else if ($("#loadingScreen").length == 0) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-
-    if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
-        if ($("#loadingScreen").attr("data-dialog") != "1") {
-            CreateLoading();
-            $("#loadingScreen").attr("data-dialog", "1");
-        }
-    }
-    waiting = waiting || {};
-    $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
-    $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
     try {
+        if (!$("#loadingScreen")) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+        else if ($("#loadingScreen").length == 0) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+
+        if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
+            if ($("#loadingScreen").attr("data-dialog") != "1") {
+                CreateLoading();
+                $("#loadingScreen").attr("data-dialog", "1");
+            }
+        }
+        waiting = waiting || {};
+        $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
+        $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
         $("#loadingScreen").dialog("open");
     }
     catch (err) {
@@ -415,6 +408,57 @@ function closeWaitingDialog() {
     catch (err) {
     }
 
+}
+
+function AbrirLoad(opcion) {
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            ShowLoading(opcion);
+        }
+        else {
+            waitingDialog(opcion);
+        }
+    } catch (e) {
+
+    }
+}
+
+function CerrarLoad(opcion) {
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            CloseLoading(opcion);
+        }
+        else {
+            closeWaitingDialog(opcion);
+        }
+    } catch (e) {
+
+    }
+}
+
+function AbrirMensaje(mensaje, titulo, fnAceptar) {
+    try {
+        titulo = titulo || "MENSAJE";
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+        if (isUrlMobile > 0) {
+            $('#mensajeInformacionvalidado').html(mensaje);
+            $('#popupInformacionValidado').show();
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
+        else {
+            $('#alertDialogMensajes .terminos_title_2').html(titulo);
+            $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes').dialog('open');
+        }
+        CerrarLoad();
+    } catch (e) {
+
+    }
 }
 
 function compare_dates(fecha, fecha2) {
@@ -463,26 +507,21 @@ function isInt(n) {
     var patron = /^[0-9]+$/;
     var isn = patron.test(n);
     return isn;
-    //return +n === n && !(n % 1);
 }
 
-// valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
     var thereIsStillTime = true
 
     if (data) {
-        if (data.responseText) {
-            if ((data.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (data.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (data.responseText === '"_Logon_"'))
-                thereIsStillTime = false;
-        }
-        else {
-            if (data == "_Logon_")
+        var eval = data.responseText ? data.responseText : data;
+        if (jQuery.type(eval) === "string") {
+            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
                 thereIsStillTime = false;
         }
 
         if (!thereIsStillTime) {
             //window.location.href = "/Login/SesionExpirada";
-            
+
             var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
@@ -495,13 +534,11 @@ function checkTimeout(data) {
         }
     }
     else {
-        // validar si se perdio la sesion
         checkUserSession();
     }
     return thereIsStillTime;
 }
 
-/*EPD-180*/
 function checkUserSession() {
     var res = -1;
 
@@ -516,14 +553,11 @@ function checkUserSession() {
         }
     });
 
-    //alert(res);
     if (res == 0) {
         window.location.href = '/Login/SesionExpirada';
     }
 }
-/*EPD-180*/
 
-// paginacion
 function paginadorAccionGenerico(obj) {
     var accion = obj.attr("data-paginacion");
     var padre = obj.parents('[data-paginacion="block"]');
@@ -562,13 +596,6 @@ function paginadorAccionGenerico(obj) {
         }
     }
     else if (accion === "rows") {
-        //if (paginaActual === 1) {
-        //    var rowsInicial =padre.find("[data-paginacion='rows']").attr("data-val") || 0;
-        //    if (recordCount <= rowsInicial && rowsInicial < rows) {
-        //        padre.find("[data-paginacion='rows']").attr("data-val", rows);
-        //        return rpt;
-        //    }
-        //}
         paginaActual = 1;
     }
 
@@ -580,14 +607,12 @@ function paginadorAccionGenerico(obj) {
     rpt.page = paginaActual;
     return rpt;
 }
-//R2116-INICIO
 
 function ActualizarGanancia(data) {
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
-    // Los Montos resumen de pedido
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
@@ -682,11 +707,10 @@ FuncionesGenerales = {
         return obj;
     }
 };
-//R2116-FIN
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
-        'Fecha': '',
+        'Fecha': new Date().getTime(),
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
@@ -742,7 +766,7 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
     });
 };
 
-// Pedido Rechazado
+
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
@@ -764,35 +788,78 @@ function xMensajeEstadoPedido(estado) {
         var wtop = $("#bloquemensajesPedido").height();
 
         if (esMobile) {
-            $("[data-content]").animate({ "top": wtop + "px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": wtop + "px" });
+            }
+
             $(".footer-page").animate({ "top": wtop + "px" });
             $(".oscurecer_animacion").css({ "display": "none" });
         }
         else {
             if (esBienvenida) {
                 $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });               
+
             }
             else {
                 $(".oscurecer_animacion").css({ "display": "none" });
                 $("#bloquemensajesPedido").slideDown("slow", function () { });
                 wtop = $("header").height();
-                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                if ($('.content_banner_intriga').length > 0) {
+                    if ($('#OfertaDelDia:visible').length > 0) {
+                        $('.ubicacion_web').css('margin-top', '162px');
+                    }
+                    else {
+                        $('.ubicacion_web').css('margin-top', '62px');
+                    }
+                }
+                else {
+                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
+                }
             }
         }
     }
     else {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
-            $("[data-content]").animate({ "top": "0px" });
-            $(".footer-page").animate({ "top": "0px" });
+            wtop = $("header").height();
+            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+            }
+            else {
+                $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
+            }
+            $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
         }
         else {
-            if (esBienvenida) {                
-                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') $("[data-content]").animate({ "top": "0px" });
-                else $("[data-content]").animate({ "top": "64px" });
+            if (esBienvenida) {
+
+                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                    $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
+                }
+                else { $("[data-content]").animate({ "top": "64px", "margin-top": "0px" }); }
             }
-            else $(".ubicacion_web").animate({ "margin-top": "83px" });
+            else {
+                if ($('.content_banner_intriga').length > 0) {
+                    if ($('#OfertaDelDia:visible').length > 0) {
+                        $('.ubicacion_web').css('margin-top', '162px');
+                    }
+                    else {
+                        $('.ubicacion_web').css('margin-top', '62px');
+                    }
+                }
+                else {
+                    $(".ubicacion_web").animate({ "margin-top": "83px" });
+                    $('.content_slider_home ').css('margin-top', '60px');
+                    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
+                        $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+                    }
+                    else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
+                }
+            }
         }
     }
 }
@@ -852,15 +919,9 @@ function MostrarMensajePedidoRechazado() {
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
-        // $(".oscurecer_animacion").hide();
         $("[data-content]").removeClass("oscurecer_animacion");
     }
 }
-
-// FIN Pedido Rechazado
-
-
-// Compartir Face y WS
 
 function CompartirRedesSociales(e) {
     var obj = $(e.target);
@@ -890,15 +951,29 @@ function CompartirRedesSociales(e) {
 }
 
 function CompartirRedesSocialesTexto(texto) {
+    texto = texto.ReplaceAll("/", '%2F');
+    texto = texto.ReplaceAll(":", "%3A");
+    texto = texto.ReplaceAll("?", "%3F");
+    texto = texto.ReplaceAll("=", "%3D");
+    texto = texto.ReplaceAll(" ", "%32");
+    texto = texto.ReplaceAll("+", "%43");
+
+    texto = texto.ReplaceAll("&", "y");
+
     return "whatsapp://send?text=" + texto;
 }
 
 function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
     id = $.trim(id);
-    if (id == "0" || id == "")
+    if (id == "0" || id == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
         return false;
+    }
     ruta = $.trim(ruta);
-    if (ruta == "") return false;
+    if (ruta == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
+        return false;
+    }
 
     ruta = ruta.replace('[valor]', id);
 
@@ -910,24 +985,14 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
-        ruta = ruta.ReplaceAll('/', '%2F');
-        ruta = ruta.ReplaceAll(":", "%3A");
-        ruta = ruta.ReplaceAll("?", "%3F");
-        ruta = ruta.ReplaceAll("=", "%3D");
 
         if (texto != "")
             texto = texto + " - ";
-        texto = texto.ReplaceAll("/", '%2F');
-        texto = texto.ReplaceAll(":", "%3A");
-        texto = texto.ReplaceAll("?", "%3F");
-        texto = texto.ReplaceAll("=", "%3D");
-        texto = texto.ReplaceAll(" ", "%32");
-        texto = texto.ReplaceAll("+", "%43");
 
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
 
-        $("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=CompartirRedesSocialesTexto('" + texto + ruta + "')");
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
         $("#HiddenRedesSocialesWA")[0].click();
         //document.getElementById('HiddenRedesSocialesWA').click();
     }
@@ -936,7 +1001,6 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     //AbrirLoad();
 
-    //Capturando valores
     var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
     var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
     var _nombre = $.trim($(article).find(".Nombre").val());
@@ -982,4 +1046,17 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             }
         }
     });
+}
+
+function AbrirPopup(ident) {
+    $(ident).show();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopup(ident) {
+    $(ident).hide();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
 }

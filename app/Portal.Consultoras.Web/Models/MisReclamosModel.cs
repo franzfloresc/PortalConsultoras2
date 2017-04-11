@@ -41,5 +41,8 @@ namespace Portal.Consultoras.Web.Models
         /*EPD-1339*/
         public string UrlPoliticaCdr { get; set; }
         public string MensajeGestionCdrInhabilitada { get; set; }
+
+        public int limiteMinimoTelef { get; set; }
+        public int limiteMaximoTelef { get; set; }
     }
 }

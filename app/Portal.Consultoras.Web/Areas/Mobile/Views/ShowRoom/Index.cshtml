@@ -10,141 +10,213 @@
 @section styles{
     <style type="text/css">
         body {
-            background: #FFF !important;
+           background: #f5f5f7 !important;
             padding-top: 0px;
+            overflow-x:hidden;
         }
     </style>
 
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet"/>
+    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet"/>
 }
-
-<input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
+<!--  MAQUETADO NUEVO-->
+<div class="content_banner_header_showroom">
+    <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>   
+    <img src="@ViewBag.BannerImagenVenta" />
+</div>
 <div class="wrapper_resumen_mobile">
-    <div class="titulo_showroom_mobile">
-        <span>¡Oportunidad única! Sets exclusivos sólo por la Web!</span><br>
-        @*Los productos no otorgan puntaje en concursos ni participan en ofertas de niveles. Precio neto Consultora.*@
+    <div id="orderby-filter">
+        <div id="content-orderby" style="margin-top: 15px;">
+            @if (Model.FiltersBySorting != null)
+            {
+                <select id="orderby-price" class="select-ffc">
+                    @foreach (var item in Model.FiltersBySorting)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+            }
+
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick=" showCustomFilters(); ">
+        </div>
+        <hr class="clear">
+        <div id="summary-filters">
+            <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos</span>
+            </div>
+
+            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                <a href="#" class="link-ffc_landing" onclick=" deleteFilters(); ">Borrar Filtros</a>
+            </div>
+            <br><br>
+        </div>
     </div>
-    <br />
+    <div class="row">
+        <div id="custom-filters" style="display: none;" class="filtros_new">
+            <div class="titulo_mobile" style="color: black; background: white">
+                <a onclick=" showOrderbyFilter(); " class="enlace_regresar catalogosP flecha_black" title="Regresar"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;SELECCIONA TUS FILTROS
+            </div>            
+            <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
+            <br/>
+            <div id="content-filters" style="">
+                <div class="panel-group" id="accordion">
+                    @if (Model.TieneCategoria)
+                    {
+                        if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                        {
+                            <div class="content_panel">
+                                <div class="titulo_filtro">
+                                    <a class="accordion-toggle" data-toggle="collapse" href="#CategoriaCollpase" style="text-decoration: none;">
+                                        <span class="title-accordion">CATEGORÍAS</span>
+                                    </a>
+                                </div>
+                                <div id="CategoriaCollpase" class="panel-collapse collapse">
+                                    <div class="panel-body panel_filtro">
+                                        <div id="idcategory" class="content-category">
+                                            @{
+                                                var cont = 1;
+                                            }
+                                            @foreach (var categoria in Model.ListaCategoria)
+                                            {
+                                                <div class="block-checkbox">
+                                                    <input class="chkFiltroMobile" type="checkbox" id="c@(cont)" name="categoria" value="@categoria.Codigo">
+                                                    <label for="c@(cont)" class="label-checkbox">@categoria.Descripcion</label>
+                                                </div>
+                                                {
+                                                    cont++;
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <div class="content_panel">
+                        <div class="titulo_filtro">
+                            <a class="accordion-toggle" data-toggle="collapse" href="#collapseThree" style="text-decoration: none;">
+                                <span class="title-accordion">FILTRAR PRECIO</span>
+                            </a>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse">
+                            <div class="panel-body panel_filtro">
+                                <div style="font-size: 12px; width: 100%;">
+
+                                    <div style="width: 100%; color: #e81c36; text-align: center;">
+                                        <input id="txt-range-price" type="text" class="span2" value="" style="width: 98%;"
+                                               data-slider-id="slider-price"
+                                               data-slider-min="0"
+                                               data-slider-max="0"
+                                               data-slider-step="1"
+                                               data-slider-value="[0,0]"/>
+                                    </div>
+                                    <div style="text-align: left; width: 50%; float: left; color: #4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="min-range-price">10</span></b>
+                                    </div>
+                                    <div style="text-align: right; width: 50%; float: left; color: #4a4a4a">
+                                        <b>@ViewBag.Simbolo <span id="max-range-price">1000</span></b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content_btn_filtros">
+                <a href="#" class="link-ffc" onclick=" deleteFilters(); ">BORRAR FILTROS</a>
+
+                <div id="save-filters" class="save-filters">
+                    <input id="btnBuscarShowRoom" type="button" class="btn-ffc" value="APLICAR"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
+        <div id="divProductosShowRoom">
+            @*@{ var posicions = 1; }
+            @foreach (var item in Model.ListaShowRoomOferta)
+            {
+                <div class="content_item_home" style="position: relative;">
+                    <div class="liquidacion_item" data-posicion="@posicions">
+                        <div class="producto_img_mobile">
+                            <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
+                                @if (string.IsNullOrEmpty(item.ImagenMini))
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                                }
+                                else
+                                {
+                                    <img src="@item.ImagenProducto" alt="" />
+                                }
+                            </a>
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                                <b>@item.Descripcion</b>
+                            </p>
+                            <div class="producto_precio">
+                                <span class="producto_precio_normal">@item.Simbolo @item.FormatoPrecioOferta</span>
+                                <span class="producto_precio_oferta"><b>@item.Simbolo @item.FormatoPrecioCatalogo</b></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {
+                    posicions++;
+                }
+            }*@
+        </div>
+    </div>
 </div>
 
-
-@{ var posicion = 1; }
-@foreach (var item in Model.ListaShowRoomOferta)
-{
-    var subTitulo = "";
-    var contadorDetalle = 1;
-    foreach (var detalle in item.ListaDetalleOfertaShowRoom)
-    {
-        subTitulo += contadorDetalle == item.ListaDetalleOfertaShowRoom.Count ? detalle.NombreProducto : detalle.NombreProducto + " + ";
-        contadorDetalle++;
-    }
-    var inhabilitar = item.Stock == 0;
-    var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
-    var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);  
-    
-    <div class="listado_item" data-posicion="@posicion">
-        <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
-        <input type="hidden" class="valorCuv" value="@item.CUV" />
-        <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-        <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
-        <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
-        <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
-        <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
-        <input type="hidden" class="posicionEstrategia" value="@posicion" />
-
-        <div class="listado_imagen">
-            <div class="divEstaAgotado">
-                @if (inhabilitar)
-                {
-                    <div class="producto_agotado">
-                        <div class="agotado_texto">AGOTADO</div>
-                    </div>
-                }
-            </div>
-            <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("ListadoProductoShowRoom", new { id = posicion })">
-                @if (string.IsNullOrEmpty(item.ImagenProducto))
-                {
-                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" @*style="width: 100%;"*@ />
-                }
-                else
-                {
-                    <img src="@item.ImagenProducto" alt="" />
-                }
-            </a>
-        </div>
-
-        <div class="titulo_producto_mobile">@item.Descripcion</div>
-        <div class="stock_producto_m">STOCK <span class="claseStock">@item.Stock</span></div>
-        <hr class="clear" />
-        <div class="descripcion_set_m">@subTitulo</div>
-        <div class="precio_showroom_mobile"><span>@Model.Simbolo @formatoPrecioOferta</span>@Model.Simbolo @formatoPrecioCatalogo</div>
-        <a class="showroom_menos_mobile resta">-</a>
-        <input type="tel" class="showroom_cantidad_mobile txtCantidad" value="1" min="1" max="99" oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
-        <a class="showroom_mas_mobile suma">+</a>
-        <hr class="clear" />
-        <div class="divBotonAgotado">
-            @if (inhabilitar)
-            {
-                <a class="btn_agregar_mobile">AGOTADO</a>
-            }
-            else
-            {
-                <a class="btn_agregar_mobile btnAgregarOfertaShowRoom">AGREGAR A MI PEDIDO</a>
-            }
-        </div>
-        <div>
-            @{
-                var texto = item.Descripcion + ": " + subTitulo + ".";
-                var descripcionF = item.Descripcion.Replace("'", "\'");
-                var subtituloF = subTitulo.Replace("'", "\'");
-                var imagenF = item.ImagenProducto.Replace("'", "\'");
-                var urlWs = "";
-                var urlBase = "";
-                var urlBase2 = "";
-                var urlwsr = "";
-                var urlLabel = "";
-
-                if (System.Web.HttpContext.Current.Request.UserAgent != null)
-                {
-                    var request = HttpContext.Current.Request;
-                    //urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    //urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/WebPages/SetVentaDigital.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
-
-                    urlBase = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id="+ Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_W";
-                    urlBase2 = request.Url.Scheme + "://" + request.Url.Authority + "/Set.aspx?id=" + Model.CodigoIso + "_" + item.OfertaShowRoomID + "_" + Model.FormatoCampania + "_F";
-
-                    urlwsr = urlBase;
-
-                    urlBase = urlBase.Replace("/", "%2F");
-                    urlBase = urlBase.Replace(":", "%3A");
-                    urlBase = urlBase.Replace("?", "%3F");
-                    urlBase = urlBase.Replace("=", "%3D");
-
-                    var message = Uri.EscapeDataString(texto) + " - " + urlBase;
-                    urlWs = "whatsapp://send?text=" + message;
-                    urlLabel = message;
-                    //urlWs = Uri.EscapeDataString(texto);
-                    //var urlWs = "whatsapp://sendUri.EscapeDataString(texto)text=" ;                    
-                }
-
-
-            }
-            <a class="btn_ws_showroom" onclick="TagManagerSWR('@urlLabel');" action="share/whatsapp/share" href="@urlWs"><img src="@Url.Content("~/Content/Images/mobile/Esika/iconowscolor.png")" alt="-" /></a>
-            <a class="btn_facebook_showroom" href="" data-accion="face" onclick='CompartirFacebookSWR("@urlLabel", "@urlBase2");'><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook_color.png")" alt="-" /></a>
-            <hr class="clear" />
-        </div>
-    </div>    
-            {
-                posicion++;
-            }
-}
+<hr class="clear" />
+<!--FIN-->
 
 <div class="titulo_showroom_mobile">
-    <a onclick="SetMarcaGoogleAnalyticsTermino();" href="@Model.RutaShowRoomPopup" target="_blank">
-        T&eacute;rminos y condiciones de la @Model.Nombre<br />
+    <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
+        T&eacute;rminos y condiciones de la @Model.Nombre<br/>
         @Model.Tema
     </a>
 </div>
+
+@if (Model.TieneCompraXcompra)
+{
+    if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+    {
+        <div class="content_promocion">
+            <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
+            <div class="content_desplegable_banner" id="BannerCompra">
+                <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra">
+                    <div class="content_banner_img"><img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto"/>
+                    </div>
+                    <div class="content_banner_right">
+                        <div class="texto_banner_compra">
+                            <b style="margin-top: 10px;">
+                                @{
+                                    var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                                    if (descripcion != null && descripcion.Length > 41)
+                                    {
+                                        descripcion = descripcion.Substring(0, 40) + " ...";
+                                    }
+                                }
+                                @descripcion
+                            </b>
+                            <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
+                            <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
+                        </div>
+                        @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
+                    </div>
+                    <hr class="clear"/>
+                </div>
+            </div>
+        </div>
+    }
+}
+    
 
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
@@ -158,340 +230,130 @@
         </div>
     </div>
 </div>
+<!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
+<div class="PopMobile1" id="PopCompra" data-popup-main="">
+    <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
+        <a class="cerrar_popMobile" id="CerrarPopCompra" style="position:absolute;right: 10px;top: 10px;">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="-">
+        </a>
+        <div style="margin:-20px -20px 0 -20px;">
+            <div class="titulo_compra_POP">PROMOCIÓN</div>
+        </div>
+       
+        @if (Model.TieneCompraXcompra)
+        {
+            if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+            {
+                <div class="content_pop_compra">
+                    @{ var posicionCpc = 1; }
+                    @foreach (var item in Model.ListaShowRoomCompraPorCompra)
+                    {
+                        var descripcion = item.Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
+                        <div data-posicion="@posicionCpc" data-item="@item.OfertaShowRoomID">
+                            <div data-campos="">
+                                <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
+                                <input type="hidden" class="valorCuv" value="@item.CUV"/>
+                                <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
+                                <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
+                                <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
+                                <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
+                            </div>
+                            <div class="set_dia_compra_pop">@Model.TextoCondicionCompraCpc</div>
+                            <div class="content_imagen_carrusel_compra">
+                                @if (item.ImagenProducto != "")
+                                {
+                                    <img src="@item.ImagenProducto" class="imagen_producto">
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto"/>
+                                }
+                            </div>
+                            <div style="height: 130px;">
+                                <div class="nombre_producto_pop_compra">@descripcion</div>
+                                <div class="precio_set_compra">
+                                    A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
+                                </div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="precio_producto_compra">@item.DescripcionLegal</div>
+                            </div>
+                            <div>
+                                <div class="content_cantidad_ficha_producto">
+                                    <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                    <a class=" cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                </div>
+                                <a class="btn_agregar_ficha_producto" data-btn-agregar-cpc="" style="background:black;" href="javascript: void(0);">AGRÉGALO</a>
+                                <hr class="clear">
+                            </div>
+                            @*<a class="btn_agrega_compra" data-btn-agregar-cpc="" href="javascript: void(0);">AGRÉGALO</a>*@
+                        </div>
+                        {
+                            posicionCpc++;
+                        }
+                    }
+                </div>
+            }
+        }
+        <div class="legal_footer_compra">
+            @Model.TextoDescripcionLegalCpc
+        </div>
+    </div>
+</div>
+
+<script id="template-showroom" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="content_item_home" style="position: relative;">
+        <div class="liquidacion_item" data-posicion="{{Posicion}}">
+            <div class="producto_img_mobile">
+                <a class="btnVerDetalleOfertaShowRoom" href="{{UrlDetalle}}">
+                    {{#IsNullOrEmpty ImagenMini '=='}}
+                        <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                    {{/IsNullOrEmpty}}
+                    
+                    {{#IsNullOrEmpty ImagenMini '!='}}
+                        <img src="{{ImagenMini}}" alt="" />
+                    {{/IsNullOrEmpty}}
+                </a>
+            </div>
+            <div class="producto_nombre_descripcion">
+                <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                    <b>{{Descripcion}}</b>
+                </p>
+                <div class="producto_precio">
+                    <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}} 
+    <hr class="clear" />   
+</script>
 
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>
     <script type="text/javascript">
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "ShowRoom", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "ShowRoom", new { area = "" })';
         var urlInsertOfertaWebPortal = '@Url.Action("InsertOfertaWebPortal", "ShowRoom", new { area = "" })';
         var urlActualizarCantidadTotalPedido = '@Url.Action("ObtenerResumenPedido", "OfertaLiquidacion", new { area = "Mobile" })';
-
-        $(document).ready(function () {
-            TagManagerOfertaShowRoom();
-            
-            $("body").on("click", ".suma", function () {
-                var article = $(this).parents(".listado_item").eq(0);
-                var cantidad = $(article).find(".txtCantidad").val();
-                var cajaTexto = $(article).find(".txtCantidad");
-                if (cantidad == 99)
-                    $(cajaTexto).val(Number(99));
-                else
-                    $(cajaTexto).val(Number(cantidad) + 1);
-            });
-
-            $("body").on("click", ".resta", function () {
-                var article = $(this).parents(".listado_item").eq(0);
-                var cantidad = $(article).find(".txtCantidad").val();
-                var cajaTexto = $(article).find(".txtCantidad");
-                if (cantidad == 1)
-                    $(cajaTexto).val(Number(1));
-                else
-                    $(cajaTexto).val(Number(cantidad) - 1);
-            });
-
-            $("body").on("click", ".btnVerDetalleOfertaShowRoom", function (e) {
-                var article = $(this).parents(".listado_item").eq(0);
-                AgregarTagManagerClickProducto(article);
-                //e.preventDefault();
-                //(this).blur();
-            });
-
-            $("body").on("click", ".btnAgregarOfertaShowRoom", function (e) {
-                var article = $(this).parents(".listado_item").eq(0);
-                var cantidad = $(article).find(".txtCantidad").val();
-                
-                AgregarOfertaShowRoom(article, cantidad);
-                e.preventDefault();
-                (this).blur();
-            });
-
-            $("#btnCerrarPedido").click(function () {
-                $("#divMensajeProductoAgregado").modal("hide");
-
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Ofertas Showroom',
-                    'action': 'Click popup Bolsa',
-                    'label': 'Volver a sets'
-                });
-            });
-
-            $("#btnIrMipedido").click(function () {
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Ofertas Showroom',
-                    'action': 'Click popup Bolsa',
-                    'label': 'Ir a carrito'
-                });
-            });
-        });
-
-        //gr-1521
-        function SetMarcaGoogleAnalyticsTermino() {
-            dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
-
-        }
-
-        function AgregarOfertaShowRoom(article, cantidad) {
-            
-            var CUV = $(article).find(".valorCuv").val();
-            var MarcaID = $(article).find(".claseMarcaID").val();
-            var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
-            var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
-            var nombreProducto = $(article).find(".DescripcionProd").val();
-            var posicion = $(article).find(".posicionEstrategia").val();
-            var descripcionMarca = $(article).find(".DescripcionMarca").val();
-
-            if (cantidad == "" || cantidad == 0) {
-                messageInfo("La cantidad ingresada debe ser mayor que 0, verifique.");
-            } else {
-                ShowLoading();
-
-                $.ajaxSetup({ cache: false });
-                $.getJSON(urlValidarUnidadesPermitidasPedidoProducto, { CUV: CUV }, function (data) {
-                    if (parseInt(data.Saldo) < parseInt(cantidad)) {
-                        var Saldo = data.Saldo;
-                        var UnidadesPermitidas = data.UnidadesPermitidas;
-
-                        $.getJSON(urlObtenerStockActualProducto, { CUV: CUV }, function (data) {
-
-                            $(article).find(".claseStock").text(data.Stock);
-
-                            CloseLoading();
-                            if (Saldo == UnidadesPermitidas) {
-                                messageInfo("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
-                            }
-                            else {
-                                if (Saldo == "0")
-                                    messageInfo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
-                                else
-                                    messageInfo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
-                            }
-                        });
-                    } else {
-                        var Item = {
-                            MarcaID: MarcaID,
-                            Cantidad: cantidad,
-                            PrecioUnidad: PrecioUnidad,
-                            CUV: CUV,
-                            ConfiguracionOfertaID: ConfiguracionOfertaID
-                        };
-
-                        $.ajaxSetup({ cache: false });
-                        $.getJSON(urlObtenerStockActualProducto, { CUV: CUV }, function (data) {
-
-                            if (parseInt(data.Stock) < parseInt(cantidad)) {
-                                $(article).find(".claseStock").text(data.Stock);
-
-                                CloseLoading();
-                                messageInfo("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
-                            }
-                            else {
-                                jQuery.ajax({
-                                    type: 'POST',
-                                    url: urlInsertOfertaWebPortal,
-                                    dataType: 'json',
-                                    contentType: 'application/json; charset=utf-8',
-                                    data: JSON.stringify(Item),
-                                    async: true,
-                                    success: function (response) {
-                                        CloseLoading();
-
-                                        if (response.success == true) {
-                                            $("#spnNombreOfertaShowRoom").html(nombreProducto);
-
-                                            $("#divMensajeProductoAgregado").modal("show");
-
-                                            var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
-                                            if (stockRestante < 1) {
-                                                $(article).find(".resta").attr('disabled', 'disabled');
-                                                $(article).find(".suma").attr('disabled', 'disabled');
-                                                $(article).find(".txtCantidad").attr('disabled', 'disabled');
-                                                $(article).find(".btnAgregarOfertaProducto").attr('disabled', 'disabled');
-
-                                                $(article).find(".claseStock").text("0");
-                                                $(article).find(".txtCantidad").val("0");
-
-                                                var htmlAgotado = '<div class="producto_agotado">';
-                                                htmlAgotado += '<div class="agotado_texto">AGOTADO</div>';
-                                                htmlAgotado += '</div>';
-                                                var htmlBotonAgotado = '<a class="btn_agregar_mobile">AGOTADO</a>';
-
-                                                var divAgotado = $(article).find(".divEstaAgotado");
-                                                $(divAgotado).html("");
-                                                $(divAgotado).html(htmlAgotado);
-                                                var divBotonAgotado = $(article).find(".divBotonAgotado");
-                                                $(divBotonAgotado).html("");
-                                                $(divBotonAgotado).html(htmlBotonAgotado);
-                                            } else {
-                                                $(article).find(".claseStock").text(stockRestante);
-                                                $(article).find(".txtCantidad").val("1");
-                                            }
-                                            
-                                            AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca,0);
-                                            //ActualizarCantidadTotalPedido();
-                                            CargarCantidadProductosPedidos();
-                                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-                                        }
-                                        else messageInfoError(response.message);
-                                    },
-                                    error: function (response, error) {
-                                        if (checkTimeout(response)) {
-                                            CloseLoading();
-                                            console.log(response);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        }
-
-        function ActualizarCantidadTotalPedido() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlActualizarCantidadTotalPedido,
-                dataType: 'json',
-                async: true,
-                success: function (response) {
-                    if (checkTimeout(response)) {
-                        if (response.success) {
-                            var data = response.data;
-                            $(".num-menu-shop").html(data.CantidadProductos);
-                        } else {
-                            window.messageInfo(response.message);
-                        }
-                    }
-                },
-                error: function (response, error) {
-                    if (checkTimeout(response)) {
-                        console.log(response);
-                    }
-                }
-            });
-        }
-
-        function maxLengthCheck(object, cantidadMaxima) {
-            if (object.value.length > cantidadMaxima)
-                object.value = object.value.slice(0, cantidadMaxima);
-        }
-
-        function TagManagerOfertaShowRoom() {
-            var cadListaofertaShowRoom = $("#hdListaProductosEnShowRoom").val();
-            var listaofertaShowRoom = JSON.parse(cadListaofertaShowRoom);
-            var cantidadofertaShowRoom = $('.listado_item').length;
-
-            var arrayEstrategia = new Array();
-            var position = 1;
-            for (var i = 0; i < cantidadofertaShowRoom; i++) {
-                var ofertaShowRoom = listaofertaShowRoom[i];
-                var list = ofertaShowRoom.Stock > 0 ? 'Ofertas Showroom' : 'Ofertas Showroom - agotados';
-
-                var impresionofertaShowRoom = {
-                    'name': ofertaShowRoom.Descripcion,
-                    'id': ofertaShowRoom.CUV,
-                    'price': ofertaShowRoom.PrecioCatalogo.toString(),
-                    'category': 'NO DISPONIBLE',
-                    'brand': ofertaShowRoom.DescripcionMarca,
-                    'position': position,
-                    'list': list
-                };
-                position++;
-                arrayEstrategia.push(impresionofertaShowRoom);
-            }
-
-            if (arrayEstrategia.length > 0) {
-                dataLayer.push({
-                    'event': 'productImpression',
-                    'ecommerce': {
-                        'impressions': arrayEstrategia
-                    }
-                });
-            }
-        }
-
-        function AgregarTagManagerProductoAgregadoSWR(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
-            
-            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
-            dataLayer.push({
-                'event': 'addToCart',
-                'ecommerce': {
-                    'add': {
-                        'actionField': { 'list': lista },
-                        'products': [{
-                            'name': nombreProducto,
-                            'id': CUV,
-                            'price': PrecioUnidad,
-                            'brand': descripcionMarca,
-                            'variant': 'Ofertas Showroom',
-                            'category': 'NO DISPONIBLE',
-                            'quantity': cantidad
-                        }]
-                    }
-                }
-            });
-        }
-
-        function AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca) {
-            dataLayer.push({
-                'event': 'addToCart',
-                'ecommerce': {
-                    'add': {
-                        'products': [{
-                            'name': nombreProducto,
-                            'id': CUV,
-                            'price': PrecioUnidad,
-                            'brand': descripcionMarca,
-                            'variant': 'Ofertas Showroom',
-                            'category': 'NO DISPONIBLE',
-                            'quantity': cantidad
-                        }]
-                    }
-                }
-            });
-        }
-
-        function AgregarTagManagerClickProducto(article) {
-            var nombreProducto = $(article).find(".DescripcionProd").val();
-            var cuv = $(article).find(".valorCuv").val();
-            var precio = $(article).find(".clasePrecioUnidad").val();
-            var marca = $(article).find(".DescripcionMarca").val();
-            var posicion = $(article).find(".posicionEstrategia").val();
-            var list = 'Ofertas Showroom';
-
-            dataLayer.push({
-                'event': 'productClick',
-                'ecommerce': {
-                    'click': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': nombreProducto,
-                            'id': cuv,
-                            'price': precio,
-                            'brand': marca,
-                            'category': 'NO DISPONIBLE',
-                            'position': parseInt(posicion)
-                        }]
-                    }
-                }
-            });
-        }
-        
-        function CompartirFacebook(urlBase) {
-            var popWwidth = 570;
-            var popHeight = 420;
-            var left = (screen.width / 2) - (popWwidth / 2);
-            var top = (screen.height / 2) - (popHeight / 2);
-            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlBase;
-
-            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-        }
-
-       
+        var tipoOrigenPantalla = 2;
+        var precioMin = '@ViewBag.PrecioMin';
+        var precioMax = '@ViewBag.PrecioMax';
+        var simbolo = '@Model.Simbolo';
+        var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/Index.js")"></script>
+    
 }

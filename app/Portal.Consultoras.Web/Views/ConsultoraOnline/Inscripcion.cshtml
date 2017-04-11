@@ -43,7 +43,6 @@
 
 @using (Html.BeginForm("Inscripcion", "ConsultoraOnline", FormMethod.Post, new { id = "frmAfiliacion" }))
 {
-    @* @Html.AntiForgeryToken() *@
     <div id="slides_inscripcion">
         <div class="inscribir_consultora tsm">
             <div class="field100_co margin_bottom_30 margin_left_23">@Html.ActionLink("< VOLVER","Informacion","ConsultoraOnline")</div>
@@ -51,7 +50,6 @@
                 <h2>INSCRIPCIÓN CONSULTORA <strong>ONLINE</strong></h2>
                 Completa tus datos e inscribete
             </div>
-            @*Html.ValidationSummary()        *@
             <div class="field100_co margin_bottom_35">
                 <div class="field25_co text_align_right margin_right_10">Nombre completo*</div>
                 <div class="field70">
