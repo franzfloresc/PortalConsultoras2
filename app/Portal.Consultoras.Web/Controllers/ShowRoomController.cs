@@ -2622,7 +2622,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult ProgramarAviso(MisDatosModel model)
         {
@@ -2655,12 +2654,19 @@ namespace Portal.Consultoras.Web.Controllers
                 string CorreoNuevo = entidad.EMail;
                 bool emailActivo = userData.EMailActivo;
 
+                if (CorreoNuevo == "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "- El correo no puede ser vacio."
+                    });
+                }
+
                 entidad.Celular = Util.Trim(entidad.Celular);
-                if (entidad.Celular != Util.Trim(userData.Celular) && entidad.Celular != "")
+                if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
                 {
                     entidad.CodigoUsuario = userData.CodigoUsuario;
-                    entidad.EMail = userData.EMail;
-                    //entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                     entidad.Telefono = userData.Telefono;
                     entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
                     entidad.Sobrenombre = userData.Sobrenombre;
@@ -2673,26 +2679,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sv.UpdateDatos(entidad, CorreoAnterior);
                     }
+
+                    userData.EMail = entidad.EMail;
+                    userData.Celular = entidad.Celular;
+                    userData.EMailActivo = CorreoNuevo == CorreoAnterior ? userData.EMailActivo : false;
+                    SetUserData(userData);
                 }
 
-                //UsuarioModel UsuarioModelSession = userData;
-                //UsuarioModelSession.EMail = entidad.EMail;
-                //UsuarioModelSession.Celular = entidad.Celular;
-                //SetUserData(UsuarioModelSession);
+                var emailValidado = userData.EMailActivo;
 
-                if (CorreoNuevo == "")
+                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "- El correo no puede ser vacio."
-                    });
-                }
-                var emailValidado = true;
-                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && userData.EMailActivo == true))
-                {
-                    emailValidado = false;
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,ShowRoomIntriga" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 
@@ -2720,7 +2718,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                    emailValidado = !emailValidado
+                    emailValidado = emailValidado
                 });
             }
             catch (FaultException ex)
