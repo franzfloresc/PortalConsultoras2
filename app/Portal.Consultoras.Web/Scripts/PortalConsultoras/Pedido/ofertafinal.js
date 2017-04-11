@@ -312,7 +312,16 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     if (cuvOfertaProl != "") {
         objOf.Detalle = objOf.Detalle || new Array();
         if (objOf.Detalle.length > 0) {
-            var objProdIni = objOf.Detalle[0];
+            var cantActivo = 3;
+            var objProdIni = new Object();
+            $.each(objOf.Detalle, function (ind, itemDet) {
+                if (cantActivo > ind || cantActivo == 0) {
+                    if (itemDet.CUV == cuvOfertaProl) {
+                        objProdIni = itemDet;
+                    }
+                }
+            });
+
             if (objProdIni.CUV == cuvOfertaProl) {
                 var input = $($("#divOfertaFinal").find(".hdOfertaFinalCuv[value=" + cuvOfertaProl + "]")[0]).parents("[data-item]").find("[data-verdetalle]")[0];
                 CargarVerDetalleOF(input);
