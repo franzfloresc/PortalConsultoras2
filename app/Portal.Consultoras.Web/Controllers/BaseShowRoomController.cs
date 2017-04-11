@@ -638,19 +638,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             // redes sociales
             modelo.FBRuta = GetUrlCompartirFB();
-            var mensaje = "";
-            modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
-            mensaje = Util.Trim(mensaje);
-            mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
-            modelo.FBMensaje = modelo.Descripcion + ": " + Util.Trim(mensaje);
+            //var mensaje = "";
+            //modelo.ListaDetalleOfertaShowRoom.ToList().ForEach(d => mensaje += d.NombreProducto + " + ");
+            //mensaje = Util.Trim(mensaje);
+            //mensaje = mensaje.EndsWith("+") ? mensaje.Substring(0, mensaje.Length - 1) : mensaje;
+            modelo.FBMensaje = ""; //modelo.Descripcion + ": " + Util.Trim(mensaje);
 
             // agrupar por marca
             modelo.ListaDetalleOfertaShowRoom = modelo.ListaDetalleOfertaShowRoom.OrderBy(d => d.MarcaProducto).ToList();
             var nombreMarca = "";
             modelo.ListaDetalleOfertaShowRoom.Update(d =>
             {
-                d.MarcaProducto = d.MarcaProducto == nombreMarca ? "" : d.MarcaProducto;
-                nombreMarca = d.MarcaProducto == nombreMarca ? nombreMarca : d.MarcaProducto;
+                d.MarcaProducto = d.MarcaProducto == nombreMarca 
+                    ? "" : 
+                    d.MarcaProducto;
+                nombreMarca = d.MarcaProducto == ""
+                    ? nombreMarca
+                    : d.MarcaProducto == nombreMarca
+                        ? nombreMarca
+                        : d.MarcaProducto;
             });
 
             bool esMovil = Request.Browser.IsMobileDevice;
