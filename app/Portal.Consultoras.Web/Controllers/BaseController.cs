@@ -66,14 +66,22 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ProgramasBelcorpMenu = BuildMenuService();
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
-                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    /*** EPD 2170 ***/
+                    if (userData.TipoUsuario == 2)
                     {
-                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                        ViewBag.SegmentoConsultoraMenu = 1;
                     }
-                    else
-                    {
-                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
-                    }                    
+                    else {
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                        {
+                            ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                        }
+                        else
+                        {
+                            ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                        } 
+                    }
+                    /*** FIN EPD 2170 ***/
 
                     ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
@@ -443,6 +451,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.Menu == null)
             {
                     IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
+                    IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
+
                     using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                     {
                     lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
@@ -456,7 +466,14 @@ namespace Portal.Consultoras.Web.Controllers
                     if(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
                     List<PermisoModel> lstModel = new List<PermisoModel>();
-                    foreach (var permiso in lst)
+
+                    lst2 = lst;
+                    if (userData.TipoUsuario == 2)
+                    {
+                        lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
+                    }
+
+                    foreach (var permiso in lst2)
                     {
                         lstModel.Add(new PermisoModel
                         {
@@ -539,15 +556,24 @@ namespace Portal.Consultoras.Web.Controllers
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
 
+                /*** EPD 2170 ***/
                 int SegmentoID;
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                if (userData.TipoUsuario == 2)
                 {
-                    SegmentoID = userData.SegmentoID;
+                    SegmentoID = 1;
                 }
                 else
                 {
-                    SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    {
+                        SegmentoID = userData.SegmentoID;
+                    }
+                    else
+                    {
+                        SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    }
                 }
+                /*** FIN EPD 2170 ***/
 
                 int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
 

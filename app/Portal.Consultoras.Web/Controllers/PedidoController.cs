@@ -395,6 +395,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                /*** EPD 2170 ***/
+                if (userData.TipoUsuario == 2)
+                    model.Prol = "GUARDA TU PEDIDO";
+                /*** FIN 2170 ***/
+
             }
             catch (FaultException ex)
             {
@@ -2118,6 +2123,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             /* SB20-287 - FIN */
             #endregion
+
+            /*** EPD 2170 ***/
+            if (userData.TipoUsuario == 2)
+                model.Prol = "GUARDA TU PEDIDO";
+            /*** FIN 2170 ***/
 
             model.EsDiaProl = usuario.DiaPROL;
             model.ProlSinStock = usuario.PROLSinStock;

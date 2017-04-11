@@ -215,8 +215,15 @@ $(document).ready(function () {
             return false;
         }
     });
-    $('#btnValidarPROL').click(function () {      
-        EjecutarPROL();        
+    $('#btnValidarPROL').click(function () {
+        if (gTipoUsuario == 2) { //Postulante
+            var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+            $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+            $('#dialog_MensajePostulante').show();
+        }
+        else {
+            EjecutarPROL();
+        }
     });
     $("body").on("mouseenter", ".info_copy", function () {
         var mar = $(this).parent().parent() || '0';
