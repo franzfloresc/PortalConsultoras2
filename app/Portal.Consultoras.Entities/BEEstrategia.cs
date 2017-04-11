@@ -148,6 +148,8 @@ namespace Portal.Consultoras.Entities
         public int  EnMatrizComercial { get; set; }
         [DataMember]
         public string CodigoEstrategia { get; set; }
+        [DataMember]
+        public int TieneVariedad { get; set; }
 
         public BEEstrategia(IDataRecord row)
         {
@@ -318,6 +320,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
                 CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
+
+            if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
+                TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
         }
     }
     // 1747 - Inicio

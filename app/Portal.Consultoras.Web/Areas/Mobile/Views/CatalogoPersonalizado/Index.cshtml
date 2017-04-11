@@ -43,13 +43,6 @@
 
     <div id="orderby-filter">
         <div id="content-orderby">
-            @*<select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
-                <option value="-1">ORDENAR POR</option>
-                <option value="asc">PRECIO | Menor a mayor</option>
-                <option value="desc">PRECIO | Mayor a menor</option>
-            </select>*@
-
-            @*PL20 - 1273*@
             @if (Model.FiltersBySorting != null)
             {
                 <select id="orderby-price" class="select-ffc" onchange="processFilterCatalogoPersonalizado(1);">
@@ -85,17 +78,6 @@
             </div>
             <div id="divProductosEncontrados" class="texto_filtros" style="text-align:center;"><b>2</b> productos encontrados</div>
             <div class="texto_filtros">Encuentra de manera rápida los mejores productos especialmente escogidos para tus clientes</div>
-            @*<div id="header-custom-filters">
-
-                <div id="title-custom-filters">
-                    <span style="font-size: 18px;">FILTROS</span>
-                </div>
-                <div id="delete-custom-filters" style="">
-                    <span style="text-align: right;" onclick="showOrderbyFilter();">
-                        <img src="~/Content/Images/mobile/icon-xclose.png" style="width: 20px; height: 20px; cursor: pointer;" />
-                    </span>
-                </div>
-            </div>*@
             <br />
             <div id="content-filters" style="">
                 <div class="panel-group" id="accordion">
@@ -380,28 +362,7 @@
                         </div>
                         {{/if}}
                     </div>
-
                     <hr class="clear">
-                    @*@*<div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>*@
-                    @*<div class="clear"></div>
-
-                    <a class="boton_Agregalo_home btnAgregarOfertaProducto" data-btn-agregar-catalogopersonalizado=""> AGREGALO</a>*@
-
-                    
-                    @*<div style="padding-top:9px; height: 15px;">
-                        {{#if TieneOfertaEnRevista}}
-
-                        {{else}}
-                        <div class="agregado product-add" style="text-align: right; display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
-                        {{/if}}
-                    </div>*@
                 </div>
             </div>
         </div>
@@ -448,7 +409,6 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
             <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
@@ -461,26 +421,13 @@
                 {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" style="font-weight:400;" id="titulo">{{Descripcion}}</div>
-            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
             <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
         </div>
         <div>
-            @*<div class="content_pack_niveles">
-                <div class="row_20">
-                    <div class="titulo_mobile">COMPRA 1 {{Descripcion}}</div>
-                    <div class="pestana_esika"></div>
-                    <div class="pestana_lbel"></div>
-                </div>
-                <div class="titulo_pack">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
-                <div class="texto_ganancia_oferta">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
-                <hr class="clear" />
-            </div>*@
-
             {{#each lista_ObjNivel as |nivel|}}
             <div class="content_pack_niveles">
                 <div class="row_20">
-                    @*<div class="titulo_mobile">COMPRA {{nivel.escala_nivel}} {{../Descripcion}}</div>*@
                     <div class="titulo_mobile">OFERTA x{{nivel.escala_nivel}}</div>
                     <div class="pestana_esika"></div>
                     <div class="pestana_lbel"></div>
@@ -580,7 +527,6 @@
         <hr class="clear" />
 
         <div style="text-align:center">
-            @*<div class="titulo_popOferta">OFERTA EN REVISTA</div>*@
             <div class="titulo_popOferta">OFERTA EN GUÍA DE NEGOCIO</div>
         </div>
         <div class="linea_separadora_black" style="margin-top:-10px;"></div>
@@ -625,7 +571,6 @@
                 {{/IsNullOrEmpty}}
             </div>
             <div class="titulo_producto_oferta" id="titulo">{{Descripcion}}</div>
-            @*<div class="sub_texto_oferta">En Revista: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>*@
             <div class="sub_texto_oferta">Precio para ti: {{Simbolo}} {{DecimalToStringFormat precio_revista}}</div>
             <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{TxtGanancia}}: {{Simbolo}} {{DecimalToStringFormat ganancia}}</div>
 
@@ -646,7 +591,6 @@
             <input type="hidden" class="hdItemPackPrecio" value="{{pack.precio_pack}}" />
 
             <div class="row_20">
-                @*<div class="titulo_mobile">PACK {{#if_eq pack.EsUltimo "1"}}MÁXIMA {{/if_eq}}GANANCIA</div>*@
                 <div class="titulo_mobile">{{pack.nombre_pack}}</div>
                 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
                 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
@@ -654,7 +598,6 @@
             <div class="content_item_oferta">
                 <div class="titulo_producto_oferta"><span class="texto_unidad_pack">Precio para ti: </span>{{../Simbolo}} {{DecimalToStringFormat pack.precio_pack}}</div>
                 <div class="texto_ganancia_oferta" style="text-transform: uppercase;">{{../TxtGanancia}}: {{../Simbolo}} {{DecimalToStringFormat pack.ganancia_pack}}</div>
-                @*<div class="left_70"><div class="titulo_producto_oferta" style="text-align:left">INCLUYE</div></div>*@
                 <hr class="clear" />
                 {{#each ../lista_oObjItemPack as |item|}}
                 {{#if_eq pack.cuv_pack item.cuv_pack_item}}

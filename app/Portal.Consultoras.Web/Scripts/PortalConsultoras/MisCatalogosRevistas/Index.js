@@ -2,7 +2,6 @@
 var listaCorreo = new Array();
 var nombreCat = new Object();
 
-// js-RenderCatalogo
 $(document).ready(function () {
     ObtenerURLExpofertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
@@ -67,7 +66,6 @@ $(document).ready(function () {
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
         var tipo = obj.attr("data-cat");
-        //obj.find("[type='checkbox']").attr('checked', "checked");
         obj.find("[type='checkbox']").Checked();
     });
 
@@ -159,7 +157,6 @@ function CargarCarruselCatalogo() {
 
         var x = i - parseInt(i / cantCat) * cantCat;
         x = x < 0 ? 3 : x > 2 ? 3 : x;
-        //tipo = x == 0 ? tagLbel : x == 1 ? tagEsika : x == 2 ? tagCyzone : "";
         tipo = ordenCat[x];
         if (nro == "" || anio == "" || tipo == "") {
             continue;
@@ -214,12 +211,8 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
 
         deferedCam[camp] = ObtenerEstadoCatalogo(camp, deferedCam[camp]);
         deferedCam[camp].done(function (data, camp) {
-            if (data != null) {
-                GetCatalogosLinksByCampania(data, camp);
-            }
-            else {
-                cont += cantCat;
-            }
+            if (data != null) GetCatalogosLinksByCampania(data, camp);
+            else cont += cantCat;
         });
     }
 
@@ -231,7 +224,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
 function ObtenerEstadoCatalogo(campana, defered) {
     jQuery.ajax({
         type: "GET",
-        url: baseUrl + 'MisCatalogosRevistas/Detalle',
+        url: urlDetalle,
         dataType: "json",
         data: { campania: campana },
         success: function (result) {
@@ -250,12 +243,8 @@ function ObtenerEstadoCatalogo(campana, defered) {
 
 function GetCatalogosLinksByCampania(data, campania) {    
     waitingDialog();
-
-    $.ajaxSetup({ cache: false });
-
-    var idPais = $("#hdPaisId").val();
-
-    //var defered = new Object();
+    $.ajaxSetup({ cache: false });    
+    var paisNombre = $("#hdPaisNombre").val();
 
     var anio = campania.substring(0, 4);
     var nro = campania.substring(4, 6);
@@ -278,16 +267,12 @@ function GetCatalogosLinksByCampania(data, campania) {
         : i == 2 && data.estadoEsika != 1 ? "1"
         : "0";
 
-        //defered[tagCat] = jQuery.Deferred();
-
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado || "0")
 
-        var catalogo = tagCat.toLowerCase() + "." + ObtenerNombrePais(idPais) + ".c" + nro + "." + anio;
+        var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 
-        //defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
-        //defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
             var codigoISSUU = '', urlCat;
             $.each(data.listCatalogo, function (key, catalogo) {
                 if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
@@ -312,12 +297,9 @@ function GetCatalogosLinksByCampania(data, campania) {
                 $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             }
-        //});
     }
 
-    //$.when(defered[tagLbel], defered[tagEsika], defered[tagCyzone]).done(function () {
         FinRenderCatalogo();
-    //});
 }
 
 function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
@@ -346,27 +328,6 @@ function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {
     return defered.promise();
 }
 
-function ObtenerNombrePais(idPais) {
-    var pais = parseInt(idPais);
-    switch (pais) {
-        case 1: return "argentina";
-        case 2: return "bolivia";
-        case 3: return "chile";
-        case 4: return "colombia";
-        case 5: return "costarica";
-        case 6: return "ecuador";
-        case 7: return "elsalvador";
-        case 8: return "guatemala";
-        case 9: return "mexico";
-        case 10: return "panama";
-        case 11: return "peru";
-        case 12: return "puertorico";
-        case 13: return "republicadominicana";
-        case 14: return "venezuela";
-        default: return "sinpais";
-    }
-}
-
 function CatalogoMostrar(accion, btn) {
     campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
@@ -385,6 +346,7 @@ function CatalogoMostrar(accion, btn) {
     }
 
     // Centrar segun cantidad de catalgos
+    debugger
     var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
     if (cata.length < 3) {
         var wUnit = 24.7;//%
@@ -392,8 +354,15 @@ function CatalogoMostrar(accion, btn) {
         var wVacio = 100 - wTotalRender;
         var wVacioUnit = wVacio / cata.length;
         cata.removeClass("no_margin_right");
-        cata.css("margin-right", (wVacioUnit / 2) + "%");
-        cata.css("margin-left", (wVacioUnit / 2) + "%");
+
+        if (_Pagina == 1) {
+            cata.css("margin-right", (wVacioUnit / 2) + "%");
+            cata.css("margin-left", (wVacioUnit / 2) + "%");
+        }
+        else {
+            cata.css("margin-right", "0%");
+            cata.css("margin-left", "0%");
+        }
     }
     if (btn != null) {
         dataLayer.push({
@@ -642,7 +611,7 @@ jQuery(document).ready(function () {
     rCampSelect = $("#hdrCampaniaActual").val();
     $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
 
-    waitingDialog({ title: "Cargando Imagen" });
+    waitingDialog({ title: "Cargando Imagen" });    
     MostrarRevistaCorrecta(rCampSelect);
 });
 
@@ -685,7 +654,7 @@ function MostrarMiRevista() {
     frmMiRevista.submit();
 }
 
-function MostrarRevistaCorrecta(campania) {    
+function MostrarRevistaCorrecta(campania) {
     var urlImagen = "";
     var defered = jQuery.Deferred();
     defered = ObtenerImagenRevista(campania, defered);

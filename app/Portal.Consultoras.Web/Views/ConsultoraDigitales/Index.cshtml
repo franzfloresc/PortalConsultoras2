@@ -60,20 +60,12 @@
             title: 'Ejecutando Proceso'
         }
         waitingDialog(waiting);
-
-        //var JsonData = {
-        //    PaisID: $("#ddlPais").val(),
-        //    FechaFacturacion: $("#txtFechaFacturacion").val(),
-        //    TipoCronogramaID: $("#cboTipoCronograma").val(),
-        //    FlagPedidos: $("#chkMarcarPedidos").is("checked")
-        //};
-
+        
                 $.ajax({
                     type: 'POST',
                     url: baseUrl + 'ConsultoraDigitales/RealizarDescarga',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    //data: JSON.stringify(JsonData),
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {

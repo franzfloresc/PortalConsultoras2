@@ -3,7 +3,7 @@
 
 @Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
 @Html.Hidden("CodigoISO", Model.CodigoISO)
-
+@Html.Hidden("NombreCompleto", Model.NombreCompleto)
 
 <style>
     .boton_celeste { behavior: url('@Url.Content("~/Content/Css/Pie/PIE.htc)")') !important; }
@@ -23,56 +23,106 @@
     }
 </style>
 
-<div class="popup_eliminarCliente popup_RechazarPost">
+<div class="popup_eliminarCliente popup_RechazarPost popup_rechazarPostulante">
     <div class="btn_cerrar_agregarUnidades">
-        <a href="javascript:;" onclick="closeAprobar();">
+        <a href="javascript:;" onclick="cerrarRechazar();">
             <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
             <span class="texto_btn_cerrar">CERRAR</span>
         </a>
     </div>
 
-    <div class="contenido_popUp eliminarCliente">
-        <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding: 25px;">
+    <div class="contenido_popUp eliminarCliente contenido_popUp rechazarPostulante">
 
-            ¿Est&aacute; seguro de rechazar a esta postulante?
+        <div class="contenido_popUp rechazarPostulante">
 
-        </div>
+            <h1>RECHAZAR <span class="texto_enNegritas">POSTULANTE</span></h1>
+            <div class="usuario_por_rechazar">Estás a punto de rechazar a <span>@Model.NombreCompleto</span></div>
 
-        <div class="div-3">
+            <div class="contenedor_motivoRechazo">
 
-            <div class="selectP2 seleccion_pagina textboxSB2">
-                @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                <h4>¿Cúal es el motivo?</h4>
+
+                @*<form action="" class="formulario_motivosRechazo">
+
+                    <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding-top: 25px;  padding-left: 25px;  padding-right: 25px;">
+
+                    ¿Est&aacute; seguro de rechazar a esta postulante?
+                    <br />
+                    <br />*@
+                <div class="div-3 contenedor_campoMotivo">
+
+                    <div class="selectP2 seleccion_pagina textboxSB2">
+                        @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => Model.TipoRechazo)
+                    </div>
+                </div>
+
+                <div class="div-3 contenedor_campoMotivo">
+
+                    <div class="selectP2 seleccion_pagina textboxSB2">
+                        @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
+                        @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "", @placeholder = "Comentarios adicionales...", maxlength = 255 })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="validation_clear"></div>
+                    <div class="validation">
+                        @Html.ValidationMessageFor(m => Model.MotivoRechazo)
+                    </div>
+                </div>
+
             </div>
-        </div>
-        <div class="div-3">
-            <div class="validation_clear"></div>
-            <div class="validation">
-                @Html.ValidationMessageFor(m => Model.TipoRechazo)
-            </div>
+
+            @*<div class="opcion_motivoRechazo">
+                        <input id="edadSuficiente" type="checkbox" name="edadSuficiente" />
+                        <label for="edadSuficiente">
+                            No tiene la edad suficiente para ser consultora.
+                        </label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="zonaAsignada" type="checkbox" name="zonaAsignada" />
+                        <label for="zonaAsignada">La postulante no corresponde a la zona asignada.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="edadSuficiente2" type="checkbox" name="edadSuficiente2" />
+                        <label for="edadSuficiente2">No tiene la edad suficiente para ser consultora.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="historialCrediticio" type="checkbox" name="historialCrediticio" />
+                        <label for="historialCrediticio">Tiene una deuda pendiente en su historial crediticio.</label>
+                    </div>
+
+                    <div class="opcion_motivoRechazo">
+                        <input id="zonaAsignada2" type="checkbox" name="zonaAsignada2" />
+                        <label for="zonaAsignada2">La postulante no corresponde a la zona asignada.</label>
+                    </div>
+
+                </form>*@
+
         </div>
 
-        <div class="div-3">
+        <div class="btn_grupo_eliminarCliente btn_grupo_rechazarPostulante">
 
-            <div class="selectP2 seleccion_pagina textboxSB2">
-                @Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB" })
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="validation_clear"></div>
-            <div class="validation">
-                @Html.ValidationMessageFor(m => Model.MotivoRechazo)
-            </div>
+            <input type="submit" class="btn_noEliminarCliente btnRechazarPost btn_rechazarPostulante" id="btnAceptar" value="Confirmar" />
+            <input type="submit" class="btn_noEliminarCliente btnRechazarPost btn_rechazarPostulante" id="btnCancelar" onclick="cerrarRechazar()" value="Cancelar" />
+
         </div>
 
-        <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
-            <input type="submit" class="btn_noEliminarCliente btnRechazarPost" id="btnAceptar" value="Aceptar" />
-            <input type="submit" class="btn_noEliminarCliente btnRechazarPost" id="btnCancelar" value="Cancelar" />
-        </div>
     </div>
+
 </div>
 
 
 <style>
+
     .btnRechazarPost {
         float: none !important;
         text-align: center;
@@ -100,8 +150,8 @@
     }
 
     .popup_RechazarPost {
-        max-width: 600px !important;
-        margin: -100px auto 0 auto !important;
+        max-width: 400px !important;
+        margin: -300px auto 0 auto !important;
         /*posicion*/
     }
 
@@ -179,9 +229,249 @@
     user agent stylesheet input, textarea, keygen, select, button, meter, progress {
         -webkit-writing-mode: horizontal-tb;
     }
+
+           /* INICIO POPUP RECHAZAR POSTULANTE */
+
+    /*.contenedor_popup_rechazarPostulante {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent url(../../Content/Images/bg_popups.png) repeat left top;
+        z-index: 1000;
+        font-family: 'Lato';
+    }*/
+
+    .btn_cerrar_popupRechazarPostulante {
+        display: block;
+        width: 100%;
+        max-width: 29px;
+        height: auto;
+        position: absolute;
+        top: 5px;
+        right: -43px;
+    }
+
+    .btn_cerrar_popupRechazarPostulante a{
+        display:block;
+        font-family: 'Lato';
+        color: #FFF;
+        font-size: 9px;
+    }
+
+    .btn_cerrar_popupRechazarPostulante span{
+        margin-left: -2px;
+    }
+
+    .btn_cerrar_popupRechazarPostulante img {
+        width: 100%;
+        height: auto;
+        border: 0px;
+    }
+
+    .popup_rechazarPostulante {
+        top: 50%!important;
+        left: 0%;
+        right: 0%;
+        bottom: 0%;
+        margin: -199px auto 0 auto!important;
+        width: 100%!important;
+        max-width: 605px!important;
+        height: auto!important;
+        padding-top: 37px!important;
+        padding-bottom: 34px!important;
+        box-sizing: border-box!important;
+    }
+
+    .rechazarPostulante h1{
+        display: block;
+        margin: 0 auto;
+        text-align: center!important;
+        font-size: 20px!important;
+        font-family:'Lato'!important;
+        font-weight: normal!important;
+        color: #000!important;
+        letter-spacing:0.1px;
+        margin-bottom:8px!important;
+    }
+
+    .rechazarPostulante .texto_enNegritas {
+        font-weight: 700;
+    }
+
+    .usuario_por_rechazar{
+        text-align: center;
+        font-size: 13px;
+        font-weight: normal;
+        letter-spacing: 0.1px;
+        margin-top: 5px;
+        color:#000;
+    }
+
+    .usuario_por_rechazar span{
+        font-weight:700;
+    }
+
+    .contenedor_motivoRechazo {
+        display: block;
+        margin: 0 auto;
+        margin-top: 16px;
+        margin-bottom:17px;
+    }
+
+    .contenedor_motivoRechazo h4 {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        font-family: 'Lato';
+        font-weight: normal!important;
+        font-size: 16px;
+        letter-spacing: 0.1px;
+        color: #642f80;
+        margin-bottom:25px;
+    }
+
+    .formulario_motivosRechazo {
+        display: block;
+        margin: 10px auto 0 auto;
+        width: 100%;
+        max-width: 330px;
+        padding-left:14px;
+    }
+
+    .opcion_motivoRechazo {
+        display: block;
+        margin: 0 auto;
+        position:relative;
+        margin-bottom:10px;
+    }
+
+    .opcion_motivoRechazo input[type="checkbox"], .opcion_motivoRechazo label {
+        display: inline-block!important;
+        vertical-align: middle;
+    }
+
+    .opcion_motivoRechazo input[type="checkbox"]{
+        display:none!important;
+    }
+
+    .opcion_motivoRechazo label {
+        font-size: 13px;
+        font-weight: normal;
+        letter-spacing: 0.1px;
+        color: #000;
+        margin-left:25px;
+    }
+
+    .opcion_motivoRechazo label:before{
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        float: left;
+        width: 13px;
+        height: 13px;
+        margin-top: 3px;
+        margin-right: 4px;
+        margin-bottom: 10px;
+        border-radius: 1px;
+        background: #FFF;
+        border: none;
+        cursor: pointer;
+        z-index: 12;
+    }
+
+    .opcion_motivoRechazo label:after{
+        content: "";
+        position: absolute;
+        left: -3px;
+        top: -3px;
+        float: left; 
+        width: 17px;
+        height: 17px;
+        margin-top: 3px;
+        margin-right: 4px;
+        margin-bottom: 10px;
+        border-radius: 1px;
+        background: #FFF;
+        border: 1px solid #642f80;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .opcion_motivoRechazo input[type="checkbox"]:checked + label:before{
+        content: "";
+        width: 13px;
+        height: 13px;
+        border-radius:1px;
+        background: #642f80;
+        text-align: center;
+    }
+
+    .btn_grupo_rechazarPostulante {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        margin-left: 18px;
+    }
+
+    .btn_rechazarPostulante {
+        display: inline-block!important;
+        width: 139px!important;
+        height: 40px!important;
+        margin-right: 16px!important;
+        border: 0px!important;
+        color: #FFF!important;
+        font-size: 14px;
+        letter-spacing: 0.1px;
+        font-weight: normal!important;
+        text-align: center;
+    }
+
+    .contenedor_campoMotivo {
+        max-width: 335px;
+        margin: 0 auto;
+        overflow: initial;
+        position: relative;
+        left: -8px;
+    }
+
+    .contenedor_campoMotivo .selectP2.seleccion_pagina.textboxSB2 {
+        float: none!important;
+        margin-right: 0px!important;
+        width: 100%!important;
+        border: 0.5px solid #000;
+    }
+
+    .contenedor_campoMotivo select#TipoRechazo {
+        float: none;
+        width: 100%!important;
+        max-width: none;
+        font-size: 13px;
+        color: #000!important;
+    }
+
+    .contenedor_campoMotivo textarea#MotivoRechazo {
+        float: none;
+        font-family:'Lato';
+        background:#FFF;
+        width: 99%!important;
+        max-width: none;
+        font-size: 13px;
+        letter-spacing: 0.1px;
+        padding:0px;
+        min-height:70px;
+    }
+
+    /* FIN POPUP RECHAZAR POSTULANTE */
+
 </style>
 
- 
+
 
 <script>
     $('#imgCerrar, #btnCancelar').click(function () {
@@ -198,7 +488,7 @@
             };
             $.post('@Url.Action("RechazarPostulante", "Unete")', data, function (reactivada) {
                 if (reactivada) {
-                    modal.dialog('close');
+                    $('#divRechazarPostulante').hide();
                     fnGrilla();
                 }
             });
@@ -208,4 +498,9 @@
         }
 
     });
+
+
+    function cerrarRechazar() {
+        $('#divRechazarPostulante').hide();
+    }
 </script>
