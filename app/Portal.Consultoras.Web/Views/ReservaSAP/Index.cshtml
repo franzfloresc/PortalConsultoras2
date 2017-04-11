@@ -56,6 +56,7 @@
                 contentType: 'application/json; charset=utf-8',
                 async: true,
                 cache: false,
+                timeout: 120000, /* Tiempo máximo de 2min. al generar la reserva*/
                 success: function (data) {
                     if (checkTimeout(data)) {
                         closeWaitingDialog();
@@ -72,11 +73,11 @@
                         closeWaitingDialog();
                         alert("Ocurrio un error del Sistema.");
                     }
-                    }
-            });
-                    }
-
                 }
+            });
+        }
+
+    }
 
     //R2293
     function IniFecha() {

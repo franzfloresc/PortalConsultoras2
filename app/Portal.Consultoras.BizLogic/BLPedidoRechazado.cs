@@ -11,8 +11,7 @@ namespace Portal.Consultoras.BizLogic
     public class BLPedidoRechazado
     {
         public int InsertarPedidoRechazadoXML(string paisISO, List<BEPedidoRechazadoSicc> listBEPedidoRechazado)
-        {
-            if (listBEPedidoRechazado == null || listBEPedidoRechazado.Count == 0) return 0;
+        {           
 
             DAPedidoRechazado dAPedidoRechazado = null;
             try
@@ -69,6 +68,7 @@ namespace Portal.Consultoras.BizLogic
         private string CrearClienteXML(List<BEPedidoRechazadoSicc> listPedidoRechazadoSicc)
         {
             StringBuilder sb = new StringBuilder();
+            if (listPedidoRechazadoSicc == null || listPedidoRechazadoSicc.Count == 0) return "";
 
             foreach (BEPedidoRechazadoSicc pedidoRechazadoSicc in listPedidoRechazadoSicc)
             {
