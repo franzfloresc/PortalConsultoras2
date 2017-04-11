@@ -5179,9 +5179,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
                 var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
                 var cuv = listaParemetros.Length > 3 ? listaParemetros[3] : "";
-                int cuvx = 0;
 
-                TempData["CUVOfertaProl"] = Int32.TryParse(cuv, out cuvx) ? cuv : "";
+                TempData["CUVOfertaProl"] = Util.Trim(cuv);
 
                 if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
                 {

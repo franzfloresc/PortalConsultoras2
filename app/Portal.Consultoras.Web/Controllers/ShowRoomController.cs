@@ -2619,7 +2619,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Ok",
+                        message = "",
                         lista = new List<ShowRoomOfertaModel>(),
                         cantidadTotal = 0,
                         cantidad = 0
@@ -2789,7 +2789,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     userData.EMail = entidad.EMail;
                     userData.Celular = entidad.Celular;
-                    userData.EMailActivo = false;
+                    userData.EMailActivo = CorreoNuevo == CorreoAnterior ? userData.EMailActivo : false;
                     SetUserData(userData);
                 }
 
