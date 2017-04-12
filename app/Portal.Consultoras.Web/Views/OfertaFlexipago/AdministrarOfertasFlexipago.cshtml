@@ -101,22 +101,8 @@
                 theEvent.returnValue = false;
                 if (theEvent.preventDefault) theEvent.preventDefault();
             }
-        });//JCT(CGI) 2371 Fin
-        //$('#txtUnidadesPermitidasModal').keyup(function (evt) {
-        //    var theEvent = evt || window.event;
-        //    var key = theEvent.keyCode || theEvent.which;
-        //    key = String.fromCharCode(key);
-        //    var regex = /[0-9]|\./;
-        //    if (!regex.test(key)) {
-        //        theEvent.returnValue = false;
-        //        if (theEvent.preventDefault) theEvent.preventDefault();
-        //    }
-        //});
-        //$('#txtUnidadesPermitidasModal').keypress(function (e) {
-        //    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //        return false;
-        //    }
-        //});
+        });
+
         $("#btnBuscarConsultoraModal").click(function () {
 
             if ($.trim($("#txtConsultoraModal").val()) == "") {
@@ -280,7 +266,6 @@
             if ($("#chkImagenProducto02").attr('checked')) {
                 $("#ImagenProducto").val($("#preview2").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -296,7 +281,6 @@
             if ($("#chkImagenProducto03").attr('checked')) {
                 $("#ImagenProducto").val($("#preview3").attr('src').replace(/^.*[\\\/]/, ''));
 
-                // 1664
                 var img01 = $('#ImagenProducto').val();
                 if (img01.lastIndexOf("?") >= 0) {
                     img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -1149,10 +1133,6 @@
                 <div class="selectP2 borde_redondeado">
                     <input type="text" id="txtPrecioNormalModal" maxlength="7"/>
                 </div>
-                @*<div class="titG">Unid. Permitidas:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
-            </div>*@
                 <div class="titG">Orden:</div>
                 <div class="selectP2 borde_redondeado">
                     <input type="text" id="txtOrdenModal" maxlength="6">

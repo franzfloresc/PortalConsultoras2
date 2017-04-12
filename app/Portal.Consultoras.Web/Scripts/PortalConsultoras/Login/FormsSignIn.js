@@ -112,8 +112,6 @@ $(document).ready(function () {
 
     Inicializar();
 
-    /*EPD-1012*/
-
     $('#frmLogin').on('submit', function (e) {
         // validation code here
         var valid = true;
@@ -173,18 +171,12 @@ $(document).ready(function () {
                 //ValidarAutenticacion();
                 $('#btnLogin').focus();
             }
-            //else {
-            //    var keyChar = String.fromCharCode(charCode);
-            //    var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-            //    return re.test(keyChar);
-            //}
         });
 
     if (typeof errorLogin !== 'undefined') {        
         $('#ErrorTextLabel').html(errorLogin);
         $("#ErrorTextLabel").css("padding-left", "20px");
     }
-    /*EPD-1012*/
 
     $("#btnRecuperarClave").click(function() {
         var paisId = $("#cboPaisCambioClave").val();

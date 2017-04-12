@@ -2,7 +2,6 @@
 var listaCorreo = new Array();
 var nombreCat = new Object();
 
-// js-RenderCatalogo
 $(document).ready(function () {
     ObtenerURLExpofertas();
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
@@ -67,7 +66,6 @@ $(document).ready(function () {
     $("#divCheckbox [data-cat] > div").on("click", function () {
         var obj = $(this).parents("[data-cat]");
         var tipo = obj.attr("data-cat");
-        //obj.find("[type='checkbox']").attr('checked', "checked");
         obj.find("[type='checkbox']").Checked();
     });
 
@@ -159,7 +157,6 @@ function CargarCarruselCatalogo() {
 
         var x = i - parseInt(i / cantCat) * cantCat;
         x = x < 0 ? 3 : x > 2 ? 3 : x;
-        //tipo = x == 0 ? tagLbel : x == 1 ? tagEsika : x == 2 ? tagCyzone : "";
         tipo = ordenCat[x];
         if (nro == "" || anio == "" || tipo == "") {
             continue;
@@ -249,8 +246,6 @@ function GetCatalogosLinksByCampania(data, campania) {
     $.ajaxSetup({ cache: false });    
     var paisNombre = $("#hdPaisNombre").val();
 
-    //var defered = new Object();
-
     var anio = campania.substring(0, 4);
     var nro = campania.substring(4, 6);
     var idCat = "#divCatalogo";
@@ -272,16 +267,12 @@ function GetCatalogosLinksByCampania(data, campania) {
         : i == 2 && data.estadoEsika != 1 ? "1"
         : "0";
 
-        //defered[tagCat] = jQuery.Deferred();
-
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado || "0")
 
         var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
 
-        //defered[tagCat] = ObtenerCodigoISSUU(catalogo, defered[tagCat], elemItem, tagCat, campania);
-        //defered[tagCat].done(function (codigoISSUU, elem, tag, camp) {
             var codigoISSUU = '', urlCat;
             $.each(data.listCatalogo, function (key, catalogo) {
                 if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
@@ -306,12 +297,9 @@ function GetCatalogosLinksByCampania(data, campania) {
                 $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
                 $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             }
-        //});
     }
 
-    //$.when(defered[tagLbel], defered[tagEsika], defered[tagCyzone]).done(function () {
         FinRenderCatalogo();
-    //});
 }
 
 function ObtenerCodigoISSUU(catalogo, defered, elemItem, tagCat, campaniaX) {

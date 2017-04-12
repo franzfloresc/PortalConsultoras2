@@ -22,7 +22,6 @@
     <div class="material-tabs">
         <a href="@Url.Action("Index", "ConsultoraOnline", new { area = "Mobile" })" class="visible-tab" style="width: 50% !important;">CONSULTORA ONLINE</a>
         <a href="javascript:;" class="visible-tab active" style="width: 50% !important;">MIS PEDIDOS</a>
-        @*<a href="@Url.Action("MiPerfil", "ConsultoraOnline", new { area = "Mobile" })" class="visible-tab">MI<br>PERFIL</a>*@
     </div>
 </div>
 
@@ -45,7 +44,6 @@
                             @foreach (var item in Model.ListaPedidos.Take(10))
                             {
                                 <li class="@(string.IsNullOrEmpty(item.Estado) ? "no-read" : "")">
-                                    @*<span class="icon-noti icon-cart-list-pedidos"></span>*@
                                     <div class="text-noti">
                                         <div class="upper">
                                             <strong>
@@ -174,7 +172,7 @@
 
             Date.prototype.yyyymmddhhmm = function () {
                 var yyyy = this.getFullYear();
-                var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
+                var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1);
                 var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
 
                 var hora24 = this.getHours();

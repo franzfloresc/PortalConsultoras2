@@ -85,7 +85,9 @@
             Reactivada = 6,
             //PendienteDobleOptin = 7
             GenerandoCodigo = 7,
-            EnAprobacionSAC = 8
+            EnAprobacionSAC = 8,
+            YaConCodigoOCR = 9, //Se agregó 30-03-2017
+            PendienteConfirmarCorreo = 10 //Se agregó 30-03-2017
         }
 
         public enum TipoParametro

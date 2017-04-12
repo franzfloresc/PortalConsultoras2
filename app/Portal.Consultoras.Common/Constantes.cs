@@ -153,6 +153,13 @@ namespace Portal.Consultoras.Common
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
+        
+        public class TipoEstrategiaSet
+        {
+            public const string IndividualConTonos = "2001";
+            public const string CompuestaFija = "2002";
+            public const string CompuestaVariable = "2003";
+        }
 
         public class TipoEstrategiaCodigo
         {
@@ -185,6 +192,10 @@ namespace Portal.Consultoras.Common
             // Tabla LOgica
 
             public const string TablaLogicaDatos = "TablaLogicaDatos";
+            
+            //ShowRoom
+            public const string ListaProductoShowRoom = "ListaProductoShowRoom";
+            public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -204,6 +215,7 @@ namespace Portal.Consultoras.Common
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom                  9: General
+            // 6: OfertaParaTi              6: OfertaParaTi
 
             // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
@@ -211,6 +223,8 @@ namespace Portal.Consultoras.Common
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
             // 9: Oferta del dia
+            // 1: index                     1: Index
+            // 2: OfertaParaTi Detalle      2: OfertaParaTi Detalle
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -232,14 +246,27 @@ namespace Portal.Consultoras.Common
             public const int DesktopCatalogoPersonalizado = 1431;
             public const int DesktopCatalogoPersonalizadoPopUp = 1432;
 
-            public const int DesktopShowRoom = 1571;
-            public const int DesktopConsultoraOnline = 1281;
-
+            /*Para ShowRoom Aplica nuevo formato*/
+            public const int DesktopShowRoomLandingIntriga = 1511;
+            public const int DesktopShowRoomLandingCompra = 1521;
+            public const int DesktopShowRoomLandingCompraTactica = 1522;
+            public const int DesktopShowRoomProductPage = 1531;
+            public const int DesktopShowRoomProductPageCarrusel = 1532;
+            public const int DesktopShowRoomProductPageTactica = 1533;
+            public const int MobileShowRoomLandingIntriga = 2511;
+            public const int MobileShowRoomLandingCompraTactica = 2522;
+            public const int MobileShowRoomProductPage = 2531;
+            public const int MobileShowRoomProductPageCarrusel = 2532;
+            public const int MobileShowRoomProductPageTactica = 2533;
+            
             public const int MobileHomeOfertasParaTi = 2121;
 
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
             public const int MobilePedidoOfertaFinal = 2261;
+
+            public const int MobileOfertasParaTiIndex = 2611;
+            public const int MobileOfertasParaTiDetalle = 2621;
 
             public const int MobileShowRoom = 2571;
 
@@ -363,14 +390,14 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-        
+
         public class ValidacionExisteUsuario
         {
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
         }
-
+        
         public class OfertaEspecialMensajes
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
@@ -384,6 +411,66 @@ namespace Portal.Consultoras.Common
             public const string EstadoCuenta = "EstadoCuenta";
             public const string LugaresPago = "LugaresPago";
             public const string MisPercepciones = "MisPercepciones";
+        }
+
+        public class ShowRoomPersonalizacion
+        {
+            public class Desktop
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string IconoLluvia = "IconoLluvia";
+                public const string BannerEnvioCorreo = "BannerEnvioCorreo";
+                public const string TextoEnvioCorreo = "TextoEnvioCorreo";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+            }
+
+            public class Mobile
+            {
+                public const string PopupImagenIntriga = "PopupImagenIntriga";
+                public const string PopupImagenVenta = "PopupImagenVenta";
+                public const string BannerImagenIntriga = "BannerImagenIntriga";
+                public const string BannerImagenVenta = "BannerImagenVenta";
+                public const string BannerImagenPaginaVenta = "BannerImagenPaginaVenta";
+                public const string UrlTerminosCondiciones = "UrlTerminosCondiciones";
+                public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
+                public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
+                public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+            }
+
+            public class TipoAplicacion
+            {
+                public const string Desktop = "Desktop";
+                public const string Mobile = "Mobile";
+            }
+
+            public class TipoPersonalizacion
+            {
+                public const string Evento = "EVENTO";
+                public const string Categoria = "CATEGORIA";
+            }
+        }
+
+        public class ShowRoomTipoFiltro
+        {
+            public const string Categoria = "CATEGORIA";
+            public const string RangoPrecios = "RANGOPRECIOS";
+        }
+
+        public class ShowRoomTipoOrdenamiento
+        {
+            public const string Precio = "PRECIO";
+            public class ValorPrecio
+            {
+                public const string Predefinido = "01";
+                public const string MenorAMayor = "02";
+                public const string MayorAMenor = "03";
+            }
         }
 
         public class IncentivosSMS
