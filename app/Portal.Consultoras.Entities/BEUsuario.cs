@@ -143,8 +143,6 @@ namespace Portal.Consultoras.Entities
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
-
-
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
@@ -392,7 +390,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
                 TipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
-
+            
+            if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
+                TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
         }
 
         [DataMember]
@@ -1109,6 +1109,9 @@ namespace Portal.Consultoras.Entities
         //EPD-1836
         [DataMember]
         public string DocumentoIdentidad { get; set; }
+        
+        [DataMember]
+        public bool TieneLoginExterno { get; set; }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }
