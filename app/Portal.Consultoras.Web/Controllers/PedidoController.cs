@@ -3627,9 +3627,6 @@ namespace Portal.Consultoras.Web.Controllers
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
             mailBody.Append("<html xmlns='http://www.w3.org/1999/xhtml'>");
             mailBody.Append("<head>");
-            /*mailBody.Append("<head> <meta http - equiv = 'Content-Type' content ='text/html; charset=utf-8' />");
-            mailBody.Append("<meta http - equiv = 'X - UA - Compatible' content = 'IE = edge' />");
-            mailBody.Append("<meta name = 'viewport' content = 'width = device - width, initial - scale = 1.0' >");*/
             mailBody.Append("<style> *{ box - sizing: border - box;} .wrapper { width: 100 %; table - layout: fixed;");
             mailBody.Append("-webkit - text - size - adjust: 100 %; -ms - text - size - adjust: 100 %; } .webkit {max - width: 600px; Margin: 0 auto;}");
             mailBody.Append("@-ms - viewport { width: device - width;} @media(max - width: 599px){ .main {width: 95 %;} </style> </head>");
