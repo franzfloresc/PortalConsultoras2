@@ -455,11 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                     {
-                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                            permiso.UrlItem = "ShowRoom/Index";
-                        else
-                            permiso.UrlItem = "ShowRoom/Intriga";
-
+                        permiso.UrlItem  = AccionControlador("sr", 1);
                         permiso.EsSoloImagen = true;
                         permiso.UrlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                     }
@@ -1839,6 +1835,31 @@ namespace Portal.Consultoras.Web.Controllers
             return model == null
                 ? ""
                 : model.Valor;
+        }
+
+        public string AccionControlador(string tipo, int isControlador = 0)
+        {
+            var accion = "";
+            var controlador = "";
+            try
+            {
+                tipo = Util.Trim(tipo);
+                if (tipo.ToLower() == "sr")
+                {
+                    controlador = isControlador == 1 ? "ShowRoom" : "";
+                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                        accion = "Index";
+                    else
+                        accion = "Intriga";
+
+                }
+                return controlador + (controlador == "" ? "" : "/") + accion;
+
+            }
+            catch (Exception)
+            {
+                return accion;
+            }
         }
     }
 }
