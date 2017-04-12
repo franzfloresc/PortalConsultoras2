@@ -464,6 +464,12 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.UpdUpdEventoConsultoraPopup(entity, tipo);
         }
 
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.ShowRoomEventoConsultoraEmailRecibido(entity);
+        }
+
 
         public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
         {
@@ -484,6 +490,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.ShowRoomProgramarAviso(entity);
+        }
+
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            var dataAccess = new DAShowRoomEvento(paisID);
+            return dataAccess.GetEventoConsultoraRecibido(CodigoConsultora, CampaniaID);
         }
 
     }

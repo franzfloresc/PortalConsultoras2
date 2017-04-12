@@ -21802,17 +21802,13 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    background: black;
+    background: #000;
     color: #fff;
     text-align: center;
     border: 2px solid #000;
     font-size: 13px;
     /*font-weight: bold;*/
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+   
 }
 
     /*/*.boton_Agregalo_home:hover {
@@ -35549,3 +35545,15 @@ h1#penmostreo .campana {
     overflow: hidden;
     margin-bottom: 40px;
  }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}
