@@ -789,11 +789,11 @@ function ValidarCorreo(correo) {
 
 /*Inicio ShowRoom*/
 function MostrarShowRoomBannerLateral() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
+    //if (typeof gTipoUsuario !== 'undefined') {
+        //if (gTipoUsuario == '2') {
+        //    return false;
+        //}
+    //}
 
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
@@ -1028,11 +1028,11 @@ function SetMarcaGoogleAnalyticsTermino() {
 
 /*PL20-1226*/
 function loadOfertaDelDia() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
+    //if (typeof gTipoUsuario !== 'undefined') {
+    //    if (gTipoUsuario == '2') {
+    //        return false;
+    //    }
+    //}
 
     $.ajax({
         type: 'GET',
@@ -1292,12 +1292,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     var restringido = true;
 
     if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
+        //if (typeof gTipoUsuario !== 'undefined') {
+        //    if (gTipoUsuario == '2') {
+        //        alert('Acceso restringido, aun no puede agregar pedidos');
+        //        return true;
+        //    }
+        //}
     }
 
     $.ajaxSetup({ cache: false });

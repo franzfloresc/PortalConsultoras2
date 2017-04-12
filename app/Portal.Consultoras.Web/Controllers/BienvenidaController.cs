@@ -198,11 +198,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
-                
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
-                
+
                 model.VisualizoComunicado = Visualizado;
                 model.VisualizoComunicadoConfigurable = ComunicadoVisualizado;
 
@@ -302,16 +302,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
                             {
-                                if (userData.TipoUsuario == 1)
+                                bool mostrarShowRoomProductos = false;
+                                mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
+                                //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                                if (mostrarShowRoomProductos)
                                 {
-                                    bool mostrarShowRoomProductos = false;
-                                    mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
-                                    //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                                    if (mostrarShowRoomProductos)
-                                    {
-                                        TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
-                                        break;
-                                    }
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                    break;
                                 }
                             }
 
@@ -396,7 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //PL20-1283
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
-                
+
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
@@ -831,7 +828,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            
+
             return Json(new
             {
                 result = retorno

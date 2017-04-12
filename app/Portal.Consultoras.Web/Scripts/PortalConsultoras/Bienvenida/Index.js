@@ -803,11 +803,11 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
+    //if (typeof gTipoUsuario !== 'undefined') {
+    //    if (gTipoUsuario == '2') {
+    //        return false;
+    //    }
+    //}
 
     //if (viewBagPrimeraVez == "0" && viewBagPaisID == 4) { //Colombia
     //    AbrirAceptacionContrato();
@@ -855,10 +855,10 @@ function CambiarTonoTalla(ddlTonoTalla) {
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return true;
-        }
+        //if (gTipoUsuario == '2') {
+        //    alert('Acceso restringido, aun no puede agregar pedidos');
+        //    return true;
+        //}
     }
 
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -2920,11 +2920,11 @@ function playVideo() {
 
 //ShowRoom
 function CrearPopShow() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
+    //if (typeof gTipoUsuario !== 'undefined') {
+    //    if (gTipoUsuario == '2') {
+    //        return false;
+    //    }
+    //}
 
     $("body").on("click", "div.check_01 label.checkpop input", function (event) {
         event.preventDefault();
