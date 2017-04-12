@@ -247,7 +247,7 @@ namespace Portal.Consultoras.BizLogic
             if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + paisISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"] ?? "";
             return string.Format(codigo, paisISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.BizLogic
             if (esCatalogoPiloto) codigo = ConfigurationManager.AppSettings[nombreCatalogoConfig + "Piloto_Codigo_" + paisISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"].ToString();
+            codigo = ConfigurationManager.AppSettings["CodigoCatalogoIssuu"] ?? "";
             return string.Format(codigo, nombreCatalogoIssuu, getPaisNombreByISO(paisISO), campania.Substring(4, 2), campania.Substring(0, 4));
         }
 

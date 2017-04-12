@@ -1099,6 +1099,8 @@ namespace Portal.Consultoras.Entities
         /*PL20-1226*/
         [DataMember]
         public bool OfertaDelDia { get; set; }
+        [DataMember]
+        public int AceptacionConsultoraDA { get; set; }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }

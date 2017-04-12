@@ -230,5 +230,13 @@
             ThumbLarge = 3,
             Normal = 4
         }
+
+        public enum MotivoPedidoLock
+        {
+            Ninguno = 0,
+            GPR = 2,
+            Reservado = 3,
+            HorarioRestringido = 4
+        }
     }
 }
