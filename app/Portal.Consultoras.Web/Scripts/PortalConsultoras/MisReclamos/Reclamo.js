@@ -180,7 +180,7 @@ $(document).ready(function () {
         }
         else {
             var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            var re = /^[a-zA-Z@._0-9\-]*$/;
             return re.test(keyChar);
         }
     });
@@ -1083,9 +1083,10 @@ function SolicitudEnviar() {
 
     if (ok) {
         var esTelefonoValido = ValidarTelefono(celular);
+        debugger
         if (!esTelefonoValido) {
             $("#spnTelefonoError").css("display", "");
-            $("#spnTelefonoError").html("*Este teléfono ya está siendo utilizado. Intenta con otro");
+            $("#spnTelefonoError").html("*Este número de celular ya está siendo utilizado. Intenta con otro.");
             $("#txtTelefono").css("border-color", "red");
             ok = false;
         }
@@ -1349,4 +1350,34 @@ function ValidarCorreoDuplicado(correo) {
     });
 
     return resultado;
+}
+
+/*** EPD-1089 ***/
+function limitarMaximo(e, contenido, caracteres, id) {
+    var unicode = e.keyCode ? e.keyCode : e.charCode;
+    if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
+    unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
+        return true;
+
+    if (contenido.length >= caracteres) {
+        selectedText = document.getSelection();
+        if (selectedText == contenido) {
+            $("#" + id).val("");
+            return true;
+        } else if (selectedText != "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+function limitarMinimo(contenido, caracteres, a) {
+    if (contenido.length < caracteres && contenido.trim() != "") {
+        var texto = a == 1 ? "teléfono" : "celular";
+        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        return false;
+    }
+    return true;
 }

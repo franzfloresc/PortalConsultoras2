@@ -2,6 +2,7 @@
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    bool EsLebel = ViewBag.EsLebel;
 }
 <div class="titulo_mobile">
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
@@ -16,7 +17,7 @@
         <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
             <li class="one">
                 <a href="#" id="VerGuiaNegocio">
-                    GUÍA DE NEGOCIO
+                    OFERTA MI NEGOCIO L'BEL
                     <div class="marcador_tab"></div>
                 </a>
             </li>
@@ -47,7 +48,6 @@ else
     <div id="Ficha_003A" style="display: none;">
     </div>
     <!--FIN-->
-
     <!--FICHA 048B-->
     <div id="Ficha_048B" class="content_oferta_guia_negocio" style="display: none;">
     </div>
@@ -58,120 +58,123 @@ else
     <!--FIN-->
 </div>
 <!--GUIA NEGOCIO-->
-
 <!--PRECIO CATALOGO-->
 <div id="PrecioCatalogo" style="display: none;">
     <div class="wrapper_resumen_mobile" style="padding-bottom: 96px;">
-        <div data-item="catalogopersonalizado">
-            <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV"/>
-            <input type="hidden" id="hdCuvFichaProductoFAVSelect"/>
-
-            <div style="display: none;">
-                <input type="hidden" class="hdItemCuv" value="@Model.CUV"/>
-                <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID"/>
-                <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID"/>
-                <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo"/>
-                <input type="hidden" class="hdItemTipo" value="1"/>
-                <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID"/>
-                <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo"/>
-                <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion"/>
-                <input type="hidden" class="hdItemPagina" value="0"/>
-                <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria"/>
-                <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca"/>
-                <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia"/>
-                <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista"/>
-                <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado"/>
-                <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje"/>
-                <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido"/>
-                <input type="hidden" class="hdItemVolumen" value="@Model.Volumen"/>
-            </div>
-
-            <div class="content_imagen_ficha">
-                <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto"/>
-            </div>
-            <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
-            <div class="peso_ficha_producto">@Model.Volumen</div>
-            <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
-            <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
-            </div>
-
-            <div>
-                <div class="content_tonos_producto">
-                    @if (Model.Hermanos != null)
-                    {
-                        <br/>
-                        <select id="fav_cbo_tono" class="tono_labial_select" onchange=" cambiarInfoFichaProductoFAV(2, null, 2) ">
-                            @foreach (var item in Model.Tonos)
-                            {
-                                <option value="@item.CUV">@item.NombreBulk</option>
-                            }
-                        </select>
-                        <br/>
-                        <div>
-                            @foreach (var item in Model.Hermanos)
-                            {
-                                <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick=" cambiarInfoFichaProductoFAV(1, '@item.CUV', 2) ">
-                                    <img src="@item.ImagenBulk" alt="@item.NombreBulk"/>
-                                </div>
-
-                            }
-                        </div>
-
-                        <hr class="clear"/>
-                    }
-                </div>
-            </div>
-
-            <div class="content_redes_ficha">
-                <div class="content_redes_ficha" data-item="">
-                    <div data-compartir-campos="" style="display: none;">
-                        <input type="hidden" class="CUV" value="@Model.CUV"/>
-                        <input type="hidden" class="rsFBMensaje" value=""/>
-                        <input type="hidden" class="rsFBRuta" value="@Model.FBRuta"/>
-                        <input type="hidden" class="rsWAMensaje" value=""/>
-                        <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
-                        <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido"/>
-                        <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido"/>
-                        <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
-                        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
-                        <input type="hidden" class="Nombre" value="@Model.Descripcion"/>
-                        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial"/>
-                        <input type="hidden" class="Volumen" value="@Model.Volumen"/>
-                        <input type="hidden" class="Palanca" value="FAV"/>
-                    </div>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
-                </div>
+        <div class="content_oferta_guia_negocio">
+            <div data-item="catalogopersonalizado">
+                <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
+                <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
 
                 <div style="display: none;">
-                    <input type="hidden" class="urlbasewsp" value="@Model.FBRuta"/>
+                    <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
+                    <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
+                    <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+                    <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
+                    <input type="hidden" class="hdItemTipo" value="1" />
+                    <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
+                    <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
+                    <input type="hidden" class="hdItemPagina" value="0" />
+                    <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
+                    <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
+                    <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+                    <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
+                    <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+                    <input type="hidden" class="hdItemVolumen" value="@Model.Volumen" />
                 </div>
 
-                <hr class="clear"/>
+                <div class="content_imagen_ficha">
+                    <img id="fav_imagen_prod" src="@Model.ImagenProductoSugerido" alt="PRODUCTO" class="imagen_producto" />
+                </div>
+                <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+                <div class="peso_ficha_producto">@Model.Volumen</div>
+                <div id="fav_descripcion_prod" class="descripcion_ficha_producto">@Model.DescripcionComercial</div>
+                <div class="precio_ficha_producto">
+                    <span class="precio_tachado_ficha">@ViewBag.Simbolo @Model.PrecioValorizadoString </span>@ViewBag.Simbolo @Model.PrecioCatalogoString
+                </div>
 
-                <div class="row">
-                    <div class="content_btn_agregar">
-                        <div class="content_320">
-                            <div class="content_cantidad_ficha_producto">
-                                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " data-input="cantidad">
-                                <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                <div>
+                    <div class="content_tonos_producto">
+                        @if (Model.Hermanos != null)
+                        {
+                            <br />
+                            <select id="fav_cbo_tono" class="tono_labial_select" onchange=" cambiarInfoFichaProductoFAV(2, null, 2) ">
+                                @foreach (var item in Model.Tonos)
+                                {
+                                    <option value="@item.CUV">@item.NombreBulk</option>
+                                }
+                            </select>
+                            <br />
+                            <div>
+                                @foreach (var item in Model.Hermanos)
+                                {
+                                    <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick=" cambiarInfoFichaProductoFAV(1, '@item.CUV' , 2) ">
+                                        <img src="@item.ImagenBulk" alt="@item.NombreBulk" />
+                                    </div>
+
+                                }
                             </div>
-                            <a class="btn_agregar_ficha_producto" onclick=" agregarCuvPedidoFichaProductoFAV(2) ">AGRÉGALO</a>
-                            <hr class="clear"/>
-                        </div>
+
+                            <hr class="clear" />
+                        }
                     </div>
+                </div>
+
+                <div>
+                    <div class="content_redes_ficha" data-item="">
+                        <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                        <div data-compartir-campos="" style="display: none;">
+                            <input type="hidden" class="CUV" value="@Model.CUV" />
+                            <input type="hidden" class="rsFBMensaje" value="" />
+                            <input type="hidden" class="rsFBRuta" value="@Model.FBRuta" />
+                            <input type="hidden" class="rsWAMensaje" value="" />
+                            <input type="hidden" class="rsWARuta" value="@Model.FBRuta" />
+                            <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProductoSugerido" />
+                            <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProductoSugerido" />
+                            <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                            <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                            <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+                            <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionComercial" />
+                            <input type="hidden" class="Volumen" value="@Model.Volumen" />
+                            <input type="hidden" class="Palanca" value="FAV" />
+                        </div>
+                        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+                        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+                    </div>
+
+                    <div style="display: none;">
+                        <input type="hidden" class="urlbasewsp" value="@Model.FBRuta" />
+                    </div>
+
+                    <hr class="clear" />
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content_btn_agregar">
+                <div class="content_320">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " data-input="cantidad">
+                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto" onclick=" agregarCuvPedidoFichaProductoFAV(2) ">AGRÉGALO</a>
+                    <hr class="clear" />
                 </div>
             </div>
         </div>
     </div>
 </div>
+    </div>
+</div>
 <!--PRECIO CATALOGO-->
-
 <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->
 <div class="PopMobile1" id="PopupResumenOferta048N" style="display: none;">
-    
+
 </div>
 <!--FIN-->
 
@@ -226,8 +229,16 @@ else
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
                 <img src="{{UrlImagen}}" class="imagen_producto" />
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-            </div>
+                @if (EsLebel)
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> MI NEGOCIO L'BEL</div>
+                }
+                else
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                }
+                
+            </div>|
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
             <div class="precio_tachado_048">{{Simbolo}} {{DecimalToStringFormat precio_catalogo}}</div>
@@ -304,7 +315,14 @@ else
         </div>
         <div class="content_imagen_048">
             <img src="{{UrlImagen}}" class="imagen_producto" />
-            <div class="etiqueta_guia_negocio"><span>OFERTA</span>GUÍA DE NEGOCIO</div>
+            @if (EsLebel)
+            {
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> MI NEGOCIO L'BEL</div>
+            }
+            else
+            {
+                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+            }
         </div>
         <div class="marca_oferta048">Esika</div>
         <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -340,10 +358,11 @@ else
                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                     <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                     {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold;">{{item.cantidad_item_pack}}</span>{{item.descripcion_item_pack}}</p>
+                    <div class="nombre_producto_pack_048">
+                        <b style="font-size:14px;">{{item.cantidad_item_pack}}</b>{{item.descripcion_item_pack}}
                         <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
                     </div>
-                    
+
                 </div>
                 {{/if_eq}}
                 {{/each}}
@@ -425,7 +444,14 @@ else
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_048">
                 <img src="{{UrlImagen}}" class="imagen_producto" />
-                <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                @if (EsLebel)
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> MI NEGOCIO L'BEL</div>
+                }
+                else
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                }
             </div>
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>
@@ -454,10 +480,11 @@ else
                         {{#IsNullOrEmpty item.imagen_gratis '=='}}
                         <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
                         {{/IsNullOrEmpty}}
-                        <div class="nombre_producto_pack_048"><p style="margin:0;"><span style="font-size:14px; font-weight:bold">{{item.cantidad}}</span> {{item.descripcion_gratis}}</p>
+                        <div class="nombre_producto_pack_048">
+                            <p style="margin:0;"><span style="font-size:14px; font-weight:bold">{{item.cantidad}}</span> {{item.descripcion_gratis}}</p>
                             <div class="peso_ficha_producto" style="text-align:left; margin-top:0">{{item.volumen}}</div>
                         </div>
-                        
+
                     </div>
                     {{/if_eq}}
                     {{/each}}
@@ -498,28 +525,28 @@ else
 
         <!--NIVEL-->
 
-            <div class="titulo_pack_detalle">HAS COMPRADO</div>
-            <div class="linea_separadora_black flecha_048"></div>
-            <div class="detalle_Cantidad_pack"> <b>{{Cantidad_Total}}</b>{{Descripcion}}</div>
-            <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat Precio_Total}}</b></div>
-            <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat Ganancia_Total}}</div>
-            <div class="texto_gratis_pop">{{TxtRecibeGratis}}</div>
-            <div class="linea_separadora_black flecha_048"></div>
+        <div class="titulo_pack_detalle">HAS COMPRADO</div>
+        <div class="linea_separadora_black flecha_048"></div>
+        <div class="detalle_Cantidad_pack"> <b>{{Cantidad_Total}}</b>{{Descripcion}}</div>
+        <div class="precio_para_ti_048">Precio para ti <b>{{Simbolo}} {{DecimalToStringFormat Precio_Total}}</b></div>
+        <div class="gana_048">{{TxtGanancia}} {{Simbolo}} {{DecimalToStringFormat Ganancia_Total}}</div>
+        <div class="texto_gratis_pop">{{TxtRecibeGratis}}</div>
+        <div class="linea_separadora_black flecha_048"></div>
 
-            {{#each lista_oObjGratis as |item|}}
-            
-            <div class="content_unidad_producto">
-                <div class="content_pack_048">
-                    {{#IsNullOrEmpty item.imagen_gratis '!='}}
-                    <div class="imagen_pack_048"><img src="{{item.imagen_gratis}}" class="imagen_producto"></div>
-                    {{/IsNullOrEmpty}}
-                    {{#IsNullOrEmpty item.imagen_gratis '=='}}
-                    <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
-                    {{/IsNullOrEmpty}}
-                    <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
-                </div>
+        {{#each lista_oObjGratis as |item|}}
+
+        <div class="content_unidad_producto">
+            <div class="content_pack_048">
+                {{#IsNullOrEmpty item.imagen_gratis '!='}}
+                <div class="imagen_pack_048"><img src="{{item.imagen_gratis}}" class="imagen_producto"></div>
+                {{/IsNullOrEmpty}}
+                {{#IsNullOrEmpty item.imagen_gratis '=='}}
+                <div class="imagen_pack_048"><img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" class="imagen_producto"></div>
+                {{/IsNullOrEmpty}}
+                <div class="nombre_producto_pack_048">{{item.cantidad}} {{item.descripcion_gratis}}</div>
             </div>
-            {{/each}}
+        </div>
+        {{/each}}
 
         <!--FIN-->
 
