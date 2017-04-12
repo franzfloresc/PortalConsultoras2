@@ -457,7 +457,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         {
-                        permiso.UrlItem  = AccionControlador("sr", 1);
+                            permiso.UrlItem = AccionControlador("sr", 1);
                         }
                         else
                         {
@@ -1003,7 +1003,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session["MostrarShowRoomProductos"] = "0";
                             }
 
-                            Session["carpetaPais"] = carpetaPais;                            
+                            Session["carpetaPais"] = carpetaPais;
                         }
                         else
                         {
@@ -1012,7 +1012,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         model.CargoEntidadesShowRoom = true;
-                    }                    
+                    }
                 }
                 catch (Exception ex)
                 {
