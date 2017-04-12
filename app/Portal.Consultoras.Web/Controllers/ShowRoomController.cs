@@ -771,6 +771,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
                                 {
+                                    //PL20-1398
                                     BEShowRoomOferta2 ent = new BEShowRoomOferta2();
                                     ent.ISOPais = values[0].Trim().Replace("\"", ""); ;
                                     ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
@@ -784,6 +785,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
+                                    //PL20-1398
                                 }
                             }
                         }
@@ -792,6 +794,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
 
+                        //PL20-1398
                         // obtener precio oferta del servicio de PROL
                         var lstPrecioProductoPROL = new List<PrecioProducto>();
                         var tmpItem = lstStock.First();
@@ -822,6 +825,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 totalLoad = svc.InsOfertaShowRoomCargaMasiva(pid, lstStock.ToArray());
                             }
                         }
+                        //PL20-1398
 
                         List<BEShowRoomOferta2> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
 

@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Entities.ShowRoom
         public decimal PrecioOferta { get; set; }
 
         [DataMember]
+        [ViewProperty]
         public decimal PrecioOferta2 { get; set; }
 
         [DataMember]

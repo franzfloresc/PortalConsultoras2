@@ -1405,6 +1405,7 @@
             }
         });
 
+        /*
         $('#txtCantidad').keydown(function (event) {
             if (event.shiftKey) {
                 event.preventDefault();
@@ -1424,6 +1425,7 @@
                 }
             }
         });
+        */
 
         $('#txtUnidadesPermitidasModal').keydown(function (event) {
             if (event.shiftKey) {
@@ -2323,9 +2325,12 @@
             FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
             CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
             PaisID: paisID,
-            CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
-            Incrementa: $("#ddlIncrementar").val(),
-            Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
+            //CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
+            CantidadIncrementa: 0,
+            //Incrementa: $("#ddlIncrementar").val(),
+            Incrementa: 0,
+            //Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
+            Agotado: 0
         };
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
@@ -2665,16 +2670,16 @@
 
                 $('#hdCodigoOferta').val(CodigoOferta);
 
-                $('#ddlIncrementar').val('0');
-                $('#txtCantidad').val('0');
-                $('#chkAgotado').removeAttr('checked');
+                //$('#ddlIncrementar').val('0');
+                //$('#txtCantidad').val('0');
+                //$('#chkAgotado').removeAttr('checked');
 
-                $('#ddlIncrementar').removeAttr('disabled');
-                $('#txtCantidad').removeAttr('disabled');
-                $('#txtCantidad').css('background-color', '');
-                $('#ddlIncrementar').css('background-color', '');
-                $('#dvcantidad').removeAttr('style');
-                $('#dvincrementa').removeAttr('style');
+                //$('#ddlIncrementar').removeAttr('disabled');
+                //$('#txtCantidad').removeAttr('disabled');
+                //$('#txtCantidad').css('background-color', '');
+                //$('#ddlIncrementar').css('background-color', '');
+                //$('#dvcantidad').removeAttr('style');
+                //$('#dvincrementa').removeAttr('style');
 
                 showDialog("DialogRegistroOfertaShowRoom");
 
