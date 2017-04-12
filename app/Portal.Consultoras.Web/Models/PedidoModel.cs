@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Web.Models
     [Serializable()]
     public class ProductoModel : CompartirRedesSocialesModel
     {
+        public int ID { get; set; }
         public string CUV { get; set; }
         public string Descripcion { get; set; }
         public string DescripcionComercial { get; set; }
@@ -203,6 +204,8 @@ namespace Portal.Consultoras.Web.Models
         public int Digitable { get; set; }
         public int Orden { get; set; }
         public string Grupo { get; set; }
+
+        public int Cantidad { get; set; }
 
         public object Clone()
         {

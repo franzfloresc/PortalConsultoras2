@@ -51,9 +51,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 bool mostrarBannerTop = false;
-                if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = true; }
+                if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = userData.IndicadorGPRSB == 1 ? false : true; }
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
-
                 
 
                 if (mostrarBanner || mostrarBannerTop)
@@ -79,7 +78,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
                     }
-                    
+
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
@@ -93,7 +92,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    ViewBag.MostrarOfertaDelDia = userData.IndicadorGPRSB == 1 ? false : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
 
 
                     if (userData.CloseOfertaDelDia)
@@ -107,30 +106,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     {
                         showRoomBannerLateral.EstadoActivo = "1";
                     }
-                    
+
 
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 ViewBag.MostrarBannerOtros = mostrarBannerTop;
-                
+
                 if (mostrarBannerTop)
-                    {
-                   
+                {
+
                     ViewBag.EstadoActivo = "0";
-                    }
+                }
                 else
                 {
-                   
+
                     ViewBag.EstadoActivo = "1";
                 }
 
-                
+
                 if (mostrarBanner)
                 {
-                     if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                    if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
                     {
                         ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }else if (userData.IndicadorGPRSB == 0)
+                    }
+                    else if (userData.IndicadorGPRSB == 0)
                     {
                         ViewBag.MostrarBannerPL20 = mostrarBanner;
                     }
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ViewBag.MostrarOfertaDelDia = false;
                     }
                 }
-                
+
                 if (NoMostrarBannerODD())
                 {
                     ViewBag.MostrarODD = true;
@@ -163,7 +163,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var oddModel = this.GetOfertaDelDiaModel();
-                return Json(new {
+                return Json(new
+                {
                     success = oddModel != null,
                     data = oddModel
                 }, JsonRequestBehavior.AllowGet);
@@ -200,14 +201,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
                     string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-                    
+
                     if (!mostrarClienteOnline)
                     {
                         lst.Remove(menuConsultoraOnlinePadre);
                         lst.Remove(menuConsultoraOnlineHijo);
                         ViewBag.TipoMenuConsultoraOnline = 0;
                     }
-                    else if(menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
+                    else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
                     {
                         int esConsultoraOnline = -1;
                         using (var svc = new UsuarioServiceClient())
@@ -260,7 +261,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //Agregamos los items para cada menú Padre
                     foreach (var item in lstModel)
                     {
-                        var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p=>p.OrdenItem);
+                        var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
                         foreach (var subItem in subItems)
                         {
                             item.SubMenu.Add(new MenuMobileModel
@@ -282,7 +283,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.MenuMobile = lstModel;
-            
+
         }
 
         private void CargarValoresGenerales(UsuarioModel userData)
