@@ -1454,10 +1454,12 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.UpdOfertaShowRoomStockMasivo(paisID, stockProductos);
         }
 
+        /*
         public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
         {
             return BLShowRoomEvento.InsOfertaShowRoomCargaMasiva(paisID, stockProductos);
         }
+         * */
 
         public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {

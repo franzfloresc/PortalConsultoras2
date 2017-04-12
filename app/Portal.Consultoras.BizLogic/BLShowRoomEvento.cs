@@ -78,11 +78,13 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.UpdOfertaShowRoomStockMasivo(stockProductos);
         }
 
+        /*
         public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.InsOfertaShowRoomCargaMasiva(stockProductos);
         }
+         * */
 
         public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {

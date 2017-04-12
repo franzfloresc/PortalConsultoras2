@@ -113,6 +113,7 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        /*
         public int InsOfertaShowRoomCargaMasiva(IEnumerable<BEShowRoomOferta2> stockProductos)
         {
             var ofertaShowRoomReader = new GenericDataReader<BEShowRoomOferta2>(stockProductos);
@@ -127,6 +128,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+        */
 
         public int CargarMasivaDescripcionSets(int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {

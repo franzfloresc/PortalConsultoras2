@@ -39,10 +39,6 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         [ViewProperty]
-        public decimal PrecioOferta2 { get; set; }
-
-        [DataMember]
-        [ViewProperty]
         public decimal PrecioCatalogo { get; set; }
 
         [DataMember]
@@ -148,6 +144,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         [ViewProperty]
         public string DescripcionCategoria { get; set; }
+
+        [DataMember]
+        public decimal PrecioOferta2 { get; set; }
 
         public BEShowRoomOferta(IDataRecord row)
         {
