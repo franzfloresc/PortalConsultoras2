@@ -273,6 +273,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
+
+            if (userData.TipoUsuario == 2)
+                model.Prol = "GUARDA TU PEDIDO";
                       
             return View(model);
         }
@@ -475,6 +478,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
             model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+
+            if (userData.TipoUsuario == 2)
+                model.Prol = "GUARDA TU PEDIDO";
 
             return View(model);
         }

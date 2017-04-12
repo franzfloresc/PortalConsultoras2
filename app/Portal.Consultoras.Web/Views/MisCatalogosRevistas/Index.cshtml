@@ -3,14 +3,13 @@
     ViewBag.Title = "Catálogos y Revistas";
 }
 
-<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
 <input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
-
-<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
-<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
-<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
@@ -38,7 +37,7 @@
         </div>
         
         <div id="xHtmlItemCatalogo" style="display: none;">
-            <div class="tipoClase" data-codigozona="@Model.CodigoZona" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+            <div class="tipoClase" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
                 <div class="item1_catalogo" data-tipo="content">
                     <a class="revista" data-tipo="img" target="_blank" href="">
                         <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
@@ -67,7 +66,7 @@
         <!-- FIN REVISTA -->
 
         <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
-        <div class="titulo_central" id="numero_campania" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID" hidden="hidden">@Model.CampaniaActual</div>
+        <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
         @if (!ViewBag.EsConsultoraNueva)
         {
@@ -170,14 +169,6 @@
 }
 </div>
 
-<!--FIN-->
-@*<!--POP UP ENVIO SATISFACTORIO-->
-    <div id="EnvioSatisfatorio">
-        <div class="contentEnvio">
-
-        </div>
-    </div>
-    <!--FIN-->*@
 @section styles{
 
     <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
@@ -221,6 +212,8 @@
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
             '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         }
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
+        var _Pagina = 1;
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>

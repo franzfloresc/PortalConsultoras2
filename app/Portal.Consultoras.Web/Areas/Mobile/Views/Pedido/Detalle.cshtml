@@ -42,16 +42,37 @@
 
         @{
             string[] tooltips = Model.ProlTooltip.Split('|');
-            string tooltip1 = tooltips[0];
-            string tooltip2 = tooltips[1];
+            string tooltip1 = "";
+            string tooltip2 = "";
+            
+            if (ViewBag.TipoUsuario == 2)
+            {
+                tooltip1 = "Por el momento no podemos facturar tu pedido, te encuentras en una sesión de prueba ";
+                tooltip2 = "Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com y pasar tu pedido.";
+            }
+            else
+            { 
+                tooltip1 = tooltips[0];
+                tooltip2 = tooltips[1];
+            }
         }
-        <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
-            @*<h2>¡Es importante que guardes tu pedido!</h2>*@
-            @*<span>Puedes realizar cambios hasta el @Model.FechaFacturacionPedido</span>*@
 
-            <h2>@tooltip1</h2>
-            <span>@tooltip2</span>
-        </div>
+        @{
+            if (ViewBag.TipoUsuario == 2)
+            {
+                <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none; width: 300.3px;">
+                    <h2>@tooltip1</h2>
+                    <span>@tooltip2</span>
+                </div>
+            }
+            else { 
+                <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
+                    <h2>@tooltip1</h2>
+                    <span>@tooltip2</span>
+                </div>
+            }
+        }
+
 
     </div>
 </div>
@@ -93,59 +114,9 @@
     </div>
 </div>
 
-<!-- POPUP OFERTA FINAL -->
-
 <div class="contenedor_fondo_popup" id="divOfertaFinal" style="display: none;" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar"></div>
+<div class="PopMobile1" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;"></div>
 
-<!-- FIN POPUP OFERTA FINAL -->
-<!--POP UP ESCALA DE DESCUENTOS-->
-<div class="PopMobile1" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;"> <!--AVISEN CUANDO REALICEN EL LLAMADO DE ESTE POP UP PARA DESAPARECER EL SCROLL DEL BODY-->
-    @*<div class="content_popMobile" style="padding-bottom:0;">
-        <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#EscalaDescuentoOF').hide();">REGRESAR</a>
-        <hr class="clear">
-        <div class="content_imagen_ficha" style="overflow:hidden;"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200062879_2017253419_08_bxrfxhphkv.png" alt="PRODUCTO" style="width:90%;"></div>
-        <div class="marca_ficha_producto">Ésika</div>
-        <div class="titulo_ficha_producto" style="line-height:16px;">Acondicionador Essens para cabello liso</div>
-        <div class="precio_ficha_producto">
-            <span class="precio_tachado_ficha">S/. 146.00 </span> <br/><span class="texto_comple_ficha">Precio para ti </span>&nbsp;S/. 94.90
-        </div>
-        <div class="producto_sugerido_texto">
-            Cómpralo porque ya tienes<br/>
-            <b>Shampoo Essens para cabello liso</b><br/>
-            en tu pedido
-        </div>
-        <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas"> <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-            <a class="btn_compartir_ofertas"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-        </div>
-        <hr class="clear">
-        <div style="margin-left:-20px; margin-right:-20px;">
-            <div class="content_btn_agregar content_OPT">
-                <div class="content_320" style="max-width:292px; width:auto;">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    <a class="btn_agregar_ficha_producto" href="javascript:;">AGRÉGALO</a>
-                    <hr class="clear">
-                </div>
-            </div>
-        </div>
-    </div>*@
-</div>
-<!--FIN-->
-@*<div id="popup-eliminar-mensaje" class="modal fade" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div id="mensajeInformacionEliminar" class="text-lg"></div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-<!-- END POPUP PERSONALIZADO 2 SEGUNDOS SE OCULTA -->
-<!-- START Popup para Eliminar Todo Pedido -->
 <div id="divConfirmEliminarTotal" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="EliminarPedidoTotalNo();">
@@ -229,16 +200,8 @@
 <!--SB20-483 - FIN -->
 
 <script id="template-Detalle" type="text/x-handlebars-template">
-    @*<div style="position:relative; overflow:hidden;">*@
-        @*<div class="textos_resumen" style="margin-left:-31px;">*@
         <div class="textos_resumen">
-
-            @*<div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>*@
-            @*<span id="lblProductosResumen" style="margin-left:30px;">HE AGREGADO :</span>*@
             <span id="lblProductosResumen">HE AGREGADO :</span>
-            @*<span style="margin-bottom: 8px; margin-left: 30px;">TOTAL SIN DSCTO. :</span>
-            <span style="margin-bottom: 15px; margin-left: 30px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
-            @*<div style="margin-bottom: 8px; margin-left: 30px;">*@
             <span id="lblTotalResumen">
                 MONTO TOTAL :
             </span>
@@ -303,23 +266,14 @@
                 <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
 
                 <div class="mi_ganancia">
-                    @*<div class="info_validado abrir_popupMisGanancias" onclick="MostrarDetalleGanancia()">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" />
-                    </div>*@
                     @(cabezaEscala.ToUpper().Trim()) :
                 </div>
         </div>
         <div class="montos_resumen">
             <span><b data-cantidadproducto="">{{this.TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-            <!--SB20-483 - INICIO -->
-            @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
-            <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
-            <!--SB20-483 - FIN -->
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
-    @*</div>*@
-
         <div class="detalle_pedido_ingresado">
             <span class="titulo_detalle">DETALLE</span>
         </div>
@@ -392,18 +346,6 @@
                             </span>
                         </div>
                     </div>
-
-                    @*<div class="icono_kitNuevas">
-                        <a href="javascript:;">
-                            <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Info Kit Nueva" />
-                        </a>
-                    </div>
-                    <div class="tooltip_kitNuevas">
-                        <span class="icono_advertencia_notificacion"></span>
-                        <span class="texto_tooltipKitNuevas">
-                            Este Kit se agrega automáticamente sólo en tu primer pedido.
-                        </span>
-                    </div>*@
                     {{else}}
                     <div class="icono_eliminar_item_pedido">
                         <a href="javascript:;" title="Eliminar" onclick="EliminarPedidoEvento(event)" data-pedidodetalleid="{{detalle.PedidoDetalleID}}">
@@ -431,9 +373,6 @@
                 <div class="bloque_cantidades_precios_items_ingresados">
                     <div class="contenedor_cantidadProductos">
                         <div data-cantidad-contenedor="">
-                            @*<span class="signo_menos" data-cantidad-agregar="-">
-                                <img src="/Content/Images/Mobile/Esika/menos.png">
-                            </span>*@
                             <div class="campo_cantidadProductos">
                                 {{#iff detalle.EsKitNueva '==' true}}
                                   <input type="tel"
@@ -468,9 +407,6 @@
                                        data-cantidad-input="-">
                                 {{/iff}}
                             </div>
-                            @*<span class="signo_mas" data-cantidad-agregar="+">
-                                <img src="/Content/Images/Mobile/Esika/mas.png">
-                            </span>*@
                             <div class="clear"></div>
                         </div>
                     </div>
@@ -490,18 +426,6 @@
                         </span>
                     </div>
                 </div>
-
-                @*{{#if detalle.IndicadorOfertaCUV}}
-                        {{#if detalle.PedidoConDescuentoCuv}}
-                            <div class="alert-top-icon text-success">
-                                <div class="text-left">
-                                    El precio total no incluye el descuento para ofertas con más de
-                                    un precio (1x, 2x). Al validar tu pedido, el sistema elegirá la
-                                    mejor combinación de precios posibles para ti.
-                                </div>
-                            </div>
-                        {{/if}}
-                    {{/if}}*@
 
                 {{#IsNullOrEmpty detalle.Mensaje '!='}}
                 <div class="notificacion_productoAgotado">
@@ -533,18 +457,9 @@
         </div>
 
         <div class="separador"></div>
-        @*<div style="position:relative;">*@
         <div style="margin-left: -28px;">
-
-            @*<div class="textos_resumen" style="margin-left:-31px;">*@
             <div class="textos_resumen">
-                @*<div class="separador_montos_mobile" style="left:2px; top:94px; width:100%;"></div>*@
                 <span style="margin-left:30px;">HE AGREGADO :</span>
-                <!-- SB20-483 - INICIO -->
-                @*<span style="margin-bottom: 8px; margin-left: 30px;">TOTAL SIN DSCTO.:</span>
-                <span style="margin-bottom: 15px; margin-left: 30px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
-                <!-- SB20-483 - FIN -->
-
                 <span>
                     <div class="info_validado">
                         <img src="/Content/Images/Esika/info-copy.png" />
@@ -568,25 +483,13 @@
                     MONTO TOTAL :
                 </span>
 
-
-                @*<div style="margin-bottom: 8px; margin-left: 30px;">
-                    MONTO TOTAL :
-                </div>*@
-
                 <div class="mi_ganancia" style="margin-left: 30px;">
-                    @*<div class="info_validado abrir_popupMisGanancias">
-                        <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
-                    </div>*@
                     @(cabezaEscala) :
                 </div>
             </div>
 
             <div class="montos_resumen">
                 <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;UNIDADES</span>
-                <!-- SB20-483 - INICIO -->
-                @*<span><b>{{Simbolo}} {{FormatoTotal}}</b></span>
-                <span style="margin-bottom:27px;"><b>{{Simbolo}} {{FormatoMontoDescuento}}</b></span>*@
-                <!-- SB20-483 - FIN -->
                 <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
                 <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
             </div>
@@ -832,7 +735,6 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
-        /* SB20-565 - INICIO */
         var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
 
@@ -840,11 +742,8 @@
         var viewBagPaisID = '@Model.PaisID';
         var viewBagNombrePais = '@ViewBag.NombrePais';
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
-        /* SB20-565 - FIN */
 
-        //PL20-1233
         var origenPagina = 2;
-
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>

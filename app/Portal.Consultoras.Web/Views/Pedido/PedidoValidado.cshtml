@@ -45,7 +45,6 @@
             </div>
             <hr class="clear" />
             <div id="divBarraPosicion" class="BarraPosicion">
-                @*<span id="divBarraMinimo" class="BarraMinimo"></span>*@
                 <span id="divBarraEspacioLimite" class="BarraLimite">
                     <span id="divBarraEspacioLogrado" class="BarraLogrado"></span>
                 </span>
@@ -187,7 +186,6 @@
                 }
 
 
-                @*<img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">*@
                 @(cabezaEscala): <span>@Model.Simbolo @ViewBag.GananciaEstimada</span>
 
                 <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
@@ -210,16 +208,6 @@
                     string tooltip2 = tooltips[1];
                 }
 
-                @*<div class="info_modificarvalidado">
-                    <text>@tooltip1</text>
-                    <span>@tooltip2</span>
-                </div>*@
-
-                @*<div class="info_modificarvalidado">
-                    <div class="icono_tooltip_validado"></div>
-                    <div class="info_tooltip">Puedes modificar tu pedido hasta las <b>@ViewBag.HoraCierre</b>, luego se enviará a Belcorp</div>
-                </div>*@
-
                 <div class="info_modificarvalidado">
                     <div class="icono_tooltip_validado"></div>
                     <div class="info_tooltip">@tooltip1 <br /> @tooltip2 </div>
@@ -229,12 +217,6 @@
             </div>
             <hr class="clear" />
             <div class="linea_gris" style="margin-top:30px"></div>
-            @*<div class="eliminar_pedidoValidado">Para eliminar el pedido completo haz <a href="#">click aquí</a></div>
-            <div class="eliminar_pedidoValidado" style="float:left">
-                <span style="color: #e81c36">(*)</span>    El precio no incluye el descuento de ofertas por niveles.<br />
-                Guarda tu pedido y elegiremos la mejor opción para ti.
-            </div>*@
-
         </div>
         
         <div class="contenedor_eliminacion_pedido">
