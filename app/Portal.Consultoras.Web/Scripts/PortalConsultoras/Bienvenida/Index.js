@@ -172,7 +172,7 @@ $(document).ready(function () {
     CargarBanners();
     CargarCatalogoPersonalizado();
     //if (showRoomMostrarLista == 1) {
-    //    CargarProductosShowRoom({ Limite: 6 });
+    //    CargarProductosShowRoom({ Limite: 6, hidden: true });
     //}
 
     switch (TipoPopUpMostrar) {
