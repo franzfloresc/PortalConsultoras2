@@ -457,16 +457,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         {
-                            if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                                permiso.UrlItem = "ShowRoom/Index";
-                            else
-                                permiso.UrlItem = "ShowRoom/Intriga";
+                            permiso.UrlItem = AccionControlador("sr", 1);
                         }
                         else
                         {
                             continue;
                         }
-
                         permiso.EsSoloImagen = true;
                         var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
@@ -1007,7 +1003,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session["MostrarShowRoomProductos"] = "0";
                             }
 
-                            Session["carpetaPais"] = carpetaPais;                            
+                            Session["carpetaPais"] = carpetaPais;
                         }
                         else
                         {
@@ -1016,7 +1012,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         model.CargoEntidadesShowRoom = true;
-                    }                    
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -1860,6 +1856,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return "";
+        }
+        public string AccionControlador(string tipo, int isControlador = 0)
+        {
+            var accion = "";
+            var controlador = "";
+            try
+            {
+                tipo = Util.Trim(tipo);
+                if (tipo.ToLower() == "sr")
+                {
+                    controlador = isControlador == 1 ? "ShowRoom" : "";
+                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                        accion = "Index";
+                    else
+                        accion = "Intriga";
+
+                }
+                return controlador + (controlador == "" ? "" : "/") + accion;
+
+            }
+            catch (Exception)
+            {
+                return accion;
+            }
         }
     }
 }

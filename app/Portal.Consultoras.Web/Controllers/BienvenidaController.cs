@@ -1950,5 +1950,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult MailConfirmacion(string tipo)
+        {
+            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+            var accion = "index";
+            var controlador = "bienvenida";
+            try
+            {
+                if (tipo == "sr")
+                {
+                    userData.EMailActivo = true;
+
+                    controlador = "ShowRoom";
+                    accion = AccionControlador("sr");
+                }
+                SetUserData(userData);
+
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction(accion, controlador, new { area = area });
+        }
     }
 }
