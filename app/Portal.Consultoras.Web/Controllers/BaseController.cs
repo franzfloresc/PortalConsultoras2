@@ -464,13 +464,29 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                     {
-                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                            permiso.UrlItem = "ShowRoom/Index";
+                        if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                        {
+                            if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                                permiso.UrlItem = "ShowRoom/Index";
+                            else
+                                permiso.UrlItem = "ShowRoom/Intriga";
+                        }
                         else
-                            permiso.UrlItem = "ShowRoom/Intriga";
+                        {
+                            continue;
+                        }
 
                         permiso.EsSoloImagen = true;
-                        permiso.UrlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                        var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                        if (urlImagen != "")
+                        {
+                            permiso.UrlImagen = urlImagen;
+                        }
+                        else
+                        {
+                            permiso.EsSoloImagen = false;
+                        }
                     }
 
                     lstModel.Add(new PermisoModel
@@ -1868,11 +1884,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+            if (userData.ListaShowRoomPersonalizacionConsultora != null)
+            {
+                var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
 
-            return model == null
+                return model == null
                 ? ""
                 : model.Valor;
+            }
+
+            return "";
         }
     }
 }

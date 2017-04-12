@@ -6,6 +6,7 @@ var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var origenPedidoWeb = origenPedidoWeb || 0;
 var origenPedidoWebTactica = origenPedidoWebTactica || 0;
 var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
+var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
@@ -237,7 +238,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
         if (origenPedidoWebCarrusel != -1)
             origen = origenPedidoWebCarrusel;
         else if (tipoOrigenPantalla == 1) {
-            origen = showRoomOrigenInsertar;
+            origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
         }
         else
             origen = origenPedidoWeb;
