@@ -20595,13 +20595,15 @@ label.checkpop.c_on {
     z-index: 10;
 }
 .foto_perfil_home{
-    width:104px;
-    height:104px;
+    width: 97px;
+    height: 96px;
     border-radius: 100px;
     -moz-border-radius:100px;
     -webkit-border-radius: 100px;
    position:relative;
     float:left;
+
+    overflow: hidden;
 }
 .foto_perfil_home img{
     width:100%;
@@ -22326,7 +22328,7 @@ body{
     }   /*FOTO USUARIO*/
       .resumen_belcorp_cam{
          margin-right: 0%;
-        width: 29.5%;
+        /*width: 29.5%;*/
     }
     
 }

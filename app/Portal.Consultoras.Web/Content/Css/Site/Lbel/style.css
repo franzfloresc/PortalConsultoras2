@@ -3452,6 +3452,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     padding-left:16px;
     padding-right:16px;
+    margin-bottom:16px;
     height:auto;
     font-family:'Lato';
     letter-spacing:0.2px;
@@ -20530,13 +20531,14 @@ label.checkpop.c_on {
     z-index: 10;
 }
 .foto_perfil_home{
-    width:104px;
-    height:104px;
+    width: 97px;
+    height: 96px;
     border-radius: 100px;
     -moz-border-radius:100px;
     -webkit-border-radius: 100px;
     position:relative;
     float:left;
+    overflow: hidden;
 }
 .foto_perfil_home img{
     width:100%;
@@ -22246,7 +22248,7 @@ body{
     }
     .resumen_belcorp_cam{
          margin-right: 0%;
-        width: 29.5%;
+        /*width: 29.5%;*/
     }
 }
 @media screen and (max-width: 1187px) {
@@ -33726,7 +33728,7 @@ h1#penmostreo .campana {
 }
 .ganancia_showroom{
     font-size:13px;
-    color:#e81c36;
+    color:#613c87;
     text-align:right;
     text-transform:uppercase;
 }

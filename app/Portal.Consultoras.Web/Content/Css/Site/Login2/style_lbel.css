@@ -148,15 +148,15 @@ span {
 }
 
 .logo-esika {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     font-family: icomoon;
 }
 
     .logo-esika:before {
         content: "\e905";
-        font-size: 64px;
-        color: #fff;
+        font-size: 43px;
+        color: #613c87;
     }
 
 .logo {
@@ -226,7 +226,7 @@ span {
 
 .webForm {
     max-width: 349px;
-    padding: 65px 18% 36px;
+    padding: 45px 18% 36px;
 }
 
     .webForm .title {
@@ -274,9 +274,10 @@ span {
         border: none;
         color: #fff;
         font-family: lato;
-        letter-spacing: .1pt;
-        font-size: 13px;
+        letter-spacing: 0.3px;
+        font-size: 13.2px;
         float: left;
+        
     }
 
     .formcontrol .inputForm {
@@ -335,7 +336,8 @@ span {
         letter-spacing: .5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 30px;
+        margin-top: 20px;
+        border-radius:2px;
     }
 
     .formbtn label a {
@@ -529,7 +531,8 @@ span {
     left: 0;
     width: 34%;
     height: 100%;
-    background: url(../Images/bg_form_esika.png);
+    /*background: url(../Images/bg_form_esika.png);*/
+    background: rgba(0,0,0,0.6);
 }
 
 .ui-dialog.ui-widget-content {
@@ -612,7 +615,7 @@ h1, h2, h3, h4, h5, h6 {
     top: 324px;
 }
 
-.alerta_red_cam_clave.left::after, .alerta_red_cam_user7.left::after, .alerta_red_cam_user9.left::after, .alerta_red_mx_clave.left::after, .alerta_red_mx_user.left::after {
+.alerta_red_cam_clave.left::after, .alerta_red_cam_user7.left::after, .alerta_red_cam_user9.left::after, .alerta_red_mx_clave.left::after, .alerta_red_mx_user.left::after, .alerta_red_pr_user.left::after, .alerta_red_pr_clave.left::after {
     top: 10px;
     left: -10px;
     border-width: 8px 10px 8px 0;
@@ -625,7 +628,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_mx_user {
+.alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_mx_user, .alerta_red_pr_user {
     position: relative;
     padding: 10px;
     color: #000;
@@ -637,7 +640,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
-    .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after {
+    .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after, .alerta_red_pr_user::after {
         content: "";
         position: absolute;
         border-style: solid;
@@ -645,7 +648,7 @@ h1, h2, h3, h4, h5, h6 {
         width: 0;
     }
 
-.alerta_red_cam_clave, .alerta_red_mx_clave {
+.alerta_red_cam_clave, .alerta_red_mx_clave, .alerta_red_pr_clave {
     position: relative;
     padding: 10px;
     color: #000;
@@ -657,7 +660,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
-    .alerta_red_cam_clave::after, .alerta_red_mx_clave::after {
+    .alerta_red_cam_clave::after, .alerta_red_mx_clave::after , .alerta_red_pr_clave::after {
         content: "";
         position: absolute;
         border-width: 20px 0 0 20px;
@@ -671,12 +674,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear {
+    background: none;
+    border: 0;
     clear: both;
-    height: 0;
-    width: 0;
+    display: block;
+    float: none;
+    font-size: 0;
     margin: 0;
     padding: 0;
-    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
 .p-right {
@@ -742,6 +751,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width :654px) {
+     .texto_login{
+        line-height:20px;
+    }
+   .etiqueta_usuario{
+       width:41% !important;
+   }
+   .campo_input{
+       width:59% !important;
+   }
+   .btn_validar_usuario{
+       width:100% !important;
+       margin-left:0 !important;
+   }
     .footer .footerWrap .logosRight a {
         padding-left: 0;
         padding-right: 10px;
@@ -782,7 +804,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -1;
 }
 
-.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after {
+.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after, .alerta_red_pr_clave.right::after, alerta_red_pr_user.right::after {
     top: 10px;
     right: -10px;
     bottom: auto;
@@ -1269,7 +1291,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+        /*background: url('../Images/bg_form_esika.png') 0px 0px repeat;*/
+        background:rgba(0,0,0,0.6)
         height: 100%;
     }
 

@@ -520,6 +520,7 @@
     <Compile Include="Models\TipoLinkModel.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />

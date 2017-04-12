@@ -179,7 +179,7 @@ h6, .h6 {
 
 .logo-esika {
     /*margin-bottom: 30px;*/
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     text-align: center;
     font-family: 'logo_esika';
     /*margin-left: -25px;*/
@@ -187,8 +187,8 @@ h6, .h6 {
 
     .logo-esika:before {
         content: "\e911";
-        font-size: 78px;
-        color: #df022f;
+        font-size: 55px;
+        color: #e81c36;
     }
 
 .logo {
@@ -286,7 +286,7 @@ Image .nav0:hover {
     padding-left: 18%;
     padding-right: 18%;
     padding-bottom: 36px;
-    padding-top: 65px;
+    padding-top: 45px;
     /*background: url('../images/bg_form_esika.png') 0px 0px repeat;*/
     position: relative;
 }
@@ -347,7 +347,7 @@ Image .nav0:hover {
         font-size: 13px;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.1pt;
+        letter-spacing: 0.3px;
         float: left;
     }
 
@@ -358,16 +358,17 @@ Image .nav0:hover {
         padding: 4px;
         background: transparent;
         width: 90%;
-        font-size: 13px;
+        font-size: 13.2px;
         border: none;
         color: white;
         font-family: 'lato';
-        letter-spacing: 0.1pt;
+        letter-spacing: 0.2px;
         -webkit-appearance: none;
         -moz-appearance: none;
         -ms-appearance: none;
         -o-appearance: none;
         appearance: none;
+       
     }
 
         .formcontrol select option {
@@ -415,7 +416,8 @@ Image .nav0:hover {
         letter-spacing: 0.5px;
         font-size: 13px;
         font-weight: 700;
-        margin-top: 30px;
+        margin-top: 20px;
+        border-radius:2px;
     }
 
     .formbtn label a {
@@ -641,7 +643,8 @@ Image .nav0:hover {
     left: 0;
     width: 34%;
     height: 100%;
-    background: url('../Images/bg_form_esika.png') 0px 0px repeat;
+    /*background: url('../Images/bg_form_esika.png') 0px 0px repeat;*/
+    background: rgba(0,0,0,0.6);
 }
 /* -------------------------------------------------- */
 /*  Main Navigation
@@ -812,12 +815,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .clear {
+   background: none;
+    border: 0;
     clear: both;
-    height: 0;
-    width: 0;
+    display: block;
+    float: none;
+    font-size: 0;
     margin: 0;
     padding: 0;
-    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
 .p-right {
@@ -1410,7 +1419,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     #container {
-        background: url('../images/bg_form_esika.png') 0px 0px repeat;
+        /*background: url('../images/bg_form_esika.png') 0px 0px repeat;*/
+        background:rgba(0,0,0,0.6);
         height: 100%;
     }
 
@@ -1653,10 +1663,7 @@ h1, h2, h3, h4, h5, h6 {
         zoom: 90%;
     }
 
-    #container {
-        background: url('../Images/bg_form_esika.png') 0px 0px repeat;
-        height: 100%;
-    }
+   
 
     .content-left, .content-right {
         background: none;
@@ -1743,6 +1750,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width : 320px) {
+    
     .content-alerta-red-user {
         top: 245px;
     }
@@ -1782,6 +1790,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width : 681px) {
+    .texto_login{
+        line-height:20px;
+    }
+   .etiqueta_usuario{
+       width:41% !important;
+   }
+   .campo_input{
+       width:59% !important;
+   }
+   .btn_validar_usuario{
+       width:100% !important;
+       margin-left:0 !important;
+   }
     .nav a {
         display: inline-block;
         /*width: 100%;*/

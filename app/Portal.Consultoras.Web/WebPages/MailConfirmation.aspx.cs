@@ -60,12 +60,7 @@ namespace Portal.Consultoras.Web.WebPages
                             {
                                 if (opcionalLista[0].ToLower() == "urlreturn")
                                 {
-                                    var area = Request.Browser.IsMobileDevice ? "Mobile/" : "";
-                                    opcional = opcionalLista[1];
-                                    if (opcional.ToLower() == "showroomintriga")
-                                    {
-                                        urlportal = urlportal + "/" + area + "ShowRoom/Intriga";
-                                    }
+                                    urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
                                 }
                             }
                         }
