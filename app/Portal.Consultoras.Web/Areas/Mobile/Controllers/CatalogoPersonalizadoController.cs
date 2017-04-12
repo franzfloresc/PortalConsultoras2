@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             //PL20-1284
             ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
-
+            ViewBag.EsLebel = userData.EsLebel;
             return View(model);
         }
 
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
             productoModel.FBRuta = GetUrlCompartirFB();
-
+            ViewBag.EsLebel = userData.EsLebel;
             return View(productoModel);
         }
     }
