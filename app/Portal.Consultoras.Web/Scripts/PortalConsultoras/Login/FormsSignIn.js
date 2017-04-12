@@ -11,6 +11,7 @@ $(document).ready(function () {
         resizeNameUserExt();
     });
 
+    $('#btnLoginFB').addClass('center_facebook');
 
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);

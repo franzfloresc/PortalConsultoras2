@@ -254,6 +254,7 @@
                         if (name != null && name != "") {
                             $('#hdeNameUserExt').val(name);
                             resizeNameUserExt();
+                            $('#btnLoginFB').removeClass('center_facebook');
                             $('#imgFotoPerfil').attr('src', response.picture.data.url);
                             $('.imagen_perfil_facebook').show();
                         }
@@ -631,7 +632,7 @@
             </div>
             <hr class="clear" />
             <br />
-            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()">INGRESA A TU CUENTA</a>
+            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
         </div>
     </div>
 </div>
