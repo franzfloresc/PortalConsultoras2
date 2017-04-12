@@ -353,8 +353,11 @@ function OrdenarCabecera() {
 }
 
 function messageInfoError(message, titulo) {
-    $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-    $('#dialog_ErrorMainLayout').show();
+    message = $.trim(message);
+    if (message != "") {
+        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        $('#dialog_ErrorMainLayout').show();
+    }
 }
 
 function microefectoPedidoGuardado() {

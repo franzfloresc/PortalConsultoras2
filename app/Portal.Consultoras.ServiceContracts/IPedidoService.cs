@@ -1004,5 +1004,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
     }
 }
