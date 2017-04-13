@@ -827,7 +827,7 @@ function xMensajeEstadoPedido(estado) {
         if (esMobile) {
             wtop = $("header").height();
             if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
             }
             else {
                 $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
