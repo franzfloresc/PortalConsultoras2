@@ -6,6 +6,7 @@ var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var origenPedidoWeb = origenPedidoWeb || 0;
 var origenPedidoWebTactica = origenPedidoWebTactica || 0;
 var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
+var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
@@ -172,6 +173,7 @@ function CargarProductosShowRoom(busquedaModel) {
     });
 
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
+    $("#divProductosShowRoom").show();
 
     jQuery.ajax({
         type: 'POST',
@@ -187,8 +189,21 @@ function CargarProductosShowRoom(busquedaModel) {
                 var lista = response.lista;
 
                 $.each(lista, function (index, value) {
+                    var descripcion = "";
+
+                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                        descripcion = value.Descripcion.length > 41
+                        ? value.Descripcion.substring(0, 40) + "..."
+                        : value.Descripcion;
+                    } else {
+                        descripcion = value.Descripcion.length > 31
+                        ? value.Descripcion.substring(0, 30) + "..."
+                        : value.Descripcion;
+                    }
+
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
+                    value.Descripcion = descripcion;
                 });
 
                 $("#divProductosShowRoom").html("");
@@ -199,9 +214,17 @@ function CargarProductosShowRoom(busquedaModel) {
                 $("#spnCantidadFiltro").html(response.cantidad);
                 $("#spnCantidadTotal").html(response.cantidadTotal);
 
-            } else messageInfoError(response.message);
+            } else {
+                messageInfoError(response.message);
+                if (busquedaModel.hidden == true) {
+                    $("#divProductosShowRoom").hide();
+                }
+            }
         },
         error: function (response, error) {
+            if (busquedaModel.hidden == true) {
+                $("#divProductosShowRoom").hide();
+            }
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
@@ -224,7 +247,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
         if (origenPedidoWebCarrusel != -1)
             origen = origenPedidoWebCarrusel;
         else if (tipoOrigenPantalla == 1) {
-            origen = showRoomOrigenInsertar;
+            origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
         }
         else
             origen = origenPedidoWeb;

@@ -38,9 +38,7 @@ $(document).ready(function () {
     });
 
     $("[data-email-reenviar]").click(function (e) {
-        if (!intrigaAceptoTerminos) {
-            $(this).toggleClass('check_intriga');
-        }
+        $(".termino_condiciones_intriga").addClass('check_intriga');
         intrigaAceptoTerminos = true;
         IntrigaConfirmarCorreo();
     });

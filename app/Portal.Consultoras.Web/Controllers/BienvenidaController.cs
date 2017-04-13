@@ -205,6 +205,38 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
+                //EPD-1089
+                if (userData.PaisID == 9){
+                    model.limiteMinimoTelef = 5;
+                    model.limiteMaximoTelef = 15;                    
+                }
+                else if (userData.PaisID == 11)
+                {
+                    model.limiteMinimoTelef = 7;
+                    model.limiteMaximoTelef = 9;                    
+                }
+                else if (userData.PaisID == 4)
+                {
+                    model.limiteMinimoTelef = 7;
+                    model.limiteMaximoTelef = 7;
+                }
+                else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
+                {
+                    model.limiteMinimoTelef = 8;
+                    model.limiteMaximoTelef = 8;
+                }
+                else if (userData.PaisID == 6)
+                {
+                    model.limiteMinimoTelef = 9;
+                    model.limiteMaximoTelef = 10;
+                }
+                else
+                {
+                    model.limiteMinimoTelef = 0;
+                    model.limiteMaximoTelef = 15;
+                }
+                //
+                
                 #region Lógica de Popups
 
                 List<BEPopupPais> PopUps = new List<BEPopupPais>();
@@ -384,12 +416,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 // validar si se muestra Show Room en Bienvenida
-                model.ShowRoomMostrarLista = 
-                    userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2
-                    ? 1
-                    : userData.EsCatalogoPersonalizadoZonaValida
-                        ? 0
-                        : 1;
+                model.ShowRoomMostrarLista = 0;
+                    //userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2
+                    //? 1
+                    //: userData.EsCatalogoPersonalizadoZonaValida
+                    //    ? 0
+                    //    : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
@@ -1876,9 +1908,70 @@ namespace Portal.Consultoras.Web.Controllers
         }
         /* SB20-834 - FIN */
 
+        /****EPD-2088****/
+        public JsonResult ValidadTelefonoConsultora(string Telefono)
+        {
+            try
+            {
+                int cantidad = 0;
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    if (cantidad > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "",
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al intentar validar el celular.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult ActualizarContrasenia()
         {
             return View();
+        }
+
+        public ActionResult MailConfirmacion(string tipo)
+        {
+            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+            var accion = "index";
+            var controlador = "bienvenida";
+            try
+            {
+                if (tipo == "sr")
+                {
+                    userData.EMailActivo = true;
+
+                    controlador = "ShowRoom";
+                    accion = AccionControlador("sr");
+                }
+                SetUserData(userData);
+
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction(accion, controlador, new { area = area });
         }
     }
 }

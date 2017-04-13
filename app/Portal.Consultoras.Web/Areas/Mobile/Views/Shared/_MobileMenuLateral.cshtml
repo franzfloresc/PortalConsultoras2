@@ -16,11 +16,11 @@
     {
         if (item.SubMenu.Count == 0)
         {
-            if (item.Descripcion.Trim() == "GRAN VENTA ONLINE")
+            if (item.Descripcion.Trim() == "VENTA EXCLUSIVA WEB")
             {
                 if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                 {
-                    if (Session["MostrarShowRoomProductos"].ToString() == "1")
+                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
                     {
                         <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
                            class="menu_mobile_belcorp etiqueta_showroom" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
@@ -45,7 +45,7 @@
 
     if (item.SubMenu.Count == 0)
     {
-        if (item.Descripcion.Trim() != "GRAN VENTA ONLINE")
+        if (item.Descripcion.Trim() != "VENTA EXCLUSIVA WEB")
         {
             var target = item.PaginaNueva ? "_blank" : "_self";
             var url = item.Version == "Completa"
