@@ -204,6 +204,8 @@
 
 <body>
     <script>
+        var fbAppId = '@ViewBag.FBAppId';
+
         window.fbAsyncInit = function () {
             FB.init({
                 appId: fbAppId,
@@ -231,6 +233,7 @@
             FB.login(function (response) {
                 if (response.status === 'connected') {
                     //console.log('We are connected.');
+                    waitingDialog();
                     getInfoFB(1);
                 }
                 else if (response.status === 'not_authorized') {
@@ -243,7 +246,7 @@
         }
 
         function getInfoFB(opt) {
-            FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture' }, function (response) {
+            FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
                 //console.log(response);
                 if (response.id != null) {
                     if (opt == 1) {
@@ -289,6 +292,8 @@
                     //console.log(response);
                     if (response.success) {
                         if (!response.exists) {
+                            closeWaitingDialog();
+
                             $('#hdeProveedor').val(provider);
                             $('#hdeIdApp').val(data.id);
                             $('#hdeLogin').val(data.name);
@@ -639,7 +644,7 @@
 
 
 <script type="text/javascript">
-    var fbAppId = '@ViewBag.FBAppId';
+    //var fbAppId = '@ViewBag.FBAppId';
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
     var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
 
