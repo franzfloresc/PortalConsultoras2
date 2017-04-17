@@ -101,6 +101,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal PrecioOfertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal PrecioOferta2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int StockField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -471,6 +474,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioOfertaField.Equals(value) != true)) {
                     this.PrecioOfertaField = value;
                     this.RaisePropertyChanged("PrecioOferta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal PrecioOferta2 {
+            get {
+                return this.PrecioOferta2Field;
+            }
+            set {
+                if ((this.PrecioOferta2Field.Equals(value) != true)) {
+                    this.PrecioOferta2Field = value;
+                    this.RaisePropertyChanged("PrecioOferta2");
                 }
             }
         }

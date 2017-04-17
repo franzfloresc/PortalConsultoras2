@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         
         private System.Threading.SendOrPostCallback ConsultaStockProlOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPrecioProductosOfertaWebOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetConsultaPrecioValorizadoOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetEstrategiaProductoOperationCompleted;
@@ -90,6 +92,9 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         
         /// <remarks/>
         public event ConsultaStockProlCompletedEventHandler ConsultaStockProlCompleted;
+        
+        /// <remarks/>
+        public event GetPrecioProductosOfertaWebCompletedEventHandler GetPrecioProductosOfertaWebCompleted;
         
         /// <remarks/>
         public event GetConsultaPrecioValorizadoCompletedEventHandler GetConsultaPrecioValorizadoCompleted;
@@ -234,6 +239,39 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             if ((this.ConsultaStockProlCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ConsultaStockProlCompleted(this, new ConsultaStockProlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPrecioProductosOfertaWeb", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public PrecioProducto[] GetPrecioProductosOfertaWeb(string pais, string campania, string cuvs) {
+            object[] results = this.Invoke("GetPrecioProductosOfertaWeb", new object[] {
+                        pais,
+                        campania,
+                        cuvs});
+            return ((PrecioProducto[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPrecioProductosOfertaWebAsync(string pais, string campania, string cuvs) {
+            this.GetPrecioProductosOfertaWebAsync(pais, campania, cuvs, null);
+        }
+        
+        /// <remarks/>
+        public void GetPrecioProductosOfertaWebAsync(string pais, string campania, string cuvs, object userState) {
+            if ((this.GetPrecioProductosOfertaWebOperationCompleted == null)) {
+                this.GetPrecioProductosOfertaWebOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPrecioProductosOfertaWebOperationCompleted);
+            }
+            this.InvokeAsync("GetPrecioProductosOfertaWeb", new object[] {
+                        pais,
+                        campania,
+                        cuvs}, this.GetPrecioProductosOfertaWebOperationCompleted, userState);
+        }
+        
+        private void OnGetPrecioProductosOfertaWebOperationCompleted(object arg) {
+            if ((this.GetPrecioProductosOfertaWebCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPrecioProductosOfertaWebCompleted(this, new GetPrecioProductosOfertaWebCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -630,6 +668,39 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class PrecioProducto {
+        
+        private string cuvField;
+        
+        private decimal precio_productoField;
+        
+        /// <remarks/>
+        public string cuv {
+            get {
+                return this.cuvField;
+            }
+            set {
+                this.cuvField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public decimal precio_producto {
+            get {
+                return this.precio_productoField;
+            }
+            set {
+                this.precio_productoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class StockProl {
         
         private int codsapField;
@@ -838,6 +909,32 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((StockProl[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void GetPrecioProductosOfertaWebCompletedEventHandler(object sender, GetPrecioProductosOfertaWebCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPrecioProductosOfertaWebCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPrecioProductosOfertaWebCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public PrecioProducto[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((PrecioProducto[])(this.results[0]));
             }
         }
     }
