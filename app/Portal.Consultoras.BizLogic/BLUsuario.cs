@@ -250,6 +250,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         usuario.ZonaID = postulante.ZonaID;
                         usuario.RegionID = postulante.RegionID;
+                        usuario.ConsultoraID = postulante.ConsultoraID;
 
                         using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
                         {
