@@ -12,6 +12,7 @@
     <title>Belcorp | Portal Consultoras</title>
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
 
@@ -553,28 +554,26 @@
 
     <!--OFERTA DEL DIA -->
     <script id="ofertadeldia-template" type="text/x-handlebars-template">
-        <div class="content_oferta_dia" id="banner-odd">
-            <div class="reloj_oferta">
-                TE QUEDAN
+        <div class="content_oferta_dia" id="banner-odd">            
+            <div class="solo_hoy">
+                <div style="height:42px; overflow:hidden"><img id="img-solohoy-odd" alt="" /></div>
+                
                 <div class="clock"></div>
                 <div class="message"></div>
-            </div>
-            <div class="solo_hoy">
-                <img id="img-solohoy-odd" alt="" />
             </div>
             <div class="producto_set">
                 <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-banner-odd" />
             </div>
             <div class="precio_set_dia">
                 <div class="nombre_set_oferta">{{NombreOferta}}</div>
-                A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
+                <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
             </div>
             <div style="float: left">
-                <a class="btn_agrega_set_dia" onclick="addOfertaDelDiaPedido(1);">AGRÉGALO</a>
+                <a class="btn_agrega_set_dia" onclick="addOfertaDelDiaPedido(1);">AGRÉGALO YA</a>
             </div>
             <a class="btn_detalle_hoy">
                 <div class="circulo_hoy"><span>+</span></div>
-                <div class="texto_detalle_set">VER DETALLE</div>
+                <div class="texto_detalle_set">VER OFERTAS DEL DÍA</div>
             </a>
 
             <input type="hidden" id="tipoestrategia-id-odd" value="{{TipoEstrategiaID}}" />
@@ -590,37 +589,135 @@
 
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
-        <div class="content_pop_oferta_dia" id="PopOfertaDia" style="display: none;">
+        <div class="content_pop_oferta_dia content_780_ODD" id="PopOfertaDia" style="display: none;"> <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY-->
+            <a class="regresar_carrusel" href="#">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
             <hr class="clear" />
-            <div class="content_set_pop_hoy">
-                <div class="imagen_set_Oferta_pop">
-                    <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" /></div>
-                <div class="right_set_hoy">
-                    <div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>
-                    <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
-                </div>
-            </div>
-            <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
-            <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
-            <div style="text-align: center">
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" style="color: white" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup" tabindex="0">
-                            <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt=""></a>
-                        <a class="menos js-no-popup" tabindex="0">
-                            <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt=""></a>
+            <div class="saludo_mas_productos">VALERIA,  APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
+            <div class="titulo_set_ODD">SET BLEU INTENSE NIGHT</div>
+            <div class="barra_inferior"></div>
+            <!--CASO 1 CARRUSEL A 1024-->
+            <div class="content_90" style="display:none;">
+                <div class="content_set_pop_hoy">
+                    <div class="imagen_set_Oferta_pop">
+                        <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" />
+                        <div class="compartir_redes_ficha">
+                            <div class="texto_compartelo" style="color:#fff;">Comparte este set con tus clientes:</div>
+                            <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
+                                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png">
+                            </a>
+                            <hr class="clear">
+                        </div>
+                    </div>
+                    <div class="right_set_hoy">
+                        @*<div class="producto_gratis_ofertaDia">{{NombreOferta}}</div>*@
+                        <div class="descripcion_set_ofertaDia">{{DescripcionOferta}}</div>
+                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{PrecioCatalogoFormat}}</span></div>
+                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
+                        <div style="text-align: center">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                    </a>
+                                    <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                        </div>
                     </div>
                 </div>
-                <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO A TU PEDIDO</a>
             </div>
+           <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
+            <div class="content_90" style="display:none;">
+                <div class="multiple-items">
+                    <div class="content_item_carrusel_ODD">
+                        <div class="content_img_carrusel_ODD">
+                            <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" />
+                            <a class="ver_detalle_carrusel">VER DETALLE</a>
+                        </div>
+                        <div class="titulo_carrusel_ODD">SET BLEU INTENSE NIGHT</div>
+                        <div class="valorizado_carrusel_ODD">VALORIZADO EN RD$ 999,999,99</div>
+                        <div class="precio_carrusel_ODD">RD$ 99.999.99</div>
+                        <div style="text-align: center">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                    </a>
+                                    <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                        </div>
+                    </div>                  
+                </div>
+                
+            </div>
+            <!--FIN-->
+        <!--CASO CARRUSEL DE 2 PRODUCTOS-->
+            <div class="content_90">                
+                <div class="content_item_carrusel_ODD">
+                        <div class="content_img_carrusel_ODD">
+                            <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" />
+                            <a class="ver_detalle_carrusel">VER DETALLE</a>
+                        </div>
+                        <div class="titulo_carrusel_ODD">SET BLEU INTENSE NIGHT</div>
+                        <div class="valorizado_carrusel_ODD">VALORIZADO EN RD$ 999,999,99</div>
+                        <div class="precio_carrusel_ODD">RD$ 99.999.99</div>
+                        <div style="text-align: center">
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                    </a>
+                                    <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                        </div>
+                    </div>   
+                <div class="content_item_carrusel_ODD">
+                    <div class="content_img_carrusel_ODD">
+                        <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" />
+                        <a class="ver_detalle_carrusel">VER DETALLE</a>
+                    </div>
+                    <div class="titulo_carrusel_ODD">SET BLEU INTENSE NIGHT</div>
+                    <div class="valorizado_carrusel_ODD">VALORIZADO EN RD$ 999,999,99</div>
+                    <div class="precio_carrusel_ODD">RD$ 99.999.99</div>
+                    <div style="text-align: center">
+                        <div class="liquidacion_rango_home js-no-popup">
+                            <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                            <div class="liquidacion_rango_right_pedido js-no-popup">
+                                <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                    <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                </a>
+                                <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                    <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                    </div>
+                </div>             
+
+            </div>
+        <!--fin-->
         </div>
     </script>
     <!--OFERTA DEL DIA -->
 
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
-
+    
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
@@ -653,6 +750,7 @@
 
         var MostrarODD = '@ViewBag.MostrarODD';
     </script>
+    
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
@@ -682,6 +780,7 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
+    
 
     @RenderSection("scripts", required: false)
 </body>
