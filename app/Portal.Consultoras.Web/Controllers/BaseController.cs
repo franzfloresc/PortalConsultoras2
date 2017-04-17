@@ -1473,13 +1473,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertaDelDia != null)
-            {
-                OfertaDelDiaModel model = userData.OfertaDelDia;
-                model.TeQuedan = CountdownODD(userData);
-                return model;
-            }
-            return null;
+            if (userData.OfertasDelDia == null)
+                return null;
+
+            if (!userData.OfertasDelDia.Any())
+                return null;
+
+            var model = userData.OfertasDelDia[0].Clone();
+            model.ListaOfertas = userData.OfertasDelDia;
+            model.TeQuedan = CountdownODD(userData);
+            return model;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -1550,8 +1553,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
-
-
 
             return model;
         }
