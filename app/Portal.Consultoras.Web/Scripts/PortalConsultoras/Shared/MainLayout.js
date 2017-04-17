@@ -4,7 +4,6 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
-
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
@@ -326,13 +325,10 @@ $(document).ready(function () {
         if (urlIntriga > 0) {
             $("#contentmain").css("margin-top", "63px")
         }
-
-        if (urlBienvenida > 0) {
+        else if (urlBienvenida > 0) {
             $("#contentmain").css("margin-top", "0px")
         }
 
-    } else {
-        
     }
 });
 
@@ -988,95 +984,6 @@ function Notificaciones() {
 };
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
-};
-
-function loadOfertaDelDia() {
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/GetOfertaDelDia',
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            if (response.success) {
-                var _data = response.data;
-                SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
-                var tq = _data.TeQuedan;
-
-                if (tq.TotalSeconds > 0) {
-                    $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
-                    $('#banner-odd').css('background-color', _data.ColorFondo1);
-                    $('#img-banner-odd').attr('src', _data.ImagenBanner);
-                    $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
-                    $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
-                    $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-                    $('#img-display-odd').attr('src', _data.ImagenDisplay);
-
-                    var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
-                    obj1.html(obj1.text());
-
-                    var URLactual = window.location.href;
-                    var urlIntriga = URLactual.indexOf("Intriga");
-
-                    if (urlIntriga > 0) {
-                        $('#OfertaDelDia').hide();
-                    } else {
-                        $('#OfertaDelDia').show();
-                    }
-
-                    
-
-                    $('.content_slider_home').css('margin-top', '160px');
-                    if (MostrarODD == "True") {
-                        $('.ubicacion_web ').css('margin-top', '85px');
-                    } else {
-                        $('.ubicacion_web ').css('margin-top', '185px');
-                    }
-
-                    
-                    var intv1 = setInterval(function () {
-                        if ($('#OfertaDelDia:visible').length > 0) {
-
-                            if ($('.content_banner_intriga').length > 0) {
-                                $('.ubicacion_web ').css('margin-top', '162px');
-                            }
-                            else {
-                                $('.ubicacion_web ').css('margin-top', '185px');
-                            }
-                            
-                            clearInterval(intv1);
-                        }
-                    }, 300);
-
-                    var clock = $('.clock').FlipClock(tq.TotalSeconds, {
-                        clockFace: 'HourlyCounter',
-                        countdown: true
-                    });
-
-                    $('.btn_detalle_hoy').on('click', function () {
-                        if (showDisplayODD == 0) {
-                            $('#PopOfertaDia').slideDown();
-                            $('.circulo_hoy span').html('-');
-                            
-                            showDisplayODD = 1;
-                        }
-                        else {
-                            $('#PopOfertaDia').slideUp();
-                            $('.circulo_hoy span').html('+');
-                            
-                            showDisplayODD = 0;
-                        }
-                    });
-                }
-                else {
-                    $('#OfertaDelDia').hide();
-                }
-            }
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
 };
 
 function closeOfertaDelDia() {

@@ -141,8 +141,7 @@
         <!--OFERTA DEL DIA -->
         @if (ViewBag.MostrarODD == false)
         {
-            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none">
-            </div>
+            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
          
         <!--OFERTA DEL DIA -->
@@ -618,7 +617,6 @@
     </script>
     <!--OFERTA DEL DIA -->
 
-
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
 
     <script type="text/javascript">
@@ -650,26 +648,12 @@
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
-
         var MostrarODD = '@ViewBag.MostrarODD';
+        var clock;
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
-
-    <script type="text/javascript">
-		var clock;
-
-		$(document).ready(function() {
-
-		});
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {    
-        });
-
-    </script>
-    
 
     <script type='text/javascript'>
         (function () {

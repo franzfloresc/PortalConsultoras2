@@ -82,48 +82,31 @@ namespace Portal.Consultoras.Web.Controllers
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
 
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
                     ViewBag.EsMobile = 1;//EPD-1780
 
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.MostrarODD = NoMostrarBannerODD();
+                    ViewBag.TieneOfertaDelDia = false;
+                    if (!ViewBag.MostrarODD)
                     {
-                        if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        if (userData.TieneOfertaDelDia)
                         {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                            if (!(
+                                    (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                    || userData.IndicadorGPRSB == 0)
+                                || userData.CloseOfertaDelDia
+                            )
+                            {
+                                ViewBag.TieneOfertaDelDia = false;
+                            }
+
+                            //validar si tiene pedido reservado
+                            //string msg = string.Empty;
+                            //if (ValidarPedidoReservado(out msg))
+                            //    ViewBag.TieneOfertaDelDia = false;
                         }
-                        else if (userData.IndicadorGPRSB == 0)
-                        {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                        }
-                        else
-                        {
-                            ViewBag.TieneOfertaDelDia = false;
-                        }
                     }
 
-
-
-
-                    if (ViewBag.TieneOfertaDelDia)
-                    {
-                        // validar si se cerro el banner
-                        if (userData.CloseOfertaDelDia)
-                            ViewBag.TieneOfertaDelDia = false;
-
-                        // validar si tiene pedido reservado
-                        //string msg = string.Empty;
-                        //if (ValidarPedidoReservado(out msg))
-                        //    ViewBag.TieneOfertaDelDia = false;
-                    }
-
-                    if (NoMostrarBannerODD())
-                    {
-                        ViewBag.MostrarODD = true;
-                    }
-                    else
-                    {
-                        ViewBag.MostrarODD = false;
-                    }
                 }
 
                 base.OnActionExecuting(filterContext);
