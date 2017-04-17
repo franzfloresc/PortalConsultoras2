@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
-                }
+                } 
 
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = 0;
