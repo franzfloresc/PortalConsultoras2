@@ -131,8 +131,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
                 .ForMember(t => t.ConsultoraSaldo, f => f.MapFrom(c => c.ConsultoraSaldo))
                 .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
-                
-            Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
+
+            Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
+                .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                .ForMember(t => t.Proveedor, f => f.MapFrom(c => c.Proveedor))
+                .ForMember(t => t.IdAplicacion, f => f.MapFrom(c => c.IdAplicacion))
+                .ForMember(t => t.Login, f => f.MapFrom(c => c.Login))
+                .ForMember(t => t.Nombres, f => f.MapFrom(c => c.Nombres))
+                .ForMember(t => t.Apellidos, f => f.MapFrom(c => c.Apellidos))
+                .ForMember(t => t.FechaNacimiento, f => f.MapFrom(c => c.FechaNacimiento))
+                .ForMember(t => t.Correo, f => f.MapFrom(c => c.Correo))
+                .ForMember(t => t.Genero, f => f.MapFrom(c => c.Genero))
+                .ForMember(t => t.Ubicacion, f => f.MapFrom(c => c.Ubicacion))
+                .ForMember(t => t.LinkPerfil, f => f.MapFrom(c => c.LinkPerfil))
+                .ForMember(t => t.FotoPerfil, f => f.MapFrom(c => c.FotoPerfil))
+                .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+            
+           Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
                 .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
@@ -157,22 +173,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria));
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
-            
-            Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
-                .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
-                .ForMember(t => t.Proveedor, f => f.MapFrom(c => c.Proveedor))
-                .ForMember(t => t.IdAplicacion, f => f.MapFrom(c => c.IdAplicacion))
-                .ForMember(t => t.Login, f => f.MapFrom(c => c.Login))
-                .ForMember(t => t.Nombres, f => f.MapFrom(c => c.Nombres))
-                .ForMember(t => t.Apellidos, f => f.MapFrom(c => c.Apellidos))
-                .ForMember(t => t.FechaNacimiento, f => f.MapFrom(c => c.FechaNacimiento))
-                .ForMember(t => t.Correo, f => f.MapFrom(c => c.Correo))
-                .ForMember(t => t.Genero, f => f.MapFrom(c => c.Genero))
-                .ForMember(t => t.Ubicacion, f => f.MapFrom(c => c.Ubicacion))
-                .ForMember(t => t.LinkPerfil, f => f.MapFrom(c => c.LinkPerfil))
-                .ForMember(t => t.FotoPerfil, f => f.MapFrom(c => c.FotoPerfil))
-                .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
         }
     }
 }

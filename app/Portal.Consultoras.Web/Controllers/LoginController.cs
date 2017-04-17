@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (userExt == null)
                                 {
                                     BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
-                                    beUsuarioExterno.CodigoUsuario = model.CodigoUsuario;
+                                    beUsuarioExterno.CodigoUsuario = validaLogin.CodigoUsuario;
                                     beUsuarioExterno.Proveedor = usuarioExterno.Proveedor;
                                     beUsuarioExterno.IdAplicacion = usuarioExterno.IdAplicacion;
                                     beUsuarioExterno.Login = usuarioExterno.Login;
