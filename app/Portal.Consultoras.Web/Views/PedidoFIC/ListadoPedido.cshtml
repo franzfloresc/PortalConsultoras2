@@ -104,12 +104,7 @@
                         }
                         @Html.Hidden("hdfLPEstado" + item.PedidoDetalleID, 0, new { @class = "classEstado" })
                         <div id="@idDiv" style=" display:none;" >
-                            @* <input id="@idUpd" value="" type="button" onclick="@FuncionUpd" class="update" title="Actualizar" />
-                                <input id="@idCan" value="" type="button" onclick="@FuncionCan" class="cancel" title="Cancelar" />*@
                         </div>
-
-                        @*var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Cliente' title='Eliminar Cliente' border='0' /></a>";*@
-
                         <div id="@idDivE" style=" display:block;" >
                             @Ajax.ActionLink(" ", "Delete", new { CampaniaID = item.CampaniaID, PedidoID = item.PedidoID, PedidoDetalleID = item.PedidoDetalleID, TipoOfertaSisID = item.TipoOfertaSisID, CUV = item.CUV, Cantidad = item.Cantidad }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "divListadoPedido", OnSuccess = "CalcularTotal();ClientByDelete();SaveDeleteAnalytics();", OnBegin = "AbrirSplash()", OnComplete = "CerrarSplash()" }, new { id = "btnLPDelete" + item.PedidoDetalleID, @class = "eliminar", title = "Eliminar" })
                         </div>

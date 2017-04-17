@@ -33,7 +33,7 @@
             $("#hdTipoEstrategiaID").val("0");
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
-            $("#chkMostrarImg").attr("checked", false);     /* SB20-353 */
+            $("#chkMostrarImg").attr("checked", false); 
 
             fnGrillaOfertas('0');
             showDialog("DialogAdministracionTipoEstrategia");
@@ -72,7 +72,7 @@
             if ($("#chkRecoProduc").attr('checked')) {
                 $("#chkNueva").removeAttr('checked');
                 $("#chkRecoPerfil").removeAttr('checked');
-                $("#txtCodigoPrograma").attr('disabled', true); //prop('disabled', true);
+                $("#txtCodigoPrograma").attr('disabled', true);
                 $("#txtCodigoPrograma").val(null);
             }
         });
@@ -80,24 +80,23 @@
             if ($("#chkRecoPerfil").attr('checked')) {
                 $("#chkNueva").removeAttr('checked');
                 $("#chkRecoProduc").removeAttr('checked');
-                $("#txtCodigoPrograma").attr('disabled', true);//.prop('disabled', true);
+                $("#txtCodigoPrograma").attr('disabled', true);
                 $("#txtCodigoPrograma").val(null);
             }
         });
         $("#btnAgregarOferta").click(function () {
-            // Grabar la nueva oferta
+
             var ofertaID = $("#hdofertaid").val();
             var paisID = $("#hdPais").val();
             var codigoOferta = $("#txtCodigoOferta").val();
             var descripcionOferta = $("#txtDescripcionOferta").val();
-            /*R20160301 - I*/
             var flagNueva = ($("#chkNueva").attr("checked")) ? true : false;
             var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
             if (flagNueva && $("#txtCodigoPrograma").val() == "") {
                 alert("No ingresó Codigo de Programa");
                 return false;
             }
-            /*R20160301 - F*/
+
             if ($.trim(codigoOferta) == "") {
                 alert("No ingresó el código de oferta.");
                 return false;
@@ -114,7 +113,7 @@
                 PaisID: paisID,
                 CodigoOferta: codigoOferta,
                 DescripcionOferta: descripcionOferta,
-                CodigoPrograma: codigoPrograma /*R20160301*/
+                CodigoPrograma: codigoPrograma
             };
 
             jQuery.ajax({
@@ -127,10 +126,8 @@
                 success: function (data) {
                     if (checkTimeout(data)) {
                         if (data.success == true) {
-                            // malert(data.message);
-                            // HideDialog("DialogAdministracionNuevaOferta");
+
                             var id = $("#hdTipoEstrategiaID").val()
-                            // codigoOferta
                             var ofertas = $("#hdofertas").val() + codigoOferta + ',';
                             $("#hdofertas").val(ofertas);
 
@@ -172,8 +169,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            //colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma'],
-            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg'],   // SB20-353
+            colNames: ['TipoEstrategiaID', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg'],
             colModel: [
                 { name: 'TipoEstrategiaID', index: 'TipoEstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'DescripcionEstrategia', index: 'DescripcionEstrategia', width: 180, editable: true, resizable: false, hidden: false },
@@ -186,7 +182,7 @@
                 { name: 'FlagRecoProduc', index: 'FlagRecoProduc', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'FlagRecoPerfil', index: 'FlagRecoPerfil', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },      // SB20-353
+                { name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
             ],
             jsonReader:
             {
@@ -281,8 +277,7 @@
 
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue); 
-        //var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
-        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";    /* SB20-353 */
+        var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[4] + "','" + rowObject[5] + "','" + rowObject[6] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -316,10 +311,8 @@
                 if (checkTimeout(data)) {
                     if (data.success == true) {
                         alert(data.message);
-                        // HideDialog("DialogAdministracionNuevaOferta");
                         var id = $("#hdTipoEstrategiaID").val()
                         $("#hdofertaid").val("0");
-                        // codigoOferta
                         var ofertas = $("#hdofertas").val();
                         ofertas = ofertas.replace(codigoOferta + ',', '');
                         $("#hdofertas").val(ofertas);
@@ -424,12 +417,7 @@
                         alert("Ingrese un orden mayor a cero.");
                         return false;
                     }
-                    /*
-                    if ($.trim(imagenEstrategia) == "") {
-                        alert("No seleccionó una imagen.");
-                        return false;
-                    }
-                    */
+
                     ofertaID = $("#hdofertas").val();
                    
                     if (ofertaID.length > 0) {
@@ -439,20 +427,18 @@
                         return false;
                     }
 
-                    // SB2-353 - INICIO
                     if ($("#chkMostrarImg").attr("checked")) {
                         if ($("#img01").attr("src") == "" || ($("#img01").attr("src").indexOf('prod_grilla_vacio.png') >= 0)) {
                             alert("Se debe seleccionar una imagen.");
                             return false;
                         }
                     }
-                    // SB2-353 - FIN
-
+                    
                     var flagNueva = ($("#chkNueva").attr("checked")) ? "1" : "0";
                     var flagRecoPerfil = ($("#chkRecoPerfil").attr("checked")) ? "1" : "0";
                     var flagRecoProduc = ($("#chkRecoProduc").attr("checked")) ? "1" : "0";
                     var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
-                    var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0"; // SB2-353
+                    var flagMostrarImg = ($("#chkMostrarImg").attr("checked")) ? "1" : "0";
 
                     var params = {
                         TipoEstrategiaID: tipoEstrategiaID,
@@ -466,7 +452,7 @@
                         FlagRecoPerfil: flagRecoPerfil,
                         FlagRecoProduc: flagRecoProduc,
                         CodigoPrograma: codigoPrograma,
-                        FlagMostrarImg: flagMostrarImg  // SB2-353
+                        FlagMostrarImg: flagMostrarImg 
                     };
 
                     jQuery.ajax({
@@ -542,10 +528,8 @@
                 var img = $($("#list").jqGrid('getCell', id, 'ImagenEstrategia')).attr('src');
                 $('#img01').attr('src', img);
                 img = img.replace(/^.*[\\\/]/, '');
-                //if (img.lastIndexOf("?") >= 0) {
-                if (img.length > 0) {        // SB20-353
-                    //img = img.substring(0, img.lastIndexOf("?")); // SB20-353
-                    //alert(img);
+                
+                if (img.length > 0) {
                     $('#imagenProducto01').val(img);
                     $('#imagenProductoAnterior01').val(img);
                 }
@@ -567,14 +551,12 @@
                 $("#txtCodigoPrograma").prop('disabled', true);
                 $("#txtCodigoPrograma").val(codigoPrograma);
 
-                /* SB20-353 - INICIO */
                 if (flagMostrarImg == "1") {
                     $("#chkMostrarImg").attr("checked", true);
                 }
                 else {
                     $("#chkMostrarImg").attr("checked", false);
                 }
-                /* SB20-353 - FIN */
 
                 fnGrillaOfertas(id);
 
@@ -742,7 +724,6 @@
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
                                             $("#imagenProducto01").val(responseJSON.name);
-                                            // req. 1664
                                             $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                         }
                                         else {

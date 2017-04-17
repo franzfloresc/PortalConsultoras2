@@ -12,7 +12,6 @@
         IniDialogRegistroLinks();
 
         $("#btnBuscar").click(function () {
-            
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -22,7 +21,6 @@
 
     });
     function fnRespuestaLink(responseText, statusText, xhr, $form) {
-        
         if (checkTimeout(responseText)) {
             $("#gvwLinks").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
             if (responseText && typeof responseText === "string") {
@@ -55,7 +53,6 @@
                     if (jQuery.trim($('#Descripcion').val()) == "")
                         message += "- Debe ingresar la Descripción.\n";
 
-                    // si no es padre la url es obligatoria
                     if (jQuery.trim($('#PermisoIDPadre').val()) != "")
                     {
                         if (jQuery.trim($('#UrlItem').val()) == "")
@@ -122,14 +119,14 @@
     }
 
     function fnGrilla() {
-        
+
         jQuery("#gvwLinks").jqGrid({
             url: baseUrl + "AdministrarLinks/Consultar",
             hidegrid: false,
             datatype: 'json',
             postData: ({
                 vpaisID: function () { return $("#ddlPais").val() },
-                vrolID: function () { return '1' } // consultora
+                vrolID: function () { return '1' }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -138,7 +135,6 @@
                 { name: 'PermisoID', index: 'PermisoID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'Descripción', index: 'Descripción', width: 35, editable: true, resizable: false },
-                //{ name: 'URL', index: 'URL', width: 20, editable: true, resizable: false },
                 { name: 'URL', index: 'URL', width: 40, editable: true, resizable: false, formatter: ShowUrl },
                 { name: 'Orden', index: 'Orden', width: 8, editable: true, resizable: false },
                 { name: 'Posición', index: 'Posición', width: 10, editable: true, resizable: false, align: 'center' },
@@ -210,7 +206,6 @@
                 $('#Posicion').val($("#gvwLinks").jqGrid('getCell', Id, 'Posición'));
                 var isPaginaNueva = jQuery("#gvwLinks").jqGrid('getCell', Id, 'PaginaNueva') == "True";
                 $('#PaginaNueva').val(isPaginaNueva).attr("checked", isPaginaNueva);
-                //$('#ddlPadre').val(jQuery("#gvwLinks").jqGrid('getCell', Id, 'IdPadre'));
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
                 showDialog("DialogRegistroLink");
             } else {
@@ -356,7 +351,6 @@
     {
         <div class="Content_modal">
             @Html.Hidden("PermisoID")
-            @*@Html.Hidden("PermisoIDPadre")*@
             @Html.Hidden("PaisID")
             <div class="div-3">
                 <div class="titG">País:</div>
@@ -403,7 +397,6 @@
                     @Html.DropDownList("PermisoIDPadre", new SelectList(Model.listaLinks, "PermisoID", "Descripcion"), "--Seleccionar--", new Dictionary<string, object> { { "data-val", false } })
                 </div>
             </div>
-            @*@Html.ValidationSummary(null, new { @class = "validation-error-server", @id = "divMensaje" })*@
         </div>
     }
 </div>

@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaCDRWebModel = new List<CDRWebModel>();
             }
-
+            
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
@@ -96,6 +96,38 @@ namespace Portal.Consultoras.Web.Controllers
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
+
+            if (userData.PaisID == 9)
+            {
+                model.limiteMinimoTelef = 5;
+                model.limiteMaximoTelef = 15;
+            }
+            else if (userData.PaisID == 11)
+            {
+                model.limiteMinimoTelef = 7;
+                model.limiteMaximoTelef = 9;
+            }
+            else if (userData.PaisID == 4)
+            {
+                model.limiteMinimoTelef = 7;
+                model.limiteMaximoTelef = 7;
+            }
+            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
+            {
+                model.limiteMinimoTelef = 8;
+                model.limiteMaximoTelef = 8;
+            }
+            else if (userData.PaisID == 6)
+            {
+                model.limiteMinimoTelef = 9;
+                model.limiteMaximoTelef = 10;
+            }
+            else
+            {
+                model.limiteMinimoTelef = 0;
+                model.limiteMaximoTelef = 15;
+            }
+
             return View(model);
         }
 
@@ -1061,7 +1093,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SetUserData(userData);
 
                 string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
-                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: REGISTRADO", contenidoMailCulminado, true, userData.NombreConsultora);
+                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
 
                 //Proceso de envio de correo en caso el email sea nuevo.
                 if (SiNoEmail == 1)
@@ -1184,7 +1216,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "*Este teléfono ya está siendo utilizado. Intenta con otro",
+                            message = "*Este número de celular ya está siendo utilizado. Intenta con otro.",
                             extra = ""
                         }, JsonRequestBehavior.AllowGet);
                     }

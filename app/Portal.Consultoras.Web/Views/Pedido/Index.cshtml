@@ -6,7 +6,6 @@
 }
 
 @section styles{
-    @*<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />*@
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
 }
@@ -77,20 +76,17 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_descripcion_producto">
-                @*Descripción Producto*@
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico"
                        onkeyup="PreValidarCUV();" placeholder="Descripción producto" />
             </div>
 
             <div class="pedido_ingreso_datos campo_precio">
-                @*Precio*@
                 <br />
                 <input id="txtPrecioR" disabled="disabled" class="preciounitario" placeholder="Precio" />
             </div>
 
             <div class="pedido_ingreso_datos campo_cantidad">
-                @*Cantidad*@
                 <br />
                 <div class="liquidacion_rango_wrapper_pedido">
                     <input type="text" name="Cantidad" id="txtCantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
@@ -103,7 +99,6 @@
             </div>
 
             <div class="pedido_ingreso_datos campo_cliente">
-                @*Cliente*@
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus();"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
@@ -378,7 +373,6 @@
                         <span class="icon-advertencia"></span>
                         <span>
                             El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                            @*Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.*@
                         </span>
                     </p>
                 </div>
@@ -807,7 +801,6 @@
     <br />
     <ul id="OfertasResultados" class="listaOfertas"></ul>
 
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
     <div class="zona4Edit zona_estrategia_4 texto-centrado"></div>
     <div class="zonaCantidad texto-centrado">
         <table style="margin: 0 auto;" cellpadding="10" cellspacing="10">
@@ -831,7 +824,6 @@
             </tr>
         </table>
     </div>
-    @* Esto no es muestra si esta activo ProgramaOfertasNuevas*@
     <br />
     <div class="div-3 texto-centrado">
         <input class="btnBotonRojo" type="button" value="Agregar" onclick="javascript: AgregarProductoDestacado(this);" />
@@ -1092,14 +1084,7 @@
                         <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
                         <input type="hidden" name="Campania" id="Campania" />
                         <input type="hidden" name="MarcaID" id="MarcaID" />
-                        @*<input type="hidden" name="DivPanelPedidoRechazado" id="DivPanelPedidoRechazado" />*@
-
                         <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                        @*<div class="optionsRechazo" data-id="1">Yo no puedo atender su pedido.</div>
-                            <div class="optionsRechazo" data-id="2">El cliente vive muy lejos.</div>
-                            <div class="optionsRechazo" data-id="3">Habían productos agotados en esta campaña.</div>
-                            <div class="optionsRechazo" data-id="4">No pasaré pedido esta campaña.</div>*@
 
                         @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
                 {
@@ -1179,9 +1164,6 @@
                         Portal {{Marca}}
                         {{/if_eq}}
                     </div>
-
-                    @*<div class="padding_tabla_percepcion dinamicostable">{{DetallePedido[0].FechaCreacion}}</div>
-                        <div class="padding_tabla_percepcion dinamicostablemedio">{{DetallePedido[0].PrecioTotal}}</div>*@
 
                     <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
                     <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">@Model.Simbolo {{FormatoPrecioTotal}}</div>
@@ -1610,7 +1592,6 @@
                 </div>
                 <div class="texto_pedidos clientePedido">
                     {{#if EsKitNueva}}
-                    @*<div style="padding: 0 10px; text-align: center;">{{Nombre}}</div>*@
                     {{else}}
                     <input type="hidden" name="hdfLPCliIni{{PedidoDetalleID}}" id="hdfLPCliIni{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
                     <input type="hidden" name="hdfLPCli{{PedidoDetalleID}}" id="hdfLPCli{{PedidoDetalleID}}" value="{{ClienteID}}" class="classClienteID" />
@@ -1683,65 +1664,70 @@
         <script id="estrategia-template" type="text/x-handlebars-template">
             {{#each this as |item|}}
             <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
-                <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
-                    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
-                    <div class="producto_img">
-                        <img src="{{FotoProducto01}}" />
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                        <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
-                        {{/iff}}
-                    </div>
-                    {{#if_eq FlagMostrarImg '1'}}
-                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                    <div class="etiqueta_producto">
-                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                    </div>
-                    {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                    {{#if_eq FlagEstrella '1' }}
-                    <div class="etiqueta_producto">
-                        <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                    </div>
-                    {{/if_eq}}
-                    {{/if_eq}}
-                    {{/if_eq}}
-                    <div class="producto_nombre_descripcion">
-                        <h6>{{DescripcionMarca}}</h6>
-                        {{#if_eq FlagNueva '1'}}
-                        <p class="nombre_producto">
-                            <b>{{DescripcionCUVSplit}}</b>
-                        </p>
-                        {{else}}
-                        <p class="nombre_producto">
-                            <b>{{DescripcionCUV2}}</b>
-                        </p>
-                        {{/if_eq}}
+                <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
 
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                        {{#if_eq EtiquetaID '1'}}
-                        <div class="producto_precio">
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi" />
+                        <div class="producto_img">
+                            <img src="{{FotoProducto01}}" />
+                            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+                            <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                             {{/iff}}
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        {{#if_eq FlagMostrarImg '1'}}
+                        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+                        <div class="etiqueta_producto">
+                            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                        </div>
+                        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+                        {{#if_eq FlagEstrella '1' }}
+                        <div class="etiqueta_producto">
+                            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
                         </div>
                         {{/if_eq}}
+                        {{/if_eq}}
+                        {{/if_eq}}
+                        <div class="producto_nombre_descripcion">
+                            <h6>{{DescripcionMarca}}</h6>
+                            {{#if_eq FlagNueva '1'}}
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUVSplit}}</b>
+                            </p>
+                            {{else}}
+                            <p class="nombre_producto">
+                                <b>{{DescripcionCUV2}}</b>
+                            </p>
+                            {{/if_eq}}
 
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                            {{#if_eq EtiquetaID '1'}}
+                            <div class="producto_precio">
+                                {{#iff Precio '>' 0}}
+                                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                                {{/iff}}
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{else}}
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{/if_eq}}
+
+                            {{else}}
+                            <div class="producto_precio">
+                                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                            </div>
+                            {{/iff}}
                         </div>
-                        {{/iff}}
-
+                    </div>
+                    <div class="producto_nombre_descripcion">
                         <div class="contenedor_cantidad_producto">
+                            {{#iff TieneVariedad '==' '0'}}
                             {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;width: 56px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled="" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this)" data-input='cantidad' />
@@ -1781,6 +1767,17 @@
                             <a href="javascript:;" class="boton_elegirAgregar js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                                 AGREGAR
                             </a>
+                            {{/iff}}
+                            {{else}}
+                            <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                                <div class="texto_elige_tono">
+                                    ¡AHORA ELIGE TU TONO!
+                                </div>
+                                <div class="clear"></div>
+                                <a class="btn_elige_tono js-no-popup">
+                                    <div>ELIGE TU OPCIÓN</div>
+                                </a>
+                            </div>
                             {{/iff}}
                             <div class="clear"></div>
                             <div style="padding-top:9px; height: 15px;">
@@ -1864,26 +1861,26 @@
 
 <script id="lanzamiento-template" type="text/x-handlebars-template">
     <div class="content_ficha_producto_nueva" data-popup-body="" data-item="">
-        <div data-compartir-campos="" style="display:none;">
-            <input type="hidden" class="CUV" value="{{CUV2}}" />
-            <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
-            <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
-            <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
-            <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
-            <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
-            <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
-            <input type="hidden" class="ProductoDescripcion" value="{{DescripcionCUV2}}" />
-            <input type="hidden" class="Volumen" value="{{Volumen}}" />
-            <input type="hidden" class="Palanca" value="OPT" />
-        </div>
-        <a class="cerrar_fichaProducto" href="javascript:;" onclick="return $('#popupDetalleCarousel_lanzamiento').hide();" title="Cerrar">
+        <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
         <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                <input type="hidden" class="Palanca" value="OPT" />
+            </div>
             <div class="content_left_ficha">
                 {{#if_eq FlagMostrarImg '1'}}
                 {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
@@ -1900,87 +1897,135 @@
                     <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                         <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
                     </a>
-                    @*<a class="btn_compartir_facebook_ficha"><img src="/Content/Images/Esika/mensaje_ficha.png" width="20" height="15"></a>*@
                     <hr class="clear">
                 </div>
             </div>
             <div class="content_right_ficha">
-                <div style="width:50%; margin-right:0">
-                    <div class="marca_producto">{{DescripcionMarca}}</div>
-                    <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion>{{DescripcionCompleta}}</div>
-                    @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
-                </div>
-                <div>
-                    <div class="precio_ficha_producto">
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                        {{/iff}}
-                        <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
-                        @*<div class="ganancia_ficha">Gana S/.90</div>*@
+                <div style="min-height:300px;">
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
+                        <div class="marca_producto">{{DescripcionMarca}}</div>
+                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
+                             {{#iff CodigoEstrategia '==' ''}} style="font-size:22px; line-height:25px;" {{/iff}}>
+                            {{DescripcionCompleta}}
+                        </div>
+                        @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                     </div>
-                </div>
-                <hr class="clear">
-                <div data-estrategia="{{CodigoEstrategia}}">
-                    {{#iff CodigoEstrategia '!=' ''}}
-                    {{#iff CodigoEstrategia '==' '2001'}}
-                    <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}">
-                        <div class="linea_gris" style="height:1px;"></div>
-                        <!--SELECCION DE TONOS-->
-                        <div class="content_tonos_maquillaje" data-tono-div="">
-                            {{#each this.Detalle as |item1|}}
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                            </div>
-                            <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="">
-                                <img src="{{item1.ImagenBulk}}" alt="">
-                                <div class="tooltip_tono">{{item1.NombreBulk}}</div>
-                            </div>
-                            {{/each}}
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
+                        <div class="precio_ficha_producto">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            {{/iff}}
+                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
+                            @*<div class="ganancia_ficha">Gana S/.90</div>*@
                         </div>
-                        <select class="tono_labial_select" data-tono-change="">
-                            {{#each this.Detalle as |item2|}}
-                            <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
-                            {{/each}}
-                        </select>
-                        <!--FIN-->
                     </div>
-                    {{/iff}}
-                    {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
-                    {{#each this.Detalle as |item1|}}
-                    <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}">
-                        <div style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
-                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                        </div>
-                        <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%{{else}}100%{{/iff}}; margin-right:0">
-                            @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
-                            <div class="sub_nombre_producto" data-tono-nombre="">{{item1.NombreComercial}}</div>
-                            @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
-                        </div>
-                        {{#iff item1.Digitable '==' '1'}}
-                        <div class="content_right_ficha" style="width:50%;">
-                            <div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
-                            <div>
-                                <div class="combo_select_tono">
-                                    <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
+                    <hr class="clear">
+                    <div data-estrategia="{{CodigoEstrategia}}">
+                        {{#iff CodigoEstrategia '!=' ''}}
+                        {{#iff CodigoEstrategia '==' '2001'}}
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                            @*<div class="linea_gris" style="height:1px;"></div>*@
+                            <!--SELECCION DE TONOS-->
+                            <!--NUEVA MAQUETA-->
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
                                 </div>
-                                <div class="content_tonos_ficha">
-                                    {{#each item1.Hermanos as |tono|}}
-                                    <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                        <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+
+                                <div class="content_tonos_select" style="display:none;">
+                                    {{#each this.Detalle as |Tono|}}
+                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
+                                        <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
+                                        <hr class="clear" />
                                     </div>
                                     {{/each}}
                                 </div>
                             </div>
+                            <!--FIN-->
+                            @*<select class="tono_labial_select" data-tono-change="">
+                                    {{#each this.Detalle as |item2|}}
+                                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                                    {{/each}}
+                                </select>*@
+                            <div class="content_tonos_maquillaje" data-tono-div="">
+                                {{#each this.Detalle as |item1|}}
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                                </div>
+                                <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="2" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcion="{{item1.NombreComercial}}">
+                                    <img src="{{item1.ImagenBulk}}" alt="">
+                                    @*<div class="tooltip_tono">{{item1.NombreBulk}}</div>*@
+                                </div>
+                                {{/each}}
+                            </div>
+                            <!--FIN-->
                         </div>
                         {{/iff}}
-                        <hr class="clear" />
+                        {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
+                        <div class="titulo_contenido">CONTENIDO</div>
+
+                        {{#each this.Detalle as |item1|}}
+
+                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
+                            <div style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                            </div>
+                            <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
+                                @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
+                                <div class="sub_nombre_producto">
+                                    <span class="cantidad_producto_opt">x{{item1.Cantidad}} </span>
+                                    <span data-tono-select-nombrecomercial="">{{item1.NombreComercial}}</span>
+                                </div>
+                                @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
+                            </div>
+                            {{#iff item1.Digitable '==' '1'}}
+                            <div class="content_right_ficha" style="width:50%;">
+                                <!--MAQUETADO NUEVO-->
+                                <div class="tono_select_opt">
+                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                        <hr class="clear">
+                                    </div>
+                                    <div class="content_tonos_select" style="width:102%;">
+                                        {{#each item1.Hermanos as |tono|}}
+                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                            <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
+                                            <div class="texto_tono_seleccionado">{{tono.NombreBulk}}</div>
+                                            <hr class="clear">
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                                <!--FIN-->
+                                @*<div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
+                                    <div>
+                                        <div class="combo_select_tono">
+                                            <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
+                                        </div>
+                                        <div class="content_tonos_ficha">
+                                            {{#each item1.Hermanos as |tono|}}
+                                            <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
+                                                <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>*@
+                            </div>
+                            {{/iff}}
+                            <hr class="clear" />
+                        </div>
+                        {{/each}}
+                        {{/iff}}
+                        {{/iff}}
                     </div>
-                    {{/each}}
-                    {{/iff}}
-                    {{/iff}}
                 </div>
+                <hr class="clear" />
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido">
@@ -1988,7 +2033,7 @@
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>
                 {{#if MostrarTextoLibre}}
@@ -2020,9 +2065,6 @@
                     {{#each this}}
                     {{#each Detalle}}
                     <tr>
-                        @*{{#iff @@index '==' 0}}
-                                <td rowspan="{{../CantidadDetalles}}">{{../Categoria}}</td>
-                            {{/iff}}*@
                         <td class="categoria_productoAgotado">{{../Categoria}}</td>
                         <td class="codigo_productoAgotado">{{CUV}}</tdclass="codigo_productoAgotado">
                         <td class="producto_productoAgotado">{{Descripcion}}</td>
@@ -2078,7 +2120,6 @@
                             <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/iff}}
                     </div>
-                    @*<div class="texto_complemento_oferta">Compra en oferta los complementos de tu pedido</div>*@
                 </div>
 
             </div>
@@ -2117,10 +2158,8 @@
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}"  onclick="javascript:CargarVerDetalleOF(this, event);">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;" data-tooltip-text="{{CUVPedidoNombre}}">
-                        @*<i class="img-tooltip" data-toggle="tooltip" data-placement="right" title="Cómpralo porque ya tienes Shampoo Essens..." data-animation="false" data-trigger="manual" />*@
                         <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
                     </div>
-                    @*<div class="etiqueta_producto"></div>*@
                     <div class="producto_nombre_descripcion">
                         <div onclick="javascript:CargarVerDetalleOF(this, event);">
                             <h6>{{DescripcionMarca}}</h6>
@@ -2196,7 +2235,6 @@
                 <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB" >
                     <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" width="19" height="18" />
                 </a>
-                @*<a class="btn_compartir_facebook_ficha"><img src="@Url.Content("~/Content/Images/Esika/mensaje_ficha.png")" width="20" height="15" /></a>*@
                 <hr class="clear" />
             </div>
         </div>
@@ -2275,18 +2313,17 @@
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
                 var urlPedido = '@Url.Action("Index","Pedido")';
-        
+
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
-
-                /*PL20-1227*/
                 var origenPagina = 2;
                 var tipoOrigenEstrategia = 11;
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
+                var indicadorGPRSB = '@Model.IndicadorGPRSB';
+
             </script>
-            @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
-            <script type="text/javascript" src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+            @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
