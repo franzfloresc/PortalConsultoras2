@@ -79,22 +79,22 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania = null;
 
                 //EPD-2058
-                //if (userData.TipoUsuario == 1)
-                //{
+                if (userData.TipoUsuario == 1)
+                {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
                         oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
                     }
-                //}
-                //else
-                //{
-                //    oBEConfiguracionCampania = new BEConfiguracionCampania();
-                //    oBEConfiguracionCampania.CampaniaID = userData.CampaniaID;
-                //    oBEConfiguracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
-                //    oBEConfiguracionCampania.ModificaPedidoReservado = false;
-                //    oBEConfiguracionCampania.ZonaValida = false;
-                //}
+                }
+                else
+                {
+                    oBEConfiguracionCampania = new BEConfiguracionCampania();
+                    oBEConfiguracionCampania.CampaniaID = userData.CampaniaID;
+                    oBEConfiguracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
+                    oBEConfiguracionCampania.ModificaPedidoReservado = false;
+                    oBEConfiguracionCampania.ZonaValida = false;
+                }
                 
                 if (oBEConfiguracionCampania != null)
                 {
@@ -4014,31 +4014,31 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     //EPD-2058 Comprobar esta validación 
-                    //if (userData.TipoUsuario == 2)
-                    //{
-                    //    /*
-                    //     *  tipoAccion:
-                    //     *  1: Agregar
-                    //     *  2: Listar
-                    //     */
-                    //    if (!string.IsNullOrEmpty(tipoAccion))
-                    //    {
-                    //        if (tipoAccion == "1")
-                    //        {
-                    //            estado = true;
-                    //            mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //        }
-                    //        else if (tipoAccion == "2")
-                    //        {
-                    //            estado = false;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        estado = true;
-                    //        mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //    }
-                    //}
+                    if (userData.TipoUsuario == 2)
+                    {
+                        /*
+                         *  tipoAccion:
+                         *  1: Agregar
+                         *  2: Listar
+                         */
+                        if (!string.IsNullOrEmpty(tipoAccion))
+                        {
+                            if (tipoAccion == "1")
+                            {
+                                estado = true;
+                                mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                            }
+                            else if (tipoAccion == "2")
+                            {
+                                estado = false;
+                            }
+                        }
+                        else
+                        {
+                            estado = true;
+                            mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                        }
+                    }
                 }
 
                 return Json(new

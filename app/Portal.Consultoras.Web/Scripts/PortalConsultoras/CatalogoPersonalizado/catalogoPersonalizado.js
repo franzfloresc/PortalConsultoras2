@@ -966,10 +966,10 @@ function DialogLoadingAbrir() {
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     if (typeof gTipoUsuario !== 'undefined') {
-        //if (gTipoUsuario == '2') {
-        //    alert('Acceso restringido, aun no puede agregar pedidos');
-        //    return true;
-        //}
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
     }
 
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;

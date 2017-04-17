@@ -733,11 +733,11 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
-    //if (typeof gTipoUsuario !== 'undefined') {
-    //    if (gTipoUsuario == '2') {
-    //        return false;
-    //    }
-    //}
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
 
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
@@ -771,10 +771,10 @@ function CambiarTonoTalla(ddlTonoTalla) {
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     if (typeof gTipoUsuario !== 'undefined') {
-        //if (gTipoUsuario == '2') {
-        //    alert('Acceso restringido, aun no puede agregar pedidos');
-        //    return true;
-        //}
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
     }
 
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -2794,11 +2794,11 @@ function playVideo() {
 };
 
 function CrearPopShow() {
-    //if (typeof gTipoUsuario !== 'undefined') {
-    //    if (gTipoUsuario == '2') {
-    //        return false;
-    //    }
-    //}
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
 
     var noMostrarShowRoom = true;
     

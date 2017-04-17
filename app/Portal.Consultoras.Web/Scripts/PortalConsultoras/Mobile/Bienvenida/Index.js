@@ -108,9 +108,9 @@ function CrearPopShow() {
 
 function MostrarShowRoom() {
     if (typeof gTipoUsuario !== 'undefined') {
-        //if (gTipoUsuario == '2') {
-        //    return false;
-        //}
+        if (gTipoUsuario == '2') {
+            return false;
+        }
     }
 
     if (sesionEsShowRoom == '0') {
@@ -296,12 +296,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     var restringido = true;
 
     if (mostrarAlerta) {
-        //if (typeof gTipoUsuario !== 'undefined') {
-            //if (gTipoUsuario == '2') {
-            //    alert('Acceso restringido, aun no puede agregar pedidos');
-            //    return true;
-            //}
-        //}
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
     }
 
     $.ajaxSetup({ cache: false });
