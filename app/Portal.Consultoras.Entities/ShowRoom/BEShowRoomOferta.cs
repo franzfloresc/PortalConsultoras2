@@ -145,6 +145,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         public string DescripcionCategoria { get; set; }
 
+        [DataMember]
+        public decimal PrecioOferta2 { get; set; }
+
         public BEShowRoomOferta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
@@ -161,6 +164,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
                 PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
+            //if (DataRecord.HasColumn(row, "PrecioOferta2") && row["PrecioOferta2"] != DBNull.Value)
+            //    PrecioOferta2 = Convert.ToDecimal(row["PrecioOferta2"]);
             if (DataRecord.HasColumn(row, "PrecioCatalogo") && row["PrecioCatalogo"] != DBNull.Value)
                 PrecioCatalogo = Convert.ToDecimal(row["PrecioCatalogo"]);
             if (DataRecord.HasColumn(row, "Stock") && row["Stock"] != DBNull.Value)
