@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader SearchListProductoChatbotByCampaniaRegionZona(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaZona_Chatbot");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaZona");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);

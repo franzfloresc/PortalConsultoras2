@@ -150,12 +150,15 @@ namespace Portal.Consultoras.Entities
         //    get { return miPaisID; }
         //    set { miPaisID = value; }
         //}
-
+        
+        [DataMember]
+        public string ImagenOferta { get; set; }
         [DataMember]
         public string ImagenProducto { get; set; }
-
         [DataMember]
-        public string FotoProducto { get; set; }
+        public string DescripcionOferta { get; set; }
+        [DataMember]
+        public string DescripcionProducto { get; set; }
 
         [DataMember]
         public string ImagenProductoSugerido { get; set; }
@@ -260,12 +263,15 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
                 CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();
 
+            if (DataRecord.HasColumn(datarec, "ImagenOferta") && datarec["ImagenOferta"] != DBNull.Value)
+                ImagenOferta = Convert.ToString(datarec["ImagenOferta"]);
             if (DataRecord.HasColumn(datarec, "ImagenProducto") && datarec["ImagenProducto"] != DBNull.Value)
                 ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
-
-            if (DataRecord.HasColumn(datarec, "FotoProducto") && datarec["FotoProducto"] != DBNull.Value)
-                FotoProducto = Convert.ToString(datarec["FotoProducto"]);
-        }
+            if (DataRecord.HasColumn(datarec, "DescripcionOferta") && datarec["DescripcionOferta"] != DBNull.Value)
+                DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
+                DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
+    }
 
         public BEProducto()
         {

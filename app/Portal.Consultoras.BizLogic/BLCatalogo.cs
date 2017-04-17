@@ -116,7 +116,6 @@ namespace Portal.Consultoras.BizLogic
                         catalogoRevista.UrlImagen = dictionaryIssu[catalogoRevista.CodigoCatalogo];
                         catalogoRevista.UrlVisor = string.Format(urlIssuuVisor, catalogoRevista.CodigoCatalogo);
                     }
-                    else catalogoRevista.UrlImagen = "";
                 }
             }
             catch (Exception ex)
@@ -157,22 +156,30 @@ namespace Portal.Consultoras.BizLogic
                 new BECatalogoRevista
                 {
                     MarcaID = 0,
-                    MarcaDescripcion = "Revista"
+                    MarcaDescripcion = "Revista",
+                    UrlImagen = Constantes.CatalogoImagenDefault.Revista,
+                    UrlVisor = ""
                 },
                 new BECatalogoRevista
                 {
                     MarcaID = Constantes.Marca.LBel,
-                    MarcaDescripcion = "Lbel"
+                    MarcaDescripcion = "Lbel",
+                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                    UrlVisor = Constantes.CatalogoUrlDefault.Lbel
                 },
                 new BECatalogoRevista
                 {
                     MarcaID = Constantes.Marca.Esika,
-                    MarcaDescripcion = "Esika"
+                    MarcaDescripcion = "Esika",
+                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                    UrlVisor = Constantes.CatalogoUrlDefault.Esika
                 },
                 new BECatalogoRevista
                 {
                     MarcaID = Constantes.Marca.Cyzone,
-                    MarcaDescripcion = "Cyzone"
+                    MarcaDescripcion = "Cyzone",
+                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                    UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
                 },
                 //new BECatalogoRevista
                 //{
