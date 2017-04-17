@@ -140,6 +140,8 @@ $(document).ready(function () {
             return false;
         }
 
+        waitingDialog();
+
         $('#HdePaisID').val(PaisID);
         $('#ddlPais option:not(:selected)').prop('disabled', true);
         $('#txtUsuario').attr('readonly', true);
@@ -536,6 +538,8 @@ function login2() {
 
     $('.content_pop_login').hide();
     $('#btnLoginFB').prop('disabled', true);
+
+    waitingDialog();
 
     $('#frmLogin').submit();
 }

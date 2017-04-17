@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 if (userExt == null)
                                 {
                                     BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
-                                    beUsuarioExterno.CodigoUsuario = model.CodigoUsuario;
+                                    beUsuarioExterno.CodigoUsuario = validaLogin.CodigoUsuario;
                                     beUsuarioExterno.Proveedor = usuarioExterno.Proveedor;
                                     beUsuarioExterno.IdAplicacion = usuarioExterno.IdAplicacion;
                                     beUsuarioExterno.Login = usuarioExterno.Login;
@@ -836,8 +836,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["ListFiltersFAV"] = lstFiltersFAV;
                 }
-                //PL20-1234
-
+                //Para paises lebelizados.
+                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(model.CodigoISO))
+                {
+                    model.EsLebel = true;
+                }
+                    
                 Session["UserData"] = model;
             }
             catch (Exception ex)
