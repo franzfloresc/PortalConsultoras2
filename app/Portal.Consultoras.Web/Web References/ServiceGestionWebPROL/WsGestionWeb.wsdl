@@ -121,6 +121,33 @@
           <s:element minOccurs="0" maxOccurs="1" name="observacion" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPrecioProductosOfertaWeb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campania" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuvs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrecioProductosOfertaWebResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrecioProductosOfertaWebResult" type="tns:ArrayOfPrecioProducto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPrecioProducto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PrecioProducto" nillable="true" type="tns:PrecioProducto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PrecioProducto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="precio_producto" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetConsultaPrecioValorizado">
         <s:complexType>
           <s:sequence>
@@ -213,6 +240,12 @@
   <wsdl:message name="ConsultaStockProlSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaStockProlResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPrecioProductosOfertaWebSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrecioProductosOfertaWeb" />
+  </wsdl:message>
+  <wsdl:message name="GetPrecioProductosOfertaWebSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrecioProductosOfertaWebResponse" />
+  </wsdl:message>
   <wsdl:message name="GetConsultaPrecioValorizadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaPrecioValorizado" />
   </wsdl:message>
@@ -241,6 +274,10 @@
     <wsdl:operation name="ConsultaStockProl">
       <wsdl:input message="tns:ConsultaStockProlSoapIn" />
       <wsdl:output message="tns:ConsultaStockProlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <wsdl:input message="tns:GetPrecioProductosOfertaWebSoapIn" />
+      <wsdl:output message="tns:GetPrecioProductosOfertaWebSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultaPrecioValorizado">
       <wsdl:input message="tns:GetConsultaPrecioValorizadoSoapIn" />
@@ -282,6 +319,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaStockProl">
       <soap:operation soapAction="http://tempuri.org/ConsultaStockProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <soap:operation soapAction="http://tempuri.org/GetPrecioProductosOfertaWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -339,6 +385,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaStockProl">
       <soap12:operation soapAction="http://tempuri.org/ConsultaStockProl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <soap12:operation soapAction="http://tempuri.org/GetPrecioProductosOfertaWeb" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
