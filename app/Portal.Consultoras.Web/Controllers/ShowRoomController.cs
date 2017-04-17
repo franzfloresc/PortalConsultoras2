@@ -17,6 +17,8 @@ using Switch = System.Diagnostics.Switch;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Configuration;
 
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
@@ -751,9 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flStock.SaveAs(finalPath);
 
                     string inputLine = "";
-
                     string[] values = null;
-
                     int contador = 0;
 
                     using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
@@ -788,9 +788,47 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+
                     if (lstStock.Count > 0)
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
+
+                        //PL20-1398
+                        var lstPrecioProductoPROL = new List<PrecioProducto>();
+                        var stock1 = lstStock.First();
+                        var codigosCuv = string.Join("|", lstStock.Select(x => x.CUV));
+
+                        using (WsGestionWeb svc = new WsGestionWeb())
+                        {
+                            lstPrecioProductoPROL = svc.GetPrecioProductosOfertaWeb(stock1.ISOPais, stock1.CampaniaID.ToString(), codigosCuv).ToList();
+                        }
+
+                        stock1 = null;
+
+                        if (lstPrecioProductoPROL.Any())
+                        {
+                            foreach (var item in lstPrecioProductoPROL)
+                            {
+                                var oStock = lstStock.Where(x => x.CUV == item.cuv).FirstOrDefault();
+                                if (oStock != null)
+                                {
+                                    oStock.PrecioOferta2 = item.precio_producto;
+                                }
+                            }
+
+                            /*
+                            var pid = Util.GetPaisID(tmpItem.ISOPais);
+                            var totalLoad = 0;
+                            tmpItem = null;
+
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                totalLoad = svc.InsOfertaShowRoomCargaMasiva(pid, lstStock.ToArray());
+                            }
+                             * */
+                        }
+                        //PL20-1398
+
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
 
                         var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();
@@ -807,6 +845,26 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
                         }
+
+                        /*
+                        List<BEShowRoomOferta> lstStock2 = new List<BEShowRoomOferta>();
+                        foreach(var item in lstStock) 
+                        {
+                            var a = new BEShowRoomOferta();
+                            a.ISOPais = item.ISOPais;
+                            a.TipoOfertaSisID = item.TipoOfertaSisID;
+                            a.CampaniaID = item.CampaniaID;
+                            a.CUV = item.CUV;
+                            a.Stock = item.Stock;
+                            a.PrecioOferta = item.PrecioOferta;
+                            a.UnidadesPermitidas = item.UnidadesPermitidas;
+                            a.Descripcion = item.Descripcion;
+                            a.CodigoCategoria = item.CodigoCategoria;
+                            a.TipNegocio = item.TipNegocio;
+                            //a.PrecioOferta2 = item.PrecioOferta2;
+                            lstStock2.Add(a);
+                        }
+                         * */
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -1212,6 +1270,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
+                                   a.PrecioCatalogo.ToString("#0.00"),
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
@@ -1304,6 +1363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1367,6 +1427,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
