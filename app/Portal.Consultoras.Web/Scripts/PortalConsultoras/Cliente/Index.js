@@ -157,13 +157,14 @@ function showDivAgregar() {
         $('#dialog_MensajePostulante').show();
     }
     else {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return false;
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return false;
+            }
         }
+        $('#divAgregarCliente').show();
     }
-    $('#divAgregarCliente').show();
 }
 
 function ShowDivEditar(obj) {
