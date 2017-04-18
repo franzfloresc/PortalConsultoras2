@@ -46,6 +46,25 @@
           <s:element minOccurs="0" maxOccurs="1" name="cantidad" type="s:string" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetCdrWebConsulta_Reclamo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="periodo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codconsultora" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cantidad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="zona" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCdrWebConsulta_ReclamoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCdrWebConsulta_ReclamoResult" type="tns:ArrayOfRptCdr" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="ConsultaStockBySap">
         <s:complexType>
           <s:sequence>
@@ -100,6 +119,33 @@
           <s:element minOccurs="1" maxOccurs="1" name="estado" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="stockdisponible" type="s:int" />
           <s:element minOccurs="0" maxOccurs="1" name="observacion" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPrecioProductosOfertaWeb">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campania" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuvs" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrecioProductosOfertaWebResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrecioProductosOfertaWebResult" type="tns:ArrayOfPrecioProducto" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPrecioProducto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PrecioProducto" nillable="true" type="tns:PrecioProducto" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PrecioProducto">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="precio_producto" type="s:decimal" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetConsultaPrecioValorizado">
@@ -176,6 +222,12 @@
   <wsdl:message name="GetCdrWebConsultaSoapOut">
     <wsdl:part name="parameters" element="tns:GetCdrWebConsultaResponse" />
   </wsdl:message>
+  <wsdl:message name="GetCdrWebConsulta_ReclamoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCdrWebConsulta_Reclamo" />
+  </wsdl:message>
+  <wsdl:message name="GetCdrWebConsulta_ReclamoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCdrWebConsulta_ReclamoResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaStockBySapSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaStockBySap" />
   </wsdl:message>
@@ -187,6 +239,12 @@
   </wsdl:message>
   <wsdl:message name="ConsultaStockProlSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultaStockProlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPrecioProductosOfertaWebSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrecioProductosOfertaWeb" />
+  </wsdl:message>
+  <wsdl:message name="GetPrecioProductosOfertaWebSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrecioProductosOfertaWebResponse" />
   </wsdl:message>
   <wsdl:message name="GetConsultaPrecioValorizadoSoapIn">
     <wsdl:part name="parameters" element="tns:GetConsultaPrecioValorizado" />
@@ -205,6 +263,10 @@
       <wsdl:input message="tns:GetCdrWebConsultaSoapIn" />
       <wsdl:output message="tns:GetCdrWebConsultaSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCdrWebConsulta_Reclamo">
+      <wsdl:input message="tns:GetCdrWebConsulta_ReclamoSoapIn" />
+      <wsdl:output message="tns:GetCdrWebConsulta_ReclamoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaStockBySap">
       <wsdl:input message="tns:ConsultaStockBySapSoapIn" />
       <wsdl:output message="tns:ConsultaStockBySapSoapOut" />
@@ -212,6 +274,10 @@
     <wsdl:operation name="ConsultaStockProl">
       <wsdl:input message="tns:ConsultaStockProlSoapIn" />
       <wsdl:output message="tns:ConsultaStockProlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <wsdl:input message="tns:GetPrecioProductosOfertaWebSoapIn" />
+      <wsdl:output message="tns:GetPrecioProductosOfertaWebSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetConsultaPrecioValorizado">
       <wsdl:input message="tns:GetConsultaPrecioValorizadoSoapIn" />
@@ -233,6 +299,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCdrWebConsulta_Reclamo">
+      <soap:operation soapAction="http://tempuri.org/GetCdrWebConsulta_Reclamo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaStockBySap">
       <soap:operation soapAction="http://tempuri.org/ConsultaStockBySap" style="document" />
       <wsdl:input>
@@ -244,6 +319,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaStockProl">
       <soap:operation soapAction="http://tempuri.org/ConsultaStockProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <soap:operation soapAction="http://tempuri.org/GetPrecioProductosOfertaWeb" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -281,6 +365,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCdrWebConsulta_Reclamo">
+      <soap12:operation soapAction="http://tempuri.org/GetCdrWebConsulta_Reclamo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ConsultaStockBySap">
       <soap12:operation soapAction="http://tempuri.org/ConsultaStockBySap" style="document" />
       <wsdl:input>
@@ -292,6 +385,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultaStockProl">
       <soap12:operation soapAction="http://tempuri.org/ConsultaStockProl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrecioProductosOfertaWeb">
+      <soap12:operation soapAction="http://tempuri.org/GetPrecioProductosOfertaWeb" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
