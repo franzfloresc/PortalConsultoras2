@@ -680,6 +680,8 @@
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+        var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
+        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
@@ -1197,6 +1199,7 @@
             if (ocultarBannerTop) {
                 $('.header_slider').slideUp();
                 $("#content").css({ 'margin-top': '63px' });
+                LayoutHeader();
             }
 
             var URLactual = window.location.href;
@@ -1214,9 +1217,7 @@
                 }
             }
 
-            
-
-            
+            setTimeout(LayoutHeader, 300);
         });
 
         function loadBannerLP20() {

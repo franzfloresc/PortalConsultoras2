@@ -34,7 +34,7 @@
                 <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
                 <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
-                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenMini"/>
+                <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
                 <input type="hidden" class="Nombre" value="@Model.Descripcion" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
                 <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
@@ -196,7 +196,7 @@
                        <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
                    </div>
                    <div class="producto_img_home mini" data-img="">
-                       <img src="@oferta.ImagenMini" style="width: auto; height: 100%;" class="imagen_producto">
+                       <img src="@oferta.ImagenProducto" style="width: auto; height: 100%;" class="imagen_producto">
                        <a class="ver_detalle_carrusel" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = oferta.OfertaShowRoomID})">VER DETALLE</a>
                    </div>
                    <div class="producto_nombre_descripcion">
@@ -214,7 +214,7 @@
                        </div>
                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                        <div class="clear"></div>
-                       <div style="padding-top: 9px; height: 15px;">
+                       <div style="padding-top: 9px; height: 23px;">
                            <div class="agregado product-add" data-btn-agregar-sr="" style="text-align: right; display: @oferta.Agregado;">
                                AGREGADO
                                <div class="icono"></div>
