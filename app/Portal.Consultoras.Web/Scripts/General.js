@@ -780,7 +780,14 @@ function xMensajeEstadoPedido(estado) {
     var url = location.href.toLowerCase();
     var esMobile = url.indexOf("/mobile/") > 0;
     var esBienvenida = url.indexOf("/bienvenida") > 0;
-
+    var esPedido = url.indexOf("/pedido") > 0;
+    var esmobilePedido = url.indexOf("/mobile/pedido") > 0;
+    var esmobileCliente = url.indexOf("/mobile/cliente") > 0;
+    var esmobilecatalogo = url.indexOf("/mobile/catalogo") > 0;
+    var esloquidacionweb = url.indexOf("mobile/ofertaliquidacion") > 0;
+    var esmobileEstadoCuenta = url.indexOf("mobile/estadocuenta") > 0;
+    var esmobileBienvenida = url.indexOf("/mobile/bienvenida") > 0;
+    
     if (estado) {
         var wheight = $(window).innerHeight();
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
@@ -826,12 +833,40 @@ function xMensajeEstadoPedido(estado) {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
             wtop = $("header").height();
+            
             if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+                LayoutHeader();
+
+                //if (mostrarOfertaDelDia && esmobileBienvenida) {
+                //    $("[data-content]").animate({ "margin-top": "0px" });
+                //} else if (!mostrarOfertaDelDia && esmobileBienvenida) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (mostrarOfertaDelDia && esmobilePedido) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (mostrarOfertaDelDia == 'False' && esmobileCliente) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (!mostrarOfertaDelDia && esmobileCliente) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (mostrarOfertaDelDia == 'False' && esmobilecatalogo) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "123px" });
+                //} else if (esloquidacionweb) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (mostrarOfertaDelDia == false && esmobilecatalogo) {
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //} else if (esmobileEstadoCuenta) {
+                //   $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
+                //}else
+                //{
+                //    $("[data-content]").animate({ "top": "64px", "margin-top": "123px" });
+                //}
+
             }
             else {
                 $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
             }
+
+         
+
             $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
         }
         else {
@@ -854,14 +889,51 @@ function xMensajeEstadoPedido(estado) {
                 else {
                     $(".ubicacion_web").animate({ "margin-top": "83px" });
                     $('.content_slider_home ').css('margin-top', '60px');
+                    debugger;
                     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
+                        debugger;
+                        if (esPedido) {
+                            $("[data-content]").animate({ "top": "-62px", "margin-top": "0px" });
+                        } else {
+                            $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
+                        }
+                        
                     }
                     else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
                 }
             }
         }
     }
+}
+
+function LayoutHeader() {
+    setTimeout(function () {
+        var url = location.href.toLowerCase();
+        var esMobile = url.indexOf("/mobile/") > 0;
+        var esBienvenida = url.indexOf("/bienvenida") > 0;
+
+        if (!esMobile) {
+            return false;
+        }
+
+        var hayOdd = $(".BloqueOfertaDiaHeader").length;
+        hayOdd = hayOdd > 0 ? $(".BloqueOfertaDiaHeader:visible").length : hayOdd;
+        hayOdd = hayOdd > 0 ? $('.header_slider:visible').length : hayOdd;
+
+        if (esMobile && esBienvenida) {
+            if (hayOdd > 0) {
+                $("[data-content]").animate({ "top": "", "margin-top": "" });
+                return false;
+            }
+        }
+
+        wtop = $("header").height();
+        if (hayOdd == 0) {
+            $(".BloqueOfertaDiaHeader").hide();
+            wtop = $("header").height();
+            $("[data-content]").animate({ "top": (wtop + 4) + "px", "margin-top": (wtop + 4) + "px" });
+        }
+    }, 500);
 }
 
 function ResizeMensajeEstadoPedido() {
