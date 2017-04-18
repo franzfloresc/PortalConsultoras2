@@ -349,6 +349,7 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
+    debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
@@ -1052,8 +1053,6 @@ function loadOfertaDelDia() {
                         $('#OfertaDelDia').show();
                     }
 
-                    
-
                     $('.content_slider_home').css('margin-top', '160px');
                     if (MostrarODD == "True") {
                         $('.ubicacion_web ').css('margin-top', '85px');
@@ -1116,7 +1115,7 @@ function closeOfertaDelDia() {
             if (response.success) {
                 $('#OfertaDelDia').hide();
 
-                $("#contentmain").css("margin-top", "63px")
+                $("#contentmain").css("margin-top", "0px")
 
                 $('.content_slider_home ').css('margin-top', '60px');
 
