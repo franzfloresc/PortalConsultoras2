@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web
 
             providerSession.Add("Bienvenida", "Index");
             providerSession.Add("Bienvenida", "ConsultarFaltantesAnunciados");
+            providerSession.Add("Bienvenida", "MailConfirmacion");
 
             providerSession.Add("ActualizarDatos", "Index");
             providerSession.Add("ActualizarDatos", "Registrar");
@@ -193,6 +194,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Pedido", "ConsultarEstrategias");
             providerSession.Add("Pedido", "CargarDetallePedido");
             providerSession.Add("Pedido", "ObtenerProductosOfertaFinal");
+            providerSession.Add("Pedido", "AccederOfertasVALAUTOPROL");
 
             providerSession.Add("PedidoWebAnteriores", "PedidoWebAnteriores");
             providerSession.Add("PedidoWebAnteriores", "ConsultarPedidoWebAnteriores");
