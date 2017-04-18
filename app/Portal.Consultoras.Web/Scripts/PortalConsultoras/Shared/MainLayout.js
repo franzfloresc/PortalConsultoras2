@@ -257,7 +257,6 @@ $(document).ready(function () {
     });
 
     $("body").on('click', '.belcorpChat', function () {
-        debugger;
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
         window.name = "PortalBelcorp";
         var PopUpChatOpened = window.localStorage.getItem('PopUpChatOpened');
@@ -275,63 +274,6 @@ $(document).ready(function () {
             }
             ventanaChat.focus();
         }
-
-       /*var FechaChatPais = BelcorpFechaChat_Pais;
-        var PaisISO = IsoPais
-        var fechaActual = FechaActual;
-        var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
-
-        if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
-
-            if (fechaActual >= FechaChatPais) {
-                var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
-                AbrirVentanaBelcorpChat(url);
-            }
-            else {
-
-                if (PaisISO == "PA") {
-                    var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                    AbrirVentanaBelcorpChat(urlPA);
-                }
-                else if (PaisISO == "CR") {
-                    var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                    AbrirVentanaBelcorpChat(urlCR);
-                }
-                else if (PaisISO == "SV") {
-                    var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                    AbrirVentanaBelcorpChat(urlSV);
-                }
-                else if (PaisISO == "GT") {
-                    var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                    AbrirVentanaBelcorpChat(urlGT);
-                }
-                else {
-                    AbrirVentanaBelcorpChat(res2);
-                }
-            }
-        }
-        else {
-
-            if (PaisISO == "PA") {
-                var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                AbrirVentanaBelcorpChat(urlPA);
-            }
-            else if (PaisISO == "CR") {
-                var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                AbrirVentanaBelcorpChat(urlCR);
-            }
-            else if (PaisISO == "SV") {
-                var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                AbrirVentanaBelcorpChat(urlSV);
-            }
-            else if (PaisISO == "GT") {
-                var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                AbrirVentanaBelcorpChat(urlGT);
-            }
-            else {
-                AbrirVentanaBelcorpChat(UrlChatAnterior);
-            }
-        }*/ 
         //cerrar Popup
         $(".ui-button-text").trigger("click");
     });
