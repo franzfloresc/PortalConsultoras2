@@ -10,6 +10,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetShowRoomOfertasConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomOfertasConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetShowRoomOfertasConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetShowRoomOfertasConsultoraResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetShowRoomOfertaById_InputMessage">
     <wsdl:part name="parameters" element="tns:GetShowRoomOfertaById" />
   </wsdl:message>
@@ -273,6 +279,18 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_ShowRoomProgramarAviso_OutputMessage">
     <wsdl:part name="parameters" element="tns:ShowRoomProgramarAvisoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdShowRoomEventoConsultoraEmailRecibido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdShowRoomEventoConsultoraEmailRecibidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEventoConsultoraRecibido_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEventoConsultoraRecibido" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetEventoConsultoraRecibido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEventoConsultoraRecibidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarTipoEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarTipoEstrategia" />
@@ -616,6 +634,12 @@
   <wsdl:message name="IPedidoService_UpdOfertaShowRoomStockMasivo_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdOfertaShowRoomStockMasivoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsOfertaShowRoomCargaMasiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsOfertaShowRoomCargaMasiva" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsOfertaShowRoomCargaMasiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsOfertaShowRoomCargaMasivaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_CargarMasivaDescripcionSets_InputMessage">
     <wsdl:part name="parameters" element="tns:CargarMasivaDescripcionSets" />
   </wsdl:message>
@@ -777,12 +801,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GuardarPerfilOfertaShowRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarPerfilOfertaShowRoomResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetShowRoomOfertasConsultora_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomOfertasConsultora" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetShowRoomOfertasConsultora_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetShowRoomOfertasConsultoraResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarConfiguracionCrossSelling_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarConfiguracionCrossSelling" />
@@ -1805,6 +1823,10 @@
     <wsdl:part name="parameters" element="tns:GetProductosRecomendadosByCUVCampaniaPortalResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetShowRoomOfertasConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora" message="tns:IPedidoService_GetShowRoomOfertasConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultoraResponse" message="tns:IPedidoService_GetShowRoomOfertasConsultora_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetShowRoomOfertaById">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaById" message="tns:IPedidoService_GetShowRoomOfertaById_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertaByIdResponse" message="tns:IPedidoService_GetShowRoomOfertaById_OutputMessage" />
@@ -1980,6 +2002,14 @@
     <wsdl:operation name="ShowRoomProgramarAviso">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ShowRoomProgramarAviso" message="tns:IPedidoService_ShowRoomProgramarAviso_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ShowRoomProgramarAvisoResponse" message="tns:IPedidoService_ShowRoomProgramarAviso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdShowRoomEventoConsultoraEmailRecibido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido" message="tns:IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoResponse" message="tns:IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEventoConsultoraRecibido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" message="tns:IPedidoService_GetEventoConsultoraRecibido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse" message="tns:IPedidoService_GetEventoConsultoraRecibido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarTipoEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarTipoEstrategia" message="tns:IPedidoService_InsertarTipoEstrategia_InputMessage" />
@@ -2209,6 +2239,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomStockMasivo" message="tns:IPedidoService_UpdOfertaShowRoomStockMasivo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomStockMasivoResponse" message="tns:IPedidoService_UpdOfertaShowRoomStockMasivo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsOfertaShowRoomCargaMasiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomCargaMasiva" message="tns:IPedidoService_InsOfertaShowRoomCargaMasiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomCargaMasivaResponse" message="tns:IPedidoService_InsOfertaShowRoomCargaMasiva_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CargarMasivaDescripcionSets">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets" message="tns:IPedidoService_CargarMasivaDescripcionSets_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSetsResponse" message="tns:IPedidoService_CargarMasivaDescripcionSets_OutputMessage" />
@@ -2316,10 +2350,6 @@
     <wsdl:operation name="GuardarPerfilOfertaShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GuardarPerfilOfertaShowRoom" message="tns:IPedidoService_GuardarPerfilOfertaShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GuardarPerfilOfertaShowRoomResponse" message="tns:IPedidoService_GuardarPerfilOfertaShowRoom_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomOfertasConsultora">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora" message="tns:IPedidoService_GetShowRoomOfertasConsultora_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultoraResponse" message="tns:IPedidoService_GetShowRoomOfertasConsultora_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarConfiguracionCrossSelling">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarConfiguracionCrossSelling" message="tns:IPedidoService_ValidarConfiguracionCrossSelling_InputMessage" />
@@ -3004,6 +3034,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetShowRoomOfertasConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetShowRoomOfertaById">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomOfertaById" style="document" />
       <wsdl:input>
@@ -3393,6 +3432,24 @@
     </wsdl:operation>
     <wsdl:operation name="ShowRoomProgramarAviso">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ShowRoomProgramarAviso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdShowRoomEventoConsultoraEmailRecibido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEventoConsultoraRecibido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3913,6 +3970,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsOfertaShowRoomCargaMasiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsOfertaShowRoomCargaMasiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CargarMasivaDescripcionSets">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/CargarMasivaDescripcionSets" style="document" />
       <wsdl:input>
@@ -4149,15 +4215,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarPerfilOfertaShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GuardarPerfilOfertaShowRoom" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetShowRoomOfertasConsultora">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetShowRoomOfertasConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

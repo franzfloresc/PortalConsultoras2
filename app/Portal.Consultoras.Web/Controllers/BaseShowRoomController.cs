@@ -331,12 +331,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            bool resultado = false;
+            if (!userData.CargoEntidadesShowRoom) return false; // throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
 
+            bool resultado = false;
             var showRoomEvento = new BEShowRoomEvento();
             var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
 
-            if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
             showRoomEventoConsultora = userData.BeShowRoomConsultora;
             showRoomEvento = userData.BeShowRoom;
 
@@ -790,13 +790,5 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
-        public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
-        {
-            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
-
-            return model == null
-                ? ""
-                : model.Valor;
-        }
     }
 }

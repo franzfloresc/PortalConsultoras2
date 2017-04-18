@@ -414,6 +414,15 @@ namespace Portal.Consultoras.Web.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 } 
+
+                // validar si se muestra Show Room en Bienvenida
+                model.ShowRoomMostrarLista = 0;
+                    //userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2
+                    //? 1
+                    //: userData.EsCatalogoPersonalizadoZonaValida
+                    //    ? 0
+                    //    : 1;
+                model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
             {
@@ -1940,6 +1949,29 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ActualizarContrasenia()
         {
             return View();
+        }
+
+        public ActionResult MailConfirmacion(string tipo)
+        {
+            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+            var accion = "index";
+            var controlador = "bienvenida";
+            try
+            {
+                if (tipo == "sr")
+                {
+                    userData.EMailActivo = true;
+
+                    controlador = "ShowRoom";
+                    accion = AccionControlador("sr");
+                }
+                SetUserData(userData);
+
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction(accion, controlador, new { area = area });
         }
     }
 }
