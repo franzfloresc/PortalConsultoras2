@@ -274,7 +274,7 @@
     </header>
     <div class="fondo_oscuro"></div>
     <div class="SubHeader">
-        <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
+        <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" ? "oculto" : "")">
             <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
         </div>
     </div>
