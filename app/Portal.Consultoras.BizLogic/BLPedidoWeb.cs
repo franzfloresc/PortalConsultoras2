@@ -2020,6 +2020,70 @@ namespace Portal.Consultoras.BizLogic
             }
             return PedidoDescarga;
         }
+
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        {
+            BEConfiguracionCampania configuracion = null;
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, consultoraID))
+            {
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+            }
+            if (configuracion != null)
+            {
+                if (configuracion.IndicadorGPRSB == 1) {
+                    return new BEValidacionModificacionPedido {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
+                        Mensaje = "En este momento nos encontramos facturando tu pedido de C" + campania.ToString().Substring(4, 2) + ", inténtalo más tarde"
+                    };
+                }
+                if (configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                        Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                    };
+                }
+            }
+
+            string mensajeHorarioRestringido = this.ValidarHorarioRestringido(paisID, consultoraID, campania, aceptacionConsultoraDA);
+            if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
+            {
+                return new BEValidacionModificacionPedido
+                {
+                    MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                    Mensaje = mensajeHorarioRestringido
+                };
+            }
+
+            return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
+        }
+
+        protected string ValidarHorarioRestringido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        {            
+            var pais = new BLZonificacion().SelectPais(paisID);
+            BEConfiguracionCampania configuracion = null;
+            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+            }
+            
+            DateTime FechaHoraActual = DateTime.Now.AddHours(pais.ZonaHoraria);
+            if (!pais.HabilitarRestriccionHoraria) return null;
+            if (FechaHoraActual <= configuracion.FechaInicioFacturacion || configuracion.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;
+            
+            TimeSpan horaActual = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
+            TimeSpan horaAdicional = TimeSpan.Parse(pais.HorasDuracionRestriccion.ToString() + ":00");
+
+            bool enHorarioRestringido = false;
+            if (configuracion.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > configuracion.HoraCierreZonaDemAnti);
+            else enHorarioRestringido = (configuracion.HoraCierreZonaNormal < horaActual && horaActual < configuracion.HoraCierreZonaNormal + horaAdicional);
+            if (!enHorarioRestringido) return null;
+                
+            TimeSpan horaCierre = configuracion.EsZonaDemAnti != 0 ? configuracion.HoraCierreZonaDemAnti : configuracion.HoraCierreZonaNormal;
+            if (horaActual > horaCierre) return string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0} horas de tu día de facturación.", horaCierre.ToString(@"hh\:mm"));
+            return string.Format("Se ha cerrado el período de facturación a las {0} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", horaCierre.ToString(@"hh\:mm"));
+        }
     }
 
     internal class TemplateField

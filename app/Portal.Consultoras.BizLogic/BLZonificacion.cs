@@ -45,7 +45,18 @@ namespace Portal.Consultoras.BizLogic
 
         public BEPais SelectPais(int paisID)
         {
-            return SelectPaises().FirstOrDefault(pais => pais.PaisID == paisID);
+            IList<BEPais> paises = (IList<BEPais>)CacheManager<BEPais>.GetData(paisID, ECacheItem.Paises);
+            if (paises == null)
+            {
+                paises = new List<BEPais>();
+                var DAZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = DAZonificacion.GetPaisActivo())
+                {
+                    if (reader.Read()) paises.Add(new BEPais(reader));
+                }                    
+                CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
+            }
+            return paises.FirstOrDefault();
         }
 
         public int GetPaisNumeroCampaniasByPaisID(int paisID)

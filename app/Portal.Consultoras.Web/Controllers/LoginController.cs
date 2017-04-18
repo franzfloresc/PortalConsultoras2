@@ -18,6 +18,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -554,32 +555,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
-                        if (model.TieneHana == 1)
-                        {
-                            ActualizarDatosHana(ref model);
-                        }
+                        if (model.TieneHana == 1) ActualizarDatosHana(ref model);
                         else
                         {
                             model.MontoMinimo = oBEUsuario.MontoMinimoPedido;
                             model.MontoMaximo = oBEUsuario.MontoMaximoPedido;
                             model.FechaLimPago = oBEUsuario.FechaLimPago;
-
-                            BEResumenCampania[] infoDeuda = null;
+                            
                             using (ContenidoServiceClient sv = new ContenidoServiceClient())
                             {
-                                if (model.CodigoISO == Constantes.CodigosISOPais.Colombia || model.CodigoISO == Constantes.CodigosISOPais.Peru)
-                                {
-                                    infoDeuda = sv.GetDeudaTotal(model.PaisID, Convert.ToInt32(model.ConsultoraID));
-                                }
-                                else
-                                {
-                                    infoDeuda = sv.GetSaldoPendiente(model.PaisID, model.CampaniaID, Convert.ToInt32(model.ConsultoraID));
-                                }
-                            }
-
-                            if (infoDeuda != null && infoDeuda.Length > 0)
-                            {
-                                model.MontoDeuda = infoDeuda[0].SaldoPendiente;
+                                model.MontoDeuda = sv.GetMontoDeuda(model.PaisID, model.CampaniaID, model.ConsultoraID, model.CodigoUsuario, false);
                             }
 
                             model.IndicadorFlexiPago = oBEUsuario.IndicadorFlexiPago;
@@ -1050,18 +1035,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch { }
         }
 
-        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
-        {
-            CampaniaActual = CampaniaActual ?? "";
-            CampaniaActual = CampaniaActual.Trim();
-            if (CampaniaActual.Length < 6)
-                return "";
-
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == nroCampanias.ToString()) return "01";
-            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
         private void ActualizarDatosHana(ref UsuarioModel model)
         {
             using (UsuarioServiceClient us = new UsuarioServiceClient())
@@ -1424,6 +1397,43 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return clearText;
+        }
+
+        [AllowAnonymous]
+        public ActionResult IngresoExternoChatbot(string token)
+        {
+            string secretKey = ConfigurationManager.AppSettings["ChatbotSecretKey"] ?? "";
+            try
+            {
+                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, secretKey);
+                if (model == null) return RedirectToAction("UserUnknown");
+                
+                var userData = (UsuarioModel)Session["UserData"];
+                if (userData == null || userData.CodigoConsultora.CompareTo(model.CodigoConsultora) != 0)
+                {
+                    userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoConsultora, 1);
+                }
+                if (userData == null) return RedirectToAction("UserUnknown");
+
+                FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
+                Session.Add("IngresoExternoChatbot", model.Version);
+                
+                switch (model.Pagina.ToUpper())
+                {
+                    case Constantes.ChatbotPagina.EstadoCuenta:
+                        return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                    case Constantes.ChatbotPagina.SeguimientoPedido:
+                        return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
+                    case Constantes.ChatbotPagina.PedidoDetalle:
+                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return HttpNotFound("Error: " + ex.Message);
+            }
+
+            return RedirectToAction("UserUnknown");
         }
     }
 }

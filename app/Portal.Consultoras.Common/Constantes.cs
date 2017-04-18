@@ -398,7 +398,7 @@ namespace Portal.Consultoras.Common
             public const int Existe = 2;
         }
         
-        public class OfertaEspecialMensajes
+        public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelWeb = "Producto en Mi Negocio L’Bel con oferta especial.";
@@ -477,6 +477,38 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
+        public class ChatbotPagina
+        {
+            public const string EstadoCuenta = "ESTADOCUENTA";
+            public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
+            public const string PedidoDetalle = "PEDIDODETALLE";
+        }
+
+        public class EstadoCuentaTipoMovimiento
+        {
+            public const int Abono = 2;
+            public const int Cargo = 1;
+        }
+
+        public class TamaniosImagenIssuu
+        {
+            public const string ThumbSmall = "_thumb_small";
+            public const string ThumbMedium = "_thumb_medium";
+            public const string ThumbLarge = "_thumb_large";
+        }
+
+        public class CatalogoImagenDefault
+        {
+            public const string Catalogo = "https://www.somosbelcorp.com/Content/Images/catalogo_no_disponible.jpg";
+            public const string Revista = "https://www.somosbelcorp.com/Content/Images/revista_no_disponible.jpg";
+        }
+
+        public class CatalogoUrlDefault
+        {
+            public const string Esika = "http://www.esika.biz";
+            public const string Lbel = "http://www.lbel.com";
+            public const string Cyzone = "http://www.cyzone.com";
+        }
     }
 }
-

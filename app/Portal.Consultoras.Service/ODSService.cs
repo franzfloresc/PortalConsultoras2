@@ -113,6 +113,13 @@ namespace Portal.Consultoras.Service
                 RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
         }
 
+        public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(int paisID, int campaniaID,
+            int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
+        {
+            return BLProducto.SearchListProductoChatbotByCampaniaRegionZona(paisID, campaniaID,
+                regionID, zonaID, codigoRegion, codigoZona, textoBusqueda, criterio, rowCount);
+        }
+
         public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
             string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
         {

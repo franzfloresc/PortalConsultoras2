@@ -1004,5 +1004,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA);
     }
 }

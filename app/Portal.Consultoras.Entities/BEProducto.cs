@@ -150,6 +150,15 @@ namespace Portal.Consultoras.Entities
         //    get { return miPaisID; }
         //    set { miPaisID = value; }
         //}
+        
+        [DataMember]
+        public string ImagenOferta { get; set; }
+        [DataMember]
+        public string ImagenProducto { get; set; }
+        [DataMember]
+        public string DescripcionOferta { get; set; }
+        [DataMember]
+        public string DescripcionProducto { get; set; }
 
         [DataMember]
         public string ImagenProductoSugerido { get; set; }
@@ -170,8 +179,11 @@ namespace Portal.Consultoras.Entities
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         [DataMember]
-        public string TipoOfertaRevista { get; set; }
-        
+        public string TipoOfertaRevista { get; set; }        
+
+        [DataMember]
+        public string CatalogoDescripcion { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
@@ -246,8 +258,20 @@ namespace Portal.Consultoras.Entities
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
             
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
-                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();    
-        }
+                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
+
+            if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
+                CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "ImagenOferta") && datarec["ImagenOferta"] != DBNull.Value)
+                ImagenOferta = Convert.ToString(datarec["ImagenOferta"]);
+            if (DataRecord.HasColumn(datarec, "ImagenProducto") && datarec["ImagenProducto"] != DBNull.Value)
+                ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionOferta") && datarec["DescripcionOferta"] != DBNull.Value)
+                DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
+                DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
+    }
 
         public BEProducto()
         {
