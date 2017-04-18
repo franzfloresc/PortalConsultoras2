@@ -780,6 +780,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
 
+        /*
+        [OperationContract]
+        int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos);
+         * */
+
         [OperationContract]
         int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle);
 
@@ -1007,5 +1012,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA);
+        
+        [OperationContract]
+        int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
     }
 }

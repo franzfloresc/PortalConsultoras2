@@ -1907,7 +1907,7 @@ header {
     position: absolute;
     width: 100%;
     height: 206px;
-    /*top: 9%;*/
+    top: 0%;
     left: 0%;
     z-index: 1;
     background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
@@ -1918,6 +1918,8 @@ header {
 .caja_pedidos {
     display: block;
     width: 68.85%;
+    margin-top:4%;
+    position:relative;
     /* max-width: 818px; */
     height: auto;
     float: left;
@@ -3664,6 +3666,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'Lato';
     letter-spacing: 0.2px;
     text-align: center;
+    position:relative;
 }
 
     .producto_nombre_descripcion h6 {
@@ -3673,20 +3676,22 @@ a.subir_carousel, a.bajar_carousel {
         color: #000;
         margin-top: 8px;
         margin-bottom: 2px;
+        text-transform:uppercase;
 }
 
     .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas {
-    padding: 0;
-    font-size: 13px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 177px;
-    overflow: hidden;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
+        padding: 0;
+        font-size: 13px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 177px;
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        line-height:18px;
 }
 
 .producto_precio {
@@ -3696,7 +3701,7 @@ a.subir_carousel, a.bajar_carousel {
     font-family: 'Lato';
     letter-spacing: 0.2px;
     color: #000;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
 }
 
 .producto_precio_normal {
@@ -19969,9 +19974,9 @@ a.mover {
     font-weight: 700;
 }
 
-html {
+/*html {
     overflow-x: hidden;
-}
+}*/
 
 .btnCerrarShowroom {
     width: 25px;
@@ -21799,23 +21804,15 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    /*background: #FFF;*/
-    color: #000;
-    text-align: center;
-    border: 2px solid #000;
-    font-size: 12.5px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+    font-size: 13px;
+    /*font-weight: bold;*/
+   
 }
 
-    .boton_Agregalo_home:hover {
+    /*/*.boton_Agregalo_home:hover {
         background: #000;
         color: #FFF;
-}
+}*/
 
 .liquidacion_rango_home {
     width: 68px;
@@ -32876,7 +32873,7 @@ h1#penmostreo .campana {
     padding: 3px 7px;
     vertical-align: middle;
     margin-right: 15px;
-    width: 110px;
+    width: 118px;
 }
 
 .estado_detalleObservado {
@@ -33908,7 +33905,7 @@ h1#penmostreo .campana {
 }
 
     .precio_set_dia span {
-        font-size: 24px;
+        font-size: 19px;
      display: block;
      text-align: center;
 }
@@ -34137,11 +34134,10 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto_nueva {
-    width: 850px;
-    height: 520px;
+    width: 892px;
+    min-height: 450px;
     position: relative;
-    top: 50%;
-    margin: -260px auto auto auto;
+    margin: 90px auto 50px auto;
     background: white;
     padding: 43px 51px;
 }
@@ -34178,6 +34174,7 @@ h1#penmostreo .campana {
     letter-spacing: 0.3px;
     margin-top: 3px;
     margin-bottom: 10px;
+    text-transform:uppercase;
 }
 
 .cerrar_fichaProducto {
@@ -34223,20 +34220,21 @@ h1#penmostreo .campana {
 
 .content_tonos {
     width: 100%;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
 }
 
 .content_tonos_maquillaje {
     margin-top: 15px;
-    max-height: 118px;
+    overflow:hidden;
+    /*max-height: 118px;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: hidden;*/
 }
 
 .content_tono_detalle {
     position: relative;
     width: 10%;
-    height: 41px;
+    height: 44px;
     margin-right: 1.25%;
     float: left;    
     margin-bottom: 3px;
@@ -34245,7 +34243,7 @@ h1#penmostreo .campana {
     border: 1px solid white;
 }
 
-    .content_tono_detalle:nth-child(6n) {
+    .content_tono_detalle:nth-child(9n) {
         margin-right: 0;
 }
 
@@ -34279,13 +34277,17 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-
+.btn_desactivado_general{
+    background:#d6d6d6 !important;
+}
 .ficha_btn_agregar {
-    width: 336px;
+    width: 358px;
     background: black;
     color: white;
     font-weight: 400;
     letter-spacing: 0.4px;
+    border: none;
+    line-height:47px;
 }
 
 .tooltip_tono {
@@ -34592,7 +34594,7 @@ h1#penmostreo .campana {
 }
 
 .content_producto_tono{
-    border-top:1px solid #ccc;
+    border-bottom:1px solid #ccc;
     width:100%;  
     padding-top:15px;
     padding-bottom:10px;
@@ -34602,6 +34604,9 @@ h1#penmostreo .campana {
     font-size:13px;
     font-weight:700;
     font-family: 'lato';
+}
+.cantidad_producto_opt{
+    margin-right: 5px;
 }
 .sub_precio{
     font-family: 'lato';
@@ -35380,6 +35385,127 @@ h1#penmostreo .campana {
 .vineta {
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Esika/indicador_pedido.png");
 }
+
+/*HOMOLOGAR OPT*/
+
+.tono_select_opt {
+    border: 2px solid black;
+    height: 45px;
+    width: 100%;
+    /* padding-left: 10px; */
+    font-family: 'Lato';
+    /* font-weight: bold; */
+    /* line-height: 45px; */
+    font-size: 13px;
+    color: black;
+    /*margin-top: 5px;*/
+    background: url(../../../Images/mobile/Esika/menu_mobile.png) no-repeat;
+    background-position: 97% 19px;
+    position: relative;
+    margin-bottom: 5px;
+}
+.texto_sin_tono {
+    display: block;
+    /*padding-left: 10px;*/
+    font-weight: bold;
+    /*line-height: 41px;*/
+}
+.tono_seleccionado {
+    width: 41px;
+    height: 43px;
+    float: left;
+    overflow: hidden;
+}
+.tono_seleccionado img {
+    width: 100%;
+}
+.texto_tono_seleccionado {
+    float: left;
+    width: 70%;
+    margin-left: 10px;
+    /* line-height: 42px; */
+    margin-top: 11px;
+    height: 17px;
+    overflow: hidden;
+}
+.content_tonos_select {
+    width: 101%;
+    max-height: 176px;
+    overflow-y: auto;
+    border: 1px solid #b0b0b0;
+    position: absolute;
+    /* bottom: 0; */
+    background: white;
+    top: 43px;
+    z-index: 105;
+    left: -2px;
+    display: none;
+}
+.content_tonos_select .content_tono_elegido {
+    border-bottom: 1px solid #b0b0b0;
+}
+.content_tonos_select .content_tono_elegido:last-child {
+    border-bottom: 0px;
+}
+
+.tono_no_seleccionado{
+    background:black url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3L4waZ4IJhbxugs/flecha_tono_white.png) no-repeat;
+    background-position: 97% 19px;
+    color:white;
+    transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+.tono_por_elegir{
+     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/1HAjgYt9lPnsBjk/tono_por_elegir.png) no-repeat;
+    background-position: 97% 17px;
+}
+.tono_escogido{
+    border: 1px solid #b0b0b0;
+    padding-top: 1px;
+}
+.content_producto_tono:last-child{
+    border-bottom:0px !important;
+}
+.content_tono_detalle:hover{
+    border: 1px solid black
+}
+.titulo_contenido{
+    font-family:'Lato';
+    font-size:13px;
+    padding-bottom:5px;
+    border-bottom:1px solid black;
+    /*margin-top: 15px;*/
+}
+.texto_elige_tono {
+    position:absolute;
+    font-family: 'LAto';
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #e81c36;
+    text-align: center;
+    height: 20px;
+    width:100%;   
+    left: 0;
+    top: -19px;
+    letter-spacing:0.2px;
+}
+.btn_elige_tono{
+    display: block;
+    margin-top: 7px;
+    width: 100%;
+    height: 45px;
+    line-height: 44px;
+    background: white;
+    color: black;
+    text-align: center;
+    border: 1px solid #000;
+    font-size: 13px;
+    /*font-weight: 700;*/
+    cursor: pointer;
+}
 .icono_celular{
     background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
     background-position: 4px 0px;
@@ -35417,3 +35543,15 @@ h1#penmostreo .campana {
     overflow: hidden;
     margin-bottom: 40px;
  }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}

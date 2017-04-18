@@ -152,9 +152,9 @@
                             <div class="row_contador" style="padding:0;">
                                 <div class="float_left" style="margin-left:16px;">
                                     <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
-                                    <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                    <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0; width:195px;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                 </div>
-                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
+                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:5px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
                                 <hr class="clear" />
                                 <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
                                 <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
@@ -680,6 +680,8 @@
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+        var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
+        var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
 
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
@@ -1197,6 +1199,7 @@
             if (ocultarBannerTop) {
                 $('.header_slider').slideUp();
                 $("#content").css({ 'margin-top': '63px' });
+                LayoutHeader();
             }
 
             var URLactual = window.location.href;
@@ -1214,9 +1217,7 @@
                 }
             }
 
-            
-
-            
+            setTimeout(LayoutHeader, 300);
         });
 
         function loadBannerLP20() {

@@ -153,6 +153,13 @@ namespace Portal.Consultoras.Common
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
+        
+        public class TipoEstrategiaSet
+        {
+            public const string IndividualConTonos = "2001";
+            public const string CompuestaFija = "2002";
+            public const string CompuestaVariable = "2003";
+        }
 
         public class TipoEstrategiaCodigo
         {
@@ -208,6 +215,7 @@ namespace Portal.Consultoras.Common
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom                  9: General
+            // 6: OfertaParaTi              6: OfertaParaTi
 
             // Tercer Dígito
             // 1: Banners                   2: Ofertas para ti
@@ -215,6 +223,8 @@ namespace Portal.Consultoras.Common
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
             // 9: Oferta del dia
+            // 1: index                     1: Index
+            // 2: OfertaParaTi Detalle      2: OfertaParaTi Detalle
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -243,6 +253,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopShowRoomProductPage = 1531;
             public const int DesktopShowRoomProductPageCarrusel = 1532;
             public const int DesktopShowRoomProductPageTactica = 1533;
+            public const int DesktopShowRoomBienvenida = 1541;
             public const int MobileShowRoomLandingIntriga = 2511;
             public const int MobileShowRoomLandingCompraTactica = 2522;
             public const int MobileShowRoomProductPage = 2531;
@@ -254,6 +265,9 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
             public const int MobilePedidoOfertaFinal = 2261;
+
+            public const int MobileOfertasParaTiIndex = 2611;
+            public const int MobileOfertasParaTiDetalle = 2621;
 
             public const int MobileShowRoom = 2571;
 
@@ -415,6 +429,8 @@ namespace Portal.Consultoras.Common
                 public const string BannerEnvioCorreo = "BannerEnvioCorreo";
                 public const string TextoEnvioCorreo = "TextoEnvioCorreo";
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+                public const string BannerLateralBienvenida = "BannerLateralBienvenida";
+                public const string IconoMenuShowRoom = "IconoMenuShowRoom";
             }
 
             public class Mobile
