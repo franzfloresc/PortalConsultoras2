@@ -583,7 +583,7 @@
                             <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                         </div>
                         <div class="contenido_item_ofertaFinal">
-                            <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}">
+                            <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="" >
                                 <img src="{{ImagenProductoSugerido}}">
                             </div>
                             <div class="producto_nombre_descripcion">
@@ -744,6 +744,7 @@
         var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
 
         var origenPagina = 2;
+        var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>

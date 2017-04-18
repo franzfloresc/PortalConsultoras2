@@ -138,8 +138,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
             }
 
-            
-
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -274,6 +272,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
 
+            ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
+            
             if (userData.TipoUsuario == 2)
                 model.Prol = "GUARDA TU PEDIDO";
                       

@@ -1454,6 +1454,13 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.UpdOfertaShowRoomStockMasivo(paisID, stockProductos);
         }
 
+        /*
+        public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
+        {
+            return BLShowRoomEvento.InsOfertaShowRoomCargaMasiva(paisID, stockProductos);
+        }
+         * */
+
         public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {
             return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
@@ -1842,6 +1849,16 @@ namespace Portal.Consultoras.Service
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
+        }
+
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
+        }
+
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
     }
 }
