@@ -5056,47 +5056,58 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult AccederOfertasVALAUTOPROL(string script)
         {
-            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
-            if (userData.CampaniaID <= 0)
+            var area = "";
+            try
             {
-                return RedirectToAction("Index", "Login", new { area = area });
-            }
+                area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+                if (userData.CampaniaID <= 0)
+                {
+                    return RedirectToAction("Index", "Login", new { area = area });
+                }
 
-            var obj = Util.Trim(Util.DesencriptarQueryString(script));
-            var listaParemetros = obj.Split(';');
+                var obj = Util.Trim(Util.DesencriptarQueryString(script));
+                var listaParemetros = obj.Split(';');
+                var ultimo = listaParemetros.Length > 0 ? listaParemetros[listaParemetros.Length - 1] : "";
 
-            // ISO del país, código de la campaña y código de la consultora
-            var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
-            var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
-            var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
+                // ISO del país, código de la campaña y código de la consultora
+                var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
+                var campaniaID = listaParemetros.Length > 1 ? listaParemetros[1] : "";
+                var codigoConsultora = listaParemetros.Length > 2 ? listaParemetros[2] : "";
+                var cuv = listaParemetros.Length > 3 ? listaParemetros[3] : "";
 
-            TempData["CUVOfertaProl"] = listaParemetros.Length > 3 ? listaParemetros[3] : "";
-            
-            if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
-            {
-                return RedirectToAction("Index", "Bienvenida", new { area = area });
-            }
+                TempData["CUVOfertaProl"] = Util.Trim(cuv);
 
-            BEConfiguracionCampania oBEConfiguracionCampania;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-            }
-
-            if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
-                        !oBEConfiguracionCampania.ModificaPedidoReservado &&
-                        !oBEConfiguracionCampania.ValidacionAbierta)
-            {
-                // pasar a pase de pedido
-
-                var mensaje = PedidoValidadoDeshacer("PV"); // copiar en una sola funccion
-                if (mensaje != "")
+                if (codigoIso != userData.CodigoISO || campaniaID != userData.CampaniaID.ToString() || codigoConsultora != userData.CodigoConsultora)
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = area });
                 }
-            }
 
-            return RedirectToAction("Index", "Pedido", new { area = area });
+                BEConfiguracionCampania oBEConfiguracionCampania;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+                }
+
+                if (oBEConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                            !oBEConfiguracionCampania.ModificaPedidoReservado &&
+                            !oBEConfiguracionCampania.ValidacionAbierta)
+                {
+                    // pasar a pase de pedido
+
+                    var mensaje = PedidoValidadoDeshacer("PV");
+                    if (mensaje != "")
+                    {
+                        return RedirectToAction("Index", "Bienvenida", new { area = area });
+                    }
+                }
+
+                return RedirectToAction("Index", "Pedido", new { area = area });
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = area });
+            }
         }
     }
 }

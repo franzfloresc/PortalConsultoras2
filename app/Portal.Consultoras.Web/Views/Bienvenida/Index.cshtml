@@ -1631,7 +1631,7 @@
 <script id="template-showroom" type="text/x-handlebars-template">
     <div class="content-favclientes content_carrusel_agregado">
         <div class="linea_separadora"></div>
-        <div class="banner_showroom_home" style="cursor: pointer;">
+        <div class="banner_showroom_home" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","ShowRoom")'">
             <img src="@Model.ShowRoomBannerUrl" alt="" />
         </div>
         <div style="width:71%;float:left;">
@@ -1652,10 +1652,10 @@
                         <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
                     </div>
                     <div class="producto_img_home mini" data-img="">
-                        {{#IsNullOrEmpty ImagenMini '=='}}
+                        {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" alt="" />
                         {{else}}
-                        <img src="{{ImagenMini}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+                        <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
                         {{/IsNullOrEmpty}}
                         <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
                     </div>
@@ -2268,11 +2268,11 @@
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
         </a>
-        <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
+        <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
       
         <div class="check_01">
             <label class="checkpop2">
-                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')";>NO VOLVER A VER ESTE ANUNCIO</a>
+                <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>
             </label>
         </div>
         <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />

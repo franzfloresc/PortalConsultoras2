@@ -17,11 +17,16 @@ using Switch = System.Diagnostics.Switch;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System.Configuration;
 
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ShowRoomController : BaseShowRoomController
     {
         static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private int OfertaID = 0;
+        private bool blnRecibido = false;
 
         public ActionResult Intriga()
         {
@@ -67,24 +72,63 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
-            model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
-            model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
-            model.Celular = userData.Celular;
             model.Suscripcion = eventoConsultora.Suscripcion;
+            model.EMail = userData.EMail;
+            model.EMailActivo = userData.EMailActivo;
+            model.Celular = userData.Celular;
             model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
             return View(model);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string query)
         {
+            
             ViewBag.TerminoMostrar = 1;
 
             try
             {
                 if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
+
+                //actualizar showroom.eventoconsultora. campo recibido.
+
+                if (query != null)
+                {
+                    string param = Util.DesencriptarQueryString(query);
+                    string[] lista = param.Split(new char[] { ';' });
+
+                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+
+                    if(lista[0] == CodigoProceso)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                        }
+
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                        {
+                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                            Entidad.CodigoConsultora = lista[2];
+                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
+                }
+
 
                 var showRoomEventoModel = CargarValoresModel();
 
@@ -709,9 +753,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flStock.SaveAs(finalPath);
 
                     string inputLine = "";
-
                     string[] values = null;
-
                     int contador = 0;
 
                     using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
@@ -746,9 +788,47 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+
                     if (lstStock.Count > 0)
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
+
+                        //PL20-1398
+                        var lstPrecioProductoPROL = new List<PrecioProducto>();
+                        var stock1 = lstStock.First();
+                        var codigosCuv = string.Join("|", lstStock.Select(x => x.CUV));
+
+                        using (WsGestionWeb svc = new WsGestionWeb())
+                        {
+                            lstPrecioProductoPROL = svc.GetPrecioProductosOfertaWeb(stock1.ISOPais, stock1.CampaniaID.ToString(), codigosCuv).ToList();
+                        }
+
+                        stock1 = null;
+
+                        if (lstPrecioProductoPROL.Any())
+                        {
+                            foreach (var item in lstPrecioProductoPROL)
+                            {
+                                var oStock = lstStock.Where(x => x.CUV == item.cuv).FirstOrDefault();
+                                if (oStock != null)
+                                {
+                                    oStock.PrecioOferta2 = item.precio_producto;
+                                }
+                            }
+
+                            /*
+                            var pid = Util.GetPaisID(tmpItem.ISOPais);
+                            var totalLoad = 0;
+                            tmpItem = null;
+
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                totalLoad = svc.InsOfertaShowRoomCargaMasiva(pid, lstStock.ToArray());
+                            }
+                             * */
+                        }
+                        //PL20-1398
+
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
 
                         var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();
@@ -765,6 +845,26 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
                         }
+
+                        /*
+                        List<BEShowRoomOferta> lstStock2 = new List<BEShowRoomOferta>();
+                        foreach(var item in lstStock) 
+                        {
+                            var a = new BEShowRoomOferta();
+                            a.ISOPais = item.ISOPais;
+                            a.TipoOfertaSisID = item.TipoOfertaSisID;
+                            a.CampaniaID = item.CampaniaID;
+                            a.CUV = item.CUV;
+                            a.Stock = item.Stock;
+                            a.PrecioOferta = item.PrecioOferta;
+                            a.UnidadesPermitidas = item.UnidadesPermitidas;
+                            a.Descripcion = item.Descripcion;
+                            a.CodigoCategoria = item.CodigoCategoria;
+                            a.TipNegocio = item.TipNegocio;
+                            //a.PrecioOferta2 = item.PrecioOferta2;
+                            lstStock2.Add(a);
+                        }
+                         * */
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -1170,6 +1270,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
+                                   a.PrecioCatalogo.ToString("#0.00"),
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
@@ -1262,6 +1363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1325,6 +1427,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -2498,6 +2601,57 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Comprar desde Página de Oferta
 
+        public ActionResult DetalleOfertaCUV(string query)
+        {
+            if (query != null)
+            {
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                        OfertaID = intID;
+
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+  
+            }
+
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
+        }
+
+        
+
         public ActionResult DetalleOferta(int id)
         {
             if (!ValidarIngresoShowRoom(false))
@@ -2530,7 +2684,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Ok",
+                        message = "",
                         lista = new List<ShowRoomOfertaModel>(),
                         cantidadTotal = 0,
                         cantidad = 0
@@ -2590,6 +2744,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaFinal = listaFinal.Take(model.Limite).ToList();
 
+                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new
@@ -2606,8 +2762,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Ok",
-                    data = "Error al cargar los productos"
+                    message = "Error al cargar los productos",
+                    data = ""
                 });
             }            
         }
@@ -2669,13 +2825,20 @@ namespace Portal.Consultoras.Web.Controllers
                 string CorreoAnterior = Util.Trim(userData.EMail);
                 string CorreoNuevo = entidad.EMail;
                 bool emailActivo = userData.EMailActivo;
+                
+                if (CorreoNuevo == "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "- El correo no puede ser vacio."
+                    });
+                }
 
                 entidad.Celular = Util.Trim(entidad.Celular);
-                if (entidad.Celular != Util.Trim(userData.Celular) && entidad.Celular != "")
+                if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
                 {
                     entidad.CodigoUsuario = userData.CodigoUsuario;
-                    entidad.EMail = userData.EMail;
-                    //entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                     entidad.Telefono = userData.Telefono;
                     entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
                     entidad.Sobrenombre = userData.Sobrenombre;
@@ -2688,26 +2851,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sv.UpdateDatos(entidad, CorreoAnterior);
                     }
+
+                    userData.EMail = entidad.EMail;
+                    userData.Celular = entidad.Celular;
+                    userData.EMailActivo = CorreoNuevo == CorreoAnterior ? userData.EMailActivo : false;
+                    SetUserData(userData);
                 }
 
-                //UsuarioModel UsuarioModelSession = userData;
-                //UsuarioModelSession.EMail = entidad.EMail;
-                //UsuarioModelSession.Celular = entidad.Celular;
-                //SetUserData(UsuarioModelSession);
+                var emailValidado = userData.EMailActivo;
 
-                if (CorreoNuevo == "")
+                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "- El correo no puede ser vacio."
-                    });
-                }
-                var emailValidado = true;
-                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && userData.EMailActivo == true))
-                {
-                    emailValidado = false;
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn=ShowRoomIntriga" };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,sr" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 
@@ -2735,7 +2890,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                    emailValidado = !emailValidado
+                    emailValidado = emailValidado
                 });
             }
             catch (FaultException ex)
