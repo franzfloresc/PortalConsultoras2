@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string FechaVencimiento { set; get; }
         public string Glosa { get; set; }
         public string MontoStr { get; set; }
+        public string FechaUltimoMovimiento { set; get; }
         public List<EstadoCuentaDetalleMobilModel> ListaEstadoCuentaDetalle { get; set; }
     }
 }

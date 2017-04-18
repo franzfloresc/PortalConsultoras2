@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -197,6 +198,11 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static IEnumerable<string> SplitAndTrim(this string obj, char separator)
+        {
+            return obj.Split(new char[1] { separator }).Select(zona => zona.Trim());
+        }
+
         public static string ToUpper(this string obj, int numberOfCharacters)
         {
             return obj.Substring(0, numberOfCharacters).ToUpper() + obj.Substring(numberOfCharacters);
@@ -205,6 +211,11 @@ namespace Portal.Consultoras.Common
         public static string ToLower(this string obj, int numberOfCharacters)
         {
             return obj.Substring(0, numberOfCharacters).ToLower() + obj.Substring(numberOfCharacters);
+        }
+
+        public static string Substring(this int obj, int startIndex, int length)
+        {
+            return obj.ToString().Substring(startIndex, length);
         }
     }
 }

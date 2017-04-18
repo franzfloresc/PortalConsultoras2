@@ -117,6 +117,10 @@ namespace Portal.Consultoras.Entities
             set { msCUVRevista = value; }
         }
         [DataMember]
+        public string MensajeEstaEnRevista1 { get; set; }
+        [DataMember]
+        public string MensajeEstaEnRevista2 { get; set; }
+        [DataMember]
         public string CUVComplemento
         {
             get { return msCUVComplemento; }
