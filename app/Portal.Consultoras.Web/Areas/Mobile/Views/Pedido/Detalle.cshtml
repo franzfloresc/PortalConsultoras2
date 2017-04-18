@@ -42,13 +42,37 @@
 
         @{
             string[] tooltips = Model.ProlTooltip.Split('|');
-            string tooltip1 = tooltips[0];
-            string tooltip2 = tooltips[1];
+            string tooltip1 = "";
+            string tooltip2 = "";
+            
+            if (ViewBag.TipoUsuario == 2)
+            {
+                tooltip1 = "Por el momento no podemos facturar tu pedido, te encuentras en una sesión de prueba ";
+                tooltip2 = "Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com y pasar tu pedido.";
+            }
+            else
+            { 
+                tooltip1 = tooltips[0];
+                tooltip2 = tooltips[1];
+            }
         }
-        <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
-            <h2>@tooltip1</h2>
-            <span>@tooltip2</span>
-        </div>
+
+        @{
+            if (ViewBag.TipoUsuario == 2)
+            {
+                <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none; width: 300.3px;">
+                    <h2>@tooltip1</h2>
+                    <span>@tooltip2</span>
+                </div>
+            }
+            else { 
+                <div class="tooltip_noOlvidesGuardarTuPedido" style="display: none;">
+                    <h2>@tooltip1</h2>
+                    <span>@tooltip2</span>
+                </div>
+            }
+        }
+
 
     </div>
 </div>
@@ -729,7 +753,6 @@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
-
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>

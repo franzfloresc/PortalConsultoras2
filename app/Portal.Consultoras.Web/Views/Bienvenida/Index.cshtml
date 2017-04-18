@@ -71,7 +71,10 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
-            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            @if (ViewBag.TipoUsuario != 2)
+            { 
+                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            }
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN

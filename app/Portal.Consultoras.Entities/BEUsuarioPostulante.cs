@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public int IdPostulante { get; set; }
+        [DataMember]
+        public long ConsultoraID { get; set; }
 
         [DataMember]
         public string CodigoUsuario { get; set; }
@@ -69,6 +71,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+
+            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+                ConsultoraID = row["ConsultoraID"] == DBNull.Value ? 0 : Convert.ToInt64(row["ConsultoraID"]);
 
             if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);

@@ -198,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
-                
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
@@ -335,13 +335,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
                             {
-                                if (userData.TipoUsuario == 1)
-                                {
                                     if (ValidarMostrarShowroomPopUp())
-                                    {
-                                        TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
-                                        break;
-                                    }
+                                {
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                    break;
                                 }
                             }
 
