@@ -252,7 +252,26 @@ $(document).ready(function () {
     });
 
     $("body").on('click', '.belcorpChat', function () {
-        var FechaChatPais = BelcorpFechaChat_Pais;
+        debugger;
+        var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
+        window.name = "PortalBelcorp";
+        var PopUpChatOpened = window.localStorage.getItem('PopUpChatOpened');
+        if(typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null || PopUpChatOpened == 'false') {
+            window.localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+            ventanaChat.focus();
+        } else {
+            ventanaChat = open('', 'ventanaChat');
+            if (ventanaChat.location == "about:blank") {
+                ventanaChat.close();
+                //ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+                //ventanaChat.focus();
+            }
+            ventanaChat.focus();
+        }
+
+       /*var FechaChatPais = BelcorpFechaChat_Pais;
         var PaisISO = IsoPais
         var fechaActual = FechaActual;
         var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
@@ -307,7 +326,7 @@ $(document).ready(function () {
             else {
                 AbrirVentanaBelcorpChat(UrlChatAnterior);
             }
-        }
+        }*/ 
         //cerrar Popup
         $(".ui-button-text").trigger("click");
     });
