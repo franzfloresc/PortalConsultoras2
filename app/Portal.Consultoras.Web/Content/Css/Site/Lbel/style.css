@@ -21738,22 +21738,23 @@ label.checkpop.c_on {
         color: #FFF;
 }*/
 
-.boton_Agregalo_home {
-        display: block;
-        /* margin: 0 auto; */
-        margin-top: 7px;
-        width: 55%;
-        display: inline-block;
-        vertical-align: middle;
-        height: 45px;
-        line-height: 42px;
-        background: #000;
-        color: #fff;
-        text-align: center;
-        border: 2px solid #000;
-        font-size: 13px;
-        /*font-weight: bold;*/   
+.boton_Agregalo_home { 
+        display: block; 
+        /* margin: 0 auto; */ 
+        margin-top: 7px; 
+        width: 55%; 
+        display: inline-block; 
+        vertical-align: middle; 
+        height: 45px; 
+        line-height: 42px; 
+        background: #000; 
+        color: #fff; 
+        text-align: center; 
+        border: 2px solid #000; 
+        font-size: 13px; 
+        /*font-weight: bold;*/    
 }
+
 
 .liquidacion_rango_home {
     width: 68px;
@@ -22522,6 +22523,7 @@ hr {
 
 body {
     background: #f9f9f9;
+    overflow-x: hidden;
 }
 
 .LugaresPago {
@@ -28520,7 +28522,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     text-decoration: none;
     position: absolute;
     /*top: 247px;*/
-    top: 279px;
+    top: 108px;
 }
 
     .enlace_popupCatalogoPersonalizado:hover {
@@ -34910,7 +34912,6 @@ h1#penmostreo .campana {
     font-size:12px;
     font-weight:300;
 }
-
 .btn_aregar_set{
         /*width: 82%;*/
         float: right;
@@ -34919,11 +34920,11 @@ h1#penmostreo .campana {
         color: white;
         width: -moz-calc(100% -80px);
         width: calc(100% - 80px);
+    width:-webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
 }
 @media only screen and (max-width : 1027px) {
-    .btn_aregar_set {
-        width: 81%;
-    }
+
 }
 .titulo_carrusel_showroom{
     font-family:'Lato';
