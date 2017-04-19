@@ -34809,9 +34809,9 @@ h1#penmostreo .campana {
 
 .fondo_set{
     width:100%;
-    /*height:396px;*/
-    /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;
-    background-size: contain;*/
+    height:396px;
+    /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;*/
+     background-size: cover !important;
     padding-top: 60px;
 }
 .content_producto_set{
@@ -34923,9 +34923,7 @@ h1#penmostreo .campana {
     width:-webkit-calc(100% - 80px);
     width: -webkit-calc(~'100% - 80px');
 }
-@media only screen and (max-width : 1027px) {
 
-}
 .titulo_carrusel_showroom{
     font-family:'Lato';
     font-size:15px;
