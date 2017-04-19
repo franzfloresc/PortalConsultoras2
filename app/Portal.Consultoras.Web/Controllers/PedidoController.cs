@@ -95,6 +95,7 @@ namespace Portal.Consultoras.Web.Controllers
                     oBEConfiguracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
                     oBEConfiguracionCampania.ModificaPedidoReservado = false;
                     oBEConfiguracionCampania.ZonaValida = false;
+                    oBEConfiguracionCampania.CampaniaDescripcion = Convert.ToString(userData.CampaniaID); //Soluciona el problema al dar f5 en pedidos para usuario postulante.
                 }
                 
                 if (oBEConfiguracionCampania != null)
