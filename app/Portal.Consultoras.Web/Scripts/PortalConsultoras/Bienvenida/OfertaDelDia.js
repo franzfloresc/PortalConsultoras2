@@ -146,8 +146,148 @@ function ODDCargarEventos() {
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
         }
+        else if (accion == "agregar") {
+            ADDAgregar(this);
+        }
     });
 };
+
+function ADDAgregar(btn) {
+
+    if (ReservadoOEnHorarioRestringido())
+        return false;
+
+    if (!checkCountdownODD()) {
+        alert_msg_pedido('La Oferta del Día se termino');
+        return false;
+    }
+
+    var item = $(btn).parents("[data-item]");
+    var itemCampos = item.find("[data-item-campos]");
+    var cantidad = parseInt(item.find('.txtcantidad-odd').val());
+    if (cantidad <= 0) {
+        alert_msg_pedido("Ingrese la cantidad a solicitar");
+        return;
+    }
+
+    var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
+    if (cantidad > limiteVenta) {
+        $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
+        $('#dialog_ErrorMainLayout').show();
+        return;
+    }
+
+    var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
+    var estrategiaID = itemCampos.find('.estrategia-id-odd').val();
+    var marcaID = itemCampos.find('.marca-id-odd').val();
+    var cuv2 = itemCampos.find('.cuv2-odd').val();
+    var flagNueva = itemCampos.find('.flagnueva-odd').val();
+    var precio = itemCampos.find('.precio-odd').val();
+    var descripcion = itemCampos.find('.nombre-odd').val();
+    var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();
+    var teImagenMostrar = itemCampos.find('.teimagenmostrar-odd').val();
+    //var objImg = itemCampos.find('#imagen-odd').val();
+    var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
+    var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
+
+    if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
+    else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
+    else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb;
+
+    var cqty = getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
+    if (cqty > 0) {
+        var tqty = cqty + cantidad;
+        if (tqty > limiteVenta) {
+            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
+            $('#dialog_ErrorMainLayout').show();
+            return;
+        }
+    }
+
+    var obj = ({
+        MarcaID: marcaID,
+        CUV: cuv2,
+        PrecioUnidad: precio,
+        Descripcion: descripcion,
+        Cantidad: cantidad,
+        IndicadorMontoMinimo: indMontoMinimo,
+        TipoOferta: tipoEstrategiaID,
+        ClienteID_: '-1',
+        tipoEstrategiaImagen: teImagenMostrar || 0,
+        OrigenPedidoWeb: origenPedidoWeb
+    });
+
+    waitingDialog();
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/ValidarStockEstrategia',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (datos) {
+            if (!datos.result) {
+                alert_msg_pedido(datos.message);
+                closeWaitingDialog();
+            } else {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'Pedido/AgregarProductoZE',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(obj),
+                    async: true,
+                    success: function (data) {
+                        if (!checkTimeout(data)) {
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        if (!data.success) {
+                            messageInfoError(data.message);
+                            closeWaitingDialog();
+                            return false;
+                        }
+
+                        waitingDialog({});
+                        if (typeof origenPagina !== 'undefined') {
+                            MostrarBarra(data, '1');
+                            ActualizarGanancia(data.DataBarra);
+                            TagManagerClickAgregarProducto();
+                        }
+
+                        CargarResumenCampaniaHeader(true);
+                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
+                        closeWaitingDialog();
+
+                        if (tipo == 2) {
+                            $('#PopOfertaDia').slideUp();
+                            $('.circulo_hoy span').html('+');
+                            $('#txtcantidad-odd').val('1');
+                        }
+
+                        if (typeof origenPagina !== 'undefined') {
+                            if (origenPagina == 2) {
+                                CargarDetallePedido();
+                            }
+                        }
+                    },
+                    error: function (data, error) {
+                        if (checkTimeout(data)) {
+                            closeWaitingDialog();
+                        }
+                    }
+                });
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
 
 function closeOfertaDelDia() {
     $.ajax({

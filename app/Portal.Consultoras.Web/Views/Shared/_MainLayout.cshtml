@@ -566,6 +566,8 @@
                 <input type="hidden" Class="nombre-odd" value="{{NombreOferta}}" />
                 <input type="hidden" Class="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
                 <input type="hidden" Class="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
+                <input type="hidden" Class="imagen-odd" value="{{ImagenBanner}}" />
+                <input type="hidden" class="origenPedidoWeb-odd" value="1" />
             </div>
             <div class="solo_hoy">
                 <div style="height:42px; overflow:hidden"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
@@ -580,7 +582,8 @@
                 <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
             </div>
             <div style="float: left">
-                <a class="btn_agrega_set_dia" onclick="addOfertaDelDiaPedido(1);">AGRÉGALO YA</a>
+                <input type="hidden" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
             </div>
             <a class="btn_detalle_hoy" data-odd-accion="veroferta">
                 <div class="circulo_hoy"><span>+</span></div>
@@ -605,6 +608,8 @@
                     <input type="hidden" class="nombre-odd" value="{{NombreOferta}}" />
                     <input type="hidden" class="indmonto-min-odd" value="{{IndicadorMontoMinimo}}" />
                     <input type="hidden" class="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
+                    <input type="hidden" Class="imagen-odd" value="{{ImagenDisplay}}" />
+                    <input type="hidden" class="origenPedidoWeb-odd" value="2" />
                 </div>
                 <div class="titulo_set_ODD">{{NombreOferta}}</div>
                 <div class="barra_inferior"></div>
@@ -627,7 +632,7 @@
                             <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span></div>
                             <div style="text-align: center">
                                 <div class="liquidacion_rango_home js-no-popup">
-                                    <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                                    <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                     <div class="liquidacion_rango_right_pedido js-no-popup">
                                         <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
                                             <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
@@ -637,7 +642,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                                <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                             </div>
                         </div>
                     </div>
@@ -659,9 +664,11 @@
                             <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
                             <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
                             <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
+                            <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
+                            <input type="hidden" class="origenPedidoWeb-odd" value="2" />
                         </div>
                         <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                            <img src="@Url.Content("~/Content/Images/PL20/set_hoy.png")" alt="" id="img-display-odd" />
+                            <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" />
                             <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
                             <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                             {{#iff detalle.PrecioCatalogo '>' 0}}
@@ -671,7 +678,7 @@
                         </div>
                         <div style="text-align: center">
                             <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" id="txtcantidad-odd" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" tabindex="0">
+                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                 <div class="liquidacion_rango_right_pedido js-no-popup">
                                     <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
                                         <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
@@ -681,7 +688,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <a class="btn_pop_agregalo_oferta" onclick="addOfertaDelDiaPedido(2);">AGRÉGALO</a>
+                            <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                         </div>
                     </div>
                     {{/each}}
