@@ -34917,14 +34917,12 @@ h1#penmostreo .campana {
     /* text-align: right; */
     background: black;
     color: white;
-    width: -moz-calc(100% -80px);
-    width: calc(100% - 80px);
+    width:-moz-calc(100% -80px);
+    width:calc(100% - 80px);
+    width:-webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
 }
-@media only screen and (max-width : 1027px) {
-    .btn_aregar_set {
-        width: 81%;
-    }
-}
+
 .titulo_carrusel_showroom{
     font-family:'Lato';
     font-size:15px;
