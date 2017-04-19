@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web
 
             providerSession.Add("Bienvenida", "Index");
             providerSession.Add("Bienvenida", "ConsultarFaltantesAnunciados");
+            providerSession.Add("Bienvenida", "MailConfirmacion");
 
             providerSession.Add("ActualizarDatos", "Index");
             providerSession.Add("ActualizarDatos", "Registrar");

@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string param = Util.DesencriptarQueryString(query);
                     string[] lista = param.Split(new char[] { ';' });
 
-                    if (lista[2] != userData.CodigoConsultora && lista[1] == userData.CodigoISO)
+                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                     {
                         return RedirectToAction("Index", "Bienvenida");
                     }
@@ -2609,6 +2609,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
+                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
@@ -2635,8 +2636,11 @@ namespace Portal.Consultoras.Web.Controllers
   
             }
 
+
             return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
         }
+
+        
 
         public ActionResult DetalleOferta(int id)
         {
@@ -2848,7 +2852,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,ShowRoomIntriga" };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,sr" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 
