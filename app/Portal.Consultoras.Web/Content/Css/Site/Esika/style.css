@@ -21217,10 +21217,6 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    background: black;
-    color: #fff;
-    text-align: center;
-    border: 2px solid #000;
     font-size: 13px;
     /*font-weight: bold;*/
     transition:all 0.3s ease;
