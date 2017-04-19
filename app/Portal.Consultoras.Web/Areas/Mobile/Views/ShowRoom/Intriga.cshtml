@@ -85,6 +85,12 @@
             <a class="boton_Agregalo_home" href="javascript: void(0);">
                 AGRÉGALO
             </a>
+            <div style="padding-top: 9px; height: 30px;">
+                <div class="agregado product-add" style="text-align: right; display: @Model.Agregado;">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>       
         <div>
             <div class="producto_faltante">
@@ -209,6 +215,7 @@
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    $(".agregado").show();
                                     CloseLoading();
                                 }
                                 else messageInfoError(response.message);
