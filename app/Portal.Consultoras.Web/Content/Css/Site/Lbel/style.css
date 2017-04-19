@@ -34053,8 +34053,8 @@ h1#penmostreo .campana {
     height: 45px;
     margin-top: 7px;
     margin-left: 5px;
-    border: 1px solid #d5b03e;
-    color: #d5b03e;
+    border: 1px solid #fff;
+    color: white;
     font-family: 'Lato';
     font-weight: 700;
     font-size: 12.5px;
@@ -34099,7 +34099,7 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
-    border: 1px solid #d5b03e;
+    border: 1px solid #fff;
 }
 /*POP UP GENERALES*/
 .Content_general_pop_up {
@@ -35583,7 +35583,7 @@ h1#penmostreo .campana {
     color:white;
     font-family:'Lato';
     font-size:20px;
-    text-align:center;
+    /*text-align:center;*/
     letter-spacing:1.3px;
     text-transform:uppercase;
     margin-top:10px;
@@ -35632,14 +35632,15 @@ h1#penmostreo .campana {
     width:100%;
 }
 .titulo_carrusel_ODD{
-    font-family:'Lato';
-    font-size:15px;
-    margin-top:10px;
-    color:white;
-    height:20px;
-    overflow:hidden;
-    margin-bottom:16px;
-    text-align:center;
+    line-height: 18px;
+    font-family: 'Lato';
+    font-size: 15px;
+    margin-top: 10px;
+    color: white;
+    height: 39px;
+    overflow: hidden;
+    /* margin-bottom: 16px; */
+    text-align: center;
 }
 .valorizado_carrusel_ODD{
     font-family:'Lato';
@@ -35657,7 +35658,9 @@ h1#penmostreo .campana {
 }
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta{
     width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);
+    width:calc(100% - 80px);    
+    width:-webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
 }
 .content_780_ODD .content_item_carrusel_ODD:last-child{
     float:right;

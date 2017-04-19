@@ -582,7 +582,7 @@
                 <span>@ViewBag.Simbolo {{PrecioOfertaFormat}}</span>
             </div>
             <div style="float: left">
-                <input type="hidden" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                 <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
             </div>
             <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProducto}}">
@@ -592,7 +592,7 @@
         </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia"> <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
-            <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
+            
             <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
@@ -629,8 +629,6 @@
                             <input type="hidden" class="Volumen" value="{{detalle.Volumen}}" />
                             <input type="hidden" class="Palanca" value="ODD" />
                         </div>
-                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                        <div class="barra_inferior"></div>
                         <div class="content_90">
                             <div class="content_set_pop_hoy">
                                 <div class="imagen_set_Oferta_pop">
@@ -645,17 +643,17 @@
                                 </div>
                                 <div class="right_set_hoy">
                                     @*<div class="producto_gratis_ofertaDia">{{detalle.NombreOferta}}</div>*@
-                                    <div class="descripcion_set_ofertaDia">{{detalle.DescripcionOferta}}</div>
+                            <div class="titulo_set_ODD">{{NombreOferta}}</div>
                                     <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
                                     <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
                                     <div style="text-align: center">
                                         <div class="liquidacion_rango_home js-no-popup">
-                                            <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                    <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">
-                                                <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
                                                     <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
                                                 </a>
-                                                <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
+                                        <a class="menos js-no-popup" tabindex="0">
                                                     <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
                                                 </a>
                                             </div>
@@ -671,51 +669,55 @@
                 </div>
             </div>
            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
-            <div class="content_90" data-odd-tipoventana="carrusel" style="display:none;">
-                <div id="divOddCarrusel">
-                    {{#each this.ListaOfertas  as |detalle|}}
-                    <div class="content_item_carrusel_ODD" data-item="">
-                        <div style="display:none;" data-item-campos="">
-                            <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
-                            <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
-                            <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
-                            <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
-                            <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
-                            <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
-                            <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
-                            <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
-                            <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
-                            <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
-                            <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
+            <div style="display:none;" data-odd-tipoventana="carrusel">
+                <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
+                <div class="content_90">
+                    <div id="divOddCarrusel">
+                        {{#each this.ListaOfertas  as |detalle|}}
+                        <div class="content_item_carrusel_ODD" data-item="">
+                            <div style="display:none;" data-item-campos="">
+                                <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
+                                <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
+                                <input type="hidden" class="marca-id-odd" value="{{detalle.MarcaID}}" />
+                                <input type="hidden" class="cuv2-odd" value="{{detalle.CUV2}}" />
+                                <input type="hidden" class="limite-venta-odd" value="{{detalle.LimiteVenta}}" />
+                                <input type="hidden" class="flagnueva-odd" value="{{detalle.FlagNueva}}" />
+                                <input type="hidden" class="precio-odd" value="{{detalle.PrecioOferta}}" />
+                                <input type="hidden" class="nombre-odd" value="{{detalle.NombreOferta}}" />
+                                <input type="hidden" class="indmonto-min-odd" value="{{detalle.IndicadorMontoMinimo}}" />
+                                <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
+                                <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
                             <input type="hidden" class="origenPedidoWeb-odd" value="3" />
-                        </div>
-                        <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                            <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" />
-                            <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
-                            <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
-                            {{#iff detalle.PrecioCatalogo '>' 0}}
-                            <div class="valorizado_carrusel_ODD">VALORIZADO EN {{../Simbolo}} {{detalle.PrecioCatalogoFormat}}</div>
-                            {{/iff}}
-                            <div class="precio_carrusel_ODD">{{../Simbolo}} {{detalle.PrecioOfertaFormat}}</div>
-                        </div>
-                        <div style="text-align: center">
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a class="mas js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
-                                        <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
-                                    </a>
-                                    <a class="menos js-no-popup" tabindex="0" style="border-bottom: 1px solid #d5b03e">
-                                        <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
-                                    </a>
-                                </div>
                             </div>
-                            <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
+                            <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
+                                <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" />
+                                <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
+                                <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
+                                {{#iff detalle.PrecioCatalogo '>' 0}}
+                                <div class="valorizado_carrusel_ODD">VALORIZADO EN {{../Simbolo}} {{detalle.PrecioCatalogoFormat}}</div>
+                                {{/iff}}
+                                <div class="precio_carrusel_ODD">{{../Simbolo}} {{detalle.PrecioOfertaFormat}}</div>
+                            </div>
+                            <div style="text-align: center">
+                                <div class="liquidacion_rango_home js-no-popup">
+                                    <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
+                                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                                        <a class="mas js-no-popup" tabindex="0" style="border-bottom:1px solid white">
+                                            <img class="js-no-popup" src="/Content/Images/PL20/mas.png" alt="">
+                                        </a>
+                                        <a class="menos js-no-popup" tabindex="0">
+                                            <img class="js-no-popup" src="/Content/Images/PL20/menos.png" alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                                <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
+                            </div>
                         </div>
+                        {{/each}}
                     </div>
-                    {{/each}}
                 </div>
             </div>
+           
             <!--FIN-->
         <!--fin-->
         </div>
