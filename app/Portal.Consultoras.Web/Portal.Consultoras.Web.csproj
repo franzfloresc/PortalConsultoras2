@@ -17,9 +17,9 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -2739,6 +2739,7 @@
     <Content Include="Content\Images\showroom\preventa_digital.png" />
     <Content Include="Content\Images\showroom\preventa_pestana.png" />
     <Content Include="Content\Images\showroom\preventa_pop.jpg" />
+    <Content Include="Content\Images\showroom\prueba.png" />
     <Content Include="Content\Images\showroom\red.png" />
     <Content Include="Content\Images\showroom\selector.png" />
     <Content Include="Content\Images\showroom\SET-MAX.jpg" />

@@ -3610,6 +3610,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
+    margin-bottom:16px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: 0.2px;
@@ -21742,17 +21743,9 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    background: black;
-    color: #fff;
-    text-align: center;
-    border: 2px solid #000;
     font-size: 13px;
     /*font-weight: bold;*/
-    transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
+   
 }
 
     /*.boton_Agregalo_home:hover {
@@ -34867,7 +34860,7 @@ h1#penmostreo .campana {
 }
 .ganancia_showroom{
     font-size:13px;
-    color:#e81c36;
+    color:#613c87;
     text-align:right;
     text-transform:uppercase;
 }
@@ -35340,7 +35333,6 @@ h1#penmostreo .campana {
     height: 24px;
     padding-top: 3px;
 }
-
 .btnnotificacion {
     text-decoration: none;
     font-family: 'Lato';
@@ -35558,3 +35550,16 @@ h1#penmostreo .campana {
     overflow: hidden;
     margin-bottom: 40px;
  }
+.banner_showroom_home{
+    width: 29%;
+    min-height: 703px;
+    float: left;
+    z-index: 20;
+    position: relative;
+    
+}
+.banner_showroom_home img{
+    height:703px;
+    width:auto;
+    display:block;
+}

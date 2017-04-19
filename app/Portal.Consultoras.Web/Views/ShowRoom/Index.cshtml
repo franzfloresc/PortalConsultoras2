@@ -290,12 +290,10 @@
         </div>
 
         <div class="producto_img_home mini" data-img="">
-            {{#IsNullOrEmpty ImagenMini '=='}}
+            {{#IsNullOrEmpty ImagenProducto '=='}}
             <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
-            {{/IsNullOrEmpty}}
-
-            {{#IsNullOrEmpty ImagenMini '!='}}
-            <img src="{{ImagenMini}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
+            {{else}}
+            <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
             {{/IsNullOrEmpty}}
 
             <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>

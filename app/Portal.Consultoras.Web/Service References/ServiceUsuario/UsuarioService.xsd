@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="BEUsuarioExterno">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Genero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdAplicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ubicacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
+  <xs:complexType name="ArrayOfBEUsuarioExterno">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEUsuarioExterno" nillable="true" type="tns:ArrayOfBEUsuarioExterno" />
   <xs:complexType name="BEUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
@@ -155,94 +180,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
-  <xs:complexType name="ArrayOfBEUsuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuario" nillable="true" type="tns:BEUsuario" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEUsuario" nillable="true" type="tns:ArrayOfBEUsuario" />
-  <xs:complexType name="BENotificacionesDetalleCatalogo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CorreoCliente" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DetalleNotificacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TelefonoCliente" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BENotificacionesDetalleCatalogo" nillable="true" type="tns:BENotificacionesDetalleCatalogo" />
-  <xs:complexType name="BEValidaLoginSB2">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Result" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEValidaLoginSB2" nillable="true" type="tns:BEValidaLoginSB2" />
-  <xs:simpleType name="EAplicacionOrigen">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="BienvenidaConsultora">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="MisDatosConsultora">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ActualizarClaveSAC">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="RecuperarClave">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-      <xs:enumeration value="ConsultoraFicticia">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:element name="EAplicacionOrigen" nillable="true" type="tns:EAplicacionOrigen" />
-  <xs:complexType name="BEUsuarioExterno">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Genero" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdAplicacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LinkPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Ubicacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
-  <xs:complexType name="ArrayOfBEUsuarioExterno">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEUsuarioExterno" nillable="true" type="tns:ArrayOfBEUsuarioExterno" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
@@ -312,6 +249,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioCorreo" nillable="true" type="tns:BEUsuarioCorreo" />
+  <xs:complexType name="ArrayOfBEUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuario" nillable="true" type="tns:BEUsuario" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEUsuario" nillable="true" type="tns:ArrayOfBEUsuario" />
   <xs:complexType name="BEDupla">
     <xs:sequence>
       <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
@@ -331,6 +274,46 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEDupla" nillable="true" type="tns:BEDupla" />
+  <xs:simpleType name="EAplicacionOrigen">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="BienvenidaConsultora">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MisDatosConsultora">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ActualizarClaveSAC">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="RecuperarClave">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ConsultoraFicticia">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EAplicacionOrigen" nillable="true" type="tns:EAplicacionOrigen" />
   <xs:complexType name="ArrayOfBEKitNueva">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEKitNueva" nillable="true" type="tns:BEKitNueva" />
@@ -510,4 +493,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraEstadoSAC" nillable="true" type="tns:BEConsultoraEstadoSAC" />
+  <xs:complexType name="BENotificacionesDetalleCatalogo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CorreoCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetalleNotificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreCliente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelefonoCliente" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BENotificacionesDetalleCatalogo" nillable="true" type="tns:BENotificacionesDetalleCatalogo" />
+  <xs:complexType name="BEValidaLoginSB2">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEValidaLoginSB2" nillable="true" type="tns:BEValidaLoginSB2" />
 </xs:schema>
