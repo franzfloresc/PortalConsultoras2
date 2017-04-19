@@ -128,6 +128,7 @@
       <xs:element minOccurs="0" name="TipoVinculoFamiliar" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoVinculoNoFamiliar" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VistoPorGZ" type="xs:boolean" />
       <xs:element minOccurs="0" name="VistoPorSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="VistoPorSE" type="xs:boolean" />
@@ -203,19 +204,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
-  <xs:complexType name="UbigeoPA">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="UbigeoSV">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -229,6 +217,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
+  <xs:complexType name="UbigeoPA">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CORREGIMIENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DISTRITO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PROVINCIA" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
   <xs:complexType name="UbigeoGT">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
