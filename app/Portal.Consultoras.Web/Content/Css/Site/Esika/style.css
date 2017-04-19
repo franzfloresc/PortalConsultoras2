@@ -21804,7 +21804,10 @@ label.checkpop.c_on {
     line-height: 42px;
     font-size: 13px;
     /*font-weight: bold;*/
-   
+   background: #000;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #000;
 }
 
     /*/*.boton_Agregalo_home:hover {

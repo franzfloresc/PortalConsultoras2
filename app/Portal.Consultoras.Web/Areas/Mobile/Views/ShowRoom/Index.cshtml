@@ -138,37 +138,37 @@
     <div class="contenedor_productos_liquidacion content_showroom" style="position: relative;">
         <div id="divProductosShowRoom">
             @*@{ var posicions = 1; }
-            @foreach (var item in Model.ListaShowRoomOferta)
-            {
-                <div class="content_item_home" style="position: relative;">
-                    <div class="liquidacion_item" data-posicion="@posicions">
-                        <div class="producto_img_mobile">
-                            <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
-                                @if (string.IsNullOrEmpty(item.ImagenMini))
-                                {
-                                    <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
-                                }
-                                else
-                                {
-                                    <img src="@item.ImagenProducto" alt="" />
-                                }
-                            </a>
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <p class="nombre_producto" style="cursor: pointer; height: 36px;">
-                                <b>@item.Descripcion</b>
-                            </p>
-                            <div class="producto_precio">
-                                <span class="producto_precio_normal">@item.Simbolo @item.FormatoPrecioOferta</span>
-                                <span class="producto_precio_oferta"><b>@item.Simbolo @item.FormatoPrecioCatalogo</b></span>
-                            </div>
-                        </div>
+    @foreach (var item in Model.ListaShowRoomOferta)
+    {
+        <div class="content_item_home" style="position: relative;">
+            <div class="liquidacion_item" data-posicion="@posicions">
+                <div class="producto_img_mobile">
+                    <a class="btnVerDetalleOfertaShowRoom" href="@Url.Action("DetalleOferta", "ShowRoom", new {id = item.OfertaShowRoomID, area = "Mobile"})">
+                        @if (string.IsNullOrEmpty(item.ImagenMini))
+                        {
+                            <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+                        }
+                        else
+                        {
+                            <img src="@item.ImagenProducto" alt="" />
+                        }
+                    </a>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <p class="nombre_producto" style="cursor: pointer; height: 36px;">
+                        <b>@item.Descripcion</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_normal">@item.Simbolo @item.FormatoPrecioValorizado</span>
+                        <span class="producto_precio_oferta"><b>@item.Simbolo @item.FormatoPrecioOferta</b></span>
                     </div>
                 </div>
-                {
-                    posicions++;
-                }
-            }*@
+            </div>
+        </div>
+        {
+            posicions++;
+        }
+    }*@
         </div>
     </div>
 </div>
@@ -205,7 +205,7 @@
                                 }
                                 @descripcion
                             </b>
-                            <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo </b>
+                            <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta </b>
                             <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
                         </div>
                         @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
@@ -258,7 +258,7 @@
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID"/>
                                 <input type="hidden" class="valorCuv" value="@item.CUV"/>
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID"/>
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo"/>
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta"/>
                                 <input type="hidden" class="DescripcionProd" value="@item.Descripcion"/>
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca"/>
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc"/>
@@ -277,9 +277,9 @@
                             <div style="height: 130px;">
                                 <div class="nombre_producto_pop_compra">@descripcion</div>
                                 <div class="precio_set_compra">
-                                    A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
+                                    A SÓLO @item.Simbolo @item.FormatoPrecioOferta
                                 </div>
-                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
                                 <div class="precio_producto_compra">@item.DescripcionLegal</div>
                             </div>
                             <div>
@@ -324,8 +324,8 @@
                     <b>{{Descripcion}}</b>
                 </p>
                 <div class="producto_precio">
-                    <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
+                    <span class="producto_precio_normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                 </div>
             </div>
         </div>

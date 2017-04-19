@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal PrecioOferta { get; set; }
 
-        public decimal PrecioCatalogo { get; set; }
+        public decimal PrecioValorizado { get; set; }
 
         public int Stock { get; set; }
 
@@ -107,15 +107,15 @@ namespace Portal.Consultoras.Web.Models
             }
             get
             {
-                return Math.Abs(PrecioCatalogo - PrecioOferta);
+                return Math.Abs(PrecioValorizado - PrecioOferta);
             }
         }
 
-        public string FormatoPrecioCatalogo
+        public string FormatoPrecioValorizado
         {
             get
             {
-                return Util.DecimalToStringFormat(PrecioCatalogo, CodigoISO);
+                return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
             }
         }
 

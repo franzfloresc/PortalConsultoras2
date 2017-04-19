@@ -297,7 +297,7 @@ function TagManagerOfertaShowRoom() {
         var impresionofertaShowRoom = {
             'name': ofertaShowRoom.Descripcion,
             'id': ofertaShowRoom.CUV,
-            'price': ofertaShowRoom.PrecioCatalogo.toString(),
+            'price': ofertaShowRoom.PrecioOferta.toString(),
             'category': 'NO DISPONIBLE',
             'brand': ofertaShowRoom.DescripcionMarca,
             'position': position,

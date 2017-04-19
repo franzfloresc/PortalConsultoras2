@@ -82,7 +82,7 @@
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
                                 <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
                                 <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
@@ -104,8 +104,8 @@
                             <div class="producto_nombre_descripcion">
                                 <p class="nombre-producto-set">@item.Descripcion</p>
                                 <div class="producto_precio" style="margin-bottom: 3px;">
-                                    <span class="precio-oferta-normal">@Model.Simbolo @item.FormatoPrecioOferta</span>
-                                    <span class="precio-oferta-venta"><b>@Model.Simbolo @item.FormatoPrecioCatalogo</b></span>
+                                    <span class="precio-oferta-normal">@Model.Simbolo @item.FormatoPrecioValorizado</span>
+                                    <span class="precio-oferta-venta"><b>@Model.Simbolo @item.FormatoPrecioOferta</b></span>
                                 </div>
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
@@ -161,7 +161,7 @@
                             <b class="content_oferta_promocion">
                                 @descripcion<span class="solo_inferior">
 
-                                    A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioCatalogo
+                                    A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta
                                 </span>
                             </b>
                             @Model.TextoCondicionCompraCpc
@@ -203,7 +203,7 @@
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
                                 <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
@@ -222,8 +222,8 @@
 
                             <div class="content_datos_carrusel">
                                 <div class="titulo_pop_compra">@item.Descripcion</div>
-                                <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</b></div>
-                                <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="precio_set_compra" style="text-align:left"><b>A SÓLO @item.Simbolo @item.FormatoPrecioOferta</b></div>
+                                <div class="descripcion_producto_compra" style="font-weight:400;">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
                                 <div class="producto_compra">@item.DescripcionLegal</div>
 
                                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
@@ -282,7 +282,7 @@
             <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
             <input type="hidden" class="valorCuv" value="{{CUV}}" />
             <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioCatalogo}}" />
+            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
             <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
             <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
             <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
@@ -301,8 +301,8 @@
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>
             <div class="producto_precio" style="margin-bottom: 3px;">
-                <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
-                <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
+                <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
+                <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
             </div>
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" min="1" max="99" size="2" maxlength="2"

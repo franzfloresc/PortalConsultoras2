@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
                 .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
                 .ForMember(t => t.StockInicial, f => f.MapFrom(c => c.StockInicial))
                 .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
