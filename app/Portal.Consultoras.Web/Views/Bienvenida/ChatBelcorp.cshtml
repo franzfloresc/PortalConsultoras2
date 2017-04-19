@@ -8,8 +8,9 @@
     <script src="@Url.Content("~/Scripts/jquery-1.11.2.min.js")" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            localStorage.setItem('PopUpChatOpened', 'true');
             $(window).bind("beforeunload", function() { 
-                window.localStorage.setItem('PopUpChatOpened', 'false');
+                localStorage.setItem('PopUpChatOpened', 'false');
             });
         });
     </script>
