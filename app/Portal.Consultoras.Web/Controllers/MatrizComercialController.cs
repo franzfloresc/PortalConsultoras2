@@ -108,8 +108,10 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.IdMatrizComercial.ToString(),
                                    a.CodigoSAP.ToString(),
+                                   a.CUV,
                                    a.DescripcionOriginal.ToString(),
                                    a.Descripcion.ToString(),
+                                   /*,
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto01.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto02.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto03.ToString(), Globals.RutaImagenesMatriz + "/" + ISO), // 1664
@@ -119,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto07.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto08.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
                                    ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto09.ToString(), Globals.RutaImagenesMatriz + "/" + ISO),
-                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto10.ToString(), Globals.RutaImagenesMatriz + "/" + ISO)
+                                   ConfigS3.GetUrlFileS3(carpetaPais, a.FotoProducto10.ToString(), Globals.RutaImagenesMatriz + "/" + ISO)*/
                                 }
                            }
                 };
@@ -197,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
                 string preFileName = paisISO + "_" + model.CodigoSAP + "_";
 
-                entidad.FotoProducto01 = this.UploadFoto(model.FotoProducto01, "01", preFileName, carpetaPais);
+               /* entidad.FotoProducto01 = this.UploadFoto(model.FotoProducto01, "01", preFileName, carpetaPais);
                 entidad.FotoProducto02 = this.UploadFoto(model.FotoProducto02, "02", preFileName, carpetaPais);
                 entidad.FotoProducto03 = this.UploadFoto(model.FotoProducto03, "03", preFileName, carpetaPais);
                 entidad.FotoProducto04 = this.UploadFoto(model.FotoProducto04, "04", preFileName, carpetaPais);
@@ -206,7 +208,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FotoProducto07 = this.UploadFoto(model.FotoProducto07, "07", preFileName, carpetaPais);
                 entidad.FotoProducto08 = this.UploadFoto(model.FotoProducto08, "08", preFileName, carpetaPais);
                 entidad.FotoProducto09 = this.UploadFoto(model.FotoProducto09, "09", preFileName, carpetaPais);
-                entidad.FotoProducto10 = this.UploadFoto(model.FotoProducto10, "10", preFileName, carpetaPais);
+                entidad.FotoProducto10 = this.UploadFoto(model.FotoProducto10, "10", preFileName, carpetaPais);*/
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -253,7 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
                 string preFileName = paisISO + "_" + model.CodigoSAP + "_";
 
-                entidad.FotoProducto01 = this.ReplaceFoto(model.FotoProducto01, model.FotoProductoAnterior01, "01", preFileName, carpetaPais);
+                /*entidad.FotoProducto01 = this.ReplaceFoto(model.FotoProducto01, model.FotoProductoAnterior01, "01", preFileName, carpetaPais);
                 entidad.FotoProducto02 = this.ReplaceFoto(model.FotoProducto02, model.FotoProductoAnterior02, "02", preFileName, carpetaPais);
                 entidad.FotoProducto03 = this.ReplaceFoto(model.FotoProducto03, model.FotoProductoAnterior03, "03", preFileName, carpetaPais);
                 entidad.FotoProducto04 = this.ReplaceFoto(model.FotoProducto04, model.FotoProductoAnterior04, "04", preFileName, carpetaPais);
@@ -263,7 +265,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.FotoProducto08 = this.ReplaceFoto(model.FotoProducto08, model.FotoProductoAnterior08, "08", preFileName, carpetaPais);
                 entidad.FotoProducto09 = this.ReplaceFoto(model.FotoProducto09, model.FotoProductoAnterior09, "09", preFileName, carpetaPais);
                 entidad.FotoProducto10 = this.ReplaceFoto(model.FotoProducto10, model.FotoProductoAnterior10, "10", preFileName, carpetaPais);
-
+                */
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     sv.UpdMatrizComercial(entidad);

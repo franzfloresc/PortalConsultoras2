@@ -22,6 +22,11 @@
         IniForm();
         $("#btnBuscar").click(function () {
             var msjex = "";
+
+            if ($("#txtCodigoSAP").val() === "")
+                msjex += " - Debe ingresar un Código SAP .\n";
+            if (isNaN($("#txtCodigoSAP").val()))
+                msjex += " - Debe ingresar un Código SAP válido.\n";
             if ($("#ddlPais").val() == "")
                 msjex += " - Debe seleccionar un País .\n";
             //if ($("#txtCodigoSAP").val() == "")
@@ -129,22 +134,13 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['', 'Código SAP', 'Descripción Original', 'Descripción', 'Foto 01', 'Foto 02', 'Foto 03', 'Foto 04', 'Foto 05', 'Foto 06', 'Foto 07', 'Foto 08', 'Foto 09', 'Foto 10', ''],
+            colNames: ['', 'Código SAP',  'CUV', 'Descripción Original', 'Descripción', ''],
             colModel: [
                 { name: 'IdMatrizComercial', index: 'IdMatrizComercial', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'CodigoSAP', index: 'CodigoSAP', width: 50, editable: true, resizable: false },
+                { name: 'CUV', index: 'CUV', width: 51, editable: true, resizable: false, sortable: false}, 
                 { name: 'DescripcionOriginal', index: 'DescripcionOriginal', width: 210, editable: true, resizable: false },
-                { name: 'Descripcion', index: 'Descripcion', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'FotoProducto01', index: 'FotoProducto01', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto02', index: 'FotoProducto02', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto03', index: 'FotoProducto03', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto04', index: 'FotoProducto04', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto05', index: 'FotoProducto05', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto06', index: 'FotoProducto06', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto07', index: 'FotoProducto07', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto08', index: 'FotoProducto08', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto09', index: 'FotoProducto09', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto10', index: 'FotoProducto10', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'Descripcion', index: 'Descripcion', width: 0, editable: true, resizable: false, hidden: true }, //1644
                 { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:

@@ -547,14 +547,14 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
             if (lst != null && lst.Count > 0)
             {
-                if (lst[0].FotoProducto01 != "")
+                /*if (lst[0].FotoProducto01 != "")
                     lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
 
                 if (lst[0].FotoProducto02 != "")
                     lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
 
                 if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
+                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);*/
             }
 
             return Json(new

@@ -12,7 +12,8 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoSAP { get; set; }
         public string DescripcionOriginal { get; set; }
         public string Descripcion { get; set; }
-        public string FotoProducto01 { get; set; }
+        public string CUV { get; set; }
+        /*public string FotoProducto01 { get; set; }
         public string FotoProducto02 { get; set; }
         public string FotoProducto03 { get; set; }
         public string FotoProducto04 { get; set; }
@@ -31,7 +32,7 @@ namespace Portal.Consultoras.Web.Models
         public string FotoProductoAnterior07 { get; set; }
         public string FotoProductoAnterior08 { get; set; }
         public string FotoProductoAnterior09 { get; set; }
-        public string FotoProductoAnterior10 { get; set; }
+        public string FotoProductoAnterior10 { get; set; }*/
         public string UsuarioRegistro { get; set; }
         public string UsuarioModificacion { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
