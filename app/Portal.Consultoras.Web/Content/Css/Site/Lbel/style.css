@@ -34918,8 +34918,8 @@ h1#penmostreo .campana {
         /* text-align: right; */
         background: black;
         color: white;
-        width: -moz-calc(100% -80px);
-        width: calc(100% - 80px);
+    width:-moz-calc(100% -80px);
+    width:calc(100% - 80px);
     width:-webkit-calc(100% - 80px);
     width: -webkit-calc(~'100% - 80px');
 }
