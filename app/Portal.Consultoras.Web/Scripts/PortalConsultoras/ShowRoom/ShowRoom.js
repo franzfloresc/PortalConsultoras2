@@ -173,6 +173,7 @@ function CargarProductosShowRoom(busquedaModel) {
     });
 
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
+    $("#divProductosShowRoom").show();
 
     jQuery.ajax({
         type: 'POST',
@@ -199,7 +200,7 @@ function CargarProductosShowRoom(busquedaModel) {
                         ? value.Descripcion.substring(0, 30) + "..."
                         : value.Descripcion;
                     }
-                    
+
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
                     value.Descripcion = descripcion;
@@ -213,9 +214,17 @@ function CargarProductosShowRoom(busquedaModel) {
                 $("#spnCantidadFiltro").html(response.cantidad);
                 $("#spnCantidadTotal").html(response.cantidadTotal);
 
-            } else messageInfoError(response.message);
+            } else {
+                messageInfoError(response.message);
+                if (busquedaModel.hidden == true) {
+                    $("#divProductosShowRoom").hide();
+                }
+            }
         },
         error: function (response, error) {
+            if (busquedaModel.hidden == true) {
+                $("#divProductosShowRoom").hide();
+            }
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
