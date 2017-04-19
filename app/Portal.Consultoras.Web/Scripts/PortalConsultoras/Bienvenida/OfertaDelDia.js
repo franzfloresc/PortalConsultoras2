@@ -66,27 +66,50 @@ function loadOfertaDelDia() {
                 $(idOdd + ' [data-odd-texto="cliente"]').hide();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
             }
-
-            //$('#divOddCarrusel').slick({
-            //    infinite: false,
-            //    vertical: false,
-            //    slidesToShow: 1,
-            //    slidesToScroll: 1,
-            //    autoplay: false,
-            //    speed: 260,
-            //    prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            //    nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
-            //})
-
+            
             //$('#img-banner-odd').attr('src', _data.ImagenBanner);
             //$('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
             //$('#img-display-odd').attr('src', _data.ImagenDisplay);
-            $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
-            $('#banner-odd').css('background-color', _data.ColorFondo1);
+
+            //$('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
+            //$('#banner-odd').css('background-color', _data.ColorFondo1);
             //$('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
-            $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+            //$('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+            $('#PopOfertaDia').css('background-color', "red");
 
             $('#OfertaDelDia').show();
+            $('#PopOfertaDia').show();
+
+            if (_data.CantidadProducto > 3) {
+                $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').show();
+                $('#divOddCarrusel').slick({
+                    infinite: false,
+                    vertical: false,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    autoplay: false,
+                    speed: 260,
+                    prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                    nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+                });
+                $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
+            }
+            if (_data.CantidadProducto > 1) {
+                $('#PopOfertaDia [data-odd-tipoventana="detalle"]').show();
+                $('#divOddCarruselDetalle').slick({
+                    infinite: false,
+                    vertical: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    autoplay: false,
+                    speed: 260,
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                });
+                $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();
+            }
+
+            $('#PopOfertaDia').hide();
 
             //var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
             //obj1.html(obj1.text());
@@ -135,8 +158,15 @@ function ODDCargarEventos() {
         var accion = $(this).attr("data-odd-accion");
         if (accion == "veroferta") {
             if (showDisplayODD == 0) {
-                $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
-                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
+                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
+                if (cantidad == 1) {
+                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
+                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
+                }
+                else {
+                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
+                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
+                }
                 $('#PopOfertaDia').slideDown();
                 $('.circulo_hoy span').html('-');
                 showDisplayODD = 1;

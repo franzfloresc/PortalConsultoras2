@@ -585,7 +585,7 @@
                 <input type="hidden" value="1" style="color:#d5b03e;border: 1px solid #d5b03e;" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                 <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
             </div>
-            <a class="btn_detalle_hoy" data-odd-accion="veroferta">
+            <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProducto}}">
                 <div class="circulo_hoy"><span>+</span></div>
                 <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
             </a>
@@ -594,7 +594,7 @@
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia"> <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
             <!--CASO 1 CARRUSEL A 1024-->
-            <div data-odd-tipoventana="detalle">
+            <div data-odd-tipoventana="detalle" style="display:none;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <hr class="clear" />
                 <div id="divOddCarruselDetalle">
@@ -617,9 +617,9 @@
                         <div data-compartir-campos="" style="display:none;">
                             <input type="hidden" class="CUV" value="{{detalle.CUV2}}" />
                             <input type="hidden" class="rsFBMensaje" value="" />
-                            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                            <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
                             <input type="hidden" class="rsWAMensaje" value="" />
-                            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                            <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
                             <input type="hidden" class="rsFBRutaImagen" value="{{detalle.ImagenDisplay}}" />
                             <input type="hidden" class="rsWARutaImagen" value="{{detalle.ImagenDisplay}}" />
                             <input type="hidden" class="MarcaID" value="{{detalle.MarcaID}}" />
@@ -671,7 +671,7 @@
                 </div>
             </div>
            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
-            <div class="content_90" style="display:none;" data-odd-tipoventana="carrusel">
+            <div class="content_90" data-odd-tipoventana="carrusel" style="display:none;">
                 <div id="divOddCarrusel">
                     {{#each this.ListaOfertas  as |detalle|}}
                     <div class="content_item_carrusel_ODD" data-item="">

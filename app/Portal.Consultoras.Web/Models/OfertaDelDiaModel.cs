@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class OfertaDelDiaModel
+    public class OfertaDelDiaModel : CompartirRedesSocialesModel
     {
         public string CodigoIso { get; set; }
         public int TipoEstrategiaID { get; set; }
