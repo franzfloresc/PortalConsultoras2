@@ -258,11 +258,11 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function () {
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
-        window.name = "PortalBelcorp";
-        var PopUpChatOpened = window.localStorage.getItem('PopUpChatOpened');
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
         if(typeof PopUpChatOpened == 'undefined' ||
-            PopUpChatOpened == null || PopUpChatOpened == 'false') {
-            window.localStorage.setItem('PopUpChatOpened', 'true');
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
             ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
             ventanaChat.focus();
         } else {
@@ -277,7 +277,6 @@ $(document).ready(function () {
         //cerrar Popup
         $(".ui-button-text").trigger("click");
     });
-
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);

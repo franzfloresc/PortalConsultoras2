@@ -230,6 +230,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    localStorage.setItem('PopUpChatOpened', 'false');
 });
 
 function Inicializar()
