@@ -2033,7 +2033,7 @@ namespace Portal.Consultoras.BizLogic
                 if (configuracion.IndicadorGPRSB == 1) {
                     return new BEValidacionModificacionPedido {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = "En este momento nos encontramos facturando tu pedido de C" + campania.ToString().Substring(4, 2) + ", inténtalo más tarde"
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", campania.Substring(4, 2))
                     };
                 }
                 if (configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
@@ -2079,10 +2079,9 @@ namespace Portal.Consultoras.BizLogic
             if (configuracion.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > configuracion.HoraCierreZonaDemAnti);
             else enHorarioRestringido = (configuracion.HoraCierreZonaNormal < horaActual && horaActual < configuracion.HoraCierreZonaNormal + horaAdicional);
             if (!enHorarioRestringido) return null;
-                
+
             TimeSpan horaCierre = configuracion.EsZonaDemAnti != 0 ? configuracion.HoraCierreZonaDemAnti : configuracion.HoraCierreZonaNormal;
-            if (horaActual > horaCierre) return string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0} horas de tu día de facturación.", horaCierre.ToString(@"hh\:mm"));
-            return string.Format("Se ha cerrado el período de facturación a las {0} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", horaCierre.ToString(@"hh\:mm"));
+            return string.Format(" En este momento nos encontramos facturando tu pedido de C-XX. Todos los códigos ingresados hasta las {0} horas han sido registrados en el sistema. Gracias!", horaCierre.ToString(@"hh\:mm"));
         }
     }
 
