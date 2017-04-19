@@ -556,17 +556,14 @@ function closePopupAsociarLoginExt() {
 
 function resizeNameUserExt() {
     var w = $(window).width();  //1366,1093
-    //console.log(w);
     var ml = 8;
     if (w <= 1093) ml = 16;
-    var name = $('#hdeNameUserExt').val();
+    var fname = $('#hdeNameUserExt').val();
 
-    if (typeof name !== 'undefined' && name != "") {
-        if (name.length > ml) {
-            var p = name.indexOf(' ');
-            name = name.substring(0, p).trim() + '..';
+    if (typeof fname !== 'undefined' && fname != "") {
+        if (fname.length > ml) {
+            fname = fname.substring(0, ml).trim() + '.';
         }
-
-        $('#btnLoginFB').text('Continuar como ' + name);
+        $('#btnLoginFB').text('Continuar como ' + fname);
     }
 }
