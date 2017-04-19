@@ -253,7 +253,6 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function () {
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
-        window.name = "PortalBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
         if(typeof PopUpChatOpened == 'undefined' ||
             PopUpChatOpened == null ||
@@ -272,10 +271,6 @@ $(document).ready(function () {
         }
         //cerrar Popup
         $(".ui-button-text").trigger("click");
-    });
-
-    $(window).bind("beforeunload", function () {
-        localStorage.clear();
     });
 
     Scrolling();
