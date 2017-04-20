@@ -646,5 +646,11 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
         }
+
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RecuperarContrasenia(paisId, correo);
+        }
     }
 }

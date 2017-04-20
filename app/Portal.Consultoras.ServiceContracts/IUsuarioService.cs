@@ -282,5 +282,8 @@ namespace Portal.Consultoras.ServiceContracts
           
         [OperationContract]
         bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string correo);
     }
 }

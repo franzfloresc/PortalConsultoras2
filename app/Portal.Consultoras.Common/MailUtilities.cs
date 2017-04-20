@@ -76,6 +76,22 @@ namespace Portal.Consultoras.Common
             catch(Exception ex) { }
         }
 
+        public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string logo, string nombre, string url, string fondo)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_proceso_recuperar_contrasenia.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Url#", url);
+            htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
+
+            //emailTo = "vmarinoalvarez@gmail.com";
+
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, "Somos Belcorp"); }
+            catch { }
+        }
+
         //1774
         public static string CuerpoMensajePersonalizado(string url,string nombreconsultora, string param_querystring, bool tipopais)
         {

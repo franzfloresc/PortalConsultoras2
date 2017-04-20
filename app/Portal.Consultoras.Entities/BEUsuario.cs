@@ -387,6 +387,12 @@ namespace Portal.Consultoras.Entities
             else
                 ConsultoraAsociadoID = 0;
 
+            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+                miTipoUsuario = Convert.ToByte(row["TipoUsuario"]);
+            else
+                miTipoUsuario = 0;
+
+            //miTipoUsuario = 2;
         }
 
         [DataMember]

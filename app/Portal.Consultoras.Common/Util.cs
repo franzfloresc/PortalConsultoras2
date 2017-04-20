@@ -2985,6 +2985,32 @@ namespace Portal.Consultoras.Common
             var queryStringDic = parsed.AllKeys.ToDictionary(k => k, k => (object)parsed[k]);
             return new RouteValueDictionary(queryStringDic);
         }
+
+        public static Uri GetUrlRecuperarContrasenia(string urlportal, int paisId, string correo, string paisiso, string codigousuario, string fechasolicitud, string nombre)
+        {
+            string url_paisId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisId.ToString().Trim()));
+            string url_correo = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(correo.Trim()));
+            string url_paisiso = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisiso.Trim()));
+            string url_codigousuario = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(codigousuario.Trim()));
+            string url_fechasolicitud = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(fechasolicitud.Trim()));
+            string url_nombre = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(nombre.Trim()));
+
+            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var qs = HttpUtility.ParseQueryString(uri.Query);
+            qs.Set("xyzab", url_paisId);
+            qs.Set("abxyz", url_correo);
+            qs.Set("yzabx", url_paisiso);
+            qs.Set("bxyza", url_codigousuario);
+            qs.Set("zabxy", url_fechasolicitud);
+            qs.Set("xbaby", url_nombre);
+
+            var uriBuilder = new UriBuilder(uri)
+            {
+                Query = qs.ToString()
+            };
+
+            return uriBuilder.Uri;
+        }
     }
 
 
