@@ -1,0 +1,41 @@
+﻿<script id="matriz-comercial-template" type="text/x-handlebars-template">
+    <input id="hdFlagTransaccion" type="hidden" value="0" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titA">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisModal" value="{{pais}}" readonly="readonly" />
+            </div>
+            <div class="titA">CUV</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUV" value="{{CUV}}" readonly="readonly" />
+            </div>
+            <div class="titA">SAP:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCodigoSAPModal" value="{{codigoSAP}}" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF">Descripción Original:</div>
+            <div class="selectP2 borde_redondeado" style="width: 570px;">
+                <input type="text" id="txtDescripcionOriginalModal" value="{{descripcionOriginal}}" readonly="readonly" style="width: 570px;" />
+            </div>
+            <div class="titG" style="width: 180px; display: none">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="display: none">
+                <input type="text" id="txtDescripcionModal" value="{{descripcion}}" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titF">Imagen:</div>
+            <div class="div-list-img-matriz-comercial">
+                {{#each imagenes}}
+                <div class="titG">
+                    <div class="selectP2 borde_redondeado aligncenter">
+                        <img src='{{Foto}}' class="img-matriz-comercial">
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</script>
