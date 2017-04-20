@@ -305,7 +305,8 @@ namespace Portal.Consultoras.Web.Controllers
             FormsAuthentication.SignOut();
 
             string URLSignOut = "/Login";
-            if (Tipo == 2)
+            //EPD-2058
+            if (Tipo == Constantes.TipoUsuario.Admin)
                 URLSignOut = "/Login/Admin";
 
             return Redirect(URLSignOut);
@@ -480,7 +481,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
                     // EPD-2058
-                    if (oBEUsuario.TipoUsuario == 1)
+                    if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
                         model.IndicadorPermisoFlexipago = GetPermisoFlexipago(model.PaisID, model.CodigoISO, model.CodigoConsultora, model.CampaniaID);
                     }
@@ -502,7 +503,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //EPD-2058
                     if (model.MenuNotificaciones == 1)
                     {
-                        if (oBEUsuario.TipoUsuario == 1)
+                        if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
                             model.TieneNotificaciones = TieneNotificaciones(oBEUsuario);
                         }
@@ -513,7 +514,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (oBEUsuario.CampaniaID != 0)
                     {
                         //EPD-2058
-                        if (oBEUsuario.TipoUsuario == 1)
+                        if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
                             valores = GetFechaPromesaEntrega(oBEUsuario.PaisID, oBEUsuario.CampaniaID, oBEUsuario.CodigoConsultora, oBEUsuario.FechaInicioFacturacion);
                             arrValores = valores.Split('|');
@@ -532,7 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     //EPD-2058
-                    if (oBEUsuario.TipoUsuario == 1)
+                    if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
                         model.EsUsuarioComunidad = EsUsuarioComunidad(oBEUsuario.PaisID, oBEUsuario.CodigoUsuario);
                     }
@@ -577,7 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (model.TieneHana == 1)
                         {
                             //EPD-2058
-                            if (oBEUsuario.TipoUsuario == 1)
+                            if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
                                 ActualizarDatosHana(ref model);
                             }
@@ -591,7 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
                             BEResumenCampania[] infoDeuda = null;
 
                             // EPD-2058
-                            if (oBEUsuario.TipoUsuario == 1)
+                            if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
                                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                                 {
@@ -617,7 +618,7 @@ namespace Portal.Consultoras.Web.Controllers
                             if (model.IndicadorFlexiPago > 0)
                             {
                                 //EPD-2058
-                                if (oBEUsuario.TipoUsuario == 1)
+                                if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     using (PedidoServiceClient svc = new PedidoServiceClient())
                                     {
@@ -635,7 +636,7 @@ namespace Portal.Consultoras.Web.Controllers
                         //{
 
                         #region Oferta del Dia
-                        if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == 1) //EPD-2058
+                        if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora) //EPD-2058
                         {
                             var lstOfertaDelDia = new List<BEEstrategia>();
                             using (PedidoServiceClient svc = new PedidoServiceClient())
@@ -727,7 +728,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                 //EPD-2058
-                if (oBEUsuario.TipoUsuario == 1)
+                if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     CalcularMotivoRechazo(model);
                 }

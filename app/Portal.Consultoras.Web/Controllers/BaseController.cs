@@ -67,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
                     /*** EPD 2170 ***/
-                    if (userData.TipoUsuario == 2)
+                    if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
                         ViewBag.SegmentoConsultoraMenu = 1;
                     }
@@ -88,11 +88,11 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
                     //EPD-2058
-                    if (userData.TipoUsuario == 1)
-                    {
+                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                    //{
                         ObtenerPedidoWeb();
                         ObtenerPedidoWebDetalle();
-                    }
+                    //}
                     
                     ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
                     ViewBag.EsMobile = 1;//EPD-1780
@@ -464,7 +464,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<PermisoModel> lstModel = new List<PermisoModel>();
 
                     lst2 = lst;
-                    if (userData.TipoUsuario == 2)
+                    if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
                         lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
                     }
@@ -577,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 /*** EPD 2170 ***/
                 int SegmentoID;
-                if (userData.TipoUsuario == 2)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     SegmentoID = 1;
                 }
@@ -627,10 +627,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Cargar variables
 
                 //EPD-2058
-                if (model.TipoUsuario == 1)
-                {
+                //if (model.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                //{
                    if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-                }
+                //}
                 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;

@@ -153,18 +153,21 @@ function ArmarListaClientePaginador(data) {
 }
 
 function showDivAgregar() {
-    if (gTipoUsuario == 2) {
-        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+    if (gTipoUsuario == '2') {
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.bb";
         $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
         $('#dialog_MensajePostulante').show();
+        return false;
     }
+        /*
     else {
-    if (typeof gTipoUsuario !== 'undefined') {
+        if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             alert('Acceso restringido, aun no puede agregar pedidos');
             return false;
         }
     }
+    */
     $('#divAgregarCliente').show();
 }
 }

@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
             
-            if (userData.TipoUsuario == 2)
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
                       
             return View(model);
@@ -479,7 +479,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
 
-            if (userData.TipoUsuario == 2)
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
 
             return View(model);

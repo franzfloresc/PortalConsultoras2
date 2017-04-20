@@ -60,11 +60,13 @@ $(document).ready(function () {
 });
 
 function CrearPopShow() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $("#btnCerrarPopShowroom").click(function () {        
         $("#PopShowroom").modal("hide");
@@ -107,11 +109,14 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
+
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     if (sesionEsShowRoom == '0') {
         return;
@@ -295,6 +300,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
     if (mostrarAlerta) {
         if (typeof gTipoUsuario !== 'undefined') {
             if (gTipoUsuario == '2') {
@@ -303,6 +309,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         }
     }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

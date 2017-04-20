@@ -542,11 +542,13 @@ function CrearDialogs() {
 }
 
 function CargarDetallePedido(page, rows) {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $(".pMontoCliente").css("display", "none");
 
@@ -1032,11 +1034,20 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             alert('Acceso restringido, aun no puede agregar pedidos');
             return false;
         }
+    }
+    */
+
+    if (gTipoUsuario == '2') {
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+        $('#dialog_MensajePostulante').show();
+        return false;
     }
 
     $('#Nombres').val($('#txtClienteDescripcion').val());
@@ -1732,13 +1743,15 @@ function Ignorar(tipo) {
 }
 
 function HorarioRestringido(mostrarAlerta) {
+
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             alert('Acceso restringido, aun no puede agregar pedidos');
             return true;
         }
     }
-
+    */
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -3499,6 +3512,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
     if (mostrarAlerta) {
         if (typeof gTipoUsuario !== 'undefined') {
             if (gTipoUsuario == '2') {
@@ -3507,6 +3521,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         }
     }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

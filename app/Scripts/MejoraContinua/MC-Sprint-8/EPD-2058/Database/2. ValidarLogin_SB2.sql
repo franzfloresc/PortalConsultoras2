@@ -81,15 +81,14 @@ END
 -- usuario postulante
 IF (@TipoUsuario = 2)
 BEGIN
-	IF NOT EXISTS(
+	IF EXISTS(
 		SELECT 1 FROM UsuarioPostulante WITH(NOLOCK)
 		WHERE CodigoUsuario = @CodigoUsuario 
 		AND Estado = 1 
 		AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = ''
-		SET @PaisID = 0
+		SET @CodigoConsultora = @CodigoUsuario 
 	END
 END
 

@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEConfiguracionCampania oBEConfiguracionCampania = null;
 
                 //EPD-2058
-                if (userData.TipoUsuario == 1)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedido Web y Detalle
 
                 //EPD-2058
-                if (userData.TipoUsuario == 1)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     var pedidoWeb = ObtenerPedidoWeb();
 
@@ -354,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
                         //EPD-2058
-                        if (userData.TipoUsuario == 1)
+                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
                             using (var svc = new UsuarioServiceClient())
                             {
@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 
                 /*** EPD 2170 ***/
-                if (userData.TipoUsuario == 2)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
 
@@ -2128,7 +2128,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             /*** EPD 2170 ***/
-            if (userData.TipoUsuario == 2)
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
             /*** FIN 2170 ***/
 
@@ -4094,31 +4094,32 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     //EPD-2058 Comprobar esta validación 
-                    if (userData.TipoUsuario == 2)
-                    {
-                        /*
-                         *  tipoAccion:
-                         *  1: Agregar
-                         *  2: Listar
-                         */
-                        if (!string.IsNullOrEmpty(tipoAccion))
-                        {
-                            if (tipoAccion == "1")
-                            {
-                                estado = true;
-                                mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                            }
-                            else if (tipoAccion == "2")
-                            {
-                                estado = false;
-                            }
-                        }
-                        else
-                        {
-                            estado = true;
-                            mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                        }
-                    }
+                   
+                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    //{
+                    //    /*
+                    //     *  tipoAccion:
+                    //     *  1: Agregar
+                    //     *  2: Listar
+                    //     */
+                    //    if (!string.IsNullOrEmpty(tipoAccion))
+                    //    {
+                    //        if (tipoAccion == "1")
+                    //        {
+                    //            estado = true;
+                    //            mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                    //        }
+                    //        else if (tipoAccion == "2")
+                    //        {
+                    //            estado = false;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        estado = true;
+                    //        mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                    //    }
+                    //}
                 }
 
                 return Json(new

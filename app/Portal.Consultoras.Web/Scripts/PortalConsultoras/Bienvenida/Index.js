@@ -736,11 +736,14 @@ function CrearDialogs() {
 };
 
 function CargarPopupsConsultora() {
+
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     if (viewBagPaisID == 9 && viewBagValidaDatosActualizados == '1' && viewBagValidaTiempoVentana == '1' && viewBagValidaSegmento == '1') { //Mexico
         PopupMostrar('popupActualizarMisDatosMexico');
@@ -773,13 +776,14 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
 };
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             alert('Acceso restringido, aun no puede agregar pedidos');
             return true;
         }
     }
-
+    */
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
@@ -838,11 +842,13 @@ function alert_unidadesAgregadas(message, exito) {
 }
 
 function CargarCarouselLiquidaciones() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $('.js-slick-prev-liq').remove();
     $('.js-slick-next-liq').remove();
@@ -1753,11 +1759,13 @@ function DownloadAttachContratoActualizarDatos() {
 }
 
 function CargarMisCursos() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $(window).scroll(function () {
         if ($("#seccionMiAcademiaLiquidacion").offset().top - $(window).scrollTop() < $("#seccionMiAcademiaLiquidacion").height()) {
@@ -2752,11 +2760,13 @@ function playVideo() {
 };
 
 function CrearPopShow() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     var noMostrarShowRoom = true;
     
@@ -2794,11 +2804,14 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
+
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
