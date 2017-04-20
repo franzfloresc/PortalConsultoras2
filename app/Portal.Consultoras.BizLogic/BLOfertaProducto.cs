@@ -135,10 +135,22 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.InsMatrizComercial(entity);
         }
 
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.InsMatrizComercialImagen(entity);
+        }
+
         public int UpdMatrizComercial(BEMatrizComercial entity)
         {
             var dataAccess = new DAOfertaProducto(entity.PaisID);
             return dataAccess.UpdMatrizComercial(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.UpdMatrizComercialImagen(entity);
         }
 
         public IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP)
