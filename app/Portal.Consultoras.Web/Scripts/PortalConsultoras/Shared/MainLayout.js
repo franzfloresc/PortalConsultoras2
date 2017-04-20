@@ -343,7 +343,6 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
-    debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
