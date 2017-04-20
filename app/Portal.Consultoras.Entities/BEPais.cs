@@ -18,12 +18,14 @@ namespace Portal.Consultoras.Entities
         public string Nombre { get; set; }
         [DataMember]
         public string CodigoISOProd { get; set; }
+        [DataMember]
+        public string MarcaEnfoque { get; set; }
 
         public double ZonaHoraria { get; set; }
         public int DiasAntes { get; set; }
         public bool HabilitarRestriccionHoraria { get; set; }
         public int HorasDuracionRestriccion { get; set; }
-
+        
         public BEPais() { }
         public BEPais(IDataRecord row)
         {

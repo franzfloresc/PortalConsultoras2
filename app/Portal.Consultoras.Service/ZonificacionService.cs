@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.ServiceContracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
+using static Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.Service
 {
@@ -81,7 +81,16 @@ namespace Portal.Consultoras.Service
 
         public IList<BEPais> GetAllPaises()
         {
-            return BLZonificacion.SelectPaises();
+            WebConfig webConfig = new WebConfig();
+            var arrPaisesEsika = webConfig.PaisesEsika.Split(';');
+            List<BEPais> listaPaises = BLZonificacion.SelectPaises().ToList();
+
+            foreach (var pais in listaPaises)
+            {
+                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? Marca.Esika : Marca.LBel);
+            }
+
+            return listaPaises;
         }
 
         public int GetPaisNumeroCampaniasByPaisID(int paisID)
