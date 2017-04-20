@@ -408,5 +408,19 @@ namespace Portal.Consultoras.Web.Controllers
                 ISO = ISO
             }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetImagesBySapCode(string sapCode)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagesByCodigoSAP(11, "1234").ToList();
+            }
+
+            var data = Mapper.Map<IList<BEMatrizComercialImagen>, IEnumerable<MatrizComercialImagen>>(lst);
+
+            return Json(data);
+        }
     }
 }

@@ -37,4 +37,11 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
     }
+
+    public class MatrizComercialImagen
+    {
+        public string Foto { get; set; }
+
+        public DateTime FechaRegistro { get; set; }
+    }
 }

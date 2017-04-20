@@ -420,6 +420,11 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP);
         }
 
+        public IList<BEMatrizComercialImagen> GetImagesByCodigoSAP(int paisID, string codigoSAP)
+        {
+            return new BLOfertaProducto().GetImagesByCodigoSAP(paisID, codigoSAP);
+        }
+
         public int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro)
         {
             return new BLOfertaProducto().UpdMatrizComercialDescripcionMasivo(paisID, lstmatriz, UsuarioRegistro);

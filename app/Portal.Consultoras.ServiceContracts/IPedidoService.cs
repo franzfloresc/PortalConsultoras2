@@ -197,6 +197,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
+        IList<BEMatrizComercialImagen> GetImagesByCodigoSAP(int paisID, string codigoSAP);
+
+        [OperationContract]
         int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro);
 
         [OperationContract]

@@ -169,6 +169,23 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        public IList<BEMatrizComercialImagen> GetImagesByCodigoSAP(int paisID, string codigoSAP)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            //var dataAccess = new DAOfertaProducto(paisID);
+
+            //using (IDataReader reader = dataAccess.GetImagenesByCodigoSAP(codigoSAP))
+            //    while (reader.Read())
+            //    {
+            //        var entity = new BEMatrizComercial(reader);
+            //        lst.Add(entity);
+            //    }
+            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto01.png" });
+            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto02.png" });
+            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto03.png" });
+            return lst;
+        }
+
         public int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro)
         {
             var dataAccess = new DAOfertaProducto(paisID);
