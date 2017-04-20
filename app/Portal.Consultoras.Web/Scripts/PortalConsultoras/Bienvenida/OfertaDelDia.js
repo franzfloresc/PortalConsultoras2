@@ -13,7 +13,7 @@ $(document).ready(function () {
     ODDCargarEventos();
 });
 
-function loadOfertaDelDia() {
+function ODDCargar() {
     if (($('#OfertaDelDia') || new Array()).length == 0)
         return false;
     
@@ -48,7 +48,8 @@ function loadOfertaDelDia() {
 
             _data.Simbolo = vbSimbolo;
             _data.ClassDimension = _data.CantidadProducto < 3 ? "content_780_ODD" : "";
-            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER OFERTAS DEL DÍA" : "VER DETALLE"
+            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER OFERTAS DEL DÍA" : "VER DETALLE";
+            _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
             console.log(_data);
             var idOdd = '#OfertaDelDia';
             SetHandlebars("#ofertadeldia-template", _data, idOdd);
@@ -120,6 +121,8 @@ function loadOfertaDelDia() {
             }
 
             $('#PopOfertaDia').hide();
+
+            LayoutHeader();
 
             //var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
             //obj1.html(obj1.text());
