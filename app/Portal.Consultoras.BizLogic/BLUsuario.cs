@@ -10,6 +10,8 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
 
+using Portal.Consultoras.Common;
+
 namespace Portal.Consultoras.BizLogic
 {
     public class BLUsuario
@@ -236,7 +238,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 // EPD-2058
-                if (usuario.TipoUsuario == 2)
+                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     BEUsuarioPostulante postulante = null;
 

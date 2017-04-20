@@ -579,6 +579,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
     if (mostrarAlerta) {
         if (typeof gTipoUsuario !== 'undefined') {
             if (gTipoUsuario == '2') {
@@ -587,6 +588,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         }
     }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
