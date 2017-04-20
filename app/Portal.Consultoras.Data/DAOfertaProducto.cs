@@ -259,6 +259,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetMatrizComercialImagenByCodigoSAP(string codigoSAP)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAPMatrizComercialImagen");
+            Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, codigoSAP);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetImagenesByCodigoSAP(string codigoSAP)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAP");

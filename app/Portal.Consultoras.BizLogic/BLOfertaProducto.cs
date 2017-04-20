@@ -155,6 +155,20 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByCodigoSAP(codigoSAP))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             var lst = new List<BEMatrizComercial>();
@@ -166,23 +180,6 @@ namespace Portal.Consultoras.BizLogic
                     var entity = new BEMatrizComercial(reader);
                     lst.Add(entity);
                 }
-            return lst;
-        }
-
-        public IList<BEMatrizComercialImagen> GetImagesByCodigoSAP(int paisID, string codigoSAP)
-        {
-            var lst = new List<BEMatrizComercialImagen>();
-            //var dataAccess = new DAOfertaProducto(paisID);
-
-            //using (IDataReader reader = dataAccess.GetImagenesByCodigoSAP(codigoSAP))
-            //    while (reader.Read())
-            //    {
-            //        var entity = new BEMatrizComercial(reader);
-            //        lst.Add(entity);
-            //    }
-            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto01.png" });
-            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto02.png" });
-            lst.Add(new BEMatrizComercialImagen { FechaRegistro = DateTime.Now, Foto = "Foto03.png" });
             return lst;
         }
 
