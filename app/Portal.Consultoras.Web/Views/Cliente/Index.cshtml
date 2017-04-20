@@ -52,7 +52,6 @@
     <div class="content_listado_notificaciones">
         <div class="nombre_cliente_sb texto_gris">Nombres y Apellidos</div>
         <div class="correo_clientes texto_gris">Correo</div>
-        @*<div class="pedido_detalle_cliente texto_gris">Ver pedidos</div>*@
         <div class="editar_cliente texto_gris">Editar</div>
         <div class="eliminar_cliente texto_gris">Eliminar</div>
     </div>
@@ -296,16 +295,6 @@
     </div>
 </div>
 
-<div id="DialogMensajes" style="display: none;">
-    <div class="terminos_title_2">
-        MENSAJE
-    </div>
-    <div class="linea_superior margin_10"></div>
-    <div class="pop_pedido_mensaje">
-    </div>
-</div>
-
-
 <!-- SB20-322 - INCIO -->
 
 <script id="paginador-template" type="text/x-handlebars-template">
@@ -344,7 +333,6 @@
         <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
         <div class="nombre_cliente_sb">{{Nombre}}</div>
         <div class="correo_clientes">{{eMail}}</div>
-        @*<div class="pedido_detalle_cliente"><a href="#" onclick="javascript:$('#DetallePedidoCliente').show();"><img src="/Content/Images/icono_lupa.png"></a></div>*@
         <div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
         <div class="eliminar_cliente"><a href="#" onclick="ShowDivEliminar('{{ClienteID}}');"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
     </div>

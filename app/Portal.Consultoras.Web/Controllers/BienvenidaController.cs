@@ -205,6 +205,38 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
+                //EPD-1089
+                if (userData.PaisID == 9){
+                    model.limiteMinimoTelef = 5;
+                    model.limiteMaximoTelef = 15;                    
+                }
+                else if (userData.PaisID == 11)
+                {
+                    model.limiteMinimoTelef = 7;
+                    model.limiteMaximoTelef = 9;                    
+                }
+                else if (userData.PaisID == 4)
+                {
+                    model.limiteMinimoTelef = 7;
+                    model.limiteMaximoTelef = 7;
+                }
+                else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
+                {
+                    model.limiteMinimoTelef = 8;
+                    model.limiteMaximoTelef = 8;
+                }
+                else if (userData.PaisID == 6)
+                {
+                    model.limiteMinimoTelef = 9;
+                    model.limiteMaximoTelef = 10;
+                }
+                else
+                {
+                    model.limiteMinimoTelef = 0;
+                    model.limiteMaximoTelef = 15;
+                }
+                //
+                
                 #region Lógica de Popups
 
                 List<BEPopupPais> PopUps = new List<BEPopupPais>();
@@ -215,7 +247,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PopUps = sac.ObtenerOrdenPopUpMostrar(userData.PaisID).ToList();
                 }
 
-                int TipoPopUpMostrar = 0; //= Convert.ToInt32(Session["TipoPopUpMostrar"]);
+                int TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+               
 
                 if (PopUps.Any())
                 {
@@ -292,6 +325,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
                                 //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
                                 if (mostrarShowRoomProductos)
+                                {
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                    break;
+                                }
+                                else
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                                     break;
@@ -375,7 +413,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
-                }
+                } 
+
+                // validar si se muestra Show Room en Bienvenida
+                model.ShowRoomMostrarLista = 0;
+                    //userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2
+                    //? 1
+                    //: userData.EsCatalogoPersonalizadoZonaValida
+                    //    ? 0
+                    //    : 1;
+                model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
             {
@@ -401,7 +448,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (paisesShowRoom.Contains(userData.CodigoISO))
             {
-                if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                //if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                if (!userData.CargoEntidadesShowRoom) return false;
                 var beShowRoomConsultora = userData.BeShowRoomConsultora;
                 var beShowRoom = userData.BeShowRoom;
 
@@ -543,7 +591,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string fileName = userData.CodigoISO + "-" + userData.CodigoConsultora + ".png";
                 string pathFile = Server.MapPath("~/Content/Images/temp/" + fileName);
                 System.IO.File.WriteAllBytes(pathFile, base64EncodedBytes);
-
                 ConfigS3.SetFileS3(pathFile, "ConsultoraImagen", fileName, true, true, true);
                 rutaImagen = ConfigS3.GetUrlFileS3("ConsultoraImagen", fileName, "");
             }
@@ -1534,6 +1581,67 @@ namespace Portal.Consultoras.Web.Controllers
         #region ShowRoom
 
         [HttpPost]
+        public JsonResult NoMostrarShowRoomPopup(string TipoShowRoom)
+        {
+            var entidad = new BEShowRoomEventoConsultora();
+            entidad.CodigoConsultora = UserData().CodigoConsultora;
+            entidad.CampaniaID = UserData().CampaniaID;
+            entidad.EventoID = UserData().BeShowRoom.EventoID;
+            entidad.EventoConsultoraID = UserData().BeShowRoomConsultora.EventoConsultoraID;
+            bool blnEstado = false;
+            try
+            {
+                using (PedidoServiceClient sac = new PedidoServiceClient())
+                {
+                    sac.UpdEventoConsultoraPopup(UserData().PaisID, entidad, TipoShowRoom);
+                    blnEstado = true;
+                }
+                if (blnEstado == true && TipoShowRoom == 'I'.ToString())
+                {
+                    UserData().BeShowRoomConsultora.MostrarPopup = false;
+                    userData.BeShowRoomConsultora.MostrarPopup = false;
+                }
+
+                if (blnEstado == true && TipoShowRoom == 'V'.ToString())
+                {
+                    UserData().BeShowRoomConsultora.MostrarPopupVenta = false;
+                    userData.BeShowRoomConsultora.MostrarPopupVenta = false;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "",
+                    extra = "",
+                    tipo = TipoShowRoom
+                });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                });
+            }
+            
+        }
+
+
+        [HttpPost]
         public JsonResult MostrarShowRoomPopup()
         {
             try
@@ -1544,6 +1652,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
                     var beShowRoomConsultora = userData.BeShowRoomConsultora;
                     var beShowRoom = userData.BeShowRoom;
+                    var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
+                    var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
 
                     if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
                     if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
@@ -1551,18 +1661,25 @@ namespace Portal.Consultoras.Web.Controllers
                     if (beShowRoom.Estado == 1)
                     {
                         bool mostrarShowRoomProductos = false;
-                        var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                        var rutaShowRoomPopup = "";
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
+                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                             mostrarShowRoomProductos = true;
                         }
                         if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+
+                        //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                        TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
+                        int df = DiasFalta.Days;
+
+                        var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
 
                         return Json(new
                         {
@@ -1571,13 +1688,17 @@ namespace Portal.Consultoras.Web.Controllers
                             diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
                             diaFin = userData.FechaInicioCampania.Day,
                             mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                            diasFaltan = df,
                             nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                                 ? userData.NombreConsultora
                                 : userData.Sobrenombre,
                             message = "ShowRoomConsultora encontrada",
                             evento = beShowRoom,
                             mostrarShowRoomProductos,
-                            rutaShowRoomPopup
+                            rutaShowRoomPopup,
+                            personalizacion = lstPersonalizacion,
+                            mostrarPopupIntriga = beMostrarPopupIntriga,
+                            mostrarPopupVenta = beMostrarPopupVenta
                         });
                     }
                     else
@@ -1649,7 +1770,7 @@ namespace Portal.Consultoras.Web.Controllers
                     anioFaltante = model.AnioFaltante,
                     evento = model.BEShowRoom,
                     mostrarShowRoomProductos = model.MostrarShowRoomProductos,
-                    rutaShowRoomBannerLateral = model.RutaShowRoomBannerLateral,
+                    rutaShowRoomBannerLateral = "",
                     estaActivoLateral = model.EstaActivoLateral
                 });
             }
@@ -1787,9 +1908,70 @@ namespace Portal.Consultoras.Web.Controllers
         }
         /* SB20-834 - FIN */
 
+        /****EPD-2088****/
+        public JsonResult ValidadTelefonoConsultora(string Telefono)
+        {
+            try
+            {
+                int cantidad = 0;
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    if (cantidad > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "",
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al intentar validar el celular.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         public ActionResult ActualizarContrasenia()
         {
             return View();
+        }
+
+        public ActionResult MailConfirmacion(string tipo)
+        {
+            var area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+            var accion = "index";
+            var controlador = "bienvenida";
+            try
+            {
+                if (tipo == "sr")
+                {
+                    userData.EMailActivo = true;
+
+                    controlador = "ShowRoom";
+                    accion = AccionControlador("sr");
+                }
+                SetUserData(userData);
+
+            }
+            catch (Exception)
+            {
+            }
+            return RedirectToAction(accion, controlador, new { area = area });
         }
     }
 }

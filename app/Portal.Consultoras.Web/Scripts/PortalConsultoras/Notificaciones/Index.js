@@ -20,7 +20,6 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
             .success(function (data){ if (checkTimeout(data) && data.success) $(obj).removeClass("no_leido"); });
     }
 
-    //R2319 - JLCS
     if (TipoOrigen == 6) {
         $.ajaxSetup({ cache: false });
         $.get(baseUrl + "Notificaciones/ListarDetallePedidoRechazado?ProcesoId=" + ProcesoId).success(function (data) {
@@ -94,10 +93,8 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                 $('#divObservaciones').show();
                 $('.content_left_pagos').hide();
                 switch (Estado) {
-                    /*Pedido no reservado por monto mínimo/maximo */
                     case "2":
                         $('#sMensajePedidoPROL').html(Observaciones);
-                        /*RE2584 - CS(CGI) - 22/05/2015*/
                         $('#SaltoLinea').html('&nbsp;');
                         if (EsMontoMinimo == "True") {
                             $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
@@ -108,18 +105,14 @@ function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, 
                         $('#sMensajeFacturacion').html('Añade más productos y no pierdas la oportunidad de hacer crecer tu negocio con Belcorp.');
                         break;
                     case "4":
-                        /*RE2584 - CS(CGI) - 22/05/2015*/
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
-                        /*RE2584 - CS(CGI) - 22/05/2015*/
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;
                     case "5":
-                        /*RE2584 - CS(CGI) - 22/05/2015*/
                         $('#sFelicitaciones').html('¡Lo lograste!');
                         $('#sMensajePedidoPROL').html(Observaciones);
-                        /*RE2584 - CS(CGI) - 22/05/2015*/
                         var Mensaje = "Será enviado a Belcorp " + DescripcionFacturacion(FacturaHoy, DiaFact, MesFact) + ", siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.";
                         $('#sMensajeFacturacion').html(Mensaje);
                         break;

@@ -51,6 +51,19 @@ namespace Portal.Consultoras.Web.WebPages
                             result = "Su dirección de correo electrónico ha sido activada correctamente.";
                         else
                             result = "Esta dirección de correo electrónico ya ha sido activada.";
+
+                        var opcional = query.Length > 4 ? query[4].Trim() : "";
+                        if (opcional != "")
+                        {
+                            var opcionalLista = opcional.Split(',');
+                            if (opcionalLista.Length > 1)
+                            {
+                                if (opcionalLista[0].ToLower() == "urlreturn")
+                                {
+                                    urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
+                                }
+                            }
+                        }
                     }
                     else
                         result = "Ha ocurrido un error con la activación de su correo electrónico.";

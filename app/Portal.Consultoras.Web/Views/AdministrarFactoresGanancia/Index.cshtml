@@ -5,9 +5,7 @@
 }
 <script>
     jQuery(document).ready(function () {
-        
         if (checkTimeout()) {
-            //fnGrilla();
             IniDialog();
         }
 
@@ -51,7 +49,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    
                     var vMessage = "";
 
                     if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
@@ -161,7 +158,6 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            
             if (Id) {
                 $('#FactorGananciaID').val(jQuery("#list").jqGrid('getCell', Id, 'FactorGananciaID'));
                 $('#PaisID').val(jQuery("#list").jqGrid('getCell', Id, 'PaisID'));
@@ -177,7 +173,6 @@
             return false;
         },
         Eliminar: function (Id) {
-            
             var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
             if (!elimina)
                 return false;
@@ -224,7 +219,6 @@
     }
 
     function fnRegistrar() {
-        
         var valorPais;
         if (jQuery('#FactorGananciaID').val() == "0")
             valorPais = jQuery('#ddlPaisDialogo').val();
@@ -245,10 +239,7 @@
             data: JSON.stringify(item),
             async: true,
             success: function (data) {
-                
-                // valida si ha habido un timeout
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
                     if (data.success == true) {
                         var item = data.items;
                         alert(data.message);
@@ -262,10 +253,7 @@
                 }
             },
             error: function (data, error) {
-                
-                // valida si ha habido un timeout
                 if (checkTimeout(data)) {
-                    // si no ha habido timeout continua el procesamiento normal
                     alert(data.message);
                     HideDialog("DialogFactores");
                 }

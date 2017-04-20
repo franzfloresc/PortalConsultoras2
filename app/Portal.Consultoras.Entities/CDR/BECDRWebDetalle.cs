@@ -56,8 +56,7 @@ namespace Portal.Consultoras.Entities.CDR
         public int TipoMotivoRechazo { get; set; }
         
         public BECDRWebDetalle()
-        { }
-   
+        { }   
 
         public BECDRWebDetalle(IDataRecord row)
         {
