@@ -125,6 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                            }
                 };
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("Index", "Bienvenida");
@@ -410,15 +411,22 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImagesBySapCode(string sapCode)
+        public JsonResult GetImagesBySapCode(int paisID, string sapCode)
         {
             List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagesByCodigoSAP(11, "1234").ToList();
+                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode).ToList();
             }
 
-            var data = Mapper.Map<IList<BEMatrizComercialImagen>, IEnumerable<MatrizComercialImagen>>(lst);
+            string paisISO = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
+                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+
+            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
 
             return Json(data);
         }
