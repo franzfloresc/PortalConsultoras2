@@ -1,10 +1,12 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using static Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -40,6 +42,14 @@ namespace Portal.Consultoras.BizLogic
                         paises.Add(new BEPais(reader));
                 CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
             }
+            
+            var arrPaisesEsika = WebConfig.PaisesEsika.Split(';');
+            
+            foreach (var pais in paises)
+            {
+                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? Marca.Esika : Marca.LBel);
+            }
+            
             return paises;
         }
 
