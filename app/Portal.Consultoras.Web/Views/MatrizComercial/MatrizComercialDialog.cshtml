@@ -31,7 +31,11 @@
                 {{#each imagenes}}
                 <div class="titG">
                     <div class="selectP2 borde_redondeado aligncenter">
-                        <img src='{{Foto}}' class="img-matriz-comercial">
+                        <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
+                    </div>
+                    <div class="input_search">
+                        <div id="file-upload-{{@@index}}">
+                        </div>
                     </div>
                 </div>
                 {{/each}}
