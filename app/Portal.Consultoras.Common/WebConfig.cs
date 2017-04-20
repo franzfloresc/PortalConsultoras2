@@ -1,14 +1,31 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
     public class WebConfig
     {
-        public WebConfig()
+        #region Variables miembre
+
+        private static string _paisesEsika;
+
+        #endregion
+
+        #region Propiedades
+
+        public static string PaisesEsika
         {
-            this.PaisesEsika = ConfigurationManager.AppSettings["PaisesEsika"].ToString();
+            get
+            {
+                if (String.IsNullOrEmpty(_paisesEsika))
+                {
+                    return ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                }
+                return _paisesEsika;
+            }
+            set { _paisesEsika = value; }
         }
 
-        public string PaisesEsika { get; set; }
+        #endregion
     }
 }

@@ -81,16 +81,7 @@ namespace Portal.Consultoras.Service
 
         public IList<BEPais> GetAllPaises()
         {
-            WebConfig webConfig = new WebConfig();
-            var arrPaisesEsika = webConfig.PaisesEsika.Split(';');
-            List<BEPais> listaPaises = BLZonificacion.SelectPaises().ToList();
-
-            foreach (var pais in listaPaises)
-            {
-                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? Marca.Esika : Marca.LBel);
-            }
-
-            return listaPaises;
+            return BLZonificacion.SelectPaises();
         }
 
         public int GetPaisNumeroCampaniasByPaisID(int paisID)
