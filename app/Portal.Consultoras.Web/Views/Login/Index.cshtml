@@ -253,11 +253,17 @@
                         validExternalUser('Facebook', response);
                     }
                     else if (opt == 2) {
-                        var name = response.name.trim();
-                        if (name != null && name != "") {
-                            $('#hdeNameUserExt').val(name);
-                            resizeNameUserExt();
+                        var fullname = response.name.trim();
+                        if (fullname != null && fullname != "") {
+                            var j = fullname.indexOf(' ');
+                            var fname = fullname;
+                            if (j > 0) {
+                                fname = fullname.substring(0, j).trim();
+                            }
+                            //$('#hdeNameUserExt').val(fname);
+                            //resizeNameUserExt();
                             $('#btnLoginFB').removeClass('center_facebook');
+                            $('#btnLoginFB').text('Continuar como ' + fname);
                             $('#imgFotoPerfil').attr('src', response.picture.data.url);
                             $('.imagen_perfil_facebook').show();
                         }
@@ -443,7 +449,7 @@
 
             <div class="div-o-login">
                 <div class="linea_o"></div>
-                <div class="o_login">O</div>
+                <div class="o_login">ó</div>
                 <div class="linea_o"></div>
             </div>
             <hr class="clear" />

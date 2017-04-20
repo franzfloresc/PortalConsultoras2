@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = //false &&;
                     (
-                        (userData.CatalogoPersonalizado != 1 && userData.CatalogoPersonalizado != 2) 
+                        (userData.CatalogoPersonalizado == 0) 
                         || !userData.EsCatalogoPersonalizadoZonaValida
                     ) ? 1 : 0;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
