@@ -86,8 +86,8 @@ function loadOfertaDelDia() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -7%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -7%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
             }
@@ -110,8 +110,8 @@ function loadOfertaDelDia() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#divOddCarruselDetalle').slick('slickGoTo', 0);
                 $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();

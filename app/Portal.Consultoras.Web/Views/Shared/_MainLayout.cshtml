@@ -599,7 +599,7 @@
             <div data-odd-tipoventana="detalle" style="display:none;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <hr class="clear" />
-                <div class="content_90">
+                <div class="content_90" style="margin-top: 20px;">
                     <div id="divOddCarruselDetalle">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}">
@@ -671,7 +671,7 @@
             </div>
            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div style="display:none;" data-odd-tipoventana="carrusel">
-                <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
+                <div class="saludo_mas_productos" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                 <div class="content_90">
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}

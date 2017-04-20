@@ -21742,8 +21742,11 @@ label.checkpop.c_on {
     vertical-align: middle;
     height: 45px;
     line-height: 42px;
-    font-size: 13px;
-    /*font-weight: bold;*/
+    background: #000;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #000;
+    font-size: 13px;/
    
 }
 
@@ -22519,6 +22522,7 @@ hr {
 
 body {
     background: #f9f9f9;
+    overflow-x:hidden;
 }
 
 .LugaresPago {
@@ -33836,7 +33840,7 @@ h1#penmostreo .campana {
     float: left;
     width: 270px;
     /*height: 90px;*/
-    margin-top: 25px;
+    margin-top: 8px;
     margin-left: 20px;
 }
 
@@ -33917,15 +33921,18 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    /* background: white; */
-    /* border-radius: 100px; */
-    line-height: 15px;
-    color: #d9b33f;
-    font-size: 20px;
+    background: #d9b33f;
+    border-radius: 100px;
+    line-height: 14px;
+    color: black;
+    font-weight: 700;
+    font-size: 16px;
     font-family: 'Lato';
     float: left;
     text-align: center;
     /* padding-left: 2px; */
+    margin-right: 6px;
+    margin-top: 2px;
 }
 
 .texto_detalle_set {
@@ -33993,7 +34000,7 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 300px;
+    width: 350px;
     height: auto;
     float: left;
     /*margin-left: 15px;*/
@@ -34071,7 +34078,7 @@ h1#penmostreo .campana {
 }
 
 .content_set_pop_hoy {
-    width: 76%;
+    width: 90%;
     /*height: 166px;*/
     margin: 0 auto;
     margin-top: 21px;
@@ -34079,10 +34086,11 @@ h1#penmostreo .campana {
 }
 
 .right_set_hoy {
-        float: left;
+    
+    float: left;
     width: 273px;
-    /*margin-top: 45px;*/
-    margin-left: 13%;
+    /* margin-top: 45px; */
+    margin-left: 14%;
 }
 
 .precio_valorizado_oferta {
@@ -34401,13 +34409,13 @@ h1#penmostreo .campana {
 }
 .compartir_redes_ficha{
     margin-top:30px;
-    padding-left:50px;
+    padding-left:64px;
 }
 .texto_compartelo{
     float:left;
     margin-right:15px;
     font-family:'Lato';
-    font-size:12.5px;
+    font-size:12px;
     margin-top:3px;
 }
 .btn_compartir_facebook_ficha{
@@ -34811,9 +34819,9 @@ h1#penmostreo .campana {
 
 .fondo_set{
     width:100%;
-    /*height:396px;*/
-    /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;
-    background-size: contain;*/
+    height:396px;
+    /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;*/
+    background-size: contain;
     padding-top: 60px;
 }
 .content_producto_set{
@@ -35587,7 +35595,7 @@ h1#penmostreo .campana {
     /*text-align:center;*/
     letter-spacing:1.3px;
     text-transform:uppercase;
-    margin-top:10px;
+    /*margin-top:10px;*/
 }
 .barra_inferior{
     width:40px;
@@ -35605,20 +35613,20 @@ h1#penmostreo .campana {
     margin-top:20px;
 }
 .content_90{
-    width:85%;
+    width:88%;
     margin:0 auto;
 }
 .content_780_ODD{
     width:780px;
 }
 .content_780_ODD .content_set_pop_hoy{
-    width:96%;
+    width:94%;
 }
 .content_780_ODD .right_set_hoy {
-    margin-left: 4%;
+    margin-left: 40px;
 }
 .content_item_carrusel_ODD{
-    width:270px;
+    width:260px;
     padding:45px 30px 23px 30px;
     border: 1px solid #d5b03e;
     float:left;
@@ -35667,5 +35675,16 @@ h1#penmostreo .campana {
     float:right;
 }*/
 .content_780_ODD .content_90{
-    width:80%;
+    width:85%;
+}
+.content_780_ODD .imagen_set_Oferta_pop {
+    width: 300px;
+    margin-top:40px;
+}
+
+.content_780_ODD .compartir_redes_ficha {    
+    padding-left: 40px;
+}
+.slick-slide .content_item_carrusel_ODD{
+    margin-left:20px;
 }
