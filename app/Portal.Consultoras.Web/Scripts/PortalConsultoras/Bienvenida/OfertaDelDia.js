@@ -67,37 +67,44 @@ function loadOfertaDelDia() {
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
             }
             
-            //$('#img-banner-odd').attr('src', _data.ImagenBanner);
-            //$('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
-            //$('#img-display-odd').attr('src', _data.ImagenDisplay);
-
-            //$('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
-            //$('#banner-odd').css('background-color', _data.ColorFondo1);
-            //$('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
-            //$('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-            $('#PopOfertaDia').css('background-color', "red");
+            $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
+            $('#banner-odd').css('background-color', _data.ColorFondo1);
+            $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
+            $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
+            //$('#PopOfertaDia').css('background-color', "red");
 
             $('#OfertaDelDia').show();
             $('#PopOfertaDia').show();
 
             if (_data.CantidadProducto > 3) {
                 $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').show();
-                $('#divOddCarrusel').slick({
-                    infinite: false,
+                $('#divOddCarrusel.slick-initialized').slick('unslick');
+                $('#divOddCarrusel').not('.slick-initialized').slick({
+                    infinite: true,
                     vertical: false,
                     slidesToShow: 3,
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                    nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -7%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -7%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
                 });
                 $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
             }
+            else {
+                var wc = $('#divOddCarrusel').width();
+                var witem = ((wc) / _data.CantidadProducto);
+                var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
+                witemc = (witem - witemc) / 2;
+                $('#divOddCarrusel [data-item]').css("width", witem + "px");
+                $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
+                $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
+            }
             if (_data.CantidadProducto > 1) {
                 $('#PopOfertaDia [data-odd-tipoventana="detalle"]').show();
-                $('#divOddCarruselDetalle').slick({
-                    infinite: false,
+                $('#divOddCarruselDetalle.slick-initialized').slick('unslick');
+                $('#divOddCarruselDetalle').not('.slick-initialized').slick({
+                    infinite: true,
                     vertical: false,
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -106,7 +113,10 @@ function loadOfertaDelDia() {
                     prevArrow: '<a style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
                     nextArrow: '<a style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
                 });
+                $('#divOddCarruselDetalle').slick('slickGoTo', 0);
                 $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();
+
+                //$('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
             }
 
             $('#PopOfertaDia').hide();
@@ -159,6 +169,11 @@ function ODDCargarEventos() {
         if (accion == "veroferta") {
             if (showDisplayODD == 0) {
                 var cantidad = parseInt($(this).attr("data-odd-cantidad"));
+                if (cantidad > 3) {
+                    var posicion = "0";
+                    $('#divOddCarrusel').slick('slickGoTo', posicion);
+                    $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
+                }
                 if (cantidad == 1) {
                     $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
                     $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
@@ -180,7 +195,8 @@ function ODDCargarEventos() {
         else if (accion == "verdetalle") {
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
-
+            var posicion = $(this).parents("[data-item]").attr("data-item-position");
+            $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
             // asignar valores del ver detalle
         }
         else if (accion == "regresar") {
