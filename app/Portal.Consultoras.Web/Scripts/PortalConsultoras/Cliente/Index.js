@@ -159,17 +159,8 @@ function showDivAgregar() {
         $('#dialog_MensajePostulante').show();
         return false;
     }
-        /*
-    else {
-        if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return false;
-        }
-    }
-    */
+
     $('#divAgregarCliente').show();
-}
 }
 
 function ShowDivEditar(obj) {

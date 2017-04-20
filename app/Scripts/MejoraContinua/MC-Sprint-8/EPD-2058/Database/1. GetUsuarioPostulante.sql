@@ -18,6 +18,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -31,6 +32,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -57,6 +59,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -70,6 +73,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -96,6 +100,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -109,6 +114,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -135,6 +141,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -148,6 +155,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -174,6 +182,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -187,6 +196,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -213,6 +223,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -226,6 +237,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -252,6 +264,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -265,6 +278,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -291,6 +305,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -304,6 +319,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -330,6 +346,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -343,6 +360,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -369,6 +387,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -382,6 +401,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -408,6 +428,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -421,6 +442,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -447,6 +469,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -460,6 +483,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
@@ -486,6 +510,7 @@ BEGIN
 	SELECT TOP 1
 		IdPostulante,
 		CodigoUsuario,
+		cp.ConsultoraID,
 		Zona,
 		Seccion,
 		EnvioCorreo,
@@ -499,6 +524,7 @@ BEGIN
 	FROM UsuarioPostulante p 
 	LEFT JOIN ods.Zona z on p.Zona = z.Codigo
 	LEFT JOIN ods.Region r on z.RegionID = r.RegionID
+	LEFT JOIN ConsultoraPostulante cp on p.CodigoUsuario = cp.Codigo
 	WHERE CodigoUsuario = @NumeroDocumento
 	AND Estado = 1
 END
