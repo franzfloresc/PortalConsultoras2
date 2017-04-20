@@ -3607,6 +3607,7 @@
     <Content Include="Content\Template\mailing_detalle_codigo_operacion_trueque.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\AdminContenido\MatrizComercial.js" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
