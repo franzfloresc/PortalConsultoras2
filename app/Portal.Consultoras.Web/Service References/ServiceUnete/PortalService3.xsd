@@ -458,6 +458,7 @@
         <xs:element minOccurs="0" name="estadoGEO" type="xs:int" />
         <xs:element minOccurs="0" name="tipoRechazo" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="motivoRechazo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subEstadoPostulante" nillable="true" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

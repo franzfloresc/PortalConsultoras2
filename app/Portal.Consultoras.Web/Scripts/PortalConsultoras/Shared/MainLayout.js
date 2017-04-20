@@ -309,7 +309,7 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
-    debugger;
+    //debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
@@ -752,11 +752,13 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
@@ -974,11 +976,13 @@ function SetMarcaGoogleAnalyticsTermino() {
 };
 
 function loadOfertaDelDia() {
+    /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
             return false;
         }
     }
+    */
 
     $.ajax({
         type: 'GET',
@@ -1239,6 +1243,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
     if (mostrarAlerta) {
         if (typeof gTipoUsuario !== 'undefined') {
             if (gTipoUsuario == '2') {
@@ -1247,6 +1252,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         }
     }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

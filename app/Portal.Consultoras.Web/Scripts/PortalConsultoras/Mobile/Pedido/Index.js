@@ -128,6 +128,13 @@ $(document).ready(function () {
     });
     
     $("#linkAgregarCliente").on("click", function () {
+        if (gTipoUsuario == '2') {
+            var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
+            $('#popupInformacionSB2Error').show();
+            return false;
+        }
+
         CerrarMantenerCliente();
         $("#divAgregarClientePedido").show();
     });
@@ -503,6 +510,7 @@ function AgregarProductoListado() {
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
 
+    /*
     if (mostrarAlerta) {
         if (typeof gTipoUsuario !== 'undefined') {
             if (gTipoUsuario == '2') {
@@ -511,6 +519,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
         }
     }
+    */
 
     var restringido = true;
 

@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 //EPD-2058
-                if (userData.TipoUsuario == 1)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     var bePedidoWeb = ObtenerPedidoWeb();
                     if (bePedidoWeb != null)
@@ -123,6 +123,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                int j = model.NombreConsultora.Trim().IndexOf(' ');
+                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim(); 
+
                 model.PaisID = userData.PaisID;
                 model.IndicadorContrato = userData.IndicadorContrato;
                 model.CambioClave = userData.CambioClave;
@@ -195,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
 
-                if (userData.TipoUsuario == 1)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
@@ -309,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
                             {
-                                if (userData.TipoUsuario == 1)
+                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     if (ValidarConsultoraDemandaAnticipada(model))
                                     {
@@ -321,7 +324,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
                             {
-                                if (userData.TipoUsuario == 1)
+                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                                     {
@@ -345,7 +348,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
                             {
-                                if (userData.TipoUsuario == 1)
+                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico && model.ValidaDatosActualizados == 1 &&
                                     model.ValidaTiempoVentana == 1 && model.ValidaSegmento == 1)
@@ -372,7 +375,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
                             {
-                                if (userData.TipoUsuario == 1)
+                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
                                     {
@@ -393,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
                             {
-                                if (userData.TipoUsuario == 1)
+                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                                 {
                                     List<BEComunicado> comunicados = new List<BEComunicado>();
                                     using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())

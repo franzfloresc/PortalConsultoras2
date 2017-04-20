@@ -7005,12 +7005,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionMo" +
             "tivo", ReplyAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionMo" +
             "tivoResponse")]
-        bool ActualizarEstadoPostulanteRechazoZonificacionMotivo(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo);
+        bool ActualizarEstadoPostulanteRechazoZonificacionMotivo(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo, System.Nullable<int> subEstadoPostulante);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionMo" +
             "tivo", ReplyAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionMo" +
             "tivoResponse")]
-        System.Threading.Tasks.Task<bool> ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo);
+        System.Threading.Tasks.Task<bool> ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo, System.Nullable<int> subEstadoPostulante);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulante", ReplyAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteResponse")]
         bool ActualizarEstadoPostulante(string codigoISO, int solicitudPostulanteID, int estadoPostulante, System.Nullable<int> subEstadoPostulante, string tipoRechazo, string motivoRechazo);
@@ -7320,12 +7320,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ActualizarEstadoPostulanteRechazoZonificacionAsync(codigoISO, solicitudPostulanteID, estadoPostulante, estadoGEO);
         }
         
-        public bool ActualizarEstadoPostulanteRechazoZonificacionMotivo(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo) {
-            return base.Channel.ActualizarEstadoPostulanteRechazoZonificacionMotivo(codigoISO, solicitudPostulanteID, estadoPostulante, estadoGEO, tipoRechazo, motivoRechazo);
+        public bool ActualizarEstadoPostulanteRechazoZonificacionMotivo(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo, System.Nullable<int> subEstadoPostulante) {
+            return base.Channel.ActualizarEstadoPostulanteRechazoZonificacionMotivo(codigoISO, solicitudPostulanteID, estadoPostulante, estadoGEO, tipoRechazo, motivoRechazo, subEstadoPostulante);
         }
         
-        public System.Threading.Tasks.Task<bool> ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo) {
-            return base.Channel.ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(codigoISO, solicitudPostulanteID, estadoPostulante, estadoGEO, tipoRechazo, motivoRechazo);
+        public System.Threading.Tasks.Task<bool> ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(string codigoISO, int solicitudPostulanteID, int estadoPostulante, int estadoGEO, string tipoRechazo, string motivoRechazo, System.Nullable<int> subEstadoPostulante) {
+            return base.Channel.ActualizarEstadoPostulanteRechazoZonificacionMotivoAsync(codigoISO, solicitudPostulanteID, estadoPostulante, estadoGEO, tipoRechazo, motivoRechazo, subEstadoPostulante);
         }
         
         public bool ActualizarEstadoPostulante(string codigoISO, int solicitudPostulanteID, int estadoPostulante, System.Nullable<int> subEstadoPostulante, string tipoRechazo, string motivoRechazo) {
