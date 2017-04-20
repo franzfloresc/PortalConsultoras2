@@ -126,7 +126,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Celular = userData.Celular;
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                
+                var pedidoDetalle = ObtenerPedidoWebDetalle();
+                model.Agregado = pedidoDetalle.Any(d=>d.CUV == model.CUV) ? "block" : "none";
+
                 return View(model);
             }
             catch (FaultException ex)
