@@ -1054,7 +1054,7 @@
                 var $obj = $(this);
                 if ($obj.hasClass('menu_footer')) {
                     $obj.addClass('menu_footer_menos').removeClass('menu_footer');
-                } else {boton_Agregalo_home
+                } else {
                     $obj.addClass('menu_footer').removeClass('menu_footer_menos');
                 }
             });
@@ -1858,6 +1858,7 @@
                 success: function (response) {
                     if (response.success) {
                         //ocultarBannerTop = true;
+                        LayoutHeader();
                     }
                 },
                 error: function (err) { console.log(err); }
