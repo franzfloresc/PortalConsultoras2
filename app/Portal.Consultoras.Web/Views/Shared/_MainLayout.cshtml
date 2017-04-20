@@ -55,6 +55,7 @@
             'pais': '@ViewBag.PaisAnalytics',
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
     </script>
 
     @RenderSection("styles", required: false)
@@ -671,7 +672,7 @@
             </div>
            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div style="display:none;" data-odd-tipoventana="carrusel">
-                <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">VALERIA, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
+                <div class="saludo_mas_productos" style="display:none;" data-odd-texto="cliente">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                 <div class="content_90">
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
