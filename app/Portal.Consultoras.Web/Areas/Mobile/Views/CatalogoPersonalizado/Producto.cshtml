@@ -60,12 +60,11 @@ else
 <!--GUIA NEGOCIO-->
 <!--PRECIO CATALOGO-->
 <div id="PrecioCatalogo" style="display: none;">
-    <div class="wrapper_resumen_mobile" style="padding-bottom: 96px;">
+    <div class="wrapper_resumen_mobile" style="padding-bottom: 96px;" data-item="catalogopersonalizado">
         <div class="content_oferta_guia_negocio">
-            <div data-item="catalogopersonalizado">
+            <div>
                 <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
                 <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
-
                 <div style="display: none;">
                     <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
                     <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
@@ -148,7 +147,6 @@ else
                     <div style="display: none;">
                         <input type="hidden" class="urlbasewsp" value="@Model.FBRuta" />
                     </div>
-
                     <hr class="clear" />
 
                 </div>
@@ -167,11 +165,8 @@ else
                 </div>
             </div>
         </div>
-    </div>
+
 </div>
-    </div>
-</div>
-    </div>
 </div>
 <!--PRECIO CATALOGO-->
 <!--HAY QUE DESAPARECER EL SCROLL DEL BODY, CUANDO GENEREN ESTE POP UP ME AVISAN-->

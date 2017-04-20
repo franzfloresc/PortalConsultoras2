@@ -21208,28 +21208,32 @@ label.checkpop.c_on {
 .nombre_producto{
     height:40px;
 }
-.boton_Agregalo_home {
-    display: block;
-    /* margin: 0 auto; */
-    margin-top: 7px;
-    width: 55%;
-    display: inline-block;
-    vertical-align: middle;
-    height: 45px;
-    line-height: 42px;
-    font-size: 13px;
-    /*font-weight: bold;*/
+/*/*.boton_Agregalo_home:hover {
+        background: #000;
+        color: #FFF;
+}*/
+
+.boton_Agregalo_home { 
+        display: block; 
+        /* margin: 0 auto; */ 
+        margin-top: 7px; 
+        width: 55%; 
+        display: inline-block; 
+        vertical-align: middle; 
+        height: 45px; 
+        line-height: 42px; 
+        background: #000; 
+        color: #fff; 
+        text-align: center; 
+        border: 2px solid #000; 
+        font-size: 13px; 
+        /*font-weight: bold;*/
     transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
     -ms-transition:all 0.3s ease;
     -webkit-transition:all 0.3s ease;
-}
-
-    /*/*.boton_Agregalo_home:hover {
-    background:#000;
-    color:#FFF;
-}*/
+} 
 
 .liquidacion_rango_home{
     width: 68px;
@@ -21979,6 +21983,7 @@ hr{
 }
 body{
     background: #f9f9f9;
+    overflow-x: hidden;
 }
 .LugaresPago{
     margin-bottom:65px;
@@ -27559,7 +27564,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     text-decoration: none;
     position: absolute;
     /*top: 247px;*/
-    top:279px;
+    top: 108px;
 }
 
 .enlace_popupCatalogoPersonalizado:hover{
@@ -33880,9 +33885,9 @@ h1#penmostreo .campana {
 
 .fondo_set{
     width:100%;
-    /*height:396px;*/
+    height:396px;
     /*background:url(../../../Images/Showroom/FONDO_FICHADEPRODUCTO.png) no-repeat;*/
-    /*background-size: contain;*/
+    background-size: cover !important;
     padding-top: 60px;
 }
 .content_producto_set{
@@ -33984,18 +33989,15 @@ h1#penmostreo .campana {
     font-weight:300;
 }
 .btn_aregar_set {
+    width: -moz-calc(100% -80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
     /*width: 82%;*/
     float: right;
     /* text-align: right; */
     background: black;
     color: white;
-    width: -moz-calc(100% -80px);
-    width: calc(100% - 80px);
-}
-@media only screen and (max-width : 1027px) {
-    .btn_aregar_set {
-        width: 81%;
-    }
 }
 .titulo_carrusel_showroom{
     font-family:'Lato';
