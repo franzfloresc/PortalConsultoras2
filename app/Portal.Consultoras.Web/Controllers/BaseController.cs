@@ -1477,7 +1477,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = userData.OfertasDelDia[0].Clone();
             model.ListaOfertas = userData.OfertasDelDia;
+            int posicion = 0;
+            model.ListaOfertas.Update(p=>p.ID = posicion++);
             model.TeQuedan = CountdownODD(userData);
+            model.FBRuta = GetUrlCompartirFB();
             return model;
         }
 

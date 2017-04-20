@@ -33979,7 +33979,8 @@ h1#penmostreo .campana {
     max-width: 1024px;
     min-height: 480px;
     z-index: 2010;
-    background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;
+     background:#000;
+    /*background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;*/
 }
 
 .reloj_popOferta {
@@ -35665,9 +35666,9 @@ h1#penmostreo .campana {
     width:-webkit-calc(100% - 80px);
     width: -webkit-calc(~'100% - 80px');
 }
-.content_780_ODD .content_item_carrusel_ODD:last-child{
+/*#divOddCarrusel .content_item_carrusel_ODD:last-child{
     float:right;
-}
+}*/
 .content_780_ODD .content_90{
     width:80%;
 }
