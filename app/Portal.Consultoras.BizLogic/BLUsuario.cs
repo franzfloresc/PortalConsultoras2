@@ -1166,5 +1166,75 @@ namespace Portal.Consultoras.BizLogic
 
             return resultado;
         }
+
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var resultado = string.Empty;
+            var paso = "1";
+
+            try
+            {
+                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+
+                List<BEUsuarioCorreo> lst = SelectByEmail(correo, paisId).ToList();
+                paso = "2";
+
+                if (paisId.ToString().Trim() == "4")
+                {
+                    if (lst.Count == 0)
+                    {
+                        resultado = "0" + "|" + "1";
+                        return resultado;
+                    }
+                    else
+                    {
+                        correo = lst[0].Descripcion;// contiene el correo del destinatario
+                        if (correo.Trim() == "")
+                        {
+                            resultado = "0" + "|" + "2";
+                            return resultado;
+                        }
+                    }
+                }
+
+                if (lst[0].Cantidad == 0)
+                {
+                    resultado = "0" + "|" + "3";
+                    return resultado;
+                }
+                else
+                {
+                    string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
+                    DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                    string paisiso = lst[0].CodigoISO;
+                    string codigousuario = lst[0].CodigoUsuario;
+                    string nombre = lst[0].Nombre.Trim().Split(' ').First();
+
+                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, correo, paisiso, codigousuario, fechasolicitud, nombre);
+
+                    paso = "3";
+
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = correo;
+                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
+                    string fondo = (esEsika ? "e81c36" : "642f80");
+
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, logo, nombrecorreo, newUri.ToString(), fondo);
+
+                    resultado = "1" + "|" + "4" + "|" + correo;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+            }
+
+            return resultado;
+        }
     }
 }
