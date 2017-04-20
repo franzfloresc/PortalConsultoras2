@@ -328,19 +328,22 @@
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
     <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
-    <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
-           <div class="content_banner_fav">
-               <div class="content_imagen_banner_fav">
-                   <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
-               </div>
-               <div class="texto_fav_banner">
-                   @ViewBag.NombreConsultoraFAV, estos son los
-                   <span class="favoritos_txt">FAVORITOS</span>
-                   <span class="texto_2_fav">DE TUS CLIENTES</span>
-                   <a class="btn_compralos_banner_fav" href="javascript:" >CÓMPRALOS</a>
-               </div>
-           </div>            
+    @if (Model.ShowRoomMostrarLista == 0)
+    {
+        <div class="nueva_seccion_fav" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
+            <div class="content_banner_fav">
+                <div class="content_imagen_banner_fav">
+                    <img src="@ViewBag.UrlImagenFAVMobile" alt="favoritos" />
+                </div>
+                <div class="texto_fav_banner">
+                    @ViewBag.NombreConsultoraFAV, estos son los
+                    <span class="favoritos_txt">FAVORITOS</span>
+                    <span class="texto_2_fav">DE TUS CLIENTES</span>
+                    <a class="btn_compralos_banner_fav" href="javascript:">CÓMPRALOS</a>
+                </div>
+            </div>
         </div>
+    }
     
     
     <div class="linea_separadora_mobile" style="margin-top:-1px;"></div>
@@ -420,7 +423,7 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-@if (Model.CatalogoPersonalizadoMobile != 0 && Model.EsCatalogoPersonalizadoZonaValida)
+@if (Model.ShowRoomMostrarLista)
 {
     <input type="hidden" id="flagCatalogoPersonalizado" />
 }
