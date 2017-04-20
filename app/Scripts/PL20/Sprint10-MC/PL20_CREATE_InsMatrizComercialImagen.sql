@@ -1,11 +1,13 @@
-USE [BelcorpCostaRica]
+USE BelcorpBolivia
 GO
-/****** Object:  StoredProcedure [dbo].[InsMatrizComercial]    Script Date: 20/04/2017 3:01:53 p. m. ******/
+
+BEGIN
+	
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
----------------------------------------------------------------------------------------------------------------
+
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@CodigoSAP varchar(50),
 	@Foto varchar(150),
@@ -29,3 +31,450 @@ BEGIN
 		);
 	END
 END
+
+END
+GO
+/*end*/
+
+USE BelcorpChile
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+	GO
+	SET QUOTED_IDENTIFIER ON
+	GO
+
+	CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+		@CodigoSAP varchar(50),
+		@Foto varchar(150),
+		@UsuarioRegistro varchar(50)
+	AS
+	BEGIN
+		BEGIN
+			INSERT INTO MatrizComercialImagen
+			(
+				CodigoSAP,
+				Foto,
+				UsuarioRegistro,
+				FechaRegistro
+			)
+			VALUES
+			(
+				@CodigoSAP,
+				@Foto,
+				@UsuarioRegistro,
+				GETDATE()
+			);
+		END
+	END
+END
+GO
+/*end*/
+
+USE BelcorpColombia
+GO
+
+BEGIN
+		SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpCostaRica
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpDominicana
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+END
+GO
+/*end*/
+
+USE BelcorpEcuador
+GO
+
+BEGIN
+		SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpGuatemala
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+END
+GO
+/*end*/
+
+USE BelcorpMexico
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpPanama
+GO
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpPeru
+GO
+
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpPuertoRico
+GO
+
+BEGIN
+		SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+/*end*/
+
+USE BelcorpSalvador
+GO
+
+
+BEGIN
+	SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+END
+GO
+/*end*/
+
+USE BelcorpVenezuela
+GO
+
+BEGIN
+		SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
+	@CodigoSAP varchar(50),
+	@Foto varchar(150),
+	@UsuarioRegistro varchar(50)
+AS
+BEGIN
+	BEGIN
+		INSERT INTO MatrizComercialImagen
+		(
+			CodigoSAP,
+			Foto,
+			UsuarioRegistro,
+			FechaRegistro
+		)
+		VALUES
+		(
+			@CodigoSAP,
+			@Foto,
+			@UsuarioRegistro,
+			GETDATE()
+		);
+	END
+END
+
+END
+GO
+
+
