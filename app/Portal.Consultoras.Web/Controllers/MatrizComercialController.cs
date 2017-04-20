@@ -416,7 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagesByCodigoSAP(paisID, sapCode).ToList();
+                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode).ToList();
             }
 
             string paisISO = Util.GetPaisISO(paisID);

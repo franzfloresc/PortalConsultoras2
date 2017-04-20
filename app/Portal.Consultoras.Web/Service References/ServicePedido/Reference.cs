@@ -18341,10 +18341,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaRegistroField;
+        private string CodigoSAPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdMatrizComercialImagenField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -18357,7 +18363,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaRegistro {
+        public string CodigoSAP {
+            get {
+                return this.CodigoSAPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
+                    this.CodigoSAPField = value;
+                    this.RaisePropertyChanged("CodigoSAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> FechaRegistro {
             get {
                 return this.FechaRegistroField;
             }
@@ -18378,6 +18397,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoField, value) != true)) {
                     this.FotoField = value;
                     this.RaisePropertyChanged("Foto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdMatrizComercialImagen {
+            get {
+                return this.IdMatrizComercialImagenField;
+            }
+            set {
+                if ((this.IdMatrizComercialImagenField.Equals(value) != true)) {
+                    this.IdMatrizComercialImagenField = value;
+                    this.RaisePropertyChanged("IdMatrizComercialImagen");
                 }
             }
         }
@@ -20360,11 +20392,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAP", ReplyAction="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAPResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[]> GetImagenesByCodigoSAPAsync(int paisID, string codigoSAP);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagesByCodigoSAP", ReplyAction="http://tempuri.org/IPedidoService/GetImagesByCodigoSAPResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetImagesByCodigoSAP(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMatrizComercialImagenByCodigoSAP", ReplyAction="http://tempuri.org/IPedidoService/GetMatrizComercialImagenByCodigoSAPResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagesByCodigoSAP", ReplyAction="http://tempuri.org/IPedidoService/GetImagesByCodigoSAPResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetImagesByCodigoSAPAsync(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMatrizComercialImagenByCodigoSAP", ReplyAction="http://tempuri.org/IPedidoService/GetMatrizComercialImagenByCodigoSAPResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetMatrizComercialImagenByCodigoSAPAsync(int paisID, string codigoSAP);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionMasivo", ReplyAction="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionMasivoResponse")]
         int UpdMatrizComercialDescripcionMasivo(int paisID, Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[] lstmatriz, string UsuarioRegistro);
@@ -22742,12 +22774,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetImagenesByCodigoSAPAsync(paisID, codigoSAP);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetImagesByCodigoSAP(int paisID, string codigoSAP) {
-            return base.Channel.GetImagesByCodigoSAP(paisID, codigoSAP);
+        public Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP) {
+            return base.Channel.GetMatrizComercialImagenByCodigoSAP(paisID, codigoSAP);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetImagesByCodigoSAPAsync(int paisID, string codigoSAP) {
-            return base.Channel.GetImagesByCodigoSAPAsync(paisID, codigoSAP);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetMatrizComercialImagenByCodigoSAPAsync(int paisID, string codigoSAP) {
+            return base.Channel.GetMatrizComercialImagenByCodigoSAPAsync(paisID, codigoSAP);
         }
         
         public int UpdMatrizComercialDescripcionMasivo(int paisID, Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[] lstmatriz, string UsuarioRegistro) {
