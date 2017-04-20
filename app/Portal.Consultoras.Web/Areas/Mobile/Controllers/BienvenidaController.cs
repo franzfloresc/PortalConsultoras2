@@ -162,7 +162,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
             ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
-           
+
+            model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
             return View(model);
         }
 
