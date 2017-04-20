@@ -1,6 +1,9 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
-
+@{
+    ViewBag.Title = "Detalle Oferta";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
 }
@@ -171,6 +174,7 @@
         <hr class="clear" />
     </div>    
 </div>
+<hr class="clear" />
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
    <div class="content_belcorp">
        <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
