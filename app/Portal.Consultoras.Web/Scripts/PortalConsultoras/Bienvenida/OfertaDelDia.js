@@ -127,33 +127,6 @@ function ODDCargar() {
             //var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
             //obj1.html(obj1.text());
 
-            // distribucion de html de cabecera y contenido
-            //var wh = $("header").height();
-            //$('#contentmain').css('top', wh + 'px');
-            //var position = $('#contentmain').position();
-            //if (position.top != wh) {
-            //    $('#contentmain').css('margin-top', wh + 'px');
-            //}
-            //$('.content_slider_home').css('margin-top', wh + 'px');
-            //if (MostrarODD == "True") {
-            //    $('.ubicacion_web').css('margin-top', '85px');
-            //} else {
-            //    $('.ubicacion_web').css('margin-top', '185px');
-            //}
-
-            //var intv1 = setInterval(function () {
-            //    if ($('#OfertaDelDia:visible').length > 0) {
-            //        if ($('.content_banner_intriga').length > 0) {
-            //            $('.ubicacion_web').css('margin-top', '162px');
-            //        }
-            //        else {
-            //            $('.ubicacion_web').css('margin-top', '185px');
-            //        }
-
-            //        clearInterval(intv1);
-            //    }
-            //}, 300);
-
             var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                 clockFace: 'HourlyCounter',
                 countdown: true

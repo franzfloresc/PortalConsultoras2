@@ -315,37 +315,13 @@ $(document).ready(function () {
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
 
-    OrdenarCabecera();
-
-    if (tieneOfertaDelDia == "True") {        
-        var URLactual = window.location.href;
-        var urlIntriga = URLactual.indexOf("ShowRoom");
-        var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-        if (urlIntriga > 0) {
-            $("#contentmain").css("margin-top", "63px")
-        }
-        else if (urlBienvenida > 0) {
-            $("#contentmain").css("margin-top", "0px")
-        }
-
-    }
+    LayoutHeader();
 });
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);  
     ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
     ventanaChat.focus();
-}
-
-function OrdenarCabecera() {
-    var hC = $("header").innerHeight() + 2;
-    var htmlSub = $.trim($(".ubicacion_web").html());
-    if (htmlSub == "") {
-        $(".SubHeader").html("");
-    }
-    hC += $(".SubHeader").innerHeight();
-    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
 }
 
 function messageInfoError(message, titulo) {
