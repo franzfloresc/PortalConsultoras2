@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using static Portal.Consultoras.Common.Constantes;
+using common = Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -47,7 +47,7 @@ namespace Portal.Consultoras.BizLogic
             
             foreach (var pais in paises)
             {
-                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? Marca.Esika : Marca.LBel);
+                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? common.Marca.Esika : common.Marca.LBel);
             }
             
             return paises;
