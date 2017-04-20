@@ -21,7 +21,6 @@ BEGIN
 	FROM dbo.fnGetConfiguracionCampaniaNoConsultora(@PaisID,@ZonaID,@RegionID)
 END
 GO
-
 /*end*/
 
 USE BelcorpChile
