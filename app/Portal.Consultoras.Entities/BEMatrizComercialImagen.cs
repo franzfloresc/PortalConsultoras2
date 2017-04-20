@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -9,6 +10,9 @@ namespace Portal.Consultoras.Entities
     public class BEMatrizComercialImagen
     {
         [DataMember]
+        public int PaisID { get; set; }
+
+        [DataMember]
         public int IdMatrizComercialImagen { get; set; }
 
         [DataMember]
@@ -18,7 +22,13 @@ namespace Portal.Consultoras.Entities
         public string Foto { get; set; }
 
         [DataMember]
+        public string UsuarioRegistro { get; set; }
+
+        [DataMember]
         public DateTime? FechaRegistro { get; set; }
+
+        [DataMember]
+        public string UsuarioModificacion { get; set; }
 
         public BEMatrizComercialImagen(IDataRecord row)
         {

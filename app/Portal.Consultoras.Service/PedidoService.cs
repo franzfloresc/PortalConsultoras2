@@ -1865,5 +1865,15 @@ namespace Portal.Consultoras.Service
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+        }
     }
 }
