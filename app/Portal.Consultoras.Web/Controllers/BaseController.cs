@@ -807,6 +807,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month);
                 ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
+                string ss = ViewBag.QSBR;
+                ViewBag.QSBR = ss.Replace("\n", "").Trim();
 
                 model.MenuNotificaciones = 1;
                 ViewBag.TieneFechaPromesa = 0;
