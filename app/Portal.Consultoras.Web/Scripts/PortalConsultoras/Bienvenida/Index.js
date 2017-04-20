@@ -168,9 +168,9 @@ $(document).ready(function () {
     CargarMisCursos();
     CargarBanners();
     CargarCatalogoPersonalizado();
-    //if (showRoomMostrarLista == 1) {
-    //    CargarProductosShowRoom({ Limite: 6, hidden: true });
-    //}
+    if (showRoomMostrarLista == 1) {
+        CargarProductosShowRoom({ Limite: 6, hidden: true });
+    }
 
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
