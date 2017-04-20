@@ -1010,6 +1010,29 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
+        public ActionResult VerHistorialPostulante(int id)
+        {
+            var historialPostulanteModel = new HistorialPostulanteModel();
+            historialPostulanteModel.SolicitudPostulanteID = id;
+            historialPostulanteModel.CodigoISO = CodigoISO;
+            historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
+            var eventos = new EventoSolicitudPostulanteCollection();
+            using (var sv = new PortalServiceClient())
+            {
+                eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
+            }
+            foreach(var evento in eventos)
+            {
+                historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel(){
+                    EventoID = evento.EventoId,
+                    Fecha = evento.Fecha,
+                    TipoEventoId = evento.TipoEvento
+                });
+            }
+            
+            return PartialView("_HistorialPostulante", historialPostulanteModel);
+        }
+
         public ActionResult NivelesRiesgo()
         {
             return View(new NivelesRiesgoModel { CodigoISO = CodigoISO /* Pais.Peru */});
@@ -1217,6 +1240,13 @@ namespace Portal.Consultoras.Web.Controllers
                                      : "")
                                  : "")
                                : "",
+                PintarMalaZonificacion =
+                                            (!string.IsNullOrEmpty(i.TipoRechazo)) ?
+                                                ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt() 
+                                                && i.TipoRechazo.ToInt() == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()
+                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacion" 
+                                                : string.Empty)
+                                            : string.Empty,
                 MotivoRechazo = i.MotivoRechazo,
                 ShowPendienteConfirmacion = i.IndicadorActivo == false ? "visible" : "hidden",
                 ShowReactivar = i.EstadoPostulante == "RECHAZADA" ? "visible" : "hidden",
@@ -1248,8 +1278,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
                 && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
                  string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
-                //VieneDe = i.Vi
- 
+                UsuarioModificacion = (i.SubEstadoPostulante != null) ?
+                                        ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
+                                        :"",
+                
             }).ToList();
 
  
@@ -2818,7 +2850,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico,
-                    VieneDe = c.VieneDe
+                    VieneDe = c.VieneDe,
+                    UsuarioModificacion = (c.SubEstadoPostulante != null) ?
+                                        ((Enumeradores.TipoSubEstadoPostulanteRechazada)c.SubEstadoPostulante).ToString()
+                                        : "",
                 };
                 
             });
@@ -2853,6 +2888,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Estado Postulante", "EstadoPostulante");
                 dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Rechazó", "UsuarioModificacion");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
 
@@ -2889,6 +2925,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Tipo Rechazo", "TipoRechazo");
                 dic.Add("Motivo Rechazo", "MotivoRechazo");
+                dic.Add("Rechazó", "UsuarioModificacion");
                 dic.Add("Dias en Espera", "DiasEnEspera");
 
                 dic.Add("Num Dias Rechazados", "NumDiasRechazados");

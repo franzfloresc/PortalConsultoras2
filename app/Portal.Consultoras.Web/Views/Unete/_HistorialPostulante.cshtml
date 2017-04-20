@@ -1,0 +1,27 @@
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.HistorialPostulanteModel
+
+@Html.Hidden("SolicitudPostulanteID", Model.SolicitudPostulanteID)
+@Html.Hidden("CodigoISO", Model.CodigoISO)
+
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Fecha</td>
+                <td>Evento</td>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var evento in Model.ListaEventos)
+           {
+               <tr>
+                   <td>@evento.EventoID</td>
+                   <td>@evento.Fecha</td>
+                   <td>@evento.TipoEventoId</td>
+               </tr>
+           }
+        </tbody>
+    </table>
+</div>
