@@ -925,7 +925,7 @@ function LayoutHeader() {
         }
 
         wtop = $("header").height();
-        var wsh = $(".SubHeader").height();
+        var wsh = 0; //$(".SubHeader").height();
         if ((haySlider == 0) || (haySlider == null && wtop > 0)) {
             //$(".BloqueOfertaDiaHeader").hide();
             wtop = $("header").height();

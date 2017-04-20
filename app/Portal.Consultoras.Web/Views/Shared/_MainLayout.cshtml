@@ -114,7 +114,7 @@
         }
     </script>
     @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
-{
+    {
     string nombre_pais = ViewBag.PaisAnalytics;
 
     switch (nombre_pais)
@@ -274,15 +274,15 @@
         <div class="clear"></div>
     </header>
     <div class="fondo_oscuro"></div>
-    <div class="SubHeader">
-        <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" ? "oculto" : "")">
-            <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
-        </div>
-    </div>
 
     <!-- end cabecera -->
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="">
+        <div class="SubHeader">
+            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" ? "oculto" : "")">
+                <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+            </div>
+        </div>
         @RenderBody()
 
         @if (ViewBag.TerminoMostrar == 1)

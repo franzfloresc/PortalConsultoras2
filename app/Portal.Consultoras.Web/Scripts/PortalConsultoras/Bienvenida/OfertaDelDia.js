@@ -358,16 +358,7 @@ function closeOfertaDelDia() {
             if (response.success) {
                 $('#OfertaDelDia').hide();
 
-                $("#contentmain").css("margin-top", "63px")
-
-                $('.content_slider_home ').css('margin-top', '60px');
-
-                if ($('.content_banner_intriga').length > 0) {
-                    $('.ubicacion_web ').css('margin-top', '62px');
-                }
-                else {
-                    $('.ubicacion_web ').css('margin-top', '83px');
-                }
+                LayoutHeader();
             }
         },
         error: function (err) {
