@@ -167,12 +167,13 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
-        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP)
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP, int numeroPagina, int registros, out int totalRegistros)
         {
             var lst = new List<BEMatrizComercialImagen>();
             var dataAccess = new DAOfertaProducto(paisID);
+            totalRegistros = 0;
 
-            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByCodigoSAP(codigoSAP))
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByCodigoSAP(codigoSAP, numeroPagina, registros, out totalRegistros))
                 while (reader.Read())
                 {
                     var entity = new BEMatrizComercialImagen(reader);
