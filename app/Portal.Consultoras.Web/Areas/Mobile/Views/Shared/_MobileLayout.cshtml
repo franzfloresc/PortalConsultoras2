@@ -313,8 +313,9 @@
                                             <div id="divShowRoomHoy" class="divShowRoom">
                                                 <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                                 <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                        <input type="hidden" id="hdtiposw" value="1" />
                                                 <div class="fondo_m">
-                                                    <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                            <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
                                                             <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
@@ -330,8 +331,10 @@
                                             <div id="divShowRoom" class="divShowRoom">
                                                 <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
                                                 <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                        <input type="hidden" id="hdtiposw" value="2" />
                                                 <div class="fondo_m">
-                                                    <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                        
+                                        <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
                                                             <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
@@ -625,6 +628,7 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
+
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
@@ -650,20 +654,102 @@
                 var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
                 var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
                
+                function AgregarTagManagerShowRoomAnalytics(){
+                    debugger;
+                    var EventoIdentificador = $("#hdEventoIDShowRoom").val();
+                    var EventoShowRoomNombre = $("#hdNombreEventoShowRoom").val();
+                    if (mostrarShowRoomProductos == 'True') {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce':{
+                                'promoView':[{
+                                    'id':EventoIdentificador,
+                                    'name':'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
+                                    'position': 'Home Slider – 1',
+                                    'creative' : 'Banner'
+                                }]
+                            }
+                        });
+                    }else{
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce':{
+                                'promoView':[{
+                                    'id':EventoIdentificador,
+                                    'name':'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
+                                    'position': 'Home Slider – 1',
+                                    'creative' : 'Banner'
+                                }]
+                            }
+                        });
+                    }
+                    debugger;
+                    if($('#flexslidertop ul.slides li').length > 0){
+                        if (mostrarShowRoomProductos == 'True') {
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce':{
+                                    'promoView':[{
+                                        'id':EventoIdentificador,
+                                        'name':'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
+                                        'position': 'Home superior - 1',
+                                        'creative' : 'Banner'
+                                    }]
+                                }
+                            });
+                        }else{
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce':{
+                                    'promoView':[{
+                                        'id':EventoIdentificador,
+                                        'name':'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
+                                        'position': 'Home superior - 1',
+                                        'creative' : 'Banner'
+                                    }]
+                                }
+                            });
+                        }
+                    }
+                }
+
+
                 function CargarShowRoom() {
+                    debugger;
+                    AgregarTagManagerShowRoomAnalytics();
                     if (mostrarShowRoomProductos == 'True') {
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                         });
-                        AgregarTagManagerShowRoomBannerLateral(true);
+                        //AgregarTagManagerShowRoomBannerLateral(true);
                     }
                     else {
                         $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                         });
                         AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        AgregarTagManagerShowRoomBannerLateral(false);
+                        //AgregarTagManagerShowRoomBannerLateral(false);
                     }
+                }
+
+                function AgregarTagManagerShowRoomBannerClick(){
+                    debugger;
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': [
+                                    {
+                                        'id': '123',
+                                        'name': 'venta',
+                                        'position': 'Home pop-up - 1',
+                                        'creative': 'Banner'
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                
                 }
 
                 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
@@ -865,8 +951,11 @@
 
                 OcultarBannerTop();
 
-            }); 
                 
+
+            }); 
+
+    
             if(MostrarBannerPL20){
                 loadBannerLP20();
             } 
@@ -916,6 +1005,107 @@
             }
 
             setTimeout(LayoutHeader, 300);
+            $(".bannersi").on("click", function () {
+                debugger;
+                
+                var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
+                var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+            
+                dataLayer.push({
+                    'event': 'promotionClick',
+                    'ecommerce': {
+                        'promoView':{
+                            'promotions':[
+                                {
+                                    'id':eventoIDIdenti,
+                                    'name':'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                                    'position':'Home pop-up - 1',
+                                    'creative': 'Banner'
+                                }
+                            ]
+                        }
+                    }
+                });
+            
+            });
+
+            $(".bannersc").on("click", function () {
+                debugger;
+                
+                var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
+                var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+            
+                dataLayer.push({
+                    'event': 'promotionClick',
+                    'ecommerce': {
+                        'promoView':{
+                            'promotions':[
+                                {
+                                    'id':eventoIDIdenti,
+                                    'name':'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                                    'position':'Home pop-up - 1',
+                                    'creative': 'Banner'
+                                }
+                            ]
+                        }
+                    }
+                });
+            
+            });
+
+
+            $(".wsventa").on("click", function () {
+                debugger;
+                
+                var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
+                var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+            
+                dataLayer.push({
+                    'event': 'promotionClick',
+                    'ecommerce': {
+                        'promoView':{
+                            'promotions':[
+                                {
+                                    'id':eventoIDIdenti,
+                                    'name':'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                                    'position':'Mobile Menu',
+                                    'creative': 'Banner'
+                                }
+                            ]
+                        }
+                    }
+                });
+            
+            });
+
+            $(".wsintriga").on("click", function () {
+                debugger;
+                
+                var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
+                var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+            
+                dataLayer.push({
+                    'event': 'promotionClick',
+                    'ecommerce': {
+                        'promoView':{
+                            'promotions':[
+                                {
+                                    'id':eventoIDIdenti,
+                                    'name':'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                                    'position':'Mobile Menu',
+                                    'creative': 'Banner'
+                                }
+                            ]
+                        }
+                    }
+                });
+            
+            });
+
+            debugger;
+           
+
+            
         });
 
         function loadBannerLP20() {
@@ -949,6 +1139,9 @@
                     pauseOnAction: false,
                     animationSpeed: 1600
                 });
+
+
+
             }
         }
 

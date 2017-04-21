@@ -40,6 +40,7 @@
                             if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
                             {
                                 <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                            <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
                             }
                         }
                     </div>
