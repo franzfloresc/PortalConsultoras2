@@ -241,18 +241,20 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-
-    var origen;
-    if (posicion != "0") {
-        if (origenPedidoWebCarrusel != -1)
-            origen = origenPedidoWebCarrusel;
-        else if (tipoOrigenPantalla == 1) {
-            origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
-        }
-        else
+     
+    var origen = $(article).find(".origenPedidoWeb").val() || 0;
+    if (origen == 0) {
+        if (posicion != "0") {
+            if (origenPedidoWebCarrusel != -1)
+                origen = origenPedidoWebCarrusel;
+            else if (tipoOrigenPantalla == 1) {
+                origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
+            }
+            else
+                origen = origenPedidoWeb;
+        } else {
             origen = origenPedidoWeb;
-    } else {
-        origen = origenPedidoWeb;
+        }
     }
 
     AbrirLoad();

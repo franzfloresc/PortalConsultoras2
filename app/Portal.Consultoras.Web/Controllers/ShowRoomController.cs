@@ -77,7 +77,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.EMailActivo = userData.EMailActivo;
             model.Celular = userData.Celular;
             model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
+            var pedidoDetalle = ObtenerPedidoWebDetalle();
+            model.Agregado = pedidoDetalle.Any(d => d.CUV == model.CUV) ? "block" : "none";
             return View(model);
         }
 
