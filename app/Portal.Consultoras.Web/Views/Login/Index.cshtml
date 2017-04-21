@@ -110,20 +110,14 @@
         max-width:475px;
         width:90%;       
         margin:0 auto;
-        margin-top:12%;
+        margin-top:8%;
         z-index:1000;
         text-align: left;
+        background:white;
     }
-     .header_facebook{
-        background: #365899 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/BY9fakSmTVLRaBl/face1.png) no-repeat 10px 50%;
-        color: #fff;
-        padding: 8px 10px 8px 30px;
-        font-family:Arial;
-        font-weight:bold;
-        text-align: left;
-    }
+     
     .body_facebook{
-        padding:15px 30px 85px 30px;
+        padding: 30px 15% 55px 15%;
         background:white;
         color:black;
         font-family:Arial;
@@ -141,26 +135,38 @@
         text-align: left;
     }
     .campo_input{
-        margin-top:15px;
-        width:48%;
-        float:left;
-        box-sizing:border-box;
+        margin-top: 10px;
+        margin-bottom: 12px;
+        width: 100%;
+        float: left;
+        box-sizing: border-box;
         text-align: left;
+        border-bottom: 1px solid #959595;
+        position:relative;
+        font-family: 'icomoon';
     }
-    .select_pais_facebook{
-        width:100%;
-        border:1px solid #ccc;
-        height:28px;
-         box-sizing:border-box;
+    .select_pais_facebook{        
+        width: -moz-calc(100% - 21px);
+        width: calc(100% - 21px);
+        width:-webkit-calc(100% - 21px);
+        width: -webkit-calc(~'100% - 21px');
+        float: right;
+        /* padding-left: 25px; */
+        border: 0;
+        height: 28px;
+        box-sizing: border-box;
        
     }
     .usuario_facebook{
         width:100%;
-        border:1px solid #ccc;
+        border:0;
         height:28px;
         color:black;
-        padding-left:7PX;
-         box-sizing:border-box;
+        padding-left:25px;
+        box-sizing:border-box;
+        position:relative;
+        background:transparent;
+        letter-spacing: 0.3px;
     }
     
    .content_pop_login{
@@ -171,32 +177,7 @@
        height:100%;
        z-index:1000;
    }
-   .btn_cerrar_login{
-       color:white;
-       position:absolute;
-       right:15px;
-       top:5px;
-       font-size:20px;
-       font-weight:normal;
-       text-decoration:none;
-   }
-   .btn_validar_usuario{
-        color:white;
-        background-color: #365899;
-        border:1px solid #29487d;
-        font-size: 13px;
-        font-weight: bold;
-        
-        padding: 6px 6px;
-        text-align: center;
-        margin-top:20px;
-        width:48%;
-        margin-left:35%;
-        display:block;
-        box-sizing:border-box;
-        border-radius:2px;
-        line-height: 18px;
-   }
+  
    .center_facebook{
        text-align:center;
    }
@@ -607,18 +588,16 @@
 <div class="content_pop_login" style="display: none;">
     <input type="hidden" id="hdeNameUserExt" />
     <div class="content_facebook_sb">
-        <div class="header_facebook" style="font-size: 16px;">
-            Facebook
-            <a class="btn_cerrar_login" href="javascript:;" onclick="closePopupAsociarLoginExt()">X</a>
+        <div class="header_facebook">
+            SOMOS BELCORP
+            <a class="btn_cerrar_login" href="javascript:;" onclick="closePopupAsociarLoginExt()"></a>
         </div>
         <div class="body_facebook">
             <div class="texto_login">
-                <b>Estas correctamente autenticado con Facebook. <br />
-                </b> Por favor ingresa tu usuario y contraseña de <b style="font-size:14px;">SomosBelcorp</b> por única vez para asociarlo.
+                <b class="solo_texto_paso">Solo un paso más... </b> Por favor ingresa tu usuario y contraseña de <b style="font-size:16px;">SomosBelcorp</b> por única vez para asociarlo.
             </div>
             <br />
 
-            <div class="etiqueta_usuario">PAÍS</div>
             <div class="campo_input">
                 <select class="select_pais_facebook" id="ddlPais2">
                     <option value="00">Elige tu País</option>
@@ -632,17 +611,23 @@
                 </select>
             </div>
             <hr class="clear" />
-            <div class="etiqueta_usuario">USUARIO</div>
-            <div class="campo_input">
+            
+            <div class="campo_input icono_usuario">
                 <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
             </div>
             <hr class="clear" />
-            <div class="etiqueta_usuario">CONTRASEÑA</div>
-            <div class="campo_input">
+            
+            <div class="campo_input icono_pass">
                 <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
             </div>
             <hr class="clear" />
-            <br />
+            <div class="formbtn">
+                <label for="">
+                    <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                </label>
+                <br>
+            </div>
+            <hr class="clear" />
             <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
         </div>
     </div>
