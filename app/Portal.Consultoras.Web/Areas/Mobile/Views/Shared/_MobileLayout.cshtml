@@ -115,7 +115,6 @@
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
-                @*<a class="subir_foto_mobile"></a>*@
             </div>
         </div>
         <br />
@@ -136,20 +135,93 @@
 
     <!-- header -->
     <header id="new-header">
-        <div id="bloquemensajesPedido" style="display:none;">
-            <div class="oscurecer_animacion"></div>
-            <div class="bloque_mensajesPedido">
-                <div class="icono_cerrar_mensaje">
-                    <span>
-                        <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
-                        </a>
-                    </span>
-                </div>
-                <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
-                </div>
-                <div class="mensajes_estadoPedido">
+    @if (ViewBag.MostrarBannerTopPL20 == true)
+    {
+
+        <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
+         
+                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
+           
+            
+            <ul class="slides">
+                @if (ViewBag.MostrarOfertaDelDia == true)
+                {
+                    <li>
+                        <!--OFERTA DEL DIA HEADER-->
+                        <div class="BloqueOfertaDiaHeader">
+                            <div class="row_contador" style="padding:0;">
+                                <div class="float_left">
+                                    <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
+                                    <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                </div>
+                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:20px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
+                                <hr class="clear" />
+                                <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+                            </div>
+                        </div>
+                        <!--FIN-->
+                    </li>
+                }
+                
+                @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
+                {
+                    if (showRoomBannerLateral.MostrarShowRoomProductos == true)
+                    {
+                        <li>
+                            <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                <div class="content_banner_header_showroom">
+                                    <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
+                                </div>
+                            </a>
+
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                <div class="content_banner_header_showroom">
+                                    <div class="content_titulo"><div class="titulo_intriga">GRAN VENTA ONLINE</div></div>
+
+                                    <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
+                                    <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+                                </div>
+                            </a>
+
+                        </li>
+
+                    }
+                }
+
+
+                
+
+            </ul>
+        </div>
+    }
+        
+                <div id="bloquemensajesPedido" style="display:none;">
+                    <div class="oscurecer_animacion"></div>
+                    <div class="bloque_mensajesPedido">
+                        <div class="icono_cerrar_mensaje">
+                            <span>
+                                <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
+                                    <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                </a>
+                            </span>
+                        </div>
+                        <div class="icono_estadoPedido">
+                            <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        </div>
+                        <div class="mensajes_estadoPedido">
                     <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
                     <span class="mensaje_horarioIngresoPedido">
                         @ViewBag.GPRBannerMensaje
@@ -157,37 +229,37 @@
                         {
                             <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
                         }
-                    </span>
-                </div>
-            </div>
-        </div>
-            
-            <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                           class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                    </div>
-                    <div class="col-xs-4 text-right">
-                        <div class="menu-shop">
-                            <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                               class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                            </a>
-                            <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                               class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                                <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                            </a>
+                            </span>
                         </div>
                     </div>
                 </div>
-            </div>
-</header>
-    @if (ViewBag.MostrarBannerPL20 == true)
+
+                <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                               class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                        </div>
+                        <div class="col-xs-4 text-right">
+                            <div class="menu-shop">
+                                <a role="link" region="Superior" parent="Pedido" title="Pedido"
+                                   class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
+                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
+                                </a>
+                                <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
+                                   class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                                    <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </header>
+    @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
     {
         if (ViewBag.MostrarOfertaDelDia == true)
         {
@@ -223,7 +295,7 @@
                             <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
                         <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">
+                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(0)">
                             AGRÉGALO
                         </a>
                         <div style="padding-top:9px; height: 15px;">
@@ -237,133 +309,138 @@
             </div>
         }
 
-        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-            @if (ViewBag.PermitirCerrarBannerPL20 == true)
-            {
-                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-            }        
-            <div id="flexslider">
-                <ul class="slides">
-                    @if (ViewBag.MostrarShowRoomBannerLateral == true)
+        if (ViewBag.MostrarODD == false)
+        {
+            <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                {
+                    <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                }
+                <div id="flexslider">
+                    <ul class="slides">
+                        @if (ViewBag.MostrarShowRoomBannerLateral == true)
                     {
                         if (showRoomBannerLateral.MostrarShowRoomProductos)
                         {
-                            <li>
-                                <div id="divShowRoomHoy" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
-                                            <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-            </div>
-        </div>
-                                    <div class="fondo_white" style="height:80px; overflow:hidden">
-                                        <div class="row_contador">
-                                            <div style="text-align: center;">
-                                                <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                </a>
-                                            </div>
+                                <li>
+                                    <div id="divShowRoomHoy" class="divShowRoom">
+                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                        <div class="fondo_m">
+                                            <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                                <div class="content_banner_new_showroom">
+                                                    @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
+                                                    <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
+                                                </div>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="contenedor_encuentralos2">
-                                        <div class="row_contador">
-                                            <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                                        </div>
-                                    </div>
                                 </div>
-                            </li>
+                                </li>
+                            }
+                             else if(showRoomBannerLateral.MostrarShowRoomProductos == false)
+                            {
+                                <li>
+                                    <div id="divShowRoom" class="divShowRoom">
+                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                    <div class="fondo_m">
+                                        <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                            <div class="content_banner_new_showroom">
+                                                <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
+                                                <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
+                                            </div>
+                                        </a>
+                                     </div>
+                                </div>
+                                </li>
+                            }
                         }
-                        else if(ViewBag.MostrarOfertaDelDia == false)
-                        {
-                            <li>
-                                <div id="divShowRoom" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    <div class="imagen_preventa">
-                                        <div class="etiqueta_2">
-                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                        </div>
-                                        <div class="titulo_contador_m">
-                                            @*PRE · VENTA DIGITAL*@
-                                            <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                        </div>
-                                    </div>
-        <div class="fondo_m">
-            <div class="row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                    <div class="texto_dias_m">
-                        SÓLO FALTAN
-                    </div>
-                    <div class="texto_fecha_m">
-                        <span id="spnDiasFaltantes" class="clsDia">12</span>
-                    </div>
-                    <div class="texto_dias_m">
-                        DÍAS
-                    </div>
-                </div>
-                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                    <div style="height: 20px; width: 135px;">
-                        <div class="text_hora_m">hrs</div>
-                        <div class="text_hora_m">min</div>
-                        <div class="text_hora_m no_margin_right">sec</div>
-                    </div>
-                    <div class="fondo_contador">
-                        <div class="text_numero"><span id="spnHorasFaltantes" class="clsHora">18</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnMinutosFaltantes" class="clsMinuto">25</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnSegundosFaltantes" class="clsSegundo">02</span></div>
-                    </div>
-                    <div style="margin-top: 6px;">
-                                                    <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-
-    </div>
-                            </li>
-                        }
-                    }
-                    @if (ViewBag.MostrarOfertaDelDia == true)
+                        @if (ViewBag.MostrarOfertaDelDia == true)
                     {
-                        <li>
-                            <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                                    <div class="float_left">
-                                        <div class="solo_hoy_mobile">
-                                            <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-            </div>
-                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                            <li>
+                                <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
+                                <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
+                                    <div class="solo_hoy_mobile">
+                                        <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+                                    </div>
+                                        <div class="imagen_set_oferta_mobile">
+                                            <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+                                    </div>
+                                    <div class="float_left" style="width:50%; margin-left:3%;">                                       
+                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
                                         <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+                                     </div>
+                                        <hr class="clear" />
+                                        <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                        <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                        <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                        <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                        <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                        <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                        <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                        <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                        <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+                                </div>
+                            </div>
+                            </li>
+                        }
+                    </ul>
             </div>
-                                    <div class="imagen_set_oferta_mobile">
-                                        <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
         </div>
-                                    <hr class="clear" />
+        }
 
-                                    <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                                    <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                                    <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                                    <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                                    <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                                    <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                                    <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                                    <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                                    <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+
+    }
+    else
+    {
+        if (ViewBag.MostrarOfertaDelDia == true)
+        {
+            <div id="pop_oferta_mobile_sw" class="content_pop_oferta_mobile">
+                <div id="cerrar_pop_oferta" class="header_pop_oferta" style="background-color:@ofertaDelDia.ColorFondo2">
+                    <div class="content_320" style="padding:0;">
+                        <div class="float_left">
+                            <a class="btn_cerrar_pop_oferta_hoy">
+                                <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
+                            </a>
+                        </div>
+                        <div class="imagen_set_hoy_mobile">
+                            <img id="img2-solohoy-odd" alt="regresar" src="@ofertaDelDia.ImagenSoloHoy" />
+                        </div>
+                        <hr class="clear" />
+                    </div>
+                </div>
+                <div class="set_oferta_content">
+                    <div class="producto_img_mobile">
+                        <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
+                    </div>
+                    <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
+                    <div class="producto_nombre_descripcion">
+                        <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
+                        <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
+                        <div class="producto_precio_hoy_mobile">
+                            A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
+                        </div>
+
+                        <div class="liquidacion_rango_home">
+                            <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
+                            <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(1)">
+                            AGRÉGALO
+                        </a>
+                        <div style="padding-top:9px; height: 15px;">
+                            <div class="agregado product-add" style="text-align:right;display:none;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-                        </li>
-                    }
-                </ul>
-        </div>
-            </div>
+        }
     }
 
     <!-- content -->
@@ -585,6 +662,8 @@
         var urlGetCantidadPedidos = '@Url.Action("GetCantidadPedidos", "ConsultoraOnline", new { area = "Mobile" })';
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
+        var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
         var baseUrl = "@Url.Content("~")";
@@ -609,6 +688,9 @@
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
@@ -625,7 +707,7 @@
         };
     </script>
 
-    @if (ViewBag.MostrarBannerPL20 == true)
+    @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {
         if (ViewBag.MostrarShowRoomBannerLateral == true)
         {
@@ -634,7 +716,7 @@
                 var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
                 var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
                 var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
-
+               
                 function CargarShowRoom() {
                     if (mostrarShowRoomProductos == 'True') {
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
@@ -693,7 +775,6 @@
 
                 function AgregarTimerShowRoom(dia, mes, anio) {
                     var calcNewYear = setInterval(function () {
-                        //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
                         date_future = new Date(anio, mes - 1, dia);
                         date_now = new Date();
 
@@ -740,7 +821,7 @@
                     $(".header_pop_oferta").click(function () {
                         $('body').css({ 'overflow-y': 'scroll' });
                         $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
-                    });
+                    });                   
                 };
 
                 function closeBannerPL20() {
@@ -764,7 +845,7 @@
                     });
                 };
 
-                function addOfertaDelDiaPedido(){
+                function addOfertaDelDiaPedido(popup){
                     var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
                     var estrategiaID = $('#estrategia-id-odd').val();
                     var flagNueva = $('#flag-nueva-odd').val();
@@ -778,7 +859,6 @@
                     var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
                     var origenPedidoWeb = 0;
 
-                    //directo display
                     if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
                     else if (origenPagina == 1) origenPedidoWeb = 2191// home
                     else if (origenPagina == 2) origenPedidoWeb = 2291; // pedido
@@ -788,19 +868,16 @@
                     var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
 
                     if (intCantidad > intLimiteVenta) {
-                        //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
                         $('#popupInformacionSB2Error').show();
                         return ;
                     }
 
-                    // validar si la oferta aun esta activa
                     if (!checkCountdownODD()) {
                         messageInfoMalo('La Oferta del Día se termino','');
                         return false;
                     }
 
-                    // validar cantidad a agregar (nuevas unidades o ya existentes)
                     var cqty = getQtyPedidoDetalleByCuvODD(cuv, tipoEstrategiaID);
                     if (cqty > 0) {
                         var tqty = parseInt(cqty) + intCantidad;
@@ -811,7 +888,6 @@
                         }
                     }
 
-                    // validar horario restringido y pedido reservado
                     if (ReservadoOEnHorarioRestringido())
                         return false;
 
@@ -822,14 +898,12 @@
                         Descripcion: descripcion,
                         Cantidad: cantidad,
                         IndicadorMontoMinimo: indicadorMontoMinimo,
-                        TipoOferta: tipoEstrategiaID, //$("#hdTipoEstrategiaID").val(),
+                        TipoOferta: tipoEstrategiaID,
                         tipoEstrategiaImagen: teImagenMostrar || 0,
                         OrigenPedidoWeb: origenPedidoWeb
                     });
 
                     ShowLoading();
-                    //console.log(param);
-                    //closeWaitingDialog();
 
                     jQuery.ajax({
                         type: 'POST',
@@ -876,15 +950,18 @@
 
                                         CloseLoading();
 
-                                        // ocultar display
                                         $('body').css({ 'overflow-y': 'scroll' });
                                         var effect = 'slide';
                                         var options = {direction: 'right' };
                                         var duration = 500;
-                                        $('#pop_oferta_mobile').toggle(effect, options, duration);
+                                        if (popup == 1){
+                                            $('#pop_oferta_mobile_sw').toggle(effect, options, duration);
+                                        }
+                                        if (popup == 0){
+                                            $('#pop_oferta_mobile').toggle(effect, options, duration);
+                                        }
                                         $('#txtCantidad').val('1');
 
-                                        // si es pagina de pedido, recargar el detalle
                                         if (typeof origenPagina !== 'undefined') {
                                             if (origenPagina == 2) {    // pedido
                                                 CargarPedido();
@@ -970,6 +1047,7 @@
             SetFormatDecimalPais(formatDecimalPaisMain);
             MensajeEstadoPedido();
             HandlebarsRegisterHelper();
+
             $('.menu_footer').on('click', function () {
                 var $obj = $(this);
                 if ($obj.hasClass('menu_footer')) {
@@ -985,7 +1063,6 @@
 
             CargarCantidadProductosPedidos(true);
             CargarCantidadNotificacionesSinLeer();
-            //CargarCantidadPedidosConsultoraOnline();
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {
                 var theEvent = evt || window.event;
@@ -1080,28 +1157,106 @@
                 $('body').css({ 'overflow-y': 'scroll' });
             });
 
-            if(MostrarBannerPL20) loadBannerLP20();
-            });
+            $("#btn_cerrar_oferta_mobile").click(function () {
+                $('.header_slider').slideUp();
+                $("#content").css({ 'margin-top': '63px' });
+
+                OcultarBannerTop();
+
+            }); 
+
+            if(MostrarBannerPL20){
+                loadBannerLP20();
+            } 
+            if (EstadoActivo === '1') {
+                var URLactual = window.location.href;
+                
+
+                var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+                if (urlBienvenida > 0){
+                    $("#content").css({ 'margin-top': '0px' });
+                }else{
+                    $("#content").css({ 'margin-top': '63px' });
+                }
+            }else{
+                var URLactual = window.location.href;
+                var urlPagina = URLactual.indexOf("Cliente");
+                $("#content").css({ 'margin-top': '123px' });
+            }
+            
+            var URLactual = window.location.href;
+            var urlIntriga = URLactual.indexOf("Intriga");
+
+            if (urlIntriga > 0) {
+                $("#OfertaDelDia").css('display', 'none');
+            }
+
+            if (ocultarBannerTop) {
+                $('.header_slider').slideUp();
+                $("#content").css({ 'margin-top': '63px' });
+            }
+
+            var URLactual = window.location.href;
+            var urlBienvenida = URLactual.indexOf("Bienvenida");
+
+            if (urlBienvenida > 0){
+                if (sesionEsShowRoom != null && sesionEsShowRoom == "1"){
+                    $("#content").css({ 'margin-top': '0px' });
+                }else{
+                    $("#content").css({ 'margin-top': '63px' });
+                }
+            }else{
+                if($('#flexslidertop ul.slides li').length == 0){
+                    $("#content").css({ 'margin-top': '63px' });
+                }
+            }
+
+            
+
+            
+        });
 
         function loadBannerLP20() {
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
 
+            
+
+            $(".BloqueOfertaDiaHeader").click(function () {
+                $('#txtCantidad').val('1');
+                $('body').css({ 'overflow-x': 'hidden' });
+                $('body').css({ 'overflow-y': 'hidden' });
+                $('#pop_oferta_mobile_sw').toggle('slide', {direction: 'Right' }, 500);
+            });
+
+            $("#cerrar_pop_oferta").click(function () {
+                $('body').css({ 'overflow-y': 'scroll' });
+                $('#pop_oferta_mobile_sw').toggle('slide', {direction: 'right' }, 500);
+            }); 
+
             if($('#flexslider ul.slides li').length > 0){
                 $("#content").css("margin-top", "0px");
                 $('#content_slider_banner').show();
 
-                //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
                 $('#flexslider').flexslider({ 
                     animation: "slide",
                     pauseOnAction: false,
-                    //pausePlay: true 
-            });
+                    animationSpeed: 1600
+                });
+
+            }else{
+                var url = location.href.toLowerCase();
+            }
+
+            if($('#flexslidertop ul.slides li').length > 0){
+                $('#flexslidertop').flexslider({ 
+                    animation: "fade",
+                    pauseOnAction: false,
+                    animationSpeed: 1600
+                });
             }
         }
-        
-        /*Inicio: ShowRoom*/
-        /*Fin: ShowRoom*/
 
         function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -1147,9 +1302,6 @@
             return restringido;
         };
 
-        /*PL20-1233*/
-
-        /**** ****/
         function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
 
             if (variant == null || variant == "") {
@@ -1649,7 +1801,6 @@
         }
 
         function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
 
             var resultado = "";
             var numero = pnumero.replace(/\,/g, '');
@@ -1668,7 +1819,6 @@
             else return resultado;
         };
 
-        /* Tracking Jetlore */
         function TrackingJetloreAdd(cantidad, campania, cuv) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) {
@@ -1694,8 +1844,22 @@
         function TrackingJetloreRemoveAll(lista) {
             var esJetlore = esPaisTrackingJetlore == "1";
             if (esJetlore) JL.tracker.removeFromCart(lista);
-            }
-        /* Fin Tracking Jetlore */
+        }
+
+        function OcultarBannerTop() {
+            $.ajax({
+                type: 'GET',
+                url: urlOcultarBannerTop,
+                cache: false,
+                success: function (response) {
+                    if (response.success) {
+                        //ocultarBannerTop = true;
+                    }
+                },
+                error: function (err) { console.log(err); }
+            });
+        }
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)

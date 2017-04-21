@@ -3028,7 +3028,8 @@ table > thead > tr > th {
 .row_contador {
     width:320px;
     margin:0 auto;
-    overflow:hidden;
+    /*overflow:hidden;*/
+    position:relative;
 }
 .titulo_contador_m {
     width: 100%;
@@ -4364,7 +4365,7 @@ width:100%;
 }
 .producto_nombre_descripcion .nombre_producto, .producto_nombre_descripcion .producto_gramos_onzas {
      padding: 0;
-    font-size: 80%;
+    font-size: 13px;
     font-family:'Lato';
     color:black;
     margin: 0 auto;
@@ -4395,7 +4396,7 @@ width:100%;
     text-align: center;
     border: 1px solid #000;
     font-size: 12px;
-    font-weight: 900;
+    font-weight: 700;
     cursor:pointer;
 }
 .boton_Agregalo_home:hover{
@@ -4509,9 +4510,9 @@ width:100%;
 }
 @media only screen and (max-width: 338px) {
     
-    header{
+    /*header{
         zoom: 93%;
-    }   
+    }*/   
     #content{
     margin-top:63px;
     }
@@ -9110,7 +9111,7 @@ span.icon-advertencia{
     font-weight: 700;
   
     height: 45px;
-    border: 1px solid black;
+    border: 1px solid #ccc;
     float:left;
     width:38%;
     /* line-height: 32px; */
@@ -9513,7 +9514,7 @@ span.icon-advertencia{
     float:left;
     text-align:center;
     line-height:47px;
-    background:#613c87;
+    background:black;
 }
 .btn_compartir_ofertas{
 
@@ -9581,37 +9582,38 @@ span.icon-advertencia{
 /*OFERTA DEL DIA*/
 .BloqueOfertaDia {
     background: black;
-    height: 142px;
+    /*height: 142px;*/
     width: 100%;
-    overflow:hidden;
+    /*overflow:hidden;*/
     padding-top:12px;
 }
 .solo_hoy_mobile{
-    margin-left:25px;
-    margin-top:13px;
-    width:133px;
+    width: 70%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 5%;
 }
 .solo_hoy_mobile img{
     width:100%;
 }
 .nombre_set_oferta_mobile{
     font-family: 'Lato';
-    font-size: 12px;
-    letter-spacing:0.4px;
-    margin-left: 30px;
-    margin-top: 3px;
-    color:white;
-    line-height:15px;
-    text-align:center;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    /* margin-left: 30px; */
+    margin-top: 16%;
+    color: white;
+    line-height: 15px;
+    text-align: center;
 }
 .float_left{
     float:left;
 }
 .imagen_set_oferta_mobile{
     float: left;
-    width: 125px;
+    width:47%;
     margin-top: 9px;
-    margin-left: 9px;
+    /*margin-left: 9px;*/
     text-align: center;
 }
 .imagen_set_oferta_mobile img{
@@ -9737,11 +9739,12 @@ span.icon-advertencia{
 /*SLIDER BANNER*/
 .content_slider_banner{
     margin-top:58px;
+    background:black;
 }
 .btn_compralo_ahora {
     display:block;
     border:1px solid white;
-    width:130px;
+    width:85%;
     color:white;
     font-family:'Lato';
     font-size:10px;
@@ -9749,7 +9752,8 @@ span.icon-advertencia{
     letter-spacing:0.8px;
     height:26px;
     line-height:23px;
-    margin-left:25px;
+    /*margin-left:25px;*/
+    margin:0 auto;
     margin-top:7px;
     text-align:center;
 }
@@ -9778,9 +9782,9 @@ span.icon-advertencia{
     position: relative;
     margin-bottom: 20px;
 }
-.flex-viewport{
+/*.flex-viewport{
     height:142px;
-}
+}*/
 .Content_favoritos_new .producto_nombre_descripcion {
     padding-left:10px;
     padding-right:10px;
@@ -10057,6 +10061,177 @@ span.icon-advertencia{
     list-style-image: url("https://www.somosbelcorp.com/Content/Images/Lbel/indicador_pedido.png");
 }
 
+/*SPRINT 6*/
+.dias_faltantes{
+    margin-top:16%;
+    text-align:center;
+    color:white;
+        font-size: 2.3em;
+    font-weight:700;
+    letter-spacing:0.8px;
+    position:absolute;
+    width:100%;
+    text-shadow: -0.1em 0.1em black;
+}
+.BloqueOfertaDiaHeader{
+    background: black;
+    /* height: 142px; */
+    width: 100%;
+    overflow: hidden;
+    /* padding-top: 12px; */
+    padding-bottom: 7px;
+    height:60px;
+    position:relative;
+}
+.content_banner_header_showroom{
+    /*background: url(../../../Images/mobile/img-showroom/banner_intriga_new_header.png) no-repeat;*/
+    /*object-fit: cover;*/
+    width: 100%;    
+    height:60px;
+    position:relative;
+}
+.faltan_dias_header{
+    font-family: 'Lato';
+    font-weight: 700;
+    font-size: 21px;
+    margin-top: 26px;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: -0.1em 0.1em black;
+}
+.solo_hoy_mobile2{
+    width: 200px;
+    margin-top: 6px;
+}
+.solo_hoy_mobile2 img{
+    width:100%;
+}
+.content_banner_header_showroom img{
+   display: block;
+    width: 100vw;
+    height: 60px;
+    object-fit: cover;
+}
+.content_banner_new_showroom img{
+    display: block;
+    /*width: 100vw;
+    height: 174px;
+    object-fit: cover;*/
+}
+.titulo_mensaje_landing{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+    text-align:center;
+       
+}
+.mensaje_landing{
+    font-family:'Lato';
+    font-size:12px;
+    text-align:center;
+    margin-top:3px;
+    margin-bottom:20px;
+}
+.correo_showroon{
+    width:253px;
+    margin:0 auto;
+    margin-bottom:20px;
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
+    padding-left:32px;
+}
+.correo_showroon input{ 
+     width: 221px;
+    border-bottom: 1px solid #979797;
+    /* padding-bottom: 2px; */
+    /* height: 15px; */
+    font-size: 13px;
+    font-family: 'Lato';
+    display: block;
+    background: none;
+}
+.btn_correo_showroom{
+    display:block;
+    background:black;
+    width:251px;
+    height:45px;
+    margin:0 auto;
+    line-height:43px;
+    font-family:'Lato';
+    font-size:13px;
+    color:white;
+    text-align:center;
+    margin-top:15px;
+}
+.termino_condiciones_intriga{
+    position:relative;
+    padding-left:18px;
+    margin:0 auto;
+    margin-top:20px;
+    font-family:'Lato';
+    font-size:10.5px;
+    width:251px;    
+   text-align: left;
+}
+.termino_condiciones_intriga:before{
+    position:absolute;
+    content:"";
+    left:0;
+    width:13px;
+    height:13px;
+    border:1px solid #979797;
+}
+.content_imagen_intriga {
+    width: 250px;
+    height: auto;
+    text-align: center;
+    margin: 0 auto;
+}
+.content_imagen_intriga img{
+   
+    height:170px;
+    margin: 0 auto;
+}
+.linea_separadora_intriga{
+    width:100%;
+    height:10px;
+    background:black;
+    margin-bottom:20px;
+    -webkit-box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+    -moz-box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+    box-shadow: 3px 7px 5px 1px rgba(212,210,212,1);
+ }
+.content_carrusel_intriga{
+    max-width:380px; margin:0 auto; /*margin-bottom:30px;*/
+}
+.content_carrusel_intriga .slick-slide img {
+    display: initial;
+}
+.producto_faltante{
+    width:100%;
+    height:auto;
+    text-align:center;
+}
+.producto_faltante img{
+    padding-top: 28px;
+    height: 170px;   
+    margin: 0 auto;
+}
+.content_carrusel_intriga .slick-slide {
+     padding: 0px;
+}
+.texto_adelanto{
+    font-family:'Lato';
+    font-size:13px;
+    text-transform:uppercase;
+    font-weight:700;
+    text-align:center;
+    margin-top:20px;
+    margin-bottom:27px;
+}
 
 /*NUEVO OF*/
 .content_texto_OPT{
@@ -10090,6 +10265,7 @@ span.icon-advertencia{
     background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
     background-size: 18px 18px;
 }
+
 .content_detalle_producto{
     margin-top:13px;
     border-top:1px solid #9b9b9b;
@@ -10151,3 +10327,659 @@ span.icon-advertencia{
     margin-right: 7px;
     background: url(../../../Images/Lbel/icono_advertencia_notificacion.png) center center no-repeat;
 }
+
+.check_intriga:before{
+    content: "?";
+    line-height: 11.5px;
+    padding-left: 2px;
+}
+.etiqueta_showroom{
+       background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/JmqkvgJXcyHcBZR/etiqueta_lbel.png) no-repeat;
+    background-position: 5px 14px;
+
+}
+.content_titulo{
+    position:absolute;
+    top:5px;
+    width:100%;
+    text-align:center;
+}
+.titulo_intriga{    
+    color:white;
+    font-family:'LAto';
+    font-size:11px;
+    /*top:20px;*/
+    border-top:1px solid white;
+    border-bottom:1px solid white;
+    display:inline-block;
+    padding-top:1px;
+    padding-bottom:1px;
+}
+.landing_showroom{
+    border:0;
+    box-shadow: none;
+}
+
+/******* Oscar *******/
+.content_room_product_sheet{
+	font-family: 'Lato';
+	padding-bottom: 30px;
+}
+
+.content_room_product_sheet img{
+	max-width: 100%;
+}
+
+.content_room_product_sheet .product_sheet_image{
+	text-align: center;
+	padding: 25px 0 10px 0;
+	/*background: url(../../../images/Esika/background-showroom-product.jpg) no-repeat top center;
+	background-size: 100% auto;*/
+}
+
+.content_room_product_sheet h1{
+	margin: 0;
+	font-size: 19px;
+	font-weight: 700;
+	padding-bottom: 5px;
+}
+
+.content_room_product_sheet .price_product{
+	padding-bottom: 20px;
+}
+
+.content_room_product_sheet .price_product .price_offer,
+.content_room_product_sheet .price_product .price,
+.content_room_product_sheet .price_product .comment{
+	color: #000;
+	display: block;
+	font-size: 13px;
+}
+
+.content_room_product_sheet .price_product .price_offer{
+	font-weight: 300;
+}
+
+.content_room_product_sheet .price_product .price b{
+	font-size: 16px;
+}
+
+.content_room_product_sheet .price_product .comment{
+	color: #E81C36;
+    text-transform:uppercase;
+}
+
+.content_room_product_sheet .item_product{
+	padding: 13px 0;
+	border-top: 1px solid #9B9B9B;
+}
+
+.content_room_product_sheet .item_product:last-child{
+	margin-bottom: 20px;
+	/*border-bottom: 1px solid #9B9B9B;*/
+}
+
+.content_room_product_sheet .item_product .description_item{
+	position: relative;
+}
+
+.content_room_product_sheet .item_product .description_item .quantity{
+	top: 0;
+	left: 0;
+	width: 35px;
+	font-size: 13px;
+	font-weight: 700;
+	position: absolute;
+}
+
+.content_room_product_sheet .item_product .description_item .detail{
+	display: block;
+	/*margin-left: 40px;*/
+}
+
+.content_room_product_sheet .item_product .description_item .detail .brand,
+.content_room_product_sheet .item_product .description_item .detail .product_name,
+.content_room_product_sheet .item_product .description_item .detail .price{
+	display: block;
+	font-size: 12.5px;
+}
+
+.content_room_product_sheet .item_product .description_item .detail .brand{
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.content_room_product_sheet .item_product .description_item .detail .product_name{
+	font-size: 15px;
+	font-weight: 700;
+}
+
+.content_room_product_sheet .item_product .variants{
+	padding-top: 16px;
+	position: relative;
+}
+
+.content_room_product_sheet .item_product .variants .select_variant,
+.content_room_product_sheet .item_product .variants .variants_items a{
+	padding: 10px;
+	display: block;
+	position: relative;
+	border: 1px solid #B0B0B0;
+}
+
+.content_room_product_sheet .item_product .variants .select_variant:after{
+	top: 50%;
+	right: 10px;
+	width: 10px;
+	height: 7px;
+	content: "";
+	margin-top: -4px;
+	position: absolute;
+	background: url(../../../Images/mobile/Esika/arrow_select_variant.svg) no-repeat center center;
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+}
+
+.content_room_product_sheet .item_product .variants .select_variant.opened:after{
+	-webkit-transform: rotate(180deg);
+	-moz-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.content_room_product_sheet .item_product .variants .variants_items{
+	left: 0;
+	right: 0;
+	top: 64px;
+	z-index: 3;
+	display: none;
+	overflow: auto;
+	max-height: 184px;
+	background: white;
+	position: absolute;
+	border: 1px solid #B0B0B0;
+	border-top: none;
+}
+
+.content_room_product_sheet .item_product .variants .variants_items a{
+	border: none;
+	background: none;
+}
+
+.content_room_product_sheet .item_product .variants .select_variant .color,
+.content_room_product_sheet .item_product .variants .variants_items a .color{
+	top: 10px;
+	left: 10px;
+	width: 26px;
+	bottom: 10px;
+	position: absolute;
+}
+
+.content_room_product_sheet .item_product .variants .select_variant .title_variant,
+.content_room_product_sheet .item_product .variants .variants_items a .title_variant{
+	display: block;
+	padding: 3px 0;
+	margin-left: 40px;
+}
+
+.content_room_product_sheet .item_product .variants .variants_colors{
+	padding-top: 3px;
+	padding-bottom: 7px;
+}
+
+.content_room_product_sheet .item_product .variants .variants_colors:after{
+	content: "";
+	clear: both;
+	display: block;
+}
+
+.content_room_product_sheet .item_product .variants .variants_colors .variant{
+    height: 0;
+	float: left;
+	display: block;
+	margin-top: 13px;
+	margin-right: 5.7%;
+	width: 15.4135338345865%;
+    padding-bottom: 15.4135338345865%;
+}
+
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(5),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(10),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(15),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(20),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(25),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(30),
+.content_room_product_sheet .item_product .variants .variants_colors .variant:nth-child(35){
+	margin-right: 0;
+}
+
+.content_room_product_sheet .box_promotions{
+	/*padding: 0 20px;*/
+}
+
+.content_room_product_sheet .box_promotions .slider{
+	background: #F4F4F4;
+}
+
+.content_room_product_sheet .box_promotions .slider .slick-prev.slick-arrow,
+.content_room_product_sheet .box_promotions .slider .slick-next.slick-arrow{
+	top: 30%;
+	width: 35px;
+	height: 59px;
+	overflow: hidden;
+	text-indent: -999px;
+}
+
+.content_room_product_sheet .box_promotions .slider .slick-prev.slick-arrow{
+	background: url(../../../Images/mobile/Esika/arrow-slide-promotions-left.svg) no-repeat center right;
+}
+
+.content_room_product_sheet .box_promotions .slider .slick-next.slick-arrow{
+	background: url(../../../Images/mobile/Esika/arrow-slide-promotions-right.svg) no-repeat center left;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide{
+	text-align: center;
+	padding: 20px 30px 25px 30px;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_title,
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_price,
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_desc,
+.content_room_product_sheet .box_promotions .slider .item-slide .btn_promo,
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_detail{
+	display: block;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_title{
+	font-weight: 900;
+	font-size: 18px;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_price{
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_image{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	display: inline-block;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_desc{
+	padding-left: 7%;
+	padding-right: 7%;
+	padding-bottom: 10px;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .btn_promo{
+	line-height: 44px;
+	border: 1px solid #000000;
+}
+
+.content_room_product_sheet .box_promotions .slider .item-slide .promo_detail{
+	font-weight: 100;
+	padding-left: 7%;
+	padding-right: 7%;
+	padding-top: 15px;
+}
+
+.content_room_product_sheet .other_consultants{
+	padding-top: 30px;
+}
+
+.content_room_product_sheet .other_consultants .oc_title{
+	text-align: center;
+}
+
+.content_room_product_sheet .other_consultants  .slider_item{
+	width: 155px;margin-left:15px;
+    margin-right:15px;
+    text-align:center;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content{
+	padding: 10px;
+	display: block;
+	text-align: center;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content img{
+	display: inline-block;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content .title{
+	display: block;
+	font-weight: 700;
+	font-size: 14.5px;
+}
+
+.content_room_product_sheet .other_consultants .slider .slider_item .slider_item_content .price{
+	display: block;
+	font-size: 16px;
+}
+
+.content_room_product_sheet .other_consultants .slider button{
+	display: none!important;
+}
+
+.content_room_product_sheet .business_tips{
+	padding: 40px 20px 0 20px;
+}
+
+.content_room_product_sheet .business_tips .title{
+	margin: 0;
+	font-size: 14px;
+	font-weight: 400;
+	text-transform: uppercase;
+	background: url("../../../Images/mobile/Esika/icon-tip-red.svg") no-repeat center left;
+	padding: 7px 0 7px 38px;
+}
+
+.content_room_product_sheet .business_tips .content{
+	padding-top: 12px;
+	font-size: 13px;
+}
+
+.content_room_product_sheet .share_social_nertwoks{
+	padding: 30px 0 76px 0;
+}
+
+.content_room_product_sheet .share_social_nertwoks .title{
+	font-size: 13px;
+	text-align: center;
+	padding-bottom: 5px;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links{
+	text-align: center;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links a{
+	display: inline-block;
+	width: 40%;
+	border: 1px solid #cbcbcb;
+}
+
+.content_room_product_sheet .share_social_nertwoks .links a.icon_fb{
+	padding: 4px 0 4px 0;
+}
+/*POP UP COMPRA X COMPRA*/
+.titulo_compra_POP {      
+    font-family: 'LAto';
+    font-size: 30px;
+    color: white;
+    letter-spacing: 2px;
+    font-weight: 900;
+    text-align: center;
+    /* margin-top: 20px; */
+    padding-top: 30px;
+    margin-bottom: 10px;
+    background: #bda571;
+    height: 62px;}
+.precio_set_compra {  font-weight:900;  font-family: 'LAto';    font-size: 17px;    /* margin-top: 5px; */    text-align: center;}
+.content_imagen_carrusel_compra {    width: 100%;    margin: 0 auto;    margin-top: 25px;    margin-bottom: 10px;}
+.content_imagen_carrusel_compra img{     width:100%; }
+.content_pop_compra{    width:85%;    margin:0 auto;}
+.precio_producto_compra{ 
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 6px;
+    text-align: center;
+    line-height: 18px;
+}
+.descripcion_compra{    font-size:13px;    font-weight:300;    font-family:'Lato';    text-align:center;}
+.btn_agrega_compra{    display:block;    width:100%;    height:45px;    line-height:44px;    font-size:13px;    font-weight:700;    font-family:'Lato';    text-align:center;    margin-top:8px;    margin-bottom:20px;    border:1px solid black;}
+
+.slider_item_content .price {
+    display: block;
+    font-size: 16px;
+}
+.slider_item_content .title {
+    display: block;
+    font-weight: 700;
+    font-size: 14.5px;
+    height:40px;
+}
+.box_promotions{
+    background:white;
+     margin-left: 14px;
+    margin-right: 14px;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
+-moz-box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
+box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
+}
+.content_orden_carrusel{
+    position:relative;
+    margin-top:15px;
+    margin-left:14px;
+    margin-right:14px;
+}
+.orden_listado_numero{
+   font-family: 'Lato';
+    font-size: 13px;
+    color: #afafaf;
+    width: 100px;
+    margin: 0 auto;
+    background: white;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+.orden_flecha{
+    position:absolute;
+    top:0;
+}
+.content_compra_carrusel{
+    width:80%;
+    margin:0 auto;
+}
+
+.content_banner_img{
+    width:32%;
+    float:left;
+    height:auto;
+}
+.content_banner_img img{
+    width:100%;
+}
+.content_banner_right{
+    width:60%;
+    float:left;
+    height:auto;
+    padding-left:2%;
+    /*padding-right:2%;*/
+    font-family:'Lato'; text-align:left;
+}
+.texto_banner_compra{
+    font-size:13px;
+    /*text-align:center;*/
+    padding-top: 5px;
+}
+.texto_banner_compra b{
+    display: block;
+    line-height: 16px;
+    margin-bottom: 5px; 
+}
+.btn_ver_detalle_pop_compra{
+   text-align:center;
+    margin-top:5%;
+    width:80%;
+    border:1px solid black;
+    height:31px;
+    line-height:30px;
+    font-size:13px;
+    display:block;
+}
+@media screen and (max-width: 486px) and (min-width: 0px) {
+   
+   .content_showroom .producto_precio_normal{
+       display:block;
+   }
+}
+.precio_tachado_carrusel_set{
+    font-family:'LAto';
+    font-size:14px;
+    display:block;
+    text-decoration:line-through;
+    margin-top:2px;
+}
+.content_descripcion_set{
+       float: right;
+    /* width: auto; */
+     width:-moz-calc(100% - 60px);
+    width: calc(100% - 60px);
+   
+}
+.content_imagen_individual{
+    float:left;
+    width:50px;
+}
+.content_imagen_individual img{
+    width:100%;
+}
+.content_detalle_set_showroom{
+    overflow: hidden;
+    margin-top: 13px;
+    border-bottom: 1px solid #9B9B9B;
+    padding-bottom: 13px;
+    margin-bottom: 7px;
+}
+.content_promocion{
+    position:fixed;
+    bottom:0;
+    z-index:100;
+    width:100%;
+}
+.pestana_promocion {
+    width:204px;
+    margin: 0 auto;
+    background:#c1a975 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/Ww1BSCHyiH4P0Jo/promocion.png) no-repeat center right;
+    letter-spacing:1.5px;
+    padding-left:20px;
+    color:white;
+    font-weight:700;
+    font-size:19px;
+    height: 36px;
+    line-height: 39px;
+    cursor:pointer;
+}
+.content_desplegable_banner{
+    width:100%;
+    display:none;
+    padding-top:10px;
+    padding-bottom:10px;
+    background:white;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+}
+.set_dia_banner{
+    font-size:13px;
+    font-weight:300;
+}
+.set_dia_compra_pop{
+    color:#a18b5a;
+    font-size:13px;
+    line-height:17px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-align: center;
+    text-transform:uppercase;
+}
+.nombre_producto_pop_compra{
+    font-family:'Lato';
+    font-size:14px;
+    text-align:center;
+}
+.content_pop_compra .content_cantidad_ficha_producto img{
+    vertical-align:middle;
+    display: inline-block;
+}
+.legal_footer_compra {
+   font-family: 'Lato';
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 20px;
+    text-align: center;
+    /* margin-top: 15px; */
+    WIDTH: 83%;
+    MARGIN: 0 AUTO;
+    MARGIN-TOP: 15PX;
+}
+.titulo_compra_carrusel{
+    font-size:21px;
+    color:#bda571;
+    font-weight:700;
+    padding-top:25px;
+    text-align:center;
+    position:relative
+}
+.titulo_compra_carrusel::after{
+    content:'';
+    background:#bda571;
+    position:absolute;
+    width:100%;
+    height:13px;
+    top:0;
+    left:0;
+}
+.icono_celular {
+    background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
+    background-position: 4px 0px;
+    height: 24px;
+    padding-top: 3px;
+}
+.titulo_confirmacion {
+    font-size: 14px;
+    font-weight: 700;
+    padding-top: 10px;
+    text-align: center;
+    font-family: 'LAto';
+    text-transform: uppercase;
+}
+.texto_confirmacion {
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    font-family: 'LAto';
+    margin-top: 5px;
+}
+.link_cambiar_correo {
+    font-family: 'Lato';
+    font-size: 11px;
+    text-transform: uppercase;
+        margin-top: 27px;
+    margin-bottom: 10px;
+    text-align: center;
+    text-decoration: underline;
+    text-align: center;
+    display: inline-block;
+}
+.texto_confirmacion b {
+    display: block;
+}
+
+/***EPD 2107***/
+.btnwspDesktop {
+    display:none;
+}
+.btnfbDesktop {
+    margin-left: 55px;
+    width: 48%;
+}
+.btnwspMobile {
+    width:48%;
+}
+.btnfbMobile {
+    float:right; 
+    width:48%;
+}
+/*** FIN ******/

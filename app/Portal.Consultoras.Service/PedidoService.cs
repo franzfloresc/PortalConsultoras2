@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.ShowRoom;
 
 namespace Portal.Consultoras.Service
 {
@@ -113,11 +114,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.GetPedidoWebDetalleByOfertaWeb(paisID, CampaniaID, ConsultoraID, OfertaWeb);
         }
 
-        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario)
+        public string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso)
         {
             try
             {
-                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario);
+                return BLPedidoWeb.DescargaPedidosWeb(paisID, fechaFacturacion, tipoCronograma, marcarPedido, usuario, descripcionProceso);
             }
             catch (BizLogicException ex)
             {
@@ -1458,6 +1459,11 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
         }
 
+        public int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra)
+        {
+            return BLShowRoomEvento.CargarProductoCpc(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
+        }
+
         public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
         {
             return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
@@ -1598,6 +1604,57 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.GetShowRoomOfertaById(paisID, ofertaShowRoomID);
         }
 
+        public IList<BEShowRoomNivel> GetShowRoomNivel(int paisId)
+        {
+            return BLShowRoomEvento.GetShowRoomNivel(paisId);
+        }
+
+        public IList<BEShowRoomPersonalizacion> GetShowRoomPersonalizacion(int paisId)
+        {
+            return BLShowRoomEvento.GetShowRoomPersonalizacion(paisId);
+        }
+
+        public IList<BEShowRoomPersonalizacionNivel> GetShowRoomPersonalizacionNivel(int paisId, int eventoId,
+            int nivelId, int categoriaId)
+        {
+            return BLShowRoomEvento.GetShowRoomPersonalizacionNivel(paisId, eventoId, nivelId, categoriaId);
+        }
+
+        public int InsertShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.InsertShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+
+        public int UpdateShowRoomPersonalizacionNivel(int paisId, BEShowRoomPersonalizacionNivel beShowRoomPersonalizacionNivel)
+        {
+            return BLShowRoomEvento.UpdateShowRoomPersonalizacionNivel(paisId, beShowRoomPersonalizacionNivel);
+        }
+
+        public List<BEShowRoomCategoria> GetShowRoomCategorias(int paisId, int eventoId)
+        {
+            return BLShowRoomEvento.GetShowRoomCategorias(paisId, eventoId);
+        }
+
+        public BEShowRoomCategoria GetShowRoomCategoriaById(int paisId, int categoriaId)
+        {
+            return BLShowRoomEvento.GetShowRoomCategoriaById(paisId, categoriaId);
+        }
+
+        public void UpdateShowRoomDescripcionCategoria(int paisId, BEShowRoomCategoria categoria)
+        {
+            BLShowRoomEvento.UpdateShowRoomDescripcionCategoria(paisId, categoria);
+        }
+
+        public void DeleteInsertShowRoomCategoriaByEvento(int paisId, int eventoId, List<BEShowRoomCategoria> listaCategoria)
+        {
+            BLShowRoomEvento.DeleteInsertShowRoomCategoriaByEvento(paisId, eventoId, listaCategoria);
+        }
+
+        /*PL20-1330*/
+        public List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID)
+        {
+            return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
+        }
         #endregion
 
         #region Producto SUgerido
@@ -1709,6 +1766,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+            return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
+        }
+
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
@@ -1760,6 +1821,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
+        
+        public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
+        {
+            return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
+        }
 
         // producto estrategia
         public int InsertarEstrategiaProducto(BEEstrategiaProducto entidad)
@@ -1770,6 +1836,12 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad)
         {
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
+        }
+
+
+        public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
         }
     }
 }

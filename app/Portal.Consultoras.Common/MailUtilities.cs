@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Text;
 using Newtonsoft.Json;
+using System;
 
 namespace Portal.Consultoras.Common
 {
@@ -51,6 +52,28 @@ namespace Portal.Consultoras.Common
         public static string ConstruirMensajeHTML(string mensaje)
         {
             return string.Format("<HTML><head><META http-equiv=Content-Type content=\"text/html; \"><META charset=\"UTF-8\"></head><body>{0}</body></HTML>", mensaje);
+        }
+
+        public static void EnviarMailProcesoDescargaExcepcion(string titulo, string paisISO, DateTime fechaProceso, string tipoProceso, string error, string errorExcepcion)
+        {
+            EnviarMailProcesoDescargaExcepcion(titulo, paisISO, fechaProceso.ToString("dd/MM/yyyy hh:mm tt"), tipoProceso, error, errorExcepcion);
+        }
+        public static void EnviarMailProcesoDescargaExcepcion(string titulo, string paisISO, string fechaProceso, string tipoProceso, string error, string errorExcepcion)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_proceso_descarga_excepcion.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Pais#", paisISO);
+            htmlTemplate = htmlTemplate.Replace("#FechaHoraProceso#", fechaProceso);
+            htmlTemplate = htmlTemplate.Replace("#TipoProceso#", tipoProceso);
+            htmlTemplate = htmlTemplate.Replace("#Error#", error);
+            htmlTemplate = htmlTemplate.Replace("#ErrorExcepcion#", errorExcepcion.Replace(Environment.NewLine, "<br/>"));
+
+            string emailFrom = ConfigurationManager.AppSettings["EmailFromProcesoDescargaExcepcion"] ?? "";
+            string emailTo = ConfigurationManager.AppSettings["EmailToProcesoDescargaExcepcion"] ?? "";
+
+            try { Util.EnviarMail(emailFrom, emailTo, "", titulo, htmlTemplate, true); }
+            catch(Exception ex) { }
         }
 
         //1774

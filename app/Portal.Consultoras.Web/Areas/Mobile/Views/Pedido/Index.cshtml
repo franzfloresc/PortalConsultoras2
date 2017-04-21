@@ -59,7 +59,6 @@
                     <div class="nombreProducto" id="divNombreProducto"></div>
                     <div class="precioProducto">
                         <span id="spnTextoPrecio"></span>
-                        @*<span class="precioNormal">S/. 00.00</span>*@
                         <span class="precioOferta" id="spnPrecio"></span>
                     </div>
                     <div class="contenedor_cantidadProductos">
@@ -89,16 +88,8 @@
             <!-- SECCIÓN CONTENIDO RESUMEN DE PEDIDO -->
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
-                    @*<div style="position:relative; overflow:hidden;">*@
                         <div class="textos_resumen">
-                            @*<div class="separador_montos_mobile"></div>*@
                             <span id="lblProductosResumen" style="margin-left: 30px;">HE AGREGADO :</span>
-                            <!--SB20-343 - INICIO -->
-                            @*<span style="margin-left:30px; padding-bottom:0px;">TOTAL SIN DSCTO. :</span>
-                            <span class="desc_por_niveles_texto" style="margin-left: 30px; margin-bottom:17px;">DSCTO. OFERTAS <br />POR NIVELES :</span>*@
-                            <!--SB20-343 - FIN -->
-
-                            @*<span id="lblTotalResumen" style="margin-left:30px;">*@
                             <span id="lblTotalResumen">
 
                                 <div class="info_validado">
@@ -118,7 +109,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--FIN-->
                                 </div>
 
 
@@ -182,30 +172,14 @@
                             <input type="hidden" id="hdePieEscala" value="@pieEscala" />
                             <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                             <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-
-                            @*<div class="mi_ganancia" style=" margin-left: 30px;">
-                                @(cabezaEscala.ToUpper().Trim()) :
-
-                                <div class="info_validado abrir_popupMisGanancias" style="position: absolute; top: 8px; left:-29px;">
-                                    <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" onclick="MostrarDetalleGanancia()" />
-                                </div>
-
-                            </div>*@
                             <span class="mi_ganancia" style=" margin-left: 30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
-
                         </div>
 
                         <div class="montos_resumen">
                             <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
-                            <!--SB20-483 - INICIO -->
-                            @*<span><b>@Model.Simbolo @Model.DescripcionTotal</b></span>
-                            <span style="margin-bottom:24px;"><b>@Model.Simbolo @Model.DescuentoStr</span>*@
-                            <!--SB20-483 - FIN -->
-
                             <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                             <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                         </div>
-                    @*</div>*@
                 </div>
                 <button type="button" class="btn_verMiPedido">
                     VER MI PEDIDO
@@ -684,14 +658,10 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
-    //Mensajes CUV
     var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
     var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
-    if (isEsika) {
-        var mensajeCUVOfertaEspecial = "Este producto está en la Guía de Negocio Ésika con oferta especial."
-    } else {
-        var mensajeCUVOfertaEspecial = "Este producto está en la revista <b>Somos Belcorp</b> con oferta especial."
-    }
+    if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaMobile';
+    else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelMobile';
     var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
     var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
