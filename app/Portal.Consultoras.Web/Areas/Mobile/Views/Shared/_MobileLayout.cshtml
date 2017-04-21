@@ -655,7 +655,6 @@
                 var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
                
                 function AgregarTagManagerShowRoomAnalytics(){
-                    debugger;
                     var EventoIdentificador = $("#hdEventoIDShowRoom").val();
                     var EventoShowRoomNombre = $("#hdNombreEventoShowRoom").val();
                     if (mostrarShowRoomProductos == 'True') {
@@ -683,7 +682,6 @@
                             }
                         });
                     }
-                    debugger;
                     if($('#flexslidertop ul.slides li').length > 0){
                         if (mostrarShowRoomProductos == 'True') {
                             dataLayer.push({
@@ -715,7 +713,6 @@
 
 
                 function CargarShowRoom() {
-                    debugger;
                     AgregarTagManagerShowRoomAnalytics();
                     if (mostrarShowRoomProductos == 'True') {
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
@@ -733,7 +730,6 @@
                 }
 
                 function AgregarTagManagerShowRoomBannerClick(){
-                    debugger;
                     dataLayer.push({
                         'event': 'promotionClick',
                         'ecommerce': {
@@ -1003,11 +999,11 @@
                     $("#contentmobile").css({ 'margin-top': '63px' });
                 }
             }
-
+        
             setTimeout(LayoutHeader, 300);
+         
             $(".bannersi").on("click", function () {
-                debugger;
-                
+
                 var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
                 var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
             
@@ -1030,7 +1026,6 @@
             });
 
             $(".bannersc").on("click", function () {
-                debugger;
                 
                 var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
                 var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
@@ -1055,8 +1050,7 @@
 
 
             $(".wsventa").on("click", function () {
-                debugger;
-                
+
                 var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
                 var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
             
@@ -1079,8 +1073,7 @@
             });
 
             $(".wsintriga").on("click", function () {
-                debugger;
-                
+
                 var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
                 var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
             
@@ -1101,9 +1094,6 @@
                 });
             
             });
-
-            debugger;
-           
 
             
         });
