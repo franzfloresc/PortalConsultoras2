@@ -71,7 +71,7 @@
             <div class="linea_separadora_intriga"></div>
             <div class="titulo_ficha_producto">@Model.Descripcion </div>
             <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">@Model.Simbolo @Model.PrecioOferta </span>@Model.Simbolo @Model.PrecioCatalogo
+                <span class="precio_tachado_ficha">@Model.Simbolo @Model.PrecioValorizado </span>@Model.Simbolo @Model.PrecioOferta
             </div>
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"  href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -167,7 +167,7 @@
         function AgregarOfertaShowRoomIntriga(cantidad) {
             var CUV = @Model.CUV;
             var MarcaID =@Model.MarcaID;
-            var PrecioUnidad = @Model.PrecioCatalogo;
+            var PrecioUnidad = @Model.PrecioOferta;
             var ConfiguracionOfertaID = @Model.ConfiguracionOfertaID;
             var nombreProducto = $("#hdProductoNombre").val();
             var posicion = 1;

@@ -67,12 +67,12 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titC">Tipo Oferta:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CodigoTipoOferta, new SelectList(Model.lstConfiguracionOferta, "CodigoOferta", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionOferta" })
-                </div>
                 <div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="">
+                </div>
+                <div class="">
+                    <input type="button" value="Tipos de Oferta" id="btnTiposOferta" name="" 
+                           style="border-radius: 10px; background: #00A2E8; color: white; -webkit-appearance: none; border: 0; height: 40px; margin-left: 10px;">
                 </div>
             </div>
         </div>
@@ -415,6 +415,7 @@
     <input type="hidden" id="hdCodigoCampania" value="" />
     <input type="hidden" id="hdOrdenAnterior" value="" />
     <input type="hidden" id="hdStockProducto" value="0" />
+    <input type="hidden" id="hdConfiguracionOfertaID" value="0" />
     <div class="Content_modal">
         <div class="div-3">
             <div class="titG">País:</div>
@@ -431,9 +432,9 @@
             <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
                 <input type="text" id="txtCUVModal" readonly="readonly" style="background: #F9F9F0;" />
             </div>
-            <div class="titG">Precio Normal:</div>
+            <div class="titG">Precio Valorizado:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPrecioCatalogoModal" />
+                <input type="text" id="txtPrecioValorizadoModal" />
             </div>
             
         </div>
@@ -580,7 +581,7 @@
             </div>
             <div class="titG">Precio Normal:</div>
             <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
-                <input type="text" id="txtPrecioNormalDetalle" readonly="readonly" style="background: #F9F9F0;" />
+                <input type="text" id="txtPrecioValorizadoDetalle" readonly="readonly" style="background: #F9F9F0;" />
             </div>
         </div>
         <div class="div-3">
@@ -753,6 +754,31 @@
     </div>
 </div>
 
+<div id="DialogTiposOferta" style="display: none;">
+    <div class="Content_modal" style="max-height: 450px;">     
+        <div class="div-3">
+            <input type="hidden" id="hdIdTipoOferta"/>
+            <div class="titB">Código:</div>
+            <div class="selectP2 borde_redondeado" style="width:50px">
+                <input type="text" id="txtCodigoTipoOferta" style="width:50px" />
+            </div>
+            <div class="titB">Descripción:</div>
+            <div class="selectP2 borde_redondeado" style="width:230px">
+                <input type="text" id="txtDescripcionTipoOferta" style="width:230px" />
+            </div>
+            <div class="input_search">
+                <input type="button" name="btnAgregarTipoOferta" id="btnAgregarTipoOferta" value="Agregar" style="float:right" />
+            </div>
+        </div>
+        <div class="container" style="width: auto;">
+            <div class="border-wrapper">
+                <table id="listShowRoomTipoOferta"></table>
+                <div id="pagerShowRoomTipoOferta"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     var paisNombre = "";
@@ -787,6 +813,10 @@
     var urlGetShowRoomCategorias = baseUrl + 'ShowRoom/GetShowRoomCategorias';
     var urlGetShowRoomPersonalizacionCategoria = baseUrl + 'ShowRoom/GetShowRoomPersonalizacionCategoria';
     var urlUpdateShowRoomDescripcionCategoria = baseUrl + 'ShowRoom/UpdateShowRoomDescripcionCategoria';
+    var urlConsultarTiposOferta = baseUrl + 'ShowRoom/ConsultarTiposOferta';
+    var urlExisteTipoOferta = baseUrl + 'ShowRoom/ExisteTipoOferta';
+    var urlGuardarShowRoomTipoOferta = baseUrl + 'ShowRoom/GuardarShowRoomTipoOferta';
+    var urlHabilitarShowRoomTipoOferta = baseUrl + 'ShowRoom/HabilitarShowRoomTipoOferta'
 
     jQuery(document).ready(function() {
         CargarDialog();
@@ -1096,6 +1126,31 @@
                 }
             }
         });
+
+        $('#DialogTiposOferta').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 700,
+            draggable: true,
+            title: "Registro de Tipos de Oferta",
+            buttons:
+            {
+                "Nueva Oferta": function () {
+                    $("#hdIdTipoOferta").val("");
+                    $("#txtCodigoTipoOferta").val("");
+                    $("#txtDescripcionTipoOferta").val("");
+
+                    $("#btnAgregarTipoOferta").val("Agregar");
+
+                    $("#txtCodigoTipoOferta").removeAttr("readonly");
+                },
+                "Salir": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });        
     }
 
     function CargarAjaxForm() {
@@ -1232,9 +1287,8 @@
                         LimpiarDependencias(Id);
 
                         var ddlCampania = $('#ddlCampania');
-                        var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+                        
                         ddlCampania.empty();
-                        ddlConfiguracionOferta.empty();
                         if (data.lista.length > 0) {
                             ddlCampania.append($('<option/>', {
                                 value: "",
@@ -1249,20 +1303,7 @@
                                 }
                             }
                         }
-                        if (data.lstConfig.length > 0) {
-                            ddlConfiguracionOferta.append($('<option/>', {
-                                value: "0",
-                                text: "-- Todos --"
-                            }));
-                            if (Id != "") {
-                                for (var item in data.lstConfig) {
-                                    ddlConfiguracionOferta.append($('<option/>', {
-                                        value: data.lstConfig[item].CodigoOferta,
-                                        text: data.lstConfig[item].Descripcion
-                                    }));
-                                }
-                            }
-                        }
+                        
                         closeWaitingDialog();
                     }
                 });
@@ -1750,6 +1791,36 @@
                 }
             });
 
+        });
+
+        $("#btnTiposOferta").click(function () {
+            fnGrillaTiposOferta();
+
+            showDialog("DialogTiposOferta");
+        });
+
+        $("#btnAgregarTipoOferta").click(function () {
+            var tipoOfertaId = $("#hdIdTipoOferta").val() != "" ? $("#hdIdTipoOferta").val() : 0;
+            var codigo = $.trim($("#txtCodigoTipoOferta").val());
+            var descripcion =$.trim($("#txtDescripcionTipoOferta").val());
+
+            if(codigo == ""){
+                alert_msg("El codigo de Tipo de Oferta no puede ser vacio");
+                return false;
+            }            
+           
+            var existeTipoOferta = ExisteTipoOferta(tipoOfertaId, codigo, descripcion);
+            if (existeTipoOferta != 0) {                
+                return false;
+            }
+
+            var item = {
+                TipoOfertaID: tipoOfertaId,
+                Codigo: codigo,
+                Descripcion: descripcion
+            };
+
+            GuardarTipoOferta(item);
         });
     }
 
@@ -2314,7 +2385,7 @@
             CUV: jQuery('#txtCUVModal').val(),
             Descripcion: $("#txtDescripcionModal").val(),
             //PrecioOferta: $("#txtPrecioOfertaModal").val(),
-            PrecioCatalogo: $("#txtPrecioCatalogoModal").val(),
+            PrecioValorizado: $("#txtPrecioValorizadoModal").val(),
             PrecioOferta: $("#txtPrecioOfertaModal").val(),
             ImagenProducto: $("#hdImagenProducto").val(),
             ImagenProductoAnterior: $('#hdImagenProductoAnterior').val(),
@@ -2330,7 +2401,8 @@
             //Incrementa: $("#ddlIncrementar").val(),
             Incrementa: 0,
             //Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
-            Agotado: 0
+            Agotado: 0,
+            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val()
         };
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
@@ -2370,22 +2442,20 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                PaisID: function() { return $("#ddlPais").val() },
-                CodigoOferta: function() { return ($("#ddlConfiguracionOferta").val() == "" ? "0" : $("#ddlConfiguracionOferta").val()); },
+                PaisID: function() { return $("#ddlPais").val() },                
                 CampaniaID: function() { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Precio Oferta', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
+            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Valorizado', 'Precio Oferta', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
                 'Foto', 'Set', 'Productos'],
             colModel: [
                 { name: 'TipoOferta', index: 'TipoOferta', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'CodigoProducto', index: 'CodigoProducto', width: 60, editable: true, resizable: false },
-                { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false },
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'CUV', index: 'CUV', width: 40, editable: true, resizable: false },
                 { name: 'Descripcion', index: 'Descripcion', width: 135, editable: true, resizable: false },
-                //{ name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
-                { name: 'PrecioCatalogo', index: 'PrecioCatalogo', width: 60, editable: true, resizable: false },
+                { name: 'PrecioValorizado', index: 'PrecioValorizado', width: 60, editable: true, resizable: false },
                 { name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
                 { name: 'Orden', index: 'Orden', width: 35, editable: true, resizable: false, hidden: true },
                 { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false, hidden: true },
@@ -2624,6 +2694,7 @@
                 });
 
                 $('#hdCampaniaID').val(CampaniaID);
+                $('#hdConfiguracionOfertaID').val(ConfiguracionOfertaID);
                 $('#hdStockProducto').val(Stock);
                 $("#txtPaisModal").val(paisNombre);
                 $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
@@ -2632,7 +2703,7 @@
                 $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
                 $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
                 //$('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
-                $('#txtPrecioCatalogoModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioCatalogo'));
+                $('#txtPrecioValorizadoModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
                 $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
                 if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
                     $("#txtUnidadesPermitidasModal").val("1");
@@ -2874,8 +2945,8 @@
             $("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
             $("#txtCUVDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
             $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-            //$("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
-            $("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioCatalogo'));
+            //$("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
+            $("#txtPrecioValorizadoDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
 
             showDialog("DialogRegistroOfertaShowRoomDetalle");
 
@@ -2976,6 +3047,53 @@
                     }
                 }
             });
+        },
+        EditarTipoOferta: function (ID, Codigo, Descripcion) {
+            $("#hdIdTipoOferta").val(ID);
+            $("#txtCodigoTipoOferta").val(Codigo);
+            $("#txtDescripcionTipoOferta").val(Descripcion);
+
+            $("#btnAgregarTipoOferta").val("Modificar");
+            $("#txtCodigoTipoOferta").attr("readonly", "readonly");
+        },
+        HabilitarTipoOferta: function (ID, estaHabilitar) {
+            var mensajeDescriocion = estaHabilitar == 1 ? "Desactivar" : "Activar";
+            var confirmar = confirm('¿ Está seguro que desea ' + mensajeDescriocion + ' el producto seleccionado?');
+            if (!confirmar)
+                return false;
+
+            var item = {
+                TipoOfertaID: ID,
+                Activo: estaHabilitar != 1
+            }
+
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: urlHabilitarShowRoomTipoOferta,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#listShowRoomTipoOferta").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        } else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        alert("ERROR");
+                    }
+                }
+            });
+            return false;
         }
     });
 
@@ -3004,7 +3122,7 @@
         $('#txtCUVModal').val("");
         $('#txtDescripcionModal').val("");
         //$('#txtPrecioOfertaModal').val("");
-        $('#txtPrecioCatalogoModal').val("");
+        $('#txtPrecioValorizadoModal').val("");
         $('#txtPrecioOfertaModal').val("");
         $('#chkHabilitarOferta').removeAttr('checked');
         $("#FlagTransaccion").val("0");
@@ -3019,7 +3137,7 @@
         $("#txtTipoOfertaDetalle").val('');
         $("#txtCUVDetalle").val('');
         $("#txtDescripcionDetalle").val('');
-        $("#txtPrecioNormalDetalle").val('');
+        $("#txtPrecioValorizadoDetalle").val('');
     }
 
     function LimpiarDatosEventoShowRoomDetalle() {
@@ -3061,12 +3179,7 @@
             value: "",
             text: "-- Seleccionar --"
         }));
-        var ddlConfiguracionOferta = $('#ddlConfiguracionOferta');
-        ddlConfiguracionOferta.empty();
-        ddlConfiguracionOferta.append($('<option/>', {
-            value: "",
-            text: "-- Seleccionar --"
-        }));
+        
         $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
     }
 
@@ -3317,4 +3430,159 @@
         //});
     }
 
+    function fnGrillaTiposOferta() {
+        jQuery("#listShowRoomTipoOferta").jqGrid({
+            url: urlConsultarTiposOferta,
+            hidegrid: false,
+            datatype: 'json',
+            //postData: ({
+            //    PaisID: function () { return $("#ddlPais").val() },
+            //    CampaniaID: function () { return ($("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val()); }
+            //}),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['ID', 'Código', 'Descripción', 'Acciones'],
+            colModel: [
+                { name: 'TipoOfertaID', index: 'TipoOfertaID', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'Codigo', index: 'Codigo', width: 50, editable: true, resizable: false },
+                { name: 'Descripcion', index: 'Descripcion', width: 60, editable: true, resizable: false },                
+                { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsTiposOferta }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerShowRoomTipoOferta'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 630,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            gridComplete: function () {
+                //ObtenerShowRoomPerfiles();
+            }
+        });
+        jQuery("#listShowRoomTipoOferta").jqGrid('navGrid', "#pagerShowRoomTipoOferta", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listShowRoomTipoOferta").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
+    function ShowActionsTiposOferta(cellvalue, options, rowObject) {
+        var mensajeHabilitar = "Desactivar";
+        var estadoHabilitar = 1;
+
+        if (rowObject[3] != "True") {
+            mensajeHabilitar = "Activar";
+            estadoHabilitar = 0;
+        }
+
+        var editar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomTipoOferta').EditarTipoOferta('" + options.rowId + "','" + rowObject[1] + "','" + rowObject[2] + "');\" >" + "Editar</a>";
+        var habilitar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listShowRoomTipoOferta').HabilitarTipoOferta('" + options.rowId + "','" + estadoHabilitar + "');\" >" + mensajeHabilitar + "</a>";
+
+        var resultado = '';
+
+        if (estadoHabilitar == 1)
+            resultado += editar + " | ";
+
+        resultado += habilitar;
+
+        return resultado;
+    }
+
+    function ExisteTipoOferta(tipoOfertaId, codigo, descripcion) {
+        var resultado = -1;
+
+        var item = {
+            TipoOfertaId: tipoOfertaId,
+            Codigo: codigo,
+            Descripcion: descripcion
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: urlExisteTipoOferta,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    //closeWaitingDialog();
+                    if (data.success == true) {
+                        resultado = data.resultado;
+
+                        if (resultado != 0)
+                            alert_msg(data.message);
+                    }
+                    else {
+                        alert_msg(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    //closeWaitingDialog();
+                    alert(data.message);
+                }
+            }
+        });
+
+        return resultado;
+    }
+
+    function GuardarTipoOferta(item) {
+        waitingDialog({ title: "Procesando" });
+        jQuery.ajax({
+            type: 'POST',
+            url: urlGuardarShowRoomTipoOferta,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        closeWaitingDialog();
+                        
+                        jQuery("#listShowRoomTipoOferta").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+                        $("#hdIdTipoOferta").val("");
+                        $("#txtCodigoTipoOferta").val("");
+                        $("#txtDescripcionTipoOferta").val("");
+
+                        $("#btnAgregarTipoOferta").val("Agregar");
+
+                        $("#txtCodigoTipoOferta").removeAttr("readonly");
+
+                        alert_msg(response.message);
+                    } else {
+                        alert_msg(response.message);
+                    }
+                }
+            },
+            error: function (response, error) {
+                if (checkTimeout(response)) {
+                    alert_msg(response.message);
+                    closeWaitingDialog();
+                }
+            }
+        });
+    }
 </script>
