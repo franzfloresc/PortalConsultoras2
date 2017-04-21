@@ -163,7 +163,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/handlebars.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
-                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(

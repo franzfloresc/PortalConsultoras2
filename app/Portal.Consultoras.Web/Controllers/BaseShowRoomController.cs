@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected void ActionExecutingMobile()
         {
-           
             if (Session["UserData"] == null) return;
             
             var userData = UserData();
@@ -26,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                ViewBag.EsMobile = 2;
                 BuildMenuMobile(userData);
                 CargarValoresGenerales(userData);
 
@@ -48,12 +48,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                bool mostrarBannerTop = false;
-                if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = true; }
+                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() ? false : true;
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
-
-
-
+                
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
@@ -62,8 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
-
-
+                    
                     if (showRoomBannerLateral.DiasFalta < 1)
                     {
                         ViewBag.MostrarShowRoomBannerLateral = false;
@@ -71,69 +67,45 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (showRoomBannerLateral.DiasFalta > 0)
                     {
-                        showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
+                        if (showRoomBannerLateral.DiasFalta > 1)
+                        {
+                            showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍAS";
+                        }
+                        else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
                     }
-                    else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
 
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
                     ViewBag.ImagenBannerShowroomVenta = showRoomBannerLateral.ImagenBannerShowroomVenta;
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
-
-
+                    
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    ViewBag.MostrarOfertaDelDia = userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0;
+                    ViewBag.MostrarOfertaDelDia =
+                         userData.CloseOfertaDelDia 
+                         ? false 
+                         : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
 
-
-                    if (userData.CloseOfertaDelDia)
-                        ViewBag.MostrarOfertaDelDia = false;
-
-                    if (mostrarBannerTop)
-                    {
-                        showRoomBannerLateral.EstadoActivo = "0";
-                    }
-                    else
-                    {
-                        showRoomBannerLateral.EstadoActivo = "1";
-                    }
-
-
+                    showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 ViewBag.MostrarBannerOtros = mostrarBannerTop;
 
-                if (mostrarBannerTop)
-                {
-
-                    ViewBag.EstadoActivo = "0";
-                }
-                else
-                {
-
-                    ViewBag.EstadoActivo = "1";
-                }
-
+                ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
 
                 if (mostrarBanner)
                 {
-                    if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                    {
-                        ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }
-                    else if (userData.IndicadorGPRSB == 0)
-                    {
-                        ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }
-                    else
+                    if (!(
+                        (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        || userData.IndicadorGPRSB == 0)
+                    )
                     {
                         ViewBag.MostrarBannerPL20 = false;
                         ViewBag.MostrarOfertaDelDia = false;
                     }
                 }
-
 
                 /*FIN: PL20-1289*/
             }

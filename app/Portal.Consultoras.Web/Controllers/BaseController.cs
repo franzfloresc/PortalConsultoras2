@@ -94,44 +94,29 @@ namespace Portal.Consultoras.Web.Controllers
                         ObtenerPedidoWebDetalle();
                     //}
                     
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
                     ViewBag.EsMobile = 1;//EPD-1780
 
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.MostrarODD = NoMostrarBannerODD();
+                    ViewBag.TieneOfertaDelDia = false;
+                    if (!ViewBag.MostrarODD)
                     {
-                        if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        if (userData.TieneOfertaDelDia)
                         {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                        }
-                        else if (userData.IndicadorGPRSB == 0)
-                        {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                        }
-                        else
-                        {
-                            ViewBag.TieneOfertaDelDia = false;
-                        }
-                    }
+                            if (!(
+                                    (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                    || userData.IndicadorGPRSB == 0)
+                                || userData.CloseOfertaDelDia
+                            )
+                            {
+                                ViewBag.TieneOfertaDelDia = false;
+                            }
 
-                    if (ViewBag.TieneOfertaDelDia)
-                    {
-                        // validar si se cerro el banner
-                        if (userData.CloseOfertaDelDia)
-                            ViewBag.TieneOfertaDelDia = false;
-
-                        // validar si tiene pedido reservado
-                        //string msg = string.Empty;
-                        //if (ValidarPedidoReservado(out msg))
-                        //    ViewBag.TieneOfertaDelDia = false;
-                    }
-
-                    if (NoMostrarBannerODD())
-                    {
-                        ViewBag.MostrarODD = true;
-                    }
-                    else
-                    {
-                        ViewBag.MostrarODD = false;
+                            //validar si tiene pedido reservado
+                            //string msg = string.Empty;
+                            //if (ValidarPedidoReservado(out msg))
+                            //    ViewBag.TieneOfertaDelDia = false;
+                        }
                     }
 
                     if (userData.HizoLoginExterno)
@@ -654,6 +639,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //}
                 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
+                ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;
@@ -1546,13 +1532,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertaDelDia != null)
-            {
-                OfertaDelDiaModel model = userData.OfertaDelDia;
-                model.TeQuedan = CountdownODD(userData);
-                return model;
-            }
-            return null;
+            if (userData.OfertasDelDia == null)
+                return null;
+
+            if (!userData.OfertasDelDia.Any())
+                return null;
+
+            var model = userData.OfertasDelDia[0].Clone();
+            model.ListaOfertas = userData.OfertasDelDia;
+            int posicion = 0;
+            model.ListaOfertas.Update(p=>p.ID = posicion++);
+            model.TeQuedan = CountdownODD(userData);
+            model.FBRuta = GetUrlCompartirFB();
+            return model;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -1623,8 +1615,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
-
-
 
             return model;
         }
