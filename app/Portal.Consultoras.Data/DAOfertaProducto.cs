@@ -217,8 +217,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DescripcionOriginal", DbType.AnsiString, entity.DescripcionOriginal);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
-
-            return Context.ExecuteNonQuery(command);
+            
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
@@ -262,14 +262,15 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetMatrizComercialImagenByCodigoSAP(string codigoSAP, int numeroPagina, int registros, out int totalRegistros)
         {
-            totalRegistros = 0;
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAPMatrizComercialImagen");
             Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, codigoSAP);
             Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
             Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
-            Context.Database.AddOutParameter(command, "@TotalRegistros", DbType.Int32, totalRegistros);
+            Context.Database.AddOutParameter(command, "@TotalRegistros", DbType.Int32, 10);
 
-            return Context.ExecuteReader(command);
+            IDataReader dataReader = Context.ExecuteReader(command);
+            totalRegistros = (Convert.ToInt16(dataReader) == 1) ? Convert.ToInt16(command.Parameters["@TotalRegistros"].ToString()) : 0;
+            return dataReader;
         }
 
         public IDataReader GetImagenesByCodigoSAP(string codigoSAP)
