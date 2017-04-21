@@ -138,8 +138,8 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
-                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
+                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
+                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
@@ -182,11 +182,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
-            IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+            //IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
             return Json(new
             {
                 lista = lst,
-                lstConfig = lstConfig
+                //lstConfig = lstConfig
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -777,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
                                     ent.CUV = values[2].Trim().Replace("\"", "");
                                     ent.Stock = int.Parse(values[3].Trim().Replace("\"", ""));
-                                    ent.PrecioOferta = decimal.Parse(values[4].Trim().Replace("\"", ""));
+                                    ent.PrecioValorizado = decimal.Parse(values[4].Trim().Replace("\"", ""));
                                     ent.UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", ""));
                                     ent.Descripcion = values[6].Trim().Replace("\"", "");
                                     ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
@@ -813,7 +813,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 var oStock = lstStock.Where(x => x.CUV == item.cuv).FirstOrDefault();
                                 if (oStock != null)
                                 {
-                                    oStock.PrecioOferta2 = item.precio_producto;
+                                    oStock.PrecioOferta = item.precio_producto;
                                 }
                             }
 
@@ -1156,14 +1156,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int PaisID, string codigoOferta, int CampaniaID)
+        public ActionResult ConsultarOfertaShowRoom(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID)
         {
             if (ModelState.IsValid)
             {
                 List<BEShowRoomOferta> lst;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.GetProductosShowRoom(PaisID, Constantes.ConfiguracionOferta.ShowRoom, CampaniaID, codigoOferta).ToList();
+                    lst = sv.GetProductosShowRoom(PaisID, CampaniaID).ToList();
                 }
 
                 // Usamos el modelo para obtener los datos
@@ -1195,6 +1195,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "Descripcion":
                             items = lst.OrderBy(x => x.Descripcion);
+                            break;
+                        case "PrecioValorizado":
+                            items = lst.OrderBy(x => x.PrecioValorizado);
                             break;
                         case "PrecioOferta":
                             items = lst.OrderBy(x => x.PrecioOferta);
@@ -1228,6 +1231,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "Descripcion":
                             items = lst.OrderByDescending(x => x.Descripcion);
+                            break;
+                        case "PrecioValorizado":
+                            items = lst.OrderBy(x => x.PrecioValorizado);
                             break;
                         case "PrecioOferta":
                             items = lst.OrderByDescending(x => x.PrecioOferta);
@@ -1271,7 +1277,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
-                                   a.PrecioCatalogo.ToString("#0.00"),
+                                   a.PrecioValorizado.ToString("#0.00"),
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
@@ -1364,7 +1370,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                    .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1378,8 +1384,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
+                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;                    
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
 
                     string imagenProductoFinal = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID);
@@ -1428,7 +1433,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                    .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1444,23 +1449,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-
-                    int Stock = 0;
-                    Stock = sv.ValidadStockOfertaShowRoom(userData.PaisID, entidad);
-
-                    if (entidad.Incrementa == 1 && Stock < 0)
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "La cantidad ingresada supera el stock actual.",
-                            extra = ""
-                        });
-                    }
-
-                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
-                    entidad.ConfiguracionOfertaID = lstConfiguracion.Find(x => x.CodigoOferta == model.CodigoTipoOferta).ConfiguracionOfertaID;
+                {                    
+                    entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;                    
                     entidad.UsuarioModificacion = userData.CodigoConsultora;
 
                     string imagenProductoFinal = GuardarImagenAmazon(model.ImagenProducto, model.ImagenProductoAnterior, userData.PaisID);
@@ -2714,8 +2704,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
                         var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaFinal = listaFinal.Where(p => p.PrecioCatalogo >= Convert.ToDecimal(valorDesde)
-                                     && p.PrecioCatalogo <= Convert.ToDecimal(valorHasta)).ToList();
+                        listaFinal = listaFinal.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+                                     && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
                 }                
 
@@ -2729,10 +2719,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaFinal = listaFinal.OrderBy(p => p.PrecioCatalogo).ToList();
+                                listaFinal = listaFinal.OrderBy(p => p.PrecioOferta).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioCatalogo).ToList();
+                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioOferta).ToList();
                                 break;
                             default:
                                 listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
@@ -2916,6 +2906,190 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+        
+        public ActionResult ConsultarTiposOferta(string sidx, string sord, int page, int rows)
+        {
+            if (ModelState.IsValid)
+            {
+                List<BEShowRoomTipoOferta> lst;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetShowRoomTipoOferta(userData.PaisID).ToList();
+                }
 
+                // Usamos el modelo para obtener los datos
+                BEGrid grid = new BEGrid();
+                grid.PageSize = rows;
+                grid.CurrentPage = page;
+                grid.SortColumn = sidx;
+                grid.SortOrder = sord;
+                //int buscar = int.Parse(txtBuscar);
+                BEPager pag = new BEPager();
+                IEnumerable<BEShowRoomTipoOferta> items = lst;
+
+                #region Sort Section
+                if (sord == "asc")
+                {
+                    switch (sidx)
+                    {
+                        case "Codigo":
+                            items = lst.OrderBy(x => x.Codigo);
+                            break;
+                        case "Descripcion":
+                            items = lst.OrderBy(x => x.Descripcion);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (sidx)
+                    {
+                        case "Codigo":
+                            items = lst.OrderBy(x => x.Codigo);
+                            break;
+                        case "Descripcion":
+                            items = lst.OrderBy(x => x.Descripcion);
+                            break;
+                    }
+                }
+                #endregion
+
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                pag = Util.PaginadorGenerico(grid, lst);                                
+
+                // Creamos la estructura
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.TipoOfertaID,
+                               cell = new[]
+                               {
+                                   a.TipoOfertaID.ToString(),
+                                   a.Codigo,
+                                   a.Descripcion,
+                                   a.Activo.ToString()
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        [HttpPost]
+        public JsonResult ExisteTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            int resultado = -1;
+
+            try
+            {
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    resultado = ps.ExisteShowRoomTipoOferta(userData.PaisID, entity);
+                }
+
+                string message = resultado == 0 
+                    ? "OK" 
+                    : resultado == 1 
+                        ? "Codigo Tipo de Oferta ya existe " 
+                        : resultado == 2 
+                            ? "Descripcion de Tipo de Oferta ya existe" 
+                            : "Error al verificar si existe el tipo de oferta";
+
+                return Json(new
+                {
+                    success = true,
+                    resultado,
+                    message
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    resultado,
+                    message = "Error al verificar si existe el tipo de oferta"
+                });
+            }            
+        }
+
+        [HttpPost]
+        public JsonResult GuardarShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            try
+            {
+                string message = "";
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    entity.UsuarioCreacion = userData.CodigoConsultora;
+
+                    if (entity.TipoOfertaID == 0)
+                    {
+                        ps.InsertShowRoomTipoOferta(userData.PaisID, entity);
+                        message = "Tipo de Oferta Agregado correctamente";
+                    }
+                    else
+                    {
+                        ps.UpdateShowRoomTipoOferta(userData.PaisID, entity);
+                        message = "Tipo de Oferta Modificado correctamente";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message,
+                    data = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "ERROR",
+                    data = ""
+                });
+            }
+        }        
+
+        [HttpPost]
+        public JsonResult HabilitarShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            try
+            {
+                string message = "";
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    ps.HabilitarShowRoomTipoOferta(userData.PaisID, entity);
+                    message = "Tipo de Oferta ShowRoom " + (entity.Activo ? "Activado" : "Desactivado") + " correctamente";
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message,
+                    data = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "ERROR",
+                    data = ""
+                });
+            }
+        }
     }
 }

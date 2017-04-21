@@ -2799,7 +2799,6 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-
     /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
@@ -2819,7 +2818,6 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-
                         var showroomConsultora = response.data;
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
@@ -2829,7 +2827,6 @@ function MostrarShowRoom() {
                         var noMostrarShowRoomVenta = response.mostrarPopupVenta;
                         var eventoID = response.evento.EventoID;
                         var eventoNombre = response.evento.Nombre;
-                        
                         $.each(personalizacion, function (k, item) {
                             if (item.Atributo == 'PopupImagenIntriga') {
                                 urlImagenPopupIntriga = item.Valor;
@@ -2941,7 +2938,6 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 }
 
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
-    debugger;
     var streventoNombre = "";
     if (tipo == "1") {
         streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
@@ -2989,7 +2985,7 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 }
 
 function AgregarTagManagerShowRoomPopupClick(tipo) {
-    var nombre = opcion == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
+    var nombre = tipo == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
     var streventoNombre = "";
     if (tipo == 1) {
         streventoNombre = nombre + ' Compra Ya';
@@ -3110,8 +3106,8 @@ function ObtenerComunicadosPopup() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-            closeWaitingDialog();
-        }
+                closeWaitingDialog();
+            }
         }
     });
 }
