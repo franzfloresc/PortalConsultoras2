@@ -59,12 +59,12 @@ function ODDCargar() {
 
             if (_data.CantidadProducto == 1) {
                 $(idOdd + ' [data-odd-accion="regresar"]').hide();
-                $(idOdd + ' [data-odd-texto="cliente"]').show();
+                $(idOdd + ' [data-odd-texto="cliente"]').hide();
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').show();
             }
             else {
                 $(idOdd + ' [data-odd-accion="regresar"]').show();
-                $(idOdd + ' [data-odd-texto="cliente"]').hide();
+                $(idOdd + ' [data-odd-texto="cliente"]').show();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
             }
             
