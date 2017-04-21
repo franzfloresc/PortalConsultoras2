@@ -1051,9 +1051,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (!configOfertaDelDia.Any())
                 return listaOdd;
 
+            var contOdd = 0;
             foreach (var odd in lstOfertaDelDia)
             {
-                var oddModel = new OfertaDelDiaModel();
                 var arr1 = odd.DescripcionCUV2.Split('|');
                 var nombreODD = arr1[0].Trim();
                 var descripcionODD = string.Empty;
@@ -1067,13 +1067,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
 
                 var countdown = CountdownODD(model);
-                var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
-                var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
-                var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
-                //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, odd.ImagenURL);
-                //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, odd.ImagenURL);
-                var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
-                var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+               
                 descripcionODD = descripcionODD.Replace("|", " +<br />");
                 descripcionODD = descripcionODD.Replace("\\", "");
                 descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
@@ -1082,9 +1076,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 odd.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, odd.FotoProducto01, carpetaPais);
                 odd.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, odd.ImagenURL, carpetaPais);
-                var imgBanner = odd.FotoProducto01;
-                var imgDisplay = odd.FotoProducto01;
 
+                var oddModel = new OfertaDelDiaModel();
                 oddModel.CodigoIso = model.CodigoISO;
                 oddModel.TipoEstrategiaID = odd.TipoEstrategiaID;
                 oddModel.EstrategiaID = odd.EstrategiaID;
@@ -1094,24 +1087,36 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.IndicadorMontoMinimo = odd.IndicadorMontoMinimo;
                 oddModel.TipoEstrategiaImagenMostrar = odd.TipoEstrategiaImagenMostrar;
                 oddModel.TeQuedan = countdown;
-                oddModel.ImagenFondo1 = imgF1;
-                oddModel.ColorFondo1 = colorF1;
-                oddModel.ImagenBanner = imgBanner;
-                oddModel.ImagenSoloHoy = imgSh;
-                oddModel.ImagenFondo2 = imgF2;
-                oddModel.ColorFondo2 = colorF2;
-                oddModel.ImagenDisplay = imgDisplay;
+                if (contOdd == 0)
+                {
+                    var imgBanner = odd.FotoProducto01;
+                    var imgDisplay = odd.FotoProducto01;
+
+                    var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                    var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                    var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
+                    imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (lstOfertaDelDia.Count > 1 ? "s" : "") + "." + exte;
+                    //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, odd.ImagenURL);
+                    //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, odd.ImagenURL);
+                    var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                    var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+
+                    oddModel.ImagenFondo1 = imgF1;
+                    oddModel.ColorFondo1 = colorF1;
+                    oddModel.ImagenBanner = imgBanner;
+                    oddModel.ImagenSoloHoy = imgSh;
+                    oddModel.ImagenFondo2 = imgF2;
+                    oddModel.ColorFondo2 = colorF2;
+                    oddModel.ImagenDisplay = imgDisplay;
+                }
+                oddModel.ID = contOdd++;
                 oddModel.NombreOferta = nombreODD;
                 oddModel.DescripcionOferta = descripcionODD;
                 oddModel.PrecioOferta = odd.Precio2;
                 oddModel.PrecioCatalogo = odd.Precio;
 
                 oddModel.TieneOfertaDelDia = true;
-                //Session["OfertaDelDia"] = oddModel;
-                //Session["CloseODD"] = false;
-                //model.OfertaDelDia = oddModel;
-                //model.IdTipoEstrategiaODD = odd.TipoEstrategiaID;
-                //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
 
                 /*PL20-1226*/
                 listaOdd.Add(oddModel);

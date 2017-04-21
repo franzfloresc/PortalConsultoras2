@@ -2951,7 +2951,8 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
                     {
                         'id': $("#hdEventoIDShowRoom").val(),
                         'name': streventoNombre,
-                        'position': 'Home pop-up - 1',                        'creative': 'Banner'
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
                     }
                 ]
             }
