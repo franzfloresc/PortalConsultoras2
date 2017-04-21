@@ -651,7 +651,7 @@ namespace Portal.Consultoras.Service
         {
             int paisID = GetPaisID(paisISO);
             var BLUsuario = new BLUsuario();
-            return BLUsuario.InsUsuarioPostulante(paisID, entidad);
+            return BLUsuario.InsUsuarioPostulante(paisID, paisISO, entidad);
         }
 
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
