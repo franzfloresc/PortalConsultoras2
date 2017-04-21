@@ -34,8 +34,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [ViewProperty]
         public string ISOPais { get; set; }
-        [DataMember]
-        public string CUV { get; set; }
 
         public BEMatrizComercial(IDataRecord row)
         {
@@ -49,8 +47,6 @@ namespace Portal.Consultoras.Entities
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
                 DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
-            if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
-                CUV = Convert.ToString(row["CUV"]);
         }
     }
 }
