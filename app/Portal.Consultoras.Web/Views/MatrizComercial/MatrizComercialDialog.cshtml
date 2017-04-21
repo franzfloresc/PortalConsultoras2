@@ -13,25 +13,27 @@
         </div>
         <div class="div-3">
             <div class="titF">Descripción Original:</div>
-            <div class="selectP2 borde_redondeado" style="width: 570px;">
-                <input type="text" id="txtDescripcionOriginalModal" value="{{descripcionOriginal}}" readonly="readonly" style="width: 570px;" />
+            <div class="selectP2 borde_redondeado" style="width: 515px;">
+                <input type="text" id="txtDescripcionOriginalModal" value="{{descripcionOriginal}}" readonly="readonly" style="width: 515px;" />
             </div>
+            <div id="file-upload-add"></div>
         </div>
         <div class="div-3">
-            <div class="titF">Imagen:</div>
-            <div class="div-list-img-matriz-comercial">
-                {{#each imagenes}}
-                <div class="titG">
-                    <div class="selectP2 borde_redondeado aligncenter">
-                        <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
-                    </div>
-                    <div class="input_search">
-                        <div id="file-upload-{{@@index}}">
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
+            <div id="matriz-comercial-images" class="div-list-img-matriz-comercial">                
             </div>
         </div>
     </div>
+</script>
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">
+    {{#each imagenes}}
+    <div class="titG">
+        <div class="selectP2 borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
+        </div>
+        <div class="input_search">
+            <div id="file-upload-{{@@index}}">
+            </div>
+        </div>
+    </div>
+    {{/each}}
 </script>

@@ -22,6 +22,8 @@
 
         matrizComercialObj = MatrizComercial({
             urlTemporales: '@Url.Content("~/Content/Temporales/")',
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+            getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "MatrizComercial")',
             uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
         });
 
@@ -222,25 +224,9 @@
             title: "Actualización de Matriz",
             buttons:
             {
-                "Guardar": function () {
-                    var vMessage = "", valImgProd, idImagen;
-
-                    var ingresoAlgo = ($.trim($('#txtDescripcionModal').val()) != "");
-                    for (var i = 1; i <= nroImagenes; i++) {
-                        if (ingresoAlgo) break;
-
-                        idImagen = ('0' + i).substr(-2);
-                        valImgProd = $.trim($('#imagenProducto' + idImagen).val());
-                        ingresoAlgo = (valImgProd != "" && valImgProd != imagenVacia);
-                    }
-                    if (!ingresoAlgo) vMessage += "- Debe ingresar una nueva descripción al producto o adjuntar por lo menos una imagen.\n";
-
-                    if (vMessage != "") {
-                        alert(vMessage);
-                        return false;
-                    }
-                    else RegistrarMatrizComercial();
-                },
+                //"Guardar": function () {
+                //    RegistrarMatrizComercial();
+                //},
                 "Cancelar": function () { $(this).dialog('close'); }
             }
         });
@@ -252,7 +238,6 @@
         var item = {
             CodigoSAP: $.trim($('#txtCodigoSAPModal').val()),
             DescripcionOriginal: $.trim($('#txtDescripcionOriginalModal').val()),
-            Descripcion: $.trim($("#txtDescripcionModal").val()),
             PaisID: paisID
         };
         for (var i = 1; i <= nroImagenes; i++) {

@@ -351,6 +351,7 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
+    <Compile Include="CustomHelpers\UploadHelper.cs" />
     <Compile Include="GestionPasos\AsignacionFactory.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
@@ -382,6 +383,7 @@
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\FileNameFormat.cs" />
     <Compile Include="Models\MatrizComercialResultadoModel.cs" />
     <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
@@ -4303,7 +4305,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

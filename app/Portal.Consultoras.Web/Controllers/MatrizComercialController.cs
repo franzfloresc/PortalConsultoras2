@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using System.IO;
+using Portal.Consultoras.Web.CustomHelpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -187,6 +188,16 @@ namespace Portal.Consultoras.Web.Controllers
             return string.Empty;
         }
 
+        private FileNameFormat GetFileNameFormat(int paisID, string codigoSAP)
+        {
+            string paisISO = Util.GetPaisISO(paisID);
+            return new FileNameFormat
+            {
+                PreFileName = string.Format("{0}_{1}", paisISO, codigoSAP),
+                CarpetaPais = string.Format("{0}/{1}", Globals.UrlMatriz, paisISO)
+            };
+        }
+
         [HttpPost]
         public JsonResult InsertMatrizComercial(MatrizComercialModel model)
         {
@@ -194,21 +205,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
                 entidad.UsuarioRegistro = userData.CodigoConsultora;
-
-                string paisISO = Util.GetPaisISO(model.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-                string preFileName = paisISO + "_" + model.CodigoSAP + "_";
-
-               /* entidad.FotoProducto01 = this.UploadFoto(model.FotoProducto01, "01", preFileName, carpetaPais);
-                entidad.FotoProducto02 = this.UploadFoto(model.FotoProducto02, "02", preFileName, carpetaPais);
-                entidad.FotoProducto03 = this.UploadFoto(model.FotoProducto03, "03", preFileName, carpetaPais);
-                entidad.FotoProducto04 = this.UploadFoto(model.FotoProducto04, "04", preFileName, carpetaPais);
-                entidad.FotoProducto05 = this.UploadFoto(model.FotoProducto05, "05", preFileName, carpetaPais);
-                entidad.FotoProducto06 = this.UploadFoto(model.FotoProducto06, "06", preFileName, carpetaPais);
-                entidad.FotoProducto07 = this.UploadFoto(model.FotoProducto07, "07", preFileName, carpetaPais);
-                entidad.FotoProducto08 = this.UploadFoto(model.FotoProducto08, "08", preFileName, carpetaPais);
-                entidad.FotoProducto09 = this.UploadFoto(model.FotoProducto09, "09", preFileName, carpetaPais);
-                entidad.FotoProducto10 = this.UploadFoto(model.FotoProducto10, "10", preFileName, carpetaPais);*/
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -251,25 +247,85 @@ namespace Portal.Consultoras.Web.Controllers
                 BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
                 entidad.UsuarioModificacion = userData.CodigoConsultora;
 
-                string paisISO = Util.GetPaisISO(model.PaisID);
-                var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-                string preFileName = paisISO + "_" + model.CodigoSAP + "_";
-
-                /*entidad.FotoProducto01 = this.ReplaceFoto(model.FotoProducto01, model.FotoProductoAnterior01, "01", preFileName, carpetaPais);
-                entidad.FotoProducto02 = this.ReplaceFoto(model.FotoProducto02, model.FotoProductoAnterior02, "02", preFileName, carpetaPais);
-                entidad.FotoProducto03 = this.ReplaceFoto(model.FotoProducto03, model.FotoProductoAnterior03, "03", preFileName, carpetaPais);
-                entidad.FotoProducto04 = this.ReplaceFoto(model.FotoProducto04, model.FotoProductoAnterior04, "04", preFileName, carpetaPais);
-                entidad.FotoProducto05 = this.ReplaceFoto(model.FotoProducto05, model.FotoProductoAnterior05, "05", preFileName, carpetaPais);
-                entidad.FotoProducto06 = this.ReplaceFoto(model.FotoProducto06, model.FotoProductoAnterior06, "06", preFileName, carpetaPais);
-                entidad.FotoProducto07 = this.ReplaceFoto(model.FotoProducto07, model.FotoProductoAnterior07, "07", preFileName, carpetaPais);
-                entidad.FotoProducto08 = this.ReplaceFoto(model.FotoProducto08, model.FotoProductoAnterior08, "08", preFileName, carpetaPais);
-                entidad.FotoProducto09 = this.ReplaceFoto(model.FotoProducto09, model.FotoProductoAnterior09, "09", preFileName, carpetaPais);
-                entidad.FotoProducto10 = this.ReplaceFoto(model.FotoProducto10, model.FotoProductoAnterior10, "10", preFileName, carpetaPais);
-                */
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     sv.UpdMatrizComercial(entidad);
                 }
+                return Json(new
+                {
+                    success = true,
+                    message = "Se actualizó la Matriz de Productos satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarMatrizComercial(MatrizComercialModel model)
+        {
+            try
+            {
+                if (model.IdMatrizComercial == 0)
+                {
+                    //insertar cabecera
+                    BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
+                    entidad.UsuarioRegistro = userData.CodigoConsultora;
+
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        sv.InsMatrizComercial(entidad);
+                    }
+                }
+
+                var nombreArchivo = Request["qqfile"];
+                //sube la imagen selecciona a carpeta temporales
+                new UploadHelper().UploadFile(Request, nombreArchivo);
+
+                var formatoArchivo = GetFileNameFormat(model.PaisID, model.CodigoSAP);
+                var entity = new BEMatrizComercialImagen
+                {
+                    CodigoSAP = model.CodigoSAP,
+                    PaisID = model.PaisID,
+                    UsuarioRegistro = userData.CodigoConsultora,
+                    UsuarioModificacion = userData.CodigoConsultora
+                };
+                if (model.IdMatrizComercialImagen == 0)
+                {
+                    var nombreFotoS3 = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
+                    entity.Foto = nombreFotoS3;
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        sv.InsMatrizComercialImagen(entity);
+                    }
+                }else
+                {
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        //reemplazar foto
+                        model.IdMatrizComercialImagen = sv.UpdMatrizComercialImagen(entity);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
