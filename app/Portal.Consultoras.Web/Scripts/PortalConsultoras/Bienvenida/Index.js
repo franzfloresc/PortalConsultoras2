@@ -2940,7 +2940,8 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 }
 
 function AgregarTagManagerShowRoomPopupClick(tipo) {
-    var nombre = opcion == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
+    debugger;
+    var nombre = tipo == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
     var streventoNombre = "";
     if (tipo == 1) {
         streventoNombre = nombre + ' Compra Ya';
@@ -3287,6 +3288,7 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
+    debugger;
     //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
@@ -3294,6 +3296,7 @@ function VerShowRoomIntriga() {
 }
 
 function VerShowRoomVenta() {
+    debugger;
     //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(1);
     document.location.href = urlShowRoomVenta;
