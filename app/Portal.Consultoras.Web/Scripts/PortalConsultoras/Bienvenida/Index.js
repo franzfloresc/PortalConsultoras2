@@ -2758,7 +2758,6 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-    debugger;
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
             return;
@@ -2770,7 +2769,6 @@ function MostrarShowRoom() {
             success: function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        debugger;
                         var showroomConsultora = response.data;
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
@@ -2780,7 +2778,6 @@ function MostrarShowRoom() {
                         var noMostrarShowRoomVenta = response.mostrarPopupVenta;
                         var eventoID = response.evento.EventoID;
                         var eventoNombre = response.evento.Nombre;
-                        debugger;
                         $.each(personalizacion, function (k, item) {
                             if (item.Atributo == 'PopupImagenIntriga') {
                                 urlImagenPopupIntriga = item.Valor;
@@ -2892,7 +2889,6 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 }
 
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
-    debugger;
     var streventoNombre = "";
     if (tipo == "1") {
         streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
@@ -2940,7 +2936,6 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 }
 
 function AgregarTagManagerShowRoomPopupClick(tipo) {
-    debugger;
     var nombre = tipo == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
     var streventoNombre = "";
     if (tipo == 1) {
@@ -3288,7 +3283,6 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    debugger;
     //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
@@ -3296,7 +3290,6 @@ function VerShowRoomIntriga() {
 }
 
 function VerShowRoomVenta() {
-    debugger;
     //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(1);
     document.location.href = urlShowRoomVenta;

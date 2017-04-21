@@ -6,7 +6,6 @@ $(document).ready(function () {
     $(".footer_e").css("margin-bottom", "73px");
 
     $(".seleccion_filtro_fav").on("click", function () {
-        debugger;
         $(this).toggleClass("seleccion_click_flitro");
         var x = $(this);
     });
@@ -128,7 +127,6 @@ $(document).ready(function () {
 });
 
 function ObtenerProductosShowRoom() {
-    debugger;
     var busquedaModel = filterShowRoomDesktop();
     CargarProductosShowRoom(busquedaModel);
 }
@@ -175,7 +173,6 @@ function CargarFiltroRangoPrecio() {
 }
 
 function filterShowRoomDesktop() {
-    debugger;
     var busquedaModel = null;
     var mostrarBorrarFiltros = false;
    
@@ -198,7 +195,6 @@ function filterShowRoomDesktop() {
 
     var seleccionado = false;
     $.each($("[data-filtro-categoria]"), function (index, value) {
-        debugger;
         if ($(value).hasClass("seleccion_click_flitro")) {
             seleccionado = true;
             var valor = $(value).attr("data-categoriacodigo");
