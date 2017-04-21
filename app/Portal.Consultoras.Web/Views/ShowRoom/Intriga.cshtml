@@ -25,7 +25,7 @@
         <input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
         <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
-        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioOferta" />
         <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
         <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
         <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
@@ -50,7 +50,7 @@
             <div class="linea_separadora_intriga"></div>
             <div class="nombre_set_showroom">@Model.Descripcion</div>
             <div class="precio_showroom_intriga">
-                <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioOferta, </span>@Model.Simbolo @Model.FormatoPrecioCatalogo
+                <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioValorizado, </span>@Model.Simbolo @Model.FormatoPrecioOferta
             </div>
             <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                 <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
