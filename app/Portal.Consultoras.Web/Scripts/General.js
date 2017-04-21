@@ -7,6 +7,10 @@ jQuery(document).ready(function () {
     $("body").on("click", "[data-compartir]", function (e) {
         CompartirRedesSociales(e);
     });
+
+    $("header").resize(function () {
+        LayoutHeader();
+    });
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -766,7 +770,6 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
     });
 };
 
-
 function MensajeEstadoPedido() {
     xMensajeEstadoPedido(false);
     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
@@ -777,91 +780,14 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    var url = location.href.toLowerCase();
-    var esMobile = url.indexOf("/mobile/") > 0;
-    var esBienvenida = url.indexOf("/bienvenida") > 0;
+    LayoutHeader();
+}
 
-    if (estado) {
-        var wheight = $(window).innerHeight();
-        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
-        ResizeMensajeEstadoPedido();
-        var wtop = $("#bloquemensajesPedido").height();
-
-        if (esMobile) {
-            wtop = $("header").height();
-            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
-            }
-            else {
-                $("[data-content]").animate({ "top": wtop + "px", "margin-top": wtop + "px" });
-            }
-
-            $(".footer-page").animate({ "top": wtop + "px" });
-            $(".oscurecer_animacion").css({ "display": "none" });
-        }
-        else {
-            if (esBienvenida) {
-                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-
-            }
-            else {
-                $(".oscurecer_animacion").css({ "display": "none" });
-                $("#bloquemensajesPedido").slideDown("slow", function () { });
-                wtop = $("header").height();
-                if ($('.content_banner_intriga').length > 0) {
-                    if ($('#OfertaDelDia:visible').length > 0) {
-                        $('.ubicacion_web').css('margin-top', '162px');
-                    }
-                    else {
-                        $('.ubicacion_web').css('margin-top', '62px');
-                    }
-                }
-                else {
-                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
-                }
-            }
-        }
-    }
-    else {
-        $("#bloquemensajesPedido").slideUp();
-        if (esMobile) {
-            wtop = $("header").height();
-            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-            }
-            else {
-                $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
-            }
-            $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
-        }
-        else {
-            if (esBienvenida) {
-
-                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                    $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
-                }
-                else { $("[data-content]").animate({ "top": "64px", "margin-top": "0px" }); }
-            }
-            else {
-                if ($('.content_banner_intriga').length > 0) {
-                    if ($('#OfertaDelDia:visible').length > 0) {
-                        $('.ubicacion_web').css('margin-top', '162px');
-                    }
-                    else {
-                        $('.ubicacion_web').css('margin-top', '62px');
-                    }
-                }
-                else {
-                    $(".ubicacion_web").animate({ "margin-top": "83px" });
-                    $('.content_slider_home ').css('margin-top', '60px');
-                    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
-                    }
-                    else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
-                }
-            }
-        }
-    }
+function LayoutHeader() {
+    setTimeout(function () {
+        var wtop = $("header").height();
+        $("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    }, 500);
 }
 
 function ResizeMensajeEstadoPedido() {

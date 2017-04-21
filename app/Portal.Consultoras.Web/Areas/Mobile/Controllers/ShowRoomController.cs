@@ -3,14 +3,13 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using System.Configuration;
-using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -28,7 +27,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index(string query)
         {
-
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
             
@@ -126,7 +124,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Celular = userData.Celular;
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                
+                var pedidoDetalle = ObtenerPedidoWebDetalle();
+                model.Agregado = pedidoDetalle.Any(d=>d.CUV == model.CUV) ? "block" : "none";
+
                 return View(model);
             }
             catch (FaultException ex)

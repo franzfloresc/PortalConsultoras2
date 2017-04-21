@@ -9,7 +9,6 @@ var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
-    debugger;
     if (tipoOrigenPantalla == 11) {
         debugger;
         var prhidcuv = $("#hcuv").val();
@@ -38,11 +37,10 @@ $(document).ready(function () {
 
 
         $(".verDetalleCompraPorCompra").click(function () {
-            debugger;
             var padre = $(this).parents("[data-item]")[0];
             var article = $(padre).find("[data-campos]").eq(0);
             var posicion = $(article).find(".posicionEstrategia").val();
-            debugger;
+
             $("#PopDetalleCompra").show();
 
             $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
@@ -188,7 +186,6 @@ $(document).ready(function () {
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
-        debugger;
         var padre = $(this).parents("[data-item]");        
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
@@ -229,13 +226,13 @@ $(document).ready(function () {
 });
 
 function CargarProductosShowRoom(busquedaModel) {
-    debugger;
     //AbrirLoad();
     $.ajaxSetup({
         cache: false
     });
 
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
+    $("#divProductosShowRoom").show();
 
     jQuery.ajax({
         type: 'POST',
@@ -246,7 +243,7 @@ function CargarProductosShowRoom(busquedaModel) {
         async: true,
         success: function (response) {
             //CerrarLoad();
-            debugger;
+
             if (response.success == true) {
                 var lista = response.lista;
 
@@ -262,7 +259,7 @@ function CargarProductosShowRoom(busquedaModel) {
                         ? value.Descripcion.substring(0, 30) + "..."
                         : value.Descripcion;
                     }
-                    
+
                        
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
@@ -277,9 +274,17 @@ function CargarProductosShowRoom(busquedaModel) {
                 $("#spnCantidadFiltro").html(response.cantidad);
                 $("#spnCantidadTotal").html(response.cantidadTotal);
 
-            } else messageInfoError(response.message);
+            } else {
+                messageInfoError(response.message);
+                if (busquedaModel.hidden == true) {
+                    $("#divProductosShowRoom").hide();
+                }
+            }
         },
         error: function (response, error) {
+            if (busquedaModel.hidden == true) {
+                $("#divProductosShowRoom").hide();
+            }
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
@@ -289,7 +294,6 @@ function CargarProductosShowRoom(busquedaModel) {
 }
 
 function AgregarOfertaShowRoom(article, cantidad) {
-    debugger;
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -318,17 +322,19 @@ function AgregarOfertaShowRoom(article, cantidad) {
 
 
 
-    var origen;
-    if (posicion != "0") {
-        if (origenPedidoWebCarrusel != -1)
-            origen = origenPedidoWebCarrusel;
-        else if (tipoOrigenPantalla == 1) {
-            origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
-        }
-        else
+    var origen = $(article).find(".origenPedidoWeb").val() || 0;
+    if (origen == 0) {
+        if (posicion != "0") {
+            if (origenPedidoWebCarrusel != -1)
+                origen = origenPedidoWebCarrusel;
+            else if (tipoOrigenPantalla == 1) {
+                origen = showRoomOrigenInsertar == 0 ? origenPedidoWeb : showRoomOrigenInsertar;
+            }
+            else
+                origen = origenPedidoWeb;
+        } else {
             origen = origenPedidoWeb;
-    } else {
-        origen = origenPedidoWeb;
+        }
     }
 
     AbrirLoad();

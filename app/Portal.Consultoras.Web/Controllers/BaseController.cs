@@ -82,48 +82,31 @@ namespace Portal.Consultoras.Web.Controllers
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
 
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
                     ViewBag.EsMobile = 1;//EPD-1780
 
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.MostrarODD = NoMostrarBannerODD();
+                    ViewBag.TieneOfertaDelDia = false;
+                    if (!ViewBag.MostrarODD)
                     {
-                        if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        if (userData.TieneOfertaDelDia)
                         {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                            if (!(
+                                    (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                    || userData.IndicadorGPRSB == 0)
+                                || userData.CloseOfertaDelDia
+                            )
+                            {
+                                ViewBag.TieneOfertaDelDia = false;
+                            }
+
+                            //validar si tiene pedido reservado
+                            //string msg = string.Empty;
+                            //if (ValidarPedidoReservado(out msg))
+                            //    ViewBag.TieneOfertaDelDia = false;
                         }
-                        else if (userData.IndicadorGPRSB == 0)
-                        {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                        }
-                        else
-                        {
-                            ViewBag.TieneOfertaDelDia = false;
-                        }
                     }
 
-
-
-
-                    if (ViewBag.TieneOfertaDelDia)
-                    {
-                        // validar si se cerro el banner
-                        if (userData.CloseOfertaDelDia)
-                            ViewBag.TieneOfertaDelDia = false;
-
-                        // validar si tiene pedido reservado
-                        //string msg = string.Empty;
-                        //if (ValidarPedidoReservado(out msg))
-                        //    ViewBag.TieneOfertaDelDia = false;
-                    }
-
-                    if (NoMostrarBannerODD())
-                    {
-                        ViewBag.MostrarODD = true;
-                    }
-                    else
-                    {
-                        ViewBag.MostrarODD = false;
-                    }
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -457,16 +440,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         {
-                            if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                                permiso.UrlItem = "ShowRoom/Index";
-                            else
-                                permiso.UrlItem = "ShowRoom/Intriga";
+                            permiso.UrlItem = AccionControlador("sr", 1);
                         }
                         else
                         {
                             continue;
                         }
-
                         permiso.EsSoloImagen = true;
                         var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
@@ -606,6 +585,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
+                ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;
@@ -1007,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 Session["MostrarShowRoomProductos"] = "0";
                             }
 
-                            Session["carpetaPais"] = carpetaPais;                            
+                            Session["carpetaPais"] = carpetaPais;
                         }
                         else
                         {
@@ -1016,7 +996,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                         model.CargoEntidadesShowRoom = true;
-                    }                    
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -1490,13 +1470,19 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertaDelDia != null)
-            {
-                OfertaDelDiaModel model = userData.OfertaDelDia;
-                model.TeQuedan = CountdownODD(userData);
-                return model;
-            }
-            return null;
+            if (userData.OfertasDelDia == null)
+                return null;
+
+            if (!userData.OfertasDelDia.Any())
+                return null;
+
+            var model = userData.OfertasDelDia[0].Clone();
+            model.ListaOfertas = userData.OfertasDelDia;
+            int posicion = 0;
+            model.ListaOfertas.Update(p=>p.ID = posicion++);
+            model.TeQuedan = CountdownODD(userData);
+            model.FBRuta = GetUrlCompartirFB();
+            return model;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -1567,8 +1553,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
-
-
 
             return model;
         }
@@ -1860,6 +1844,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return "";
+        }
+        public string AccionControlador(string tipo, int isControlador = 0)
+        {
+            var accion = "";
+            var controlador = "";
+            try
+            {
+                tipo = Util.Trim(tipo);
+                if (tipo.ToLower() == "sr")
+                {
+                    controlador = isControlador == 1 ? "ShowRoom" : "";
+                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                        accion = "Index";
+                    else
+                        accion = "Intriga";
+
+                }
+                return controlador + (controlador == "" ? "" : "/") + accion;
+
+            }
+            catch (Exception)
+            {
+                return accion;
+            }
         }
     }
 }

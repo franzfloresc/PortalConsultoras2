@@ -602,87 +602,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (oBEUsuario.OfertaDelDia)
                         {
-                            var lstOfertaDelDia = new List<BEEstrategia>();
-                            using (PedidoServiceClient svc = new PedidoServiceClient())
-                            {
-                                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
-                            }
-
-                            if (lstOfertaDelDia.Any())
-                            {
-                                var configOfertaDelDia = new List<BETablaLogicaDatos>();
-                                using (SACServiceClient svc = new SACServiceClient())
-                                {
-                                    configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
-                                }
-
-                                if (configOfertaDelDia.Any())
-                                {
-                                    var ofertaDelDia = lstOfertaDelDia[0];
-                                    var arr1 = ofertaDelDia.DescripcionCUV2.Split('|');
-                                    var nombreODD = arr1[0].Trim();
-                                    var descripcionODD = string.Empty;
-
-                                    for (int i = 1; i < arr1.Length; i++)
-                                    {
-                                        if (!string.IsNullOrEmpty(arr1[i]))
-                                            descripcionODD += arr1[i].Trim() + "|";
-                                    }
-
-                                    descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
-
-                                    var countdown = CountdownODD(model);
-                                    var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
-                                    var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
-                                    var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
-                                    //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
-                                    //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, ofertaDelDia.ImagenURL);
-                                    var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
-                                    var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
-                                    descripcionODD = descripcionODD.Replace("|", " +<br />");
-                                    descripcionODD = descripcionODD.Replace("\\", "");
-                                    descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
-
-                                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-
-                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
-                                    ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
-                                    var imgBanner = ofertaDelDia.FotoProducto01;
-                                    var imgDisplay = ofertaDelDia.FotoProducto01;
-
-                                    var oddModel = new OfertaDelDiaModel();
-                                    oddModel.CodigoIso = model.CodigoISO;
-                                    oddModel.TipoEstrategiaID = ofertaDelDia.TipoEstrategiaID;
-                                    oddModel.EstrategiaID = ofertaDelDia.EstrategiaID;
-                                    oddModel.MarcaID = ofertaDelDia.MarcaID;
-                                    oddModel.CUV2 = ofertaDelDia.CUV2;
-                                    oddModel.LimiteVenta = ofertaDelDia.LimiteVenta;
-                                    oddModel.IndicadorMontoMinimo = ofertaDelDia.IndicadorMontoMinimo;
-                                    oddModel.TipoEstrategiaImagenMostrar = ofertaDelDia.TipoEstrategiaImagenMostrar;
-                                    oddModel.TeQuedan = countdown;
-                                    oddModel.ImagenFondo1 = imgF1;
-                                    oddModel.ColorFondo1 = colorF1;
-                                    oddModel.ImagenBanner = imgBanner;
-                                    oddModel.ImagenSoloHoy = imgSh;
-                                    oddModel.ImagenFondo2 = imgF2;
-                                    oddModel.ColorFondo2 = colorF2;
-                                    oddModel.ImagenDisplay = imgDisplay;
-                                    oddModel.NombreOferta = nombreODD;
-                                    oddModel.DescripcionOferta = descripcionODD;
-                                    oddModel.PrecioOferta = ofertaDelDia.Precio2;
-                                    oddModel.PrecioCatalogo = ofertaDelDia.Precio;
-
-                                    model.TieneOfertaDelDia = true;
-                                    //Session["OfertaDelDia"] = oddModel;
-                                    //Session["CloseODD"] = false;
-                                    model.OfertaDelDia = oddModel;
-                                    //model.IdTipoEstrategiaODD = ofertaDelDia.TipoEstrategiaID;
-                                    //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
-
-                                }// config ODD
-                            }// list ODD
-
-                            /*PL20-1226*/
+                            model.OfertasDelDia = GetOfertaDelDiaModel(model);
+                            model.TieneOfertaDelDia = model.OfertasDelDia.Any();
+                            //model.OfertaDelDia = model.OfertasDelDia[0];
                         }
                     }
                 }
@@ -1106,6 +1028,95 @@ namespace Portal.Consultoras.Web.Controllers
 
             TimeSpan t2 = (d2 - hoy);
             return t2;
+        }
+
+        private List<OfertaDelDiaModel> GetOfertaDelDiaModel(UsuarioModel model)
+        {
+            var listaOdd = new List<OfertaDelDiaModel>();
+            var lstOfertaDelDia = new List<BEEstrategia>();
+            using (PedidoServiceClient svc = new PedidoServiceClient())
+            {
+                lstOfertaDelDia = svc.GetEstrategiaODD(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.FechaInicioCampania.Date).ToList();
+            }
+
+            if (!lstOfertaDelDia.Any())
+                return listaOdd;
+
+            var configOfertaDelDia = new List<BETablaLogicaDatos>();
+            using (SACServiceClient svc = new SACServiceClient())
+            {
+                configOfertaDelDia = svc.GetTablaLogicaDatos(model.PaisID, 93).ToList();
+            }
+
+            if (!configOfertaDelDia.Any())
+                return listaOdd;
+
+            foreach (var odd in lstOfertaDelDia)
+            {
+                var oddModel = new OfertaDelDiaModel();
+                var arr1 = odd.DescripcionCUV2.Split('|');
+                var nombreODD = arr1[0].Trim();
+                var descripcionODD = string.Empty;
+
+                for (int i = 1; i < arr1.Length; i++)
+                {
+                    if (!string.IsNullOrEmpty(arr1[i]))
+                        descripcionODD += arr1[i].Trim() + "|";
+                }
+
+                descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+
+                var countdown = CountdownODD(model);
+                var imgF1 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo1ODD"), model.CodigoISO);
+                var imgF2 = string.Format(ConfigurationManager.AppSettings.Get("UrlImgFondo2ODD"), model.CodigoISO);
+                var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
+                //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, odd.ImagenURL);
+                //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, odd.ImagenURL);
+                var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
+                var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
+                descripcionODD = descripcionODD.Replace("|", " +<br />");
+                descripcionODD = descripcionODD.Replace("\\", "");
+                descripcionODD = descripcionODD.Replace("(GRATIS)", "<b>GRATIS</b>");
+
+                var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+
+                odd.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, odd.FotoProducto01, carpetaPais);
+                odd.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, odd.ImagenURL, carpetaPais);
+                var imgBanner = odd.FotoProducto01;
+                var imgDisplay = odd.FotoProducto01;
+
+                oddModel.CodigoIso = model.CodigoISO;
+                oddModel.TipoEstrategiaID = odd.TipoEstrategiaID;
+                oddModel.EstrategiaID = odd.EstrategiaID;
+                oddModel.MarcaID = odd.MarcaID;
+                oddModel.CUV2 = odd.CUV2;
+                oddModel.LimiteVenta = odd.LimiteVenta;
+                oddModel.IndicadorMontoMinimo = odd.IndicadorMontoMinimo;
+                oddModel.TipoEstrategiaImagenMostrar = odd.TipoEstrategiaImagenMostrar;
+                oddModel.TeQuedan = countdown;
+                oddModel.ImagenFondo1 = imgF1;
+                oddModel.ColorFondo1 = colorF1;
+                oddModel.ImagenBanner = imgBanner;
+                oddModel.ImagenSoloHoy = imgSh;
+                oddModel.ImagenFondo2 = imgF2;
+                oddModel.ColorFondo2 = colorF2;
+                oddModel.ImagenDisplay = imgDisplay;
+                oddModel.NombreOferta = nombreODD;
+                oddModel.DescripcionOferta = descripcionODD;
+                oddModel.PrecioOferta = odd.Precio2;
+                oddModel.PrecioCatalogo = odd.Precio;
+
+                oddModel.TieneOfertaDelDia = true;
+                //Session["OfertaDelDia"] = oddModel;
+                //Session["CloseODD"] = false;
+                //model.OfertaDelDia = oddModel;
+                //model.IdTipoEstrategiaODD = odd.TipoEstrategiaID;
+                //model.LimiteVentaOfertaDelDia = oddModel.LimiteVenta;
+
+                /*PL20-1226*/
+                listaOdd.Add(oddModel);
+            }
+            return listaOdd;
         }
 
         [AllowAnonymous]
