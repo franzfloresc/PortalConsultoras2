@@ -86,8 +86,6 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
             htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
 
-            //emailTo = "vmarinoalvarez@gmail.com";
-
             try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, "Somos Belcorp"); }
             catch { }
         }
