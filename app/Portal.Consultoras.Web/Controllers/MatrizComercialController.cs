@@ -410,12 +410,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImagesBySapCode(int paisID, string sapCode)
+        public JsonResult GetImagesBySapCode(int paisID, string sapCode, int pagina, int registros)
         {
             List<BEMatrizComercialImagen> lst;
+            int totalRegistros = 0;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode).ToList();
+                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode, pagina, registros, out totalRegistros).ToList();
             }
 
             string paisISO = Util.GetPaisISO(paisID);
