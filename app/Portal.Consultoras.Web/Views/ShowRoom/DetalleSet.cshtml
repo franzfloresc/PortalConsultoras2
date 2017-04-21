@@ -28,16 +28,16 @@
     <div class="content_belcorp">
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display: none;">
-                <input type="hidden" class="CUV" value="@Model.CUV"/>
+                <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV"/>
                 <input type="hidden" class="rsFBMensaje" value="@Model.FBMensaje"/>
                 <input type="hidden" class="rsFBRuta" value="@Model.FBRuta"/>
                 <input type="hidden" class="rsWAMensaje" value="@Model.FBMensaje"/>
                 <input type="hidden" class="rsWARuta" value="@Model.FBRuta"/>
                 <input type="hidden" class="rsFBRutaImagen" value="@Model.ImagenProducto"/>
                 <input type="hidden" class="rsWARutaImagen" value="@Model.ImagenProducto"/>
-                <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+                <input type="hidden" id="hnombrecuv" class="Nombre" value="@Model.Descripcion" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID"/>
-                <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca"/>
+                <input type="hidden" id="hmarca" class="MarcaNombre" value="@Model.DescripcionMarca"/>
                 <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion"/>
                 <input type="hidden" class="Palanca" value="SR"/>
             </div>
@@ -60,7 +60,7 @@
                     <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
                     <input type="hidden" class="valorCuv" value="@Model.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
-                    <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+                    <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
                     <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
                     <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
                     <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
@@ -74,6 +74,7 @@
                     <div class="precio_oferta_venta">
                         Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b>
                     </div>
+                    
                     <div class="ganancia_showroom">Gana @Model.Simbolo @Model.FormatoGana</div>
                 </div>
                 <hr class="clear" />
@@ -187,12 +188,12 @@
                <div class="set-productos-showroom-carrusel" data-item="@oferta.OfertaShowRoomID">
                    <div data-campos="">
                        <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID"/>
-                       <input type="hidden" class="valorCuv" value="@oferta.CUV"/>
+                       <input type="hidden" id="hcuv" class="valorCuv" value="@oferta.CUV"/>
                        <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID"/>
-                       <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioCatalogo"/>
+                       <input type="hidden" id="hprecio" class="clasePrecioUnidad" value="@oferta.PrecioCatalogo"/>
                        <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID"/>
-                       <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion"/>
-                       <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
+                       <input type="hidden" id="hnombrecuv" class="DescripcionProd" value="@oferta.Descripcion"/>
+                       <input type="hidden" id="hmarca" class="DescripcionMarca" value="@oferta.DescripcionMarca"/>
                        <input type="hidden" class="posicionEstrategia" value="@posicionx"/>
                    </div>
                    <div class="producto_img_home mini" data-img="">
@@ -327,5 +328,6 @@
         var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPage';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageTactica';
         var origenPedidoWebCarrusel = '@Constantes.OrigenPedidoWeb.DesktopShowRoomProductPageCarrusel';
+
     </script>
 }

@@ -9,12 +9,40 @@ var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
+    debugger;
     if (tipoOrigenPantalla == 11) {
+        debugger;
+        var prhidcuv = $("#hcuv").val();
+        var prhidnombre = $("#hnombrecuv").val();
+        var prhidmarca = $("#hmarca").val();
+        var prhidprecio = $("#hprecio").val();
+
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas Showroom' },
+                    'products': [
+                        {
+                            'name': prhidnombre,
+                            'id': prhidcuv,
+                            'price': prhidprecio,
+                            'brand': prhidmarca,
+                            'category': 'NO DISPONIBLE',
+                            'position': 0
+                        }
+                    ]
+                }
+            }
+        });
+
+
         $(".verDetalleCompraPorCompra").click(function () {
+            debugger;
             var padre = $(this).parents("[data-item]")[0];
             var article = $(padre).find("[data-campos]").eq(0);
             var posicion = $(article).find(".posicionEstrategia").val();
-
+            debugger;
             $("#PopDetalleCompra").show();
 
             $('.content_carrusel_pop_compra.slick-initialized').slick('unslick');
@@ -130,9 +158,37 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
         });
+
+        //$(".swproddetcompraimg").on("click", function () {
+            debugger;
+            var pofertaid = $("#swdeteventoofertaid").val();
+            var pofertaDescripion = $("#swdetdescripcion").val();
+            var pofertaPrecio = $("#swdetprecio").val();
+            var pofertaMarca = $("#swdetmarca").val();
+
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Ofertas Showroom' },
+                        'products': [{
+                            'name': pofertaDescripion,
+                            'id': pofertaid,
+                            'price': pofertaPrecio,
+                            'brand': pofertaMarca,
+                            'category': 'NO DISPONIBLE',
+                            'position': 1
+
+                        }]
+                    }
+                }
+            });
+        //});
+       
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
+        debugger;
         var padre = $(this).parents("[data-item]");        
         var article = $(padre).find("[data-campos]").eq(0);
         var cantidad = $(padre).find("[data-input='cantidad']").val();
@@ -162,11 +218,18 @@ $(document).ready(function () {
         AgregarOfertaShowRoomCpc(article, cantidad);
         e.preventDefault();
         (this).blur();
-    });    
+    });
+
+
+  
+
+        
+
 
 });
 
 function CargarProductosShowRoom(busquedaModel) {
+    debugger;
     //AbrirLoad();
     $.ajaxSetup({
         cache: false
@@ -183,7 +246,7 @@ function CargarProductosShowRoom(busquedaModel) {
         async: true,
         success: function (response) {
             //CerrarLoad();
-
+            debugger;
             if (response.success == true) {
                 var lista = response.lista;
 
@@ -200,6 +263,7 @@ function CargarProductosShowRoom(busquedaModel) {
                         : value.Descripcion;
                     }
                     
+                       
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
                     value.Descripcion = descripcion;
@@ -225,6 +289,7 @@ function CargarProductosShowRoom(busquedaModel) {
 }
 
 function AgregarOfertaShowRoom(article, cantidad) {
+    debugger;
     var CUV = $(article).find(".valorCuv").val();
     var MarcaID = $(article).find(".claseMarcaID").val();
     var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
@@ -232,6 +297,26 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
+    debugger;
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas ShowRoom' },
+                'products': [{
+                    'name': nombreProducto,
+                    'id': CUV,
+                    'price': PrecioUnidad,
+                    'brand': descripcionMarca,
+                    'variant': 'Ofertas ShowRoom',
+                    'category': 'NO DISPONIBLE',
+                    'quantity':cantidad
+                }]
+            }
+        }
+    });
+
+
 
     var origen;
     if (posicion != "0") {
