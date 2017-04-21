@@ -197,6 +197,28 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public IDataReader GetUsuarioPostulanteEmail(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioPostulanteEmail");
+            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int InsLogEnvioEmailConsultora(BEConsultoraEmail entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsLogEnvioEmails");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.Codigo);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, entidad.CodigoZona);
+            Context.Database.AddInParameter(command, "@FlgEnvio", DbType.Int16, 0);
+            Context.Database.AddInParameter(command, "@ConsecutivoNueva", DbType.Int16, -1);
+            Context.Database.AddInParameter(command, "@EstadoEnvio", DbType.Int16, 1);
+            Context.Database.AddInParameter(command, "@EsPostulante", DbType.Int16, entidad.EsPostulante);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         //1796 Inicio 
         public int UpdUsuarioRechazarInvitacion(string CodigoUsuario)
         {
