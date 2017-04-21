@@ -6,8 +6,9 @@ $(document).ready(function () {
     $(".footer_e").css("margin-bottom", "73px");
 
     $(".seleccion_filtro_fav").on("click", function () {
-
+        debugger;
         $(this).toggleClass("seleccion_click_flitro");
+        var x = $(this);
     });
 
     TagManagerOfertaShowRoom();
@@ -120,9 +121,14 @@ $(document).ready(function () {
     } else {
         $("#divBannerCompraPorCompra").show();
     }
+
+    $(".swproddetcompra").on("click", function () {
+
+    });
 });
 
 function ObtenerProductosShowRoom() {
+    debugger;
     var busquedaModel = filterShowRoomDesktop();
     CargarProductosShowRoom(busquedaModel);
 }
@@ -169,6 +175,7 @@ function CargarFiltroRangoPrecio() {
 }
 
 function filterShowRoomDesktop() {
+    debugger;
     var busquedaModel = null;
     var mostrarBorrarFiltros = false;
    
@@ -190,11 +197,22 @@ function filterShowRoomDesktop() {
     var valores = new Array();
 
     var seleccionado = false;
-    $.each($("[data-filtro-categoria]"), function (index, value) {               
+    $.each($("[data-filtro-categoria]"), function (index, value) {
+        debugger;
         if ($(value).hasClass("seleccion_click_flitro")) {
             seleccionado = true;
             var valor = $(value).attr("data-categoriacodigo");
+            var descripcion = $('.seleccion_filtro_fav.seleccion_click_flitro').html();
+            var etiqueta = $('.titulo_filtro_fav').html();
             valores.push(valor);
+
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas ShowRoom',
+                'action': etiqueta,
+                'label': descripcion
+            });
+
         }        
     });
 

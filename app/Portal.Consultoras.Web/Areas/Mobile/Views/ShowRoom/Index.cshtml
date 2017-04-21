@@ -309,9 +309,9 @@
 <script id="template-showroom" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div class="content_item_home" style="position: relative;">
-        <div class="liquidacion_item" data-posicion="{{Posicion}}">
-            <div class="producto_img_mobile">
-                <a class="btnVerDetalleOfertaShowRoom" href="{{UrlDetalle}}">
+        <div class="liquidacion_item swvdetalle" data-posicion="{{Posicion}}">
+            <div class="producto_img_mobile swproddetcompra">
+                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}">
                     {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
                     {{else}}
@@ -319,6 +319,11 @@
                     {{/IsNullOrEmpty}}
                 </a>
             </div>
+            <input type="hidden" id="hdswventaID" value="{{OfertaShowRoomID}}" />
+            <input type="hidden" id="hdswventaDescripcion" value="{{Descripcion}}" />
+            <input type="hidden" id="hdswventaprecio" value="{{FormatoPrecioCatalogo}}" />
+            <input type="hidden" id="hdswventaposicion" value="{{Posicion}}" />
+            <input type="hidden" id="hdswventamarca" value="{{DescripcionMarca}}" />
             <div class="producto_nombre_descripcion">
                 <p class="nombre_producto" style="cursor: pointer; height: 36px;">
                     <b>{{Descripcion}}</b>
@@ -352,6 +357,12 @@
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
+
+     
+
+
+
+
     </script>
     
 }
