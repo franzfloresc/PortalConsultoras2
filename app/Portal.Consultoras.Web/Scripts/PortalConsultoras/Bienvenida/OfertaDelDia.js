@@ -13,7 +13,7 @@ $(document).ready(function () {
     ODDCargarEventos();
 });
 
-function loadOfertaDelDia() {
+function ODDCargar() {
     if (($('#OfertaDelDia') || new Array()).length == 0)
         return false;
     
@@ -48,7 +48,8 @@ function loadOfertaDelDia() {
 
             _data.Simbolo = vbSimbolo;
             _data.ClassDimension = _data.CantidadProducto < 3 ? "content_780_ODD" : "";
-            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER OFERTAS DEL DÍA" : "VER DETALLE"
+            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER OFERTAS DEL DÍA" : "VER DETALLE";
+            _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
             console.log(_data);
             var idOdd = '#OfertaDelDia';
             SetHandlebars("#ofertadeldia-template", _data, idOdd);
@@ -86,8 +87,8 @@ function loadOfertaDelDia() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -7%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -7%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
             }
@@ -110,8 +111,8 @@ function loadOfertaDelDia() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -10%; top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -10%; text-align:right;  top: 35%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#divOddCarruselDetalle').slick('slickGoTo', 0);
                 $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();
@@ -121,35 +122,10 @@ function loadOfertaDelDia() {
 
             $('#PopOfertaDia').hide();
 
+            LayoutHeader();
+
             //var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
             //obj1.html(obj1.text());
-
-            // distribucion de html de cabecera y contenido
-            //var wh = $("header").height();
-            //$('#contentmain').css('top', wh + 'px');
-            //var position = $('#contentmain').position();
-            //if (position.top != wh) {
-            //    $('#contentmain').css('margin-top', wh + 'px');
-            //}
-            //$('.content_slider_home').css('margin-top', wh + 'px');
-            //if (MostrarODD == "True") {
-            //    $('.ubicacion_web').css('margin-top', '85px');
-            //} else {
-            //    $('.ubicacion_web').css('margin-top', '185px');
-            //}
-
-            //var intv1 = setInterval(function () {
-            //    if ($('#OfertaDelDia:visible').length > 0) {
-            //        if ($('.content_banner_intriga').length > 0) {
-            //            $('.ubicacion_web').css('margin-top', '162px');
-            //        }
-            //        else {
-            //            $('.ubicacion_web').css('margin-top', '185px');
-            //        }
-
-            //        clearInterval(intv1);
-            //    }
-            //}, 300);
 
             var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                 clockFace: 'HourlyCounter',
@@ -355,16 +331,7 @@ function closeOfertaDelDia() {
             if (response.success) {
                 $('#OfertaDelDia').hide();
 
-                $("#contentmain").css("margin-top", "63px")
-
-                $('.content_slider_home ').css('margin-top', '60px');
-
-                if ($('.content_banner_intriga').length > 0) {
-                    $('.ubicacion_web ').css('margin-top', '62px');
-                }
-                else {
-                    $('.ubicacion_web ').css('margin-top', '83px');
-                }
+                LayoutHeader();
             }
         },
         error: function (err) {

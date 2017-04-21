@@ -2660,9 +2660,11 @@
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
+    <Content Include="Content\Images\PL20\left_compra.png" />
     <Content Include="Content\Images\PL20\mas.png" />
     <Content Include="Content\Images\PL20\menos.png" />
     <Content Include="Content\Images\PL20\regresar.png" />
+    <Content Include="Content\Images\PL20\right_compra.png" />
     <Content Include="Content\Images\PL20\set_hoy.png" />
     <Content Include="Content\Images\PL20\solo_hoy.png" />
     <Content Include="Content\Images\PL20\textura_fondo.png" />

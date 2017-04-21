@@ -19,6 +19,7 @@
     <link href="@Url.Content("~/Content/Css/Mobile/esika/slick.css")" rel="stylesheet" />
 }
 <div class="content_banner_header_showroom">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
     <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
     <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
@@ -84,6 +85,12 @@
             <a class="boton_Agregalo_home" href="javascript: void(0);">
                 AGRÉGALO
             </a>
+            <div style="padding-top: 9px; height: 30px;">
+                <div class="agregado product-add" style="text-align: right; display: @Model.Agregado;">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>       
         <div>
             <div class="producto_faltante">
@@ -208,6 +215,7 @@
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    $(".agregado").show();
                                     CloseLoading();
                                 }
                                 else messageInfoError(response.message);
