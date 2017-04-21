@@ -53,21 +53,23 @@
         });
     };
 
-    var _editar = function (id, flagTransaccion, CUV) {
+    var _editar = function (id, flagTransaccion) {
         $("#hdFlagTransaccion").val(flagTransaccion == '0' ? '0' : '1');
 
         var editData = {
             pais: paisNombre,
             codigoSAP: getCell(id, 'CodigoSAP'),
             descripcionOriginal: getCell(id, 'DescripcionOriginal'),
-            descripcion: getCell(id, 'Descripcion'),
-            CUV: CUV,
             imagenes: []
         };
 
         _obtenerImagenesByCodigoSap(editData.codigoSAP).done(_obtenerImagenesSuccess(editData));
 
         return false;
+    };
+
+    var _actualizarMatrizComercial = function () {
+
     };
 
     return {

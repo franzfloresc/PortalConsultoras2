@@ -108,7 +108,6 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    a.IdMatrizComercial.ToString(),
                                    a.CodigoSAP.ToString(),
-                                   a.CUV,
                                    a.DescripcionOriginal.ToString(),
                                    a.Descripcion.ToString(),
                                    /*,
