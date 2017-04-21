@@ -62,6 +62,7 @@
     <Compile Include="ClienteService.cs" />
     <Compile Include="ConsultoraWebService.cs" />
     <Compile Include="ContenidoService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="ODSService.cs">
       <SubType>Code</SubType>
     </Compile>

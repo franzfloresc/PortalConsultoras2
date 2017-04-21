@@ -27,6 +27,7 @@
     <DeployOnBuild Condition=" '$(DeployWS)'!='' ">$(DeployWS)</DeployOnBuild>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -101,6 +102,7 @@
     <Content Include="ClienteService.svc" />
     <Content Include="ConsultoraWebService.svc" />
     <Content Include="ContenidoService.svc" />
+    <Content Include="MenuService.svc" />
     <Content Include="ODSService.svc" />
     <Content Include="PedidoService.svc" />
     <Content Include="SACService.svc" />

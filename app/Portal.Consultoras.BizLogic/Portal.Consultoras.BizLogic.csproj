@@ -137,6 +137,7 @@
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
     <Compile Include="BLMensajeMetaConsultora.cs" />
+    <Compile Include="BLMenuApp.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
     <Compile Include="BLConsultoraOnline.cs" />
