@@ -2059,7 +2059,7 @@ namespace Portal.Consultoras.BizLogic
             return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
         }
 
-        protected string ValidarHorarioRestringido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        private string ValidarHorarioRestringido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
         {            
             var pais = new BLZonificacion().SelectPais(paisID);
             BEConfiguracionCampania configuracion = null;

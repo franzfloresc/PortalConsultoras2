@@ -513,5 +513,10 @@ namespace Portal.Consultoras.Common
             public const string Lbel = "http://www.lbel.com";
             public const string Cyzone = "http://www.cyzone.com";
         }
+
+        public class MensajesError
+        {
+            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+        }
     }
 }

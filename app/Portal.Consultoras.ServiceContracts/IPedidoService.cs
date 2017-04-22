@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1018,5 +1019,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+
+        [OperationContract]
+        int InsertarDesglose(BEInputReservaProl input);
     }
 }

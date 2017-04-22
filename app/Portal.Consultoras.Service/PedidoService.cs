@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.Service
 {
@@ -1863,6 +1864,16 @@ namespace Portal.Consultoras.Service
         public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EjecutarReservaProl(input);
+        }
+
+        public int InsertarDesglose(BEInputReservaProl input)
+        {
+            return new BLReservaProl().InsertarDesglose(input);
         }
     }
 }
