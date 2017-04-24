@@ -1287,6 +1287,10 @@ namespace Portal.Consultoras.BizLogic
                                         //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
                                     }
+                                    else
+                                    {
+                                        throw new Exception("No se encontro la ruta del template: " + pathTemplate);
+                                    }
                                 }// consultoraEmail
                             }
                             
@@ -1296,7 +1300,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-
+                LogManager.SaveLog(ex, "", paisISO);
             }
 
             return r;
