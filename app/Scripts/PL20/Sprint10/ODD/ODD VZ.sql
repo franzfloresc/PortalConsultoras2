@@ -52,7 +52,7 @@ INNER JOIN ods.Campania ca ON e.CampaniaID = ca.Codigo
 INNER JOIN ods.OfertasPersonalizadas op ON ca.Codigo = op.AnioCampanaVenta
 	AND e.CUV2 = op.CUV 
 	AND op.TipoPersonalizacion = 'ODD'
-INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
+--INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 INNER JOIN ods.ProductoComercial pc ON ca.CampaniaID = pc.CampaniaID 
 	AND e.CUV2 = pc.CUV
 WHERE
@@ -60,6 +60,6 @@ WHERE
 	AND te.FlagActivo = 1
 	AND te.flagRecoPerfil = 1
 	AND ca.Codigo = @CodCampania
-	AND c.Codigo = @CodConsultora
+	AND op.CodConsultora = @CodConsultora
 	AND DATEDIFF(dd,GETDATE(),DATEADD(dd,op.DiaInicio,CAST(@FechaInicioFact AS DATE))) = 0
 	

@@ -40,6 +40,8 @@ function ODDCargar() {
             if (tq.TotalSeconds <= 0)
                 return false;
 
+            //_data.ListaOfertas = _data.ListaOfertas.splice(0, 2);
+
             var lista = _data.ListaOfertas || new Array();
             _data.CantidadProducto = lista.length;
 
@@ -48,7 +50,7 @@ function ODDCargar() {
 
             _data.Simbolo = vbSimbolo;
             _data.ClassDimension = _data.CantidadProducto < 3 ? "content_780_ODD" : "";
-            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER OFERTAS DEL DÍA" : "VER DETALLE";
+            _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER MÁS OFERTAS" : "VER DETALLE";
             _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
             console.log(_data);
             var idOdd = '#OfertaDelDia';
@@ -59,12 +61,12 @@ function ODDCargar() {
 
             if (_data.CantidadProducto == 1) {
                 $(idOdd + ' [data-odd-accion="regresar"]').hide();
-                $(idOdd + ' [data-odd-texto="cliente"]').hide();
+                //$(idOdd + ' [data-odd-texto="cliente"]').hide();
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').show();
             }
             else {
                 $(idOdd + ' [data-odd-accion="regresar"]').show();
-                $(idOdd + ' [data-odd-texto="cliente"]').show();
+                //$(idOdd + ' [data-odd-texto="cliente"]').show();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
             }
             
@@ -87,8 +89,8 @@ function ODDCargar() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
             }
@@ -111,22 +113,17 @@ function ODDCargar() {
                     slidesToScroll: 1,
                     autoplay: false,
                     speed: 260,
-                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 45%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+                    prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+                    nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
                 });
                 $('#divOddCarruselDetalle').slick('slickGoTo', 0);
                 $('#PopOfertaDia [data-odd-tipoventana="detalle"]').hide();
-
-                //$('.content_carrusel_pop_compra').slick('slickGoTo', parseInt(posicion) - 1);
             }
 
             $('#PopOfertaDia').hide();
 
             LayoutHeader();
-
-            //var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
-            //obj1.html(obj1.text());
-
+            
             var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                 clockFace: 'HourlyCounter',
                 countdown: true
@@ -187,11 +184,17 @@ function ODDCargarEventos() {
 
 function ADDAgregar(btn) {
 
+    waitingDialog();
+
     if (ReservadoOEnHorarioRestringido())
+    {
+        closeWaitingDialog();
         return false;
+    }
 
     if (!checkCountdownODD()) {
         alert_msg_pedido('La Oferta del Día se termino');
+        closeWaitingDialog();
         return false;
     }
 
@@ -200,7 +203,8 @@ function ADDAgregar(btn) {
     var cantidad = parseInt(item.find('.txtcantidad-odd').val());
     if (cantidad <= 0) {
         alert_msg_pedido("Ingrese la cantidad a solicitar");
-        return;
+        closeWaitingDialog();
+        return false;
     }
 
     var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
@@ -208,7 +212,8 @@ function ADDAgregar(btn) {
     if (cantidad > limiteVenta) {
         $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
         $('#dialog_ErrorMainLayout').show();
-        return;
+        closeWaitingDialog();
+        return false;
     }
 
     var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
@@ -232,7 +237,8 @@ function ADDAgregar(btn) {
         if (tqty > limiteVenta) {
             $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
             $('#dialog_ErrorMainLayout').show();
-            return;
+            closeWaitingDialog();
+            return false;
         }
     }
 
@@ -249,7 +255,6 @@ function ADDAgregar(btn) {
         OrigenPedidoWeb: origenPedidoWeb
     });
 
-    waitingDialog();
 
     jQuery.ajax({
         type: 'POST',
@@ -283,13 +288,15 @@ function ADDAgregar(btn) {
                         return false;
                     }
 
+                    agregarProductoAlCarrito(btn);
+
                     waitingDialog();
                     if (typeof origenPagina !== 'undefined') {
                         MostrarBarra(data, '1');
                         ActualizarGanancia(data.DataBarra);
                         TagManagerClickAgregarProducto();
                     }
-
+                    
                     CargarResumenCampaniaHeader(true);
                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                     closeWaitingDialog();

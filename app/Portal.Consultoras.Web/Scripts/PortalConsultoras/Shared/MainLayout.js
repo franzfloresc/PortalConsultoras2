@@ -1026,7 +1026,9 @@ function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
-
+    if (imagenProducto.length == 0) {
+        imagenProducto = $('.imagen_producto', $(o).parents("[data-item]"));
+    }
     if (imagenProducto.length > 0) {
         var carrito = $('.campana');
 
