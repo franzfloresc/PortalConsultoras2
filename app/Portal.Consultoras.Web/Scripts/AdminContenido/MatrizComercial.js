@@ -68,7 +68,7 @@
 
     var _updateImageListOnUpload = function (imageElementId, response) {
         if (response.isNewImage) {
-            _editData.imagenes.push({ Foto: response.foto, IdMatrizComercialImagen: response.idMatrizComercialImagen });
+            _editData.imagenes.unshift({ Foto: response.foto, IdMatrizComercialImagen: response.idMatrizComercialImagen });
             _refreshImageList(_editData);
         } else {
             $('#' + imageElementId).attr('src', response.foto);
