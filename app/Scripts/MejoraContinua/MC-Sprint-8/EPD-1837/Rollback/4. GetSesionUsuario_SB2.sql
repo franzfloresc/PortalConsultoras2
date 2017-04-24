@@ -1,7 +1,8 @@
-USE [BelcorpBolivia]
+
+USE BelcorpBolivia
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 
 	@CodigoConsultora varchar(25)
 
@@ -628,14 +629,19 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpChile]
+USE BelcorpChile
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 
 	@CodigoConsultora varchar(25)
 
@@ -1300,14 +1306,19 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpColombia]
+USE BelcorpColombia
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -1979,14 +1990,21 @@ BEGIN
 	END
 
 END
+
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpCostaRica]
+USE BelcorpCostaRica
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -2666,14 +2684,20 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpDominicana]
+USE BelcorpDominicana
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 
 	@CodigoConsultora varchar(25)
 
@@ -3348,14 +3372,20 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpEcuador]
+USE BelcorpEcuador
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2] 
+
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2 
 
  @CodigoConsultora varchar(25)  
 
@@ -3981,14 +4011,19 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpGuatemala]
+USE BelcorpGuatemala
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 
 	@CodigoConsultora varchar(25)
 
@@ -4035,6 +4070,11 @@ BEGIN
 	declare @IndicadorPermiso int
 
 	declare @CodigoFicticio varchar(20)
+
+	declare @UltimaCampanaFacturada int
+	
+	declare @CodUltimaCampFact int
+
 
 	select TOP 1 @UsuarioPrueba = ISNULL(UsuarioPrueba,0),
 
@@ -4122,7 +4162,9 @@ BEGIN
 
 			@RegionID = IsNull(RegionID,0),
 
-			@ConsultoraID = IsNull(ConsultoraID,0)
+			@ConsultoraID = IsNull(ConsultoraID,0),
+
+			@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0)
 
 		from ods.consultora with(nolock)
 
@@ -4139,6 +4181,8 @@ BEGIN
 		SET @CompraOfertaEspecial = (SELECT dbo.GetComproOfertaEspecial(@CampaniaID,@ConsultoraID))
 
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
+
+		SET @CodUltimaCampFact = (select campaniaid from ods.campania where codigo = @UltimaCampanaFacturada )
 
 
 
@@ -4170,14 +4214,15 @@ BEGIN
 
 
 
+			/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+
 			SET @FechaLimitePago = (
 
-				SELECT FechaConferencia
+				SELECT FechaLimitePago
 
 				FROM ODS.Cronograma
 
-				WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
-
+				WHERE CampaniaID = @CodUltimaCampFact AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1 
 			)
 
 			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
@@ -4657,14 +4702,20 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpMexico]
+USE BelcorpMexico
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -5339,14 +5390,19 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpPanama]
+USE BelcorpPanama
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -6028,13 +6084,19 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
-USE [BelcorpPeru]
+
+USE BelcorpPeru
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -6077,6 +6139,10 @@ BEGIN
 	declare @RegionID int
 
 	declare @ConsultoraID bigint
+
+	declare @UltimaCampanaFacturada int
+	
+	declare @CodUltimaCampFact int
 
 
 
@@ -6170,7 +6236,9 @@ BEGIN
 
 			@RegionID = IsNull(RegionID,0),
 
-			@ConsultoraID = IsNull(ConsultoraID,0)
+			@ConsultoraID = IsNull(ConsultoraID,0),
+
+			@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0)
 
 		from ods.consultora with(nolock)
 
@@ -6189,6 +6257,8 @@ BEGIN
 			SET @IndicadorMeta = (SELECT dbo.GetIndicadorMeta(@ConsultoraID))
 
 			SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
+
+			SET @CodUltimaCampFact = (select campaniaid from ods.campania where codigo = @UltimaCampanaFacturada )
 
 
 
@@ -6220,14 +6290,15 @@ BEGIN
 
 
 
+			/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+
 			SET @FechaLimitePago = (
 
-				SELECT FechaConferencia
+				SELECT FechaLimitePago
 
 				FROM ODS.Cronograma
 
-				WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
-
+				WHERE CampaniaID = @CodUltimaCampFact AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1 
 			)
 
 
@@ -6406,9 +6477,7 @@ BEGIN
 
 			0 as ConsultoraAsociadoID,
 
-			isnull(si.Abreviatura,'Sin Seg.') as SegmentoAbreviatura,
-
-			ISNULL((SELECT 1 FROM UsuarioExterno WHERE CodigoUsuario = u.CodigoUsuario AND Estado = 1),0) as TieneLoginExterno
+			isnull(si.Abreviatura,'Sin Seg.') as SegmentoAbreviatura
 
 		FROM dbo.Usuario u with(nolock)
 
@@ -6616,9 +6685,7 @@ BEGIN
 
 			cons.ConsultoraID as ConsultoraAsociadoID,
 
-			'Sin Seg.' as SegmentoAbreviatura,
-
-			ISNULL((SELECT 1 FROM UsuarioExterno WHERE CodigoUsuario = u.CodigoUsuario AND Estado = 1),0) as TieneLoginExterno
+			'Sin Seg.' as SegmentoAbreviatura
 
 		FROM dbo.Usuario u (nolock)
 
@@ -6659,13 +6726,20 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
-USE [BelcorpPuertoRico]
+
+USE BelcorpPuertoRico
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -7333,13 +7407,21 @@ BEGIN
 	END
 
 END
+
+
+
+
+
 GO
 
 /*end*/
-USE [BelcorpSalvador]
+
+USE BelcorpSalvador
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE dbo.GetSesionUsuario_SB2
 
 	@CodigoConsultora varchar(25)
 
@@ -8014,14 +8096,20 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
 /*end*/
 
-USE [BelcorpVenezuela]
+USE BelcorpVenezuela
 GO
 
-ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
+
+
+CREATE PROCEDURE [dbo].[GetSesionUsuario_SB2]
 
 	@CodigoConsultora varchar(25)
 
@@ -8064,6 +8152,10 @@ BEGIN
 	declare @RegionID int
 
 	declare @ConsultoraID bigint
+
+	declare @UltimaCampanaFacturada int
+	
+	declare @CodUltimaCampFact int
 
 
 
@@ -8151,7 +8243,9 @@ BEGIN
 
 				@RegionID = IsNull(RegionID,0),
 
-				@ConsultoraID = IsNull(ConsultoraID,0)
+				@ConsultoraID = IsNull(ConsultoraID,0),
+
+				@UltimaCampanaFacturada = IsNull(UltimaCampanaFacturada,0)
 
 		from ods.consultora with(nolock)
 
@@ -8171,7 +8265,7 @@ BEGIN
 
 		SET @ODSCampaniaID = (SELECT campaniaID from ods.campania where codigo=@CampaniaID)
 
-
+		SET @CodUltimaCampFact = (select campaniaid from ods.campania where codigo = @UltimaCampanaFacturada )
 
 			-- obtener la ultima CampaniaID( @CampaniaFacturada) de los pedidos facturados
 
@@ -8201,14 +8295,15 @@ BEGIN
 
 
 
+			/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+
 			SET @FechaLimitePago = (
 
-				SELECT FechaConferencia
+				SELECT FechaLimitePago
 
 				FROM ODS.Cronograma
 
-				WHERE CampaniaID=@ODSCampaniaID AND RegionID=@RegionID AND ZonaID = @ZonaID  AND EstadoActivo=1
-
+				WHERE CampaniaID = @CodUltimaCampFact AND RegionID=@RegionID AND ZonaID = @ZonaID AND EstadoActivo=1 
 			)
 
 
@@ -8636,6 +8731,11 @@ BEGIN
 	END
 
 END
+
+
+
+
 GO
 
-/*end*/
+
+
