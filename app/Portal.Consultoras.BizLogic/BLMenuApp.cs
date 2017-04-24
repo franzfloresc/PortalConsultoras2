@@ -8,9 +8,9 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLMenuApp
     {
-        public List<BEMenuApp> GetMenusApp(int paisId)
+        public IList<BEMenuApp> GetMenuApp(int paisId)
         {
-            List<BEMenuApp> listaMenusApp = new List<BEMenuApp>();
+            IList<BEMenuApp> listaMenusApp = new List<BEMenuApp>();
 
             using (IDataReader reader = (new DAMenuApp(paisId)).GetMenusApp())
             {
@@ -26,7 +26,7 @@ namespace Portal.Consultoras.BizLogic
             return listaMenusApp;
         }
 
-        private List<BEMenuApp> ContruirMenus(List<BEMenuApp> listaMenusApp)
+        private IList<BEMenuApp> ContruirMenus(IList<BEMenuApp> listaMenusApp)
         {
             List<BEMenuApp> menus = listaMenusApp.Where(m => m.CodigoMenuPadre.Trim().Equals(string.Empty)).OrderBy(m => m.Orden).ToList();
             List<BEMenuApp> subMenus = listaMenusApp.Where(m => !m.CodigoMenuPadre.Trim().Equals(string.Empty)).ToList();
