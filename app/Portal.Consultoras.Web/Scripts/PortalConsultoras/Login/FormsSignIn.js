@@ -64,6 +64,7 @@ $(document).ready(function () {
         imgISO = $("#ddlPais2").val();
         if (imgISO != "00") $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         else $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+        AsignarHojaEstilos();
     });
     /**/
 
@@ -162,7 +163,6 @@ $(document).ready(function () {
 
     $("#txtUsuario, #txtUsuario2").keypress(
         function (evt) {
-            debugger
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
                 //ValidarAutenticacion();
@@ -416,6 +416,7 @@ function AsignarHojaEstilos() {
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else {
         if (paisesLBel.indexOf(imgISO) != -1) {
@@ -428,6 +429,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         } else {
             if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
@@ -438,6 +440,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
         }
     }
 }
