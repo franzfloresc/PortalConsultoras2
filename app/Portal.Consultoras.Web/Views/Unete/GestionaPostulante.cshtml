@@ -74,6 +74,7 @@
     #Estado {
         width: 100%;
     }
+
 </style>
 @Html.HiddenFor(m => Model.PrefijoISOPais)
 <div class="wrap_cab">
@@ -224,8 +225,8 @@
         <div class="cellGrid " data-colname="CampanaRegistro">{{CampanaRegistro}}</div>
         <div class="cellGrid " data-colname="FuenteIngreso">{{FuenteIngreso}}</div>
         <div class="cellGrid " data-colname="Tipo">{{Tipo}}</div>
-        @*<div class="cellGrid " data-colname="NombreCompleto"><a href="javascript:void(0);" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}');">{{NombreCompleto}}</a></div>*@
-        <div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>
+        <div class="cellGrid " data-colname="NombreCompleto"><a href="javascript:void(0);" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}');">{{NombreCompleto}}</a></div>
+        @*<div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>*@
         <div class="cellGrid " data-colname="TipoDocumento">{{TipoDocumento}}</div>
         <div class="cellGrid " data-colname="NumeroDocumento">{{NumeroDocumento}}</div>
         <div class="cellGrid " data-colname="Correo" style="font-size:10px !important;word-wrap: break-word;">{{Correo}}</div>
@@ -2088,6 +2089,11 @@
         font-size: 10pt;
         color: #000;
         border-bottom: 1px solid #ccc;
+    }
+
+    .estiloMalaZonificacion{
+        color:red;
+        /*background:red;*/
     }
 
     .nombre_cliente_sb {

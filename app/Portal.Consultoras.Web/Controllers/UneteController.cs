@@ -2851,7 +2851,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico,
                     VieneDe = c.VieneDe,
-                    UsuarioModificacion = (c.SubEstadoPostulante != null) ?
+                    RechazadoPor = (c.SubEstadoPostulante != null) ?
                                         ((Enumeradores.TipoSubEstadoPostulanteRechazada)c.SubEstadoPostulante).ToString()
                                         : "",
                 };
@@ -2888,7 +2888,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Estado Postulante", "EstadoPostulante");
                 dic.Add("Dias en Espera", "DiasEnEspera");
-                dic.Add("Rechazó", "UsuarioModificacion");
+                dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
 
@@ -2925,7 +2925,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Tipo Rechazo", "TipoRechazo");
                 dic.Add("Motivo Rechazo", "MotivoRechazo");
-                dic.Add("Rechazó", "UsuarioModificacion");
+                dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Dias en Espera", "DiasEnEspera");
 
                 dic.Add("Num Dias Rechazados", "NumDiasRechazados");
