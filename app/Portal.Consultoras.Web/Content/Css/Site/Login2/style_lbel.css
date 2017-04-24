@@ -227,6 +227,7 @@ span {
 .webForm {
     max-width: 349px;
     padding: 45px 18% 36px;
+    /*background:rgba(0,0,0,0.6)*/
 }
 
     .webForm .title {
@@ -1794,4 +1795,30 @@ h1, h2, h3, h4, h5, h6 {
     /* border-radius: 2px; */
     line-height: 45px;
     font-family: 'Lato';
+}
+.content_foto_face_pop{
+    margin-top:13px;
+    overflow:hidden;
+}
+.foto_pop_face{
+    float:left;
+    border-radius:100px;
+    background:black;
+    width:45px;
+    height:45px;
+    overflow:hidden;
+}
+.foto_pop_face img{
+    width:100%;
+}
+.nombre_usuario_facebook{
+    float:right;
+   width: -moz-calc(100% -55px);
+    width: calc(100% - 55px);
+    width:-webkit-calc(100% - 55px);
+    width: -webkit-calc(~'100% - 55px');
+    font-family:'LAto';
+    font-size:13px;
+    margin-top:15px;
+    color:black;
 }

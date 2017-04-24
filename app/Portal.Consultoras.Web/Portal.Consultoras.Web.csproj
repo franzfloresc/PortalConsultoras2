@@ -1968,6 +1968,7 @@
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
     <Content Include="Content\Images\facebook_share.png" />
+    <Content Include="Content\Images\face_login.png" />
     <Content Include="Content\Images\faq.png" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\filtros_faltantes.png" />
