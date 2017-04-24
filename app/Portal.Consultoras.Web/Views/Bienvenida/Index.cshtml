@@ -61,7 +61,10 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
-            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            @if (ViewBag.TipoUsuario != 2)
+            { 
+                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            }
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -1938,7 +1941,11 @@
 
                                     {{#IsNullOrEmpty item.imagen_gratis '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
+                                        
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
@@ -2072,7 +2079,10 @@
 
                                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>

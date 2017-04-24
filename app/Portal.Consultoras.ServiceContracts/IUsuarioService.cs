@@ -282,5 +282,16 @@ namespace Portal.Consultoras.ServiceContracts
           
         [OperationContract]
         bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+
+        //EPD-1836
+        [OperationContract]
+        int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
+
+        [OperationContract]
+        int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
+
+        //EPD-2058
+        [OperationContract]
+        BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
     }
 }

@@ -646,5 +646,26 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
         }
+
+        //EPD-1836
+        public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
+        {
+            int paisID = GetPaisID(paisISO);
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.InsUsuarioPostulante(paisID, paisISO, entidad);
+        }
+
+        public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
+        {
+            int paisID = GetPaisID(paisISO);
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.DelUsuarioPostulante(paisID, numeroDocumento);
+        }
+
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
+        }
     }
 }

@@ -287,6 +287,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (Session["UserData"] != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
+                int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
+                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim(); 
+
                 ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
                 ViewBag.AnalyticsCampania = userData.CampaniaID;
