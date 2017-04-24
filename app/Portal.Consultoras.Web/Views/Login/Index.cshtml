@@ -52,6 +52,7 @@
         letter-spacing: 0.8px;
         /*text-transform: uppercase;*/
         overflow: hidden;
+        cursor:pointer;
     }
 
         .loginBtn--facebook:before {
@@ -93,6 +94,8 @@
         height: 48px;
         overflow: hidden;
         border-radius: 3px;
+        margin-top: 33px;
+         margin-bottom: 4px;
     }
 
     .imagen_perfil_facebook {
@@ -497,28 +500,26 @@
 
         <!--LOGIN EXTERNO -->
         <div class="formbtn" style="float: none;">
-            <br />
-            <br />
+            
             <div id="cambcuentaboton" >
                 <div>
                     <img id="imgFotoPerfil" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px;" />
                 </div>
-                <br />
-                <br />
+                
                 <div class="content_btn_face">
-                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: auto; height: 35px; margin-left: 7%; display: block;">
+                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 35px;display: block;">
                         Ingresa con Facebook
                     </button>
                     @*<div class="imagen_perfil_facebook" style="display: none;">
                         <img id="imgFotoPerfilh" src="" alt="" style="width: 50px; height: 50px;" />
                     </div>*@
                 </div>
-                <br />
+                
                 <div id="cambcuentatext" class="text_bienvenida_esika" style="display:none">
                     <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
                 </div>
             </div>
-            <br />
+            
             <div id="_olgn" class="div-o-login">
                 <div class="linea_o"></div>
                 <div class="o_login">ó</div>
