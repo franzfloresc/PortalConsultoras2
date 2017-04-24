@@ -50,14 +50,14 @@
         font-size: 12.5px;
         font-weight: 700;
         letter-spacing: 0.8px;
-        /*text-transform: uppercase;*/
+        text-transform: uppercase;
         overflow: hidden;
         cursor:pointer;
     }
 
         .loginBtn--facebook:before {
             /*border-right: #364e92 1px solid;*/
-            background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png') 22px 7px no-repeat;
+            background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png') 22px 13px no-repeat;
         }
 
         .loginBtn--facebook:hover,
@@ -73,7 +73,7 @@
         margin-top: -7px;
         font-family: 'Lato';
         margin-top: 5px;
-        margin-bottom: 35px;
+        margin-bottom: 40px;
     }
 
     .o_login {
@@ -94,8 +94,8 @@
         height: 48px;
         overflow: hidden;
         border-radius: 3px;
-        margin-top: 33px;
-         margin-bottom: 4px;
+        /*margin-top: 33px;*/
+        margin-bottom: 16px;
     }
 
     .imagen_perfil_facebook {
@@ -107,11 +107,9 @@
         /* border: 1px solid white; */
         background: white;
     }
-
-        .imagen_perfil_facebook img {
-            width: 100%;
-        }
-
+    .imagen_perfil_facebook img {
+        width: 100%;
+    }
     .content_facebook_sb {
         position: relative;
         max-width: 475px;
@@ -203,7 +201,7 @@
 
 <body>
     <script>
-        var fbAppId = '@ViewBag.FBAppId';    
+        var fbAppId = '@ViewBag.FBAppId';
 
         window.fbAsyncInit = function () {
             FB.init({
@@ -268,10 +266,16 @@
                             }
                             //$('#hdeNameUserExt').val(fname);
                             //resizeNameUserExt();
+                            //var _uNombreFb = response.name
+
                             $('#btnLoginFB').removeClass('center_facebook');
-                            $('#btnLoginFB').text('Iniciar sesión como ' + response.name);
+                            $('#btnLoginFB').text('Continuar como ' + fname);
+                            $('#btnLoginFB2').removeClass('center_facebook');
+                            $('#btnLoginFB2').text('Continuar como ' + fname);
                             $('#imgFotoPerfil').attr('src', response.picture.data.url);
-                            $('.imagen_perfil_facebook').show();
+                            $('#imgFotoPerfil2').attr('src', response.picture.data.url);
+                            $('.imagen_perfil_facebook').show();                            
+
                             $('#_nomusufb').html('¿No eres ' + response.name + '? ');
                             $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
                         }
@@ -364,8 +368,11 @@
             $("#_olgn").hide();
             $('#cambcuentaboton').hide();
             //$('#cambcuentatext').hide();
+            $("#btnfblogin").fadeIn("slow");
             $("#loginanterior").fadeIn("slow");
-            $("#nvobtnfacebook").fadeIn("slow");            
+            $("#nvobtnfacebook").fadeIn("slow");
+
+            //$("#btnLoginFB2").fadeIn("slow");
         }
 
         function mostrarLoginFB() {
@@ -373,6 +380,7 @@
             $("#_olgn").hide();
             $("#loginanterior").hide();
             $("#nvobtnfacebook").hide();
+            $("#btnfblogin").hide();//css('display','none');
             $('#cambcuentaboton').fadeIn("slow");
             //$('#cambcuentatext').show(); 
         }
@@ -471,19 +479,19 @@
         <div class="formbtn" style="float: none;">
             
             <div id="cambcuentaboton" >
-                <div>
+                <div style="margin-bottom:20px;text-align: center">
                     <img id="imgFotoPerfil" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px; display:none;" />
                 </div>
                 
                 <div class="content_btn_face">
-                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 35px;display: block;">
-                        Ingresa con Facebook
+                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
+                         Ingresa con Facebook
                     </button>
                     @*<div class="imagen_perfil_facebook" style="display: none;">
                         <img id="imgFotoPerfilh" src="" alt="" style="width: 50px; height: 50px;" />
                     </div>*@
                 </div>
-                
+                                
                 <div id="cambcuentatext" class="text_bienvenida_esika" style="display:none">
                     <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
                 </div>
@@ -510,11 +518,27 @@
                 -->
         </div>
         <!--LOGIN EXTERNO -->
+        <div id="btnfblogin" style="display:none;">
+            <div class="content_btn_face">
+                <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="mostrarLoginFB()" style="width: 100%; height: 48px; display:block;">
+                    Ingresa con Facebook
+                </button>
+                <div class="imagen_perfil_facebook" style="display: none;">
+                    <img id="imgFotoPerfil2" src="" alt="" style="width: 50px; height: 50px;" />
+                </div>
+            </div>
+
+            <div id="_olgn" class="div-o-login">
+                <div class="linea_o"></div>
+                <div class="o_login">ó</div>
+                <div class="linea_o"></div>
+            </div>
+            <hr class="clear" />
+        </div>
 
         @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
         {
             <div id="loginanterior" class="formCont">
-
                 <input type="hidden" id="hdfContrasenia" />
                 @*@Html.Hidden("returnUrl", @Request.QueryString)*@
                 <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
@@ -623,10 +647,10 @@
 
                 <div class="clear"></div>
 
-                <div id="nvobtnfacebook" style="cursor:pointer; display:none;">
+                @*<div id="nvobtnfacebook" style="cursor:pointer; display:none;">
                     <img src="~/Content/Images/face_login.png" alt="icoFace" height="16" width="16">
                     <span class="text_bienvenida_esika" style="font-size:14px;" onclick="mostrarLoginFB()">Iniciar sesión con Facebook</span>
-                </div>
+                </div>*@
 
                 <!-- INGRESA A TU CUENTA -->
                 <div class="boxform">

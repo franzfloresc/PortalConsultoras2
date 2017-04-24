@@ -153,9 +153,9 @@ span {
     font-family: icomoon;
 }
 
-    .logo-esika:before {
+ .logo-esika:before {
         content: "\e905";
-        font-size: 43px;
+        font-size: 55px;
         color: #613c87;
     }
 
