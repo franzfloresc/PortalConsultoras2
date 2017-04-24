@@ -37,6 +37,7 @@ $(document).ready(function () {
     if (banderaOk == 'True') {
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
+        $('#cargarBandera3').css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
     }
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
@@ -57,6 +58,14 @@ $(document).ready(function () {
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
     });
+
+    /*2275*/
+    $("#ddlPais2").change(function () {
+        imgISO = $("#ddlPais2").val();
+        if (imgISO != "00") $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        else $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+    });
+    /**/
 
     $("#box-pop-up").hide();
 
@@ -151,9 +160,9 @@ $(document).ready(function () {
         $('#btnLoginFB').prop('disabled', true);
     });
 
-    $("#txtUsuario").keypress(
-
+    $("#txtUsuario, #txtUsuario2").keypress(
         function (evt) {
+            debugger
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
                 //ValidarAutenticacion();
@@ -166,7 +175,7 @@ $(document).ready(function () {
             }
         });
 
-    $("#txtContrasenia").keypress(
+    $("#txtContrasenia, #txtContrasenia2").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
