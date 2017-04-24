@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models
         public int IdMatrizComercial { get; set; }
         public int IdMatrizComercialImagen { get; set; }
         public string CodigoSAP { get; set; }
+        public string Foto { get; set; }
         public string DescripcionOriginal { get; set; }
         public string Descripcion { get; set; }
         public string UsuarioRegistro { get; set; }

@@ -154,7 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string UploadFoto(string foto, string number, string preFileName, string carpetaPais)
         {
-            foto = ValidarFoto(foto);
             if (!string.IsNullOrEmpty(foto))
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
@@ -167,9 +166,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ReplaceFoto(string foto, string fotoAnterior, string number, string preFileName, string carpetaPais)
         {
-            foto = ValidarFoto(foto);
-            fotoAnterior = ValidarFoto(fotoAnterior);
-
             if (foto != fotoAnterior)
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
@@ -179,13 +175,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return newfilename;
             }
             return foto;
-        }
-
-        private string ValidarFoto(string foto)
-        {
-            foto = (foto ?? "").Trim();
-            if (!foto.Equals("prod_grilla_vacio.png")) return foto;
-            return string.Empty;
         }
 
         private FileNameFormat GetFileNameFormat(int paisID, string codigoSAP)
@@ -285,15 +274,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (model.IdMatrizComercial == 0)
+                var idMatrizComercial = model.IdMatrizComercial;
+                var isNewRecord = false;
+                if (idMatrizComercial == 0)
                 {
+                    isNewRecord = true;
                     //insertar cabecera
                     BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        var cod = sv.InsMatrizComercial(entidad);
+                        idMatrizComercial = sv.InsMatrizComercial(entidad);
                     }
                 }
 
@@ -309,13 +301,13 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioRegistro = userData.CodigoConsultora,
                     UsuarioModificacion = userData.CodigoConsultora
                 };
-                string nombreFotoS3 = "";
-                bool isNew = false;
+
+                bool isNewImage = false;
                 if (model.IdMatrizComercialImagen == 0)
                 {
-                    isNew = true;
-                    nombreFotoS3 = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
-                    entity.Foto = nombreFotoS3;
+                    isNewImage = true;
+                    //subir imagen temporal al S3
+                    entity.Foto = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                     using (var sv = new PedidoServiceClient())
                     {
                         model.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
@@ -325,14 +317,15 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
-                        //reemplazar foto
+                        //crear nueva foto y borrar la anterior en S3
+                        entity.Foto = this.ReplaceFoto(nombreArchivo, model.Foto, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                         sv.UpdMatrizComercialImagen(entity);
                     }
                 }
 
                 var urlS3 = ConfigS3.GetUrlS3(formatoArchivo.CarpetaPais);
 
-                return Json(new { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.", isNew = isNew, idMatrizComercialImagen = model.IdMatrizComercialImagen, name = urlS3 + nombreFotoS3 }, "text/html");
+                return Json(new { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.", isNewRecord = isNewRecord, isNewImage = isNewImage, idMatrizComercial = idMatrizComercial, idMatrizComercialImagen = model.IdMatrizComercialImagen, foto = urlS3 + entity.Foto }, "text/html");
             }
             catch (FaultException ex)
             {
