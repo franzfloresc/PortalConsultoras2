@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        sv.InsMatrizComercial(entidad);
+                        var cod = sv.InsMatrizComercial(entidad);
                     }
                 }
 
@@ -309,29 +309,30 @@ namespace Portal.Consultoras.Web.Controllers
                     UsuarioRegistro = userData.CodigoConsultora,
                     UsuarioModificacion = userData.CodigoConsultora
                 };
+                string nombreFotoS3 = "";
+                bool isNew = false;
                 if (model.IdMatrizComercialImagen == 0)
                 {
-                    var nombreFotoS3 = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
+                    isNew = true;
+                    nombreFotoS3 = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                     entity.Foto = nombreFotoS3;
                     using (var sv = new PedidoServiceClient())
                     {
-                        sv.InsMatrizComercialImagen(entity);
+                        model.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
                     }
                 }else
                 {
                     using (var sv = new PedidoServiceClient())
                     {
+                        entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
                         //reemplazar foto
-                        model.IdMatrizComercialImagen = sv.UpdMatrizComercialImagen(entity);
+                        sv.UpdMatrizComercialImagen(entity);
                     }
                 }
 
-                return Json(new
-                {
-                    success = true,
-                    message = "Se actualizó la Matriz de Productos satisfactoriamente.",
-                    extra = ""
-                });
+                var urlS3 = ConfigS3.GetUrlS3(formatoArchivo.CarpetaPais);
+
+                return Json(new { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.", isNew = isNew, idMatrizComercialImagen = model.IdMatrizComercialImagen, name = urlS3 + nombreFotoS3 }, "text/html");
             }
             catch (FaultException ex)
             {

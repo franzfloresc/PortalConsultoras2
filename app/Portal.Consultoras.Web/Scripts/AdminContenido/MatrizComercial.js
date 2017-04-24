@@ -1,11 +1,12 @@
 ﻿var MatrizComercial = function (config) {
 
     var _config = {
-        urlTemporales: config.urlTemporales || '',
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         uploadAction: config.uploadAction || ''
     };
+
+    var _editData = [];
 
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
@@ -17,7 +18,7 @@
     };
 
     var _crearFileUploadAdd = function (editData) {
-        _crearObjetoUpload('file-upload-add', 'idimagen', 0, editData);
+        _crearObjetoUpload('file-upload-add', '', 0, editData);
     };
 
     var _crearObjetoUpload = function (elementId, imageElementId, idImagenMatriz, editData) {
@@ -43,15 +44,24 @@
         
         return function (id, fileName, response) {
             if (checkTimeout(response)) {
+
                 $(".qq-upload-list").css("display", "none");
                 if (response.success) {
-                    // req. 1664
-                    $('#' + imageElementId).attr('src', _config.urlTemporales + response.name);
+                    _updateImageListOnUpload(imageElementId, response)
                 } else {
                     alert(response.message)
                 };
             }
         };
+    };
+
+    var _updateImageListOnUpload = function (imageElementId, response) {
+        if (response.isNew) {
+            _editData.imagenes.push({ Foto: response.name, IdMatrizComercialImagen: response.idMatrizComercialImagen });
+            _refreshImageList(_editData);
+        } else {
+            $('#' + imageElementId).attr('src', response.name);
+        }
     };
 
     var _editar = function (id, idMatrizComercial) {
@@ -76,14 +86,19 @@
     var _obtenerImagenesSuccess = function (editData) {
         return function (data, textStatus, jqXHR) {
             editData.imagenes = data;
+            _editData = editData;
 
-            SetHandlebars('#matriz-comercial-template', editData, '#matriz-comercial-dialog');
-            SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+            SetHandlebars('#matriz-comercial-template', _editData, '#matriz-comercial-dialog');
+            _crearFileUploadAdd(_editData);
 
-            _crearFileUploadAdd(editData);
-            _crearFileUploadElements(editData);
+            _refreshImageList(_editData);
             showDialog("matriz-comercial-dialog");
         };
+    };
+
+    var _refreshImageList = function(editData) {
+        SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+        _crearFileUploadElements(editData);
     };
 
     return {
