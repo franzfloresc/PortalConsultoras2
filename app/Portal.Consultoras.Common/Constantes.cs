@@ -30,6 +30,13 @@ namespace Portal.Consultoras.Common
             public const int Anticipado = 2;
         }
 
+        public class TipoUsuario
+        {
+            public const int Consultora = 1;
+            public const int Postulante = 2;
+            public const int Admin = 3;
+        }
+
         public class Rol
         {
             public const int Consultora = 1;

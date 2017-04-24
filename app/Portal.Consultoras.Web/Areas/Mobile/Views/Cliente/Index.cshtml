@@ -94,36 +94,52 @@
 
             $(document).ready(function () {
                 $("body").on("click", ".agregarCliente", function (event) {
-                    esAgregarCliente = true;
-                    $('#Nombre').val("");
-                    $('#Email').val("");
-                    $('#Telefono').val("");
-                    $('#ClienteID').val("0");
-                    $('#FlagValidate').val("0");
-                    $("#hdNombreClienteAnterior").val("");
+                    if (gTipoUsuario == '2') {
+                        var msgg = "bbPor el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
+                        $('#popupInformacionSB2Error').show();
+                        return false;
+                    }
+                    else{
+                        esAgregarCliente = true;
+                        $('#Nombre').val("");
+                        $('#Email').val("");
+                        $('#Telefono').val("");
+                        $('#ClienteID').val("0");
+                        $('#FlagValidate').val("0");
+                        $("#hdNombreClienteAnterior").val("");
 
-                    posicionClienteActual = 0;
+                        posicionClienteActual = 0;
 
-                    ShowAgregarCliente();
-                    $("#liOpcionCliente").html("Agregar Cliente");
+                        ShowAgregarCliente();
+                        $("#liOpcionCliente").html("Agregar Cliente");
+                    }
                 });
 
                 $("body").on("click", ".actualizarCliente", function (event) {
-                    esAgregarCliente = false;
-                    var divPadre = $(this).parent("div");
-                    var divInfo = $(divPadre).find(".table-width");
+                    if (gTipoUsuario == '2') {
+                        var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
+                        $('#popupInformacionSB2Error').show();
+                        return false;
+                    }
+                    else{
+                        esAgregarCliente = false;
+                        var divPadre = $(this).parent("div");
+                        var divInfo = $(divPadre).find(".table-width");
 
-                    var clienteId = $(divInfo).find(".clienteId").val();
-                    var clienteNombre = $(divInfo).find(".clienteNombre").html();
-                    var clienteEmail = $(divInfo).find(".clienteEmail").html();
+                        var clienteId = $(divInfo).find(".clienteId").val();
+                        var clienteNombre = $(divInfo).find(".clienteNombre").html();
+                        var clienteEmail = $(divInfo).find(".clienteEmail").html();
 
-                    posicionClienteActual = parseInt(clienteId);
-                    $("#ClienteID").val(clienteId);
-                    $("#Nombre").val(clienteNombre);
-                    $("#Email").val(clienteEmail);
-                    $("#hdNombreClienteAnterior").val(clienteNombre);
-                    ShowAgregarCliente();
-                    $("#liOpcionCliente").html("Modificar Cliente");
+                        posicionClienteActual = parseInt(clienteId);
+                        $("#ClienteID").val(clienteId);
+                        $("#Nombre").val(clienteNombre);
+                        $("#Email").val(clienteEmail);
+                        $("#hdNombreClienteAnterior").val(clienteNombre);
+                        ShowAgregarCliente();
+                        $("#liOpcionCliente").html("Modificar Cliente");
+                    }
                 });
             });
 

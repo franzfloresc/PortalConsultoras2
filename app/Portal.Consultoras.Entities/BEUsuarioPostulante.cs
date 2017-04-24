@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Entities
     {
         [DataMember]
         public int IdPostulante { get; set; }
+        [DataMember]
+        public long ConsultoraID { get; set; }
 
         [DataMember]
         public string CodigoUsuario { get; set; }
@@ -49,12 +51,29 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public Int16 Estado { get; set; }
 
+        [DataMember]
+        public int ZonaID { get; set; }
+
+        [DataMember]
+        public int RegionID { get; set; }
+
+        [DataMember]
+        public string Region { get; set; }
+
+        public BEUsuarioPostulante()
+        {
+
+        }
+
         public BEUsuarioPostulante(IDataRecord row)
         {
             IdPostulante = Convert.ToInt32(row["IdPostulante"]);
 
             if (DataRecord.HasColumn(row, "CodigoUsuario") && row["CodigoUsuario"] != DBNull.Value)
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+
+            if (DataRecord.HasColumn(row, "ConsultoraID") && row["ConsultoraID"] != DBNull.Value)
+                ConsultoraID = row["ConsultoraID"] == DBNull.Value ? 0 : Convert.ToInt64(row["ConsultoraID"]);
 
             if (DataRecord.HasColumn(row, "NumeroDocumento") && row["NumeroDocumento"] != DBNull.Value)
                 NombreCompleto = Convert.ToString(row["NombreCompleto"]);
@@ -85,6 +104,20 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
                 Estado = Convert.ToInt16(row["Estado"]);
+
+            if (DataRecord.HasColumn(row, "ZonaID") && row["ZonaID"] != DBNull.Value)
+                ZonaID = Convert.ToInt32(row["ZonaID"]);
+
+            /*
+            if (DataRecord.HasColumn(row, "CodigoZona") && row["CodigoZona"] != DBNull.Value)
+                Zona = Convert.ToString(row["CodigoZona"]);
+             * */
+
+            if (DataRecord.HasColumn(row, "RegionID") && row["RegionID"] != DBNull.Value)
+                RegionID = Convert.ToInt32(row["RegionID"]);
+
+            if (DataRecord.HasColumn(row, "CodigoRegion") && row["CodigoRegion"] != DBNull.Value)
+                Region = Convert.ToString(row["CodigoRegion"]);
 
         }
     }
