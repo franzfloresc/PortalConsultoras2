@@ -1298,7 +1298,7 @@ namespace Portal.Consultoras.BizLogic
                                     string[] PaisesLbel = { "MX", "CR", "PA", "PR" };
 
                                     bool eslbel = false;
-                                    if (PaisesLbel.Contains("MX")) {
+                                    if (PaisesLbel.Contains(paisISO)) {
                                         eslbel = true;
                                     }
 
@@ -1349,7 +1349,7 @@ namespace Portal.Consultoras.BizLogic
                                         htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);
 
                                         //EnviarMail("no-responder@somosbelcorp.com", email, asuntoEmail, mensaje, true, "", PaisISO);
-                                        Common.Util.EnviarMail("no-responder@somosbelcorp.com", "paul.cabrera@hundred.com.pe", asuntoEmail, htmlTemplate, true, null);
+                                        Common.Util.EnviarMail("no-responder@somosbelcorp.com", entidad.Correo, asuntoEmail, htmlTemplate, true, null);
 
                                         //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);

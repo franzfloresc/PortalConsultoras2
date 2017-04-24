@@ -203,7 +203,7 @@
 
 <body>
     <script>
-        var fbAppId = '597549647104849';@*'@ViewBag.FBAppId';*@
+        var fbAppId = '@ViewBag.FBAppId';    
 
         window.fbAsyncInit = function () {
             FB.init({
@@ -332,7 +332,10 @@
                                 $('#txtUsuario2').val(data.email);
 
                             $('.content_pop_login').show();
-
+                            /*2275*/
+                            $(".nombre_usuario_facebook").text(data.name);
+                            $(".foto_pop_face img").attr('src', data.picture.data.url);
+                            /*fin 2275*/
                             if (response.emailActive) 
                                 $('#txtContrasenia2').focus();
                             else 
@@ -664,7 +667,7 @@
 
             </div>
 
-            <div class="campo_input">
+            <div id="cargarBandera3" class="campo_input">
                 <select class="select_pais_facebook" id="ddlPais2">
                     <option value="00">Elige tu País</option>
                     @if (Model.ListaPaises != null)
