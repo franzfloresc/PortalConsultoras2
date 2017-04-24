@@ -227,6 +227,7 @@ span {
 .webForm {
     max-width: 349px;
     padding: 45px 18% 36px;
+    /*background:rgba(0,0,0,0.6)*/
 }
 
     .webForm .title {

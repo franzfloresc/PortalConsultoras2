@@ -289,6 +289,7 @@ Image .nav0:hover {
     padding-top: 45px;
     /*background: url('../images/bg_form_esika.png') 0px 0px repeat;*/
     position: relative;
+    /*background:rgba(0,0,0,0.6);*/
 }
 
     .webForm .title {
