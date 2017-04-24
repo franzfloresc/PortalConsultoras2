@@ -1231,7 +1231,7 @@ namespace Portal.Consultoras.BizLogic
                                     string[] PaisesLbel = { "MX", "CR", "PA", "PR" };
 
                                     bool eslbel = false;
-                                    if (PaisesLbel.Contains("MX")) {
+                                    if (PaisesLbel.Contains(paisISO)) {
                                         eslbel = true;
                                     }
 
