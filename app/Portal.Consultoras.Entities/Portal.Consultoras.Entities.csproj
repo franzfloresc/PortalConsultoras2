@@ -59,6 +59,8 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEPedidoWebDetalleInvariant.cs" />
+    <Compile Include="BEPedidoWebResult.cs" />
     <Compile Include="BEValidacionModificacionPedido.cs" />
     <Compile Include="BECatalogoRevista.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />

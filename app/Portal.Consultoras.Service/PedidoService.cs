@@ -89,6 +89,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
         }
 
+        public BEPedidoWebResult InsertInvariant(BEPedidoWebDetalleInvariant pedidoDetalle)
+        {
+            return BLPedidoWebDetalle.InsPedidoDetalleInvariant(pedidoDetalle);
+        }
+
         public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
         {
             return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
@@ -1766,7 +1771,8 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
-        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
+        {
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
 
@@ -1821,7 +1827,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
-        
+
         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
@@ -1847,5 +1853,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, aceptacionConsultoraDA);
         }
+
+
     }
 }

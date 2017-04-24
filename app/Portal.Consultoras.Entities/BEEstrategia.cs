@@ -145,11 +145,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoSAP { get; set; }
         [DataMember]
-        public int  EnMatrizComercial { get; set; }
+        public int EnMatrizComercial { get; set; }
         [DataMember]
         public string CodigoEstrategia { get; set; }
         [DataMember]
         public int TieneVariedad { get; set; }
+
+        public BEEstrategia()
+        { }
 
         public BEEstrategia(IDataRecord row)
         {
