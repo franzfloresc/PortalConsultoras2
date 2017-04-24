@@ -1208,8 +1208,8 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.IndicadorMontoMinimo = odd.IndicadorMontoMinimo;
                 oddModel.TipoEstrategiaImagenMostrar = odd.TipoEstrategiaImagenMostrar;
                 oddModel.TeQuedan = countdown;
-                if (contOdd == 0)
-                {
+                //if (contOdd == 0)
+                //{
                     var imgBanner = odd.FotoProducto01;
                     var imgDisplay = odd.FotoProducto01;
 
@@ -1230,7 +1230,7 @@ namespace Portal.Consultoras.Web.Controllers
                     oddModel.ImagenFondo2 = imgF2;
                     oddModel.ColorFondo2 = colorF2;
                     oddModel.ImagenDisplay = imgDisplay;
-                }
+                //}
                 oddModel.ID = contOdd++;
                 oddModel.NombreOferta = nombreODD;
                 oddModel.DescripcionOferta = descripcionODD;
