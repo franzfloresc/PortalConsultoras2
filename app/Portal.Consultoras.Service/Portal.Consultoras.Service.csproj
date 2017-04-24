@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="PedidoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevistaDigitalService.cs" />
     <Compile Include="SACService.cs" />
     <Compile Include="SeguridadService.cs" />
     <Compile Include="UbigeoWebService.cs" />

@@ -68,7 +68,7 @@ header {
 }
 
 .wrapper_header {
-    height: 61px;
+    min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
 }
@@ -91,14 +91,14 @@ header {
 .menu_new_esika {
     float: left;
     width: 62%;
-    height: 60px;
+    min-height: 60px;
     position: relative;
 }
 
 .menu_esika_b {
     height: 60px;
-    float: left;
-    width: 28%;
+    float: right;
+    max-width: 28%;
     /*overflow: hidden;*/
 }
 
@@ -23087,9 +23087,9 @@ body {
         font-size: 9.3px;
     }
 
-    .menu_esika_b {
+    /*.menu_esika_b {
         width: 31%;
-    }
+    }*/
 
     .EstadoCuenta {
         zoom: 90%;

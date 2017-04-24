@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceRevistaDigital;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -241,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Mapper.CreateMap<BEPais, PaisModel>()
                         .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                            .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
                         .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                         .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
             }
@@ -367,6 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oBEUsuario != null)
                 {
+                    #region 
                     model = new UsuarioModel();
                     model.EstadoPedido = oBEUsuario.EstadoPedido;
                     model.NombrePais = oBEUsuario.NombrePais;
@@ -414,8 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.HoraCierreZonaDemAntiCierre = oBEUsuario.HoraCierreZonaDemAntiCierre;
                     model.ConsultoraAsociadaID = oBEUsuario.ConsultoraAsociadaID;
                     model.ValidacionAbierta = oBEUsuario.ValidacionAbierta;
-
-
+                    
                     if (DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion)
                         model.DiaPROLMensajeCierreCampania = false;
                     else
@@ -552,8 +553,11 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                     model.TieneCDR = oBEUsuario.TieneCDR;
 
+                    #endregion
+
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
+                        #region TieneHana
                         if (model.TieneHana == 1)
                         {
                             ActualizarDatosHana(ref model);
@@ -595,11 +599,14 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
+                        #endregion
+
                         /*PL20-1226*/
                         //model.EsOfertaDelDia = oBEUsuario.EsOfertaDelDia;
                         //if (model.EsOfertaDelDia > 0)
                         //{
 
+                        #region OfertaDelDia
                         if (oBEUsuario.OfertaDelDia)
                         {
                             var lstOfertaDelDia = new List<BEEstrategia>();
@@ -684,6 +691,56 @@ namespace Portal.Consultoras.Web.Controllers
 
                             /*PL20-1226*/
                         }
+                        #endregion
+                        
+                        #region ConfiguracionPais
+                        model.ConfiguracionPais = model.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
+                        if (!model.ConfiguracionPais.Any())
+                        {
+                            try
+                            {
+                                var config = new BEConfiguracionPais();
+                                config.Detalle = new BEConfiguracionPaisDetalle();
+                                config.Detalle.PaisID = model.PaisID;
+                                config.Detalle.CodigoConsultora = model.CodigoConsultora;
+                                config.Detalle.CodigoRegion = model.CodigorRegion;
+                                config.Detalle.CodigoZona = model.CodigoZona;
+                                config.Detalle.CodigoSeccion = model.SeccionAnalytics;
+                                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                                {
+                                    var listaConfigPais= sv.GetConfiguracionPais(config);
+                                    model.ConfiguracionPais = Mapper.Map<IList<BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
+                                model.ConfiguracionPais = new List<ConfiguracionPaisModel>();
+                            }
+                            
+                        }
+                        #endregion
+
+                        #region RevistaDigital
+                        try
+                        {
+                            var rds = new BERevistaDigitalSuscripcion();
+                            rds.PaisID = model.PaisID;
+                            rds.CodigoConsultora = model.CodigoConsultora;
+                            using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
+                            {
+                                rds = sv.GetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
+                                model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
+                            }
+                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.EstadoRegistro > 0;
+                            model.RevistaDigital.EstadoSuscripcion = model.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                        }
+                        catch (Exception exrd)
+                        {
+                            pasoLog = "Ocurrió un error al cargar revista digital";
+                            model.RevistaDigital = new RevistaDigitalModel();
+                        }
+                        #endregion
                     }
                 }
 

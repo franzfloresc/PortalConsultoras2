@@ -23,14 +23,18 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
                 return lst;
             }
-
+            
             var entidad = new BEEstrategia();
             entidad.PaisID = userData.PaisID;
             entidad.CampaniaID = userData.CampaniaID;
             entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
+            entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
+            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaVirtual;
+            
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -85,6 +89,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 foreach (var beEstrategia in listaTemporal)
                 {
+                    if (beEstrategia.Precio2 <= 0)
+                        continue;
+
                     var add = true;
                     if (beEstrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
                     {
@@ -96,6 +103,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (add)
                     {
+                        if (beEstrategia.Precio >= beEstrategia.Precio2)
+                        {
+                            beEstrategia.Precio = Convert.ToDecimal(0.0);
+                        }
+
                         beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
                         beEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.ImagenURL, carpetapais);
                         beEstrategia.Simbolo = userData.Simbolo;
@@ -109,17 +121,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                listaTemporal.Update(x =>
+                foreach (var x in listaTemporal)
                 {
+                    if (x.Precio2 <= 0)
+                        continue;
+
+                    if (x.Precio >= x.Precio2)
+                    {
+                        x.Precio = Convert.ToDecimal(0.0);
+                    }
+
                     x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
                     x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
                     x.Simbolo = userData.Simbolo;
                     x.TieneStockProl = true;
                     x.PrecioString = Util.DecimalToStringFormat(x.Precio2, userData.CodigoISO);
                     x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, userData.CodigoISO);
-                });
+                    
+                    lst.Add(x);
+                };
 
-                lst.AddRange(listaTemporal);
             }
 
             Session["ListadoEstrategiaPedido"] = lst;

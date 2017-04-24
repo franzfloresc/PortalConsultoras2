@@ -282,5 +282,11 @@ namespace Portal.Consultoras.ServiceContracts
           
         [OperationContract]
         bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+
+        [OperationContract]
+        List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad);
+        
+        [OperationContract]
+        bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
     }
 }

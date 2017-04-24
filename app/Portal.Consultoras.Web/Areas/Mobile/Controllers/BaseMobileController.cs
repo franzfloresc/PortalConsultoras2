@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-        private void BuildMenuMobile(UsuarioModel userData)
+        public void BuildMenuMobile(UsuarioModel userData)
         {
             var lstModel = new List<MenuMobileModel>();
 
@@ -243,6 +243,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //Agregamos los menú Padre
                     foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
                     {
+                        item.Codigo = Util.Trim(item.Codigo).ToLower();
+                        if (item.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+                        {
+                            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                                continue;
+                        }
+
                         lstModel.Add(new MenuMobileModel
                         {
                             MenuMobileID = item.MenuMobileID,
@@ -264,6 +271,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
                         foreach (var subItem in subItems)
                         {
+                            subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
+                            if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+                            {
+                                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                                    continue;                                
+                            }
+
                             item.SubMenu.Add(new MenuMobileModel
                             {
                                 MenuMobileID = subItem.MenuMobileID,

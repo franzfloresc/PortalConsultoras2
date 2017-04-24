@@ -117,6 +117,10 @@ $(document).ready(function () {
             if ($('#PopShowroomIntriga').is(':visible')) {
                 PopupCerrar('PopShowroomIntriga');
             }
+
+            if ($('#PopRDSuscripcion').is(':visible')) {
+                PopupCerrar('PopRDSuscripcion');
+            }
             
         }
     };
@@ -217,6 +221,10 @@ $(document).ready(function () {
 
         case popupComunicado:
             ObtenerComunicadosPopup();
+            break;
+
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
             break;
     }
 
@@ -3171,11 +3179,19 @@ function PopupCerrar(idPopup) {
     if (typeof (idPopup) == "string")
         id = "#" + idPopup;
 
-    if (id == "") return false;
+    var obj = "";
+    if (id == "") {
+        obj = $(idPopup);
+    }
+    else {
+        obj = $(id);
+    }
 
-    $(id).attr("data-popup-activo", "0");
+    if (obj == "") return false;
 
-    $(id).hide();
+    $(obj).attr("data-popup-activo", "0");
+
+    $(obj).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
     }

@@ -646,5 +646,17 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
         }
+
+        public List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(entidad);
+        }
+
+        public bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad)
+        {
+            var bl = new BLConfiguracionPaisDetalle();
+            return bl.Validar(entidad);
+        }
     }
 }

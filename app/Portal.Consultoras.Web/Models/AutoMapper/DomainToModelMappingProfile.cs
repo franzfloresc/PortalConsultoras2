@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServiceRevistaDigital;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -158,6 +159,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
+
+            Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
         }
     }
 }

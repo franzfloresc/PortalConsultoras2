@@ -164,6 +164,7 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
+            public const string RevistaVirtual = "002";
         }
 
         public class ConstSession
@@ -371,6 +372,7 @@ namespace Portal.Consultoras.Common
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
+            public const int RevistaDigitalSuscripcion = 9;
         }
 
         // Constantes de los motivos de GPR.
@@ -479,6 +481,19 @@ namespace Portal.Consultoras.Common
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
+        }
+
+        public class MenuCodigo
+        {
+            public const string RevistaDigital = "RevistaDigital";
+            public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
+            public const string CatalogoPersonalizado = "FDTC";
+        }
+
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalSuscripcion = "RDS";
         }
     }
 }

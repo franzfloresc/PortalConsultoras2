@@ -65,6 +65,27 @@
         </div>
         <!-- FIN REVISTA -->
 
+        <!-- REVISTA DIGITAL -->
+        <div class="revista_content" id="contentRevistaDigital" style="min-width: 250px;height: 300px; @(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
+            <div>
+                <div class="titulo_central" data-titulo='revista' style="text-align: left;"> &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                <div style="text-align: left;">
+                </div>
+                <a class="revista_carrusel" href="javascript: void(0);" style="text-align: left;box-shadow:none;height:auto;">
+                    <span style="font-size: 15px; color: red;">LAS OFERTAS DE TU REVISTA AHORA SON PERSONALIZADAS PARA TI</span>
+                    <br />
+                    <span style="font-size: 35px;">ÉSIKA </span><span style="font-family: 'Lbel Script';font-size: 35px;">para mí</span>
+                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")"  style="display:none;" />
+                </a>
+                <br />
+                <a class="compartir_catalogo_mensaje" href="javascript: location.href = 'RevistaDigital/Index'" style="color: #ffffff;width: 218px;">
+                    QUIERO MÁS OFERTAS
+                </a>
+            </div>
+            <hr class="clear"/>
+        </div>
+        <!-- FIN REVISTA DIGITAL -->
+
         <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 

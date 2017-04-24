@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-
+            this.RevistaDigital = new RevistaDigitalModel();
         }
 
         public string Celular { get; set; }
@@ -335,5 +335,8 @@ namespace Portal.Consultoras.Web.Models
         /*PL20-1226*/
 
         public bool CloseBannerCompraPorCompra { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
+        public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
     }
 }

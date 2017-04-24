@@ -124,6 +124,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.MostrarODD = false;
                     }
+
+                    ViewBag.CodigoEstrategia = GetCodigoEstrategia();
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -435,70 +437,80 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenu()
         {
-            if (userData.Menu == null)
+            if (userData.Menu != null)
             {
-                IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
-                {
-                    lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
-                }
-
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-                if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-                if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
-
-                List<PermisoModel> lstModel = new List<PermisoModel>();
-                foreach (var permiso in lst)
-                {
-                    if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
-                    {
-                        if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
-                        {
-                            permiso.UrlItem = AccionControlador("sr", 1);
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                        permiso.EsSoloImagen = true;
-                        var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                        if (urlImagen != "")
-                        {
-                            permiso.UrlImagen = urlImagen;
-                        }
-                        else
-                        {
-                            permiso.EsSoloImagen = false;
-                        }
-                    }
-
-                    lstModel.Add(new PermisoModel
-                    {
-                        PermisoID = permiso.PermisoID,
-                        RolId = permiso.RolId,
-                        Descripcion = permiso.Descripcion,
-                        IdPadre = permiso.IdPadre,
-                        OrdenItem = permiso.OrdenItem,
-                        UrlItem = permiso.UrlItem,
-                        PaginaNueva = permiso.PaginaNueva,
-                        Mostrar = permiso.Mostrar,
-                        Posicion = permiso.Posicion,
-                        UrlImagen = permiso.UrlImagen,
-                        EsMenuEspecial = permiso.EsMenuEspecial,
-                        EsSoloImagen = permiso.EsSoloImagen,
-                        EsServicios = permiso.EsServicios,
-                        EsDireccionExterior = permiso.UrlItem.ToLower().StartsWith("http"),
-                        DescripcionFormateada = Util.RemoveDiacritics(permiso.Descripcion.ToLower()).Replace(" ", "-")
-                    });
-                }
-
-                // Separar los datos obtenidos y para generar el 
-                userData.Menu = SepararItemsMenu(lstModel);
+                return userData.Menu;
             }
+
+            IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
+            using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+            {
+                lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
+            }
+
+            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+            if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+
+            List<PermisoModel> lstModel = new List<PermisoModel>();
+            
+            foreach (var permiso in lst)
+            {
+                permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
+                if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                {
+                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                        permiso.UrlItem = AccionControlador("sr", 1);
+                    else
+                        continue;
+                    
+                    permiso.EsSoloImagen = true;
+                    var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                    if (urlImagen != "")
+                        permiso.UrlImagen = urlImagen;
+                    else
+                        permiso.EsSoloImagen = false;
+                }
+
+                if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+                {
+                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        continue;
+                }
+
+                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+                {
+                    if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        continue;
+                }
+
+                lstModel.Add(new PermisoModel
+                {
+                    PermisoID = permiso.PermisoID,
+                    RolId = permiso.RolId,
+                    Descripcion = permiso.Descripcion,
+                    IdPadre = permiso.IdPadre,
+                    OrdenItem = permiso.OrdenItem,
+                    UrlItem = permiso.UrlItem,
+                    PaginaNueva = permiso.PaginaNueva,
+                    Mostrar = permiso.Mostrar,
+                    Posicion = permiso.Posicion,
+                    UrlImagen = permiso.UrlImagen,
+                    EsMenuEspecial = permiso.EsMenuEspecial,
+                    EsSoloImagen = permiso.EsSoloImagen,
+                    EsServicios = permiso.EsServicios,
+                    EsDireccionExterior = permiso.UrlItem.ToLower().StartsWith("http"),
+                    DescripcionFormateada = Util.RemoveDiacritics(permiso.Descripcion.ToLower()).Replace(" ", "-")
+                });
+            }
+
+            // Separar los datos obtenidos y para generar el 
+            userData.Menu = SepararItemsMenu(lstModel);
+
             return userData.Menu;
         }
 
@@ -1857,6 +1869,80 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
+
+        public string GetCodigoEstrategia()
+        {
+            var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            {
+                codigo = Constantes.TipoEstrategiaCodigo.RevistaVirtual;
+            }
+            return codigo;
+        }
+
+        public bool ValidarPermiso(string codigo)
+        {
+            codigo = Util.Trim(codigo).ToLower();
+            if (codigo == "") return false;
+
+            //var codigoConfig = "";
+            var listaConfigPais = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
+            var existe = new ConfiguracionPaisModel();
+            if (codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+            {
+                //codigoConfig = Constantes.ConfiguracionPais.RevistaDigital;
+                existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
+                if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
+                    return false;
+                else if (existe.Validado)
+                    return true;
+                return true;
+            }
+
+            if (codigo == Constantes.MenuCodigo.RevistaDigitalSuscripcion.ToLower())
+            {
+                existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion) ?? new ConfiguracionPaisModel();
+                if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
+                    return false;
+                return true;
+            }
+
+            if (codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+            {
+                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
+                    return false;            
+                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                    return false;
+                return true;
+            }
+
+
+            return false;
+
+            //if (codigoConfig == "")
+            //    return false;
+
+            //var validado = false;
+            //var entidadConfigPaisDet = new BEConfiguracionPaisDetalle();
+            //entidadConfigPaisDet.PaisID = userData.PaisID;
+            //entidadConfigPaisDet.ConfiguracionPaisID = existe.ConfiguracionPaisID;
+            //entidadConfigPaisDet.CodigoConsultora = userData.CodigoConsultora;
+            //entidadConfigPaisDet.CodigoRegion = userData.CodigorRegion;
+            //entidadConfigPaisDet.CodigoZona = userData.CodigoZona;
+            //entidadConfigPaisDet.CodigoSeccion = userData.SeccionAnalytics;
+
+            //using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            //{
+            //    validado = sv.ValidarConfiguracionPaisDetalle(entidadConfigPaisDet);
+            //}
+            //if (!validado)
+            //{
+            //    existe.Estado = false;
+            //}
+
+            //return validado;
+        }
+
         public string AccionControlador(string tipo, int isControlador = 0)
         {
             var accion = "";
@@ -1882,9 +1968,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool MostrarFAV()
-        {
-            return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
-        }
+        //public bool MostrarFAV()
+        //{
+        //    return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
+        //}
     }
 }

@@ -1,0 +1,126 @@
+.revistadigital-popup {
+    background: url('../../../Images/Esika/RevistaDigital/POPUP.png') no-repeat;
+    max-height: 621px;
+    background-size: 621px;
+}
+
+/*MI REVISTA*/
+.revista {
+    background: url(http://d33wubrfki0l68.cloudfront.net/img/4a19dc81ab45c532e80be57f07d17242b1fb4d77/parallax-3.jpg) no-repeat;
+	background-position: center top;
+	margin-top: 30px;
+	text-align: center;
+    height: auto;
+	background-attachment: fixed;
+	background-position: center top;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.revista .revista-content {
+	max-width: 1189px;
+	margin: 0 auto;
+    height: auto;
+	position: relative;
+}
+.revista .revista-content img {
+  width: auto;
+    height: 100%;
+}
+.revista p.marca {
+	font-size: 30px;
+	letter-spacing: 9px;
+	display: inline-block;
+    margin: auto;
+}
+.revista p.marca:before {
+	content: '';
+	width: 120px;
+	border-bottom: solid 1px #000;
+	position: absolute;
+	left: 300px;
+	top: 68px;
+	z-index: 1;
+}
+.revista .giftext:after {
+	content: '';
+	position: absolute;
+	left: 180px;
+	top: 38px;
+	z-index: 1;
+}
+.revista .giftext {
+	display: inline-block;
+	position: relative;
+	top: 30px;
+}
+.revista .giftext img {
+	height: 75px;
+}
+.revista .revista-desc {
+	font-size: 13px;
+	margin-top: 35px;
+}
+.revista .revista-desc span {
+	color: #e81c36;
+	font-family: 'Lato-Bold';
+}
+.revista .revista-baj {
+	font-size: 12px;
+	margin-top: 25px;
+}
+.revista .revista-baj a {
+	text-decoration: underline;
+	color: #e81c36;
+}
+.revista .arrow-right {
+	width: 0;
+	height: 0;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	border-left: 5px solid #e81c36;
+	left: 415px;
+	position: absolute;
+	top: 153px;
+}
+.revista .revista-items {
+	max-width: 1189px;
+	height: 404px;
+	margin: 0 auto;
+	margin-top: 30px;
+	position: relative;
+}
+.revista .revista-items img {
+	height: 340px;
+	-webkit-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
+	-moz-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
+	box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
+}
+.revista .revista-items .item2 {
+	margin: 0 20px;
+}
+.revista .revista-items .item3 {
+	margin: 0 20px 0px 0px;
+}
+.revista .boxoffer {
+	width: 65px;
+    height: 65px;
+    position: absolute;
+    top: 287px;
+    right: 40px;
+}
+.revista .boxoffer p{
+        text-align: left;
+    position: absolute;
+    font-size: 9px;
+    top: 18px;
+    left: 6px;
+    line-height: 13px;
+    color: white;
+    font-family: 'Lato-Light';
+    letter-spacing: 1px;
+}
+.revista .boxoffer img {
+	height: 100%;
+	width: 100%;
+	box-shadow: -3px 3px 7px 0px rgba(150, 150, 150, 0.6);
+}

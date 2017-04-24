@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
-
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -16,6 +16,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            if (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado))
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            }
+
             var model = new CatalogoPersonalizadoModel(); //PL20-1273
 
             if (!userData.EsCatalogoPersonalizadoZonaValida)

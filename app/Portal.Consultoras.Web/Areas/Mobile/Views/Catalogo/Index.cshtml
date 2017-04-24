@@ -74,7 +74,7 @@
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo" data-titulo="" >REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_revistas_mobile">
             <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
             <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
@@ -84,7 +84,20 @@
         </div>
     </div>
     <!--FIN TAB REVISTA-->
-    
+    <!--TAB REVISTA DIGITAL-->
+    <div id="tab_revistasdigital_mobile" data-tag-html="Revistas" style="display:none;">
+        <div class="titulo_catalogo">
+            <span style="font-size: 15px; color: red;">LAS OFERTAS DE TU REVISTA AHORA SON PERSONALIZADAS PARA TI</span>
+            <br />
+            <span style="font-size: 35px;">ÉSIKA </span><span style="font-family: 'Lbel Script';font-size: 35px;">para mí</span>
+        </div>
+        <div style="text-align: center;margin:0 auto;">
+            <a class="btn_mensaje" href="javascript: location.href = 'RevistaDigital/Index'" style="color: #ffffff;width: 90%;float: none;display: inline-block;">
+                QUIERO MÁS OFERTAS
+            </a>
+        </div>
+    </div>
+    <!--FIN TAB REVISTA DIGITAL-->
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->

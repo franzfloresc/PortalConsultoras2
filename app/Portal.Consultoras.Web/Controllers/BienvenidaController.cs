@@ -24,6 +24,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+
+                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
+                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
+                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
+
+                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+
                 var bePedidoWeb = ObtenerPedidoWeb();
                 if (bePedidoWeb != null)
                 {
@@ -109,15 +118,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
-
-                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
-                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
-
+                
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 model.PaisID = userData.PaisID;
                 model.IndicadorContrato = userData.IndicadorContrato;
                 model.CambioClave = userData.CambioClave;
@@ -132,6 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
+                
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
                     var tabla = new List<BETablaLogicaDatos>();
@@ -190,9 +197,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ValidaDatosActualizados = 0;
                 }
                 model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
-
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
-
+                
                 int Visualizado = 1, ComunicadoVisualizado = 1;
                 
                 model.VisualizoComunicado = Visualizado;
@@ -397,17 +402,24 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+
+                    // poner este if dentro de la logica de popup
+                    if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                    {
+                        if (!userData.RevistaDigital.NoVolverMostrar)
+                        {
+                            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                            {
+                                TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                            }
+                        }
+                    }
+
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
                 }
                 model.TipoPopUpMostrar = TipoPopUpMostrar;
 
-                #endregion
-
-                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
-
-                //PL20-1283
-                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+                #endregion                
                 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
@@ -416,7 +428,7 @@ namespace Portal.Consultoras.Web.Controllers
                 } 
 
                 // validar si se muestra Show Room en Bienvenida
-                model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
+                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
@@ -1641,73 +1653,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                if (paisesShowRoom.Contains(userData.CodigoISO))
-                {
-                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
-                    var beShowRoom = userData.BeShowRoom;
-                    var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
-                    var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
-
-                    if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
-
-                    if (beShowRoom.Estado == 1)
-                    {
-                        bool mostrarShowRoomProductos = false;
-                        var rutaShowRoomPopup = "";
-                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                        int diasAntes = beShowRoom.DiasAntes;
-                        int diasDespues = beShowRoom.DiasDespues;
-
-                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
-                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                        {
-                            rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                            mostrarShowRoomProductos = true;
-                        }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
-
-                        //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
-                        TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
-                        int df = DiasFalta.Days;
-
-                        var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
-
-                        return Json(new
-                        {
-                            success = true,
-                            data = beShowRoomConsultora,
-                            diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
-                            diaFin = userData.FechaInicioCampania.Day,
-                            mesFin = NombreMes(userData.FechaInicioCampania.Month),
-                            diasFaltan = df,
-                            nombre = string.IsNullOrEmpty(userData.Sobrenombre)
-                                ? userData.NombreConsultora
-                                : userData.Sobrenombre,
-                            message = "ShowRoomConsultora encontrada",
-                            evento = beShowRoom,
-                            mostrarShowRoomProductos,
-                            rutaShowRoomPopup,
-                            personalizacion = lstPersonalizacion,
-                            mostrarPopupIntriga = beMostrarPopupIntriga,
-                            mostrarPopupVenta = beMostrarPopupVenta
-                        });
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            data = "",
-                            message = "ShowRoomEvento no encontrado"
-                        });
-                    }
-
-                }
-                else
+                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
                 {
                     return Json(new
                     {
@@ -1716,6 +1662,81 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "ShowRoomConsultora encontrada"
                     });
                 }
+
+                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                if (!paisesShowRoom.Contains(userData.CodigoISO))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora encontrada"
+                    });
+                }
+
+                if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                var beShowRoomConsultora = userData.BeShowRoomConsultora;
+                var beShowRoom = userData.BeShowRoom;
+                var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
+                var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
+
+                if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+
+                if (beShowRoom.Estado == 1)
+                {
+                    bool mostrarShowRoomProductos = false;
+                    var rutaShowRoomPopup = "";
+                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                    int diasAntes = beShowRoom.DiasAntes;
+                    int diasDespues = beShowRoom.DiasDespues;
+
+                    if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
+                        && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                    {
+                        rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                        mostrarShowRoomProductos = true;
+                    }
+                    if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+
+                    //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                    TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
+                    int df = DiasFalta.Days;
+
+                    var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+
+                    return Json(new
+                    {
+                        success = true,
+                        data = beShowRoomConsultora,
+                        diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
+                        diaFin = userData.FechaInicioCampania.Day,
+                        mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                        diasFaltan = df,
+                        nombre = string.IsNullOrEmpty(userData.Sobrenombre)
+                            ? userData.NombreConsultora
+                            : userData.Sobrenombre,
+                        message = "ShowRoomConsultora encontrada",
+                        evento = beShowRoom,
+                        mostrarShowRoomProductos,
+                        rutaShowRoomPopup,
+                        personalizacion = lstPersonalizacion,
+                        mostrarPopupIntriga = beMostrarPopupIntriga,
+                        mostrarPopupVenta = beMostrarPopupVenta
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+
             }
             catch (Exception ex)
             {

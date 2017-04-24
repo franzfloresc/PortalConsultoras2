@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string cuv)
+        public JsonResult JsonConsultarEstrategias(string cuv, int top = 0)
         {
             List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
@@ -27,6 +27,13 @@ namespace Portal.Consultoras.Web.Controllers
             var listaPedido = ObtenerPedidoWebDetalle();
             listModel.Update(estrategia => estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim()));
             listModel.Update(estrategia => estrategia.UrlCompartirFB = GetUrlCompartirFB());
+            
+            top = top < listModel.Count() ? top : listModel.Count();
+
+            if (top > 0)
+            {
+                listModel.RemoveRange(top, listModel.Count() - top);
+            }
 
             return Json(listModel, JsonRequestBehavior.AllowGet);
         }

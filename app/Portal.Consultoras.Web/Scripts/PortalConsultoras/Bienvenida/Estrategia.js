@@ -89,9 +89,11 @@ function CargarCarouselEstrategias(cuv) {
     //    '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-' + (isEsika ? 'esika' : 'lbel') + '" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
     //);
 
+    var top = tipoOrigenEstrategia == 1 ? 4 : 0;
+
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv,
+        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv + '&top=' + top,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -104,6 +106,7 @@ function CargarCarouselEstrategias(cuv) {
 };
 
 function ArmarCarouselEstrategias(data) {
+
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
@@ -112,7 +115,11 @@ function ArmarCarouselEstrategias(data) {
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
-    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+    var obj = new Object();
+    obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    obj.Lista = data;
+
+    SetHandlebars("#estrategia-template", obj, '#divListaEstrategias');
     
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
