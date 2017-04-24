@@ -1261,7 +1261,8 @@ namespace Portal.Consultoras.BizLogic
                                         string gznombre = consultoraEmail.GerenteZonaNombre.Length > 0 ? consultoraEmail.GerenteZonaNombre : "";
                                         string gzemail = consultoraEmail.GerenteZonaEmail.Length > 0 ? consultoraEmail.GerenteZonaEmail : "";
                                         string telefono1 = ConfigurationManager.AppSettings.Get("TelefonoCentroAtencion").ToString();
-                                        string codusuario = consultoraEmail.Codigo.Substring(2);
+                                        //string codusuario = consultoraEmail.Codigo.Substring(2);
+                                        string codusuario = consultoraEmail.Codigo;
 
                                         if (eslbel)
                                         {
