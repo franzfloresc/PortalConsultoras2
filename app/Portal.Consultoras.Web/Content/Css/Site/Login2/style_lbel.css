@@ -227,6 +227,7 @@ span {
 .webForm {
     max-width: 349px;
     padding: 45px 18% 36px;
+    /*background:rgba(0,0,0,0.6)*/
 }
 
     .webForm .title {
@@ -346,7 +347,7 @@ span {
         font-family: lato;
         font-size: 12px;
         font-weight: 700;
-        text-align: left;
+        text-align: right;
         text-decoration: none;
     }
 
@@ -751,16 +752,16 @@ h1, h2, h3, h4, h5, h6 {
      .texto_login{
         line-height:20px;
     }
-   .etiqueta_usuario{
+   /*.etiqueta_usuario{
        width:41% !important;
-   }
-   .campo_input{
+   }*/
+   /*.campo_input{
        width:59% !important;
-   }
-   .btn_validar_usuario{
+   }*/
+   /*.btn_validar_usuario{
        width:100% !important;
        margin-left:0 !important;
-   }
+   }*/
     .footer .footerWrap .logosRight a {
         padding-left: 0;
         padding-right: 10px;
@@ -1709,4 +1710,112 @@ h1, h2, h3, h4, h5, h6 {
     background: url('../../../Images/Login2/error_login.svg') no-repeat;
     padding-left: 20px;
     background-size: 15px;
+}
+.header_facebook{
+        height: 55px;
+        width: 80%;
+        background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat;
+        background-position: right;
+        FONT-FAMILY: LATO;
+        color: white;
+        line-height: 55px;
+        text-align: left;
+        padding-left: 15%;
+        box-sizing: border-box;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        font-size: 11pt;
+    }
+.btn_cerrar_login{
+       background-image: url(../Images/popup_esika/cerrar_04.png);
+        background-repeat: no-repeat;
+        height: 24px;
+        width: 24px;
+        position: absolute;
+        z-index: 3;
+        right: 11px;
+        top: 15px;
+   }
+ .solo_texto_paso{
+      FONT-FAMILY: 'Lato';
+      font-size:13pt;
+      display:block;
+      color: #613c87;
+      /*margin-top:10px;*/
+      margin-bottom:20px;
+ }
+ .texto_login{
+     font-size:11pt;
+ }
+.icono_usuario:before {
+    content: "\e903";
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    /* float: left; */
+    position: absolute;
+    z-index: 100;
+}
+.icono_pass:before {
+    content: "\e900";
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    /* float: left; */
+    position: absolute;
+    z-index: 100;
+}
+.usuario_facebook::-webkit-input-placeholder { color:black }
+.usuario_facebook:-moz-placeholder { color:black  }
+.usuario_facebook::-moz-placeholder { color:black  }
+.usuario_facebook:-ms-input-placeholder {color:black  }
+
+.btn_validar_usuario {
+    color: white;
+    background-color: #613c87;
+    border-radius:2px;
+    /* border: 1px solid #29487d; */
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;   
+    /* padding: 6px 6px; */
+    text-align: center;
+    margin-top: 6px;
+    width: 100%;
+    /* margin-left: 35%; */
+    display: block;
+    box-sizing: border-box;
+    /* border-radius: 2px; */
+    line-height: 45px;
+    font-family: 'Lato';
+}
+.content_foto_face_pop{
+    margin-top:13px;
+    overflow:hidden;
+}
+.foto_pop_face{
+    float:left;
+    border-radius:100px;
+    background:black;
+    width:45px;
+    height:45px;
+    overflow:hidden;
+}
+.foto_pop_face img{
+    width:100%;
+}
+.nombre_usuario_facebook{
+    float:right;
+   width: -moz-calc(100% -55px);
+    width: calc(100% - 55px);
+    width:-webkit-calc(100% - 55px);
+    width: -webkit-calc(~'100% - 55px');
+    font-family:'LAto';
+    font-size:13px;
+    margin-top:15px;
+    color:black;
 }

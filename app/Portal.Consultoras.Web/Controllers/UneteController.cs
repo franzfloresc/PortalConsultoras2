@@ -740,8 +740,8 @@ namespace Portal.Consultoras.Web.Controllers
                    Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                 };
 
-                if ((EstadosIniciales.Contains(InitialStatus)) && solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
-                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
+                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) 
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                 {
 
@@ -1226,7 +1226,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DiasEnEspera = CalcularDias(i.FechaCreacion),
                 FechaCreacionCodigo = i.FechaCreacionCodigo == null ? "" : i.FechaCreacionCodigo.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
                 CampanaCreacionCodigo = i.AnoCampanaIngreso,
-                campana1Pedido = i.campania1erPasePedido,
+                campania1erPasePedido = i.campania1erPasePedido,
                 NumDiasAprobadoFFVV = ((CalcularDias(i.FechaAproFVVV) == "-1") ? "-" : CalcularDias(i.FechaAproFVVV)).ToString(),
                 NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
                 TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
@@ -2546,8 +2546,8 @@ namespace Portal.Consultoras.Web.Controllers
                        Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                      };
 
-                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
-                           && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() 
+                        && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)                          
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                     {
 
@@ -2817,8 +2817,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Longitud= c.Longitud,
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
-                    CorreoElectronico = c.CorreoElectronico
-
+                    CorreoElectronico = c.CorreoElectronico,
+                    VieneDe = c.VieneDe
                 };
                 
             });
@@ -2829,6 +2829,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Fecha Registro", "FechaCreacion"},
                 {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Viene De", "VieneDe"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
