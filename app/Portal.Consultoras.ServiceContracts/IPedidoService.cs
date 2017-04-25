@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -34,6 +35,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        BEPedidoWebResult InsertInvariant(BEPedidoWebDetalleInvariant pedidoDetalle);
 
         [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
@@ -1011,12 +1015,27 @@ namespace Portal.Consultoras.ServiceContracts
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
-        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA);
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
         
         [OperationContract]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        
+        [OperationContract]
+        int InsertarDesglose(BEInputReservaProl input);
+
+        [OperationContract]
+        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+            
+        [OperationContract]
+        string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
     }
 }

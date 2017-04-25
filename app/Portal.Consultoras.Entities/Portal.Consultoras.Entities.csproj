@@ -62,6 +62,11 @@
     <Compile Include="BEConsultoraEmail.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
+    <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
+    <Compile Include="ReservaProl\BEInputReservaProl.cs" />
+    <Compile Include="BEPedidoWebDetalleInvariant.cs" />
+    <Compile Include="BEPedidoWebResult.cs" />
+    <Compile Include="ReservaProl\BEResultadoReservaProl.cs" />
     <Compile Include="BEValidacionModificacionPedido.cs" />
     <Compile Include="BECatalogoRevista.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />

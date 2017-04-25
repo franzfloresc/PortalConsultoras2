@@ -172,8 +172,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
                 .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria));
 
-
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
+
+            Mapper.CreateMap<BEResultadoReservaProl, ObservacionModel>();
         }
     }
 }

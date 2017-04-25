@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Common
         }
         public static void EnviarMailProcesoDescargaExcepcion(string titulo, string paisISO, string fechaProceso, string tipoProceso, string error, string errorExcepcion)
         {
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_proceso_descarga_excepcion.html";
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_descarga_excepcion.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
             htmlTemplate = htmlTemplate.Replace("#Pais#", paisISO);
@@ -78,7 +78,7 @@ namespace Portal.Consultoras.Common
 
         public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string logo, string nombre, string url, string fondo)
         {
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_proceso_recuperar_contrasenia.html";
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_recuperar_contrasenia.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
             htmlTemplate = htmlTemplate.Replace("#Logo#", logo);

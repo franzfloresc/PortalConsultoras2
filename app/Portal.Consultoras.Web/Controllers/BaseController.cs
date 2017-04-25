@@ -817,7 +817,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
                 ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
                 ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
-                ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;
@@ -946,7 +945,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result == null ? false : true;
         }
 
-        private int TieneNotificaciones(BEUsuario oBEUsuario)
+        private int TieneNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
             int Tiene = 0;
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();

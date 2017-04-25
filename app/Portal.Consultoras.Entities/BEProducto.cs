@@ -141,20 +141,20 @@ namespace Portal.Consultoras.Entities
         public string TipoEstrategiaID { get; set; }
         /* CGI (AHAA) - BUG 2015000858 - Fin */
         [DataMember]
-        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
-        //[DataMember]
-        //public string Indicador
-        //{
-        //    get { return msIndicador; }
-        //    set { msIndicador = value; }
-        //}
-        //[DataMember]
-        //public byte PaisID
-        //{
-        //    get { return miPaisID; }
-        //    set { miPaisID = value; }
-        //}
-        
+        public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
+                                                     //[DataMember]
+                                                     //public string Indicador
+                                                     //{
+                                                     //    get { return msIndicador; }
+                                                     //    set { msIndicador = value; }
+                                                     //}
+                                                     //[DataMember]
+                                                     //public byte PaisID
+                                                     //{
+                                                     //    get { return miPaisID; }
+                                                     //    set { miPaisID = value; }
+                                                     //}
+
         [DataMember]
         public string ImagenOferta { get; set; }
         [DataMember]
@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Entities
         public bool TieneLanzamientoCatalogoPersonalizado { get; set; }
 
         [DataMember]
-        public string TipoOfertaRevista { get; set; }        
+        public string TipoOfertaRevista { get; set; }
 
         [DataMember]
         public string CatalogoDescripcion { get; set; }
@@ -260,7 +260,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
-            
+
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
                 TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
 
@@ -275,11 +275,31 @@ namespace Portal.Consultoras.Entities
                 DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
             if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
                 DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
-    }
+        }
 
+        //Refactor Inheritance
         public BEProducto()
         {
 
         }
+
+        /// <summary>
+        /// Retorna el origen del producto en base a la funcion delegate definida
+        /// </summary>
+        /// <param name="func">Function, se aplica sobre esta instancia</param>
+        /// <returns>Origin del producto</returns>
+        public ProductoOrigenEnum GetOrigen(Func<BEProducto, ProductoOrigenEnum> func)
+        {
+            return func(this);
+        }
+    }
+
+    public enum ProductoOrigenEnum
+    {
+        Catalogo,
+        Revista,
+        ExpoOfertas,
+        Liquidaciones,
+        Otros
     }
 }
