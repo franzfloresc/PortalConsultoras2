@@ -205,7 +205,7 @@ $(document).ready(function () {
     });
 
     if (cuvOfertaProl != "") {
-        EjecutarPROL();
+        EjecutarPROL(cuvOfertaProl);
     }
 });
 

@@ -850,21 +850,27 @@ function SeparadorMiles(pnumero) {
     return resultado;
 }
 
-function EjecutarPROL() {
+function EjecutarPROL(cuvOfertaProl) {
+    cuvOfertaProl = cuvOfertaProl || "";
+
     if (ReservadoOEnHorarioRestringido(true)) {
         return false;
     }
-    if (($("#divContenidoDetalle > div") || []).length > 0) {
-        if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile'))
-        {
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta exclamacion_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
-        }
+
+    if (cuvOfertaProl != "") {
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('No existen productos en su Pedido.');
-    }
+        if (($("#divContenidoDetalle > div") || []).length > 0) {
+            if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile')) {
+                $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
+                $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta exclamacion_icono_mobile");
+                $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
+            }
+            EjecutarServicioPROL();
+        } else {
+            messageInfoMalo('No existen productos en su Pedido.');
+        }
+    }    
 }
 
 function EjecutarServicioPROL() {
