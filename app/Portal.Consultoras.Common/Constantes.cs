@@ -514,6 +514,12 @@ namespace Portal.Consultoras.Common
             public const string Cyzone = "http://www.cyzone.com";
         }
 
+        public class RevistaNombre
+        {
+            public const string Esika = "Guía de Negocio Ésika";
+            public const string Lbel = "Mi Negocio L’Bel";
+        }
+
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";

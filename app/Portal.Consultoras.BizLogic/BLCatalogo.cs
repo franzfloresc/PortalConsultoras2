@@ -121,6 +121,7 @@ namespace Portal.Consultoras.BizLogic
                 SetCatalogoRevistaMostrar(paisISO, campania, listCatalogoRevista);
                 SetCatalogoRevistaCodigoIssuu(paisISO, codigoZona, campania, listCatalogoRevista);                
                 SetCatalogoRevistaFieldsInOembedIssuu(paisISO, listCatalogoRevista);
+                AjusteRevistaTituloDescripcion(paisISO, campania, listCatalogoRevista);
             }
             catch (Exception ex)
             {
@@ -348,6 +349,22 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisISO); }
             }
+        }
+
+        private void AjusteRevistaTituloDescripcion(string paisISO, int campania, List<BECatalogoRevista> listCatalogoRevista)
+        {
+            var paisesEsika = ConfigurationManager.AppSettings.Get("PaisesEsika") ?? "";
+            string paisNombre = Util.GetPaisNombre(Util.GetPaisID(paisISO));
+            string revistaNombre = null;
+
+            listCatalogoRevista.Where(cr => cr.MarcaID == 0).ToList().ForEach(cr =>
+            {
+                revistaNombre = paisesEsika.Contains(paisISO) ? Constantes.RevistaNombre.Esika : Constantes.RevistaNombre.Lbel;
+
+
+                cr.CatalogoTitulo = string.Format("{0} {1} C{2}", revistaNombre, paisNombre, campania.Substring(4, 2));
+                cr.CatalogoDescripcion = string.Format("Revista/Campaña {0}/{1}/{2}", campania.Substring(4, 2), paisNombre, campania.Substring(0, 4)); ;
+            });
         }
 
         #endregion
