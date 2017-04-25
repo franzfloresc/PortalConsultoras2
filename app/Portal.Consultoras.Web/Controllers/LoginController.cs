@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["IsOfertaPack"] = 1;
 
             UsuarioModel model = null;
-            BEUsuario oBEUsuario = null;
+            ServiceUsuario.BEUsuario oBEUsuario = null;
             string valores = "";
             string[] arrValores;
 
@@ -919,12 +919,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private int MenuNotificaciones(BEUsuario oBEUsuario)
+        private int MenuNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
-            if (oBEUsuario.NuevoPROL && oBEUsuario.ZonaNuevoPROL)
-                return 1;
-            else
-                return 0;
+            if (oBEUsuario.NuevoPROL && oBEUsuario.ZonaNuevoPROL) return 1;
+            return 0;
         }
 
         private bool RegionPROL(string ISOPais, string CodRegion)
@@ -951,7 +949,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        private int TieneNotificaciones(BEUsuario oBEUsuario)
+        private int TieneNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
             int Tiene = 0;
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();

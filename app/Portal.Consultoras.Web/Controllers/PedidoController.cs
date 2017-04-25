@@ -1902,19 +1902,19 @@ namespace Portal.Consultoras.Web.Controllers
             input.EsMovil = Request.Browser.IsMobileDevice;
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
+            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
             if (userData.ZonaValida && userData.ValidacionInteractiva && resultado.Reserva)
             {
                 CambioBannerGPR(true);
-                Session["ObservacionesPROL"] = resultado.ListPedidoObservacion;
+                Session["ObservacionesPROL"] = listObservacionModel;
                 if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
             }
             SetUserData(userData);
 
             var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
-            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
             var model = new PedidoSb2Model {
                 ListaObservacionesProl = listObservacionModel,
                 ObservacionInformativa = resultado.Informativas,
@@ -2691,71 +2691,27 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private string PedidoValidadoDeshacer(string Tipo)
+        private string PedidoValidadoDeshacer(string tipo)
         {
             var mensaje = "";
-
-            if (EstaProcesoFacturacion(out mensaje))
-                return mensaje;
-
-            bool valida = true;
-
-            if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")
-            {
-                using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
-                {
-                    sv.Url = ConfigurarUrlServiceProl();
-                    valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                }
-            }
-
-            if (!valida)
-                return "";
-
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
+            var usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                bool ValidacionAbierta = false;
-                short Estado = Constantes.EstadoPedido.Pendiente;
-
-                if (userData.NuevoPROL && userData.ZonaNuevoPROL && Tipo == "PV")
-                {
-                    ValidacionAbierta = true;
-                    Estado = Constantes.EstadoPedido.Procesado;
-                }
-
-                olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-                if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any())
-                {
-                    userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                    Estado = Constantes.EstadoPedido.Pendiente;
-                }
-
-                var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
-
-                sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
-
-                if (Tipo == "PI")
-                {
-                    List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
-                    if (Reemplazos.Count != 0)
-                    {
-                        sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
-                    }
-                }
-
-                BEConfiguracionCampania oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-
-                if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
-                {
-                    userData.MostrarBannerRechazo = true;
-                    userData.CerrarRechazado = 0;
-                    SetUserData(userData);
-                }
+                mensaje = sv.DeshacerPedidoValidado(usuario, tipo);
             }
+            if (!string.IsNullOrEmpty(mensaje)) return mensaje;
+            
+            if (userData.IndicadorGPRSB != 2 || string.IsNullOrEmpty(userData.GPRBannerMensaje)) return "";
+            BEConfiguracionCampania bEConfiguracionCampania = null;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                bEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
+            }
+            if (!bEConfiguracionCampania.ValidacionAbierta) return "";
 
+            userData.MostrarBannerRechazo = true;
+            userData.CerrarRechazado = 0;
+            SetUserData(userData);
             return "";
         }
 

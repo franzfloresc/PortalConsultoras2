@@ -7,54 +7,57 @@ namespace Portal.Consultoras.Entities.ReservaProl
     public class BEInputReservaProl
     {
         [DataMember]
-        public string PaisISO { get; set; } //Parametro
+        public string PaisISO { get; set; }
         [DataMember]
-        public int PaisID { get; set; } //Util.GetPais
+        public int PaisID { get; set; }
         [DataMember]
-        public string Simbolo { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string Simbolo { get; set; }
         [DataMember]
-        public bool EstadoSimplificacionCUV { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public bool EstadoSimplificacionCUV { get; set; }
         [DataMember]
-        public int CampaniaID { get; set; } //Parametro
+        public int CampaniaID { get; set; }
         [DataMember]
-        public DateTime FechaFacturacion { get; set; } //DateTime.Now.AddHours(oBEUsuario.ZonaHoraria) < oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes) ? oBEUsuario.FechaInicioFacturacion.AddDays(-oBEUsuario.DiasAntes) : oBEUsuario.FechaFinFacturacion;        
+        public DateTime FechaFacturacion { get; set; }
         [DataMember]
-        public long ConsultoraID { get; set; } //Parametro
+        public long ConsultoraID { get; set; }
         [DataMember]
-        public string CodigoUsuario { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string CodigoUsuario { get; set; }
         [DataMember]
-        public string CodigoConsultora { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string CodigoConsultora { get; set; }
         [DataMember]
-        public string NombreConsultora { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string NombreConsultora { get; set; }
         [DataMember]
-        public string PrimerNombre { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string PrimerNombre { get; set; }
         [DataMember]
-        public string Email { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string Email { get; set; }
         [DataMember]
-        public string CodigoZona { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public string CodigoZona { get; set; }
         [DataMember]
-        public DateTime FechaInicioCampania { get; set; } //FechaInicioCampania: SP GetConfiguracionByUsuarioAndCampania
+        public DateTime FechaInicioCampania { get; set; }
         [DataMember]
-        public double ZonaHoraria { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public double ZonaHoraria { get; set; }
         [DataMember]
-        public bool PROLSinStock { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public bool PROLSinStock { get; set; }
         [DataMember]
-        public decimal MontoMinimo { get; set; } // MontoMinimoPedido o Hana
+        public decimal MontoMinimo { get; set; }
         [DataMember]
-        public decimal MontoMaximo { get; set; } // MontoMaximoPedido o Hana
+        public decimal MontoMaximo { get; set; }
         [DataMember]
-        public int ConsultoraNueva { get; set; } //SP GetConfiguracionByUsuarioAndCampania
+        public int ConsultoraNueva { get; set; }
         [DataMember]
-        public bool ValidacionAbierta { get; set; } //GetEstadoPedido
+        public bool ValidacionAbierta { get; set; }
         [DataMember]
-        public bool FechaHoraReserva { get; set; } //SP GetConfiguracionByUsuarioAndCampania.DiasAntes
+        public bool FechaHoraReserva { get; set; }
         [DataMember]
-        public bool ProlV2 { get; set; }        
+        public bool ProlV2 { get; set; }
         [DataMember]
-        public bool ZonaProlActiva { get; set; }
+        public bool ZonaValida { get; set; }
+        [DataMember]
+        public bool ValidacionInteractiva { get; set; }
         [DataMember]
         public bool EsMovil { get; set; }
 
+        public bool ZonaProlActiva { get { return ZonaValida && ValidacionInteractiva; } }
         public int PedidoID { get; set; }
     }
 }

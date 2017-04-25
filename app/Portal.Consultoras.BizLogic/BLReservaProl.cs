@@ -16,6 +16,72 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLReservaProl
     {
+        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
+        {
+            int paisID = Util.GetPaisID(paisISO);
+            try
+            {
+                BEUsuario usuario = null;
+                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+                {
+                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                }
+                BEConfiguracionCampania configuracion = null;
+                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                {
+                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                }
+                usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;             
+
+                return DeshacerPedidoValidado(usuario, tipo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraID.ToString(), paisISO);
+                throw;
+            }
+        }
+
+        public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
+        {
+            if(usuario.IndicadorGPRSB == 1) string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
+
+            bool valida = true;
+            if (!usuario.NuevoPROL && !usuario.ZonaNuevoPROL && tipo == "PV")
+            {
+                using (ServiceStockSsic sv = new ServiceStockSsic())
+                {
+                    sv.Url = ConfigurationManager.AppSettings["Prol_" + usuario.CodigoISO];
+                    valida = sv.wsDesReservarPedido(usuario.CodigoConsultora, usuario.CodigoISO);
+                }
+            }
+            if (!valida) return "";
+
+            var bLPedidoWebDetalle = new BLPedidoWebDetalle();
+            bool validacionAbierta = usuario.NuevoPROL && usuario.ZonaNuevoPROL && tipo == "PV";
+            short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
+            int pedidoID = 0;
+
+            var listPedidoWebDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
+            if (listPedidoWebDetalle.Count == 0)
+            {
+                pedidoID = new BLPedidoWeb().GetPedidoWebID(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+                estado = Constantes.EstadoPedido.Pendiente;
+            }
+            else pedidoID = listPedidoWebDetalle[0].PedidoID;
+
+            var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
+            bLPedidoWebDetalle.UpdPedidoWebByEstado(usuario.PaisID, usuario.CampaniaID, pedidoID, estado, false, true, codigoUsuario, validacionAbierta);
+
+            if (tipo == "PI")
+            {
+                List<BEPedidoWebDetalle> listReemplazo = listPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
+                if (listReemplazo.Count != 0) bLPedidoWebDetalle.InsPedidoWebAccionesPROL(listReemplazo, 100, 103);
+            }
+
+            return "";
+        }
+
         public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
         {
             int paisID = Util.GetPaisID(paisISO);
@@ -31,7 +97,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
                 }
-                UpdateDiaPROLAndMostrarBotonValidar(usuario);
+                UpdateDiaPROLAndEsHoraReserva(usuario);
 
                 var input = new BEInputReservaProl {
                     PaisISO = paisISO,
@@ -52,7 +118,8 @@ namespace Portal.Consultoras.BizLogic
                     ConsultoraNueva = usuario.ConsultoraNueva,
                     FechaHoraReserva = usuario.DiaPROL && usuario.EsHoraReserva,
                     ProlV2 = usuario.NuevoPROL && usuario.ZonaNuevoPROL,
-                    ZonaProlActiva = usuario.ZonaValida && usuario.ValidacionInteractiva,
+                    ZonaValida = usuario.ZonaValida,
+                    ValidacionInteractiva = usuario.ValidacionInteractiva,
                     ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
                     FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
                     EsMovil = esMovil
@@ -82,7 +149,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private void UpdateDiaPROLAndMostrarBotonValidar(BEUsuario usuario)
+        private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             usuario.DiaPROL = usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes) < fechaHoraActual
@@ -109,7 +176,8 @@ namespace Portal.Consultoras.BizLogic
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
-            if (input.ZonaProlActiva) return new BEResultadoReservaProl { Reserva = true };
+            if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true };
+            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl();
             try
             {
                 var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
@@ -130,9 +198,12 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl { ListPedidoObservacion = new List<BEPedidoObservacion> {
-                    new BEPedidoObservacion() { Descripcion = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo." }
-                } };
+                return new BEResultadoReservaProl {
+                    Error = true,
+                    ListPedidoObservacion = new List<BEPedidoObservacion> {
+                        new BEPedidoObservacion() { Descripcion = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo." }
+                    }
+                };
             }
         }
 
