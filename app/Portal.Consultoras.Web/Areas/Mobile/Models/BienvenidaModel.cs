@@ -41,5 +41,6 @@
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
         public int ActivacionAppCatalogoWhastUp { get; set; }
         public string CodigoUsuario { get; set; }
+        public int ShowRoomMostrarLista { get; set; }
     }
 }

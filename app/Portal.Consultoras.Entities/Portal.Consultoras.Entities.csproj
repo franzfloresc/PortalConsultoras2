@@ -59,6 +59,8 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
     <Compile Include="BEValidacionModificacionPedido.cs" />
     <Compile Include="BECatalogoRevista.cs" />
@@ -263,6 +265,7 @@
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BEUsuarioExterno.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
   </ItemGroup>

@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Entities
         private string msSobrenombre;
         private bool mbCompartirDatos;
         private bool mbActivo;
-        private byte miTipoUsuario;
+        private Int16 miTipoUsuario;
         private bool mbCambioClave;
         //Campos dispuestos para la sesión de Usuario
         private string msCodigoISO;
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Entities
             msSobrenombre = row["Sobrenombre"].ToString();
             mbCompartirDatos = Convert.ToBoolean(row["CompartirDatos"]);
             mbActivo = Convert.ToBoolean(row["Activo"]);
-            miTipoUsuario = (byte)row["TipoUsuario"];
+            miTipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
@@ -143,8 +143,6 @@ namespace Portal.Consultoras.Entities
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
-
-
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
@@ -387,12 +385,15 @@ namespace Portal.Consultoras.Entities
             else
                 ConsultoraAsociadoID = 0;
 
-            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
-                miTipoUsuario = Convert.ToByte(row["TipoUsuario"]);
-            else
-                miTipoUsuario = 0;
+            if (DataRecord.HasColumn(row, "DocumentoIdentidad") && row["DocumentoIdentidad"] != DBNull.Value)
+                DocumentoIdentidad = Convert.ToString(row["DocumentoIdentidad"]);
 
-            //miTipoUsuario = 2;
+            if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+                TipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
+                
+            if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
+                TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
+
         }
 
         [DataMember]
@@ -594,7 +595,7 @@ namespace Portal.Consultoras.Entities
             set { mbActivo = value; }
         }
         [DataMember]
-        public byte TipoUsuario
+        public Int16 TipoUsuario
         {
             get { return miTipoUsuario; }
             set { miTipoUsuario = value; }
@@ -1105,8 +1106,16 @@ namespace Portal.Consultoras.Entities
         /*PL20-1226*/
         [DataMember]
         public bool OfertaDelDia { get; set; }
+
+        //EPD-1836
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
+        
+        [DataMember]
+        public string DocumentoIdentidad { get; set; }
+        
+        [DataMember]
+        public bool TieneLoginExterno { get; set; }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }

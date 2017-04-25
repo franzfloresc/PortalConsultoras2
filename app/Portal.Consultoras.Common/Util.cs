@@ -467,9 +467,9 @@ namespace Portal.Consultoras.Common
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
             //Embebemos el logo de Belcorp 
-            LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
-            Logo.ContentId = "Logo";
-            avHtml.LinkedResources.Add(Logo);
+            //LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
+            //Logo.ContentId = "Logo";
+            //avHtml.LinkedResources.Add(Logo);
 
             //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")

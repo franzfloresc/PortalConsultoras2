@@ -102,7 +102,6 @@
     <Content Include="ClienteService.svc" />
     <Content Include="ConsultoraWebService.svc" />
     <Content Include="ContenidoService.svc" />
-    <Content Include="MenuService.svc" />
     <Content Include="ODSService.svc" />
     <Content Include="PedidoService.svc" />
     <Content Include="SACService.svc" />

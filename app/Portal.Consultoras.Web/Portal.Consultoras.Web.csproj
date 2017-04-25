@@ -16,10 +16,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -526,6 +526,7 @@
     <Compile Include="Models\TipoLinkModel.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
@@ -1973,6 +1974,7 @@
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
     <Content Include="Content\Images\facebook_share.png" />
+    <Content Include="Content\Images\face_login.png" />
     <Content Include="Content\Images\faq.png" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\filtros_faltantes.png" />
@@ -3386,7 +3388,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
     <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
     <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
     <None Include="Service References\ServiceUsuario\Reference.svcmap">
@@ -3586,6 +3587,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.disco" />
+    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
