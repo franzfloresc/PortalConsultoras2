@@ -43,7 +43,7 @@ namespace Portal.Consultoras.BizLogic
             var validacionHorario = _blPedidoWeb.ValidacionModificarPedido(model.PaisID, usuario.ConsultoraID, model.CampaniaID, model.UsuarioPrueba, model.AceptacionConsultoraDA);
             if (!ResolverMotivoPedidoLock(validacionHorario.MotivoPedidoLock))
                 return BEPedidoWebResult.BuildError(code: validacionHorario.MotivoPedidoLock.ToString(), message: validacionHorario.Mensaje);
-            
+
             var producto = _blProducto.SelectProductoByCodigoDescripcionSearchRegionZona(model.PaisID, model.CampaniaID, model.CUV,
                 usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true).FirstOrDefault();
             if (producto == null)
@@ -125,6 +125,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidas, unidadesPermitidas);
                     result = false;
+                    return new Tuple<bool, string>(result, errorMessage);
                 }
 
                 if (saldo == 0)
@@ -137,6 +138,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 result = false;
+                return new Tuple<bool, string>(result, errorMessage);
             }
 
             int stockOfertaLiquidacion = ValidarStockOfertaProductoLiquidacion(model.PaisID, model.CampaniaID, model.CUV);
@@ -144,6 +146,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasStockSobrepasado, stockOfertaLiquidacion);
                 result = false;
+                return new Tuple<bool, string>(result, errorMessage);
             }
 
             var detalle = new BEPedidoWebDetalle()
@@ -164,6 +167,7 @@ namespace Portal.Consultoras.BizLogic
             };
 
             _blOfertaProducto.InsPedidoWebDetalleOferta(detalle);
+
             errorMessage = string.Empty;
 
             return new Tuple<bool, string>(result, errorMessage);
