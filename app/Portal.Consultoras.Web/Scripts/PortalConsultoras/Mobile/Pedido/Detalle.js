@@ -855,7 +855,9 @@ function SeparadorMiles(pnumero) {
     return resultado;
 }
 
-function EjecutarPROL() {
+function EjecutarPROL(cuvOfertaProl) {
+    cuvOfertaProl = cuvOfertaProl || "";
+
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
@@ -865,6 +867,10 @@ function EjecutarPROL() {
         if (ReservadoOEnHorarioRestringido(true)) {
             return false;
         }
+
+    if (cuvOfertaProl != "") {
+        EjecutarServicioPROL();
+    } else {
         if (($("#divContenidoDetalle > div") || []).length > 0) {
             if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile')) {
                 $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
@@ -875,6 +881,7 @@ function EjecutarPROL() {
         } else {
             messageInfoMalo('No existen productos en su Pedido.');
         }
+    }    
     }
 }
 
