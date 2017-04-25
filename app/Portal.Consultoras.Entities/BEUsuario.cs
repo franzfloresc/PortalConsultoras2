@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "SegmentoAbreviatura") && row["SegmentoAbreviatura"] != DBNull.Value)
                 mSegmentoAbreviatura = Convert.ToString(row["SegmentoAbreviatura"]);
 
-            msSobrenombre = Convert.ToString(row["Sobrenombre"]) == string.Empty ? Convert.ToString(row["PrimerNombre"]) : Convert.ToString(row["Sobrenombre"]);
+            //msSobrenombre = Convert.ToString(row["Sobrenombre"]) == string.Empty ? Convert.ToString(row["PrimerNombre"]) : Convert.ToString(row["Sobrenombre"]);
             //EMailActivo = Convert.ToBoolean(row["EMailActivo"]);//2532 EGL
 
             if (DataRecord.HasColumn(row, "IndicadorDupla") && row["IndicadorDupla"] != DBNull.Value)

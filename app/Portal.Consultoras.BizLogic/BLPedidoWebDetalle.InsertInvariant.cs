@@ -18,7 +18,7 @@ namespace Portal.Consultoras.BizLogic
         private BLEstrategia _blEstrategia;
         private BLOfertaProducto _blOfertaProducto;
         private int OfertaLiquidacionID; //1702;
-        public const string SUCCESS = "OK";
+        private const string SUCCESS = "OK";
 
         public BLPedidoWebDetalle()
         {
@@ -43,11 +43,11 @@ namespace Portal.Consultoras.BizLogic
             var validacionHorario = _blPedidoWeb.ValidacionModificarPedido(model.PaisID, usuario.ConsultoraID, model.CampaniaID, model.UsuarioPrueba, model.AceptacionConsultoraDA);
             if (!ResolverMotivoPedidoLock(validacionHorario.MotivoPedidoLock))
                 return BEPedidoWebResult.BuildError(code: validacionHorario.MotivoPedidoLock.ToString(), message: validacionHorario.Mensaje);
-
+            
             var producto = _blProducto.SelectProductoByCodigoDescripcionSearchRegionZona(model.PaisID, model.CampaniaID, model.CUV,
                 usuario.RegionID, usuario.ZonaID, usuario.CodigorRegion, usuario.CodigoZona, 1, 5, true).FirstOrDefault();
             if (producto == null)
-                return BEPedidoWebResult.BuildError(code: "0002", message: "Producto no Encontrado"); //TODO: Validar mensaje
+                return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_NO_ENCONTRADO, message: Resources.PedidoInsertMessages.ValidacionProductoByCUVNoEncontrado); //TODO: Validar mensaje
 
             int tipoEstrategia;
             //validar stock estrategia
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.BizLogic
 
             var codigoValidacionStockEstrategia = _blEstrategia.ValidarStockEstrategia(estrategia);
             if (codigoValidacionStockEstrategia != SUCCESS)
-                return BEPedidoWebResult.BuildError(code: codigoValidacionStockEstrategia, message: "Stock no valido"); //TODO: Validar mensaje
+                return BEPedidoWebResult.BuildError(code: codigoValidacionStockEstrategia, message: codigoValidacionStockEstrategia);
 
             //Liquidaciones
             if (producto.GetOrigen(OrigenResolver) == ProductoOrigenEnum.Liquidaciones)
@@ -71,7 +71,7 @@ namespace Portal.Consultoras.BizLogic
                 var resultStockLiquidaciones = ProcesarValidarStockLiquidaciones(model, producto, usuario);
                 if (!resultStockLiquidaciones.Item1)
                 {
-                    return BEPedidoWebResult.BuildError(code: "0002", message: resultStockLiquidaciones.Item2);
+                    return BEPedidoWebResult.BuildError(code: ResponseCode.ERROR_PRODUCTO_STOCK_INVALIDO, message: resultStockLiquidaciones.Item2);
                 }
 
                 return BEPedidoWebResult.BuildOk();
@@ -82,7 +82,13 @@ namespace Portal.Consultoras.BizLogic
             return BEPedidoWebResult.BuildOk();
         }
 
-        bool ResolverMotivoPedidoLock(Enumeradores.MotivoPedidoLock validacion)
+        public class ResponseCode
+        {
+            public const string ERROR_PRODUCTO_NO_ENCONTRADO = "05";
+            public const string ERROR_PRODUCTO_STOCK_INVALIDO = "06";
+        }
+
+        private bool ResolverMotivoPedidoLock(Enumeradores.MotivoPedidoLock validacion)
         {
             if (validacion == Enumeradores.MotivoPedidoLock.GPR ||
             validacion == Enumeradores.MotivoPedidoLock.Reservado ||
@@ -163,7 +169,7 @@ namespace Portal.Consultoras.BizLogic
             return new Tuple<bool, string>(result, errorMessage);
         }
 
-        void ValidarUnidadesPermitidasPedidoProducto(string CUV, int paisId, int campanaId, long consultoraId, out int unidadesPermitidas, out int saldo, out int cantidadPedida)
+        private void ValidarUnidadesPermitidasPedidoProducto(string CUV, int paisId, int campanaId, long consultoraId, out int unidadesPermitidas, out int saldo, out int cantidadPedida)
         {
             var entidad = new BEOfertaProducto();
             entidad.PaisID = paisId;
@@ -176,7 +182,7 @@ namespace Portal.Consultoras.BizLogic
             cantidadPedida = _blOfertaProducto.CantidadPedidoByConsultora(entidad);
         }
 
-        int ValidarStockOfertaProductoLiquidacion(int paisID, int campanaID, string cuv)
+        private int ValidarStockOfertaProductoLiquidacion(int paisID, int campanaID, string cuv)
         {
             return _blOfertaProducto.GetStockOfertaProductoLiquidacion(paisID, campanaID, cuv);
         }
@@ -248,7 +254,7 @@ namespace Portal.Consultoras.BizLogic
             UpdPedidoWebMontosPROL(usuario);
         }
 
-        short ValidarInsercion(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, out int Cantidad)
+        private short ValidarInsercion(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, out int Cantidad)
         {
             var Temp = new List<BEPedidoWebDetalle>(Pedido);
             var obe = Temp.FirstOrDefault(p => p.ClienteID == ItemPedido.ClienteID && p.CUV == ItemPedido.CUV);
