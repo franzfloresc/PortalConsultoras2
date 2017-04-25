@@ -18,6 +18,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -5150,9 +5151,9 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Login", new { area = area });
                 }
 
-                var obj = Util.Trim(Util.DesencriptarQueryString(script));
-                var listaParemetros = obj.Split(';');
-                var ultimo = listaParemetros.Length > 0 ? listaParemetros[listaParemetros.Length - 1] : "";
+                var obj = Util.Decrypt(HttpUtility.UrlDecode(script)) != null ? Util.Decrypt(HttpUtility.UrlDecode(script)) : "";
+                var listaParemetros = obj.Split('|');
+                //var ultimo = listaParemetros.Length > 0 ? listaParemetros[listaParemetros.Length - 1] : "";
 
                 // ISO del país, código de la campaña y código de la consultora
                 var codigoIso = listaParemetros.Length > 0 ? listaParemetros[0] : "";
@@ -5195,7 +5196,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Pedido", new { area = area });
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
             }
