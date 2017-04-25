@@ -651,5 +651,51 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        
+        /*EPD-1837*/
+        public int InsUsuarioExterno(BEUsuarioExterno usuarioExterno)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioExterno");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioExterno.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, usuarioExterno.Proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, usuarioExterno.IdAplicacion);
+            Context.Database.AddInParameter(command, "@Login", DbType.AnsiString, usuarioExterno.Login);
+            Context.Database.AddInParameter(command, "@Nombres", DbType.AnsiString, usuarioExterno.Nombres);
+            Context.Database.AddInParameter(command, "@Apellidos", DbType.AnsiString, usuarioExterno.Apellidos);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.AnsiString, usuarioExterno.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, usuarioExterno.Correo);
+            Context.Database.AddInParameter(command, "@Genero", DbType.AnsiString, usuarioExterno.Genero);
+            Context.Database.AddInParameter(command, "@Ubicacion", DbType.AnsiString, usuarioExterno.Ubicacion);
+            Context.Database.AddInParameter(command, "@LinkPerfil", DbType.AnsiString, usuarioExterno.LinkPerfil);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioExterno.FotoPerfil);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetUsuarioExterno(string proveedor, string idAplicacion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExterno");
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, idAplicacion);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public bool GetExisteEmailActivo(string email)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteEmailActivo");
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+
+        public IDataReader GetListaLoginExterno(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaLoginExterno");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1837*/
     }
 }

@@ -293,5 +293,19 @@ namespace Portal.Consultoras.ServiceContracts
         //EPD-2058
         [OperationContract]
         BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
+        
+        /*EPD-1837*/
+        [OperationContract]
+        int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
+
+        [OperationContract]
+        BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion);
+
+        [OperationContract]
+        bool GetExisteEmailActivo(int paisID, string email);
+        
+        [OperationContract]
+        List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
+        /*EPD-1837*/
     }
 }

@@ -996,6 +996,7 @@ function RedirectIngresaTuPedido() {
 };
 function CerrarSesion() {
     localStorage.clear();
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
