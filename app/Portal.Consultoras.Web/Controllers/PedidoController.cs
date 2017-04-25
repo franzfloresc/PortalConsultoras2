@@ -5167,6 +5167,12 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = area });
                 }
 
+                var listaDetallePedido = ObtenerPedidoWebDetalle();
+                if (listaDetallePedido.Count == 0)
+                {
+                    return RedirectToAction("Index", "Bienvenida", new { area = area });
+                }
+
                 BEConfiguracionCampania oBEConfiguracionCampania;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
