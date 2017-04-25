@@ -246,9 +246,13 @@ namespace Portal.Consultoras.Web.Controllers
                 modelList[0].FotoProducto08 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto08, carpetaAnterior);
                 modelList[0].FotoProducto09 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto09, carpetaAnterior);
                 modelList[0].FotoProducto10 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto10, carpetaAnterior);
+                
+                int nroCampaniasAtras = 0;
+                Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);
+                if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
                 string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
-                if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, nroCampanias);
+                if (paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, lista = modelList }, JsonRequestBehavior.AllowGet);
         }
@@ -381,21 +385,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int intentos, int nroCampanias)
+        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int nroCampaniasAtras)
         {
-            int campanaAppCatalogo;
+            Producto[] arrayProducto = null;
             using (ProductoServiceClient sv = new ProductoServiceClient())
             {
-                for (int i = 0; i < intentos; i++)
-                {
-                    campanaAppCatalogo = AddCampaniaAndNumero(campaniaID, -i, nroCampanias);
-                    var arrayProducto = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campanaAppCatalogo, codigoSAP);
-
-                    if (arrayProducto == null || arrayProducto.Length == 0) continue;
-                    if (!string.IsNullOrEmpty(arrayProducto[0].Imagen)) return arrayProducto[0].Imagen;
-                }
+                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaID, codigoSAP, nroCampaniasAtras);                
             }
-            return null;
+            if (arrayProducto == null || arrayProducto.Length == 0) return null;
+            return arrayProducto[0].Imagen;
         }
     }
 }
