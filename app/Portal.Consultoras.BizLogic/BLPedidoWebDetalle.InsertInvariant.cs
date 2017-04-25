@@ -20,6 +20,8 @@ namespace Portal.Consultoras.BizLogic
         private BLUsuario _blUsuario;
         private BLEstrategia _blEstrategia;
         private BLOfertaProducto _blOfertaProducto;
+        private int OfertaLiquidacionID; //1702;
+        public const string SUCCESS = "OK";
 
         public BLPedidoWebDetalle()
         {
@@ -28,6 +30,12 @@ namespace Portal.Consultoras.BizLogic
             _blUsuario = new BLUsuario();
             _blEstrategia = new BLEstrategia();
             _blOfertaProducto = new BLOfertaProducto();
+
+            var ofertaLiquidacion = 0;
+            if (!int.TryParse(ConfigurationManager.AppSettings["OfertaLiquidacionID"], out ofertaLiquidacion))
+                throw new ArgumentNullException("No existe la llave OfertaLiquidacionID");
+
+            OfertaLiquidacionID = ofertaLiquidacion;
         }
 
         public BEPedidoWebResult InsPedidoDetalleInvariant(BEPedidoWebDetalleInvariant model)
@@ -44,9 +52,7 @@ namespace Portal.Consultoras.BizLogic
             if (producto == null)
                 return BEPedidoWebResult.BuildError(code: "0002", message: "Producto no Encontrado"); //TODO: Validar mensaje
 
-            int tipoEstrategia = 0;
-            int.TryParse(producto.TipoEstrategiaID, out tipoEstrategia);
-
+            int tipoEstrategia;
             //validar stock estrategia
             var estrategia = new BEEstrategia()
             {
@@ -75,7 +81,6 @@ namespace Portal.Consultoras.BizLogic
             }
 
             //Insertar
-            //InsPedidoWebDetalle(pedidowebdetalle);
             AdministradorPedido(model.PaisID, usuario.CodigoUsuario, "I", model.CUV, model.Cantidad, producto.PrecioCatalogo, usuario);
             return BEPedidoWebResult.BuildOk();
         }
@@ -88,7 +93,6 @@ namespace Portal.Consultoras.BizLogic
 
             return true;
         }
-
 
         static ProductoOrigenEnum OrigenResolver(BEProducto producto)
         {
@@ -132,7 +136,7 @@ namespace Portal.Consultoras.BizLogic
                 result = false;
             }
 
-            int stockOfertaLiquidacion = ValidarStockOfertaProductoLiquidacion(model.PaisID, Liquidacion, model.CUV);
+            int stockOfertaLiquidacion = ValidarStockOfertaProductoLiquidacion(model.PaisID, model.CampaniaID, model.CUV);
             if (stockOfertaLiquidacion < model.Cantidad)
             {
                 errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasStockSobrepasado, stockOfertaLiquidacion);
@@ -141,13 +145,19 @@ namespace Portal.Consultoras.BizLogic
 
             var detalle = new BEPedidoWebDetalle()
             {
+                CUV = model.CUV,
                 PaisID = model.PaisID,
                 ConsultoraID = usuario.ConsultoraID,
+                MarcaID = Convert.ToByte(producto.MarcaID),
+                PrecioUnidad = producto.PrecioCatalogo,
+                ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
+                Cantidad = model.Cantidad,
                 CampaniaID = model.CampaniaID,
-                TipoOfertaSisID = producto.TipoOfertaSisID,
+                TipoOfertaSisID = OfertaLiquidacionID, //Constante Oferta_Liquidacion
                 IPUsuario = model.IPUsuario,
                 CodigoUsuarioCreacion = usuario.CodigoUsuario,
-                CodigoUsuarioModificacion = usuario.CodigoUsuario
+                CodigoUsuarioModificacion = usuario.CodigoUsuario,
+                OrigenPedidoWeb = model.OrigenPedidoWeb
             };
 
             _blOfertaProducto.InsPedidoWebDetalleOferta(detalle);
@@ -155,9 +165,6 @@ namespace Portal.Consultoras.BizLogic
 
             return new Tuple<bool, string>(result, errorMessage);
         }
-
-        int Liquidacion = 1702;
-        public const string SUCCESS = "0000";
 
         void ValidarUnidadesPermitidasPedidoProducto(string CUV, int paisId, int campanaId, long consultoraId, out int unidadesPermitidas, out int saldo, out int cantidadPedida)
         {
@@ -167,14 +174,14 @@ namespace Portal.Consultoras.BizLogic
             entidad.CUV = CUV;
             entidad.ConsultoraID = (int)consultoraId;
 
-            unidadesPermitidas = new BLOfertaProducto().GetUnidadesPermitidasByCuv(paisId, campanaId, CUV);
-            saldo = new BLOfertaProducto().ValidarUnidadesPermitidasEnPedido(paisId, campanaId, CUV, consultoraId);
-            cantidadPedida = new BLOfertaProducto().CantidadPedidoByConsultora(entidad);
+            unidadesPermitidas = _blOfertaProducto.GetUnidadesPermitidasByCuv(paisId, campanaId, CUV);
+            saldo = _blOfertaProducto.ValidarUnidadesPermitidasEnPedido(paisId, campanaId, CUV, consultoraId);
+            cantidadPedida = _blOfertaProducto.CantidadPedidoByConsultora(entidad);
         }
 
         int ValidarStockOfertaProductoLiquidacion(int paisID, int campanaID, string cuv)
         {
-            return new BLOfertaProducto().GetStockOfertaProductoLiquidacion(paisID, campanaID, cuv);
+            return _blOfertaProducto.GetStockOfertaProductoLiquidacion(paisID, campanaID, cuv);
         }
 
         private void AdministradorPedido(int paisID, string codigo, string tipoAccion, string cuv, int cantidad, decimal precio, BEUsuario usuario)
@@ -273,7 +280,7 @@ namespace Portal.Consultoras.BizLogic
             return Temp.Sum(p => p.ImporteTotal) + (tipoAccion == "U" ? ItemPedido.ImporteTotal : 0);
         }
 
-        protected void UpdPedidoWebMontosPROL(BEUsuario usuario)
+        private void UpdPedidoWebMontosPROL(BEUsuario usuario)
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
 
@@ -302,10 +309,10 @@ namespace Portal.Consultoras.BizLogic
             bePedidoWeb.DescuentoProl = montoDescuento;
             bePedidoWeb.MontoEscala = montoEscala;
 
-            new BLPedidoWeb().UpdateMontosPedidoWeb(bePedidoWeb);
+            _blPedidoWeb.UpdateMontosPedidoWeb(bePedidoWeb);
         }
 
-        protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, List<BEPedidoWebDetalle> Pedido)
+        private List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, List<BEPedidoWebDetalle> Pedido)
         {
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
@@ -321,7 +328,6 @@ namespace Portal.Consultoras.BizLogic
             var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
             var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
-            //TODO: agregar key webConfig
             var result = new DACalculoPROL(ConfigurationManager.AppSettings[keyWeb]).CalculoMontosProl(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, ds.Tables[0]).ToList();
             return result;
         }

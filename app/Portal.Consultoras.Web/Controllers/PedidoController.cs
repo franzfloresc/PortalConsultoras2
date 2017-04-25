@@ -1699,7 +1699,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
+                   olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, oUsuarioModel.CampaniaID, term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
                 var strCUV = string.Empty;
