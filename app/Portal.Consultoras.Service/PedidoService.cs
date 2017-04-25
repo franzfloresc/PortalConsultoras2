@@ -415,10 +415,9 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetMatrizComercialByCodigoSAP(paisID, codigoSAP);
         }
 
-        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP, int pagina, int registros, out int totalRegistros)
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP, int pagina, int registros)
         {
-            totalRegistros = 0;
-            return new BLOfertaProducto().GetMatrizComercialImagenByCodigoSAP(paisID, codigoSAP, pagina, registros, out totalRegistros);
+            return new BLOfertaProducto().GetMatrizComercialImagenByCodigoSAP(paisID, codigoSAP, pagina, registros);
         }
 
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
