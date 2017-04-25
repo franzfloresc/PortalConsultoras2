@@ -61,6 +61,8 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
+    <Compile Include="BEPedidoWebDetalleInvariant.cs" />
+    <Compile Include="BEPedidoWebResult.cs" />
     <Compile Include="ReservaProl\BEResultadoReservaProl.cs" />
     <Compile Include="BEValidacionModificacionPedido.cs" />
     <Compile Include="BECatalogoRevista.cs" />

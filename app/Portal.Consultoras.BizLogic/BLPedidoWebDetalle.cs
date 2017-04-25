@@ -10,7 +10,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLPedidoWebDetalle
+    public partial class BLPedidoWebDetalle
     {
         public IList<BEPedidoWebDetalle> GetClientesByCampania(int paisID, int campaniaID, long consultoraID)
         {

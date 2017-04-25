@@ -37,6 +37,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
+        BEPedidoWebResult InsertInvariant(BEPedidoWebDetalleInvariant pedidoDetalle);
+
+        [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
