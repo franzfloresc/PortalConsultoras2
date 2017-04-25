@@ -1896,10 +1896,9 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EjecutarServicioPROL()
         {
             UpdateDiaPROLAndMostrarBotonValidar(userData);
-            //usuario.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
+            //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
 
             var input = Mapper.Map<BEInputReservaProl>(userData);
-            input.EstadoSimplificacionCUV = (ViewBag.EstadoSimplificacionCUV != null && ViewBag.EstadoSimplificacionCUV == true);
             input.EsMovil = Request.Browser.IsMobileDevice;
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }

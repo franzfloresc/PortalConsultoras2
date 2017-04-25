@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
@@ -15,6 +16,97 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLReservaProl
     {
+        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
+        {
+            int paisID = Util.GetPaisID(paisISO);
+            try
+            {
+                BEUsuario usuario = null;
+                using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+                {
+                    if (reader.Read()) usuario = new BEUsuario(reader, true);
+                }
+                BEConfiguracionCampania configuracion = null;
+                using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+                {
+                    if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+                }
+                UpdateDiaPROLAndMostrarBotonValidar(usuario);
+
+                var input = new BEInputReservaProl {
+                    PaisISO = paisISO,
+                    PaisID = paisID,
+                    Simbolo = usuario.Simbolo,
+                    EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
+                    CampaniaID = campania,
+                    ConsultoraID = consultoraID,
+                    CodigoUsuario = usuario.CodigoUsuario,
+                    CodigoConsultora = usuario.CodigoConsultora,
+                    NombreConsultora = usuario.Nombre,
+                    PrimerNombre = usuario.PrimerNombre,
+                    Email = usuario.EMail,
+                    CodigoZona = usuario.CodigoZona,
+                    FechaInicioCampania = usuario.FechaInicioFacturacion,
+                    ZonaHoraria = usuario.ZonaHoraria,
+                    PROLSinStock = usuario.PROLSinStock,
+                    ConsultoraNueva = usuario.ConsultoraNueva,
+                    FechaHoraReserva = usuario.DiaPROL && usuario.EsHoraReserva,
+                    ProlV2 = usuario.NuevoPROL && usuario.ZonaNuevoPROL,
+                    ZonaProlActiva = usuario.ZonaValida && usuario.ValidacionInteractiva,
+                    ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
+                    FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
+                    EsMovil = esMovil
+                };
+
+                if (usuario.TieneHana == 1)
+                {
+                    var datosConsultoraHana = new BLUsuario().GetDatosConsultoraHana(paisID, usuario.CodigoUsuario, campania);
+                    if (datosConsultoraHana != null)
+                    {
+                        input.MontoMinimo = datosConsultoraHana.MontoMinimoPedido;
+                        input.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
+                    }
+                }
+                else
+                {
+                    input.MontoMinimo = usuario.MontoMinimoPedido;
+                    input.MontoMaximo = usuario.MontoMaximoPedido;
+                }
+                
+                return EjecutarReservaProl(input);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, consultoraID.ToString(), paisISO);
+                throw;
+            }
+        }
+
+        private void UpdateDiaPROLAndMostrarBotonValidar(BEUsuario usuario)
+        {
+            DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            usuario.DiaPROL = usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes) < fechaHoraActual
+                && fechaHoraActual < usuario.FechaFinFacturacion.AddDays(1);
+            usuario.EsHoraReserva = EsHoraReserva(usuario, fechaHoraActual);
+        }
+
+        private bool EsHoraReserva(BEUsuario usuario, DateTime fechaHoraActual)
+        {
+            if (!usuario.DiaPROL) return false;
+
+            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
+            bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioFacturacion) ?
+                (HoraNow > usuario.HoraInicioNoFacturable && HoraNow < usuario.HoraCierreNoFacturable) :
+                (HoraNow > usuario.HoraInicio && HoraNow < usuario.HoraFin);
+            if (!esHorarioReserva) return false;
+
+            if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
+            {
+                return (new BLPedidoWeb().GetFechaNoHabilFacturacion(usuario.PaisID, usuario.CodigoZona, DateTime.Today) == 0);
+            }
+            return true;
+        }
+
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             if (input.ZonaProlActiva) return new BEResultadoReservaProl { Reserva = true };

@@ -769,7 +769,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
                 ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
                 ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
-                ViewBag.EstadoSimplificacionCUV = model.EstadoSimplificacionCUV;
                 ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
                 ViewBag.OfertaFinal = model.OfertaFinal;
                 ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;

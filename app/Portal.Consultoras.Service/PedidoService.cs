@@ -1851,9 +1851,9 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
         {
-            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, aceptacionConsultoraDA);
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
 
         public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
@@ -1864,6 +1864,11 @@ namespace Portal.Consultoras.Service
         public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
+        {
+            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
         }
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)

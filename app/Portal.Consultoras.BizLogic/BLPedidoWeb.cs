@@ -2021,13 +2021,20 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
         {
+            BEUsuario usuario = null;
+            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+
             BEConfiguracionCampania configuracion = null;
-            using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, consultoraID))
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
             {
                 if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
             }
+
             if (configuracion != null)
             {
                 if (configuracion.IndicadorGPRSB == 1) {
@@ -2046,7 +2053,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            string mensajeHorarioRestringido = this.ValidarHorarioRestringido(paisID, consultoraID, campania, aceptacionConsultoraDA);
+            string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario);
             if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
             {
                 return new BEValidacionModificacionPedido
@@ -2059,28 +2066,21 @@ namespace Portal.Consultoras.BizLogic
             return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
         }
 
-        private string ValidarHorarioRestringido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        private string ValidarHorarioRestringido(BEUsuario usuario)
         {            
-            var pais = new BLZonificacion().SelectPais(paisID);
-            BEConfiguracionCampania configuracion = null;
-            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, aceptacionConsultoraDA))
-            {
-                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
-            }
-            
-            DateTime FechaHoraActual = DateTime.Now.AddHours(pais.ZonaHoraria);
-            if (!pais.HabilitarRestriccionHoraria) return null;
-            if (FechaHoraActual <= configuracion.FechaInicioFacturacion || configuracion.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;
+            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            if (!usuario.HabilitarRestriccionHoraria) return null;
+            if (FechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;
             
             TimeSpan horaActual = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
-            TimeSpan horaAdicional = TimeSpan.Parse(pais.HorasDuracionRestriccion.ToString() + ":00");
+            TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
 
             bool enHorarioRestringido = false;
-            if (configuracion.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > configuracion.HoraCierreZonaDemAnti);
-            else enHorarioRestringido = (configuracion.HoraCierreZonaNormal < horaActual && horaActual < configuracion.HoraCierreZonaNormal + horaAdicional);
+            if (usuario.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > usuario.HoraCierreZonaDemAnti);
+            else enHorarioRestringido = (usuario.HoraCierreZonaNormal < horaActual && horaActual < usuario.HoraCierreZonaNormal + horaAdicional);
             if (!enHorarioRestringido) return null;
 
-            TimeSpan horaCierre = configuracion.EsZonaDemAnti != 0 ? configuracion.HoraCierreZonaDemAnti : configuracion.HoraCierreZonaNormal;
+            TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
             return string.Format(" En este momento nos encontramos facturando tu pedido de C-XX. Todos los códigos ingresados hasta las {0} horas han sido registrados en el sistema. Gracias!", horaCierre.ToString(@"hh\:mm"));
         }
     }

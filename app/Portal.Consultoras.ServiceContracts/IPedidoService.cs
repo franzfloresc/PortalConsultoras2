@@ -1012,7 +1012,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
-        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA);
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
         
         [OperationContract]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
@@ -1021,8 +1021,11 @@ namespace Portal.Consultoras.ServiceContracts
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
 
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
     }
