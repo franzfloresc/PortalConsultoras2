@@ -1,10 +1,6 @@
-﻿using Portal.Consultoras.Data.ServiceCalculosPROL;
-using System;
+﻿using Portal.Consultoras.Data.ServiceCalculoPROL;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {

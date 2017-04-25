@@ -28,5 +28,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string IPUsuario { get; set; }
+
+        [DataMember]
+        public bool UsuarioPrueba { get; set; }
     }
 }

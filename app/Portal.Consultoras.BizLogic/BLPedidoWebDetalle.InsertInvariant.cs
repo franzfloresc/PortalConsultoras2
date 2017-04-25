@@ -1,15 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.ServiceCalculosPROL;
+using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Portal.Consultoras.Entities.BEProducto;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -43,7 +40,7 @@ namespace Portal.Consultoras.BizLogic
             var usuario = _blUsuario.GetSesionUsuario(model.PaisID, model.CodigoUsuario);
 
             //validar horario
-            var validacionHorario = _blPedidoWeb.ValidacionModificarPedido(model.PaisID, usuario.ConsultoraID, model.CampaniaID, model.AceptacionConsultoraDA);
+            var validacionHorario = _blPedidoWeb.ValidacionModificarPedido(model.PaisID, usuario.ConsultoraID, model.CampaniaID, model.UsuarioPrueba, model.AceptacionConsultoraDA);
             if (!ResolverMotivoPedidoLock(validacionHorario.MotivoPedidoLock))
                 return BEPedidoWebResult.BuildError(code: validacionHorario.MotivoPedidoLock.ToString(), message: validacionHorario.Mensaje);
 
