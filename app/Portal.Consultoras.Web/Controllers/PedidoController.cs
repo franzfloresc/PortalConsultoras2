@@ -76,13 +76,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Configuracion de Campaña
 
-                BEConfiguracionCampania oBEConfiguracionCampania;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
-                }
+                BEConfiguracionCampania oBEConfiguracionCampania = null;
 
+                //EPD-2058
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        var ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID;
+                        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, ConsultoraID, userData.ZonaID, userData.RegionID);
+                    }
+                }
+                else
+                {
+                    oBEConfiguracionCampania = new BEConfiguracionCampania();
+                    oBEConfiguracionCampania.CampaniaID = userData.CampaniaID;
+                    oBEConfiguracionCampania.EstadoPedido = Constantes.EstadoPedido.Pendiente;
+                    oBEConfiguracionCampania.ModificaPedidoReservado = false;
+                    oBEConfiguracionCampania.ZonaValida = false;
+                    oBEConfiguracionCampania.CampaniaDescripcion = Convert.ToString(userData.CampaniaID); //Soluciona el problema al dar f5 en pedidos para usuario postulante.
+                }
+                
                 if (oBEConfiguracionCampania != null)
                 {
                     if (oBEConfiguracionCampania.CampaniaID == 0)
@@ -111,8 +125,11 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("CampaniaZonaNoConfigurada");
                 }
 
-                ValidarStatusCampania(oBEConfiguracionCampania);
-
+                //if (userData.TipoUsuario == 1)
+                //{
+                    ValidarStatusCampania(oBEConfiguracionCampania);
+                //}
+                
                 //model.Prol = oBEConfiguracionCampania.ZonaValida
                 //    ? userData.PROLSinStock
                 //        ? "Guarda tu pedido"
@@ -206,18 +223,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Pedido Web y Detalle
 
-                var pedidoWeb = ObtenerPedidoWeb();
+                //EPD-2058
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                {
+                    var pedidoWeb = ObtenerPedidoWeb();
 
-                model.PedidoWebDetalle = ObtenerPedidoWebDetalle(); //Para cargar en Session 
-                model.Total = model.PedidoWebDetalle.Sum(p => p.ImporteTotal);
-                model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
-                model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
-                model.MontoDescuento = pedidoWeb.DescuentoProl;
-                model.MontoEscala = pedidoWeb.MontoEscala;
-                model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.PedidoWebDetalle = ObtenerPedidoWebDetalle(); //Para cargar en Session 
+                    model.Total = model.PedidoWebDetalle.Sum(p => p.ImporteTotal);
+                    model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+                    model.MontoAhorroRevista = pedidoWeb.MontoAhorroRevista;
+                    model.MontoDescuento = pedidoWeb.DescuentoProl;
+                    model.MontoEscala = pedidoWeb.MontoEscala;
+                    model.TotalConDescuento = model.Total - model.MontoDescuento;
 
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
+                }
+                else
+                {
+                    model.PedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                }
+                
                 model.DataBarra = GetDataBarra(true, true);
-                model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
@@ -327,22 +353,24 @@ namespace Portal.Consultoras.Web.Controllers
                     string paisesConsultoraOnline = ConfigurationManager.AppSettings.Get("Permisos_CCC");
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO))
                     {
-                        using (var svc = new UsuarioServiceClient())
+                        //EPD-2058
+                        if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
-                            var CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                            if (CantPedidosPendientes > 0)
+                            using (var svc = new UsuarioServiceClient())
                             {
-                                ViewBag.MostrarPedidosPendientes = "1";
-
-                                using (SACServiceClient sv = new SACServiceClient())
+                                var CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                                if (CantPedidosPendientes > 0)
                                 {
-                                    List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                    ViewBag.MostrarPedidosPendientes = "1";
+
+                                    using (SACServiceClient sv = new SACServiceClient())
+                                    {
+                                        List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                                        ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                    }
                                 }
                             }
                         }
-
-
 
                         //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
                         //using (UsuarioServiceClient svc = new UsuarioServiceClient())
@@ -369,6 +397,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
+                
+                /*** EPD 2170 ***/
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    model.Prol = "GUARDA TU PEDIDO";
+                /*** FIN 2170 ***/
+
             }
             catch (FaultException ex)
             {
@@ -2092,6 +2126,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             /* SB20-287 - FIN */
             #endregion
+
+            /*** EPD 2170 ***/
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                model.Prol = "GUARDA TU PEDIDO";
+            /*** FIN 2170 ***/
 
             model.EsDiaProl = usuario.DiaPROL;
             model.ProlSinStock = usuario.PROLSinStock;
@@ -4032,7 +4071,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ReservadoOEnHorarioRestringido()
+        public ActionResult ReservadoOEnHorarioRestringido(string tipoAccion = null)
         {
             try
             {
@@ -4053,6 +4092,34 @@ namespace Portal.Consultoras.Web.Controllers
                         estado = pedidoReservado;
                         if (!estado) estado = ValidarHorarioRestringido(out mensaje);
                     }
+
+                    //EPD-2058 Comprobar esta validación 
+                   
+                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    //{
+                    //    /*
+                    //     *  tipoAccion:
+                    //     *  1: Agregar
+                    //     *  2: Listar
+                    //     */
+                    //    if (!string.IsNullOrEmpty(tipoAccion))
+                    //    {
+                    //        if (tipoAccion == "1")
+                    //        {
+                    //            estado = true;
+                    //            mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                    //        }
+                    //        else if (tipoAccion == "2")
+                    //        {
+                    //            estado = false;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        estado = true;
+                    //        mensaje = "Acceso restringido, aun no puede agregar pedidos";
+                    //    }
+                    //}
                 }
 
                 return Json(new

@@ -31,8 +31,18 @@
 <div class="content_belcorp">
     <div class="content_datos">
         <div class="contenedor_img_perfil" style="display:none">
+
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="foto_perfil_home">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
+            }
+            
             <div class="clear"></div>
+
         </div>
+
         <div class="resumen_belcorp_cam">
             @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
             {
@@ -61,7 +71,10 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
-            <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            @if (ViewBag.TipoUsuario != 2)
+            { 
+                <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
+            }
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
@@ -1938,7 +1951,11 @@
 
                                     {{#IsNullOrEmpty item.imagen_gratis '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
+                                        
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
@@ -2072,7 +2089,10 @@
 
                                     {{#IsNullOrEmpty item.imagen_item_pack '=='}}
                                     <div style="margin: 0 auto; text-align: center;">
-                                        <img src="@Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.RutaImagenNoDisponible))
+                                        {
+                                            <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
+                                        }
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
@@ -2358,7 +2378,7 @@
 
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
-
+        
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
@@ -2366,6 +2386,18 @@
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
+        
+        //EPD-1837
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('div.content_datos').css('max-width', '100%');
+            $('div.resumen_belcorp_cam').css('margin-left', '3%');
+            $('div.resumen_belcorp_cam').css('margin-right', '0%');
+            $('div.socia_negocio_home').css('margin-left', '4%');
+            
+            $('div.contenedor_img_perfil').show();
+        }
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
