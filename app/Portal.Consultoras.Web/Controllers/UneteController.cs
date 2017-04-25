@@ -2211,15 +2211,15 @@ namespace Portal.Consultoras.Web.Controllers
                 string fileName = "";
                 try
                 {
-                      fileName = Guid.NewGuid().ToString();
-                      pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
+                    fileName = Guid.NewGuid().ToString();
+                    pathfaltante = Server.MapPath("~/Content/ArchivoNivelGeografico");
                     httpPath = Url.Content("~/Content/ArchivoNivelGeografico") + "/" + fileName;
 
                 }
-                catch (Exception ex )
+                catch (Exception ex)
                 {
 
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora +" File 01", UserData().CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " File 01", UserData().CodigoISO);
                 }
 
                 try
@@ -2250,21 +2250,21 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     bool IsCorrect = false;
                     NivelesGeograficosModel prod = new NivelesGeograficosModel();
-                   //lista = ReadXmlFile(finalPath, prod, false, ref IsCorrect);
-                   lista = ReadXmlFileNG(finalPath, true, ref IsCorrect, CodigoISO);
+                    //lista = ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                    lista = ReadXmlFileNG(finalPath, true, ref IsCorrect, CodigoISO);
                 }
                 catch (Exception ex)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora + " lee archuvo", UserData().CodigoISO);
                 }
-       
+
 
                 //elimina el documento, una vez que haya sido procesado
                 System.IO.File.Delete(finalPath);
 
                 List<ServiceUnete.UbigeoTemplate> listaUbigeo = new List<UbigeoTemplate>();
 
-                
+
 
                 if (lista != null)
                 {
@@ -2348,42 +2348,10 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                             listaUbigeo.Add(parametro);
                         }
-                        else if (CodigoISO == Pais.Salvador)
-                        {
-                            var parametro = new ServiceUnete.UbigeoSV()
-                            {
-                                REG = item.REG,
-                                ZONA = item.ZONA,
-                                SECC = item.SECC,
-                                TERRITO = item.TERRITO,
-                                UBIGEO = item.UBIGEO,
-                                DEPARTAMENTO = item.DEPARTAMENTO,
-                                MUNICIPIO = item.MUNICIPIO,
-                                CANTON_CENTRO_POBLADO = item.CANTON_CENTRO_POBLADO,
-                            };
-                            listaUbigeo.Add(parametro);
-                        }
-                        else if (CodigoISO == Pais.Guatemala)
-                        {
-                            var parametro = new ServiceUnete.UbigeoGT()
-                            {
-                                REG = item.REG,
-                                ZONA = item.ZONA,
-                                SECC = item.SECC,
-                                TERRITO = item.TERRITO,
-                                UBIGEO = item.UBIGEO,
-                                DEPARTAMENTO = item.DEPARTAMENTO,
-                                MUNICIPIO = item.MUNICIPIO,
-                                CENTRO_POBLADO = item.CENTRO_POBLADO,
-                                ZONA_CIUDAD = item.ZONA_CIUDAD,
-                                BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS
-                            };
-                            listaUbigeo.Add(parametro);
-                        }
                     }
 
                     #endregion
-                
+
 
 
                     #region AntiguoBucle
@@ -2459,7 +2427,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //    }
                     #endregion
 
-                    
+
 
 
                     if (listaUbigeo.Count > 0)
@@ -2497,12 +2465,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return message = "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
                 }
+
+
             }
         }
-
-
-
-
 
         [HttpPost]
         public ActionResult RechazarPostulante(RechazoModel model)
