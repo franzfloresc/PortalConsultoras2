@@ -460,13 +460,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImagesBySapCode(int paisID, string sapCode, int pagina, int registros)
+        public JsonResult GetImagesBySapCode(int paisID, string sapCode, int pagina)
         {
             List<BEMatrizComercialImagen> lst;
-            int totalRegistros = 0;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode, pagina, registros, out totalRegistros).ToList();
+                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode, pagina, 10).ToList();
             }
 
             string paisISO = Util.GetPaisISO(paisID);
@@ -476,9 +475,10 @@ namespace Portal.Consultoras.Web.Controllers
             Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
                 .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
 
+            int totalRegistros = lst.Any()? lst[0].TotalRegistros: 0;
             var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
 
-            return Json(data);
+            return Json(new { imagenes= data, totalRegistros=totalRegistros } );
         }
     }
 }

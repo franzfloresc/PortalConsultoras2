@@ -13054,6 +13054,20 @@ label.checkpop {
   margin-bottom: 2px;
 }
 
+#matriz-imagenes-paginacion .action {
+    display:inline-block;
+    padding:2px;
+}
+
+#matriz-imagenes-paginacion .item {
+    display:inline-block;
+    padding:2px;
+}
+
+#file-upload-add .qq-upload-list {
+    margin: 0px;
+}
+
 /*FIN: Matriz Comercial*/
 /*<!--EPD1973*/
 .DescargaParams {

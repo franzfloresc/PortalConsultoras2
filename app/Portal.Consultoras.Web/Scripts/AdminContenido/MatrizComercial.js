@@ -23,6 +23,7 @@
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload-add', idImagenMatriz: 0 };
         _crearObjetoUpload(itemData, editData);
+        $("#file-upload-add .qq-upload-button span").text("Nueva Imagen")
     };
 
     var _crearObjetoUpload = function (itemData, editData) {
@@ -48,7 +49,6 @@
     var _uploadComplete = function (imageElementId) {
         return function (id, fileName, response) {
             if (checkTimeout(response)) {
-
                 $(".qq-upload-list").css("display", "none");
                 if (response.success) {
                     _editData.idMatrizComercial = response.idMatrizComercial;
@@ -68,8 +68,7 @@
 
     var _updateImageListOnUpload = function (imageElementId, response) {
         if (response.isNewImage) {
-            _editData.imagenes.unshift({ Foto: response.foto, IdMatrizComercialImagen: response.idMatrizComercialImagen });
-            _refreshImageList(_editData);
+            _obtenerImagenes(_editData, 1, true);
         } else {
             $('#' + imageElementId).attr('src', response.foto);
         }
@@ -85,29 +84,67 @@
             imagenes: []
         };
 
-        _obtenerImagenesByCodigoSap(editData.codigoSAP).done(_obtenerImagenesSuccess(editData));
+        $("#matriz-imagenes-paginacion").empty();
+
+        SetHandlebars('#matriz-comercial-template', editData, '#matriz-comercial-dialog');
+        _crearFileUploadAdd(editData);
+
+        _obtenerImagenes(editData, 1, true).done(function () {
+            showDialog("matriz-comercial-dialog");
+        });
 
         return false;
     };
 
-    var _obtenerImagenesByCodigoSap = function (codigoSAP) {
-        return $.post(_config.getImagesBySapCodeAction, { paisID: paisID, sapCode: codigoSAP, pagina:1, registros:10 });
+    var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
+        var params = { paisID: data.paisID, sapCode: data.codigoSAP, pagina: pagina };
+        return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
-    var _obtenerImagenesSuccess = function (editData) {
+    var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
         return function (data, textStatus, jqXHR) {
-            editData.imagenes = data;
+            editData.imagenes = data.imagenes;
             _editData = editData;
 
-            SetHandlebars('#matriz-comercial-template', _editData, '#matriz-comercial-dialog');
-            _crearFileUploadAdd(_editData);
+            if (recargarPaginacion) {
+                $("#matriz-imagenes-paginacion").empty();
+            }
 
-            _refreshImageList(_editData);
-            showDialog("matriz-comercial-dialog");
+            _mostrarPaginacion(data.totalRegistros);
+            _mostrarListaImagenes(_editData);
         };
     };
 
-    var _refreshImageList = function(editData) {
+    var _mostrarPaginacion = function (numRegistros) {
+        if ($("#matriz-imagenes-paginacion").children().length !== 0) {
+            return false;
+        }
+
+        $("#matriz-imagenes-paginacion").paging(numRegistros, {
+            format: '[< ncnnn >]',
+            onClick: function (ev) {
+                ev.preventDefault();
+                var page = $(this).data('page');
+                _obtenerImagenes(_editData, page, false);
+            },
+            onFormat: function (type) {
+                switch (type) {
+                    case 'block': // n and c
+                        return '<div class="item"><a href="#">' + this.value + '</a></div>';
+                    case 'next': // >
+                        return '<div class="action"><a href= "#"><span class="ui-icon ui-icon-seek-next"></span></a></div>';
+                    case 'prev': // <
+                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-prev"></span></a></div>';
+                    case 'first': // [
+                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-first"></span></a></div>';
+                    case 'last': // ]
+                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-end"></span></a></div>';
+                }
+            }
+        });
+    };
+
+    var _mostrarListaImagenes = function(editData) {
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
         _crearFileUploadElements(editData);
     };

@@ -2865,6 +2865,7 @@
     <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
