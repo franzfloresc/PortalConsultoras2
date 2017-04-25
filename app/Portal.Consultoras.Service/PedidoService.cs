@@ -1866,7 +1866,7 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
+        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
         {
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
         }
@@ -1879,6 +1879,16 @@ namespace Portal.Consultoras.Service
         public int InsertarDesglose(BEInputReservaProl input)
         {
             return new BLReservaProl().InsertarDesglose(input);
+        }
+
+        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
+        {
+            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+        }
+
+        public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
+        {
+            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
     }
 }

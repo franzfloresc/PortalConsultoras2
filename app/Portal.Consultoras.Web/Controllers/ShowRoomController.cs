@@ -2799,7 +2799,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                var entidad = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
 
                 entidad.EMail = Util.Trim(entidad.EMail);
 

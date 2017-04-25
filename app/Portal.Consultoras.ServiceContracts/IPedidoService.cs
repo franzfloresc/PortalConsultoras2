@@ -1021,12 +1021,18 @@ namespace Portal.Consultoras.ServiceContracts
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
 
         [OperationContract]
-        BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
 
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
         
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
+
+        [OperationContract]
+        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+            
+        [OperationContract]
+        string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
     }
 }
