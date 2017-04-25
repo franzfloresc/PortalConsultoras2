@@ -59,6 +59,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu);
 
         [OperationContract]
+        IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania);
+
+        [OperationContract]
         IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);
 
         [OperationContract]

@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -783,6 +784,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int UpdOfertaShowRoomStockMasivo(int paisID, List<BEShowRoomOferta> stockProductos);
 
+        /*
+        [OperationContract]
+        int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos);
+         * */
+
         [OperationContract]
         int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle);
 
@@ -1009,6 +1015,21 @@ namespace Portal.Consultoras.ServiceContracts
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
-        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA);
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
+        
+        [OperationContract]
+        int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
+
+        [OperationContract]
+        bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        
+        [OperationContract]
+        int InsertarDesglose(BEInputReservaProl input);
     }
 }

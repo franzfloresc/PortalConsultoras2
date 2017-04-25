@@ -433,8 +433,18 @@
             </div>
             <div class="titG">Precio Normal:</div>
             <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioCatalogoModal" />
+            </div>
+            
+        </div>
+        <div class="div-3">
+            <div class="titG">Precio Oferta:</div>
+            <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPrecioOfertaModal" />
             </div>
+
+            <div></div>
+            <div></div>
         </div>
         <div class="div-3">
             <div class="titG">Descripción:</div>
@@ -453,6 +463,7 @@
             </div>
             <div style="text-align:left; position:absolute; right:85px;" class="titG">¿Habilitar Oferta?</div>
         </div>
+        <!--
         <div class="div-3">
             <div class="titG">Actualizar Stock:</div>
             <div class="selectP2 borde_redondeado" id="dvincrementa">
@@ -471,6 +482,7 @@
             <div style="text-align:left; position:absolute; right:85px;" class="titG">Agotado</div>
 
         </div>
+            -->
         <div class="div-3">
             <div class="titG">Imagen:</div>
             <div class="pdr_modal borde_redondeado aligncenter" style="width: 168px; height: 200px;">
@@ -1393,6 +1405,7 @@
             }
         });
 
+        /*
         $('#txtCantidad').keydown(function (event) {
             if (event.shiftKey) {
                 event.preventDefault();
@@ -1412,6 +1425,7 @@
                 }
             }
         });
+        */
 
         $('#txtUnidadesPermitidasModal').keydown(function (event) {
             if (event.shiftKey) {
@@ -2299,6 +2313,8 @@
             CampaniaID: jQuery('#hdCampaniaID').val(),
             CUV: jQuery('#txtCUVModal').val(),
             Descripcion: $("#txtDescripcionModal").val(),
+            //PrecioOferta: $("#txtPrecioOfertaModal").val(),
+            PrecioCatalogo: $("#txtPrecioCatalogoModal").val(),
             PrecioOferta: $("#txtPrecioOfertaModal").val(),
             ImagenProducto: $("#hdImagenProducto").val(),
             ImagenProductoAnterior: $('#hdImagenProductoAnterior').val(),
@@ -2309,9 +2325,12 @@
             FlagHabilitarProducto: $("#chkHabilitarOferta").attr('checked') ? 1 : 0,
             CodigoTipoOferta: $.trim($("#hdCodigoOferta").val()),
             PaisID: paisID,
-            CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
-            Incrementa: $("#ddlIncrementar").val(),
-            Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
+            //CantidadIncrementa: $("#txtCantidad").val() == '' ? '0' : $("#txtCantidad").val(),
+            CantidadIncrementa: 0,
+            //Incrementa: $("#ddlIncrementar").val(),
+            Incrementa: 0,
+            //Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
+            Agotado: 0
         };
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
@@ -2357,7 +2376,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
+            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Normal', 'Precio Oferta', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
                 'Foto', 'Set', 'Productos'],
             colModel: [
                 { name: 'TipoOferta', index: 'TipoOferta', width: 50, editable: true, resizable: false, hidden: true },
@@ -2365,10 +2384,12 @@
                 { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false },
                 { name: 'CUV', index: 'CUV', width: 40, editable: true, resizable: false },
                 { name: 'Descripcion', index: 'Descripcion', width: 135, editable: true, resizable: false },
+                //{ name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
+                { name: 'PrecioCatalogo', index: 'PrecioCatalogo', width: 60, editable: true, resizable: false },
                 { name: 'PrecioOferta', index: 'PrecioOferta', width: 60, editable: true, resizable: false },
                 { name: 'Orden', index: 'Orden', width: 35, editable: true, resizable: false, hidden: true },
-                { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false },
-                { name: 'StockInicial', index: 'StockInicial', width: 50, editable: true, resizable: false },
+                { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false, hidden: true },
+                { name: 'StockInicial', index: 'StockInicial', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'UnidadesPermitidas', index: 'UnidadesPermitidas', width: 65, editable: true, resizable: false },
                 { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
                 { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
@@ -2476,13 +2497,17 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[15] + "','" + rowObject[19] + "','" + rowObject[20] + "','" + rowObject[13] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
-        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
+        //console.log(rowObject);
+        //var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[15] + "','" + rowObject[19] + "','" + rowObject[20] + "','" + rowObject[13] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[19] + "','" + rowObject[16] + "','" + rowObject[20] + "','" + rowObject[21] + "','" + rowObject[14] + "','" + rowObject[11] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
+        //var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
+        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
 
         var resultado = edit;
 
-        if (rowObject[15] == "True")
+        if (rowObject[16] == "True")
             resultado += del;
 
         resultado += remove;
@@ -2515,8 +2540,8 @@
 
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
-        if (rowObject[10] != "") {
-            image = '<img src="' + rowObject[10] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+        if (rowObject[11] != "") {
+            image = '<img src="' + rowObject[11] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
         } else {
             image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
         }
@@ -2606,6 +2631,8 @@
                 $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
                 $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
                 $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
+                //$('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+                $('#txtPrecioCatalogoModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioCatalogo'));
                 $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
                 if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
                     $("#txtUnidadesPermitidasModal").val("1");
@@ -2643,16 +2670,16 @@
 
                 $('#hdCodigoOferta').val(CodigoOferta);
 
-                $('#ddlIncrementar').val('0');
-                $('#txtCantidad').val('0');
-                $('#chkAgotado').removeAttr('checked');
+                //$('#ddlIncrementar').val('0');
+                //$('#txtCantidad').val('0');
+                //$('#chkAgotado').removeAttr('checked');
 
-                $('#ddlIncrementar').removeAttr('disabled');
-                $('#txtCantidad').removeAttr('disabled');
-                $('#txtCantidad').css('background-color', '');
-                $('#ddlIncrementar').css('background-color', '');
-                $('#dvcantidad').removeAttr('style');
-                $('#dvincrementa').removeAttr('style');
+                //$('#ddlIncrementar').removeAttr('disabled');
+                //$('#txtCantidad').removeAttr('disabled');
+                //$('#txtCantidad').css('background-color', '');
+                //$('#ddlIncrementar').css('background-color', '');
+                //$('#dvcantidad').removeAttr('style');
+                //$('#dvincrementa').removeAttr('style');
 
                 showDialog("DialogRegistroOfertaShowRoom");
 
@@ -2847,7 +2874,8 @@
             $("#txtTipoOfertaDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
             $("#txtCUVDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
             $("#txtDescripcionDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-            $("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+            //$("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+            $("#txtPrecioNormalDetalle").val(jQuery("#list").jqGrid('getCell', ID, 'PrecioCatalogo'));
 
             showDialog("DialogRegistroOfertaShowRoomDetalle");
 
@@ -2975,6 +3003,8 @@
         $('#txtTipoOfertaModal').val("");
         $('#txtCUVModal').val("");
         $('#txtDescripcionModal').val("");
+        //$('#txtPrecioOfertaModal').val("");
+        $('#txtPrecioCatalogoModal').val("");
         $('#txtPrecioOfertaModal').val("");
         $('#chkHabilitarOferta').removeAttr('checked');
         $("#FlagTransaccion").val("0");

@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -96,5 +93,8 @@ namespace Portal.Consultoras.Web.Models
         // Actualizar datos
         public int MostrarPopupActualizarDatosXPais { get; set; }
         #endregion
+
+        public int ShowRoomMostrarLista { get; set; }
+        public string ShowRoomBannerUrl { get; set; }
     }
 }

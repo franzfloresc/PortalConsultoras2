@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.Service
 {
@@ -1459,6 +1460,13 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.UpdOfertaShowRoomStockMasivo(paisID, stockProductos);
         }
 
+        /*
+        public int InsOfertaShowRoomCargaMasiva(int paisID, List<BEShowRoomOferta2> stockProductos)
+        {
+            return BLShowRoomEvento.InsOfertaShowRoomCargaMasiva(paisID, stockProductos);
+        }
+         * */
+
         public int CargarMasivaDescripcionSets(int paisID, int campaniaID, string usuarioCreacion, List<BEShowRoomOfertaDetalle> listaShowRoomOfertaDetalle)
         {
             return BLShowRoomEvento.CargarMasivaDescripcionSets(paisID, campaniaID, usuarioCreacion, listaShowRoomOfertaDetalle);
@@ -1849,9 +1857,34 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, int aceptacionConsultoraDA)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
         {
-            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, aceptacionConsultoraDA);
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
+        }
+
+        public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
+        {
+            return new BLShowRoomEvento().UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
+        }
+
+        public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
+        {
+            return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public BEResultadoReservaProl EjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
+        {
+            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
+        }
+
+        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EjecutarReservaProl(input);
+        }
+
+        public int InsertarDesglose(BEInputReservaProl input)
+        {
+            return new BLReservaProl().InsertarDesglose(input);
         }
 
 

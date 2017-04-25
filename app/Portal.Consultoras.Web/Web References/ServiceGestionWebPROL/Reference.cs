@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="WsGestionWebSoap", Namespace="http://tempuri.org/")]
@@ -31,9 +31,13 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         
         private System.Threading.SendOrPostCallback GetCdrWebConsultaOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetCdrWebConsulta_ReclamoOperationCompleted;
+        
         private System.Threading.SendOrPostCallback ConsultaStockBySapOperationCompleted;
         
         private System.Threading.SendOrPostCallback ConsultaStockProlOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPrecioProductosOfertaWebOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetConsultaPrecioValorizadoOperationCompleted;
         
@@ -81,10 +85,16 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
         public event GetCdrWebConsultaCompletedEventHandler GetCdrWebConsultaCompleted;
         
         /// <remarks/>
+        public event GetCdrWebConsulta_ReclamoCompletedEventHandler GetCdrWebConsulta_ReclamoCompleted;
+        
+        /// <remarks/>
         public event ConsultaStockBySapCompletedEventHandler ConsultaStockBySapCompleted;
         
         /// <remarks/>
         public event ConsultaStockProlCompletedEventHandler ConsultaStockProlCompleted;
+        
+        /// <remarks/>
+        public event GetPrecioProductosOfertaWebCompletedEventHandler GetPrecioProductosOfertaWebCompleted;
         
         /// <remarks/>
         public event GetConsultaPrecioValorizadoCompletedEventHandler GetConsultaPrecioValorizadoCompleted;
@@ -128,6 +138,45 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             if ((this.GetCdrWebConsultaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetCdrWebConsultaCompleted(this, new GetCdrWebConsultaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetCdrWebConsulta_Reclamo", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public RptCdr[] GetCdrWebConsulta_Reclamo(string pais, string periodo, string codconsultora, string cuv, int cantidad, string zona) {
+            object[] results = this.Invoke("GetCdrWebConsulta_Reclamo", new object[] {
+                        pais,
+                        periodo,
+                        codconsultora,
+                        cuv,
+                        cantidad,
+                        zona});
+            return ((RptCdr[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetCdrWebConsulta_ReclamoAsync(string pais, string periodo, string codconsultora, string cuv, int cantidad, string zona) {
+            this.GetCdrWebConsulta_ReclamoAsync(pais, periodo, codconsultora, cuv, cantidad, zona, null);
+        }
+        
+        /// <remarks/>
+        public void GetCdrWebConsulta_ReclamoAsync(string pais, string periodo, string codconsultora, string cuv, int cantidad, string zona, object userState) {
+            if ((this.GetCdrWebConsulta_ReclamoOperationCompleted == null)) {
+                this.GetCdrWebConsulta_ReclamoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCdrWebConsulta_ReclamoOperationCompleted);
+            }
+            this.InvokeAsync("GetCdrWebConsulta_Reclamo", new object[] {
+                        pais,
+                        periodo,
+                        codconsultora,
+                        cuv,
+                        cantidad,
+                        zona}, this.GetCdrWebConsulta_ReclamoOperationCompleted, userState);
+        }
+        
+        private void OnGetCdrWebConsulta_ReclamoOperationCompleted(object arg) {
+            if ((this.GetCdrWebConsulta_ReclamoCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetCdrWebConsulta_ReclamoCompleted(this, new GetCdrWebConsulta_ReclamoCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -190,6 +239,39 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
             if ((this.ConsultaStockProlCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.ConsultaStockProlCompleted(this, new ConsultaStockProlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetPrecioProductosOfertaWeb", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public PrecioProducto[] GetPrecioProductosOfertaWeb(string pais, string campania, string cuvs) {
+            object[] results = this.Invoke("GetPrecioProductosOfertaWeb", new object[] {
+                        pais,
+                        campania,
+                        cuvs});
+            return ((PrecioProducto[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPrecioProductosOfertaWebAsync(string pais, string campania, string cuvs) {
+            this.GetPrecioProductosOfertaWebAsync(pais, campania, cuvs, null);
+        }
+        
+        /// <remarks/>
+        public void GetPrecioProductosOfertaWebAsync(string pais, string campania, string cuvs, object userState) {
+            if ((this.GetPrecioProductosOfertaWebOperationCompleted == null)) {
+                this.GetPrecioProductosOfertaWebOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPrecioProductosOfertaWebOperationCompleted);
+            }
+            this.InvokeAsync("GetPrecioProductosOfertaWeb", new object[] {
+                        pais,
+                        campania,
+                        cuvs}, this.GetPrecioProductosOfertaWebOperationCompleted, userState);
+        }
+        
+        private void OnGetPrecioProductosOfertaWebOperationCompleted(object arg) {
+            if ((this.GetPrecioProductosOfertaWebCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPrecioProductosOfertaWebCompleted(this, new GetPrecioProductosOfertaWebCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -281,7 +363,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -326,7 +408,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -383,7 +465,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -536,7 +618,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -581,7 +663,40 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class PrecioProducto {
+        
+        private string cuvField;
+        
+        private decimal precio_productoField;
+        
+        /// <comentarios/>
+        public string cuv {
+            get {
+                return this.cuvField;
+            }
+            set {
+                this.cuvField = value;
+            }
+        }
+        
+        /// <comentarios/>
+        public decimal precio_producto {
+            get {
+                return this.precio_productoField;
+            }
+            set {
+                this.precio_productoField = value;
+            }
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -638,7 +753,7 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -695,11 +810,11 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void GetCdrWebConsultaCompletedEventHandler(object sender, GetCdrWebConsultaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetCdrWebConsultaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -721,11 +836,37 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void GetCdrWebConsulta_ReclamoCompletedEventHandler(object sender, GetCdrWebConsulta_ReclamoCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetCdrWebConsulta_ReclamoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetCdrWebConsulta_ReclamoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public RptCdr[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((RptCdr[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void ConsultaStockBySapCompletedEventHandler(object sender, ConsultaStockBySapCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaStockBySapCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -747,11 +888,11 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void ConsultaStockProlCompletedEventHandler(object sender, ConsultaStockProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaStockProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -773,11 +914,37 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    public delegate void GetPrecioProductosOfertaWebCompletedEventHandler(object sender, GetPrecioProductosOfertaWebCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPrecioProductosOfertaWebCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPrecioProductosOfertaWebCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public PrecioProducto[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((PrecioProducto[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void GetConsultaPrecioValorizadoCompletedEventHandler(object sender, GetConsultaPrecioValorizadoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetConsultaPrecioValorizadoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -799,11 +966,11 @@ namespace Portal.Consultoras.Web.ServiceGestionWebPROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     public delegate void GetEstrategiaProductoCompletedEventHandler(object sender, GetEstrategiaProductoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class GetEstrategiaProductoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -55,6 +56,13 @@ namespace Portal.Consultoras.Common
         public static decimal? ToNullableDecimal(this decimal obj)
         {
             return obj != 0 ? (decimal?)obj : default(decimal?);
+        }
+
+        public static decimal ToDecimalSecure(this string obj)
+        {
+            decimal temp = 0;
+            decimal.TryParse(obj, out temp);
+            return temp;
         }
 
         public static decimal ToDecimalZeros(this decimal obj, int numberOfDecimals)
@@ -189,12 +197,23 @@ namespace Portal.Consultoras.Common
             return string.Format("S/. {0:0.00}", obj);
         }
 
+        public static bool Between(this decimal obj, decimal min, decimal max, bool inclusivo = true)
+        {
+            if (inclusivo) return min <= obj && obj <= max;
+            return min < obj && obj < max;
+        }
+
         public static IEnumerable<string> SplitInParts(this string obj, int numberOfCharacters)
         {
             for (var i = 0; i < obj.Length; i += numberOfCharacters)
             {
                 yield return obj.Substring(i, Math.Min(numberOfCharacters, obj.Length - i));
             }
+        }
+
+        public static IEnumerable<string> SplitAndTrim(this string obj, char separator)
+        {
+            return obj.Split(new char[1] { separator }).Select(zona => zona.Trim());
         }
 
         public static string ToUpper(this string obj, int numberOfCharacters)
@@ -205,6 +224,18 @@ namespace Portal.Consultoras.Common
         public static string ToLower(this string obj, int numberOfCharacters)
         {
             return obj.Substring(0, numberOfCharacters).ToLower() + obj.Substring(numberOfCharacters);
+        }
+
+        public static string Substring(this int obj, int startIndex, int length)
+        {
+            return obj.ToString().Substring(startIndex, length);
+        }
+
+        public static bool IsNullOrEmptyTrim(this string obj)
+        {
+            if (obj == null) return true;
+            if (obj.Trim() == string.Empty) return true;
+            return false;
         }
     }
 }

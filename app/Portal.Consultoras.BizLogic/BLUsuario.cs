@@ -183,8 +183,7 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
             using (IDataReader reader = DAUsuario.GetSesionUsuario(codigoUsuario))
-                if (reader.Read())
-                    usuario = new BEUsuario(reader, true);
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
 
             if (usuario != null)
             {

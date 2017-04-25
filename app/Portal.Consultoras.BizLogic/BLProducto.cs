@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Common;
+using System.Configuration;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -116,18 +118,28 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
-        public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(int paisID, int campaniaID,
+        public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(string paisISO, int campaniaID,
             int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
         {
             IList<BEProducto> productos = new List<BEProducto>();
-            var dAProducto = new DAProducto(paisID);
+            BEProducto producto = null;
+            var dAProducto = new DAProducto(Util.GetPaisID(paisISO));
+            var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
 
             using (IDataReader reader = dAProducto.SearchListProductoChatbotByCampaniaRegionZona(campaniaID,
                 regionID, zonaID, codigoRegion, codigoZona, textoBusqueda, criterio, rowCount))
             {
-                while (reader.Read()) productos.Add(new BEProducto(reader));
+                while (reader.Read())
+                {
+                    producto = new BEProducto(reader);
+                    if((producto.CUVRevista ?? "").Trim() != "")
+                    {
+                        producto.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
+                        producto.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
+                    }
+                    productos.Add(producto);
+                }
             }
-
             return productos.OrderBy(p => criterio == 1 ? p.CUV : p.Descripcion).ToList();
         }
 
