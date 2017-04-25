@@ -1,38 +1,44 @@
 ﻿var MatrizComercial = function (config) {
 
     var _config = {
-        urlTemporales: config.urlTemporales || '',
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         uploadAction: config.uploadAction || ''
     };
 
+    var _editData = {};
+
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
 
         for (var x = 0; x < editData.imagenes.length; x++) {
-            var id = editData.imagenes[x].IdMatrizComercialImagen;
-            _crearObjetoUpload('file-upload-' + x, 'img-matriz-' + x, id, editData);
+            var img = editData.imagenes[x];
+            var id = img.IdMatrizComercialImagen;
+            var foto = img.Foto.substring(img.Foto.lastIndexOf('/') + 1);
+            var itemData = { elementId: 'file-upload-' + x, imageElementId: 'img-matriz-' + x, idImagenMatriz: id, foto: foto}
+            _crearObjetoUpload(itemData, editData);
         }
     };
 
     var _crearFileUploadAdd = function (editData) {
-        _crearObjetoUpload('file-upload-add', 'idimagen', 0, editData);
+        var itemData = { elementId: 'file-upload-add', idImagenMatriz: 0 };
+        _crearObjetoUpload(itemData, editData);
     };
 
-    var _crearObjetoUpload = function (elementId, imageElementId, idImagenMatriz, editData) {
+    var _crearObjetoUpload = function (itemData, editData) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
-            element: document.getElementById(elementId),
+            element: document.getElementById(itemData.elementId),
             action: _config.actualizarMatrizComercialAction,
             params: {
                 IdMatrizComercial: editData.idMatrizComercial,
-                IdMatrizComercialImagen: idImagenMatriz,
+                IdMatrizComercialImagen: itemData.idImagenMatriz,
+                Foto: itemData.foto,
                 PaisID: editData.paisID,
                 CodigoSAP: editData.codigoSAP,
                 DescripcionOriginal: editData.descripcionOriginal
             },
-            onComplete: _uploadComplete(imageElementId),
+            onComplete: _uploadComplete(itemData.imageElementId),
             onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
@@ -40,18 +46,33 @@
     };
 
     var _uploadComplete = function (imageElementId) {
-        
         return function (id, fileName, response) {
             if (checkTimeout(response)) {
+
                 $(".qq-upload-list").css("display", "none");
                 if (response.success) {
-                    // req. 1664
-                    $('#' + imageElementId).attr('src', _config.urlTemporales + response.name);
+                    _editData.idMatrizComercial = response.idMatrizComercial;
+                    if (response.isNewRecord) {
+                        $('#list').trigger('reloadGrid');//refrescar la grilla con id generado
+                        //regenerar el file-upload-add para que use el id generado
+                        $("#file-upload-add").empty();
+                        _crearFileUploadAdd(_editData);
+                    }
+                    _updateImageListOnUpload(imageElementId, response)
                 } else {
                     alert(response.message)
                 };
             }
         };
+    };
+
+    var _updateImageListOnUpload = function (imageElementId, response) {
+        if (response.isNewImage) {
+            _editData.imagenes.unshift({ Foto: response.foto, IdMatrizComercialImagen: response.idMatrizComercialImagen });
+            _refreshImageList(_editData);
+        } else {
+            $('#' + imageElementId).attr('src', response.foto);
+        }
     };
 
     var _editar = function (id, idMatrizComercial) {
@@ -76,14 +97,19 @@
     var _obtenerImagenesSuccess = function (editData) {
         return function (data, textStatus, jqXHR) {
             editData.imagenes = data;
+            _editData = editData;
 
-            SetHandlebars('#matriz-comercial-template', editData, '#matriz-comercial-dialog');
-            SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+            SetHandlebars('#matriz-comercial-template', _editData, '#matriz-comercial-dialog');
+            _crearFileUploadAdd(_editData);
 
-            _crearFileUploadAdd(editData);
-            _crearFileUploadElements(editData);
+            _refreshImageList(_editData);
             showDialog("matriz-comercial-dialog");
         };
+    };
+
+    var _refreshImageList = function(editData) {
+        SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+        _crearFileUploadElements(editData);
     };
 
     return {

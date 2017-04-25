@@ -21,7 +21,6 @@
     jQuery(document).ready(function () {
 
         matrizComercialObj = MatrizComercial({
-            urlTemporales: '@Url.Content("~/Content/Temporales/")',
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "MatrizComercial")',
             uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
@@ -40,9 +39,6 @@
                 msjex += " - Debe ingresar un Código SAP válido.\n";
             if ($("#ddlPais").val() == "")
                 msjex += " - Debe seleccionar un País .\n";
-            //if ($("#txtCodigoSAP").val() == "")
-            //    msjex += " - Debe ingresar el Código de SAP .\n";
-
             if (msjex == "") {
                 paisNombre = $("#ddlPais option:selected").text();
                 paisID = $("#ddlPais").val();
@@ -197,16 +193,6 @@
             //var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[2] + "','" + rowObject[8] + "','" + rowObject[12] + "','" + rowObject[13] + "','" + rowObject[14] + "','" + rowObject[11] + "','" + rowObject[15] + "');\" >" + "<img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar Oferta Web' title='Deshabilitar Oferta Web' border='0' /></a>";
             return Edit;
         };
-
-        function ShowImage(cellvalue, options, rowObject) {
-            var image = "";
-            if (cellvalue != "") {
-                image = '<img src="' + cellvalue + '" alt="" width="70px" height="60px" title="" border="0" />';
-            } else {
-                image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
-            }
-            return image;
-        };
     }
 
     function getCell(id, campo) {
@@ -219,64 +205,12 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 900,
+            width: 1020,
             draggable: true,
             title: "Actualización de Matriz",
             buttons:
             {
-                //"Guardar": function () {
-                //    RegistrarMatrizComercial();
-                //},
-                "Cancelar": function () { $(this).dialog('close'); }
-            }
-        });
-    }
-
-    function RegistrarMatrizComercial() {
-        var objImgProd, objImgProdAnterior, idImagen;
-
-        var item = {
-            CodigoSAP: $.trim($('#txtCodigoSAPModal').val()),
-            DescripcionOriginal: $.trim($('#txtDescripcionOriginalModal').val()),
-            PaisID: paisID
-        };
-        for (var i = 1; i <= nroImagenes; i++) {
-            idImagen = ('0' + i).substr(-2);
-            objImgProd = $('#imagenProducto' + idImagen);
-            objImgProdAnterior = $('#imagenProductoAnterior' + idImagen);
-            item['FotoProducto' + idImagen] = objImgProd.val();
-            item['FotoProductoAnterior' + idImagen] = objImgProdAnterior.val();
-        }
-
-        waitingDialog({ title: "Procesando" });
-        var accion = ($("#hdFlagTransaccion").val() == "1") ? "UpdateMatrizComercial" : "InsertMatrizComercial";
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'MatrizComercial/' + accion,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    if (data.success == true) {
-                        alert(data.message);
-                        HideDialog("matriz-comercial-dialog");
-                        LimpiarDatos();
-                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                    }
-                    else {
-                        alert(data.message);
-                    }
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert(data.message);
-                    HideDialog("matriz-comercial-dialog");
-                }
+                "Cerrar": function () { $(this).dialog('close'); }
             }
         });
     }

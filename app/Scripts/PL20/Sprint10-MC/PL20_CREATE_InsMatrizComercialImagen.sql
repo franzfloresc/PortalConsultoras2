@@ -29,6 +29,8 @@ BEGIN
 			@UsuarioRegistro,
 			GETDATE()
 		);
+		
+		SELECT SCOPE_IDENTITY();
 	END
 END
 

@@ -13033,6 +13033,27 @@ label.checkpop {
     width: 100%;
     height: 35px;
 }
+
+.matriz-comercial-list .item{
+    display:inline-block;
+    width:171px;
+    height:180px;
+    float:left;
+    padding:5px;
+    margin:5px;
+}
+
+.matriz-comercial-list .item img {
+  width: 140px;
+  max-height: 133px;
+}
+
+.matriz-comercial-list .item .content {
+  height:140px;
+  padding:0;
+  margin-bottom: 2px;
+}
+
 /*FIN: Matriz Comercial*/
 /*<!--EPD1973*/
 .DescargaParams {

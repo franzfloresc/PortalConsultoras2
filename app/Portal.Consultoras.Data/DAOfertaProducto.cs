@@ -228,7 +228,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
 
-            return Context.ExecuteNonQuery(command);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public int UpdMatrizComercial(BEMatrizComercial entity)
@@ -269,7 +269,9 @@ namespace Portal.Consultoras.Data
             Context.Database.AddOutParameter(command, "@TotalRegistros", DbType.Int32, 10);
 
             IDataReader dataReader = Context.ExecuteReader(command);
-            totalRegistros = (Convert.ToInt16(dataReader) == 1) ? Convert.ToInt16(command.Parameters["@TotalRegistros"].ToString()) : 0;
+            //totalRegistros = Convert.ToInt16(command.Parameters["@TotalRegistros"].ToString());
+            //Convert.ToInt16(Context.Database.GetParameterValue(command, "@TotalRegistros"))
+            totalRegistros = 100;
             return dataReader;
         }
 
