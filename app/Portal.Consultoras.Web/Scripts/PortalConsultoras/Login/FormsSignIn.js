@@ -5,8 +5,18 @@ var val_comboLogin = "";
 var temp = "";
 
 $(document).ready(function () {
+
+    $(window).resize(function () {
+        //resize just happened, pixels changed
+        resizeNameUserExt();
+    });
+
+    $('#btnLoginFB').addClass('center_facebook');
+
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
+    $('#ddlPais2').val(isoPais);
+
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) {
@@ -27,6 +37,7 @@ $(document).ready(function () {
     if (banderaOk == 'True') {
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
+        $('#cargarBandera3').css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
     }
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
@@ -47,6 +58,15 @@ $(document).ready(function () {
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
     });
+
+    /*2275*/
+    $("#ddlPais2").change(function () {
+        imgISO = $("#ddlPais2").val();
+        if (imgISO != "00") $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        else $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+        AsignarHojaEstilos();
+    });
+    /**/
 
     $("#box-pop-up").hide();
 
@@ -130,15 +150,18 @@ $(document).ready(function () {
             return false;
         }
 
+        waitingDialog();
+
         $('#HdePaisID').val(PaisID);
         $('#ddlPais option:not(:selected)').prop('disabled', true);
         $('#txtUsuario').attr('readonly', true);
         $('#txtContrasenia').attr('readonly', true);
         $('#btnLogin').prop('disabled', true);
+
+        $('#btnLoginFB').prop('disabled', true);
     });
 
-    $("#txtUsuario").keypress(
-
+    $("#txtUsuario, #txtUsuario2").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
@@ -152,7 +175,7 @@ $(document).ready(function () {
             }
         });
 
-    $("#txtContrasenia").keypress(
+    $("#txtContrasenia, #txtContrasenia2").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
@@ -393,6 +416,7 @@ function AsignarHojaEstilos() {
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else {
         if (paisesLBel.indexOf(imgISO) != -1) {
@@ -405,6 +429,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         } else {
             if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
@@ -415,6 +440,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
         }
     }
 }
@@ -485,3 +511,71 @@ function EsconderLogoEsikaPanama(imgISO) {
     };
 }
 
+function login2() {
+    var valid = true;
+    var CodigoISO = $('#ddlPais2').val();
+    var PaisID = $('#ddlPais2 :selected').data('id');
+    var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
+    var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
+    $('#hdeCodigoISO').val(CodigoISO);
+    var mensaje = "";
+
+    if (typeof CodigoISO == 'undefined' || PaisID == "")
+        mensaje += "- Debe seleccionar el País del Usuario.\n";
+    if (CodigoUsuario == "")
+        mensaje += "- Debe ingresar el Usuario.\n";
+    if (Contrasenia == "")
+        mensaje += "- Debe ingresar la Clave Secreta.\n";
+
+    if (mensaje != "") {
+        valid = false;
+        alert(mensaje);
+        $('#ddlPais2').focus();
+    }
+
+    if (!valid) {
+        //e.preventDefault();
+        return false;
+    }
+
+    $('#ddlPais').val(CodigoISO);
+    $('#txtUsuario').val(CodigoUsuario);
+    $('#txtContrasenia').val(Contrasenia);
+
+    $('#HdePaisID').val(PaisID);
+    $('#ddlPais option:not(:selected)').prop('disabled', true);
+    $('#txtUsuario').attr('readonly', true);
+    $('#txtContrasenia').attr('readonly', true);
+    $('#btnLogin').prop('disabled', true);
+
+    $('.content_pop_login').hide();
+    $('#btnLoginFB').prop('disabled', true);
+
+    waitingDialog();
+
+    $('#frmLogin').submit();
+}
+
+function closePopupAsociarLoginExt() {
+    // disable prevent submit
+    $('#ddlPais option:not(:selected)').prop('disabled', false);
+    $('#txtUsuario').attr('readonly', false);
+    $('#txtContrasenia').attr('readonly', false);
+    $('#btnLogin').prop('disabled', false);
+
+    $('.content_pop_login').hide();
+}
+
+function resizeNameUserExt() {
+    var w = $(window).width();  //1366,1093
+    var ml = 8;
+    if (w <= 1093) ml = 16;
+    var fname = $('#hdeNameUserExt').val();
+
+    if (typeof fname !== 'undefined' && fname != "") {
+        if (fname.length > ml) {
+            fname = fname.substring(0, ml).trim() + '.';
+        }
+        $('#btnLoginFB').text('Continuar como ' + fname);
+    }
+}

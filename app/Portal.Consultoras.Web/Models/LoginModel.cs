@@ -9,5 +9,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoUsuario { get; set; }
         public string ClaveSecreta { get; set; }
         public IEnumerable<PaisModel> ListaPaises { get; set; }
+
+        public UsuarioExternoModel UsuarioExterno { get; set; }
     }
 }
