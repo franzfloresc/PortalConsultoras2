@@ -5193,7 +5193,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                return RedirectToAction("Index", "Pedido", new { area = area });
+                if (area == "")
+                    return RedirectToAction("Index", "Pedido", new { area = area });
+                else
+                    return RedirectToAction("Detalle", "Pedido", new { area = area });
 
             }
             catch (Exception ex)
