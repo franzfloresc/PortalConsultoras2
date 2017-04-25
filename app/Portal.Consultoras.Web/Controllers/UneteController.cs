@@ -3119,6 +3119,7 @@ namespace Portal.Consultoras.Web.Controllers
             ServiceUnete.ParametroUneteCollection lstSelectGZ;
             ServiceUnete.ParametroUneteCollection lstSelectSE;
             ServiceUnete.ParametroUneteCollection tiposDocumentos;
+            ServiceUnete.ParametroUneteCollection lstSubEstadosPostulante;
 
             using (var sv = new PortalServiceClient())
             {
@@ -3126,6 +3127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
+                lstSubEstadosPostulante = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoSubEstadoPostulante,0);
             }
 
            
@@ -3193,8 +3195,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
                     CorreoElectronico = c.CorreoElectronico,
                     VieneDe = c.VieneDe,
-                    RechazadoPor = (c.SubEstadoPostulante != null) ?
-                                        ((Enumeradores.TipoSubEstadoPostulanteRechazada)c.SubEstadoPostulante).ToString()
+                    RechazadoPor = (c.SubEstadoPostulante != null && c.EstadoPostulanteID == EnumsEstadoPostulante.Rechazada.ToInt()) ?
+                                        lstSubEstadosPostulante.FirstOrDefault(x => x.Valor == c.SubEstadoPostulante).Nombre
                                         : "",
                 };
                 
