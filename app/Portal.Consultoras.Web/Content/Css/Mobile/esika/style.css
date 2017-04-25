@@ -4617,8 +4617,8 @@ table > thead > tr > th {
 }
 
 .foto_usuaria_mobile {
-    width: 89px;
-    height: 87px;
+    width: 77px;
+    height: 76px;
     border-radius: 100px;
     overflow: hidden;
 }
@@ -4704,7 +4704,7 @@ table > thead > tr > th {
     padding-right: 10px;
     font-family: 'lato';
     font-size: 10px;
-    margin-top: 6px;
+    margin-top: 12px;
     color: #000;
     letter-spacing: 1px;
 }
