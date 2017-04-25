@@ -8,7 +8,7 @@ $(document).ready(function () {
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
-
+    
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
             if ($('#PopOfertaDia').is(':visible')) {
@@ -343,7 +343,7 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
-    debugger;
+    //debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
@@ -700,6 +700,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -780,6 +786,14 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
     });
@@ -982,6 +996,7 @@ function RedirectIngresaTuPedido() {
 };
 function CerrarSesion() {
     localStorage.clear();
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -992,6 +1007,14 @@ function SetMarcaGoogleAnalyticsTermino() {
 };
 
 function loadOfertaDelDia() {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -1250,6 +1273,17 @@ function addOfertaDelDiaPedido(tipo) {
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
+
+    /*
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
