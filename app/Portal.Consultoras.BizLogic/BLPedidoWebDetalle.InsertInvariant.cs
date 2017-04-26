@@ -17,7 +17,6 @@ namespace Portal.Consultoras.BizLogic
         private BLUsuario _blUsuario;
         private BLEstrategia _blEstrategia;
         private BLOfertaProducto _blOfertaProducto;
-        private int OfertaLiquidacionID; //1702;
         private const string SUCCESS = "OK";
 
         public BLPedidoWebDetalle()
@@ -27,12 +26,6 @@ namespace Portal.Consultoras.BizLogic
             _blUsuario = new BLUsuario();
             _blEstrategia = new BLEstrategia();
             _blOfertaProducto = new BLOfertaProducto();
-
-            var ofertaLiquidacion = 0;
-            if (!int.TryParse(ConfigurationManager.AppSettings["OfertaLiquidacionID"], out ofertaLiquidacion))
-                throw new ArgumentNullException("No existe la llave OfertaLiquidacionID");
-
-            OfertaLiquidacionID = ofertaLiquidacion;
         }
 
         public BEPedidoWebResult InsPedidoDetalleInvariant(BEPedidoWebDetalleInvariant model)
@@ -159,7 +152,7 @@ namespace Portal.Consultoras.BizLogic
                 ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
                 Cantidad = model.Cantidad,
                 CampaniaID = model.CampaniaID,
-                TipoOfertaSisID = OfertaLiquidacionID, //Constante Oferta_Liquidacion
+                TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion, 
                 IPUsuario = model.IPUsuario,
                 CodigoUsuarioCreacion = usuario.CodigoUsuario,
                 CodigoUsuarioModificacion = usuario.CodigoUsuario,
