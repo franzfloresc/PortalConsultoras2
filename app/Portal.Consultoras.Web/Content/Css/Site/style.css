@@ -13054,15 +13054,30 @@ label.checkpop {
   margin-bottom: 2px;
 }
 
-#matriz-imagenes-paginacion .action {
-    display:inline-block;
-    padding:2px;
+.matriz-comercial-list .item.disabledItem {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+#matriz-imagenes-paginacion {
+    padding: 10px 0px 5px 12px;
 }
 
 #matriz-imagenes-paginacion .item {
     display:inline-block;
-    padding:2px;
 }
+
+#matriz-imagenes-paginacion .item a {
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+#matriz-imagenes-paginacion .item a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#matriz-imagenes-paginacion .item a:hover:not(.active) {background-color: #ddd;}
 
 #file-upload-add .qq-upload-list {
     margin: 0px;
