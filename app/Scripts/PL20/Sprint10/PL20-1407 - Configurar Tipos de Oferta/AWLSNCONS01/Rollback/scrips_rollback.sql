@@ -360,6 +360,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -739,6 +760,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
@@ -1124,6 +1166,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -1503,6 +1566,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
@@ -1888,6 +1972,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -2267,6 +2372,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
@@ -2652,6 +2778,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -3031,6 +3178,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
@@ -3416,6 +3584,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -3795,6 +3984,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
@@ -4180,6 +4390,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -4562,6 +4793,27 @@ END
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+
+go
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ShowRoom].[GetShowRoomTipoOferta]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [ShowRoom].GetShowRoomTipoOferta
 GO
@@ -4941,6 +5193,27 @@ BEGIN
 	where OfertaShowRoomID = @OfertaShowRoomID
  
 END
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201704,'0193037'
+*/
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
 
 go
 
