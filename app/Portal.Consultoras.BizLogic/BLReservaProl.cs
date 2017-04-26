@@ -31,7 +31,12 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
                 }
-                usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;             
+                usuario.IndicadorGPRSB = configuracion == null ? 0 : configuracion.IndicadorGPRSB;
+
+                usuario.PaisID = paisID;
+                usuario.ConsultoraID = consultoraID;
+                usuario.CampaniaID = campania;
+                usuario.AceptacionConsultoraDA = aceptacionConsultoraDA;
 
                 return DeshacerPedidoValidado(usuario, tipo);
             }
