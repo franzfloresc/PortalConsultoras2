@@ -61,6 +61,15 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to El producto solicitado no existe..
+        /// </summary>
+        internal static string ValidacionProductoByCUVNoEncontrado {
+            get {
+                return ResourceManager.GetString("ValidacionProductoByCUVNoEncontrado", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta({0}) del producto..
         /// </summary>
         internal static string ValidacionUnidadesPermitidas {
