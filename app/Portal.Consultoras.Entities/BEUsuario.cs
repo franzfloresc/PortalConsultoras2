@@ -198,8 +198,11 @@ namespace Portal.Consultoras.Entities
                 mSegmento = Convert.ToString(row["Segmento"]);
             if (DataRecord.HasColumn(row, "SegmentoAbreviatura") && row["SegmentoAbreviatura"] != DBNull.Value)
                 mSegmentoAbreviatura = Convert.ToString(row["SegmentoAbreviatura"]);
-
-            //msSobrenombre = Convert.ToString(row["Sobrenombre"]) == string.Empty ? Convert.ToString(row["PrimerNombre"]) : Convert.ToString(row["Sobrenombre"]);
+            
+            if (DataRecord.HasColumn(row, "Sobrenombre") && row["Sobrenombre"] != DBNull.Value)
+                msSobrenombre = Convert.ToString(row["Sobrenombre"]);
+            if (string.IsNullOrEmpty(msSobrenombre) && DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
+                msSobrenombre = Convert.ToString(row["PrimerNombre"]);
             //EMailActivo = Convert.ToBoolean(row["EMailActivo"]);//2532 EGL
 
             if (DataRecord.HasColumn(row, "IndicadorDupla") && row["IndicadorDupla"] != DBNull.Value)
