@@ -110,7 +110,16 @@ $(document).ready(function () {
 
     waitingDialog();
 
-    MensajeEstadoPedido();
+    //EPD-2305
+    //debugger;
+    if (gTipoUsuario == '2') {
+        if (mostrarBannerPostulante == 'True') {
+            $('#bloquemensajesPostulante').show();
+        }
+    }
+    else {
+        MensajeEstadoPedido();
+    }
 
     closeWaitingDialog();
 

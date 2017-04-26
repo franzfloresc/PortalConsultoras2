@@ -788,6 +788,15 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
+    //debugger;
+            //EPD-2305
+            if (gTipoUsuario == '2') {
+                if (mostrarBannerPostulante == 'True') {
+                    $('#bloquemensajesPostulante').show();
+                    return;
+                }
+            }
+
     LayoutHeader();
 }
 
@@ -844,6 +853,25 @@ function cerrarMensajeEstadoPedido() {
         },
         error: function (data, error) {
             cerrarRechazado = '0';
+        }
+    });
+}
+
+function cerrarMensajePostulante() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
+        //data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                $('#bloquemensajesPostulante').hide();
+            }
+        },
+        error: function (response) {
+            console.log(response);
         }
     });
 }
