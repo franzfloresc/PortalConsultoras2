@@ -7,6 +7,8 @@
 
 @Html.HiddenFor(model => model.PaisIDUser)
 
+<script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+
 <div class="wrap_cab">
     <div class="filtros">
         <div class="elements">
@@ -198,22 +200,8 @@
                     }
                 </script>
             </div>
-            <div class="div-list-img-matriz-comercial">
-                @for (int i = 1; i <= cantidadImagenes; i++)
-                {
-                    indice = "0" + i;
-                    indice = indice.Substring(indice.Length - 2);
-
-                    <div id="divImgMatrizComercial@(indice)" class="titG2 div-img-matriz-comercial">
-                        <div class="pdr_modal borde_redondeado aligncenter">
-                            <img class="img-matriz-preview" src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview@(indice)">
-                        </div>
-                        <div class="pdr_modal_check aligncenter">
-                            <input type="checkbox" id="chkImagenProducto@(indice)" class="chkImagenProducto">
-                        </div>
-                    </div>
-                }
-            </div>
+            @Html.Partial("ListadoImagenesMatriz")
+            <div id="matriz-comercial-lista-imagenes"></div>
         </div>
     </div>
 </div>
@@ -295,7 +283,7 @@
             CargarImagenSugerido();
         });
 
-        $(".chkImagenProducto").click(function () {
+        var chkImagenProductoOnClick = function () {
             var che = $(this).attr('checked');
             imagen = "";
 
@@ -304,12 +292,19 @@
                 $(this).attr('checked', 'checked');
                 imagen = $(this).attr('value');
             }
-        });
-        
-        $(".img-matriz-preview").on("click", function () {
+        };
+
+        var imagenOnClick = function () {
             $("#imgPreview").attr("src", $(this).attr("src"));
             showDialog('divVistaPrevia');
-        });
+        };
+
+        $(".chkImagenProducto").on("click", chkImagenProductoOnClick);
+
+        $("#matriz-comercial-lista-imagenes").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
+
+        $("#matriz-comercial-lista-imagenes").on("click", ".img-matriz-preview", imagenOnClick);
+       
     }
 
     function CargarDialog() {
@@ -606,41 +601,45 @@
 
     }
     
-    function CargarDatosMatrizComercial(data, imgRow) {
-        data = data || new Object();
-        data.lista = data.lista || new Array();
+    function CargarDatosMatrizComercial(matriz, imgRow) {
+        //data = data || new Object();
+        //data.lista = data.lista || new Array();
         LimpiarDatosMatrizComercial();
         imagen = '';
 
-        if (data.lista.length <= 0) return false;
-        var obj = data.lista[0] || new Object();
+        if (matriz.Imagenes.length <= 0) return false;
+        //var obj = data.lista[0] || new Object();
 
-        $('#hdnCodigoSAP').val(obj.CodigoSAP);
-        $('#hdnIdMatrizComercial').val(obj.IdMatrizComercial);
-        $('#hdnDescripcion').val(obj.Descripcion);
-        $('#hdnDescripcionOriginal').val(obj.DescripcionOriginal);
-        $('#txtDescripcionProductoComercial').val(obj.DescripcionProductoComercial);
+        $('#hdnCodigoSAP').val(matriz.CodigoSAP);
+        $('#hdnIdMatrizComercial').val(matriz.IdMatrizComercial);
+        $('#hdnDescripcion').val(matriz.Descripcion);
+        $('#hdnDescripcionOriginal').val(matriz.DescripcionOriginal);
+        $('#txtDescripcionProductoComercial').val(matriz.DescripcionProductoComercial);
 
-        var i, ind;
-        for (i = 0; i <= cantImg; i++) {
-            ind = i == 0 ? 'AppCatalogo' : ('0' + i).substr(-2);
-            var urlImg = obj["FotoProducto" + ind] || "";
-            if (urlImg == "") {
-                if (i == 0) continue;
-                else break;
-            }
+        $('.divAppCatalogo').show();
+
+        SetHandlebars('#matriz-comercial-listado-imagenes-template', matriz, '#matriz-comercial-lista-imagenes');
+
+        //var i, ind;
+        //for (i = 0; i <= cantImg; i++) {
+        //    ind = i == 0 ? 'AppCatalogo' : ('0' + i).substr(-2);
+        //    var urlImg = obj["FotoProducto" + ind] || "";
+        //    if (urlImg == "") {
+        //        if (i == 0) continue;
+        //        else break;
+        //    }
             
-            $('#preview' + ind).attr('src', urlImg);
-            $("#chkImagenProducto" + ind).val(urlImg);
-            if (urlImg == imgRow && imgRow != "") {
-                $('#chkImagenProducto' + ind).attr('checked', true);
-                imagen = urlImg;
-            }
+        //    $('#preview' + ind).attr('src', urlImg);
+        //    $("#chkImagenProducto" + ind).val(urlImg);
+        //    if (urlImg == imgRow && imgRow != "") {
+        //        $('#chkImagenProducto' + ind).attr('checked', true);
+        //        imagen = urlImg;
+        //    }
 
-            if (i == 0) $('.divAppCatalogo').show();
-            else $("#divImgMatrizComercial" + ind).show();
-        }
-        if (i > cantImg) $("#fpUpload").hide();
+        //    if (i == 0) $('.divAppCatalogo').show();
+        //    else $("#divImgMatrizComercial" + ind).show();
+        //}
+        //if (i > cantImg) $("#fpUpload").hide();
     }
 
     $.jgrid.extend({
@@ -684,16 +683,16 @@
                 var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
                 imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
 
-                data = data || new Object();
-                data.lista = data.lista || new Array();
-                if (data.lista.length <= 0) {
+                //data = data || new Object();
+                //data.matriz = data.lista || new Array();
+                if (data.matriz.Imagenes.length <= 0) {
                     $(".chkImagenProducto").attr('disabled', true);
                     showDialog("DialogRegistroProductoSugerido");
                     closeWaitingDialog();
                     return false;
                 }
 
-                CargarDatosMatrizComercial(data, imgRow);
+                CargarDatosMatrizComercial(data.matriz, imgRow);
                 showDialog("DialogRegistroProductoSugerido");
                 closeWaitingDialog();
             });

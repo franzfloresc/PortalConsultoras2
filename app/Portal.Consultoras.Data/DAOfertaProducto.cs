@@ -270,6 +270,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetMatrizComercialByCampaniaAndCUV(int campania, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMatrizComercialByCampaniaAndCUV");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, cuv);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetImagenesByCodigoSAP(string codigoSAP)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAP");
