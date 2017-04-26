@@ -262,16 +262,25 @@
             </div>
         </div>
         <div class="set_oferta_content">
+            <div class="saludo_paginacion">Valeria, te mostramos <b>1 de 6</b> ofertas</div>
             <div class="producto_img_mobile">
                 <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
             </div>
             <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
-            <div class="producto_nombre_descripcion">
-                <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
-                <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
-                <div class="producto_precio_hoy_mobile">
-                    A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
-                </div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
+            <div class="producto_precio_hoy_mobile">
+                A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
+            </div>
+            <div class="titulo_contenido">CONTENIDO</div>
+            <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
+            <div class="content_redes_ficha" data-item="">
+                <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+            @*<div class="producto_nombre_descripcion" style="padding-left:0; padding-right:0">
+                
+                
                 <div class="liquidacion_rango_home">
                     <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
@@ -285,7 +294,21 @@
                         <div class="icono"></div>
                     </div>
                 </div>
+            </div>*@
+            <div class="row">
+                <div class="content_btn_agregar">
+                    <div class="content_320">
+                        <div class="content_cantidad_ficha_producto">
+                            <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                            <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                        </div>
+                        <a class="btn_agregar_ficha_producto">AGRÉGALO</a>
+                        <hr class="clear">
+                    </div>
+                </div>
             </div>
+          
         </div>
     </div>
     }
