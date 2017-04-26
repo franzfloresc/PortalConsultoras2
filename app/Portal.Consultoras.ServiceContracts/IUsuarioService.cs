@@ -307,5 +307,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
         /*EPD-1837*/
+
+        [OperationContract]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
     }
 }
