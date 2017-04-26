@@ -57,14 +57,26 @@ $(document).ready(function () {
         }       
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
+
+        $('#ddlPais2').val(imgISO);
     });
 
     /*2275*/
     $("#ddlPais2").change(function () {
         imgISO = $("#ddlPais2").val();
-        if (imgISO != "00") $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
-        else $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
-        AsignarHojaEstilos();
+        
+        if (paisesEsika.indexOf(imgISO) != -1) {
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        }
+        else {
+            if (paisesLBel.indexOf(imgISO) != -1) {
+                $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+            }
+            else {
+                $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+            }
+        }
+        //AsignarHojaEstilos();
     });
     /**/
 
@@ -161,7 +173,7 @@ $(document).ready(function () {
         $('#btnLoginFB').prop('disabled', true);
     });
 
-    $("#txtUsuario, #txtUsuario2").keypress(
+    $("#txtUsuario").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
@@ -175,12 +187,38 @@ $(document).ready(function () {
             }
         });
 
-    $("#txtContrasenia, #txtContrasenia2").keypress(
+    $("#txtUsuario2").keypress(
+        function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            //ValidarAutenticacion();
+            $('#txtContrasenia2').focus();
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            return re.test(keyChar);
+        }
+        });
+
+    $("#txtContrasenia").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
                 //ValidarAutenticacion();
                 $('#btnLogin').focus();
+            }
+        });
+
+    $("#txtContrasenia2").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#btnLogin2').focus();
+                login2();
+                return false;
             }
         });
 
