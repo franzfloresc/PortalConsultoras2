@@ -129,7 +129,7 @@ $(document).ready(function () {
     
     $("#linkAgregarCliente").on("click", function () {
         if (gTipoUsuario == '2') {
-            var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+            var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
             $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
             $('#popupInformacionSB2Error').show();
             return false;

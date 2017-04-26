@@ -853,8 +853,8 @@ function SeparadorMiles(pnumero) {
 function EjecutarPROL() {
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
-        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
-        $('#popupInformacionSB2Error').show();
+        $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
+        $('#popupInformacionSB2Malo').show();
     }
     else {
         if (ReservadoOEnHorarioRestringido(true)) {
