@@ -1634,9 +1634,15 @@
                 </div>
                 {{else}}
                 <div class="stock_content">
-                    <div class="texto_stock" style="margin-top: 10PX;">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
-                    <a class="btn_no_stock" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
-                    <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                    <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                    <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
+
+                        <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
+
+                        <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;"  onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                        
+                        
+                    </div>
                     <hr class="clear" />
                 </div>
                 {{/if}}
