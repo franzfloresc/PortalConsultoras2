@@ -3,6 +3,36 @@ var rangoPrecios = 0;
 //var busquedaModel = null;
 
 $(document).ready(function () {
+    $("#VerOfertaEspecial").on("click", function () {
+        $('#content_set_especial_header').hide();
+        $('#CerrarOfertaEspecial').show();
+        $('.promocion_especial_header').css("background", "#fff6f4");
+        $('.content_set_oferta_especial').slideDown();
+
+        $('.content_carrusel_oferta_especial').slick('slickGoTo', 0);
+    });
+    $("#CerrarOfertaEspecial").on("click", function () {
+        $('#content_set_especial_header').show();
+        $('#CerrarOfertaEspecial').hide();
+        $('.promocion_especial_header').css("background", "#fff");
+        $('.content_set_oferta_especial').slideUp();
+    });
+
+    $('.content_carrusel_oferta_especial').not('.slick-initialized').slick({
+        slidesToShow: 3,
+        dots: false,
+        vertical: false,
+        infinite: true,
+        speed: 300,
+        centerPadding: '0px',     
+
+        centerMode: true,
+        slidesToScroll: 1,
+        variableWidth: false,
+        prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+    });
+    
     $(".footer_e").css("margin-bottom", "73px");
 
     $(".seleccion_filtro_fav").on("click", function () {
