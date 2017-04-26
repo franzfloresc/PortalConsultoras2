@@ -225,11 +225,14 @@ namespace Portal.Consultoras.Web.Controllers
             if(nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
 
             BEMatrizComercial matriz = null;
-            List<BEMatrizComercialImagen> imagenes;
+            List<BEMatrizComercialImagen> imagenes = null;
             using (var sv = new PedidoServiceClient())
             {
                 matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
-                imagenes = sv.GetMatrizComercialImagenByCodigoSAP(paisID, matriz.CodigoSAP, 1, 10).ToList();
+                if(matriz!=null)
+                {
+                    imagenes = sv.GetMatrizComercialImagenByCodigoSAP(paisID, matriz.CodigoSAP, 1, 10).ToList();
+                }
             }
 
             MatrizComercialResultadoModel model = null;

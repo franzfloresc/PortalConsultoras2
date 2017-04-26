@@ -1,8 +1,6 @@
 ﻿@model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
 @{
     ViewBag.Title = "Administración de Producto Sugerido";
-    int cantidadImagenes = 10;
-    string indice;
 }
 
 @Html.HiddenFor(model => model.PaisIDUser)
@@ -217,7 +215,6 @@
 <script type="text/javascript" id="js-ready">
     var paisNombre = "";
     var paisID = $("#PaisIDUser").val();
-    var cantImg = '@cantidadImagenes';
     var imageUrlVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
     var imagen = "";
     var siguienteIndice;
@@ -492,7 +489,26 @@
         }
 
         waitingDialog({});
-        $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerImagenesByCUV', { paisID: paisID, campaniaID: campaniaID, cuv: cuv }, function (data) {
+        var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
+        obtenerImagenesByCUV(params).done(function (data) {
+            if (data) {
+                $(".divPanelImagen img").attr("src", imageUrlVacio);
+                $(".chkImagenProducto").prop('checked', false);
+
+                if (!data.matriz) {
+                    alert("El producto sugerido no cuenta con imágenes disponibles.");
+                    closeWaitingDialog();
+                    return false;
+                }
+
+                CargarDatosMatrizComercial(data.matriz, imagen);
+                closeWaitingDialog();
+            }
+        });
+    }
+
+    var obtenerImagenesByCUV = function (params) {
+        return $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerImagenesByCUV', params, function (data) {
             if (!checkTimeout(data)) {
                 closeWaitingDialog();
                 return false;
@@ -502,23 +518,10 @@
                 alert(data.message);
                 return false;
             }
-            
-            $(".divPanelImagen img").attr("src", imageUrlVacio);
-            $(".chkImagenProducto").prop('checked', false);
 
-            data = data || new Object();
-            data.lista = data.lista || new Array();
-            if (data.lista.length <= 0) {
-                alert("El producto sugerido no cuenta con imágenes disponibles.");
-                closeWaitingDialog();
-                return false;
-            }
-
-            CargarDatosMatrizComercial(data, imagen);
-
-            closeWaitingDialog();            
+            return data;
         });
-    }
+    };
 
     function RegistroLimpiar() {
         $(".man").val("");
@@ -602,13 +605,8 @@
     }
     
     function CargarDatosMatrizComercial(matriz, imgRow) {
-        //data = data || new Object();
-        //data.lista = data.lista || new Array();
         LimpiarDatosMatrizComercial();
         imagen = '';
-
-        if (matriz.Imagenes.length <= 0) return false;
-        //var obj = data.lista[0] || new Object();
 
         $('#hdnCodigoSAP').val(matriz.CodigoSAP);
         $('#hdnIdMatrizComercial').val(matriz.IdMatrizComercial);
@@ -619,27 +617,6 @@
         $('.divAppCatalogo').show();
 
         SetHandlebars('#matriz-comercial-listado-imagenes-template', matriz, '#matriz-comercial-lista-imagenes');
-
-        //var i, ind;
-        //for (i = 0; i <= cantImg; i++) {
-        //    ind = i == 0 ? 'AppCatalogo' : ('0' + i).substr(-2);
-        //    var urlImg = obj["FotoProducto" + ind] || "";
-        //    if (urlImg == "") {
-        //        if (i == 0) continue;
-        //        else break;
-        //    }
-            
-        //    $('#preview' + ind).attr('src', urlImg);
-        //    $("#chkImagenProducto" + ind).val(urlImg);
-        //    if (urlImg == imgRow && imgRow != "") {
-        //        $('#chkImagenProducto' + ind).attr('checked', true);
-        //        imagen = urlImg;
-        //    }
-
-        //    if (i == 0) $('.divAppCatalogo').show();
-        //    else $("#divImgMatrizComercial" + ind).show();
-        //}
-        //if (i > cantImg) $("#fpUpload").hide();
     }
 
     $.jgrid.extend({
@@ -658,45 +635,30 @@
 
             waitingDialog({});
             $.ajaxSetup({ cache: false });
-            $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerImagenesByCUV', { paisID: paisID, campaniaID: campaniaID, cuv: cuv }, function (data) {
-                if (!checkTimeout(data)) {
-                    closeWaitingDialog();
-                    return false;
-                }
-                if (data.success != true) {
-                    closeWaitingDialog();
-                    alert(data.message);
-                    return false;
-                }
 
-                $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
-                $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
-                $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
-                $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
-                $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));
-                var estado = jQuery("#list").jqGrid('getCell', rowPk, 'Estado');
-                if (estado == "True" || estado == "true" || estado == "1")
-                    $('#chkHabilitar').attr('checked', true);
-                else
-                    $('#chkHabilitar').removeAttr('checked');
+            var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
+            obtenerImagenesByCUV(params).done(function (data) {
+                if (data) {
+                    $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
+                    $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
+                    $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
+                    $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
+                    $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));
+                    var estado = jQuery("#list").jqGrid('getCell', rowPk, 'Estado');
+                    if (estado == "True" || estado == "true" || estado == "1")
+                        $('#chkHabilitar').attr('checked', true);
+                    else
+                        $('#chkHabilitar').removeAttr('checked');
 
-                var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
-                imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
+                    var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
+                    imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
 
-                //data = data || new Object();
-                //data.matriz = data.lista || new Array();
-                if (data.matriz.Imagenes.length <= 0) {
-                    $(".chkImagenProducto").attr('disabled', true);
+                    CargarDatosMatrizComercial(data.matriz, imgRow);
                     showDialog("DialogRegistroProductoSugerido");
                     closeWaitingDialog();
-                    return false;
                 }
-
-                CargarDatosMatrizComercial(data.matriz, imgRow);
-                showDialog("DialogRegistroProductoSugerido");
-                closeWaitingDialog();
             });
-            
+
             return false;
         },
         Eliminar: function (rowPk) {
