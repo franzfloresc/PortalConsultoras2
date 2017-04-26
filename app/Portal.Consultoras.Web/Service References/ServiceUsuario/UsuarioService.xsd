@@ -20,31 +20,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioPostulante" nillable="true" type="tns:BEUsuarioPostulante" />
-  <xs:complexType name="BEUsuarioExterno">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Estado" type="xs:int" />
-      <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Genero" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="IdAplicacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="LinkPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Ubicacion" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
-  <xs:complexType name="ArrayOfBEUsuarioExterno">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEUsuarioExterno" nillable="true" type="tns:ArrayOfBEUsuarioExterno" />
   <xs:complexType name="BEUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="AceptoContrato" type="xs:boolean" />
@@ -127,6 +102,8 @@
       <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Lider" type="xs:int" />
       <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajePedidoDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajePedidoMobile" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
@@ -530,4 +507,51 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEValidaLoginSB2" nillable="true" type="tns:BEValidaLoginSB2" />
+  <xs:complexType name="BEUsuarioPostulante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnvioCorreo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:short" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdPostulante" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeMobile" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioReal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioPostulante" nillable="true" type="tns:BEUsuarioPostulante" />
+  <xs:complexType name="BEUsuarioExterno">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Genero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdAplicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LinkPerfil" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Ubicacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
+  <xs:complexType name="ArrayOfBEUsuarioExterno">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEUsuarioExterno" nillable="true" type="tns:BEUsuarioExterno" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEUsuarioExterno" nillable="true" type="tns:ArrayOfBEUsuarioExterno" />
 </xs:schema>

@@ -69,6 +69,8 @@ namespace Portal.Consultoras.Web.Models
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
             this.EsLebel = false;
+            this.MensajePedidoDesktop = 0;
+            this.MensajePedidoMobile = 0;
         }
 
         public string Celular { get; set; }
@@ -344,5 +346,7 @@ namespace Portal.Consultoras.Web.Models
         public bool EsLebel { get; set; }
         public bool CloseBannerCompraPorCompra { get; set; }
 
+        public int MensajePedidoDesktop { get; set; }
+        public int MensajePedidoMobile { get; set; }
     }
 }

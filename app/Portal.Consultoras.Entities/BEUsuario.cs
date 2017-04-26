@@ -1148,5 +1148,12 @@ namespace Portal.Consultoras.Entities
                 FechaActualPais = Convert.ToDateTime(row["FechaActualPais"]);
         }
         /*R2520 - JICM - LIDERES - FIN*/
+
+        //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
+        [DataMember]
+        public int MensajePedidoDesktop { get; set; }
+
+        [DataMember]
+        public int MensajePedidoMobile { get; set; }
     }
 }

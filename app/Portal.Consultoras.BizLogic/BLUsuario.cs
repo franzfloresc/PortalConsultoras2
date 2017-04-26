@@ -255,6 +255,10 @@ namespace Portal.Consultoras.BizLogic
                         usuario.RegionID = postulante.RegionID;
                         usuario.ConsultoraID = postulante.ConsultoraID;
 
+                        //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
+                        usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
+                        usuario.MensajePedidoMobile = postulante.MensajeMobile;
+
                         using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
                         {
                             if (reader.Read())
@@ -1273,7 +1277,6 @@ namespace Portal.Consultoras.BizLogic
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
-                        // insertar rol
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)
@@ -1456,8 +1459,14 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetExisteEmailActivo(email);
         }
-        
+
         /*EPD-1837*/
+
+        public void UpdatePostulantesMensajes(int paisID, string CodigoUsuario, int tipo)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            DAUsuario.UpdatePostulanteMensajes(CodigoUsuario, tipo);
+        }
 
     }
 }
