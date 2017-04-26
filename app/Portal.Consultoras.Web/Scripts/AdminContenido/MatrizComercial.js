@@ -27,9 +27,9 @@
     };
 
     var _onFileSubmit = function (id, fileName) {
-        var elementId = this.element.id;
-        $("#" + elementId).closest('.item').addClass('disabledItem');
-        return false;
+        $(".qq-upload-list").css("display", "none");
+        //return false;
+        waitingDialog({});
     };
 
     var _crearObjetoUpload = function (itemData, editData) {
@@ -46,7 +46,7 @@
                 DescripcionOriginal: editData.descripcionOriginal
             },
             onComplete: _uploadComplete(itemData.imageElementId),
-            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onSubmit: _onFileSubmit,
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
         });
@@ -68,6 +68,7 @@
                 } else {
                     alert(response.message)
                 };
+                closeWaitingDialog();
             }
         };
     };
@@ -118,6 +119,7 @@
 
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
+            closeWaitingDialog();
         };
     };
 
@@ -147,6 +149,7 @@
                 ev.preventDefault();
                 var page = $(this).data('page');
                 pager.setPage(page);
+                waitingDialog({});
                 _obtenerImagenes(_editData, page, false);
             },
             onFormat: format
