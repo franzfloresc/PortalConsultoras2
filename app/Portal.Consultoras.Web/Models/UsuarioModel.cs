@@ -314,11 +314,12 @@ namespace Portal.Consultoras.Web.Models
         public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool MostrarBannerPostulante { get; set; }
 
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
-
+        public int CerrarBannerPostulante { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
