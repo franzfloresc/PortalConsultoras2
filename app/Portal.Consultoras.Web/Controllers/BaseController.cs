@@ -829,6 +829,14 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
                 ViewBag.CerrarRechazado = model.CerrarRechazado;
                 ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+
+                //EPD-2305
+                ViewBag.MostrarBannerPostulante = false;
+                if (model.TipoUsuario == 2 && model.CerrarBannerPostulante == 0)
+                {
+                    ViewBag.MostrarBannerPostulante = true;
+                }
+ 
                 ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;

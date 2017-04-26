@@ -777,6 +777,7 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
+    //debugger;
     var url = location.href.toLowerCase();
     var esMobile = url.indexOf("/mobile/") > 0;
     var esBienvenida = url.indexOf("/bienvenida") > 0;
@@ -832,6 +833,14 @@ function xMensajeEstadoPedido(estado) {
     else {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
+            //EPD-2305
+            if (gTipoUsuario == '2') {
+                if (mostrarBannerPostulante == 'True') {
+                    $('#bloquemensajesPostulante').show();
+                    return;
+                }
+            }
+
             wtop = $("header").height();
             
             if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
@@ -983,6 +992,25 @@ function cerrarMensajeEstadoPedido() {
         },
         error: function (data, error) {
             cerrarRechazado = '0';
+        }
+    });
+}
+
+function cerrarMensajePostulante() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
+        //data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                $('#bloquemensajesPostulante').hide();
+            }
+        },
+        error: function (response) {
+            console.log(response);
         }
     });
 }
