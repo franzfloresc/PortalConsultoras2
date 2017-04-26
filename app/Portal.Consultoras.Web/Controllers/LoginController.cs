@@ -844,8 +844,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["ListFiltersFAV"] = lstFiltersFAV;
                 }
-                //PL20-1234
-
+                //Para paises lebelizados.
+                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(model.CodigoISO))
+                {
+                    model.EsLebel = true;
+                }
+                    
                 Session["UserData"] = model;
             }
             catch (Exception ex)
