@@ -109,8 +109,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
 
+            ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
             return View(model);
         }
         

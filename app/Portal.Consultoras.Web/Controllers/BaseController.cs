@@ -836,7 +836,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //EPD-2058
                 ViewBag.TipoUsuario = model.TipoUsuario;
-
+                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
+                ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
                 return model;
 
                 #endregion

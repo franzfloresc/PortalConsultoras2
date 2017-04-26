@@ -20,11 +20,15 @@ var gap_Log = 0;
 var tipoOrigen = '1';
 
 $(document).ready(function () {
+   // debugger;
+    
+ 
     ReservadoOEnHorarioRestringido(false);
 
     AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
-    $(".abrir_tutorial").click(function () {
+
+    $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial();
     });
 
@@ -32,20 +36,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    function abrir_popup_tutorial() {
-        $('#popup_tutorial_pedido').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-
-        fnMovimientoTutorial = setInterval(function () {
-            $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
-            numImagen++;
-            if (numImagen > 5) {
-                numImagen = 1;
-            }
-
-        }, 3000);
-
-    }
 
     //EPD-1564
     $("body").click(function (e) {        
@@ -62,13 +52,7 @@ $(document).ready(function () {
     })
     //FIn EPD-1564
 
-    function cerrar_popup_tutorial() {
-        $('#popup_tutorial_pedido').fadeOut();
-        $('html').css({ 'overflow-y': 'auto' });
-        $(".imagen_tutorial").animate({ 'opacity': '1' });
-        window.clearInterval(fnMovimientoTutorial);
-        numImagen = 1;
-    }
+   
 
     $(document).on('change', '.seleccion_pagina select', function () {
         dataLayer.push({
@@ -412,7 +396,66 @@ $(document).ready(function () {
     CargarCarouselEstrategias("");
     CargarAutocomplete();
     MostrarBarra();
+    CargarDialogMesajePostulantePedido();
 });
+
+function CargarDialogMesajePostulantePedido() {
+    if (gTipoUsuario == '2' && MensajePedidoDesktop == '0') {
+        var mesg = "En este momento podrás simular el ingreso de tu pedido.";
+        var title = "TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA";
+        $('#dialog_MensajePostulante_Pedido #titutloPedido').text(title);
+        $('#dialog_MensajePostulante_Pedido #mensajePedido').text(mesg);
+        $('#dialog_MensajePostulante_Pedido #btnOk').text('CONTINUAR');
+        $('#dialog_MensajePostulante_Pedido').show();
+        return false;
+    }
+}
+function CerrarDialogMesajePostulantePedido() {
+    $('#dialog_MensajePostulante_Pedido').hide();
+    abrir_popup_tutorial();
+    UpdateUsuarioTutoriales();
+}
+
+function abrir_popup_tutorial() {
+    $('#popup_tutorial_pedido').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
+        numImagen++;
+        if (numImagen > 5) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+
+    }, 3000);
+}
+
+function UpdateUsuarioTutoriales() {
+    var item = {
+        tipo: '1' // Para Desktop
+    };
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/UpdatePostulanteMensaje',
+        data: JSON.stringify(item),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+    return true; 
+}
+
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_pedido').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+}
 
 function CrearDialogs() {
 

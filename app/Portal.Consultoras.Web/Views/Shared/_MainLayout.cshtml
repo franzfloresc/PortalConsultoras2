@@ -517,6 +517,27 @@
     </div>
     <!-- FIN POPUP MENSAJE USUARIO POSTULANTE -->
 
+    <!-- POPUP MENSAJE USUARIO POSTULANTE  -->
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_MensajePostulante_Pedido" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="CerrarDialogMesajePostulantePedido()">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b id="titutloPedido">LO SENTIMOS</b></h1>
+                <div id="mensajePedido" class="mensaje_agregarUnidades"></div>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="CerrarDialogMesajePostulantePedido()" id="btnOk">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP MENSAJE USUARIO POSTULANTE -->
+
     <div id="divMensajeConfirmacion" style="display: none;">
         <div class="terminos_title_2 divTitle">
             IMPORTANTE
@@ -675,6 +696,8 @@
         var MostrarODD = '@ViewBag.MostrarODD';
         //EPD-2058
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+
+        var MensajePedidoDesktop = '@ViewBag.MensajePedidoDesktop';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
