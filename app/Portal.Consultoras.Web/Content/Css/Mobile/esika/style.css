@@ -11894,3 +11894,14 @@ a{
     height:48px;
     line-height:47px;
 }
+
+.saludo_paginacion{
+   margin-top: 10px;
+   margin-bottom: 12px;
+   font-family: 'Lato';
+   font-size: 13px;
+   text-align: center;
+}
+.saludo_paginacion b{
+    font-size:15px;
+}
