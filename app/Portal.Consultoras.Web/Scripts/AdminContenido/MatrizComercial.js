@@ -3,7 +3,7 @@ var MatrizComercial = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
-        getImagesBySapCodeAction: config.getImagesBySapCodeAction || ''
+        getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || ''
     };
     var _editData = {};
 
@@ -108,8 +108,8 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, sapCode: data.codigoSAP, pagina: pagina };
-        return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
+        var params = { paisID: data.paisID, idMatriz: data.idMatrizComercial, pagina: pagina };
+        return $.post(_config.getImagesByIdMatrizAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
     var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
@@ -131,35 +131,7 @@ var MatrizComercial = function (config) {
         if ($("#matriz-imagenes-paginacion").children().length !== 0) {
             return false;
         }
-
-        //var format = function (type) {
-        //    switch (type) {
-        //        case 'block': // n and c
-        //            return '<div class="item"><a href="#">' + this.value + '</a></div>';
-        //        case 'next': // >
-        //            return '<div class="item"><a href= "#">&gt;</a></div>';
-        //        case 'prev': // <
-        //            return '<div class="item"><a href="#">&lt;</a></div>';
-        //        case 'first': // [
-        //            return '<div class="item"><a href="#">&lt;&lt;</a></div>';
-        //        case 'last': // ]
-        //            return '<div class="item"><a href="#">&gt;&gt;</a></div>';
-        //    }
-        //};
-
         _paginador.paginar(numRegistros);
-
-        //var pager = $("#matriz-imagenes-paginacion").paging(numRegistros, {
-        //    format: '[< ncnnn >]',
-        //    onClick: function (ev) {
-        //        ev.preventDefault();
-        //        var page = $(this).data('page');
-        //        pager.setPage(page);
-        //        waitingDialog({});
-        //        _obtenerImagenes(_editData, page, false);
-        //    },
-        //    onFormat: format
-        //});
     };
 
     var _mostrarListaImagenes = function(editData) {

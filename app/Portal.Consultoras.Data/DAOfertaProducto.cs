@@ -263,7 +263,7 @@ namespace Portal.Consultoras.Data
         public IDataReader GetMatrizComercialImagenByIdMatrizImagen(int idMatrizImagen, int numeroPagina, int registros)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByIdMatrizImagen");
-            Context.Database.AddInParameter(command, "@IdMatrizImagen", DbType.AnsiString, idMatrizImagen);
+            Context.Database.AddInParameter(command, "@IdMatrizComercial", DbType.AnsiString, idMatrizImagen);
             Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
             Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
 

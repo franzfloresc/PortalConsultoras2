@@ -5,10 +5,10 @@ var Paginador = function (config) {
         elementClick: config.elementClick
     };
 
-    var _elementClick = function (ev) {
+    var _pageClick = function (link, ev, pagerControl) {
         ev.preventDefault();
-        var page = $(this).data('page');
-        pager.setPage(page);
+        var page = link.data('page');
+        pagerControl.setPage(page);
         waitingDialog({});
 
         if (_config.elementClick) {
@@ -32,12 +32,14 @@ var Paginador = function (config) {
     };
 
     var _paginar = function (numRegistros) {
-        $("#" + _config.elementId).paging(numRegistros, {
+        var pagerObj = $("#" + _config.elementId).paging(numRegistros, {
             format: '[< ncnnn >]',
-            onClick: _elementClick,
+            onClick: function (ev) {
+                _pageClick($(this), ev, pagerObj)
+            },
             onFormat: _onFormat
         });
-    }
+    };
 
     return {
         paginar: _paginar
