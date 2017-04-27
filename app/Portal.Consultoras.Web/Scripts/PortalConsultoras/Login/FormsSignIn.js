@@ -12,7 +12,6 @@ $(document).ready(function () {
     });
 
     $('#btnLoginFB').addClass('center_facebook');
-
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
@@ -568,7 +567,7 @@ function login2() {
     if (mensaje != "") {
         valid = false;
         alert(mensaje);
-        $('#ddlPais2').focus();
+        $('#txtUsuario2').focus();
     }
 
     if (!valid) {
@@ -581,17 +580,50 @@ function login2() {
     $('#txtContrasenia').val(Contrasenia);
 
     $('#HdePaisID').val(PaisID);
+    // prevent click
     $('#ddlPais option:not(:selected)').prop('disabled', true);
     $('#txtUsuario').attr('readonly', true);
     $('#txtContrasenia').attr('readonly', true);
     $('#btnLogin').prop('disabled', true);
 
-    $('.content_pop_login').hide();
+    //$('.content_pop_login').hide();
     $('#btnLoginFB').prop('disabled', true);
 
     waitingDialog();
 
-    $('#frmLogin').submit();
+    //$('#frmLogin').submit();
+    var form = $('#frmLogin');
+    var token = $('input[name="__RequestVerificationToken"]', form).val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Login/Login',
+        data: form.serialize()+"&returlUrl=" + $('#returnUrl').val(),
+        dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //console.log(response);
+            closeWaitingDialog();
+            if (response.success) {
+                if (response.redirectTo !== "") {
+                    document.location.href = response.redirectTo;
+                }
+            }
+            else {
+                $('#ErrorTextLabel2').html(response.message);
+                $("#ErrorTextLabel2").css("padding-left", "20px");
+                $('#divMensajeError2').show();
+
+                return false;
+            }
+        },
+        error: function (response) {
+            //console.log(response);
+            alert("Error al procesar la solicitud");
+        },
+        complete: function (response) {
+        }
+    });
 }
 
 function closePopupAsociarLoginExt() {
@@ -614,6 +646,6 @@ function resizeNameUserExt() {
         if (fname.length > ml) {
             fname = fname.substring(0, ml).trim() + '.';
         }
-        $('#btnLoginFB').text('Continuar como ' + fname);
+        $('#btnLoginFB2').text('Continuar como ' + fname);
     }
 }

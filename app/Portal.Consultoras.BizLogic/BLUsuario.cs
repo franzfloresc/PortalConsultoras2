@@ -471,6 +471,20 @@ namespace Portal.Consultoras.BizLogic
         }
         /*EPD-1012*/
 
+        public BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor)
+        {
+            BEValidaLoginSB2 validaLogin = null;
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetValidarAutoLoginSB2(codigoUsuario, proveedor))
+            {
+                if (reader.Read())
+                    validaLogin = new BEValidaLoginSB2(reader);
+            }
+
+            return validaLogin;
+        }
+
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
             int Result = -1;

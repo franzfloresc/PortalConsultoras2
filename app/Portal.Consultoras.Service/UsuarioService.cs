@@ -600,6 +600,12 @@ namespace Portal.Consultoras.Service
         }
         /*EPD-1012*/
 
+        public BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarAutoLoginSB2(paisID, codigoUsuario, proveedor);
+        }
+
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
             var BLUsuario = new BLUsuario();
