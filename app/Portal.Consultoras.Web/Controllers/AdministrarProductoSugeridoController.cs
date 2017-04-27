@@ -231,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
                 matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
                 if(matriz!=null)
                 {
-                    imagenes = sv.GetMatrizComercialImagenByCodigoSAP(paisID, matriz.CodigoSAP, 1, 10).ToList();
+                    //imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.CodigoSAP, 1, 10).ToList();
                 }
             }
 

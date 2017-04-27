@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var formatoArchivo = GetFileNameFormat(model.PaisID, model.CodigoSAP);
                 var entity = new BEMatrizComercialImagen
                 {
-                    CodigoSAP = model.CodigoSAP,
+                    IdMatrizComercial = idMatrizComercial,
                     PaisID = model.PaisID,
                     UsuarioRegistro = userData.CodigoConsultora,
                     UsuarioModificacion = userData.CodigoConsultora
@@ -465,7 +465,8 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetMatrizComercialImagenByCodigoSAP(paisID, sapCode, pagina, 10).ToList();
+                //agregar idmatriz
+                lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, 0, pagina, 10).ToList();
             }
 
             string paisISO = Util.GetPaisISO(paisID);
