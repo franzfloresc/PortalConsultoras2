@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (add)
                     {
-                        beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
+                        //beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
                         beEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.ImagenURL, carpetapais);
                         beEstrategia.Simbolo = userData.Simbolo;
                         beEstrategia.TieneStockProl = true;
@@ -111,7 +111,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaTemporal.Update(x =>
                 {
-                    x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
+                    //x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
                     x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
                     x.Simbolo = userData.Simbolo;
                     x.TieneStockProl = true;
