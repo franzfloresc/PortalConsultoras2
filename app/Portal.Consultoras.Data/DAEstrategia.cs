@@ -38,6 +38,17 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int numeroPagina, int registros)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByEstrategiaMatrizComercialImagen"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
+                Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader GetTallaColor(BETallaColor entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarTallaColorCUV"))

@@ -9,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -17,14 +17,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -48,7 +48,7 @@ BEGIN
 	GO
 
 	CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-		@CodigoSAP varchar(50),
+		@IdMatrizComercial varchar(50),
 		@Foto varchar(150),
 		@UsuarioRegistro varchar(50)
 	AS
@@ -56,14 +56,14 @@ BEGIN
 		BEGIN
 			INSERT INTO MatrizComercialImagen
 			(
-				CodigoSAP,
+				IdMatrizComercial,
 				Foto,
 				UsuarioRegistro,
 				FechaRegistro
 			)
 			VALUES
 			(
-				@CodigoSAP,
+				@IdMatrizComercial,
 				@Foto,
 				@UsuarioRegistro,
 				GETDATE()
@@ -84,7 +84,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -92,14 +92,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -121,7 +121,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -129,14 +129,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -158,7 +158,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -166,14 +166,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -194,7 +194,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -202,14 +202,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -231,7 +231,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -239,14 +239,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -267,7 +267,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -275,14 +275,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -304,7 +304,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -312,14 +312,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -342,7 +342,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -350,14 +350,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -379,7 +379,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -387,14 +387,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -417,7 +417,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -425,14 +425,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()
@@ -453,7 +453,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
-	@CodigoSAP varchar(50),
+	@IdMatrizComercial int,
 	@Foto varchar(150),
 	@UsuarioRegistro varchar(50)
 AS
@@ -461,14 +461,14 @@ BEGIN
 	BEGIN
 		INSERT INTO MatrizComercialImagen
 		(
-			CodigoSAP,
+			IdMatrizComercial,
 			Foto,
 			UsuarioRegistro,
 			FechaRegistro
 		)
 		VALUES
 		(
-			@CodigoSAP,
+			@IdMatrizComercial,
 			@Foto,
 			@UsuarioRegistro,
 			GETDATE()

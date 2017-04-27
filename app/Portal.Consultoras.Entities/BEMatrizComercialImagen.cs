@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercialImagen { get; set; }
 
         [DataMember]
-        public string CodigoSAP { get; set; }
+        public int IdMatrizComercial { get; set; }
 
         [DataMember]
         public string Foto { get; set; }
@@ -37,8 +37,8 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "IdMatrizComercialImagen") && row["IdMatrizComercialImagen"] != DBNull.Value)
                 IdMatrizComercialImagen = Convert.ToInt32(row["IdMatrizComercialImagen"]);
-            if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
-                CodigoSAP = Convert.ToString(row["CodigoSAP"]);
+            if (DataRecord.HasColumn(row, "IdMatrizComercial") && row["IdMatrizComercial"] != DBNull.Value)
+                IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
             if (DataRecord.HasColumn(row, "Foto") && row["Foto"] != DBNull.Value)
                 Foto = Convert.ToString(row["Foto"]);
             if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)

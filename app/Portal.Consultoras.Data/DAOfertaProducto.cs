@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Data
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsMatrizComercialImagen");
-            Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, entity.CodigoSAP);
+            Context.Database.AddInParameter(command, "@IdMatrizComercial", DbType.AnsiString, entity.IdMatrizComercial);
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
 
@@ -260,10 +260,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetMatrizComercialImagenByCodigoSAP(string codigoSAP, int numeroPagina, int registros)
+        public IDataReader GetMatrizComercialImagenByIdMatrizImagen(int idMatrizImagen, int numeroPagina, int registros)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAPMatrizComercialImagen");
-            Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, codigoSAP);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByIdMatrizImagen");
+            Context.Database.AddInParameter(command, "@IdMatrizImagen", DbType.AnsiString, idMatrizImagen);
             Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
             Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
 

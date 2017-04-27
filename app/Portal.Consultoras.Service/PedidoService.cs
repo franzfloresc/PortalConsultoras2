@@ -415,9 +415,9 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetMatrizComercialByCodigoSAP(paisID, codigoSAP);
         }
 
-        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP, int pagina, int registros)
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros)
         {
-            return new BLOfertaProducto().GetMatrizComercialImagenByCodigoSAP(paisID, codigoSAP, pagina, registros);
+            return new BLOfertaProducto().GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, registros);
         }
 
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
@@ -1138,6 +1138,10 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategia(entidad);
+        }
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            return new BLEstrategia().GetImagenesByEstrategiaMatrizComercialImagen(entidad , pagina, registros);
         }
         public int DeshabilitarEstrategia(BEEstrategia entidad)
         {
