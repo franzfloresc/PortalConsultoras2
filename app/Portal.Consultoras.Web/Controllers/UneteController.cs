@@ -1010,7 +1010,7 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
-        public ActionResult VerHistorialPostulante(int id, string nombre)
+        public ActionResult VerHistorialPostulante(int id, string nombre , string FechaRegistro)
         {
             var historialPostulanteModel = new HistorialPostulanteModel();
             historialPostulanteModel.SolicitudPostulanteID = id;
@@ -1019,6 +1019,8 @@ namespace Portal.Consultoras.Web.Controllers
             historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
             var eventos = new EventoSolicitudPostulanteCollection();
             var estados = new ServiceUnete.ParametroUneteCollection();
+            //eventos.Add(new EventoSolicitudPostulanteBE() {Fecha = FechaRegistro, TipoEvento = EnumsEstadoPostulante.Registrada.ToInt() });
+            //historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro,TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt()});
             using (var sv = new PortalServiceClient())
             {
                 estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
@@ -1031,12 +1033,13 @@ namespace Portal.Consultoras.Web.Controllers
                     Fecha = evento.Fecha,
                     TipoEventoId = evento.TipoEvento,
                     Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
-                    Observacion = evento.Observacion
+                    Observacion = (evento.Observacion!=null && evento.Observacion.Split('|').Length>0)? evento.Observacion.Split('|')[0]:"",
+                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 0) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length+1) : ""
                 });
             }
 
             historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
-            
+            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro, TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre });
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
 
