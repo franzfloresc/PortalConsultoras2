@@ -1,4 +1,339 @@
-﻿
+﻿$(document).ready(function () {
+    var CONS_TIPO_ORIGEN = {
+        ESCRITORIO_HOME: 1,
+        MOBILE_HOME: 2,
+        ESCRITORIO_PEDIDO: 11,
+        MOBILE_PEDIDO: 21
+    };
+
+    var CONS_TIPO_ACCION = {
+        AGREGAR: 'AGREGAR',
+        VERDETALLE: 'VERDETALLE',
+        REGRESAR: 'REGRESAR'
+    };
+
+    var props = {
+        UrlGetOfertaDelDia: 'Pedido/GetOfertaDelDia',
+        UrlActual: window.location.href.toLowerCase(),
+        UrlValidarStockEstrategia: 'Pedido/ValidarStockEstrategia',
+        UrlAgregarProducto: 'Pedido/AgregarProductoZE',
+        EsPaginaIntriga: (window.location.href.toLowerCase().indexOf("intriga") > 0),
+        TipoOrigen: TipoOrigen
+    };
+
+    var elements = {
+        ContenedorOfertaDelDiaMobile: '#OfertasDiaMobile',
+        ContenedorEstrategiaTemplateCarrusel: '#estrategia-template_carrusel',
+        ContenedorInternoSliderOfertaDelDiaMobile: '#content_oferta_dia_mobile',
+        BtnAgregarMobile: '#btnAgregarMobile'
+    };
+
+    function CargarODD() {
+
+        if (props.EsPaginaIntriga) {
+            return false;
+        }
+        if (props.TipoOrigen == CONS_TIPO_ORIGEN.MOBILE_HOME) {
+            CargarODDMobile();
+        }
+        if (props.TipoOrigen == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
+
+        }
+
+    }
+
+    function CargarODDMobile() {
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + props.UrlGetOfertaDelDia,
+            cache: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                ResolverGetOfertaDelDiaResponse(response);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    function AsignarPosicionAListaOfertas(listaOfertas) {
+        var posicion = 0;
+        var nuevaListaOfertas = [];
+        $.each(listaOfertas, function (index, value) {
+            posicion++;
+            value.Posicion = posicion;
+            value.DescripcionOferta = ConstruirDescripcionOferta(value.DescripcionOferta.split('+'));
+            nuevaListaOfertas.push(value);
+        });
+
+        return nuevaListaOfertas;
+    }
+
+    function ResolverGetOfertaDelDiaResponse(response) {
+        var _data = response.data;
+        $(elements.ContenedorOfertaDelDiaMobile).hide();
+        _data.TotalOfertas = _data.ListaOfertas.length;
+        _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
+        SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
+    }
+
+    function ConstruirDescripcionOferta(arrDescripcion) {
+        var descripcion = "";
+        $.each(arrDescripcion, function (index, value) {
+            value = value.replace("<br />", "");
+            value = value.replace("<br/>", "");
+            descripcion += "+ " + value + "<br />";
+        });
+        return descripcion;
+    }
+
+    function EsOddAgregarValido(btn, cantidad) {
+
+        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active")
+        var itemCampos = contenedor.find("[data-item-campos]");
+        var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
+        var mesageLimiteVenta = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
+        var cuv2 = itemCampos.find('.cuv2-odd').val();
+        var tipoEstrategiaID = itemCampos.find('.tipoestrategia-id-odd').val();
+
+        if (ReservadoOEnHorarioRestringido()) {
+            CerrarLoad();
+            return false;
+        }
+
+        if (!CheckCountdownODD()) {
+            AbrirMensaje('La Oferta del Día se terminó');
+            CerrarLoad();
+            return false;
+        }
+
+        if (cantidad <= 0) {
+            AbrirMensaje("Ingrese la cantidad a solicitar");
+            CerrarLoad();
+            return false;
+        }
+
+        if (cantidad > limiteVenta) {
+            AbrirMensaje(mesageLimiteVenta);
+            CerrarLoad();
+            return false;
+        }
+
+        var cqty = getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
+        if (cqty > 0) {
+            var tqty = cqty + cantidad;
+            if (tqty > limiteVenta) {
+                AbrirMensaje(mesageLimiteVenta);
+                CerrarLoad();
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function ObtenerProducto(itemCampos, cantidad) {
+
+        var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
+        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
+        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
+        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb;
+
+        var producto = {
+            MarcaID: itemCampos.find('.marca-id-odd').val(),
+            CUV: itemCampos.find('.cuv2-odd').val(),
+            PrecioUnidad: itemCampos.find('.precio-odd').val(),
+            Descripcion: itemCampos.find('.nombre-odd').val(),
+            Cantidad: cantidad,
+            IndicadorMontoMinimo: itemCampos.find('.indmonto-min-odd').val(),
+            TipoOferta: itemCampos.find('.tipoestrategia-id-odd').val(),
+            ClienteID_: '-1',
+            tipoEstrategiaImagen: itemCampos.find('.teimagenmostrar-odd').val() || 0,
+            OrigenPedidoWeb: origenPedidoWeb
+        };
+
+        return producto;
+    }
+
+    function OddAgregar(btn) {
+        AbrirLoad();
+        var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active")
+        var itemCampos = contenedor.find("[data-item-campos]");
+        var cantidad = parseInt($(btn).parents(".row.contenedor-botones").find("#txtCantidad").val());
+
+        if (!EsOddAgregarValido(btn, cantidad)) {
+            return false;
+        }
+        
+        var producto = ObtenerProducto(itemCampos, cantidad);
+
+        var promiseValidarStockEstrategia = ValidarStockEstrategia(producto);
+        $.when(promiseValidarStockEstrategia).then(function (response) {
+            if (!response.result) {
+                AbrirMensaje(response.message);
+                CerrarLoad();
+                return false;
+            }
+            var promiseAgregarProducto = AgregarProducto(producto);
+            $.when(promiseAgregarProducto).then(function (responseAgregarProd) {
+                if (!checkTimeout(responseAgregarProd)) {
+                    CerrarLoad();
+                    return false;
+                }
+
+                if (!responseAgregarProd.success) {
+                    AbrirMensaje(responseAgregarProd.message);
+                    CerrarLoad();
+                    return false;
+                }
+
+                CargarCantidadProductosPedidos();
+                CerrarLoad();
+                AbrirMensaje('Producto agregado satisfactoriamente', 'ÉXITO', null, 2);
+            });
+        });
+
+    }
+
+    function CheckCountdownODD() {
+        var ok = true;
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + 'Pedido/GetOfertaDelDia',
+            async: false,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        var _data = response.data;
+                        var tq = _data.TeQuedan;
+
+                        if (tq.TotalSeconds <= 0)
+                            ok = false;
+                    }
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+        return ok;
+    };
+
+    function ValidarStockEstrategia(producto) {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: baseUrl + props.UrlValidarStockEstrategia,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(producto),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
+    function AgregarProducto(producto) {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: baseUrl + props.UrlAgregarProducto,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(producto),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
+    function ResolverPromiseValidarStockEstrategia(response) {
+        if (!response.result) {
+            AbrirMensaje(response.message);
+            CerrarLoad();
+            return false;
+        } else {
+            var promiseAgregarProducto = AgregarProducto(producto);
+            $.when(promiseAgregarProducto).then(
+                ResolverPromiseAgregarProducto(response), 
+                ResolverPromiseAgregarProductoError(response)
+             );
+        }
+    }
+
+    function ResolverPromiseAgregarProducto(response) {
+        if (!checkTimeout(response)) {
+            CerrarLoad();
+            return false;
+        }
+
+        if (!response.success) {
+            AbrirMensaje(response.message);
+            CerrarLoad();
+            return false;
+        }
+
+        CargarCantidadProductosPedidos();
+        CerrarLoad();
+    }
+
+    function ResolverPromiseAgregarProductoError(response) {
+        if (checkTimeout(response)) {
+            closeWaitingDialog();
+        }
+    }
+
+    function ResolverPromiseValidarStockEstrategiaEnError(response) {
+        if (checkTimeout(response)) {
+            closeWaitingDialog();
+        }
+    }
+
+    $(elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
+        $(elements.ContenedorOfertaDelDiaMobile).show();
+        $(elements.ContenedorOfertaDelDiaMobile + '.slick-initialized').slick('unslick');
+        $(elements.ContenedorOfertaDelDiaMobile).slick({
+            dots: false,
+            infinite: true,
+            vertical: false,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow: '<a style="display: block;left: 0;margin-left: -0%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
+            nextArrow: '<a style="display: block;right: 0;margin-right: -0%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+        });
+        $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
+    });
+
+    $("body").on("click", elements.BtnAgregarMobile, function (e) {
+        var accion = $(this).attr("data-odd-accion").toUpperCase();
+
+        if (accion == CONS_TIPO_ACCION.AGREGAR) {
+            OddAgregar(this);
+        }
+    });
+
+    CargarODD();
+});
+
+
+
 // 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
@@ -16,7 +351,7 @@ $(document).ready(function () {
 function ODDCargar() {
     if (($('#OfertaDelDia') || new Array()).length == 0)
         return false;
-    
+
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
@@ -55,7 +390,7 @@ function ODDCargar() {
             console.log(_data);
             var idOdd = '#OfertaDelDia';
             SetHandlebars("#ofertadeldia-template", _data, idOdd);
-            
+
             $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
             $(idOdd + ' [data-odd-tipoventana="carrusel"]').hide();
 
@@ -69,7 +404,7 @@ function ODDCargar() {
                 //$(idOdd + ' [data-odd-texto="cliente"]').show();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
             }
-            
+
             $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
             $('#banner-odd').css('background-color', _data.ColorFondo1);
             $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
@@ -123,7 +458,7 @@ function ODDCargar() {
             $('#PopOfertaDia').hide();
 
             LayoutHeader();
-            
+
             var clock = $('.clock').FlipClock(tq.TotalSeconds, {
                 clockFace: 'HourlyCounter',
                 countdown: true
@@ -186,8 +521,7 @@ function ADDAgregar(btn) {
 
     waitingDialog();
 
-    if (ReservadoOEnHorarioRestringido())
-    {
+    if (ReservadoOEnHorarioRestringido()) {
         closeWaitingDialog();
         return false;
     }
@@ -296,7 +630,7 @@ function ADDAgregar(btn) {
                         ActualizarGanancia(data.DataBarra);
                         TagManagerClickAgregarProducto();
                     }
-                    
+
                     CargarResumenCampaniaHeader(true);
                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                     closeWaitingDialog();
@@ -319,7 +653,7 @@ function ADDAgregar(btn) {
                     }
                 }
             });
-            
+
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -636,7 +970,7 @@ function addOfertaDelDiaPedido(popup) {
                         var options = { direction: 'right' };
                         var duration = 500;
 
-                        $('#pop_oferta_mobile').toggle(effect, options, duration);                        
+                        $('#pop_oferta_mobile').toggle(effect, options, duration);
                         $('#txtCantidad').val('1');
 
                         if (typeof origenPagina !== 'undefined') {

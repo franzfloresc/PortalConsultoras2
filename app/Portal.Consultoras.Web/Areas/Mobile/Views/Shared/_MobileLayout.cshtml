@@ -261,41 +261,10 @@
                 <hr class="clear" />
             </div>
         </div>
-        <div class="set_oferta_content">
-            <div class="saludo_paginacion">Valeria, te mostramos <b>1 de 6</b> ofertas</div>
-            <div class="producto_img_mobile">
-                <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
-            </div>
-            <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
-            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
-            <div class="producto_precio_hoy_mobile">
-                A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
-            </div>
-            <div class="titulo_contenido">CONTENIDO</div>
-            <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
-            <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte el producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div>
-            @*<div class="producto_nombre_descripcion" style="padding-left:0; padding-right:0">
-                
-                
-                <div class="liquidacion_rango_home">
-                    <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                    <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                </div>
-                <div class="clear"></div>
-                <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">AGRÉGALO</a>
-                <div style="padding-top:9px; height: 15px;">
-                    <div class="agregado product-add" style="text-align:right;display:none;">
-                        AGREGADO
-                        <div class="icono"></div>
-                    </div>
-                </div>
-            </div>*@
-            <div class="row">
+
+        <div >
+            <div id="OfertasDiaMobile" class="set_oferta_content"></div>
+            <div class="row contenedor-botones">
                 <div class="content_btn_agregar">
                     <div class="content_320">
                         <div class="content_cantidad_ficha_producto">
@@ -303,13 +272,14 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a class="btn_agregar_ficha_producto">AGRÉGALO</a>
+                        <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
                         <hr class="clear">
                     </div>
                 </div>
             </div>
-          
         </div>
+        
+        
     </div>
     }
     
@@ -436,6 +406,57 @@
         </div>
     </div>
 
+    <script id="estrategia-template_carrusel" type="text/x-handlebars-template">
+        {{#each this.ListaOfertas  as |oferta|}}
+        <div data-item="">
+            <div style="display:none;" data-item-campos="">
+                <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
+                <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
+                <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
+                <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
+                <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
+                <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
+                <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
+                <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
+                <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
+                <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
+                <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
+                <input type="text" class="origenPedidoWeb-odd" value="4" />
+            </div>
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
+                <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
+                <input type="hidden" class="Palanca" value="ODD" />
+            </div>
+            <div class="saludo_paginacion">@ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../TotalOfertas}}</b> ofertas</div>
+            <div class="producto_img_mobile">
+                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" />
+            </div>
+            <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
+            <div class="producto_precio_hoy_mobile">
+                A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
+            </div>
+            <div class="titulo_contenido">CONTENIDO</div>
+            <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
+            <div class="content_redes_ficha" data-item="">
+                <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
     <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
@@ -455,8 +476,9 @@
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
             <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+            <div class="icono_alerta check_icono_mobile"  style="display: none;"></div>
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
             <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -604,8 +626,8 @@
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
-
     @Scripts.Render("~/Scripts/Mobile")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
     
@@ -665,6 +687,8 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
+
+        var TipoOrigen = 2;
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
@@ -847,7 +871,7 @@
         }
         if (ViewBag.MostrarOfertaDelDia == true)
         {
-            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+            @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>*@
         }
     }
 
