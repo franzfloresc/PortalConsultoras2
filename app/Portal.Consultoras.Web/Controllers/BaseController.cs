@@ -180,6 +180,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
+
+            userData.PedidoID = olstPedidoWebDetalle.Count > 0 ? olstPedidoWebDetalle[0].PedidoID : 0;
+            SetUserData(userData);
+
             return olstPedidoWebDetalle;
         }
 
@@ -1868,6 +1872,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return accion;
             }
+        }
+
+        public bool MostrarFAV()
+        {
+            return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
         }
     }
 }

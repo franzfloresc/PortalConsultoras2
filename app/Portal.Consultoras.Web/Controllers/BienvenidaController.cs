@@ -416,11 +416,7 @@ namespace Portal.Consultoras.Web.Controllers
                 } 
 
                 // validar si se muestra Show Room en Bienvenida
-                model.ShowRoomMostrarLista = //false &&;
-                    (
-                        (userData.CatalogoPersonalizado == 0) 
-                        || !userData.EsCatalogoPersonalizadoZonaValida
-                    ) ? 1 : 0;
+                model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
