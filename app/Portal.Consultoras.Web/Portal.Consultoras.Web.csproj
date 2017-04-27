@@ -4101,7 +4101,6 @@
     <Content Include="Views\CrossSelling\AdministracionCrossSelling.cshtml" />
     <Content Include="Views\CrossSelling\AsociacionCrossSelling.cshtml" />
     <Content Include="Views\SolicitudCredito\DetalleCreditoAR.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\AdministrarLugaresPago\Index.cshtml" />
     <Content Include="Views\AdministrarIncentivos\Index.cshtml" />
     <Content Include="Views\AdministrarBelcorpNoticias\Index.cshtml" />
@@ -4161,7 +4160,6 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
-    <Folder Include="Views\BaseShowRoom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
