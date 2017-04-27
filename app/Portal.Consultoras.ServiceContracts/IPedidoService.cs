@@ -924,6 +924,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMatrizComercial> GetImagenesByCUV(int PaisID, int campaniaID, string cuv);
 
         [OperationContract]
+        BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
+
+        [OperationContract]
         string InsProductoSugerido(int PaisID, BEProductoSugerido entidad);
 
         [OperationContract]

@@ -26,6 +26,12 @@
         $("#file-upload-add .qq-upload-button span").text("Nueva Imagen")
     };
 
+    var _onFileSubmit = function (id, fileName) {
+        $(".qq-upload-list").css("display", "none");
+        //return false;
+        waitingDialog({});
+    };
+
     var _crearObjetoUpload = function (itemData, editData) {
         var uploader = new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -40,7 +46,7 @@
                 DescripcionOriginal: editData.descripcionOriginal
             },
             onComplete: _uploadComplete(itemData.imageElementId),
-            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onSubmit: _onFileSubmit,
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
         });
@@ -62,6 +68,7 @@
                 } else {
                     alert(response.message)
                 };
+                closeWaitingDialog();
             }
         };
     };
@@ -112,6 +119,7 @@
 
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
+            closeWaitingDialog();
         };
     };
 
@@ -120,27 +128,31 @@
             return false;
         }
 
-        $("#matriz-imagenes-paginacion").paging(numRegistros, {
+        var format = function (type) {
+            switch (type) {
+                case 'block': // n and c
+                    return '<div class="item"><a href="#">' + this.value + '</a></div>';
+                case 'next': // >
+                    return '<div class="item"><a href= "#">&gt;</a></div>';
+                case 'prev': // <
+                    return '<div class="item"><a href="#">&lt;</a></div>';
+                case 'first': // [
+                    return '<div class="item"><a href="#">&lt;&lt;</a></div>';
+                case 'last': // ]
+                    return '<div class="item"><a href="#">&gt;&gt;</a></div>';
+            }
+        };
+
+        var pager = $("#matriz-imagenes-paginacion").paging(numRegistros, {
             format: '[< ncnnn >]',
             onClick: function (ev) {
                 ev.preventDefault();
                 var page = $(this).data('page');
+                pager.setPage(page);
+                waitingDialog({});
                 _obtenerImagenes(_editData, page, false);
             },
-            onFormat: function (type) {
-                switch (type) {
-                    case 'block': // n and c
-                        return '<div class="item"><a href="#">' + this.value + '</a></div>';
-                    case 'next': // >
-                        return '<div class="action"><a href= "#"><span class="ui-icon ui-icon-seek-next"></span></a></div>';
-                    case 'prev': // <
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-prev"></span></a></div>';
-                    case 'first': // [
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-first"></span></a></div>';
-                    case 'last': // ]
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-end"></span></a></div>';
-                }
-            }
+            onFormat: format
         });
     };
 

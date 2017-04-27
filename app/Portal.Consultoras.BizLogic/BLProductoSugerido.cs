@@ -39,6 +39,19 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
+        {
+            BEMatrizComercial entity = null;
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialByCampaniaAndCUV(campaniaID, cuv))
+                while (reader.Read())
+                {
+                    entity = new BEMatrizComercial(reader);
+                }
+            return entity;
+        }
+
         public string InsProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var dataAccess = new DAProductoSugerido(paisID);
