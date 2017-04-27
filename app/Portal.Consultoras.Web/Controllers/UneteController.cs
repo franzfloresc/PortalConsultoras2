@@ -1033,8 +1033,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Fecha = evento.Fecha,
                     TipoEventoId = evento.TipoEvento,
                     Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
-                    Observacion = (evento.Observacion!=null && evento.Observacion.Split('|').Length>0)? evento.Observacion.Split('|')[0]:"",
-                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 0) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length+1) : ""
+                    Observacion = (evento.Observacion!=null && evento.Observacion.Split('|').Length>1)? evento.Observacion.Split('|')[0]:"",
+                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length+1) : ""
                 });
             }
 
