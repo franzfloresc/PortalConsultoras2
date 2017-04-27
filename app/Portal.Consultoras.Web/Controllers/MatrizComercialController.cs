@@ -460,12 +460,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImagesByIdMatriz(int paisID, int idMatriz, int pagina)
+        public JsonResult GetImagesByIdMatriz(int paisID, int idMatrizComercial, int pagina)
         {
             List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatriz, pagina, 10).ToList();
+                lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, 10).ToList();
             }
 
             string paisISO = Util.GetPaisISO(paisID);

@@ -28,7 +28,7 @@ var MatrizComercial = function (config) {
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload-add', idImagenMatriz: 0 };
         _crearObjetoUpload(itemData, editData);
-        $("#file-upload-add .qq-upload-button span").text("Nueva Imagen")
+        $("#file-upload-add .qq-upload-button span").text("Nueva Imagen");
     };
 
     var _onFileSubmit = function (id, fileName) {
@@ -68,12 +68,12 @@ var MatrizComercial = function (config) {
                         $("#file-upload-add").empty();
                         _crearFileUploadAdd(_editData);
                     }
-                    _updateImageListOnUpload(imageElementId, response)
+                    _updateImageListOnUpload(imageElementId, response);
                 } else {
-                    alert(response.message)
-                };
-                closeWaitingDialog();
+                    alert(response.message);
+                }
             }
+            closeWaitingDialog();
         };
     };
 
@@ -108,7 +108,7 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, idMatriz: data.idMatrizComercial, pagina: pagina };
+        var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, pagina: pagina };
         return $.post(_config.getImagesByIdMatrizAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 

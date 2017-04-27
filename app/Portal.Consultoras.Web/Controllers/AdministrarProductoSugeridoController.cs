@@ -231,12 +231,13 @@ namespace Portal.Consultoras.Web.Controllers
                 matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
                 if(matriz!=null)
                 {
-                    //imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.CodigoSAP, 1, 10).ToList();
+                    imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.IdMatrizComercial, 1, 10).ToList();
                 }
             }
 
             MatrizComercialResultadoModel model = null;
 
+            int totalImagenes = 0;
             if(matriz != null)
             {
                 model = Mapper.Map<MatrizComercialResultadoModel>(matriz);
@@ -248,6 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
 
                 model.Imagenes = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(imagenes);
+                totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
 
                 int nroCampaniasAtras = 0;
                 Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);
@@ -256,7 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
                 if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
-            return Json(new { success = true, matriz = model }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

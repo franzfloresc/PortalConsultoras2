@@ -7,6 +7,8 @@
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/ProductoSugerido.js")" type="text/javascript"></script>
 
 <div class="wrap_cab">
@@ -120,7 +122,7 @@
                 <input type="checkbox" class="check" id="chkHabilitar" />
             </div>
         </div>
-        <div class="div-3 divPanelImagen divAppCatalogo">
+        <div class="div-3 divPanelImagen divAppCatalogo" style="padding-bottom:0px; margin-bottom:0px">
             <div class="titG">Imagen App Catálogo:</div>
             <div class="titG2">
                 <div class="pdr_modal borde_redondeado aligncenter">
@@ -131,16 +133,17 @@
                 </div>
             </div>
         </div>
-        <div class="div-3 divPanelImagen">
-            <div class="titG">
-                <span>Imagen:</span>
-                <div id="fpUpload"></div>
-            </div>
+        <div class="div-3 divPanelImagen" style="padding-bottom:0px; margin-bottom:0px">
+            @Html.Partial("ListadoImagenesMatriz")
             <div>
                 <div id="matriz-imagenes-paginacion"></div>
             </div>
-            @Html.Partial("ListadoImagenesMatriz")
-            <div id="matriz-comercial-lista-imagenes"></div>
+            <div class="titG">
+                <div id="fpUpload"></div>
+            </div>
+            <div>
+                <div id="matriz-comercial-lista-imagenes"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -163,8 +166,12 @@
 
     jQuery(document).ready(function () {
         productoSugeridoObj = ProductoSugerido({
+            matrizIdElementId: 'hdnIdMatrizComercial',
+            fileUploadElementId: 'fpUpload',
+            paisID: paisID,
             obtenerMatrizAction: '@Url.Action("ObtenerMatriz", "AdministrarProductoSugerido")',
-            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")'
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")'
         });
         CargarDialog();
         CargarEventos();
@@ -444,6 +451,9 @@
                     return false;
                 }
 
+                $("#matriz-imagenes-paginacion").empty();
+                productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
+
                 CargarDatosMatrizComercial(data.matriz, imagen);
 
                 $("#fpUpload").empty();
@@ -557,10 +567,16 @@
         $('#txtDescripcionProductoComercial').val(matriz.DescripcionProductoComercial);
 
         $('.divAppCatalogo').show();
+        var params = { imagenes: matriz.Imagenes };
+        productoSugeridoObj.mostrarListaImagenes(params);
 
-        SetHandlebars('#matriz-comercial-listado-imagenes-template', matriz, '#matriz-comercial-lista-imagenes');
+        //marcar el checkbox de la imagen del registro seleccionado
+        marcarCheckRegistro(imgRow);
+    }
 
-        $("#matriz-imagenes-paginacion").empty();
+    function marcarCheckRegistro(imgRow) {
+        $('.chkImagenProducto[value="' + imgRow + '"]').first().attr('checked', 'checked');
+        imagen = imgRow;
     }
 
     $.jgrid.extend({
@@ -596,6 +612,9 @@
 
                     var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
                     imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
+
+                    $("#matriz-imagenes-paginacion").empty();
+                    productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
 
                     CargarDatosMatrizComercial(data.matriz, imgRow);
 
