@@ -134,8 +134,8 @@ namespace Portal.Consultoras.Web.Controllers
                         ViewBag.MostrarODD = false;
                     }
 
-                    if (userData.HizoLoginExterno)
-                    {
+                    //if (userData.HizoLoginExterno)
+                    //{
                         if (userData.TieneLoginExterno)
                         {
                             var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
@@ -144,7 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
                             }
                         }
-                    }
+                    //}
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -218,6 +218,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
+
+            userData.PedidoID = olstPedidoWebDetalle.Count > 0 ? olstPedidoWebDetalle[0].PedidoID : 0;
+            SetUserData(userData);
+
             return olstPedidoWebDetalle;
         }
 

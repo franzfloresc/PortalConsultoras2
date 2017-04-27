@@ -610,6 +610,9 @@ Image .nav0:hover {
     margin-bottom: 23px;
     line-height: 24px;
     letter-spacing:0.2px;
+}    
+.text_bienvenida_esika span {
+    font-size: 20px !important;
 }
 
 .helper:hover .alerta_esika {

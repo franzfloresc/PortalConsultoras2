@@ -206,6 +206,7 @@
         window.fbAsyncInit = function () {
             FB.init({
                 appId: fbAppId,
+                cookie: true,
                 xfbml: true,
                 version: 'v2.8'
             });
@@ -213,7 +214,7 @@
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
                     //console.log('Logged in.');
-                    getInfoFB(2);
+                    getInfoFB(1);
                 }
             });
         };
@@ -229,9 +230,7 @@
         function loginFB() {
             FB.login(function (response) {
                 if (response.status === 'connected') {
-                    //console.log('We are connected.');
-                    waitingDialog();
-                    getInfoFB(1);
+                    getInfoFB(2);
                 }
                 else if (response.status === 'not_authorized') {
                     //console.log('We are not logged in.');
@@ -245,49 +244,113 @@
         function getInfoFB(opt) {
             FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
                 //console.log(response);
-                if (response.id != null) {                    
-                    if (opt == 1) {
-                        validExternalUser('Facebook', response);
+                var exists = checkExternalUser('Facebook', response.id);
+
+                if (exists) {
+
+                    if (opt == 2) {
+                        validExternalUser('Facebook', response.id);
                     }
-                    else if (opt == 2) {
-
-                        $(".webForm").css('padding-bottom', '75px');
-                        $("#loginanterior").hide();
-                        $("#_olgn").hide();
-                        $("#cambcuentatext").show();
-                        $("#imgFotoPerfil").show();
-
+                    else {
                         var fullname = response.name.trim();
-                        if (fullname != null && fullname != "") {
-                            var j = fullname.indexOf(' ');
-                            var fname = fullname;
-                            if (j > 0) {
-                                fname = fullname.substring(0, j).trim();
-                            }
-                            //$('#hdeNameUserExt').val(fname);
-                            //resizeNameUserExt();
-                            //var _uNombreFb = response.name
-
-                            $('#btnLoginFB').removeClass('center_facebook');
-                            $('#btnLoginFB').text('Continuar como ' + fname);
-                            $('#btnLoginFB2').removeClass('center_facebook');
-                            $('#btnLoginFB2').text('Continuar como ' + fname);
-                            $('#imgFotoPerfil').attr('src', response.picture.data.url);
-                            $('#imgFotoPerfil2').attr('src', response.picture.data.url);
-                            $('.imagen_perfil_facebook').show();                            
-
-                            $('#_nomusufb').html('¿No eres ' + response.name + '? ');
-                            $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
+                        var j = fullname.indexOf(' ');
+                        var fname = fullname;
+                        if (j > 0) {
+                            fname = fullname.substring(0, j).trim();
                         }
+                        //$('#hdeNameUserExt').val(fname);
+                        //resizeNameUserExt();
+                        //var _uNombreFb = response.name
+
+                        $('#btnLoginFB2').removeClass('center_facebook');
+                        $('#btnLoginFB2').text('Continuar como ' + fname);
+                        //$('#btnLoginFB2').removeClass('center_facebook');
+                        //$('#btnLoginFB2').text('Continuar como ' + fname);
+                        $('#imgFotoPerfil2').attr('src', response.picture.data.url);
+                        //$('#imgFotoPerfil2').attr('src', response.picture.data.url);
+                        //$('.imagen_perfil_facebook').show();                            
+
+                        //$('#imgFotoPerfil2').show();
+
+                        $('#_nomusufb').html('¿No eres ' + response.name + '? ');
+                        $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
+
+                        $('.webForm').css('padding-bottom', '75px');
+                        $('#loginanterior').hide();
+                        $('#cambcuentaboton').hide();
+                        $('#_olgn').hide();
+
+                        $('#btnfblogin').show();
+                        $('#cambcuentatext').show();
                     }
                 }
-                //else {
-                    
-                //}
+                else {
+                    //$('#btnLoginFB').hide();
+                    //$('#spnLoginFB').text(data.name);
+
+                    if (opt == 2) {
+                        $('#hdeProveedor').val('Facebook');
+                        $('#hdeIdApp').val(response.id);
+                        $('#hdeLogin').val(response.name);
+                        $('#hdeNombres').val(response.first_name);
+                        $('#hdeApellidos').val(response.last_name);
+                        $('#hdeFechaNacimiento').val(response.birthday);
+                        $('#hdeCorreo').val(response.email);
+                        $('#hdeGenero').val(response.gender);
+                        $('#hdeUbicacion').val(response.location);
+                        $('#hdeLinkPerfil').val(response.link);
+                        $('#hdeFotoPerfil').val(response.picture.data.url);
+
+                        $('#txtUsuario2').val('');
+                        $('#txtContrasenia2').val('');
+
+                        /*2275*/
+                        $('.nombre_usuario_facebook').text(response.name);
+                        $('.foto_pop_face img').attr('src', response.picture.data.url);
+                        /*2275*/
+
+                        $('.content_pop_login').show();
+                    }
+                }
             });
         }
 
-        function validExternalUser(provider, data) {
+        function checkExternalUser(provider, id) {
+            var r = false;
+            var obj = {
+                codigoISO: $('#ddlPais').val(),
+                proveedor: provider,
+                appid: id
+            };
+
+            waitingDialog();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/CheckExternalUser',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                success: function (response) {
+                    //console.log(response);
+                    closeWaitingDialog();
+                    if (response.success) {
+                        if (response.exists) {
+                            r = true;
+                        }
+                    }
+                },
+                error: function (response) {
+                    //console.log(response);
+                    alert("Error al procesar la solicitud");
+                }
+            });
+
+            return r;
+        }
+
+        function validExternalUser(provider, id) {
             // prevent submit
             $('#ddlPais option:not(:selected)').prop('disabled', true);
             $('#txtUsuario').attr('readonly', true);
@@ -296,12 +359,11 @@
 
             var obj = {
                 codigoISO: $('#ddlPais').val(),
-                usuarioExt: {
-                    Proveedor: provider,
-                    IdAplicacion: data.id,
-                    Correo: data.email
-                }
+                proveedor: provider,
+                appid: id
             };
+
+            waitingDialog();
 
             $.ajax({
                 type: 'POST',
@@ -311,48 +373,15 @@
                 dataType: 'json',
                 success: function (response) {
                     //console.log(response);
+                    closeWaitingDialog();
                     if (response.success) {
-                        if (!response.exists) {
-                            closeWaitingDialog();
-
-                            $('#hdeProveedor').val(provider);
-                            $('#hdeIdApp').val(data.id);
-                            $('#hdeLogin').val(data.name);
-                            $('#hdeNombres').val(data.first_name);
-                            $('#hdeApellidos').val(data.last_name);
-                            $('#hdeFechaNacimiento').val(data.birthday);
-                            $('#hdeCorreo').val(data.email);
-                            $('#hdeGenero').val(data.gender);
-                            $('#hdeUbicacion').val(data.location);
-                            $('#hdeLinkPerfil').val(data.link);
-                            $('#hdeFotoPerfil').val(data.picture.data.url);
-
-                            //$('#btnLoginFB').hide();
-                            //$('#spnLoginFB').text(data.name);
-                            $('#txtUsuario2').val('');
-                            $('#txtContrasenia2').val('');
-
-                            if (response.emailActive)
-                                $('#txtUsuario2').val(data.email);
-
-                            $('.content_pop_login').show();
-                            /*2275*/
-                            $(".nombre_usuario_facebook").text(data.name);
-                            $(".foto_pop_face img").attr('src', data.picture.data.url);
-                            /*fin 2275*/
-                            if (response.emailActive) 
-                                $('#txtContrasenia2').focus();
-                            else 
-                                $('#txtUsuario2').focus();
-                        }
-                        else {
+                        //if (!response.exists) {
                             if (response.redirectTo != null && response.redirectTo != "") {
                                 document.location.href = response.redirectTo;
                             }
-                        }
+                        //}
                     }
                     else {
-                        //console.log(response);
                         alert("Error al procesar la solicitud")
                     }
                 },
@@ -361,28 +390,29 @@
                     alert("Error al procesar la solicitud");
                 }
             });
+
         }
 
         function mostrarLoginAnterior() {
-            $(".webForm").css('padding-bottom','10px');
-            $("#_olgn").hide();
-            $('#cambcuentaboton').hide();
+            $('.webForm').css('padding-bottom', '10px');
+            $('#btnfblogin').hide();
             //$('#cambcuentatext').hide();
-            $("#btnfblogin").fadeIn("slow");
-            $("#loginanterior").fadeIn("slow");
-            $("#nvobtnfacebook").fadeIn("slow");
 
+            $('#cambcuentaboton').fadeIn('slow');
+            $('#_olgn').fadeIn('slow');
+            $('#loginanterior').fadeIn('slow');
+            //$('#nvobtnfacebook').fadeIn('slow');
             //$("#btnLoginFB2").fadeIn("slow");
         }
 
         function mostrarLoginFB() {
-            $(".webForm").css('padding-bottom', '75px');
-            $("#_olgn").hide();
-            $("#loginanterior").hide();
-            $("#nvobtnfacebook").hide();
-            $("#btnfblogin").hide();//css('display','none');
-            $('#cambcuentaboton').fadeIn("slow");
-            //$('#cambcuentatext').show(); 
+            $('.webForm').css('padding-bottom', '75px');
+            $('#_olgn').hide();
+            $('#loginanterior').hide();
+            //$('#nvobtnfacebook').hide();
+            $('#cambcuentaboton').hide();
+            $('#btnfblogin').fadeIn('slow');//css('display','none');
+            //$('#cambcuentatext').fadeIn('slow'); 
         }
 
     </script>
@@ -480,9 +510,9 @@
         <div class="formbtn" style="float: none;">
             
             <div id="cambcuentaboton" >
-                <div style="margin-bottom:20px;text-align: center">
+                @*<div style="margin-bottom:20px;text-align: center">
                     <img id="imgFotoPerfil" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px; display:none;" />
-                </div>
+                </div>*@
                 
                 <div class="content_btn_face">
                     <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
@@ -492,10 +522,7 @@
                         <img id="imgFotoPerfilh" src="" alt="" style="width: 50px; height: 50px;" />
                     </div>*@
                 </div>
-                                
-                <div id="cambcuentatext" class="text_bienvenida_esika" style="display:none">
-                    <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
-                </div>
+
             </div>
             
             <div id="_olgn" class="div-o-login">
@@ -518,22 +545,32 @@
             </div>
                 -->
         </div>
+
         <!--LOGIN EXTERNO -->
         <div id="btnfblogin" style="display:none;">
-            <div class="content_btn_face">
-                <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="mostrarLoginFB()" style="width: 100%; height: 48px; display:block;">
-                    Ingresa con Facebook
-                </button>
-                <div class="imagen_perfil_facebook" style="display: none;">
-                    <img id="imgFotoPerfil2" src="" alt="" style="width: 50px; height: 50px;" />
-                </div>
+
+            <div style="margin-bottom:20px;text-align: center">
+                <img id="imgFotoPerfil2" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px;" />
             </div>
 
-            <div id="_olgn" class="div-o-login">
+            <div class="content_btn_face">
+                <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px; display:block;">
+                    Ingresa con Facebook
+                </button>
+                @*<div class="imagen_perfil_facebook" style="">
+                    <img id="imgFotoPerfil2" src="" alt="" style="width: 50px; height: 50px;" />
+                </div>*@
+            </div>
+
+            <div id="cambcuentatext" class="text_bienvenida_esika" style="display:none">
+                <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
+            </div>
+
+            @*<div id="_olgn" class="div-o-login">
                 <div class="linea_o"></div>
                 <div class="o_login">ó</div>
                 <div class="linea_o"></div>
-            </div>
+            </div>*@
             <hr class="clear" />
         </div>
 
@@ -708,11 +745,17 @@
             
             <div class="campo_input icono_usuario">
                 <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
+                @*<div id="Div3" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
+                </div>*@
             </div>
             <hr class="clear" />
             
             <div class="campo_input icono_pass">
                 <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
+                @*<div id="Div5" class="btn">
+                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
+                </div>*@
             </div>
             <hr class="clear" />
             <div class="formbtn">

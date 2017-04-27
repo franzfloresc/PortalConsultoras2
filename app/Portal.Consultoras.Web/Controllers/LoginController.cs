@@ -832,8 +832,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     Session["ListFiltersFAV"] = lstFiltersFAV;
                 }
-                //PL20-1234
-
+                //Para paises lebelizados.
+                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(model.CodigoISO))
+                {
+                    model.EsLebel = true;
+                }
+                    
                 Session["UserData"] = model;
             }
             catch (Exception ex)
@@ -1385,41 +1389,89 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //MC-EPD1837
+        private int GetPaisIdByISO(string codigoISO)
+        {
+            var lstPaises = DropDowListPaises();
+            var r = 0;
+
+            foreach (var item in lstPaises)
+            {
+                if (item.CodigoISO == codigoISO)
+                {
+                    r = item.PaisID;
+                    break;
+                }
+            }
+
+            return r;
+        }
+
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult ValidExternalUser(string codigoISO, UsuarioExternoModel usuarioExt)
+        public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
+        {
+            pasoLog = "Login.POST.checkExternalUser";
+
+            try
+            {
+                var r = false;
+                if (!string.IsNullOrEmpty(codigoISO))
+                {
+                    var paisId = GetPaisIdByISO(codigoISO);
+                    if (paisId > 0)
+                    {
+                        using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
+                        {
+                            var beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
+                            if (beUsuarioExt != null)
+                            {
+                                r = true;
+                            }
+                        }
+                    }
+                }
+               
+                return Json(new
+                {
+                    success = true,
+                    exists = r,
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, "", codigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "Error al procesar la solicitud"
+            });
+        }
+
+        [HttpPost]
+        public ActionResult validExternalUser(string codigoISO, string proveedor, string appid)
         {
             pasoLog = "Login.POST.ValidExternalUser";
 
             try
             {
-                var paisId = 0;
-                var lstPaises = DropDowListPaises();
-                var emailOk = false;
-
-                foreach (var item in lstPaises)
+                if (!string.IsNullOrEmpty(codigoISO))
                 {
-                    if (item.CodigoISO == codigoISO)
+                    var paisId = GetPaisIdByISO(codigoISO);
+                    if (paisId > 0)
                     {
-                        paisId = item.PaisID;
-                        break;
-                    }
-                }
-
-                if (paisId > 0)
-                {
-                    using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
-                    {
-                        var beUsuarioExt = svc.GetUsuarioExterno(paisId, usuarioExt.Proveedor, usuarioExt.IdAplicacion);
-                        if (beUsuarioExt != null)
+                        using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                         {
-                            hizoLoginExterno = true;
-                            return Redireccionar(paisId, beUsuarioExt.CodigoUsuario, null);
-                        }
-
-                        if (!string.IsNullOrEmpty(usuarioExt.Correo))
-                        {
-                            emailOk = svc.GetExisteEmailActivo(paisId, usuarioExt.Correo);
+                            var beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
+                            if (beUsuarioExt != null)
+                            {
+                                hizoLoginExterno = true;
+                                return Redireccionar(paisId, beUsuarioExt.CodigoUsuario, null);
+                            }
                         }
                     }
                 }
@@ -1427,8 +1479,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    exists = false,
-                    emailActive = emailOk
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
@@ -1483,5 +1533,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("UserUnknown");
         }
+
+       
     }
 }
