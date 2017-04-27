@@ -203,7 +203,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
-        IList<BEMatrizComercialImagen> GetMatrizComercialImagenByCodigoSAP(int paisID, string codigoSAP, int pagina, int registros);
+        IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
 
         [OperationContract]
         int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro);
@@ -633,6 +633,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
+
+        [OperationContract]
+        List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros);
 
         [OperationContract]
         int DeshabilitarEstrategia(BEEstrategia entidad);
