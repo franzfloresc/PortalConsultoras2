@@ -5,6 +5,9 @@
     int nroImagenes = 10;
 }
 
+<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminEstrategia/Estrategia.js")" type="text/javascript"></script>
+
 <input type="hidden" id="mensajeErrorCUV" />
 <input type="hidden" id="mensajeErrorCUV2" />
 <input type="hidden" id="hdEstrategiaIDConsulta" />
@@ -101,281 +104,7 @@
     </div>
 </div>
 
-<div id="DialogAdministracionEstrategia" style="display: none;">
-    <input type="hidden" id="hdPais" value="" />
-    <input type="hidden" id="hdCampania" value="" />
-    <input type="hidden" id="hdTipoEstrategiaID" value="" />
-    <input type="hidden" id="hdColorFondo" value="#FFF" />
-    <input type="hidden" id="hdCodigoPrograma" value="">
-    <input type="hidden" id="hdNumeroPedido" value="">
-    <div class="Content_modal">
-
-        <div class="div-3">
-            <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanCampania" type="text" readonly="readonly" />
-            </div>
-            <div class="titG">Tipo de Estrategia:</div>
-            <div class="selectP2 borde_redondeado">
-                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
-            </div>
-        </div>
-
-        <div class="div-3 DatosNuevas" style="display: none">
-            <div class="titG">Campaña fin:</div>
-            <div class="selectP2 borde_redondeado">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
-            </div>
-            <div class="titG">Pedido Asociado:</div>
-            <div class="checksPedidosAsociados">
-            </div>
-        </div>
-        <div class="div-3 Content_modal" style="margin-left: 12px; width: 92%; padding-top: 10px; padding-bottom: 0;">
-            <div style="color: white;">
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
-                    Información CUV Oferta
-                </div>
-                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
-                    Precio Valorizado
-                </div>
-            </div>
-            <div>
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
-                    <div style="display: inline-block;">CUV2:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
-                    </div>
-                    <div style="display: inline-block; padding-left: 40px;">Precio para ti:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
-                    </div>
-                </div>
-                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px;">
-                    <div style="display: inline-block;">CUV:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
-                    </div>
-                    <div style="display: inline-block;">Precio:</div>
-                    <div style="display: inline-block;">
-                        <input type="text" id="txtPrecio" style="width: 60px;" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción:</div>
-            <div class="titG">
-                <input type="text" id="txtDescripcion" style="width: 520px;" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Talla/Color:</div>
-            <div class="titG" style="width: auto;">
-                <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores"/>
-                </a>
-            </div>
-            <div class="titG">¿Activar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">
-                <span>Imagen Seleccionada:</span>
-            </div>
-            <div class="titG">
-                <div class="pdr_modal borde_redondeado alignrigth">
-                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
-                </div>
-            </div>
-        </div>
-        <div style="display: inline-block; width: 39%;">
-        </div>
-
-        <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
-            <div class="div-3">
-                <div style="color: white;">
-                    <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
-                        Imagen - Matriz Somos Belcorp
-                    </div>
-                    <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
-                        Información Adicional
-                    </div>
-                </div>
-            </div>
-            <div id="divImagenEstrategiaContenido" style="display: none;">
-                <div class="div-3">
-                    <div class="titG">                        
-                        <div class="input_search">
-                            <input type="hidden" id="hdnCodigoSAP" class="input-imagen-producto" />
-                           <input type="hidden" id="hdnimagenProducto" class="input-imagen-producto" />
-                            <input type="hidden" id="hdnDescripcion" class="input-imagen-producto" />
-                            <input type="hidden" id="fotoProducto_Id" class="input-imagen-producto" />
-                            <input type="hidden" id="imagenProductoAnterior" class="input-imagen-producto-anterior" />
-                            <input type="hidden" id="hdnEtiqueta1" class="input-imagen-producto" />
-                            <input type="hidden" id="hdnEtiqueta2" class="input-imagen-producto" />     
-                             <input type="hidden" id="hdnEnMatrizComercial" class="input-imagen-producto" />                        
-                            <div id="fpUpload">                               
-                            </div>
-                             <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
-                             <script type="text/javascript">
-                                 var uploader = new qq.FileUploader({
-                                     allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                     element: document.getElementById('fpUpload'),
-                                     action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                                     onComplete: function (id, fileName, responseJSON) {
-                                         if (checkTimeout(responseJSON)) {
-
-                                             if (responseJSON.success) {
-                                                 $("#hdnimagenProducto").val(responseJSON.name);
-                                                 $("#imagenProductoAnterior").val("");
-                                                 $("#fotoProducto_Id").val(('0' + ($("#ContenidoImagenes .titG").length + 1)).substr(-2));
-
-                                                 ActualizarImagenMatriz();
-                                                 mostrarInformacionCUV($("#txtCUV2").val());
-                                             }
-                                             else alert(responseJSON.message);
-                                         }
-                                     },
-                                     onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                     onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                     onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                 });
-
-                                 function ActualizarImagenMatriz() {
-                                     var fotosProductos = [];
-                                     var imagenNueva = {
-                                         "idImagen": $("#fotoProducto_Id").val(),
-                                         "dataImagen": $("#hdnimagenProducto").val(),
-                                         "fotoProducto": $("#hdnimagenProducto").val(),
-                                         "fotoProductoAnterior": $("#imagenProductoAnterior").val(),
-                                         "selected": false
-                                     }
-
-                                     var idImagen;
-                                     var dataImagen;
-                                     var item = {
-                                         CodigoSAP: $.trim($('#hdnCodigoSAP').val()),
-                                         DescripcionOriginal: $.trim($('#hdnDescripcion').val()),
-                                         Descripcion: $.trim($("#hdnDescripcion").val()),
-                                         PaisID: $('#ddlPais').val()
-                                     };
-
-                                     var prd = 0;
-                                     $.each($("#ContenidoImagenes .titG"), function (j) {
-                                         prd++;
-                                         if (prd != 0) {
-                                             idImagen = ('0' + prd).substr(-2);
-                                             dataImagen = $('#preview' + idImagen).attr('src');
-
-                                             var imagen = {
-                                                 "idImagen": idImagen,
-                                                 "dataImagen": dataImagen,
-                                                 "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                                 "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                                 "selected": $('#chk-estrategia-imagen' + idImagen).is(":checked") ? true : false
-                                             }
-                                             fotosProductos.push(imagen);
-                                         }
-                                     });
-                                     fotosProductos.push(imagenNueva);
-
-                                     var i = 1;
-                                     fotosProductos.forEach(function (imagen) {
-                                         idImagen = ('0' + i).substr(-2);
-                                         item['FotoProducto' + idImagen] = imagen.fotoProducto;
-                                         item['FotoProductoAnterior' + idImagen] = imagen.fotoProductoAnterior;
-                                         i++;
-                                     });
-
-                                     for (i = fotosProductos.length + 1; i <= nroImagenes; i++) {
-                                         idImagen = ('0' + i).substr(-2);
-                                         item['FotoProducto' + idImagen] = imagenVacia;
-                                         item['FotoProductoAnterior' + idImagen] = imagenVacia;
-                                     }
-
-                                     var enMatriz = $.trim($('#hdnEnMatrizComercial').val());
-                                     var accion = (enMatriz == "0" ? baseUrl + 'MatrizComercial/InsertMatrizComercial' : baseUrl + 'MatrizComercial/UpdateMatrizComercial');
-                                     jQuery.ajax({
-                                         type: 'POST',
-                                         url: accion,
-                                         dataType: 'json',
-                                         contentType: 'application/json; charset=utf-8',
-                                         data: JSON.stringify(item),
-                                         async: true,
-                                         success: function (data) {
-                                             if (checkTimeout(data)) {
-                                                 closeWaitingDialog();
-                                                 if (data.success == true) {
-                                                     alert(data.message);
-                                                 }
-                                                 else {
-                                                     alert(data.message);
-                                                 }
-                                             }
-                                         },
-                                         error: function (data, error) {
-                                             if (checkTimeout(data)) {
-                                                 closeWaitingDialog();
-                                                 alert(data.message);
-                                             }
-                                         }
-                                     });
-                                 }
-                                </script>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-3" id="ContenidoImagenes">
-
-                </div>
-            </div>
-            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
-                <div class="div-3">
-                    <div class="titG">Mensaje Adicional:</div>
-                    <div class="titE">
-                        <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
-                    </div>
-                </div>
-                <div class="div-3 OfertaUltimoMinuto">
-                    <div class="titH">Oferta de Último Minuto</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
-                    </div>
-                </div>
-                <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
-                    <!--SB20-312 -->
-                    <div class="titB">&nbsp;</div>
-                    <div class="titB">Orden:</div>
-                    <div class="titB">
-                        <input type="text" id="txtOrden" value="" maxlength="3" />
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titG">Limite de Venta:</div>
-                    <div class="titAuto">
-                        <input type="text" id="txtLimite" value="99" style="width: 26px;" />
-                    </div>
-                    <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
-                </div>
-                <div class="div-est-3 DatosNuevas" style="display: none">
-                    <div class="titB">&nbsp;</div>
-                    <div class="titB">Alcance:</div>
-                    <div class="titD">
-                        <input type="text" id="txtAlcance" readonly="readonly" />
-                    </div>
-                    <div class="titA" style="width: 20px">
-                        <a href="#" style="margin-left: 5px" id="linkAlcance">
-                            <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
-                        </a>
-                    </div>
-                    <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("AdministrarEstrategiaDialog")
 
 <div id="DialogZona" style="display: none;">
     <div class="Content_modal">
@@ -547,16 +276,6 @@
 </div>
 <div id="loadingScreen"></div>
 
-<script id="ImagenCUV-template" type="text/x-jquery-tmpl">
-    <div class="titG">
-        <div class="pdr_modal borde_redondeado aligncenter">
-            <img src="${dataImagen}" id="preview${idImagen}" class="img-matriz-preview" data-id="${idImagen}">
-        </div>
-        <div class="pdr_modal_check aligncenter">
-            <input type="checkbox" id="chk-estrategia-imagen${idImagen}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="${idImagen}">
-        </div>
-    </div>
-</script>
 
 <script type="text/javascript">
     var nroImagenes = '@nroImagenes';
@@ -577,13 +296,23 @@
     var imagenesProductos = [];
     var originalContent;
 
-
-
-
+    var estrategiaObj;
 
     jQuery(document).ready(function () {
         fnGrilla();
         IniDialog();
+
+        estrategiaObj = Estrategia({
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+            getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "AdministrarEstrategia")',
+            getFiltrarEstrategiaAction: '@Url.Action("FiltrarEstrategia", "AdministrarEstrategia")',
+            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
+        });
+
+        $.jgrid.extend({
+            Editar: estrategiaObj.editar,
+            Eliminar: estrategiaObj.eliminar
+        });
 
         $("#btnNuevo").click(function () {
             $.jstree._reference($("#arbolRegionZona")).check_all();
@@ -851,15 +580,7 @@
             showDialog("DialogZona");
             return false;
         });
-        $("#linkTallaColor").click(function () {
-            if ($.trim($("#txtCUV2").val()) == "") {
-                alert("Debe ingresar un valor para CUV2");
-                return false;
-            }
-            fnGrillaTC();
-            showDialog("DialogTonoMarca");
-            return false;
-        });
+
         $("#chkSeleccionar").click(function () {
             if (this.checked)
                 $.jstree._reference($("#arbolRegionZona")).check_all();
@@ -1475,45 +1196,6 @@
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
-    function CerrarTallaColor() {
-
-        var params = {
-            CampaniaID: $("#ddlCampania").val(),
-            CUV2: $("#txtCUV2").val(),
-            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-            CUV1: "",
-            flag: "3",
-            FlagNueva: "0",
-            FlagRecoProduc: "0",
-            FlagRecoPerfil: "0"
-        };
-
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(params),
-            async: true,
-            success: function (data) {
-                if (data.message == "OK") {
-                    var cantidad = parseInt(data.precio);
-                    if (cantidad > 0) {
-                        alert("Debe ingresar todas las descripciones a las tallas/colores.");
-                        return false;
-                    } else {
-                        HideDialog("DialogTonoMarca");
-                    }
-                } else {
-                    alert(data.message);
-                }
-            },
-            error: function (data, error) {
-                alert(data.message);
-            }
-        });
-    }
-
     function MostrarVistaPrevia(id) {
         $("#imgZonaEstrategia").attr("src", $("#" + id).attr("src"));
         if (id == "preview0") $("#imgZonaEstrategia").attr("src", rutaImagenVacia);
@@ -1803,65 +1485,6 @@
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
-    }
-
-    function fnGrillaTC() {
-        $("#listTC").jqGrid("GridUnload");
-        jQuery("#listTC").jqGrid({
-            url: baseUrl + "AdministrarEstrategia/ConsultarTallaColor",
-            hidegrid: false,
-            datatype: 'json',
-            postData: ({
-                CampaniaID: $("#ddlCampania").val(),
-                CUV: $("#txtCUV2").val()
-            }),
-            mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['ID', 'CUV', 'Descripción', 'Precio', 'Tipo', 'Talla/Color', 'Desc T/C', '', ''],
-            colModel: [
-                { name: 'ID', index: 'ID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, hidden: false },
-                { name: 'DescripcionCUV', index: 'DescripcionCUV', width: 110, editable: true, resizable: false, hidden: false },
-                { name: 'PrecioUnitario', index: 'PrecioUnitario', width: 30, editable: true, resizable: false, hidden: false },
-                { name: 'Tipo', index: 'Tipo', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'DescripcionTipo', index: 'DescripcionTipo', width: 50, editable: true, resizable: false, hidden: false },
-                { name: 'DescripcionTallaColor', index: 'DescripcionTallaColor', width: 90, editable: true, resizable: false, hidden: false },
-                { name: 'Accion', index: 'Accion', width: 30, editable: true, resizable: false, hidden: false, align: "center", formatter: ShowActionsTC },
-                { name: 'IDAux', index: 'IDAux', width: 0, editable: true, resizable: false, hidden: true }
-            ],
-            jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
-            pager: jQuery('#pagerTC'),
-            loadtext: 'Cargando datos...',
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: 'No hay resultados',
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [],
-            sortname: 'ID',
-            sortorder: 'asc',
-            viewrecords: true,
-            multiselect: false,
-            height: 'auto',
-            width: 650,
-            pgtext: 'Pág: {0} de {1}',
-            altRows: true,
-            altclass: 'jQGridAltRowClass',
-            loadComplete: function () { },
-            gridComplete: function () {
-                showDialog("DialogTonoMarca");
-            }
-        });
-        jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
     function ShowInputTC(cellvalue, options, rowObject) {
@@ -2244,11 +1867,11 @@
                     var CUV2 = $("#txtCUV2").val();
                     var EtiquetaID2 = $("#hdnEtiqueta2").val();
                     var Precio2 = $("#txtPrecio2").val();
-                    var FlagCEP2 = (CUV2 != "") ? "1" : "0"; 
+                    var FlagCEP2 = (CUV2 != "") ? "1" : "0";
                     var TextoLibre = $("#txtTextoLibre").val();
-                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0"; 
+                    var FlagTextoLibre = (TextoLibre != "") ? "1" : "0";
                     var Cantidad = "";
-                    var FlagCantidad = "0"; 
+                    var FlagCantidad = "0";
                     var Zona = $("#hdZonas").val();
                     var Orden = $("#txtOrden").val();
                     var flagEstrella = ($("#chkOfertaUltimoMinuto").attr("checked")) ? "1" : "0";
@@ -2519,247 +2142,5 @@
             }
         });
     }
-
-    $.jgrid.extend({
-        Editar: function (id, event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (id) {
-                waitingDialog({});
-
-                $("#hdEstrategiaID").val(id);
-                $("#hdnCodigoSAP").val("")
-                $('#mensajeErrorCUV').val("")
-                $('#mensajeErrorCUV2').val("");
-                $(".checksPedidosAsociados").html('');
-
-                var params = {
-                    EstrategiaID: $("#hdEstrategiaID").val()
-                };
-                $('#ContenidoImagenes').empty();
-                jQuery.ajax({
-                    type: 'POST',
-                    url: urlFiltrarEstrategia,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-
-                        if (data.success == false) {
-                            alert(data.message);
-                            closeWaitingDialog();
-                            return false;
-                        }
-
-                        var dataImagen, imgFormat;
-                        $("#hdSimbolo").val(data.Simbolo);
-
-                        if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
-                        else $("#chkHabilitarOferta").attr("checked", false);
-
-                        if (data.FlagDescripcion == "1") $("#chkVisible1").attr("checked", true);
-                        else $("#chkVisible1").attr("checked", false);
-
-                        if (data.FlagCEP == "1") $("#chkVisible2").attr("checked", true);
-                        else $("#chkVisible2").attr("checked", false);
-
-                        if (data.FlagCEP2 == "1") $("#chkVisible3").attr("checked", true);
-                        else $("#chkVisible3").attr("checked", false);
-
-                        if (data.FlagTextoLibre == "1") $("#chkVisible4").attr("checked", true);
-                        else $("#chkVisible4").attr("checked", false);
-
-                        if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
-                        else $("#chkVisible5").attr("checked", false);
-
-                        if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
-                        else $("#hdColorFondo").val("#FFF");
-                        ActivarDesactivarChecks();
-
-                        $("#hdCampania").val($("#ddlCampania").val());
-                        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-                        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
-                        $("#hdnCodigoSAP").val(data.CodigoSAP);
-                        SeleccionarTipoOferta();
-
-                        $("#txtAlcance").val($("#ddlPais option:selected").html());
-                        $("#spanCampania").val($("#ddlCampania option:selected").html());
-                        $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-                        $("#hdEstrategiaID").val(data.EstrategiaID);
-                        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-                        $("#hdCampania").val(data.CampaniaID);
-                        $("#ddlCampaniaFin").val(data.CampaniaIDFin);
-                        $("#hdNumeroPedido").val(data.NumeroPedido);
-                        $("#imgSeleccionada").attr('src', rutaImagenVacia);
-
-                        var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
-                        var imagenesProductos = [];
-
-                        var i = 1;
-
-                        for (var i = 1; i <= nroImagenes; i++) {
-
-                            idImagen = ('0' + i).substr(-2);
-                            dataImagen = data['FotoProducto' + idImagen];
-
-                            if (dataImagen != '') {
-
-                                if (dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL']) {
-                                    $("#imgSeleccionada").attr('src', dataImagen);
-                                    $("#imgSeleccionada").attr('data-id', idImagen);
-                                }
-
-                                var imagen = {
-                                    "idImagen": idImagen,
-                                    "dataImagen": dataImagen,
-                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == data['ImagenURL'] ? true : false
-                                }
-                                imagenesProductos.push(imagen);
-                            }
-                        }
-                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
-                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
-
-                        $("#divImagenEstrategiaContenido").show();
-                        $("#divInformacionAdicionalEstrategiaContenido").hide();
-
-                        $("#divImagenEstrategia").css("color", "white");
-                        $("#divImagenEstrategia").css("background", "#00A2E8");
-                        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
-                        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
-
-                        $("#txtLimite").val(data.LimiteVenta);
-                        $("#txtDescripcion").val(data.DescripcionCUV2);
-                        $("#txtCUV").val(data.CUV1);
-                        $("#ddlEtiqueta1").val(data.EtiquetaID);
-                        if (data.Precio != "0") {
-                            $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
-                        } else {
-                            $("#txtPrecio").val('');
-                        }
-                        $("#txtCUV2").val(data.CUV2);
-                        $("#ddlEtiqueta2").val(data.EtiquetaID2);
-                        if (data.Precio2 != "0") {
-                            $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
-                        } else {
-                            $("#txtPrecio2").val('');
-                        }
-                        $("#txtTextoLibre").val(data.TextoLibre);
-                        $("#txtCantidad").val(data.Cantidad);
-                        $("#hdZonas").val(data.Zona);
-
-                        var strZonas = $("#hdZonas").val();
-                        if (strZonas != "") {
-                            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-                            var strZonasArreglo = strZonas.split(",");
-                            for (i = 0; i < strZonasArreglo.length; i++) {
-                                $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
-                            }
-                        } else {
-                            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-                            $("#chkSeleccionar").attr("checked", false);
-                        }
-
-                        var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
-
-                        if (aux1 == "4") {
-                            $("#txtOrden").val("");
-                            $('#div-orden').hide();
-
-                            $('#txt1-estrella').html('Oferta de Último Minuto');
-                            $('#txt2-estrella').hide();
-                        }
-                        else {
-                            $("#txtOrden").val(data.Orden);
-                            $('#div-orden').show();
-
-                            $('#txt1-estrella').html('Mostrar estrella');
-                            $('#txt2-estrella').show();
-                        }
-
-                        if (aux1 == "4" || aux1 == "5") {
-                            $("#ddlEtiqueta1").children('option').hide();
-                            $("#ddlEtiqueta1").children("option[data-id='1']").show();
-
-                            $("#ddlEtiqueta2").children('option').hide();
-                            $("#ddlEtiqueta2").children("option[data-id='3']").show();
-                        }
-                        else {
-                            $("#ddlEtiqueta1").children('option').show();
-                            $("#ddlEtiqueta2").children('option').show();
-                        }
-
-                        if (aux1 == "6") {
-                            $('.OfertaUltimoMinuto').hide();
-                        } else { $('.OfertaUltimoMinuto').show(); }
-
-                        if (aux1 == "7") {
-                            $('.Recomendados').hide();
-
-                            $("#ddlEtiqueta1").children('option').hide();
-                            $("#ddlEtiqueta1").children("option[data-id='1']").show();
-
-                            $("#ddlEtiqueta2").children('option').hide();
-                            $("#ddlEtiqueta2").children("option[data-id='5']").show();
-
-                            $('#div-orden').hide();
-                        }
-
-                        if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-                        else $("#chkEstrella").attr("checked", false);
-                        $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
-                        closeWaitingDialog();
-                        showDialog("DialogAdministracionEstrategia");
-                    },
-                    error: function (data, error) {
-                        alert(data.message);
-                        closeWaitingDialog();
-                    }
-                });
-            }
-
-            return false;
-        },
-        Eliminar: function (id, event) {
-            event.preventDefault();
-            event.stopPropagation();
-
-            var elimina = confirm('¿ Está seguro que desea deshabiltar la estrategia seleccionada?');
-            if (!elimina)
-                return false;
-
-            if (id) {
-                waitingDialog({});
-
-                $("#hdEstrategiaID").val(id);
-
-                var params = {
-                    EstrategiaID: $("#hdEstrategiaID").val()
-                };
-
-                jQuery.ajax({
-                    type: 'POST',
-                    url: urlDeshabilitarEstrategia,
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(params),
-                    async: true,
-                    success: function (data) {
-                        alert(data.message);
-                        fnGrilla();
-                        closeWaitingDialog();
-                    },
-                    error: function (data, error) {
-                        alert(data.message);
-                        closeWaitingDialog();
-                    }
-                });
-            }
-            return false;
-        }
-    });
 
 </script>
