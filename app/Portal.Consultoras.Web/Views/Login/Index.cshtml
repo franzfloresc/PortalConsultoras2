@@ -185,6 +185,7 @@
         width: 100%;
         height: 100%;
         z-index: 998;
+        overflow:auto;
     }
         
 
@@ -546,8 +547,8 @@
         <!--LOGIN EXTERNO -->
         <div id="btnfblogin" style="display:none;">
 
-            <div style="margin-bottom:20px;text-align: center">
-                <img id="imgFotoPerfil2" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px;" />
+            <div class="content_sesion_facebook">
+                <img id="imgFotoPerfil2" src="" alt=""/>
             </div>
 
             <div class="content_btn_face">
@@ -742,19 +743,36 @@
             
             <div class="campo_input icono_usuario">
                 <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
-                @*<div id="Div3" class="btn">
-                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
-                </div>*@
+                <div class="ayuda_usuario_facebook">
+                    <a href="#" class="helper_facebook"></a>
+                    <div class="mensaje_ayuda_usuario">
+                         Tu código de consultora,
+                                DNI o correo electronico.
+                    </div>
+                </div>               
             </div>
             <hr class="clear" />
             
             <div class="campo_input icono_pass">
                 <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
-                @*<div id="Div5" class="btn">
-                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
-                </div>*@
+                <div class="ayuda_usuario_facebook">
+                    <a href="#"  class="helper_facebook"></a>
+                    <div class="mensaje_ayuda_usuario">
+                        Si es la primera vez que
+                        ingresas, es tu número
+                        de DNI.    
+                    </div>
+                </div>
+                
             </div>
             <hr class="clear" />
+            <div class="boxform">
+                <div class="formbtn">
+                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel" class="img_error_login" style="padding-left: 20px;">Usuario o Contraseña Incorrectas</label>
+                    </div>
+                </div>
+            </div>
             <div class="formbtn">
                 <label for="">
                     <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
