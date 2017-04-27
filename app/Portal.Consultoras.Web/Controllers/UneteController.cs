@@ -1069,15 +1069,18 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
-        public ActionResult VerHistorialPostulante(int id)
+        public ActionResult VerHistorialPostulante(int id, string nombre)
         {
             var historialPostulanteModel = new HistorialPostulanteModel();
             historialPostulanteModel.SolicitudPostulanteID = id;
             historialPostulanteModel.CodigoISO = CodigoISO;
+            historialPostulanteModel.NombreCompleto = nombre;
             historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
             var eventos = new EventoSolicitudPostulanteCollection();
+            var estados = new ServiceUnete.ParametroUneteCollection();
             using (var sv = new PortalServiceClient())
             {
+                estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
             }
             foreach(var evento in eventos)
@@ -1085,9 +1088,13 @@ namespace Portal.Consultoras.Web.Controllers
                 historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel(){
                     EventoID = evento.EventoId,
                     Fecha = evento.Fecha,
-                    TipoEventoId = evento.TipoEvento
+                    TipoEventoId = evento.TipoEvento,
+                    Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
+                    Observacion = evento.Observacion
                 });
             }
+
+            historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
             
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
@@ -2352,83 +2359,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     #endregion
 
-
-
-                    #region AntiguoBucle
-                    //foreach (var item in lista)
-                    //{
-                    //    if (CodigoISO == Pais.Panama)
-                    //    {
-                    //        if (string.IsNullOrWhiteSpace(item.PROVINCIA) == false && string.IsNullOrWhiteSpace(item.DISTRITO) == false && string.IsNullOrWhiteSpace(item.CORREGIMIENTO) == false)
-                    //        {
-                    //            var parametro = new ServiceUnete.UbigeoPA()
-                    //            {
-                    //                REG = item.REG,
-                    //                ZONA = item.ZONA,
-                    //                SECC = item.SECC,
-                    //                TERRITO = item.TERRITO,
-                    //                UBIGEO = item.UBIGEO,
-                    //                PROVINCIA = item.PROVINCIA,
-                    //                CORREGIMIENTO = item.CORREGIMIENTO,
-                    //                DISTRITO = item.DISTRITO,
-                    //                BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
-                    //            };
-                    //            listaUbigeo.Add(parametro);
-                    //        }
-                    //    }
-                    //    else if (CodigoISO == Pais.CostaRica)
-                    //    {
-                    //        var parametro = new ServiceUnete.UbigeoCR()
-                    //        {
-                    //            REG = item.REG,
-                    //            ZONA = item.ZONA,
-                    //            SECC = item.SECC,
-                    //            TERRITO = item.TERRITO,
-                    //            UBIGEO = item.UBIGEO,
-                    //            PROVINCIA = item.PROVINCIA,
-                    //            CANTON = item.CANTON,
-                    //            DISTRITO = item.DISTRITO,
-                    //            BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS
-                    //        };
-                    //        listaUbigeo.Add(parametro);
-                    //    }
-                    //    else if (CodigoISO == Pais.Salvador)
-                    //    {
-                    //        var parametro = new ServiceUnete.UbigeoSV()
-                    //        {
-                    //            REG = item.REG,
-                    //            ZONA = item.ZONA,
-                    //            SECC = item.SECC,
-                    //            TERRITO = item.TERRITO,
-                    //            UBIGEO = item.UBIGEO,
-                    //            DEPARTAMENTO = item.DEPARTAMENTO,
-                    //            MUNICIPIO = item.MUNICIPIO,
-                    //            CANTON_CENTRO_POBLADO = item.CANTON_CENTRO_POBLADO,
-                    //            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_REFERENCIAS
-                    //        };
-                    //        listaUbigeo.Add(parametro);
-                    //    }
-                    //    else if (CodigoISO == Pais.Guatemala)
-                    //    {
-                    //        var parametro = new ServiceUnete.UbigeoGT()
-                    //        {
-                    //            REG = item.REG,
-                    //            ZONA = item.ZONA,
-                    //            SECC = item.SECC,
-                    //            TERRITO = item.TERRITO,
-                    //            UBIGEO = item.UBIGEO,
-                    //            DEPARTAMENTO = item.DEPARTAMENTO,
-                    //            MUNICIPIO = item.MUNICIPIO,
-                    //            CENTRO_POBLADO = item.CENTRO_POBLADO,
-                    //            ZONA_CIUDAD = item.ZONA_CIUDAD,
-                    //            BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = item.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS
-                    //        };
-                    //        listaUbigeo.Add(parametro);
-                    //    }
-                    #endregion
-
-
-
+ 
 
                     if (listaUbigeo.Count > 0)
                     {

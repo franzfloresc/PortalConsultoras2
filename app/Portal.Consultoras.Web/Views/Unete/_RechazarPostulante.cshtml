@@ -42,41 +42,43 @@
 
                 <h4>¿Cúal es el motivo?</h4>
 
-                @*<form action="" class="formulario_motivosRechazo">
+                <form id="myForm">
+                    @*<form action="" class="formulario_motivosRechazo">
 
-                    <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding-top: 25px;  padding-left: 25px;  padding-right: 25px;">
+            <div class="div-3" style="font-weight: bold;   font-size: 15px !important;   padding-top: 25px;  padding-left: 25px;  padding-right: 25px;">
 
-                    ¿Est&aacute; seguro de rechazar a esta postulante?
-                    <br />
-                    <br />*@
-                <div class="div-3 contenedor_campoMotivo">
+            ¿Est&aacute; seguro de rechazar a esta postulante?
+            <br />
+            <br />*@
+                    <div class="div-3 contenedor_campoMotivo">
 
-                    <div class="selectP2 seleccion_pagina textboxSB2">
-                        @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                        <div class="selectP2 seleccion_pagina textboxSB2">
+                            @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                        </div>
                     </div>
-                </div>
-                <div class="div-3">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Model.TipoRechazo)
+                    <div class="div-3">
+                        <div class="validation_clear"></div>
+                        <div class="validation">
+                            @Html.ValidationMessageFor(m => Model.TipoRechazo)
+                        </div>
                     </div>
-                </div>
 
-                <div class="div-3 contenedor_campoMotivo">
+                    <div class="div-3 contenedor_campoMotivo">
 
-                    <div class="selectP2 seleccion_pagina textboxSB2">
-                        @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
-                        @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Comentarios adicionales...", maxlength = 255 })
+                        <div class="selectP2 seleccion_pagina textboxSB2">
+                            @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
+                            @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Comentarios adicionales...", maxlength = 255 })
+                        </div>
                     </div>
-                </div>
-                <div class="div-3">
-                    <div class="validation_clear"></div>
-                    <div class="validation">
-                        @Html.ValidationMessageFor(m => Model.MotivoRechazo)
+                    <div class="div-3">
+                        <div class="validation_clear"></div>
+                        <div class="validation">
+                            @Html.ValidationMessageFor(m => Model.MotivoRechazo)
+                        </div>
                     </div>
-                </div>
-
+                </form>
             </div>
+
 
             @*<div class="opcion_motivoRechazo">
                         <input id="edadSuficiente" type="checkbox" name="edadSuficiente" />
@@ -115,6 +117,7 @@
             <input type="submit" class="btn_noEliminarCliente btnRechazarPost btn_rechazarPostulante" id="btnCancelar" onclick="cerrarRechazar()" value="Cancelar" />
 
         </div>
+        
 
     </div>
 
@@ -275,10 +278,13 @@
 
     .popup_rechazarPostulante {
         top: 50%!important;
-        left: 0%;
         right: 0%;
         bottom: 0%;
-        margin: -199px auto 0 auto!important;
+        left:0%;
+        margin-top: -199px!important;
+        margin-right:auto!important;
+        margin-left:auto!important;
+        margin-bottom:0px!important;
         width: 100%!important;
         max-width: 605px!important;
         height: auto!important;
@@ -467,19 +473,41 @@
         min-height:70px;
     }
 
+    .validation {
+        float: left;
+        width: 170px !important;
+        padding: 0 9px !important;
+        min-height: 1px !important;
+        /*color: #702789;*/
+        color: #dc001d;
+    }
+
+    .validation_clear {
+        float: left;
+        width: 140px !important;
+        height: 1px !important;
+        padding: 0 9px !important;
+    }
+    .estilo2 {
+        width: 80%;
+    margin-left: 10%;
+    }
+    .div_3_fix {
+        padding: 1px !important;
+        margin: 0 !important;
+    }
     /* FIN POPUP RECHAZAR POSTULANTE */
 
 </style>
 
-
-
 <script>
+    $.validator.unobtrusive.parse('form');
     $('#imgCerrar, #btnCancelar').click(function () {
         modal.dialog('close');
     });
     $('#btnAceptar').click(function () {
 
-        if ($('#TipoRechazo').val()) {
+        if ($('#myForm').valid()) {
             var data = {
                 SolicitudPostulanteID: $('#SolicitudPostulanteID').val(),
                 TipoRechazo: $('#TipoRechazo').val(),
@@ -493,9 +521,9 @@
                 }
             });
         }
-        else {
-            alert("El campo Tipo Rechazo es obligatorio.");
-        }
+        //else {
+        //    alert("El campo Tipo Rechazo es obligatorio.");
+        //}
 
     });
 
@@ -503,4 +531,14 @@
     function cerrarRechazar() {
         $('#divRechazarPostulante').hide();
     }
+
+    //function centrarPopup(){
+    //    var popup = $(".popup_rechazarPostulante");
+    //    popup.css({
+    //        'top': ($(window).height() / 2 - $(popup).height() / 2) + 'px'
+    //    });
+    //}
+
+    //centrarPopup();
+
 </script>
