@@ -225,7 +225,7 @@
         <div class="cellGrid " data-colname="CampanaRegistro">{{CampanaRegistro}}</div>
         <div class="cellGrid " data-colname="FuenteIngreso">{{FuenteIngreso}}</div>
         <div class="cellGrid " data-colname="Tipo">{{Tipo}}</div>
-        <div class="cellGrid " data-colname="NombreCompleto"><a href="javascript:void(0);" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}');">{{NombreCompleto}}</a></div>
+        <div class="cellGrid enlaceNombreCompleto" data-colname="NombreCompleto"><a href="javascript:void(0);" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">{{NombreCompleto}}</a></div>
         @*<div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>*@
         <div class="cellGrid " data-colname="TipoDocumento">{{TipoDocumento}}</div>
         <div class="cellGrid " data-colname="NumeroDocumento">{{NumeroDocumento}}</div>
@@ -1110,6 +1110,11 @@
             user agent stylesheet input, textarea, keygen, select, button, meter, progress {
                 -webkit-writing-mode: horizontal-tb;
             }
+
+            .enlaceNombreCompleto a{
+            text-decoration:underline;
+        }
+
         </style>
 
         
@@ -1726,14 +1731,14 @@
 
     }
 
-    function verHistorialPostulante(solicitudPostulanteID)
+    function verHistorialPostulante(solicitudPostulanteID, nombreCompleto)
     {
         limpiarPopUps();
 
         $('#divVerHistorialPostulante').empty();
         $('#divVerHistorialPostulante').show();
         LoadSpinner('divVerHistorialPostulante');
-        $.get('@Url.Action("VerHistorialPostulante", "Unete")', { id: solicitudPostulanteID}, function (html) {
+        $.get('@Url.Action("VerHistorialPostulante", "Unete")', { id: solicitudPostulanteID, nombre: nombreCompleto }, function (html) {
             $('#divVerHistorialPostulante').html(html);
             $('#divVerHistorialPostulante').show();
         }).done(function () { });
