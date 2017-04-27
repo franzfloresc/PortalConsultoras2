@@ -912,6 +912,15 @@ h1, h2, h3, h4, h5, h6 {
     .zoom-img {
         zoom: 64%;
     }
+    .mensaje_ayuda_usuario{
+        right:60px;
+    }
+    .mensaje_ayuda_usuario:before {    
+    border-left-color: #ffffff;    
+    }
+    .mensaje_ayuda_usuario:after {    
+    border-left-color: #ffffff;    
+    }
 }
 
 .titulo-popup-mx {
@@ -1938,4 +1947,102 @@ h1, h2, h3, h4, h5, h6 {
     font-size:13px;
     margin-top:15px;
     color:black;
+}
+.ayuda_usuario_facebook:hover .mensaje_ayuda_usuario{
+    display:block;
+}
+.mensaje_ayuda_usuario{
+    box-sizing: border-box;
+    display:none;
+    width:130px;
+    right:-150px;
+    top:-20px;
+    position: relative;
+    padding: 10px;
+    color: black;
+    font-size: 9pt;
+    font-family: lato;
+    background: white;
+    border:1px solid black;
+    z-index:30;
+}
+.mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
+	right: 100%;
+	top: 24px;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.mensaje_ayuda_usuario:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-right-color: #ffffff;
+	border-width: 9px;
+	margin-top: -9px;
+}
+.mensaje_ayuda_usuario:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-right-color: #000000;
+	border-width: 10px;
+	margin-top: -10px;
+}
+.ayuda_usuario_facebook{
+    top: 3px;
+    right: 0;
+    position: absolute;
+    border: 0;
+    padding-top: 6px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+}
+.helper_facebook{
+    width: 20px;
+    height: 20px;
+    float: right;
+    font-family: 'icomoon';
+    margin-top: -4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+.helper_facebook:before {
+    content: "\e902";
+    font-size: 18px;
+    text-align: left;
+    color: #949494;
+}
+@media only screen and (max-width : 654px) {
+    .mensaje_ayuda_usuario:after, .mensaje_ayuda_usuario:before {
+        left: 100%;
+       
+    }
+    .mensaje_ayuda_usuario{
+        right:60px;
+    }
+    .mensaje_ayuda_usuario:before {    
+        border-left-color: #000;  
+        border-right-color: transparent;  
+    }
+    .mensaje_ayuda_usuario:after {    
+        border-left-color: #ffffff;  
+        border-right-color: transparent;  
+    }
+}
+.content_sesion_facebook{
+    text-align: center;
+    width: 110px;
+    height: 110px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.content_sesion_facebook img{
+    width:100%;
+    height:100%;
 }
