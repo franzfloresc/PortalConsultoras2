@@ -35,15 +35,16 @@
             <h1>HISTORIAL DE&nbsp;<span class="texto_enNegritas">POSTULANTE</span></h1>
             <div class="usuario_por_rechazar">Postulante:&nbsp;<span>@Model.NombreCompleto</span></div>
 
-            <div class="contenedor_grillaHistorialPostulante">
-                <div class="info_historialPostulante">
+            <div class="info_historialPostulante">
+                <div class="contenedor_contenido">
                     <div class="cabecera_info">
                         <div class="cabecera_item">Estado</div>
                         <div class="cabecera_item">Observaciones</div>
                     </div>
-                    <div class="contenedor_contenido">
-                        @foreach (var evento in Model.ListaEventos)
-                        {
+                    @foreach (var evento in Model.ListaEventos)
+                    {
+                        <div class="bloque">
+                            <div class="franja_blanca"></div>
                             <div class="img_historialPostulante">
                                 <div class="circulo-historial"></div>
                                 <div class="linea-historial"></div>
@@ -63,9 +64,8 @@
                                     </div>
                                 </div>
                             </div>
-                        }
-
-                   </div>
+                        </div>
+                    }
 
                 </div>
             </div>
@@ -423,31 +423,41 @@
             min-height: 70px;
         }
 
+        .enlaceNombreCompleto a{
+            text-decoration:underline;
+        }
+
     /* FIN POPUP RECHAZAR POSTULANTE */
 
     /* POPUP HISTORIAL POSTULANTE */
 
-    .popupHistorialPostulante{
-        margin-top:-248.5px!important;
+    .popupHistorialPostulante {
+        margin-top: -248.5px!important;
+        min-width: 615px;
+        width: 70%!important;
+        max-width: none!important;
     }
 
-    .contenedor_grillaHistorialPostulante {
+    .info_historialPostulante {
         margin: 30px auto 28px auto;
-        width: 75%;
+        width: 77%;
+        min-width: 415px;
+        text-align: center;
     }
 
-    /*.info_historialPostulante {
-        min-width: 397px;
-    }*/
-
-    .cabecera_info .cabecera_item:first-child, .contenido_item_estado {
-        width: auto;
-        min-width: 46%;
+    .cabecera_info{
+        text-align:left;
     }
 
-    .cabecera_info .cabecera_item:nth-child(2), .contenido_item_observaciones {
+    .cabecera_info .cabecera_item:first-child{
         width: auto;
-        min-width: 45%;
+        min-width: 238.11px;
+        text-align:center;
+    }
+
+    .cabecera_info .cabecera_item:nth-child(2) {
+        text-align: center;
+        width: 60%;
     }
 
     .cabecera_item{
@@ -458,6 +468,21 @@
 
     .cabecera_item, .contenido_item_estado, .contenido_item_observaciones {
         padding: 5px 8px;
+    }
+
+    .bloque {
+        display: block;
+        text-align: left;
+        background-color: #f3f3f3;
+        margin-bottom: 5px;
+    }
+
+    .franja_blanca {
+        display: block;
+        position: absolute;
+        width: 14px;
+        background: #FFF;
+        height: 44px;
     }
 
     .contenedor_contenido{
@@ -505,39 +530,29 @@
         height:25px;
     }
 
-    /*.img_historialPostulante:first-child .linea-historial, .img_historialPostulante:last-child .linea-historial{
-        height:25px;
-    }*/
-
-    .contenido_info {
-        background-color: #f3f3f3;
-        margin-bottom: 5px;
-        display: inline-block;
-        width: 96.5%;
-    }
-
-    /*.cabecera_item, .contenido_item_estado, .contenido_item_observaciones {
-        min-width: 187px;
-    }*/
-
     .cabecera_item, .contenido_item_observaciones {
         text-align: center;
     }
 
     .contenido_item_estado{
+        min-width: 238.11px;
         text-align:left;
     }
 
-    .cabecera_item, .contenido_item_estado, .contenido_item_observaciones, .icono_alert, .info_observaciones {
+    .cabecera_item, .contenido_info, .contenido_item_estado, .contenido_item_observaciones, .icono_alert, .info_observaciones {
         display: inline-block;
     }
 
     .contenido_item_estado, .contenido_item_observaciones {
-        font-size: 13px;
+        font-size: 12px;
         font-family: 'Lato Light';
         font-weight: 300;
         letter-spacing: 0.1px;
         line-height:17.5px;
+    }
+
+    .contenido_item_observaciones {
+        text-align: left;
     }
 
     .icono_alert {
@@ -567,6 +582,14 @@
 
     .info_fecha{
         color: #642f80;
+    }
+
+    .info_observaciones {
+        text-align: left;
+    }
+
+    .info_observacion {
+        text-transform: uppercase;
     }
 
     /* FIN POPUP HISTORIAL POSTULANTE */
