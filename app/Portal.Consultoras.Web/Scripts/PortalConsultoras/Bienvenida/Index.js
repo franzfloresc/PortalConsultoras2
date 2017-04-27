@@ -15,6 +15,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -2167,9 +2168,9 @@ function AceptarContrato() {
                 }
 
                 PopupCerrar('popupAceptacionContrato');
-
                 if (viewBagCambioClave == 0) {
-                    PopupMostrar('popupActualizarMisDatos');
+                    //EPD - 2121
+                    PopupMostrar('popupActualizarMisDatos'); 
                 }
             }
         },
