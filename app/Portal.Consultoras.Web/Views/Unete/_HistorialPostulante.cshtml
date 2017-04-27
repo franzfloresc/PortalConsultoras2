@@ -33,7 +33,7 @@
                 </tbody>
             </table>*@
             <h1>HISTORIAL DE&nbsp;<span class="texto_enNegritas">POSTULANTE</span></h1>
-            <div class="usuario_por_rechazar">Postulante:&nbsp;<span>Karina Elizabeth Chávez Malca</span></div>
+            <div class="usuario_por_rechazar">Postulante:&nbsp;<span>@Model.NombreCompleto</span></div>
 
             <div class="contenedor_grillaHistorialPostulante">
                 <div class="info_historialPostulante">
@@ -50,7 +50,7 @@
                             </div>
                             <div class="contenido_info">
                                 <div class="contenido_item_estado">
-                                    <span class="info_estado">@evento.TipoEventoId</span>
+                                    <span class="info_estado">@evento.Evento</span>
                                     <span class="info_fecha">@evento.Fecha</span>
                                 </div>
                                 <div class="contenido_item_observaciones">
@@ -58,7 +58,7 @@
                                         <img src="~/Content/Images/Lbel/icono_advertencia_notificacion.svg" />
                                     </div>
                                     <div class="info_observaciones">
-                                        <span class="info_observacion">Mala zonificación</span>
+                                        <span class="info_observacion">@evento.Observacion</span>
                                         <span class="info_codigo">7105 H 005874</span>
                                     </div>
                                 </div>

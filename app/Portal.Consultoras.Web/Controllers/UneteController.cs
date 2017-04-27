@@ -1010,11 +1010,12 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
-        public ActionResult VerHistorialPostulante(int id)
+        public ActionResult VerHistorialPostulante(int id, string nombre)
         {
             var historialPostulanteModel = new HistorialPostulanteModel();
             historialPostulanteModel.SolicitudPostulanteID = id;
             historialPostulanteModel.CodigoISO = CodigoISO;
+            historialPostulanteModel.NombreCompleto = nombre;
             historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
             var eventos = new EventoSolicitudPostulanteCollection();
             var estados = new ServiceUnete.ParametroUneteCollection();
