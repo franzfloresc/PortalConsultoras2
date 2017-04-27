@@ -16,18 +16,18 @@
             <table>
                 <thead>
                     <tr>
-                        <td>Id</td>
                         <td>Fecha</td>
                         <td>Evento</td>
+                        <td>Observacion</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var evento in Model.ListaEventos)
                     {
                         <tr>
-                            <td>@evento.EventoID</td>
                             <td>@evento.Fecha</td>
-                            <td>@evento.TipoEventoId</td>
+                            <td>@evento.Evento</td>
+                            <td>@evento.Observacion</td>
                         </tr>
                     }
                 </tbody>

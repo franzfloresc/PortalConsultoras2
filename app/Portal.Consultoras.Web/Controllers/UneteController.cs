@@ -1017,8 +1017,10 @@ namespace Portal.Consultoras.Web.Controllers
             historialPostulanteModel.CodigoISO = CodigoISO;
             historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
             var eventos = new EventoSolicitudPostulanteCollection();
+            var estados = new ServiceUnete.ParametroUneteCollection();
             using (var sv = new PortalServiceClient())
             {
+                estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
             }
             foreach(var evento in eventos)
@@ -1026,7 +1028,9 @@ namespace Portal.Consultoras.Web.Controllers
                 historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel(){
                     EventoID = evento.EventoId,
                     Fecha = evento.Fecha,
-                    TipoEventoId = evento.TipoEvento
+                    TipoEventoId = evento.TipoEvento,
+                    Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
+                    Observacion = evento.Observacion
                 });
             }
             
@@ -2366,12 +2370,24 @@ namespace Portal.Consultoras.Web.Controllers
                     #endregion
 
                     
+                    //pRUEBA
+                    //var lstCostaRica = new List<UbigeoCR>();
+                    //if (CodigoISO == Pais.CostaRica)
+                    //{
+                    //    foreach (var item in listaUbigeo)
+                    //    {
+                    //        var PAobject = (UbigeoCR)item;
+                    //        lstCostaRica.Add(PAobject);
+                    //    }
+                    //}
 
+                    
 
                     if (listaUbigeo.Count > 0)
                     {
                         using (var sv = new PortalServiceClient())
                         {
+                            if (CodigoISO == Pais.CostaRica)
                             sv.InsertarNivelesGeograficosGeneral(model.CodigoISO, listaUbigeo.ToArray());
                         }
                         return message = "Se realizo satisfactoriamente la carga de datos.";

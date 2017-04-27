@@ -14,5 +14,6 @@ namespace Portal.Consultoras.Web.Models
         public string Fecha { get; set; }
         public int TipoEventoId { get; set; }
         public string Evento { get; set; }
+        public string Observacion { get; set; }
     }
 }
