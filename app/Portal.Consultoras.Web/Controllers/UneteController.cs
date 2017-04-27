@@ -1034,6 +1034,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Observacion = evento.Observacion
                 });
             }
+
+            historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
             
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
