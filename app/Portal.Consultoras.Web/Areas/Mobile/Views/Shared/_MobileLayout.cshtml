@@ -34,7 +34,7 @@
     }
 
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
-
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -688,7 +688,7 @@
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
 
-        var TipoOrigen = 2;
+        var TipoOrigenPantallaODD = 2;
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
@@ -1788,6 +1788,7 @@
 
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>
