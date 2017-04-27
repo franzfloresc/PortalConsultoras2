@@ -275,10 +275,13 @@
 
     .popup_rechazarPostulante {
         top: 50%!important;
-        left: 0%;
         right: 0%;
         bottom: 0%;
-        margin: -199px auto 0 auto!important;
+        left:0%;
+        margin-top: -199px!important;
+        margin-right:auto!important;
+        margin-left:auto!important;
+        margin-bottom:0px!important;
         width: 100%!important;
         max-width: 605px!important;
         height: auto!important;
@@ -503,4 +506,14 @@
     function cerrarRechazar() {
         $('#divRechazarPostulante').hide();
     }
+
+    //function centrarPopup(){
+    //    var popup = $(".popup_rechazarPostulante");
+    //    popup.css({
+    //        'top': ($(window).height() / 2 - $(popup).height() / 2) + 'px'
+    //    });
+    //}
+
+    //centrarPopup();
+
 </script>
