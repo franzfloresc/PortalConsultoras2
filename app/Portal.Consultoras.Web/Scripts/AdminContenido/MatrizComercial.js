@@ -1,12 +1,17 @@
-﻿var MatrizComercial = function (config) {
+﻿//depende de Paginador
+var MatrizComercial = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
-        getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
-        uploadAction: config.uploadAction || ''
+        getImagesBySapCodeAction: config.getImagesBySapCodeAction || ''
+    };
+    var _editData = {};
+
+    var _paginadorClick = function (page) {
+        _obtenerImagenes(_editData, page, false);
     };
 
-    var _editData = {};
+    var _paginador = Paginador({elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick});
 
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
@@ -28,7 +33,6 @@
 
     var _onFileSubmit = function (id, fileName) {
         $(".qq-upload-list").css("display", "none");
-        //return false;
         waitingDialog({});
     };
 
@@ -128,32 +132,34 @@
             return false;
         }
 
-        var format = function (type) {
-            switch (type) {
-                case 'block': // n and c
-                    return '<div class="item"><a href="#">' + this.value + '</a></div>';
-                case 'next': // >
-                    return '<div class="item"><a href= "#">&gt;</a></div>';
-                case 'prev': // <
-                    return '<div class="item"><a href="#">&lt;</a></div>';
-                case 'first': // [
-                    return '<div class="item"><a href="#">&lt;&lt;</a></div>';
-                case 'last': // ]
-                    return '<div class="item"><a href="#">&gt;&gt;</a></div>';
-            }
-        };
+        //var format = function (type) {
+        //    switch (type) {
+        //        case 'block': // n and c
+        //            return '<div class="item"><a href="#">' + this.value + '</a></div>';
+        //        case 'next': // >
+        //            return '<div class="item"><a href= "#">&gt;</a></div>';
+        //        case 'prev': // <
+        //            return '<div class="item"><a href="#">&lt;</a></div>';
+        //        case 'first': // [
+        //            return '<div class="item"><a href="#">&lt;&lt;</a></div>';
+        //        case 'last': // ]
+        //            return '<div class="item"><a href="#">&gt;&gt;</a></div>';
+        //    }
+        //};
 
-        var pager = $("#matriz-imagenes-paginacion").paging(numRegistros, {
-            format: '[< ncnnn >]',
-            onClick: function (ev) {
-                ev.preventDefault();
-                var page = $(this).data('page');
-                pager.setPage(page);
-                waitingDialog({});
-                _obtenerImagenes(_editData, page, false);
-            },
-            onFormat: format
-        });
+        _paginador.paginar(numRegistros);
+
+        //var pager = $("#matriz-imagenes-paginacion").paging(numRegistros, {
+        //    format: '[< ncnnn >]',
+        //    onClick: function (ev) {
+        //        ev.preventDefault();
+        //        var page = $(this).data('page');
+        //        pager.setPage(page);
+        //        waitingDialog({});
+        //        _obtenerImagenes(_editData, page, false);
+        //    },
+        //    onFormat: format
+        //});
     };
 
     var _mostrarListaImagenes = function(editData) {

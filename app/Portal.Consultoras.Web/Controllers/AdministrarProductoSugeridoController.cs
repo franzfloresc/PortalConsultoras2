@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenerImagenesByCUV(int paisID, int campaniaID, string cuv)
+        public JsonResult ObtenerMatriz(int paisID, int campaniaID, string cuv)
         {
             BEPais pais = new BEPais();
             int nroCampanias = -1;

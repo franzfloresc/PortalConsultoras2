@@ -7,6 +7,7 @@
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercial.js")" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -19,8 +20,7 @@
 
         matrizComercialObj = MatrizComercial({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
-            getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "MatrizComercial")',
-            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
+            getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "MatrizComercial")'
         });
 
         fnGrilla();

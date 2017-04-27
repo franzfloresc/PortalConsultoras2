@@ -5,7 +5,9 @@
 
 @Html.HiddenFor(model => model.PaisIDUser)
 
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/ProductoSugerido.js")" type="text/javascript"></script>
 
 <div class="wrap_cab">
     <div class="filtros">
@@ -131,72 +133,11 @@
         </div>
         <div class="div-3 divPanelImagen">
             <div class="titG">
-                Imagen:
+                <span>Imagen:</span>
                 <div id="fpUpload"></div>
-                <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
-                <script type="text/javascript">
-                    var uploader = new qq.FileUploader({
-                        allowedExtensions: ['jpg', 'png', 'jpeg'],
-                        element: document.getElementById('fpUpload'),
-                        action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                        onComplete: function (id, fileName, responseJSON) {
-                            if (checkTimeout(responseJSON)) {
-                                //$(".qq-upload-list").css("display", "none");
-                                if (responseJSON.success) ActualizarImagenMatriz(responseJSON.name);
-                                else alert(responseJSON.message);
-                            }
-                        },
-                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                    });
-
-                    function ActualizarImagenMatriz(imagenSource) {
-                        var item = {
-                            CodigoSAP: $.trim($('#hdnCodigoSAP').val()),
-                            Descripcion: $.trim($('#hdnDescripcion').val()),
-                            DescripcionOriginal: $.trim($('#hdnDescripcionOriginal').val()),
-                            PaisID: $('#ddlPais').val()
-                        };
-
-                        var idImagen, dataImagen, i = 0;
-                        $.each($('.div-img-matriz-comercial:visible'), function (ind) {
-                            i = ind + 1;
-                            idImagen = ('0' + i).substr(-2);
-                            dataImagen = $('#preview' + idImagen).attr('src');
-                            
-                            item['FotoProducto' + idImagen] = dataImagen.substr(dataImagen.lastIndexOf("/") + 1);
-                            item['FotoProductoAnterior' + idImagen] = dataImagen.substr(dataImagen.lastIndexOf("/") + 1);
-                        });
-
-                        idImagen = ('0' + ++i).substr(-2);
-                        item['FotoProducto' + idImagen] = imagenSource;
-
-                        var idMatrizComercial = $.trim($('#hdnIdMatrizComercial').val());
-                        var accion = (idMatrizComercial == "0" ? baseUrl + 'MatrizComercial/InsertMatrizComercial' : baseUrl + 'MatrizComercial/UpdateMatrizComercial');
-                        jQuery.ajax({
-                            type: 'POST',
-                            url: accion,
-                            dataType: 'json',
-                            contentType: 'application/json; charset=utf-8',
-                            data: JSON.stringify(item),
-                            async: true,
-                            success: function (data) {
-                                if (!checkTimeout(data)) return false;
-
-                                closeWaitingDialog();
-                                alert(data.message);
-                                if (data.success == true) CargarImagenSugerido();
-                            },
-                            error: function (data, error) {
-                                if (!checkTimeout(data)) return false;
-
-                                closeWaitingDialog();
-                                alert(data.message);
-                            }
-                        });
-                    }
-                </script>
+            </div>
+            <div>
+                <div id="matriz-imagenes-paginacion"></div>
             </div>
             @Html.Partial("ListadoImagenesMatriz")
             <div id="matriz-comercial-lista-imagenes"></div>
@@ -218,8 +159,13 @@
     var imageUrlVacio = '@Url.Content("~/Content/Images/prod_grilla_vacio.png")';
     var imagen = "";
     var siguienteIndice;
+    var productoSugeridoObj;
 
     jQuery(document).ready(function () {
+        productoSugeridoObj = ProductoSugerido({
+            obtenerMatrizAction: '@Url.Action("ObtenerMatriz", "AdministrarProductoSugerido")',
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")'
+        });
         CargarDialog();
         CargarEventos();
     });
@@ -266,7 +212,7 @@
             showDialog("DialogRegistroProductoSugerido");
         });
                
-        $("#txtCUVSugeridoModal").change(function () {
+        $("#txtCUVSugeridoModal,#ddlCampaniaModal").change(function () {
             CargarImagenSugerido();
         });
 
@@ -274,10 +220,6 @@
             if ($(this).val().length == 5) {
                 $("#txtOrdenModal").focus();
             }
-        });
-
-        $("#ddlCampaniaModal").change(function () {
-            CargarImagenSugerido();
         });
 
         var chkImagenProductoOnClick = function () {
@@ -490,7 +432,8 @@
 
         waitingDialog({});
         var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
-        obtenerImagenesByCUV(params).done(function (data) {
+
+        productoSugeridoObj.obtenerMatriz(params).done(function (data) {
             if (data) {
                 $(".divPanelImagen img").attr("src", imageUrlVacio);
                 $(".chkImagenProducto").prop('checked', false);
@@ -502,26 +445,25 @@
                 }
 
                 CargarDatosMatrizComercial(data.matriz, imagen);
+
+                $("#fpUpload").empty();
+                productoSugeridoObj.crearObjetoUpload(obtenerParametrosFileUpload(data.matriz));
+
                 closeWaitingDialog();
             }
         });
     }
 
-    var obtenerImagenesByCUV = function (params) {
-        return $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerImagenesByCUV', params, function (data) {
-            if (!checkTimeout(data)) {
-                closeWaitingDialog();
-                return false;
-            }
-            if (data.success != true) {
-                closeWaitingDialog();
-                alert(data.message);
-                return false;
-            }
-
-            return data;
-        });
-    };
+    function obtenerParametrosFileUpload(matriz) {
+        return {
+            elementId: 'fpUpload',
+            idMatrizComercial: matriz.IdMatrizComercial,
+            idImagenMatriz: 0,
+            paisID: paisID,
+            codigoSAP: matriz.CodigoSAP,
+            descripcionOriginal: matriz.DescripcionProductoComercial
+        };
+    }
 
     function RegistroLimpiar() {
         $(".man").val("");
@@ -617,6 +559,8 @@
         $('.divAppCatalogo').show();
 
         SetHandlebars('#matriz-comercial-listado-imagenes-template', matriz, '#matriz-comercial-lista-imagenes');
+
+        $("#matriz-imagenes-paginacion").empty();
     }
 
     $.jgrid.extend({
@@ -637,7 +581,7 @@
             $.ajaxSetup({ cache: false });
 
             var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
-            obtenerImagenesByCUV(params).done(function (data) {
+            productoSugeridoObj.obtenerMatriz(params).done(function (data) {
                 if (data) {
                     $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                     $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
@@ -654,6 +598,10 @@
                     imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
 
                     CargarDatosMatrizComercial(data.matriz, imgRow);
+
+                    $("#fpUpload").empty();
+                    productoSugeridoObj.crearObjetoUpload(obtenerParametrosFileUpload(data.matriz));
+
                     showDialog("DialogRegistroProductoSugerido");
                     closeWaitingDialog();
                 }
