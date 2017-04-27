@@ -35657,7 +35657,7 @@ h1#penmostreo .campana {
     text-align:center;
 }
    .valorizado_carrusel_ODD span {
-         text-decoration: line-through;
+         /*text-decoration: line-through;*/
     }
 .precio_carrusel_ODD{
     font-family:'Lato';
