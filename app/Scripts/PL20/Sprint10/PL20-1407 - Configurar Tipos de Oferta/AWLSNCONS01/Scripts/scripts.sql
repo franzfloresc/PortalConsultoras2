@@ -584,6 +584,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpChile
 go
 
@@ -1165,6 +1209,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 
@@ -1756,6 +1844,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpCostaRica
 go
 
@@ -2337,6 +2469,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 
@@ -2928,6 +3104,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpEcuador
 go
 
@@ -3509,6 +3729,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 
@@ -4100,6 +4364,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpMexico
 go
 
@@ -4681,6 +4989,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 
@@ -5272,6 +5624,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpPeru
 go
 
@@ -5853,6 +6249,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 
@@ -6444,6 +6884,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpSalvador
 go
 
@@ -7030,6 +7514,50 @@ end
 
 go
 
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
+
+end
+
+go
+
 USE BelcorpVenezuela
 go
 
@@ -7611,6 +8139,50 @@ set
 	Activo = @Activo
 where
 	TipoOfertaID = @TipoOfertaID
+
+end
+
+go
+
+alter procedure ShowRoom.GetShowRoomConsultora
+@CampaniaID int,
+@CodigoConsultora varchar(20)
+as
+/*
+ShowRoom.GetShowRoomConsultora 201706,'0012954'
+ShowRoom.GetShowRoomConsultora 201706,'1615995'
+*/
+begin
+
+declare @EsConsultoraShowRoom int = 0
+
+if exists (select 1 from ShowRoom.EventoConsultora where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora)
+begin
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,MostrarPopup,
+MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @CodigoConsultora
+order by FechaCreacion desc
+
+end
+else
+begin
+
+declare @ConsultoraGenerica varchar(50) = ''
+select @ConsultoraGenerica = Codigo from TablaLogicaDatos where TablaLogicaDatosID = 10001
+
+select top 1
+EventoConsultoraID,EventoID,CampaniaID,CodigoConsultora,Segmento,1 as MostrarPopup,
+1 as MostrarPopupVenta,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,
+Suscripcion,Envio,CorreoEnvioAviso
+from ShowRoom.EventoConsultora
+where CampaniaID = @CampaniaID and CodigoConsultora = @ConsultoraGenerica
+order by FechaCreacion desc
+
+end
 
 end
 

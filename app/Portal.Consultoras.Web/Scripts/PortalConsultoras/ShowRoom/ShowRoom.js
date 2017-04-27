@@ -319,7 +319,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
             }
         }
     });
-
+     
 
 
     var origen = $(article).find(".origenPedidoWeb").val() || 0;
