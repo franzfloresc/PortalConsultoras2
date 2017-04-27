@@ -55,13 +55,15 @@
                                     <span class="info_fecha">@evento.Fecha</span>
                                 </div>
                                 <div class="contenido_item_observaciones">
+                                    @if (evento.Observacion != "" && @evento.Observacion != null)
+                                    {
                                     <div class="icono_alert">
                                         <img src="~/Content/Images/Lbel/icono_advertencia_notificacion.svg" />
                                     </div>
                                     <div class="info_observaciones">
                                         <span class="info_observacion">@evento.Observacion</span>
-                                        <span class="info_codigo">7105 H 005874</span>
                                     </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -543,7 +545,7 @@
 
     .contenido_item_estado, .contenido_item_observaciones {
         font-size: 12px;
-        font-family: 'Lato Light';
+        font-family: 'Lato';
         font-weight: 300;
         letter-spacing: 0.1px;
         line-height:17.5px;
