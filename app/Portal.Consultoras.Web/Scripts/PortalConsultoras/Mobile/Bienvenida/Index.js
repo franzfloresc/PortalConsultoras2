@@ -299,7 +299,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     ShowLoading();
@@ -307,7 +306,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    messageInfo(data.message);
+                    //messageInfo(data.message);
+                    AbrirPopupPedidoReservado(data.message,'2');
                 }
                 else fnRedireccionar();
             }

@@ -34,8 +34,8 @@ $(document).ready(function () {
             }
 
             //EPD-1780
-            if ($('#dialog_SesionMainLayout').is(':visible')) {
-                $('#dialog_SesionMainLayout').hide();
+            if ($('#dialog_PedidoReservado').is(':visible')) {
+                $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
             //Fin EPD-1780
@@ -343,7 +343,6 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
-    debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
