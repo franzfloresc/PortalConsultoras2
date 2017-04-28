@@ -240,5 +240,11 @@
             Reservado = 3,
             HorarioRestringido = 4
         }
+
+        public enum TipoLogin
+        {
+            Normal = 1,
+            Facebook = 2
+        }
     }
 }

@@ -1,0 +1,364 @@
+/*INI: Loading*/
+.content-spinner2 {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(240, 240, 240, 0.3);
+    z-index: 99999;
+    display: none;
+}
+
+.busy-loader {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    margin-left: -45px;
+    margin-top: -45px;
+}
+
+    .busy-loader .w-ball-wrapper {
+        position: absolute;
+        width: 86px;
+        height: 86px;
+        opacity: 0;
+        -moz-transform: rotate(225deg);
+        -moz-animation: orbit 4.4s infinite;
+        -webkit-transform: rotate(225deg);
+        -webkit-animation: orbit 4.4s infinite;
+        -ms-transform: rotate(225deg);
+        -ms-animation: orbit 4.4s infinite;
+        -o-transform: rotate(225deg);
+        -o-animation: orbit 4.4s infinite;
+        -webkit-transform: rotate(225deg);
+        -ms-transform: rotate(225deg);
+        transform: rotate(225deg);
+        -webkit-animation: orbit 4.4s infinite;
+        animation: orbit 4.4s infinite;
+    }
+
+        .busy-loader .w-ball-wrapper .w-ball {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            background: #FFFFFF;
+            left: 0px;
+            top: 0px;
+            -o-border-radius: 11px;
+            border-radius: 11px;
+        }
+
+    .busy-loader .ball-1 {
+        -webkit-animation-delay: 0.96s;
+        -ms-animation-delay: 0.96s;
+        animation-delay: 0.96s;
+    }
+
+    .busy-loader .ball-2 {
+        -webkit-animation-delay: 0.19s;
+        -ms-animation-delay: 0.19s;
+        animation-delay: 0.19s;
+    }
+
+    .busy-loader .ball-3 {
+        -webkit-animation-delay: 0.38s;
+        -ms-animation-delay: 0.38s;
+        animation-delay: 0.38s;
+    }
+
+    .busy-loader .ball-4 {
+        -webkit-animation-delay: 0.58s;
+        -ms-animation-delay: 0.58s;
+        animation-delay: 0.58s;
+    }
+
+    .busy-loader .ball-5 {
+        -webkit-animation-delay: 0.77s;
+        -ms-animation-delay: 0.77s;
+        animation-delay: 0.77s;
+    }
+
+@-webkit-keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -webkit-transform: rotate(180deg);
+        -webkit-animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -webkit-transform: rotate(300deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin: 0%;
+    }
+
+    30% {
+        opacity: 1;
+        -webkit-transform: rotate(410deg);
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -webkit-transform: rotate(645deg);
+        -webkit-animation-timing-function: linear;
+        -webkit-origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -webkit-transform: rotate(770deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -webkit-transform: rotate(900deg);
+        -webkit-animation-timing-function: ease-out;
+        -webkit-origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+    }
+}
+
+@-ms-keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -ms-transform: rotate(180deg);
+        -ms-animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -ms-transform: rotate(300deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin: 0%;
+    }
+
+    30% {
+        opacity: 1;
+        -ms-transform: rotate(410deg);
+        -ms-animation-timing-function: ease-in-out;
+        -ms-origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -ms-transform: rotate(645deg);
+        -ms-animation-timing-function: linear;
+        -ms-origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -ms-transform: rotate(770deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -ms-transform: rotate(900deg);
+        -ms-animation-timing-function: ease-out;
+        -ms-origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -ms-transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -ms-transform: rotate(900deg);
+    }
+}
+
+@keyframes orbit {
+    0% {
+        opacity: 1;
+        z-index: 99;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+    }
+
+    7% {
+        opacity: 1;
+        -webkit-transform: rotate(300deg);
+        transform: rotate(300deg);
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        origin: 0%;
+    }
+
+    30% {
+        opacity: 1;
+        -webkit-transform: rotate(410deg);
+        transform: rotate(410deg);
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        origin: 7%;
+    }
+
+    39% {
+        opacity: 1;
+        -webkit-transform: rotate(645deg);
+        transform: rotate(645deg);
+        -webkit-animation-timing-function: linear;
+        animation-timing-function: linear;
+        origin: 30%;
+    }
+
+    70% {
+        opacity: 1;
+        -webkit-transform: rotate(770deg);
+        transform: rotate(770deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        origin: 39%;
+    }
+
+    75% {
+        opacity: 1;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+        -webkit-animation-timing-function: ease-out;
+        animation-timing-function: ease-out;
+        origin: 70%;
+    }
+
+    76% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(900deg);
+        transform: rotate(900deg);
+    }
+}
+/*FIN: Loading*/
+
+/*INI: Popups Mensajes*/
+.MensajeAlertaMobile {
+    position: fixed;
+    z-index: 2010;   
+    display:none;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    top: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+.content_mensajeAlerta {
+    width: 100%;
+    height: 100%;
+    /* height: 0; */
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cerrar_popMobile {
+    cursor:pointer;
+    width: 19px;
+    height: 19px;
+    display: block;
+    position: relative;
+    /* direction: ltr; */
+    right: 0;
+    float: right;
+    /* text-align: right; */
+}
+
+    .cerrar_popMobile img {
+        width: 100%;
+    }
+
+.icono_alerta {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.check_icono_mobile {
+    background: url("../../Images/Esika/icono_check_esika.svg") no-repeat;
+    background-size: cover;
+}
+
+.exclamacion_icono_mobile {
+    background: url("../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
+    background-size: cover;
+   
+}
+
+.icono_alerta img {
+    width: 100%;
+}
+
+.titulo_compartir {
+    font-family: 'Lato';
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 0.82;
+    text-align: center;
+    color: #000000;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.mensaje_alerta {
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    margin-top: 13px;
+    margin-bottom: 23px;
+    color: black;
+}
+
+.btn_ok_mobile {
+    margin: 0 auto;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    display: block;
+    background-color: #e81c36;
+    margin-bottom: 20px;
+    color:#FFF!important;
+    text-decoration:none!important;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+}
+
+@media only screen and (max-width : 425px) {
+    .titulo_compartir {
+        font-size: 19px;
+        line-height: 28px;
+    }
+}
+/*FIN: Popups Mensajes*/
