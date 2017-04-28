@@ -1044,7 +1044,7 @@ function AbrirModalCliente() {
     */
 
     if (gTipoUsuario == '2') {
-        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
         $('#dialog_MensajePostulante').show();
         return false;
