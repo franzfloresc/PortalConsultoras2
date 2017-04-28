@@ -1287,6 +1287,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.IndicadorMontoMinimo = odd.IndicadorMontoMinimo;
                 oddModel.TipoEstrategiaImagenMostrar = odd.TipoEstrategiaImagenMostrar;
                 oddModel.TeQuedan = countdown;
+                
                 //if (contOdd == 0)
                 //{
                     var imgBanner = odd.FotoProducto01;
@@ -1315,12 +1316,15 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.DescripcionOferta = descripcionODD;
                 oddModel.PrecioOferta = odd.Precio2;
                 oddModel.PrecioCatalogo = odd.Precio;
-
                 oddModel.TieneOfertaDelDia = true;
+                oddModel.Orden = odd.Orden;
 
                 /*PL20-1226*/
                 listaOdd.Add(oddModel);
             }
+
+            listaOdd = listaOdd.OrderBy(odd => odd.Orden).ToList();
+
             return listaOdd;
         }
 

@@ -1807,7 +1807,12 @@
             if(codigo == ""){
                 alert_msg("El codigo de Tipo de Oferta no puede ser vacio");
                 return false;
-            }            
+            }
+
+            if (descripcion == "") {
+                alert_msg("La descripción del Tipo de Oferta no puede ser vacio");
+                return false;
+            }
            
             var existeTipoOferta = ExisteTipoOferta(tipoOfertaId, codigo, descripcion);
             if (existeTipoOferta != 0) {                
