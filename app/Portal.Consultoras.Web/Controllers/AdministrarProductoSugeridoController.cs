@@ -229,7 +229,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
-                if(matriz!=null)
+                if(matriz != null && matriz.IdMatrizComercial!=0)
                 {
                     imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.IdMatrizComercial, 1, 10).ToList();
                 }
@@ -242,14 +242,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model = Mapper.Map<MatrizComercialResultadoModel>(matriz);
 
-                var carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
-                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                if(imagenes != null)
+                {
+                    var carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
+                    var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-                Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-                    .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+                    Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
+                        .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
 
-                model.Imagenes = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(imagenes);
-                totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
+                    model.Imagenes = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(imagenes);
+                    totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
+                }else
+                {
+                    model.Imagenes = new List<MatrizComercialImagen>();
+                }
 
                 int nroCampaniasAtras = 0;
                 Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);

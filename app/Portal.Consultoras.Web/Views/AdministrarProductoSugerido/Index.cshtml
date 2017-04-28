@@ -163,6 +163,7 @@
     var imagen = "";
     var siguienteIndice;
     var productoSugeridoObj;
+    var numeroImagenesPorPagina = 10;
 
     jQuery(document).ready(function () {
         productoSugeridoObj = ProductoSugerido({
@@ -171,7 +172,8 @@
             paisID: paisID,
             obtenerMatrizAction: '@Url.Action("ObtenerMatriz", "AdministrarProductoSugerido")',
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
-            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")'
+            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina
         });
         CargarDialog();
         CargarEventos();
@@ -214,7 +216,7 @@
             RegistroLimpiar();
 
             $("#ddlCampaniaModal").val($.trim($("#ddlCampania").val()));
-            $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));            
+            $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));
 
             showDialog("DialogRegistroProductoSugerido");
         });
@@ -230,14 +232,12 @@
         });
 
         var chkImagenProductoOnClick = function () {
-            var che = $(this).attr('checked');
-            imagen = "";
+            imagen = '';
 
             $(".chkImagenProducto").prop('checked', false);
-            if (che) {
-                $(this).attr('checked', 'checked');
-                imagen = $(this).attr('value');
-            }
+            $(this).attr('checked', 'checked');
+            imagen = $(this).attr('value');
+
         };
 
         var imagenOnClick = function () {
@@ -452,7 +452,9 @@
                 }
 
                 $("#matriz-imagenes-paginacion").empty();
-                productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
+                if (data.totalImagenes.length > numeroImagenesPorPagina) {
+                    productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
+                }
 
                 CargarDatosMatrizComercial(data.matriz, imagen);
 
@@ -466,7 +468,6 @@
 
     function obtenerParametrosFileUpload(matriz) {
         return {
-            elementId: 'fpUpload',
             idMatrizComercial: matriz.IdMatrizComercial,
             idImagenMatriz: 0,
             paisID: paisID,
@@ -478,6 +479,8 @@
     function RegistroLimpiar() {
         $(".man").val("");
         $("#chkHabilitar").prop('checked', false);
+        $("#matriz-imagenes-paginacion").empty();
+        $("#fpUpload").empty();
         LimpiarDatosMatrizComercial();
     }
 
@@ -570,6 +573,9 @@
         var params = { imagenes: matriz.Imagenes };
         productoSugeridoObj.mostrarListaImagenes(params);
 
+        $("#previewAppCatalogo").attr('src', matriz.FotoProductoAppCatalogo);
+        $("#chkImagenProductoAppCatalogo").attr('value', matriz.FotoProductoAppCatalogo);
+
         //marcar el checkbox de la imagen del registro seleccionado
         marcarCheckRegistro(imgRow);
     }
@@ -613,8 +619,17 @@
                     var imgRow = jQuery("#list").jqGrid('getCell', rowPk, 'ImagenProducto') || "";
                     imgRow = imgRow == imageUrlVacio ? "" : $.trim(imgRow);
 
+                    if (!data.matriz) {
+                        $(".chkImagenProducto").attr('disabled', true);
+                        showDialog("DialogRegistroProductoSugerido");
+                        closeWaitingDialog();
+                        return false;
+                    }
+
                     $("#matriz-imagenes-paginacion").empty();
-                    productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
+                    if (data.totalImagenes > numeroImagenesPorPagina) {
+                        productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
+                    }
 
                     CargarDatosMatrizComercial(data.matriz, imgRow);
 
