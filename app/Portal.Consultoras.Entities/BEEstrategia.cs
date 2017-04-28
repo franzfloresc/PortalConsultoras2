@@ -151,6 +151,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int TieneVariedad { get; set; }
 
+        /// <summary>
+        /// Url para compartir, es llenado en el servicio de estrategia
+        /// GetEstrategiasPedido
+        /// </summary>
+        [DataMember]
+        public string UrlCompartirFB { get; set; }
+
         public BEEstrategia()
         { }
 
