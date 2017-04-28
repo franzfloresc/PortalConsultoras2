@@ -12,6 +12,7 @@ $(document).ready(function () {
     });
 
     $('#btnLoginFB').addClass('center_facebook');
+
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
@@ -164,6 +165,7 @@ $(document).ready(function () {
         waitingDialog();
 
         $('#HdePaisID').val(PaisID);
+        // disable click
         $('#ddlPais option:not(:selected)').prop('disabled', true);
         $('#txtUsuario').attr('readonly', true);
         $('#txtContrasenia').attr('readonly', true);
@@ -580,25 +582,26 @@ function login2() {
     $('#txtContrasenia').val(Contrasenia);
 
     $('#HdePaisID').val(PaisID);
-    // prevent click
+    // disable click
     $('#ddlPais option:not(:selected)').prop('disabled', true);
     $('#txtUsuario').attr('readonly', true);
     $('#txtContrasenia').attr('readonly', true);
     $('#btnLogin').prop('disabled', true);
 
     //$('.content_pop_login').hide();
-    $('#btnLoginFB').prop('disabled', true);
+    //$('#btnLoginFB').prop('disabled', true);
 
     waitingDialog();
 
     //$('#frmLogin').submit();
     var form = $('#frmLogin');
     var token = $('input[name="__RequestVerificationToken"]', form).val();
+    var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
 
     $.ajax({
         type: 'POST',
         url: '/Login/Login',
-        data: form.serialize()+"&returlUrl=" + $('#returnUrl').val(),
+        data: postData,
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
@@ -610,10 +613,10 @@ function login2() {
                 }
             }
             else {
+                //console.log(response);
                 $('#ErrorTextLabel2').html(response.message);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
-
                 return false;
             }
         },
@@ -627,7 +630,7 @@ function login2() {
 }
 
 function closePopupAsociarLoginExt() {
-    // disable prevent submit
+    // enable click
     $('#ddlPais option:not(:selected)').prop('disabled', false);
     $('#txtUsuario').attr('readonly', false);
     $('#txtContrasenia').attr('readonly', false);

@@ -284,6 +284,8 @@
                         //$('#spnLoginFB').text(data.name);
 
                         if (opt == 2) {
+                            var lc = (typeof response.location === 'object') ? response.location.name : "";
+                            var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
                             $('#hdeProveedor').val('Facebook');
                             $('#hdeIdApp').val(response.id);
                             $('#hdeLogin').val(response.name);
@@ -292,12 +294,14 @@
                             $('#hdeFechaNacimiento').val(response.birthday);
                             $('#hdeCorreo').val(response.email);
                             $('#hdeGenero').val(response.gender);
-                            $('#hdeUbicacion').val(response.location);
+                            $('#hdeUbicacion').val(lc);
                             $('#hdeLinkPerfil').val(response.link);
-                            $('#hdeFotoPerfil').val(response.picture.data.url);
+                            $('#hdeFotoPerfil').val(fp);
 
                             $('#txtUsuario2').val('');
                             $('#txtContrasenia2').val('');
+                            $('#ErrorTextLabel2').html('');
+
                             $('.nombre_usuario_facebook').text(response.name);
                             $('.foto_pop_face img').attr('src', response.picture.data.url);
 
@@ -721,6 +725,7 @@
             <div class="texto_login">
                 <b class="solo_texto_paso">Solo un paso más... </b> Por favor ingresa tu usuario y contraseña de <b style="font-size:16px;">SomosBelcorp</b> por única vez para asociarlo.
             </div>
+
             <div class="content_foto_face_pop">
                 <div class="foto_pop_face"> <img src=""/></div>
                 <div class="nombre_usuario_facebook">Valeria</div>
@@ -766,6 +771,7 @@
                 
             </div>
             <hr class="clear" />
+
             <div class="boxform">
                 <div class="formbtn">
                     <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
@@ -773,16 +779,7 @@
                     </div>
                 </div>
             </div>
-            <div class="formbtn">
-                <label for="">
-                    <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
-                </label>
-                <br>
-            </div>
-            <hr class="clear" />
-            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
 
-            <br />
             <div id="divMensajeError2" class="boxform" style="display: none;">
                 <div class="formbtn">
                     <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
@@ -791,6 +788,15 @@
                 </div>
             </div>
 
+            <div class="formbtn">
+                <label for="">
+                    <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                </label>
+                <br>
+            </div>
+            <hr class="clear" />
+
+            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
         </div>
     </div>
 </div>

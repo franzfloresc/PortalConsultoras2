@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validaLogin != null && validaLogin.Result == 3)
                 {
-                    //MC-EPD1837
+                    //EPD-1837
                     if (model.UsuarioExterno != null)
                     {
                         var userExtModel = model.UsuarioExterno;
@@ -158,15 +158,24 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+                        else
+                        {
+                            if (Request.IsAjaxRequest())
+                            {
+                                return Json(new
+                                {
+                                    success = false,
+                                    message = "No se pudo registrar los datos"
+                                });
+                            }
+                        }
                     }
-                    //MC-EPD1837
+                    //EPD-1837
 
                     return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
                 }
                 else
                 {
-                    TempData["errorLogin"] = validaLogin.Mensaje;
-
                     if (Request.IsAjaxRequest())
                     {
                         return Json(new
@@ -176,13 +185,14 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
 
+                    TempData["errorLogin"] = validaLogin.Mensaje;
+
                     return RedirectToAction("Index", "Login");
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
-                TempData["errorLogin"] = "Error al procesar la solicitud";
 
                 if (Request.IsAjaxRequest())
                 {
@@ -192,12 +202,13 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "Error al procesar la solicitud"
                     });
                 }
+
+                TempData["errorLogin"] = "Error al procesar la solicitud";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
-                TempData["errorLogin"] = "Error al procesar la solicitud";
-
+                
                 if (Request.IsAjaxRequest())
                 {
                     return Json(new
@@ -206,6 +217,8 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "Error al procesar la solicitud"
                     });
                 }
+
+                TempData["errorLogin"] = "Error al procesar la solicitud";
             }
 
             return RedirectToAction("Index", "Login");
@@ -242,12 +255,13 @@ namespace Portal.Consultoras.Web.Controllers
                 pasoLog = "Login.Redireccionar.SetAuthCookie";
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
-                // EPD-1837
+                //EPD-1837
                 if (hizoLoginExterno)
                 {
                     usuario.HizoLoginExterno = true;
                     Session["UserData"] = usuario;
                 }
+                //EPD-1837
 
                 //EPD-1968
                 string decodedUrl = "";
@@ -261,7 +275,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (esMovil)
                     {
-                        //EPD-1968
                         if (Request.IsAjaxRequest())
                         {
                             string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
@@ -273,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
+                            //EPD-1968
                             if (Url.IsLocalUrl(decodedUrl))
                             {
                                 return Redirect(decodedUrl);
@@ -290,7 +304,6 @@ namespace Portal.Consultoras.Web.Controllers
                             Session["PrimeraVezSession"] = 0;
                         }
 
-                        //EPD-1968
                         if (Request.IsAjaxRequest())
                         {
                             string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -302,6 +315,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else 
                         {
+                            //EPD-1968
                             if (Url.IsLocalUrl(decodedUrl))
                             {
                                 return Redirect(decodedUrl);
@@ -315,7 +329,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    //EPD-1968
                     if (Request.IsAjaxRequest())
                     {
                         return Json(new
@@ -324,7 +337,9 @@ namespace Portal.Consultoras.Web.Controllers
                             redirectTo = Url.Action("Index", "Bienvenida")
                         });
                     }
-                    else {
+                    else 
+                    {
+                        //EPD-1968
                         if (Url.IsLocalUrl(decodedUrl))
                         {
                             return Redirect(decodedUrl);
@@ -340,7 +355,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (Request.IsAjaxRequest())
                 {
-                    //string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
                     return Json(new
                     {
                         success = false,

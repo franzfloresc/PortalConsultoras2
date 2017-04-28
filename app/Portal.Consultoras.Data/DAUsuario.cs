@@ -302,26 +302,27 @@ namespace Portal.Consultoras.Data
         }
 
         /*EPD-1012*/
-        public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
+        public IDataReader GetValidarLoginSB2(string codigoUsuario, string contrasenia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin2_SB2");
-            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
-            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin2_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, contrasenia);
 
             return Context.ExecuteReader(command);
         }
         /*EPD-1012*/
 
+        /*EPD-2340*/
         public IDataReader GetValidarAutoLoginSB2(string codigoUsuario, string proveedor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin_SB2");
-            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
             Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
 
             return Context.ExecuteReader(command);
         }
+        /*EPD-2340*/
 
         public IDataReader GetInfoPreLoginConsultoraCatalogo(string CodigoUsuario)
         {

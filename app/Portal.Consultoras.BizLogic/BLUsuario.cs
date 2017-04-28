@@ -456,12 +456,12 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /*EPD-1012*/
-        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string CodigoUsuario, string Contrasenia)
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
         {
             BEValidaLoginSB2 validaLogin = null; 
             var DAUsuario = new DAUsuario(paisID);
 
-            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(CodigoUsuario, Contrasenia))
+            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
             {
                 if (reader.Read())
                     validaLogin = new BEValidaLoginSB2(reader);
@@ -471,6 +471,7 @@ namespace Portal.Consultoras.BizLogic
         }
         /*EPD-1012*/
 
+        /*EPD-2340*/
         public BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
@@ -484,6 +485,7 @@ namespace Portal.Consultoras.BizLogic
 
             return validaLogin;
         }
+        /*EPD-2340*/
 
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
