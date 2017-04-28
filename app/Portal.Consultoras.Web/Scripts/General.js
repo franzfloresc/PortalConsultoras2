@@ -449,13 +449,25 @@ function CerrarLoad(opcion) {
     }
 }
 
-function AbrirMensaje(mensaje, titulo, fnAceptar) {
+function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
         titulo = titulo || "MENSAJE";
+        var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
         if (isUrlMobile > 0) {
+            $('.icono_alerta').hide();
+            if (tipoIcono ==  CONS_TIPO_ICONO.ALERTA) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
+            if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
+                $('.icono_alerta.check_icono_mobile').show();
+            }
+            if (tipoIcono == undefined || tipoIcono == null) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
+            $('#popupInformacionValidado #bTagTitulo').html(titulo);
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionValidado .btn_ok_mobile').off('click');
                 $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);

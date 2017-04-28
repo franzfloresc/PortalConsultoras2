@@ -5,7 +5,7 @@ var ventanaChat = null;
 $(document).ready(function () {
 
     if (tieneOfertaDelDia == "True") {
-        ODDCargar();
+        window.OfertaDelDia.CargarODD();
     }
     
     $(document).keyup(function (e) {

@@ -745,9 +745,9 @@
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto"/>
                                     <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
-                                    <div class="titulo_carrusel_ODD">{{detalle.ID}} {{detalle.NombreOferta}}</div>
+                                    <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN {{../Simbolo}} {{detalle.PrecioCatalogoFormat}}</div>
+                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{../Simbolo}} {{detalle.PrecioCatalogoFormat}}</span></div>
                                     {{/iff}}
                                     <div class="precio_carrusel_ODD">{{../Simbolo}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
@@ -813,6 +813,7 @@
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
 
         var clock;
+        var TipoOrigenPantallaODD = 1;
     </script>
     
 

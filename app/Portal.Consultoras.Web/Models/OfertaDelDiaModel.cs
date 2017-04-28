@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionOferta { get; set; }
         public int Cantidad { get; set; }
         public bool TieneOfertaDelDia { get; set; }
+        public int Orden { get; set; }
         public List<OfertaDelDiaModel> ListaOfertas { get; set; }
 
         public string PrecioOfertaFormat
