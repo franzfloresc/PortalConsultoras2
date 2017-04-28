@@ -304,7 +304,7 @@ namespace Portal.Consultoras.Data
         /*EPD-1012*/
         public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin2_SB2");
             //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
@@ -312,6 +312,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1012*/
+
+        public IDataReader GetValidarAutoLoginSB2(string codigoUsuario, string proveedor)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin_SB2");
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLoginTest_SB2");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
+
+            return Context.ExecuteReader(command);
+        }
 
         public IDataReader GetInfoPreLoginConsultoraCatalogo(string CodigoUsuario)
         {

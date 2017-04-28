@@ -13,6 +13,26 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     using System;
     
     
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="EAplicacionOrigen", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    public enum EAplicacionOrigen : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        BienvenidaConsultora = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        MisDatosConsultora = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ActualizarClaveSAC = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        RecuperarClave = 4,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ConsultoraFicticia = 5,
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioPostulante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
@@ -4040,26 +4060,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="EAplicacionOrigen", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    public enum EAplicacionOrigen : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        BienvenidaConsultora = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        MisDatosConsultora = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ActualizarClaveSAC = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        RecuperarClave = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ConsultoraFicticia = 5,
-    }
-    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEKitNueva", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
@@ -6114,6 +6114,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
+        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
+        System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);
         
@@ -6698,11 +6704,11 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
-        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2Response")]
+        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
-        System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2Response")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginSB2Async(int paisID, string codigoUsuario, string proveedor);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6730,6 +6736,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public UsuarioServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
+            return base.Channel.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
+            return base.Channel.CambiarClaveUsuarioAsync(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
         
         public int ExisteUsuario(int paisId, string codigoUsuario, string clave) {
@@ -7484,12 +7498,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetValidarLoginSB2Async(paisID, codigoUsuario, contrasenia);
         }
         
-        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
-            return base.Channel.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        public Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor) {
+            return base.Channel.GetValidarAutoLoginSB2(paisID, codigoUsuario, proveedor);
         }
         
-        public System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
-            return base.Channel.CambiarClaveUsuarioAsync(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginSB2Async(int paisID, string codigoUsuario, string proveedor) {
+            return base.Channel.GetValidarAutoLoginSB2Async(paisID, codigoUsuario, proveedor);
         }
     }
 }
