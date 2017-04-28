@@ -96,6 +96,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (query != null)
                 {
+                    if (Request.Browser.IsMobileDevice)
+                    {
+                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
+                    }
+
                     string param = Util.Decrypt(query);
                     string[] lista = param.Split(new char[] { ';' });
 
@@ -2594,6 +2599,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
+            if (Request.Browser.IsMobileDevice)
+            {
+                return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query = query });
+            }
+
             if (query != null)
             {
                 string param = Util.Decrypt(query);
@@ -2610,14 +2620,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
+
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
-                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                        OfertaID = intID;
-
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
                         Entidad.CodigoConsultora = lista[2];

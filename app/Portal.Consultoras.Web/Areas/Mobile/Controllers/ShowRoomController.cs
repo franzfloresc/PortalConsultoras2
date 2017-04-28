@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -206,12 +206,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
 
+                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
-                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                        OfertaID = intID;
-
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
                         Entidad.CodigoConsultora = lista[2];
