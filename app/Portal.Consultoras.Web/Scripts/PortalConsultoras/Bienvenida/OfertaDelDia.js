@@ -614,6 +614,7 @@
 
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
+        $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
     }
 
     function ResetearCantidadEnMobile() {
@@ -710,6 +711,10 @@
 
     $("body").on("click", ".btn_cerrar_pop_oferta_hoy", function (e) {
         $('#pop_oferta_mobile').hide('slide', { direction: 'Right' }, 500);
+    });
+
+    $("body").on("click", ".ver_detalle_carrusel", function (e) {
+        $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
     });
 
     self.CargarODD();
