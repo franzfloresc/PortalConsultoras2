@@ -633,8 +633,8 @@
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
-            prevArrow: '<a style="display: block;left: 0;margin-left: -0%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
-            nextArrow: '<a style="display: block;right: 0;margin-right: -0%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
+            prevArrow: '<a style="width:auto;display: block;left: 0;margin-left: -13%; top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
+            nextArrow: '<a style="width:auto;display: block;right: 0;margin-right: -13%; text-align:right;  top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
     });
