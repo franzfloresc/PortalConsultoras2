@@ -325,7 +325,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var urlS3 = ConfigS3.GetUrlS3(formatoArchivo.CarpetaPais);
 
-                return Json(new { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.", isNewRecord = isNewRecord, isNewImage = isNewImage, idMatrizComercial = idMatrizComercial, idMatrizComercialImagen = model.IdMatrizComercialImagen, foto = urlS3 + entity.Foto }, "text/html");
+                return Json(new
+                { success = true, message = "Se actualizó la Matriz de Productos satisfactoriamente.",
+                    isNewRecord = isNewRecord,
+                    isNewImage = isNewImage,
+                    idMatrizComercial = idMatrizComercial,
+                    idMatrizComercialImagen = model.IdMatrizComercialImagen,
+                    codigoSap= model.CodigoSAP,
+                    foto = urlS3 + entity.Foto
+                }, "text/html");
             }
             catch (FaultException ex)
             {

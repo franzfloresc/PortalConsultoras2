@@ -7,7 +7,8 @@ var ProductoSugerido = function (config) {
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction,
         paisID: config.paisID || 0,
         fileUploadElementId: config.fileUploadElementId || '',
-        matrizIdElementId: config.matrizIdElementId || ''
+        matrizIdElementId: config.matrizIdElementId || '',
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10
     };
 
     var _paginadorClick = function (page) {
@@ -69,8 +70,14 @@ var ProductoSugerido = function (config) {
             if (response.success) {
                 $('#' + _config.matrizIdElementId).val(response.idMatrizComercial);
                 if (response.isNewRecord) {
-                    //$("#file-upload-add").empty();
-                    //_crearObjetoUpload(_editData);
+                    $("#" + _config.fileUploadElementId).empty();
+                    var params = {
+                        idMatrizComercial: response.idMatrizComercial,
+                        idImagenMatriz: 0,
+                        paisID: _config.paisID,
+                        codigoSAP: response.codigoSap
+                    };
+                    _crearObjetoUpload(params);
                 }
                 var params = _obtenerParametrosGetImagenes();
                 $("#matriz-imagenes-paginacion").empty();
@@ -88,7 +95,9 @@ var ProductoSugerido = function (config) {
     };
 
     var _obtenerImagenesSuccess = function (data) {
-        _mostrarPaginacion(data.totalRegistros);
+        if (data.totalRegistros > _config.numeroImagenesPorPagina) {
+            _mostrarPaginacion(data.totalRegistros);
+        }
         _mostrarListaImagenes(data);
         
         $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
