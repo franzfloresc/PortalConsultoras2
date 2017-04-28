@@ -111,6 +111,9 @@
             <div>
                 <div id="matriz-imagenes-paginacion"></div>
             </div>
+            <div class="actions">
+                <div class="file-upload" id="file-upload"></div>
+            </div>
             <div class="div-3">
                 <div id="matriz-comercial-images" class="matriz-comercial-list">
                 </div>
@@ -161,17 +164,14 @@
     </div>
 </div>
 
-<script id="matriz-comercial-item-template" type="text/x-handlebars-template">
-    <div class="actions">
-        <div class="file-upload" id="file-upload"></div>
-    </div>
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">   
     {{#each imagenes}}
     <div class="item">
         <div class="content selectP2 borde_redondeado aligncenter">
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
         <div class="pdr_modal_check aligncenter">
-            <input type="checkbox" id="chk-estrategia-imagen{{@@index}}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="{{@@index}}">
+            <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
         </div>
        
     </div>
@@ -285,5 +285,21 @@
          jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
          jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
      }
+
+     var chkImagenProductoOnClick = function () {
+         var che = $(this).attr('checked');
+         imagen = "";
+
+         $(".chkImagenProducto").prop('checked', false);
+         if (che) {
+             $(this).attr('checked', 'checked');
+             imagen = $(this).attr('value');
+             $("#imgSeleccionada").attr("src", imagen);
+         }
+     };
+
+     $(".chkImagenProducto").on("click", chkImagenProductoOnClick);
+
+     $("#matriz-comercial-images").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
 
 </script>

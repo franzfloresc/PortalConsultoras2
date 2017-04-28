@@ -2,11 +2,14 @@
 @{
     ViewBag.Title = "Administración de Estrategias";
     string imagenVacia = "prod_grilla_vacio.png";
-    int nroImagenes = 10;
 }
 
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
-<script src="@Url.Content("~/Scripts/AdminEstrategia/Estrategia.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Estrategia.js")" type="text/javascript"></script>
 
 <input type="hidden" id="mensajeErrorCUV" />
 <input type="hidden" id="mensajeErrorCUV2" />
@@ -278,7 +281,6 @@
 
 
 <script type="text/javascript">
-    var nroImagenes = '@nroImagenes';
     var imagenVacia = '@imagenVacia';
     var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
     var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
@@ -295,6 +297,7 @@
     var urlConsultarCuvTipoConfiguradoTemporal = baseUrl + 'AdministrarEstrategia/ConsultarCuvTipoConfiguradoTemporal';
     var imagenesProductos = [];
     var originalContent;
+    var imagen = "";
 
     var estrategiaObj;
 
@@ -887,17 +890,7 @@
 
     });
 
-    $(".chk-estrategia-imagen").live("click", function () {
-        var id = $(this).attr('data-id');
-        var imagenURL = ""
-        if ($(this).attr('checked')) {
-            $("#imgSeleccionada").attr("src", $("#preview" + id).attr("src"));
-            imagenURL = $("#imgSeleccionada").attr("src");
-            $("#ImagenProducto").val(imagenURL.substr(imagenURL.lastIndexOf("/") + 1));
-            $('.chk-estrategia-imagen[data-id!="' + id + '"]').removeAttr('checked');
-            $("#imgSeleccionada").attr('data-id', id);
-        }
-    });
+    
 
     $(".img-matriz-preview").live("click", function () {
         var id = $(this).attr('data-id');
@@ -1433,7 +1426,7 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             multiselect: (tipo == '4') ? true : false,
-            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'Foto', ''],
+            colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'Orden', index: 'Orden', width: 20, editable: true, resizable: false, hidden: false, sortable: false },
@@ -1444,7 +1437,8 @@
                 { name: 'DescripcionCUV2', index: 'DescripcionCUV2', width: 120, editable: true, resizable: false, hidden: false, sortable: false },
                 { name: 'LimiteVenta', index: 'LimiteVenta', width: 40, align: 'center', editable: true, resizable: false, sortable: false },
                 { name: 'CodigoProducto', index: 'CodigoProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: true },
-                { name: 'ImagenURL', index: 'ImagenURL', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
+                { name: 'ImagenURL', index: 'ImagenURL', hidden: true },
+                { name: 'ImagenProducto', index: 'ImagenProducto', width: 70, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowImage },
                 { name: 'Activo', index: 'Activo', width: 30, align: 'center', editable: true, resizable: false, sortable: false, formatter: ShowActions }
             ],
             jsonReader:
@@ -1550,9 +1544,9 @@
     }
 
     function ShowImage(cellvalue, options, rowObject) {
-        var image = "";
-        if (cellvalue != "") image = '<img src="' + cellvalue + '" alt="" width="60px" height="60px" title="" border="0" />';
-        else image = '<img src="' + rutaImagenVacia + '" alt="" width="60px" height="60px" title="" border="0" />';
+        var image = $.trim(rowObject[9]);
+        var filename = image.replace(/^.*[\\\/]/, '');
+        image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';
         return image;
     }
 
@@ -1821,7 +1815,7 @@
                         }
                     }
 
-                    if ($('.chk-estrategia-imagen:checked').length == 0) {
+                    if ($('.chkImagenProducto:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }

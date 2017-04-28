@@ -2833,8 +2833,7 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
-    <Content Include="Scripts\AdminContenido\Paginador.js" />
-    <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
+    <Content Include="Scripts\AdminContenido\Estrategia.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
