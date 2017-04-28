@@ -96,7 +96,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (query != null)
                 {
-                    string param = Util.DesencriptarQueryString(query);
+                    string param = Util.Decrypt(query);
                     string[] lista = param.Split(new char[] { ';' });
 
                     if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -2596,7 +2596,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
