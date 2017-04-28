@@ -889,9 +889,7 @@ function xMensajeEstadoPedido(estado) {
                 else {
                     $(".ubicacion_web").animate({ "margin-top": "83px" });
                     $('.content_slider_home ').css('margin-top', '60px');
-                    //debugger;
                     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        //debugger;
                         if (esPedido) {
                             $("[data-content]").animate({ "top": "-62px", "margin-top": "0px" });
                         } else {

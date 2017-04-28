@@ -9857,6 +9857,7 @@ span.icon-advertencia{
     text-transform: uppercase;
     padding-top: 17px;
     line-height: 12px;
+    text-align: center !important;
 }
 .etiqueta_guia_negocio span{
     display: block;

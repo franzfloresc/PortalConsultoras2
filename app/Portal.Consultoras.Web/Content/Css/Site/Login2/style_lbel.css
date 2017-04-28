@@ -505,6 +505,10 @@ span {
     letter-spacing:0.2px;
 }
 
+.text_bienvenida_esika span {
+    font-size: 20px;
+}
+
 @font-face {
     font-family: icomoon;
     src: url(../fonts/icomoon/icomoon.eot?ur7cdc);
@@ -613,7 +617,7 @@ h1, h2, h3, h4, h5, h6 {
     top: 324px;
 }
 
-.alerta_red_cam_clave.left::after, .alerta_red_cam_user7.left::after, .alerta_red_cam_user9.left::after, .alerta_red_mx_clave.left::after, .alerta_red_mx_user.left::after {
+.alerta_red_cam_clave.left::after, .alerta_red_cam_user7.left::after, .alerta_red_cam_user9.left::after, .alerta_red_mx_clave.left::after, .alerta_red_mx_user.left::after, .alerta_red_pr_user.left::after, .alerta_red_pr_clave.left::after {
     top: 10px;
     left: -10px;
     border-width: 8px 10px 8px 0;
@@ -626,7 +630,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_mx_user {
+.alerta_red_cam_user7, .alerta_red_cam_user9, .alerta_red_mx_user, .alerta_red_pr_user {
     position: relative;
     padding: 10px;
     color: #000;
@@ -638,7 +642,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
-    .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after {
+    .alerta_red_cam_user7::after, .alerta_red_cam_user9::after, .alerta_red_mx_user::after, .alerta_red_pr_user::after {
         content: "";
         position: absolute;
         border-style: solid;
@@ -646,7 +650,7 @@ h1, h2, h3, h4, h5, h6 {
         width: 0;
     }
 
-.alerta_red_cam_clave, .alerta_red_mx_clave {
+.alerta_red_cam_clave, .alerta_red_mx_clave, .alerta_red_pr_clave {
     position: relative;
     padding: 10px;
     color: #000;
@@ -658,7 +662,7 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 8px 0 rgba(0,0,0,.75);
 }
 
-    .alerta_red_cam_clave::after, .alerta_red_mx_clave::after {
+    .alerta_red_cam_clave::after, .alerta_red_mx_clave::after , .alerta_red_pr_clave::after {
         content: "";
         position: absolute;
         border-width: 20px 0 0 20px;
@@ -802,7 +806,7 @@ h1, h2, h3, h4, h5, h6 {
     z-index: -1;
 }
 
-.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after {
+.alerta_red_cam_clave.right::after, .alerta_red_cam_user7.right::after, .alerta_red_cam_user9.right::after, .alerta_red_mx_clave.right::after, .alerta_red_mx_user.right::after, .alerta_red_pr_clave.right::after, alerta_red_pr_user.right::after {
     top: 10px;
     right: -10px;
     bottom: auto;

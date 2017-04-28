@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
@@ -259,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
-               
+
 
                 if (PopUps.Any())
                 {
@@ -338,15 +339,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
                             {
-                                bool mostrarShowRoomProductos = false;
-                                mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
-                                //var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                                if (mostrarShowRoomProductos)
-                                {
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
-                                    break;
-                                }
-                                else
+                                if (ValidarMostrarShowroomPopUp())
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                                     break;
@@ -469,7 +462,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (paisesShowRoom.Contains(userData.CodigoISO))
             {
-                //if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
                 if (!userData.CargoEntidadesShowRoom) return false;
                 var beShowRoomConsultora = userData.BeShowRoomConsultora;
                 var beShowRoom = userData.BeShowRoom;
@@ -478,28 +470,38 @@ namespace Portal.Consultoras.Web.Controllers
                 if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
 
                 if (beShowRoom.Estado == 1)
-                {   // var rutaShowRoomPopup = beShowRoom.RutaShowRoomPopup;
+                {
                     var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
                     int diasAntes = beShowRoom.DiasAntes;
                     int diasDespues = beShowRoom.DiasDespues;
 
+                    mostrarShowRoomProductos = true;
+                    var esCompra = false;
                     if (fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                    {
-                        // rutaShowRoomPopup = Url.Action("Index", "ShowRoom");                      
-                        mostrarShowRoomProductos = true;
-                    }
+                        esCompra = true;
+
                     if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date)
-                    {
-                        beShowRoomConsultora.MostrarPopup = false;
-                    }
-                    if (!beShowRoomConsultora.MostrarPopup && beShowRoomConsultora.EventoConsultoraID == 0)
+                        mostrarShowRoomProductos = false;
+
+                    if (beShowRoomConsultora.EventoConsultoraID == 0)
                     {
                         mostrarShowRoomProductos = false;
                     }
-                    else if (beShowRoomConsultora.MostrarPopup)
+                    else
                     {
-                        mostrarShowRoomProductos = true;
+                        if (!esCompra)
+                        {
+                            if (!beShowRoomConsultora.MostrarPopup)
+                                mostrarShowRoomProductos = false;
+
+                        }
+                        else
+                        {
+                            if (!beShowRoomConsultora.MostrarPopupVenta)
+                                mostrarShowRoomProductos = false;
+
+                        }
                     }
                 }
             }
@@ -1658,7 +1660,7 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-            
+
         }
 
 
@@ -1688,13 +1690,13 @@ namespace Portal.Consultoras.Web.Controllers
                         int diasAntes = beShowRoom.DiasAntes;
                         int diasDespues = beShowRoom.DiasDespues;
 
-                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date 
+                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
                             && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
                         {
                             rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                             mostrarShowRoomProductos = true;
                         }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beShowRoomConsultora.MostrarPopup = false;
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
 
                         //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
                         TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
@@ -1754,8 +1756,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-
+        
         [HttpPost]
         public JsonResult MostrarShowRoomBannerLateral()
         {
@@ -1969,6 +1970,58 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarContrasenia()
         {
+            return View();
+        }
+
+        /// <summary>
+        /// Obtiene la URL para el chat que se mostrara dependiendo del pais.
+        /// </summary>
+        /// <returns>URL: chat relacionado al pais</returns>
+        public ActionResult ChatBelcorp()
+        {
+            string url = "";
+            string fechaInicioChat = ConfigurationManager.AppSettings["FechaChat_" + userData.CodigoISO].ToString();
+
+            if (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"].Contains(userData.CodigoISO) &&
+                !String.IsNullOrEmpty(fechaInicioChat))
+            {
+                DateTime fechaInicioChatPais = DateTime.ParseExact(fechaInicioChat,
+                    "dd/MM/yyyy",
+                    CultureInfo.InvariantCulture);
+                if (DateTime.Now >= fechaInicioChatPais)
+                {
+                    url = String.Format(ConfigurationManager.AppSettings["UrlBelcorpChat"],
+                        userData.SegmentoAbreviatura.Trim(),
+                        userData.CodigoUsuario.Trim(),
+                        userData.PrimerNombre.Split(' ').First().Trim(),
+                        userData.EMail.Trim(), userData.CodigoISO.Trim());
+                }
+            }
+            else
+            {
+                if (userData.CodigoISO.Equals("PA"))
+                {
+                    url = ConfigurationManager.AppSettings["UrlChatPA"];
+                }
+                else if (userData.CodigoISO.Equals("QR"))
+                {
+                    url = ConfigurationManager.AppSettings["UrlChatQR"];
+                }
+                else if (userData.CodigoISO.Equals("SV"))
+                {
+                    url = ConfigurationManager.AppSettings["UrlChatSV"];
+                }
+                else if (userData.CodigoISO.Equals("GT"))
+                {
+                    url = ConfigurationManager.AppSettings["UrlChatGT"];
+                }
+                else
+                {
+                    url = ConfigurationManager.AppSettings["UrlChatDefault"] +
+                        ConfigurationManager.AppSettings["TokenAtento_" + userData.CodigoISO];
+                }
+            }
+            ViewBag.UrlBelcorpChatPais = url;
             return View();
         }
 

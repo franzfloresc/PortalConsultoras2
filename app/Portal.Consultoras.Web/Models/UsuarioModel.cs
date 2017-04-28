@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-
+            this.EsLebel = false;
         }
 
         public string Celular { get; set; }
@@ -340,6 +340,6 @@ namespace Portal.Consultoras.Web.Models
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
         
         public bool CloseBannerCompraPorCompra { get; set; }
-
+        public bool EsLebel { get; set; }
     }
 }

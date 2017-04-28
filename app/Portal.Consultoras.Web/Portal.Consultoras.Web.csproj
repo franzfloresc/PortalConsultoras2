@@ -2048,8 +2048,8 @@
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
-    <Content Include="Content\Images\IncentivosSMS\licuadora.png" />
     <Content Include="Content\Images\IncentivosSMS\producto1.png" />
+    <Content Include="Content\Images\IncentivosSMS\reloj.png" />
     <Content Include="Content\Images\indicador.png" />
     <Content Include="Content\Images\interbank.png" />
     <Content Include="Content\Images\kit-nuevo-producto.png" />
@@ -3883,6 +3883,7 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
+    <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\LoginChatbot\Index.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
@@ -4107,7 +4108,6 @@
     <Content Include="Views\CrossSelling\AdministracionCrossSelling.cshtml" />
     <Content Include="Views\CrossSelling\AsociacionCrossSelling.cshtml" />
     <Content Include="Views\SolicitudCredito\DetalleCreditoAR.cshtml" />
-    <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\AdministrarLugaresPago\Index.cshtml" />
     <Content Include="Views\AdministrarIncentivos\Index.cshtml" />
     <Content Include="Views\AdministrarBelcorpNoticias\Index.cshtml" />
@@ -4167,7 +4167,6 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
-    <Folder Include="Views\BaseShowRoom\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
