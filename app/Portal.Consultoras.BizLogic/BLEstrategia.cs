@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -141,7 +142,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, string codigoISO)
         {
             try
             {
@@ -155,6 +156,16 @@ namespace Portal.Consultoras.BizLogic
                         listaEstrategias.Add(new BEEstrategia(reader));
                     }
                 }
+                                
+                var carpetaPais = Globals.UrlMatriz + "/" + codigoISO;
+
+                listaEstrategias.ForEach(item =>
+                {
+
+                    item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                    item.UrlCompartirFB = Util.GetUrlCompartirFB(codigoISO);
+                });
+
                 return listaEstrategias;
             }
             catch (Exception) { throw; }
@@ -307,6 +318,17 @@ namespace Portal.Consultoras.BizLogic
                         listaEstrategias.Add(new BEEstrategia(reader));
                     }
                 }
+
+                var usuario = new BLUsuario().GetSesionUsuario(paisID, codConsultora);
+                var carpetaPais = Globals.UrlMatriz + "/" + usuario.CodigoISO;
+
+                listaEstrategias.ForEach(item =>
+                {
+
+                    item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                    item.UrlCompartirFB = Util.GetUrlCompartirFB(usuario.CodigoISO);
+                });
+
                 return listaEstrategias;
             }
             catch (Exception) { throw; }

@@ -576,7 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
-                    imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen1 = lst[0].FotoProducto01; // ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -814,7 +814,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto01 = x.FotoProducto01); // ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto02 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto02 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto03 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto03 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto04 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto04 ?? "", carpetapais));
@@ -878,7 +878,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); //ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
                 lst.Update(x => x.Simbolo = UserData().Simbolo);
             }
@@ -1044,14 +1044,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetEstrategiasPedido(entidad).ToList();
+                lst = sv.GetEstrategiasPedido(entidad).ToList(); //, UserData().CodigoISO
             }
 
             string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); // ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
             }
 

@@ -1907,7 +1907,7 @@ namespace Portal.Consultoras.Common
         public static string EncriptarQueryString(params string[] Parametros)
         {
             TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
-            QueryString = new TSHAK.Components.SecureQueryString( new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });      
+            QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
             for (int i = 0; i < Parametros.Length; i++)
             {
                 QueryString[i.ToString()] = Parametros[i].Trim();
@@ -1919,7 +1919,7 @@ namespace Portal.Consultoras.Common
         public static string DesencriptarQueryString(string ParametroQueryString)
         {
             StringBuilder oStringBuilder = new StringBuilder();
-            
+
             TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
             QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString.Replace(" ", "+"));
             for (int i = 0; i < QueryString.Count; i++)
@@ -3034,6 +3034,17 @@ namespace Portal.Consultoras.Common
             };
 
             return uriBuilder.Uri;
+        }
+
+        public static String GetUrlCompartirFB(string codigoISO, int id = 0)
+        {
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SomosBelcorp_URL"]))
+            {
+                throw new NullReferenceException("Key no encontrada: SomosBelcorp_URL");
+            }
+
+            string partialURL = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
+            return Path.Combine(ConfigurationManager.AppSettings["SomosBelcorp_URL"], partialURL);
         }
     }
 
