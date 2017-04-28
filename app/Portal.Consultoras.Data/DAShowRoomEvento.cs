@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, showRoomEvento.UsuarioCreacion);
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
             Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
+            Context.Database.AddInParameter(command, "@TieneSubCampania", DbType.Boolean, showRoomEvento.TieneSubCampania);
 
             int result = Context.ExecuteNonQuery(command);
 
@@ -79,6 +80,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, showRoomEvento.Estado);
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
             Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
+            Context.Database.AddInParameter(command, "@TieneSubCampania", DbType.Boolean, showRoomEvento.TieneSubCampania);
 
             Context.ExecuteNonQuery(command);
         }

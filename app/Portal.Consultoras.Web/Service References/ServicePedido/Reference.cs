@@ -511,6 +511,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionLegalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -741,6 +744,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionLegalField, value) != true)) {
                     this.DescripcionLegalField = value;
                     this.RaisePropertyChanged("DescripcionLegal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSubCampania {
+            get {
+                return this.EsSubCampaniaField;
+            }
+            set {
+                if ((this.EsSubCampaniaField.Equals(value) != true)) {
+                    this.EsSubCampaniaField = value;
+                    this.RaisePropertyChanged("EsSubCampania");
                 }
             }
         }
@@ -9879,6 +9895,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCompraXcompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10176,6 +10195,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCompraXcompraField.Equals(value) != true)) {
                     this.TieneCompraXcompraField = value;
                     this.RaisePropertyChanged("TieneCompraXcompra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneSubCampania {
+            get {
+                return this.TieneSubCampaniaField;
+            }
+            set {
+                if ((this.TieneSubCampaniaField.Equals(value) != true)) {
+                    this.TieneSubCampaniaField = value;
+                    this.RaisePropertyChanged("TieneSubCampania");
                 }
             }
         }

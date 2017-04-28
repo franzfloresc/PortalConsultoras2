@@ -321,7 +321,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.OfertaEstrategia.ToString(),
                                 a.Estado.ToString(),
                                 a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString()
+                                a.TieneCompraXcompra.ToString(),
+                                a.TieneSubCampania.ToString()
                             }
                         }
                 };
@@ -782,6 +783,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ent.Descripcion = values[6].Trim().Replace("\"", "");
                                     ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
                                     ent.TipNegocio = values[8].Trim().Replace("\"", "");
+                                    ent.EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1;
 
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
@@ -846,26 +848,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
                         }
-
-                        /*
-                        List<BEShowRoomOferta> lstStock2 = new List<BEShowRoomOferta>();
-                        foreach(var item in lstStock) 
-                        {
-                            var a = new BEShowRoomOferta();
-                            a.ISOPais = item.ISOPais;
-                            a.TipoOfertaSisID = item.TipoOfertaSisID;
-                            a.CampaniaID = item.CampaniaID;
-                            a.CUV = item.CUV;
-                            a.Stock = item.Stock;
-                            a.PrecioOferta = item.PrecioOferta;
-                            a.UnidadesPermitidas = item.UnidadesPermitidas;
-                            a.Descripcion = item.Descripcion;
-                            a.CodigoCategoria = item.CodigoCategoria;
-                            a.TipNegocio = item.TipNegocio;
-                            //a.PrecioOferta2 = item.PrecioOferta2;
-                            lstStock2.Add(a);
-                        }
-                         * */
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -1273,6 +1255,7 @@ namespace Portal.Consultoras.Web.Controllers
                                cell = new[] 
                                {
                                    a.TipoOferta,
+                                   a.CodigoTipoOferta.Trim(),
                                    a.CodigoProducto,
                                    a.CodigoCampania,
                                    a.CUV,
@@ -1287,10 +1270,8 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.ImagenMini,
                                    a.CampaniaID.ToString() ,
                                    a.Stock.ToString(),
-                                   a.UnidadesPermitidas.ToString(),
                                    a.FlagHabilitarProducto.ToString(),
-                                   a.OfertaShowRoomID.ToString(),
-                                   a.CodigoTipoOferta.Trim(),
+                                   a.OfertaShowRoomID.ToString(),                                   
                                    a.ISOPais,
                                    a.ConfiguracionOfertaID.ToString(),
                                    a.CodigoProducto                                   
