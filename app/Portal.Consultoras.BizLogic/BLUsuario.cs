@@ -476,18 +476,25 @@ namespace Portal.Consultoras.BizLogic
         /*EPD-1012*/
 
         /*EPD-2340*/
-        public BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor)
+        public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
             var DAUsuario = new DAUsuario(paisID);
 
-            using (IDataReader reader = DAUsuario.GetValidarAutoLoginSB2(codigoUsuario, proveedor))
+            using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
             {
                 if (reader.Read())
                     validaLogin = new BEValidaLoginSB2(reader);
             }
 
             return validaLogin;
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+
+            return DAUsuario.InsUsuarioExternoPais(entidad);
         }
         /*EPD-2340*/
 
@@ -1440,41 +1447,69 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.InsUsuarioExterno(usuarioExterno);
         }
 
-        public BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion)
+        public BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario)
         {
-            BEUsuarioExterno usuarioExterno = null;
             var DAUsuario = new DAUsuario(paisID);
+            BEUsuarioExterno entidad = null;
 
-            using (IDataReader reader = DAUsuario.GetUsuarioExterno(proveedor, idAplicacion))
+            using (IDataReader reader = DAUsuario.GetUsuarioExternoByCodigoUsuario(codigoUsuario))
             {
                 if (reader.Read())
-                    usuarioExterno = new BEUsuarioExterno(reader);
+                    entidad = new BEUsuarioExterno(reader);
             }
 
-            return usuarioExterno;
+            return entidad;
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            var DAUsuario1 = new DAUsuario(11);
+            BEUsuarioExternoPais entidad1 = null;
+            BEUsuarioExterno entidad2 = null;
+
+            using (IDataReader reader = DAUsuario1.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
+            {
+                if (reader.Read())
+                    entidad1 = new BEUsuarioExternoPais(reader);
+            }
+
+            if (entidad1 != null)
+            {
+                var DAUsuario2 = new DAUsuario(entidad1.PaisID);
+                using (IDataReader reader = DAUsuario2.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                {
+                    if (reader.Read())
+                        entidad2 = new BEUsuarioExterno(reader);
+                }
+
+                entidad2.PaisID = entidad1.PaisID;
+                entidad2.CodigoISO = entidad1.CodigoISO;
+            }
+
+            return entidad2;
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, String codigoUsuario)
         {
-            List<BEUsuarioExterno> lstLoginExterno = new List<BEUsuarioExterno>();
+            List<BEUsuarioExterno> lista = new List<BEUsuarioExterno>();
             var DAUsuario = new DAUsuario(paisID);
 
             using (IDataReader reader = DAUsuario.GetListaLoginExterno(codigoUsuario))
             {
                 if (reader.Read())
-                {
-                    lstLoginExterno.Add(new BEUsuarioExterno(reader));
-                }
+                    lista.Add(new BEUsuarioExterno(reader));
             }
 
-            return lstLoginExterno;
+            return lista;
         }
 
+        /*
         public bool GetExisteEmailActivo(int paisID, string email)
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetExisteEmailActivo(email);
         }
+         * */
 
         /*EPD-1837*/
 
