@@ -274,7 +274,7 @@
     };
 
     var _mostrarListaImagenes = function (editData) {
-        SetHandlebars('#matriz-comercial-listado-imagenes-template', editData, '#matriz-comercial-images');
+        SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
         //_crearFileUploadElements(editData);
     };
 

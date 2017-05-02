@@ -968,7 +968,7 @@
                         var imagenProductoSeleccionada = $("#imgSeleccionada").attr('src');
                         imagenProductoSeleccionada = imagenProductoSeleccionada.substr(imagenProductoSeleccionada.lastIndexOf("/") + 1);
 
-                        for (var i = 1; i <= nroImagenes; i++) {
+                        /*for (var i = 1; i <= nroImagenes; i++) {
                             idImagen = ('0' + i).substr(-2);
                             dataImagen = data['imagen' + i];
 
@@ -983,7 +983,7 @@
                                 }
                                 imagenesProductos.push(imagen);
                             }
-                        }
+                        }*/
 
                         $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
 

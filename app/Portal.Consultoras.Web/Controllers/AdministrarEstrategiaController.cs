@@ -886,7 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                //lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
                 lst.Update(x => x.Simbolo = UserData().Simbolo);
             }
@@ -1059,7 +1059,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                //lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
             }
 

@@ -34,6 +34,16 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [ViewProperty]
         public string ISOPais { get; set; }
+        [DataMember]
+        [ViewProperty]
+        public string FotoProducto { get; set; }
+
+        [DataMember]
+        public string FotoProducto01 { get; set; }
+        [DataMember]
+        public string FotoProducto02 { get; set; }
+        [DataMember]
+        public string FotoProducto03 { get; set; }
 
         public BEMatrizComercial(IDataRecord row)
         {
@@ -47,6 +57,10 @@ namespace Portal.Consultoras.Entities
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
                 DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
+            if (DataRecord.HasColumn(row, "DescripcionProductoComercial") && row["DescripcionProductoComercial"] != DBNull.Value)
+                DescripcionProductoComercial = Convert.ToString(row["DescripcionProductoComercial"]);
+            if (DataRecord.HasColumn(row, "FotoProducto") && row["FotoProducto"] != DBNull.Value)
+                FotoProducto = Convert.ToString(row["FotoProducto"]);
         }
     }
 }
