@@ -683,8 +683,9 @@ namespace Portal.Consultoras.Service
 
         public BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion)
         {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUsuarioExterno(paisID, proveedor, idAplicacion);
+            return null;
+            //var BLUsuario = new BLUsuario();
+            //return BLUsuario.GetUsuarioExterno(paisID, proveedor, idAplicacion);
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)

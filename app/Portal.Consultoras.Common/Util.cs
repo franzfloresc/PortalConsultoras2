@@ -3043,8 +3043,9 @@ namespace Portal.Consultoras.Common
                 throw new NullReferenceException("Key no encontrada: SomosBelcorp_URL");
             }
 
-            string partialURL = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
-            return Path.Combine(ConfigurationManager.AppSettings["SomosBelcorp_URL"], partialURL);
+            var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
+
+            return ConfigurationManager.AppSettings["SomosBelcorp_URL"] + "/" + partialUrl;
         }
     }
 
@@ -3105,6 +3106,7 @@ namespace Portal.Consultoras.Common
 
     public static class LinqExtensions
     {
+        [Obsolete("Use ForEach from Linq")]
         public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
         {
             foreach (var item in outer)

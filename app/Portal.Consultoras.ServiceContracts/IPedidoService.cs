@@ -639,7 +639,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCUVsRecomendados(BEEstrategia entidad);
 
         [OperationContract]
-        List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, string codigoISO);
+        List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, int paisId, string codigoUsuario);
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
