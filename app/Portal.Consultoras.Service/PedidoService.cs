@@ -1152,11 +1152,12 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, string codigoISO)
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, int paisId, string codigoUsuario)
         {
             return new BLEstrategia().
-                GetEstrategiasPedido(entidad, codigoISO);
+                GetEstrategiasPedido(entidad, paisId, codigoUsuario);
         }
+
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
