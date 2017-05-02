@@ -112,11 +112,8 @@ $(document).ready(function () {
     waitingDialog();
 
     //EPD-2305
-    //debugger;
-    if (gTipoUsuario == '2') {
-        if (mostrarBannerPostulante == 'True') {
-            $('#bloquemensajesPostulante').show();
-        }
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();
     }
     else {
         MensajeEstadoPedido();

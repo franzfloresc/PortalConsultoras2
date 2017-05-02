@@ -833,14 +833,6 @@ function xMensajeEstadoPedido(estado) {
     else {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
-            //EPD-2305
-            if (gTipoUsuario == '2') {
-                if (mostrarBannerPostulante == 'True') {
-                    $('#bloquemensajesPostulante').show();
-                    return;
-                }
-            }
-
             wtop = $("header").height();
             
             if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
