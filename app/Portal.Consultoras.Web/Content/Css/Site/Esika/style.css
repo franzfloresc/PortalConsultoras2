@@ -32928,7 +32928,7 @@ h1#penmostreo .campana {
 }
 
     .precio_valorizado_oferta span {
-        text-decoration: line-through;
+        /*text-decoration: line-through;*/
 }
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {

@@ -9684,7 +9684,7 @@ span.icon-advertencia{
     height:auto;
     margin-left:10px;
     float:left;
-    margin-top: 3px;
+    margin-top: 9px;
 }
 .imagen_set_hoy_mobile img{
     width:100%;
@@ -9705,12 +9705,12 @@ span.icon-advertencia{
 	margin-left: -12px;
 }
 .set_oferta_content{
-    width:80%;
+    width:75%;
     max-width:292px;
     height:auto;
     margin:0 auto;
     margin-top:15px;
-    overflow:hidden;
+    /*overflow:hidden;*/
     margin-bottom:40px;
 }
 .set_oferta_content .producto_img_mobile {
@@ -9753,7 +9753,7 @@ span.icon-advertencia{
     font-size:13px;
     font-family:'Lato';
     color:black;
-    margin-bottom:20px;
+    margin-bottom:15px;
     /*margin-top:3px;*/
 }
 .producto_precio_hoy_mobile span{

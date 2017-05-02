@@ -800,7 +800,7 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    //debugger;
+    
             //EPD-2305
             if (gTipoUsuario == '2') {
                 if (mostrarBannerPostulante == 'True') {
