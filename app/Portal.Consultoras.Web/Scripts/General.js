@@ -801,14 +801,6 @@ function MensajeEstadoPedido() {
 
 function xMensajeEstadoPedido(estado) {
     
-            //EPD-2305
-            if (gTipoUsuario == '2') {
-                if (mostrarBannerPostulante == 'True') {
-                    $('#bloquemensajesPostulante').show();
-                    return;
-                }
-            }
-
     LayoutHeader();
 }
 
