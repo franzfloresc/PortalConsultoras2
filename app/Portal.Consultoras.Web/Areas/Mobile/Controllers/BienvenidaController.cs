@@ -49,6 +49,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.codigoConsultora = userData.CodigoConsultora;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                int j = model.NombreConsultora.Trim().IndexOf(' ');
+                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim(); 
+
                 model.PaisID = userData.PaisID;
                 model.CodigoISO = userData.CodigoISO;
                 model.NombrePais = userData.NombrePais;

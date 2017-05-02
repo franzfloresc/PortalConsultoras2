@@ -497,6 +497,27 @@
     </div>
     <!-- FIN POPUP SESIÓN FINALIZADA - exclamacion -->
 
+    <!-- POPUP MENSAJE USUARIO POSTULANTE  -->
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_MensajePostulante" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="return $('#dialog_MensajePostulante').hide();">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b>LO SENTIMOS</b></h1>
+                <div id="mensajePostulante" class="mensaje_agregarUnidades"></div>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_MensajePostulante').hide();">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP MENSAJE USUARIO POSTULANTE -->
+
     <div id="divMensajeConfirmacion" style="display: none;">
         <div class="terminos_title_2 divTitle">
             IMPORTANTE
@@ -760,6 +781,8 @@
 
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
         var MostrarODD = '@ViewBag.MostrarODD';
+        //EPD-2058
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
         var clock;
         var TipoOrigenPantallaODD = 1;
     </script>

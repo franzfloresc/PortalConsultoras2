@@ -4020,8 +4020,8 @@ width:100%;
     vertical-align:top;
 }
 .foto_usuaria_mobile{
-    width:89px;
-    height:87px;
+    width:77px;
+    height:76px;
     border-radius:100px;
     overflow:hidden;
 }
@@ -4102,7 +4102,7 @@ width:100%;
     padding-right: 10px;
     font-family: 'lato';
     font-size: 10px;
-    margin-top: 6px;
+    margin-top: 12px;
     color: #000;
     letter-spacing: 1px;
    
@@ -9862,6 +9862,7 @@ span.icon-advertencia{
     text-transform: uppercase;
     padding-top: 17px;
     line-height: 12px;
+    text-align: center !important;
 }
 .etiqueta_guia_negocio span{
     display: block;

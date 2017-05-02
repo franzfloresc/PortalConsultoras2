@@ -7,7 +7,7 @@ $(document).ready(function () {
     if (tieneOfertaDelDia == "True") {
         window.OfertaDelDia.CargarODD();
     }
-
+    
     $(document).keyup(function (e) {
         if (e.keyCode == 27) {
             if ($('#PopOfertaDia').is(':visible')) {
@@ -251,66 +251,26 @@ $(document).ready(function () {
     });
 
     $("body").on('click', '.belcorpChat', function () {
-        var FechaChatPais = BelcorpFechaChat_Pais;
-        var PaisISO = IsoPais
-        var fechaActual = FechaActual;
-        var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
-
-        if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
-
-            if (fechaActual >= FechaChatPais) {
-                var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
-                AbrirVentanaBelcorpChat(url);
+        var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
+        if(typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+            ventanaChat.focus();
+        } else {
+            ventanaChat = open('', 'ventanaChat');
+            if (ventanaChat.location == "about:blank") {
+                ventanaChat.close();
+                //ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+                //ventanaChat.focus();
             }
-            else {
-
-                if (PaisISO == "PA") {
-                    var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                    AbrirVentanaBelcorpChat(urlPA);
-                }
-                else if (PaisISO == "CR") {
-                    var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                    AbrirVentanaBelcorpChat(urlCR);
-                }
-                else if (PaisISO == "SV") {
-                    var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                    AbrirVentanaBelcorpChat(urlSV);
-                }
-                else if (PaisISO == "GT") {
-                    var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                    AbrirVentanaBelcorpChat(urlGT);
-                }
-                else {
-                    AbrirVentanaBelcorpChat(res2);
-                }
-            }
-        }
-        else {
-
-            if (PaisISO == "PA") {
-                var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                AbrirVentanaBelcorpChat(urlPA);
-            }
-            else if (PaisISO == "CR") {
-                var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                AbrirVentanaBelcorpChat(urlCR);
-            }
-            else if (PaisISO == "SV") {
-                var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                AbrirVentanaBelcorpChat(urlSV);
-            }
-            else if (PaisISO == "GT") {
-                var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                AbrirVentanaBelcorpChat(urlGT);
-            }
-            else {
-                AbrirVentanaBelcorpChat(UrlChatAnterior);
-            }
+            ventanaChat.focus();
         }
         //cerrar Popup
         $(".ui-button-text").trigger("click");
     });
-
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
@@ -671,6 +631,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -751,6 +717,14 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
     });
@@ -953,6 +927,7 @@ function RedirectIngresaTuPedido() {
 };
 function CerrarSesion() {
     localStorage.clear();
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -962,9 +937,28 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
+
+    /*
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
