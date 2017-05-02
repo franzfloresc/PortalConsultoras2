@@ -1,46 +1,33 @@
-﻿@using Portal.Consultoras.Common;
-
-@model Portal.Consultoras.Web.Models.LoginChatbotModel
+﻿@model Portal.Consultoras.Web.Models.LoginChatbot.LoginChatbotModel
 @{
     ViewBag.Title = "Login Chatbot";
-    Layout = null;
 }
 
+<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="utf-8" />
         <link href="@Url.Content("~/Content/Css/Site/LoginChatbot.css")" rel="stylesheet" type="text/css" />
+        @RenderSection("styles", required: false)
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="SomosBelcorp Web Mobile" />
 
-        @if (Model.Tipo == Enumeradores.TipoLogin.Facebook)
-        {
-            <script type="text/javascript" id="facebook-jssdk" src="https://connect.facebook.net/en_US/sdk.js"></script>
-        }
         <script type="text/javascript" id="Messenger" src="https://connect.facebook.com/en_US/messenger.Extensions.js"></script>
+        @RenderSection("facebookScripts", required: false)
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript">
             var tokenBotmaker = '@Model.TokenBotmaker';
-            var appFacebookId = '@Model.AppFacebookId';
-            var webViewFallBack = '@(Model.WebViewFallBack ? 1 : 0)';
-            var cargaApiFacebook = '@(Model.Tipo == Enumeradores.TipoLogin.Facebook ? 1 : 0)';
+            var webViewFallBack = ('@Model.WebViewFallBack'.toLowerCase() == 'true');
 
             var urlBotmakerChat = 'http://m.me/EsikaLoPuedenTodoPrueba';
             var urlBotmakerLoginNormal = 'https://go.botmaker.com/rest/webviews/traditionalLogin';
             var urlBotmakerLoginFacebook = 'https://go.botmaker.com/rest/webviews/fbConnect';
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Main.js")"></script>
-        @if (Model.Tipo == Enumeradores.TipoLogin.Normal)
-        {
-            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Normal.js")"></script>
-        }
-        else if (Model.Tipo == Enumeradores.TipoLogin.Facebook)
-        {
-            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Facebook.js")"></script>
-        }
+        @RenderSection("scripts", required: false)
     </head>
     <body>
         @if (Model.WebViewFallBack)
@@ -50,28 +37,7 @@
             </div>
         }
         <div>
-            @if (Model.Tipo == Enumeradores.TipoLogin.Normal)
-            {
-                <select id="ddlPais" class="DropDown" tabindex="1">
-                    <option value="">Elige tu País</option>
-                    @if (Model.ListaPaises != null)
-                    {
-                        foreach (var item in Model.ListaPaises)
-                        {
-                            <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
-                        }
-                    }
-                </select>
-                <input id="txtUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico">
-                <input type="password" id="txtPassword" class="inputForm" placeholder="Contraseña" value="">
-                <input type="button" id="btnLogin" value="INGRESA A TU CUENTA" onclick="LoginNormal()">
-            }
-            else
-            {
-                <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="LoginFB()" style="width: 100%; height: 48px;display: block;">
-                    Ingresa con Facebook
-                </button>
-            }
+            @RenderBody()
         </div>
 
         <div class="content-spinner2" id="loading-spin">

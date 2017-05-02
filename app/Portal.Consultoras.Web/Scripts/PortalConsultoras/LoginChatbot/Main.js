@@ -2,20 +2,22 @@
 
 function CargarPlugins() {
     var arrayDeferred = [];
-    if (webViewFallBack == 0) {
+    if (!webViewFallBack) {
         var d1 = $.Deferred();
         arrayDeferred.push(d1);
-        window.extAsyncInit = function () { d1.resolve(); };
+        window.extAsyncInit = function () { console.log('extAsyncInit'); d1.resolve(); };
     }
-    if (cargaApiFacebook == 1) {
+    if (cargaApiFacebook) {
         var d2 = $.Deferred();
         arrayDeferred.push(d2);
-        window.fbAsyncInit = function () { d2.resolve(); };
+        window.fbAsyncInit = function () { console.log('fbAsyncInit'); d2.resolve(); };
     }
+    console.log(arrayDeferred);
 
     if (arrayDeferred.length > 0){
         ShowLoading();
         $.when.apply($, arrayDeferred).then(function () {
+            console.log('Terminó CargarPlugins');
             CloseLoading();
             CallInit();
         });
@@ -33,7 +35,7 @@ function ResponderBotmaker(url, data) {
     $.post(url, data)
         .done(function (response) {
             console.log(response);
-            if (webViewFallBack == 0) {
+            if (!webViewFallBack) {
                 MessengerExtensions.requestCloseBrowser(
                     function success() { },
                     function error(err) { console.warn('Problems closing browser:' + err); }

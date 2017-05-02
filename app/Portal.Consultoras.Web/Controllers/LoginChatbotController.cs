@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.LoginChatbot;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -14,19 +15,29 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(string t, bool webviewfallback, Enumeradores.TipoLogin tipo = Enumeradores.TipoLogin.Normal)
         {
-            var model = new LoginChatbotModel {
-                TokenBotmaker = t,
-                WebViewFallBack = webviewfallback,
-                Tipo = tipo,
-                ListaPaises = DropDowListPaises(),
-                AppFacebookId = ConfigurationManager.AppSettings.Get("FB_AppId")
-            };
-            return View(model);
+            switch (tipo) {
+                case Enumeradores.TipoLogin.Normal:
+                    var normalModel = new LoginNormalChatbotModel
+                    {
+                        TokenBotmaker = t,
+                        WebViewFallBack = webviewfallback,
+                        ListaPaises = DropDowListPaises()
+                    };
+                    return View("Normal", normalModel);
+                case Enumeradores.TipoLogin.Facebook:
+                    var facebookModel = new LoginFacebookChatbotModel
+                    {
+                        TokenBotmaker = t,
+                        WebViewFallBack = webviewfallback,
+                        AppFacebookId = ConfigurationManager.AppSettings.Get("FB_AppId")
+                    };
+                    return View("Facebook", facebookModel);
+            }
+            return Redirect("https://go.botmaker.com/rest/webviews/fbConnect");
         }
 
         private IList<PaisModel> DropDowListPaises()
         {
-
             try
             {
                 List<BEPais> lst;

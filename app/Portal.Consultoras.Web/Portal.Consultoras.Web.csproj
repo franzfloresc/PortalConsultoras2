@@ -389,7 +389,9 @@
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\IngresoExternoChatbotModel.cs" />
-    <Compile Include="Models\LoginChatbotModel.cs" />
+    <Compile Include="Models\LoginChatbot\LoginFacebookChatbotModel.cs" />
+    <Compile Include="Models\LoginChatbot\LoginNormalChatbotModel.cs" />
+    <Compile Include="Models\LoginChatbot\LoginChatbotModel.cs" />
     <Compile Include="Models\MatrizComercialResultadoModel.cs" />
     <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
@@ -3884,7 +3886,9 @@
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
-    <Content Include="Views\LoginChatbot\Index.cshtml" />
+    <Content Include="Views\LoginChatbot\_Main.cshtml" />
+    <Content Include="Views\LoginChatbot\Normal.cshtml" />
+    <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
