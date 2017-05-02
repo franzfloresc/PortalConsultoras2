@@ -61,6 +61,7 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
