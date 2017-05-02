@@ -737,7 +737,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
-                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
+                                    //ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
                                     ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
                                     var imgBanner = ofertaDelDia.FotoProducto01;
                                     var imgDisplay = ofertaDelDia.FotoProducto01;
