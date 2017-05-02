@@ -2833,6 +2833,7 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3870,6 +3871,7 @@
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
+    <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

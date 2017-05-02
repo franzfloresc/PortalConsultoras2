@@ -4,10 +4,17 @@
 }
 
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/OfertaLiquidacion.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
 
     var paisNombre = "";
     var paisID = 11;
+    var ofertaLiquidacionObj;
 
     $(document).unbind('keydown').bind('keydown', function (event) {
         var doPrevent = false;
@@ -26,7 +33,19 @@
         }
     });
 
+    var numeroImagenesPorPagina = 10;
+
     jQuery(document).ready(function () {
+        ofertaLiquidacionObj = OfertaLiquidacion({
+            codigoSapElementId: 'hdnCodigoSAP',
+            fileUploadElementId: 'file-upload-matriz',
+            paisID: paisID,
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+            getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina,
+            imagenProductoElementId: 'ImagenProducto'
+        });
+
         IniDialogOfertas();
         IniDialogImages();
         IniDialogStockProducto();
@@ -161,6 +180,7 @@
             if (msjex == "") {
                 paisNombre = $("#ddlPais option:selected").text();
                 paisID = $("#ddlPais").val();
+                ofertaLiquidacionObj.actualizarPais(paisID);
                 fnGrilla();
             }
             else {
@@ -229,56 +249,21 @@
             return false;
         });
 
+        var chkImagenProductoOnClick = function () {
 
-        $("#chkImagenProducto01").click(function () {
-            if ($("#chkImagenProducto01").attr('checked')) {
-                $("#ImagenProducto").val($("#preview1").attr('src').replace(/^.*[\\\/]/, ''));
+            $(".chkImagenProducto").prop('checked', false);
+            $(this).attr('checked', 'checked');
+            var nombreImagen = formatUrl($(this).attr('value'));
+            $('#ImagenProducto').val(nombreImagen);
+        };
 
-                // 1664
-                var img01 = $('#ImagenProducto').val();
-                if (img01.lastIndexOf("?") >= 0) {
-                    img01 = img01.substring(0, img01.lastIndexOf("?"));
-                    $('#ImagenProducto').val(img01);
-                }
+        var imagenOnClick = function () {
+            $("#imgPreview").attr("src", $(this).attr("src"));
+            showDialog('divVistaPrevia');
+        };
 
-                $("#chkImagenProducto02").removeAttr('checked')
-                $("#chkImagenProducto03").removeAttr('checked')
-            } else
-                $("#ImagenProducto").val("");
-        });
-        $("#chkImagenProducto02").click(function () {
-            if ($("#chkImagenProducto02").attr('checked')) {
-                $("#ImagenProducto").val($("#preview2").attr('src').replace(/^.*[\\\/]/, ''));
-
-                // 1664
-                var img01 = $('#ImagenProducto').val();
-                if (img01.lastIndexOf("?") >= 0) {
-                    img01 = img01.substring(0, img01.lastIndexOf("?"));
-                    $('#ImagenProducto').val(img01);
-                }
-
-                $("#chkImagenProducto01").removeAttr('checked')
-                $("#chkImagenProducto03").removeAttr('checked')
-            } else
-                $("#ImagenProducto").val("");
-        });
-
-        $("#chkImagenProducto03").click(function () {
-            if ($("#chkImagenProducto03").attr('checked')) {
-                $("#ImagenProducto").val($("#preview3").attr('src').replace(/^.*[\\\/]/, ''));
-
-                // 1664
-                var img01 = $('#ImagenProducto').val();
-                if (img01.lastIndexOf("?") >= 0) {
-                    img01 = img01.substring(0, img01.lastIndexOf("?"));
-                    $('#ImagenProducto').val(img01);
-                }
-
-                $("#chkImagenProducto01").removeAttr('checked')
-                $("#chkImagenProducto02").removeAttr('checked')
-            } else
-                $("#ImagenProducto").val("");
-        });
+        $("#matriz-comercial-lista-imagenes").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
+        $("#matriz-comercial-lista-imagenes").on("click", ".img-matriz-preview", imagenOnClick);
 
         $('#ddlPaisAdm').change(function () {
             var Id = $(this).val();
@@ -299,27 +284,6 @@
             } else {
                 $("#txtCorreos").val("");
                 $("#txtStockMinimo").val("");
-            }
-        });
-        $("#preview1").click(function () {
-            if (!($("#chkImagenProducto01").attr("disabled"))) {
-                var src = $(this).attr('src');
-                $("#imgModal").attr('src', src);
-                showDialog('DialogImagenContainer');
-            }
-        });
-        $("#preview2").click(function () {
-            if (!($("#chkImagenProducto02").attr("disabled"))) {
-                var src = $(this).attr('src');
-                $("#imgModal").attr('src', src);
-                showDialog('DialogImagenContainer');
-            }
-        });
-        $("#preview3").click(function () {
-            if (!($("#chkImagenProducto03").attr("disabled"))) {
-                var src = $(this).attr('src');
-                $("#imgModal").attr('src', src);
-                showDialog('DialogImagenContainer');
             }
         });
 
@@ -346,16 +310,25 @@
         $(".qq-upload-list").css("display", "none");
     });
 
+    function formatUrl(url) {
+        var newUrl = url.replace(/^.*[\\\/]/, '');
+        if (newUrl.lastIndexOf("?") >= 0) {
+            newUrl = newUrl.substring(0, newUrl.lastIndexOf("?"));
+        }
+
+        return newUrl;
+    };
+
     function IniDialogImages() {
-        $('#DialogImagenContainer').dialog({
+        $('#divVistaPrevia').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
             width: 250,
-            height: 270,
-            title: "Oferta Web",
-            draggable: true
+            draggable: false,
+            title: "Vista previa",
+            buttons: { "Cerrar": function () { $(this).dialog('close'); } }
         });
     }
 
@@ -512,7 +485,7 @@
             }
         });
     }
-    
+
     function fnGrilla() {
         jQuery("#list").jqGrid({
             url: baseUrl + "OfertaLiquidacion/ConsultarOfertaLiquidacion",
@@ -602,151 +575,71 @@
         };
     }
 
+    function llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock) {
+        if (Flag != "0")
+            $("#FlagTransaccion").val("1");
+
+        $.ajaxSetup({
+            cache: false
+        });
+        if (Flag == "0") {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerOrdenPriorizacion', { paisID: paisID, ConfiguracionOfertaID: FlagOrden, CampaniaID: CampaniaID }, function (data) {
+                $('#txtOrdenModal').val(data.Orden);
+            });
+        } else {
+            $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
+            $("#hdOrdenAnterior").val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
+        }
+
+        $('#hdCampaniaID').val(CampaniaID);
+        $('#hdStockProducto').val(Stock);
+        $("#txtPaisModal").val(paisNombre);
+        $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
+
+        $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
+        $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
+        $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
+        $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+        if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
+            $("#txtUnidadesPermitidasModal").val("1");
+        else
+            $("#txtUnidadesPermitidasModal").val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
+
+        if (FlagCheck == 1)
+            $('#chkHabilitarOferta').attr('checked', true);
+        else
+            $('#chkHabilitarOferta').removeAttr('checked');
+        $('#hdCodigoOferta').val(CodigoOferta);
+
+        $('#hdnCodigoSAP').val(CodigoSAP);
+
+        showDialog("DialogRegistroOfertaWeb");
+    }
+
     $.jgrid.extend({
         Editar: function (ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock) {
-            if (ID) {
-                LimpiarDatos();
-
-                $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerImagenesByCodigoSAP', { paisID: paisID, codigoSAP: CodigoSAP }, function (data) {
-                    if (data.lista.length > 0) {
-                        if (data.lista[0].FotoProducto01 != "") {
-                            // $('#preview1').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto01);
-                            $('#preview1').attr('src', data.lista[0].FotoProducto01); // 1664
-                            $("#chkImagenProducto01").val($('#preview1').attr('src').replace(/^.*[\\\/]/, ''));
-
-                            // 1664
-                            var img01 = $('#chkImagenProducto01').val();
-                            if (img01.lastIndexOf("?") >= 0) {
-                                img01 = img01.substring(0, img01.lastIndexOf("?"));
-                                $('#chkImagenProducto01').val(img01);
-                            }
-
-                            $("#chkImagenProducto01").removeAttr('disabled');
-                        } else
-                            $("#chkImagenProducto01").attr('disabled', true);
-                        if (data.lista[0].FotoProducto02 != "") {
-                            // $('#preview2').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto02);
-                            $('#preview2').attr('src', data.lista[0].FotoProducto02); // 1664
-                            $("#chkImagenProducto02").val($('#preview2').attr('src').replace(/^.*[\\\/]/, ''));
-
-                            // 1664
-                            var img01 = $('#chkImagenProducto02').val();
-                            if (img01.lastIndexOf("?") >= 0) {
-                                img01 = img01.substring(0, img01.lastIndexOf("?"));
-                                $('#chkImagenProducto02').val(img01);
-                            }
-
-                            $("#chkImagenProducto02").removeAttr('disabled');
-                        } else
-                            $("#chkImagenProducto02").attr('disabled', true);
-                        if (data.lista[0].FotoProducto03 != "") {
-                            // $('#preview3').attr('src', '@Url.Content("~/Content/Matriz/")' + ISO + "/" + data.lista[0].FotoProducto03);
-                            $('#preview3').attr('src', data.lista[0].FotoProducto03); // 1664
-                            $("#chkImagenProducto03").val($('#preview3').attr('src').replace(/^.*[\\\/]/, ''));
-
-                            // 1664
-                            var img01 = $('#chkImagenProducto03').val();
-                            if (img01.lastIndexOf("?") >= 0) {
-                                img01 = img01.substring(0, img01.lastIndexOf("?"));
-                                $('#chkImagenProducto03').val(img01);
-                            }
-
-                            $("#chkImagenProducto03").removeAttr('disabled');
-                        } else
-                            $("#chkImagenProducto03").attr('disabled', true);
-                        //if (data.lista[0].Descripcion == "") {
-                        //    $('#txtDescripcionModal').val(data.lista[0].Descripcion);
-                        //    flagDescripcion = 1;
-                        //} else
-                        //    flagDescripcion = 0;
-                    } else {
-                        $("#chkImagenProducto02").attr('disabled', true);
-                        $("#chkImagenProducto03").attr('disabled', true);
-                        $("#chkImagenProducto01").attr('disabled', true);
-                    }
-                    if (Flag != "0")
-                        $("#FlagTransaccion").val("1");
-
-                    $.ajaxSetup({
-                        cache: false
-                    });
-                    if (Flag == "0") {
-                        $.getJSON(baseUrl + 'OfertaLiquidacion/ObtenerOrdenPriorizacion', { paisID: paisID, ConfiguracionOfertaID: FlagOrden, CampaniaID: CampaniaID }, function (data) {
-                            $('#txtOrdenModal').val(data.Orden);
-                        });
-                    } else {
-                        $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
-                        $("#hdOrdenAnterior").val(jQuery("#list").jqGrid('getCell', ID, 'Orden'));
-                    }
-
-                    $('#hdCampaniaID').val(CampaniaID);
-                    $('#hdStockProducto').val(Stock);
-                    $("#txtPaisModal").val(paisNombre);
-                    $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
-
-                    $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
-                    $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
-                    $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-                    $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
-                    if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
-                        $("#txtUnidadesPermitidasModal").val("1");
-                    else
-                        $("#txtUnidadesPermitidasModal").val(jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas'));
-
-                    var imagen = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
-                    
-                    if (imagen != "prod_grilla_vacio.png") {
-                        $('#ImagenProductoAnterior').val(imagen);
-                        // 1664
-                        var img01 = $('#ImagenProductoAnterior').val();
-                        if (img01.lastIndexOf("?") >= 0) {
-                            img01 = img01.substring(0, img01.lastIndexOf("?"));
-                            $('#ImagenProductoAnterior').val(img01);
-                        }
-
-                        $('#ImagenProducto').val(imagen);
-                        // 1664
-                        var img02 = $('#ImagenProducto').val();
-                        if (img02.lastIndexOf("?") >= 0) {
-                            img02 = img02.substring(0, img02.lastIndexOf("?"));
-                            $('#ImagenProducto').val(img02);
-                        }
-
-                    } else {
-                        $('#ImagenProductoAnterior').val("");
-                        $('#ImagenProducto').val("");
-                    }
-
-                    // 1664
-                    var img02 = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src').replace(/^.*[\\\/]/, '');
-                    if (img02.lastIndexOf("?") >= 0) {
-                        img02 = img02.substring(0, img02.lastIndexOf("?"));
-                    }
-
-                    if ($("#chkImagenProducto03").val() == img02)
-                        $('#chkImagenProducto03').attr('checked', true);
-                    if ($("#chkImagenProducto02").val() == img02)
-                        $('#chkImagenProducto02').attr('checked', true);
-                    if ($("#chkImagenProducto01").val() == img02)
-                        $('#chkImagenProducto01').attr('checked', true);
-                    if (FlagCheck == 1)
-                        $('#chkHabilitarOferta').attr('checked', true);
-                    else
-                        $('#chkHabilitarOferta').removeAttr('checked');
-                    $('#hdCodigoOferta').val(CodigoOferta);
-                    //if (Flag != "0") {
-                    //    src = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src');
-                    //    if (src != "") {
-                    //        $('#preview').attr('src', src);
-                    //    }
-                    //}
-
-                    showDialog("DialogRegistroOfertaWeb");
-                });
-
-            } else {
+            if (!ID) {
                 alert("Debe seleccionar un Producto, verifique");
+                return false;
             }
+            LimpiarDatos();
+            $("#matriz-imagenes-paginacion, #file-upload-matriz").empty();
+            var imgSeleccionada = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src');
+            $("#ImagenProducto").val(formatUrl(imgSeleccionada));
+
+            ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1).done(function (data) {
+                llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock);
+
+                var params = {
+                    idMatrizComercial: data.idMatrizComercial,
+                    idImagenMatriz: 0,
+                    paisID: paisID,
+                    codigoSAP: CodigoSAP
+                };
+                ofertaLiquidacionObj.crearObjetoUpload(params);
+                closeWaitingDialog();
+            });
+
             return false;
         },
         Eliminar: function (ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden) {
@@ -799,7 +692,7 @@
                 CUV: CUV,
                 PaisID: paisID
             };
-                        
+
             waitingDialog({});
             jQuery.ajax({
                 type: 'POST',
@@ -846,17 +739,12 @@
         $('#txtDescripcionModal').val("");
         $('#txtPrecioOfertaModal').val("");
         $('#chkHabilitarOferta').removeAttr('checked');
-        $('#chkImagenProducto01').removeAttr('checked');
-        $('#chkImagenProducto02').removeAttr('checked');
-        $('#chkImagenProducto03').removeAttr('checked');
-        $('#preview1').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-        $('#preview2').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
-        $('#preview3').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
         $("#FlagTransaccion").val("0");
         $("#hdCodigoOferta").val("");
         $("#hdFlagImagen").val("0");
         $("#hdStockProducto").val("0");
         $('#txtUnidadesPermitidasModal').val("");
+        $('#hdnCodigoSAP').val('');
     }
 
 
@@ -930,11 +818,11 @@
                     var descripcionCUV = $("#txtDescripcionCUVTC").val();
 
                     var params = {
-                        Id: id, 
-                        Cuv: cuv, 
-                        CampaniaID: campaniaID, 
-                        Tipo: tipo, 
-                        Descripcion: descripcion, 
+                        Id: id,
+                        Cuv: cuv,
+                        CampaniaID: campaniaID,
+                        Tipo: tipo,
+                        Descripcion: descripcion,
                         CUVPadre: cuvPadre,
                         DescripcionCUV: descripcionCUV
                     };
@@ -1077,8 +965,6 @@
             }
         });
     }
-
-
 
     function IniAdministracionCorreos() {
         $('#DialogAdministradorCorreos').dialog({
@@ -1363,94 +1249,7 @@
 
 <div id="loadingScreen"></div>
 
-<div id="DialogRegistroOfertaWeb" style="display: none;">
-    <input type="hidden" id="hdTallaColorID" value="0" />
-    <input type="hidden" id="hdCampaniaID" />
-    <input type="hidden" id="ImagenProducto" />
-    <input type="hidden" id="ImagenProductoAnterior" />
-    <input type="hidden" id="FlagTransaccion" value="0" />
-    <input type="hidden" id="hdCodigoOferta" value="" />
-    <input type="hidden" id="hdCodigoCampania" value="" />
-    <input type="hidden" id="hdFlagImagen" value="0" />
-    <input type="hidden" id="hdOrdenAnterior" value="" />
-    <input type="hidden" id="hdStockProducto" value="0" />
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titG">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisModal" readonly="readonly" />
-            </div>
-            <div class="titG">Campaña:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCampaniaModal" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Tipo Oferta:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtTipoOfertaModal" readonly="readonly" />
-            </div>
-            <div class="titG">CUV:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCUVModal" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Descripción:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtDescripcionModal" />
-            </div>
-            <div class="titG">Precio Oferta:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPrecioOfertaModal" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Unid. Permitidas:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
-            </div>
-            <div class="titG">Orden:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtOrdenModal" maxlength="6">
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG">Imagen:</div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview1" style="cursor:pointer;">
-            </div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview2" style="cursor:pointer;">
-            </div>
-            <div class="pdr_modal borde_redondeado aligncenter">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="preview3" style="cursor:pointer;">
-            </div>
-            <div class="titG">¿Habilitar Oferta?</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" class="check" id="chkHabilitarOferta" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titG"></div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto01">
-            </div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto02">
-            </div>
-            <div class="pdr_modal_check aligncenter">
-                <input type="checkbox" id="chkImagenProducto03">
-            </div>
-            <div class="titG" style="padding:0">Talla/Color:</div>
-            <div class="selectCheck">
-                <a href="#" style="margin-left: 5px" id="linkTallaColor">
-                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("OfertaLiquidacionDialog")
 
 <div id="DialogAdministradorCorreos" style="display: none;">
     <input id="hdAdmCorreosFlag" type="hidden" value="0" />
@@ -1494,9 +1293,10 @@
         </div>
     }
 </div>
-<div id="DialogImagenContainer" style="display: none;">
-    <div class="Content_modal">
-        <img src='' id="imgModal" />
+
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <img id="imgPreview" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
     </div>
 </div>
 

@@ -270,6 +270,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetMatrizComercialImagenByCodigoSap(string codigoSap, int numeroPagina, int registros)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMatrizImagenesByCodigoSap");
+            Context.Database.AddInParameter(command, "@CodigoSap", DbType.AnsiString, codigoSap);
+            Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
+            Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetMatrizComercialByCampaniaAndCUV(int campania, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMatrizComercialByCampaniaAndCUV");

@@ -488,5 +488,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(new { imagenes= data, totalRegistros=totalRegistros } );
         }
+
+        public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, 10).ToList();
+            }
+
+            string paisISO = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
+                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            int idMatrizComercial = lst.Any() ? lst[0].IdMatrizComercial : 0;
+            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+
+            return Json(new { imagenes = data, idMatrizComercial= idMatrizComercial, totalRegistros = totalRegistros });
+        }
     }
 }

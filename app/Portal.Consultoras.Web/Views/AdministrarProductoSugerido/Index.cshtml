@@ -204,6 +204,7 @@
 
             paisNombre = $("#ddlPais option:selected").text();
             paisID = $("#ddlPais").val();
+            productoSugeridoObj.actualizarPais(paisID);
 
             fnGrilla();
         });
@@ -470,7 +471,6 @@
         return {
             idMatrizComercial: matriz.IdMatrizComercial,
             idImagenMatriz: 0,
-            paisID: paisID,
             codigoSAP: matriz.CodigoSAP,
             descripcionOriginal: matriz.DescripcionProductoComercial
         };

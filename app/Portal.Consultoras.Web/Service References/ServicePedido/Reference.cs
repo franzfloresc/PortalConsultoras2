@@ -5699,6 +5699,147 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEtiqueta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEEtiqueta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CodigoGeneralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EtiquetaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioModificacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CodigoGeneral {
+            get {
+                return this.CodigoGeneralField;
+            }
+            set {
+                if ((this.CodigoGeneralField.Equals(value) != true)) {
+                    this.CodigoGeneralField = value;
+                    this.RaisePropertyChanged("CodigoGeneral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EtiquetaID {
+            get {
+                return this.EtiquetaIDField;
+            }
+            set {
+                if ((this.EtiquetaIDField.Equals(value) != true)) {
+                    this.EtiquetaIDField = value;
+                    this.RaisePropertyChanged("EtiquetaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioCreacion {
+            get {
+                return this.UsuarioCreacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
+                    this.UsuarioCreacionField = value;
+                    this.RaisePropertyChanged("UsuarioCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioModificacion {
+            get {
+                return this.UsuarioModificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
+                    this.UsuarioModificacionField = value;
+                    this.RaisePropertyChanged("UsuarioModificacion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionPackNuevas", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEConfiguracionPackNuevas : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -16450,147 +16591,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEEtiqueta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEEtiqueta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CodigoGeneralField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EstadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EtiquetaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsuarioCreacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsuarioModificacionField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CodigoGeneral {
-            get {
-                return this.CodigoGeneralField;
-            }
-            set {
-                if ((this.CodigoGeneralField.Equals(value) != true)) {
-                    this.CodigoGeneralField = value;
-                    this.RaisePropertyChanged("CodigoGeneral");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Estado {
-            get {
-                return this.EstadoField;
-            }
-            set {
-                if ((this.EstadoField.Equals(value) != true)) {
-                    this.EstadoField = value;
-                    this.RaisePropertyChanged("Estado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EtiquetaID {
-            get {
-                return this.EtiquetaIDField;
-            }
-            set {
-                if ((this.EtiquetaIDField.Equals(value) != true)) {
-                    this.EtiquetaIDField = value;
-                    this.RaisePropertyChanged("EtiquetaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UsuarioCreacion {
-            get {
-                return this.UsuarioCreacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
-                    this.UsuarioCreacionField = value;
-                    this.RaisePropertyChanged("UsuarioCreacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UsuarioModificacion {
-            get {
-                return this.UsuarioModificacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
-                    this.UsuarioModificacionField = value;
-                    this.RaisePropertyChanged("UsuarioModificacion");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEPedidoReporteLiderIndicador", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEPedidoReporteLiderIndicador : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -18646,6 +18646,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAll", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAllResponse")]
+        int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAll", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAllResponse")]
+        System.Threading.Tasks.Task<int> EliminarOfertaShowRoomDetalleAllAsync(int paisID, int campaniaID, string cuv);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomPerfiles", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomPerfilesResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomPerfil[] GetShowRoomPerfiles(int paisId, int eventoId);
         
@@ -18959,6 +18965,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido", ReplyAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse")]
         System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEtiquetas", ReplyAction="http://tempuri.org/IPedidoService/GetEtiquetasResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEEtiqueta[] GetEtiquetas(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEtiquetas", ReplyAction="http://tempuri.org/IPedidoService/GetEtiquetasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEtiqueta[]> GetEtiquetasAsync(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConfiguracionPackNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConfiguracionPackNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConfiguracionPackNuevas[] GetConfiguracionPackNuevas(int paisID, string codigoPrograma);
@@ -19468,11 +19480,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleResponse")]
         System.Threading.Tasks.Task<int> EliminarOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle beShowRoomOfertaDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAll", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAllResponse")]
-        int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacionResponse")]
+        int UpdCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAll", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleAllResponse")]
-        System.Threading.Tasks.Task<int> EliminarOfertaShowRoomDetalleAllAsync(int paisID, int campaniaID, string cuv);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacionResponse")]
+        System.Threading.Tasks.Task<int> UpdCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/DelCrossSellingAsociacionResponse")]
         int DelCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
@@ -19984,12 +19996,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEtiqueta", ReplyAction="http://tempuri.org/IPedidoService/InsertarEtiquetaResponse")]
         System.Threading.Tasks.Task<int> InsertarEtiquetaAsync(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEtiquetas", ReplyAction="http://tempuri.org/IPedidoService/GetEtiquetasResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEEtiqueta[] GetEtiquetas(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEtiquetas", ReplyAction="http://tempuri.org/IPedidoService/GetEtiquetasResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEtiqueta[]> GetEtiquetasAsync(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual);
         
@@ -20342,6 +20348,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             "e")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetMatrizComercialImagenByIdMatrizImagenAsync(int paisID, int idMatrizComercial, int pagina, int registros);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAPPaginado", ReplyAction="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAPPaginadoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAPPaginado", ReplyAction="http://tempuri.org/IPedidoService/GetImagenesByCodigoSAPPaginadoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetImagenesByCodigoSAPPaginadoAsync(int paisID, string codigoSAP, int pagina, int registros);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionMasivo", ReplyAction="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionMasivoResponse")]
         int UpdMatrizComercialDescripcionMasivo(int paisID, Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[] lstmatriz, string UsuarioRegistro);
         
@@ -20503,12 +20515,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/InsCrossSellingAsociacionResponse")]
         System.Threading.Tasks.Task<int> InsCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacionResponse")]
-        int UpdCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/UpdCrossSellingAsociacionResponse")]
-        System.Threading.Tasks.Task<int> UpdCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -20536,6 +20542,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public PedidoServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv) {
+            return base.Channel.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
+        }
+        
+        public System.Threading.Tasks.Task<int> EliminarOfertaShowRoomDetalleAllAsync(int paisID, int campaniaID, string cuv) {
+            return base.Channel.EliminarOfertaShowRoomDetalleAllAsync(paisID, campaniaID, cuv);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomPerfil[] GetShowRoomPerfiles(int paisId, int eventoId) {
@@ -20944,6 +20958,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID) {
             return base.Channel.GetEventoConsultoraRecibidoAsync(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEEtiqueta[] GetEtiquetas(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad) {
+            return base.Channel.GetEtiquetas(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEtiqueta[]> GetEtiquetasAsync(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad) {
+            return base.Channel.GetEtiquetasAsync(entidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConfiguracionPackNuevas[] GetConfiguracionPackNuevas(int paisID, string codigoPrograma) {
@@ -21618,12 +21640,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.EliminarOfertaShowRoomDetalleAsync(paisID, beShowRoomOfertaDetalle);
         }
         
-        public int EliminarOfertaShowRoomDetalleAll(int paisID, int campaniaID, string cuv) {
-            return base.Channel.EliminarOfertaShowRoomDetalleAll(paisID, campaniaID, cuv);
+        public int UpdCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
+            return base.Channel.UpdCrossSellingAsociacion(entidad);
         }
         
-        public System.Threading.Tasks.Task<int> EliminarOfertaShowRoomDetalleAllAsync(int paisID, int campaniaID, string cuv) {
-            return base.Channel.EliminarOfertaShowRoomDetalleAllAsync(paisID, campaniaID, cuv);
+        public System.Threading.Tasks.Task<int> UpdCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
+            return base.Channel.UpdCrossSellingAsociacionAsync(entidad);
         }
         
         public int DelCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
@@ -22298,14 +22320,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertarEtiquetaAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEtiqueta[] GetEtiquetas(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad) {
-            return base.Channel.GetEtiquetas(entidad);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEtiqueta[]> GetEtiquetasAsync(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad) {
-            return base.Channel.GetEtiquetasAsync(entidad);
-        }
-        
         public Portal.Consultoras.Web.ServicePedido.BEPedidoReporteLiderIndicador GetPedidosReporteLiderIndicador(int paisID, long ConsultoraLiderID, string CodigoPais, string CodigoCampaniaActual) {
             return base.Channel.GetPedidosReporteLiderIndicador(paisID, ConsultoraLiderID, CodigoPais, CodigoCampaniaActual);
         }
@@ -22762,6 +22776,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetMatrizComercialImagenByIdMatrizImagenAsync(paisID, idMatrizComercial, pagina, registros);
         }
         
+        public Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[] GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros) {
+            return base.Channel.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, registros);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEMatrizComercialImagen[]> GetImagenesByCodigoSAPPaginadoAsync(int paisID, string codigoSAP, int pagina, int registros) {
+            return base.Channel.GetImagenesByCodigoSAPPaginadoAsync(paisID, codigoSAP, pagina, registros);
+        }
+        
         public int UpdMatrizComercialDescripcionMasivo(int paisID, Portal.Consultoras.Web.ServicePedido.BEMatrizComercial[] lstmatriz, string UsuarioRegistro) {
             return base.Channel.UpdMatrizComercialDescripcionMasivo(paisID, lstmatriz, UsuarioRegistro);
         }
@@ -22976,14 +22998,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> InsCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
             return base.Channel.InsCrossSellingAsociacionAsync(entidad);
-        }
-        
-        public int UpdCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
-            return base.Channel.UpdCrossSellingAsociacion(entidad);
-        }
-        
-        public System.Threading.Tasks.Task<int> UpdCrossSellingAsociacionAsync(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {
-            return base.Channel.UpdCrossSellingAsociacionAsync(entidad);
         }
     }
 }
