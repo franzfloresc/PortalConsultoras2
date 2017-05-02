@@ -9,22 +9,20 @@
 
     var _editData = {};
 
-    var _crearFileUploadElements = function (editData) {
-        $.ajaxSetup({ cache: false });
-
-        for (var x = 0; x < editData.imagenes.length; x++) {
-            var img = editData.imagenes[x];
-            var id = img.IdMatrizComercialImagen;
-            var foto = img.Foto.substring(img.Foto.lastIndexOf('/') + 1);
-            var itemData = { elementId: 'file-upload-' + x, imageElementId: 'img-matriz-' + x, idImagenMatriz: id, foto: foto }
-            _crearObjetoUpload(itemData, editData);
-        }
+    var _paginadorClick = function (page) {
+        _obtenerImagenes(_editData, page).done(function () {
+            showDialog("matriz-comercial-dialog");
+            closeWaitingDialog();
+        });
     };
 
+    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
+
+
     var _crearFileUploadAdd = function (editData) {
-        var itemData = { elementId: 'file-upload-add', idImagenMatriz: 0 };
+        var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
         _crearObjetoUpload(itemData, editData);
-        $("#file-upload-add .qq-upload-button span").text("Nueva Imagen")
+        $("#file-upload .qq-upload-button span").text("Nueva Imagen")
     };
 
     var _crearObjetoUpload = function (itemData, editData) {
@@ -33,79 +31,77 @@
             element: document.getElementById(itemData.elementId),
             action: _config.actualizarMatrizComercialAction,
             params: {
-                IdMatrizComercial: editData.idMatrizComercial,
-                IdMatrizComercialImagen: itemData.idImagenMatriz,
+                IdMatrizComercial: editData.IdMatrizComercial,
+                IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
                 Foto: itemData.foto,
-                PaisID: editData.paisID,
-                CodigoSAP: editData.codigoSAP,
-                DescripcionOriginal: editData.descripcionOriginal
+                PaisID: editData.paisID
             },
-            onComplete: _uploadComplete(itemData.imageElementId),
+            onComplete: _uploadComplete,
             onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
         });
     };
 
-    var _uploadComplete = function (imageElementId) {
-        return function (id, fileName, response) {
-            if (checkTimeout(response)) {
-                $(".qq-upload-list").css("display", "none");
-                if (response.success) {
-                    _editData.idMatrizComercial = response.idMatrizComercial;
-                    if (response.isNewRecord) {
-                        $('#list').trigger('reloadGrid');//refrescar la grilla con id generado
-                        //regenerar el file-upload-add para que use el id generado
-                        $("#file-upload-add").empty();
-                        _crearFileUploadAdd(_editData);
-                    }
-                    _updateImageListOnUpload(imageElementId, response)
-                } else {
-                    alert(response.message)
-                };
-            }
-        };
-    };
-
-    var _updateImageListOnUpload = function (imageElementId, response) {
-        if (response.isNewImage) {
-            _obtenerImagenes(_editData, 1, true);
-        } else {
-            $('#' + imageElementId).attr('src', response.foto);
+    var _uploadComplete = function (id, fileName, response) {
+        if (checkTimeout(response)) {
+            $(".qq-upload-list").css("display", "none");
+            if (response.success) {
+                _editData.IdMatrizComercial = response.idMatrizComercial;
+                if (response.isNewRecord) {
+                    //$('#list').trigger('reloadGrid');//refrescar la grilla con id generado
+                    //regenerar el file-upload-add para que use el id generado
+                    //$("#file-upload-add").empty();
+                    //_crearFileUploadAdd(_editData);
+                }
+                $("#matriz-imagenes-paginacion").empty();
+                _obtenerImagenes(_editData, 1, true);
+            } else {
+                alert(response.message)
+            };
         }
+        closeWaitingDialog();
     };
 
-    var _editar = function (data) {
-        var editData = {
-            estrategiaID: data.EstrategiaID,
+    var _editar = function (data, id) {
+        _editData = {
+            EstrategiaID: data.EstrategiaID,
+            IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
-            imagenes: []
+            imagenes: [],
+            imagen: null
         };
 
-        $("#matriz-imagenes-paginacion").empty();
-
-        _obtenerFiltrarEstrategia(editData, 1, true).done(function () {
+        _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
             showDialog("DialogAdministracionEstrategia");
+            _editData.IdMatrizComercial = data.IdMatrizComercial;
 
-            _crearFileUploadAdd(editData);
+            _crearFileUploadAdd(_editData);
 
-            _obtenerImagenes(editData, 1, true).done(function () {
+            _obtenerImagenes(_editData, 1, true).done(function () {
                 showDialog("matriz-comercial-dialog");
+                closeWaitingDialog();
             });
-        }).error(
-            alert(data.message); 
+        }).error(function () {
+            alert(data.message);
             closeWaitingDialog();
+        }
         );
 
         return false;
     };
 
-    var _obtenerFiltrarEstrategia = function () (data) {
-        var params = { estrategiaId: data.estrategiaId };
-        return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data));
+    function marcarCheckRegistro(imgRow) {
+        $('.chkImagenProducto[value="' + imgRow + '"]').first().attr('checked', 'checked');
+        imagen = imgRow;
+    }
+
+    var _obtenerFiltrarEstrategia = function (data, id) {
+        var params = { EstrategiaID: data.EstrategiaID };
+        return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
     };
 
-    var _obtenerFiltrarEstrategiaSuccess = function = function (editData) {
+    var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
      return function (data, textStatus, jqXHR) {
 
         if (data.success == false) {
@@ -114,7 +110,6 @@
             return false;
         }
 
-        var dataImagen, imgFormat;
         $("#hdSimbolo").val(data.Simbolo);
 
         if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
@@ -239,15 +234,20 @@
             $('#div-orden').hide();
         }
 
+        var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
+        _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+
         if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
         else $("#chkEstrella").attr("checked", false);
         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
         closeWaitingDialog();   
+
+        return data;
     };
 };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, estrategiaId: data.estrategiaId, pagina: pagina };
+        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, pagina: pagina };
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
@@ -256,12 +256,11 @@
             editData.imagenes = data.imagenes;
             _editData = editData;
 
-            if (recargarPaginacion) {
-                $("#matriz-imagenes-paginacion").empty();
-            }
-
+            $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
+    
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
+            marcarCheckRegistro(_editData.imagen);          
         };
     };
 
@@ -270,33 +269,13 @@
             return false;
         }
 
-        $("#matriz-imagenes-paginacion").paging(numRegistros, {
-            format: '[< ncnnn >]',
-            onClick: function (ev) {
-                ev.preventDefault();
-                var page = $(this).data('page');
-                _obtenerImagenes(_editData, page, false);
-            },
-            onFormat: function (type) {
-                switch (type) {
-                    case 'block': // n and c
-                        return '<div class="item"><a href="#">' + this.value + '</a></div>';
-                    case 'next': // >
-                        return '<div class="action"><a href= "#"><span class="ui-icon ui-icon-seek-next"></span></a></div>';
-                    case 'prev': // <
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-prev"></span></a></div>';
-                    case 'first': // [
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-first"></span></a></div>';
-                    case 'last': // ]
-                        return '<div class="action"><a href="#"><span class="ui-icon ui-icon-seek-end"></span></a></div>';
-                }
-            }
-        });
+        _paginador.paginar(numRegistros);
+        
     };
 
     var _mostrarListaImagenes = function (editData) {
-        SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
-        _crearFileUploadElements(editData);
+        SetHandlebars('#matriz-comercial-listado-imagenes-template', editData, '#matriz-comercial-images');
+        //_crearFileUploadElements(editData);
     };
 
     return {
@@ -317,7 +296,7 @@
                 };
                 $('#ContenidoImagenes').empty();
 
-                _editar(params);
+                _editar(params, id);
             }
 
             return false;

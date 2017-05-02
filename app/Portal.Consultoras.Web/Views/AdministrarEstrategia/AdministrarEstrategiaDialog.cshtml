@@ -108,70 +108,72 @@
                 </div>
             </div>
             <!--IMAGENES-->
-            <div>
-                <div id="matriz-imagenes-paginacion"></div>
-            </div>
-            <div class="div-3">
-                <div id="matriz-comercial-images" class="matriz-comercial-list">
+            <div id="divImagenEstrategiaContenido">
+                <div>
+                    <div id="matriz-imagenes-paginacion"></div>
                 </div>
-            </div>
-            <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
-                <div class="div-3">
-                    <div class="titG">Mensaje Adicional:</div>
-                    <div class="titE">
-                        <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
-                    </div>
-                </div>
-                <div class="div-3 OfertaUltimoMinuto">
-                    <div class="titH">Oferta de Último Minuto</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
-                    </div>
-                </div>
-                <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
-                    <!--SB20-312 -->
-                    <div class="titB">&nbsp;</div>
-                    <div class="titB">Orden:</div>
-                    <div class="titB">
-                        <input type="text" id="txtOrden" value="" maxlength="3" />
-                    </div>
+                <div class="actions">
+                    <div class="file-upload" id="file-upload"></div>
                 </div>
                 <div class="div-3">
-                    <div class="titG">Limite de Venta:</div>
-                    <div class="titAuto">
-                        <input type="text" id="txtLimite" value="99" style="width: 26px;" />
+                    <div id="matriz-comercial-images" class="matriz-comercial-list">
                     </div>
-                    <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
-                </div>
-                <div class="div-est-3 DatosNuevas" style="display: none">
-                    <div class="titB">&nbsp;</div>
-                    <div class="titB">Alcance:</div>
-                    <div class="titD">
-                        <input type="text" id="txtAlcance" readonly="readonly" />
-                    </div>
-                    <div class="titA" style="width: 20px">
-                        <a href="#" style="margin-left: 5px" id="linkAlcance">
-                            <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
-                        </a>
-                    </div>
-                    <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
                 </div>
             </div>
-        </div>
+                <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                    <div class="div-3">
+                        <div class="titG">Mensaje Adicional:</div>
+                        <div class="titE">
+                            <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
+                        </div>
+                    </div>
+                    <div class="div-3 OfertaUltimoMinuto">
+                        <div class="titH">Oferta de Último Minuto</div>
+                        <div class="selectCheck borde_redondeado">
+                            <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+                        </div>
+                    </div>
+                    <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
+                        <!--SB20-312 -->
+                        <div class="titB">&nbsp;</div>
+                        <div class="titB">Orden:</div>
+                        <div class="titB">
+                            <input type="text" id="txtOrden" value="" maxlength="3" />
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="titG">Limite de Venta:</div>
+                        <div class="titAuto">
+                            <input type="text" id="txtLimite" value="99" style="width: 26px;" />
+                        </div>
+                        <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
+                    </div>
+                    <div class="div-est-3 DatosNuevas" style="display: none">
+                        <div class="titB">&nbsp;</div>
+                        <div class="titB">Alcance:</div>
+                        <div class="titD">
+                            <input type="text" id="txtAlcance" readonly="readonly" />
+                        </div>
+                        <div class="titA" style="width: 20px">
+                            <a href="#" style="margin-left: 5px" id="linkAlcance">
+                                <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                            </a>
+                        </div>
+                        <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+                    </div>
+                </div>
+            </div>
     </div>
 </div>
 
-<script id="matriz-comercial-item-template" type="text/x-handlebars-template">
-    <div class="actions">
-        <div class="file-upload" id="file-upload"></div>
-    </div>
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">   
     {{#each imagenes}}
-    <div class="item">
-        <div class="content selectP2 borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
+    <div class="titG2 div-img-matriz-comercial">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-preview">
         </div>
         <div class="pdr_modal_check aligncenter">
-            <input type="checkbox" id="chk-estrategia-imagen{{@@index}}" class="chk-estrategia-imagen" {{if selected}} checked{{/if}} data-id="{{@@index}}">
+            <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
         </div>
        
     </div>
@@ -285,5 +287,44 @@
          jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
          jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
      }
+
+     var chkImagenProductoOnClick = function () {
+         var che = $(this).attr('checked');
+         imagen = "";
+
+         $(".chkImagenProducto").prop('checked', false);
+         if (che) {
+             $(this).attr('checked', 'checked');
+             imagen = $(this).attr('value');
+             $("#imgSeleccionada").attr("src", imagen);
+         }
+     };
+
+     var imagenOnClick = function () {
+         $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
+         showDialog('divVistaPrevia');
+     };
+
+     var imagenEstrategiaOnClick = function () {
+         $('#divImagenEstrategiaContenido').show();
+         $('#divInformacionAdicionalEstrategiaContenido').hide();
+     };
+
+     var informacionAdicionalEstrategiaOnClick = function () {
+         $('#divImagenEstrategiaContenido').hide();
+         $('#divInformacionAdicionalEstrategiaContenido').show();
+     };
+
+     $(".chkImagenProducto").on("click", chkImagenProductoOnClick);
+
+     $("#imgSeleccionada").on("click", imagenOnClick);
+
+     $("#matriz-comercial-images").on("click", ".img-matriz-preview", imagenOnClick);
+
+     $("#matriz-comercial-images").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
+
+     $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
+
+     $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
 
 </script>
