@@ -291,6 +291,9 @@ namespace Portal.Consultoras.ServiceContracts
         string RecuperarContrasenia(int paisId, string correo);
 
         [OperationContract]
+        string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
+
+        [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
 
         //EPD-2058

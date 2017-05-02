@@ -661,6 +661,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, correo);
         }
 
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+        }
+
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
         {
             int paisID = GetPaisID(paisISO);

@@ -1275,7 +1275,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
+                    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                     DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
                     string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
                     string paisiso = lst[0].CodigoISO;
@@ -1292,8 +1292,9 @@ namespace Portal.Consultoras.BizLogic
                     string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
                     string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
                     string fondo = (esEsika ? "e81c36" : "642f80");
+                    string displayname = "Somos Belcorp";
 
-                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, logo, nombrecorreo, newUri.ToString(), fondo);
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
 
                     resultado = "1" + "|" + "4" + "|" + correo;
                 }
@@ -1301,6 +1302,61 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                if (usuario.EMail != string.Empty)
+                {
+                    int cantidad = this.ValidarEmailConsultora(usuario.PaisID, usuario.EMail, usuario.CodigoUsuario);
+
+                    if (cantidad > 0) 
+                    {
+                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.", cantidad);
+                    }
+                    else
+                    {
+                        this.UpdateDatos(usuario, CorreoAnterior);
+
+                        if(usuario.EMail != CorreoAnterior)
+                        {
+                            string emailFrom = "no-responder@somosbelcorp.com"; 
+                            string emailTo = usuario.EMail;
+                            string titulo = "Confirmación de Correo";
+                            string displayname = usuario.Nombre;
+                            string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                            string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
+
+                            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
+                            string param_querystring = Portal.Consultoras.Common.Util.EncriptarQueryString(parametros);
+
+                            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+                            string fondo = (esEsika ? "e81c36" : "642f80");
+
+                            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, param_querystring);
+
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
+                        }
+                        else
+                        {
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
             }
 
             return resultado;
