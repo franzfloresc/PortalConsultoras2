@@ -152,24 +152,24 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        private string UploadFoto(string foto, string number, string preFileName, string carpetaPais)
+        private string UploadFoto(string foto, string preFileName, string carpetaPais)
         {
             if (!string.IsNullOrEmpty(foto))
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var newfilename = preFileName + time + "_" + number + "_" + FileManager.RandomString() + ".png";
+                var newfilename = preFileName + time + "_" + FileManager.RandomString() + ".png";
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
                 return newfilename;
             }
             return string.Empty;
         }
 
-        private string ReplaceFoto(string foto, string fotoAnterior, string number, string preFileName, string carpetaPais)
+        private string ReplaceFoto(string foto, string fotoAnterior, string preFileName, string carpetaPais)
         {
             if (foto != fotoAnterior)
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                string newfilename = preFileName + time + "_" + number + "_" + FileManager.RandomString() + ".png";
+                string newfilename = preFileName + time + "_" + FileManager.RandomString() + ".png";
                 ConfigS3.DeleteFileS3(carpetaPais, fotoAnterior);
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
                 return newfilename;
@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     isNewImage = true;
                     //subir imagen temporal al S3
-                    entity.Foto = this.UploadFoto(nombreArchivo, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
+                    entity.Foto = this.UploadFoto(nombreArchivo, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                     using (var sv = new PedidoServiceClient())
                     {
                         model.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
@@ -318,7 +318,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
                         //crear nueva foto y borrar la anterior en S3
-                        entity.Foto = this.ReplaceFoto(nombreArchivo, model.Foto, "01", formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
+                        entity.Foto = this.ReplaceFoto(nombreArchivo, model.Foto, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
                         sv.UpdMatrizComercialImagen(entity);
                     }
                 }
