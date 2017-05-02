@@ -257,7 +257,8 @@
             _editData = editData;
 
             $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
-    
+            $("#imgSeleccionada").attr("src", imagen);
+
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
             marcarCheckRegistro(_editData.imagen);          
