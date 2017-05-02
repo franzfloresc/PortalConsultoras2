@@ -132,6 +132,8 @@ namespace Portal.Consultoras.Entities
         public int TieneVariedad { get; set; }
         [DataMember]
         public int IdMatrizComercial { get; set; }
+        [DataMember]
+        public string FotoProducto01 { get; set; }
 
         public BEEstrategia(IDataRecord row)
         {
@@ -287,6 +289,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IdMatrizComercial") && row["IdMatrizComercial"] != DBNull.Value)
                 IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
+
+            if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
+                CUV2 = row["FotoProducto01"].ToString();
         }
     }
     // 1747 - Inicio
