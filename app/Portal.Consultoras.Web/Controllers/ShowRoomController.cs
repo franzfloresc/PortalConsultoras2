@@ -830,7 +830,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //PL20-1398
 
-                        var productoPrecioCero = lstStock.FirstOrDefault(p => p.PrecioOferta2 == 0);
+                        var productoPrecioCero = lstStock.FirstOrDefault(p => p.PrecioOferta == 0);
                         if (productoPrecioCero != null)
                         {
                             string messageErrorPrecioCero = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto "+
