@@ -835,6 +835,18 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         //PL20-1398
 
+                        var productoPrecioCero = lstStock.FirstOrDefault(p => p.PrecioOferta == 0);
+                        if (productoPrecioCero != null)
+                        {
+                            string messageErrorPrecioCero = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto "+
+                                productoPrecioCero.CUV + " tiene precio oferta Cero" ;
+
+                            FaultException ex = new FaultException();
+                            LogManager.LogManager.LogErrorWebServicesPortal(ex, "ERROR: CARGA PRODUCTO SHOWROOM", "CUV: " + productoPrecioCero.CUV + " con precio CERO");
+
+                            return messageErrorPrecioCero;
+                        }
+
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
 
                         var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();

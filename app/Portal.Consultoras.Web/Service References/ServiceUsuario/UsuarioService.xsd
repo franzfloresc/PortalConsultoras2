@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="BEUsuarioExternoPais">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdAplicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEUsuarioExternoPais" nillable="true" type="tns:BEUsuarioExternoPais" />
   <xs:simpleType name="EAplicacionOrigen">
     <xs:restriction base="xs:string">
       <xs:enumeration value="BienvenidaConsultora">
@@ -66,6 +75,7 @@
   <xs:complexType name="BEUsuarioExterno">
     <xs:sequence>
       <xs:element minOccurs="0" name="Apellidos" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
@@ -77,6 +87,7 @@
       <xs:element minOccurs="0" name="LinkPerfil" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Login" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Proveedor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Ubicacion" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -532,6 +543,7 @@
       <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Result" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoUsuario" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEValidaLoginSB2" nillable="true" type="tns:BEValidaLoginSB2" />

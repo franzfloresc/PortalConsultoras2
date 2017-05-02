@@ -61,6 +61,7 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEMisPedidosAppCatalogo.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
     <Compile Include="BEEstrategiaProducto.cs" />

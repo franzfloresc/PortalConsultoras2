@@ -612,7 +612,7 @@ Image .nav0:hover {
     font-size: 20px;
 }    
 .text_bienvenida_esika span {
-    font-size: 20px !important;
+    font-size: 20px;
 }
 
 .helper:hover .alerta_esika {
@@ -2049,3 +2049,199 @@ h1, h2, h3, h4, h5, h6 {
     width:100%;
     height:100%;
 }
+
+
+/*Facebook*/
+
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    /* width: 13em;  - apply for fixed size */
+    /*margin: 0.2em;*/
+    padding: 0 50px 0 50px;
+    border: none;
+    text-align: left;
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 0.2em;
+    font-size: 16px;
+    color: #FFF;
+}
+
+    .loginBtn:before {
+        content: "";
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 100%;
+    }
+
+    .loginBtn:focus {
+        outline: none;
+    }
+
+    .loginBtn:active {
+        box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+    }
+
+.loginBtn--facebook {
+    background-color: #4C69BA;
+    background-image: linear-gradient(#4C69BA, #3B55A0);
+    /*font-family: "Helvetica neue", Helvetica Neue, Helvetica, Arial, sans-serif;*/
+    text-shadow: 0 -1px 0 #354C8C;
+    font-family: 'LAto';
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    overflow: hidden;
+    cursor:pointer;
+}
+
+.loginBtn--facebook:before {
+    /*border-right: #364e92 1px solid;*/
+    background: url('https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png') 22px 13px no-repeat;
+}
+
+.loginBtn--facebook:hover,
+.loginBtn--facebook:focus {
+    background-color: #5B7BD5;
+    background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+.div-o-login {
+    color: white;
+    text-align: center;
+    font-size: 14px;
+    margin-top: -7px;
+    font-family: 'Lato';
+    margin-top: 5px;
+    margin-bottom: 40px;
+}
+
+.o_login {
+    float: left;
+    width: 10%;
+}
+
+.linea_o {
+    margin-top: 10px;
+    float: left;
+    width: 45%;
+    height: 1px;
+    background: #959595;
+}
+
+.content_btn_face {
+    position: relative;
+    height: 48px;
+    overflow: hidden;
+    border-radius: 3px;
+    /*margin-top: 33px;*/
+    margin-bottom: 16px;
+}
+
+.imagen_perfil_facebook {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 49px;
+    /* border: 1px solid white; */
+    background: white;
+}
+.imagen_perfil_facebook img {
+    width: 100%;
+}
+.content_facebook_sb {
+    position: relative;
+    max-width: 475px;
+    width: 90%;
+    margin: 0 auto;
+    margin-top:8%;
+    z-index: 1000;
+    text-align: left;
+    background:white;
+}
+     
+  
+.body_facebook {
+    padding: 30px 15% 55px 15%;
+    background: white;
+    color: black;
+    font-family: Arial;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.etiqueta_usuario {
+    margin-top: 15px;
+    width: 35%;
+    font-weight: bold;
+    float: left;
+    color: #5d5d65;
+    padding-top: 6px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.campo_input {
+    margin-top: 10px;
+    margin-bottom: 12px;
+    width: 100%;
+    float: left;
+    box-sizing: border-box;
+    text-align: left;
+    border-bottom: 1px solid #959595;
+    position:relative;
+    font-family: 'icomoon';
+}
+
+.select_pais_facebook{        
+    width: -moz-calc(100% - 21px);
+    width: calc(100% - 21px);
+    width:-webkit-calc(100% - 21px);
+    width: -webkit-calc(~'100% - 21px');
+    float: right;
+    /* padding-left: 25px; */
+    border: 0;
+    height: 28px;
+    box-sizing: border-box;
+}
+
+.usuario_facebook {
+    width: 100%;
+    border:0;
+    height: 28px;
+    color: black;
+    padding-left:25px;
+    box-sizing:border-box;
+    position:relative;
+    background:transparent;
+    letter-spacing: 0.3px;
+}
+
+.content_pop_login {
+    position: fixed;
+    top: 0;
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    overflow:auto;
+}
+        
+
+.center_facebook {
+    text-align: center;
+}
+
+._ccfb {
+    cursor:pointer;
+    color: #3897f0;
+    text-decoration: none;        
+}
+
+/*Fin Facebook*/

@@ -8,6 +8,12 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPais" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPaisResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_CambiarClaveUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:CambiarClaveUsuario" />
   </wsdl:message>
@@ -50,17 +56,17 @@
   <wsdl:message name="IUsuarioService_InsertUsuarioExterno_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertUsuarioExternoResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUsuarioExterno_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUsuarioExterno" />
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByCodigoUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByCodigoUsuario" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUsuarioExterno_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUsuarioExternoResponse" />
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByCodigoUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByCodigoUsuarioResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetExisteEmailActivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetExisteEmailActivo" />
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByProveedorAndIdApp" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetExisteEmailActivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetExisteEmailActivoResponse" />
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByProveedorAndIdAppResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetListaLoginExterno_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaLoginExterno" />
@@ -578,13 +584,17 @@
   <wsdl:message name="IUsuarioService_GetValidarLoginSB2_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarLoginSB2Response" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetValidarAutoLoginSB2_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginSB2" />
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLogin" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetValidarAutoLoginSB2_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginSB2Response" />
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginResponse" />
   </wsdl:message>
   <wsdl:portType name="IUsuarioService">
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" message="tns:IUsuarioService_InsUsuarioExternoPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse" message="tns:IUsuarioService_InsUsuarioExternoPais_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
@@ -613,13 +623,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertUsuarioExterno" message="tns:IUsuarioService_InsertUsuarioExterno_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertUsuarioExternoResponse" message="tns:IUsuarioService_InsertUsuarioExterno_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetUsuarioExterno">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExterno" message="tns:IUsuarioService_GetUsuarioExterno_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoResponse" message="tns:IUsuarioService_GetUsuarioExterno_OutputMessage" />
+    <wsdl:operation name="GetUsuarioExternoByCodigoUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario" message="tns:IUsuarioService_GetUsuarioExternoByCodigoUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuarioResponse" message="tns:IUsuarioService_GetUsuarioExternoByCodigoUsuario_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetExisteEmailActivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo" message="tns:IUsuarioService_GetExisteEmailActivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse" message="tns:IUsuarioService_GetExisteEmailActivo_OutputMessage" />
+    <wsdl:operation name="GetUsuarioExternoByProveedorAndIdApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp" message="tns:IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse" message="tns:IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListaLoginExterno">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno" message="tns:IUsuarioService_GetListaLoginExterno_InputMessage" />
@@ -965,13 +975,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" message="tns:IUsuarioService_GetValidarLoginSB2_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response" message="tns:IUsuarioService_GetValidarLoginSB2_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetValidarAutoLoginSB2">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2" message="tns:IUsuarioService_GetValidarAutoLoginSB2_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2Response" message="tns:IUsuarioService_GetValidarAutoLoginSB2_OutputMessage" />
+    <wsdl:operation name="GetValidarAutoLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" message="tns:IUsuarioService_GetValidarAutoLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse" message="tns:IUsuarioService_GetValidarAutoLogin_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
       <wsdl:input>
@@ -1035,8 +1054,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUsuarioExterno">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExterno" style="document" />
+    <wsdl:operation name="GetUsuarioExternoByCodigoUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1044,8 +1063,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetExisteEmailActivo">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivo" style="document" />
+    <wsdl:operation name="GetUsuarioExternoByProveedorAndIdApp">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1827,8 +1846,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetValidarAutoLoginSB2">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2" style="document" />
+    <wsdl:operation name="GetValidarAutoLogin">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
