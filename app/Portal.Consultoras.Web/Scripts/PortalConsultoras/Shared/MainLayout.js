@@ -646,12 +646,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
+   
+    if (gTipoUsuario == '2') {
+        URL = 'http://comunidad.somosbelcorp.com/';
+        window.open(URL, '_blank');
+        return false;
     }
-
     $.ajaxSetup({
         cache: false
     });

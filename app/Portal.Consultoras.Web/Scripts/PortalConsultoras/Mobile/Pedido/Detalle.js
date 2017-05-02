@@ -857,7 +857,6 @@ function SeparadorMiles(pnumero) {
 
 function EjecutarPROL(cuvOfertaProl) {
     cuvOfertaProl = cuvOfertaProl || "";
-
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
@@ -881,8 +880,8 @@ function EjecutarPROL(cuvOfertaProl) {
         } else {
             messageInfoMalo('No existen productos en su Pedido.');
         }
+        }
     }    
-    }
 }
 
 function EjecutarServicioPROL() {

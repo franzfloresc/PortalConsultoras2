@@ -346,7 +346,6 @@ namespace Portal.Consultoras.Web.Models
         
         public bool EsLebel { get; set; }
         public bool CloseBannerCompraPorCompra { get; set; }
-
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
     }
