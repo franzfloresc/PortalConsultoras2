@@ -2553,6 +2553,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ResultField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoUsuarioField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -2598,6 +2601,112 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ResultField.Equals(value) != true)) {
                     this.ResultField = value;
                     this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoUsuario {
+            get {
+                return this.TipoUsuarioField;
+            }
+            set {
+                if ((this.TipoUsuarioField.Equals(value) != true)) {
+                    this.TipoUsuarioField = value;
+                    this.RaisePropertyChanged("TipoUsuario");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioExternoPais", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEUsuarioExternoPais : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoISOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdAplicacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProveedorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoISO {
+            get {
+                return this.CodigoISOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
+                    this.CodigoISOField = value;
+                    this.RaisePropertyChanged("CodigoISO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IdAplicacion {
+            get {
+                return this.IdAplicacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdAplicacionField, value) != true)) {
+                    this.IdAplicacionField = value;
+                    this.RaisePropertyChanged("IdAplicacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Proveedor {
+            get {
+                return this.ProveedorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProveedorField, value) != true)) {
+                    this.ProveedorField = value;
+                    this.RaisePropertyChanged("Proveedor");
                 }
             }
         }
@@ -2914,6 +3023,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string ApellidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoISOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2947,6 +3059,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ProveedorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2971,6 +3086,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.ApellidosField, value) != true)) {
                     this.ApellidosField = value;
                     this.RaisePropertyChanged("Apellidos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoISO {
+            get {
+                return this.CodigoISOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
+                    this.CodigoISOField = value;
+                    this.RaisePropertyChanged("CodigoISO");
                 }
             }
         }
@@ -3114,6 +3242,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombresField, value) != true)) {
                     this.NombresField = value;
                     this.RaisePropertyChanged("Nombres");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
@@ -6182,11 +6323,17 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarLoginSB2Async(int paisID, string codigoUsuario, string contrasenia);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2Response")]
-        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginSB2Response")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginSB2Async(int paisID, string codigoUsuario, string proveedor);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginAsync(int paisID, string codigoUsuario, string proveedor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
+        int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
+        System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
@@ -6230,17 +6377,17 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertUsuarioExterno", ReplyAction="http://tempuri.org/IUsuarioService/InsertUsuarioExternoResponse")]
         System.Threading.Tasks.Task<int> InsertUsuarioExternoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno usuarioExterno);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoAsync(int paisID, string proveedor, string idAplicacion);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo", ReplyAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse")]
-        bool GetExisteEmailActivo(int paisID, string email);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuarioResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetExisteEmailActivo", ReplyAction="http://tempuri.org/IUsuarioService/GetExisteEmailActivoResponse")]
-        System.Threading.Tasks.Task<bool> GetExisteEmailActivoAsync(int paisID, string email);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuarioResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByCodigoUsuarioAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario);
@@ -6828,12 +6975,20 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetValidarLoginSB2Async(paisID, codigoUsuario, contrasenia);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor) {
-            return base.Channel.GetValidarAutoLoginSB2(paisID, codigoUsuario, proveedor);
+        public Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor) {
+            return base.Channel.GetValidarAutoLogin(paisID, codigoUsuario, proveedor);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginSB2Async(int paisID, string codigoUsuario, string proveedor) {
-            return base.Channel.GetValidarAutoLoginSB2Async(paisID, codigoUsuario, proveedor);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginAsync(int paisID, string codigoUsuario, string proveedor) {
+            return base.Channel.GetValidarAutoLoginAsync(paisID, codigoUsuario, proveedor);
+        }
+        
+        public int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
+            return base.Channel.InsUsuarioExternoPais(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
+            return base.Channel.InsUsuarioExternoPaisAsync(paisID, entidad);
         }
         
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
@@ -6892,20 +7047,20 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.InsertUsuarioExternoAsync(paisID, usuarioExterno);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion) {
-            return base.Channel.GetUsuarioExterno(paisID, proveedor, idAplicacion);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion) {
+            return base.Channel.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoAsync(int paisID, string proveedor, string idAplicacion) {
-            return base.Channel.GetUsuarioExternoAsync(paisID, proveedor, idAplicacion);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion) {
+            return base.Channel.GetUsuarioExternoByProveedorAndIdAppAsync(proveedor, idAplicacion);
         }
         
-        public bool GetExisteEmailActivo(int paisID, string email) {
-            return base.Channel.GetExisteEmailActivo(paisID, email);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario) {
+            return base.Channel.GetUsuarioExternoByCodigoUsuario(paisID, codigoUsuario);
         }
         
-        public System.Threading.Tasks.Task<bool> GetExisteEmailActivoAsync(int paisID, string email) {
-            return base.Channel.GetExisteEmailActivoAsync(paisID, email);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByCodigoUsuarioAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetUsuarioExternoByCodigoUsuarioAsync(paisID, codigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario) {

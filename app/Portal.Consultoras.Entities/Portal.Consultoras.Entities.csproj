@@ -60,6 +60,7 @@
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
     <Compile Include="BEEstrategiaProducto.cs" />

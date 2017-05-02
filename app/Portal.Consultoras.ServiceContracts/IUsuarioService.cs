@@ -274,7 +274,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         /*EPD-2340*/
         [OperationContract]
-        BEValidaLoginSB2 GetValidarAutoLoginSB2(int paisID, string codigoUsuario, string proveedor);
+        BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
+
+        [OperationContract]
+        int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
         /*EPD-2340*/
 
         [OperationContract]
@@ -304,13 +307,19 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
 
         [OperationContract]
-        BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion);
+        BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
-        bool GetExisteEmailActivo(int paisID, string email);
-        
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+
         [OperationContract]
         List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
+
+        /*
+        [OperationContract]
+        bool GetExisteEmailActivo(int paisID, string email);
+         * */
+       
         /*EPD-1837*/
     }
 }

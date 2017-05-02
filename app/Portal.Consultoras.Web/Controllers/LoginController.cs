@@ -117,6 +117,18 @@ namespace Portal.Consultoras.Web.Controllers
                 if (validaLogin != null && validaLogin.Result == 3)
                 {
                     //EPD-1837
+                    if (validaLogin.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    {
+                        if (Request.IsAjaxRequest())
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                            });
+                        }
+                    }
+
                     if (model.UsuarioExterno != null)
                     {
                         var userExtModel = model.UsuarioExterno;
@@ -124,7 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                             {
-                                var userExt = svc.GetUsuarioExterno(model.PaisID, userExtModel.Proveedor, userExtModel.IdAplicacion);
+                                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
                                 if (userExt == null)
                                 {
                                     BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
@@ -143,6 +155,34 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
 
+                                    //EPD-2340
+                                    var IP = string.Empty;
+                                    var ISO = string.Empty;
+
+                                    try
+                                    {
+                                        IP = GetIPCliente();
+                                        ISO = Util.GetISObyIPAddress(IP);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
+                                    }
+
+                                    if (string.IsNullOrEmpty(ISO))
+                                    {
+                                        IP = "190.187.154.154";
+                                        ISO = "PE";
+                                    }
+
+                                    BEUsuarioExternoPais beUserExtPais = new BEUsuarioExternoPais();
+                                    beUserExtPais.Proveedor = userExtModel.Proveedor;
+                                    beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
+                                    beUserExtPais.PaisID = model.PaisID;
+                                    beUserExtPais.CodigoISO = ISO;
+
+                                    svc.InsUsuarioExternoPais(11, beUserExtPais);
+
                                     hizoLoginExterno = true;
                                 }
                                 else
@@ -152,7 +192,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         return Json(new
                                         {
                                             success = false,
-                                            message = "ID ya se encuentra registrado"
+                                            message = "El codigo de consultora ya tiene una cuenta de Facebook asociada."
                                         });
                                     }
                                 }
@@ -165,7 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 return Json(new
                                 {
                                     success = false,
-                                    message = "No se pudo registrar los datos"
+                                    message = "Error al procesar la solicitud"
                                 });
                             }
                         }
@@ -1648,27 +1688,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var r = false;
-                if (!string.IsNullOrEmpty(codigoISO))
-                {
-                    var paisId = GetPaisIdByISO(codigoISO);
-                    if (paisId > 0)
-                    {
+                var f = false;
+                //if (!string.IsNullOrEmpty(codigoISO))
+                //{
+                //    var paisId = GetPaisIdByISO(codigoISO);
+                //    if (paisId > 0)
+                //    {
                         using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                         {
-                            var beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
+                            var beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
                             if (beUsuarioExt != null)
                             {
-                                r = true;
+                                f = true;
                             }
                         }
-                    }
-                }
+                    //}
+                //}
                
                 return Json(new
                 {
                     success = true,
-                    exists = r,
+                    exists = f,
                 });
             }
             catch (FaultException ex)
@@ -1694,29 +1734,29 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (!string.IsNullOrEmpty(codigoISO))
-                {
-                    var paisId = GetPaisIdByISO(codigoISO);
-                    if (paisId > 0)
-                    {
+                //if (!string.IsNullOrEmpty(codigoISO))
+                //{
+                //    var paisId = GetPaisIdByISO(codigoISO);
+                //    if (paisId > 0)
+                //    {
                         BEUsuarioExterno beUsuarioExt = null;
                         using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                         {
-                            beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
+                            beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
                         }
 
                         if (beUsuarioExt != null)
                         {
-                            hizoLoginExterno = true;
                             BEValidaLoginSB2 validaLogin = null;
                             using (UsuarioServiceClient svc = new UsuarioServiceClient())
                             {
-                                validaLogin = svc.GetValidarAutoLoginSB2(paisId, beUsuarioExt.CodigoUsuario, proveedor);
+                                validaLogin = svc.GetValidarAutoLogin(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, proveedor);
                             }
 
                             if (validaLogin != null && validaLogin.Result == 3)
                             {
-                                return Redireccionar(paisId, beUsuarioExt.CodigoUsuario, returnUrl);
+                                hizoLoginExterno = true;
+                                return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl);
                             }
                             else
                             {
@@ -1727,30 +1767,36 @@ namespace Portal.Consultoras.Web.Controllers
                                 });
                             }
                         }
-                    }
-                }
-
-                return Json(new
-                {
-                    success = true,
-                });
+                    //}
+                //}
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, "", codigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
             }
 
             return Json(new
             {
                 success = false,
-                message = "Error al procesar la solicitud"
+                message = ""
             });
         }
 
-       
     }
 }
