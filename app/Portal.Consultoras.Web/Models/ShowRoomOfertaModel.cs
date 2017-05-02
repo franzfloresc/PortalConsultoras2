@@ -141,5 +141,7 @@ namespace Portal.Consultoras.Web.Models
         public bool Suscripcion { get; set; }
 
         public string UrlTerminosCondiciones { get; set; }
+
+        public bool EsSubCampania { get; set; }
     }
 }

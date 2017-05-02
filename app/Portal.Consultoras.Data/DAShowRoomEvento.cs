@@ -262,6 +262,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
             Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
             Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
+            Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Boolean, entity.EsSubCampania);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -285,6 +286,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
             Context.Database.AddInParameter(command, "@FlagAgotado", DbType.Int32, entity.FlagAgotado);
             Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
+            Context.Database.AddInParameter(command, "@EsSubCampania", DbType.Boolean, entity.EsSubCampania);
 
             return Context.ExecuteNonQuery(command);
         }

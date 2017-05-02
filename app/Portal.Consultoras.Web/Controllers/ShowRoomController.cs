@@ -1163,9 +1163,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "TipoOferta":
-                            items = lst.OrderBy(x => x.Descripcion);
-                            break;
                         case "CodigoProducto":
                             items = lst.OrderBy(x => x.CodigoProducto);
                             break;
@@ -1199,9 +1196,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "TipoOferta":
-                            items = lst.OrderByDescending(x => x.Descripcion);
-                            break;
                         case "CodigoProducto":
                             items = lst.OrderByDescending(x => x.CodigoProducto);
                             break;
@@ -1254,10 +1248,8 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.NroOrden,
                                cell = new[] 
                                {
-                                   a.TipoOferta,
                                    a.CodigoTipoOferta.Trim(),
                                    a.CodigoProducto,
-                                   a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
                                    a.PrecioValorizado.ToString("#0.00"),
@@ -1266,15 +1258,14 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Stock.ToString(),
                                    a.StockInicial.ToString(),
                                    a.UnidadesPermitidas.ToString(),
-                                   a.ImagenProducto,
-                                   a.ImagenMini,
-                                   a.CampaniaID.ToString() ,
-                                   a.Stock.ToString(),
+                                   a.CampaniaID.ToString(),
+                                   a.OfertaShowRoomID.ToString(),
                                    a.FlagHabilitarProducto.ToString(),
-                                   a.OfertaShowRoomID.ToString(),                                   
-                                   a.ISOPais,
                                    a.ConfiguracionOfertaID.ToString(),
-                                   a.CodigoProducto                                   
+                                   a.EsSubCampania.ToString(),
+                                   a.CodigoCampania,
+                                   a.ImagenProducto,
+                                   a.ImagenMini                                                          
                                 }
                            }
                 };
@@ -1425,7 +1416,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
                     .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
                     .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
-                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado));
+                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado))
+                    .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));           
 
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
 
