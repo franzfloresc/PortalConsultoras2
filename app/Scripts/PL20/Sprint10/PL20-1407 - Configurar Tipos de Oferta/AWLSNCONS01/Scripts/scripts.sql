@@ -44,7 +44,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -82,11 +82,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -674,7 +706,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -712,11 +744,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -1304,7 +1368,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -1342,11 +1406,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -1934,7 +2030,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -1972,11 +2068,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -2564,7 +2692,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -2602,11 +2730,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -3194,7 +3354,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -3232,11 +3392,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -3824,7 +4016,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -3862,11 +4054,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -4454,7 +4678,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -4492,11 +4716,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -5084,7 +5340,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -5122,11 +5378,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -5714,7 +6002,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -5752,11 +6040,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -6344,7 +6664,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -6382,11 +6702,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -6974,7 +7326,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -7012,11 +7364,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
@@ -7604,7 +7988,7 @@ alter procedure ShowRoom.GetProductosShowRoom
 @CampaniaID int
 as
 /*
-ShowRoom.GetProductosShowRoom 201706
+ShowRoom.GetProductosShowRoom 201707
 */
 begin
 
@@ -7642,11 +8026,43 @@ WHERE
 		select Codigo from ShowRoom.TipoOferta where Activo = 1
 	)
 	AND CA.Codigo = @CampaniaID
-ORDER BY OS.CUV desc
+union all
+select 
+	ISNULL(OS.OfertaShowRoomID,0) OfertaShowRoomID,
+	ROW_NUMBER() OVER (ORDER BY (SELECT 1)) as NroOrden,
+	PC.CampaniaID,
+	CA.Codigo as CodigoCampania,
+	PC.CUV,
+	PC.CodigoTipoOferta,
+	ISNULL(OS.Descripcion,PC.Descripcion) as Descripcion,
+	COALESCE(OS.PrecioValorizado,PC.PrecioValorizado) as PrecioValorizado,
+	COALESCE(OS.PrecioOferta,PC.PrecioCatalogo) as PrecioOferta,
+	ISNULL(OS.Stock,0) Stock,
+	ISNULL(OS.StockInicial,0) StockInicial,
+	ISNULL(OS.ImagenProducto,'') ImagenProducto,
+	ISNULL(OS.UnidadesPermitidas,'') UnidadesPermitidas,
+	ISNULL(OS.FlagHabilitarProducto,0) FlagHabilitarProducto,
+	OS.Orden,
+	PC.CodigoProducto,
+	ISNULL(OS.DescripcionLegal,'') DescripcionLegal,
+	ISNULL(OS.ImagenMini,'') ImagenMini,
+	@ConfiguracionOfertaID as ConfiguracionOfertaID
+FROM ods.ProductoComercial PC WITH (NOLOCK)
+INNER JOIN ods.Campania CA WITH (NOLOCK) ON 
+	CA.CampaniaID = PC.CampaniaID
+INNER JOIN ShowRoom.OfertaShowRoom OS WITH(NOLOCK) ON 
+	OS.CUV = PC.CUV 
+	AND OS.CampaniaID = PC.CampaniaID
+WHERE 
+	PC.CodigoTipoOferta not in (
+		select Codigo from ShowRoom.TipoOferta where Activo = 1
+	)
+	AND CA.Codigo = @CampaniaID
+ORDER BY CUV desc
 
 end
 
-GO
+go
 
 ALTER PROCEDURE ShowRoom.InsOfertaShowRoom
 (	
