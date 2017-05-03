@@ -1131,6 +1131,7 @@
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
@@ -2670,6 +2671,7 @@
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
+    <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
     <Content Include="Content\Images\PL20\mas.png" />
