@@ -10799,6 +10799,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EventoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10842,6 +10845,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSubCampania {
+            get {
+                return this.EsSubCampaniaField;
+            }
+            set {
+                if ((this.EsSubCampaniaField.Equals(value) != true)) {
+                    this.EsSubCampaniaField = value;
+                    this.RaisePropertyChanged("EsSubCampania");
                 }
             }
         }

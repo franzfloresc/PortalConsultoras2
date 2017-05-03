@@ -1875,7 +1875,8 @@
                                     clase = 'selected="selected"';
                                 }
 
-                                var html = '<option value="' + value.CUV + '" ' + clase + '>' + value.CUV + '</option>';
+                                var cuvMostrar = value.EsSubCampania ? value.CUV + " (Sub Campaña)" : value.CUV;
+                                var html = '<option value="' + value.CUV + '" ' + clase + '>' + cuvMostrar + '</option>';
 
                                 $("#cbPerfilOfertaShowRoom").append(html);
                             });

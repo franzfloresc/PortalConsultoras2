@@ -251,6 +251,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="EventoID" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PerfilID" type="xs:int" />
