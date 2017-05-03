@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-
-using Portal.Consultoras.Web.ServiceCDR;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -154,7 +153,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoCategoria, f => f.MapFrom(c => c.CodigoCategoria))
                 .ForMember(t => t.TipNegocio, f => f.MapFrom(c => c.TipNegocio))
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
-                .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria));
+                .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
 
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();

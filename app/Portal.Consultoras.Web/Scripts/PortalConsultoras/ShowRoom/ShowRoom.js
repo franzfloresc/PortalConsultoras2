@@ -245,34 +245,38 @@ function CargarProductosShowRoom(busquedaModel) {
             //CerrarLoad();
 
             if (response.success == true) {
-                var lista = response.lista;
+                //var lista = response.lista;
+                var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
+                var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
 
-                $.each(lista, function (index, value) {
-                    var descripcion = "";
+                $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
+                    //var descripcion = "";
 
-                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
-                        descripcion = value.Descripcion.length > 41
-                        ? value.Descripcion.substring(0, 40) + "..."
-                        : value.Descripcion;
-                    } else {
-                        descripcion = value.Descripcion.length > 31
-                        ? value.Descripcion.substring(0, 30) + "..."
-                        : value.Descripcion;
-                    }
+                    //if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                    //    descripcion = value.Descripcion.length > 41
+                    //    ? value.Descripcion.substring(0, 40) + "..."
+                    //    : value.Descripcion;
+                    //} else {
+                    //    descripcion = value.Descripcion.length > 31
+                    //    ? value.Descripcion.substring(0, 30) + "..."
+                    //    : value.Descripcion;
+                    //}
 
                        
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
-                    value.Descripcion = descripcion;
+                    //value.Descripcion = descripcion;
                 });
 
                 $("#divProductosShowRoom").html("");
 
-                var htmlDiv = SetHandlebars("#template-showroom", lista);
+                var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
                 $('#divProductosShowRoom').append(htmlDiv);
 
                 $("#spnCantidadFiltro").html(response.cantidad);
                 $("#spnCantidadTotal").html(response.cantidadTotal);
+
+                SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
 
             } else {
                 messageInfoError(response.message);
@@ -301,7 +305,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-    debugger;
+
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -508,4 +512,17 @@ function AgregarProductoAlCarrito(padre) {
             });
         });
     }    
+}
+
+function ObtenerProductosNoSuncampanias(listaProductos)
+{
+    var listaProductosNoSubcampanias = [];
+
+    $.each(listaProductos, function (index, value) {
+        if (!value.EsSubCampania) {
+            listaProductosNoSubcampanias.push(value);
+        }
+    });
+
+    return listaProductosNoSubcampanias;
 }

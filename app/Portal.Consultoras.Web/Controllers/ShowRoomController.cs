@@ -2712,6 +2712,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int cantidad = listaFinal.Count;
 
+                foreach (var producto in listaFinal)
+                {
+                    if (producto.EsSubCampania)
+                    {
+                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
+                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
+                    }
+                }
                 return Json(new
                 {
                     success = true,
