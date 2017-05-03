@@ -33983,7 +33983,7 @@ h1#penmostreo .campana {
     position: absolute;
     margin-top: 0px;
     max-width: 1024px;
-    min-height: 415px;
+    height: 415px;
     z-index: 2010;
      background:#000;
     /*background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;*/
@@ -35627,7 +35627,7 @@ h1#penmostreo .campana {
 }
 .content_item_carrusel_ODD{
     width:260px;
-    padding:40px 30px 23px 30px;
+    padding: 30px 30px 11px 30px;
     border: 1px solid #d5b03e;
     float:left;
     margin-top:12px;
