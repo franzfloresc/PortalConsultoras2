@@ -87,14 +87,14 @@
                     return false;
 
                 var lista = _data.ListaOfertas || new Array();
-                _data.CantidadProducto = lista.length;
+                _data.CantidadProductos = lista.length;
 
-                if (_data.CantidadProducto <= 0)
+                if (_data.CantidadProductos <= 0)
                     return false;
 
                 _data.Simbolo = vbSimbolo;
-                _data.ClassDimension = _data.CantidadProducto < 3 ? "content_780_ODD" : "";
-                _data.TextoVerDetalle = _data.CantidadProducto > 1 ? "VER MÁS OFERTAS" : "VER DETALLE";
+                _data.ClassDimension = _data.CantidadProductos < 3 ? "content_780_ODD" : "";
+                _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
                 console.log(_data);
                 var idOdd = '#OfertaDelDia';
@@ -103,7 +103,7 @@
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').hide();
 
-                if (_data.CantidadProducto == 1) {
+                if (_data.CantidadProductos == 1) {
                     $(idOdd + ' [data-odd-accion="regresar"]').hide();
                     //$(idOdd + ' [data-odd-texto="cliente"]').hide();
                     $(idOdd + ' [data-odd-tipoventana="detalle"]').show();
@@ -123,7 +123,7 @@
                 $('#OfertaDelDia').show();
                 $('#PopOfertaDia').show();
 
-                if (_data.CantidadProducto > 3) {
+                if (_data.CantidadProductos > 3) {
                     $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').show();
                     $('#divOddCarrusel.slick-initialized').slick('unslick');
                     $('#divOddCarrusel').not('.slick-initialized').slick({
@@ -140,14 +140,14 @@
                 }
                 else {
                     var wc = $('#divOddCarrusel').width();
-                    var witem = ((wc) / _data.CantidadProducto);
+                    var witem = ((wc) / _data.CantidadProductos);
                     var witemc = $($('#divOddCarrusel [data-item]>div').get(0)).innerWidth();
                     witemc = (witem - witemc) / 2;
                     $('#divOddCarrusel [data-item]').css("width", witem + "px");
                     $('#divOddCarrusel [data-item]>div').css("margin-left", witemc + "px");
                     $('#divOddCarrusel [data-item]>div').css("margin-right", witemc + "px");
                 }
-                if (_data.CantidadProducto > 1) {
+                if (_data.CantidadProductos > 1) {
                     $('#PopOfertaDia [data-odd-tipoventana="detalle"]').show();
                     $('#divOddCarruselDetalle.slick-initialized').slick('unslick');
                     $('#divOddCarruselDetalle').not('.slick-initialized').slick({
@@ -196,7 +196,8 @@
     function ResolverGetOfertaDelDiaResponse(response) {
         var _data = response.data;
         $(elements.ContenedorOfertaDelDiaMobile).hide();
-        _data.TotalOfertas = _data.ListaOfertas.length;
+        _data.CantidadProductos = _data.ListaOfertas.length;
+        _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
         SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
     }

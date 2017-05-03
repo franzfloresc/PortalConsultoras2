@@ -447,11 +447,11 @@
                 <input type="hidden" class="Palanca" value="ODD" />
             </div>
             <div class="saludo_paginacion">
-                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../TotalOfertas}}</b>
-                {{#iff ../TotalOfertas '>' 1}}
+                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                {{#iff ../CantidadProductos '>' 1}}
                 &nbsp;ofertas
                 {{/iff}}
-                {{#iff ../TotalOfertas '<' 2}}
+                {{#iff ../CantidadProductos '<' 2}}
                 &nbsp;oferta
                 {{/iff}}
             </div>
