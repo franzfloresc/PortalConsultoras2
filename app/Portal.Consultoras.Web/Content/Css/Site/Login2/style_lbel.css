@@ -1769,10 +1769,15 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     z-index: 100;
 }
-.usuario_facebook::-webkit-input-placeholder { color:black }
-.usuario_facebook:-moz-placeholder { color:black  }
-.usuario_facebook::-moz-placeholder { color:black  }
-.usuario_facebook:-ms-input-placeholder {color:black  }
+.usuario_facebook::-webkit-input-placeholder { color:#676767 }
+.usuario_facebook:-moz-placeholder { color:#676767  }
+.usuario_facebook::-moz-placeholder { color:#676767 }
+.usuario_facebook:-ms-input-placeholder {color:#676767}
+
+.inputForm::-webkit-input-placeholder { color:#959595 }
+.inputForm:-moz-placeholder { color:#959595 }
+.inputForm::-moz-placeholder { color:#959595 }
+.inputForm:-ms-input-placeholder {color:#959595}
 
 .btn_validar_usuario {
     color: white;
@@ -2078,3 +2083,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*Fin Facebook*/
+
+.loginBtn {
+    box-sizing: border-box;
+    position: relative;
+    /* margin: 0.2em; */
+    padding: 0 50px 0 50px;
+    border: none;
+    /* text-align: left; */
+    line-height: 34px;
+    white-space: nowrap;
+    border-radius: 0.2em;
+    /* font-size: 16px; */
+    color: #FFF;
+}
+.loginBtn--facebook:before {
+    /* border-right: #364e92 1px solid; */
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/xBNWoYTwwGQ8O7Z/facebook_login.png) 22px 13px no-repeat;
+}
+
+.loginBtn:before {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 100%;
+}
+.icono_esika{
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: 15px;
+    color:#613c87;
+}
