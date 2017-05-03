@@ -418,12 +418,12 @@ body{
 .logo_esika_facebook{
     width:60px;
     margin:0 auto;
-    font-family: 'logo_esika';
+    font-family: 'icomoon';
 }
 .logo_esika_facebook:before{
-     content: "\e911";
-    font-size: 29px;
-    color: #e81c36;
+     content: "\e905";
+    font-size: 24px;
+    color: #613c87;
 }
 .logo_esika_facebook img{
     width:100%;
@@ -513,7 +513,7 @@ body{
 }
 .btnLogin{
     color: white;
-    background-color: #e81c36;
+    background-color: #613c87;
     border:0;
     border-radius: 2px;    
     font-size: 13px;
@@ -618,16 +618,16 @@ body{
     float: left;
     /* margin-bottom: 20px; */
     text-align: center;
-    font-family: 'logo_esika';
+    font-family: icomoon;
     width: 50px;
     height: 20px;
-    margin-left: 66px;
+    margin-left: 62px;
     margin-top: -2px;
 }
 .logo_normal:before {
-    content: "\e911";
-    font-size: 24px;
-    color: #e81c36;
+        content: "\e905";
+    font-size: 22px;
+    color: #613c87;
     
 }
 .logo_normal img{
