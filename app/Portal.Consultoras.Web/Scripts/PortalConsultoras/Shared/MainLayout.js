@@ -4,7 +4,6 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
-
     if (tieneOfertaDelDia == "True") {
         loadOfertaDelDia();
     }
@@ -334,6 +333,9 @@ $(document).ready(function () {
     } else {
         
     }
+
+    //EPD-2248
+    generateFingerprint();
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -343,7 +345,7 @@ function AbrirVentanaBelcorpChat(url) {
 }
 
 function OrdenarCabecera() {
-    debugger;
+    //debugger;
     var hC = $("header").innerHeight() + 2;
     var htmlSub = $.trim($(".ubicacion_web").html());
     if (htmlSub == "") {
@@ -981,7 +983,10 @@ function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
 function CerrarSesion() {
-    localStorage.clear();
+    if (typeof (Storage) !== 'undefined') {
+        localStorage.clear();
+    }
+    
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -1401,5 +1406,33 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}
+
+function generateFingerprint() {
+    //debugger;
+    if (typeof (Storage) !== 'undefined') {
+        var fp = localStorage.getItem('fingerprint');
+        if (typeof (fp) === 'undefined' || fp === null) {
+            new Fingerprint2().get(function (result, components) {
+                localStorage.setItem('fingerprint', result);
+                var obj = { 'code': result };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/StorageFingerprint',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (response) {
+                        if (response.success) {
+                            //console.log('Storage fingerprint');
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        }
     }
 }

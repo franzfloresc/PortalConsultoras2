@@ -1015,5 +1015,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        //EPD-2248
+        [OperationContract]
+        string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona);
     }
 }

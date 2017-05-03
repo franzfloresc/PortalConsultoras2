@@ -2020,6 +2020,32 @@ namespace Portal.Consultoras.BizLogic
             }
             return PedidoDescarga;
         }
+
+        /*EPD-2248*/
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
+        }
+
+        public int UpdIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.UpdIndicadorPedidoAutentico(entidad);
+        }
+
+        public void DelIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            DAPedidoWeb.UpdIndicadorPedidoAutentico(entidad);
+        }
+
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
+        }
+        /*EPD-2248*/
     }
 
     internal class TemplateField

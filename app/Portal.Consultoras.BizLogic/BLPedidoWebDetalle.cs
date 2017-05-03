@@ -97,6 +97,14 @@ namespace Portal.Consultoras.BizLogic
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockAgregar(Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                     /* 2108 - Fin */
 
+                    /*EPD-2248*/
+                    if (pedidowebdetalle.IndicadorPedidoAutentico != null)
+                    {
+                        pedidowebdetalle.IndicadorPedidoAutentico.PedidoDetalleID = BEPedidoWebDetalle.PedidoDetalleID;
+                        DAPedidoWeb.InsIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
+                    }
+                    /*EPD-2248*/
+
                     oTransactionScope.Complete();
                 }
             }
@@ -130,6 +138,13 @@ namespace Portal.Consultoras.BizLogic
                     if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate)
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                     /* 2108 - Fin */
+
+                    /*EPD-2248*/
+                    if (pedidowebdetalle.IndicadorPedidoAutentico != null)
+                    {
+                        DAPedidoWeb.UpdIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
+                    }
+                    /*EPD-2248*/
 
                     oTransactionScope.Complete();
                 }
@@ -212,6 +227,13 @@ namespace Portal.Consultoras.BizLogic
 
                     if (pedidowebdetalle.TipoOfertaSisID == Common.Constantes.ConfiguracionOferta.ShowRoom)
                         new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockEliminar(Common.Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+
+                    /*EPD-2248*/
+                    if (pedidowebdetalle.IndicadorPedidoAutentico != null)
+                    {
+                        DAPedidoWeb.DelIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
+                    }
+                    /*EPD-2248*/
 
                     oTransactionScope.Complete();
                 }

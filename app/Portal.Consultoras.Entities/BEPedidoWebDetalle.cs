@@ -142,6 +142,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsCompraPorCompra { get; set; }
 
+        [DataMember]
+        public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
+
         public BEPedidoWebDetalle()
         { }
 

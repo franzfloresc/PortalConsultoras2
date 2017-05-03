@@ -723,6 +723,15 @@ namespace Portal.Consultoras.Web.Controllers
                 //PL20-1234
 
                 Session["UserData"] = model;
+
+                //EPD-2248
+                if (Session["TokenPedidoAutentico"] == null)
+                {
+                    using(PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        Session["TokenPedidoAutentico"] = svc.GetTokenIndicadorPedidoAutentico(model.PaisID, model.CodigoISO, model.CodigorRegion, model.CodigoZona);
+                    }
+                }
             }
             catch (Exception ex)
             {

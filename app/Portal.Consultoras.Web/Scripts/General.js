@@ -889,9 +889,9 @@ function xMensajeEstadoPedido(estado) {
                 else {
                     $(".ubicacion_web").animate({ "margin-top": "83px" });
                     $('.content_slider_home ').css('margin-top', '60px');
-                    debugger;
+                    //debugger;
                     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        debugger;
+                        //debugger;
                         if (esPedido) {
                             $("[data-content]").animate({ "top": "-62px", "margin-top": "0px" });
                         } else {
@@ -1132,3 +1132,4 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
 }
+
