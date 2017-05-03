@@ -446,7 +446,15 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
                 <input type="hidden" class="Palanca" value="ODD" />
             </div>
-            <div class="saludo_paginacion">@ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../TotalOfertas}}</b> ofertas</div>
+            <div class="saludo_paginacion">
+                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../TotalOfertas}}</b>
+                {{#iff ../TotalOfertas '>' 1}}
+                &nbsp;ofertas
+                {{/iff}}
+                {{#iff ../TotalOfertas '<' 2}}
+                &nbsp;oferta
+                {{/iff}}
+            </div>
             <div class="producto_img_mobile">
                 <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" />
             </div>
