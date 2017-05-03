@@ -18,6 +18,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
+var FlagEnviarCorreo = false; //EPD-23787
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
@@ -2036,7 +2037,6 @@ function EjecutarPROL() {
 }
 
 function RecalcularPROL() {
-    debugger
     var total = parseFloat($('#hdfTotal').val());
 
     if (total != 0) {
@@ -2065,13 +2065,13 @@ function EjecutarServicioPROL() {
 
                 var codigoMensajeProl = response.data.CodigoMensajeProl;
                 var cumpleOferta;
-
                 if (response.data.Reserva == true) {
                     if (response.data.ZonaValida == true) {
                         if (response.data.ObservacionInformativa == false) {
                             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                             if (cumpleOferta.resultado) {
                                 esPedidoValidado = response.data.ProlSinStock != true;
+                                FlagEnviarCorreo = true; //EPD-2378
                             } else {
                                 if (response.data.ProlSinStock == true) {
                                     showDialog("divReservaSatisfactoria3");
@@ -2129,6 +2129,11 @@ function EjecutarServicioPROL() {
                     }
                     CargarDetallePedido();
                 }
+                /*** EPD-2378 ***/
+                if (!FlagEnviarCorreo)
+                    EnviarCorreoPedidoReservado();
+                /*** ***/
+
                 AnalyticsGuardarValidar(response);
                 analyticsGuardarValidarEnviado = true;
             }
@@ -2140,6 +2145,7 @@ function EjecutarServicioPROL() {
         }
     });
 }
+
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
     analyticsGuardarValidarEnviado = false;
@@ -2150,8 +2156,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
+                if (response.flagCorreo == "1")
+                    EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);
-                MostrarMensajeProl(response);
+                MostrarMensajeProl(response);                
             }
         },
         error: function (data, error) {
@@ -3597,3 +3605,20 @@ function ConfirmarModificar() {
     });
     return false;
 }
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/
+
