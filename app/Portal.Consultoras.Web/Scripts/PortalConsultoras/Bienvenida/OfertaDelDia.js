@@ -234,7 +234,7 @@
             return false;
         }
 
-        if (cantidad <= 0) {
+        if (cantidad <= 0 || isNaN(cantidad)) {
             AbrirMensaje("Ingrese la cantidad a solicitar");
             CerrarLoad();
             return false;
@@ -288,7 +288,8 @@
         AbrirLoad();
         var contenedor = $(btn).parents(".row.contenedor-botones").siblings("#OfertasDiaMobile").find(".slick-active")
         var itemCampos = contenedor.find("[data-item-campos]");
-        var cantidad = parseInt($(btn).parents(".row.contenedor-botones").find(elements.TxtCantidadMobile).val());
+        var valorCantidad = $(btn).parents(".row.contenedor-botones").find(elements.TxtCantidadMobile).val().trim();
+        var cantidad = parseInt(valorCantidad == '' ? 0 : valorCantidad);
 
         if (!EsOddAgregarValido(btn, cantidad)) {
             return false;
@@ -342,8 +343,9 @@
 
         var item = $(btn).parents("[data-item]");
         var itemCampos = item.find("[data-item-campos]");
-        var cantidad = parseInt(item.find('.txtcantidad-odd').val());
-        if (cantidad <= 0) {
+        var valorCantidad = item.find('.txtcantidad-odd').val().trim();
+        var cantidad = parseInt(valorCantidad == '' ? 0 : valorCantidad);
+        if (cantidad <= 0 || isNaN(cantidad)) {
             alert_msg_pedido("Ingrese la cantidad a solicitar");
             closeWaitingDialog();
             return false;
