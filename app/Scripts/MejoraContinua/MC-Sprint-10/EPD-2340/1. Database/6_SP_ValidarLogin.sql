@@ -15,10 +15,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -54,7 +50,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -69,7 +65,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -93,10 +90,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -132,7 +125,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -147,7 +140,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -171,10 +165,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -210,7 +200,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -225,7 +215,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -249,10 +240,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -288,7 +275,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -303,7 +290,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -327,10 +315,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -366,7 +350,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -381,7 +365,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -405,10 +390,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -444,7 +425,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -459,7 +440,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -483,10 +465,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -522,7 +500,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -537,7 +515,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -561,10 +540,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -600,7 +575,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -615,7 +590,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -639,10 +615,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -678,7 +650,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -693,7 +665,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -717,10 +690,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -756,7 +725,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -771,7 +740,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -795,10 +765,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -834,7 +800,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -849,7 +815,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -873,10 +840,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -912,7 +875,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -927,7 +890,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
@@ -951,10 +915,6 @@ CREATE PROCEDURE [dbo].[ValidarLogin]
 	@Contrasenia VARCHAR(200)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -990,7 +950,7 @@ BEGIN
 		AND Estado = 1 AND ISNULL(UsuarioReal,'0') = '0'
 	)
 	BEGIN
-		SET @CodigoConsultora = @CodigoUsuario
+		SET @CodigoConsultora = @CodigoUsuario_
 	END
 END
 
@@ -1005,7 +965,8 @@ BEGIN
 	SET @Mensaje = 'Usuario o Contraseña Incorrectas'
 END
 	
-SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario
+SELECT @Result AS Result, @Mensaje AS Mensaje, @CodigoUsuario_ AS CodigoUsuario,
+	@TipoUsuario AS TipoUsuario
 
 SET NOCOUNT OFF
 
