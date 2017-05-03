@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Data.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -42,6 +42,17 @@ namespace Portal.Consultoras.Data.Properties {
         public string Portal_Consultoras_Data_ServiceCalculoPROL_ServicesCalculoPrecioNiveles {
             get {
                 return ((string)(this["Portal_Consultoras_Data_ServiceCalculoPROL_ServicesCalculoPrecioNiveles"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsCo" +
+            "nsulta.asmx")]
+        public string Portal_Consultoras_Data_ServicePROLConsultas_wsConsulta {
+            get {
+                return ((string)(this["Portal_Consultoras_Data_ServicePROLConsultas_wsConsulta"]));
             }
         }
     }

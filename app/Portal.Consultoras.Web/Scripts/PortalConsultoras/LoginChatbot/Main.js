@@ -32,7 +32,6 @@ function ResponderBotmaker(url, data) {
     data['userToken'] = tokenBotmaker;
     console.log(url);
     console.log(data);
-    return;
     $.post(url, data)
         .done(function (response) {
             console.log(response);

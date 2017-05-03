@@ -3,9 +3,9 @@ var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
+var openloginPopup = false;
 
 $(document).ready(function () {
-
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
@@ -15,8 +15,10 @@ $(document).ready(function () {
 
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
+    
     $('#ddlPais2').val(isoPais);
-
+    ayudaLogin2();
+    
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) {
@@ -59,9 +61,9 @@ $(document).ready(function () {
         AsignarHojaEstilos();
 
         $('#ddlPais2').val(imgISO);
+        ayudaLogin2();
     });
 
-    /*2275*/
     $("#ddlPais2").change(function () {
         imgISO = $("#ddlPais2").val();
         
@@ -76,9 +78,10 @@ $(document).ready(function () {
                 $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
             }
         }
+
+        ayudaLogin2();
         //AsignarHojaEstilos();
     });
-    /**/
 
     $("#box-pop-up").hide();
 
@@ -165,11 +168,8 @@ $(document).ready(function () {
         waitingDialog();
 
         $('#HdePaisID').val(PaisID);
-        $('#ddlPais option:not(:selected)').prop('disabled', true);
-        $('#txtUsuario').attr('readonly', true);
-        $('#txtContrasenia').attr('readonly', true);
-        $('#btnLogin').prop('disabled', true);
 
+        preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
     });
 
@@ -392,6 +392,72 @@ function CloseDialog(pop) {
     $("#" + pop).hide();
 }
 
+function ayudaLogin2() {
+    var aa = $('div.content-alerta-red-user');
+    var bb = $('div.content-alerta-red-clave');
+    var m1 = null;
+    var m2 = null;
+    var iso = $('#ddlPais2').val();
+
+    switch (iso) {
+        case "PE":
+            m1 = $(aa).find('.alerta_red_peru_user').html();
+            m2 = $(bb).find('.alerta_red_peru_clave').html();
+            break;
+        case "BO":
+            m1 = $(aa).find('div.alerta_red_bolivia_user').html();
+            m2 = $(bb).find('div.alerta_red_bolivia_clave').html();
+            break;
+        case "CL":
+            m1 = $(aa).find('div.alerta_red_chile_user').html();
+            m2 = $(bb).find('div.alerta_red_chile_clave').html();
+            break;
+        case "PA":
+            m1 = $(aa).find('div.alerta_red_cam_user9').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "GT":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "CR":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "SV":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "PR":
+            m1 = $(aa).find('div.alerta_red_pr_user').html();
+            m2 = $(bb).find('div.alerta_red_pr_clave').html();
+            break;
+        case "DO":
+            m1 = $(aa).find('div.alerta_red_do_user').html();
+            m2 = $(bb).find('div.alerta_red_do_clave').html();
+            break;
+        case "MX":
+            m1 = $(aa).find('div.alerta_red_mx_user').html();
+            m2 = $(bb).find('div.alerta_red_mx_clave').html();
+            break;
+        case "EC":
+            m1 = $(aa).find('div.alerta_red_ec_user').html();
+            m2 = $(bb).find('div.alerta_red_ec_clave').html();
+            break;
+        case "VE":
+            m1 = $(aa).find('div.alerta_red_ve_user').html();
+            m2 = $(bb).find('div.alerta_red_ve_clave').html();
+            break;
+        case "CO":
+            m1 = $(aa).find('div.alerta_red_co_user').html();
+            m2 = $(bb).find('div.alerta_red_co_clave').html();
+            break;
+    }
+
+    $('#ayuda-msg-user').html(m1.trim());
+    $('#ayuda-msg-clave').html(m2.trim());
+}
+
 function AbrirMensajeLogin(tipo, close) {
     close = close || false;
     $(".content-alerta-red-user > div").removeClass("alerta_red_block");
@@ -570,7 +636,7 @@ function login2() {
     if (mensaje != "") {
         valid = false;
         alert(mensaje);
-        $('#ddlPais2').focus();
+        $('#txtUsuario2').focus();
     }
 
     if (!valid) {
@@ -583,27 +649,76 @@ function login2() {
     $('#txtContrasenia').val(Contrasenia);
 
     $('#HdePaisID').val(PaisID);
-    $('#ddlPais option:not(:selected)').prop('disabled', true);
-    $('#txtUsuario').attr('readonly', true);
-    $('#txtContrasenia').attr('readonly', true);
-    $('#btnLogin').prop('disabled', true);
+    //preventClick(2, true);
 
-    $('.content_pop_login').hide();
-    $('#btnLoginFB').prop('disabled', true);
+    //$('.content_pop_login').hide();
+    //$('#btnLoginFB').prop('disabled', true);
 
     waitingDialog();
 
-    $('#frmLogin').submit();
+    //$('#frmLogin').submit();
+    var form = $('#frmLogin');
+    //var token = $('input[name="__RequestVerificationToken"]', form).val();
+    var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Login/Login',
+        data: postData,
+        dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //console.log(response);
+
+            if (response.success) {
+                if (response.redirectTo !== "") {
+                    document.location.href = response.redirectTo;
+                }
+            }
+            else {
+                //console.log(response);
+                closeWaitingDialog();
+                $('#ErrorTextLabel2').html(response.message);
+                $("#ErrorTextLabel2").css("padding-left", "20px");
+                $('#divMensajeError2').show();
+
+                $('#txtUsuario').val('');
+                $('#txtContrasenia').val('');
+                //preventClick(2, false);
+            }
+        },
+        error: function (response) {
+            //console.log(response);
+            closeWaitingDialog();
+            alert("Error al procesar la solicitud");
+
+            $('#txtUsuario').val('');
+            $('#txtContrasenia').val('');
+            //preventClick(2, false);
+
+        }
+    });
 }
 
 function closePopupAsociarLoginExt() {
-    // disable prevent submit
-    $('#ddlPais option:not(:selected)').prop('disabled', false);
-    $('#txtUsuario').attr('readonly', false);
-    $('#txtContrasenia').attr('readonly', false);
-    $('#btnLogin').prop('disabled', false);
+    preventClick(1, false);
 
     $('.content_pop_login').hide();
+}
+
+function preventClick(opt, value) {
+    if (opt == 1) {
+        $('#ddlPais option:not(:selected)').prop('disabled', value);
+        $('#txtUsuario').attr('readonly', value);
+        $('#txtContrasenia').attr('readonly', value);
+        $('#btnLogin').prop('disabled', value);
+    }
+    else if (opt == 2) {
+        $('#ddlPais2 option:not(:selected)').prop('disabled', value);
+        $('#txtUsuario2').attr('readonly', value);
+        $('#txtContrasenia2').attr('readonly', value);
+        $('#btnLogin2').prop('disabled', value);
+    }
 }
 
 function resizeNameUserExt() {
@@ -616,6 +731,6 @@ function resizeNameUserExt() {
         if (fname.length > ml) {
             fname = fname.substring(0, ml).trim() + '.';
         }
-        $('#btnLoginFB').text('Continuar como ' + fname);
+        $('#btnLoginFB2').text('Continuar como ' + fname);
     }
 }
