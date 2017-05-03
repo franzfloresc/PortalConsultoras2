@@ -33,8 +33,8 @@ $(document).ready(function () {
             }
 
             //EPD-1780
-            if ($('#dialog_SesionMainLayout').is(':visible')) {
-                $('#dialog_SesionMainLayout').hide();
+            if ($('#dialog_PedidoReservado').is(':visible')) {
+                $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
             //Fin EPD-1780

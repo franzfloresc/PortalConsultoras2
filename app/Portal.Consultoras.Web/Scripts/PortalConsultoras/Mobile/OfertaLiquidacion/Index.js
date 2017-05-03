@@ -45,7 +45,8 @@ $(document).ready(function () {
         e.preventDefault();
         (this).blur();
     });
-    ReservadoOEnHorarioRestringido();
+    //La postulante ahora puede visualizar productos cuando tenga pedido reservado
+    //ReservadoOEnHorarioRestringido();
 });
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
@@ -72,7 +73,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                         }
                         if (mostrarAlerta == true) {
                             CloseLoading();
-                            AbrirMensaje(data.message, '', fnRedireccionar);
+                            //AbrirMensaje(data.message, '', fnRedireccionar);
+                            AbrirPopupPedidoReservado(data.message,'2')
                         }
                         else fnRedireccionar();
                     }
@@ -89,7 +91,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     });
     return restringido;
 }
-function CargarOfertasLiquidacion() {    
+function CargarOfertasLiquidacion() {
     $.ajax({
         type: 'GET',
         url: urlGetJSONLiquidaciones,

@@ -3678,10 +3678,12 @@ namespace Portal.Consultoras.Web.Controllers
             String colorStyle = "";
             bool IndicadorOfertaCUV = false;
             decimal montoTotal = olstPedidoWebDetalle.Sum(c => c.ImporteTotal) - olstPedidoWebDetalle.Sum(c => c.DescuentoProl);
-            decimal gananciaEstimada = olstPedidoWebDetalle.Sum(c => c.MontoAhorroCatalogo) + olstPedidoWebDetalle.Sum(c => c.MontoAhorroRevista);
+            decimal gananciaEstimada = (olstPedidoWebDetalle[0].MontoAhorroCatalogo + olstPedidoWebDetalle[0].MontoAhorroRevista);
             decimal totalSinDescuento = olstPedidoWebDetalle.Sum(c => c.ImporteTotal);
             decimal descuento = olstPedidoWebDetalle.Sum(c => c.DescuentoProl);
-            string simbolo = olstPedidoWebDetalle.Select(c => c.Simbolo).FirstOrDefault();
+            string simbolo = userData.Simbolo; //olstPedidoWebDetalle.Select(c => c.Simbolo).FirstOrDefault();
+
+            //string _montoTotal = Util.DecimalToStringFormat(montoTotal, userData.CodigoISO);
 
             StringBuilder mailBody = new StringBuilder();
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
