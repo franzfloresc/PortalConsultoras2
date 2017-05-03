@@ -1166,13 +1166,6 @@
         function loadBannerLP20() {
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
-
-            $(".BloqueOfertaDiaHeader").click(function () {
-                $('#txtCantidad').val('1');
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-                $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
-            });
             
             if($('#flexslider ul.slides li').length > 0){
                 $("#contentmobile").css("margin-top", "0px");
