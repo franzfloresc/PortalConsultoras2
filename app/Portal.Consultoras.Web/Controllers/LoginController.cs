@@ -645,10 +645,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
-                                    //ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
+                                    ofertaDelDia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.FotoProducto01, carpetaPais);
                                     ofertaDelDia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ofertaDelDia.ImagenURL, carpetaPais);
-                                    //var imgBanner = ofertaDelDia.FotoProducto01;
-                                    //var imgDisplay = ofertaDelDia.FotoProducto01;
+                                    var imgBanner = ofertaDelDia.FotoProducto01;
+                                    var imgDisplay = ofertaDelDia.FotoProducto01;
 
                                     var oddModel = new OfertaDelDiaModel();
                                     oddModel.CodigoIso = model.CodigoISO;
@@ -662,11 +662,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     oddModel.TeQuedan = countdown;
                                     oddModel.ImagenFondo1 = imgF1;
                                     oddModel.ColorFondo1 = colorF1;
-                                    //oddModel.ImagenBanner = imgBanner;
+                                    oddModel.ImagenBanner = imgBanner;
                                     oddModel.ImagenSoloHoy = imgSh;
                                     oddModel.ImagenFondo2 = imgF2;
                                     oddModel.ColorFondo2 = colorF2;
-                                    //oddModel.ImagenDisplay = imgDisplay;
+                                    oddModel.ImagenDisplay = imgDisplay;
                                     oddModel.NombreOferta = nombreODD;
                                     oddModel.DescripcionOferta = descripcionODD;
                                     oddModel.PrecioOferta = ofertaDelDia.Precio2;
