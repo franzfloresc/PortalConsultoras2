@@ -2036,6 +2036,7 @@ function EjecutarPROL() {
 }
 
 function RecalcularPROL() {
+    debugger
     var total = parseFloat($('#hdfTotal').val());
 
     if (total != 0) {
