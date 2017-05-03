@@ -15,19 +15,50 @@ var Paginador = function (config) {
             _config.elementClick(page);
         }
     };
+    
+    var _getItemBlock = function (disabled, current, label) {
+        var classes = disabled ? 'item-disabled' : '';
+        classes = classes += (current ? ' current' : '');
+        return '<div class="item ' + classes + '"><a href= "#">' + label + '</a></div>';
+    };
+
+    var _getLabelElement = function (obj) {
+        var start = obj.slice[0] + 1;
+        var end = obj.slice[1];
+        return '<span>{0}-{1} de {2} registros.</span>'.replace('{0}', start).replace('{1}', end).replace('{2}', obj.number);
+    };
+
+    var _itemOnSelect = function(page) {
+        $('#' + _config.elementId + ' .item').last().after(_getLabelElement(this));
+    };
 
     var _onFormat = function (type) {
         switch (type) {
             case 'block': // n and c
-                return '<div class="item"><a href="#">' + this.value + '</a></div>';
+                if (this.value != this.page) {
+                    return _getItemBlock(false, false, this.value);
+                }
+                return _getItemBlock(false, true, this.value);
             case 'next': // >
-                return '<div class="item"><a href= "#">&gt;</a></div>';
+                if (this.active) {
+                    return _getItemBlock(false, false, '&gt;');
+                }
+                return _getItemBlock(true, false, '&gt;');
             case 'prev': // <
-                return '<div class="item"><a href="#">&lt;</a></div>';
+                if (this.active) {
+                    return _getItemBlock(false, false, '&lt;');
+                }
+                return _getItemBlock(true, false, '&lt;');
             case 'first': // [
-                return '<div class="item"><a href="#">&lt;&lt;</a></div>';
+                if (this.active) {
+                    return _getItemBlock(false, false, '&lt;&lt;');
+                }
+                return _getItemBlock(true, false, '&lt;&lt;');
             case 'last': // ]
-                return '<div class="item"><a href="#">&gt;&gt;</a></div>';
+                if (this.active) {
+                    return _getItemBlock(false, false, '&gt;&gt;');
+                }
+                return _getItemBlock(true, false, '&gt;&gt;');
         }
     };
 
@@ -37,6 +68,7 @@ var Paginador = function (config) {
             onClick: function (ev) {
                 _pageClick($(this), ev, pagerObj)
             },
+            onSelect: _itemOnSelect,
             onFormat: _onFormat
         });
     };

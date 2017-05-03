@@ -3,7 +3,8 @@ var MatrizComercial = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
-        getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || ''
+        getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || '',
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10
     };
     var _editData = {};
 
@@ -121,7 +122,9 @@ var MatrizComercial = function (config) {
                 $("#matriz-imagenes-paginacion").empty();
             }
 
-            _mostrarPaginacion(data.totalRegistros);
+            if (data.totalRegistros > _config.numeroImagenesPorPagina) {
+                _mostrarPaginacion(data.totalRegistros);
+            }
             _mostrarListaImagenes(_editData);
             closeWaitingDialog();
         };

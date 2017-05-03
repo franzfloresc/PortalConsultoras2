@@ -15,12 +15,14 @@
     var isoPAIS = "";
     var paisID = 11;
     var matrizComercialObj;
+    var numeroImagenesPorPagina = 10;
 
     jQuery(document).ready(function () {
 
         matrizComercialObj = MatrizComercial({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
-            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")'
+            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina
         });
 
         fnGrilla();

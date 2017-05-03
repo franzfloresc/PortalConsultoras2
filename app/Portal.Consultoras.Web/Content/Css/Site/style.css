@@ -13059,25 +13059,45 @@ label.checkpop {
     opacity: 0.4;
 }
 
+.matriz-lista-container .div-img-matriz-comercial:nth-child(6) {
+    padding-left: 152px;
+}
+
+.matriz-comercial-zona-estrategia {
+    margin: 0 auto;
+    width: 570px;
+}
+
 #matriz-imagenes-paginacion {
     padding: 10px 0px 5px 12px;
+    text-align:center;
 }
 
 #matriz-imagenes-paginacion .item {
     display:inline-block;
+    width: 30px;
 }
 
 #matriz-imagenes-paginacion .item a {
-    padding: 8px 16px;
-    text-decoration: none;
+    padding: 4px 8px;
+    text-decoration: none !important;
 }
 
-#matriz-imagenes-paginacion .item a.active {
-    background-color: #4CAF50;
+#matriz-imagenes-paginacion .item.current a {
+    background-color: #00a1e7;
     color: white;
 }
 
-#matriz-imagenes-paginacion .item a:hover:not(.active) {background-color: #ddd;}
+#matriz-imagenes-paginacion .item.item-disabled a {
+    pointer-events: none;
+    cursor: default;
+    color: lightgray;
+}
+
+#matriz-imagenes-paginacion .item:not(.current):not(.item-disabled) a:hover 
+{ 
+    background-color: #ddd;
+}
 
 #file-upload-add .qq-upload-list {
     margin: 0px;
