@@ -1,15 +1,14 @@
+--sp_helptext ListarEstrategiasPedido_SB2
 
-GO
 
-ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
+CREATE PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CampaniaID INT,
 	@ConsultoraID VARCHAR(30),
 	@CUV VARCHAR(20),
-	@ZonaID VARCHAR(20),
-	@CodigoEstrategia VARCHAR(10) = ''
+	@ZonaID VARCHAR(20)
 AS
 /*
-dbo.ListarEstrategiasPedido_SB2 201707,'286','','2090', '001'
+dbo.ListarEstrategiasPedido_SB2 201612,'2','','2161'
 */
 BEGIN
 	SET NOCOUNT ON;
@@ -217,7 +216,7 @@ BEGIN
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		SET @codConsultoraDefault = (SELECT  TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
+		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
 
         INSERT INTO #TEMPORAL
 		SELECT
@@ -361,3 +360,4 @@ END
 
 
 
+GO
