@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
-using System.Configuration;
-using System.Linq;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using System.Configuration;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -711,7 +711,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
                     .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
                     .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
-                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
+                    .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
+                    .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
 
                 showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
                 showRoomEventoModel.Simbolo = userData.Simbolo;

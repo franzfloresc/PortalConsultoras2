@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
-
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -79,27 +78,18 @@ namespace Portal.Consultoras.Web.Models
         public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
 
         public string Subtitulo { get; set; }
-
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
-
         public string CodigoCategoria { get; set; }
         public string TipNegocio { get; set; }
-
         public string CodigoISO { get; set; }
         public string Simbolo { get; set; }
-
         public string Agregado { get; set; }
-
         public bool TieneCompraXcompra { get; set; }
-
         public string DescripcionCategoria { get; set; }
-
         public string TextoCondicionCompraCpc { get; set; }
-
         public string TextoDescripcionLegalCpc { get; set; }
-
         public decimal Gana {
             set
             {
@@ -110,7 +100,6 @@ namespace Portal.Consultoras.Web.Models
                 return Math.Abs(PrecioValorizado - PrecioOferta);
             }
         }
-
         public string FormatoPrecioValorizado
         {
             get
@@ -118,7 +107,6 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
             }
         }
-
         public string FormatoPrecioOferta
         {
             get
@@ -126,7 +114,6 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
             }
         }
-
         public string FormatoGana
         {
             get
@@ -134,12 +121,11 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(Gana, CodigoISO);
             }
         }
-
         public bool EMailActivo { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }
         public bool Suscripcion { get; set; }
-
         public string UrlTerminosCondiciones { get; set; }
+        public bool EsSubCampania { get; set; }
     }
 }
