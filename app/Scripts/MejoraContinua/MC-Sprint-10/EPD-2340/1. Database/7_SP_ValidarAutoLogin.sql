@@ -17,10 +17,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -36,11 +32,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -86,10 +82,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -105,11 +97,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -155,10 +147,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -174,11 +162,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -224,10 +212,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -243,11 +227,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -293,10 +277,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -312,11 +292,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -362,10 +342,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -381,11 +357,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -431,10 +407,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -450,11 +422,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -500,10 +472,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -519,11 +487,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -569,10 +537,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -588,11 +552,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -638,10 +602,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -657,11 +617,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -707,10 +667,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -726,11 +682,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -776,10 +732,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -795,11 +747,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
@@ -845,10 +797,6 @@ CREATE PROCEDURE [dbo].[ValidarAutoLogin]
 	@Proveedor VARCHAR(50)
 )
 AS
-/*
-ValidarLogin_SB2 '000758833','000758833'
-ValidarLogin_SB2 'admcontenido','1234567'
-*/
 BEGIN
 
 SET NOCOUNT ON
@@ -864,11 +812,11 @@ DECLARE @Mensaje VARCHAR(100)
 SET @Result = -1
 
 DECLARE @TipoUsuario TINYINT
---DECLARE @CodigoUsuario_1 VARCHAR(30)
+--DECLARE @CodigoUsuario_ VARCHAR(30)
 
 SELECT
 	@CodigoConsultora = ISNULL(u.CodigoConsultora,''),
-	--@CodigoUsuario_1 = CodigoUsuario,
+	--@CodigoUsuario_ = CodigoUsuario,
 	@PaisID = ISNULL(u.PaisID,0),
 	@TipoUsuario = ISNULL(u.TipoUsuario,0)
 FROM Usuario u WITH(NOLOCK) 
