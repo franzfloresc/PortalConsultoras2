@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaVirtual;
+                entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaDigital;
             
             var listaTemporal = new List<BEEstrategia>();
 

@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     ViewBag.CodigoEstrategia = GetCodigoEstrategia();
+                    ViewBag.LimiteProductoCarrusel = ViewBag.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.RevistaDigital ? Request.Browser.IsMobileDevice ? 1 : 4 : 0;
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -1875,7 +1876,7 @@ namespace Portal.Consultoras.Web.Controllers
             var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
             {
-                codigo = Constantes.TipoEstrategiaCodigo.RevistaVirtual;
+                codigo = Constantes.TipoEstrategiaCodigo.RevistaDigital;
             }
             return codigo;
         }

@@ -1,18 +1,20 @@
 
 GO
 
+--sp_helptext ListarEstrategiasPedido_SB2
+
 ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CampaniaID INT,
 	@ConsultoraID VARCHAR(30),
 	@CUV VARCHAR(20),
-	@ZonaID VARCHAR(20),
-	@CodigoEstrategia VARCHAR(10) = ''
+	@ZonaID VARCHAR(20)
 AS
 /*
-dbo.ListarEstrategiasPedido_SB2 201707,'286','','2090', '001'
+dbo.ListarEstrategiasPedido_SB2 201612,'2','','2161'
 */
 BEGIN
-	SET NOCOUNT ON;
+	SET
+ NOCOUNT ON;
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
 	insert into @tablaCuvPedido
@@ -170,6 +172,7 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 	SELECT
+
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -217,7 +220,7 @@ BEGIN
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		SET @codConsultoraDefault = (SELECT  TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
+		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
 
         INSERT INTO #TEMPORAL
 		SELECT
@@ -264,7 +267,8 @@ BEGIN
 			AND TE.TipoEstrategiaID = 3009
 		--ORDER BY te.Orden ASC, op.Orden
 		ORDER BY CASE 
-WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+WHEN ISNULL(op.Orden,0) = 0
+ THEN te.Orden ELSE op.Orden END ASC
 	END
 
 	/*SB20-1080 - FIN */
@@ -311,8 +315,7 @@ WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 		AND TE.flagRecoPerfil = 0
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 	ORDER BY
-		te.Orden ASC,
-		e.Orden ASC
+		te.Orden ASC,e.Orden ASC
 
 	SELECT
 		T.EstrategiaID,
@@ -338,6 +341,7 @@ WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 		TE.DescripcionEstrategia AS DescripcionEstrategia,
 		T.FlagNueva, -- R2621
 		T.TipoTallaColor,
+
 		case
 			when UPPER(TE.DescripcionEstrategia) = 'LANZAMIENTO' then 5		--Lanzamiento
 			else T.TipoEstrategiaImagenMostrar
@@ -358,6 +362,7 @@ WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	DROP TABLE #TEMPORAL
 	SET NOCOUNT OFF
 END
+
 
 
 

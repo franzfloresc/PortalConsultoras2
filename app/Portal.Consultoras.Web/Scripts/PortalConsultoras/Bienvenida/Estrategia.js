@@ -89,7 +89,7 @@ function CargarCarouselEstrategias(cuv) {
     //    '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-' + (isEsika ? 'esika' : 'lbel') + '" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
     //);
 
-    var top = tipoOrigenEstrategia == 1 ? 4 : 0;
+    var top = $("#hdLimiteProductoCarrusel").val() || 0;
 
     $.ajax({
         type: 'GET',
@@ -116,7 +116,7 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data;
 
     var obj = new Object();
-    obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    obj.CodigoEstrategia = "002"; // $("#hdCodigoEstrategia").val() || "";
     obj.Lista = data;
 
     SetHandlebars("#estrategia-template", obj, '#divListaEstrategias');
@@ -130,7 +130,7 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
 
-    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
+    if (data.length == 0) {
         return false;
     }
 

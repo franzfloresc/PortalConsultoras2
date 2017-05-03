@@ -942,6 +942,15 @@ function LayoutHeader() {
 }
 
 function LayoutMenu() {
+    var wt = $(".wrapper_header").width();
+    var wl = $(".logo_esika").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth();
+    wt = wt - wl - wr;
+    $(".menu_new_esika").css("width", wt + "px");
+    // caso no entre en el menu
+    // poner en dos renglones
+    // var listaMenu = $("#ulNavPrincipal > li > a");
+
     $(document).ajaxStop(function () {
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();

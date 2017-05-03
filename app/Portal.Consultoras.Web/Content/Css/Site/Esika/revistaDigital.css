@@ -16,6 +16,25 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+.revista .pedido{
+    background: #f8f8f8;
+    box-shadow:3px 9px 0px 8px rgb(255, 255, 255);
+    -webkit-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
+    -moz-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
+}
+.revista .pedido.mobile{
+    background: #f0f0f0;
+    box-shadow: none;
+}
+.revista .pedido p.marca:before{
+    border: 0px solid;
+}
+.revista .pedido .giftext:after {
+    border: 0px solid;
+}
+.revista .pedido .giftext{
+    top: 0;
+}
 .revista .revista-content {
 	max-width: 1189px;
 	margin: 0 auto;
@@ -47,6 +66,8 @@
 	left: 180px;
 	top: 38px;
 	z-index: 1;
+    width: 120px;
+    border-bottom: solid 1px #000;
 }
 .revista .giftext {
 	display: inline-block;
@@ -107,6 +128,7 @@
     position: absolute;
     top: 287px;
     right: 40px;
+    background: #ff2f45;
 }
 .revista .boxoffer p{
         text-align: left;

@@ -164,7 +164,9 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
-            public const string RevistaVirtual = "002";
+            public const string PackNuevas = "002";
+            public const string Lanzamiento = "005";
+            public const string RevistaDigital = "006";
         }
 
         public class ConstSession

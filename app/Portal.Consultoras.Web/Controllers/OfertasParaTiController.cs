@@ -25,14 +25,39 @@ namespace Portal.Consultoras.Web.Controllers
             var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
 
             var listaPedido = ObtenerPedidoWebDetalle();
-            listModel.Update(estrategia => estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim()));
-            listModel.Update(estrategia => estrategia.UrlCompartirFB = GetUrlCompartirFB());
+            listModel.Update(estrategia => 
+            {
+                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
+            });
             
             top = top < listModel.Count() ? top : listModel.Count();
 
             if (top > 0)
             {
-                listModel.RemoveRange(top, listModel.Count() - top);
+                var listaLanz = new EstrategiaPedidoModel();
+                if (top == 1)
+                {
+                    listaLanz = listModel.FirstOrDefault(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "") ?? new EstrategiaPedidoModel();
+                    listModel = new List<EstrategiaPedidoModel>();
+                    listModel.Add(listaLanz);
+                }
+                else // if (top == 4)
+                {
+                    listaLanz = listModel.FirstOrDefault(e=>e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
+                    var listaDemas = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "").ToList() ?? new List<EstrategiaPedidoModel>();
+                    listModel = new List<EstrategiaPedidoModel>();
+                    if (listaLanz.CampaniaID > 0)
+                    {
+                        top--;
+                        listModel.Add(listaLanz);
+                    }
+                    listaDemas.RemoveRange(top, listaDemas.Count() - top);
+                    listModel.AddRange(listaDemas);
+                }
+                
+                //listModel.RemoveRange(top, listModel.Count() - top);
             }
 
             return Json(listModel, JsonRequestBehavior.AllowGet);
