@@ -368,7 +368,9 @@ function ValidarCargaOfertasLiquidacion() {
     cargandoRegistros = true;
 
     waitingDialog();
-    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    /*** EPD-1682 La consultora podra visualizar las liquidaciones cuando su pedido este reservado***/
+    //ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    CargarOfertasLiquidacion();
 }
 function CargarOfertasLiquidacion() {
     $.ajax({
@@ -614,7 +616,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    AbrirMensaje(data.message, "LO SENTIMOS");
+                    AbrirPopupPedidoReservado(data.message, "1");
+                    //AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }

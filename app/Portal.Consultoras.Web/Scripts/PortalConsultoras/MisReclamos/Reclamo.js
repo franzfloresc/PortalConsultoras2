@@ -1083,7 +1083,6 @@ function SolicitudEnviar() {
 
     if (ok) {
         var esTelefonoValido = ValidarTelefono(celular);
-        debugger
         if (!esTelefonoValido) {
             $("#spnTelefonoError").css("display", "");
             $("#spnTelefonoError").html("*Este número de celular ya está siendo utilizado. Intenta con otro.");
