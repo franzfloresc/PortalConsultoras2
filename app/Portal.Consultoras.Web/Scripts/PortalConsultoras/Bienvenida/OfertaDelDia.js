@@ -98,6 +98,7 @@
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
                 console.log(_data);
                 var idOdd = '#OfertaDelDia';
+                _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
                 SetHandlebars("#ofertadeldia-template", _data, idOdd);
 
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
@@ -199,6 +200,7 @@
         _data.CantidadProductos = _data.ListaOfertas.length;
         _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
+        _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
         SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
     }
 
@@ -638,6 +640,28 @@
             nextArrow: '<a style="width: auto; display: block; right: 0; margin-right: -13%; text-align:right;  top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
+    }
+    
+    function AsignarClaseCssAPalabraGratisMobile(listaOfertas) {
+        var listaOfertasConClases = [];
+
+        $.each(listaOfertas, function (index, value) {
+            value.DescripcionOferta = value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-por-marca'>¡GRATIS!</span>");
+            listaOfertasConClases.push(value);
+        });
+
+        return listaOfertasConClases;
+    }
+
+    function AsignarClaseCssAPalabraGratisDesktop(listaOfertas) {
+        var listaOfertasConClases = [];
+
+        $.each(listaOfertas, function (index, value) {
+            value.DescripcionOferta = value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-para-todas-marcas'>¡GRATIS!</span>");
+            listaOfertasConClases.push(value);
+        });
+
+        return listaOfertasConClases;
     }
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {

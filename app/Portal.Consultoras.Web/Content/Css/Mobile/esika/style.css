@@ -11905,3 +11905,8 @@ a{
 .saludo_paginacion b{
     font-size:15px;
 }
+
+.color-por-marca {
+    color: #e81c36;
+    font-weight: 700;
+}
