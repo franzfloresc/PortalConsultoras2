@@ -25,20 +25,6 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
-        public IList<BEMatrizComercial> GetImagenesByCUV(int paisID, int campaniaID, string cuv)
-        {
-            var lst = new List<BEMatrizComercial>();
-            var dataAccess = new DAProductoSugerido(paisID);
-
-            using (IDataReader reader = dataAccess.GetImagenesByCUV(campaniaID, cuv))
-                while (reader.Read())
-                {
-                    var entity = new BEMatrizComercial(reader);
-                    lst.Add(entity);
-                }
-            return lst;
-        }
-
         public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
         {
             BEMatrizComercial entity = null;
