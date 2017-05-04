@@ -708,8 +708,49 @@ namespace Portal.Consultoras.Web.Controllers
                                 config.Detalle.CodigoSeccion = model.SeccionAnalytics;
                                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                                 {
+                                    //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
                                     var listaConfigPais= sv.GetConfiguracionPais(config);
                                     model.ConfiguracionPais = Mapper.Map<IList<BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+                                    if (model.ConfiguracionPais.Any())
+                                    {
+                                        foreach (var c in model.ConfiguracionPais)
+                                        {
+                                            model.RevistaDigital.EstadoSuscripcion = 0;
+                                            if (c.Codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                                            {
+                                                //obtiene datos de Revista digital suscripcion.
+                                                var rds = new BERevistaDigitalSuscripcion();
+                                                rds.PaisID = model.PaisID;
+                                                rds.CodigoConsultora = model.CodigoConsultora;
+                                                using (RevistaDigitalServiceClient sv1 = new RevistaDigitalServiceClient())
+                                                {
+                                                    rds = sv1.GetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
+                                                    model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
+                                                    //se verifica que el usuario tiene una suscripcion activa
+                                                    if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                                                    {
+                                                        model.RevistaDigital.NoVolverMostrar = false;
+                                                        model.RevistaDigital.EstadoSuscripcion = 1;
+                                                    } //se verifíca que el usuario no haya indicado no mostrar popup
+                                                    else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp 
+                                                        && model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID)
+                                                    {
+                                                        model.RevistaDigital.NoVolverMostrar = true;
+                                                       
+                                                    }
+                                                    else
+                                                    {
+                                                        model.RevistaDigital.NoVolverMostrar = false;
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = true;
+                                            }
+                                        }
+                                        
+                                    }
                                 }
                             }
                             catch (Exception)
@@ -718,27 +759,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 model.ConfiguracionPais = new List<ConfiguracionPaisModel>();
                             }
                             
-                        }
-                        #endregion
-
-                        #region RevistaDigital
-                        try
-                        {
-                            var rds = new BERevistaDigitalSuscripcion();
-                            rds.PaisID = model.PaisID;
-                            rds.CodigoConsultora = model.CodigoConsultora;
-                            using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
-                            {
-                                rds = sv.GetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
-                                model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
-                            }
-                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.EstadoRegistro > 0;
-                            model.RevistaDigital.EstadoSuscripcion = model.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                        }
-                        catch (Exception exrd)
-                        {
-                            pasoLog = "Ocurrió un error al cargar revista digital";
-                            model.RevistaDigital = new RevistaDigitalModel();
                         }
                         #endregion
                     }

@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -14,7 +15,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                var da = new DAConfiguracionPais(entidad.PaisID);
+                var da = new DAConfiguracionPais(entidad.Detalle.PaisID);
                 using (IDataReader reader = da.GetList(entidad))
                 {
                     while (reader.Read())
@@ -23,8 +24,9 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception exc)
             {
+                Console.WriteLine(exc.StackTrace);
                 lista = new List<BEConfiguracionPais>();
             }
             return lista;

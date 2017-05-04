@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceRevistaDigital;
 using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -57,29 +58,39 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            var mensaje = "";
-            if (!RevistaDigitalValidar(out mensaje))
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensaje
-                }, JsonRequestBehavior.AllowGet);
-            }
+            // Usar este metodo para validadcion extras (aun no esta en uso)
+            //var mensaje = "";
+            //if (!RevistaDigitalValidar(out mensaje))
+            //{
+            //    return Json(new
+            //    {
+            //        success = false,
+            //        message = mensaje
+            //    }, JsonRequestBehavior.AllowGet);
+            //}
 
             var entidad = new BERevistaDigitalSuscripcion();
             entidad.PaisID = userData.PaisID;
             entidad.CodigoConsultora = userData.CodigoConsultora;
             entidad.CampaniaID = userData.CampaniaID;
+            entidad.CodigoZona = userData.CodigoZona;
+            entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo;
+            entidad.IsoPais = userData.CodigoISO;
+            entidad.EMail = userData.EMail;
 
             using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
             {
-                userData.RevistaDigital.EstadoSuscripcion = sv.Suscripcion(entidad);
-                var rds = sv.GetSuscripcion(entidad);
-                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
+                if (sv.Suscripcion(entidad) > 0)
+                {
+                    var rds = sv.GetSuscripcion(entidad);
+                    userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
+                    userData.RevistaDigital.NoVolverMostrar = true;
+                    userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                }
             }
 
             SetUserData(userData);
+            Session["TipoPopUpMostrar"] = null;
 
             return Json(new
             {
@@ -93,8 +104,25 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                userData.RevistaDigital.NoVolverMostrar = true;
+                var entidad = new BERevistaDigitalSuscripcion();
+                entidad.PaisID = userData.PaisID;
+                entidad.CodigoConsultora = userData.CodigoConsultora;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.CodigoZona = userData.CodigoZona;
+                entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
+                entidad.IsoPais = userData.CodigoISO;
+                entidad.EMail = userData.EMail;
+
+                using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
+                {
+                    if (sv.Suscripcion(entidad) > 0)
+                    {
+                        userData.RevistaDigital.NoVolverMostrar = true;
+                        userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                    }
+                }
                 SetUserData(userData);
+                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {

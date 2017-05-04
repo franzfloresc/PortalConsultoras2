@@ -261,7 +261,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (Session["TipoPopUpMostrar"] == null)
                         {
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.VideoIntroductorio)   // validar logica para mostrar video (por ende se muestra: Tutorial y salvavidas)
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.VideoIntroductorio)
+                                // validar logica para mostrar video (por ende se muestra: Tutorial y salvavidas)
                             {
                                 bool mostrarPopUp = false;
                                 if (userData.VioVideoModelo == 0)
@@ -303,7 +304,8 @@ namespace Portal.Consultoras.Web.Controllers
                             //    break;
                             //}
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada)
+                                // validar lógica para mostrar Demanda anticipada (PE)
                             {
                                 if (ValidarConsultoraDemandaAnticipada(model))
                                 {
@@ -312,9 +314,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato)
+                                // validar lógica para mostrar Aceptacion Contrato (CO)
                             {
-                                if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+                                if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+                                    userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                                 {
                                     if (Session["IsContrato"] != null && Convert.ToInt32(Session["IsContrato"]) == 1)
                                     {
@@ -324,7 +328,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom)
+                                // validar lógica para mostrar Showroom 
                             {
                                 bool mostrarShowRoomProductos = false;
                                 mostrarShowRoomProductos = ValidarMostrarShowroomPopUp();
@@ -341,9 +346,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)
+                                // validar lógica para mostrar la ventana de actualización de datos.
                             {
-                                if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico && model.ValidaDatosActualizados == 1 &&
+                                if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico &&
+                                    model.ValidaDatosActualizados == 1 &&
                                     model.ValidaTiempoVentana == 1 && model.ValidaSegmento == 1)
                                 {
                                     model.MostrarPopupActualizarDatosXPais = 9;
@@ -365,15 +372,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago)
+                                // validar lógica para mostrar la   (CO)
                             {
-                                if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
+                                if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" ||
+                                    userData.InvitacionRechazada == "")
                                 {
                                     if (model.InscritaFlexipago == "0")
                                     {
                                         if (model.IndicadorFlexipago == 1 && model.CampanaInvitada != "0")
                                         {
-                                            if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >= Convert.ToInt32(model.NroCampana))
+                                            if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >=
+                                                Convert.ToInt32(model.NroCampana))
                                             {
                                                 TipoPopUpMostrar = Constantes.TipoPopUp.Flexipago;
                                                 break;
@@ -383,15 +393,22 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
+                            // validar lógica para mostrar los comunicados configurados.
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado)
                             {
                                 List<BEComunicado> comunicados = new List<BEComunicado>();
                                 using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                                 {
-                                    var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                                    var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID,
+                                        userData.CodigoConsultora);
                                     if (tempComunicados != null && tempComunicados.Length > 0)
-                                    {       //
-                                        comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                                    {
+                                        //
+                                        comunicados =
+                                            tempComunicados.Where(
+                                                c =>
+                                                    String.IsNullOrEmpty(c.CodigoCampania) ||
+                                                    Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
                                         if (comunicados.Any())
                                         {
                                             TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
@@ -400,21 +417,23 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
-                        }
-                    }
 
-                    // poner este if dentro de la logica de popup
-                    if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
-                    {
-                        if (!userData.RevistaDigital.NoVolverMostrar)
-                        {
-                            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                            //Validar si se muestr popup del Suscripcion de revista digital
+                            if (Popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                             {
-                                TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                                if (!userData.RevistaDigital.NoVolverMostrar)
+                                {
+                                    if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                                    {
+                                        TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                                        break;
+                                    }
+                                }
+                                
                             }
+                            
                         }
                     }
-
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
                 }
                 model.TipoPopUpMostrar = TipoPopUpMostrar;

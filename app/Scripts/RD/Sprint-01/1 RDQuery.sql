@@ -105,8 +105,10 @@ BEGIN
 END
 GO
 
-
-go
+------------------------------------------------------------------
+-- OBTENER UN REGISTRO DE LA TABLA RevistaDigitalSuscripcion
+------------------------------------------------------------------
+GO
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Single]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Single]
 GO
@@ -118,7 +120,6 @@ CREATE PROCEDURE RevistaDigitalSuscripcion_Single
 )
 AS
 BEGIN
-	
 	select top 1
 		 RevistaDigitalSuscripcionID
 		,CodigoConsultora
@@ -132,14 +133,13 @@ BEGIN
 		,EMail
 	from RevistaDigitalSuscripcion
 	where CodigoConsultora = @CodigoConsultora
-		and CampaniaID = @CampaniaID
 	order by RevistaDigitalSuscripcionID desc
-   
 END
 GO
 
+------------------------------------------------------------------------------------------------
 -- Menu Revista Digital
-
+------------------------------------------------------------------------------------------------
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('Permiso') and SYSCOLUMNS.NAME = N'Codigo') = 0
 	ALTER TABLE Permiso ADD Codigo varchar(100)
@@ -256,13 +256,19 @@ SET NOCOUNT ON;
 END
 GO
 
-
-go
+--------------------------------------------------------------------------------------------------
+-- RECUPECAION DE DATOS DE LA TABLA CONFIGURACION PAIS
+--------------------------------------------------------------------------------------------------
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[ConfiguracionPais_GetAll]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 GO
 
-CREATE PROCEDURE ConfiguracionPais_GetAll
+/*
+** Recupera datos de la tabla ConfiguracionPais considerando si es excluyente o no:
+** Para validacion de belcorp para ti.
+**
+*/
+CREATE PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 (
 	@Codigo varchar(100) = ''
 	,@CodigoRegion  varchar(100) = ''
@@ -272,66 +278,100 @@ CREATE PROCEDURE ConfiguracionPais_GetAll
 )
 AS
 BEGIN
-SET NOCOUNT ON;
-	
-	--declare 
-	--@Codigo varchar(100) = ''
-	--,@CodigoRegion  varchar(100) = ''
-	--,@CodigoZona  varchar(100) = '3033'
-	--,@CodigoSeccion  varchar(100) = ''
-	--,@CodigoConsultora  varchar(100) = ''
 
-	set @CodigoRegion = ISNULL(@CodigoRegion, '')
-	set @CodigoZona = ISNULL(@CodigoZona, '')
-	set @CodigoSeccion = ISNULL(@CodigoSeccion, '')
-	set @CodigoConsultora = ISNULL(@CodigoConsultora, '')
-
-	declare @CodigoUbigeo  varchar(1000) = ''
-	set @CodigoUbigeo = 
-		case when @CodigoRegion = '' then '' else ('CR' + @CodigoRegion + ',') end
-		+ case when @CodigoZona = '' then '' else ('CZ' + @CodigoZona + ',') end
-		+ case when @CodigoSeccion = '' then '' else ('CS' + @CodigoSeccion + ',') end
-		+ case when @CodigoConsultora = '' then '' else ('CC' + @CodigoConsultora + ',') end
-
-	set @Codigo = isnull(@Codigo, '')
-
-	select
-		c.ConfiguracionPaisID
+	SET NOCOUNT ON;
+	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
+	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
-		,c.Estado
 		,c.Descripcion
-		,d.ConfiguracionPaisDetalleID
-		,isnull(d.CodigoRegion,'') as CodigoRegion
-		,isnull(d.CodigoZona,'') as CodigoZona
-		,isnull(d.CodigoSeccion,'') as CodigoSeccion
-		,isnull(d.CodigoConsultora,'') as CodigoConsultora
-		, convert(varchar(1000), '') AS CodigoUbigeo
-	into #Confi
-	from ConfiguracionPais c
-		inner join ConfiguracionPaisDetalle d
-			on c.ConfiguracionPaisID = d.ConfiguracionPaisID
-			and d.Estado = '1'
-	where c.Estado = '1'and
-		(c.Codigo = @Codigo OR @Codigo = '')
-
-	update #Confi
-	set  CodigoUbigeo = 'CR'+ CodigoRegion + ',CZ' + CodigoZona + ',CS' + CodigoSeccion + ',CC' + CodigoConsultora + ','
-
-	delete FROM #Confi
-	where CodigoUbigeo NOT like ('%' + @CodigoUbigeo + '%') AND Excluyente = 0
-		
-	delete FROM #Confi
-	where CodigoUbigeo like ('%' + @CodigoUbigeo + '%') AND Excluyente = 1
-
-	SELECT ConfiguracionPaisID
-		,Codigo
-		,Excluyente
-		,Descripcion
-		,Estado
-	FROM #Confi
-	WHERE Estado = 1
-
-	DROP TABLE #Confi
+		,c.Estado
+	FROM ConfiguracionPais c
+		INNER JOIN ConfiguracionPaisDetalle d ON c.ConfiguracionPaisID = d.ConfiguracionPaisID
+	WHERE c.Estado = '1' AND d.Estado = '1' AND (@Codigo = '' OR c.Codigo = @Codigo)
+		AND Excluyente = 1 AND (d.CodigoRegion != @CodigoRegion OR d.CodigoZona != @CodigoZona OR d.CodigoSeccion != @CodigoSeccion OR d.CodigoConsultora != @CodigoConsultora)	
+	UNION 
+	SELECT c.ConfiguracionPaisID
+		,c.Codigo
+		,c.Excluyente
+		,c.Descripcion
+		,c.Estado
+	FROM ConfiguracionPais c
+	INNER JOIN ConfiguracionPaisDetalle d ON c.ConfiguracionPaisID = d.ConfiguracionPaisID
+	WHERE c.Estado = '1' AND d.Estado = '1' AND (@Codigo = '' OR c.Codigo = @Codigo)
+		AND Excluyente = 0 AND (d.CodigoRegion = @CodigoRegion OR d.CodigoZona = @CodigoZona OR d.CodigoSeccion = @CodigoSeccion OR d.CodigoConsultora = @CodigoConsultora)
 END
+
+
+------------------------------------------------------------------------
+-- ALTERAR EL ORDEN DE LOS POPUPS (PARA LA CONVIVENCIA CON OTROS POPUPS)
+------------------------------------------------------------------------
+UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
+INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
+VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+
+----------------------------------------------------------------------------------------------
+-- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA
+----------------------------------------------------------------------------------------------
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Registro]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 GO
+
+CREATE PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
+(
+	 @CodigoConsultora varchar(20)
+	,@CampaniaID int
+	,@FechaSuscripcion datetime = null
+	,@FechaDesuscripcion datetime = null
+	,@EstadoRegistro int = -1
+	,@EstadoEnvio int = 0
+	,@IsoPais varchar(2) = ''
+	,@CodigoZona varchar(4) = ''
+	,@EMail varchar(100) = ''
+	,@RetornoID int output
+)
+AS
+BEGIN
+	-- este store se considera para Suscripcion y Desuscripcion, cambiar para considerar ambos estados
+	set @FechaSuscripcion = ISNULL(@FechaSuscripcion, GETDATE())
+	IF NOT EXISTS(SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora)
+	BEGIN
+  		INSERT INTO RevistaDigitalSuscripcion(	
+			CodigoConsultora
+			,CampaniaID
+			,FechaSuscripcion
+			,FechaDesuscripcion
+			,EstadoRegistro
+			,EstadoEnvio
+			,IsoPais
+			,CodigoZona
+			,EMail
+		)
+  		VALUES(
+			 @CodigoConsultora
+			,@CampaniaID
+			,@FechaSuscripcion
+			,@FechaDesuscripcion
+			,@EstadoRegistro
+			,@EstadoEnvio
+			,@IsoPais
+			,@CodigoZona
+			,@EMail
+		)
+		SET @RetornoID =  SCOPE_IDENTITY();
+	END 
+	ELSE
+	BEGIN
+		UPDATE RevistaDigitalSuscripcion 
+		SET CampaniaID = @CampaniaID
+			,FechaSuscripcion = @FechaSuscripcion
+			,FechaDesuscripcion = @FechaDesuscripcion
+			,EstadoRegistro = @EstadoRegistro
+			,EstadoEnvio = @EstadoEnvio
+			,IsoPais = @IsoPais
+			,CodigoZona = @CodigoZona
+			,EMail = @EMail
+		WHERE CodigoConsultora = @CodigoConsultora
+		SET @RetornoID = (SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora);
+	END 
+END

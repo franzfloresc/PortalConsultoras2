@@ -24,8 +24,9 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
                 return retorno;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.StackTrace);
                 return 0;
             }
         }

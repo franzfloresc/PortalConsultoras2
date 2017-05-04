@@ -17,7 +17,7 @@
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("PopRDSuscripcion");
+            PopupCerrar("PopRDSuscripcion");
         }
     });
 }
@@ -27,7 +27,7 @@ function RDDesuscripcion() {
 }
 
 function RDPopupNoVolverMostrar() {
-    CerrarPopup("PopRDSuscripcion");
+    PopupCerrar("PopRDSuscripcion");
     AbrirLoad();
     $.ajax({
         type: 'GET',
