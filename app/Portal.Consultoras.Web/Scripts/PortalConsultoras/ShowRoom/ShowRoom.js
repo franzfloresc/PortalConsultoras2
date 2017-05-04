@@ -250,22 +250,22 @@ function CargarProductosShowRoom(busquedaModel) {
                 var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
 
                 $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
-                    //var descripcion = "";
+                    var descripcion = "";
 
-                    //if ($.trim(tipoOrigenPantalla)[0] == '1') {
-                    //    descripcion = value.Descripcion.length > 41
-                    //    ? value.Descripcion.substring(0, 40) + "..."
-                    //    : value.Descripcion;
-                    //} else {
-                    //    descripcion = value.Descripcion.length > 31
-                    //    ? value.Descripcion.substring(0, 30) + "..."
-                    //    : value.Descripcion;
-                    //}
+                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                        descripcion = value.Descripcion.length > 41
+                        ? value.Descripcion.substring(0, 40) + "..."
+                        : value.Descripcion;
+                    } else {
+                        descripcion = value.Descripcion.length > 31
+                        ? value.Descripcion.substring(0, 30) + "..."
+                        : value.Descripcion;
+                    }
 
                        
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
-                    //value.Descripcion = descripcion;
+                    value.Descripcion = descripcion;
                 });
 
                 $("#divProductosShowRoom").html("");
@@ -277,6 +277,22 @@ function CargarProductosShowRoom(busquedaModel) {
                 $("#spnCantidadTotal").html(response.cantidadTotal);
 
                 SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
+
+                $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
+
+                $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+                    slidesToShow: 3,
+                    dots: false,
+                    vertical: false,
+                    infinite: true,
+                    speed: 300,
+                    centerPadding: '0px',
+                    centerMode: true,
+                    slidesToScroll: 1,
+                    variableWidth: false,
+                    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+                });
 
             } else {
                 messageInfoError(response.message);
