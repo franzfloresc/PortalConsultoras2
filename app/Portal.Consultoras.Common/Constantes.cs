@@ -495,6 +495,13 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalSuscripcion = "RDS";
         }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
     }
 }
 
