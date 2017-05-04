@@ -306,9 +306,11 @@ END
 ------------------------------------------------------------------------
 -- ALTERAR EL ORDEN DE LOS POPUPS (PARA LA CONVIVENCIA CON OTROS POPUPS)
 ------------------------------------------------------------------------
-UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
-INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
-VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+IF not EXISTS (SELECT * FROM PopupPais where CodigoPopup = 9) 
+	UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
+	INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
+	VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+GO
 
 ----------------------------------------------------------------------------------------------
 -- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA
@@ -375,3 +377,5 @@ BEGIN
 		SET @RetornoID = (SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora);
 	END 
 END
+
+GO
