@@ -653,28 +653,13 @@
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
 
         var MostrarODD = '@ViewBag.MostrarODD';
-
-        //EPD-2248
-        var tfpx = '@ViewBag.FingerprintOk';
-        var tpax = '@ViewBag.TokenPedidoAutenticoOk';
+        
+        var fingerprintOk = '@ViewBag.FingerprintOk';
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
-
-    <script type="text/javascript">
-		var clock;
-
-		$(document).ready(function() {
-
-		});
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {    
-        });
-
-    </script>
-    
 
     <script type='text/javascript'>
         (function () {

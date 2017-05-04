@@ -121,16 +121,15 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.MostrarODD = false;
                     }
-
-                    //EPD-2248
+                    
                     ViewBag.FingerprintOk = 0;
                     ViewBag.TokenPedidoAutenticoOk = 0;
+
                     if (Session["Fingerprint"] != null)
                         ViewBag.FingerprintOk = 1;
                     
                     if (Session["TokenPedidoAutentico"] != null)
                         ViewBag.TokenPedidoAutenticoOk = 1;
-                    
                 }
 
                 base.OnActionExecuting(filterContext);

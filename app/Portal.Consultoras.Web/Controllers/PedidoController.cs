@@ -29,7 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index(bool lanzarTabConsultoraOnline = false)
         {
             var model = new PedidoSb2Model();
-            
+
             try
             {
                 model.EsPais = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0)
-                {                   
+                {
                     if (userData.PedidoID == 0)
                     {
                         userData.PedidoID = model.PedidoWebDetalle[0].PedidoID;
@@ -507,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PedidoWebDetalleModel pedidoWebDetalleModel = new PedidoWebDetalleModel();
 
                 BEPedidoWebDetalle oBePedidoWebDetalle = new BEPedidoWebDetalle();
-                oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;               
+                oBePedidoWebDetalle.IPUsuario = userData.IPUsuario;
                 oBePedidoWebDetalle.CampaniaID = userData.CampaniaID;
                 oBePedidoWebDetalle.ConsultoraID = userData.ConsultoraID;
                 oBePedidoWebDetalle.PaisID = userData.PaisID;
@@ -2627,7 +2627,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     sv.InsPedidoWebDetallePROLv2(PaisID, CampaniaID, PedidoID, Constantes.EstadoPedido.Procesado, olstPedidoReserva.ToArray(), false, userData.CodigoUsuario, MontoTotalProl, DescuentoProl);
                 // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
-                if (userData.IndicadorGPRSB == 2 )
+                if (userData.IndicadorGPRSB == 2)
                 {
                     userData.MostrarBannerRechazo = false;
                     userData.CerrarRechazado = 1;
@@ -2710,7 +2710,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.UpdatePedidoWebEstimadoGanancia(PaisID, CampaniaID, PedidoID, gananciaEstimada);
             }
             // GPR - Si tiene GPR activo: ocultar el banner de rechazados.
-            if (userData.IndicadorGPRSB == 2 )
+            if (userData.IndicadorGPRSB == 2)
             {
                 userData.MostrarBannerRechazo = false;
                 userData.CerrarRechazado = 1;
@@ -3130,7 +3130,7 @@ namespace Portal.Consultoras.Web.Controllers
                         mailBody += "" + olstPedidoWebDetalle[i].Cantidad.ToString() + "";
                         mailBody += "</td>";
                         mailBody += "<td style='font-size:11px; width: 182px; text-align: center;'>";
-                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].PrecioUnidad,userData.CodigoISO);
+                        mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].PrecioUnidad, userData.CodigoISO);
                         mailBody += "</td>";
                         mailBody += "<td style='font-size:11px; width: 165px; text-align: center;'>";
                         mailBody += userData.Simbolo + Util.DecimalToStringFormat(olstPedidoWebDetalle[i].ImporteTotal, userData.CodigoISO);
@@ -3214,7 +3214,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = respuesta == "" ? "OK" : respuesta,
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
-                
+
                 // esta parte quitar si paso todas las pruebas
                 //var mensaje = "";
                 //if (EstaProcesoFacturacion(out mensaje))
@@ -3464,7 +3464,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             // se recorren los productos del pedido y se evalua su indicador de descuento aplicando la logica siguiente:
-            ProductosIndicadorDscto.ForEach(delegate(BEPedidoWebDetalleDescuento productoIndicadorDscto)
+            ProductosIndicadorDscto.ForEach(delegate (BEPedidoWebDetalleDescuento productoIndicadorDscto)
             {
                 string indicador = productoIndicadorDscto.IndicadorDscto.ToLower();
                 decimal indicadorNumero;
@@ -4088,7 +4088,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-                
+
         public JsonResult ObtenerProductosRecomendados(string CUV)
         {
             List<BECrossSellingProducto> lst = new List<BECrossSellingProducto>();
@@ -4603,11 +4603,11 @@ namespace Portal.Consultoras.Web.Controllers
                     svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
                 }
                 return Json(new
-                    {
-                        success = true,
-                        message = "El log ha sido registrado satisfactoriamente.",
-                        extra = ""
-                    });
+                {
+                    success = true,
+                    message = "El log ha sido registrado satisfactoriamente.",
+                    extra = ""
+                });
             }
             catch (Exception ex)
             {
@@ -4666,27 +4666,27 @@ namespace Portal.Consultoras.Web.Controllers
                 bool TipoCross = lista[0].TipoCross;
                 listaProductoModel.Update(p =>
                 {
-                //p.ImagenProductoSugerido = p.Imagen;
-                p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
-                p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
-                p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
-                p.Simbolo = userData.Simbolo;
-                p.UrlCompartirFB = GetUrlCompartirFB();
-                p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
-                //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
-                string imagenUrl = Util.SubStr(p.Imagen, 0);
+                    //p.ImagenProductoSugerido = p.Imagen;
+                    p.PrecioCatalogoString = Util.DecimalToStringFormat(p.PrecioCatalogo, userData.CodigoISO);
+                    p.PrecioValorizadoString = Util.DecimalToStringFormat(p.PrecioValorizado, userData.CodigoISO);
+                    p.MetaMontoStr = Util.DecimalToStringFormat(p.MontoMeta, userData.CodigoISO);
+                    p.Simbolo = userData.Simbolo;
+                    p.UrlCompartirFB = GetUrlCompartirFB();
+                    p.NombreComercialCorto = Util.SubStrCortarNombre(p.NombreComercial, 40, "...");
+                    //p.CUVPedidoNombre = Util.Trim((detallePedido.Find(d => d.CUV == p.CUVPedido) ?? new BEPedidoWebDetalle()).DescripcionProd).Split('|')[0];
+                    string imagenUrl = Util.SubStr(p.Imagen, 0);
 
-                if (!TipoCross)
-                {
-                    if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                    if (!TipoCross)
                     {
-                        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
+                        {
+                            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                            imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
+                        }
                     }
-                }
-                p.ImagenProductoSugerido = imagenUrl;
-                p.TipoCross = TipoCross;
-            });
+                    p.ImagenProductoSugerido = imagenUrl;
+                    p.TipoCross = TipoCross;
+                });
             }
 
             //string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
@@ -4849,7 +4849,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 userData.CloseBannerPL20 = true;
-                
+
                 Session["UserData"] = userData;
 
                 return Json(new
@@ -4889,7 +4889,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
 
         /*PL20-1226*/
 
@@ -4980,29 +4980,44 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //EPD-2248
-        public JsonResult StorageFingerprint(string code)
+        public JsonResult GuardarIndicadorPedidoAutentico(string accion, string codigo)
         {
             try
             {
-                if (!string.IsNullOrEmpty(code))
+                switch (accion)
                 {
-                    if (Session["Fingerprint"] == null) {
-                        Session["Fingerprint"] = code;
-                    }
+                    case "1":
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["Fingerprint"] = codigo;
+                        }
+                        break;
+                    case "2":
+                        using (PedidoServiceClient svc = new PedidoServiceClient())
+                        {
+                            codigo = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                        }
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["TokenPedidoAutentico"] = codigo;
+                        }
+                        break;
+                    case "3":
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["TokenPedidoAutentico"] = codigo;
+                        }
+                        break;
                 }
 
-                return Json(new
-                {
-                    success = true,
-                });
+                return Json(new { success = true, message = codigo });
             }
             catch (Exception ex)
             {
                 return Json(new
                 {
                     success = false,
-                    message = "No se pudo procesar la solicitud"
+                    message = ex.Message
                 });
             }
         }
