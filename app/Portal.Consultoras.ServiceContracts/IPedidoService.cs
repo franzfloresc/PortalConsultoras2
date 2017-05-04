@@ -924,9 +924,6 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
 
         [OperationContract]
-        IList<BEMatrizComercial> GetImagenesByCUV(int PaisID, int campaniaID, string cuv);
-
-        [OperationContract]
         BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
 
         [OperationContract]

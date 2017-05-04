@@ -1685,11 +1685,6 @@ namespace Portal.Consultoras.Service
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
-        public IList<BEMatrizComercial> GetImagenesByCUV(int paisID, int campaniaID, string cuv)
-        {
-            return BLProductoSugerido.GetImagenesByCUV(paisID, campaniaID, cuv);
-        }
-
         public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
         {
             return BLProductoSugerido.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
