@@ -361,7 +361,14 @@
                                                 </div>
                                                 <div class="float_left" style="width:50%; margin-left:1%;">
                                                     <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                                    <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+                                                    @if (ofertaDelDia.ListaOfertas.Count > 1)
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER MÁS OFERTAS</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                                                    }
                                                 </div>
                                                 <hr class="clear" />
                                                 <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
