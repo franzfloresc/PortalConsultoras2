@@ -343,9 +343,9 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
-                                   a.ID.ToString(),                                   
+                                   a.ID.ToString(),
                                    a.CUV.ToString(),
                                    a.DescripcionCUV.ToString(),
                                    a.PrecioUnitario.ToString(),
@@ -1017,13 +1017,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -1041,18 +1045,19 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ConsultoraID = UserData().ConsultoraID.ToString();
             entidad.CUV2 = "";
             entidad.Zona = UserData().ZonaID.ToString();
+            entidad.ValidarPeriodoFacturacion = true;
+            entidad.ValidarStock = true;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
-                lst = sv.GetEstrategiasPedido(entidad).ToList(); //, UserData().CodigoISO
+                lst = sv.GetEstrategiasPedido(entidad, UserData().PaisID, UserData().CodigoUsuario).ToList();
             }
 
             string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); // ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
             }
 
             return lst;

@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLEstrategia blEstrategia;
 
         public PedidoService()
         {
@@ -55,6 +56,7 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            blEstrategia = new BLEstrategia();
         }
 
         #region Reporte Lider
@@ -1152,11 +1154,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, string codigoISO)
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, int paisId, string codigoUsuario)
         {
-            return new BLEstrategia().
-                GetEstrategiasPedido(entidad, codigoISO);
+            return blEstrategia.GetEstrategiasPedido(entidad, paisId, codigoUsuario);
         }
+
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1829,7 +1831,7 @@ namespace Portal.Consultoras.Service
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+            return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
 
         public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
