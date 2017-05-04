@@ -454,9 +454,7 @@
                     return false;
                 }
 
-                if (data.totalImagenes > numeroImagenesPorPagina) {
-                    productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
-                }
+                productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
 
                 CargarDatosMatrizComercial(data.matriz, imagen);
 
@@ -628,9 +626,7 @@
                     }
 
                     $("#matriz-imagenes-paginacion").empty();
-                    if (data.totalImagenes > numeroImagenesPorPagina) {
-                        productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
-                    }
+                    productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
 
                     CargarDatosMatrizComercial(data.matriz, imgRow);
 

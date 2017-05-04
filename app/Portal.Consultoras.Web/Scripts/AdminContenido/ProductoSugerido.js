@@ -20,7 +20,7 @@ var ProductoSugerido = function (config) {
         return { paisID: _config.paisID, idMatrizComercial: $('#' + _config.matrizIdElementId).val() };
     };
 
-    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
+    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
     var _onFileSubmit = function (id, fileName) {
         $(".qq-upload-list").css("display", "none");
@@ -95,9 +95,7 @@ var ProductoSugerido = function (config) {
     };
 
     var _obtenerImagenesSuccess = function (data) {
-        if (data.totalRegistros > _config.numeroImagenesPorPagina) {
-            _mostrarPaginacion(data.totalRegistros);
-        }
+        _mostrarPaginacion(data.totalRegistros);
         _mostrarListaImagenes(data);
         
         $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');

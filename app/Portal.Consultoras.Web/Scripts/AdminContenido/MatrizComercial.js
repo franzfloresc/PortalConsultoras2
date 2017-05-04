@@ -12,7 +12,7 @@ var MatrizComercial = function (config) {
         _obtenerImagenes(_editData, page, false);
     };
 
-    var _paginador = Paginador({elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick});
+    var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
 
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
@@ -122,9 +122,7 @@ var MatrizComercial = function (config) {
                 $("#matriz-imagenes-paginacion").empty();
             }
 
-            if (data.totalRegistros > _config.numeroImagenesPorPagina) {
-                _mostrarPaginacion(data.totalRegistros);
-            }
+            _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
             closeWaitingDialog();
         };
