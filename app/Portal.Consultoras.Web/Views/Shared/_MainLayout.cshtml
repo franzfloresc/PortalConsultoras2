@@ -616,7 +616,7 @@
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia"> <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
-            
+            <hr class="clear" />
             <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
@@ -737,7 +737,6 @@
                                     <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                                 </div>
                                 <!--SE AÑADIO EL CHECK AGREGADO -->
-                                {{detalle.Agregado}}
                                 <div style="padding-top:6px; height: 15px;">
                                     <div class="agregado product-add" style="text-align:right;display:{{detalle.Agregado}};">
                                         AGREGADO
