@@ -738,10 +738,12 @@
                                 </div>
                                 <!--SE AÑADIO EL CHECK AGREGADO -->
                                 <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right;display:none;">
+                                    {{#iff Agregado }}
+                                    <div class="agregado product-add" style="text-align:right;display:block;">
                                         AGREGADO
                                         <div class="icono"></div>
                                     </div>
+                                    {{/iff}}
                                 </div>
                             </div>
                         </div>
