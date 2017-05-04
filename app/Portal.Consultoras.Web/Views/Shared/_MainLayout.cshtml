@@ -737,13 +737,12 @@
                                     <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                                 </div>
                                 <!--SE AÑADIO EL CHECK AGREGADO -->
+                                {{detalle.Agregado}}
                                 <div style="padding-top:6px; height: 15px;">
-                                    {{#iff Agregado }}
-                                    <div class="agregado product-add" style="text-align:right;display:block;">
+                                    <div class="agregado product-add" style="text-align:right;display:{{detalle.Agregado}};">
                                         AGREGADO
                                         <div class="icono"></div>
                                     </div>
-                                    {{/iff}}
                                 </div>
                             </div>
                         </div>

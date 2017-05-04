@@ -96,7 +96,6 @@
                 _data.ClassDimension = _data.CantidadProductos < 3 ? "content_780_ODD" : "";
                 _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
-                console.log(_data);
                 var idOdd = '#OfertaDelDia';
                 _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
                 SetHandlebars("#ofertadeldia-template", _data, idOdd);
@@ -423,6 +422,9 @@
                     data: JSON.stringify(obj),
                     async: true,
                     success: function (data) {
+
+                        $(item).find(".product-add").css("display", "block");
+
                         if (!checkTimeout(data)) {
                             closeWaitingDialog();
                             return false;

@@ -52,6 +52,6 @@ namespace Portal.Consultoras.Web.Models
         {
             return (OfertaDelDiaModel)this.MemberwiseClone();
         }
-        public bool Agregado { get; set; }
+        public string Agregado { get; set; }
     }
 }
