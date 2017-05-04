@@ -35848,3 +35848,7 @@ h1#penmostreo .campana {
     color: #d9b33f;
     font-weight: 700;
 }
+
+.content_90 .slick-slider {
+    margin-top: 0 !important;
+}
