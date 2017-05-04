@@ -298,7 +298,8 @@
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val()
                 };
-                $('#ContenidoImagenes').empty();
+                $('#matriz-imagenes-paginacion').empty();
+                $('#matriz-comercial-images').empty();
 
                 _editar(params, id);
             }
@@ -307,9 +308,15 @@
         },
         editarByCUV2: function (cuv2) {
 
-             waitingDialog({});
+            waitingDialog({});
+
+            $("#hdnCodigoSAP").val("")
+            $('#mensajeErrorCUV').val("")
+            $('#mensajeErrorCUV2').val("");
+            $(".checksPedidosAsociados").html('');
    
-             $('#ContenidoImagenes').empty();
+             $('#matriz-imagenes-paginacion').empty();
+             $('#matriz-comercial-images').empty();
              var id = 0;
              var params = {
                  EstrategiaID: 0,

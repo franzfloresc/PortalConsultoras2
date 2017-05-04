@@ -353,7 +353,9 @@
             $('#txtPrecio').val('');
             $('#txtDescripcion').val('');
 
-            $('#ContenidoImagenes').empty();
+            $('#matriz-imagenes-paginacion').empty();
+            $('#matriz-comercial-images').empty();
+            
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
@@ -706,7 +708,9 @@
             var cuvIngresado = $(this).val();
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
-            estrategiaObj.editarByCUV2(cuvIngresado);
+            if (cuvIngresado.length > 4) {
+                estrategiaObj.editarByCUV2(cuvIngresado);
+            }
             //mostrarInformacionCUV(cuvIngresado);
         });
 
