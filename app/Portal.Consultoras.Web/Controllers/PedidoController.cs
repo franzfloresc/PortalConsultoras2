@@ -44,6 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["PedidoWeb"] = null;
                 Session["PedidoWebDetalle"] = null;
 
+                /*** EPD-2378 ***/
+                Session["EmailPedidoDetalle"] = null;
+                /*** FIN EPD-2378 ***/
+
                 #endregion
 
                 #region Kit Nuevas
@@ -2141,10 +2145,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoIso = usuario.CodigoISO;
             model.CodigoMensajeProl = codigoMensaje;
 
+            Session["EmailPedidoDetalle"] = olstPedidoWebDetalle; /*** EPD-2378***/
+
+            #region Se comento el Envio Correo PROL porque primero tiene validar si tiene Oferta Final.
+            string enviarCorreo = "";
             try
             {
-                #region Envio Correo PROL
-
                 bool activoEnvioMail = false;
                 List<BETablaLogicaDatos> lstLogicaDatos = new List<BETablaLogicaDatos>();
                 using (SACServiceClient sv = new SACServiceClient())
@@ -2155,40 +2161,40 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Reserva && model.ZonaValida && usuario.ValidacionInteractiva && !model.ObservacionInformativa && usuario.EMail.Trim().Length > 0 && activoEnvioMail)
                 {
-                    var envio = esMovil ? EnviarPorCorreoPedidoValidadoMobile(olstPedidoWebDetalle) : EnviarPorCorreoPedidoValidado(olstPedidoWebDetalle);
-                    if (envio)
-                    {
-                        using (PedidoServiceClient psv = new PedidoServiceClient())
-                        {
-                            BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo();
-                            beLogCabecera.CodigoConsultora = usuario.CodigoConsultora;
-                            beLogCabecera.ConsultoraID = usuario.ConsultoraID;
-                            beLogCabecera.Email = usuario.EMail;
-                            beLogCabecera.FechaFacturacion = usuario.FechaFacturacion;
-                            beLogCabecera.Asunto = string.Format("({0}) Confirmación pedido Belcorp", usuario.CodigoISO);
-                            beLogCabecera.FechaEnvio = DateTime.Now;
+                    enviarCorreo = "1";
+                    //var envio = esMovil ? EnviarPorCorreoPedidoValidadoMobile(olstPedidoWebDetalle) : EnviarPorCorreoPedidoValidado(olstPedidoWebDetalle);
+                    //if (envio)
+                    //{
+                    //    using (PedidoServiceClient psv = new PedidoServiceClient())
+                    //    {
+                    //        BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo();
+                    //        beLogCabecera.CodigoConsultora = usuario.CodigoConsultora;
+                    //        beLogCabecera.ConsultoraID = usuario.ConsultoraID;
+                    //        beLogCabecera.Email = usuario.EMail;
+                    //        beLogCabecera.FechaFacturacion = usuario.FechaFacturacion;
+                    //        beLogCabecera.Asunto = string.Format("({0}) Confirmación pedido Belcorp", usuario.CodigoISO);
+                    //        beLogCabecera.FechaEnvio = DateTime.Now;
 
-                            List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo = new List<BELogDetalleEnvioCorreo>();
-                            foreach (BEPedidoWebDetalle bePedidoWebDetalle in olstPedidoWebDetalle)
-                            {
-                                BELogDetalleEnvioCorreo beLogDetalle = new BELogDetalleEnvioCorreo();
-                                beLogDetalle.CUV = bePedidoWebDetalle.CUV;
-                                beLogDetalle.Cantidad = bePedidoWebDetalle.Cantidad;
-                                beLogDetalle.PrecioUnitario = bePedidoWebDetalle.PrecioUnidad;
-                                listLogDetalleEnvioCorreo.Add(beLogDetalle);
-                            }
+                    //        List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo = new List<BELogDetalleEnvioCorreo>();
+                    //        foreach (BEPedidoWebDetalle bePedidoWebDetalle in olstPedidoWebDetalle)
+                    //        {
+                    //            BELogDetalleEnvioCorreo beLogDetalle = new BELogDetalleEnvioCorreo();
+                    //            beLogDetalle.CUV = bePedidoWebDetalle.CUV;
+                    //            beLogDetalle.Cantidad = bePedidoWebDetalle.Cantidad;
+                    //            beLogDetalle.PrecioUnitario = bePedidoWebDetalle.PrecioUnidad;
+                    //            listLogDetalleEnvioCorreo.Add(beLogDetalle);
+                    //        }
 
-                            psv.InsLogEnvioCorreoPedidoValidado(usuario.PaisID, beLogCabecera, listLogDetalleEnvioCorreo.ToArray());
-                        }
-                    }
+                    //        psv.InsLogEnvioCorreoPedidoValidado(usuario.PaisID, beLogCabecera, listLogDetalleEnvioCorreo.ToArray());
+                    //    }
+                    //}
                 }
-
-                #endregion
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, (esMovil ? "SB Mobile - " : "") + usuario.CodigoISO);
             }
+            #endregion
 
             //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoConsultora;
             SetUserData(userData);
@@ -2205,10 +2211,78 @@ namespace Portal.Consultoras.Web.Controllers
                                     brand = item.DescripcionLarga,
                                     variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                     quantity = item.Cantidad
-                                }
+                                },
+                flagCorreo = enviarCorreo
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult EnviarCorreoPedidoReservado() 
+        {            
+            bool esMovil = Request.Browser.IsMobileDevice;
+            List<BEPedidoWebDetalle> _olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["EmailPedidoDetalle"];
+
+            UsuarioModel usuario = userData;
+            var model = new PedidoSb2Model();
+
+            bool _activoEnvioMail = false;
+            List<BETablaLogicaDatos> _lstLogicaDatos = new List<BETablaLogicaDatos>();
+
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                _lstLogicaDatos = sv.GetTablaLogicaDatos(usuario.PaisID, 54).ToList();
+                _activoEnvioMail = Int32.Parse(_lstLogicaDatos.First().Codigo.Trim()) > 0;
+            }
+
+            try
+            {
+                //if (model.Reserva && model.ZonaValida && usuario.ValidacionInteractiva && !model.ObservacionInformativa && usuario.EMail.Trim().Length > 0 && _activoEnvioMail)
+                //{
+                var envio = esMovil ? EnviarPorCorreoPedidoValidadoMobile(_olstPedidoWebDetalle) : EnviarPorCorreoPedidoValidado(_olstPedidoWebDetalle);
+                if (envio)
+                {
+                    using (PedidoServiceClient psv = new PedidoServiceClient())
+                    {
+                        BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo();
+                        beLogCabecera.CodigoConsultora = usuario.CodigoConsultora;
+                        beLogCabecera.ConsultoraID = usuario.ConsultoraID;
+                        beLogCabecera.Email = usuario.EMail;
+                        beLogCabecera.FechaFacturacion = usuario.FechaFacturacion;
+                        beLogCabecera.Asunto = string.Format("({0}) Confirmación pedido Belcorp", usuario.CodigoISO);
+                        beLogCabecera.FechaEnvio = DateTime.Now;
+
+                        List<BELogDetalleEnvioCorreo> listLogDetalleEnvioCorreo = new List<BELogDetalleEnvioCorreo>();
+                        foreach (BEPedidoWebDetalle bePedidoWebDetalle in _olstPedidoWebDetalle)
+                        {
+                            BELogDetalleEnvioCorreo beLogDetalle = new BELogDetalleEnvioCorreo();
+                            beLogDetalle.CUV = bePedidoWebDetalle.CUV;
+                            beLogDetalle.Cantidad = bePedidoWebDetalle.Cantidad;
+                            beLogDetalle.PrecioUnitario = bePedidoWebDetalle.PrecioUnidad;
+                            listLogDetalleEnvioCorreo.Add(beLogDetalle);
+                        }
+
+                        psv.InsLogEnvioCorreoPedidoValidado(usuario.PaisID, beLogCabecera, listLogDetalleEnvioCorreo.ToArray());
+                    }
+                }
+                //}
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se envio el correo a la consultora.",
+                    extra = "OK"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, (esMovil ? "SB Mobile - " : "") + usuario.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al tratar de enviar el correo a la consultora, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
         private string ObtenerMensajePROLAnalytics(List<ObservacionModel> lista)
         {
             if (lista == null || lista.Count == 0)
@@ -3677,13 +3751,16 @@ namespace Portal.Consultoras.Web.Controllers
             List<String> paisesLbel = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLbel").Split(';').ToList<String>();
             String colorStyle = "";
             bool IndicadorOfertaCUV = false;
-            decimal montoTotal = olstPedidoWebDetalle.Sum(c => c.ImporteTotal) - olstPedidoWebDetalle.Sum(c => c.DescuentoProl);
+            decimal montoTotal = olstPedidoWebDetalle.Sum(c => c.ImporteTotal) - olstPedidoWebDetalle[0].DescuentoProl;
             decimal gananciaEstimada = (olstPedidoWebDetalle[0].MontoAhorroCatalogo + olstPedidoWebDetalle[0].MontoAhorroRevista);
             decimal totalSinDescuento = olstPedidoWebDetalle.Sum(c => c.ImporteTotal);
-            decimal descuento = olstPedidoWebDetalle.Sum(c => c.DescuentoProl);
+            decimal descuento = olstPedidoWebDetalle[0].DescuentoProl;
             string simbolo = userData.Simbolo; //olstPedidoWebDetalle.Select(c => c.Simbolo).FirstOrDefault();
 
-            //string _montoTotal = Util.DecimalToStringFormat(montoTotal, userData.CodigoISO);
+            string _montoTotal = Util.DecimalToStringFormat(montoTotal, userData.CodigoISO);
+            string _gananciaEstimada = Util.DecimalToStringFormat(gananciaEstimada, userData.CodigoISO);
+            string _totalSinDescuento = Util.DecimalToStringFormat(totalSinDescuento, userData.CodigoISO);
+            string _descuento = Util.DecimalToStringFormat(descuento, userData.CodigoISO);
 
             StringBuilder mailBody = new StringBuilder();
             mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
@@ -3711,10 +3788,10 @@ namespace Portal.Consultoras.Web.Controllers
             mailBody.Append("<tr><td colspan = '2' style = 'text-align: center; font-family: Arial; font-size: 15px; color: #000; padding-bottom: 15px;' > Aquí el resumen de tu pedido:</td></tr>");
 
             mailBody.Append("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: #000; padding-left: 14%; text-align:left;' > MONTO TOTAL: </td>");
-            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;' > {1}{0} </td></tr> ", montoTotal, simbolo);
+            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 16px; font-weight: 700; color: #000;padding-right:14%; text-align:right;' > {1}{0} </td></tr> ", _montoTotal, simbolo);
 
             mailBody.AppendFormat("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px' > GANANCIA ESTIMADA: </td>", colorStyle);
-            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px' > {2}{1} </td></tr>", colorStyle, gananciaEstimada, olstPedidoWebDetalle.Select(c => c.Simbolo).FirstOrDefault());
+            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:14%; text-align:right;padding-bottom: 20px; padding-top: 5px' > {2}{1} </td></tr>", colorStyle, _gananciaEstimada, simbolo);
 
             mailBody.Append("<tr> <td colspan = '2' style = 'text-align: center; color: #000; font-family: Arial; font-size: 15px; font-weight: 700; border-top:1px solid #000; border-bottom: 1px solid #000; padding-top: 8px; padding-bottom: 8px; letter-spacing: 0.5px;' > DETALLE </td></tr> ");
 
@@ -3762,26 +3839,26 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.PaisID == 4)
                 {
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-left: 10px;' > TOTAL SIN DSCTO.</td>");
-                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", String.Format("{0:#,##0}", totalSinDescuento).Replace(',', '.') , simbolo);
+                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", String.Format("{0:#,##0}", _totalSinDescuento).Replace(',', '.') , simbolo);
 
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;' > DSCTO.OFERTAS POR NIVELES</td>");
-                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;' > {1}{0}</td></tr>", String.Format("{0:#,##0}", descuento).Replace(',', '.'), simbolo);
+                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;' > {1}{0}</td></tr>", String.Format("{0:#,##0}", _descuento).Replace(',', '.'), simbolo);
                 }
                 else
                 {
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-left: 10px;' > TOTAL SIN DSCTO.</td>");
-                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", totalSinDescuento, simbolo);
+                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", _totalSinDescuento, simbolo);
 
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;' > DSCTO.OFERTAS POR NIVELES</td>");
-                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;' > {1}{0}</td></tr>", descuento, simbolo);
+                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;' > {1}{0}</td></tr>", _descuento, simbolo);
                 }
             }
 
             mailBody.Append("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: #000; padding-left: 10px; text-align:left; padding-top: 15px;' > MONTO TOTAL:</td>");
-            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;' > {1}{0} </td> </tr>", montoTotal, simbolo);
+            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 16px; font-weight: 700; color: #000;padding-right:10px; padding-top: 15px; text-align:right;' > {1}{0} </td> </tr>", _montoTotal, simbolo);
 
             mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > GANANCIA ESTIMADA:</td>", colorStyle);
-            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;' > {2}{1}</td></tr>", colorStyle, gananciaEstimada, simbolo);
+            mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;' > {2}{1}</td></tr>", colorStyle, _gananciaEstimada, simbolo);
 
             mailBody.Append("<tr><td colspan = '2' style = 'font-family: Arial; font-size: 12px; color: #000; padding-top: 25px; padding-bottom: 13px; text-align: center; padding-left: 10px; padding-right: 10px;' > IMPORTANTE <BR/>");
             mailBody.Append("Tu pedido será enviado a Belcorp el día de hoy, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente. </td ></tr> ");
