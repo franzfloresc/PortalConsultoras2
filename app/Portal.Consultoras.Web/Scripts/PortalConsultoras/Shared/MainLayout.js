@@ -288,8 +288,7 @@ $(document).ready(function () {
 
     LayoutHeader();
 
-    //EPD-2248
-    generateFingerprint();
+    GuardarIndicadorPedidoAutentico();
 });
 
 
@@ -940,12 +939,17 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
-function CerrarSesion() {
-    //EPD-1871
+function CerrarSesion()
+{  
     if (typeof (Storage) !== 'undefined') {
-        localStorage.clear();
-    }
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
 
+        localStorage.clear();
+
+        if (!(typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null)) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -1133,30 +1137,69 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
 
-function generateFingerprint() {
+function GuardarIndicadorPedidoAutentico() {
     //debugger;
-    if (typeof (Storage) !== 'undefined') {
-        var fp = localStorage.getItem('fingerprint');
-        if (typeof (fp) === 'undefined' || fp === null) {
-            new Fingerprint2().get(function (result, components) {
-                localStorage.setItem('fingerprint', result);
-                var obj = { 'code': result };
+
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
                 jQuery.ajax({
                     type: 'POST',
-                    url: '/Pedido/StorageFingerprint',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(obj),
+                    data: JSON.stringify(data2),
                     success: function (response) {
                         if (response.success) {
-                            //console.log('Storage fingerprint');
+                            localStorage.setItem('SBTokenPedido', response.message);
                         }
                     },
                     error: function (response) {
                         console.log(response);
                     }
                 });
-            });
+            } else {
+
+                var data3 = { 'accion': 3, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
         }
     }
 }
