@@ -483,7 +483,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "AceptacionConsultoraDA") && row["AceptacionConsultoraDA"] != DBNull.Value)
                 AceptacionConsultoraDA = Convert.ToInt32(row["AceptacionConsultoraDA"]);
 
-            mbCompartirDatos = Convert.ToBoolean(row["CompartirDatos"]);
+            if (DataRecord.HasColumn(row, "CompartirDatos") && row["CompartirDatos"] != DBNull.Value)
+                AceptacionConsultoraDA = Convert.ToInt32(row["CompartirDatos"]);
         }
 
         [DataMember]
