@@ -22,7 +22,7 @@
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
         _crearObjetoUpload(itemData, editData);
-        $("#file-upload .qq-upload-button span").text("Nueva Imagen")
+        $("#file-upload .qq-upload-button span").text("Nueva Imagen");
     };
 
     var _crearObjetoUpload = function (itemData, editData) {
@@ -57,7 +57,7 @@
                 $("#matriz-imagenes-paginacion").empty();
                 _obtenerImagenes(_editData, 1, true);
             } else {
-                alert(response.message)
+                alert(response.message);
             };
         }
         closeWaitingDialog();
@@ -66,6 +66,7 @@
     var _editar = function (data, id) {
         _editData = {
             EstrategiaID: data.EstrategiaID,
+            CUV2: data.CUV2,
             IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
             imagenes: [],
@@ -97,7 +98,7 @@
     }
 
     var _obtenerFiltrarEstrategia = function (data, id) {
-        var params = { EstrategiaID: data.EstrategiaID };
+        var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2};
         return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
     };
 
@@ -234,8 +235,10 @@
             $('#div-orden').hide();
         }
 
-        var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
-        _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+        if (id != 0) {
+            var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
+            _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+        };
 
         if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
         else $("#chkEstrella").attr("checked", false);
@@ -247,7 +250,7 @@
 };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, pagina: pagina };
+        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, cuv2: data.CUV2, pagina: pagina };
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
@@ -299,6 +302,20 @@
 
                 _editar(params, id);
             }
+
+            return false;
+        },
+        editarByCUV2: function (cuv2) {
+
+             waitingDialog({});
+   
+             $('#ContenidoImagenes').empty();
+             var id = 0;
+             var params = {
+                 EstrategiaID: 0,
+                 CUV2: cuv2
+             };
+              _editar(params, id);
 
             return false;
         },

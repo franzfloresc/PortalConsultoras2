@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.FiltrarEstrategia"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 return Context.ExecuteReader(command);
             }
         }
@@ -43,6 +44,7 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByEstrategiaMatrizComercialImagen"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
                 Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
                 return Context.ExecuteReader(command);

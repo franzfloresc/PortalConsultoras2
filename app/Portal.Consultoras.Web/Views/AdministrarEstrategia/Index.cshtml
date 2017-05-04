@@ -706,7 +706,8 @@
             var cuvIngresado = $(this).val();
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
-            mostrarInformacionCUV(cuvIngresado);
+            estrategiaObj.editarByCUV2(cuvIngresado);
+            //mostrarInformacionCUV(cuvIngresado);
         });
 
         $(".chk-estrategia-imagen").click(function () {

@@ -5,11 +5,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -42,8 +43,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 
 /*end*/
@@ -53,11 +58,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -90,8 +96,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -100,11 +110,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -137,8 +148,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -147,11 +162,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -184,8 +200,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -194,11 +214,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -231,8 +252,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -241,11 +266,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -278,8 +304,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -287,12 +317,13 @@ USE BelcorpGuatemala
 GO
 
 BEGIN
-	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -325,8 +356,13 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
+	
 END
 /*end*/
 
@@ -335,11 +371,12 @@ GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -372,21 +409,27 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
 USE BelcorpPanama
+
 GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -419,21 +462,27 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
 USE BelcorpPeru
+
 GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -466,21 +515,27 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
 USE BelcorpPuertoRico
+
 GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -513,21 +568,27 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
 USE BelcorpSalvador
+
 GO
 
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -560,8 +621,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 /*end*/
 
@@ -569,12 +634,14 @@ USE BelcorpVenezuela
 GO
 
 BEGIN
+
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
-	@EstrategiaID INT
+	@EstrategiaID INT = 0,
+	@CUV2 varchar(50)
 AS
 BEGIN
-	SET NOCOUNT ON;
-
+	PRINT @EstrategiaID;
+	PRINT @CUV2;
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -607,8 +674,12 @@ BEGIN
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
 	INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID
-	WHERE EstrategiaID = @EstrategiaID;
+	WHERE
+		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
+		AND
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
 END
+
 END
 
 
