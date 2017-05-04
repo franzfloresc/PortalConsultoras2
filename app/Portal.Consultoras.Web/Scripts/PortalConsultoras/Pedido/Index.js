@@ -2207,8 +2207,9 @@ function EjecutarServicioPROL() {
                 }
                 CargarDetallePedido();
             }
+
                 /*** EPD-2378 ***/
-                if (!FlagEnviarCorreo)
+                if (!FlagEnviarCorreo && response.flagCorreo == '1')
                     EnviarCorreoPedidoReservado();
                 /*** ***/
 
