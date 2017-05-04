@@ -2880,7 +2880,7 @@ function MostrarShowRoom() {
                                         $("#spnShowRoomEvento").val(eventoNombre);
                                         $("#spnShowRoomEventoDescripcion").val(evento.Tema);
                                         AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1")
-                                        ('#hdEventoIDShowRoom').val(eventoID);
+                                        $('#hdEventoIDShowRoom').val(eventoID);
                                         if (parseInt(response.diasFaltan) > 0) {
                                             var container = $('#PopShowroomIntriga');
                                             var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
