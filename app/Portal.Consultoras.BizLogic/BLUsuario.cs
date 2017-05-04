@@ -15,7 +15,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLUsuario
+    public partial class BLUsuario
     {
         public BEUsuario Select(int paisID, string codigoUsuario)
         {
@@ -698,7 +698,7 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == IdEstadoActividad);
                                     if (Restriccion_Egresada != null)
                                     {
-										//if (paisID == 6)  R2133
+                                        //if (paisID == 6)  R2133
                                         //    return 2;
                                         //else
                                         //{

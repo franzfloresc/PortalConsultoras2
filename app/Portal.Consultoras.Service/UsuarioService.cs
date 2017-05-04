@@ -719,6 +719,13 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
         }
 
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba,
+            int aceptacionConsultoraDA)
+        {
+            return new BLUsuario().ObtenerUsuarioConfiguracion(paisID, consultoraID, campania, usuarioPrueba,
+                aceptacionConsultoraDA);
+        }
+
         /*
         public bool GetExisteEmailActivo(int paisID, string email)
         {

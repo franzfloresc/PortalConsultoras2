@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Entities
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
         private string digitoVerificador;
-        private long ConsultoraAsociadoID;
+        private long consultoraAsociadoID;
 
         private string mSegmentoAbreviatura;
 
@@ -404,9 +404,9 @@ namespace Portal.Consultoras.Entities
                 OfertaDelDia = Convert.ToBoolean(row["TieneODD"]);
 
             if (DataRecord.HasColumn(row, "ConsultoraAsociadoID") && row["ConsultoraAsociadoID"] != DBNull.Value)//1688
-                ConsultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
+                consultoraAsociadoID = Convert.ToInt64(row["ConsultoraAsociadoID"]);
             else
-                ConsultoraAsociadoID = 0;
+                consultoraAsociadoID = 0;
 
             if (DataRecord.HasColumn(row, "DocumentoIdentidad") && row["DocumentoIdentidad"] != DBNull.Value)
                 DocumentoIdentidad = Convert.ToString(row["DocumentoIdentidad"]);
@@ -490,8 +490,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public long ConsultoraAsociadaID
         {
-            get { return ConsultoraAsociadoID; }
-            set { ConsultoraAsociadoID = value; }
+            get { return consultoraAsociadoID; }
+            set { consultoraAsociadoID = value; }
         }
 
         [DataMember]

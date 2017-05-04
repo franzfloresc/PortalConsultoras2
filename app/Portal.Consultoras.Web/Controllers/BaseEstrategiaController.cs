@@ -4,10 +4,8 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -16,6 +14,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv)
         {
+            var usuario = ObtenerUsuarioConfiguracion();
+
             List<BEEstrategia> lst = new List<BEEstrategia>();
 
             if (Session["ListadoEstrategiaPedido"] != null)
@@ -24,20 +24,25 @@ namespace Portal.Consultoras.Web.Controllers
                 return lst;
             }
 
-            var entidad = new BEEstrategia();
-            entidad.PaisID = userData.PaisID;
-            entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
-            entidad.CUV2 = cuv ?? "";
-            entidad.Zona = userData.ZonaID.ToString();
-            entidad.ValidarPeriodoFacturacion = true;
-            entidad.ValidarStock = true;
+            var entidad = new BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = userData.UsuarioPrueba == 1
+                    ? userData.ConsultoraAsociadaID.ToString()
+                    : userData.ConsultoraID.ToString(),
+                CUV2 = cuv ?? "",
+                Zona = userData.ZonaID.ToString(),
+                ZonaHoraria = usuario.ZonaHoraria,
+                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                ValidarPeriodoFacturacion = true
+            };
 
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaTemporal = sv.GetEstrategiasPedido(entidad, UserData().PaisID, UserData().CodigoUsuario).ToList();
+                listaTemporal = sv.GetEstrategiasPedido(entidad).ToList();
             }
             listaTemporal = listaTemporal ?? new List<BEEstrategia>();
 

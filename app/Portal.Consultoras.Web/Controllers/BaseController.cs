@@ -20,7 +20,7 @@ using System.Web.Mvc;
 namespace Portal.Consultoras.Web.Controllers
 {
     [Authorize]
-    public class BaseController : Controller
+    public partial class BaseController : Controller
     {
         #region Variables
 
