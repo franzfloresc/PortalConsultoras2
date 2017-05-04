@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
@@ -117,56 +117,148 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (validaLogin != null && validaLogin.Result == 3)
                 {
-                    //MC-EPD1837
+                    //EPD-1837
+                    if (validaLogin.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    {
+                        if (Request.IsAjaxRequest())
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                            });
+                        }
+                    }
+
                     if (model.UsuarioExterno != null)
                     {
-                        var usuarioExterno = model.UsuarioExterno;
-                        if (!string.IsNullOrEmpty(usuarioExterno.IdAplicacion))
+                        var userExtModel = model.UsuarioExterno;
+                        if (!string.IsNullOrEmpty(userExtModel.IdAplicacion))
                         {
                             using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                             {
-                                var userExt = svc.GetUsuarioExterno(model.PaisID, usuarioExterno.Proveedor, usuarioExterno.IdAplicacion);
+                                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
                                 if (userExt == null)
                                 {
                                     BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
                                     beUsuarioExterno.CodigoUsuario = validaLogin.CodigoUsuario;
-                                    beUsuarioExterno.Proveedor = usuarioExterno.Proveedor;
-                                    beUsuarioExterno.IdAplicacion = usuarioExterno.IdAplicacion;
-                                    beUsuarioExterno.Login = usuarioExterno.Login;
-                                    beUsuarioExterno.Nombres = usuarioExterno.Nombres;
-                                    beUsuarioExterno.Apellidos = usuarioExterno.Apellidos;
-                                    beUsuarioExterno.FechaNacimiento = usuarioExterno.FechaNacimiento;
-                                    beUsuarioExterno.Correo = usuarioExterno.Correo;
-                                    beUsuarioExterno.Genero = usuarioExterno.Genero;
-                                    beUsuarioExterno.Ubicacion = usuarioExterno.Ubicacion;
-                                    beUsuarioExterno.LinkPerfil = usuarioExterno.LinkPerfil;
-                                    beUsuarioExterno.FotoPerfil = usuarioExterno.FotoPerfil;
+                                    beUsuarioExterno.Proveedor = userExtModel.Proveedor;
+                                    beUsuarioExterno.IdAplicacion = userExtModel.IdAplicacion;
+                                    beUsuarioExterno.Login = userExtModel.Login;
+                                    beUsuarioExterno.Nombres = userExtModel.Nombres;
+                                    beUsuarioExterno.Apellidos = userExtModel.Apellidos;
+                                    beUsuarioExterno.FechaNacimiento = userExtModel.FechaNacimiento;
+                                    beUsuarioExterno.Correo = userExtModel.Correo;
+                                    beUsuarioExterno.Genero = userExtModel.Genero;
+                                    beUsuarioExterno.Ubicacion = userExtModel.Ubicacion;
+                                    beUsuarioExterno.LinkPerfil = userExtModel.LinkPerfil;
+                                    beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
 
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
 
+                                    //EPD-2340
+                                    var IP = string.Empty;
+                                    var ISO = string.Empty;
+
+                                    try
+                                    {
+                                        IP = GetIPCliente();
+                                        ISO = Util.GetISObyIPAddress(IP);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
+                                    }
+
+                                    if (string.IsNullOrEmpty(ISO))
+                                    {
+                                        IP = "190.187.154.154";
+                                        ISO = "PE";
+                                    }
+
+                                    BEUsuarioExternoPais beUserExtPais = new BEUsuarioExternoPais();
+                                    beUserExtPais.Proveedor = userExtModel.Proveedor;
+                                    beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
+                                    beUserExtPais.PaisID = model.PaisID;
+                                    beUserExtPais.CodigoISO = ISO;
+
+                                    svc.InsUsuarioExternoPais(11, beUserExtPais);
+
                                     hizoLoginExterno = true;
+                                }
+                                else
+                                {
+                                    if (Request.IsAjaxRequest())
+                                    {
+                                        return Json(new
+                                        {
+                                            success = false,
+                                            message = "El codigo de consultora ya tiene una cuenta de Facebook asociada."
+                                        });
+                                    }
                                 }
                             }
                         }
+                        else
+                        {
+                            if (Request.IsAjaxRequest())
+                            {
+                                return Json(new
+                                {
+                                    success = false,
+                                    message = "Error al procesar la solicitud"
+                                });
+                            }
+                        }
                     }
-                    //MC-EPD1837
+                    //EPD-1837
 
                     return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
                 }
                 else
                 {
+                    if (Request.IsAjaxRequest())
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = validaLogin.Mensaje
+                        });
+                    }
+
                     TempData["errorLogin"] = validaLogin.Mensaje;
+
                     return RedirectToAction("Index", "Login");
                 }
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
+
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Error al procesar la solicitud"
+                    });
+                }
+
                 TempData["errorLogin"] = "Error al procesar la solicitud";
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
+                
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Error al procesar la solicitud"
+                    });
+                }
+
                 TempData["errorLogin"] = "Error al procesar la solicitud";
             }
 
@@ -204,12 +296,13 @@ namespace Portal.Consultoras.Web.Controllers
                 pasoLog = "Login.Redireccionar.SetAuthCookie";
                 FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
-                // EPD-1837
+                //EPD-1837
                 if (hizoLoginExterno)
                 {
                     usuario.HizoLoginExterno = true;
                     Session["UserData"] = usuario;
                 }
+                //EPD-1837
 
                 //EPD-1968
                 string decodedUrl = "";
@@ -223,21 +316,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (esMovil)
                     {
-                        //EPD-1968
-                        if (Url.IsLocalUrl(decodedUrl))
+                        if (Request.IsAjaxRequest())
                         {
-                            return Redirect(decodedUrl);
+                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                            return Json(new
+                            {
+                                success = true,
+                                redirectTo = urlx
+                            });
                         }
                         else
                         {
-                            if (Request.IsAjaxRequest())
+                            //EPD-1968
+                            if (Url.IsLocalUrl(decodedUrl))
                             {
-                                return Json(new
-                                {
-                                    success = true,
-                                    exists = true,
-                                    redirectTo = Url.Action("Index", "Bienvenida", new { area = "Mobile" })
-                                });
+                                return Redirect(decodedUrl);
                             }
                             else
                             {
@@ -252,45 +345,64 @@ namespace Portal.Consultoras.Web.Controllers
                             Session["PrimeraVezSession"] = 0;
                         }
 
-                        //EPD-1968
-                        if (Url.IsLocalUrl(decodedUrl))//Url.IsLocalUrl(Server.UrlDecode(Request.UrlReferrer.PathAndQuery)) && !string.IsNullOrEmpty(decodedUrl))
+                        if (Request.IsAjaxRequest())
                         {
-                            return Redirect(decodedUrl);
+                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                            return Json(new 
+                            { 
+                                success = true, 
+                                redirectTo = urlx
+                            });
                         }
-                        else
+                        else 
                         {
-                            if (Request.IsAjaxRequest())
+                            //EPD-1968
+                            if (Url.IsLocalUrl(decodedUrl))
                             {
-                                return Json(new
-                                {
-                                    success = true,
-                                    exists = true,
-                                    redirectTo = Url.Action("Index", "Bienvenida")
-                                });
+                                return Redirect(decodedUrl);
                             }
                             else
                             {
                                 return RedirectToAction("Index", "Bienvenida");
                             }
-
                         }
                     }
                 }
                 else
                 {
-                    //EPD-1968
-                    if (Url.IsLocalUrl(decodedUrl))
+                    if (Request.IsAjaxRequest())
                     {
-                        return Redirect(decodedUrl);
+                        return Json(new
+                        {
+                            success = true,
+                            redirectTo = Url.Action("Index", "Bienvenida")
+                        });
                     }
-                    else
+                    else 
                     {
-                        return RedirectToAction("Index", "Bienvenida");
+                        //EPD-1968
+                        if (Url.IsLocalUrl(decodedUrl))
+                        {
+                            return Redirect(decodedUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Bienvenida");
+                        }
                     }
                 }
             }
             else
             {
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        redirectTo = "Error al procesar la solicitud"
+                    });
+                }
+
                 string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                 return Redirect(Url);
             }
@@ -1413,27 +1525,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var r = false;
-                if (!string.IsNullOrEmpty(codigoISO))
-                {
-                    var paisId = GetPaisIdByISO(codigoISO);
-                    if (paisId > 0)
-                    {
+                var f = false;
+                //if (!string.IsNullOrEmpty(codigoISO))
+                //{
+                //    var paisId = GetPaisIdByISO(codigoISO);
+                //    if (paisId > 0)
+                //    {
                         using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                         {
-                            var beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
+                            var beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
                             if (beUsuarioExt != null)
                             {
-                                r = true;
+                                f = true;
                             }
                         }
-                    }
-                }
+                    //}
+                //}
                
                 return Json(new
                 {
                     success = true,
-                    exists = r,
+                    exists = f,
                 });
             }
             catch (FaultException ex)
@@ -1453,48 +1565,73 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult validExternalUser(string codigoISO, string proveedor, string appid)
+        public ActionResult validExternalUser(string codigoISO, string proveedor, string appid, string returnUrl)
         {
             pasoLog = "Login.POST.ValidExternalUser";
 
             try
             {
-                if (!string.IsNullOrEmpty(codigoISO))
+                //if (!string.IsNullOrEmpty(codigoISO))
+                //{
+                //    var paisId = GetPaisIdByISO(codigoISO);
+                //    if (paisId > 0)
+                //    {
+                BEUsuarioExterno beUsuarioExt = null;
+                using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    var paisId = GetPaisIdByISO(codigoISO);
-                    if (paisId > 0)
-                    {
-                        using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
-                        {
-                            var beUsuarioExt = svc.GetUsuarioExterno(paisId, proveedor, appid);
-                            if (beUsuarioExt != null)
-                            {
-                                hizoLoginExterno = true;
-                                return Redireccionar(paisId, beUsuarioExt.CodigoUsuario, null);
-                            }
-                        }
-                    }
+                    beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
                 }
 
-                return Json(new
+                if (beUsuarioExt != null)
                 {
-                    success = true,
-                }, JsonRequestBehavior.AllowGet);
+                    BEValidaLoginSB2 validaLogin = null;
+                    using (UsuarioServiceClient svc = new UsuarioServiceClient())
+                    {
+                        validaLogin = svc.GetValidarAutoLogin(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, proveedor);
+                    }
+
+                    if (validaLogin != null && validaLogin.Result == 3)
+                    {
+                        hizoLoginExterno = true;
+                        return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl);
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = validaLogin.Mensaje
+                        });
+                    }
+                }
+                //}
+                //}
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, "", codigoISO);
+
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoISO, pasoLog);
-            }
 
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
+            }
             return Json(new
             {
                 success = false,
-                message = "Error al procesar la solicitud"
-            }, JsonRequestBehavior.AllowGet);
+                message = ""
+            });
         }
 
         [AllowAnonymous]
@@ -1533,7 +1670,5 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("UserUnknown");
         }
-
-       
     }
 }

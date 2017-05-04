@@ -156,7 +156,20 @@ namespace Portal.Consultoras.Entities
         /// GetEstrategiasPedido
         /// </summary>
         [DataMember]
-        public string UrlCompartirFB { get; set; }
+        public string URLCompartir { get; set; }
+
+        /// <summary>
+        /// Filtro para la validacion del periodo de facturacion
+        /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion
+        /// </summary>
+        [DataMember]
+        public bool ValidarPeriodoFacturacion { get; set; }
+
+        /// <summary>
+        /// Filtro para validar el stock contra el servicio PROL
+        /// </summary>
+        [DataMember]
+        public bool ValidarStock { get; set; }
 
         public BEEstrategia()
         { }

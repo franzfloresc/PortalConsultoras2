@@ -1,4 +1,26 @@
 /*INI: Loading*/
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon/icomoon.eot?ur7cdc');
+    src: url('fonts/icomoon/icomoon.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/icomoon.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/icomoon.woff?ur7cdc') format('woff'), url('fonts/icomoon/icomoon.svg?ur7cdc#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'logo_esika';
+    src: url('fonts/icomoon/logo_esika.eot?ur7cdc');
+    src: url('fonts/icomoon/logo_esika.eot?ur7cdc#iefix') format('embedded-opentype'), url('fonts/icomoon/logo_esika.ttf?ur7cdc') format('truetype'), url('fonts/icomoon/logo_esika.woff?ur7cdc') format('woff'), url('fonts/icomoon/logo_esika.svg?ur7cdc#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    
+    margin:0;
+}
+*{
+    box-sizing:border-box;      
+}
 .content-spinner2 {
     position: fixed;
     top: 0;
@@ -362,3 +384,271 @@
     }
 }
 /*FIN: Popups Mensajes*/
+
+.btn_facebook_chat{
+        width: 100%;
+    height: 45px;
+    /* background: #3b56a8; */
+    color: white;
+    border-radius: 3px;
+    border: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Lato';
+    padding: 0;
+    padding-left: 16px;
+    background: #3b56a8 url(../../Images/PL20/facebook_login.png) no-repeat;
+    background-position: 21px 14px;
+    display: block;
+    text-align: center;    
+    -webkit-appearance: none;
+}
+.wrapper_chatbot{
+    padding:15px 26px;
+    position:relative;
+}
+.texto_facebook{
+    font-size:12px;
+    display:block;
+    font-family:'Lato';
+    margin-bottom:15px;
+    letter-spacing:0.2px;
+}
+.logo_esika_facebook{
+    width:60px;
+    margin:0 auto;
+    font-family: 'logo_esika';
+}
+.logo_esika_facebook:before{
+     content: "\e911";
+    font-size: 29px;
+    color: #e81c36;
+}
+.logo_esika_facebook img{
+    width:100%;
+}
+.salir_chatbot{
+   font-weight: 700;
+    font-family: 'Lato';
+    font-size: 12px;
+    padding-left: 20px;
+    background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
+    position: absolute;
+    left: 26px;
+    padding-top: 3px;
+    height: 20px;
+    letter-spacing: 0.3px;
+    }
+.campo_input_chat{
+    margin-top: 10px;
+    margin-bottom: 12px;
+    width: 100%;
+    /* float: left; */
+    box-sizing: border-box;
+    text-align: left;
+    border-bottom: 1px solid #959595;
+    position: relative;
+    font-family: 'icomoon';
+}
+.input_chat{
+    width: 100%;
+    border: 0;
+    height: 28px;
+    color: black;
+    padding-left: 25px;
+    box-sizing: border-box;
+    position: relative;
+    background: transparent;
+    font-family:'Lato';
+    letter-spacing: 0.3px;
+}
+.select_pais_chat{
+    width: -moz-calc(100% - 21px);
+    width: calc(100% - 21px);
+    width: -webkit-calc(100% - 21px);
+    width: -webkit-calc(~'100% - 21px');
+    float: right;
+    /* padding-left: 25px; */
+    border: 0;
+    height: 28px;
+    box-sizing: border-box;
+}
+.clear{
+    background: none;
+    border: 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.icono_usuario_chatbot:before {
+    content: "\e903";
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    /* float: left; */
+    position: absolute;
+    z-index: 100;
+}
+.icono_pass_chatbot:before {
+    content: "\e900";
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-right: 7px;
+    top: 2px;
+    /* float: left; */
+    position: absolute;
+    z-index: 100;
+}
+.btnLogin{
+    color: white;
+    background-color: #e81c36;
+    border:0;
+    border-radius: 2px;    
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;  
+    text-align: center;
+    margin-top: 6px;
+    width: 100%;  
+    display: block;
+    box-sizing: border-box;   
+    line-height: 45px;
+    font-family: 'Lato';
+}
+#txtUsuario{    
+    font-size:20px;
+}
+#txtPassword{    
+    font-size:12px;
+}
+#txtUsuario::-webkit-input-placeholder { font-size:12px; color:#595959; }
+#txtUsuario:-moz-placeholder { font-size:12px; color:#595959;}
+#txtUsuario::-moz-placeholder {  font-size:12px; color:#595959; }
+#txtUsuario:-ms-input-placeholder { font-size:12px; color:#595959;}
+
+#txtPassword::-webkit-input-placeholder { font-size:12px; color:#595959 }
+#txtPassword:-moz-placeholder { font-size:12px; color:#595959 }
+#txtPassword::-moz-placeholder {  font-size:12px; color:#595959  }
+#txtPassword:-ms-input-placeholder { font-size:12px; color:#595959  }
+
+.ayuda_usuario_facebook_chatBot {
+    top: 3px;
+    right: 0;
+    position: absolute;
+    border: 0;
+    padding-top: 6px;
+    padding-left: 10px;
+    padding-bottom: 3px;
+    box-sizing: border-box;
+    width: 31px;
+    height: 25px;
+}
+.helper_facebook_chatBot {
+    width: 20px;
+    height: 20px;
+    float: right;
+    font-family: 'icomoon';
+    margin-top: -4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+    background-repeat: no-repeat;
+    text-decoration: none;
+}
+.helper_facebook_chatBot:before {
+    content: "\e902";
+    font-size: 18px;
+    text-align: left;
+    color: #949494;
+}
+.mensaje_ayuda_usuario_chatBot {
+    box-sizing: border-box;
+    display: none;
+    width: 130px;
+    right: 40px;
+    top: -13px;
+    position: absolute;
+    padding: 10px;
+    color: black;
+    font-size: 9pt;
+    font-family: lato;
+    background: white;
+    border: 1px solid black;
+    z-index: 10000000;
+}
+.ayuda_usuario_facebook_chatBot:hover .mensaje_ayuda_usuario_chatBot {
+    display: block;
+}
+.mensaje_ayuda_usuario_chatBot:after, .mensaje_ayuda_usuario_chatBot:before {
+    left: 100%;
+    top: 24px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.mensaje_ayuda_usuario_chatBot:before {
+    border-color: rgba(0, 0, 0, 0);
+    border-left-color: #000;
+    border-right-color: transparent;
+    border-width: 10px;
+    margin-top: -10px;
+}
+.mensaje_ayuda_usuario_chatBot:after {
+    border-color: rgba(255, 255, 255, 0);
+   border-left-color: #ffffff;
+    border-right-color: transparent;
+    border-width: 9px;
+    margin-top: -9px;
+}
+.logo_normal{
+    float: left;
+    /* margin-bottom: 20px; */
+    text-align: center;
+    font-family: 'logo_esika';
+    width: 50px;
+    height: 20px;
+    margin-left: 66px;
+    margin-top: -2px;
+}
+.logo_normal:before {
+    content: "\e911";
+    font-size: 24px;
+    color: #e81c36;
+    
+}
+.logo_normal img{
+    width:100%;
+}
+.texto_normal{
+    margin-top: 3px;
+    font-family:'Lato';
+    float:right;
+    font-size:12px;
+    width:-moz-calc(100% -130px);
+    width:calc(100% - 130px);
+    width:-webkit-calc(100% - 130px);
+    width: -webkit-calc(~'100% - 130px');
+}
+.titulo_campo{
+    font-family: 'Lato';
+    font-size: 11px;
+    position: absolute;
+    top: -8px;
+    color: black;
+    z-index: 100;
+    left: 25px;    
+}
