@@ -3,7 +3,7 @@ USE BelcorpBolivia
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -28,7 +28,7 @@ USE BelcorpChile
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -53,7 +53,7 @@ USE BelcorpColombia
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -78,7 +78,7 @@ USE BelcorpCostaRica
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -103,7 +103,7 @@ USE BelcorpDominicana
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -128,7 +128,7 @@ USE BelcorpEcuador
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -153,7 +153,7 @@ USE BelcorpGuatemala
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -178,7 +178,7 @@ USE BelcorpMexico
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -203,7 +203,7 @@ USE BelcorpPanama
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -228,7 +228,7 @@ USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -253,7 +253,7 @@ USE BelcorpPuertoRico
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -278,7 +278,7 @@ USE BelcorpSalvador
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
@@ -303,7 +303,7 @@ USE BelcorpVenezuela
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-           WHERE TABLE_NAME = N'dbo.IndicadorPedidoAutentico')
+           WHERE TABLE_NAME = N'IndicadorPedidoAutentico')
 BEGIN
   DROP TABLE dbo.IndicadorPedidoAutentico
 END
