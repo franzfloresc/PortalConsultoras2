@@ -400,7 +400,6 @@
             OrigenPedidoWeb: origenPedidoWeb
         });
 
-
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'Pedido/ValidarStockEstrategia',
@@ -423,7 +422,7 @@
                     async: true,
                     success: function (data) {
 
-                        $(item).find(".product-add").css("display", "block");
+                        MarcarProductoComoAgregado(btn, item);
 
                         if (!checkTimeout(data)) {
                             closeWaitingDialog();
@@ -449,12 +448,6 @@
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                         closeWaitingDialog();
 
-                        //if (tipo == 2) {
-                        //    $('#PopOfertaDia').slideUp();
-                        //    $('.circulo_hoy span').html('+');
-                        //    $('#txtcantidad-odd').val('1');
-                        //}
-
                         if (typeof origenPagina !== 'undefined') {
                             if (origenPagina == 2) {
                                 CargarDetallePedido();
@@ -477,6 +470,15 @@
                 }
             }
         });
+    }
+
+    function MarcarProductoComoAgregado(btn, item) {
+        var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
+        if (perteneceContenedorDetalle) {
+            var posicion = $(btn).parents("[data-item]").attr("data-item-position");
+            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
+        } else
+            $(item).find(".product-add").css("display", "block");
     }
 
     function CheckCountdownODD() {
