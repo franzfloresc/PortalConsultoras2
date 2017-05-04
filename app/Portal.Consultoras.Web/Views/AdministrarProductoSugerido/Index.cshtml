@@ -431,7 +431,9 @@
 
     function CargarImagenSugerido() {
         LimpiarDatosMatrizComercial();
-
+        $("#matriz-imagenes-paginacion").empty();
+        $("#fpUpload").empty();
+        imagen = '';
         var cuv = $.trim($("#txtCUVSugeridoModal").val());
         var campaniaID = $.trim($("#ddlCampaniaModal").val());
         if (cuv == "" || campaniaID == "") {
@@ -452,8 +454,7 @@
                     return false;
                 }
 
-                $("#matriz-imagenes-paginacion").empty();
-                if (data.totalImagenes.length > numeroImagenesPorPagina) {
+                if (data.totalImagenes > numeroImagenesPorPagina) {
                     productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
                 }
 
