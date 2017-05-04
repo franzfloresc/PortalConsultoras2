@@ -1920,5 +1920,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
+        }
     }
 }

@@ -130,6 +130,11 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     //}
+                    //EPD-2248
+                    if (Session["TokenPedidoAutentico"] != null)
+                    {
+                        ViewBag.existsTPA = 1;
+                    }
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -919,14 +924,46 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        private string GetIPCliente()
+        public string GetIPCliente()
         {
+            //string IP = string.Empty;
+            //try
+            //{
+            //    IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            //}
+            //catch { }
+            //return IP;
             string IP = string.Empty;
             try
             {
-                IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                string ipAddress = string.Empty;
+
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+                }
+
+                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+                }
+
+                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
+                }
+
+                if (ipAddress.IndexOf(":") > 0)
+                {
+                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                }
+
+                return ipAddress;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
             return IP;
         }
 
