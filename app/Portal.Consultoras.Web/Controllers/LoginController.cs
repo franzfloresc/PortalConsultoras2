@@ -1192,7 +1192,8 @@ namespace Portal.Consultoras.Web.Controllers
                         descripcionODD += arr1[i].Trim() + "|";
                 }
 
-                descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+                //descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+                descripcionODD = descripcionODD == "" ? "" : descripcionODD.Substring(0, descripcionODD.Length - 1);
 
                 var countdown = CountdownODD(model);
                

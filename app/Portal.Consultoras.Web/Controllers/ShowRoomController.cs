@@ -3010,9 +3010,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string message = resultado == 0 
                     ? "OK" 
                     : resultado == 1 
-                        ? "Codigo Tipo de Oferta ya existe " 
+                        ? "Código Tipo de Oferta ya existe " 
                         : resultado == 2 
-                            ? "Descripcion de Tipo de Oferta ya existe" 
+                            ? "Descripción de Tipo de Oferta ya existe" 
                             : "Error al verificar si existe el tipo de oferta";
 
                 return Json(new
