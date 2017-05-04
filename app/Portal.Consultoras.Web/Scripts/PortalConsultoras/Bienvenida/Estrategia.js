@@ -116,7 +116,8 @@ function ArmarCarouselEstrategias(data) {
     arrayOfertasParaTi = data;
 
     var obj = new Object();
-    obj.CodigoEstrategia = "002"; // $("#hdCodigoEstrategia").val() || "";
+    obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    obj.CodigoEstrategia = "001";
     obj.Lista = data;
 
     SetHandlebars("#estrategia-template", obj, '#divListaEstrategias');

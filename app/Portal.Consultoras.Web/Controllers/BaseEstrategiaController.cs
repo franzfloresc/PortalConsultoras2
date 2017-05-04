@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
-            entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            entidad.CodigoEstrategia = "";//Constantes.TipoEstrategiaCodigo.OfertaParaTi;
 
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                 entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaDigital;

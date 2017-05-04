@@ -204,7 +204,7 @@ BEGIN
 	INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo 
 		and (
 			(op.TipoPersonalizacion = 'OPT' and @CodigoEstrategia = '' )
-			or (op.TipoPersonalizacion in ('OPM', 'PAD') and @CodigoEstrategia = '006')
+			or (op.TipoPersonalizacion in ('OPM', 'PAD', 'LAN') and @CodigoEstrategia = '006')
 		)
 	INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2

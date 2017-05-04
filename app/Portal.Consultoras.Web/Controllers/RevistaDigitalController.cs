@@ -2,6 +2,10 @@
 using Portal.Consultoras.Web.ServiceRevistaDigital;
 using AutoMapper;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceSAC;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -9,7 +13,22 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+            var model = new CatalogoPersonalizadoModel();
+
+            if (Session["ListFiltersFAV"] != null)
+            {
+                var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
+                model.FiltersBySorting = lst.Where(x => x.TablaLogicaID == 94).ToList();
+                model.FiltersByCategory = lst.Where(x => x.TablaLogicaID == 95).ToList();
+                model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
+                model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
+            }
+
+            return View(model);
         }
 
         private bool RevistaDigitalValidar(out string respuesta)

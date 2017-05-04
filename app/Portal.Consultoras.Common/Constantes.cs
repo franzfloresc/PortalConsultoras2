@@ -166,7 +166,9 @@ namespace Portal.Consultoras.Common
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002";
             public const string Lanzamiento = "005";
-            public const string RevistaDigital = "006";
+            public const string OfertasParaMi = "007";
+            public const string PackAltoDesembolso = "008";
+            public const string RevistaDigital = "101";
         }
 
         public class ConstSession
@@ -210,24 +212,24 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-
-            // Primer Dígito
+            // Primer Dígito -- Plataforma
             // 1: Desktop                   2: Mobile
 
-            // Segundo Dígito
+            // Segundo Dígito -- Pantalla
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi              6: OfertaParaTi
+            // 6: OfertaParaTi
+            // 7: RevistaDigital
 
-            // Tercer Dígito
+            // Tercer Dígito -- Sección dentro de la Pantalla
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
             // 9: Oferta del dia
-            // 1: index                     1: Index
-            // 2: OfertaParaTi Detalle      2: OfertaParaTi Detalle
+            // 1: index
+            // 2: OfertaParaTi Detalle
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -286,8 +288,18 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
+
+
+
+            /* Revista Digital */
+            public const int DesktopLanzamientoLandingCarrusel = 1622;
+            public const int DesktopLanzamientoProductPage = 1631;
+            public const int MobileLanzamientoLandingCarrusel = 2622;
+            public const int MobileLanzamientoProductPage = 2631;
+
+            /* FIN Revista Digital */
         }
-        
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
