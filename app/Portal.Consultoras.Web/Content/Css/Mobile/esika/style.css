@@ -11922,3 +11922,8 @@ a{
     width:48%;
 }
 /*** FIN ******/
+
+.color-por-marca {
+    color: #e81c36;
+    font-weight: 700;
+}
