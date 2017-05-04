@@ -3038,14 +3038,14 @@ namespace Portal.Consultoras.Common
 
         public static String GetUrlCompartirFB(string codigoISO, int id = 0)
         {
-            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SomosBelcorp_URL"]))
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CONTEXTO_BASE"]))
             {
-                throw new NullReferenceException("Key no encontrada: SomosBelcorp_URL");
+                throw new NullReferenceException("Key no encontrada: CONTEXTO_BASE");
             }
 
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
 
-            return ConfigurationManager.AppSettings["SomosBelcorp_URL"] + "/" + partialUrl;
+            return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
     }
 
