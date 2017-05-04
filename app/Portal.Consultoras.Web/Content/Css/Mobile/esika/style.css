@@ -4617,8 +4617,8 @@ table > thead > tr > th {
 }
 
 .foto_usuaria_mobile {
-    width: 89px;
-    height: 87px;
+    width: 77px;
+    height: 76px;
     border-radius: 100px;
     overflow: hidden;
 }
@@ -4704,7 +4704,7 @@ table > thead > tr > th {
     padding-right: 10px;
     font-family: 'lato';
     font-size: 10px;
-    margin-top: 6px;
+    margin-top: 12px;
     color: #000;
     letter-spacing: 1px;
 }
@@ -10416,12 +10416,12 @@ a{
 	margin-left: -12px;
 }
 .set_oferta_content{
-    width:80%;
+    width:75%;
     max-width:292px;
     height:auto;
     margin:0 auto;
     margin-top:15px;
-    overflow:hidden;
+    /*overflow:hidden;*/
     margin-bottom:40px;
 }
 .set_oferta_content .producto_img_mobile {
@@ -10455,7 +10455,7 @@ a{
     /*text-align:center;*/
 }
 .precio_valorizado_mobile span{
-    text-decoration:line-through;
+    /*text-decoration:line-through;*/
 }
 .producto_precio_hoy_mobile{
     /*padding-left:16px;
@@ -10464,7 +10464,7 @@ a{
     font-size:13px;
     font-family:'Lato';
     color:black;
-    margin-bottom:20px;
+    margin-bottom:15px;
     /*margin-top:3px;*/
 }
 .producto_precio_hoy_mobile span{
@@ -11987,4 +11987,9 @@ a{
 .btn_descubre_set_especial_click {
     background: url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
     background-position: -1px 3px;
+}
+
+.color-por-marca {
+    color: #e81c36;
+    font-weight: 700;
 }

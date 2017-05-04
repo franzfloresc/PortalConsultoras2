@@ -16,10 +16,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -520,6 +520,7 @@
     <Compile Include="Models\TipoLinkModel.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
@@ -1967,6 +1968,7 @@
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
     <Content Include="Content\Images\facebook_share.png" />
+    <Content Include="Content\Images\face_login.png" />
     <Content Include="Content\Images\faq.png" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\filtros_faltantes.png" />
@@ -2037,8 +2039,8 @@
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
-    <Content Include="Content\Images\IncentivosSMS\licuadora.png" />
     <Content Include="Content\Images\IncentivosSMS\producto1.png" />
+    <Content Include="Content\Images\IncentivosSMS\reloj.png" />
     <Content Include="Content\Images\indicador.png" />
     <Content Include="Content\Images\interbank.png" />
     <Content Include="Content\Images\kit-nuevo-producto.png" />
@@ -3872,6 +3874,7 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
+    <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

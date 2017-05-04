@@ -31,6 +31,8 @@ $(document).ready(function () {
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
+        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
+
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
             $(this).parent().find('[data-input="cantidad"]').val(1);

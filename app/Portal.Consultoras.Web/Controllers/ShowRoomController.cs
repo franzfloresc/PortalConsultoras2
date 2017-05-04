@@ -96,7 +96,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (query != null)
                 {
-                    string param = Util.DesencriptarQueryString(query);
+                    if (Request.Browser.IsMobileDevice)
+                    {
+                        return RedirectToAction("Index", "ShowRoom", new { area = "Mobile", query = query });
+                    }
+
+                    string param = Util.Decrypt(query);
                     string[] lista = param.Split(new char[] { ';' });
 
                     if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -831,6 +836,18 @@ namespace Portal.Consultoras.Web.Controllers
                              * */
                         }
                         //PL20-1398
+
+                        var productoPrecioCero = lstStock.FirstOrDefault(p => p.PrecioOferta == 0);
+                        if (productoPrecioCero != null)
+                        {
+                            string messageErrorPrecioCero = "No se actualizó el stock de ninguno de los productos que estaban dentro del archivo (CSV), porque el producto "+
+                                productoPrecioCero.CUV + " tiene precio oferta Cero" ;
+
+                            FaultException ex = new FaultException();
+                            LogManager.LogManager.LogErrorWebServicesPortal(ex, "ERROR: CARGA PRODUCTO SHOWROOM", "CUV: " + productoPrecioCero.CUV + " con precio CERO");
+
+                            return messageErrorPrecioCero;
+                        }
 
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
 
@@ -2567,9 +2584,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult DetalleOfertaCUV(string query)
         {
+            if (Request.Browser.IsMobileDevice)
+            {
+                return RedirectToAction("DetalleOfertaCUV", "ShowRoom", new { area = "Mobile", query = query });
+            }
+
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -2583,14 +2605,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
+
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
 
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
-                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                        OfertaID = intID;
-
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
                         Entidad.CodigoConsultora = lista[2];
@@ -2979,9 +2998,9 @@ namespace Portal.Consultoras.Web.Controllers
                 string message = resultado == 0 
                     ? "OK" 
                     : resultado == 1 
-                        ? "Codigo Tipo de Oferta ya existe " 
+                        ? "Código Tipo de Oferta ya existe " 
                         : resultado == 2 
-                            ? "Descripcion de Tipo de Oferta ya existe" 
+                            ? "Descripción de Tipo de Oferta ya existe" 
                             : "Error al verificar si existe el tipo de oferta";
 
                 return Json(new

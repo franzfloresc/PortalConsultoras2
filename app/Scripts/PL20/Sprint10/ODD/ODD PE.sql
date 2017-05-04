@@ -1,3 +1,5 @@
+USE BelcorpPeru
+go
 
 ALTER PROCEDURE [dbo].[ListarEstrategiasODD]
 (
@@ -9,7 +11,7 @@ AS
 
 declare @cant int = 0
 
-select @cant = count(*)
+select @cant = count(1)
 FROM TipoEstrategia te
 INNER JOIN Estrategia e ON te.TipoEstrategiaID = e.TipoEstrategiaID
 INNER JOIN ods.Campania ca ON e.CampaniaID = ca.Codigo
@@ -45,7 +47,8 @@ SELECT
 	pc.CodigoProducto,
 	0 AS FlagNueva,
 	6 AS TipoEstrategiaImagenMostrar,
-	op.DiaInicio
+	op.DiaInicio,
+	op.Orden
 FROM TipoEstrategia te
 INNER JOIN Estrategia e ON te.TipoEstrategiaID = e.TipoEstrategiaID
 INNER JOIN ods.Campania ca ON e.CampaniaID = ca.Codigo

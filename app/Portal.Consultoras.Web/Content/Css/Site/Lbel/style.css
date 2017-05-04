@@ -21073,13 +21073,14 @@ label.checkpop.c_on {
 }
 
 .foto_perfil_home {
-    width: 104px;
-    height: 104px;
+    width: 97px;
+    height: 96px;
     border-radius: 100px;
     -moz-border-radius: 100px;
     -webkit-border-radius: 100px;
     position: relative;
     float: left;
+    overflow: hidden;
 }
 
     .foto_perfil_home img {
@@ -22902,7 +22903,7 @@ body {
 
     .resumen_belcorp_cam {
          margin-right: 0%;
-        width: 29.5%;
+        /*width: 29.5%;*/
     }
 }
 
@@ -33985,7 +33986,7 @@ h1#penmostreo .campana {
     position: absolute;
     margin-top: 0px;
     max-width: 1024px;
-    min-height: 415px;
+    height: 415px;
     z-index: 2010;
      background:#000;
     /*background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;*/
@@ -34107,7 +34108,7 @@ h1#penmostreo .campana {
 }
 
     .precio_valorizado_oferta span {
-        text-decoration: line-through;
+        /*text-decoration: line-through;*/
 }
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
@@ -35629,7 +35630,7 @@ h1#penmostreo .campana {
 }
 .content_item_carrusel_ODD{
     width:260px;
-    padding:40px 30px 23px 30px;
+    padding: 30px 30px 11px 30px;
     border: 1px solid #d5b03e;
     float:left;
     margin-top:12px;
@@ -35660,7 +35661,7 @@ h1#penmostreo .campana {
     text-align:center;
 }
    .valorizado_carrusel_ODD span {
-         text-decoration: line-through;
+         /*text-decoration: line-through;*/
     }
 .precio_carrusel_ODD{
     font-family:'Lato';
@@ -35850,4 +35851,9 @@ h1#penmostreo .campana {
 .precio_real_set{
     font-weight:700;
     font-size:17px;
+}
+
+.color-para-todas-marcas {
+    color: #d9b33f;
+    font-weight: 700;
 }

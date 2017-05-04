@@ -8,7 +8,7 @@
 
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
-
+    
     <title>Belcorp | Portal Consultoras</title>
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
@@ -497,6 +497,27 @@
     </div>
     <!-- FIN POPUP SESIÓN FINALIZADA - exclamacion -->
 
+    <!-- POPUP MENSAJE USUARIO POSTULANTE  -->
+    <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_MensajePostulante" style="display: none;">
+        <div class="popup_agregarUnidades">
+            <div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="return $('#dialog_MensajePostulante').hide();">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <div class="contenido_popUp">
+                <span class="icono_exclamacion"></span>
+                <h1 class="titulo_agregarUnidades"><b>LO SENTIMOS</b></h1>
+                <div id="mensajePostulante" class="mensaje_agregarUnidades"></div>
+                <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_MensajePostulante').hide();">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- FIN POPUP MENSAJE USUARIO POSTULANTE -->
+
     <div id="divMensajeConfirmacion" style="display: none;">
         <div class="terminos_title_2 divTitle">
             IMPORTANTE
@@ -587,7 +608,7 @@
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                     <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProducto}}">
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}">
                     <div class="circulo_hoy"><span>+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
@@ -637,7 +658,7 @@
                                 <div class="imagen_set_Oferta_pop">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
                                     <div class="compartir_redes_ficha">
-                                        <div class="texto_compartelo" style="color:#fff;">Comparte este set con tus clientes:</div>
+                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
                                         <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
                                             <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
                                         </a>
@@ -715,6 +736,13 @@
                                     </div>
                                     <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                                 </div>
+                                <!--SE AÑADIO EL CHECK AGREGADO -->
+                                <div style="padding-top:6px; height: 15px;">
+                                    <div class="agregado product-add" style="text-align:right;display:none;">
+                                        AGREGADO
+                                        <div class="icono"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{/each}}
@@ -760,7 +788,10 @@
 
         var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
         var MostrarODD = '@ViewBag.MostrarODD';
+        //EPD-2058
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
         var clock;
+        var TipoOrigenPantallaODD = 1;
     </script>
     
 
