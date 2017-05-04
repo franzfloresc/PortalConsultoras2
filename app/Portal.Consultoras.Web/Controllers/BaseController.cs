@@ -1592,6 +1592,14 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaOfertas = userData.OfertasDelDia;
             int posicion = 0;
             model.ListaOfertas.Update(p=>p.ID = posicion++);
+
+            var listPedidosDetalles = ObtenerPedidoWebDetalle();
+
+            foreach (var oferta in model.ListaOfertas)
+            {
+                oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
+            }
+            
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
             return model;

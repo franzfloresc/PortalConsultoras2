@@ -384,8 +384,15 @@
                                                     <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
                                                 </div>
                                                 <div class="float_left" style="width:50%; margin-left:1%;">
-                                                    <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                                    <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
+                                                    <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                                    @if (ofertaDelDia.ListaOfertas.Count > 1)
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER MÁS OFERTAS</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                                                    }
                                                 </div>
                                                 <hr class="clear" />
                                                 <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
@@ -470,7 +477,15 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
                 <input type="hidden" class="Palanca" value="ODD" />
             </div>
-            <div class="saludo_paginacion">@ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../TotalOfertas}}</b> ofertas</div>
+            <div class="saludo_paginacion">
+                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                {{#iff ../CantidadProductos '>' 1}}
+                &nbsp;ofertas
+                {{/iff}}
+                {{#iff ../CantidadProductos '<' 2}}
+                &nbsp;oferta
+                {{/iff}}
+            </div>
             <div class="producto_img_mobile">
                 <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" />
             </div>
@@ -482,7 +497,7 @@
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
             <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                <div class="texto_redes">Comparte la oferta con tus clientes</div>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
@@ -1235,13 +1250,6 @@
         function loadBannerLP20() {
             if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
             if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
-
-            $(".BloqueOfertaDiaHeader").click(function () {
-                $('#txtCantidad').val('1');
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-                $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
-            });
             
             if($('#flexslider ul.slides li').length > 0){
                 $("#contentmobile").css("margin-top", "0px");
