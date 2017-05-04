@@ -1,4 +1,8 @@
-﻿/* 
+﻿$(document).ready(function () {
+ 
+});
+
+/* 
 Escritorio  => 1: Index    | 11: Detalle Oferta
 Mobile      => 2: Index    | 21: Detalle Oferta
 */
@@ -10,7 +14,6 @@ var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
-        debugger;
         var prhidcuv = $("#hcuv").val();
         var prhidnombre = $("#hnombrecuv").val();
         var prhidmarca = $("#hmarca").val();
@@ -528,17 +531,4 @@ function AgregarProductoAlCarrito(padre) {
             });
         });
     }    
-}
-
-function ObtenerProductosNoSuncampanias(listaProductos)
-{
-    var listaProductosNoSubcampanias = [];
-
-    $.each(listaProductos, function (index, value) {
-        if (!value.EsSubCampania) {
-            listaProductosNoSubcampanias.push(value);
-        }
-    });
-
-    return listaProductosNoSubcampanias;
 }

@@ -278,7 +278,7 @@
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
         <div class="content_item_carrusel">
-            <div class="producto_img_home">
+            <div class="producto_img_home"  data-img="">
                 <img src="{{producto.ImagenProducto}}" class="imagen_producto">
             </div>
             <div class="content_info_set_especial">
@@ -299,7 +299,11 @@
             </div>
             <div class="producto_nombre_descripcion">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">
+                    @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
+                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                           data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
