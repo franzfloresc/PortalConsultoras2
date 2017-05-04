@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Data
         }
 
         public IDataReader GetPedidosPortalExtendido(int CampaniaID, string CodigoConsultora, string RegionCodigo, string ZonaCodigo, int PedidoPROL,
-    int IndicadorPedido, string SeccionCodigo, int IdEstadoActividad, int IndicadorSaldo, string NombreConsultora)
+        int IndicadorPedido, string SeccionCodigo, int IdEstadoActividad, int IndicadorSaldo, string NombreConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosWebServiceExtendido");
 
@@ -727,6 +727,55 @@ namespace Portal.Consultoras.Data
             DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
             return Context.ExecuteReader(Command);
         }
+
+
+        /*EPD-2248*/
+        public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+            Context.Database.AddInParameter(command, "@IndicadorIPUsuario", DbType.AnsiString, entidad.IndicadorIPUsuario);
+            Context.Database.AddInParameter(command, "@IndicadorFingerprint", DbType.AnsiString, entidad.IndicadorFingerprint);
+            Context.Database.AddInParameter(command, "@IndicadorToken", DbType.AnsiString, entidad.IndicadorToken);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
+        public int UpdIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+            Context.Database.AddInParameter(command, "@IndicadorIPUsuario", DbType.AnsiString, entidad.IndicadorIPUsuario);
+            Context.Database.AddInParameter(command, "@IndicadorFingerprint", DbType.AnsiString, entidad.IndicadorFingerprint);
+            Context.Database.AddInParameter(command, "@IndicadorToken", DbType.AnsiString, entidad.IndicadorToken);
+
+            return Convert.ToInt32(Context.ExecuteNonQuery(command));
+        }
+
+        public void DelIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+
+            Context.ExecuteScalar(command);
+        }
+
+        public string GetTokenIndicadorPedidoAutentico(string paisISO, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTokenIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@ISOPais", DbType.AnsiString, paisISO);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+        /*EPD-2248*/
 
     }
 }

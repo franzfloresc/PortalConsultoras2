@@ -4056,6 +4056,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 /*EPD-1252*/
 
+                //EPD-2248
+                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
+                indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
+                indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
+                indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
+
+                oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                //EPD-2248
+
                 switch (TipoAdm)
                 {
                     case "I":
@@ -4065,6 +4077,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             oBePedidoWebDetalleTemp = sv.Insert(oBEPedidoWebDetalle);
                         }
+
                         oBePedidoWebDetalleTemp.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
                         oBePedidoWebDetalleTemp.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
                         oBePedidoWebDetalleTemp.Nombre = oBEPedidoWebDetalle.Nombre;
@@ -5205,6 +5218,33 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
+            }
+        }
+
+        //EPD-2248
+        public JsonResult StorageFingerprint(string code)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(code))
+                {
+                    if (Session["Fingerprint"] == null) {
+                        Session["Fingerprint"] = code;
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "No se pudo procesar la solicitud"
+                });
             }
         }
 

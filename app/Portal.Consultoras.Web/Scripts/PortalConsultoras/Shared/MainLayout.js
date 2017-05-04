@@ -287,6 +287,9 @@ $(document).ready(function () {
     setInterval(animacionFlechaScroll, 1000);
 
     LayoutHeader();
+
+    //EPD-2248
+    generateFingerprint();
 });
 
 
@@ -1127,5 +1130,33 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+}
+
+function generateFingerprint() {
+    //debugger;
+    if (typeof (Storage) !== 'undefined') {
+        var fp = localStorage.getItem('fingerprint');
+        if (typeof (fp) === 'undefined' || fp === null) {
+            new Fingerprint2().get(function (result, components) {
+                localStorage.setItem('fingerprint', result);
+                var obj = { 'code': result };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/StorageFingerprint',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(obj),
+                    success: function (response) {
+                        if (response.success) {
+                            //console.log('Storage fingerprint');
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+        }
     }
 }
