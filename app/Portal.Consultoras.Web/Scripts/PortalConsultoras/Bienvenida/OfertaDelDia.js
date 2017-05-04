@@ -96,7 +96,6 @@
                 _data.ClassDimension = _data.CantidadProductos < 3 ? "content_780_ODD" : "";
                 _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
-                console.log(_data);
                 var idOdd = '#OfertaDelDia';
                 _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
                 SetHandlebars("#ofertadeldia-template", _data, idOdd);
@@ -401,7 +400,6 @@
             OrigenPedidoWeb: origenPedidoWeb
         });
 
-
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'Pedido/ValidarStockEstrategia',
@@ -423,6 +421,9 @@
                     data: JSON.stringify(obj),
                     async: true,
                     success: function (data) {
+
+                        MarcarProductoComoAgregado(btn, item);
+
                         if (!checkTimeout(data)) {
                             closeWaitingDialog();
                             return false;
@@ -447,12 +448,6 @@
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
                         closeWaitingDialog();
 
-                        //if (tipo == 2) {
-                        //    $('#PopOfertaDia').slideUp();
-                        //    $('.circulo_hoy span').html('+');
-                        //    $('#txtcantidad-odd').val('1');
-                        //}
-
                         if (typeof origenPagina !== 'undefined') {
                             if (origenPagina == 2) {
                                 CargarDetallePedido();
@@ -475,6 +470,15 @@
                 }
             }
         });
+    }
+
+    function MarcarProductoComoAgregado(btn, item) {
+        var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
+        if (perteneceContenedorDetalle) {
+            var posicion = $(btn).parents("[data-item]").attr("data-item-position");
+            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
+        } else
+            $(item).find(".product-add").css("display", "block");
     }
 
     function CheckCountdownODD() {
