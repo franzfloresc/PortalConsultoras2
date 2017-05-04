@@ -34,10 +34,10 @@
         }(document, 'script', 'facebook-jssdk'));
 
         function loginFB() {
-            if (!openloginPopup) {
-                openloginPopup = true;
+            //if (!openloginPopup) {
+               // openloginPopup = true;
                 FB.login(function (response) {
-                    openloginPopup = false;
+                    //openloginPopup = false;
                     if (response.status === 'connected') {
                         //console.log('Logged in.');
                         getInfoFB(2);
@@ -50,7 +50,7 @@
 
                     }
                 }, { scope: 'public_profile,email,user_birthday,user_location' });
-            }
+            //}
         }
 
         function getInfoFB(opt) {
@@ -115,7 +115,8 @@
                             $('.nombre_usuario_facebook').text(response.name);
                             $('.foto_pop_face img').attr('src', response.picture.data.url);
 
-                            $('.content_pop_login').show();
+                            $('#divMensajeError2').hide();
+                            $('#popupAsociarUsuarioExt').show();
                         }
                     }
                 }
@@ -514,7 +515,7 @@
     </div>
 
     <!-- webForm -->
-<div class="content_pop_login" style="display: none;">
+<div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">
     <input type="hidden" id="hdeNameUserExt" />
     <div class="content_facebook_sb">
         <div class="header_facebook">
@@ -572,8 +573,8 @@
 
             <div id="divMensajeError2" class="boxform" style="display: none;">
                 <div class="formbtn">
-                    <div style="color: red; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
-                        <label id="ErrorTextLabel2" class="img_error_login"></label>
+                    <div style="text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel2" class="img_error_login icono_esika"></label>
                     </div>
                 </div>
             </div>

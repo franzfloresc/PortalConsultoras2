@@ -11,6 +11,16 @@ $(document).ready(function () {
         resizeNameUserExt();
     });
 
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            
+            if ($('#popupAsociarUsuarioExt').is(':visible')) {
+                $('#popupAsociarUsuarioExt').hide();
+            }
+        }
+    });
+
+
     $('#btnLoginFB').addClass('center_facebook');
 
     $("#ErrorTextLabel").css("padding-left", "0");
@@ -703,7 +713,8 @@ function login2() {
 function closePopupAsociarLoginExt() {
     preventClick(1, false);
 
-    $('.content_pop_login').hide();
+    //$('.content_pop_login').hide();
+    $('#popupAsociarUsuarioExt').hide();
 }
 
 function preventClick(opt, value) {
