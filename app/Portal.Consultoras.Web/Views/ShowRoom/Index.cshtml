@@ -96,6 +96,7 @@
             }
 
             <div class="banner_especial_showroom">
+                <div class="CerrarOfertaEspecial">x</div>
                 <div class="promocion_especial_header">
                     <div class="titulo_promocion_showroom">
                         <div class="content_titulo">
@@ -111,13 +112,14 @@
                             @descripcion<br />
                             A SÓLO <span class="precio_set_especial">@Model.Simbolo @precioOferta</span>
                         </div>
-                        <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial">DESCÚBRELAS AQUÍ</a>
+                        <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>DESCÚBRELAS AQUÍ</span></a>
                     </div>
+                    <a href="#" class="btn_descubre_set_especial info_desplegable" id="CerrarOfertaEspecial"></a>
 
                 </div>
                 <div class="content_set_oferta_especial">
                     <hr class="clear" />
-                    <div style="max-width:900px; position:relative; margin:0 auto;"><a href="#" class="btn_descubre_set_especial info_desplegable" id="CerrarOfertaEspecial"></a></div>
+                   
                     <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
                     <hr class="clear" />
                 </div>
