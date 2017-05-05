@@ -29,6 +29,7 @@ $(document).ready(function () {
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
+        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 

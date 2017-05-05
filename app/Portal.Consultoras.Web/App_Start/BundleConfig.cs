@@ -89,7 +89,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
-                "~/Scripts/General.js"));
+                "~/Scripts/General.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Site").Include(
                 "~/Content/Css/Mobile/theme*",
@@ -161,6 +162,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
