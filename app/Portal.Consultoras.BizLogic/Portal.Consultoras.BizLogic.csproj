@@ -189,7 +189,6 @@
     <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
     <Compile Include="BLUsuario.cs" />
-    <Compile Include="BLUsuario.Configuracion.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
     <Compile Include="CacheManager.cs" />
