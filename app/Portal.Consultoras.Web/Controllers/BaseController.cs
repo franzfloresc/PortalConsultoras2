@@ -1919,5 +1919,10 @@ namespace Portal.Consultoras.Web.Controllers
                 return accion;
             }
         }
+
+        public bool MostrarFAV()
+        {
+            return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
+        }
     }
 }
