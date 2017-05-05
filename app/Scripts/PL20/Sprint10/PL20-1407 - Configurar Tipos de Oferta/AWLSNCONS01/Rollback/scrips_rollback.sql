@@ -7,7 +7,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -161,7 +163,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -410,7 +413,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -564,7 +569,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -813,7 +819,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -967,7 +975,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -1216,7 +1225,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -1370,7 +1381,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -1619,7 +1631,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -1773,7 +1787,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -2022,7 +2037,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -2176,7 +2193,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -2425,7 +2443,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -2579,7 +2599,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -2828,7 +2849,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -2982,7 +3005,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -3231,7 +3255,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -3385,7 +3411,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -3634,7 +3661,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -3788,7 +3817,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -4037,7 +4067,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -4191,7 +4223,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -4440,7 +4473,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -4594,7 +4629,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
@@ -4843,7 +4879,9 @@ GO
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
 	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta') = 1
-	EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
+	if(select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
+	where sysobjects.id = object_id('ShowRoom.OfertaShowRoom') and SYSCOLUMNS.NAME = N'PrecioOferta2')=0
+		EXEC sp_RENAME 'ShowRoom.OfertaShowRoom.PrecioOferta' , 'PrecioOferta2', 'COLUMN' 
 go
 
 if (select COUNT(*) from dbo.sysobjects inner join dbo.syscolumns on SYSOBJECTS.ID = SYSCOLUMNS.ID 
@@ -4997,7 +5035,8 @@ CREATE TYPE [ShowRoom].[StockPrecioOfertaShowRoomType] AS TABLE(
 	[UnidadesPermitidas] [int] NULL,
 	[Descripcion] [varchar](250) NULL,
 	[CodigoCategoria] [varchar](100) NULL,
-	[TipNegocio] [varchar](500) NULL
+	[TipNegocio] [varchar](500) NULL,
+	[PrecioOferta2] [decimal](12,2) NULL
 )
 
 GO
