@@ -1,7 +1,5 @@
-﻿$(document).ready(function () { CargarPlugins(); })
-
-function CargarPlugins() {
-    var arrayDeferred = [];
+﻿var arrayDeferred = [];
+function CargarEventosExternos() {
     if (!webViewFallBack) {
         var d1 = $.Deferred();
         arrayDeferred.push(d1);
@@ -13,7 +11,12 @@ function CargarPlugins() {
         window.fbAsyncInit = function () { console.log('fbAsyncInit'); d2.resolve(); };
     }
     console.log(arrayDeferred);
+}
+CargarEventosExternos();
 
+$(document).ready(function () { CargarPlugins(); });
+
+function CargarPlugins() {
     if (arrayDeferred.length > 0){
         ShowLoading();
         $.when.apply($, arrayDeferred).then(function () {
