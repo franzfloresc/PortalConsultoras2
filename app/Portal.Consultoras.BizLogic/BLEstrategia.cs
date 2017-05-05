@@ -142,46 +142,49 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad, int paisId, string codigoUsuario)
+        public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            var usuario = new BLUsuario().GetSesionUsuario(paisId, codigoUsuario);
             var estrategiasResult = new List<BEEstrategia>();
             var estrategias = new List<BEEstrategia>();
+            var codigoIso = Util.GetPaisISO(entidad.PaisID);
 
             var daEstrategia = new DAEstrategia(entidad.PaisID);
-            using (IDataReader reader = daEstrategia.GetEstrategiaPedido(entidad))
+            using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
             {
                 while (reader.Read())
                 {
                     estrategias.Add(new BEEstrategia(reader));
                 }
             }
+            var esFacturacion = false;
+            if (entidad.ValidarPeriodoFacturacion)
+            {
+                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
+                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
+            }
 
-            var fechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
-            var esFacturacion = fechaHoy >= usuario.FechaInicioFacturacion.Date;
+            var carpetapais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
 
-            var carpetapais = Globals.UrlMatriz + "/" + usuario.CodigoISO;
-
-            if (entidad.ValidarPeriodoFacturacion && esFacturacion)
+            if (esFacturacion)
             {
                 /*Obtener si tiene stock de PROL por CodigoSAP*/
                 var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
 
                 var listaTieneStock = new List<Lista>();
 
-                if (!string.IsNullOrEmpty(codigoSap) && entidad.ValidarStock)
+                if (!string.IsNullOrEmpty(codigoSap))
                 {
                     using (var sv = new wsConsulta())
                     {
                         sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
-                        listaTieneStock = sv.ConsultaStock(codigoSap, usuario.CodigoISO).ToList();
+                        listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
                     }
                 }
 
                 estrategias.ForEach(estrategia =>
                 {
                     var add = true;
-                    if (entidad.ValidarStock && estrategia.TipoEstrategiaImagenMostrar ==
+                    if (estrategia.TipoEstrategiaImagenMostrar ==
                         Constantes.TipoEstrategia.OfertaParaTi)
                     {
                         add = listaTieneStock.Any(
@@ -190,12 +193,11 @@ namespace Portal.Consultoras.BizLogic
 
                     if (!add) return;
 
-                    //beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
                     estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, estrategia.ImagenURL, carpetapais);
-                    estrategia.Simbolo = usuario.Simbolo;
+                    estrategia.Simbolo = entidad.Simbolo;
                     estrategia.TieneStockProl = true;
-                    estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, usuario.CodigoISO);
-                    estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, usuario.CodigoISO);
+                    estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
+                    estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio,codigoIso);
 
                     estrategiasResult.Add(estrategia);
                 });
@@ -204,24 +206,23 @@ namespace Portal.Consultoras.BizLogic
             {
                 estrategias.ForEach(x =>
                 {
-                    //x.FotoProducto01 = x.FotoProducto01; //ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
                     x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
-                    x.Simbolo = usuario.Simbolo;
+                    x.Simbolo = entidad.Simbolo;
                     x.TieneStockProl = true;
-                    x.PrecioString = Util.DecimalToStringFormat(x.Precio2, usuario.CodigoISO);
-                    x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, usuario.CodigoISO);
+                    x.PrecioString = Util.DecimalToStringFormat(x.Precio2, codigoIso);
+                    x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, codigoIso);
                 });
 
                 estrategiasResult.AddRange(estrategias);
             }
 
 
-            var carpetaPais = Globals.UrlMatriz + "/" + usuario.CodigoISO;
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
             estrategiasResult.ForEach(item =>
             {
 
                 item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-                item.URLCompartir = Util.GetUrlCompartirFB(usuario.CodigoISO);
+                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });
 
             return estrategiasResult;

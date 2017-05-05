@@ -299,6 +299,9 @@ namespace Portal.Consultoras.ServiceContracts
         string RecuperarContrasenia(int paisId, string correo);
 
         [OperationContract]
+        string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
+
+        [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
 
         //EPD-2058
@@ -324,5 +327,9 @@ namespace Portal.Consultoras.ServiceContracts
          * */
        
         /*EPD-1837*/
+
+        [OperationContract]
+        BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
+            bool usuarioPrueba, int aceptacionConsultoraDA);
     }
 }

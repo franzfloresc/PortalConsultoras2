@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Common
             catch(Exception ex) { }
         }
 
-        public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string logo, string nombre, string url, string fondo)
+        public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_recuperar_contrasenia.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
@@ -86,12 +86,31 @@ namespace Portal.Consultoras.Common
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
             htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
 
-            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, "Somos Belcorp"); }
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch { }
+        }
+
+        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo,
+            string parametros)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Url#", url);
+            htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
+            htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
+
+            try
+            {
+                Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
+            }
             catch { }
         }
 
         //1774
-        public static string CuerpoMensajePersonalizado(string url,string nombreconsultora, string param_querystring, bool tipopais)
+        public static string CuerpoMensajePersonalizado(string url, string nombreconsultora, string param_querystring, bool tipopais)
         {
             string s_html = string.Empty;
 

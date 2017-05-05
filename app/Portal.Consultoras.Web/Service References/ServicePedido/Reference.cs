@@ -4233,6 +4233,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int EtiquetaID2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaInicioFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagCEPField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4374,10 +4377,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ValidarPeriodoFacturacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ValidarStockField;
+        private string ZonaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ZonaField;
+        private double ZonaHorariaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -4658,6 +4661,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EtiquetaID2Field.Equals(value) != true)) {
                     this.EtiquetaID2Field = value;
                     this.RaisePropertyChanged("EtiquetaID2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaInicioFacturacion {
+            get {
+                return this.FechaInicioFacturacionField;
+            }
+            set {
+                if ((this.FechaInicioFacturacionField.Equals(value) != true)) {
+                    this.FechaInicioFacturacionField = value;
+                    this.RaisePropertyChanged("FechaInicioFacturacion");
                 }
             }
         }
@@ -5274,19 +5290,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ValidarStock {
-            get {
-                return this.ValidarStockField;
-            }
-            set {
-                if ((this.ValidarStockField.Equals(value) != true)) {
-                    this.ValidarStockField = value;
-                    this.RaisePropertyChanged("ValidarStock");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Zona {
             get {
                 return this.ZonaField;
@@ -5295,6 +5298,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
                     this.ZonaField = value;
                     this.RaisePropertyChanged("Zona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double ZonaHoraria {
+            get {
+                return this.ZonaHorariaField;
+            }
+            set {
+                if ((this.ZonaHorariaField.Equals(value) != true)) {
+                    this.ZonaHorariaField = value;
+                    this.RaisePropertyChanged("ZonaHoraria");
                 }
             }
         }
@@ -22777,10 +22793,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> ValidarCUVsRecomendadosAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiasPedidoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad, int paisId, string codigoUsuario);
+        Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategiasPedido", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiasPedidoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad, int paisId, string codigoUsuario);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedido", ReplyAction="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedidoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEEstrategia[] FiltrarEstrategiaPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
@@ -24800,12 +24816,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ValidarCUVsRecomendadosAsync(entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad, int paisId, string codigoUsuario) {
-            return base.Channel.GetEstrategiasPedido(entidad, paisId, codigoUsuario);
+        public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategiasPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiasPedido(entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad, int paisId, string codigoUsuario) {
-            return base.Channel.GetEstrategiasPedidoAsync(entidad, paisId, codigoUsuario);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEEstrategia[]> GetEstrategiasPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
+            return base.Channel.GetEstrategiasPedidoAsync(entidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] FiltrarEstrategiaPedido(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {

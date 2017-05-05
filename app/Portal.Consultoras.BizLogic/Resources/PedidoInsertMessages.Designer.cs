@@ -70,7 +70,7 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta({0}) del producto..
+        ///   Looks up a localized string similar to La cantidad solicitada sobrepasa el máximo de Unidades Permitidas de Venta({0}) del producto.
         /// </summary>
         internal static string ValidacionUnidadesPermitidas {
             get {
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Las Unidades Permitidas de Venta son solo({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique..
+        ///   Looks up a localized string similar to La cantidad solicitada sobrepasa el máximo de Unidades Permitidas de Venta({0}) del producto.
         /// </summary>
         internal static string ValidacionUnidadesPermitidasSaldoCero {
             get {
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique..
+        ///   Looks up a localized string similar to Sólo puedes adicionar ({0}), ya que el máximo de Unidades Permitidas de Venta del producto es {1}.
         /// </summary>
         internal static string ValidacionUnidadesPermitidasSaldoPermitido {
             get {
@@ -97,7 +97,7 @@ namespace Portal.Consultoras.BizLogic.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lamentablemente, la cantidad solicitada sobrepasa el stock actual({0}) del producto, verifique..
+        ///   Looks up a localized string similar to La cantidad solicitada sobrepasa el stock actual({0}) del producto.
         /// </summary>
         internal static string ValidacionUnidadesPermitidasStockSobrepasado {
             get {

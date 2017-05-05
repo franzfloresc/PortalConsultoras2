@@ -13,6 +13,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1037,23 +1038,25 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public List<BEEstrategia> ConsultarEstrategias()
         {
+            var usuario = ObtenerUsuarioConfiguracion();
+
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            entidad.CampaniaID = UserData().CampaniaID;
-            entidad.ConsultoraID = UserData().ConsultoraID.ToString();
+            entidad.PaisID = userData.PaisID;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.CUV2 = "";
-            entidad.Zona = UserData().ZonaID.ToString();
-            entidad.ValidarPeriodoFacturacion = true;
-            entidad.ValidarStock = true;
+            entidad.Zona = userData.ZonaID.ToString();
+            entidad.ZonaHoraria = usuario.ZonaHoraria;
+            entidad.FechaInicioFacturacion = usuario.FechaInicioFacturacion;
 
             using (var sv = new PedidoServiceClient())
             {
-                lst = sv.GetEstrategiasPedido(entidad, UserData().PaisID, UserData().CodigoUsuario).ToList();
+                lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
 
-            string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst != null && lst.Count > 0)
             {

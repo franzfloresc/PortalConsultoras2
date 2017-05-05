@@ -675,6 +675,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, correo);
         }
 
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+        }
+
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
         {
             int paisID = GetPaisID(paisISO);
@@ -711,6 +717,13 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba,
+            int aceptacionConsultoraDA)
+        {
+            return new BLUsuario().ObtenerUsuarioConfiguracion(paisID, consultoraID, campania, usuarioPrueba,
+                aceptacionConsultoraDA);
         }
 
         /*

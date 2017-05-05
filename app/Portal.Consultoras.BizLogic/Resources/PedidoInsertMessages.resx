@@ -121,19 +121,19 @@
     <value>El producto solicitado no existe.</value>
   </data>
   <data name="ValidacionUnidadesPermitidas" xml:space="preserve">
-    <value>Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta({0}) del producto.</value>
+    <value>La cantidad solicitada sobrepasa el máximo de Unidades Permitidas de Venta({0}) del producto</value>
     <comment>{0} = unidadesPermitidas</comment>
   </data>
   <data name="ValidacionUnidadesPermitidasSaldoCero" xml:space="preserve">
-    <value>Las Unidades Permitidas de Venta son solo({0}), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.</value>
+    <value>La cantidad solicitada sobrepasa el máximo de Unidades Permitidas de Venta({0}) del producto</value>
     <comment>{}</comment>
   </data>
   <data name="ValidacionUnidadesPermitidasSaldoPermitido" xml:space="preserve">
-    <value>Las Unidades Permitidas de Venta son solo ({0}), pero Usted solo puede adicionar ({1}) más, debido a que ya agregó este producto a su pedido, verifique.</value>
+    <value>Sólo puedes adicionar ({0}), ya que el máximo de Unidades Permitidas de Venta del producto es {1}</value>
     <comment>{0} = UnidadesPermitidasa, {1}= saldo</comment>
   </data>
   <data name="ValidacionUnidadesPermitidasStockSobrepasado" xml:space="preserve">
-    <value>Lamentablemente, la cantidad solicitada sobrepasa el stock actual({0}) del producto, verifique.</value>
+    <value>La cantidad solicitada sobrepasa el stock actual({0}) del producto</value>
     <comment>{0}</comment>
   </data>
 </root>

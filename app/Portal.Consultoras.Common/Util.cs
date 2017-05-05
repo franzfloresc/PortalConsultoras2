@@ -2422,68 +2422,56 @@ namespace Portal.Consultoras.Common
 
         public static int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            ISO = ISO.ToUpper();
+
+            var listaPaises = new Dictionary<string, int>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {"AR", 1},
+                {"BO", 2},
+                {"CL", 3},
+                {"CO", 4},
+                {"CR", 5},
+                {"EC", 6},
+                {"SV", 7},
+                {"GT", 8},
+                {"MX", 9},
+                {"PA", 10},
+                {"PE", 11},
+                {"PR", 12},
+                {"DO", 13},
+                {"VE", 14},
             };
-            string paisID = "0";
-            try
-            {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return int.Parse((paisID ?? "0"));
+
+            if (!listaPaises.ContainsKey(ISO))
+                return 0;
+
+            return listaPaises[ISO];
         }
 
         public static string GetPaisISO(int paisID)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            var listaPaises = new Dictionary<int, string>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {1, "AR" },
+                {2, "BO"},
+                {3, "CL"},
+                {4, "CO"},
+                {5, "CR"},
+                {6, "EC"},
+                {7, "SV"},
+                {8, "GT"},
+                {9, "MX"},
+                {10, "PA" },
+                {11, "PE"},
+                {12, "PR"},
+                {13, "DO"},
+                {14, "VE"}
             };
-            string ISO = string.Empty;
-            try
-            {
-                ISO = (from c in listaPaises
-                       where c.Key == paisID.ToString()
-                       select c.Value).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return (ISO == null ? string.Empty : ISO);
+
+            if (!listaPaises.ContainsKey(paisID))
+                return string.Empty;
+
+            return listaPaises[paisID];
         }
 
         public static string GetPaisNombre(int paisID)
@@ -3038,14 +3026,14 @@ namespace Portal.Consultoras.Common
 
         public static String GetUrlCompartirFB(string codigoISO, int id = 0)
         {
-            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["SomosBelcorp_URL"]))
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CONTEXTO_BASE"]))
             {
-                throw new NullReferenceException("Key no encontrada: SomosBelcorp_URL");
+                throw new NullReferenceException("Key no encontrada: CONTEXTO_BASE");
             }
 
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
 
-            return ConfigurationManager.AppSettings["SomosBelcorp_URL"] + "/" + partialUrl;
+            return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
     }
 
