@@ -2,7 +2,8 @@
 var Paginador = function (config) {
     var _config = {
         elementId: config.elementId || '',
-        elementClick: config.elementClick
+        elementClick: config.elementClick,
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10
     };
 
     var _pageClick = function (link, ev, pagerControl) {
@@ -63,14 +64,16 @@ var Paginador = function (config) {
     };
 
     var _paginar = function (numRegistros) {
-        var pagerObj = $("#" + _config.elementId).paging(numRegistros, {
-            format: '[< ncnnn >]',
-            onClick: function (ev) {
-                _pageClick($(this), ev, pagerObj)
-            },
-            onSelect: _itemOnSelect,
-            onFormat: _onFormat
-        });
+        if (numRegistros > _config.numeroImagenesPorPagina) {
+            var pagerObj = $("#" + _config.elementId).paging(numRegistros, {
+                format: '[< ncnnn >]',
+                onClick: function (ev) {
+                    _pageClick($(this), ev, pagerObj)
+                },
+                onSelect: _itemOnSelect,
+                onFormat: _onFormat
+            });
+        }
     };
 
     return {
