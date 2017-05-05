@@ -1106,6 +1106,7 @@
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
     <Content Include="Content\Css\Mobile\flexslider.css" />
+    <Content Include="Content\Css\Mobile\flipclock.css" />
     <Content Include="Content\Css\Mobile\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.eot" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.svg" />
@@ -2666,6 +2667,10 @@
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
+    <Content Include="Content\Images\PL20\flecha_set_Especial.png" />
+    <Content Include="Content\Images\PL20\flecha_set_Especial_2.png" />
+    <Content Include="Content\Images\PL20\flecha_set_Especial_2white.png" />
+    <Content Include="Content\Images\PL20\flecha_set_Especial_white.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
     <Content Include="Content\Images\PL20\left_compra.png" />
