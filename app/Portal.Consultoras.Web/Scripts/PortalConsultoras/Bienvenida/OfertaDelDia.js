@@ -711,6 +711,10 @@
                 $('.circulo_hoy span').html('+');
                 showDisplayODD = 0;
             }
+
+            if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
+                $('div [data-odd-tipoventana="detalle"]').show();
+            }
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
