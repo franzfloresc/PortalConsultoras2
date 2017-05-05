@@ -1770,7 +1770,12 @@
                         }
                     }
 
-                    if ($('.chkImagenProducto:checked').length == 0) {
+                    /*if ($('.chkImagenProducto:checked').length == 0) {
+                        alert("Seleccione una imagen a mostrar.");
+                        return false;
+                    }*/
+
+                    if (imagen=="") {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }

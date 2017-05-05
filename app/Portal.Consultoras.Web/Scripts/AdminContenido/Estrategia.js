@@ -96,11 +96,6 @@
         return false;
     };
 
-    function marcarCheckRegistro(imgRow) {
-        $('.chkImagenProducto[value="' + imgRow + '"]').first().attr('checked', 'checked');
-        imagen = imgRow;
-    }
-
     var _obtenerFiltrarEstrategia = function (data, id) {
         var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID};
         return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
@@ -266,14 +261,17 @@
             editData.imagenes = data.imagenes;
             _editData = editData;
 
-            $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
-            $("#imgSeleccionada").attr("src", imagen);
-
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
-            marcarCheckRegistro(_editData.imagen);          
+            marcarCheckRegistro(imagen);          
         };
     };
+
+    function marcarCheckRegistro(imgRow) {
+        $('.chkImagenProducto[value="' + imgRow + '"]').first().attr('checked', 'checked');
+        imagen = imgRow;
+        $("#imgSeleccionada").attr("src", imagen);
+    }
 
     var _mostrarPaginacion = function (numRegistros) {
         if ($("#matriz-imagenes-paginacion").children().length !== 0) {
