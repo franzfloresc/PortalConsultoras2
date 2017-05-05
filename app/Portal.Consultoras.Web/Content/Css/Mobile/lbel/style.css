@@ -9768,7 +9768,7 @@ span.icon-advertencia{
     line-height:23px;
     /*margin-left:25px;*/
     margin:0 auto;
-    margin-top:7px;
+    margin-top: -5px;
     text-align:center;
 }
 .flexslider{
