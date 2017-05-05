@@ -10496,7 +10496,7 @@ a{
     line-height:23px;
     /*margin-left:25px;*/
     margin:0 auto;
-    margin-top: -5px;
+    margin-top: 7px;
     text-align:center;
 }
 .flexslider{
@@ -11909,4 +11909,8 @@ a{
 .color-por-marca {
     color: #e81c36;
     font-weight: 700;
+}
+
+.btn_compralo_ahora.cabecera-no-home {
+    margin-top: -5px !important;
 }

@@ -152,14 +152,15 @@
                             <div class="row_contador" style="padding:0;">
                                 <div class="float_left" style="margin-left:16px;">
                                     <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
+                                    
                                     @*<div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0; width:195px;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>*@
                                     @if (ofertaDelDia.ListaOfertas.Count > 1)
                                     {
-                                        <a class="btn_compralo_ahora" href="#">VER MÁS OFERTAS</a>
+                                        <a class="btn_compralo_ahora cabecera-no-home" href="#">VER MÁS OFERTAS</a>
                                     }
                                     else
                                     {
-                                        <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                                        <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
                                     }
                                 </div>
                                 <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:5px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
@@ -369,6 +370,7 @@
                                                 </div>
                                                 <div class="float_left" style="width:50%; margin-left:1%;">
                                                     <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                                    
                                                     @if (ofertaDelDia.ListaOfertas.Count > 1)
                                                     {
                                                         <a class="btn_compralo_ahora" href="#">VER MÁS OFERTAS</a>
