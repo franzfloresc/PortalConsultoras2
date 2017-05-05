@@ -10500,6 +10500,10 @@ span.icon-advertencia{
     background-position: 5px 14px;
 
 }
+.etiqueta_chat{
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png) no-repeat;
+    background-position: 45% 15px;
+}
 .content_titulo{
     position:absolute;
     top:5px;

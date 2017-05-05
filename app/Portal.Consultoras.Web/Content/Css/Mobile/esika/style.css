@@ -11032,6 +11032,10 @@ a{
     background-position: 5px 14px;
 
 }
+.etiqueta_chat{
+    background: url(../../../Images/Esika/ayuda.png) no-repeat left;
+    background-position: 45% 15px;
+}
 .content_titulo{
     position:absolute;
     top:5px;
