@@ -67,6 +67,8 @@
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
+            TipoEstrategiaID: data.TipoEstrategiaID,
+            CampaniaID: data.CampaniaID,
             IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
             imagenes: [],
@@ -98,7 +100,7 @@
     }
 
     var _obtenerFiltrarEstrategia = function (data, id) {
-        var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2};
+        var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID};
         return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
     };
 
@@ -235,6 +237,8 @@
             $('#div-orden').hide();
         }
 
+        $('#file-upload').show();
+
         if (id != 0) {
             var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
             _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
@@ -250,7 +254,7 @@
 };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, cuv2: data.CUV2, pagina: pagina };
+        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
@@ -282,6 +286,41 @@
         //_crearFileUploadElements(editData);
     };
 
+
+    var _clearFields = function () {
+
+        $("#hdnCodigoSAP").val("")
+        $('#mensajeErrorCUV').val("")
+        $('#mensajeErrorCUV2').val("");
+        $(".checksPedidosAsociados").html('');
+
+        $('#hdColorFondo').val("#FFF");
+        ActivarDesactivarChecks();
+        $(".checksPedidosAsociados").html('');
+
+        $('#txtCUV2').val('');
+        $('#txtPrecio2').val('');
+        $('#txtCUV').val('');
+        $('#txtPrecio').val('');
+        $('#txtDescripcion').val('');
+
+        $('#matriz-imagenes-paginacion').empty();
+        $('#matriz-comercial-images').empty();
+        $('#file-upload').hide();
+
+        $('#imgSeleccionada').attr("src", rutaImagenVacia);
+        $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
+
+        $("#divImagenEstrategiaContenido").show();
+        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+        $("#divImagenEstrategia").css("color", "white");
+        $("#divImagenEstrategia").css("background", "#00A2E8");
+        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
+        $("#txtTextoLibre").val("");
+    };
+
     return {
         editar: function (id, event) {
             event.preventDefault();
@@ -290,37 +329,30 @@
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
-                $("#hdnCodigoSAP").val("")
-                $('#mensajeErrorCUV').val("")
-                $('#mensajeErrorCUV2').val("");
-                $(".checksPedidosAsociados").html('');
-
+                 
+                _clearFields();
+               
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val()
                 };
-                $('#matriz-imagenes-paginacion').empty();
-                $('#matriz-comercial-images').empty();
 
                 _editar(params, id);
             }
 
             return false;
         },
-        editarByCUV2: function (cuv2) {
+        editarByCUV2: function (cuv2, campaniaID, tipoEstrategiaID) {
 
             waitingDialog({});
 
-            $("#hdnCodigoSAP").val("")
-            $('#mensajeErrorCUV').val("")
-            $('#mensajeErrorCUV2').val("");
-            $(".checksPedidosAsociados").html('');
-   
-             $('#matriz-imagenes-paginacion').empty();
-             $('#matriz-comercial-images').empty();
+            _clearFields();
+
              var id = 0;
              var params = {
                  EstrategiaID: 0,
-                 CUV2: cuv2
+                 CUV2: cuv2,
+                 CampaniaID: campaniaID,
+                 TipoEstrategiaID: tipoEstrategiaID
              };
               _editar(params, id);
 

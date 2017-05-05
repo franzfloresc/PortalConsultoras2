@@ -6,11 +6,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -46,8 +47,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 
@@ -59,11 +65,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -99,8 +106,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -111,11 +123,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -151,8 +164,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -163,11 +181,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -203,8 +222,14 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 
 END
 /*end*/
@@ -215,11 +240,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -255,8 +281,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -267,11 +298,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -307,8 +339,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -319,11 +356,12 @@ GO
 BEGIN
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -359,7 +397,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 	
@@ -372,11 +414,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -412,8 +455,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -425,11 +473,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -465,8 +514,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -478,11 +532,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -518,8 +573,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -531,11 +591,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -571,8 +632,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -584,11 +650,12 @@ GO
 BEGIN
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -624,8 +691,13 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
+
 
 END
 /*end*/
@@ -637,11 +709,12 @@ BEGIN
 
 	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
-	@CUV2 varchar(50)
+	@CUV2 varchar(50),
+	@TipoEstrategiaID INT = 0,
+	@CampaniaID INT
 AS
 BEGIN
-	PRINT @EstrategiaID;
-	PRINT @CUV2;
+
 	SELECT
 		EstrategiaID,
 		TipoEstrategiaID,
@@ -677,7 +750,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2));
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		AND
+		((@TipoEstrategiaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
+		AND
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 END

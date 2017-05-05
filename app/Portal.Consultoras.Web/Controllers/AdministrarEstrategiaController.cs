@@ -795,7 +795,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult FiltrarEstrategia(string EstrategiaID, string cuv2)
+        public JsonResult FiltrarEstrategia(string EstrategiaID, string cuv2, string CampaniaID, string TipoEstrategiaID)
         {
             try
             {
@@ -804,6 +804,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var entidad = new BEEstrategia();
                 entidad.PaisID = UserData().PaisID;
                 entidad.EstrategiaID = Convert.ToInt32(EstrategiaID);
+                entidad.CampaniaID = Convert.ToInt32(CampaniaID);
+                entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
                 entidad.CUV2 = cuv2;
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -844,13 +846,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetImagesBySapCode(int paisID, int estragiaId, string cuv2, int pagina)
+        public JsonResult GetImagesBySapCode(int paisID, string estragiaId, string cuv2, string CampaniaID, string TipoEstrategiaID, int pagina)
         {
             List<BEMatrizComercialImagen> lst;
             BEEstrategia estrategia = new BEEstrategia();
             estrategia.PaisID = paisID;
-            estrategia.EstrategiaID = estragiaId;
+            estrategia.EstrategiaID = Convert.ToInt32(estragiaId);
             estrategia.CUV2 = cuv2;
+            estrategia.CampaniaID = Convert.ToInt32(CampaniaID);
+            estrategia.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

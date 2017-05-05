@@ -35,6 +35,8 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);              
                 return Context.ExecuteReader(command);
             }
         }
@@ -45,6 +47,8 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
                 Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
                 Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
                 Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
                 return Context.ExecuteReader(command);

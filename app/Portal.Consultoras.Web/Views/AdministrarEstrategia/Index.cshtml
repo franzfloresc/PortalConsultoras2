@@ -355,6 +355,7 @@
 
             $('#matriz-imagenes-paginacion').empty();
             $('#matriz-comercial-images').empty();
+            $('#file-upload').hide();
             
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
@@ -706,10 +707,13 @@
         });
         $("#txtCUV2").keyup(function () {
             var cuvIngresado = $(this).val();
+            var campaniaID = $("#ddlCampania").val();
+            var tipoEstrategiaID = $("#ddlTipoEstrategia").val();
+
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
             if (cuvIngresado.length > 4) {
-                estrategiaObj.editarByCUV2(cuvIngresado);
+                estrategiaObj.editarByCUV2(cuvIngresado, campaniaID, tipoEstrategiaID);
             }
             //mostrarInformacionCUV(cuvIngresado);
         });
