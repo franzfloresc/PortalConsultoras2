@@ -33,6 +33,7 @@
             params: {
                 IdMatrizComercial: editData.IdMatrizComercial,
                 IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
+                CodigoSAP: editData.CodigoSAP,
                 Foto: itemData.foto,
                 PaisID: editData.paisID
             },
@@ -68,6 +69,7 @@
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
             TipoEstrategiaID: data.TipoEstrategiaID,
+            CodigoSAP: 0,
             CampaniaID: data.CampaniaID,
             IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
@@ -141,6 +143,7 @@
         $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
         $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
         $("#hdnCodigoSAP").val(data.CodigoSAP);
+        _editData.CodigoSAP = data.CodigoSAP;
         SeleccionarTipoOferta();
 
         $("#txtAlcance").val($("#ddlPais option:selected").html());
