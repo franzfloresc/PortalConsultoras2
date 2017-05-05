@@ -217,6 +217,67 @@
     }
 }
     
+<!--SUB OFERTAS SHOWROOM-->
+   <div class="content_sub_oferta_showroom" id="content_sub_oferta_showroom">
+       <div class="content_titulo_sub_oferta">
+           <hr class="clear" />
+           <div class="content_titulo_texto_sw">
+               OFERTAS PARA NUESTRAS
+               <span class="titulo_banner_showroom">MAMÁS Y PAPÁS A LA VEZ</span>
+           </div>
+           <a href="#" class="btn_descubre_set_especial" id="btn_descubre_mobile"></a>
+       </div>
+       <hr class="clear" />     
+     
+   </div> 
+<div class="content_display_set_suboferta">
+    <div class="content_header_sub">
+        <div class="content_titulo_sub_oferta">
+            <hr class="clear" />
+            <div class="content_titulo_texto_sw">
+                OFERTAS PARA NUESTRAS
+                <span class="titulo_banner_showroom">MAMÁS Y PAPÁS A LA VEZ</span>
+            </div>
+            <a href="#" class="btn_descubre_set_especial btn_descubre_set_especial_click" id="btn_cerrar_mobile"></a>
+        </div>
+    </div>
+    <div class="content_info_set_especial">
+        <div class="saludo_paginacion">Valeria, te mostramos <b>1 de 6</b> ofertas</div>
+        <div class="set_oferta_content">
+            <div class="producto_img_mobile">
+                <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/MX/MX_200085125_201740487_10_gynqoayubz.png" alt="Solo Hoy" id="img-display-odd">
+            </div>
+            <div class="nombre_set_display">SET MAQUILLALJE</div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>$ 745.00</span></div>
+            <div class="producto_precio_hoy_mobile">
+                A SOLO <span>$ 238.90</span>
+            </div>
+            <div class="titulo_contenido">CONTENIDO</div>
+            <div class="nombre_set_producto_hoy">ES PRO Doceteto Chic Nude +<br>ES Del Difum Kohl Negro +<br>ES Másc Tratante APA Negro</div>
+            <div class="content_redes_ficha" data-item="">
+                <div class="texto_redes">Comparte el producto con tus clientes:</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+
+
+        </div>
+        
+            <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
+                <div class="content_320">
+                    <div class="content_cantidad_ficha_producto">
+                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    </div>
+                    <a class="btn_agregar_ficha_producto">AGRÉGALO</a>
+                    <hr class="clear">
+                </div>
+            </div>
+        
+    </div>
+</div>
+<!--FIN-->
 
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
@@ -357,11 +418,36 @@
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom", new {area = "Mobile"})';
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
-
-     
-
-
-
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+            $("#btn_descubre_mobile").on("click", function () {
+               
+                $('body').css({ 'overflow-y': 'hidden' });
+                // Set the effect type
+                var effect = 'slide';
+                // Set the options for the effect type chosen
+                //var options = { direction: $('.mySelect').val() };
+                var options = { direction: 'down' };
+                // Set the duration (default: 400 milliseconds)
+                var duration = 500; agregarSetEspecial               
+                $('.content_display_set_suboferta').toggle(effect, options, duration);
+                $('#agregarSetEspecial').slideDown();                    
+            });
+            $("#btn_cerrar_mobile").on("click", function () {                
+                var effect = 'slide';               
+                var options = { direction: 'down' };
+                var duration = 500;              
+                $('.content_display_set_suboferta').toggle(effect, options, duration);
+                $('#agregarSetEspecial').slideUp();
+                $('body').css({ 'overflow-y': 'auto' });
+                
+            });
+              
+             
+            
+        });
 
     </script>
     
