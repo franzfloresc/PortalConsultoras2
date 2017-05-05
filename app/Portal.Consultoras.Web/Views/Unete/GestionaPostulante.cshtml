@@ -132,6 +132,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="div-3">
+
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
+                        @Html.TextBoxFor(m => Model.CodigoRegion, new { @style = "text-transform: uppercase;", @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Region" })
+                    </div>
+                </div>
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
+                        <table>
+                            @foreach (var item in Model.FuenteIngresoListAvailable)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
+                                    </td>
+                                    <td>
+                                        <label for="@item.ID">@item.Descripcion</label>
+                                    </td>
+                                </tr>
+
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -163,14 +192,14 @@
                 <div class="cellGrid  headerGrid" data-colName="CodigoConsultora">Codigo<br />de<br />Consultora</div>
                 <div class="cellGrid  headerGrid"  data-colName="FechaIngreso">Fecha<br />Ingreso</div>
                 <div class="cellGrid  headerGrid" data-colName="CampanaIngreso">Campaña<br />Ingreso</div>   
-                <div class="cellGrid  headerGrid"   data-colName="Ubicacion">Ubicacion</div>
-                <div class="cellGrid  headerGrid"  data-colName="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
                 <div class="cellGrid  headerGrid"  data-colName="EvaluacionTelefonica">Evaluacion<br />Telefonica</div>
                 <div class="cellGrid  headerGrid"  onclick="OrderListByColumnn(this, 'EstadoPostulante')" data-colName="Estado">Estado</div>
                 <div class="cellGrid  headerGrid" data-colName="TipoRechazo">Tipo<br />Rechazo</div>
                 <div class="cellGrid   headerGrid" data-colName="MotivoRechazo">Motivo<br />Rechazo</div>
                 <div class="cellGrid  headerGrid alignCenter" data-colName="Editar">Editar</div>
-                <div class="cellGrid  headerGrid" data-colName="Documentos">Documentos</div>
+                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderDocumentos')" data-colname="Documentos">Documentos</div>
                 <div class="cellGrid  headerGrid" data-colName="PendienteConfirmacion">Pendiente<br />de<br />Confirmacion</div>
                 <div class="cellGrid  headerGrid"  data-colName="Reactivar">Reactivar</div>
                 <div class="cellGrid  headerGrid" data-colName="Aprobar">Aprobar</div>
@@ -217,53 +246,54 @@
 
 <script id="cliente-template" type="text/x-handlebars-template">
     {{#each this}}
-    <div class="content_listado_notificaciones">
-        <div class="cellGrid " data-colName="FechaCreacion">{{FechaCreacion}}</div>
-        <div class="cellGrid " data-colName="CampanaRegistro">{{CampanaRegistro}}</div>
-        <div class="cellGrid " data-colName="FuenteIngreso">{{FuenteIngreso}}</div>
-        <div class="cellGrid " data-colName="Tipo">{{Tipo}}</div>
-        <div class="cellGrid " data-colName="NombreCompleto">{{NombreCompleto}}</div>
-        <div class="cellGrid " data-colName="TipoDocumento">{{TipoDocumento}}</div>
-        <div class="cellGrid " data-colName="NumeroDocumento">{{NumeroDocumento}}</div>
-        <div class="cellGrid " data-colName="Correo" style="font-size:10px !important;word-wrap: break-word;">{{Correo}}</div>
-        <div class="cellGrid " data-colName="CodigoZona">{{CodigoZona}}</div>
-        <div class="cellGrid  alignCenter" data-colName="CodigoSeccion">{{CodigoSeccion}}</div>
-        <div class="cellGrid " data-colName="CodigoTerritorio">{{CodigoTerritorio}}</div>
-        <div class="cellGrid " data-colName="Direccion">{{Direccion}}</div>
-        <div class="cellGrid " data-colName="CodigoConsultora">{{CodigoConsultora}}</div>
-        <div class="cellGrid " data-colName="FechaIngreso">{{FechaIngreso}}</div>
-        <div class="cellGrid " data-colName="CampanaIngreso">{{CampanaIngreso}}</div>
-        <div class="cellGrid alignCenter" data-colName="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;"src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}');" /></a></div>
-        <div class="cellGrid alignCenter" data-colName="EvaluacionCrediticia"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionCrediticia}}" onclick="consultarEvaluacionCrediticia('{{SolicitudPostulanteID}}');" /></a></div>
-        <div class="cellGrid alignCenter" data-colName="EvaluacionTelefonica"> <img    style="visibility:{{ShowEvaliuacionTelefonica}}; height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
-        <div class="cellGrid " data-colName="Estado">{{Estado}}</div>
-        <div class="cellGrid w4" data-colName="TipoRechazo">{{TipoRechazo}}</div>
-        <div class="cellGrid w4" data-colName="MotivoRechazo">{{MotivoRechazo}}</div>
-        <div class="cellGrid w4 alignCenter" data-colName="Editar"><a href="javascript:void(0);"><img style="height: 18px;    margin-right: 5px;"  src="@Url.Content("~/Content/Images/Esika/editar_clientes.png")" class="editarBtnGrid" onclick="modificar('{{SolicitudPostulanteID}}')" /></a><a href="javascript:void(0);"><img style="height: 18px;" src="@Url.Content("~/Content/Images/icono-ver-estado.png")" onclick="ver('{{SolicitudPostulanteID}}')" /></a></div>
-        <div class="cellGrid w3 alignCenter" data-colName="Documentos"><a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="consultarDocs('{{SolicitudPostulanteID}}')" style="visibility:{{ShowDocs}}" /></a></div>
-        <div class="cellGrid " data-colName="PendienteConfirmacion"><span class="buttonGrid"  onclick="reenviar('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowPendienteConfirmacion}}">Correo</span></div>
-        <div class="cellGrid " data-colName="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}" >Reactivar</span></div>
-        <div class="cellGrid " data-colName="Aprobar"><span class="buttonGrid" onclick="Aprobar('{{SolicitudPostulanteID}}')" >Aprobar</span></div>
-        <div class="cellGrid " data-colName="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">Rechazar</span></div>
-        <div class="cellGrid " data-colName="EnviarAFFVV"><span class="buttonGrid" onclick="enviarFFVV('{{SolicitudPostulanteID}}')"  style="visibility:{{ShowEnviarAFFVV}}">Enviar a<br />FFVV</span></div>
-        <div class="cellGrid " data-colName="DiasEnEspera">{{DiasEnEspera}}</div>
-        <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colName="ZonaOrigen">{{ZonaOrigen}}</div>
-        <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colName="SeccionOrigen">{{SeccionOrigen}}</div>   
-        <div class="cellGrid " data-colName="FechaCreacionCodigo">{{FechaCreacionCodigo}}</div>
-        <div class="cellGrid " data-colName="CampanaCreacionCodigo">{{CampanaCreacionCodigo}}</div>
-        <div class="cellGrid " data-colName="campania1erPasePedido">{{campania1erPasePedido}}</div>
-        <div class="cellGrid " data-colName="NumDiasAprobadoFFVV">{{NumDiasAprobadoFFVV}}</div>
-        <div class="cellGrid " data-colName="NumDiasRechazado">{{NumDiasRechazado}}</div>
-        <div class="cellGrid " data-colName="DiferenciaDias">{{DiferenciaDias}}</div>  
-        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colName="ImagenDNI">{{ImagenDNI}}</div>   
-        <div class="cellGrid "  style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenAval">{{ImagenAval}}</div>   
-        <div class="cellGrid "  style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenComprobanteDomicilio">{{ImagenComprobanteDomicilio}}</div>   
-        <div class="cellGrid "   style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenContrato">{{ImagenContrato}}</div>   
-        <div class="cellGrid "   style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenPagare">{{ImagenPagare}}</div>   
-        <div class="cellGrid " style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenReciboOtraMarca">{{ImagenReciboOtraMarca}}</div>   
-        <div class="cellGrid " style="display:none"     data-id="{{SolicitudPostulanteID}}" data-colName="ImagenReciboPagoAval">{{ImagenReciboPagoAval}}</div>   
-        <div class="cellGrid " style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenCreditoAval">{{ImagenCreditoAval}}</div>   
-        <div class="cellGrid " style="display:none"  data-id="{{SolicitudPostulanteID}}" data-colName="ImagenConstanciaLaboralAval">{{ImagenConstanciaLaboralAval}}</div>         
+    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}">
+        <div class="cellGrid " data-colname="FechaCreacion">{{FechaCreacion}}</div>
+        <div class="cellGrid " data-colname="CampanaRegistro">{{CampanaRegistro}}</div>
+        <div class="cellGrid " data-colname="FuenteIngreso">{{FuenteIngreso}}</div>
+        <div class="cellGrid " data-colname="Tipo">{{Tipo}}</div>
+        <div class="cellGrid enlaceNombreCompleto" data-colname="NombreCompleto"><a href="javascript:void(0);" onclick="verHistorialPostulante('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{FechaCreacion}}')">{{NombreCompleto}}</a></div>
+        @*<div class="cellGrid " data-colname="NombreCompleto">{{NombreCompleto}}</div>*@
+        <div class="cellGrid " data-colname="TipoDocumento">{{TipoDocumento}}</div>
+        <div class="cellGrid " data-colname="NumeroDocumento">{{NumeroDocumento}}</div>
+        <div class="cellGrid " data-colname="Correo" style="font-size:10px !important;word-wrap: break-word;">{{Correo}}</div>
+        <div class="cellGrid " data-colname="CodigoZona">{{CodigoZona}}</div>
+        <div class="cellGrid  alignCenter" data-colname="CodigoSeccion">{{CodigoSeccion}}</div>
+        <div class="cellGrid " data-colname="CodigoTerritorio">{{CodigoTerritorio}}</div>
+        <div class="cellGrid " data-colname="Direccion">{{Direccion}}</div>
+        <div class="cellGrid " data-colname="CodigoConsultora">{{CodigoConsultora}}</div>
+        <div class="cellGrid " data-colname="FechaIngreso">{{FechaIngreso}}</div>
+        <div class="cellGrid " data-colname="CampanaIngreso">{{CampanaIngreso}}</div>
+        <div class="cellGrid alignCenter" data-colname="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}');" /></a></div>
+        <div class="cellGrid alignCenter" data-colname="EvaluacionCrediticia"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionCrediticia}}" onclick="consultarEvaluacionCrediticia('{{SolicitudPostulanteID}}');" /></a></div>
+        <div class="cellGrid alignCenter" data-colname="EvaluacionTelefonica"> <img style="visibility:{{ShowEvaliuacionTelefonica}}; height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
+        <div class="cellGrid " data-colname="Estado">{{Estado}}</div>
+        <div class="cellGrid w4" data-colname="TipoRechazo">{{TipoRechazo}}</div>
+        <div class="cellGrid w4" data-colname="MotivoRechazo">{{MotivoRechazo}}</div>
+        <div class="cellGrid w4 alignCenter" data-colname="Editar"><a href="javascript:void(0);"><img style="height: 18px;    margin-right: 5px;" src="@Url.Content("~/Content/Images/Esika/editar_clientes.png")" class="editarBtnGrid" onclick="modificar('{{SolicitudPostulanteID}}')" /></a><a href="javascript:void(0);"><img style="height: 18px;" src="@Url.Content("~/Content/Images/icono-ver-estado.png")" onclick="ver('{{SolicitudPostulanteID}}')" /></a></div>
+        <div class="cellGrid w3 alignCenter" data-colname="Documentos"><a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="consultarDocs('{{SolicitudPostulanteID}}')" style="visibility:{{ShowDocs}}" /></a></div>
+        <div class="cellGrid " data-colname="PendienteConfirmacion"><span class="buttonGrid" onclick="reenviar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowPendienteConfirmacion}}">Correo</span></div>
+        <div class="cellGrid " data-colname="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}">Reactivar</span></div>
+        <div class="cellGrid " data-colname="Aprobar"><span class="buttonGrid" onclick="Aprobar('{{SolicitudPostulanteID}}')">Aprobar</span></div>
+        <div class="cellGrid " data-colname="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">Rechazar</span></div>
+        <div class="cellGrid " data-colname="EnviarAFFVV"><span class="buttonGrid" onclick="enviarFFVV('{{SolicitudPostulanteID}}')" style="visibility:{{ShowEnviarAFFVV}}">Enviar a<br />FFVV</span></div>
+        <div class="cellGrid " data-colname="DiasEnEspera">{{DiasEnEspera}}</div>
+        <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colname="ZonaOrigen">{{ZonaOrigen}}</div>
+        <div class="cellGrid " data-id="{{SolicitudPostulanteID}}" data-colname="SeccionOrigen">{{SeccionOrigen}}</div>
+        <div class="cellGrid " data-colname="FechaCreacionCodigo">{{FechaCreacionCodigo}}</div>
+        <div class="cellGrid " data-colname="CampanaCreacionCodigo">{{CampanaCreacionCodigo}}</div>
+        <div class="cellGrid " data-colname="campania1erPasePedido">{{campania1erPasePedido}}</div>
+        <div class="cellGrid " data-colname="NumDiasAprobadoFFVV">{{NumDiasAprobadoFFVV}}</div>
+        <div class="cellGrid " data-colname="NumDiasRechazado">{{NumDiasRechazado}}</div>
+        <div class="cellGrid " data-colname="DiferenciaDias">{{DiferenciaDias}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenDNI">{{ImagenDNI}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenAval">{{ImagenAval}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenComprobanteDomicilio">{{ImagenComprobanteDomicilio}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenContrato">{{ImagenContrato}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenPagare">{{ImagenPagare}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenReciboOtraMarca">{{ImagenReciboOtraMarca}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenReciboPagoAval">{{ImagenReciboPagoAval}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenCreditoAval">{{ImagenCreditoAval}}</div>
+        <div class="cellGrid " style="display:none" data-id="{{SolicitudPostulanteID}}" data-colname="ImagenConstanciaLaboralAval">{{ImagenConstanciaLaboralAval}}</div>
     </div>
     {{/each}}
 </script>
@@ -405,6 +435,8 @@
                 Estado: defaultStatus == null ? $("#Estado").val() : 2,
                 DocumentoIdentidad: $("#DocumentoIdentidad").val(),
                 CodigoZona: $("#CodigoZonaFiltro").val(),
+                CodigoRegion: $("#CodigoRegionFiltro").val(),
+                FuenteIngreso: ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : ''),
                 sidx: sidx,
                 sord: sord,
                 page: page || 1,
@@ -1000,6 +1032,8 @@
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divRechazarPostulante">
 </div>
+<div class="contenedor_popup_eliminarCliente" id="divVerHistorialPostulante">
+</div>
 <div class="contenedor_popup_eliminarCliente" id="divReenviarPostulante">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarSolicitud">
@@ -1084,6 +1118,11 @@
             user agent stylesheet input, textarea, keygen, select, button, meter, progress {
                 -webkit-writing-mode: horizontal-tb;
             }
+
+            .enlaceNombreCompleto a {
+                text-decoration: underline;
+            }
+
         </style>
 
         
@@ -1421,15 +1460,18 @@
         var Estado = $("#Estado").val();
         var DocumentoIdentidad = $("#DocumentoIdentidad").val();
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
+        var CodigoRegion = $("#CodigoRegionFiltro").val();
+        var FuenteIngreso = ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : '');
+
         
         generalLoading();
 
         setTimeout(function () {
-            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro);
+            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro, CodigoRegion, FuenteIngreso);
         }, 0);
     }
 
-    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro) {
+    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro, CodigoRegion, FuenteIngreso) {
         var content = baseUrl +
             "Unete/ExportarExcel?" +
             "PrefijoISOPais=" +
@@ -1445,7 +1487,11 @@
             "&DocumentoIdentidad=" +
             DocumentoIdentidad +
             "&CodigoZona=" +
-            codigoZonaFiltro;
+            codigoZonaFiltro+
+            "&CodigoRegion=" +
+            CodigoRegion+
+            "&FuenteIngreso=" +
+            FuenteIngreso;
 
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";
@@ -1683,6 +1729,18 @@
 
     }
 
+    function verHistorialPostulante(solicitudPostulanteID, nombreCompleto, FechaRegistro) {
+        limpiarPopUps();
+
+        $('#divVerHistorialPostulante').empty();
+        $('#divVerHistorialPostulante').show();
+        LoadSpinner('divVerHistorialPostulante');
+        $.get('@Url.Action("VerHistorialPostulante", "Unete")', { id: solicitudPostulanteID, nombre: nombreCompleto, FechaRegistro: FechaRegistro }, function (html) {
+            $('#divVerHistorialPostulante').html(html);
+            $('#divVerHistorialPostulante').show();
+        }).done(function () { });
+    }
+
     function reenviar(solicitudPostulanteID) {
 
         limpiarPopUps();
@@ -1882,6 +1940,7 @@
         $('#divReactivarPostulante').empty();
         $('#divAprobarPostulante').empty();
         $('#divRechazarPostulante').empty();
+        $('#divVerHistorialPostulante').empty();
         $('#divReenviarPostulante').empty();
         $('#divEditarSolicitud').empty();
 
@@ -2049,6 +2108,23 @@
         font-size: 10pt;
         color: #000;
         border-bottom: 1px solid #ccc;
+    }
+
+    .estiloMalaZonificacion {
+        background: rgb(251, 247, 247)!important;
+        border-top: 1px solid rgb(255, 51, 79);
+        border-bottom: 1px solid rgb(255, 51, 79);
+        color: #dc001d;
+        font-weight: 600;
+        margin-top: -1px;
+    }
+
+    .estiloMalaZonificacion:hover {
+        background: rgb(255, 223, 228)!important;
+    }
+
+    .estiloMalaZonificacion .buttonGrid {
+        background: #d01029;
     }
 
     .nombre_cliente_sb {
@@ -2439,6 +2515,10 @@
     }
 
     #divRechazarPostulante {
+        display: none;
+    }
+
+    #divVerHistorialPostulante {
         display: none;
     }
 

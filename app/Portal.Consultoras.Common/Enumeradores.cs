@@ -178,6 +178,19 @@
 
         }
 
+        public enum TiposRechazoPortalGZ
+        {
+            PosibleFraude = 1,
+            InconsistenciaEnLaInformación = 2,
+            MalaZonificación_CorrespondeAotraZona = 3,
+            DeudaEnDomicilio = 4,
+            NoCuentaConResidenciaDefinitiva = 5,
+            NoLeInteresaVender_SeArrepintió = 6,
+            Otros = 7,
+            NoEsPostibleContactarla = 8,
+            ValidacionCrediticia = 9
+        }
+
         public enum TipoSubEstadoPostulanteGenerandoCodigo
         {
             PorSE = 1,
