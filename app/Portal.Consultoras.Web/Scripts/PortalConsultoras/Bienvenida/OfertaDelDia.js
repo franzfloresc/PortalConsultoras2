@@ -736,6 +736,7 @@
 
     $("body").on("click", ".btn_cerrar_pop_oferta_hoy", function (e) {
         $('#pop_oferta_mobile').hide('slide', { direction: 'Right' }, 500);
+        $('body').css({ 'overflow-y': 'auto' });
     });
 
     $("body").on("click", ".ver_detalle_carrusel", function (e) {
