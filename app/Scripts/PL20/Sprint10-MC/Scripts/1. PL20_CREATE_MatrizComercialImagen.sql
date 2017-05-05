@@ -1,58 +1,55 @@
 USE BelcorpBolivia
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
 BEGIN
-	
-
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
 	GO
 
-	SET ANSI_PADDING OFF
-	GO
 END
 GO
-
 /*end*/
 
 USE BelcorpChile
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -61,27 +58,26 @@ GO
 USE BelcorpColombia
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -90,27 +86,26 @@ GO
 USE BelcorpCostaRica
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -119,27 +114,26 @@ GO
 USE BelcorpDominicana
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -148,27 +142,26 @@ GO
 USE BelcorpEcuador
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -177,27 +170,26 @@ GO
 USE BelcorpGuatemala
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -206,27 +198,26 @@ GO
 USE BelcorpMexico
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -235,27 +226,26 @@ GO
 USE BelcorpPanama
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -264,27 +254,26 @@ GO
 USE BelcorpPeru
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -293,27 +282,26 @@ GO
 USE BelcorpPuertoRico
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -322,27 +310,26 @@ GO
 USE BelcorpSalvador
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
-	GO
-
-	SET ANSI_PADDING OFF
 	GO
 END
 GO
@@ -351,31 +338,29 @@ GO
 USE BelcorpVenezuela
 GO
 
-BEGIN
-	
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
 
-	ALTER TABLE [dbo].[MatrizComercial](
-		[IdMatrizComercial] [int] IDENTITY(1,1) NOT NULL,
-		[CodigoSAP] [varchar](50) NULL,
-		[DescripcionOriginal] [varchar](250) NULL,
-		[Descripcion] [varchar](250) NULL,
+BEGIN
+	CREATE TABLE [dbo].[MatrizComercialImagen](
+		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
+		[IdMatrizComercial] [int] NOT NULL,
+		[Foto] [varchar](150) NULL,
 		[UsuarioRegistro] [varchar](50) NULL,
 		[FechaRegistro] [datetime] NULL,
 		[UsuarioModificacion] [varchar](50) NULL,
 		[FechaModificacion] [datetime] NULL,
+		FOREIGN KEY (IdMatrizComercial) REFERENCES MatrizComercial(IdMatrizComercial),
 	PRIMARY KEY CLUSTERED 
 	(
-		[IdMatrizComercial] ASC
+		[IdMatrizComercialImagen] ASC
 	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, FILLFACTOR = 90) ON [PRIMARY]
 	) ON [PRIMARY]
 
 	GO
-
-	SET ANSI_PADDING OFF
-	GO
 END
 GO
-
 
 
 

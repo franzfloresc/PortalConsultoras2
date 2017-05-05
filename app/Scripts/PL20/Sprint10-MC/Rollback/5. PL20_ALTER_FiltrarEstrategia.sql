@@ -39,7 +39,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -47,11 +48,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 
@@ -98,7 +99,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -106,13 +108,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 
 END
 /*end*/
@@ -121,7 +122,8 @@ USE BelcorpColombia
 GO
 
 BEGIN
-	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
+	
+ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
 	@TipoEstrategiaID INT = 0,
@@ -156,7 +158,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -164,13 +167,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 
 END
 /*end*/
@@ -214,7 +216,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -222,14 +225,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 
 END
 /*end*/
@@ -238,7 +239,8 @@ USE BelcorpDominicana
 GO
 
 BEGIN
-	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
+	
+ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
 	@TipoEstrategiaID INT = 0,
@@ -273,7 +275,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -281,13 +284,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 
 END
 /*end*/
@@ -331,7 +333,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -339,11 +342,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 
@@ -354,6 +357,7 @@ USE BelcorpGuatemala
 GO
 
 BEGIN
+
 ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
@@ -389,7 +393,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -397,13 +402,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 	
 END
 /*end*/
@@ -412,7 +416,8 @@ USE BelcorpMexico
 GO
 
 BEGIN
-	ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
+	
+ALTER PROCEDURE [dbo].[FiltrarEstrategia] 
 	@EstrategiaID INT = 0,
 	@CUV2 varchar(50),
 	@TipoEstrategiaID INT = 0,
@@ -447,7 +452,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -455,14 +461,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
-
 END
 /*end*/
 
@@ -506,7 +510,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -514,11 +519,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 
@@ -565,7 +570,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -573,11 +579,11 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
 
 
@@ -624,7 +630,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -632,13 +639,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 
 END
 /*end*/
@@ -683,7 +689,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -691,13 +698,12 @@ BEGIN
 	WHERE
 		((@EstrategiaID = 0) OR (@EstrategiaID IS NULL) OR (e.EstrategiaID = @EstrategiaID))
 		AND
-		((@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
+		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@CampaniaID = 0) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
-		((@TipoEstrategiaID = 0) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
+		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END
-
 
 END
 /*end*/
@@ -742,7 +748,8 @@ BEGIN
 		Orden,
 		ISNULL(e.ColorFondo, '') ColorFondo,
 		ISNULL(e.FlagEstrella, 0) FlagEstrella,
-		mc.CodigoSAP
+		mc.CodigoSAP,
+		mc.IdMatrizComercial
 	FROM dbo.Estrategia e
 	INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv
 	INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto
@@ -752,7 +759,7 @@ BEGIN
 		AND
 		((@CUV2 = '')  OR (@CUV2 IS NULL) OR (e.CUV2 = @CUV2))
 		AND
-		((@TipoEstrategiaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
+		((@CampaniaID = 0) OR (@CampaniaID IS NULL) OR (e.CampaniaID = @CampaniaID))
 		AND
 		((@TipoEstrategiaID = 0) OR (@TipoEstrategiaID IS NULL) OR (e.TipoEstrategiaID = @TipoEstrategiaID));
 END

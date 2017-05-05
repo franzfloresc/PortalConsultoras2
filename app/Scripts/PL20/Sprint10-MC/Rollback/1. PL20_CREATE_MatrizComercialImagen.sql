@@ -1,6 +1,10 @@
 USE BelcorpBolivia
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -24,6 +28,10 @@ GO
 /*end*/
 
 USE BelcorpChile
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN
@@ -50,6 +58,10 @@ GO
 USE BelcorpColombia
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -72,6 +84,10 @@ GO
 /*end*/
 
 USE BelcorpCostaRica
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN
@@ -98,6 +114,10 @@ GO
 USE BelcorpDominicana
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -120,6 +140,10 @@ GO
 /*end*/
 
 USE BelcorpEcuador
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN
@@ -146,6 +170,10 @@ GO
 USE BelcorpGuatemala
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -168,6 +196,10 @@ GO
 /*end*/
 
 USE BelcorpMexico
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN
@@ -194,6 +226,10 @@ GO
 USE BelcorpPanama
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -216,6 +252,10 @@ GO
 /*end*/
 
 USE BelcorpPeru
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN
@@ -242,6 +282,10 @@ GO
 USE BelcorpPuertoRico
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -266,6 +310,10 @@ GO
 USE BelcorpSalvador
 GO
 
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
+GO
+
 BEGIN
 	CREATE TABLE [dbo].[MatrizComercialImagen](
 		[IdMatrizComercialImagen] [int] IDENTITY(1,1) NOT NULL,
@@ -288,6 +336,10 @@ GO
 /*end*/
 
 USE BelcorpVenezuela
+GO
+
+IF OBJECT_ID('MatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC MatrizComercialImagen
 GO
 
 BEGIN

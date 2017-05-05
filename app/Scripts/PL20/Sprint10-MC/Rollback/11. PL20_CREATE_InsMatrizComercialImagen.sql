@@ -1,12 +1,12 @@
 USE BelcorpBolivia
 GO
 
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
+GO
+
 BEGIN
 	
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
@@ -41,11 +41,12 @@ GO
 USE BelcorpChile
 GO
 
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
+GO
+
 BEGIN
-	SET ANSI_NULLS ON
-	GO
-	SET QUOTED_IDENTIFIER ON
-	GO
+	
 
 	CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 		@IdMatrizComercial varchar(50),
@@ -77,12 +78,12 @@ GO
 USE BelcorpColombia
 GO
 
-BEGIN
-		SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+		
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -114,12 +115,12 @@ GO
 USE BelcorpCostaRica
 GO
 
-BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -151,12 +152,12 @@ GO
 USE BelcorpDominicana
 GO
 
-BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -187,12 +188,12 @@ GO
 USE BelcorpEcuador
 GO
 
-BEGIN
-		SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+		
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -224,12 +225,12 @@ GO
 USE BelcorpGuatemala
 GO
 
-BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -260,12 +261,12 @@ GO
 USE BelcorpMexico
 GO
 
-BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -297,12 +298,12 @@ GO
 USE BelcorpPanama
 GO
 
-BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -334,13 +335,12 @@ GO
 USE BelcorpPeru
 GO
 
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
+GO
 
 BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -372,12 +372,12 @@ GO
 USE BelcorpPuertoRico
 GO
 
-BEGIN
-		SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+		
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -409,13 +409,12 @@ GO
 USE BelcorpSalvador
 GO
 
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
+GO
 
 BEGIN
-	SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
+	
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial varchar(50),
 	@Foto varchar(150),
@@ -446,12 +445,12 @@ GO
 USE BelcorpVenezuela
 GO
 
-BEGIN
-		SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+IF OBJECT_ID('InsMatrizComercialImagen', 'P') IS NOT NULL
+DROP PROC InsMatrizComercialImagen
 GO
 
+BEGIN
+		
 CREATE PROCEDURE [dbo].[InsMatrizComercialImagen]
 	@IdMatrizComercial int,
 	@Foto varchar(150),
