@@ -311,6 +311,12 @@
   <wsdl:message name="IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTokenIndicadorPedidoAutenticoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsIndicadorPedidoAutentico_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsIndicadorPedidoAutentico" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsIndicadorPedidoAutentico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsIndicadorPedidoAutenticoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdValidacionMovilPROLLog_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdValidacionMovilPROLLog" />
   </wsdl:message>
@@ -2032,6 +2038,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsIndicadorPedidoAutentico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" message="tns:IPedidoService_InsIndicadorPedidoAutentico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_InsIndicadorPedidoAutentico_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdValidacionMovilPROLLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLog" message="tns:IPedidoService_UpdValidacionMovilPROLLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLogResponse" message="tns:IPedidoService_UpdValidacionMovilPROLLog_OutputMessage" />
@@ -3466,6 +3476,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIndicadorPedidoAutentico">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6188,6 +6207,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsIndicadorPedidoAutentico">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

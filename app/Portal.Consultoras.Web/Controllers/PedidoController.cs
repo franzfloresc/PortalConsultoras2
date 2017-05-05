@@ -22,6 +22,8 @@ using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
+using Portal.Consultoras.PublicService.Cryptography;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
@@ -4995,7 +4997,8 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (PedidoServiceClient svc = new PedidoServiceClient())
                         {
-                            codigo = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                            var tpa  = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                            codigo = AESAlgorithm.Encrypt(tpa);
                         }
                         if (!string.IsNullOrEmpty(codigo))
                         {

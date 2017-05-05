@@ -19250,6 +19250,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico", ReplyAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutenticoResponse")]
         System.Threading.Tasks.Task<string> GetTokenIndicadorPedidoAutenticoAsync(int paisID, string paisISO, string codigoRegion, string codigoZona);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico", ReplyAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse")]
+        int InsIndicadorPedidoAutentico(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico", ReplyAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse")]
+        System.Threading.Tasks.Task<int> InsIndicadorPedidoAutenticoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLog", ReplyAction="http://tempuri.org/IPedidoService/UpdValidacionMovilPROLLogResponse")]
         void UpdValidacionMovilPROLLog(Portal.Consultoras.Web.ServicePedido.BEValidacionMovil oBEValidacionMovil);
         
@@ -21196,6 +21202,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<string> GetTokenIndicadorPedidoAutenticoAsync(int paisID, string paisISO, string codigoRegion, string codigoZona) {
             return base.Channel.GetTokenIndicadorPedidoAutenticoAsync(paisID, paisISO, codigoRegion, codigoZona);
+        }
+        
+        public int InsIndicadorPedidoAutentico(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad) {
+            return base.Channel.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsIndicadorPedidoAutenticoAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico entidad) {
+            return base.Channel.InsIndicadorPedidoAutenticoAsync(paisID, entidad);
         }
         
         public void UpdValidacionMovilPROLLog(Portal.Consultoras.Web.ServicePedido.BEValidacionMovil oBEValidacionMovil) {

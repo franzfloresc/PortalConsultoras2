@@ -1865,5 +1865,10 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
         }
+
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
     }
 }

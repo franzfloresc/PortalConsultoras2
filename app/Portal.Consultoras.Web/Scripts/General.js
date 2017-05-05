@@ -344,7 +344,10 @@ jQuery(document).ready(function () {
         return newLista;
     };
 
-    GuardarIndicadorPedidoAutentico();
+    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+        GuardarIndicadorPedidoAutentico();
+    }
+    
 })(jQuery);
 
 function showDialog(dialogId) {

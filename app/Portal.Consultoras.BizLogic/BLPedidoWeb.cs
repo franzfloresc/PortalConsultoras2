@@ -9,7 +9,10 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Transactions;
+
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -2025,6 +2028,8 @@ namespace Portal.Consultoras.BizLogic
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
+
+            entidad.IndicadorToken = AESAlgorithm.Decrypt(entidad.IndicadorToken);
             return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
         }
 
