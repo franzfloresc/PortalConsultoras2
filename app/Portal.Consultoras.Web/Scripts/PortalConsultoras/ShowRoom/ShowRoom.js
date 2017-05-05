@@ -1,8 +1,4 @@
-﻿$(document).ready(function () {
- 
-});
-
-/* 
+﻿/* 
 Escritorio  => 1: Index    | 11: Detalle Oferta
 Mobile      => 2: Index    | 21: Detalle Oferta
 */
@@ -220,16 +216,10 @@ $(document).ready(function () {
         (this).blur();
     });
 
-
-  
-
-        
-
-
 });
 
 function CargarProductosShowRoom(busquedaModel) {
-    //AbrirLoad();
+
     $.ajaxSetup({
         cache: false
     });
@@ -237,83 +227,21 @@ function CargarProductosShowRoom(busquedaModel) {
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
     $("#divProductosShowRoom").show();
 
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(busquedaModel),
-        async: true,
-        success: function (response) {
-            //CerrarLoad();
-
-            if (response.success == true) {
-                //var lista = response.lista;
-                var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
-                var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
-
-                $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
-                    var descripcion = "";
-
-                    if ($.trim(tipoOrigenPantalla)[0] == '1') {
-                        descripcion = value.Descripcion.length > 41
-                        ? value.Descripcion.substring(0, 40) + "..."
-                        : value.Descripcion;
-                    } else {
-                        descripcion = value.Descripcion.length > 31
-                        ? value.Descripcion.substring(0, 30) + "..."
-                        : value.Descripcion;
-                    }
-
-                       
-                    value.Posicion = index + 1;
-                    value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
-                    value.Descripcion = descripcion;
-                });
-
-                $("#divProductosShowRoom").html("");
-
-                var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
-                $('#divProductosShowRoom').append(htmlDiv);
-
-                $("#spnCantidadFiltro").html(response.cantidad);
-                $("#spnCantidadTotal").html(response.cantidadTotal);
-
-                SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
-
-                $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
-
-                $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
-                    slidesToShow: 3,
-                    dots: false,
-                    vertical: false,
-                    infinite: true,
-                    speed: 300,
-                    centerPadding: '0px',
-                    centerMode: true,
-                    slidesToScroll: 1,
-                    variableWidth: false,
-                    prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                    nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-                });
-
-            } else {
-                messageInfoError(response.message);
-                if (busquedaModel.hidden == true) {
-                    $("#divProductosShowRoom").hide();
-                }
-            }
-        },
-        error: function (response, error) {
-            if (busquedaModel.hidden == true) {
+    var cargarProductosShowRoomPrimise = CargarProductosShowRoomPrimise(busquedaModel);
+    $.when(cargarProductosShowRoomPrimise)
+        .then(function (response) {
+            ResolverCargarProductosShowRoomPrimiseDesktop(response);
+        })
+        .fail(function (response) {
+            if (busquedaModel.hidden) {
                 $("#divProductosShowRoom").hide();
             }
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
             }
-        }
-    });
+        });
+
 }
 
 function AgregarOfertaShowRoom(article, cantidad) {
@@ -531,4 +459,81 @@ function AgregarProductoAlCarrito(padre) {
             });
         });
     }    
+}
+
+function CargarProductosShowRoomPrimise(busquedaModel) {
+    var d = $.Deferred();
+    var promise = $.ajax({
+        type: 'POST',
+        url: baseUrl + 'ShowRoom/CargarProductosShowRoom',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(busquedaModel),
+        async: true
+    });
+
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
+}
+
+function ResolverCargarProductosShowRoomPrimiseDesktop(response) {
+    if (response.success) {
+        var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
+        var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
+
+        $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
+            var descripcion = "";
+
+            if ($.trim(tipoOrigenPantalla)[0] == '1') {
+                descripcion = value.Descripcion.length > 41
+                ? value.Descripcion.substring(0, 40) + "..."
+                : value.Descripcion;
+            } else {
+                descripcion = value.Descripcion.length > 31
+                ? value.Descripcion.substring(0, 30) + "..."
+                : value.Descripcion;
+            }
+
+
+            value.Posicion = index + 1;
+            value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
+            value.Descripcion = descripcion;
+        });
+
+        $("#divProductosShowRoom").html("");
+
+        var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
+        $('#divProductosShowRoom').append(htmlDiv);
+
+        $("#spnCantidadFiltro").html(response.cantidad);
+        $("#spnCantidadTotal").html(response.cantidadTotal);
+
+        SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
+
+        $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
+
+        $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+            slidesToShow: 3,
+            dots: false,
+            vertical: false,
+            infinite: true,
+            speed: 300,
+            centerPadding: '0px',
+            centerMode: true,
+            slidesToScroll: 1,
+            variableWidth: false,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+        });
+    }
+    else {
+        messageInfoError(response.message);
+        if (busquedaModel.hidden == true) {
+            $("#divProductosShowRoom").hide();
+        }
+    }
 }
