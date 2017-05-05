@@ -128,5 +128,11 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public Int16 TipoUsuario { get; set; }
+
+        /// <summary>
+        /// Determina si el Pais tiene oferta del dia activado
+        /// </summary>
+        [DataMember]
+        public bool TieneOfertaDelDia { get; set; }
     }
 }

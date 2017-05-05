@@ -133,7 +133,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasSaldoPermitido, unidadesPermitidas, saldo);
+                    errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasSaldoPermitido, saldo, unidadesPermitidas);
                 }
 
                 result = false;
