@@ -44,7 +44,7 @@
             CargarODDMobile();
         }
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
-            CargarODDEscritorio();
+            self.CargarODDEscritorio();
         }
 
     }
@@ -65,7 +65,7 @@
         });
     }
 
-    function CargarODDEscritorio() {
+    self.CargarODDEscritorio = function () {
         if (($('#OfertaDelDia') || new Array()).length == 0)
             return false;
 
@@ -710,6 +710,10 @@
                 $('#PopOfertaDia').slideUp();
                 $('.circulo_hoy span').html('+');
                 showDisplayODD = 0;
+            }
+
+            if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
+                $('div [data-odd-tipoventana="detalle"]').show();
             }
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {

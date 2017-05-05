@@ -1906,6 +1906,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
             });
             CerrarSplash();
+
+            window.OfertaDelDia.CargarODDEscritorio();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
