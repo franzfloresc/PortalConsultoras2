@@ -100,6 +100,7 @@ namespace Portal.Consultoras.BizLogic
                     /*EPD-2248*/
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
+                        pedidowebdetalle.IndicadorPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
                         pedidowebdetalle.IndicadorPedidoAutentico.PedidoDetalleID = BEPedidoWebDetalle.PedidoDetalleID;
                         DAPedidoWeb.InsIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
                     }
