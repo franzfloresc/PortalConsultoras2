@@ -49,6 +49,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.codigoConsultora = userData.CodigoConsultora;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                int j = model.NombreConsultora.Trim().IndexOf(' ');
+                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim(); 
+
                 model.PaisID = userData.PaisID;
                 model.CodigoISO = userData.CodigoISO;
                 model.NombrePais = userData.NombrePais;
@@ -159,7 +162,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var sobrenombre = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
             ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
-           
+
+            model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
             return View(model);
         }
 

@@ -32,7 +32,7 @@ $(document).ready(function () {
                 return re.test(keyChar);
             }
         });
-    
+
     $("#txtBusqueda").keypress(function (e) {
         if (e.which == 13) {
             if (checkTimeout()) {
@@ -153,6 +153,13 @@ function ArmarListaClientePaginador(data) {
 }
 
 function showDivAgregar() {
+    if (gTipoUsuario == '2') {
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.bb";
+        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+        $('#dialog_MensajePostulante').show();
+        return false;
+    }
+
     $('#divAgregarCliente').show();
 }
 
@@ -268,7 +275,7 @@ function MantenerCliente(opt) {
             }
         },
         error: function (data, error) {
-            if (checkTimeout(data)) {  
+            if (checkTimeout(data)) {
                 $(div).hide();
                 alert(data.message);
             }

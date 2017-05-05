@@ -889,9 +889,7 @@ function xMensajeEstadoPedido(estado) {
                 else {
                     $(".ubicacion_web").animate({ "margin-top": "83px" });
                     $('.content_slider_home ').css('margin-top', '60px');
-                    debugger;
                     if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        debugger;
                         if (esPedido) {
                             $("[data-content]").animate({ "top": "-62px", "margin-top": "0px" });
                         } else {
@@ -916,22 +914,23 @@ function LayoutHeader() {
             return false;
         }
 
-        var hayOdd = $(".BloqueOfertaDiaHeader").length;
-        hayOdd = hayOdd > 0 ? $(".BloqueOfertaDiaHeader:visible").length : hayOdd;
-        hayOdd = hayOdd > 0 ? $('.header_slider:visible').length : hayOdd;
+        var haySlider = $("#flexslider").height(); //$(".BloqueOfertaDiaHeader").length;
+        //hayOdd = haySlider > 0 ? $(".BloqueOfertaDiaHeader:visible").length : hayOdd;
+        //hayOdd = hayOdd > 0 ? $('.header_slider:visible').length : hayOdd;
 
         if (esMobile && esBienvenida) {
-            if (hayOdd > 0) {
+            if (haySlider > 0) {
                 $("[data-content]").animate({ "top": "", "margin-top": "" });
                 return false;
             }
         }
 
         wtop = $("header").height();
-        if (hayOdd == 0) {
-            $(".BloqueOfertaDiaHeader").hide();
+        if ((haySlider == 0) || (haySlider == null && wtop > 0)) {
+            //$(".BloqueOfertaDiaHeader").hide();
             wtop = $("header").height();
-            $("[data-content]").animate({ "top": (wtop + 4) + "px", "margin-top": (wtop + 4) + "px" });
+            var wtopmas = 0; // 4
+            $("[data-content]").animate({ "top": (wtop + wtopmas) + "px", "margin-top": (wtop + wtopmas) + "px" });
         }
     }, 500);
 }
