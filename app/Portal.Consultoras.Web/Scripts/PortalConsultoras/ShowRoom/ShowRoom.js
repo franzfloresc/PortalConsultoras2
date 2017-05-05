@@ -531,7 +531,6 @@ function AgregarProductoAlCarrito(padre) {
         });
     }    
 }
-
 function ObtenerProductosNoSuncampanias(listaProductos)
 {
     var listaProductosNoSubcampanias = [];
