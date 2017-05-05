@@ -333,8 +333,6 @@ $(document).ready(function () {
     } else {
         
     }
-    
-    GuardarIndicadorPedidoAutentico();
 });
 
 function AbrirVentanaBelcorpChat(url) {
@@ -1411,72 +1409,5 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
-    }
-}
-
-function GuardarIndicadorPedidoAutentico() {
-    //debugger;
-
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
-
-    if (tokenPedidoAutenticoOk == 0) {
-        if (typeof (Storage) !== 'undefined') {
-            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
-            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
-
-                var data2 = { 'accion': 2 };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data2),
-                    success: function (response) {
-                        if (response.success) {
-                            localStorage.setItem('SBTokenPedido', response.message);
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            } else {
-
-                var data3 = { 'accion': 3, 'codigo': itemSBTokenPedido };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data3),
-                    success: function (response) {
-                        if (response.success) {
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            }
-        }
     }
 }
