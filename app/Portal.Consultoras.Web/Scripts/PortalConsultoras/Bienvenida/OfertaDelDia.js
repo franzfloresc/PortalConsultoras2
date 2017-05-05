@@ -44,7 +44,7 @@
             CargarODDMobile();
         }
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
-            CargarODDEscritorio();
+            self.CargarODDEscritorio();
         }
 
     }
@@ -65,7 +65,7 @@
         });
     }
 
-    function CargarODDEscritorio() {
+    self.CargarODDEscritorio = function () {
         if (($('#OfertaDelDia') || new Array()).length == 0)
             return false;
 
