@@ -605,9 +605,9 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}">
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" >
                     <div class="circulo_hoy"><span>+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
@@ -738,7 +738,7 @@
                                 </div>
                                 <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right;display:{{detalle.Agregado}};">
+                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
                                         AGREGADO
                                         <div class="icono"></div>
                                     </div>
