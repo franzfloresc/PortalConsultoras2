@@ -82,6 +82,7 @@
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DACalculoPROL.cs" />
+    <Compile Include="DAProductoPalabra.cs" />
     <Compile Include="DAComunicado.cs" />
     <Compile Include="DAConfiguracionParametroCarga.cs" />
     <Compile Include="DAConfiguracionProgramaNuevas.cs" />

@@ -120,6 +120,13 @@ namespace Portal.Consultoras.Service
                 regionID, zonaID, codigoRegion, codigoZona, textoBusqueda, criterio, rowCount);
         }
 
+        public IList<BEProducto> SearchSmartListProductoByCampaniaRegionZonaDescripcion(string paisISO, int campaniaID,
+            int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount)
+        {
+            return BLProducto.SearchSmartListProductoByCampaniaRegionZonaDescripcion(paisISO, campaniaID,
+                zonaID, codigoRegion, codigoZona, textoBusqueda, rowCount);
+        }
+
         public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID,
             string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)
         {
