@@ -750,6 +750,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     alert(response.message);
                 }
             }
+
+            window.OfertaDelDia.CargarODDEscritorio();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

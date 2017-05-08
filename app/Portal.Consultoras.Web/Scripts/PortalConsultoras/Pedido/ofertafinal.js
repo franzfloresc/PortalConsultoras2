@@ -29,6 +29,7 @@ $(document).ready(function () {
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
+        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
         tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
@@ -498,7 +499,8 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
         if (resultado == true) {
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
+            if (productoOfertaFinal.lista.length != 0) //bug EPD-2365
+                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
 

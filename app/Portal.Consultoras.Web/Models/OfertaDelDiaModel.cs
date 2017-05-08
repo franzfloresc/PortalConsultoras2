@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class OfertaDelDiaModel
+    public class OfertaDelDiaModel : CompartirRedesSocialesModel
     {
+        public int ID { get; set; }
         public string CodigoIso { get; set; }
         public int TipoEstrategiaID { get; set; }
         public int EstrategiaID { get; set; }
@@ -20,7 +18,6 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorMontoMinimo { get; set; }
         public int FlagNueva { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
-
         public TimeSpan TeQuedan { get; set; }
         public string ImagenFondo1 { get; set; }
         public string ColorFondo1 { get; set; }
@@ -34,7 +31,9 @@ namespace Portal.Consultoras.Web.Models
         public decimal PrecioCatalogo { get; set; }
         public string DescripcionOferta { get; set; }
         public int Cantidad { get; set; }
-
+        public bool TieneOfertaDelDia { get; set; }
+        public int Orden { get; set; }
+        public List<OfertaDelDiaModel> ListaOfertas { get; set; }
         public string PrecioOfertaFormat
         {
             get
@@ -42,7 +41,6 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(PrecioOferta, CodigoIso);
             }
         }
-
         public string PrecioCatalogoFormat
         {
             get
@@ -50,5 +48,10 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(PrecioCatalogo, CodigoIso);
             }
         }
+        public OfertaDelDiaModel Clone()
+        {
+            return (OfertaDelDiaModel)this.MemberwiseClone();
+        }
+        public string Agregado { get; set; }
     }
 }

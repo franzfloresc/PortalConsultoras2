@@ -10,6 +10,32 @@ var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
+        debugger;
+        var prhidcuv = $("#hcuv").val();
+        var prhidnombre = $("#hnombrecuv").val();
+        var prhidmarca = $("#hmarca").val();
+        var prhidprecio = $("#hprecio").val();
+
+        dataLayer.push({
+            'event': 'productClick',
+            'ecommerce': {
+                'click': {
+                    'actionField': { 'list': 'Ofertas Showroom' },
+                    'products': [
+                        {
+                            'name': prhidnombre,
+                            'id': prhidcuv,
+                            'price': prhidprecio,
+                            'brand': prhidmarca,
+                            'category': 'NO DISPONIBLE',
+                            'position': 0
+                        }
+                    ]
+                }
+            }
+        });
+
+
         $(".verDetalleCompraPorCompra").click(function () {
             var padre = $(this).parents("[data-item]")[0];
             var article = $(padre).find("[data-campos]").eq(0);
@@ -130,6 +156,33 @@ $(document).ready(function () {
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
         });
+
+        //$(".swproddetcompraimg").on("click", function () {
+            debugger;
+            var pofertaid = $("#swdeteventoofertaid").val();
+            var pofertaDescripion = $("#swdetdescripcion").val();
+            var pofertaPrecio = $("#swdetprecio").val();
+            var pofertaMarca = $("#swdetmarca").val();
+
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Ofertas Showroom' },
+                        'products': [{
+                            'name': pofertaDescripion,
+                            'id': pofertaid,
+                            'price': pofertaPrecio,
+                            'brand': pofertaMarca,
+                            'category': 'NO DISPONIBLE',
+                            'position': 1
+
+                        }]
+                    }
+                }
+            });
+        //});
+       
     }
 
     $("body").on("click", "[data-btn-agregar-sr]", function (e) {
@@ -162,7 +215,13 @@ $(document).ready(function () {
         AgregarOfertaShowRoomCpc(article, cantidad);
         e.preventDefault();
         (this).blur();
-    });    
+    });
+
+
+  
+
+        
+
 
 });
 
@@ -201,6 +260,7 @@ function CargarProductosShowRoom(busquedaModel) {
                         : value.Descripcion;
                     }
 
+                       
                     value.Posicion = index + 1;
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
                     value.Descripcion = descripcion;
@@ -241,7 +301,27 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
+    debugger;
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas ShowRoom' },
+                'products': [{
+                    'name': nombreProducto,
+                    'id': CUV,
+                    'price': PrecioUnidad,
+                    'brand': descripcionMarca,
+                    'variant': 'Ofertas ShowRoom',
+                    'category': 'NO DISPONIBLE',
+                    'quantity':cantidad
+                }]
+            }
+        }
+    });
      
+
+
     var origen = $(article).find(".origenPedidoWeb").val() || 0;
     if (origen == 0) {
         if (posicion != "0") {
