@@ -502,13 +502,22 @@ namespace Portal.Consultoras.Web.Controllers
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+            .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+            int totalRegistros = 0;
+            int idMatrizComercial = 0;
+            List<MatrizComercialImagen> data = new List<MatrizComercialImagen>();
+            if (lst.Any())
+            {
+                var tieneImagenes = lst.First().IdMatrizComercialImagen != 0;
+                idMatrizComercial = lst.First().IdMatrizComercial;
+                if (tieneImagenes)
+                {
+                    totalRegistros = lst.First().TotalRegistros;
+                    data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+                }
+            }
 
-            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
-            int idMatrizComercial = lst.Any() ? lst[0].IdMatrizComercial : 0;
-            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
-
-            return Json(new { imagenes = data, idMatrizComercial= idMatrizComercial, totalRegistros = totalRegistros });
+            return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
         }
     }
 }
