@@ -56,10 +56,13 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GestionaPostulante()
         {
             List<Portal.Consultoras.Web.ServiceUnete.ParametroUneteBE> estadoPostulantes;
+            List<Portal.Consultoras.Web.ServiceUnete.RegionBE> regionesLista;
+            //RegionCollection regionesList;
 
             using (var sv = new PortalServiceClient())
             {
-                 var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
+                var regiones = sv.ObtenerRegiones(CodigoISO);
+                var estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 //List<int> num = new List<int> { 2, 3, 4, 5, 7, 8, 9,10 };
                 List<int> num = new List<int> { 
                 EnumsEstadoPostulante.EnGestionServicioAlCliente.ToInt(),//2
@@ -83,15 +86,32 @@ namespace Portal.Consultoras.Web.Controllers
                     Valor = 0,
                     Nombre = "Todos"
                 };
+                var regionTodos = new ServiceUnete.RegionBE
+                {
+                    Codigo = "0",
+                    Descripcion = "Todos"
+                };
 
                 estadoPostulantes.Add(parametoUnete);
                 estadoPostulantes.Insert(0, parametroTodos);
+                regionesLista = regiones;
+                regionesLista.Insert(0, regionTodos);
             }
 
             ViewBag.EstadoPostulantes = new SelectList(estadoPostulantes, "Valor", "Nombre");
+            ViewBag.Regiones = new SelectList(regionesLista, "Codigo", "Descripcion");
             ViewBag.CodigoISO = CodigoISO;
 
-            return View(new GestionaPostulanteModel { CodigoIso = CodigoISO });
+            GestionaPostulanteModel vm = new GestionaPostulanteModel();
+            vm.CodigoIso = CodigoISO;
+            vm.FuenteIngresoListAvailable = new List<FuenteIngresoModel>();
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "MovilSE", Descripcion = "Movil SE", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "PortalGZ", Descripcion = "Portal GZ", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "UB", Descripcion = "Unete a Belcorp", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "CALL_CENTER", Descripcion = "Call Center", IsSelected = false });
+
+            return View(vm);
+            //return View(new GestionaPostulanteModel { CodigoIso = CodigoISO });
         }
 
         public ActionResult ReporteConsolidado()
@@ -1060,7 +1080,9 @@ namespace Portal.Consultoras.Web.Controllers
             var rechazoModel = new RechazoModel();
             using (var sv = new PortalServiceClient())
             {
-                var tipoRechazosSAC = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                //Debe mostrar los tipos de rechazo GZ provisionalmente
+                var tipoRechazosSAC = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                //var tipoRechazosSAC = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
                 ViewBag.TipoRechazosSAC = new SelectList(tipoRechazosSAC, "Valor", "Nombre");
             }
             rechazoModel.SolicitudPostulanteID = id;
@@ -1069,7 +1091,7 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
-        public ActionResult VerHistorialPostulante(int id, string nombre , string FechaRegistro)
+        public ActionResult VerHistorialPostulante(int id, string nombre, string FechaRegistro)
         {
             var historialPostulanteModel = new HistorialPostulanteModel();
             historialPostulanteModel.SolicitudPostulanteID = id;
@@ -1087,18 +1109,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
             foreach(var evento in eventos)
             {
-                historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel(){
+                historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel()
+                {
                     EventoID = evento.EventoId,
                     Fecha = evento.Fecha,
                     TipoEventoId = evento.TipoEvento,
-                    Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
-                    Observacion = (evento.Observacion!=null && evento.Observacion.Split('|').Length>1)? evento.Observacion.Split('|')[0]:"",
-                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length+1) : ""
+                    Evento = estados.ToList().Where(e => e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
+                    Observacion = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Split('|')[0] : "",
+                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length + 1) : ""
                 });
             }
 
             historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
-            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro, TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre });
+            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = string.Format("{0:dd/MM/yyyy H:mm:ss}", FechaRegistro.ToDatetime()), TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre, Observacion = string.Empty,ObservacionParte2=string.Empty });
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
 
@@ -1127,7 +1150,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                //La lista de Tipos de Rechazo para SAC se debe obtener de GZ provisionalmente
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                //lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
@@ -1192,6 +1218,19 @@ namespace Portal.Consultoras.Web.Controllers
                     case "LugarHijo":
                         items = solicitudes.OrderBy(x => x.LugarHijo);
                         break;
+                    case "OrderUbicacion":
+                        items = solicitudes.OrderBy(x => x.EstadoGEOID == EnumsEstadoGEO.OK.ToInt() ? 1 : 0);
+                        break;
+                    case "OrderEvaluacionCrediticia":
+                        items = solicitudes.OrderBy(i => (i.EstadoBuroCrediticioID == 2 || i.EstadoBuroCrediticioID == 30
+                            || i.EstadoBuroCrediticioID == 31 || i.EstadoBuroCrediticioID == 32 || i.EstadoBuroCrediticioID == 33) ? 2
+                            : (i.EstadoBuroCrediticioID == 3 ? 1 : 0));
+                        break;
+                    case "OrderDocumentos":
+                        items = solicitudes.OrderBy(i => (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato)
+                        && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
+                        string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? 0 : 1);
+                        break;
 
                 }
 
@@ -1254,6 +1293,19 @@ namespace Portal.Consultoras.Web.Controllers
                     case "LugarHijo":
                         items = solicitudes.OrderBy(x => x.LugarHijo);
                         break;
+                    case "OrderUbicacion":
+                        items = solicitudes.OrderByDescending(x => x.EstadoGEOID == EnumsEstadoGEO.OK.ToInt() ? 1 : 0);
+                        break;
+                    case "OrderEvaluacionCrediticia":
+                        items = solicitudes.OrderByDescending(i => (i.EstadoBuroCrediticioID == 2 || i.EstadoBuroCrediticioID == 30
+                            || i.EstadoBuroCrediticioID == 31 || i.EstadoBuroCrediticioID == 32 || i.EstadoBuroCrediticioID == 33) ? 2
+                            : (i.EstadoBuroCrediticioID == 3 ? 1 : 0));
+                        break;
+                    case "OrderDocumentos":
+                        items = solicitudes.OrderByDescending(i => (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato)
+                        && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
+                        string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? 0 : 1);
+                        break;
 
                 }
 
@@ -1311,9 +1363,9 @@ namespace Portal.Consultoras.Web.Controllers
                                : "",
                 PintarMalaZonificacion =
                                             (!string.IsNullOrEmpty(i.TipoRechazo)) ?
-                                                ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt() 
+                                                ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt()
                                                 && i.TipoRechazo.ToInt() == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()
-                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacion" 
+                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacion"
                                                 : string.Empty)
                                             : string.Empty,
                 MotivoRechazo = i.MotivoRechazo,
@@ -3123,7 +3175,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
-            int Estado, string DocumentoIdentidad, string codigoZona)
+            int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso)
         {
             var solicitudes = ObtenerSolicitudesPostulanteFiltro(new GestionaPostulanteModel
             {
@@ -3133,7 +3185,9 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaHasta = FechaHasta,
                 Estado = Estado,
                 Nombre = Nombre,
-                DocumentoIdentidad = DocumentoIdentidad
+                DocumentoIdentidad = DocumentoIdentidad,
+                CodigoRegion = CodigoRegion,
+                FuenteIngreso = FuenteIngreso
             });
 
             ServiceUnete.ParametroUneteCollection lstSelect;
@@ -3144,7 +3198,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
+                //La lista de Tipos de Rechazo para SAC se debe obtener de GZ provisionalmente
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                //lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSAC, 0);
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
@@ -3227,18 +3283,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
-                {"Fecha Registro", "FechaCreacion"},
-                {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Fecha Registro", "FechaCreacion"},//En Grilla
+                {"Campaña Registro", "CampaniaDeRegistro"},//En Grilla
                 {"Viene De", "VieneDe"},
-                {"Tipo", "TipoSolicitud"},
-                {"Fuente", "FuenteIngreso"},
-                {"Nombre", "NombreCompleto"},
-                {"Tipo Documento", "TipoDocumento"},
-                {"Documento", "NumeroDocumento"},
-                {"Zona", "CodigoZona"},
-                {"Sección", "CodigoSeccion"},
-                {"Territorio", "CodigoTerritorio"},
-                {"Dirección", "Direccion"},
+                {"Tipo", "TipoSolicitud"},//En Grilla
+                {"Fuente", "FuenteIngreso"},//En Grilla
+                {"Nombre", "NombreCompleto"},//En Grilla
+                {"Tipo Doc", "TipoDocumento"},//{"Tipo Documento", "TipoDocumento"},//En Grilla
+                {"Documento Identidad", "NumeroDocumento"},//{"Documento", "NumeroDocumento"},//En Grilla
+                {"Zona", "CodigoZona"},//En Grilla
+                {"Sección", "CodigoSeccion"},//En Grilla
+                {"Territorio", "CodigoTerritorio"},//En Grilla
+                {"Dirección", "Direccion"},//En Grilla
                 {Dictionaries.LabelLugar1[CodigoISO], "LugarPadre"},
                 {Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"},
                 {"Telefono Celular", "TelefonoCelular"},
@@ -3252,19 +3308,19 @@ namespace Portal.Consultoras.Web.Controllers
             if (Estado == 0) //TODOS
             {
                 dic.Add("Estado Postulante", "EstadoPostulante");
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
                 dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
 
-                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");//En Grilla
                 dic.Add("Campaña Ingreso", "CodigoCampania");
-                dic.Add("Campaña 1er pedido", "Campania1Pedido");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");//En Grilla
                 dic.Add("Diferencia Dias", "DiferenciaDias");
             }
             else if (Estado == 3) //EN APROBACION DE FFVV
             {
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
                 dic.Add("Num Dias Aprobado FFVV", "NumDiasAprobadoFFVV");
@@ -3272,60 +3328,60 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (Estado == 2) //EN GESTION DEL SERVICIO AL CLIENTE
             {
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
 
             }
             else if (Estado == 7) // GBENERANDO CODIGO
             {
-                dic.Add("Codigo de Consultora", "CodigoConsultora");
-                dic.Add("Fecha de Ingreso", "FechaIngreso");
+                dic.Add("Codigo de Consultora", "CodigoConsultora");//En Grilla
+                dic.Add("Fecha Ingreso", "FechaIngreso");//En Grilla
                 dic.Add("Fecha Envio", "FechaEnvio");
 
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
 
             }
             else if (Estado == 4) // RECHAZASDA
             {
-                dic.Add("Tipo Rechazo", "TipoRechazo");
-                dic.Add("Motivo Rechazo", "MotivoRechazo");
+                dic.Add("Tipo Rechazo", "TipoRechazo");//En Grilla
+                dic.Add("Motivo Rechazo", "MotivoRechazo");//En Grilla
                 dic.Add("Rechazó", "RechazadoPor");
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
 
-                dic.Add("Num Dias Rechazados", "NumDiasRechazados");
+                dic.Add("Num Dias Rechazado", "NumDiasRechazados");//En Grilla
 
 
 
             }
             else   if (Estado == 5)// YA CON CODIGO
             {
-                dic.Add("Codigo de Consultora", "CodigoConsultora");
-                dic.Add("Fecha de Ingreso", "FechaIngreso");
-                dic.Add("Zona Origen", "ZonaGZ");
-                dic.Add("Seccion Origen", "SeccionOrigen");
-                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Codigo de Consultora", "CodigoConsultora");//En Grilla
+                dic.Add("Fecha Ingreso", "FechaIngreso"); //dic.Add("Fecha de Ingreso", "FechaIngreso");//En Grilla
+                dic.Add("Zona Origen", "ZonaGZ");//En Grilla
+                dic.Add("Seccion Origen", "SeccionOrigen");//En Grilla
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");//En Grilla
                 dic.Add("Campaña Ingreso", "CodigoCampania");
-                dic.Add("Campaña 1er pedido", "Campania1Pedido");
-                dic.Add("Diferencia Dias", "DiferenciaDias");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");//En Grilla
+                dic.Add("Diferencia Dias", "DiferenciaDias");//En Grilla
 
             }
             else if (Estado == 10) // PENDIENTE CONFIRMACION DE CODIGO
             {
-                dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
             }
             else if (Estado == 9)// YA CON CODIGO OCR
             {
-                dic.Add("Codigo de Consultora", "CodigoConsultora");
-                dic.Add("Fecha de Ingreso", "FechaIngreso");
-                dic.Add("Zona Origen", "ZonaGZ");
-                dic.Add("Seccion Origen", "SeccionOrigen");
-                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");
+                dic.Add("Codigo de Consultora", "CodigoConsultora");//En Grilla
+                dic.Add("Fecha Ingreso", "FechaIngreso"); //dic.Add("Fecha de Ingreso", "FechaIngreso");//En Grilla
+                dic.Add("Zona Origen", "ZonaGZ");//En Grilla
+                dic.Add("Seccion Origen", "SeccionOrigen");//En Grilla
+                dic.Add("Fecha Creacion Codigo", "FechaCreacionCodigo");//En Grilla
                 dic.Add("Campaña Ingreso", "CodigoCampania");
-                dic.Add("Campaña 1er pedido", "Campania1Pedido");
-                dic.Add("Diferencia Dias", "DiferenciaDias");
+                dic.Add("Campaña 1er pedido", "Campania1Pedido");//En Grilla
+                dic.Add("Diferencia Dias", "DiferenciaDias");//En Grilla
 
             }
 
@@ -3746,7 +3802,9 @@ namespace Portal.Consultoras.Web.Controllers
                 NombreProspecto = model.Nombre,
                 EstadoPostulante = ObtenerEstadoPostulante(model.Estado),
                 DocumentoIdentidad = model.DocumentoIdentidad,
-                IndicadorActivo = booIndiciadorActivo
+                IndicadorActivo = booIndiciadorActivo,
+                CodigoRegion = model.CodigoRegion,
+                FuenteIngreso = model.FuenteIngreso
             };
             using (var sv = new PortalServiceClient())
             {
