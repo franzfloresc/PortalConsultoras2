@@ -1,114 +1,78 @@
 USE BelcorpBolivia
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
-GO
-
-USE BelcorpChile
-GO
-
-BEGIN
-	DELETE FROM MatrizComercialImagen;	
-END
-GO
-
-USE BelcorpColombia
-GO
-
-BEGIN
-	DELETE FROM MatrizComercialImagen;
-END
 GO
 
 USE BelcorpCostaRica
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
+GO
+
+USE BelcorpChile
+GO
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
+	DELETE FROM MatrizComercialImagen;
+GO
+
+USE BelcorpColombia
+GO
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
+	DELETE FROM MatrizComercialImagen;
 GO
 
 USE BelcorpDominicana
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
 
 USE BelcorpEcuador
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpGuatemala
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpMexico
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpPanama
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpPeru
 GO
-
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpPuertoRico
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpSalvador
 GO
-
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
-
 
 USE BelcorpVenezuela
 GO
-
-BEGIN
+IF OBJECT_ID('MatrizComercialImagen', 'T') IS NOT NULL
 	DELETE FROM MatrizComercialImagen;
-END
 GO
 
-	 
