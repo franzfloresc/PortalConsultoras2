@@ -186,7 +186,7 @@
         $.each(listaOfertas, function (index, value) {
             posicion++;
             value.Posicion = posicion;
-            value.DescripcionOferta = ConstruirDescripcionOferta(value.DescripcionOferta.split('+'));
+            value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null) ? "" : ConstruirDescripcionOferta(value.DescripcionOferta.split('+'));
             nuevaListaOfertas.push(value);
         });
 

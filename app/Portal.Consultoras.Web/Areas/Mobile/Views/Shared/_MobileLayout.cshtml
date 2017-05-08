@@ -480,8 +480,12 @@
             <div class="producto_precio_hoy_mobile">
                 A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
             </div>
+
+            {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
+            {{/IsNullOrEmpty}}
+            
             <div class="content_redes_ficha" data-item="">
                 <div class="texto_redes">Comparte la oferta con tus clientes</div>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
