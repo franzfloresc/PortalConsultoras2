@@ -145,18 +145,20 @@
                     <div class="selectP2 seleccion_pagina txtFiltro">
                         @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
                         <table>
-                            @foreach (var item in Model.FuenteIngresoListAvailable)
-                            {
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
-                                    </td>
-                                    <td>
-                                        <label for="@item.ID">@item.Descripcion</label>
-                                    </td>
-                                </tr>
+                            <tr>
+                                @foreach (var item in Model.FuenteIngresoListAvailable)
+                                {
 
-                            }
+                                <td>
+                                    <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
+                                </td>
+                                <td width="80px">
+                                    <label for="@item.ID"><span>@item.Descripcion</span></label>
+                                </td>
+
+
+                                }
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -1611,6 +1613,29 @@
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
+    function buildDocsSV(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO y DECLARACIÓN JURADA'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+
+
+    }
+    function buildDocsGT(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'ACUERDO DE COMPRA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+    }
+    function buildDocsPA(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));
+    }
 
 
     function consultarDocs(solicitudPostulanteID) {
@@ -1643,16 +1668,43 @@
         else if (codigoIso == 'CR') {
             buildDocsCR(solicitudPostulanteID);
         }
-        else {
-            buildDocsCR(solicitudPostulanteID);
+        else if (codigoIso == 'SV') {
+            buildDocsSV(solicitudPostulanteID);
+        }
+        else if (codigoIso == 'GT') {
+            buildDocsGT(solicitudPostulanteID);
+        }
+        else if (codigoIso == 'PA') {
+            buildDocsPA(solicitudPostulanteID);
         }
 
-
-
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        //Documentos Fiador
+        if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA')
+        {
+            if (codigoIso == 'SV')
+            {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN y DECLARACIÓN JURADA'));
+            }
+            else if (codigoIso == 'GT') {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));
+            }
+            else if (codigoIso == 'PA') {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));
+            }
+        }
+        else
+        {
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        }
+        
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');

@@ -1062,7 +1062,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
-            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = string.Format("{0:dd/MM/yyyy H:mm:ss}", FechaRegistro), TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre, Observacion = string.Empty,ObservacionParte2=string.Empty });
+            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = string.Format("{0:dd/MM/yyyy H:mm:ss}", FechaRegistro.ToDatetime()), TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre, Observacion = string.Empty,ObservacionParte2=string.Empty });
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
 
