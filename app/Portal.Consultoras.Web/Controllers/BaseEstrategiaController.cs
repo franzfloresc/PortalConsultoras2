@@ -100,23 +100,21 @@ namespace Portal.Consultoras.Web.Controllers
                         if (itemStockProl != null)
                             add = itemStockProl.estado == 1;
                     }
+                    if (!add)
+                        continue;
 
-                    if (add)
-                    {
-                        if (beEstrategia.Precio >= beEstrategia.Precio2)
-                        {
-                            beEstrategia.Precio = Convert.ToDecimal(0.0);
-                        }
+                    if (beEstrategia.Precio >= beEstrategia.Precio2)
+                        beEstrategia.Precio = Convert.ToDecimal(0.0);
 
-                        beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
-                        beEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.ImagenURL, carpetapais);
-                        beEstrategia.Simbolo = userData.Simbolo;
-                        beEstrategia.TieneStockProl = true;
-                        beEstrategia.PrecioString = Util.DecimalToStringFormat(beEstrategia.Precio2, userData.CodigoISO);
-                        beEstrategia.PrecioTachado = Util.DecimalToStringFormat(beEstrategia.Precio, userData.CodigoISO);
+                    beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
+                    beEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.ImagenURL, carpetapais);
+                    beEstrategia.Simbolo = userData.Simbolo;
+                    beEstrategia.TieneStockProl = true;
+                    beEstrategia.PrecioString = Util.DecimalToStringFormat(beEstrategia.Precio2, userData.CodigoISO);
+                    beEstrategia.PrecioTachado = Util.DecimalToStringFormat(beEstrategia.Precio, userData.CodigoISO);
+                    beEstrategia.CodigoEstrategia = Util.Trim(beEstrategia.CodigoEstrategia);
+                    lst.Add(beEstrategia);
 
-                        lst.Add(beEstrategia);
-                    }
                 }
             }
             else
@@ -127,9 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
 
                     if (x.Precio >= x.Precio2)
-                    {
                         x.Precio = Convert.ToDecimal(0.0);
-                    }
 
                     x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
                     x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
@@ -137,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                     x.TieneStockProl = true;
                     x.PrecioString = Util.DecimalToStringFormat(x.Precio2, userData.CodigoISO);
                     x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, userData.CodigoISO);
-                    
+                    x.CodigoEstrategia = Util.Trim(x.CodigoEstrategia);
                     lst.Add(x);
                 };
 
@@ -336,6 +332,21 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategia;
+        }
+
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
+        {
+            var listaProducto = ConsultarEstrategias(cuv);
+            var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            ListaProductoModel.Update(estrategia =>
+            {
+                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+            });
+
+            return ListaProductoModel;
         }
     }
 }

@@ -3,33 +3,43 @@ using Portal.Consultoras.Web.ServiceRevistaDigital;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
 using System.Linq;
+using System.Configuration;
+using System;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class RevistaDigitalController : BaseController
+    public class RevistaDigitalController : BaseEstrategiaController
     {
         public ActionResult Index()
         {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            try
             {
-                return RedirectToAction("Index", "Bienvenida");
-            }
-            var model = new CatalogoPersonalizadoModel();
+                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                //    return RedirectToAction("Index", "Bienvenida");
+                
+                var model = new RevistaDigitalModel();
+                
+                model.ListaProducto = ConsultarEstrategiasModel();
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                }
 
-            if (Session["ListFiltersFAV"] != null)
+                model.PrecioMin = model.ListaProducto.Min(p => p.Precio2);
+                model.PrecioMax = model.ListaProducto.Max(p => p.Precio2);
+                
+                return View(model);
+            }
+            catch (Exception ex)
             {
-                var lst = (List<BETablaLogicaDatos>)Session["ListFiltersFAV"] ?? new List<BETablaLogicaDatos>();
-                model.FiltersBySorting = lst.Where(x => x.TablaLogicaID == 94).ToList();
-                model.FiltersByCategory = lst.Where(x => x.TablaLogicaID == 95).ToList();
-                model.FiltersByBrand = lst.Where(x => x.TablaLogicaID == 96).ToList();
-                model.FiltersByPublished = lst.Where(x => x.TablaLogicaID == 97).ToList();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         private bool RevistaDigitalValidar(out string respuesta)
@@ -44,6 +54,126 @@ namespace Portal.Consultoras.Web.Controllers
             respuesta = "";
 
             return activo;
+        }
+
+
+        [HttpPost]
+        public JsonResult GetProductos(BusquedaProductoModel model)
+        {
+            try
+            {
+                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = "",
+                //        lista = new List<ShowRoomOfertaModel>(),
+                //        cantidadTotal = 0,
+                //        cantidad = 0
+                //    });
+                //}
+
+                var listaFinal = new List<EstrategiaPedidoModel>();
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var listModel = ConsultarEstrategiasModel("");
+
+                int cantidadTotal = listModel.Count;
+
+                listaFinal = listModel;
+
+                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
+                {
+                    //var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
+                    //if (filtroCategoria != null)
+                    //{
+                    //    var arrayCategoria = filtroCategoria.Valores.ToArray();
+                    //    listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                    //}
+
+                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
+                    if (filtroRangoPrecio != null)
+                    {
+                        var valorDesde = filtroRangoPrecio.Valores[0];
+                        var valorHasta = filtroRangoPrecio.Valores[1];
+                        listaFinal = listaFinal.Where(p => p.Precio2 >= Convert.ToDecimal(valorDesde)
+                                     && p.Precio2 <= Convert.ToDecimal(valorHasta)).ToList();
+                    }
+                }
+
+                if (model.Ordenamiento != null)
+                {
+                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
+                    {
+                        switch (model.Ordenamiento.Valor)
+                        {
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
+                                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
+                                break;
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
+                                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
+                                break;
+                            default:
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                        }
+                    }
+
+                }
+
+                if (model.Limite > 0)
+                    listaFinal = listaFinal.Take(model.Limite).ToList();
+                
+                listaFinal.Update(s =>
+                {
+                    s.ID = s.EstrategiaID;
+                    s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, IsMobile() ? 30 : 40);
+                    if (s.FlagMostrarImg == 1)
+                    {
+                        if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            if (s.FlagEstrella == 1)
+                            {
+                                s.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
+                            }
+                        }
+                        else if (!(s.TipoEstrategiaImagenMostrar == @Constantes.TipoEstrategia.PackNuevas
+                            || s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
+                        {
+                            s.ImagenURL = "";
+                        }
+                    }
+                    else
+                    {
+                        s.ImagenURL = "";
+                    }
+                });
+
+                int cantidad = listaFinal.Count;
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    lista = listaFinal,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidad
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }
         }
 
         [HttpGet]

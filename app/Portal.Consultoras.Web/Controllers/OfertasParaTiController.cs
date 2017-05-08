@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 estrategia.UrlCompartirFB = GetUrlCompartirFB();
-                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
             });
             
             top = top < listModel.Count() ? top : listModel.Count();

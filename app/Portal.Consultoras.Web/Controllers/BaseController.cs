@@ -1973,5 +1973,10 @@ namespace Portal.Consultoras.Web.Controllers
         //{
         //    return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
         //}
+        
+        public bool IsMobile()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
     }
 }
