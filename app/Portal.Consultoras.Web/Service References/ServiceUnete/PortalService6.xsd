@@ -62,6 +62,7 @@
       <xs:element minOccurs="0" name="FechaRechazo" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegValidacionTelefonica" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HorarioVisita" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenCDD" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenConstanciaLaboralAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImagenContrato" nillable="true" type="xs:string" />

@@ -75,7 +75,13 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         TipoNivelesRiesgo = 22,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
+        ParametroX = 24,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
         TipoSubEstadoPostulante = 25,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        HorariosDeVisita = 26,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -802,6 +808,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string CodigoIsoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoSeccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -821,6 +830,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> FechaHastaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FuenteIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<Portal.Consultoras.Web.ServiceUnete.EnumsGrupoEstadoPostulante> GrupoEstadoPostulanteField;
@@ -872,6 +884,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.CodigoIsoField, value) != true)) {
                     this.CodigoIsoField = value;
                     this.RaisePropertyChanged("CodigoIso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRegion {
+            get {
+                return this.CodigoRegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRegionField, value) != true)) {
+                    this.CodigoRegionField = value;
+                    this.RaisePropertyChanged("CodigoRegion");
                 }
             }
         }
@@ -963,6 +988,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.FechaHastaField.Equals(value) != true)) {
                     this.FechaHastaField = value;
                     this.RaisePropertyChanged("FechaHasta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FuenteIngreso {
+            get {
+                return this.FuenteIngresoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FuenteIngresoField, value) != true)) {
+                    this.FuenteIngresoField = value;
+                    this.RaisePropertyChanged("FuenteIngreso");
                 }
             }
         }
@@ -1322,6 +1360,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FuenteIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HorarioVisitaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImagenCDDField;
@@ -2211,6 +2252,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.FuenteIngresoField, value) != true)) {
                     this.FuenteIngresoField = value;
                     this.RaisePropertyChanged("FuenteIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HorarioVisita {
+            get {
+                return this.HorarioVisitaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HorarioVisitaField, value) != true)) {
+                    this.HorarioVisitaField = value;
+                    this.RaisePropertyChanged("HorarioVisita");
                 }
             }
         }
