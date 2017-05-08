@@ -13033,6 +13033,76 @@ label.checkpop {
     width: 100%;
     height: 35px;
 }
+
+.matriz-comercial-list .item{
+    display:inline-block;
+    width:171px;
+    height:180px;
+    float:left;
+    padding:5px;
+    margin:5px;
+}
+
+.matriz-comercial-list .item img {
+  width: 140px;
+  max-height: 133px;
+}
+
+.matriz-comercial-list .item .content {
+  height:140px;
+  padding:0;
+  margin-bottom: 2px;
+}
+
+.matriz-comercial-list .item.disabledItem {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.matriz-lista-container .div-img-matriz-comercial:nth-child(6) {
+    padding-left: 152px;
+}
+
+.matriz-comercial-zona-estrategia {
+    margin: 0 auto;
+    width: 570px;
+}
+
+#matriz-imagenes-paginacion {
+    padding: 10px 0px 5px 12px;
+    text-align:center;
+}
+
+#matriz-imagenes-paginacion .item {
+    display:inline-block;
+    width: 30px;
+}
+
+#matriz-imagenes-paginacion .item a {
+    padding: 4px 8px;
+    text-decoration: none !important;
+}
+
+#matriz-imagenes-paginacion .item.current a {
+    background-color: #00a1e7;
+    color: white;
+}
+
+#matriz-imagenes-paginacion .item.item-disabled a {
+    pointer-events: none;
+    cursor: default;
+    color: lightgray;
+}
+
+#matriz-imagenes-paginacion .item:not(.current):not(.item-disabled) a:hover 
+{ 
+    background-color: #ddd;
+}
+
+#file-upload-add .qq-upload-list {
+    margin: 0px;
+}
+
 /*FIN: Matriz Comercial*/
 /*<!--EPD1973*/
 .DescargaParams {
