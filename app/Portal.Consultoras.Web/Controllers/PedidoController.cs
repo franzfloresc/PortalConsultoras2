@@ -3799,7 +3799,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 mailBody.AppendFormat("<tr> <td colspan = '2' style = 'text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cliente: {0} </td></tr>", pedidoDetalle.NombreCliente);
-                mailBody.AppendFormat("<tr><td colspan = '2' style = 'text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad:{0} </td></tr> ", pedidoDetalle.Cantidad);
+                mailBody.AppendFormat("<tr><td colspan = '2' style = 'text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
 
                 if (ViewBag.EstadoSimplificacionCUV != null && ViewBag.EstadoSimplificacionCUV == true)
