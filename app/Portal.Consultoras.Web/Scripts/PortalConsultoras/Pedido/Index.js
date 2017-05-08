@@ -2163,6 +2163,10 @@ function EjecutarServicioPROL() {
                                 setTimeout(function () {
                                     location.href = baseUrl + 'Pedido/PedidoValidado';
                                 }, 3000);
+                                    /*** EPD-2378 ***/
+                                    if (!FlagEnviarCorreo && response.flagCorreo == '1')
+                                        EnviarCorreoPedidoReservado();
+                                    /*** ***/
                                 return false;
                             }
                         }
@@ -2209,11 +2213,6 @@ function EjecutarServicioPROL() {
                 }
                 CargarDetallePedido();
             }
-
-                /*** EPD-2378 ***/
-                if (!FlagEnviarCorreo && response.flagCorreo == '1')
-                    EnviarCorreoPedidoReservado();
-                /*** ***/
 
             AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;

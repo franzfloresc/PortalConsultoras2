@@ -8,6 +8,8 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 using System.Transactions;
 
+using Portal.Consultoras.PublicService.Cryptography;
+
 namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoWebDetalle
@@ -100,9 +102,12 @@ namespace Portal.Consultoras.BizLogic
                     /*EPD-2248*/
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
-                        pedidowebdetalle.IndicadorPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
-                        pedidowebdetalle.IndicadorPedidoAutentico.PedidoDetalleID = BEPedidoWebDetalle.PedidoDetalleID;
-                        DAPedidoWeb.InsIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
+                        var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
+                        indPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
+                        indPedidoAutentico.PedidoDetalleID = BEPedidoWebDetalle.PedidoDetalleID;
+                        indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+
+                        DAPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
                     }
                     /*EPD-2248*/
 
@@ -143,7 +148,9 @@ namespace Portal.Consultoras.BizLogic
                     /*EPD-2248*/
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
-                        DAPedidoWeb.UpdIndicadorPedidoAutentico(pedidowebdetalle.IndicadorPedidoAutentico);
+                        var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
+                        indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                        DAPedidoWeb.UpdIndicadorPedidoAutentico(indPedidoAutentico);
                     }
                     /*EPD-2248*/
 
