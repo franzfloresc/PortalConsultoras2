@@ -11901,6 +11901,7 @@ a{
    font-family: 'Lato';
    font-size: 13px;
    text-align: center;
+   text-transform:lowercase;
 }
 .saludo_paginacion b{
     font-size:15px;
@@ -12001,4 +12002,12 @@ a{
 .content_cronometro{
     margin-top: 26px;
     margin-bottom: -28px;
+}
+.saludo_paginacion p {
+	margin:0;
+    display:inline-block;
+}
+.saludo_paginacion p::first-letter {
+	text-transform: uppercase;
+    display:inline-block;
 }

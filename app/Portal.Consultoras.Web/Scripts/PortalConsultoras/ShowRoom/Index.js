@@ -6,7 +6,7 @@ $(document).ready(function () {
     $("#VerOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').hide();
         $('#CerrarOfertaEspecial').show();
-        $('.promocion_especial_header').css("background", "#fff6f4");
+        //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
@@ -14,7 +14,7 @@ $(document).ready(function () {
     $("#CerrarOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').show();
         $('#CerrarOfertaEspecial').hide();
-        $('.promocion_especial_header').css("background", "#fff");
+        //$('.promocion_especial_header').css("background", "#fff");
         $('.content_set_oferta_especial').slideUp();
     });
 
