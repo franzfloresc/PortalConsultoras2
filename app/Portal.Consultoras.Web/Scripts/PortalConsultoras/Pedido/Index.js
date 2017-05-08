@@ -2050,6 +2050,7 @@ function RecalcularPROL() {
 }
 
 function EjecutarServicioPROL() {
+    debugger
     analyticsGuardarValidarEnviado = false;
     jQuery.ajax({
         type: 'POST',
@@ -2057,6 +2058,7 @@ function EjecutarServicioPROL() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
+            debugger
             if (checkTimeout(response)) {
                 RespuestaEjecutarServicioPROL(response);
 
@@ -2083,6 +2085,11 @@ function EjecutarServicioPROL() {
                                     setTimeout(function () {
                                         location.href = baseUrl + 'Pedido/PedidoValidado';
                                     }, 3000);
+                                    debugger
+                                    /*** EPD-2378 ***/
+                                    if (!FlagEnviarCorreo && response.flagCorreo == '1')
+                                        EnviarCorreoPedidoReservado();
+                                    /*** ***/
                                     return false;
                                 }
                             }
@@ -2129,11 +2136,6 @@ function EjecutarServicioPROL() {
                     }
                     CargarDetallePedido();
                 }
-
-                /*** EPD-2378 ***/
-                if (!FlagEnviarCorreo && response.flagCorreo == '1')
-                    EnviarCorreoPedidoReservado();
-                /*** ***/
 
                 AnalyticsGuardarValidar(response);
                 analyticsGuardarValidarEnviado = true;
