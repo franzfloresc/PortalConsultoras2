@@ -1,5 +1,6 @@
 ﻿@using Newtonsoft.Json
 @using Portal.Consultoras.Common
+@using System.Linq;
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     ViewBag.Title = "ShowRoom";
@@ -83,17 +84,17 @@
     </div>
     <hr class="clear" />
     @if (Model.TieneSubCampania)
-    {
-        var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).ToList();
+                {
+                    var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
-        if (listaSubCampania != null && listaSubCampania.Count > 0)
-        {
-            var precioOferta = listaSubCampania[0].PrecioOferta;
-            var descripcion = listaSubCampania[0].Descripcion;
-            if (descripcion != null && descripcion.Length > 41)
-            {
-                descripcion = descripcion.Substring(0, 40) + " ...";
-            }
+                    if (listaSubCampania != null && listaSubCampania.Count > 0)
+                    {
+                        var precioOferta = listaSubCampania[0].PrecioOferta;
+                        var descripcion = listaSubCampania[0].Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
 
             <div class="banner_especial_showroom">
                 <div class="promocion_especial_header">

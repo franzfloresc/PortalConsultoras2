@@ -445,6 +445,7 @@ namespace Portal.Consultoras.Web.Controllers
                 x.CodigoISO = userData.CodigoISO;
                 x.Simbolo = userData.Simbolo;
                 x.Agregado = (listaDetalle.Find(p => p.CUV == x.CUV) ?? new BEPedidoWebDetalle()).PedidoDetalleID > 0 ? "block" : "none";
+                x.UrlCompartir = GetUrlCompartirFB();
             });
             return listadoOfertasTodasModel1;
         }

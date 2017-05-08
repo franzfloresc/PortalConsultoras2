@@ -194,13 +194,15 @@
     }
 
     function ResolverGetOfertaDelDiaResponse(response) {
-        var _data = response.data;
-        $(elements.ContenedorOfertaDelDiaMobile).hide();
-        _data.CantidadProductos = _data.ListaOfertas.length;
-        _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
-        _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
-        _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
-        SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
+        if (response.success) {
+            var _data = response.data;
+            $(elements.ContenedorOfertaDelDiaMobile).hide();
+            _data.CantidadProductos = _data.ListaOfertas.length;
+            _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
+            _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
+            _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
+            SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
+        }
     }
 
     function ConstruirDescripcionOferta(arrDescripcion) {
