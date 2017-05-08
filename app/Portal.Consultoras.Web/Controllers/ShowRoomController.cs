@@ -1680,6 +1680,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
+
                 return Json(new
                 {
                     success = true,
@@ -1764,6 +1779,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
+
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
 
                 return Json(new
                 {

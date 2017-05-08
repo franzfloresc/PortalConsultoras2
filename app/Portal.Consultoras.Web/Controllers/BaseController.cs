@@ -327,6 +327,37 @@ namespace Portal.Consultoras.Web.Controllers
             return rtpa;
         }
 
+
+        protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)
+        {
+            try
+            {
+                if (Session["PedidoWebDetalle"] != null)
+                {
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                    olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                    if (olstPedidoWebDetalle.Any())
+                    {
+                        BEPedidoWebDetalle bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == cuv).FirstOrDefault();
+                        if (bePedidoWebDetalle != null)
+                        {
+                            indPedidoAutentico.PedidoID = bePedidoWebDetalle.PedidoID;
+                            indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
+
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+        }
+
         protected void UpdPedidoWebMontosPROL()
         {
             userData.EjecutaProl = false;

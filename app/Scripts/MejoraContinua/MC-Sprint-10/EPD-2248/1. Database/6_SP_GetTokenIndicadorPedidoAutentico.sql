@@ -20,7 +20,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -46,7 +47,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -72,7 +74,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -98,7 +101,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -124,7 +128,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -150,7 +155,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -176,7 +182,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -202,7 +209,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -228,7 +236,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -254,7 +263,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -280,7 +290,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -306,7 +317,8 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
 /*end*/
@@ -332,6 +344,7 @@ BEGIN
 	DECLARE @input VARCHAR(50)
 	SET @input = @ISOPais + '_' + @CodigoRegion + '_' + @CodigoZona + '_' + CAST(NEXT VALUE FOR dbo.SecuenciaTokenPedido AS VARCHAR)
 	
-	SELECT dbo.EncriptarClaveSHA1(@input)
+	--SELECT dbo.EncriptarClaveSHA1(@input)
+	SELECT @input
 END
 GO
