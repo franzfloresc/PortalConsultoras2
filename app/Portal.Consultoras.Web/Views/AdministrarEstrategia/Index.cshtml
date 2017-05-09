@@ -479,7 +479,7 @@
         $("#ddlTipoEstrategia").change(function () {
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             $("#btnActivarDesactivar").hide();
-            if (aux1 == "4")
+            if (aux1 == "4" || aux1 == "7") //O
                 $("#btnActivarDesactivar").show();
 
             SeleccionarTipoOferta();
@@ -1383,7 +1383,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4') ? true : false,
+            multiselect: (tipo == '4' || tipo == '7') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
