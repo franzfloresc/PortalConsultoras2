@@ -112,15 +112,22 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
 
+    if (data.length == 0) {
+        return false;
+    }
+
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     var obj = new Object();
     obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    obj.CodigoEstrategia = "001";
+    obj.CodigoEstrategia = "101";
     obj.Lista = data;
 
-    SetHandlebars("#estrategia-template", obj, '#divListaEstrategias');
+
+    SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
+    $('#divListaEstrategias').show();
+    SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
     
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
@@ -131,9 +138,6 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
 
-    if (data.length == 0) {
-        return false;
-    }
 
     //var data1 = $('#divListadoEstrategia').find('.nombre_producto');
     //var nbData = data1.length;
@@ -376,8 +380,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     var estrategia = JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
 
     if (estrategia.TipoEstrategiaImagenMostrar == '2' && $.trim(tipoOrigenEstrategia)[0] == "1") {
-        var html = ArmarPopupPackNuevas(estrategia);
-        $('#popupDetalleCarousel_packNuevas').html(html);
+        SetHandlebars("#packnuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
         $('#popupDetalleCarousel_packNuevas').show();
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
@@ -425,8 +428,8 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
-        var html = ArmarPopupLanzamiento(estrategia);
-        $('#popupDetalleCarousel_lanzamiento').html(html);
+
+        SetHandlebars("#lanzamiento-template", estrategia, '#popupDetalleCarousel_lanzamiento');
 
         if (btnDesabled == 0) {
             $('#popupDetalleCarousel_lanzamiento').find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
@@ -513,14 +516,6 @@ function CargarEstrategiaSet(cuv) {
     return detalle;
 }
 
-function ArmarPopupPackNuevas(obj) {
-    return SetHandlebars("#packnuevas-template", obj);
-};
-
-function ArmarPopupLanzamiento(obj) {
-    return SetHandlebars("#lanzamiento-template", obj);
-};
-
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
@@ -556,7 +551,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var flagNueva = objParameter.FlagNueva;
 
     var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
-    //origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val();
+    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") || origenPedidoWebEstrategia;
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);

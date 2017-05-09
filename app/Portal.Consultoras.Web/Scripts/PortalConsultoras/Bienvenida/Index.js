@@ -3168,8 +3168,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
 
     $(id).attr("data-popup-activo", "1");
-    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
-        $("#fondoComunPopUp").show();
+    var padreComun = $(id).parent().attr("id");
+    if (padreComun == "fondoComunPopUp") {
+        if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+            $("#fondoComunPopUp").show();
+        }
     }
 
     $(id).show();
