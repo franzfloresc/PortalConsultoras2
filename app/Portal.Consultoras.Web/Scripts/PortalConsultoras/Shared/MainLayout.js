@@ -110,7 +110,13 @@ $(document).ready(function () {
 
     waitingDialog();
 
-    MensajeEstadoPedido();
+    //EPD-2305
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();
+    }
+    else {
+        MensajeEstadoPedido();
+    }
 
     closeWaitingDialog();
 
