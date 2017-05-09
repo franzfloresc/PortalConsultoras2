@@ -186,7 +186,7 @@
         $.each(listaOfertas, function (index, value) {
             posicion++;
             value.Posicion = posicion;
-            value.DescripcionOferta = ConstruirDescripcionOferta(value.DescripcionOferta.split('+'));
+            value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null) ? "" : ConstruirDescripcionOferta(value.DescripcionOferta.split('+'));
             nuevaListaOfertas.push(value);
         });
 
@@ -325,7 +325,6 @@
                 AbrirMensaje('Producto agregado satisfactoriamente', 'ÉXITO', null, 2);
             });
         });
-
     }
 
     function OddAgregar(btn) {
@@ -475,12 +474,19 @@
     }
 
     function MarcarProductoComoAgregado(btn, item) {
-        var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
-        if (perteneceContenedorDetalle) {
-            var posicion = $(btn).parents("[data-item]").attr("data-item-position");
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
-        } else
-            $(item).find(".product-add").css("display", "block");
+        var esCabecera = ($(btn).attr('data-odd-cabecera-position') != undefined || $(btn).attr('data-odd-cabecera-position') != null);
+        var positionOddCabecera = 0;
+        if (esCabecera) {
+            positionOddCabecera = $(btn).attr('data-odd-cabecera-position');
+            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + positionOddCabecera + '"]').find(".product-add").css("display", "block");
+        } else {
+            var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
+            if (perteneceContenedorDetalle) {
+                var posicion = $(btn).parents("[data-item]").attr("data-item-position");
+                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
+            } else
+                $(item).find(".product-add").css("display", "block");
+        }
     }
 
     function CheckCountdownODD() {
@@ -736,6 +742,7 @@
 
     $("body").on("click", ".btn_cerrar_pop_oferta_hoy", function (e) {
         $('#pop_oferta_mobile').hide('slide', { direction: 'Right' }, 500);
+        $('body').css({ 'overflow-y': 'auto' });
     });
 
     $("body").on("click", ".ver_detalle_carrusel", function (e) {

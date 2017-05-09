@@ -488,7 +488,6 @@ function AgregarProductoAlCarrito(padre) {
         });
     }    
 }
-
 function CargarProductosShowRoomPrimise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
