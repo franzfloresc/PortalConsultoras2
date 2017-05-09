@@ -957,14 +957,20 @@ function RedirectIngresaTuPedido() {
 function CerrarSesion()
 {  
     if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
 
         localStorage.clear();
 
-        if (!(typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null)) {
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
             localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
         }
     }
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
