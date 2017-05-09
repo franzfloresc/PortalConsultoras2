@@ -26,7 +26,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -65,7 +65,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -104,7 +104,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -143,7 +143,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -182,7 +182,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -221,7 +221,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -260,7 +260,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -299,7 +299,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -338,7 +338,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -377,7 +377,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -416,7 +416,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -455,7 +455,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
@@ -494,7 +494,7 @@ FROM
 	 mc.IdMatrizComercial,
 	 isnull(Foto,'') Foto,
 	 mci.FechaRegistro 
-	FROM MatrizComercialmc
+	FROM MatrizComercial mc
 	left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial
 	where mc.idMatrizComercial = @IdMatrizComercial
 ) as T
