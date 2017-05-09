@@ -305,30 +305,28 @@ namespace Portal.Consultoras.Web.Controllers
                         select new
                         {
                             id = a.EventoID,
-                            cell = new[]
-                            {
-                                a.EventoID.ToString(),
-                                a.Nombre,
-                                a.Tema,
-                                a.DiasAntes.ToString(),
-                                a.DiasDespues.ToString(),
-                                a.NumeroPerfiles.ToString(),
-                                a.Imagen1,
-                                a.Imagen2,
-                                a.ImagenCabeceraProducto,
-                                a.ImagenVentaSetPopup,
-                                a.ImagenVentaTagLateral,
-                                a.ImagenPestaniaShowRoom,
-                                a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),
-                                a.Descuento.ToString(),
-                                a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),
-                                a.Estado.ToString(),
-                                a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString(),
-                                a.TieneSubCampania.ToString()
-                            }
+                            a.Nombre,
+                            a.Tema,
+                            DiasAntes = a.DiasAntes.ToString(),
+                            DiasDespues = a.DiasDespues.ToString(),
+                            NumeroPerfiles = a.NumeroPerfiles.ToString(),
+                            a.Imagen1,
+                            a.Imagen2,
+                            a.ImagenCabeceraProducto,
+                            a.ImagenVentaSetPopup,
+                            a.ImagenVentaTagLateral,
+                            a.ImagenPestaniaShowRoom,
+                            a.ImagenPreventaDigital,
+                            CampaniaID = a.CampaniaID.ToString(),
+                            Descuento = a.Descuento.ToString(),
+                            a.TextoEstrategia,
+                            OfertaEstrategia = a.OfertaEstrategia.ToString(),
+                            Estado = a.Estado.ToString(),
+                            TieneCategoria = a.TieneCategoria.ToString(),
+                            TieneCompraXcompra = a.TieneCompraXcompra.ToString(),
+                            TieneSubCampania = a.TieneSubCampania.ToString(),
+                            TienePersonalizacion = a.TienePersonalizacion
+                            //a.EventoID
                         }
                 };
 
