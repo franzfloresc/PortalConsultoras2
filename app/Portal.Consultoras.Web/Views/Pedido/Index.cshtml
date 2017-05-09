@@ -526,6 +526,13 @@
     </div>
     <!--14092016 - FIN -->
 
+
+    <div id="contenedorCupon" style="display: none; background-color: gray; width: 250px; height: 100px; float: right;">
+        Tienes un descuento exclusivo para ti, conócelo
+        <a href="#" id="linkConocerDescuento">aquí</a>
+    </div>
+
+
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -2353,6 +2360,8 @@
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
 
+                var tieneCupon = '1';
+                var paginaOrigenCupon = 11;
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

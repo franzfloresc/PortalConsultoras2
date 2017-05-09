@@ -242,6 +242,11 @@
     <hr class="clear" />
 </div>
 
+<div id="contenedorCupon" style="display: none; background-color: gray; width: 250px; height: 100px;">
+    Tienes un descuento exclusivo para ti, conócelo
+    <a href="#" id="linkConocerDescuento">aquí</a>
+</div>
+
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div class="content_belcorp" style="text-align:center;">
@@ -2384,7 +2389,7 @@
 
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
-        
+
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
@@ -2392,7 +2397,7 @@
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
-        
+
         //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -2400,11 +2405,16 @@
             $('div.resumen_belcorp_cam').css('margin-left', '3%');
             $('div.resumen_belcorp_cam').css('margin-right', '0%');
             $('div.socia_negocio_home').css('margin-left', '4%');
-            
+
             $('div.contenedor_img_perfil').show();
         }
 
+        @*var tieneCupon = '@Model.TieneCupon';*@
+        var tieneCupon = '1';
+        var paginaOrigenCupon = 1;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }
+@*<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>*@
