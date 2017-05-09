@@ -22,6 +22,7 @@
     <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
     <div class="faltan_dias_header"><b>@ViewBag.LetrasDias</b></div>
     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
 </div>
 <div class="fondo_gris" style="padding-top:20px; padding-bottom:15px;display: none;" id="divIntrigaProgramarAviso" >   
     <div id="divIntrigaProgramarAvisoDatos">
@@ -70,7 +71,7 @@
             <div class="linea_separadora_intriga"></div>
             <div class="titulo_ficha_producto">@Model.Descripcion </div>
             <div class="precio_ficha_producto">
-                <span class="precio_tachado_ficha">@Model.Simbolo @Model.PrecioOferta </span>@Model.Simbolo @Model.PrecioCatalogo
+                <span class="precio_tachado_ficha">@Model.Simbolo @Model.PrecioValorizado </span>@Model.Simbolo @Model.PrecioOferta
             </div>
             <div class="liquidacion_rango_home">
                 <a class="cantidad_menos_home" tabindex="0"  href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -84,6 +85,12 @@
             <a class="boton_Agregalo_home" href="javascript: void(0);">
                 AGRÉGALO
             </a>
+            <div style="padding-top: 9px; height: 30px;">
+                <div class="agregado product-add" style="text-align: right; display: @Model.Agregado;">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>       
         <div>
             <div class="producto_faltante">
@@ -160,7 +167,7 @@
         function AgregarOfertaShowRoomIntriga(cantidad) {
             var CUV = @Model.CUV;
             var MarcaID =@Model.MarcaID;
-            var PrecioUnidad = @Model.PrecioCatalogo;
+            var PrecioUnidad = @Model.PrecioOferta;
             var ConfiguracionOfertaID = @Model.ConfiguracionOfertaID;
             var nombreProducto = $("#hdProductoNombre").val();
             var posicion = 1;
@@ -208,6 +215,7 @@
                                     AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
                                     CargarCantidadProductosPedidos();
                                     TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+                                    $(".agregado").show();
                                     CloseLoading();
                                 }
                                 else messageInfoError(response.message);

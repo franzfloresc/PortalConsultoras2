@@ -18,6 +18,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
+var FlagEnviarCorreo = false; //EPD-23787
 
 $(document).ready(function () {
     ReservadoOEnHorarioRestringido(false);
@@ -207,9 +208,14 @@ $(document).ready(function () {
         }
     });
     $('#btnValidarPROL').click(function () {
-        console.log('indicadorGPRSB ' + indicadorGPRSB);
-        if (indicadorGPRSB == 1) {
+        if (gTipoUsuario == 2) { //Postulante
+            var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+            $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+            $('#dialog_MensajePostulante').show();
+            
+            if (indicadorGPRSB == 1) {
             ConfirmarModificar();            
+        }
         }
         else {
             EjecutarPROL();
@@ -537,6 +543,14 @@ function CrearDialogs() {
 }
 
 function CargarDetallePedido(page, rows) {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     $(".pMontoCliente").css("display", "none");
 
     $('#tbobyDetallePedido').html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -1021,6 +1035,22 @@ function ValidarClienteFocus() {
 }
 
 function AbrirModalCliente() {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return false;
+        }
+    }
+    */
+
+    if (gTipoUsuario == '2') {
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+        $('#dialog_MensajePostulante').show();
+        return false;
+    }
+
     $('#Nombres').val($('#txtClienteDescripcion').val());
     $("#divClientes").show();
 }
@@ -1714,6 +1744,15 @@ function Ignorar(tipo) {
 }
 
 function HorarioRestringido(mostrarAlerta) {
+
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+    */
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var horarioRestringido = false;
     $.ajaxSetup({
@@ -1867,6 +1906,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 }
             });
             CerrarSplash();
+
+            window.OfertaDelDia.CargarODDEscritorio();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2026,13 +2067,13 @@ function EjecutarServicioPROL() {
 
                 var codigoMensajeProl = response.data.CodigoMensajeProl;
                 var cumpleOferta;
-
                 if (response.data.Reserva == true) {
                     if (response.data.ZonaValida == true) {
                         if (response.data.ObservacionInformativa == false) {
                             cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
                             if (cumpleOferta.resultado) {
                                 esPedidoValidado = response.data.ProlSinStock != true;
+                                FlagEnviarCorreo = true; //EPD-2378
                             } else {
                                 if (response.data.ProlSinStock == true) {
                                     showDialog("divReservaSatisfactoria3");
@@ -2044,6 +2085,10 @@ function EjecutarServicioPROL() {
                                     setTimeout(function () {
                                         location.href = baseUrl + 'Pedido/PedidoValidado';
                                     }, 3000);
+                                    /*** EPD-2378 ***/
+                                    if (!FlagEnviarCorreo && response.flagCorreo == '1')
+                                        EnviarCorreoPedidoReservado();
+                                    /*** ***/
                                     return false;
                                 }
                             }
@@ -2090,6 +2135,7 @@ function EjecutarServicioPROL() {
                     }
                     CargarDetallePedido();
                 }
+
                 AnalyticsGuardarValidar(response);
                 analyticsGuardarValidarEnviado = true;
             }
@@ -2101,6 +2147,7 @@ function EjecutarServicioPROL() {
         }
     });
 }
+
 function EjecutarServicioPROLSinOfertaFinal() {
     AbrirSplash();
     analyticsGuardarValidarEnviado = false;
@@ -2111,8 +2158,10 @@ function EjecutarServicioPROLSinOfertaFinal() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
+                if (response.flagCorreo == "1")
+                    EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);
-                MostrarMensajeProl(response);
+                MostrarMensajeProl(response);                
             }
         },
         error: function (data, error) {
@@ -3474,6 +3523,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+    */
+
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -3547,3 +3607,20 @@ function ConfirmarModificar() {
     });
     return false;
 }
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/
+

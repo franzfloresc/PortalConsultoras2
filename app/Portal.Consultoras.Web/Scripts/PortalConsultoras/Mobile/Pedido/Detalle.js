@@ -850,21 +850,33 @@ function SeparadorMiles(pnumero) {
     return resultado;
 }
 
-function EjecutarPROL() {
-    if (ReservadoOEnHorarioRestringido(true)) {
-        return false;
+function EjecutarPROL(cuvOfertaProl) {
+    cuvOfertaProl = cuvOfertaProl || "";
+    if (gTipoUsuario == '2') {
+        var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
+        $('#popupInformacionSB2Error').show();
     }
-    if (($("#divContenidoDetalle > div") || []).length > 0) {
-        if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile'))
-        {
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta exclamacion_icono_mobile");
-            $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
+    else {
+        if (ReservadoOEnHorarioRestringido(true)) {
+            return false;
         }
+
+    if (cuvOfertaProl != "") {
         EjecutarServicioPROL();
     } else {
-        messageInfoMalo('No existen productos en su Pedido.');
-    }
+        if (($("#divContenidoDetalle > div") || []).length > 0) {
+            if ($('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').hasClass('icono_alerta check_icono_mobile')) {
+                $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').removeClass("icono_alerta check_icono_mobile");
+                $('#popup-observaciones-prol .content_mensajeAlerta #iconoPopupMobile').addClass("icono_alerta exclamacion_icono_mobile");
+                $('#popup-observaciones-prol .content_mensajeAlerta .titulo_compartir').html("<b>IMPORTANTE</b>");
+            }
+            EjecutarServicioPROL();
+        } else {
+            messageInfoMalo('No existen productos en su Pedido.');
+        }
+        }
+    }    
 }
 
 function EjecutarServicioPROL() {

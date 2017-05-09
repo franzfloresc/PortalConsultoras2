@@ -740,8 +740,8 @@ namespace Portal.Consultoras.Web.Controllers
                    Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                 };
 
-                if ((EstadosIniciales.Contains(InitialStatus)) && solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
-                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
+                    PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO) 
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                 {
 
@@ -1010,6 +1010,39 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
+        public ActionResult VerHistorialPostulante(int id, string nombre , string FechaRegistro)
+        {
+            var historialPostulanteModel = new HistorialPostulanteModel();
+            historialPostulanteModel.SolicitudPostulanteID = id;
+            historialPostulanteModel.CodigoISO = CodigoISO;
+            historialPostulanteModel.NombreCompleto = nombre;
+            historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
+            var eventos = new EventoSolicitudPostulanteCollection();
+            var estados = new ServiceUnete.ParametroUneteCollection();
+            //eventos.Add(new EventoSolicitudPostulanteBE() {Fecha = FechaRegistro, TipoEvento = EnumsEstadoPostulante.Registrada.ToInt() });
+            //historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro,TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt()});
+            using (var sv = new PortalServiceClient())
+            {
+                estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
+                eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
+            }
+            foreach(var evento in eventos)
+            {
+                historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel(){
+                    EventoID = evento.EventoId,
+                    Fecha = evento.Fecha,
+                    TipoEventoId = evento.TipoEvento,
+                    Evento = estados.ToList().Where(e=>e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
+                    Observacion = (evento.Observacion!=null && evento.Observacion.Split('|').Length>1)? evento.Observacion.Split('|')[0]:"",
+                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length+1) : ""
+                });
+            }
+
+            historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
+            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro, TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre });
+            return PartialView("_HistorialPostulante", historialPostulanteModel);
+        }
+
         public ActionResult NivelesRiesgo()
         {
             return View(new NivelesRiesgoModel { CodigoISO = CodigoISO /* Pais.Peru */});
@@ -1217,6 +1250,13 @@ namespace Portal.Consultoras.Web.Controllers
                                      : "")
                                  : "")
                                : "",
+                PintarMalaZonificacion =
+                                            (!string.IsNullOrEmpty(i.TipoRechazo)) ?
+                                                ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt() 
+                                                && i.TipoRechazo.ToInt() == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()
+                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacion" 
+                                                : string.Empty)
+                                            : string.Empty,
                 MotivoRechazo = i.MotivoRechazo,
                 ShowPendienteConfirmacion = i.IndicadorActivo == false ? "visible" : "hidden",
                 ShowReactivar = i.EstadoPostulante == "RECHAZADA" ? "visible" : "hidden",
@@ -1226,7 +1266,7 @@ namespace Portal.Consultoras.Web.Controllers
                 DiasEnEspera = CalcularDias(i.FechaCreacion),
                 FechaCreacionCodigo = i.FechaCreacionCodigo == null ? "" : i.FechaCreacionCodigo.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
                 CampanaCreacionCodigo = i.AnoCampanaIngreso,
-                campana1Pedido = i.campania1erPasePedido,
+                campania1erPasePedido = i.campania1erPasePedido,
                 NumDiasAprobadoFFVV = ((CalcularDias(i.FechaAproFVVV) == "-1") ? "-" : CalcularDias(i.FechaAproFVVV)).ToString(),
                 NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
                 TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
@@ -1248,8 +1288,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
                 && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
                  string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
-                //VieneDe = i.Vi
- 
+                UsuarioModificacion = (i.SubEstadoPostulante != null) ?
+                                        ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
+                                        :"",
+                
             }).ToList();
 
  
@@ -1583,9 +1625,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<NivelesGeograficosModel> items = new List<NivelesGeograficosModel>();
             NivelesGeograficosModel objNivel;
-            foreach (var item in lstSelect)
+
+
+            #region "NuevoBlucle"
+            if (CodigoISO == Pais.CostaRica)
             {
-                if (CodigoISO == Pais.CostaRica)
+                foreach (var item in lstSelect)
                 {
                     var crItem = (ServiceUnete.UbigeoCR)item;
 
@@ -1604,7 +1649,10 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     items.Add(objNivel);
                 }
-                else if (CodigoISO == Pais.Panama)
+            }
+            else if (CodigoISO == Pais.Panama)
+            {
+                foreach (var item in lstSelect)
                 {
                     var crItem = (ServiceUnete.UbigeoPA)item;
 
@@ -1623,7 +1671,10 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     items.Add(objNivel);
                 }
-                else if (CodigoISO == Pais.Guatemala)
+            }
+            else if (CodigoISO == Pais.Guatemala)
+            {
+                foreach (var item in lstSelect)
                 {
                     var crItem = (ServiceUnete.UbigeoGT)item;
 
@@ -1643,7 +1694,10 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     items.Add(objNivel);
                 }
-                else if (CodigoISO == Pais.Salvador)
+            }
+            else if (CodigoISO == Pais.Salvador)
+            {
+                foreach (var item in lstSelect)
                 {
                     var crItem = (ServiceUnete.UbigeoSV)item;
 
@@ -1663,6 +1717,90 @@ namespace Portal.Consultoras.Web.Controllers
                     items.Add(objNivel);
                 }
             }
+#endregion
+
+            //#region antiguoBlucle
+            //foreach (var item in lstSelect)
+            //{
+            //    if (CodigoISO == Pais.CostaRica)
+            //    {
+            //        var crItem = (ServiceUnete.UbigeoCR)item;
+
+            //        objNivel = new NivelesGeograficosModel
+            //        {
+
+            //            BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = crItem.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS,
+            //            CANTON = crItem.CANTON,
+            //            DISTRITO = crItem.DISTRITO,
+            //            PROVINCIA = crItem.PROVINCIA,
+            //            REG = crItem.REG,
+            //            SECC = crItem.SECC,
+            //            TERRITO = crItem.TERRITO,
+            //            UBIGEO = crItem.UBIGEO,
+            //            ZONA = crItem.ZONA
+            //        };
+            //        items.Add(objNivel);
+            //    }
+            //    else if (CodigoISO == Pais.Panama)
+            //    {
+            //        var crItem = (ServiceUnete.UbigeoPA)item;
+
+            //        objNivel = new NivelesGeograficosModel
+            //        {
+
+            //            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = crItem.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
+            //            CORREGIMIENTO = crItem.CORREGIMIENTO,
+            //            DISTRITO = crItem.DISTRITO,
+            //            PROVINCIA = crItem.PROVINCIA,
+            //            REG = crItem.REG,
+            //            SECC = crItem.SECC,
+            //            TERRITO = crItem.TERRITO,
+            //            UBIGEO = crItem.UBIGEO,
+            //            ZONA = crItem.ZONA
+            //        };
+            //        items.Add(objNivel);
+            //    }
+            //    else if (CodigoISO == Pais.Guatemala)
+            //    {
+            //        var crItem = (ServiceUnete.UbigeoGT)item;
+
+            //        objNivel = new NivelesGeograficosModel
+            //        {
+
+            //            BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = crItem.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS,
+            //            DEPARTAMENTO = crItem.DEPARTAMENTO,
+            //            MUNICIPIO = crItem.MUNICIPIO,
+            //            CENTRO_POBLADO = crItem.CENTRO_POBLADO,
+            //            ZONA_CIUDAD = crItem.ZONA_CIUDAD,
+            //            REG = crItem.REG,
+            //            SECC = crItem.SECC,
+            //            TERRITO = crItem.TERRITO,
+            //            UBIGEO = crItem.UBIGEO,
+            //            ZONA = crItem.ZONA
+            //        };
+            //        items.Add(objNivel);
+            //    }
+            //    else if (CodigoISO == Pais.Salvador)
+            //    {
+            //        var crItem = (ServiceUnete.UbigeoSV)item;
+
+            //        objNivel = new NivelesGeograficosModel
+            //        {
+
+            //            BARRIO_COLONIA_URBANIZACION_REFERENCIAS = crItem.BARRIO_COLONIA_URBANIZACION_REFERENCIAS,
+            //            DEPARTAMENTO = crItem.DEPARTAMENTO,
+            //            MUNICIPIO = crItem.MUNICIPIO,
+            //            CANTON_CENTRO_POBLADO = crItem.CANTON_CENTRO_POBLADO,
+            //            REG = crItem.REG,
+            //            SECC = crItem.SECC,
+            //            TERRITO = crItem.TERRITO,
+            //            UBIGEO = crItem.UBIGEO,
+            //            ZONA = crItem.ZONA
+            //        };
+            //        items.Add(objNivel);
+            //    }
+            //}
+            //#endregion
             ParametroUneteBE obj = new ParametroUneteBE();
 
             #region Sort Section
@@ -1835,6 +1973,159 @@ namespace Portal.Consultoras.Web.Controllers
             return list;
         }
 
+
+        public static List<NivelesGeograficosModel> ReadXmlFileNG(string filepath, bool ReadAllSheets, ref bool IsCorrect, string CodigoPais)
+        {
+            string connectionString = string.Empty;
+            // declaramos una lista de entidades
+            List<NivelesGeograficosModel> list = null;
+
+            try
+            {
+                string extension = System.IO.Path.GetExtension(@filepath).ToLower();
+                if (extension.Equals(".xls"))
+                {
+                    // para lectura de archivos 97-2003
+                    connectionString = string.Format("Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};" +
+                    "Extended Properties=\"Excel 8.0;IMEX=1;HDR=YES;\"", filepath);
+                }
+                else if (extension.Equals(".xlsx"))
+                {
+                    // para lectura de archivos 2007 o posterior
+                    connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};" +
+                        "Extended Properties=\"Excel 12.0;IMEX=1;HDR=YES;\"", filepath);
+                }
+                // crea una lista, para guardar las hojas que contenga el documento
+                List<string> sheets = new List<string>();
+
+                using (OleDbConnection con = new OleDbConnection(connectionString))
+                {
+                    con.Open();
+                    // Obtiene todas las hojas que tenga el documento Excel
+                    DataTable schemas = con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+
+                    if (schemas != null)
+                    {
+                        if (ReadAllSheets)
+                        {
+                            // obtiene todos los sheet names
+                            sheets = schemas.AsEnumerable().Cast<DataRow>().Where(row => row["TABLE_NAME"].ToString().EndsWith("$"))
+                                .Select(name => name["TABLE_NAME"].ToString()).ToList();
+                        }
+                        else
+                        {
+                            // obtiene el primer sheet name
+                            sheets.Add((string)schemas.Rows[0]["TABLE_NAME"]);
+                        }
+                    }
+                    // itera cada hoja del excel
+                    foreach (string sheetName in sheets)
+                    {
+                        string commandText = "Select * From [" + sheetName + "]";
+
+                        using (OleDbCommand select = new OleDbCommand(commandText, con))
+                        {
+                            using (OleDbDataReader reader = select.ExecuteReader())
+                            {
+                                reader.GetSchemaTable();
+                                //string firstColumnName = (string)sheetSchema.Rows[0]["ColumnName"];
+                                //string firstColumnDataType = (string)sheetSchema.Rows[0]["DataType"];
+
+                                // declaramos una variable del mismo tipo que la entidad
+                                NivelesGeograficosModel entity;
+                                if (reader.HasRows)
+                                {
+                                    list = new List<NivelesGeograficosModel>();
+                                    if (CodigoPais == Pais.CostaRica)
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            entity = new NivelesGeograficosModel();
+                                            entity.REG = reader["REG"].ToString();
+                                            entity.ZONA = reader["ZONA"].ToString();
+                                            entity.SECC = reader["SECC"].ToString();
+                                            entity.TERRITO = reader["TERRITO"].ToString();
+                                            entity.UBIGEO = reader["UBIGEO"].ToString();
+                                            entity.PROVINCIA = reader["PROVINCIA"].ToString();
+                                            entity.CANTON = reader["CANTON"].ToString();
+                                            entity.DISTRITO = reader["DISTRITO"].ToString();
+                                            entity.BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS"].ToString();
+                                            list.Add(entity);
+                                        }
+                                    }
+                                    else if (CodigoPais == Pais.Panama)
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            entity = new NivelesGeograficosModel();
+                                            entity.REG = reader["REG"].ToString();
+                                            entity.ZONA = reader["ZONA"].ToString();
+                                            entity.SECC = reader["SECC"].ToString();
+                                            entity.TERRITO = reader["TERRITO"].ToString();
+                                            entity.UBIGEO = reader["UBIGEO"].ToString();
+                                            entity.PROVINCIA = reader["PROVINCIA"].ToString();
+                                            entity.CORREGIMIENTO = reader["CORREGIMIENTO"].ToString();
+                                            entity.DISTRITO = reader["DISTRITO"].ToString();
+                                            entity.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_REFERENCIAS"].ToString();
+                                            list.Add(entity);
+                                        }
+                                    }
+                                    else if (CodigoPais == Pais.Guatemala)
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            entity = new NivelesGeograficosModel();
+                                            entity.REG = reader["REG"].ToString();
+                                            entity.ZONA = reader["ZONA"].ToString();
+                                            entity.SECC = reader["SECC"].ToString();
+                                            entity.TERRITO = reader["TERRITO"].ToString();
+                                            entity.UBIGEO = reader["UBIGEO"].ToString();
+                                            entity.DEPARTAMENTO = reader["DEPARTAMENTO"].ToString();
+                                            entity.ZONA_CIUDAD = reader["ZONA_CIUDAD"].ToString();
+                                            entity.MUNICIPIO = reader["MUNICIPIO"].ToString();
+                                            entity.CENTRO_POBLADO = reader["CENTRO_POBLADO"].ToString();
+                                            entity.BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS"].ToString();
+                                            list.Add(entity);
+                                        }
+                                    }
+                                    else if (CodigoPais == Pais.Salvador)
+                                    {
+                                        while (reader.Read())
+                                        {
+
+                                            entity = new NivelesGeograficosModel();
+                                            entity.REG = reader["REG"].ToString();
+                                            entity.ZONA = reader["ZONA"].ToString();
+                                            entity.SECC = reader["SECC"].ToString();
+                                            entity.TERRITO = reader["TERRITO"].ToString();
+                                            entity.UBIGEO = reader["UBIGEO"].ToString();
+                                            entity.DEPARTAMENTO = reader["DEPARTAMENTO"].ToString();
+                                            entity.MUNICIPIO = reader["MUNICIPIO"].ToString();
+                                            entity.CANTON_CENTRO_POBLADO = reader["CANTON_CENTRO_POBLADO"].ToString();
+                                            entity.BARRIO_COLONIA_URBANIZACION_REFERENCIAS = reader["BARRIO_COLONIA_URBANIZACION_REFERENCIAS"].ToString();
+                                            list.Add(entity);
+                                        }
+                                    }
+                                }
+                                //else
+                                //   firstCellValue = "No Rows Returned";
+                            }
+                        }
+                    }
+                    IsCorrect = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "xml", "xnmkl");
+                IsCorrect = false;
+            }
+            return list;
+        }
+
         [HttpPost]
         public string NivelesGeograficosInsertar(HttpPostedFileBase uplArchivo, NivelesGeograficosModel model)
         {
@@ -1907,7 +2198,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     bool IsCorrect = false;
                     NivelesGeograficosModel prod = new NivelesGeograficosModel();
-                   lista = ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                   //lista = ReadXmlFile(finalPath, prod, false, ref IsCorrect);
+                   lista = ReadXmlFileNG(finalPath, true, ref IsCorrect, CodigoISO);
                 }
                 catch (Exception ex)
                 {
@@ -1920,11 +2212,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 List<ServiceUnete.UbigeoTemplate> listaUbigeo = new List<UbigeoTemplate>();
 
+                
+
                 if (lista != null)
                 {
-                    foreach (var item in lista)
+                    #region NuevoBucle
+                    if (CodigoISO == Pais.Panama)
                     {
-                        if (CodigoISO == Pais.Panama)
+                        foreach (var item in lista)
                         {
                             if (string.IsNullOrWhiteSpace(item.PROVINCIA) == false && string.IsNullOrWhiteSpace(item.DISTRITO) == false && string.IsNullOrWhiteSpace(item.CORREGIMIENTO) == false)
                             {
@@ -1943,7 +2238,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 listaUbigeo.Add(parametro);
                             }
                         }
-                        else if (CodigoISO == Pais.CostaRica)
+                    }
+                    else if (CodigoISO == Pais.CostaRica)
+                    {
+                        foreach (var item in lista)
                         {
                             var parametro = new ServiceUnete.UbigeoCR()
                             {
@@ -1959,7 +2257,10 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                             listaUbigeo.Add(parametro);
                         }
-                        else if (CodigoISO == Pais.Salvador)
+                    }
+                    else if (CodigoISO == Pais.Salvador)
+                    {
+                        foreach (var item in lista)
                         {
                             var parametro = new ServiceUnete.UbigeoSV()
                             {
@@ -1975,7 +2276,10 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                             listaUbigeo.Add(parametro);
                         }
-                        else if (CodigoISO == Pais.Guatemala)
+                    }
+                    else if (CodigoISO == Pais.Guatemala)
+                    {
+                        foreach (var item in lista)
                         {
                             var parametro = new ServiceUnete.UbigeoGT()
                             {
@@ -1992,8 +2296,12 @@ namespace Portal.Consultoras.Web.Controllers
                             };
                             listaUbigeo.Add(parametro);
                         }
-
                     }
+
+                    #endregion
+                
+ 
+
                     if (listaUbigeo.Count > 0)
                     {
                         using (var sv = new PortalServiceClient())
@@ -2546,8 +2854,8 @@ namespace Portal.Consultoras.Web.Controllers
                        Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
                      };
 
-                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
-                           && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() 
+                        && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)                          
                             && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
                     {
 
@@ -2745,6 +3053,7 @@ namespace Portal.Consultoras.Web.Controllers
             ServiceUnete.ParametroUneteCollection lstSelectGZ;
             ServiceUnete.ParametroUneteCollection lstSelectSE;
             ServiceUnete.ParametroUneteCollection tiposDocumentos;
+            ServiceUnete.ParametroUneteCollection lstSubEstadosPostulante;
 
             using (var sv = new PortalServiceClient())
             {
@@ -2752,6 +3061,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstSelectSE = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazoSociaEmpresaria, 0);
                 lstSelectGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 tiposDocumentos = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoDocumento, 0);
+                lstSubEstadosPostulante = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoSubEstadoPostulante,0);
             }
 
            
@@ -2817,8 +3127,11 @@ namespace Portal.Consultoras.Web.Controllers
                     Longitud= c.Longitud,
                     CampaniaDeRegistro = c.CampaniaDeRegistro,
                     TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == c.TipoDocumento.ToInt()).Nombre) : "") : ""),
-                    CorreoElectronico = c.CorreoElectronico
-
+                    CorreoElectronico = c.CorreoElectronico,
+                    VieneDe = c.VieneDe,
+                    RechazadoPor = (c.SubEstadoPostulante != null && c.EstadoPostulanteID == EnumsEstadoPostulante.Rechazada.ToInt()) ?
+                                        lstSubEstadosPostulante.FirstOrDefault(x => x.Valor == c.SubEstadoPostulante).Nombre
+                                        : "",
                 };
                 
             });
@@ -2829,6 +3142,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 {"Fecha Registro", "FechaCreacion"},
                 {"Campaña Registro", "CampaniaDeRegistro"},
+                {"Viene De", "VieneDe"},
                 {"Tipo", "TipoSolicitud"},
                 {"Fuente", "FuenteIngreso"},
                 {"Nombre", "NombreCompleto"},
@@ -2852,6 +3166,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Estado Postulante", "EstadoPostulante");
                 dic.Add("Dias en Espera", "DiasEnEspera");
+                dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Zona Origen", "ZonaGZ");
                 dic.Add("Seccion Origen", "SeccionOrigen");
 
@@ -2888,6 +3203,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 dic.Add("Tipo Rechazo", "TipoRechazo");
                 dic.Add("Motivo Rechazo", "MotivoRechazo");
+                dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Dias en Espera", "DiasEnEspera");
 
                 dic.Add("Num Dias Rechazados", "NumDiasRechazados");

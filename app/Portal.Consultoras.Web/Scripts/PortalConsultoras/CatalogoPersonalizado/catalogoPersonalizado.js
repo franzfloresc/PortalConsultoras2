@@ -969,6 +969,15 @@ function DialogLoadingAbrir() {
 }
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            alert('Acceso restringido, aun no puede agregar pedidos');
+            return true;
+        }
+    }
+    */
+
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
@@ -1020,6 +1029,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
     jQuery.ajax({
         type: 'GET',
         url: urlReservadoOEnHorarioRestringido,
+        data: { tipoAccion : '2' },
         dataType: 'json',
         async: true,
         contentType: 'application/json; charset=utf-8',

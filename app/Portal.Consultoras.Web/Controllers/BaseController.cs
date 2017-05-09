@@ -66,64 +66,70 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ProgramasBelcorpMenu = BuildMenuService();
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
-                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    /*** EPD 2170 ***/
+                    if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
-                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                        ViewBag.SegmentoConsultoraMenu = 1;
                     }
-                    else
-                    {
-                        ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    else {
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                        {
+                            ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                        }
+                        else
+                        {
+                            ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                        } 
                     }
+                    /*** FIN EPD 2170 ***/
 
                     ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
-                    ObtenerPedidoWeb();
-                    ObtenerPedidoWebDetalle();
-
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    //EPD-2058
+                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                    //{
+                        ObtenerPedidoWeb();
+                        ObtenerPedidoWebDetalle();
+                    //}
+                    
                     ViewBag.EsMobile = 1;//EPD-1780
 
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.MostrarODD = NoMostrarBannerODD();
+                    ViewBag.TieneOfertaDelDia = false;
+                    if (!ViewBag.MostrarODD)
                     {
-                        if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                        if (userData.TieneOfertaDelDia)
                         {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                            if (!(
+                                    (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                    || userData.IndicadorGPRSB == 0)
+                                || userData.CloseOfertaDelDia
+                            )
+                            {
+                                ViewBag.TieneOfertaDelDia = false;
+                            }
+
+                            //validar si tiene pedido reservado
+                            //string msg = string.Empty;
+                            //if (ValidarPedidoReservado(out msg))
+                            //    ViewBag.TieneOfertaDelDia = false;
                         }
-                        else if (userData.IndicadorGPRSB == 0)
+                    }
+
+                    //if (userData.HizoLoginExterno)
+                    //{
+                        if (userData.TieneLoginExterno)
                         {
-                            ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                            var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
+                            if (loginFacebook != null)
+                            {
+                                ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
+                            }
                         }
-                        else
-                        {
-                            ViewBag.TieneOfertaDelDia = false;
-                        }
-                    }
-
-
-
-
-                    if (ViewBag.TieneOfertaDelDia)
-                    {
-                        // validar si se cerro el banner
-                        if (userData.CloseOfertaDelDia)
-                            ViewBag.TieneOfertaDelDia = false;
-
-                        // validar si tiene pedido reservado
-                        //string msg = string.Empty;
-                        //if (ValidarPedidoReservado(out msg))
-                        //    ViewBag.TieneOfertaDelDia = false;
-                    }
-
-                    if (NoMostrarBannerODD())
-                    {
-                        ViewBag.MostrarODD = true;
-                    }
-                    else
-                    {
-                        ViewBag.MostrarODD = false;
-                    }
+                    //}
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -197,6 +203,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
+
+            userData.PedidoID = olstPedidoWebDetalle.Count > 0 ? olstPedidoWebDetalle[0].PedidoID : 0;
+            SetUserData(userData);
+
             return olstPedidoWebDetalle;
         }
 
@@ -438,6 +448,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.Menu == null)
             {
                 IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
+                    IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
+
                 using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
                 {
                     lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
@@ -451,7 +463,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
                 List<PermisoModel> lstModel = new List<PermisoModel>();
-                foreach (var permiso in lst)
+
+                    lst2 = lst;
+                    if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                    {
+                        lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
+                    }
+
+                    foreach (var permiso in lst2)
                 {
                     if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                     {
@@ -557,15 +576,24 @@ namespace Portal.Consultoras.Web.Controllers
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
 
+                /*** EPD 2170 ***/
                 int SegmentoID;
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
-                    SegmentoID = userData.SegmentoID;
+                    SegmentoID = 1;
                 }
                 else
                 {
-                    SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                    {
+                        SegmentoID = userData.SegmentoID;
+                    }
+                    else
+                    {
+                        SegmentoID = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
+                    }
                 }
+                /*** FIN EPD 2170 ***/
 
                 int SegmentoServicio = userData.EsJoven == 1 ? 99 : SegmentoID;
 
@@ -599,9 +627,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Cargar variables
 
-                if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-
+                //EPD-2058
+                //if (model.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                //{
+                   if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
+                //}
+                
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
+                ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;
@@ -675,6 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
                 TimeSpan HoraCierrePortal = model.EsZonaDemAnti == 0 ? model.HoraCierreZonaNormal : model.HoraCierreZonaDemAnti;
 
                 //Mensaje Cierre Campania y Fecha Promesa
+                #region mensaje fecha promesa
                 var TextoPromesaEspecial = false;
                 var TextoPromesa = ".";
                 var TextoNuevoPROL = "";
@@ -749,9 +783,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                #endregion
+
                 ViewBag.MensajeCierreCampania = ViewBag.MensajeCierreCampania + TextoPromesa + TextoNuevoPROL;
                 ViewBag.FechaFacturacionPedido = model.FechaFacturacion.Day + " de " + NombreMes(model.FechaFacturacion.Month);
                 ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", model.NombreConsultora.ToUpper(), model.CodigoISO, model.CodigoConsultora, model.EMail, model.Telefono.Trim() + (model.Celular.Trim() == string.Empty ? "" : "; " + model.Celular.Trim()));
+                string ss = ViewBag.QSBR;
+                ViewBag.QSBR = ss.Replace("\n", "").Trim();
 
                 model.MenuNotificaciones = 1;
                 ViewBag.TieneFechaPromesa = 0;
@@ -786,6 +824,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
+                //EPD-2058
+                ViewBag.TipoUsuario = model.TipoUsuario;
+
                 return model;
 
                 #endregion
@@ -1487,13 +1528,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected OfertaDelDiaModel GetOfertaDelDiaModel()
         {
-            if (userData.OfertaDelDia != null)
-            {
-                OfertaDelDiaModel model = userData.OfertaDelDia;
-                model.TeQuedan = CountdownODD(userData);
-                return model;
-            }
-            return null;
+            if (userData.OfertasDelDia == null)
+                return null;
+
+            if (!userData.OfertasDelDia.Any())
+                return null;
+
+            var model = userData.OfertasDelDia[0].Clone();
+            model.ListaOfertas = userData.OfertasDelDia;
+            int posicion = 0;
+            model.ListaOfertas.Update(p=>p.ID = posicion++);
+            var listPedidosDetalles = ObtenerPedidoWebDetalle();
+            foreach (var oferta in model.ListaOfertas) { oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none"; }
+            
+            model.TeQuedan = CountdownODD(userData);
+            model.FBRuta = GetUrlCompartirFB();
+            return model;
         }
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
@@ -1564,8 +1614,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenBannerShowroomVenta = Item.Valor;
                 }
             }
-
-
 
             return model;
         }
@@ -1881,6 +1929,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return accion;
             }
+        }
+
+        public bool MostrarFAV()
+        {
+            return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
         }
     }
 }

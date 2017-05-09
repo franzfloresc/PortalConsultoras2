@@ -29,6 +29,9 @@ $(document).ready(function () {
         var descripcionMarca = $(divPadre).find(".hdOfertaFinalDescripcionMarca").val();
         var descripcionEstrategia = $(divPadre).find(".hdOfertaFinalDescripcionEstrategia").val();
         var OrigenPedidoWeb = tipoOrigen == "1" ? DesktopPedidoOfertaFinal : MobilePedidoOfertaFinal;
+        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
+
+        tipoOfertaFinal_Log = $(divPadre).find(".hdTipoMeta").val();
 
         if (!isInt(cantidad)) {
             alert_msg("La cantidad ingresada debe ser un número mayor que cero, verifique");
@@ -205,7 +208,7 @@ $(document).ready(function () {
     });
 
     if (cuvOfertaProl != "") {
-        EjecutarPROL();
+        EjecutarPROL(cuvOfertaProl);
     }
 });
 
@@ -465,6 +468,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
     var productosMostrar = new Array();
     var montoFaltante = 0;
     var porcentajeDescuento = 0;
+    var tipoMeta = 0;
 
     var tipoOfertaFinal = $("#hdOfertaFinal").val();
     var esOfertaFinalZonaValida = $("#hdEsOfertaFinalZonaValida").val();
@@ -495,6 +499,8 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
         if (resultado == true) {
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
+            if (productoOfertaFinal.lista.length != 0) //bug EPD-2365
+                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
 
@@ -504,7 +510,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
         montoFaltante: montoFaltante, //REVISAR
         porcentajeDescuento: porcentajeDescuento, //REVISAR
         muestraGanaMas: 0, //REVISAR
-        tipoOfertaFinal_Log: 0, //REVISAR
+        tipoOfertaFinal_Log: tipoMeta, //REVISAR
         gap_Log: 0 //REVISAR
     };
 }

@@ -3,10 +3,32 @@ var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
+var openloginPopup = false;
 
 $(document).ready(function () {
+    $(window).resize(function () {
+        //resize just happened, pixels changed
+        resizeNameUserExt();
+    });
+
+    $(document).keyup(function (e) {
+        if (e.keyCode == 27) {
+            
+            if ($('#popupAsociarUsuarioExt').is(':visible')) {
+                $('#popupAsociarUsuarioExt').hide();
+            }
+        }
+    });
+
+
+    $('#btnLoginFB').addClass('center_facebook');
+
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
+    
+    $('#ddlPais2').val(isoPais);
+    ayudaLogin2();
+    
     //$('#cboPaisCambioClave').val(isoPais);
 
     if (avisoASP == 1) {
@@ -27,6 +49,7 @@ $(document).ready(function () {
     if (banderaOk == 'True') {
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
+        $('#cargarBandera3').css("background", "url('/Content/Images/Login2/Banderas/" + isoPais + ".png') top 10px left 2px no-repeat");
     }
     else {
         $('#cargarBandera').css('background', "url('/Content/Images/Login2/Banderas/00.png') top -7px left -10px no-repeat");
@@ -46,6 +69,28 @@ $(document).ready(function () {
         }       
         EsconderLogoEsikaPanama(imgISO);
         AsignarHojaEstilos();
+
+        $('#ddlPais2').val(imgISO);
+        ayudaLogin2();
+    });
+
+    $("#ddlPais2").change(function () {
+        imgISO = $("#ddlPais2").val();
+        
+        if (paisesEsika.indexOf(imgISO) != -1) {
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        }
+        else {
+            if (paisesLBel.indexOf(imgISO) != -1) {
+                $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+            }
+            else {
+                $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+            }
+        }
+
+        ayudaLogin2();
+        //AsignarHojaEstilos();
     });
 
     $("#box-pop-up").hide();
@@ -130,15 +175,15 @@ $(document).ready(function () {
             return false;
         }
 
+        waitingDialog();
+
         $('#HdePaisID').val(PaisID);
-        $('#ddlPais option:not(:selected)').prop('disabled', true);
-        $('#txtUsuario').attr('readonly', true);
-        $('#txtContrasenia').attr('readonly', true);
-        $('#btnLogin').prop('disabled', true);
+
+        preventClick(1, true);
+        $('#btnLoginFB').prop('disabled', true);
     });
 
     $("#txtUsuario").keypress(
-
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
@@ -152,12 +197,38 @@ $(document).ready(function () {
             }
         });
 
+    $("#txtUsuario2").keypress(
+        function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            //ValidarAutenticacion();
+            $('#txtContrasenia2').focus();
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+            return re.test(keyChar);
+        }
+        });
+
     $("#txtContrasenia").keypress(
         function (evt) {
             var charCode = (evt.which) ? evt.which : window.event.keyCode;
             if (charCode <= 13) {
                 //ValidarAutenticacion();
                 $('#btnLogin').focus();
+            }
+        });
+
+    $("#txtContrasenia2").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                //ValidarAutenticacion();
+                $('#btnLogin2').focus();
+                login2();
+                return false;
             }
         });
 
@@ -216,6 +287,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    localStorage.setItem('PopUpChatOpened', 'false');
 });
 
 function Inicializar()
@@ -329,6 +402,72 @@ function CloseDialog(pop) {
     $("#" + pop).hide();
 }
 
+function ayudaLogin2() {
+    var aa = $('div.content-alerta-red-user');
+    var bb = $('div.content-alerta-red-clave');
+    var m1 = null;
+    var m2 = null;
+    var iso = $('#ddlPais2').val();
+
+    switch (iso) {
+        case "PE":
+            m1 = $(aa).find('.alerta_red_peru_user').html();
+            m2 = $(bb).find('.alerta_red_peru_clave').html();
+            break;
+        case "BO":
+            m1 = $(aa).find('div.alerta_red_bolivia_user').html();
+            m2 = $(bb).find('div.alerta_red_bolivia_clave').html();
+            break;
+        case "CL":
+            m1 = $(aa).find('div.alerta_red_chile_user').html();
+            m2 = $(bb).find('div.alerta_red_chile_clave').html();
+            break;
+        case "PA":
+            m1 = $(aa).find('div.alerta_red_cam_user9').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "GT":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "CR":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "SV":
+            m1 = $(aa).find('div.alerta_red_cam_user7').html();
+            m2 = $(bb).find('div.alerta_red_cam_clave').html();
+            break;
+        case "PR":
+            m1 = $(aa).find('div.alerta_red_pr_user').html();
+            m2 = $(bb).find('div.alerta_red_pr_clave').html();
+            break;
+        case "DO":
+            m1 = $(aa).find('div.alerta_red_do_user').html();
+            m2 = $(bb).find('div.alerta_red_do_clave').html();
+            break;
+        case "MX":
+            m1 = $(aa).find('div.alerta_red_mx_user').html();
+            m2 = $(bb).find('div.alerta_red_mx_clave').html();
+            break;
+        case "EC":
+            m1 = $(aa).find('div.alerta_red_ec_user').html();
+            m2 = $(bb).find('div.alerta_red_ec_clave').html();
+            break;
+        case "VE":
+            m1 = $(aa).find('div.alerta_red_ve_user').html();
+            m2 = $(bb).find('div.alerta_red_ve_clave').html();
+            break;
+        case "CO":
+            m1 = $(aa).find('div.alerta_red_co_user').html();
+            m2 = $(bb).find('div.alerta_red_co_clave').html();
+            break;
+    }
+
+    $('#ayuda-msg-user').html(m1.trim());
+    $('#ayuda-msg-clave').html(m2.trim());
+}
+
 function AbrirMensajeLogin(tipo, close) {
     close = close || false;
     $(".content-alerta-red-user > div").removeClass("alerta_red_block");
@@ -393,6 +532,7 @@ function AsignarHojaEstilos() {
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
     else {
         if (paisesLBel.indexOf(imgISO) != -1) {
@@ -405,6 +545,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         } else {
             if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
@@ -415,6 +556,7 @@ function AsignarHojaEstilos() {
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
         }
     }
 }
@@ -485,3 +627,121 @@ function EsconderLogoEsikaPanama(imgISO) {
     };
 }
 
+function login2() {
+    var valid = true;
+    var CodigoISO = $('#ddlPais2').val();
+    var PaisID = $('#ddlPais2 :selected').data('id');
+    var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
+    var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
+    $('#hdeCodigoISO').val(CodigoISO);
+    var mensaje = "";
+
+    if (typeof CodigoISO == 'undefined' || PaisID == "")
+        mensaje += "- Debe seleccionar el País del Usuario.\n";
+    if (CodigoUsuario == "")
+        mensaje += "- Debe ingresar el Usuario.\n";
+    if (Contrasenia == "")
+        mensaje += "- Debe ingresar la Clave Secreta.\n";
+
+    if (mensaje != "") {
+        valid = false;
+        alert(mensaje);
+        $('#txtUsuario2').focus();
+    }
+
+    if (!valid) {
+        //e.preventDefault();
+        return false;
+    }
+
+    $('#ddlPais').val(CodigoISO);
+    $('#txtUsuario').val(CodigoUsuario);
+    $('#txtContrasenia').val(Contrasenia);
+
+    $('#HdePaisID').val(PaisID);
+    //preventClick(2, true);
+
+    //$('.content_pop_login').hide();
+    //$('#btnLoginFB').prop('disabled', true);
+
+    waitingDialog();
+
+    //$('#frmLogin').submit();
+    var form = $('#frmLogin');
+    //var token = $('input[name="__RequestVerificationToken"]', form).val();
+    var postData = form.serialize() + "&returlUrl=" + $('#returnUrl').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/Login/Login',
+        data: postData,
+        dataType: 'json',
+        //contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            //console.log(response);
+
+            if (response.success) {
+                if (response.redirectTo !== "") {
+                    document.location.href = response.redirectTo;
+                }
+            }
+            else {
+                //console.log(response);
+                closeWaitingDialog();
+                $('#ErrorTextLabel2').html(response.message);
+                $("#ErrorTextLabel2").css("padding-left", "20px");
+                $('#divMensajeError2').show();
+
+                $('#txtUsuario').val('');
+                $('#txtContrasenia').val('');
+                //preventClick(2, false);
+            }
+        },
+        error: function (response) {
+            //console.log(response);
+            closeWaitingDialog();
+            alert("Error al procesar la solicitud");
+
+            $('#txtUsuario').val('');
+            $('#txtContrasenia').val('');
+            //preventClick(2, false);
+
+        }
+    });
+}
+
+function closePopupAsociarLoginExt() {
+    preventClick(1, false);
+
+    //$('.content_pop_login').hide();
+    $('#popupAsociarUsuarioExt').hide();
+}
+
+function preventClick(opt, value) {
+    if (opt == 1) {
+        $('#ddlPais option:not(:selected)').prop('disabled', value);
+        $('#txtUsuario').attr('readonly', value);
+        $('#txtContrasenia').attr('readonly', value);
+        $('#btnLogin').prop('disabled', value);
+    }
+    else if (opt == 2) {
+        $('#ddlPais2 option:not(:selected)').prop('disabled', value);
+        $('#txtUsuario2').attr('readonly', value);
+        $('#txtContrasenia2').attr('readonly', value);
+        $('#btnLogin2').prop('disabled', value);
+    }
+}
+
+function resizeNameUserExt() {
+    var w = $(window).width();  //1366,1093
+    var ml = 8;
+    if (w <= 1093) ml = 16;
+    var fname = $('#hdeNameUserExt').val();
+
+    if (typeof fname !== 'undefined' && fname != "") {
+        if (fname.length > ml) {
+            fname = fname.substring(0, ml).trim() + '.';
+        }
+        $('#btnLoginFB2').text('Continuar como ' + fname);
+    }
+}

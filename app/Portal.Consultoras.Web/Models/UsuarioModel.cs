@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-
+            this.EsLebel = false;
         }
 
         public string Celular { get; set; }
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
         public int CampaniaID { get; set; }
-        
+
         public string CampaniaAnio
         {
             get
@@ -329,11 +329,18 @@ namespace Portal.Consultoras.Web.Models
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public List<OfertaDelDiaModel> OfertasDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
 
+        //MC-EPD1837
+        public bool HizoLoginExterno { get; set; }
+        public bool TieneLoginExterno { get; set; }
+        public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
+        
         public bool CloseBannerCompraPorCompra { get; set; }
+        public bool EsLebel { get; set; }
     }
 }
