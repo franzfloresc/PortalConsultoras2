@@ -296,6 +296,7 @@
     var originalContent;
     var imagen = "";
     var imagenPrevia = "";
+    var isNuevo = false;
 
     var estrategiaObj;
 
@@ -316,6 +317,8 @@
         });
 
         $("#btnNuevo").click(function () {
+            isNuevo = true;
+
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
             if ($("#ddlPais").val() == "") {
@@ -1770,10 +1773,10 @@
                         }
                     }
 
-                    /*if ($('.chkImagenProducto:checked').length == 0) {
+                    if ($('.chkImagenProducto:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
-                    }*/
+                    }
 
                     if (imagen=="") {
                         alert("Seleccione una imagen a mostrar.");
@@ -1805,7 +1808,11 @@
                         return false;
                     }
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
-                    var EstrategiaID = $("#hdEstrategiaID").val();
+
+                    var EstrategiaID = 0;
+                    if(!isNuevo)
+                        EstrategiaID = $("#hdEstrategiaID").val();
+
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var CampaniaID = $("#hdCampania").val();
                     var CampaniaIDFin = $("#ddlCampaniaFin").val();

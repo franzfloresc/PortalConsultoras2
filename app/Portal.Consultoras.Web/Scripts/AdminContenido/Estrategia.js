@@ -263,7 +263,7 @@
 
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
-            marcarCheckRegistro(imagen);          
+            marcarCheckRegistro(_editData.imagen);
         };
     };
 
@@ -284,7 +284,6 @@
 
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
-        //_crearFileUploadElements(editData);
     };
 
 
@@ -326,6 +325,10 @@
         editar: function (id, event) {
             event.preventDefault();
             event.stopPropagation();
+
+            if (id != 0)
+                isNuevo = false;
+
             if (id) {
                 waitingDialog({});
 
