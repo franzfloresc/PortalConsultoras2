@@ -1,5 +1,6 @@
-﻿
-GO
+﻿----------------------------------------------------
+-- CREACION DE NUEVAS TABLAS PARA LA REVISTA DIGITAL
+----------------------------------------------------
 IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[ConfiguracionPais]') AND (type = 'U') )
 	DROP TABLE ConfiguracionPais
 GO
@@ -50,6 +51,9 @@ CREATE TABLE [dbo].[RevistaDigitalSuscripcion]
 
 GO
 
+-------------------------------------------------------
+-- CREAR O ACTUALIZAR UN REGISTRO DE LA REVISTA DIGITAL 
+-------------------------------------------------------
 go
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Registro]') AND type in (N'P', N'PC')) 
 	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
