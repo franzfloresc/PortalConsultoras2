@@ -1495,9 +1495,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(paisID, campaniaID, codigoConsultora, mostrarPopup);
         }
 
-        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
-            return BLShowRoomEvento.GetProductosShowRoom(paisID, tipoOfertaSisID, campaniaID, codigoOferta);
+            return BLShowRoomEvento.GetProductosShowRoom(paisID, campaniaID);
         }
 
         public int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID)
@@ -1533,11 +1533,6 @@ namespace Portal.Consultoras.Service
         public int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity)
         {
             return BLShowRoomEvento.RemoverOfertaShowRoom(paisID, entity);
-        }
-
-        public IList<BEShowRoomOferta> GetShowRoomOfertas(int paisID, int campaniaID)
-        {
-            return BLShowRoomEvento.GetShowRoomOfertas(paisID, campaniaID);
         }
 
         public int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV)
@@ -1676,6 +1671,32 @@ namespace Portal.Consultoras.Service
         {
             return BLShowRoomEvento.GetProductosCompraPorCompra(paisId, EventoID, CampaniaID);
         }
+
+        public IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisID)
+        {
+            return BLShowRoomEvento.GetShowRoomTipoOferta(paisID);
+        }
+
+        public int ExisteShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            return BLShowRoomEvento.ExisteShowRoomTipoOferta(paisId, entity);
+        }
+
+        public int InsertShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            return BLShowRoomEvento.InsertShowRoomTipoOferta(paisId, entity);
+        }
+
+        public int UpdateShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            return BLShowRoomEvento.UpdateShowRoomTipoOferta(paisId, entity);
+        }
+
+        public void HabilitarShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            BLShowRoomEvento.HabilitarShowRoomTipoOferta(paisId, entity);
+        }
+
         #endregion
 
         #region Producto SUgerido
