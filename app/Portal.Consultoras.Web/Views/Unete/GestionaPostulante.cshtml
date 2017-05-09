@@ -133,6 +133,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="div-3">
+
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
+                        @Html.TextBoxFor(m => Model.CodigoRegion, new { @style = "text-transform: uppercase;", @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Region" })
+                    </div>
+                </div>
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
+                        <table>
+                            <tr>
+                                @foreach (var item in Model.FuenteIngresoListAvailable)
+                                {
+
+                                <td>
+                                    <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
+                                </td>
+                                <td style="width:100px;padding-right:5px;">
+                                    <label for="@item.ID"><span class="textEbel">@item.Descripcion</span></label>
+                                </td>
+                                }
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
             
         </div>
     </div>
@@ -165,15 +194,15 @@
                 <div class="cellGrid  headerGrid" data-colName="CodigoConsultora">Codigo<br />de<br />Consultora</div>
                 <div class="cellGrid  headerGrid"  data-colName="FechaIngreso">Fecha<br />Ingreso</div>
                 <div class="cellGrid  headerGrid" data-colName="CampanaIngreso">Campaña<br />Ingreso</div>   
-                <div class="cellGrid  headerGrid"   data-colName="Ubicacion">Ubicacion</div>
-                <div class="cellGrid  headerGrid"  data-colName="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
                 <div class="cellGrid  headerGrid"  data-colName="EvaluacionTelefonica">Evaluacion<br />Telefonica</div>
                 <div class="cellGrid  headerGrid"  onclick="OrderListByColumnn(this, 'EstadoPostulante')" data-colName="Estado">Estado</div>
                 <div class="cellGrid  headerGrid" data-colName="TipoRechazo">Tipo<br />Rechazo</div>
                 <div class="cellGrid  headerGrid" data-colName="MotivoRechazo">Motivo<br />Rechazo</div>
                 <div class="cellGrid  headerGrid" data-colname="UsuarioModificacion">Usuario<br />Rechazo</div>
                 <div class="cellGrid  headerGrid alignCenter" data-colName="Editar">Editar</div>
-                <div class="cellGrid  headerGrid" data-colName="Documentos">Documentos</div>
+                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderDocumentos')" data-colname="Documentos">Documentos</div>
                 <div class="cellGrid  headerGrid" data-colName="PendienteConfirmacion">Pendiente<br />de<br />Confirmacion</div>
                 <div class="cellGrid  headerGrid"  data-colName="Reactivar">Reactivar</div>
                 <div class="cellGrid  headerGrid" data-colName="Aprobar">Aprobar</div>
@@ -411,6 +440,8 @@
                 Estado: defaultStatus == null ? $("#Estado").val() : 2,
                 DocumentoIdentidad: $("#DocumentoIdentidad").val(),
                 CodigoZona: $("#CodigoZonaFiltro").val(),
+                CodigoRegion: $("#CodigoRegionFiltro").val(),
+                FuenteIngreso: ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : ''),
                 sidx: sidx,
                 sord: sord,
                 page: page || 1,
@@ -1469,15 +1500,18 @@
         var Estado = $("#Estado").val();
         var DocumentoIdentidad = $("#DocumentoIdentidad").val();
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
+        var CodigoRegion = $("#CodigoRegionFiltro").val();
+        var FuenteIngreso = ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : '');
+
         
         generalLoading();
 
         setTimeout(function () {
-            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro);
+            DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro, CodigoRegion, FuenteIngreso);
         }, 0);
     }
 
-    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro) {
+    function DownloadAttachExcel(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZonaFiltro, CodigoRegion, FuenteIngreso) {
         var content = baseUrl +
             "Unete/ExportarExcel?" +
             "PrefijoISOPais=" +
@@ -1493,7 +1527,11 @@
             "&DocumentoIdentidad=" +
             DocumentoIdentidad +
             "&CodigoZona=" +
-            codigoZonaFiltro;
+            codigoZonaFiltro+
+            "&CodigoRegion=" +
+            CodigoRegion+
+            "&FuenteIngreso=" +
+            FuenteIngreso;
 
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";
@@ -1613,6 +1651,29 @@
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
+    function buildDocsSV(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO y DECLARACIÓN JURADA'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+
+
+    }
+    function buildDocsGT(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'ACUERDO DE COMPRA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+    }
+    function buildDocsPA(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));
+    }
 
 
     function consultarDocs(solicitudPostulanteID) {
@@ -1645,16 +1706,43 @@
         else if (codigoIso == 'CR') {
             buildDocsCR(solicitudPostulanteID);
         }
-        else {
-            buildDocsCR(solicitudPostulanteID);
+        else if (codigoIso == 'SV') {
+            buildDocsSV(solicitudPostulanteID);
+        }
+        else if (codigoIso == 'GT') {
+            buildDocsGT(solicitudPostulanteID);
+        }
+        else if (codigoIso == 'PA') {
+            buildDocsPA(solicitudPostulanteID);
         }
 
-
-
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
-        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        //Documentos Fiador
+        if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA')
+        {
+            if (codigoIso == 'SV')
+            {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN y DECLARACIÓN JURADA'));
+            }
+            else if (codigoIso == 'GT') {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));
+            }
+            else if (codigoIso == 'PA') {
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));
+            }
+        }
+        else
+        {
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
+            $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
+        }
+        
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');
