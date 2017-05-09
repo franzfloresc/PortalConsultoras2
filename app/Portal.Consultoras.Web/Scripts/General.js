@@ -804,7 +804,6 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    //LayoutHeader();
     var url = location.href.toLowerCase();
     var esMobile = url.indexOf("/mobile/") > 0;
     var esBienvenida = url.indexOf("/bienvenida") > 0;
@@ -815,7 +814,6 @@ function xMensajeEstadoPedido(estado) {
     //var esloquidacionweb = url.indexOf("mobile/ofertaliquidacion") > 0;
     //var esmobileEstadoCuenta = url.indexOf("mobile/estadocuenta") > 0;
     //var esmobileBienvenida = url.indexOf("/mobile/bienvenida") > 0;
-
     if (estado) {
         var wheight = $(window).innerHeight();
         $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
@@ -861,7 +859,7 @@ function xMensajeEstadoPedido(estado) {
         $("#bloquemensajesPedido").slideUp();
         if (esMobile) {
             wtop = $("header").height();
-
+    LayoutHeader();
             if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
                 LayoutHeader();
 
@@ -921,7 +919,6 @@ function xMensajeEstadoPedido(estado) {
                         } else {
                             $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
                         }
-
                     }
                     else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
                 }
@@ -1002,12 +999,16 @@ function cerrarMensajePostulante() {
         success: function (response) {
             if (response.success) {
                 $('#bloquemensajesPostulante').hide();
+                $(".ubicacion_web").css("margin-top","-64px");
             }
         },
         error: function (response) {
             console.log(response);
         }
     });
+
+    //OrdenarCabecera();
+
 }
 
 function MostrarMensajePedidoRechazado() {
