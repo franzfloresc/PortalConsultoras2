@@ -8269,6 +8269,20 @@ span.title-app-b {
     padding-right: 20px;
 }
 
+/*POP UP REVISTA DIGITAL*/
+.content_revista_digital{
+    max-width: 320px;
+    width: 93%;
+    height: 440px;
+    /*background: white;*/
+    top: 14%;
+    margin: 0 auto 25px auto;
+    position: relative;
+    padding-top: 46px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
 @media screen and (orientation:landscape){
 
     .content_foto_cargada {
