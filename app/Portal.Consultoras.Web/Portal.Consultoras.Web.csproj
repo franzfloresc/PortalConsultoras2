@@ -388,6 +388,8 @@
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\EventoPostulanteModel.cs" />
+    <Compile Include="Models\HistorialPostulanteModel.cs" />
     <Compile Include="Models\IngresoExternoChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginFacebookChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginNormalChatbotModel.cs" />
@@ -2048,6 +2050,7 @@
     <Content Include="Content\Images\ico_print.png" />
     <Content Include="Content\Images\ico_twitter.png" />
     <Content Include="Content\Images\image.png" />
+    <Content Include="Content\Images\img-historialPostulante.svg" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
@@ -2439,11 +2442,13 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
+    <Content Include="Content\Images\mobile\Esika\catalogo_ws2.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
     <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
+    <Content Include="Content\Images\mobile\Esika\facebook2.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
@@ -2671,12 +2676,15 @@
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
+    <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
+    <Content Include="Content\Images\PL20\left_compra.png" />
     <Content Include="Content\Images\PL20\mas.png" />
     <Content Include="Content\Images\PL20\menos.png" />
     <Content Include="Content\Images\PL20\regresar.png" />
+    <Content Include="Content\Images\PL20\right_compra.png" />
     <Content Include="Content\Images\PL20\set_hoy.png" />
     <Content Include="Content\Images\PL20\solo_hoy.png" />
     <Content Include="Content\Images\PL20\textura_fondo.png" />
@@ -2900,6 +2908,7 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -3888,6 +3897,7 @@
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
+    <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />

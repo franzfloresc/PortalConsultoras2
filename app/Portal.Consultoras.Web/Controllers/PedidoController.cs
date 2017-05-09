@@ -44,6 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["PedidoWeb"] = null;
                 Session["PedidoWebDetalle"] = null;
 
+                /*** EPD-2378 ***/
+                Session["EmailPedidoDetalle"] = null;
+                /*** FIN EPD-2378 ***/
+
                 #endregion
 
                 #region Kit Nuevas

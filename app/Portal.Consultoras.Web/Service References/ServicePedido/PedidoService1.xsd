@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfBEShowRoomOferta">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEShowRoomOferta" nillable="true" type="tns:ArrayOfBEShowRoomOferta" />
   <xs:complexType name="BEShowRoomOferta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
@@ -32,9 +26,8 @@
       <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaShowRoomID" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioOferta2" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="StockInicial" type="xs:int" />
       <xs:element minOccurs="0" name="StockResultado" type="xs:int" />
@@ -112,6 +105,31 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCategoria" nillable="true" type="tns:BEShowRoomCategoria" />
+  <xs:complexType name="ArrayOfBEShowRoomOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomOferta" nillable="true" type="tns:BEShowRoomOferta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomOferta" nillable="true" type="tns:ArrayOfBEShowRoomOferta" />
+  <xs:complexType name="ArrayOfBEShowRoomTipoOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomTipoOferta" nillable="true" type="tns:BEShowRoomTipoOferta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEShowRoomTipoOferta" nillable="true" type="tns:ArrayOfBEShowRoomTipoOferta" />
+  <xs:complexType name="BEShowRoomTipoOferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TipoOfertaID" type="xs:int" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEShowRoomTipoOferta" nillable="true" type="tns:BEShowRoomTipoOferta" />
   <xs:complexType name="BEShowRoomEventoConsultora">
     <xs:sequence>
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />

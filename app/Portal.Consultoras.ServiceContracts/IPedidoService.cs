@@ -802,7 +802,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
 
         [OperationContract]
-        IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta);
+        IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID);
 
         [OperationContract]
         int GetOrdenPriorizacionShowRoom(int paisID, int ConfiguracionOfertaID, int CampaniaID);
@@ -820,10 +820,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
-        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
-
-        [OperationContract]
-        IList<BEShowRoomOferta> GetShowRoomOfertas(int paisID, int campaniaID);
+        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);        
 
         [OperationContract]
         int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV);
@@ -905,6 +902,22 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEShowRoomOferta> GetProductosCompraPorCompra(int paisId, int EventoID, int CampaniaID);
+
+        [OperationContract]
+        IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisID);
+
+        [OperationContract]
+        int ExisteShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity);
+
+        [OperationContract]
+        int InsertShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity);
+
+        [OperationContract]
+        int UpdateShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity);
+
+        [OperationContract]
+        void HabilitarShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity);
+
         #endregion
 
         #region Producto SUgerido

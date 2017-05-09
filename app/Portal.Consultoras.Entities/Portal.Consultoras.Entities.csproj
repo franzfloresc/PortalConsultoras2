@@ -275,6 +275,7 @@
     <Compile Include="BEUsuarioExterno.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
+    <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
     <Compile Include="BEUsuarioConfiguracion.cs" />
   </ItemGroup>
   <ItemGroup>
