@@ -1152,11 +1152,20 @@
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
                 <div class="revista-title">
-                    <p class="marca">ÉSIKA</p>
+                    <div class="logo-marca">
+                        <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+                    </div>
+                    <div class="titulo_nuevaRevista">
+                        <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                            <span>YULIANA</span>, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA
+                        </span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS</span>
+                    </div>
+                    @*<p class="marca">ÉSIKA</p>
                     <div class="giftext">
                         <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
                     </div>
-                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>*@
                 </div>
                 {{else}}
                 <div class="titulo_ofertas_home">

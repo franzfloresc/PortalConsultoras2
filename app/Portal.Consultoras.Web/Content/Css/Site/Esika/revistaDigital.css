@@ -6,8 +6,8 @@
 
 /*MI REVISTA*/
 .revista {
-    background: url(http://d33wubrfki0l68.cloudfront.net/img/4a19dc81ab45c532e80be57f07d17242b1fb4d77/parallax-3.jpg) no-repeat;
-	background-position: center top;
+    /*background: url(http://d33wubrfki0l68.cloudfront.net/img/4a19dc81ab45c532e80be57f07d17242b1fb4d77/parallax-3.jpg) no-repeat;*/
+    background-position: center top;
 	margin-top: 30px;
 	text-align: center;
     height: auto;
@@ -131,7 +131,7 @@
     background: #ff2f45;
 }
 .revista .boxoffer p{
-        text-align: left;
+    text-align: left;
     position: absolute;
     font-size: 9px;
     top: 18px;
@@ -149,3 +149,63 @@
 .revista-landing .content_item_carrusel{
     width: auto;
 }
+
+.revista-title {
+    display: block;
+    width: 100%;
+    max-width: 1114px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom:14px;
+}
+
+.logo-marca, .linea-separacion, .titulo_nuevaRevista {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.logo-marca {
+    width: 248px;
+    height: auto;
+}
+
+.logo-marca img{
+    width:88%;
+    height:auto;
+}
+
+.linea-separacion {
+    width: 1px;
+    background: #000;
+    height: 78px;
+    margin-top: 14px;
+    margin-left: 6px;
+    margin-right: 41px;
+    transform: rotate(15deg);
+    -moz-transform: rotate(15deg);
+    -o-transform: rotate(15deg);
+    -ms-transform: rotate(15deg);
+    -webkit-transform: rotate(15deg);
+}
+
+.titulo_nuevaRevista {
+    width: 653px;
+    text-align: left;
+    padding-top:12px;
+}
+
+.mensajeConsultora_nuevaRevista {
+    display:block;
+}
+
+.mensajeConsultora_nuevaRevista.texto_nuevaRevista{
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
+    font-family: 'Lato Light';
+    font-size: 20px;
+}
+
