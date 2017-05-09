@@ -2851,8 +2851,8 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
-	<Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
-	<Content Include="Scripts\AdminContenido\Estrategia.js" />
+    <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
+    <Content Include="Scripts\AdminContenido\Estrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -3376,7 +3376,7 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
@@ -3902,10 +3902,10 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
-	<Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
+    <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
-	<Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
-	<Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
+    <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />

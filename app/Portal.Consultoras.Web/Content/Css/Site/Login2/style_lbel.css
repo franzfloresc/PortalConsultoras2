@@ -512,6 +512,10 @@ span {
     font-size: 20px;
 }
 
+.text_bienvenida_esika span {
+    font-size: 20px;
+}
+
 @font-face {
     font-family: icomoon;
     src: url(../fonts/icomoon/icomoon.eot?ur7cdc);
