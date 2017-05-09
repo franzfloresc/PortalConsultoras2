@@ -1175,6 +1175,7 @@ function GuardarIndicadorPedidoAutentico() {
                     data: JSON.stringify(data2),
                     success: function (response) {
                         if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
                             localStorage.setItem('SBTokenPedido', response.message);
                         }
                     },
@@ -1183,8 +1184,14 @@ function GuardarIndicadorPedidoAutentico() {
                     }
                 });
             } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
 
-                var data3 = { 'accion': 3, 'codigo': itemSBTokenPedido };
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
                 jQuery.ajax({
                     type: 'POST',
                     url: '/Pedido/GuardarIndicadorPedidoAutentico',
@@ -1193,6 +1200,10 @@ function GuardarIndicadorPedidoAutentico() {
                     data: JSON.stringify(data3),
                     success: function (response) {
                         if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
                         }
                     },
                     error: function (response) {
