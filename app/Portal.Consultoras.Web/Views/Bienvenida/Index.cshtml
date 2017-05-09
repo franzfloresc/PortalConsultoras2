@@ -1147,7 +1147,8 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
+        <div class="background-revistaSeccion"></div>
         <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
@@ -1155,6 +1156,7 @@
                     <div class="logo-marca">
                         <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
                     </div>
+                    <div class="linea-separacion"></div>
                     <div class="titulo_nuevaRevista">
                         <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
                             <span>YULIANA</span>, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA

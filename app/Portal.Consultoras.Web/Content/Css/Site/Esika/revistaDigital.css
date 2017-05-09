@@ -159,27 +159,30 @@
     margin-bottom:14px;
 }
 
-.logo-marca, .linea-separacion, .titulo_nuevaRevista {
+.revista-title .logo-marca, .revista-title .linea-separacion, .revista-title .titulo_nuevaRevista {
     display: inline-block;
     vertical-align: middle;
 }
 
-.logo-marca {
-    width: 248px;
+.revista-title .logo-marca {
+    width: 245px;
     height: auto;
+    margin-left:103px;
 }
 
-.logo-marca img{
-    width:88%;
-    height:auto;
+.revista-title .logo-marca img{
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 31px;
 }
 
-.linea-separacion {
+.revista-title .linea-separacion {
     width: 1px;
     background: #000;
     height: 78px;
     margin-top: 14px;
-    margin-left: 6px;
+    margin-left: -30px;
     margin-right: 41px;
     transform: rotate(15deg);
     -moz-transform: rotate(15deg);
@@ -188,24 +191,37 @@
     -webkit-transform: rotate(15deg);
 }
 
-.titulo_nuevaRevista {
+.revista-title .titulo_nuevaRevista {
     width: 653px;
     text-align: left;
     padding-top:12px;
 }
 
-.mensajeConsultora_nuevaRevista {
+.revista-title .mensajeConsultora_nuevaRevista {
     display:block;
 }
 
-.mensajeConsultora_nuevaRevista.texto_nuevaRevista{
+.revista-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista{
     font-family: 'Lato';
     font-size: 20px;
     font-weight: 900;
 }
 
-.mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
+.revista-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
     font-family: 'Lato Light';
     font-size: 20px;
 }
 
+.background-revistaSeccion{
+    display: block;
+    width: 415px;
+    height: 100vh;
+    top: 9px;
+    position: absolute;
+    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -194px -71px;
+    background-size: 150%;
+}
+
+.fondo_gris{
+    position:relative;
+}
