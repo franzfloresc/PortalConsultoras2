@@ -49,6 +49,25 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            try
+            {
+                List<BEMatrizComercialImagen> listaImagenes = new List<BEMatrizComercialImagen>();
+
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = DAEstrategia.GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros))
+                {
+                    while (reader.Read())
+                    {
+                        listaImagenes.Add(new BEMatrizComercialImagen(reader));
+                    }
+                }
+                return listaImagenes;
+            }
+            catch (Exception) { throw; }
+        } 
+
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
             try
