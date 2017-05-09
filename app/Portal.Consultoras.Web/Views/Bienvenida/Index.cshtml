@@ -1169,7 +1169,7 @@
                 {{/iff}}
             </div>
             <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"></div>
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
             {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
             <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
                 <p>MÁS<br>OFERTAS<br>PARA TI</p>
@@ -1183,11 +1183,11 @@
 
 @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 
-<script id="estrategia-atemplate1" type="text/x-handlebars-template">
-    {{#each this.Lista as |item|}}
+<script id="estrategia-template1" type="text/x-handlebars-template">
+    {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
+        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
             <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
                 <div class="producto_img_home">
@@ -1224,6 +1224,7 @@
                         <b>{{DescripcionCUV2}}</b>
                     </p>
                     {{/if_eq}}
+
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                     {{#if_eq EtiquetaID '1'}}
                     <div class="producto_precio">
@@ -1297,7 +1298,7 @@
             </div>
         </div>
     </div>
-    {{/each}}        
+    {{/each}}
 </script>
 
 <script id="liquidacion-template" type="text/x-handlebars-template">
