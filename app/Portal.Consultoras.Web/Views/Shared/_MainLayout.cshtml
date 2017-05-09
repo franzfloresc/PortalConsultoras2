@@ -59,6 +59,20 @@
     </script>
 
     @RenderSection("styles", required: false)
+
+    <style type="text/css">
+        .header_postulante {
+            margin-top: 0px;
+            margin-bottom: -39px;
+            padding-top: 18px;
+        }
+
+        .header_consultora {
+            margin-top: 0px;
+            margin-bottom: -39px;
+            padding-top: 18px;
+        }
+    </style>
 </head>
 <body>
     <!-- Google Tag Manager -->
@@ -309,7 +323,7 @@
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="">
         <div class="SubHeader">
-            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" || controllerAction == "PedidoIndex" ? "oculto" : "")">
+            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" ? "oculto" : "")">
                 <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
             </div>
         </div>

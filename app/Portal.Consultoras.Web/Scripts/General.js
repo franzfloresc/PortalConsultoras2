@@ -792,7 +792,6 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    //debugger;
     LayoutHeader();
 }
 
@@ -864,12 +863,16 @@ function cerrarMensajePostulante() {
         success: function (response) {
             if (response.success) {
                 $('#bloquemensajesPostulante').hide();
+                $(".ubicacion_web").css("margin-top","-64px");
             }
         },
         error: function (response) {
             console.log(response);
         }
     });
+
+    //OrdenarCabecera();
+
 }
 
 function MostrarMensajePedidoRechazado() {

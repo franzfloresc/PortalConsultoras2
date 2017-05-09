@@ -113,8 +113,10 @@ $(document).ready(function () {
     //EPD-2305
     if (mostrarBannerPostulante == 'True') {
         $('#bloquemensajesPostulante').show();
+        $(".ubicacion_web").addClass("header_postulante");
     }
     else {
+        $(".ubicacion_web").addClass("header_consultora");
         MensajeEstadoPedido();
     }
 
@@ -280,6 +282,7 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
+    OrdenarCabecera()
 
     LayoutHeader();
 });
@@ -300,6 +303,19 @@ function messageInfoError(message, titulo) {
 
 function microefectoPedidoGuardado() {
     $(".contenedor_circulos").fadeIn();
+}
+
+
+function OrdenarCabecera() {
+    debugger
+    var hC = $("header").innerHeight() + 2;
+    var htmlSub = $.trim($(".ubicacion_web").html());
+    if (htmlSub == "") {
+        $(".SubHeader").html("");
+    }
+    hC += $(".SubHeader").innerHeight();
+
+    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
 }
 
 function CargarResumenCampaniaHeader(showPopup) {
