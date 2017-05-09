@@ -273,6 +273,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
             if (DataRecord.HasColumn(row, "Nombre"))
                 Nombre = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+            if (DataRecord.HasColumn(row, "Nombre"))
+                NombreCliente = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "eMail"))
                 eMail = Convert.ToString(row["eMail"]);
             if (DataRecord.HasColumn(row, "OfertaWeb"))

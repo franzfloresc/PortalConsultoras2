@@ -205,12 +205,10 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader GetProductosShowRoom(int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IDataReader GetProductosShowRoom(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetProductosShowRoom");
-            Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, tipoOfertaSisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@CodigoOferta", DbType.AnsiString, codigoOferta);
 
             return Context.ExecuteReader(command);
         }
@@ -253,7 +251,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoOfertaSisID", DbType.Int32, entity.TipoOfertaSisID);
             Context.Database.AddInParameter(command, "@ConfiguracionOfertaID", DbType.Int32, entity.ConfiguracionOfertaID);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioCatalogo);
+            Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entity.PrecioValorizado);            
             Context.Database.AddInParameter(command, "@ImagenProducto", DbType.AnsiString, entity.ImagenProducto);
             Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
             Context.Database.AddInParameter(command, "@UnidadesPermitidas", DbType.Int32, entity.UnidadesPermitidas);
@@ -261,7 +259,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
             Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
-            Context.Database.AddInParameter(command, "@PrecioOferta2", DbType.Decimal, entity.PrecioOferta);
+            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -279,12 +277,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entity.Orden);
             Context.Database.AddInParameter(command, "@DescripcionLegal", DbType.AnsiString, entity.DescripcionLegal);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
-            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioCatalogo);
+            Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entity.PrecioValorizado);
             Context.Database.AddInParameter(command, "@ImagenMini", DbType.AnsiString, entity.ImagenMini);
             Context.Database.AddInParameter(command, "@Incrementa", DbType.Int32, entity.Incrementa);
             Context.Database.AddInParameter(command, "@CantidadIncrementa", DbType.Int32, entity.CantidadIncrementa);
             Context.Database.AddInParameter(command, "@FlagAgotado", DbType.Int32, entity.FlagAgotado);
-            Context.Database.AddInParameter(command, "@PrecioOferta2", DbType.Decimal, entity.PrecioOferta);
+            Context.Database.AddInParameter(command, "@PrecioOferta", DbType.Decimal, entity.PrecioOferta);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -306,14 +304,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, entity.CUV);
 
             return Context.ExecuteNonQuery(command);
-        }
-
-        public IDataReader GetShowRoomOfertas(int campaniaID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertas");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-
-            return Context.ExecuteReader(command);
         }
 
         public int GetUnidadesPermitidasByCuvShowRoom(int CampaniaID, string CUV)
@@ -676,6 +666,52 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
 
             return (bool) Context.ExecuteScalar(command);
+        }
+
+        public IDataReader GetShowRoomTipoOferta()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomTipoOferta");
+            return Context.ExecuteReader(command);
+        }
+
+        public int ExisteShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.ExisteShowRoomTipoOferta");
+            Context.Database.AddInParameter(command, "@TipoOfertaID", DbType.Int32, entity.TipoOfertaID);
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, entity.Codigo);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, entity.Descripcion);
+
+            return (int)Context.ExecuteScalar(command);
+        }
+
+        public int InsertShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.InsertShowRoomTipoOferta");
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, entity.Codigo);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, entity.Descripcion);
+            Context.Database.AddInParameter(command, "@UsuarioCreacion", DbType.String, entity.UsuarioCreacion);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdateShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdateShowRoomTipoOferta");
+            Context.Database.AddInParameter(command, "@TipoOfertaID", DbType.Int32, entity.TipoOfertaID);
+            Context.Database.AddInParameter(command, "@Codigo", DbType.String, entity.Codigo);
+            Context.Database.AddInParameter(command, "@Descripcion", DbType.String, entity.Descripcion);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.String, entity.UsuarioCreacion);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public void HabilitarShowRoomTipoOferta(BEShowRoomTipoOferta entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.HabilitarShowRoomTipoOferta");
+            Context.Database.AddInParameter(command, "@TipoOfertaID", DbType.Int32, entity.TipoOfertaID);
+            Context.Database.AddInParameter(command, "@Activo", DbType.String, entity.Activo);
+
+            Context.ExecuteNonQuery(command);
         }
     }
 }
