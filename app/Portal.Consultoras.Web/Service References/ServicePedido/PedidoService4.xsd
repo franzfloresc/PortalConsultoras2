@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
+      <xs:element minOccurs="0" name="RefreshMontosProl" type="xs:boolean" />
       <xs:element minOccurs="0" name="RefreshPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="Reserva" type="xs:boolean" />
       <xs:element minOccurs="0" name="Restrictivas" type="xs:boolean" />

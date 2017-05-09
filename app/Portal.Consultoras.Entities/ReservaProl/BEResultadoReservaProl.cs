@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public bool RefreshPedido { get; set; }
         [DataMember]
+        public bool RefreshMontosProl { get; set; }
+        [DataMember]
         public decimal MontoAhorroCatalogo { get; set; }
         [DataMember]
         public decimal MontoAhorroRevista { get; set; }
