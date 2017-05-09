@@ -294,7 +294,7 @@ namespace Portal.Consultoras.Entities
                 IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
-                CUV2 = row["FotoProducto01"].ToString();
+                FotoProducto01 = row["FotoProducto01"].ToString();
         }
     }
     // 1747 - Inicio
