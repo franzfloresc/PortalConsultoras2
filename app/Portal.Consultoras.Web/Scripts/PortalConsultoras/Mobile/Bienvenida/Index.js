@@ -13,7 +13,9 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $(".footer-page").css({ "margin-bottom": "54px" });
+
     mostrarTutorialMobile();
+
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
@@ -327,11 +329,53 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 };
 
 function CargarPopupsConsultora() {
-  
-    MostrarDemandaAnticipada();
     
+    MostrarDemandaAnticipada();
+    if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
+        $("#popup-revista-digital").show();
+    }
 };
 
+function SuscribirRevistaDigita() {
+    AbrirLoad();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'RevistaDigital/Suscripcion',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+            if (!checkTimeout(data))
+                return false;
+
+            AbrirMensaje(data.message);
+            if (data.success == true) {
+                $("#popup-revista-digital").hide();
+            }
+        },
+        error: function (data, error) {
+            CerrarLoad();
+            $("#popup-revista-digital").hide();
+        }
+    });
+}
+function NoMostrarPopUpRevistaDigita() {
+    $("#popup-revista-digital").hide();
+    AbrirLoad();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+        },
+        error: function (data, error) {
+            CerrarLoad();
+        }
+    });
+
+}
 function MostrarDemandaAnticipada() {
     $.ajax({
         type: "POST",
