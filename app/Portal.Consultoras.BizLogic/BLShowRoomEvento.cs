@@ -117,12 +117,12 @@ namespace Portal.Consultoras.BizLogic
             DAShowRoomEvento.UpdateShowRoomConsultoraMostrarPopup(campaniaID, codigoConsultora, mostrarPopup);
         }
 
-        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int tipoOfertaSisID, int campaniaID, string codigoOferta)
+        public IList<BEShowRoomOferta> GetProductosShowRoom(int paisID, int campaniaID)
         {
             var lst = new List<BEShowRoomOferta>();
             var dataAccess = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = dataAccess.GetProductosShowRoom(tipoOfertaSisID, campaniaID, codigoOferta))
+            using (IDataReader reader = dataAccess.GetProductosShowRoom(campaniaID))
                 while (reader.Read())
                 {
                     var entity = new BEShowRoomOferta(reader);
@@ -165,20 +165,6 @@ namespace Portal.Consultoras.BizLogic
         {
             var dataAccess = new DAShowRoomEvento(paisID);
             return dataAccess.RemoverOfertaShowRoom(entity);
-        }
-
-        public IList<BEShowRoomOferta> GetShowRoomOfertas(int paisID, int campaniaID)
-        {
-            var lst = new List<BEShowRoomOferta>();
-            var dataAccess = new DAShowRoomEvento(paisID);
-
-            using (IDataReader reader = dataAccess.GetShowRoomOfertas(campaniaID))
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomOferta(reader);
-                    lst.Add(entity);
-                }
-            return lst;
         }
 
         public int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV)
@@ -493,7 +479,6 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
-
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             var dataAccess = new DAShowRoomEvento(paisID);
@@ -506,5 +491,42 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.GetEventoConsultoraRecibido(CodigoConsultora, CampaniaID);
         }
 
+        public IList<BEShowRoomTipoOferta> GetShowRoomTipoOferta(int paisId)
+        {
+            var lst = new List<BEShowRoomTipoOferta>();
+            var dataAccess = new DAShowRoomEvento(paisId);
+
+            using (IDataReader reader = dataAccess.GetShowRoomTipoOferta())
+                while (reader.Read())
+                {
+                    var entity = new BEShowRoomTipoOferta(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public int ExisteShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            return dataAccess.ExisteShowRoomTipoOferta(entity);
+        }
+
+        public int InsertShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            return dataAccess.InsertShowRoomTipoOferta(entity);
+        }
+
+        public int UpdateShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            return dataAccess.UpdateShowRoomTipoOferta(entity);
+        }
+
+        public void HabilitarShowRoomTipoOferta(int paisId, BEShowRoomTipoOferta entity)
+        {
+            var dataAccess = new DAShowRoomEvento(paisId);
+            dataAccess.HabilitarShowRoomTipoOferta(entity);
+        }
     }
 }

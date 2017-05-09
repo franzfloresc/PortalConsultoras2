@@ -1676,8 +1676,8 @@
                     <div class="producto_nombre_descripcion">
                         <p class="nombre-producto-set">{{Descripcion}}</p>
                         <div class="producto_precio" style="margin-bottom: 3px;">
-                            <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioOferta}}</span>
-                            <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioCatalogo}}</b></span>
+                            <span class="precio-oferta-normal">{{Simbolo}} {{FormatoPrecioValorizado}}</span>
+                            <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                         </div>
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                             <input type="text" value="1" min="1" max="99" size="2" maxlength="2" 
@@ -2267,6 +2267,7 @@
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
+        <input type="hidden" id="spnShowRoomEventoDescripcion" /> 
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
         </a>
@@ -2285,7 +2286,10 @@
 
 <!--NUEVO POP UP DE SHOWROOM Venta-->
 <div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
-    <div class="content_pop_up_intriga" data-popup-body>        
+    <div class="content_pop_up_intriga" data-popup-body>       
+        <input type="hidden" id="hdEventoIDShowRoomVenta" />
+        <input type="hidden" id="spnShowRoomEventoVenta" /> 
+        <input type="hidden" id="spnShowRoomEventoDescripcionVenta" /> 
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
         </a>
