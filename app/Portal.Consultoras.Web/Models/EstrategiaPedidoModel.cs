@@ -62,6 +62,7 @@ namespace Portal.Consultoras.Web.Models
         public int FlagMostrarImg { get; set; }
         public bool IsAgregado { get; set; }
         public int TieneVariedad { get; set; }
+        public int PuedeCambiarCantidad { get; set; }
 
         public string UrlCompartirFB { get; set; }
         public string CodigoEstrategia { get; set; }
