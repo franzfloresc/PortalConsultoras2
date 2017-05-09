@@ -60,6 +60,7 @@
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
     <Compile Include="BEEstrategiaProducto.cs" />
@@ -265,6 +266,7 @@
     <Compile Include="BEUsuarioExterno.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
+    <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models
     {
         public string CodigoISO { get; set; }
         //[RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
+        [Required(ErrorMessage = "Campo obligatorio")]
         public string TipoRechazo { get; set; }
         //[RequiredIf("CodigoISO", "PE", ErrorMessage = "Este campo es obligatorio")]
         public string MotivoRechazo { get; set; }
