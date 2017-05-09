@@ -220,7 +220,7 @@ function OfertaCargarProductos(busquedaModel) {
 
                 $("#divOfertaProductos").html("");
                 response.Lista = lista;
-                var urlTemplate = "estrategia-template"; //"/Scripts/PortalConsultoras/Bienvenida/template-opt.html";
+                var urlTemplate = "#estrategia-template"; //"/Scripts/PortalConsultoras/Bienvenida/template-opt.html";
 
                 var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');
                 //$('#divOfertaProductos').append(htmlDiv);

@@ -15,6 +15,7 @@ BEGIN
 	SET NOCOUNT ON;
 	
 	set @CodigoEstrategia = ISNULL(@CodigoEstrategia, '')	
+	set @CodigoEstrategia = ''
 	
 	-- CrossSelling se implemento a un servicio
 	--DECLARE @CuvReco VARCHAR(20)

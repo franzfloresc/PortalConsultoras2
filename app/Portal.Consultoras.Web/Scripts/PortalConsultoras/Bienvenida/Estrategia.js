@@ -112,15 +112,22 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
 
+    if (data.length == 0) {
+        return false;
+    }
+
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
     var obj = new Object();
     obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    obj.CodigoEstrategia = "001";
+    obj.CodigoEstrategia = "101";
     obj.Lista = data;
 
-    SetHandlebars("#estrategia-template", obj, '#divListaEstrategias');
+
+    SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
+    $('#divListaEstrategias').show();
+    SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
     
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
@@ -131,9 +138,6 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
 
-    if (data.length == 0) {
-        return false;
-    }
 
     //var data1 = $('#divListadoEstrategia').find('.nombre_producto');
     //var nbData = data1.length;

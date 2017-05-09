@@ -1,112 +1,103 @@
 ﻿<script id="estrategia-template" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '002'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '002'}}revista-content{{/iff}}">
-            <div id="divListadoEstrategia" style="overflow-y: hidden; padding-bottom: 25px;">
-                {{#each this.Lista as |item|}}
-                <div class="content_item_carrusel" data-item="{{EstrategiaID}}"
-                     data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-                     style="margin:12px;">
-                    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                    <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
-                            <div class="producto_img_home">
-                                <img src="{{FotoProducto01}}" class="imagen_producto" />
-                                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                                <a class="ver_detalle_carrusel">VER DETALLE</a>
-                                {{/iff}}
-                            </div>
-                            {{#iff ImagenURL '!=' ''}}
-                            <div class="etiqueta_producto">
-                                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                            </div>
-                            {{/iff}}
-                            <div class="producto_nombre_descripcion">
-                                <h6>{{DescripcionMarca}}</h6>
-                                {{#if_eq FlagNueva '1'}}
-                                <p class="nombre_producto">
-                                    <b>{{DescripcionCUVSplit}}</b>
-                                </p>
-                                {{else}}
-                                <p class="nombre_producto">
-                                    <b>{{DescripcionCUV2}}</b>
-                                </p>
-                                {{/if_eq}}
-                                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                                {{#if_eq EtiquetaID '1'}}
-                                <div class="producto_precio">
-                                    {{#iff Precio '>' 0}}
-                                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                                    {{/iff}}
-                                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                                </div>
-                                {{else}}
-                                <div class="producto_precio">
-                                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                                </div>
-                                {{/if_eq}}
-                                {{else}}
-                                <div class="producto_precio">
-                                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                                </div>
-                                {{/iff}}
-                            </div>
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            {{#iff TieneVariedad '==' '0'}}
-                            {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-                            <div class="liquidacion_rango_home">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-                            </div>
-                            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                                AGR&Eacute;GALO
-                            </a>
-                            {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a class="mas js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                    <a class="menos js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
-                                </div>
-                            </div>
-                            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                                AGR&Eacute;GALO
-                            </a>
-                            {{else}}
-                            <div class="liquidacion_rango_home js-no-popup">
-                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                                <div class="liquidacion_rango_right_pedido js-no-popup">
-                                    <a class="mas js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
-                                    <a class="menos js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
-                                </div>
-                            </div>
-                            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                                AGR&Eacute;GALO
-                            </a>
-                            {{/iff}}
-                            {{else}}
-                            <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
-                                <div class="texto_elige_tono">
-                                    ¡AHORA ELIGE TU TONO!
-                                </div>
-                                <div class="clear"></div>
-                                <a class="btn_elige_tono js-no-popup">
-                                    <div>ELIGE TU OPCIÓN</div>
-                                </a>
-                            </div>
-                            {{/iff}}
-                            <div class="clear"></div>
-                            <div style="padding-top:9px; height: 15px;">
-                                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                    AGREGADO
-                                    <div class="icono"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
+{{#each this.Lista as |item|}}
+<div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}" class="{{#iff  (Trim CodigoEstrategia) '==' '101'}}revista-landing{{/iff}}">
+    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+    <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+            <div class="producto_img_home">
+                <img src="{{FotoProducto01}}" class="imagen_producto" />
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+                <a class="ver_detalle_carrusel">VER DETALLE</a>
+                {{/iff}}
             </div>
-            <hr class="clear" />
+            {{#iff ImagenURL '!=' ''}}
+            <div class="etiqueta_producto">
+                <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+            </div>
+            {{/iff}}
+            <div class="producto_nombre_descripcion">
+                <h6>{{DescripcionMarca}}</h6>
+                {{#if_eq FlagNueva '1'}}
+                <p class="nombre_producto">
+                    <b>{{DescripcionCUVSplit}}</b>
+                </p>
+                {{else}}
+                <p class="nombre_producto">
+                    <b>{{DescripcionCUV2}}</b>
+                </p>
+                {{/if_eq}}
+                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                {{#if_eq EtiquetaID '1'}}
+                <div class="producto_precio">
+                    {{#iff Precio '>' 0}}
+                    <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                    {{/iff}}
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{else}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{/if_eq}}
+                {{else}}
+                <div class="producto_precio">
+                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                </div>
+                {{/iff}}
+            </div>
+        </div>
+        <div class="producto_nombre_descripcion">
+            {{#iff TieneVariedad '==' '0'}}
+            {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+            <div class="liquidacion_rango_home">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
+            </div>
+            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                AGR&Eacute;GALO
+            </a>
+            {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+            <div class="liquidacion_rango_home js-no-popup">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
+                <div class="liquidacion_rango_right_pedido js-no-popup">
+                    <a class="mas js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/mas.png" alt="" /></a>
+                    <a class="menos js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/menos.png" alt="" /></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                AGR&Eacute;GALO
+            </a>
+            {{else}}
+            <div class="liquidacion_rango_home js-no-popup">
+                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
+                <div class="liquidacion_rango_right_pedido js-no-popup">
+                    <a class="mas js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/mas.png" alt="" /></a>
+                    <a class="menos js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/menos.png" alt="" /></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                AGR&Eacute;GALO
+            </a>
+            {{/iff}}
+            {{else}}
+            <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                <div class="texto_elige_tono">
+                    ¡AHORA ELIGE TU TONO!
+                </div>
+                <div class="clear"></div>
+                <a class="btn_elige_tono js-no-popup">
+                    <div>ELIGE TU OPCIÓN</div>
+                </a>
+            </div>
+            {{/iff}}
+            <div class="clear"></div>
+            <div style="padding-top:9px; height: 15px;">
+                <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                    AGREGADO
+                    <div class="icono"></div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+{{/each}}
 </script>

@@ -1662,7 +1662,53 @@
             {{/each}}
         </script>
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
+
+<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '002'}}revista{{/iff}}">
+        @if (ViewBag.MostrarPedidosPendientes == "1" || true)
+        {
+            <div class="truco_bloqueo sim2"></div>
+        }
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '002'}}revista-content pedido{{else}}contenedor_carousel{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '002'}}
+                <div class="revista-title">
+                    <p class="marca">ÉSIKA</p>
+                    <div class="giftext">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    </div>
+                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                </div>
+                <hr class="clear" />
+                <div style="z-index: 1; width: 100%;     margin-bottom: -16px;">
+                    <a class="boton_Agregalo_home" tabindex="0" href="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'"
+                       style="width: 39%;display: inline-block;margin-top: auto;">MÁS OFERTAS &nbsp;&nbsp;&gt;</a>
+                </div>
+                {{else}}
+                <h1>
+                    OFERTAS
+                    <b>PARA TI</b>
+                    <b class="">@Model.SobreNombre</b>
+                </h1>
+                <div class="texto_exclusivo_web">
+                    EXCLUSIVAS SÓLO POR WEB
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="contenedor_productos">
+                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+        <script id="estrategia-atemplate" type="text/x-handlebars-template">
             <div class="{{#iff (Trim CodigoEstrategia) '==' '002'}}revista{{/iff}}">
                 @if (ViewBag.MostrarPedidosPendientes == "1" || true)
                 {
