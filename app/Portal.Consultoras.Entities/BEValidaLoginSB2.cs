@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoUsuario { get; set; }
 
+        [DataMember]
+        public int TipoUsuario { get; set; }
+
         public BEValidaLoginSB2()
         { }
 
@@ -32,6 +35,9 @@ namespace Portal.Consultoras.Entities
                 Mensaje = Convert.ToString(row["Mensaje"]);
             if (row.HasColumn("CodigoUsuario"))
                 CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+
+            if (row.HasColumn("TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
+                TipoUsuario = Convert.ToInt32(row["TipoUsuario"]);
         }
     }
 }
