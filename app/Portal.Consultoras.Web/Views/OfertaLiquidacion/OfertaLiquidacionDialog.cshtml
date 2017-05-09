@@ -1,0 +1,94 @@
+﻿
+<div id="DialogRegistroOfertaWeb" style="display: none;">
+    <input type="hidden" id="hdTallaColorID" value="0" />
+    <input type="hidden" id="hdCampaniaID" />
+    <input type="hidden" id="ImagenProducto" />
+    <input type="hidden" id="ImagenProductoAnterior" />
+    <input type="hidden" id="FlagTransaccion" value="0" />
+    <input type="hidden" id="hdCodigoOferta" value="" />
+    <input type="hidden" id="hdCodigoCampania" value="" />
+    <input type="hidden" id="hdFlagImagen" value="0" />
+    <input type="hidden" id="hdOrdenAnterior" value="" />
+    <input type="hidden" id="hdStockProducto" value="0" />
+    <input type="hidden" id="hdnCodigoSAP" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPaisModal" readonly="readonly" />
+            </div>
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCampaniaModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Tipo Oferta:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtTipoOfertaModal" readonly="readonly" />
+            </div>
+            <div class="titG">CUV:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtCUVModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtDescripcionModal" />
+            </div>
+            <div class="titG">Precio Oferta:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtPrecioOfertaModal" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Unid. Permitidas:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtUnidadesPermitidasModal" maxlength="6">
+            </div>
+            <div class="titG">Orden:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtOrdenModal" maxlength="6">
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">¿Habilitar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" />
+            </div>
+            <div class="titG">Talla/Color:</div>
+            <div class="selectCheck">
+                <a href="#" style="vertical-align:bottom" id="linkTallaColor">
+                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores"
+                         title="Agregar Tonos/Tallas/Colores" />
+                </a>
+            </div>
+        </div>    
+        <div class="div-3 divPanelImagen" style="padding-bottom:0px; margin-bottom:0px">
+            <div>
+                <div id="matriz-imagenes-paginacion"></div>
+            </div>
+            <div class="titG">
+                <div id="file-upload-matriz"></div>
+            </div>
+            <div>
+                <div id="matriz-comercial-lista-imagenes" class="matriz-lista-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script id="matriz-comercial-listado-imagenes-template" type="text/x-handlebars-template">
+    {{#each imagenes}}
+    <div class="titG2 div-img-matriz-comercial">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img class="img-matriz-preview" src='{{Foto}}' id="img-matriz-{{@@index}}">
+        </div>
+        <div class="pdr_modal_check aligncenter">
+            <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
+        </div>
+    </div>
+
+    {{/each}}
+</script>
