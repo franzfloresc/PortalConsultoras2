@@ -600,6 +600,20 @@ namespace Portal.Consultoras.Service
         }
         /*EPD-1012*/
 
+        /*EPD-2340*/
+        public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarAutoLogin(paisID, codigoUsuario, proveedor);
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.InsUsuarioExternoPais(paisID, entidad);
+        }
+        /*EPD-2340*/
+
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
         {
             var BLUsuario = new BLUsuario();
@@ -675,10 +689,16 @@ namespace Portal.Consultoras.Service
             return BLUsuario.InsertUsuarioExterno(paisID, usuarioExterno);
         }
 
-        public BEUsuarioExterno GetUsuarioExterno(int paisID, string proveedor, string idAplicacion)
+        public BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUsuarioExterno(paisID, proveedor, idAplicacion);
+            return BLUsuario.GetUsuarioExternoByCodigoUsuario(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion);
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)
@@ -687,11 +707,13 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
         }
 
+        /*
         public bool GetExisteEmailActivo(int paisID, string email)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetExisteEmailActivo(paisID, email);
         }
+         * */
         /*EPD-1837*/
 
         public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)

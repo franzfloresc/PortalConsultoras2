@@ -70,6 +70,7 @@ namespace Portal.Consultoras.Web.Models
             this.SegmentoAbreviatura = string.Empty;
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
+            this.EsLebel = false;
         }
 
         public string Celular { get; set; }
@@ -330,6 +331,7 @@ namespace Portal.Consultoras.Web.Models
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public List<OfertaDelDiaModel> OfertasDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
@@ -341,7 +343,7 @@ namespace Portal.Consultoras.Web.Models
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
         
         public bool CloseBannerCompraPorCompra { get; set; }
-
+        public bool EsLebel { get; set; }
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
     }
