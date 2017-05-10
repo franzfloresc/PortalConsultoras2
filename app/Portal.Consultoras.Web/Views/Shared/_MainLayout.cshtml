@@ -113,6 +113,7 @@
             };
         }
     </script>
+
     @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
     {
         string nombre_pais = ViewBag.PaisAnalytics;
@@ -140,13 +141,39 @@
     <!-- cabecera -->
     <header>
 
-        <!--OFERTA DEL DIA -->
-        @if (ViewBag.MostrarODD == false)
+        @if (ViewBag.MostrarBannerPostulante == true)
         {
-            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
+            <!--EPD-2305-->
+            <div id="bloquemensajesPostulante" style="display: none">
+                @*<div class="oscurecer_animacion"></div>*@
+                <div class="bloque_mensajesPedido" style="display: block">
+                    <div class="icono_cerrar_mensaje" style="top: 16px">
+                        <span>
+                            <a href="javascript:void();" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
+                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                            </a>
+                        </span>
+                        <span>CERRAR</span>
+                    </div>
+                    <div class="icono_estadoPedido">
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                    </div>
+                    <div class="mensajes_estadoPedido">
+                        <span class="mensaje_estadoActualPedido">TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA</span>
+                        <span class="mensaje_horarioIngresoPedido">
+                            Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!--EPD-2305-->
         }
-
-        <!--OFERTA DEL DIA -->
+        else if (ViewBag.MostrarODD == false)
+        {
+            <!--OFERTA DEL DIA -->
+            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
+            <!--OFERTA DEL DIA -->
+        }
 
         <div id="bloquemensajesPedido" style="display: none">
             <div class="oscurecer_animacion"></div>
@@ -178,6 +205,7 @@
                 </div>
             </div>
         </div>
+
         <div class="wrapper_header">
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
@@ -274,6 +302,7 @@
         </div>
         <div class="clear"></div>
     </header>
+
     <div class="fondo_oscuro"></div>
 
     <!-- end cabecera -->
@@ -791,6 +820,9 @@
         var MostrarODD = '@ViewBag.MostrarODD';
         //EPD-2058
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
         var clock;
         var TipoOrigenPantallaODD = 1;
     </script>
