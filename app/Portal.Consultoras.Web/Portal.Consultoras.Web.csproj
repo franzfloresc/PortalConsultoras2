@@ -2680,6 +2680,7 @@
     <Content Include="Content\Images\PL20\fondo_pop.png" />
     <Content Include="Content\Images\PL20\fondo_triangular.png" />
     <Content Include="Content\Images\PL20\icono_cupon.png" />
+    <Content Include="Content\Images\PL20\icono_pop_up_cupon.png" />
     <Content Include="Content\Images\PL20\left_compra.png" />
     <Content Include="Content\Images\PL20\mas.png" />
     <Content Include="Content\Images\PL20\menos.png" />

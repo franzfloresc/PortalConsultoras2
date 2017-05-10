@@ -36069,3 +36069,31 @@ h1#penmostreo .campana {
     font-weight:900;
     letter-spacing:1px;
 }
+.texto_cupon2, .valida_datos_cupon2{
+    font-family:'lato';
+    font-size:13px;
+    margin-top:10px;
+}
+.valida_datos_cupon2{
+    margin-top:0;
+}
+.correo_confirmacion{
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:1.3px;
+    color:black;
+}
+.btn_cupon2{
+    display: inline-block;
+    width: 27%;
+    margin-top: 22px;
+    text-decoration: underline;
+    color:#333333;
+}
+.icono_cupon2{
+    width:59px;
+    height:41px;
+    margin:0 auto;
+    background:url(../../../Images/PL20/icono_pop_up_cupon.png) no-repeat;
+    margin-bottom: 5px;
+}
