@@ -23,7 +23,6 @@
         PopupCuponPaginaBienvenida: '#Id2',
         LinkVer: '#linkConocerDescuento',
         Body: 'body',
-        
         BtnConfirmar: '#',
         TxtCorreoIngresado: '#',
         HdCorreoOriginal: '#'
@@ -33,7 +32,11 @@
         MostrarContenedorCupon: false,
         PaginaOrigen: 0,
         EsEmailActivo: false,
-        CodigoCupon: 0
+        CodigoCupon: 0,
+        BaseUrl: '',
+        UrlActualizarCupon: '',
+        UrlEnviarCorreoGanaste: '',
+        UrlEnviarCorreoConfirmacion: ''
     };
 
     var bindEvents = function () {
@@ -68,8 +71,9 @@
 
     var procesarConfirmacion = function () {
         $(elements.ContenedorConfirmacion).show();
-        // Enviar correo de confirmación cambio de email
+        var actualizarCuponPromise = actualizarCuponPromise(CONS_CUPON.CUPON_ACTIVO);
         // Actualizar Estado cupon a 2 (Activo)
+        // Enviar correo de confirmación cambio de email
     }
 
     var procesarGanaste = function () {
@@ -87,6 +91,7 @@
         setting.CodigoCupon = parseInt(parameters.codigoCupon);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
+        setting.BaseUrl = parameters.baseUrl;
         mostrarContenedorCuponPorPagina();
         bindEvents();
     }
@@ -100,6 +105,63 @@
             }
         }
         
+    }
+
+    var actualizarCuponPromise = function (estadoCupon) {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: setting.BaseUrl + setting.UrlActualizarCupon,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(estadoCupon),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
+    var enviarCorreoGanasteCuponPromise = function (model) {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: setting.BaseUrl + setting.UrlEnviarCorreoGanaste,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(model),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
+    var enviarCorreoConfirmacionCuponPromise = function (model) {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: setting.BaseUrl + setting.UrlEnviarCorreoConfirmacion,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(model),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
     }
 
     return {
