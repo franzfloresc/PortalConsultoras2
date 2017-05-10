@@ -429,17 +429,19 @@ body{
     width:100%;
 }
 .salir_chatbot{
-   font-weight: 700;
-    font-family: 'Lato';
-    font-size: 12px;
+    float: left;
     padding-left: 20px;
-    background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
-    position: absolute;
-    left: 26px;
     padding-top: 3px;
     height: 20px;
+    margin-bottom: -2px;
     letter-spacing: 0.3px;
-    }
+    font-weight: 700;
+    font-family: 'Lato';
+    font-size: 12px;
+    text-decoration: none;
+    color: black;
+    background: url(../../Images/PL20/flecha_regresa_chat.png) no-repeat;
+}
 .campo_input_chat{
     margin-top: 10px;
     margin-bottom: 12px;
@@ -616,12 +618,11 @@ body{
 }
 .logo_normal{
     float: left;
-    /* margin-bottom: 20px; */
     text-align: center;
     font-family: icomoon;
     width: 50px;
     height: 20px;
-    margin-left: 62px;
+    margin-left: 8px;
     margin-top: -2px;
 }
 .logo_normal:before {
@@ -636,12 +637,9 @@ body{
 .texto_normal{
     margin-top: 3px;
     font-family:'Lato';
-    float:right;
+    float:left;
     font-size:12px;
-    width:-moz-calc(100% -130px);
-    width:calc(100% - 130px);
-    width:-webkit-calc(100% - 130px);
-    width: -webkit-calc(~'100% - 130px');
+    margin-left: 17px;
 }
 .titulo_campo{
     font-family: 'Lato';
