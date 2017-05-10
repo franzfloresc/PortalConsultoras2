@@ -22847,6 +22847,7 @@ body {
     display: inline-block;
     /*margin-right:80px;*/
     margin-bottom: 70px;
+    overflow:hidden;
 }
 
 .arrow_revista {
@@ -35550,4 +35551,11 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
+}
+.logo_EPT{
+    width:10%;
+    background: black url(../../../Images/RevistaDigital/fondo.png) no-repeat right top;
+}
+.logo_EPT img{
+    width:100%;
 }
