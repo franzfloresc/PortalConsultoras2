@@ -95,8 +95,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     s.ImagenURL = "";
                 }
-            });
 
+                s.PuedeCambiarCantidad = 1;
+                if (s.TieneVariedad == 0)
+                {
+                    if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
+                    {
+                        s.PuedeCambiarCantidad = 0;
+                    }
+                }
+            });
 
             return Json(listModel, JsonRequestBehavior.AllowGet);
         }

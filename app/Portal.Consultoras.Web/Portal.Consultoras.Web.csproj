@@ -3902,6 +3902,9 @@
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
     <Content Include="Views\Bienvenida\template-opt.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
