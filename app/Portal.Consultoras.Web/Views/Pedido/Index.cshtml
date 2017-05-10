@@ -226,6 +226,11 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div class="content_pedido_cupon_monto">
+                                    <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                    <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                </div>
+                                <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <!--SB20-483 - INICIO -->
@@ -527,13 +532,15 @@
     <!--14092016 - FIN -->
 
 
-    <div id="contenedorCupon" style="display: none; background-color: gray; width: 250px; height: 100px; float: right;">
-        Tienes un descuento exclusivo para ti, conócelo
-        <a href="#" id="linkConocerDescuento">aquí</a>
-    </div>
 
 
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
+
+        <div id="contenedorCupon" class="content_cupon_pedido">
+            Tienes un descuento exclusivo para ti, 
+            <a href="#" id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+        </div>
+        <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>

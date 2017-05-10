@@ -28843,7 +28843,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position: absolute;
     background: #000;
     height: 1px;
-    top: 56px;
+    bottom: 73px;
     right: 0px;
 }
 
@@ -35866,10 +35866,178 @@ h1#penmostreo .campana {
 }
 .CerrarOfertaEspecial{
     font-family:'Lato';
-    font-size:25px;
-    
+    font-size:25px;    
     color:black;
     position:absolute;
     right:10px;
     top:-2px;
+}
+.contenedor_cupon{
+    position:absolute;   
+    width:27%;
+    height:53px;
+    color:white;
+    font-family:'Lato';
+    font-size:12px;
+    z-index:100;
+    padding-left:10%;
+    padding-top:8px;
+    background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
+    background-size:45px 19px;
+   background-position: 23% 16px;
+}
+.contenedor_cupon::after{
+    position:absolute;
+    content:'';
+    right:-35px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 53px 0 0 35px;
+    border-color: transparent transparent transparent #000000;
+    z-index:100;
+    top:0;
+}
+.link_cupon_home{
+    color:white;
+    font-weight: 700;
+    text-decoration:underline;
+}
+.content_cupon_pedido{
+    width: 94%;
+    height: 44px;
+    background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
+    background-size:45px 19px;
+    background-position: 23px 12px;
+    position: relative;
+    font-family: 'Lato';
+    font-size:12px;
+    float: left;
+    color: white;
+    margin-right: 2.1%;
+    position:relative;
+    z-index:100;
+    padding-left: 26%;
+    padding-top: 5px;
+    line-height: 15px;
+}
+.content_cupon_pedido::before{
+    position:absolute;
+    content:'';
+    right:-20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 44px 0 0 20px;
+    border-color: transparent transparent transparent #000000;
+    z-index:100;
+    top:0;
+}
+.content_pedido_cupon_monto{
+    width:100%;
+    height:40px;
+    border-bottom:1px solid black;
+    margin-bottom:10px;
+    /*width: 311px;
+    float: right;*/
+
+}
+.icono_cupon_monto{
+    display: block !important;
+    float: left;
+    width:85px;
+    height:40px;
+    font-family:'LAto';
+    font-size:12px;
+    background: black;
+    position:relative;
+    text-align: right;
+    padding-right: 13px;
+    padding-top: 10px;
+}
+.icono_cupon_monto img{
+    width:63%;
+}
+.icono_cupon_monto::before{
+    content:'';
+    position:absolute;
+    top:0;
+    right:-23px;
+    z-index:100;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 40px 0 0 23px;
+    border-color: transparent transparent transparent #000000;
+}
+
+.texto_cupon_monto{
+    text-align: left;
+    font-size: 12px;
+    font-family: 'LAto';
+    float: left;
+    margin-left: 38px;
+    line-height: 13px;
+}
+.content_cupon1{
+    width:664px;
+    height:280px;
+    position:relative;
+    top:50%;
+    margin:-140px auto auto auto;
+    background:url(../../../Images/PL20/fondo_cupon1.png) no-repeat;
+}
+.content_monto_cupon{
+    float:left;
+    width: 43%;
+    padding-right: 3%;
+    padding-top:45px;
+    padding-left:60px;
+    font-family:'Lato';
+    /*letter-spacing:2px;
+    font-weight:700;*/
+}
+.titulo_gana{
+        font-size: 35px;
+    color: white;
+    height: 46px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.subtitulo_gana{
+    font-family:'Lato';
+    color:white;
+    font-size:14px;
+    /*font-weight:900;*/
+    letter-spacing:1.2px;   
+}
+.monto_gana{
+    font-family:'Lato';
+    font-size:48px;
+    color:white;
+    font-weight:700;
+    margin-top: -8px;
+}
+.tipo_moneda{
+    font-size:38px;    
+}
+.legal_cupon{
+    margin-top: 30px;
+    color: white;
+    font-size: 11px;
+    font-weight: 300;
+    line-height: 12px;
+}
+.content_cupon_datos{
+    float:left;
+    width:56%;
+    padding:35px 60px 0 60px;
+    position:relative;
+}
+.btn_confirma_cupon{
+    display:block;
+    background:#e81c36;
+    width:100%;
+    height:45px;
+    color:white;
 }

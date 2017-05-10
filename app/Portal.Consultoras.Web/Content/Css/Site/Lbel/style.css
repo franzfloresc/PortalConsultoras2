@@ -28783,7 +28783,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     position: absolute;
     background: #000;
     height: 1px;
-    top: 56px;
+    bottom: 73px;
     right: 0px;
 }
 
