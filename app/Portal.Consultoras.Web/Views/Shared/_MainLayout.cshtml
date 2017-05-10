@@ -32,13 +32,24 @@
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var IsoPais = '@ViewBag.CodigoISODL';
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
+        //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        //ODD
+        var MostrarODD = '@ViewBag.MostrarODD';
+        var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
+
         var UrlChat = '@ViewBag.UrlBelcorpChat';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var UrlChatAnterior = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpNew?token=@ViewBag.TokenAtento';
-        var IsoPais = '@ViewBag.CodigoISODL';
         var BelcorpFechaChat_Pais = '@(System.Configuration.ConfigurationManager.AppSettings["FechaChat_" + ViewBag.CodigoISODL])';
         var PaisesChatEMTELCO ='@(System.Configuration.ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"])';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
@@ -140,16 +151,15 @@
     }
     <!-- cabecera -->
     <header>
-
+        <!--BANNER -->
         @if (ViewBag.MostrarBannerPostulante == true)
         {
-            <!--EPD-2305-->
             <div id="bloquemensajesPostulante" style="display: none">
                 @*<div class="oscurecer_animacion"></div>*@
                 <div class="bloque_mensajesPedido" style="display: block">
                     <div class="icono_cerrar_mensaje" style="top: 16px">
                         <span>
-                            <a href="javascript:void();" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
+                            <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
                                 <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
                             </a>
                         </span>
@@ -166,45 +176,46 @@
                     </div>
                 </div>
             </div>
-            <!--EPD-2305-->
+        }
+        else if (ViewBag.MostrarBannerRechazo == true)
+        {
+            <div id="bloquemensajesPedido" style="display: none">
+                @*<div class="oscurecer_animacion"></div>*@
+                <div class="bloque_mensajesPedido" style="display: block">
+                    <div class="icono_cerrar_mensaje" style="top: 16px">
+                        <span>
+                            <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
+                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                            </a>
+                        </span>
+                        <span>CERRAR</span>
+                    </div>
+                    <div class="icono_estadoPedido">
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                    </div>
+                    <div class="mensajes_estadoPedido">
+                        <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
+                        <span class="mensaje_horarioIngresoPedido">
+                            @ViewBag.GPRBannerMensaje
+                            @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
+                            {
+                                <a class='CerrarBanner' title="MIRA LOS LUGARES DE PAGO" href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
+                            }
+                            else if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                            {
+                                <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
         }
         else if (ViewBag.MostrarODD == false)
         {
-            <!--OFERTA DEL DIA -->
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
-            <!--OFERTA DEL DIA -->
         }
-
-        <div id="bloquemensajesPedido" style="display: none">
-            <div class="oscurecer_animacion"></div>
-            <div class="bloque_mensajesPedido" style="display: block">
-                <div class="icono_cerrar_mensaje" style="top: 16px">
-                    <span>
-                        <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
-                        </a>
-                    </span>
-                    <span>CERRAR</span>
-                </div>
-                <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
-                </div>
-                <div class="mensajes_estadoPedido">
-                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
-                    <span class="mensaje_horarioIngresoPedido">
-                        @ViewBag.GPRBannerMensaje
-                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
-                        {
-                            <a class='CerrarBanner' title="MIRA LOS LUGARES DE PAGO" href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
-                        }
-                        else if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                        {
-                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
-                        }
-                    </span>
-                </div>
-            </div>
-        </div>
+        
+        <!--END BANNER -->
 
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -263,7 +274,7 @@
                         </div>
                         <div class="tooltip_tutorial" style="display: none;">
                             <div class="cerrar_tooltipTutorial">
-                                <a href="javascript:void();" onclick="ocultarUbicacionTutorial();" title="Cerrar">
+                                <a href="javascript:void(0);" onclick="ocultarUbicacionTutorial();" title="Cerrar">
                                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
                                 </a>
                             </div>
@@ -298,6 +309,7 @@
 
     <div class="fondo_oscuro"></div>
     <!-- end cabecera -->
+
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         <div class="SubHeader">
@@ -843,7 +855,6 @@
         var MensajePedidoDesktop = '@ViewBag.MensajePedidoDesktop';
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
-
         var clock;
         var TipoOrigenPantallaODD = 1;
         var fingerprintOk = '@ViewBag.FingerprintOk';

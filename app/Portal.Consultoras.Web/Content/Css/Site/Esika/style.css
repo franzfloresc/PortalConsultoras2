@@ -34769,9 +34769,11 @@ h1#penmostreo .campana {
 .CerrarOfertaEspecial{
     font-family:'Lato';
     font-size:25px;
-    
     color:black;
     position:absolute;
     right:10px;
     top:-2px;
+}
+.SubHeader{
+    background: #f9f9f9;
 }

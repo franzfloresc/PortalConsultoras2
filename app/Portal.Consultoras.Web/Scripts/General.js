@@ -804,6 +804,15 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
+    if (estado) {
+        $("#bloquemensajesPedido").show();
+        ResizeMensajeEstadoPedido();
+    }
+    else {
+        //$("#bloquemensajesPedido").slideUp();
+        $("#bloquemensajesPedido").hide();
+    }
+
     LayoutHeader();
 }
 
@@ -825,7 +834,10 @@ function LayoutHeaderFin() {
     $("[data-content]").css("margin-top", (wtop) + "px");
 }
 
-
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");

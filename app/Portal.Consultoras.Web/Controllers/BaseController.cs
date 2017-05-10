@@ -88,40 +88,11 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
                     ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
-                    //EPD-2058
-                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                    //{
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
-                    //}
 
                     ViewBag.EsMobile = 1;//EPD-1780
 
-                    ViewBag.MostrarODD = NoMostrarBannerODD();
-                    ViewBag.TieneOfertaDelDia = false;
-                    if (!ViewBag.MostrarODD)
-                    {
-                        ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                        if (userData.TieneOfertaDelDia)
-                        {
-                            if (!(
-                                    (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                                    || userData.IndicadorGPRSB == 0)
-                                || userData.CloseOfertaDelDia
-                            )
-                            {
-                                ViewBag.TieneOfertaDelDia = false;
-                            }
-
-                            //validar si tiene pedido reservado
-                            //string msg = string.Empty;
-                            //if (ValidarPedidoReservado(out msg))
-                            //    ViewBag.TieneOfertaDelDia = false;
-                        }
-                    }
-
-                    //if (userData.HizoLoginExterno)
-                    //{
                     if (userData.TieneLoginExterno)
                     {
                         var loginFacebook = userData.ListaLoginExterno.Where(x => x.Proveedor == "Facebook").FirstOrDefault();
@@ -130,7 +101,6 @@ namespace Portal.Consultoras.Web.Controllers
                             ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
                         }
                     }
-                    //}
 
                     ViewBag.FingerprintOk = 0;
                     ViewBag.TokenPedidoAutenticoOk = 0;
@@ -677,11 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 #region Cargar variables
 
-                //EPD-2058
-                //if (model.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                //{
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-                //}
 
                 ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
@@ -866,23 +832,48 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.PaisesConTrackingJetlore = paisesConTrackingJetlore.Contains(model.CodigoISO) ? "1" : "0";
                 ViewBag.EsCatalogoPersonalizadoZonaValida = model.EsCatalogoPersonalizadoZonaValida;
 
-                ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;
-                ViewBag.CerrarRechazado = model.CerrarRechazado;
-                ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+                #region Banner
 
-                //EPD-2305
+                // Postulante
                 ViewBag.MostrarBannerPostulante = false;
                 if (model.TipoUsuario == 2 && model.CerrarBannerPostulante == 0)
                 {
                     ViewBag.MostrarBannerPostulante = true;
                 }
 
+                //GPR
+                ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
+                ViewBag.CerrarRechazado = model.CerrarRechazado;
+                ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
                 ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
                 ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
                 ViewBag.GPRBannerUrl = model.GPRBannerUrl;
+
+                // ODD
+                ViewBag.MostrarODD = NoMostrarBannerODD();
+                ViewBag.TieneOfertaDelDia = false;
+                if (!ViewBag.MostrarODD)
+                {
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    if (userData.TieneOfertaDelDia)
+                    {
+                        if (!(
+                                (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                || userData.IndicadorGPRSB == 0)
+                            || userData.CloseOfertaDelDia
+                        )
+                        {
+                            ViewBag.TieneOfertaDelDia = false;
+                        }
+                    }
+                }
+
+                // ShowRoom (Mobile)
+
+                #endregion Banner
+                
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
-                //EPD-2058
                 ViewBag.TipoUsuario = model.TipoUsuario;
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
