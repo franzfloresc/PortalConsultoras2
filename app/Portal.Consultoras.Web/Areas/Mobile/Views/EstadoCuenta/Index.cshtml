@@ -3,7 +3,7 @@
 
 @model EstadoCuentaMobilModel
 @{
-    var layout = Session["IngresoExternoChatbot"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
@@ -88,10 +88,10 @@
 @section scripts{
     <script type="text/javascript">
         var urlEnviarCorreo = '@Url.Action("EnviarCorreo", "EstadoCuenta", new { area = "Mobile" })';
-        var esChatbot = '@(Session["IngresoExternoChatbot"] == null ? 0 : 1)';
+        var esIngresoExterno = '@(Session["IngresoExterno"] == null ? 0 : 1)';
 
         $(document).ready(function () {
-            if (esChatbot == '1') $("#listaEstadoCuenta").show();
+            if (esIngresoExterno == '1') $("#listaEstadoCuenta").show();
             else $("#ultimoEstadoCuenta").show();
         });
 

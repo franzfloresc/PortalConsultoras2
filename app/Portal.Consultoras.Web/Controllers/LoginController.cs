@@ -1656,12 +1656,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult IngresoExternoChatbot(string token)
+        public ActionResult IngresoExterno(string token)
         {
-            string secretKey = ConfigurationManager.AppSettings["ChatbotSecretKey"] ?? "";
+            string secretKey = ConfigurationManager.AppSettings["IngresoExternoSecretKey"] ?? "";
             try
             {
-                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoChatbotModel>(token, secretKey);
+                var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown");
 
                 var userData = (UsuarioModel)Session["UserData"];
@@ -1672,15 +1672,16 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null) return RedirectToAction("UserUnknown");
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
-                Session.Add("IngresoExternoChatbot", model.Version);
+                
+                Session.Add("IngresoExterno", model.Version ?? "");
 
                 switch (model.Pagina.ToUpper())
                 {
-                    case Constantes.ChatbotPagina.EstadoCuenta:
+                    case Constantes.IngresoExternoPagina.EstadoCuenta:
                         return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
-                    case Constantes.ChatbotPagina.SeguimientoPedido:
+                    case Constantes.IngresoExternoPagina.SeguimientoPedido:
                         return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
-                    case Constantes.ChatbotPagina.PedidoDetalle:
+                    case Constantes.IngresoExternoPagina.PedidoDetalle:
                         return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
                 }
             }

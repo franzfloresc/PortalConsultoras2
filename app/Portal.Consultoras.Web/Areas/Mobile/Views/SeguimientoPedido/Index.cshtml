@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @model SeguimientoMobileModel
 @{
-    var layout = Session["IngresoExternoChatbot"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
