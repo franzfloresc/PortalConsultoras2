@@ -24,12 +24,12 @@
                     if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
                     {
                         <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
-                           class="menu_mobile_belcorp etiqueta_showroom" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
+                           class="menu_mobile_belcorp etiqueta_showroom wsventa" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
                     }
                     else
                     {
                         <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
-                           class="menu_mobile_belcorp etiqueta_showroom" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
+                           class="menu_mobile_belcorp etiqueta_showroom wsintriga" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
                     }
 
 

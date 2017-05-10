@@ -3,14 +3,13 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.ServicePROLConsultas;
-using System.Configuration;
-using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -28,13 +27,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index(string query)
         {
-
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
             
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -175,8 +173,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
-                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
+                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
+                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
                 return showRoomEventoModel;                
@@ -193,7 +191,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             if (query != null)
             {
-                string param = Util.DesencriptarQueryString(query);
+                string param = Util.Decrypt(query);
                 string[] lista = param.Split(new char[] { ';' });
 
                 if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
@@ -208,12 +206,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                     }
 
+                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+                    
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
-                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-
-                        OfertaID = intID;
-
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
 
                         Entidad.CodigoConsultora = lista[2];
