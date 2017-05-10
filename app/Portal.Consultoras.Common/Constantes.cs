@@ -531,5 +531,34 @@ namespace Portal.Consultoras.Common
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
         }
+
+        public class TooltipLoginUsuario
+        {
+            public const string BO = "Tu código de consultora,<br/>Carné de Identidad<br/>o correo electrónico.";
+            public const string CL = "Tu número de RUT<br/>(sin puntos ni guión).<br/>Ejem:12345678k<br/>o correo electrónico.";
+            public const string CO = "Tu número de cédula de ciudadanía,<br/>o correo electrónico.";
+            public const string DO = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
+            public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
+            public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
+            public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
+        }
+
+        public class TooltipLoginPassword
+        {
+            public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
+            public const string CL = "Si es la primera vez que ingresas, es<br/>tu código de consultora de 7 dígitos<br/>(incluido el 0 inicial, si lo tuviera).";
+            public const string CO = "El número de tu<br/>cédula de identidad.";
+            public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
+            public const string EC = "El número de tu<br/>cédula de identidad.";
+            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
+            public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
+            public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
+            public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
+            public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
     }
 }
