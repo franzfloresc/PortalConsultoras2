@@ -255,10 +255,10 @@ function CargarProductosShowRoom(busquedaModel) {
     $("#divProductosShowRoom").show();
 
     var aplicarFiltrosSubCampanias = (busquedaModel == null);
-    var cargarProductosShowRoomPrimise = CargarProductosShowRoomPrimise(busquedaModel);
-    $.when(cargarProductosShowRoomPrimise)
+    var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
+    $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
-            ResolverCargarProductosShowRoomPrimiseDesktop(response, aplicarFiltrosSubCampanias);
+            ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
@@ -490,7 +490,7 @@ function AgregarProductoAlCarrito(padre) {
         });
     }    
 }
-function CargarProductosShowRoomPrimise(busquedaModel) {
+function CargarProductosShowRoomPromise(busquedaModel) {
     var d = $.Deferred();
     var promise = $.ajax({
         type: 'POST',
@@ -508,7 +508,7 @@ function CargarProductosShowRoomPrimise(busquedaModel) {
     return d.promise();
 }
 
-function ResolverCargarProductosShowRoomPrimiseDesktop(response, aplicarFiltrosSubCampanias) {
+function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     if (response.success) {
         
         if (aplicarFiltrosSubCampanias) {
@@ -565,11 +565,11 @@ function ResolverCargarProductosShowRoomPrimiseDesktop(response, aplicarFiltrosS
 }
 
 function CargarShowroomMobile(busquedaModel) {
-    var cargarProductosShowRoomPrimise = CargarProductosShowRoomPrimise(busquedaModel);
+    var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
 
-    $.when(cargarProductosShowRoomPrimise)
+    $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
-            ResolverCargarProductosShowRoomPrimiseMobile(response);
+            ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel);
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
@@ -582,7 +582,7 @@ function CargarShowroomMobile(busquedaModel) {
     });
 }
 
-function ResolverCargarProductosShowRoomPrimiseMobile(response) {
+function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
         var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
         if (listaProdShowRoomSubCampanias.length < 1) {
