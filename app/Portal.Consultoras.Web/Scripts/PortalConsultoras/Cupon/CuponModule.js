@@ -34,13 +34,14 @@
         EsEmailActivo: false,
         CodigoCupon: 0,
         BaseUrl: '',
-        UrlActualizarCupon: '',
+        UrlActualizarCupon: 'Cupon/ActualizarCupon',
         UrlEnviarCorreoGanaste: '',
         UrlEnviarCorreoConfirmacion: ''
     };
 
     var bindEvents = function () {
-        $(elements.Body).on("click", elements.LinkVer, function (e) {
+        $(elements.LinkVer).on("click", function () {
+            procesarConfirmacion();
             if (setting.CodigoCupon == CONS_CUPON.CUPON_RESERVADO) {
                 procesarGana();
             }
@@ -49,7 +50,7 @@
             }
         });
 
-        $(elements.Body).on("click", elements.BtnConfirmar, function (e) {
+        $(elements.BtnConfirmar).on("click", function () {
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
 
@@ -71,15 +72,20 @@
 
     var procesarConfirmacion = function () {
         $(elements.ContenedorConfirmacion).show();
-        var actualizarCuponPromise = actualizarCuponPromise(CONS_CUPON.CUPON_ACTIVO);
-        // Actualizar Estado cupon a 2 (Activo)
-        // Enviar correo de confirmación cambio de email
+        var model = { estado: CONS_CUPON.CUPON_ACTIVO };// Actualizar Estado cupon a 2 (Activo)
+        var cuponPromise = actualizarCuponPromise(model);
+        cuponPromise.then(function (response) {
+            var result = response;// Enviar correo de confirmación cambio de email
+        }, function (xhr, status, error) {});
     }
 
     var procesarGanaste = function () {
         $(elements.ContenedorGanaste).show();
-        // Actualizar Estado cupon a 2 (Activo)
-        // Enviar correo "Ganaste"
+        var model = { estado: CONS_CUPON.CUPON_ACTIVO };// Actualizar Estado cupon a 2 (Activo)
+        var cuponPromise = actualizarCuponPromise(model);
+        cuponPromise.then(function (response) {
+            var result = response;// Enviar correo "Ganaste"
+        }, function (xhr, status, error) {});
     }
 
     var procesarGana = function () {
@@ -88,7 +94,7 @@
 
     var inizializer = function (parameters) {
         setting.MostrarContenedorCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
-        setting.CodigoCupon = parseInt(parameters.codigoCupon);
+        //setting.CodigoCupon = parseInt(parameters.codigoCupon);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
@@ -104,7 +110,6 @@
                 $(elements.ContenedorCuponPaginaBienvenida).hide();
             }
         }
-        
     }
 
     var actualizarCuponPromise = function (estadoCupon) {

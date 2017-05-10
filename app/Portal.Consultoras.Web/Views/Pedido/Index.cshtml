@@ -529,7 +529,7 @@
 
     <div id="contenedorCupon" style="display: none; background-color: gray; width: 250px; height: 100px; float: right;">
         Tienes un descuento exclusivo para ti, conócelo
-        <a href="#" id="linkConocerDescuento">aquí</a>
+        <a id="linkConocerDescuento">aquí</a>
     </div>
 
 
@@ -2362,6 +2362,7 @@
 
                 var tieneCupon = '1';
                 var paginaOrigenCupon = 11;
+                var baseUrl = "@Url.Content("~")";
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 
