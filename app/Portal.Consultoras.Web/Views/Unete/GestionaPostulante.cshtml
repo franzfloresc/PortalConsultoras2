@@ -133,6 +133,34 @@
                     </div>
                 </div>
             </div>
+            <div class="div-3">
+
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
+                        @Html.TextBoxFor(m => Model.CodigoRegion, new { @style = "text-transform: uppercase;", @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Region" })
+                    </div>
+                </div>
+                <div class="filterDistr">
+                    <div class="selectP2 seleccion_pagina txtFiltro">
+                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
+                        <table>
+                            <tr>
+                                @foreach (var item in Model.FuenteIngresoListAvailable)
+                                {
+
+                                    <td>
+                                        <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
+                                    </td>
+                                    <td style="width:100px;padding-right:5px;">
+                                        <label for="@item.ID"><span class="textEbel">@item.Descripcion</span></label>
+                                    </td>
+                                }
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
             <div class="div-3">
 
