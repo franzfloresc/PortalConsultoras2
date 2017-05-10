@@ -145,6 +145,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
+                // mostrar popup de revista digital....
+                model.RevistaDigitalPopUpMostrar = userData.RevistaDigital.NoVolverMostrar;
             }
             catch (FaultException ex)
             {

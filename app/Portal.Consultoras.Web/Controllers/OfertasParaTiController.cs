@@ -75,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
             listModel.Update(s =>
             {
                 s.ID = s.EstrategiaID;
-                s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, IsMobile() ? 30 : 40);
                 if (s.FlagMostrarImg == 1)
                 {
                     if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
@@ -95,8 +94,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     s.ImagenURL = "";
                 }
-            });
 
+                s.PuedeCambiarCantidad = 1;
+                if (s.TieneVariedad == 0)
+                {
+                    if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
+                    {
+                        s.PuedeCambiarCantidad = 0;
+                    }
+                }
+            });
 
             return Json(listModel, JsonRequestBehavior.AllowGet);
         }

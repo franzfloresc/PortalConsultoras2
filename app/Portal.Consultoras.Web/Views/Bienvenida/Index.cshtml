@@ -1147,16 +1147,22 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
+        <div class="background-revistaSeccion"></div>
         <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
                 <div class="revista-title">
-                    <p class="marca">ÉSIKA</p>
-                    <div class="giftext">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    <div class="logo-marca">
+                        <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
                     </div>
-                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                    <div class="linea-separacion"></div>
+                    <div class="titulo_nuevaRevista">
+                        <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                            <span>@(Model.NombreConsultora.ToUpper())</span>, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA
+                        </span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS</span>
+                    </div>
                 </div>
                 {{else}}
                 <div class="titulo_ofertas_home">
@@ -1169,7 +1175,7 @@
                 {{/iff}}
             </div>
             <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" style="padding-bottom: 25px;"></div>
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
             {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
             <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
                 <p>MÁS<br>OFERTAS<br>PARA TI</p>
@@ -1183,11 +1189,11 @@
 
 @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 
-<script id="estrategia-atemplate1" type="text/x-handlebars-template">
-    {{#each this.Lista as |item|}}
+<script id="estrategia-template1" type="text/x-handlebars-template">
+    {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
+        <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
             <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
                 <div class="producto_img_home">
@@ -1224,6 +1230,7 @@
                         <b>{{DescripcionCUV2}}</b>
                     </p>
                     {{/if_eq}}
+
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                     {{#if_eq EtiquetaID '1'}}
                     <div class="producto_precio">
@@ -1297,7 +1304,7 @@
             </div>
         </div>
     </div>
-    {{/each}}        
+    {{/each}}
 </script>
 
 <script id="liquidacion-template" type="text/x-handlebars-template">
@@ -2320,29 +2327,65 @@
 
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-<div class="Content_general_pop_up" style="display: none;" id="PopRDSuscripcion" data-popup-main="">
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="">
+    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_revistaSuscripcion">
+            <div class="background_popupEsika"></div>
+            <div class="popup_revistaSuscripcion_logoMarca">
+                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
+            </div>
+            <div class="popup_revistaSuscripcion_contenido">
+                <span>
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
+                </span>
+                <span>
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
+                </span>
+            </div>
+            <div class="popup_revistaSuscripcion_grupoBotones">
+                <button type="button" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+            </div>
+            <div class="popup_revistaSuscripcion_terminos">
+                Al inscribirte est&aacute;s aceptando los
+                <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10
+            </div>
+            <div class="img_modeloRevista">
+                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
+            </div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+</div>
+@*<div class="Content_general_pop_up" style="display: none;" id="PopRDSuscripcion" data-popup-main="">
     <div class="content_pop_up_intriga" data-popup-body="" style="padding:25px 0;height: auto;">
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
-        </a>
+        </a>*@
        
-        <div style="position: relative; z-index: 2 !important;">
+        @*<div style="position: relative; z-index: 2 !important;">
             <img src="/Content/Images/Esika/RevistaDigital/popup1.png" usemap="#imgmap" width="100%" style="position: relative;"/>
             <map name="imgmap">
-                <area shape="rect" coords="20,200,280,260" href="javascript:RDSuscripcion();">
+                <area shape="rect" coords="20,200,280,260" href="javascript:RDSuscripcion();" alt="Suscribirse.">
             </map>
             <img src="/Content/Images/Esika/RevistaDigital/letra.gif" style="float: left; position: absolute; top : 62px; left: 180px" />
-        </div>
+        </div>*@
         @*<div style="text-align: center; margin:-26px 0 81px 32px;">
             <input id="btnRDSuscripcionNo" type="button" value="CANCELAR" data-popup-close="" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
             <input id="btnRDSuscripcionSi" type="button" value="!QUIERO INSCRIBIRME AHORA¡" onclick="RDSuscripcion()" class="input_modifica_horizontal" style="width: 225px;" />
         </div>*@
-        <div style="color: white; z-index: -1 !important ">
+        @*<div style="color: white; z-index: -1 !important ">
             <a href="javascript:RDPopupNoVolverMostrar();">No volver a ver este mensaje</a>
         </div>
         <div class="clear"></div>
     </div>
-</div>
+</div>*@
 <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
 <!--FIN REVISTA DIGITAL-->
 

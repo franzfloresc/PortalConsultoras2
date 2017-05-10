@@ -7,7 +7,7 @@
             <div class="producto_img_home">
                 <img src="{{FotoProducto01}}" class="imagen_producto" />
                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                <a class="ver_detalle_carrusel">VER DETALLE</a>
+                <a href="javascript:;" class="ver_detalle_carrusel">VER DETALLE</a>
                 {{/iff}}
             </div>
             {{#iff ImagenURL '!=' ''}}
@@ -48,46 +48,35 @@
         </div>
         <div class="producto_nombre_descripcion">
             {{#iff TieneVariedad '==' '0'}}
-            {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-            <div class="liquidacion_rango_home">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-            </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                AGR&Eacute;GALO
-            </a>
-            {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/mas.png" alt="" /></a>
-                    <a class="menos js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/menos.png" alt="" /></a>
+                {{#iff PuedeCambiarCantidad '==' '0'}}
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
                 </div>
-            </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                AGR&Eacute;GALO
-            </a>
-            {{else}}
-            <div class="liquidacion_rango_home js-no-popup">
-                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                <div class="liquidacion_rango_right_pedido js-no-popup">
-                    <a class="mas js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/mas.png" alt="" /></a>
-                    <a class="menos js-no-popup"><img class="js-no-popup" src="~/Content/Images/Esika/menos.png" alt="" /></a>
-                </div>
-            </div>
-            <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                AGR&Eacute;GALO
-            </a>
-            {{/iff}}
-            {{else}}
-            <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
-                <div class="texto_elige_tono">
-                    ¡AHORA ELIGE TU TONO!
-                </div>
-                <div class="clear"></div>
-                <a class="btn_elige_tono js-no-popup">
-                    <div>ELIGE TU OPCIÓN</div>
+                <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                    AGR&Eacute;GALO
                 </a>
-            </div>
+                {{else}}
+                <div class="liquidacion_rango_home js-no-popup">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
+                    <div class="liquidacion_rango_right_pedido js-no-popup">
+                        <a href="javascript:;" class="mas js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt="" /></a>
+                        <a href="javascript:;" class="menos js-no-popup"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt="" /></a>
+                    </div>
+                </div>
+                <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    AGR&Eacute;GALO
+                </a>
+                {{/iff}}
+            {{else}}
+                <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                    <div class="texto_elige_tono">
+                        ¡AHORA ELIGE TU TONO!
+                    </div>
+                    <div class="clear"></div>
+                    <a href="javascript:;" class="btn_elige_tono js-no-popup">
+                        <div>ELIGE TU OPCIÓN</div>
+                    </a>
+                </div>
             {{/iff}}
             <div class="clear"></div>
             <div style="padding-top:9px; height: 15px;">

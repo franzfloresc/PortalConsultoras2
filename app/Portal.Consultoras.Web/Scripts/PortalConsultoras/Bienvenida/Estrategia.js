@@ -123,7 +123,7 @@ function ArmarCarouselEstrategias(data) {
     obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     obj.CodigoEstrategia = "101";
     obj.Lista = data;
-
+    obj.Consultora = usuarioNombre.toUpperCase()
 
     SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
     $('#divListaEstrategias').show();
@@ -148,7 +148,7 @@ function ArmarCarouselEstrategias(data) {
     //}
 
     if (tipoOrigenEstrategia == 1) {
-
+        $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
         $('#divListadoEstrategia').not('.slick-initialized').slick({
             infinite: true,
@@ -172,7 +172,8 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 11) {
-        
+        $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "producto_carousel");
+
         $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
         if (indicadorFlexiPago == 1) {
@@ -184,7 +185,7 @@ function ArmarCarouselEstrategias(data) {
         var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
-
+        cant = obj.CodigoEstrategia = "101" ? data.length : cant;
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,
@@ -208,7 +209,9 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 2) {
         $('#div-linea-OPT').show();
+        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
+        
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: false,
@@ -236,6 +239,7 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 21) {
+        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
         $('#divListadoEstrategia').slick({
             slidesToShow: 4,
@@ -361,12 +365,15 @@ function EstructurarDataCarousel(array) {
         };
 
         item.Posicion = i + 1;
-        item.MostrarTextoLibre = item.TextoLibre.length > 0;
+        item.MostrarTextoLibre = $.trim(item.TextoLibre).length > 0;
     });
     return array;
 };
 
 function EstrategiaVerDetalle(id, origen) {
+    if ($.trim(origen) == "") {
+        origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb");
+    }
     window.location = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
 }
 
@@ -437,12 +444,6 @@ function CargarEstrategiasEspeciales(objInput, e) {
         else {
             $('#popupDetalleCarousel_lanzamiento').find("#tbnAgregarProducto").addClass("btn_desactivado_general");
         }
-
-        //if ($('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').html().length > 40) {
-        //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').addClass('nombre_producto22');
-        //    $('#popupDetalleCarousel_lanzamiento').find('[data-prod-descripcion]').removeClass('nombre_producto');
-        //    //$('#popupDetalleCarousel_lanzamiento').find('.nombre_producto22').children()[0].innerHTML = "LBel Mithyka Eau Parfum 50ml+Cyzone Love Bomb Eau de Parfum 30ml+Esika Labial Color HD Tono Pimienta Caliente+Esika Agu Shampoo Manzanilla 1L";
-        //}
 
         AbrirPopup('#popupDetalleCarousel_lanzamiento');
         $(".indicador_tono").click();
@@ -551,7 +552,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var flagNueva = objParameter.FlagNueva;
 
     var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
-    //origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val();
+    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") || origenPedidoWebEstrategia;
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
