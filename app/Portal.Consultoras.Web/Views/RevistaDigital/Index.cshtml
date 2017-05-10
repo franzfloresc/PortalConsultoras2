@@ -4,15 +4,29 @@
 @{
     ViewBag.Title = "ShowRoom";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
-}
+}1
 
 @section styles{
 
     <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
 }
 
 <!--MAQUETADO NUEVO-->
+<div class="content_belcorp">
+    <div class="logo_EPT_content">
+        <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
+    </div>
+    <div class="texto_usuario_ept">
+        Yuliana, descubre Tu NUEVA REVISTA ONLINE personalizada<br/>
+        <span class="texto_light">Encuentra ofertas, bonificaciones, y lanzamientos de las 3 marcas. todos los productos también suman puntos.</span>
+    </div>
+    <hr class="clear" />
+    <div class="content_slider_ept"></div>
+    
+</div>
+<hr class="clear" />
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
         <div class="content_filtros_left">
@@ -319,8 +333,15 @@
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompraTactica';
         var origenPedidoWebCarrusel = -1;
     </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            $('.content_slider_ept').flexslider(); 
+        });
+     
+    </script>
 }

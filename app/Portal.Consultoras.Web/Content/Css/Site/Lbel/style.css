@@ -35552,3 +35552,10 @@ h1#penmostreo .campana {
     width:auto;
     display:block;
 }
+.logo_EPT{
+    width:10%;
+    background: black url(../../../Images/RevistaDigital/fondo.png) no-repeat right top;
+}
+.logo_EPT img{
+    width:100%;
+}
