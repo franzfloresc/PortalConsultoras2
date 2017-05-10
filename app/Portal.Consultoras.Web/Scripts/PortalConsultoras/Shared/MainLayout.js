@@ -3,7 +3,7 @@ var showDisplayODD = 0;
 var ventanaChat = null;
 
 $(document).ready(function () {
-
+    LayoutHeader();
     if (tieneOfertaDelDia == "True") {
         window.OfertaDelDia.CargarODD();
     }
@@ -112,11 +112,9 @@ $(document).ready(function () {
 
     //EPD-2305
     if (mostrarBannerPostulante == 'True') {
-        $('#bloquemensajesPostulante').show();
-        $(".ubicacion_web").addClass("header_postulante");
+        $('#bloquemensajesPostulante').show();        
     }
     else {
-        $(".ubicacion_web").addClass("header_consultora");
         MensajeEstadoPedido();
     }
 
@@ -287,7 +285,7 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
-    OrdenarCabecera()
+    //OrdenarCabecera()
 
     LayoutHeader();
 
@@ -313,17 +311,17 @@ function microefectoPedidoGuardado() {
 }
 
 
-function OrdenarCabecera() {
-    debugger
-    var hC = $("header").innerHeight() + 2;
-    var htmlSub = $.trim($(".ubicacion_web").html());
-    if (htmlSub == "") {
-        $(".SubHeader").html("");
-    }
-    hC += $(".SubHeader").innerHeight();
+//function OrdenarCabecera() {
 
-    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
-}
+//    var hC = $("header").innerHeight() + 2;
+//    var htmlSub = $.trim($(".ubicacion_web").html());
+//    if (htmlSub == "") {
+//        $(".SubHeader").html("");
+//    }
+//    hC += $(".SubHeader").innerHeight();
+
+//    $(".content[data-content]").css("margin-top", $.trim(hC) + "px");
+//}
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
