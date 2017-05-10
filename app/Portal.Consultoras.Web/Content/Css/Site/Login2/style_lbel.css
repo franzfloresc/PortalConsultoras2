@@ -1782,6 +1782,52 @@ h1, h2, h3, h4, h5, h6 {
 .inputForm:-moz-placeholder { color:#959595 }
 .inputForm::-moz-placeholder { color:#959595 }
 .inputForm:-ms-input-placeholder {color:#959595}
+
+.btn_validar_usuario {
+    color: white;
+    background-color: #613c87;
+    border-radius:2px;
+    /* border: 1px solid #29487d; */
+    font-size: 13px;
+    font-weight: bold;
+    height: 45px;   
+    /* padding: 6px 6px; */
+    text-align: center;
+    margin-top: 6px;
+    width: 100%;
+    /* margin-left: 35%; */
+    display: block;
+    box-sizing: border-box;
+    /* border-radius: 2px; */
+    line-height: 45px;
+    font-family: 'Lato';
+}
+.content_foto_face_pop{
+    margin-top:13px;
+    overflow:hidden;
+}
+.foto_pop_face{
+    float:left;
+    border-radius:100px;
+    background:black;
+    width:45px;
+    height:45px;
+    overflow:hidden;
+}
+.foto_pop_face img{
+    width:100%;
+}
+.nombre_usuario_facebook{
+    float:right;
+   width: -moz-calc(100% -55px);
+    width: calc(100% - 55px);
+    width:-webkit-calc(100% - 55px);
+    width: -webkit-calc(~'100% - 55px');
+    font-family:'LAto';
+    font-size:13px;
+    margin-top:15px;
+    color:black;
+}
 .ayuda_usuario_facebook:hover .mensaje_ayuda_usuario{
     display:block;
 }
