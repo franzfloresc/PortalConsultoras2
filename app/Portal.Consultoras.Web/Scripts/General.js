@@ -348,6 +348,10 @@ jQuery(document).ready(function () {
         return newLista;
     };
 
+    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+        GuardarIndicadorPedidoAutentico();
+    }
+    
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -792,7 +796,6 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    //debugger;
     LayoutHeader();
 }
 
@@ -1017,4 +1020,82 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow-y': 'auto' });
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
+}
+
+function GuardarIndicadorPedidoAutentico() {
+    //debugger;
+
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data2),
+                    success: function (response) {
+                        if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
+                            localStorage.setItem('SBTokenPedido', response.message);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
+
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        }
+    }
 }

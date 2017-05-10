@@ -128,6 +128,15 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
                             }
+                    
+                    ViewBag.FingerprintOk = 0;
+                    ViewBag.TokenPedidoAutenticoOk = 0;
+
+                    if (Session["Fingerprint"] != null)
+                        ViewBag.FingerprintOk = 1;
+                    
+                    if (Session["TokenPedidoAutentico"] != null)
+                        ViewBag.TokenPedidoAutenticoOk = 1;
                         }
                     //}
                 }
@@ -308,6 +317,37 @@ namespace Portal.Consultoras.Web.Controllers
             rtpa = rtpa ?? new List<ObjMontosProl>();
             Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
             return rtpa;
+        }
+
+
+        protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)
+        {
+            try
+            {
+                if (Session["PedidoWebDetalle"] != null)
+                {
+                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+                    olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                    if (olstPedidoWebDetalle.Any())
+                    {
+                        BEPedidoWebDetalle bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == cuv).FirstOrDefault();
+                        if (bePedidoWebDetalle != null)
+                        {
+                            indPedidoAutentico.PedidoID = bePedidoWebDetalle.PedidoID;
+                            indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
+
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
         }
 
         protected void UpdPedidoWebMontosPROL()
@@ -910,14 +950,46 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        private string GetIPCliente()
+        public string GetIPCliente()
         {
+            //string IP = string.Empty;
+            //try
+            //{
+            //    IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            //}
+            //catch { }
+            //return IP;
             string IP = string.Empty;
             try
             {
-                IP = HttpContext.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                string ipAddress = string.Empty;
+
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+                }
+
+                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+                }
+
+                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
+                }
+
+                if (ipAddress.IndexOf(":") > 0)
+                {
+                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                }
+
+                return ipAddress;
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
             return IP;
         }
 

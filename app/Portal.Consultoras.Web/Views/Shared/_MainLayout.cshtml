@@ -841,19 +841,18 @@
         var MostrarODD = '@ViewBag.MostrarODD';
         //EPD-2058
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+        
+        var fingerprintOk = '@ViewBag.FingerprintOk';
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
 
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
         var MensajePedidoDesktop = '@ViewBag.MensajePedidoDesktop';
         
         var clock;
         var TipoOrigenPantallaODD = 1;
-    </script>
-
-
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';
