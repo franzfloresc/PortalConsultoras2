@@ -186,7 +186,7 @@
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-        var ingresoExternoChatbot = '@Session["IngresoExternoChatbot"]';
+        var ingresoExterno = '@Session["IngresoExterno"]';
     </script>
 
     <script type="text/javascript">
@@ -195,12 +195,12 @@
 
             HandlebarsRegisterHelper();
 
-            if (ingresoExternoChatbot == "Soporta") {
-                $(".enlace_regresar").hide();
-            } else {
+            if (ingresoExterno == "NoSoporta") {
                 $("body").on("click", ".enlace_regresar", function (e) {
                     window.location.href = 'http://m.me/EsikaLoPuedenTodoPrueba';
                 });
+            } else {
+                $(".enlace_regresar").hide();
             }
 
             $("body").on("keyup", ".ValidaNumeral", function (evt) {

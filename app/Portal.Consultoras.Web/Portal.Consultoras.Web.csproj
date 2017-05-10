@@ -390,7 +390,7 @@
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\EventoPostulanteModel.cs" />
     <Compile Include="Models\HistorialPostulanteModel.cs" />
-    <Compile Include="Models\IngresoExternoChatbotModel.cs" />
+    <Compile Include="Models\IngresoExternoModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginFacebookChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginNormalChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginChatbotModel.cs" />
