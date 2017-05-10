@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.Service
 {
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLCuponConsultora BLCuponConsultora;
 
         public PedidoService()
         {
@@ -54,6 +56,7 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -1905,5 +1908,14 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
         }
+
+        #region Cupon
+
+        public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
+        {
+            return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
+        }
+
+        #endregion
     }
 }

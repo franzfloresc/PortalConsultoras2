@@ -6,8 +6,9 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_GetShowRoomPerfiles_InputMessage">
@@ -339,6 +340,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEventoConsultoraRecibido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEventoConsultoraRecibidoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuponConsultoraByCodigoConsultoraCampaniaId" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuponConsultoraByCodigoConsultoraCampaniaIdResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEtiquetas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEtiquetas" />
@@ -2091,6 +2098,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" message="tns:IPedidoService_GetEventoConsultoraRecibido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse" message="tns:IPedidoService_GetEventoConsultoraRecibido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCuponConsultoraByCodigoConsultoraCampaniaId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaId" message="tns:IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaIdResponse" message="tns:IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEtiquetas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetas" message="tns:IPedidoService_GetEtiquetas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetasResponse" message="tns:IPedidoService_GetEtiquetas_OutputMessage" />
@@ -3602,6 +3613,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetEventoConsultoraRecibido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCuponConsultoraByCodigoConsultoraCampaniaId">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
