@@ -2332,29 +2332,65 @@
 
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-<div class="Content_general_pop_up" style="display: none;" id="PopRDSuscripcion" data-popup-main="">
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="">
+    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_revistaSuscripcion">
+            <div class="background_popupEsika"></div>
+            <div class="popup_revistaSuscripcion_logoMarca">
+                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
+            </div>
+            <div class="popup_revistaSuscripcion_contenido">
+                <span>
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
+                </span>
+                <span>
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
+                </span>
+            </div>
+            <div class="popup_revistaSuscripcion_grupoBotones">
+                <button type="button" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+            </div>
+            <div class="popup_revistaSuscripcion_terminos">
+                Al inscribirte est&aacute;s aceptando los
+                <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10
+            </div>
+            <div class="img_modeloRevista">
+                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
+            </div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+</div>
+@*<div class="Content_general_pop_up" style="display: none;" id="PopRDSuscripcion" data-popup-main="">
     <div class="content_pop_up_intriga" data-popup-body="" style="padding:25px 0;height: auto;">
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
-        </a>
+        </a>*@
        
-        <div style="position: relative; z-index: 2 !important;">
+        @*<div style="position: relative; z-index: 2 !important;">
             <img src="/Content/Images/Esika/RevistaDigital/popup1.png" usemap="#imgmap" width="100%" style="position: relative;"/>
             <map name="imgmap">
                 <area shape="rect" coords="20,200,280,260" href="javascript:RDSuscripcion();" alt="Suscribirse.">
             </map>
             <img src="/Content/Images/Esika/RevistaDigital/letra.gif" style="float: left; position: absolute; top : 62px; left: 180px" />
-        </div>
+        </div>*@
         @*<div style="text-align: center; margin:-26px 0 81px 32px;">
             <input id="btnRDSuscripcionNo" type="button" value="CANCELAR" data-popup-close="" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
             <input id="btnRDSuscripcionSi" type="button" value="!QUIERO INSCRIBIRME AHORA¡" onclick="RDSuscripcion()" class="input_modifica_horizontal" style="width: 225px;" />
         </div>*@
-        <div style="color: white; z-index: -1 !important ">
+        @*<div style="color: white; z-index: -1 !important ">
             <a href="javascript:RDPopupNoVolverMostrar();">No volver a ver este mensaje</a>
         </div>
         <div class="clear"></div>
     </div>
-</div>
+</div>*@
 <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
 <!--FIN REVISTA DIGITAL-->
 

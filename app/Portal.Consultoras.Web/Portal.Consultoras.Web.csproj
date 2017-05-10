@@ -1583,6 +1583,7 @@
     <Content Include="Content\Images\cerrar_04.png" />
     <Content Include="Content\Images\cerrar_04_blanco.png" />
     <Content Include="Content\Images\checkborde.gif" />
+    <Content Include="Content\Images\esika-para-mi-img-blanco.svg" />
     <Content Include="Content\Images\esika-para-mi-img.png" />
     <Content Include="Content\Images\esika-para-mi-img.svg" />
     <Content Include="Content\Images\Esika\background-showroom-product.jpg" />
@@ -2648,6 +2649,7 @@
     <Content Include="Content\Images\mobile\Tarjeta_AmericanExpress.png" />
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
     <Content Include="Content\Images\mobile\Tarjeta_Visa.png" />
+    <Content Include="Content\Images\modelo-popup-revista.png" />
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
