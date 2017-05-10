@@ -1125,12 +1125,20 @@ function ConfirmarModificarPedido() {
 /*** EPD-1682 ***/
 function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
     if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
-        $('#popupInformacion2 #mensajeInformacion2').html(pMensaje);
-        $('#popupInformacion2').show();
+        if (ViewIndicadorGPRSB == '0') {
+            $('#popupInformacion2 #mensajeInformacion2').html(pMensaje);
+            $('#popupInformacion2').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
     }
     else {
-        $('#dialog_PedidoReservado #mensajePedidoReservado_Error').html(pMensaje);
-        $('#dialog_PedidoReservado').show();
+        if (ViewIndicadorGPRSB == '0') {
+            $('#dialog_PedidoReservado #mensajePedidoReservado_Error').html(pMensaje);
+            $('#dialog_PedidoReservado').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
     }
 }
 /**/

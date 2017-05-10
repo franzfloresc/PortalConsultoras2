@@ -157,7 +157,6 @@ $(document).ready(function () {
         });
 
         //$(".swproddetcompraimg").on("click", function () {
-            debugger;
             var pofertaid = $("#swdeteventoofertaid").val();
             var pofertaDescripion = $("#swdetdescripcion").val();
             var pofertaPrecio = $("#swdetprecio").val();
