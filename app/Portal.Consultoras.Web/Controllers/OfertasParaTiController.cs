@@ -75,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
             listModel.Update(s =>
             {
                 s.ID = s.EstrategiaID;
-                s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, IsMobile() ? 30 : 40);
                 if (s.FlagMostrarImg == 1)
                 {
                     if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
