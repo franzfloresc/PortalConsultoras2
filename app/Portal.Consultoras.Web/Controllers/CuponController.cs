@@ -19,12 +19,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult ObtenerDatosCupo()
+        public JsonResult ObtenerCupon()
         {
             try
             {
-                CuponModel cupon = ObtenerDatosCupon();
-                return Json(new { success = true, data = cupon });
+                CuponModel cuponModel = ObtenerDatosCupon();
+                return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }

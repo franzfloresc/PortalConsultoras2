@@ -16,11 +16,10 @@
     };
     
     var elements = {
-        ContenedorCuponPaginaBienvenida: '#contenedorCupon',
+        PopupCuponPaginaBienvenida: '#Cupon1',
         ContenedorConfirmacion: '#',
         ContenedorGanaste: '#',
         ContenedorGana: '#',
-        PopupCuponPaginaBienvenida: '#Id2',
         LinkVer: '#linkConocerDescuento',
         Body: 'body',
         BtnConfirmar: '#',
@@ -32,21 +31,23 @@
         MostrarContenedorCupon: false,
         PaginaOrigen: 0,
         EsEmailActivo: false,
-        CodigoCupon: 0,
         BaseUrl: '',
         UrlActualizarCupon: 'Cupon/ActualizarCupon',
         UrlEnviarCorreoGanaste: '',
-        UrlEnviarCorreoConfirmacion: ''
+        UrlEnviarCorreoConfirmacion: '',
+        UrlObtenerCupon: 'Cupon/ObtenerCupon',
+        Cupon: null
     };
 
     var bindEvents = function () {
         $(elements.LinkVer).on("click", function () {
-            procesarConfirmacion();
-            if (setting.CodigoCupon == CONS_CUPON.CUPON_RESERVADO) {
-                procesarGana();
-            }
-            else if (setting.CodigoCupon == CONS_CUPON.CUPON_ACTIVO) {
-                validarEstadoEmail();
+            if (setting.Cupon != null && setting.Cupon != undefined) {
+                if (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_RESERVADO) {
+                    procesarGana();
+                }
+                else if (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO) {
+                    validarEstadoEmail();
+                }
             }
         });
 
@@ -89,12 +90,12 @@
     }
 
     var procesarGana = function () {
-        $(elements.ContenedorGana).show();
+
+        $(elements.PopupCuponPaginaBienvenida).show();
     }
 
     var inizializer = function (parameters) {
         setting.MostrarContenedorCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
-        //setting.CodigoCupon = parseInt(parameters.codigoCupon);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
@@ -105,11 +106,20 @@
     var mostrarContenedorCuponPorPagina = function () {
         if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA || setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO) {
             if (setting.MostrarContenedorCupon) {
-                $(elements.ContenedorCuponPaginaBienvenida).show();
+                $(elements.PopupCuponPaginaBienvenida).show();
             } else {
-                $(elements.ContenedorCuponPaginaBienvenida).hide();
+                $(elements.PopupCuponPaginaBienvenida).hide();
             }
         }
+    }
+
+    var obtenerCupon = function () {
+        var cuponPromise = obtenerCuponPromise();
+        cuponPromise.then(function (response) {
+            setting.Cupon = response.data;
+        }, function (xhr, status, error) {
+            console.log(xhr.responseText);
+        });
     }
 
     var actualizarCuponPromise = function (estadoCupon) {
@@ -169,9 +179,28 @@
         return d.promise();
     }
 
+    var obtenerCuponPromise = function () {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'GET',
+            url: setting.BaseUrl + setting.UrlObtenerCupon,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
     return {
         ini: function (parameters) {
             inizializer(parameters);
-        }
+        },
+        obtenerCupon: obtenerCupon
     };
 })();
