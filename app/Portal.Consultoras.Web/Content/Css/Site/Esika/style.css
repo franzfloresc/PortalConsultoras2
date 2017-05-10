@@ -35556,3 +35556,89 @@ h1#penmostreo .campana {
     width:auto;
     display:block;
 }
+.logo_EPT_content{
+    width:27%;
+    height:205px;
+   
+    float:left;  
+    position:relative;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+}
+.logo_EPT{
+    width:209px;
+    margin-top: 28px;
+}
+
+/*.logo_EPT img{
+    width:96%;
+}*/
+.logo_EPT_content::after{
+    top: 0;
+    content: '';
+    position: absolute;
+    width: 300%;
+    left: -300%;
+    height: 205px;    
+    z-index: 100;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+}
+.texto_usuario_ept{
+    font-family:'Lato';
+    font-weight:700;
+    color:white;
+    float:left;
+    width:73%;
+    background:black;
+    height:205px;
+    font-size:20px;
+    padding-top:60px;
+    padding-left:60px;
+    padding-right:60px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    position:relative;
+}
+.texto_light{
+    font-weight:300;
+    font-size:22px;
+}
+.texto_usuario_ept:before{
+    content:'';
+    position:absolute;
+    left:-70px;
+    top:0;
+    z-index:102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 205px 70px;
+    border-color: transparent transparent #000000 transparent;
+}
+.texto_usuario_ept:after{
+    content:'';
+    position:absolute;
+    right:-300%;
+    top:0;
+    z-index:102;
+    width: 300%;
+    height: 205px;
+    background:black;
+    z-index:103;
+}
+.content_slider_ept{
+    max-width:900px;
+}
