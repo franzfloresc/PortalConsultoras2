@@ -327,5 +327,9 @@ namespace Portal.Consultoras.ServiceContracts
          * */
        
         /*EPD-1837*/
+
+        [OperationContract]
+        BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
+            bool usuarioPrueba, int aceptacionConsultoraDA);
     }
 }

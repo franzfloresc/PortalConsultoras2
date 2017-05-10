@@ -2067,7 +2067,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         private string ValidarHorarioRestringido(BEUsuario usuario)
-        {            
+        {
             DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             if (!usuario.HabilitarRestriccionHoraria) return null;
             if (FechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;

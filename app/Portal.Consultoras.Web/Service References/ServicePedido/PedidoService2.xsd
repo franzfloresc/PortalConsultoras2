@@ -292,6 +292,7 @@
       <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
       <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
       <xs:element minOccurs="0" name="FlagCantidad" type="xs:int" />
@@ -339,8 +340,8 @@
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ValidarStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstrategia" nillable="true" type="tns:BEEstrategia" />

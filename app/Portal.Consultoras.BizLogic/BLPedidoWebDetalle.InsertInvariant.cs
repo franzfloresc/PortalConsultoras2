@@ -12,11 +12,11 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebDetalle
     {
-        private BLPedidoWeb _blPedidoWeb;
-        private BLProducto _blProducto;
-        private BLUsuario _blUsuario;
-        private BLEstrategia _blEstrategia;
-        private BLOfertaProducto _blOfertaProducto;
+        private readonly BLPedidoWeb _blPedidoWeb;
+        private readonly BLProducto _blProducto;
+        private readonly BLUsuario _blUsuario;
+        private readonly BLEstrategia _blEstrategia;
+        private readonly BLOfertaProducto _blOfertaProducto;
         private const string SUCCESS = "OK";
 
         public BLPedidoWebDetalle()
@@ -28,6 +28,11 @@ namespace Portal.Consultoras.BizLogic
             _blOfertaProducto = new BLOfertaProducto();
         }
 
+        /// <summary>
+        /// Inserta un pedido considerando el horario, stock y liquidacion
+        /// </summary>
+        /// <param name="model">Modelo a ingresar</param>
+        /// <returns>Resultado:bool, codigo:string y mensaje:string de la operacion</returns>
         public BEPedidoWebResult InsPedidoDetalleInvariant(BEPedidoWebDetalleInvariant model)
         {
             var usuario = _blUsuario.GetSesionUsuario(model.PaisID, model.CodigoUsuario);
@@ -71,7 +76,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             //Insertar
-            AdministradorPedido(model.PaisID, usuario.CodigoUsuario, "I", model.CUV, model.Cantidad, producto.PrecioCatalogo, usuario);
+            AdministradorPedido(model.PaisID, "I", model.CUV, model.Cantidad, producto.PrecioCatalogo, usuario);
             return BEPedidoWebResult.BuildOk();
         }
 
@@ -81,7 +86,8 @@ namespace Portal.Consultoras.BizLogic
             public const string ERROR_PRODUCTO_STOCK_INVALIDO = "06";
         }
 
-        private bool ResolverMotivoPedidoLock(Enumeradores.MotivoPedidoLock validacion)
+        #region Privates
+        private static bool ResolverMotivoPedidoLock(Enumeradores.MotivoPedidoLock validacion)
         {
             if (validacion == Enumeradores.MotivoPedidoLock.GPR ||
             validacion == Enumeradores.MotivoPedidoLock.Reservado ||
@@ -90,7 +96,7 @@ namespace Portal.Consultoras.BizLogic
             return true;
         }
 
-        static ProductoOrigenEnum OrigenResolver(BEProducto producto)
+        private static ProductoOrigenEnum OrigenResolver(BEProducto producto)
         {
             if (producto.TipoOfertaSisID == 1702) return ProductoOrigenEnum.Liquidaciones;
             if (producto.EsExpoOferta) return ProductoOrigenEnum.ExpoOfertas;
@@ -127,7 +133,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasSaldoPermitido, unidadesPermitidas, saldo);
+                    errorMessage = string.Format(Resources.PedidoInsertMessages.ValidacionUnidadesPermitidasSaldoPermitido, saldo, unidadesPermitidas);
                 }
 
                 result = false;
@@ -152,7 +158,7 @@ namespace Portal.Consultoras.BizLogic
                 ConfiguracionOfertaID = producto.ConfiguracionOfertaID,
                 Cantidad = model.Cantidad,
                 CampaniaID = model.CampaniaID,
-                TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion, 
+                TipoOfertaSisID = Constantes.ConfiguracionOferta.Liquidacion,
                 IPUsuario = model.IPUsuario,
                 CodigoUsuarioCreacion = usuario.CodigoUsuario,
                 CodigoUsuarioModificacion = usuario.CodigoUsuario,
@@ -168,11 +174,13 @@ namespace Portal.Consultoras.BizLogic
 
         private void ValidarUnidadesPermitidasPedidoProducto(string CUV, int paisId, int campanaId, long consultoraId, out int unidadesPermitidas, out int saldo, out int cantidadPedida)
         {
-            var entidad = new BEOfertaProducto();
-            entidad.PaisID = paisId;
-            entidad.CampaniaID = campanaId;
-            entidad.CUV = CUV;
-            entidad.ConsultoraID = (int)consultoraId;
+            var entidad = new BEOfertaProducto
+            {
+                PaisID = paisId,
+                CampaniaID = campanaId,
+                CUV = CUV,
+                ConsultoraID = (int)consultoraId
+            };
 
             unidadesPermitidas = _blOfertaProducto.GetUnidadesPermitidasByCuv(paisId, campanaId, CUV);
             saldo = _blOfertaProducto.ValidarUnidadesPermitidasEnPedido(paisId, campanaId, CUV, consultoraId);
@@ -184,7 +192,7 @@ namespace Portal.Consultoras.BizLogic
             return _blOfertaProducto.GetStockOfertaProductoLiquidacion(paisID, campanaID, cuv);
         }
 
-        private void AdministradorPedido(int paisID, string codigo, string tipoAccion, string cuv, int cantidad, decimal precio, BEUsuario usuario)
+        private void AdministradorPedido(int paisID, string tipoAccion, string cuv, int cantidad, decimal precio, BEUsuario usuario)
         {
             BEPedidoWeb bePEdidoWeb = _blPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, usuario.CampaniaID, usuario.ConsultoraID);
             List<BEPedidoWebDetalle> olstTempListado = GetPedidoWebDetalleByCampania(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID, usuario.Nombre).ToList();
@@ -213,13 +221,13 @@ namespace Portal.Consultoras.BizLogic
 
             if (tipoAccion == "I")
             {
-                int Cantidad;
-                short pedidoDetalleID = ValidarInsercion(olstTempListado, item, out Cantidad);
+                int itemCantidad;
+                short pedidoDetalleID = ValidarInsercion(olstTempListado, item, out itemCantidad);
                 if (pedidoDetalleID != 0)
                 {
                     tipoAccion = "U";
                     item.Stock = item.Cantidad;
-                    item.Cantidad += Cantidad;
+                    item.Cantidad += itemCantidad;
                     item.ImporteTotal = item.Cantidad * item.PrecioUnidad;
                     item.PedidoDetalleID = pedidoDetalleID;
                     item.Flag = 2;
@@ -227,11 +235,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            int TotalClientes = CalcularTotalCliente(olstTempListado, item, tipoAccion == "D" ? item.PedidoDetalleID : (short)0, tipoAccion);
-            decimal TotalImporte = CalcularTotalImporte(olstTempListado, item, tipoAccion == "I" ? (short)0 : item.PedidoDetalleID, tipoAccion);
+            int totalClientes = CalcularTotalCliente(olstTempListado, item, tipoAccion == "D" ? item.PedidoDetalleID : (short)0, tipoAccion);
+            decimal totalImporte = CalcularTotalImporte(olstTempListado, item, tipoAccion == "I" ? (short)0 : item.PedidoDetalleID, tipoAccion);
 
-            item.ImporteTotalPedido = TotalImporte;
-            item.Clientes = TotalClientes;
+            item.ImporteTotalPedido = totalImporte;
+            item.Clientes = totalClientes;
             item.CodigoUsuarioCreacion = usuario.CodigoUsuario;
             item.CodigoUsuarioModificacion = usuario.CodigoUsuario;
 
@@ -248,39 +256,39 @@ namespace Portal.Consultoras.BizLogic
                     break;
             }
 
-            UpdPedidoWebMontosPROL(usuario);
+            ActualizarPedidoWebMontosPROL(usuario);
         }
 
-        private short ValidarInsercion(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, out int Cantidad)
+        private static short ValidarInsercion(List<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, out int cantidad)
         {
-            var Temp = new List<BEPedidoWebDetalle>(Pedido);
-            var obe = Temp.FirstOrDefault(p => p.ClienteID == ItemPedido.ClienteID && p.CUV == ItemPedido.CUV);
-            Cantidad = obe != null ? obe.Cantidad : 0;
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            var obe = temp.FirstOrDefault(p => p.ClienteID == itemPedido.ClienteID && p.CUV == itemPedido.CUV);
+            cantidad = obe != null ? obe.Cantidad : 0;
             return obe != null ? obe.PedidoDetalleID : (short)0;
         }
 
-        private int CalcularTotalCliente(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, short PedidoDetalleID, string tipoAccion)
+        private static int CalcularTotalCliente(IEnumerable<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, short pedidoDetalleId, string tipoAccion)
         {
-            var Temp = new List<BEPedidoWebDetalle>(Pedido);
-            if (PedidoDetalleID == 0)
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            if (pedidoDetalleId == 0)
             {
-                if (tipoAccion == "I") Temp.Add(ItemPedido);
-                else Temp.Where(p => p.PedidoDetalleID == ItemPedido.PedidoDetalleID).ToList().ForEach(p => p.ClienteID = ItemPedido.ClienteID);
+                if (tipoAccion == "I") temp.Add(itemPedido);
+                else temp.Where(p => p.PedidoDetalleID == itemPedido.PedidoDetalleID).ToList().ForEach(p => p.ClienteID = itemPedido.ClienteID);
             }
-            else Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
+            else temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
 
-            return Temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
+            return temp.Where(p => p.ClienteID != 0).Select(p => p.ClienteID).Distinct().Count();
         }
 
-        private decimal CalcularTotalImporte(List<BEPedidoWebDetalle> Pedido, BEPedidoWebDetalle ItemPedido, short PedidoDetalleID, string tipoAccion)
+        private static decimal CalcularTotalImporte(IEnumerable<BEPedidoWebDetalle> pedido, BEPedidoWebDetalle itemPedido, short pedidoDetalleId, string tipoAccion)
         {
-            var Temp = new List<BEPedidoWebDetalle>(Pedido);
-            if (PedidoDetalleID == 0) Temp.Add(ItemPedido);
-            else Temp = Temp.Where(p => p.PedidoDetalleID != PedidoDetalleID).ToList();
-            return Temp.Sum(p => p.ImporteTotal) + (tipoAccion == "U" ? ItemPedido.ImporteTotal : 0);
+            var temp = new List<BEPedidoWebDetalle>(pedido);
+            if (pedidoDetalleId == 0) temp.Add(itemPedido);
+            else temp = temp.Where(p => p.PedidoDetalleID != pedidoDetalleId).ToList();
+            return temp.Sum(p => p.ImporteTotal) + (tipoAccion == "U" ? itemPedido.ImporteTotal : 0);
         }
 
-        private void UpdPedidoWebMontosPROL(BEUsuario usuario)
+        private void ActualizarPedidoWebMontosPROL(BEUsuario usuario)
         {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
 
@@ -292,33 +300,35 @@ namespace Portal.Consultoras.BizLogic
             if (lista.Count > 0)
             {
                 var datos = lista[0];
-                Decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
-                Decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
-                Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
-                Decimal.TryParse(datos.MontoEscala, out montoEscala);
+                decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(datos.MontoEscala, out montoEscala);
             }
 
 
-            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
-            bePedidoWeb.PaisID = usuario.PaisID;
-            bePedidoWeb.CampaniaID = usuario.CampaniaID;
-            bePedidoWeb.ConsultoraID = usuario.ConsultoraID;
-            bePedidoWeb.CodigoConsultora = usuario.CodigoConsultora;
-            bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
-            bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
-            bePedidoWeb.DescuentoProl = montoDescuento;
-            bePedidoWeb.MontoEscala = montoEscala;
+            var bePedidoWeb = new BEPedidoWeb
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                CodigoConsultora = usuario.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala
+            };
 
             _blPedidoWeb.UpdateMontosPedidoWeb(bePedidoWeb);
         }
 
-        private List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, List<BEPedidoWebDetalle> Pedido)
+        private static List<ObjMontosProl> ServicioProl_CalculoMontosProl(BEUsuario usuario, List<BEPedidoWebDetalle> pedido)
         {
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
+            var ds = new DataSet();
+            var dt = new DataTable();
             dt.Columns.Add("cuv");
             dt.Columns.Add("cantidad");
-            Pedido.ForEach(p =>
+            pedido.ForEach(p =>
             {
                 dt.Rows.Add(p.CUV, p.Cantidad);
             });
@@ -331,5 +341,7 @@ namespace Portal.Consultoras.BizLogic
             var result = new DACalculoPROL(ConfigurationManager.AppSettings[keyWeb]).CalculoMontosProl(usuario.CodigoISO, usuario.CampaniaID.ToString(), usuario.CodigoConsultora, usuario.CodigoZona, ds.Tables[0]).ToList();
             return result;
         }
+
+        #endregion
     }
 }

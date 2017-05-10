@@ -1,4 +1,10 @@
-﻿function LoginNormal() {
+﻿function Init() {
+    $('#ddlPais').on('change', function () {
+        $('#css-main').attr('href', paisesEsika.indexOf($(this).val()) >= 0 ? cssMainEsika : cssMainLbel)
+    });
+}
+
+function LoginNormal() {
     var arrayMessage = [];
     var paisISO = $('#ddlPais').val();
     var user = $('#txtUsuario').val();

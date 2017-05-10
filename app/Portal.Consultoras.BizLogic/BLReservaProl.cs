@@ -49,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            if(usuario.IndicadorGPRSB == 1) string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
+            if(usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
 
             bool valida = true;
             if (!usuario.NuevoPROL && !usuario.ZonaNuevoPROL && tipo == "PV")

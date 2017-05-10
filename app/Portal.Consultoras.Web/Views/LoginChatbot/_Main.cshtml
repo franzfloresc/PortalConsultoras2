@@ -7,8 +7,7 @@
 <html lang="es">
     <head>
         <meta charset="utf-8" />
-        <link href="@Url.Content("~/Content/Css/Site/LoginChatbot.css")" rel="stylesheet" type="text/css" />
-        @*<link href="@Url.Content("~/Content/Css/Site/LoginChatbot_lbel.css")" rel="stylesheet" type="text/css" />*@
+        <link id="css-main" href="@Url.Content("~/Content/Css/Site/LoginChatbot.css")" rel="stylesheet" type="text/css" />
         @RenderSection("styles", required: false)
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,10 +15,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="SomosBelcorp Web Mobile" />
 
-        <script type="text/javascript" id="Messenger" src="https://connect.facebook.com/en_US/messenger.Extensions.js"></script>
-        @RenderSection("facebookScripts", required: false)
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.11.2.js")"></script>
         <script type="text/javascript">
+            var cssMainEsika = '@Url.Content("~/Content/Css/Site/LoginChatbot.css")';
+            var cssMainLbel = '@Url.Content("~/Content/Css/Site/LoginChatbot_lbel.css")';
+
             var tokenBotmaker = '@Model.TokenBotmaker';
             var webViewFallBack = ('@Model.WebViewFallBack'.toLowerCase() == 'true');
 
@@ -27,17 +27,15 @@
             var urlBotmakerLoginNormal = 'https://go.botmaker.com/rest/webviews/traditionalLogin';
             var urlBotmakerLoginFacebook = 'https://go.botmaker.com/rest/webviews/fbConnect';
         </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Main.js")"></script>
         @RenderSection("scripts", required: false)
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Main.js")"></script>
+
+        <script type="text/javascript" id="Messenger" src="https://connect.facebook.com/en_US/messenger.Extensions.js"></script>
+        @RenderSection("facebookScripts", required: false)
     </head>
     <body>
-        @if (Model.WebViewFallBack)
-        {
-            <div>
-                <input type="button" value="SALIR" onclick="CloseWindow()">
-            </div>
-        }
-        <div>
+        <div class="wrapper_chatbot">
+            @if (Model.WebViewFallBack) { <div class="salir_chatbot" onclick="CloseWindow()">SALIR</div> }
             @RenderBody()
         </div>
 
