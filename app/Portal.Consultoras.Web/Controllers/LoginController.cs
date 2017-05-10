@@ -1658,7 +1658,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
-            string secretKey = ConfigurationManager.AppSettings["IngresoExternoSecretKey"] ?? "";
+            string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
             try
             {
                 var model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
