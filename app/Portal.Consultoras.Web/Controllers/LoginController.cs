@@ -1665,13 +1665,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model == null) return RedirectToAction("UserUnknown");
 
                 var userData = (UsuarioModel)Session["UserData"];
-                if (userData == null || userData.CodigoConsultora.CompareTo(model.CodigoConsultora) != 0)
+                if (userData == null || userData.CodigoUsuario.CompareTo(model.CodigoUsuario) != 0)
                 {
-                    userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoConsultora, 1);
+                    userData = GetUserData(Util.GetPaisID(model.Pais), model.CodigoUsuario, 1);
                 }
                 if (userData == null) return RedirectToAction("UserUnknown");
 
-                FormsAuthentication.SetAuthCookie(model.CodigoConsultora, false);
+                FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
                 Session.Add("IngresoExternoChatbot", model.Version);
 
                 switch (model.Pagina.ToUpper())
