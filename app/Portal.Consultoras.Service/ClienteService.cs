@@ -130,5 +130,22 @@ namespace Portal.Consultoras.Service
         {
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
+
+        #region ConsultoraCliente
+        public bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente)
+        {
+            return new BLConsultoraCliente().InsertConsultoraCliente(paisID, consultoraCliente);
+        }
+
+        public bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID)
+        {
+            return new BLConsultoraCliente().DeleteConsultoraCliente(paisID, ConsultoraID, ClienteID);
+        }
+
+        public List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID)
+        {
+            return new BLConsultoraCliente().GetConsultoraCliente(paisID, ConsultoraID);
+        }
+        #endregion
     }
-    }
+}

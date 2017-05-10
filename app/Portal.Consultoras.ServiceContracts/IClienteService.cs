@@ -70,5 +70,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+
+        [OperationContract]
+        bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente);
+
+        [OperationContract]
+        bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID);
+
+        [OperationContract]
+        List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID);
     }
 }
