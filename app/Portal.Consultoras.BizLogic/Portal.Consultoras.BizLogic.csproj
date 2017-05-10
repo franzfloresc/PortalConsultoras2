@@ -88,7 +88,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLConsultoraCliente.cs" />
-    <Compile Include="BLCorrectorBusquedaTexto.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLReservaProl.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
