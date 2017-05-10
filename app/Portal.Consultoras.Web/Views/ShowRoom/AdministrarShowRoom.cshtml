@@ -223,6 +223,7 @@
 <div id="DialogDatosShowRoom" style="display: none;">
     <div class="Content_modal">
         <input type="hidden" id="hdEventoID" />
+        <input type="hidden" id="hdCampaniaMinimaPersonalizacion" />
         <div class="div-3">
             <div class="titG">País:</div>
             <div class="selectP2 borde_redondeado" style="background: #F9F9F0;">
@@ -1294,35 +1295,50 @@
         });
     }
 
+    var obtenerCampaniasPorPaisSuccess = function (id, response) {
+        var jqXHR = response[2];
+        var data = response[0];
+        if (checkTimeout(jqXHR)) {
+            LimpiarDependencias(id);
+
+            var ddlCampania = $('#ddlCampania');
+
+            ddlCampania.empty();
+            if (data.lista.length > 0) {
+                ddlCampania.append($('<option/>', {
+                    value: "",
+                    text: "-- Seleccionar --"
+                }));
+                if (id != "") {
+                    for (var item in data.lista) {
+                        ddlCampania.append($('<option/>', {
+                            value: data.lista[item].CampaniaID,
+                            text: data.lista[item].Codigo
+                        }));
+                    }
+                }
+            }
+
+            closeWaitingDialog();
+        }
+    };
+
+    var obtenerParametroPersonalizacionSuccess = function (response) {
+        var data = response[0];
+        $("#hdCampaniaMinimaPersonalizacion").val(data.campaniaMinimaPersonalizacion);
+    };
+
     function CargarEventos() {
         $('#ddlPais').change(function () {
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
-                $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                    if (checkTimeout(data)) {
-                        LimpiarDependencias(Id);
+                var promiseObtenerCampanias = $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: Id == "" ? 0 : Id });
+                var promiseObtenerParPersonalizacion = $.getJSON(baseUrl + 'ShowRoom/ObtenerParametroPersonalizacion', { PaisID: Id == "" ? 0 : Id });
 
-                        var ddlCampania = $('#ddlCampania');
-                        
-                        ddlCampania.empty();
-                        if (data.lista.length > 0) {
-                            ddlCampania.append($('<option/>', {
-                                value: "",
-                                text: "-- Seleccionar --"
-                            }));
-                            if (Id != "") {
-                                for (var item in data.lista) {
-                                    ddlCampania.append($('<option/>', {
-                                        value: data.lista[item].CampaniaID,
-                                        text: data.lista[item].Codigo
-                                    }));
-                                }
-                            }
-                        }
-                        
-                        closeWaitingDialog();
-                    }
+                $.when(promiseObtenerCampanias, promiseObtenerParPersonalizacion).done(function (response1, response2) {
+                    obtenerCampaniasPorPaisSuccess(Id, response1);
+                    obtenerParametroPersonalizacionSuccess(response2);
                 });
             } else LimpiarDependencias(Id);
         });
@@ -1358,7 +1374,13 @@
             }
         });
 
+        function personalizacionOfertasHabilitada() {
+            return $('#listEvento').jqGrid('getRowData')[0].TienePersonalizacion == 'Activa';
+        }
+
         $("#btnNuevo").click(function () {
+
+            LimpiarDatosEventoShowRoom();
             $("#txtEventoPaisID").val(paisNombre);
             $("#txtEventoCampaniaID").val($("#ddlCampania").val());
 
@@ -1366,12 +1388,23 @@
 
             $("#divShowRoomPerfil").css("display", "none");
 
+            if ($("#hdCampaniaMinimaPersonalizacion").val()) {
+                var campaniaMinimaPersonalizacion = parseInt($("#hdCampaniaMinimaPersonalizacion").val());
+                if (parseInt($("#ddlCampania").val()) >= campaniaMinimaPersonalizacion) {
+                    $("#chkEventoTienePersonalizacion").prop('checked', true);
+                }
+            }
+
             showDialog("DialogDatosShowRoom");
         });
 
         $("#lnkConsultoras").click(function () {
-            showDialog("DialogCargarConsultoras");
-            LimpiarCargaConsultoras();
+            if (personalizacionOfertasHabilitada()) {
+                alert('El evento tiene habilitada la opción de personalización.');
+            } else {
+                showDialog("DialogCargarConsultoras");
+                LimpiarCargaConsultoras();
+            }
             return false;
         });
 
@@ -2896,6 +2929,7 @@
             $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
             $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
             $("#chkEventoTieneSubCampania").prop('checked', tieneSubCampania == "True");
+            
             $("#chkEventoTienePersonalizacion").prop('checked', tienePersonalizacion);
 
             $("#divEventoEstado").css("display", "");
@@ -3159,6 +3193,8 @@
         $("#divCabeceraPaginaProductos").html("");
         $("#divPestaniaNombreShowRoom").html("");
         $("#divPopupImagenPreventaDigital").html("");
+
+        $("#chkEventoTieneCategoria, #chkEventoTieneSubCampania, #chkEventocompraXcompra, #chkEventoTienePersonalizacion").attr('checked', false);
     }
 
     function LimpiarDatos() {

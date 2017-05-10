@@ -195,6 +195,30 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ObtenerParametroPersonalizacion(int PaisID)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.Plan20).ToList();
+            }
+
+            var campaniaMinimaPersonalizacion = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
+                if (par != null)
+                {
+                    campaniaMinimaPersonalizacion = par.Codigo;
+                }
+            }
+
+            return Json(new
+            {
+                campaniaMinimaPersonalizacion
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int PaisID, int campaniaID)
         {
             try
