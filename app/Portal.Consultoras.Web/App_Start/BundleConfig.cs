@@ -90,7 +90,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
-                "~/Scripts/General.js"
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
                 ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Site").Include(

@@ -232,3 +232,9 @@
 .optRechazoSelect {
     background-color: silver;
 }
+
+.SubHeader
+{
+    position: absolute;
+    margin-left: 83px;
+}
