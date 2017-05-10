@@ -628,6 +628,21 @@
         </div>
     </div>
 
+    <!--POP MENSAJE POSTULANTE-->
+    <div id="dialog_MensajePostulante_Pedido" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b id="titutloPedido">IMPORTANTE</b></div>
+            <div id="mensajePedido" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();" class="btn_ok_mobile"><b>CONTINUAR</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+
     <!--POP MENSAJE IMPORTANTE-->
     <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -762,6 +777,8 @@
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.foto_menu').show();
         }
+
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 
     </script>
 

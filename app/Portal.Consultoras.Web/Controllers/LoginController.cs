@@ -666,6 +666,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         model.IndicadorPermisoFlexipago = GetPermisoFlexipago(model.PaisID, model.CodigoISO, model.CodigoConsultora, model.CampaniaID);
                     }
+                    //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
+                    if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                    {
+                        model.MensajePedidoDesktop = oBEUsuario.MensajePedidoDesktop;
+                        model.MensajePedidoMobile =  oBEUsuario.MensajePedidoMobile;
+                    }
                     model.MostrarAyudaWebTraking = oBEUsuario.MostrarAyudaWebTraking;
                     model.NroCampanias = oBEUsuario.NroCampanias;
                     model.RolDescripcion = oBEUsuario.RolDescripcion;

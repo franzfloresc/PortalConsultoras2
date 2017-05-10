@@ -402,7 +402,8 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
-                
+                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
+
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
@@ -5264,6 +5265,48 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
             }
+        }
+
+        [HttpPost]
+        public JsonResult UpdatePostulanteMensaje(string tipo)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(tipo))
+                {
+                    var tipoMensaje = Convert.ToInt32(tipo);
+
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        sv.UpdatePosutlanteMensajes(userData.PaisID, userData.CodigoUsuario, tipoMensaje);
+                    }
+
+                    switch (tipoMensaje)
+                    {
+                        case 1:
+                            userData.MensajePedidoDesktop = 1;
+                            break;
+                        case 2:
+                            userData.MensajePedidoMobile = 1;
+                            break;
+                    }
+
+                    SetUserData(userData);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return Json(new
+            {
+                result = "OK"
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }
