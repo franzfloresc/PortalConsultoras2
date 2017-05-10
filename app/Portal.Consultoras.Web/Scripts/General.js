@@ -986,14 +986,24 @@ function LayoutMenuFin() {
     // validar si sale en dos lineas
     var hok = true;
     do {
+        $(".logo_esika").css("width", "");
         hok = false;
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();
         var wr = $(".menu_esika_b").innerWidth();
         wt = wt - wl - wr;
         $(".menu_new_esika").css("width", wt + "px");
+        $(".logo_esika").css("width", wl + "px");
 
         var h = $(".wrapper_header").height();
+        if (h > 61) {
+            $("#ulNavPrincipal > li").css("margin-left", "20px");
+            h = $(".wrapper_header").height();
+            if (h > 61) {
+                $($("#ulNavPrincipal > li").get(0)).css("margin-left", "5px");
+                h = $(".wrapper_header").height();
+            }
+        }
         if (h > 61) {
             wt = $(".wrapper_header").width();
             var wh = $("header").width();
