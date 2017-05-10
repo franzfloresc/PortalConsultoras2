@@ -48,40 +48,47 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
     }
 
     var URL = '';
-    if (ControllerName == '') URL = ActionName;
-    else
-    {
-        if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;
-        else URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;
-    }
 
-    if (parametros != null && parametros != '') URL += "?" + parametros;
+    if (gTipoUsuario == '2' && (ControllerName == 'MiAcademia' || ControllerName == 'ConsultoraOnline')) {
+        var message = 'Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.';
+        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        $('#dialog_ErrorMainLayout').show();
+        return false;
+    } else {
+        if (ControllerName == '') URL = ActionName;
+        else {
+            if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;
+            else URL = location.protocol + "//" + location.host + "/" + ControllerName + "/" + ActionName;
+        }
 
-    if (Descripcion != "Pedidos") {
-        if ($("#hdFlagOfertaWeb").val() == "1") {
-            MostrarMensajeConsultora();
+        if (parametros != null && parametros != '') URL += "?" + parametros;
+
+        if (Descripcion != "Pedidos") {
+            if ($("#hdFlagOfertaWeb").val() == "1") {
+                MostrarMensajeConsultora();
+                return false;
+            }
+            if ($("#hdFlagOfertaLiquidacion").val() == "1") {
+                MostrarMensajeConsultora();
+                return false;
+            }
+        }
+
+        if ($("#hdFlagValidacion").val() == "1") {
+            if ($('#hdFlagValidacionReserva').val() == "1") {
+                MostrarMensajeConsultoraValidacion();
+            }
             return false;
         }
-        if ($("#hdFlagOfertaLiquidacion").val() == "1") {
-            MostrarMensajeConsultora();
+
+        if (Flag == "1") {
+            window.open(URL, '_blank');
             return false;
         }
-    }
 
-    if ($("#hdFlagValidacion").val() == "1") {
-        if ($('#hdFlagValidacionReserva').val() == "1") {
-            MostrarMensajeConsultoraValidacion();
-        }
-        return false;
+        location.href = URL;
+        return true;
     }
-
-    if (Flag == "1") {
-        window.open(URL, '_blank');
-        return false;
-    }
-
-    location.href = URL;
-    return true;
 }
 
 function MostrarMensajeConsultora() {

@@ -1722,6 +1722,13 @@
             }
         }
 
+        function messageInfoPostulante() {
+            $('.icon-close').click();
+            $('#mensajeInformacionvalidado').html('Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.');
+            $('#popupInformacionValidado').show();
+            return false;
+        }
+
         function CargarCantidadProductosPedidos(noMostrarEfecto) {
             noMostrarEfecto = noMostrarEfecto || false;
 
