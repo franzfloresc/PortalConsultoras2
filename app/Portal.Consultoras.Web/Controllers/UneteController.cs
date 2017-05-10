@@ -3322,7 +3322,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Estado == 0) //TODOS
             {
-                dic.Add("Estado Postulante", "EstadoPostulante");
+                dic.Add("Estado", "EstadoPostulante");//En Grilla
                 dic.Add("Dias en Espera", "DiasEnEspera");//En Grilla
                 dic.Add("Rechazó", "RechazadoPor");
                 dic.Add("Zona Origen", "ZonaGZ");
