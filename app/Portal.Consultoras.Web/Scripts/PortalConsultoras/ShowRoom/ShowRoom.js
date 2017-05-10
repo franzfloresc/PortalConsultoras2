@@ -10,7 +10,6 @@ var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     if (tipoOrigenPantalla == 11) {
-        debugger;
         var prhidcuv = $("#hcuv").val();
         var prhidnombre = $("#hnombrecuv").val();
         var prhidmarca = $("#hmarca").val();
@@ -158,7 +157,7 @@ $(document).ready(function () {
         });
 
         //$(".swproddetcompraimg").on("click", function () {
-            debugger;
+
             var pofertaid = $("#swdeteventoofertaid").val();
             var pofertaDescripion = $("#swdetdescripcion").val();
             var pofertaPrecio = $("#swdetprecio").val();
@@ -301,7 +300,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-    debugger;
+
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {

@@ -792,16 +792,30 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
+    if (estado) {
+        $("#bloquemensajesPedido").show();
+        ResizeMensajeEstadoPedido();
+    }
+    else {
+        //$("#bloquemensajesPedido").slideUp();
+        $("#bloquemensajesPedido").hide();
+    }
+
     LayoutHeader();
 }
 
 function LayoutHeader() {
-    setTimeout(function () {
-        var wtop = $("header").height();
-        $("[data-content]").animate({ "margin-top": (wtop) + "px" });
-    }, 500);
+    console.log(1);
+    LayoutHeaderFin();
+    $(document).ajaxStop(function () {
+        LayoutHeaderFin();
+    });
 }
 
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");
@@ -863,7 +877,7 @@ function cerrarMensajePostulante() {
         success: function (response) {
             if (response.success) {
                 $('#bloquemensajesPostulante').hide();
-                $(".ubicacion_web").css("margin-top","-64px");
+                LayoutHeader();
             }
         },
         error: function (response) {
