@@ -27,6 +27,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public decimal MontoEscala { get; set; }
         [DataMember]
+        public bool EnviarCorreo { get; set; }
+        [DataMember]
         public string CodigoMensaje { get; set; }
         [DataMember]
         public int PedidoID { get; set; }

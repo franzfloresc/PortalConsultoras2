@@ -1898,6 +1898,11 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
         }
 
+        protected JsonResult SuccessJson(string message)
+        {
+            return Json(new { success = true, message = message }, JsonRequestBehavior.AllowGet);
+        }
+
         private bool NoMostrarBannerODD()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();

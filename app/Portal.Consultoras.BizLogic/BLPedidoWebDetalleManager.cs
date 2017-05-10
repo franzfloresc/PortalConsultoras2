@@ -33,7 +33,7 @@ namespace Portal.Consultoras.BizLogic
         /// </summary>
         /// <param name="model">Modelo a ingresar</param>
         /// <returns>Resultado:bool, codigo:string y mensaje:string de la operacion</returns>
-        public BEPedidoWebResult InsPedidoDetalleInvariant(BEPedidoWebDetalleInvariant model)
+        public BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant model)
         {
             var usuario = _blUsuario.GetSesionUsuario(model.PaisID, model.CodigoUsuario);
 

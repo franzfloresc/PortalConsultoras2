@@ -3,6 +3,7 @@
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoMensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="Error" type="xs:boolean" />
       <xs:element minOccurs="0" name="Informativas" type="xs:boolean" />
       <xs:element minOccurs="0" name="ListPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
@@ -42,6 +43,7 @@
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsMovil" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaFacturacion" type="xs:dateTime" />

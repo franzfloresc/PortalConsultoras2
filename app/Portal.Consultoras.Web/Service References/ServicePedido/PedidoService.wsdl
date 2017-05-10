@@ -336,6 +336,12 @@
   <wsdl:message name="IPedidoService_EjecutarReservaProl_OutputMessage">
     <wsdl:part name="parameters" element="tns:EjecutarReservaProlResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProl" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_EnviarCorreoReservaProl_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoReservaProlResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarDesglose_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarDesglose" />
   </wsdl:message>
@@ -1410,11 +1416,11 @@
   <wsdl:message name="IPedidoService_Insert_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertInvariant_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsertInvariant" />
+  <wsdl:message name="IPedidoService_InsertPedido_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedido" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_InsertInvariant_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsertInvariantResponse" />
+  <wsdl:message name="IPedidoService_InsertPedido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertPedidoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelPedidoWebDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetalle" />
@@ -2100,6 +2106,10 @@
     <wsdl:operation name="EjecutarReservaProl">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProl" message="tns:IPedidoService_EjecutarReservaProl_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse" message="tns:IPedidoService_EjecutarReservaProl_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoReservaProl">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" message="tns:IPedidoService_EnviarCorreoReservaProl_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse" message="tns:IPedidoService_EnviarCorreoReservaProl_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarDesglose">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarDesglose" message="tns:IPedidoService_InsertarDesglose_InputMessage" />
@@ -2817,9 +2827,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/Insert" message="tns:IPedidoService_Insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertResponse" message="tns:IPedidoService_Insert_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="InsertInvariant">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertInvariant" message="tns:IPedidoService_InsertInvariant_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertInvariantResponse" message="tns:IPedidoService_InsertInvariant_OutputMessage" />
+    <wsdl:operation name="InsertPedido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertPedido" message="tns:IPedidoService_InsertPedido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertPedidoResponse" message="tns:IPedidoService_InsertPedido_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DelPedidoWebDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalle" message="tns:IPedidoService_DelPedidoWebDetalle_InputMessage" />
@@ -3615,6 +3625,15 @@
     </wsdl:operation>
     <wsdl:operation name="EjecutarReservaProl">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EjecutarReservaProl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoReservaProl">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5233,8 +5252,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="InsertInvariant">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertInvariant" style="document" />
+    <wsdl:operation name="InsertPedido">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertPedido" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

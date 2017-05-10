@@ -37,7 +37,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
-        BEPedidoWebResult InsertInvariant(BEPedidoWebDetalleInvariant pedidoDetalle);
+        BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle);
 
         [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
@@ -1037,11 +1037,14 @@ namespace Portal.Consultoras.ServiceContracts
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
 
         [OperationContract]
-        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
-        
+
+        [OperationContract]
+        bool EnviarCorreoReservaProl(BEInputReservaProl input);
+
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
 

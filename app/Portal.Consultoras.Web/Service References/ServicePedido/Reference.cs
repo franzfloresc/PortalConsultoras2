@@ -6078,6 +6078,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoMensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EnviarCorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ErrorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6132,6 +6135,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoMensajeField, value) != true)) {
                     this.CodigoMensajeField = value;
                     this.RaisePropertyChanged("CodigoMensaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EnviarCorreo {
+            get {
+                return this.EnviarCorreoField;
+            }
+            set {
+                if ((this.EnviarCorreoField.Equals(value) != true)) {
+                    this.EnviarCorreoField = value;
+                    this.RaisePropertyChanged("EnviarCorreo");
                 }
             }
         }
@@ -6426,6 +6442,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EnviarCorreoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EsMovilField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6576,6 +6595,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EnviarCorreo {
+            get {
+                return this.EnviarCorreoField;
+            }
+            set {
+                if ((this.EnviarCorreoField.Equals(value) != true)) {
+                    this.EnviarCorreoField = value;
+                    this.RaisePropertyChanged("EnviarCorreo");
                 }
             }
         }
@@ -22866,16 +22898,22 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<bool> GetEventoConsultoraRecibidoAsync(int paisID, string CodigoConsultora, int CampaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+        Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> CargarSesionAndEjecutarReservaProlAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> CargarSesionAndEjecutarReservaProlAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse")]
         Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl EjecutarReservaProl(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/EjecutarReservaProlResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> EjecutarReservaProlAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl", ReplyAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse")]
+        bool EnviarCorreoReservaProl(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl", ReplyAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse")]
+        System.Threading.Tasks.Task<bool> EnviarCorreoReservaProlAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarDesglose", ReplyAction="http://tempuri.org/IPedidoService/InsertarDesgloseResponse")]
         int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
@@ -23965,11 +24003,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/Insert", ReplyAction="http://tempuri.org/IPedidoService/InsertResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> InsertAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertInvariant", ReplyAction="http://tempuri.org/IPedidoService/InsertInvariantResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult InsertInvariant(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedido", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult InsertPedido(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertInvariant", ReplyAction="http://tempuri.org/IPedidoService/InsertInvariantResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult> InsertInvariantAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertPedido", ReplyAction="http://tempuri.org/IPedidoService/InsertPedidoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult> InsertPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalle", ReplyAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleResponse")]
         void DelPedidoWebDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
@@ -24885,12 +24923,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetEventoConsultoraRecibidoAsync(paisID, CodigoConsultora, CampaniaID);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil) {
-            return base.Channel.CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
+        public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo) {
+            return base.Channel.CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> CargarSesionAndEjecutarReservaProlAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil) {
-            return base.Channel.CargarSesionAndEjecutarReservaProlAsync(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> CargarSesionAndEjecutarReservaProlAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo) {
+            return base.Channel.CargarSesionAndEjecutarReservaProlAsync(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl EjecutarReservaProl(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
@@ -24899,6 +24937,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl> EjecutarReservaProlAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
             return base.Channel.EjecutarReservaProlAsync(input);
+        }
+        
+        public bool EnviarCorreoReservaProl(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
+            return base.Channel.EnviarCorreoReservaProl(input);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EnviarCorreoReservaProlAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
+            return base.Channel.EnviarCorreoReservaProlAsync(input);
         }
         
         public int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
@@ -26333,12 +26379,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertAsync(pedidowebdetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult InsertInvariant(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle) {
-            return base.Channel.InsertInvariant(pedidoDetalle);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult InsertPedido(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle) {
+            return base.Channel.InsertPedido(pedidoDetalle);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult> InsertInvariantAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle) {
-            return base.Channel.InsertInvariantAsync(pedidoDetalle);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebResult> InsertPedidoAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalleInvariant pedidoDetalle) {
+            return base.Channel.InsertPedidoAsync(pedidoDetalle);
         }
         
         public void DelPedidoWebDetalle(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle) {

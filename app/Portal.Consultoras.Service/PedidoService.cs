@@ -13,7 +13,6 @@ namespace Portal.Consultoras.Service
 {
     public class PedidoService : IPedidoService
     {
-
         private BLPedidoWebDetalle BLPedidoWebDetalle;
         private BLPedidoWeb BLPedidoWeb;
         private BLPedidoReporteLider BLPedidoReporteLider;
@@ -92,9 +91,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
         }
 
-        public BEPedidoWebResult InsertInvariant(BEPedidoWebDetalleInvariant pedidoDetalle)
+        public BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle)
         {
-            return BLPedidoWebDetalle.InsPedidoDetalleInvariant(pedidoDetalle);
+            return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
         public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
@@ -1896,14 +1895,19 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil)
+        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil);
+            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             return new BLReservaProl().EjecutarReservaProl(input);
+        }
+
+        public bool EnviarCorreoReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EnviarCorreoReservaProl(input);
         }
 
         public int InsertarDesglose(BEInputReservaProl input)

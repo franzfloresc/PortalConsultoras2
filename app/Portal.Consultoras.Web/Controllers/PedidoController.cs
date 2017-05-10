@@ -1940,6 +1940,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EsMovil = Request.Browser.IsMobileDevice;
+            input.EnviarCorreo = false;
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
             var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
@@ -2000,8 +2001,26 @@ namespace Portal.Consultoras.Web.Controllers
                                     brand = item.DescripcionLarga,
                                     variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
                                     quantity = item.Cantidad
-                                }
+                                },
+                flagCorreo = resultado.EnviarCorreo ? "1" : ""
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EnviarCorreoPedidoReservado()
+        {
+            try
+            {
+                bool envioCorreo = false;
+                var input = Mapper.Map<BEInputReservaProl>(userData);
+                input.EsMovil = Request.Browser.IsMobileDevice;
+                using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
+                if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.");
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return ErrorJson("Ocurrió un problema al tratar de enviar el correo a la consultora, intente nuevamente.");
         }
 
         private void SetMensajesBotonesProl(PedidoSb2Model model, bool reservaProl)
