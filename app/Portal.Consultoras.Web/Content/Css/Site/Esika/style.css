@@ -35981,7 +35981,7 @@ h1#penmostreo .campana {
     margin-left: 38px;
     line-height: 13px;
 }
-.content_cupon1{
+.content_cupon{
     width:664px;
     height:280px;
     position:relative;
@@ -36057,4 +36057,15 @@ h1#penmostreo .campana {
     margin-bottom:12px;
     line-height: 19px;
     color: black;
+}
+.cupon2{
+    text-align:center;
+    padding-top:50px;
+    background:url(../../../Images/PL20/fondo_cupon2.png) no-repeat;
+}
+.titulo_cupon2{
+    font-family:'LAto';
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:1px;
 }
