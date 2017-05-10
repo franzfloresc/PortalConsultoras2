@@ -488,7 +488,7 @@ namespace Portal.Consultoras.Common
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
 
-        public class ChatbotPagina
+        public class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
             public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";

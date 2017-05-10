@@ -1,6 +1,6 @@
 ﻿namespace Portal.Consultoras.Web.Models
 {
-    public class IngresoExternoChatbotModel
+    public class IngresoExternoModel
     {
         public string Pais { get; set; }
         public string CodigoUsuario { get; set; }
