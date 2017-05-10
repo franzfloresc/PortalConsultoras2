@@ -1,9 +1,15 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 
 namespace Portal.Consultoras.Web.Models
 {
     public class CuponModel
     {
+        public CuponModel(string codigoISO)
+        {
+            CodigoISO = codigoISO;
+        }
+
         public int CuponConsultoraId { get; set; }
         public string CodigoConsultora { get; set; }
         public int CampaniaId { get; set; }
@@ -16,5 +22,14 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public string TipoCupon { get; set; }
+
+        public string CodigoISO { get; set; }
+        public string FormatoValorAsociado
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(ValorAsociado, CodigoISO);
+            }
+        }
     }
 }

@@ -5,7 +5,9 @@
         NO_MOSTRAR_CUPON: 0,
         MOSTRAR_CUPON: 1,
         CUPON_RESERVADO: 1,
-        CUPON_ACTIVO: 2
+        CUPON_ACTIVO: 2,
+        TIPO_CUPON_MONTO: 'MONTO',
+        TIPO_CUPON_PORCENTAJE: 'PORCENTAJE'
     };
 
     var CONS_PAGINA_ORIGEN = {
@@ -24,7 +26,8 @@
         Body: 'body',
         BtnConfirmar: '#',
         TxtCorreoIngresado: '#',
-        HdCorreoOriginal: '#'
+        HdCorreoOriginal: '#',
+        ContenedorTituloGana: '#Cupon1 .monto_gana'
     };
 
     var setting = {
@@ -36,7 +39,8 @@
         UrlEnviarCorreoGanaste: '',
         UrlEnviarCorreoConfirmacion: '',
         UrlObtenerCupon: 'Cupon/ObtenerCupon',
-        Cupon: null
+        Cupon: null,
+        SimboloMoneda:''
     };
 
     var bindEvents = function () {
@@ -90,7 +94,9 @@
     }
 
     var procesarGana = function () {
-
+        var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
+        $(elements.ContenedorTituloGana).empty();
+        $(elements.ContenedorTituloGana).append("<span class='tipo_moneda'>" + simbolo + "</span> " + setting.Cupon.FormatoValorAsociado);
         $(elements.PopupCuponPaginaBienvenida).show();
     }
 
@@ -99,6 +105,7 @@
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
+        setting.SimboloMoneda = parameters.simboloMoneda;
         mostrarContenedorCuponPorPagina();
         bindEvents();
     }

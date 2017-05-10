@@ -58,7 +58,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
         {
-            return new CuponModel() {
+            var codigoISO = userData.CodigoISO;
+
+            return new CuponModel(codigoISO) {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,
