@@ -835,6 +835,7 @@
     var urlExisteTipoOferta = baseUrl + 'ShowRoom/ExisteTipoOferta';
     var urlGuardarShowRoomTipoOferta = baseUrl + 'ShowRoom/GuardarShowRoomTipoOferta';
     var urlHabilitarShowRoomTipoOferta = baseUrl + 'ShowRoom/HabilitarShowRoomTipoOferta'
+    var mensajePersonalizacion = 'El evento tiene habilitada la opción de personalización.';
 
     jQuery(document).ready(function() {
         CargarDialog();
@@ -1400,7 +1401,7 @@
 
         $("#lnkConsultoras").click(function () {
             if (personalizacionOfertasHabilitada()) {
-                alert('El evento tiene habilitada la opción de personalización.');
+                alert(mensajePersonalizacion);
             } else {
                 showDialog("DialogCargarConsultoras");
                 LimpiarCargaConsultoras();
@@ -1431,7 +1432,11 @@
             showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
         });
 
-        $("#cbPerfilesEvento").change(function() {
+        $("#cbPerfilesEvento").change(function (e) {
+
+            if (personalizacionOfertasHabilitada()) {
+                return false;
+            }
             var perfilId = 0;
 
             var campaniaId = $("#ddlCampania").val() == "" ? "0" : $("#ddlCampania").val();
@@ -1446,7 +1451,20 @@
             }
         });
 
+        $('#cbPerfilesEvento').on('mousedown', function (e) {
+            if (personalizacionOfertasHabilitada()) {
+                alert(mensajePersonalizacion);
+                e.preventDefault();
+            }
+        });
+
         $("#btnGuardarPerfilOfertaShowRoom").click(function () {
+
+            if (personalizacionOfertasHabilitada()) {
+                alert(mensajePersonalizacion);
+                return false;
+            }
+
             var tagUlPerfil = $(".selected.connected-list.ui-sortable");
             var listaTagLiPerfil = $(tagUlPerfil).find("li.ui-state-default.ui-element");
 
