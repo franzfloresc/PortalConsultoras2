@@ -2771,6 +2771,7 @@ namespace Portal.Consultoras.Web.Controllers
                         var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
                         producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
                     }
+                    producto.UrlCompartir = GetUrlCompartirFB();
                 }
                 return Json(new
                 {
