@@ -34795,7 +34795,7 @@ h1#penmostreo .campana {
     width:100%;
     margin-top:20px;
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
-    padding-left: 10%;
+    padding-left: 12%;
 }
 .correo_showroon input {
     width: 100%;
@@ -34808,16 +34808,17 @@ h1#penmostreo .campana {
     display: block;
     background: none;
     color:black;
+    padding-bottom:4px;
 }
 .termino_condiciones_intriga {
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
-    margin-top: 25px;
+    margin-top: 22px;
     font-family: 'Lato';
     font-size: 10.5px;
     width: 90%;
-    color:#979797;
+    color:#494949;
     text-align: left;
 }
 .termino_condiciones_intriga:before {
@@ -34826,7 +34827,7 @@ h1#penmostreo .campana {
     left: 0;
     width: 13px;
     height: 13px;
-    border: 1px solid #979797;
+    border: 1px solid #494949;
     z-index: 10;
     line-height: 11.5px;
     padding-left: 2px;
@@ -35872,6 +35873,7 @@ h1#penmostreo .campana {
     right:10px;
     top:-2px;
 }
+/*SPRINT 12*/
 .contenedor_cupon{
     position:absolute;   
     width:27%;
@@ -36031,7 +36033,7 @@ h1#penmostreo .campana {
 .content_cupon_datos{
     float:left;
     width:56%;
-    padding:35px 60px 0 60px;
+    padding:35px 60px 0 42px;
     position:relative;
 }
 .btn_confirma_cupon{
@@ -36040,4 +36042,19 @@ h1#penmostreo .campana {
     width:100%;
     height:45px;
     color:white;
+    font-family:'LAto';
+    font-size:14px;
+    letter-spacing:0.5px;
+    line-height:43px;
+    text-align:center;
+    margin-top: 21px;
+    font-weight: 700;
+}
+.texto_cupon_datos{
+    font-family:'LAto';
+    font-size:15px;
+    text-align:center;
+    margin-bottom:12px;
+    line-height: 19px;
+    color: black;
 }
