@@ -804,139 +804,27 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
-    var url = location.href.toLowerCase();
-    var esMobile = url.indexOf("/mobile/") > 0;
-    var esBienvenida = url.indexOf("/bienvenida") > 0;
-    var esPedido = url.indexOf("/pedido") > 0;
-    //var esmobilePedido = url.indexOf("/mobile/pedido") > 0;
-    //var esmobileCliente = url.indexOf("/mobile/cliente") > 0;
-    //var esmobilecatalogo = url.indexOf("/mobile/catalogo") > 0;
-    //var esloquidacionweb = url.indexOf("mobile/ofertaliquidacion") > 0;
-    //var esmobileEstadoCuenta = url.indexOf("mobile/estadocuenta") > 0;
-    //var esmobileBienvenida = url.indexOf("/mobile/bienvenida") > 0;
-    if (estado) {
-        var wheight = $(window).innerHeight();
-        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
-        ResizeMensajeEstadoPedido();
-        var wtop = $("#bloquemensajesPedido").height();
-
-        if (esMobile) {
-            wtop = $("header").height();
-            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                $("[data-content]").animate({ "top": "64px", "margin-top": "0px" });
-            }
-            else {
-                $("[data-content]").animate({ "top": wtop + "px", "margin-top": wtop + "px" });
-            }
-
-            $(".footer-page").animate({ "top": wtop + "px" });
-            $(".oscurecer_animacion").css({ "display": "none" });
-        }
-        else {
-            if (esBienvenida) {
-                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-
-            }
-            else {
-                $(".oscurecer_animacion").css({ "display": "none" });
-                $("#bloquemensajesPedido").slideDown("slow", function () { });
-                wtop = $("header").height();
-                if ($('.content_banner_intriga').length > 0) {
-                    if ($('#OfertaDelDia:visible').length > 0) {
-                        $('.ubicacion_web').css('margin-top', '162px');
-                    }
-                    else {
-                        $('.ubicacion_web').css('margin-top', '62px');
-                    }
-                }
-                else {
-                    $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
-                }
-            }
-        }
-    }
-    else {
-        $("#bloquemensajesPedido").slideUp();
-        if (esMobile) {
-            wtop = $("header").height();
     LayoutHeader();
-            if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                LayoutHeader();
-
-                //if (mostrarOfertaDelDia && esmobileBienvenida) {
-                //    $("[data-content]").animate({ "margin-top": "0px" });
-                //} else if (!mostrarOfertaDelDia && esmobileBienvenida) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (mostrarOfertaDelDia && esmobilePedido) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (mostrarOfertaDelDia == 'False' && esmobileCliente) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (!mostrarOfertaDelDia && esmobileCliente) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (mostrarOfertaDelDia == 'False' && esmobilecatalogo) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "123px" });
-                //} else if (esloquidacionweb) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (mostrarOfertaDelDia == false && esmobilecatalogo) {
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //} else if (esmobileEstadoCuenta) {
-                //   $("[data-content]").animate({ "top": "64px", "margin-top": "64px" });
-                //}else
-                //{
-                //    $("[data-content]").animate({ "top": "64px", "margin-top": "123px" });
-                //}
-
-            }
-            else {
-                $("[data-content]").animate({ "top": wtop + "px", "margin-top": "0px" });
-            }
-
-            $(".footer-page").animate({ "top": "0px", "margin-top": wtop + "px" });
-        }
-        else {
-            if (esBienvenida) {
-
-                if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                    $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
-                }
-                else { $("[data-content]").animate({ "top": "64px", "margin-top": "0px" }); }
-            }
-            else {
-                if ($('.content_banner_intriga').length > 0) {
-                    if ($('#OfertaDelDia:visible').length > 0) {
-                        $('.ubicacion_web').css('margin-top', '162px');
-                    }
-                    else {
-                        $('.ubicacion_web').css('margin-top', '62px');
-                    }
-                }
-                else {
-                    $(".ubicacion_web").animate({ "margin-top": "83px" });
-                    $('.content_slider_home ').css('margin-top', '60px');
-                    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') {
-                        if (esPedido) {
-                            $("[data-content]").animate({ "top": "-62px", "margin-top": "0px" });
-                        } else {
-                            $("[data-content]").animate({ "top": "0px", "margin-top": "0px" });
-                        }
-                    }
-                    else { $("[data-content]").animate({ "top": "0px", "margin-top": "127px" }); }
-                }
-            }
-        }
-    }
 }
 
 function LayoutHeader() {
-    setTimeout(function () {
-        var wtop = $("header").height();
-        if (mostrarBannerRechazo === 'True' || cerrarRechazado !== '1') {
-            wtop = '61px';
-        }
-        $("[data-content]").animate({ "margin-top": (wtop) + "px" });
-
-    }, 500);
+    console.log(1);
+    LayoutHeaderFin();
+    $(document).ajaxStop(function () {
+        LayoutHeaderFin();
+    });
+    //setTimeout(function () {
+    //    var wtop = $("header").innerHeight();
+    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    //}, 350);
 }
+
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
+
 
 function ResizeMensajeEstadoPedido() {
 
@@ -999,16 +887,13 @@ function cerrarMensajePostulante() {
         success: function (response) {
             if (response.success) {
                 $('#bloquemensajesPostulante').hide();
-                $(".ubicacion_web").css("margin-top","-64px");
+                LayoutHeader();
             }
         },
         error: function (response) {
             console.log(response);
         }
     });
-
-    //OrdenarCabecera();
-
 }
 
 function MostrarMensajePedidoRechazado() {

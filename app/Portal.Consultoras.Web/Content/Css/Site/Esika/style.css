@@ -26,6 +26,10 @@ body > img {
     display: none;
 }
 
+.SubHeader{
+    background: #f9f9f9;
+}
+
 img {
     border: 0;
 }
@@ -20523,7 +20527,7 @@ label.checkpop.c_on {
     font-size:10pt;
     color:#767676;
     padding-top: 19px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     z-index: 2;
     position: relative;
 }
