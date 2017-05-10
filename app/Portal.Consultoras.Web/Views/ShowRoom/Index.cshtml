@@ -1,5 +1,6 @@
 ﻿@using Newtonsoft.Json
 @using Portal.Consultoras.Common
+@using System.Linq;
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
 @{
     ViewBag.Title = "ShowRoom";
@@ -83,19 +84,20 @@
     </div>
     <hr class="clear" />
     @if (Model.TieneSubCampania)
-    {
-        var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).ToList();
+                {
+                    var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
-        if (listaSubCampania != null && listaSubCampania.Count > 0)
-        {
-            var precioOferta = listaSubCampania[0].PrecioOferta;
-            var descripcion = listaSubCampania[0].Descripcion;
-            if (descripcion != null && descripcion.Length > 41)
-            {
-                descripcion = descripcion.Substring(0, 40) + " ...";
-            }
+                    if (listaSubCampania != null && listaSubCampania.Count > 0)
+                    {
+                        var precioOferta = listaSubCampania[0].PrecioOferta;
+                        var descripcion = listaSubCampania[0].Descripcion;
+                        if (descripcion != null && descripcion.Length > 41)
+                        {
+                            descripcion = descripcion.Substring(0, 40) + " ...";
+                        }
 
             <div class="banner_especial_showroom">
+                <div class="CerrarOfertaEspecial">x</div>
                 <div class="promocion_especial_header">
                     <div class="titulo_promocion_showroom">
                         <div class="content_titulo">
@@ -105,19 +107,20 @@
                     </div>
                     <div class="content_set_especial_header" id="content_set_especial_header">
                         <div class="content_imagen_promocion">
-                            <img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/CO/201617/E/productos/CO_210084489.jpg">
+                            <img src="@listaSubCampania[0].ImagenMini">
                         </div>
                         <div class="content_set_precio_especial">
                             @descripcion<br />
                             A SÓLO <span class="precio_set_especial">@Model.Simbolo @precioOferta</span>
                         </div>
-                        <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial">DESCÚBRELAS AQUÍ</a>
+                        <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>DESCÚBRELAS AQUÍ</span></a>
                     </div>
+                    <a href="#" class="btn_descubre_set_especial info_desplegable" id="CerrarOfertaEspecial"></a>
 
                 </div>
                 <div class="content_set_oferta_especial">
                     <hr class="clear" />
-                    <div style="max-width:900px; position:relative; margin:0 auto;"><a href="#" class="btn_descubre_set_especial info_desplegable" id="CerrarOfertaEspecial"></a></div>
+                   
                     <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
                     <hr class="clear" />
                 </div>
@@ -278,7 +281,7 @@
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
         <div class="content_item_carrusel">
-            <div class="producto_img_home">
+            <div class="producto_img_home"  data-img="">
                 <img src="{{producto.ImagenProducto}}" class="imagen_producto">
             </div>
             <div class="content_info_set_especial">
@@ -299,7 +302,11 @@
             </div>
             <div class="producto_nombre_descripcion">
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">
+                    @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
+                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
+                           class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           oninput="maxLengthCheck(this, 2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                           data-input="cantidad" data-cantidad-input="-">
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
