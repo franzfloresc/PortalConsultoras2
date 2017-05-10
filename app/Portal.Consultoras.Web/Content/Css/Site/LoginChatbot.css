@@ -409,22 +409,44 @@ body{
     position:relative;
 }
 .texto_facebook{
+    float:left;
+    margin-top: 3px;
+    margin-left: 14px;
+    margin-bottom:15px;
+    letter-spacing:0.2px;
+    font-family:'Lato';
+    font-size:12px;
+}
+/*.texto_facebook{
     font-size:12px;
     display:block;
     font-family:'Lato';
     margin-bottom:15px;
     letter-spacing:0.2px;
-}
+}*/
 .logo_esika_facebook{
-    width:60px;
-    margin:0 auto;
+    float: left;
+    text-align: center;
     font-family: 'logo_esika';
+    width: 50px;
+    height: 20px;
+    margin-top: -2px;
 }
 .logo_esika_facebook:before{
      content: "\e911";
-    font-size: 29px;
+    font-size: 24px;
     color: #e81c36;
 }
+/*.logo_esika_facebook{
+    width:60px;
+    margin:0 auto;
+    font-family: 'logo_esika';
+}*/
+/*.logo_esika_facebook:before{
+     content: "\e911";
+    font-size: 29px;
+    color: #e81c36;
+}*/
 .logo_esika_facebook img{
     width:100%;
 }
@@ -434,6 +456,7 @@ body{
     padding-top: 3px;
     height: 20px;
     margin-bottom: -2px;
+    margin-right: 11px;
     letter-spacing: 0.3px;
     font-weight: 700;
     font-family: 'Lato';
@@ -446,13 +469,13 @@ body{
     margin-top: 10px;
     margin-bottom: 12px;
     width: 100%;
-    /* float: left; */
     box-sizing: border-box;
     text-align: left;
     border-bottom: 1px solid #959595;
     position: relative;
     font-family: 'icomoon';
 }
+#div_select_pais { background: left 2px top 10px no-repeat; }
 .input_chat{
     width: 100%;
     border: 0;
@@ -622,7 +645,6 @@ body{
     font-family: 'logo_esika';
     width: 50px;
     height: 20px;
-    margin-left: 11px;
     margin-top: -2px;
 }
 .logo_normal:before {

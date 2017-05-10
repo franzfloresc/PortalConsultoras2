@@ -3,16 +3,17 @@
         var paisISO = $(this).val();
         if (IsNullOrEmpty(paisISO)) {
             $('#css-main').attr('href', cssMainEsika);
+            $('#div_select_pais').css('background-image', '');
             $('#tooltip_usuario').css('display', 'none');
             $('#tooltip_password').css('display', 'none');
         }
         else {
             $('#css-main').attr('href', paisesEsika.indexOf(paisISO) >= 0 ? cssMainEsika : cssMainLbel);
+            $('#div_select_pais').css('background-image', urlFormatImagenBandera.replace(/\{0\}/g, paisISO));
             $('#tooltip_usuario').css('display','').html(listTooltipUsuario[paisISO]);
             $('#tooltip_password').css('display', '').html(listTooltipPassword[paisISO]);
         }
     });
-    $('#ddlPais').trigger('change');
 }
 
 function LoginNormal() {

@@ -22,13 +22,13 @@
             var cssMainEsika = '@Url.Content("~/Content/Css/Site/LoginChatbot.css")';
             var cssMainLbel = '@Url.Content("~/Content/Css/Site/LoginChatbot_lbel.css")';
 
-            var tokenBotmaker = '@Model.TokenBotmaker';
-            var webViewFallBack = ('@Model.WebViewFallBack'.toLowerCase() == 'true');
-
             //var urlBotmakerChat = 'https://www.facebook.com/messages/t/1990152797872214';
             var urlBotmakerChat = 'https://m.me/1990152797872214';
             var urlBotmakerLoginNormal = 'https://go.botmaker.com/rest/webviews/traditionalLogin';
             var urlBotmakerLoginFacebook = 'https://go.botmaker.com/rest/webviews/fbConnect';
+
+            var tokenBotmaker = '@Model.TokenBotmaker';
+            var webViewFallBack = ('@Model.WebViewFallBack'.toLowerCase() == 'true');
 
             var listTooltipUsuario = {
                 'BO': '@Html.Raw(Constantes.TooltipLoginUsuario.BO.Replace("<br/>"," "))',

@@ -9,6 +9,8 @@
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/LoginChatbot/Normal.js")"></script>
     <script type="text/javascript">
+        var urlFormatImagenBandera = 'url(@Url.Content("~/Content/Images/Login2/Banderas/{0}.png"))';
+
         var paisesEsika = '@(ConfigurationManager.AppSettings["PaisesEsika"] ?? "")';
         var cargaApiFacebook = false;
     </script>
@@ -17,7 +19,7 @@
 <div class="logo_normal"> </div>
 <div class="texto_normal">Ingresa a tu usuario de <b>SomosBelcorp</b> por única vez</div>
 <hr class="clear" />
-<div class="campo_input_chat">
+<div id="div_select_pais" class="campo_input_chat">
     <select id="ddlPais" class="DropDown select_pais_chat" tabindex="1">
         <option value="">Elige tu País</option>
         @if (Model.ListaPaises != null)
@@ -35,7 +37,7 @@
     <input id="txtUsuario" type="text" class="inputForm input_chat" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico">
     <div class="ayuda_usuario_facebook_chatBot">
         <a href="javascript:void(0);" class="helper_facebook_chatBot"></a>
-        <div id="tooltip_usuario" class="mensaje_ayuda_usuario_chatBot"></div>
+        <div id="tooltip_usuario" class="mensaje_ayuda_usuario_chatBot" style="display:none;"></div>
     </div>
 </div>
 <div class="campo_input_chat icono_pass_chatbot">
@@ -43,7 +45,7 @@
     <input type="password" id="txtPassword" class="inputForm input_chat" placeholder="Contraseña" value="">
     <div class="ayuda_usuario_facebook_chatBot">
         <a href="javascript:void(0);" class="helper_facebook_chatBot"></a>
-        <div id="tooltip_password" class="mensaje_ayuda_usuario_chatBot"></div>
+        <div id="tooltip_password" class="mensaje_ayuda_usuario_chatBot" style="display:none;"></div>
     </div>
 </div>
 
