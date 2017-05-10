@@ -774,7 +774,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").attr("data-id");
-                if (estrategiaId != 4) {
+                if (!(estrategiaId == 4 || estrategiaId == 7)) {
                     alert("Debe seleccionar el tipo de Estrategia Oferta para Ti, verifique.");
                     return false;
                 }
@@ -800,7 +800,8 @@
         $("#btnAceptarMasivo1").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 2
+                tipoConfigurado: 2,
+                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
             };
 
             waitingDialog({});
@@ -833,7 +834,8 @@
         $("#btnAceptarMasivo2").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 1
+                tipoConfigurado: 1,
+                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
             };
 
             waitingDialog({});
@@ -1075,7 +1077,8 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                CampaniaID: $("#ddlCampania").val()
+                CampaniaID: $("#ddlCampania").val(),
+                Tipo: $("#ddlTipoEstrategia option:selected").attr("data-id")
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -1493,11 +1496,11 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(cellvalue);
+        //var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
-        if (cellValueInt == "1") {
+        //if (cellValueInt == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
-        }
+        //}
         return Des;
     }
 
@@ -1555,7 +1558,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
