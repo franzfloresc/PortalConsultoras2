@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1043,5 +1044,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        #region Cupon
+
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
     }
 }
