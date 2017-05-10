@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
+using System;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -8,12 +9,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarCupon(CuponModel cupon)
         {
-            var success = true;
-            return Json(new
+            try
             {
-                success = success,
-                message = "Ocurrió un error al ejecutar la operación."
-            });
+                var success = true;
+                return Json(new { success = success });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+            }
         }
     }
 }
