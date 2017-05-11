@@ -197,6 +197,7 @@
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -3188,6 +3189,9 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\IngresadoDetalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\FacturadoDetalle.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />

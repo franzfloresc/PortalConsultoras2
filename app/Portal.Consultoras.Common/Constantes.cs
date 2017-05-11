@@ -63,6 +63,9 @@ namespace Portal.Consultoras.Common
         {
             public const short Pendiente = 201;
             public const short Procesado = 202;
+
+            public const short Registrado = 1;
+            public const short Facturado = 2;
         }
 
         public class CodigosISOPais
