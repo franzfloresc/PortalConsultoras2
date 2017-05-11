@@ -122,8 +122,9 @@ $(function () {
     });
 
     $("#btn_cerrar_oferta_mobile").click(function () {
-        $('.header_slider').slideUp();
-        $("#contentmobile").css({ 'margin-top': '63px' });
+        //$('.header_slider').slideUp();
+        $('.header_slider').hide();
+        //$("#contentmobile").css({ 'margin-top': '63px' });
 
         OcultarBannerTop();
     });
@@ -155,7 +156,8 @@ $(function () {
     }
 
     if (ocultarBannerTop) {
-        $('.header_slider').slideUp();
+        //$('.header_slider').slideUp();
+        $('.header_slider').hide();
         //$("#content").css({ 'margin-top': '63px' });
         LayoutHeader();
     }
