@@ -1683,6 +1683,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.Pedido:
+                        return RedirectToAction("Index", "Pedido", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

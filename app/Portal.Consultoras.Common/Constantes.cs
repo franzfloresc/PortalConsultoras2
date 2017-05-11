@@ -493,6 +493,7 @@ namespace Portal.Consultoras.Common
             public const string EstadoCuenta = "ESTADOCUENTA";
             public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
             public const string PedidoDetalle = "PEDIDODETALLE";
+            public const string Pedido = "PEDIDO";
         }
 
         public class EstadoCuentaTipoMovimiento
