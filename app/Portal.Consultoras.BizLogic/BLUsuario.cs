@@ -1357,10 +1357,10 @@ namespace Portal.Consultoras.BizLogic
                                         if (eslbel)
                                         {
                                             if (paisISO == "MX" || paisISO == "CR") {
-                                                htmlTemplate.Replace("#DISPLAY1#", "block");
+                                                htmlTemplate.Replace("#DISPLAY1#", "");
                                             }
                                             else {
-                                                htmlTemplate.Replace("#DISPLAY1#", "none");
+                                                htmlTemplate.Replace("#DISPLAY1#", "nomostrar");
                                             }
                                         }
 
