@@ -80,13 +80,7 @@
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
-            <div class="div-2" style="letter-spacing: 2.1px;
-    font-size: 25px;
-    font-weight: 300;
-  color:black;
-    margin-bottom: 37px;
-    font-family: 'lato';
-    ">
+            <div class="div-2" style="letter-spacing: 2.1px; font-size: 25px; font-weight: 300; color:black; margin-bottom: 37px; font-family: 'lato'; ">
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
@@ -161,36 +155,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="div-3">
-
-                <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina txtFiltro">
-                        @*@Html.DropDownListFor(m => Model.CodigoRegion, ListaRegiones, new { @class = "textEbel ", @placeholder = "Region" })*@
-                        @Html.TextBoxFor(m => Model.CodigoRegion, new { @style = "text-transform: uppercase;", @id = "CodigoRegionFiltro", @class = "textEbel ", @placeholder = "Region" })
-                    </div>
-                </div>
-                <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina txtFiltro">
-                        @*@Html.CheckBoxListFor(m => Model.PostedFuenteIngreso.SelectedIds, m => Model.FuenteIngresoListAvailable, entity => entity.ID, entity => entity.Descripcion, entity => entity.IsSelected, m => Model.FuenteIngresoListSelected)*@
-                        <table>
-                            <tr>
-                                @foreach (var item in Model.FuenteIngresoListAvailable)
-                                {
-
-                                <td>
-                                    <input type="checkbox" name="FuenteIngreso" value="@item.ID" id="@item.ID" checked="checked" />
-                                </td>
-                                <td style="width:100px;padding-right:5px;">
-                                    <label for="@item.ID"><span class="textEbel">@item.Descripcion</span></label>
-                                </td>
-                                }
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </div>
