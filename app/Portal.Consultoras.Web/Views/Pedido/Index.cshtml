@@ -538,7 +538,7 @@
 
         <div id="contenedorCupon" class="content_cupon_pedido">
             Tienes un descuento exclusivo para ti, 
-            <a href="#" id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
         </div>
         <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
@@ -990,6 +990,9 @@
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1175,6 +1178,8 @@
                 </div>
             </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
+
+            
 
     <!--TAPS-->
             <div class="tapsPedidos"></div>
@@ -1446,7 +1451,7 @@
                 {{/each}}
             </script>
         }
-
+        
         <script id="js-CarruselSugerido" type="text/x-handlebars-template">
             {{#each this}}
             <div class="sugerido" data-item="producto">
@@ -2321,6 +2326,7 @@
         </div>
         <hr class="clear" />
     </div>
+   
 </script>
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2367,8 +2373,11 @@
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
 
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+               @*var tieneCupon = '@Model.TieneCupon';*@
                 var tieneCupon = '1';
                 var paginaOrigenCupon = 11;
+                var esEmailActivo = '@Model.EmailActivo';
                 var baseUrl = "@Url.Content("~")";
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            

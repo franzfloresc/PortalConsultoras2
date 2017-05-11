@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public int CuponId { get; set; }
         public decimal ValorAsociado { get; set; }
         public int EstadoCupon { get; set; }
-        public bool EnvioCorreo { get; set; }
+        public bool CorreoGanasteEnviado { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public string UsuarioCreacion { get; set; }
