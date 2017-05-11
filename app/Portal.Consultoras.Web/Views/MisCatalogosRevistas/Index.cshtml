@@ -76,10 +76,12 @@
                     <br />
                     <span style="font-size: 15px; font-weight: bold;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
                 </div>
-                <br />
-                <a href="javascript: location.href = 'RevistaDigital/Index'" style="background: #f00;width: 218px;height:97px;">
-                    VER MÁS OFERTAS PARA MÍ
-                </a>
+                <div class="revista">
+                    <div class="boxoffer" style="cursor: pointer;top:initial;right:initial;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital", new { area = "Mobile"})'">
+                        <div class="fondo_boton"></div>
+                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- FIN REVISTA DIGITAL -->
@@ -191,6 +193,7 @@
 @section styles{
 
     <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
+<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
