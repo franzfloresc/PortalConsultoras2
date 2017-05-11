@@ -14,14 +14,20 @@ namespace Portal.Consultoras.BizLogic
         public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisID, BECuponConsultora cuponConsultora)
         {
             BECuponConsultora entidad = null;
-            var DAPedidoWeb = new DACuponConsultora(paisID);
+            var DACuponConsultora = new DACuponConsultora(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetCuponConsultoraByCodigoConsultoraCampaniaId(cuponConsultora))
+            using (IDataReader reader = DACuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(cuponConsultora))
                 if (reader.Read())
                 {
                     entidad = new BECuponConsultora(reader);
                 }
             return entidad;
+        }
+
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            var DACuponConsultora = new DACuponConsultora(paisId);
+            DACuponConsultora.UpdateCuponConsultoraEstadoCupon(cuponConsultora);
         }
     }
 }
