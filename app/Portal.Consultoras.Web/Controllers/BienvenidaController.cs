@@ -440,6 +440,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo; 
             }
             catch (FaultException ex)
             {

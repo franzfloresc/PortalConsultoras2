@@ -16,9 +16,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // setear el código a 2(activo)
-                var success = true;
-                return Json(new { success = success });
+                ActivarCupon();
+                return Json(new { success = true, message = "El cupón fue activado." });
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
@@ -157,6 +156,21 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
+        private void ActivarCupon()
+        {
+            using (PedidoServiceClient svClient = new PedidoServiceClient())
+            {
+                BECuponConsultora cuponBE = new BECuponConsultora();
+                cuponBE.CodigoConsultora = userData.CodigoConsultora;
+                cuponBE.CampaniaId = userData.CampaniaID;
+                cuponBE.EstadoCupon = Constantes.EstadoCupon.Activo;
+                cuponBE.EnvioCorreo = true;
+
+                svClient.UpdateCuponConsultoraEstadoCupon(userData.PaisID, cuponBE);
+                svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBE);
+            }
+        }
+
         private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
@@ -168,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CuponId = cuponBE.CuponId,
                 ValorAsociado = cuponBE.ValorAsociado,
                 EstadoCupon = cuponBE.EstadoCupon,
-                EnvioCorreo = cuponBE.EnvioCorreo,
+                CorreoGanasteEnviado = cuponBE.EnvioCorreo,
                 FechaCreacion = cuponBE.FechaCreacion,
                 FechaModificacion = cuponBE.FechaModificacion,
                 UsuarioCreacion = cuponBE.UsuarioCreacion,

@@ -21,7 +21,7 @@
         PopupCuponPaginaBienvenida: '#Cupon1',
         PopupConfirmacion: '#Cupon2',
         PopupGanaste: '#',
-        //ContenedorGanaste: '#',
+        ContenedorCuponExclusivo: '#contenedorCupon',
         ContenedorGana: '#',
         LinkVer: '#linkConocerDescuento',
         Body: 'body',
@@ -30,7 +30,9 @@
         TxtCorreoIngresado: '#Cupon1 #txtEmailIngresado',
         HdCorreoOriginal: '#Cupon1 #hdEmailOriginal',
         ContenedorTituloGana: '#Cupon1 .monto_gana',
-        BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon'
+        BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon',
+        BtnModificarDatos: '#Cupon2 #btnModificarDatos',
+        BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente'
     };
 
     var setting = {
@@ -43,7 +45,7 @@
         UrlEnviarCorreoConfirmacionEmail: 'Cupon/EnviarCorreoConfirmacionEmail',
         UrlObtenerCupon: 'Cupon/ObtenerCupon',
         Cupon: null,
-        SimboloMoneda:''
+        SimboloMoneda: ''
     };
 
     var bindEvents = function () {
@@ -61,8 +63,8 @@
         $(elements.BtnConfirmarDatos).on("click", function () {
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
-
-            if (confirmarDatosEsValido(correoOriginal, correoIngresado)) {
+            var celular = $(elements.TxtCelular).val().trim();
+            if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular)) {
                 if (correoIngresado == correoOriginal) {
                     validarEstadoEmail();
                 } else {
@@ -70,19 +72,39 @@
                 }
             }
         });
+
+        $(elements.BtnModificarDatos).on("click", function () {
+            mostrarPopupGana();
+        });
+
+        $(elements.BtnEnviarNuevamente).on("click", function () {
+            AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
+            var model = {
+                eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
+                celular: $(elements.TxtCelular).val().trim()
+            };
+            var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
+
+            confirmacionPromise.then(function (response) {
+                if (response.success) {
+                    AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
+                } else {
+                    AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
+                }
+            }, function (xhr, status, error) { });
+        });
     }
 
     var validarEstadoEmail = function () {
         if (setting.EsEmailActivo) {
             procesarGanaste();
         } else {
-            procesarConfirmacion();
+            mostrarPopupConfirmacion();
         }
     }
 
     var procesarConfirmacion = function () {
-        $(elements.PopupCuponPaginaBienvenida).hide();
-        $(elements.PopupConfirmacion).show();
+        mostrarPopupConfirmacion();
         var cuponPromise = actualizarCuponPromise();
 
         cuponPromise.then(function (response) {
@@ -92,12 +114,12 @@
                     celular: $(elements.TxtCelular).val().trim()
                 };
                 var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
-
+                obtenerCupon();
                 confirmacionPromise.then(function (response) {
                     if (response.success) {
 
                     } else {
-                        alert(response.message); 7
+                        alert(response.message);
 
                     }
                 }, function (xhr, status, error) { });
@@ -106,20 +128,26 @@
     }
 
     var procesarGanaste = function () {
-        $(elements.PopupCuponPaginaBienvenida).hide();
-        $(elements.PopupGanaste).show();
-        var cuponPromise = actualizarCuponPromise();
+        mostrarPopupGanaste();
 
-        cuponPromise.then(function (response) {
-            var result = response;// Enviar correo "Ganaste"
-        }, function (xhr, status, error) {});
+        if (!setting.Cupon.CorreoGanasteEnviado) {
+            
+            var cuponPromise = actualizarCuponPromise();
+
+            cuponPromise.then(function (response) {
+                if (response.success) {
+                    AbrirMensaje(response.message, "CUPÓN");
+                    obtenerCupon();
+                }
+            }, function (xhr, status, error) { });
+        }
     }
 
     var procesarGana = function () {
         var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
         $(elements.ContenedorTituloGana).empty();
         $(elements.ContenedorTituloGana).append("<span class='tipo_moneda'>" + simbolo + "</span> " + setting.Cupon.FormatoValorAsociado);
-        $(elements.PopupCuponPaginaBienvenida).show();
+        mostrarPopupGana();
     }
 
     var inizializer = function (parameters) {
@@ -128,16 +156,16 @@
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
-        mostrarContenedorCuponPorPagina();
+        mostrarPopupCuponPorPagina();
         bindEvents();
     }
 
-    var mostrarContenedorCuponPorPagina = function () {
+    var mostrarPopupCuponPorPagina = function () {
         if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA || setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO) {
             if (setting.MostrarContenedorCupon) {
-                $(elements.PopupCuponPaginaBienvenida).show();
+                $(elements.ContenedorCuponExclusivo).show();
             } else {
-                $(elements.PopupCuponPaginaBienvenida).hide();
+                $(elements.ContenedorCuponExclusivo).hide();
             }
         }
     }
@@ -225,7 +253,7 @@
         return d.promise();
     }
 
-    var confirmarDatosEsValido = function(emailOriginal, emailIngresado){
+    var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular) {
         if (emailOriginal == "") {
             alert("debe ingresar su correo(original)");
             return false;
@@ -234,7 +262,28 @@
             alert("debe ingresar su correo(ingresado)");
             return false;
         }
+        if (celular == "") {
+            alert("debe ingresar su número celular");
+            return false;
+        }
         return true;
+    }
+
+    var mostrarPopupGanaste = function () {
+        $(elements.PopupGanaste).show();
+        $(elements.PopupCuponPaginaBienvenida).hide();
+        $(elements.PopupConfirmacion).hide();
+    }
+
+    var mostrarPopupGana = function () {
+        $(elements.PopupCuponPaginaBienvenida).show();
+        $(elements.PopupGanaste).hide();
+        $(elements.PopupConfirmacion).hide();
+    }
+
+    var mostrarPopupConfirmacion = function () {
+        $(elements.PopupCuponPaginaBienvenida).hide();
+        $(elements.PopupConfirmacion).show();
     }
 
     return {
@@ -242,6 +291,8 @@
             inizializer(parameters);
         },
         obtenerCupon: obtenerCupon,
-        mostrarObjetoCupon : setting.Cupon
+        mostrarObjetoCupon: function () {
+            return setting.Cupon;
+        }
     };
 })();
