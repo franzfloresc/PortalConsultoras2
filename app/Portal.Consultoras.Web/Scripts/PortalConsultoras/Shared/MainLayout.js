@@ -4,6 +4,15 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
+    LayoutHeader();
+
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+
     if (tieneOfertaDelDia == "True") {
         window.OfertaDelDia.CargarODD();
     }
@@ -32,16 +41,13 @@ $(document).ready(function () {
                 CerrarPopup('[data-popup-main]');
             }
 
-            //EPD-1780
             if ($('#dialog_PedidoReservado').is(':visible')) {
                 $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
-            //Fin EPD-1780
         }
     });
-
-    //EPD-1780    
+  
     $('.contenedor_popup_agregarUnidades').click(function (e) {
         if (!$(e.target).closest('.popup_agregarUnidades').length) {
             if ($('#dialog_SesionMainLayout').is(':visible')) {
@@ -50,7 +56,6 @@ $(document).ready(function () {
             }
         }
     });
-    // FIN EPD-1780
 
     $('body').click(function (e) {
         if (!$(e.target).closest('#OfertaDelDia').length) {
@@ -88,7 +93,6 @@ $(document).ready(function () {
         }
     });
 
-
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
@@ -108,17 +112,8 @@ $(document).ready(function () {
         }
     });
 
-    waitingDialog();
-
-    //EPD-2305
-    if (mostrarBannerPostulante == 'True') {
-        $('#bloquemensajesPostulante').show();
-    }
-    else {
-        MensajeEstadoPedido();
-    }
-
-    closeWaitingDialog();
+    //waitingDialog();
+    //closeWaitingDialog();
 
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
@@ -280,6 +275,7 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
+    //OrdenarCabecera()
 
     LayoutHeader();
 });
@@ -723,13 +719,7 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
+
 
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
@@ -957,28 +947,10 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
-    /*
-    if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
-    }
-    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({

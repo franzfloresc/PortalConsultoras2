@@ -296,12 +296,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             if (beConfiguracionCampania != null)
             {
-                if (userData.EstadoPedido == Constantes.EstadoPedido.Procesado && !beConfiguracionCampania.ValidacionAbierta )
-                {
-                     userData.CerrarRechazado = 1;
-                     userData.MostrarBannerRechazo = false;
-                     SetUserData(userData);
-                }
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
