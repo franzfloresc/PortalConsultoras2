@@ -66,23 +66,21 @@
         <!-- FIN REVISTA -->
 
         <!-- REVISTA DIGITAL -->
-        <div class="revista_content" id="contentRevistaDigital" style="min-width: 250px;height: 300px; @(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
+        <div class="revista_content" id="contentRevistaDigital" style="height: 300px;">
             <div>
-                <div class="titulo_central" data-titulo='revista' style="text-align: left;"> &nbsp;&nbsp;&nbsp;&nbsp;</div>
-                <div style="text-align: left;">
+                <div style="height:127px;">
+                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height:100%; float: left;" />
                 </div>
-                <a class="revista_carrusel" href="javascript: void(0);" style="text-align: left;box-shadow:none;height:auto;">
-                    <span style="font-size: 15px; color: red;">LAS OFERTAS DE TU REVISTA AHORA SON PERSONALIZADAS PARA TI</span>
+                <div>
+                    <span style="font-size: 18px; font-weight: bold;">TU REVISTA ONLINE PERSONALIZADA</span>
                     <br />
-                    <span style="font-size: 35px;">ÉSIKA </span><span style="font-family: 'Lbel Script';font-size: 35px;">para mí</span>
-                    <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")"  style="display:none;" />
-                </a>
+                    <span style="font-size: 15px; font-weight: bold;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                </div>
                 <br />
-                <a class="compartir_catalogo_mensaje" href="javascript: location.href = 'RevistaDigital/Index'" style="color: #ffffff;width: 218px;">
-                    QUIERO MÁS OFERTAS
+                <a href="javascript: location.href = 'RevistaDigital/Index'" style="background: #f00;width: 218px;height:97px;">
+                    VER MÁS OFERTAS PARA MÍ
                 </a>
             </div>
-            <hr class="clear"/>
         </div>
         <!-- FIN REVISTA DIGITAL -->
 
@@ -103,7 +101,7 @@
                         <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" /></div>
             </div>
         }
-
+        <hr class="clear" />
     </div>
 </div>
 

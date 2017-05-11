@@ -22917,6 +22917,7 @@ body {
     display: inline-block;
     /*margin-right:80px;*/
     margin-bottom: 70px;
+    overflow:hidden;
 }
 
 .arrow_revista {

@@ -6852,7 +6852,7 @@ input[type="checkbox"]:checked + span:after {
     height: 100%;
     overflow: scroll;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .popup_demandaAnticipada {
@@ -11895,11 +11895,172 @@ a{
     cursor: pointer;
 }
 .texto_elige_tono{
-    font-family:'LAto';
+    font-family:'Lato';
     font-size:11px;
     font-weight: 700;
     color:#e81c36;
     text-align:center;
     height:48px;
     line-height:47px;
+}
+
+/* POPUP REVISTA SUSCRIPCIÓN */
+
+.contenedor_popup_revistaSuscripcion {
+    display: block;
+    position: relative;
+    width: 89%;
+    max-width: 480px;
+    top: 50%;
+    margin: -275px auto 47px auto;
+}
+
+.popup_revistaSuscripcion{
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #FFF;
+    position: relative;
+    overflow: hidden;
+    margin-top:13px;
+    padding-left: 23px;
+    padding-right: 23px;
+    padding-bottom: 23px;
+    top:22px;
+}
+
+.background_popupEsika{
+    display: block;
+    position: absolute;
+    width: 774px;
+    left: -136px;
+    height: 100%;
+    background: #CCC;
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+}
+
+.popup_revistaSuscripcion_logoMarca, .popup_revistaSuscripcion_contenido, .popup_revistaSuscripcion_grupoBotones, .popup_revistaSuscripcion_terminos{
+    display:block;
+    position:relative;
+    z-index:2;
+}
+
+.popup_revistaSuscripcion_logoMarca {
+    width: 132px;
+    height: 85px;
+    left: -9px;
+    margin-top:14px;
+    margin-bottom: 0px;
+}
+
+.popup_revistaSuscripcion_logoMarca img{
+    width:100%;
+    height:auto;
+}
+
+.popup_revistaSuscripcion_contenido span{
+    display: block;
+    font-size: 13px;
+    color: #FFF;
+    letter-spacing: 1.5px;
+}
+
+.popup_revistaSuscripcion_contenido span:first-child{
+    font-family: 'Lato';
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.popup_revistaSuscripcion_contenido span.porcentaje_descuento {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.popup_revistaSuscripcion_contenido span:nth-child(2){
+    font-family:'Lato';
+    margin-bottom:47px;
+}
+
+.popup_revistaSuscripcion_grupoBotones {
+    margin-bottom: 36px;
+}
+
+.popup_revistaSuscripcion_grupoBotones button{
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    line-height: 50px;
+    border: none;
+    text-align: center;
+    font-family: 'Lato';
+    letter-spacing: 0.5px;
+    font-size: 12px;
+}
+
+.popup_revistaSuscripcion_grupoBotones button:first-child{
+    background:#000;
+    color:#FFF;
+}
+
+.popup_revistaSuscripcion_grupoBotones button:nth-child(2){
+    color:#000;
+    border:1px solid #000;
+    background:transparent;
+}
+
+.popup_revistaSuscripcion_terminos {
+    /*width: 209px;*/
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #FFF;
+    letter-spacing: 1px;
+}
+
+.popup_revistaSuscripcion_terminos a {
+    display: inline-block;
+    text-decoration: underline;
+    color:#FFF;
+}
+
+.popup_revistaSuscripcion .img_modeloRevista {
+    display: none;
+    position: absolute;
+    bottom: -6px;
+    right: 0px;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje {
+    display: block;
+    width: 213px;
+    margin-top: 9px;
+    font-family: 'Lato';
+    color: #FFF;
+    font-weight: bold;
+    font-size: 11px;
+    position: relative;
+    top: 17px;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje a {
+    color:#FFF;
+    text-decoration: underline;
+    transition:opacity 0.3s ease;
+    -moz-transition:opacity 0.3s ease;
+    -o-transition:opacity 0.3s ease;
+    -ms-transition:opacity 0.3s ease;
+    -webkit-transition:opacity 0.3s ease;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje a:hover{
+    opacity:0.7;
 }

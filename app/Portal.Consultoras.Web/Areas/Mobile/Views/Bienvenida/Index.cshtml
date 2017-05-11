@@ -16,7 +16,7 @@
         }
     </style>
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
-<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+    @*<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />*@
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -635,7 +635,41 @@
 
 <!--POP UP REVISTA DIGITAL-->
 <div id="popup-revista-digital" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
-    <div class="content_revista_digital">
+    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:-12px; right:0px; position:absolute;" href="javascript:$('#popup-revista-digital').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_revistaSuscripcion">
+            <div class="background_popupEsika"></div>
+            <div class="popup_revistaSuscripcion_logoMarca">
+                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
+            </div>
+            <div class="popup_revistaSuscripcion_contenido">
+                <span>
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
+                </span>
+                <span>
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
+                </span>
+            </div>
+            <div class="popup_revistaSuscripcion_grupoBotones">
+                <button type="button" id="btnRDSuscripcionSi" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" id="btnRDSuscripcionNo" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+            </div>
+            <div class="popup_revistaSuscripcion_terminos">
+                Al inscribirte est&aacute;s aceptando los
+                <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10
+            </div>
+            <div class="img_modeloRevista">
+                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
+            </div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:NoMostrarPopUpRevistaDigita();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+    @*<div class="content_revista_digital">
         <div class="btn_cerrar_actualizarMisDatos">
             <a href="javascript:$('#popup-revista-digital').hide();" title="Cerrar" class="cerrar_tutorial">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -650,15 +684,15 @@
                 <img src="/Content/Images/Esika/RevistaDigital/letra.gif" />
             </div>*@
 
-        </div>
+        @*</div>*@
         @*<div style="text-align: center; margin:-26px 0 81px 32px;">
             <input id="btnRDSuscripcionNo" type="button" value="CANCELAR" data-popup-close="" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
             <input id="btnRDSuscripcionSi" type="button" value="!QUIERO INSCRIBIRME AHORA¡" onclick="RDSuscripcion()" class="input_modifica_horizontal" style="width: 225px;" />
         </div>*@
-        <div>
+        @*<div>
             <a href="javascript:NoMostrarPopUpRevistaDigita();" style="color: white !important;">No volver a ver este mensaje</a>
-        </div>
-    </div>
+        </div>*@
+    @*</div>*@
 </div>
 <!-- FIN POPUP REVISTA DIGITAL -->
 
