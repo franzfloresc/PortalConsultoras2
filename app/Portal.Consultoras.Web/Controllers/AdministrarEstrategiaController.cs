@@ -527,8 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
-                string imagen1 = "", imagen2 = "", imagen3 = "", imagen4 = "", imagen5 = "", imagen6 = "", imagen7 = "", imagen8 = "", imagen9 = "", imagen10 = "";
-                string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
                 string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
@@ -545,16 +544,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 message = mensaje,
                                 descripcion = descripcion,
                                 precio = precio,
-                                imagen1 = imagen1,
-                                imagen2 = imagen2,
-                                imagen3 = imagen3,
-                                imagen4 = imagen4,
-                                imagen5 = imagen5,
-                                imagen6 = imagen6,
-                                imagen7 = imagen7,
-                                imagen8 = imagen8,
-                                imagen9 = imagen9,
-                                imagen10 = imagen10,
                                 extra = ""
                             }, JsonRequestBehavior.AllowGet);
                         }
@@ -575,17 +564,8 @@ namespace Portal.Consultoras.Web.Controllers
                     precio = lst[0].PrecioUnitario.ToString();
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
+                    idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
-                    /*imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen5 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto05, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen6 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto06, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen7 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto07, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen8 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto08, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen9 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto09, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    imagen10 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto10, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);*/
                 }
 
                 return Json(new
@@ -597,16 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                     wsprecio = wsprecio,
                     codigoSAP = codigoSAP,
                     enMatrizComercial = enMatrizComercial,
-                    imagen1 = imagen1,
-                    imagen2 = imagen2,
-                    imagen3 = imagen3,
-                    imagen4 = imagen4,
-                    imagen5 = imagen5,
-                    imagen6 = imagen6,
-                    imagen7 = imagen7,
-                    imagen8 = imagen8,
-                    imagen9 = imagen9,
-                    imagen10 = imagen10,
+                    idMatrizComercial = idMatrizComercial,
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }

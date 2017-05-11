@@ -18,7 +18,6 @@
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
 
-
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
         _crearObjetoUpload(itemData, editData);
@@ -286,7 +285,6 @@
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
     };
 
-
     var _clearFields = function () {
 
         $("#hdnCodigoSAP").val("")
@@ -321,6 +319,140 @@
         $("#txtTextoLibre").val("");
     };
 
+    var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
+        $("#hdnCodigoSAP").val("");
+        $("#hdnEnMatrizComercial").val("");
+        if (cuvIngresado.length == 5) {
+            waitingDialog({});
+            $.ajaxSetup({ cache: false });
+
+            var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+            var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
+
+            var flagOD = "";
+            if (auxOD == '7') {
+                flagOD = '4';
+            }
+            else {
+                flagOD = '0';
+            }
+
+            var params = {
+                CampaniaID: $("#ddlCampania").val(),
+                CUV2: $("#txtCUV2").val(),
+                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                CUV1: "0",
+                flag: flagOD,
+                FlagNueva: flagNueva,
+                FlagRecoProduc: flagRecoProduc,
+                FlagRecoPerfil: flagRecoPerfil
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetOfertaByCUV,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                    $('#mensajeErrorCUV').val("");
+
+                    if (data.message == "OK") {
+                        $("#txtDescripcion").val(data.descripcion);
+
+                        if (data.wsprecio > 0) {
+                            $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio2")[0].disabled = true;
+                        }
+                        else if (data.wsprecio == 0) {
+                            if (data.precio == 0) {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                            else {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                        }
+                        else if (data.wsprecio == -1) {
+                            $("#txtPrecio2")[0].disabled = true;
+                            alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                        }
+                        else if (data.wsprecio == -2) {
+                            $("#txtPrecio2")[0].disabled = false;
+                            $("#txtPrecio2").val("");
+                            $("#txtPrecio2").focus();
+                        }
+
+                        $("#hdnCodigoSAP").val(data.codigoSAP);
+                        $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
+
+                        //Carga de Imagenes
+                        _editData = {
+                            EstrategiaID: 0,
+                            CUV2: $("#txtCUV2").val(),
+                            TipoEstrategiaID: 0,
+                            CodigoSAP: 0,
+                            CampaniaID: 0,
+                            IdMatrizComercial: data.idMatrizComercial,
+                            paisID: $("#ddlPais").val(),
+                            imagenes: [],
+                            imagen: null
+                        };
+
+                        _crearFileUploadAdd(_editData);
+
+                        _obtenerImagenes(_editData, 1, true).done(function () {
+                            showDialog("matriz-comercial-dialog");
+                        });
+
+                        $('#file-upload').show();
+
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        $('#mensajeErrorCUV2').val("");
+                        closeWaitingDialog();
+                    } else {
+                        $('#mensajeErrorCUV2').val(data.message);
+                        alert($('#mensajeErrorCUV2').val());
+                        $("#txtDescripcion").val("");
+                        $("#txtPrecio2").val("");
+
+                        $("#txtPrecio").val("");
+                        $("#txtCUV").val("");
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            objPreview = $('#preview' + i);
+                            objChkImagen = $('#chkImagenProducto' + idImagen);
+                            dataImagen = data['imagen' + i];
+
+                            if (dataImagen != '') {
+                                objPreview.attr('src', data.imagen1);
+                                objChkImagen.attr('disabled', false);
+                            }
+                            else {
+                                objPreview.attr('src', rutaImagenVacia);
+                                objChkImagen.attr('disabled', true);
+                            }
+                            objChkImagen.attr('checked', false);
+                        }
+
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+        }
+    }
+
     return {
         editar: function (id, event) {
             event.preventDefault();
@@ -345,21 +477,9 @@
 
             return false;
         },
-        editarByCUV2: function (cuv2, campaniaID, tipoEstrategiaID) {
+        mostrarInformacionCUV: function (cuv2) {
 
-            waitingDialog({});
-
-            _clearFields();
-
-             var id = 0;
-             var params = {
-                 EstrategiaID: 0,
-                 CUV2: cuv2,
-                 CampaniaID: campaniaID,
-                 TipoEstrategiaID: tipoEstrategiaID
-             };
-              _editar(params, id);
-
+            _mostrarInformacionCUV(cuv2);
             return false;
         },
         eliminar: function (id, event) {
