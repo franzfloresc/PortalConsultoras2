@@ -32,7 +32,8 @@
         ContenedorTituloGana: '#Cupon1 .monto_gana',
         BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon',
         BtnModificarDatos: '#Cupon2 #btnModificarDatos',
-        BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente'
+        BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente',
+        ContenedorMostrarCorreo: '#Cupon2 div.correo_confirmacion'
     };
 
     var setting = {
@@ -64,6 +65,7 @@
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
             var celular = $(elements.TxtCelular).val().trim();
+
             if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular)) {
                 if (correoIngresado == correoOriginal) {
                     validarEstadoEmail();
@@ -117,10 +119,9 @@
                 obtenerCupon();
                 confirmacionPromise.then(function (response) {
                     if (response.success) {
-
+                        AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
                     } else {
-                        alert(response.message);
-
+                        AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                     }
                 }, function (xhr, status, error) { });
             }
@@ -282,6 +283,9 @@
     }
 
     var mostrarPopupConfirmacion = function () {
+        var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
+        $(elements.ContenedorMostrarCorreo).empty();
+        $(elements.ContenedorMostrarCorreo).append(correoIngresado);
         $(elements.PopupCuponPaginaBienvenida).hide();
         $(elements.PopupConfirmacion).show();
     }
