@@ -21664,7 +21664,7 @@ label.checkpop.c_on {
 .content_item_carrusel {
     position: relative;
     float: left;
-    width: 248px!important;
+    width: 248px;
     margin-right: 25px;
     height: 372px;
     background: white;
