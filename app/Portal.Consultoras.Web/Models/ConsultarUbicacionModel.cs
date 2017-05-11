@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Models
         public string FuenteIngreso { get; set; }
         public string SeccionOrigen { get; set; }
         public string ZonaOrigen { get; set; }
+        public EditarDireccionModel EditarDireccionModel { get; set; }
 
         public ConsultarUbicacionModel()
         {
