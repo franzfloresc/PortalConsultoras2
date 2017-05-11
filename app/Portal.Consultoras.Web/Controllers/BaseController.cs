@@ -99,16 +99,16 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             ViewBag.FotoPerfil = loginFacebook.FotoPerfil;
                         }
-                    
+                    }
+
                     ViewBag.FingerprintOk = 0;
                     ViewBag.TokenPedidoAutenticoOk = 0;
 
                     if (Session["Fingerprint"] != null)
                         ViewBag.FingerprintOk = 1;
-                    
+
                     if (Session["TokenPedidoAutentico"] != null)
                         ViewBag.TokenPedidoAutenticoOk = 1;
-                    }
                 }
 
                 base.OnActionExecuting(filterContext);
