@@ -2027,10 +2027,9 @@ namespace Portal.Consultoras.BizLogic
         /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
-            return 0;
-            //var DAPedidoWeb = new DAPedidoWeb(paisID);
-            //entidad.IndicadorToken = AESAlgorithm.Decrypt(entidad.IndicadorToken);
-            //return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            entidad.IndicadorToken = AESAlgorithm.Decrypt(entidad.IndicadorToken);
+            return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
         }
 
         public int UpdIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
