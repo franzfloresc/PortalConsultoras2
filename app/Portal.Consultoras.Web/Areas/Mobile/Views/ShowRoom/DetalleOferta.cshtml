@@ -21,9 +21,13 @@
     </div>
     <div class="wrapper_resumen_mobile" style="margin-top:10px;">
         <h1>@Model.Descripcion</h1>
+        <input type="hidden" id="swdetdescripcion" value="@Model.Descripcion" />
+        <input type="hidden" id="swdetmarca" value="@Model.DescripcionMarca" />
+        <input type="hidden" id="swdetprecio" value="@Model.PrecioOferta" />
+        <input type="hidden" id="swdeteventoofertaid" value="@Model.OfertaShowRoomID" />
         <div class="price_product">
-            <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioOferta</s>
-            <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioCatalogo</b></span>
+            <s class="price_offer">@Model.Simbolo @Model.FormatoPrecioValorizado</s>
+            <span class="price">Precio para ti <b>@Model.Simbolo @Model.FormatoPrecioOferta</b></span>
             <span class="comment">Gana @Model.Simbolo @Model.FormatoGana</span>
         </div>
         <div class="item_product">
@@ -159,14 +163,14 @@
                                     <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                     <input type="hidden" class="valorCuv" value="@item.CUV" />
                                     <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
                                     <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                                     <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                     <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
                                 </div>
                                 <div class="nombre_producto_pop_compra">@descripcion</div>
-                                <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo</div>
-                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="precio_set_compra">A SÓLO @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
                                 <div class="content_imagen_carrusel_compra">
                                     @if (item.ImagenProducto != "")
                                     {
@@ -218,7 +222,7 @@
                             <input type="hidden" class="hdOfertaShowRoomID" value="@oferta.OfertaShowRoomID" />
                             <input type="hidden" class="valorCuv" value="@oferta.CUV" />
                             <input type="hidden" class="claseMarcaID" value="@oferta.MarcaID" />
-                            <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioCatalogo" />
+                            <input type="hidden" class="clasePrecioUnidad" value="@oferta.PrecioOferta" />
                             <input type="hidden" class="claseConfiguracionOfertaID" value="@oferta.ConfiguracionOfertaID" />
                             <input type="hidden" class="DescripcionProd" value="@oferta.Descripcion" />
                             <input type="hidden" class="DescripcionMarca" value="@oferta.DescripcionMarca" />
@@ -229,8 +233,8 @@
                                 <img src="@oferta.ImagenProducto" />
                             </div>
                             <span class="title">@descripcion</span>
-                            <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioOferta</span>
-                            <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioCatalogo </b></span>
+                            <span class="precio_tachado_carrusel_set">@oferta.Simbolo @oferta.FormatoPrecioValorizado</span>
+                            <span class="price"><b>@oferta.Simbolo @oferta.FormatoPrecioOferta </b></span>
                         </a>
                     </div>
                 }
@@ -284,7 +288,7 @@
         <input type="hidden" class="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
         <input type="hidden" class="valorCuv" value="@Model.CUV" />
         <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
-        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioOferta" />
         <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
         <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
         <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
@@ -328,7 +332,7 @@
                                 <input type="hidden" class="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                                 <input type="hidden" class="valorCuv" value="@item.CUV" />
                                 <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                                <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
                                 <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                                 <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
                                 <input type="hidden" class="posicionEstrategia" value="@posicionCpc" />
@@ -349,9 +353,9 @@
                             <div style="height: 130px;">
                                 <div class="nombre_producto_pop_compra">@descripcion</div>
                                 <div class="precio_set_compra">
-                                    A SÓLO @item.Simbolo @item.FormatoPrecioCatalogo
+                                    A SÓLO @item.Simbolo @item.FormatoPrecioOferta
                                 </div>
-                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioOferta</div>
+                                <div class="descripcion_compra">Valorizado en @item.Simbolo @item.FormatoPrecioValorizado</div>
                                 <div class="precio_producto_compra">@item.DescripcionLegal</div>
                             </div>
                             <div>
