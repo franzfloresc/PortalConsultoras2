@@ -88,17 +88,16 @@
     @if (Model.MostrarRevistaDigital)
     {
         <div id="tab_revistasdigital_mobile" data-tag-html="Revistas" style="display:none;">
-            <div style="margin: 0 30px;">
-                <div style="height:127px;">
-                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height:100%; float: left;" />
+            <div class="contenedor_seccionRevistaDigital">
+                <div class="seccionRevistaDigital_logo_marca">
+                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Ésika para mí" />
                 </div>
-                <div>
-                    <span style="font-size: 18px; font-weight: bold;">TU REVISTA ONLINE PERSONALIZADA</span>
-                    <br />
-                    <span style="font-size: 15px; font-weight: bold;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                <div class="contenido_seccionRevistaDigital">
+                    <span>TU REVISTA ONLINE PERSONALIZADA</span>
+                    <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
                 </div>
-                <div class="revistadigital">
-                    <div class="boxoffer" style="cursor: pointer;top:initial;right:initial;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital", new { area = "Mobile"})'">
+                <div class="revistadigital contenedor_botonVerMasOfertas">
+                    <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
                         <div class="fondo_boton"></div>
                         <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                     </div>
@@ -223,10 +222,10 @@
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
-    @if (Model.MostrarRevistaDigital)
+    @*@if (Model.MostrarRevistaDigital)
     {
         <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
-    }
+    }*@
 
     <style type="text/css">
         body {
