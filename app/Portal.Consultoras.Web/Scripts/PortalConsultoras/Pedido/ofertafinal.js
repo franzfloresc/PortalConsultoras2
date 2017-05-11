@@ -212,7 +212,7 @@ $(document).ready(function () {
 });
 
 function PopupOfertaFinalCerrar() {
-
+    debugger
     if (agregoOfertaFinal == 1) {
         setTimeout(function () {
             $("#divOfertaFinal").hide();
@@ -225,6 +225,7 @@ function PopupOfertaFinalCerrar() {
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
+    debugger
     var aux = "of";
     if (tipoOrigen == "2") {
         aux = "h";
@@ -496,9 +497,10 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
             }
         }
 
-        if (resultado == true) {
+        if (resultado == true) { 
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
+            if (productoOfertaFinal.lista.length != 0)
+                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
 

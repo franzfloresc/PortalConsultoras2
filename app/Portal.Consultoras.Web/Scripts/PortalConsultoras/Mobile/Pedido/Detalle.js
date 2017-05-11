@@ -910,7 +910,7 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-
+    debugger
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -938,6 +938,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(response, inicio) {
+    debugger
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var model = response.data;
 
@@ -1001,7 +1002,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                     return true;
                 }
                 
-                messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>');
+                //messageInfoBueno('<h3>Tu pedido fue validado con éxito</h3><p>Tus productos fueron reservados.</p>'); <-- Popup Anterior
+                messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
                 if (estaRechazado == "2") {
                     cerrarMensajeEstadoPedido();
                 }

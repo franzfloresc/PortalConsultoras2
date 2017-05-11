@@ -2076,7 +2076,8 @@ function EjecutarServicioPROL() {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    showDialog("divReservaSatisfactoria");
+                                    //showDialog("divReservaSatisfactoria"); <-- llamada antiguo popup
+                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
@@ -2150,6 +2151,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 RespuestaEjecutarServicioPROL(response, false);
+                debugger
+                //$('#dialog_divReservaSatisfactoria #mensajedivReservaSatisfactoria').text('');
+                //$('#dialog_divReservaSatisfactoria').show();
                 MostrarMensajeProl(response);
             }
         },
@@ -2326,7 +2330,8 @@ function MostrarMensajeProl(response) {
                     showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
                 } else {
-                    showDialog("divReservaSatisfactoria");
+                    //showDialog("divReservaSatisfactoria"); --> Popup anterior
+                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
