@@ -130,6 +130,7 @@
     right: -42px;
     background: transparent;
     overflow: hidden;
+    cursor:pointer;
     transition:all 0.3s ease;
     -moz-transition:all 0.3s ease;
     -o-transition:all 0.3s ease;
@@ -140,6 +141,18 @@
 .revistadigital .boxoffer:hover{
     opacity:0.95;
     right:-35px;
+}
+
+.revistaDigital_catalogosRevistas .boxoffer{
+    top:216px;
+    left:11px;
+    right:0px;
+    cursor:pointer;
+}
+
+.revistaDigital_catalogosRevistas .boxoffer:hover{
+    opacity:0.95;
+    left:20px;
 }
 
 .revistadigital .boxoffer .fondo_boton {
