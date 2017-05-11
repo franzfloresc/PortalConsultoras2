@@ -499,7 +499,8 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
 
         if (resultado == true) {
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
+            if (productoOfertaFinal.lista.length != 0) //bug EPD-2365
+                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
 

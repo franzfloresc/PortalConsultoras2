@@ -13,150 +13,87 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEUsuarioExterno
     {
-        private string _codigoUsuario;
-        private string _proveedor;
-        private string _idAplicacion;
-        private string _login;
-        private string _nombres;
-        private string _apellidos;
-        private string _fechaNacimiento;
-        private string _correo;
-        private string _genero;
-        private string _ubicacion;
-        private string _linkPerfil;
-        private string _fotoPerfil;
-        private DateTime _fechaRegistro;
-        private int _estado;
+        [DataMember]
+        public string CodigoUsuario { get; set; }
 
         [DataMember]
-        public string CodigoUsuario
-        {
-            get { return _codigoUsuario; }
-            set { _codigoUsuario = value; }
-        }
+        public string Proveedor { get; set; }
 
         [DataMember]
-        public string Proveedor
-        {
-            get { return _proveedor; }
-            set { _proveedor = value; }
-        }
+        public string IdAplicacion { get; set; }
 
         [DataMember]
-        public string IdAplicacion
-        {
-            get { return _idAplicacion; }
-            set { _idAplicacion = value; }
-        }
+        public string Login { get; set; }
 
         [DataMember]
-        public string Login
-        {
-            get { return _login; }
-            set { _login = value; }
-        }
+        public string Nombres { get; set; }
 
         [DataMember]
-        public string Nombres
-        {
-            get { return _nombres; }
-            set { _nombres = value; }
-        }
+        public string Apellidos { get; set; }
 
         [DataMember]
-        public string Apellidos
-        {
-            get { return _apellidos; }
-            set { _apellidos = value; }
-        }
+        public string FechaNacimiento { get; set; }
 
         [DataMember]
-        public string FechaNacimiento
-        {
-            get { return _fechaNacimiento; }
-            set { _fechaNacimiento = value; }
-        }
+        public string Correo { get; set; }
 
         [DataMember]
-        public string Correo
-        {
-            get { return _correo; }
-            set { _correo = value; }
-        }
+        public string Genero { get; set; }
 
         [DataMember]
-        public string Genero
-        {
-            get { return _genero; }
-            set { _genero = value; }
-        }
+        public string Ubicacion { get; set; }
 
         [DataMember]
-        public string Ubicacion
-        {
-            get { return _ubicacion; }
-            set { _ubicacion = value; }
-        }
+        public string LinkPerfil { get; set; }
 
         [DataMember]
-        public string LinkPerfil
-        {
-            get { return _linkPerfil; }
-            set { _linkPerfil = value; }
-        }
+        public string FotoPerfil { get; set; }
 
         [DataMember]
-        public string FotoPerfil
-        {
-            get { return _fotoPerfil; }
-            set { _fotoPerfil = value; }
-        }
+        public DateTime FechaRegistro { get; set; }
 
         [DataMember]
-        public DateTime FechaRegistro
-        {
-            get { return _fechaRegistro; }
-            set { _fechaRegistro = value; }
-        }
+        public int Estado { get; set; }
 
         [DataMember]
-        public int Estado
-        {
-            get { return _estado; }
-            set { _estado = value; }
-        }
+        public int PaisID { get; set; }
+
+        [DataMember]
+        public string CodigoISO { get; set; }
 
         public BEUsuarioExterno()
         {
+
         }
 
         public BEUsuarioExterno(IDataRecord row)
         {
-            _codigoUsuario = row["CodigoUsuario"].ToString();
-            _proveedor = row["Proveedor"].ToString();
-            _idAplicacion = row["IdAplicacion"].ToString();
-            _login = row["Login"].ToString();
+            CodigoUsuario = Convert.ToString(row["CodigoUsuario"]);
+            Proveedor = Convert.ToString(row["Proveedor"]);
+            IdAplicacion = Convert.ToString(row["IdAplicacion"]);
 
-            if (DataRecord.HasColumn(row, "Nombres") && row["Nombres"] != DBNull.Value)
-                _nombres = Convert.ToString(row["Nombres"]);
-            if (DataRecord.HasColumn(row, "Apellidos") && row["Apellidos"] != DBNull.Value)
-                _apellidos = Convert.ToString(row["Apellidos"]);
-            if (DataRecord.HasColumn(row, "FechaNacimiento") && row["FechaNacimiento"] != DBNull.Value)
-                _fechaNacimiento = Convert.ToString(row["FechaNacimiento"]);
-            if (DataRecord.HasColumn(row, "Correo") && row["Correo"] != DBNull.Value)
-                _correo = Convert.ToString(row["Correo"]);
-            if (DataRecord.HasColumn(row, "Genero") && row["Genero"] != DBNull.Value)
-                _genero = Convert.ToString(row["Genero"]);
-            if (DataRecord.HasColumn(row, "Ubicacion") && row["Ubicacion"] != DBNull.Value)
-                _ubicacion = Convert.ToString(row["Ubicacion"]);
-            if (DataRecord.HasColumn(row, "LinkPerfil") && row["LinkPerfil"] != DBNull.Value)
-                _linkPerfil = Convert.ToString(row["LinkPerfil"]);
-            if (DataRecord.HasColumn(row, "FotoPerfil") && row["FotoPerfil"] != DBNull.Value)
-                _fotoPerfil = Convert.ToString(row["FotoPerfil"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
-                _fechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "Estado") && row["Estado"] != DBNull.Value)
-                _estado = Convert.ToInt16(row["Estado"]);
+            if (row.HasColumn("Login"))
+                Login = Convert.ToString(row["Login"]);
+            if (row.HasColumn("Nombres"))
+                Nombres = Convert.ToString(row["Nombres"]);
+            if (row.HasColumn("Apellidos"))
+                Apellidos = Convert.ToString(row["Apellidos"]);
+            if (row.HasColumn("FechaNacimiento") && row["FechaNacimiento"] != DBNull.Value)
+                FechaNacimiento = Convert.ToString(row["FechaNacimiento"]);
+            if (row.HasColumn("Correo"))
+                Correo = Convert.ToString(row["Correo"]);
+            if (row.HasColumn("Genero"))
+                Genero = Convert.ToString(row["Genero"]);
+            if (row.HasColumn("Ubicacion"))
+                Ubicacion = Convert.ToString(row["Ubicacion"]);
+            if (row.HasColumn("LinkPerfil") )
+                LinkPerfil = Convert.ToString(row["LinkPerfil"]);
+            if (row.HasColumn("FotoPerfil"))
+                FotoPerfil = Convert.ToString(row["FotoPerfil"]);
+            if (row.HasColumn("FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
+                FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+            if (row.HasColumn("Estado") && row["Estado"] != DBNull.Value)
+                Estado = Convert.ToInt16(row["Estado"]);
 
         }
 

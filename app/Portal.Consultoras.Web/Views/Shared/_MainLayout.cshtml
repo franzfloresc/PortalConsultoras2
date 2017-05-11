@@ -8,7 +8,7 @@
 
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
-    
+
     <title>Belcorp | Portal Consultoras</title>
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
@@ -115,12 +115,12 @@
     </script>
     @if (ViewBag.Rol == Portal.Consultoras.Common.Constantes.Rol.Consultora)
     {
-    string nombre_pais = ViewBag.PaisAnalytics;
+        string nombre_pais = ViewBag.PaisAnalytics;
 
-    switch (nombre_pais)
-    {
-        case "EC":
-            @*<div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>*@
+        switch (nombre_pais)
+        {
+            case "EC":
+                @*<div class="boton_ayuda"><span id="belcorpChat1" class="boton-home"><a href="http://200.32.70.19/Belcorp/" target="_blank">¿Necesitas ayuda?</a> </span></div>*@
             //break;
             case "CO":
             case "BO":
@@ -133,7 +133,7 @@
             case "CR":
             case "SV":
             case "GT":
-            <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
+                <div class="boton_ayuda"><span class="boton-home belcorpChat"><a href="#">¿Necesitas ayuda?</a> </span></div>
                 break;
         }
     }
@@ -145,7 +145,7 @@
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
-         
+
         <!--OFERTA DEL DIA -->
 
         <div id="bloquemensajesPedido" style="display: none">
@@ -176,7 +176,7 @@
                         }
                     </span>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="wrapper_header">
             <div class="logo_esika">
@@ -264,7 +264,8 @@
                     }
                 </div>
                 <div class="boton_cerrar_s">
-                    <a href="javascript:;" onclick="CerrarSesion();" role="menu" region="Superior" title="Cerrar Sesión" id="lnk-sup-cerrar-sesion">CERRAR
+                    <a href="javascript:;" onclick="CerrarSesion();" role="menu" region="Superior" title="Cerrar Sesión" id="lnk-sup-cerrar-sesion">
+                        CERRAR
                         <br />
                         SESIÓN
                     </a>
@@ -454,7 +455,7 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
-    
+
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -475,7 +476,6 @@
         </div>
     </div>
     <!-- FIN POPUP MENSAJE ERROR - exclamacion -->
-
     <!-- POPUP SESIÓN FINALIZADA - exclamacion  -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_SesionMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -496,7 +496,6 @@
         </div>
     </div>
     <!-- FIN POPUP SESIÓN FINALIZADA - exclamacion -->
-
     <!-- POPUP MENSAJE USUARIO POSTULANTE  -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_MensajePostulante" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -598,7 +597,7 @@
                     <div class="message"></div>
                 </div>
                 <div class="producto_set">
-                    <img src="{{ImagenBanner}}" alt="" id="img-banner-odd" class="imagen_producto"/>
+                    <img src="{{ImagenBanner}}" alt="" id="img-banner-odd" class="imagen_producto" />
                 </div>
                 <div class="precio_set_dia">
                     <div class="nombre_set_oferta">{{NombreOferta}}</div>
@@ -606,16 +605,17 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" href="javascript: void(0);">AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}">
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" >
                     <div class="circulo_hoy"><span>+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
             </div>
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
         </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia"> <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
+        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
+            <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <hr class="clear" />
             <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none;">
@@ -691,7 +691,7 @@
                     </div>
                 </div>
             </div>
-           <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
+            <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div style="display:none;" data-odd-tipoventana="carrusel">
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                 <div class="content_90">
@@ -714,7 +714,7 @@
                                     <input type="hidden" class="origenPedidoWeb-odd" value="3" />
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto"/>
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
                                     <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
@@ -736,28 +736,29 @@
                                     </div>
                                     <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
                                 </div>
-                                <!--SE AÑADIO EL CHECK AGREGADO -->
+                                <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align:right;display:{{detalle.Agregado}};">
+                                    <div class="agregado product-add" style="text-align:right; display:{{detalle.Agregado}};">
                                         AGREGADO
                                         <div class="icono"></div>
                                     </div>
                                 </div>
+                                <!--FIN SE AÑADIO EL CHECK AGREGADO -->
                             </div>
                         </div>
                         {{/each}}
                     </div>
                 </div>
             </div>
-           
+
             <!--FIN-->
-        <!--fin-->
+            <!--fin-->
         </div>
     </script>
     <!--OFERTA DEL DIA -->
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JQueryJs")
-    
+
     <script type="text/javascript">
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
@@ -793,7 +794,7 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
     </script>
-    
+
 
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
@@ -810,7 +811,7 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

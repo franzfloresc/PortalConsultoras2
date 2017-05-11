@@ -9,7 +9,7 @@ $(document).ready(function () {
         //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
 
-        $('#contenedor-showroom-subcampanias').slick('slickGoTo', 0);
+        $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
     $("#CerrarOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').show();
