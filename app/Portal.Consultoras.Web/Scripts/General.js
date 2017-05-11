@@ -11,6 +11,10 @@ jQuery(document).ready(function () {
     $("header").resize(function () {
         LayoutHeader();
     });
+
+    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+        GuardarIndicadorPedidoAutentico();
+    }
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -354,10 +358,6 @@ jQuery(document).ready(function () {
 
         return newLista;
     };
-
-    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
-        GuardarIndicadorPedidoAutentico();
-    }
     
 })(jQuery);
 
