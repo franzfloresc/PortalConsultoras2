@@ -251,7 +251,7 @@
 }
 
 
-.revistadigital .boxoffer {
+.revistadigital .boxoffer, .contenedor_botonVerMasOfertas .boxoffer {
 	width: 102px;
     height: 60px;
     position: absolute;
@@ -267,11 +267,11 @@
     -webkit-transition:all 0.3s ease;
 }
 
-.revistadigital .boxoffer:hover{
+.revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover{
     opacity:0.95;
 }
 
-.revistadigital .boxoffer .fondo_boton {
+.revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
     width: 100%;
     height: 67px;
     background: #e81c36;
@@ -289,8 +289,7 @@
     -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
     -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
 }
-
-.revistadigital .boxoffer .texto_boton{
+.revistadigital .boxoffer .texto_boton, .contenedor_botonVerMasOfertas .boxoffer .texto_boton{
     position: absolute;
     font-family: 'Lato';
     font-size: 11px;
@@ -301,8 +300,7 @@
     width: 72px;
     line-height: 15px;
 }
-
-.revistadigital .boxoffer .texto_boton:after{
+.revistadigital .boxoffer .texto_boton:after, .contenedor_botonVerMasOfertas .boxoffer .texto_boton:after{
     width: 13px;
     height: 32px;
     position: absolute;
@@ -348,6 +346,68 @@
     letter-spacing: 3.5px;
 }
 
+/* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
+
+div#tab_revistasdigital_mobile {
+    margin:-35px auto 0 auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contenedor_seccionRevistaDigital{
+    display:block;
+    margin:0 15px;
+    padding-left:34px;
+}
+
+.seccionRevistaDigital_logo_marca{
+    height: 97px;
+    display: block;
+    position: relative;
+    top: 23px;
+    left: -8px;
+}
+
+.seccionRevistaDigital_logo_marca img{
+    text-align: left;
+    width: auto;
+    height: 100%;
+}
+
+.contenido_seccionRevistaDigital{
+    display: block;
+    margin-top: 9px;
+    position: relative;
+    z-index: 5;
+}
+
+.contenido_seccionRevistaDigital span{
+    font-family: 'Lato';
+    font-weight: bold;
+    width: 100%;
+}
+
+.contenido_seccionRevistaDigital span:first-child{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.contenido_seccionRevistaDigital span:last-child{
+    font-size:13px;
+}
+
+.contenedor_botonVerMasOfertas{
+    display: block;
+    position: relative;
+    margin-top:32px;
+}
+
+    .contenedor_botonVerMasOfertas .boxoffer {
+        left: 0px;
+        right: 0px;
+        top: 0px;
+    }
 @media screen and (max-width:365px){
 
     .cabecera_texto {
