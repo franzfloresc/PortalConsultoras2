@@ -222,7 +222,7 @@ function OfertaCargarProductos(busquedaModel) {
                 response.Lista = lista;
                 response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
                 response.CodigoEstrategia = "101";
-                response.ClassEstrategia = 'revista-landing';
+                response.ClassEstrategia = 'revistadigital-landing';
 
                 var urlTemplate = "#estrategia-template"; //"/Scripts/PortalConsultoras/Bienvenida/template-opt.html";
 
