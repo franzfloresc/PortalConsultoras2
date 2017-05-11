@@ -1916,6 +1916,16 @@ namespace Portal.Consultoras.Service
             return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
         }
 
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
         #endregion
     }
 }

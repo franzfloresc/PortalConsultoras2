@@ -438,6 +438,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
             }
             catch (FaultException ex)
             {

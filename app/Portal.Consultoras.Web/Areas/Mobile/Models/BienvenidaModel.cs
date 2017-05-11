@@ -42,5 +42,7 @@
         public int ActivacionAppCatalogoWhastUp { get; set; }
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
+        public string EMail { get; set; }
+        public string Celular { get; set; }
     }
 }

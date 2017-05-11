@@ -248,7 +248,7 @@
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div id="contenedorCupon" class="contenedor_cupon">
         Tienes un dscto exclusivo para ti, <br/>
-        <a href="#" id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
+        <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
     </div>
     <div class="content_belcorp" style="text-align:center;">
         <div class="titulo_ofertas_home">
@@ -2331,8 +2331,13 @@
         </div>
         <div class="content_cupon_datos">
             <div class="texto_cupon_datos">SÓLO ACTUALIZA TUS DATOS <br/> Y COMPRA ALGUNA OFERTA WEB*</div>
-            <div class="correo_showroon"><input type="text" placeholder="Ingresa tu correo "></div>
-            <div class="correo_showroon icono_celular"><input type="text" placeholder="Ingresa tu celular "></div>
+            <div class="correo_showroon">
+                <input type="hidden" id="hdEmailOriginal" value="@Model.EMail">
+                <input type="text" id="txtEmailIngresado" placeholder="Ingresa tu correo " value="@Model.EMail">
+            </div>
+            <div class="correo_showroon icono_celular">
+                <input type="text" id="txtCelular" placeholder="Ingresa tu celular "  value="@Model.Celular">
+            </div>
             <div class="termino_condiciones_intriga" style="margin-left:30px; width:auto;">Estoy de acuerdo con los <a href="#" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
             <a class="btn_confirma_cupon"> CONFIRMA TUS DATOS</a>
         </div>
