@@ -222,10 +222,10 @@
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
-    @*@if (Model.MostrarRevistaDigital)
+    @if (Model.MostrarRevistaDigital)
     {
-        <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
-    }*@
+        <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    }
 
     <style type="text/css">
         body {
