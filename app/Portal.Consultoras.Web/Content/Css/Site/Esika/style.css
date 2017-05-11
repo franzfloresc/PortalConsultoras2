@@ -36073,6 +36073,7 @@ h1#penmostreo .campana {
     font-family:'lato';
     font-size:13px;
     margin-top:10px;
+    letter-spacing: 0.4px;
 }
 .valida_datos_cupon2{
     margin-top:0;
@@ -36096,4 +36097,36 @@ h1#penmostreo .campana {
     margin:0 auto;
     background:url(../../../Images/PL20/icono_pop_up_cupon.png) no-repeat;
     margin-bottom: 5px;
+}
+.cupon3{
+    text-align:center;
+    padding-top:30px;
+    background:url(../../../Images/PL20/fondo_cupon3.png) no-repeat;
+}
+.icono_cupon3{
+    width:120px;
+    height:45px;
+    margin:0 auto;
+    background:url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
+    margin-bottom: 3px;
+}
+.texto_cupon3{
+    text-align:center;
+    margin-top:20px;
+    font-size:14px;
+}
+
+.info_recuerda_cupon{
+    float:left;
+    width:33%;
+    margin-top:12px;
+    font-family:'Lato';
+    font-size:12px;
+    border-right: 1px solid rgba(149, 145, 146, 0.2);
+    height: 72px;
+}
+.info_recuerda_cupon span{
+    display: block;
+    margin-top: 5px;
+    line-height: 15px;
 }

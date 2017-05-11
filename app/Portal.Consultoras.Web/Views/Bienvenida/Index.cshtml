@@ -2360,12 +2360,36 @@
         </div>
     </div>
 </div>
+<div class="contenedor_fondo_popup" id="Cupon3">
+    <div class="content_cupon cupon3">
+        <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#Cupon3').hide();">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text"="">
+        </a>
+        <div class="icono_cupon3"></div>
+        <div class="titulo_cupon2" style="color:white;">¡GANASTE TU CUPÓN DE DSCTO DE S/. 40.00!</div>
+        <div class="texto_cupon2" style="margin-top:0; color:white; height:20px;">Debes agregar alguna oferta en web* en la campaña C07</div>
+        <div class="texto_cupon3">Recuerda que:</div>
+        <div style="text-align:center">
+            <div class="info_recuerda_cupon">
+                <img src="@Url.Content("~/Content/Images/PL20/calendario.png")" style="padding-top: 10px;" />
+                <span>Sólo válido en <br/>la campaña C07</span>
+            </div>  
+            <div class="info_recuerda_cupon">
+                <img src="@Url.Content("~/Content/Images/PL20/maquillaje.png")" />
+                <span>*Agrega mínimo 1 oferta web. <br />No aplica para liquidación web.</span>
+            </div>   
+            <div class="info_recuerda_cupon">
+                <img src="@Url.Content("~/Content/Images/PL20/agenda.png")" style="padding-top:6px;" />
+                <span>El cupón se aplicará <br />en tu facturación </span>
+            </div>            
+        </div>
+    </div>
+</div>
 <!--FIN-->
 
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
                 
