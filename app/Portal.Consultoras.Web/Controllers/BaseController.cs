@@ -1893,14 +1893,13 @@ namespace Portal.Consultoras.Web.Controllers
             return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
         }
 
-        protected JsonResult ErrorJson(string message)
+        protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
-            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
-
-        protected JsonResult SuccessJson(string message)
+        protected JsonResult SuccessJson(string message, bool allowGet = false)
         {
-            return Json(new { success = true, message = message }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
 
         private bool NoMostrarBannerODD()

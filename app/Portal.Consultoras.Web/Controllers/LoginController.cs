@@ -26,7 +26,6 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
-        private bool hizoLoginExterno;
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -153,13 +152,11 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUsuarioExterno.Ubicacion = userExtModel.Ubicacion;
                                     beUsuarioExterno.LinkPerfil = userExtModel.LinkPerfil;
                                     beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
-
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
 
                                     //EPD-2340
                                     var IP = string.Empty;
                                     var ISO = string.Empty;
-
                                     try
                                     {
                                         IP = GetIPCliente();
@@ -181,10 +178,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
                                     beUserExtPais.PaisID = model.PaisID;
                                     beUserExtPais.CodigoISO = ISO;
-
                                     svc.InsUsuarioExternoPais(11, beUserExtPais);
 
-                                    hizoLoginExterno = true;
+                                    if(userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
+                                    return SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
                                 }
                                 else
                                 {
@@ -286,7 +283,7 @@ namespace Portal.Consultoras.Web.Controllers
             //return RedirectToAction("Index");
         }
 
-        public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null)
+        public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null, bool hizoLoginExterno = false)
         {
             pasoLog = "Login.Redireccionar";
             UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
@@ -1613,8 +1610,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (validaLogin != null && validaLogin.Result == 3)
                     {
-                        hizoLoginExterno = true;
-                        return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl);
+                        return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl, true);
                     }
                     else
                     {
@@ -1691,6 +1687,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("UserUnknown");
+        }
+
+        private JsonResult ErrorJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+        private JsonResult SuccessJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
     }
 }

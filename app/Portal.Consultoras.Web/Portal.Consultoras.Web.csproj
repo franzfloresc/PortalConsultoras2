@@ -3901,6 +3901,7 @@
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
+    <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

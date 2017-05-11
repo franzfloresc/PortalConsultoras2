@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         TokenBotmaker = t,
                         WebViewFallBack = webviewfallback,
+                        ListaPaises = DropDowListPaises().Where(p => p.CodigoISO != "BR").ToList(),
                         AppFacebookId = ConfigurationManager.AppSettings.Get("FB_AppId")
                     };
                     return View("Facebook", facebookModel);

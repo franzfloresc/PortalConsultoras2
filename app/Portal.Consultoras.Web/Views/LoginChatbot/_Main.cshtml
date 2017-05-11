@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common;
+@using System.Configuration;
 
 @model Portal.Consultoras.Web.Models.LoginChatbot.LoginChatbotModel
 @{
@@ -26,9 +27,11 @@
             var urlBotmakerChat = 'https://m.me/1990152797872214';
             var urlBotmakerLoginNormal = 'https://go.botmaker.com/rest/webviews/traditionalLogin';
             var urlBotmakerLoginFacebook = 'https://go.botmaker.com/rest/webviews/fbConnect';
+            var urlFormatImagenBandera = 'url(@Url.Content("~/Content/Images/Login2/Banderas/{0}.png"))';
 
             var tokenBotmaker = '@Model.TokenBotmaker';
             var webViewFallBack = ('@Model.WebViewFallBack'.toLowerCase() == 'true');
+            var paisesEsika = '@(ConfigurationManager.AppSettings["PaisesEsika"] ?? "")';
 
             var listTooltipUsuario = {
                 'BO': '@Html.Raw(Constantes.TooltipLoginUsuario.BO.Replace("<br/>"," "))',
@@ -99,7 +102,7 @@
                 </a>
                 <hr class="clear">
                 <div class="icono_alerta exclamacion_icono_mobile"></div>
-                <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+                <div class="titulo_compartir"><b>ERROR</b></div>
                 <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
                 <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
             </div>
