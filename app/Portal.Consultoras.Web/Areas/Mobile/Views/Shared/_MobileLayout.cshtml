@@ -775,6 +775,7 @@
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
 
+        var IsoPais = '@ViewBag.CodigoISODL';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
 
         //Postulante
@@ -818,9 +819,6 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
-
-
-
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.foto_menu').show();
@@ -829,8 +827,6 @@
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
 
-        var fingerprintOk = '@ViewBag.FingerprintOk';
-        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
