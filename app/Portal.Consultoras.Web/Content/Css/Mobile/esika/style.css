@@ -11033,8 +11033,8 @@ a{
 
 }
 .etiqueta_chat{
-    background: url(../../../Images/Esika/ayuda.png) no-repeat left;
-    background-position: 45% 15px;
+    background: url(../../../Images/mobile/icon-chat.png) no-repeat left;
+    background-position: 0% 15px;
 }
 .content_titulo{
     position:absolute;
