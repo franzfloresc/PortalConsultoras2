@@ -575,7 +575,7 @@ body{
 .mensaje_ayuda_usuario_chatBot {
     box-sizing: border-box;
     display: none;
-    width: 130px;
+    width: 155px;
     right: 40px;
     top: -13px;
     position: absolute;

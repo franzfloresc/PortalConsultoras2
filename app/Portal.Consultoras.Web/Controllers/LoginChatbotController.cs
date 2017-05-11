@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         TokenBotmaker = t,
                         WebViewFallBack = webviewfallback,
-                        ListaPaises = DropDowListPaises()
+                        ListaPaises = DropDowListPaises().Where(p => p.CodigoISO != "BR").ToList()
                     };
                     return View("Normal", normalModel);
                 case Enumeradores.TipoLogin.Facebook:
