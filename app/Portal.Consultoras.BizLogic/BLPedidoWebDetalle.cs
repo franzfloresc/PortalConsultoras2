@@ -146,12 +146,12 @@ namespace Portal.Consultoras.BizLogic
                     /* 2108 - Fin */
 
                     /*EPD-2248*/
-                    if (pedidowebdetalle.IndicadorPedidoAutentico != null)
-                    {
-                        var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
-                        indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
-                        DAPedidoWeb.UpdIndicadorPedidoAutentico(indPedidoAutentico);
-                    }
+                    //if (pedidowebdetalle.IndicadorPedidoAutentico != null)
+                    //{
+                    //    var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
+                    //    indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                    //    DAPedidoWeb.UpdIndicadorPedidoAutentico(indPedidoAutentico);
+                    //}
                     /*EPD-2248*/
 
                     oTransactionScope.Complete();
