@@ -14,5 +14,7 @@
 
         public string NombreClasefb { get; set; }
         public string NombreClasews { get; set; }
+
+        public bool MostrarRevistaDigital { get; set; }
     }
 }

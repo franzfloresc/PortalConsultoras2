@@ -35,6 +35,9 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
+
+            clienteModel.MostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
+
             return View(clienteModel);
         }
 
