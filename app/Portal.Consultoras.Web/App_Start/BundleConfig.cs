@@ -90,6 +90,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
+                "~/Scripts/fingerprint2.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
                 ));
