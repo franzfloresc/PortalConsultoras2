@@ -1,45 +1,29 @@
-﻿function RDSuscripcion() {
-    AbrirLoad();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'RevistaDigital/Suscripcion',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            CerrarLoad();
-            if (!checkTimeout(data))
-                return false;
+﻿function OfertaArmarEstrategias(response) {
+    var lista = EstructurarDataCarousel(response.lista);
 
-            AbrirMensaje(data.message);
-            if (data.success == true) {
-                PopupCerrar("PopRDSuscripcion");
-            }
-        },
-        error: function (data, error) {
-            CerrarLoad();
-            PopupCerrar("PopRDSuscripcion");
-        }
+    $.each(lista, function (index, value) {
+        value.Posicion = index + 1;
+        value.UrlDetalle = urlOfertaDetalle + '/' + (value.ID || value.Id);
     });
+
+    $("#divOfertaProductos").html("");
+    response.Lista = lista;
+    response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    response.ClassEstrategia = 'revistadigital-landing';
+    response.Consultora = usuarioNombre.toUpperCase()
+    response.CodigoEstrategia = "101";
+
+    // Lanzamiento carrusel
+
+
+
+
+    // Listado de producto
+    var urlTemplate = "#estrategia-template";
+
+    var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');
+    //$('#divOfertaProductos').append(htmlDiv);
+
+    $("#spnCantidadFiltro").html(response.cantidad);
+    $("#spnCantidadTotal").html(response.cantidadTotal);
 }
-
-function RDDesuscripcion() {
-
-}
-
-function RDPopupNoVolverMostrar() {
-    PopupCerrar("PopRDSuscripcion");
-    AbrirLoad();
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            CerrarLoad();
-        },
-        error: function (data, error) {
-            CerrarLoad();
-        }
-    });
-}
-

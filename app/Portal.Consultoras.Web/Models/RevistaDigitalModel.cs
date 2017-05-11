@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Models
         public bool NoVolverMostrar { get; set; }
         public decimal PrecioMin { get; set; }
         public decimal PrecioMax { get; set; }
+        public string NombreUsuario { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }

@@ -22,15 +22,25 @@ namespace Portal.Consultoras.Web.Controllers
                 //    return RedirectToAction("Index", "Bienvenida");
                 
                 var model = new RevistaDigitalModel();
-                
-                model.ListaProducto = ConsultarEstrategiasModel();
+                model.NombreUsuario = userData.UsuarioNombre.ToUpper();
+                var listaProducto = ConsultarEstrategiasModel();
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                model.PrecioMin = model.ListaProducto.Min(p => p.Precio2);
-                model.PrecioMax = model.ListaProducto.Max(p => p.Precio2);
+                model.ListaProducto = listaProducto.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
+                var listadoNoLanzamiento = listaProducto.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "").ToList() ?? new List<EstrategiaPedidoModel>();
+
+                if (listadoNoLanzamiento.Any())
+                {
+                    model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
+                    model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
+                }
+                if (!model.ListaProducto.Any())
+                {
+                    model.ListaProducto = listaProducto;
+                }
                 
                 return View(model);
             }

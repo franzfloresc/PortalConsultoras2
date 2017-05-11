@@ -211,27 +211,7 @@ function OfertaCargarProductos(busquedaModel) {
             //CerrarLoad();
 
             if (response.success == true) {
-                var lista = EstructurarDataCarousel(response.lista);
-
-                $.each(lista, function (index, value) {
-                    value.Posicion = index + 1;
-                    value.UrlDetalle = urlOfertaDetalle + '/' + (value.ID || value.Id);
-                });
-
-                $("#divOfertaProductos").html("");
-                response.Lista = lista;
-                response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-                response.CodigoEstrategia = "101";
-                response.ClassEstrategia = 'revistadigital-landing';
-
-                var urlTemplate = "#estrategia-template"; //"/Scripts/PortalConsultoras/Bienvenida/template-opt.html";
-
-                var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');
-                //$('#divOfertaProductos').append(htmlDiv);
-
-                $("#spnCantidadFiltro").html(response.cantidad);
-                $("#spnCantidadTotal").html(response.cantidadTotal);
-
+                OfertaArmarEstrategias(response);
             } else {
                 messageInfoError(response.message);
                 if (busquedaModel.hidden == true) {
