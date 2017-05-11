@@ -574,10 +574,3 @@ $("#content_oferta_dia_mobile").click(function () {
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
-
-function messageInfoPostulante() {
-    $('.icon-close').click();
-    $('#mensajeInformacionvalidado').html('Por el momento esta secci&oacuten no est&aacute habilitada, te encuentras en una sesi&oacuten de prueba. Una vez recibas tu c&oacutedigo de consultora, podr&aacutes acceder a todos los beneficios de Somos Belcorp.');
-    $('#popupInformacionValidado').show();
-    return false;
-}
