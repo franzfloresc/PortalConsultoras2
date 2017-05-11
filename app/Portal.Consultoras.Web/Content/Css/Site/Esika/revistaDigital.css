@@ -697,14 +697,104 @@
     padding-right: 16px;
     padding-left:16px;
 }
-.revistadigital-landing:nth-child(3n){
-    
+.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
 }
+
 .ProductoResaltante{
     width:35%;
 }
+
 .revistadigital-landing .producto_img_home img {
     height: 150px;
     width: auto;
+}
+
+/* SECCIÓN REVISTA DIGITAL VISTA INGRESO DE PEDIDO */
+
+.overflowContenido{
+    overflow:hidden;
+}
+
+.contenedor_cabecera_revistaDigital {
+    display: block;
+    width: 100%;
+    height: 91px;
+    background: #f8f8f8;
+    padding-top: 10px;
+    padding-bottom: 17px;
+    position: relative;
+    overflow: hidden;
+    left: -14px;
+}
+
+.fondo_franja {
+    display: block;
+    position: absolute;
+    width: 139px;
+    height: 100%;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    top: 0px;
+    left: -23px;
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+}
+
+.contenedor_contenido_cabecera{
+    display: block;
+    text-align: left;
+    padding-left: 20px;
+}
+
+.cabecera_contenedor_logoMarca, .cabecera_texto{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.cabecera_contenedor_logoMarca {
+    width: 116px;
+    height: 80px;
+    position:relative;
+    top:9px;
+}
+
+.cabecera_contenedor_logoMarca img{
+    width:100%;
+    height:auto;
+}
+
+.cabecera_texto{
+    width:193px;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: left;
+    color: #000;
+    letter-spacing: 1px;
+    font-weight:900;
+}
+
+.texto_ofertas_bonificaciones {
+    font-family: 'Lato Light';
+    font-size: 16px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 34px;
+    margin-bottom: 0px;
+    padding: 0 19px;
+}
+
+.revistadigital .boxoffer.boxOfferPedido{
+    top:366px;
+}
+
+.revistadigital .revistadigital-content{
+    position:relative;
 }

@@ -1672,12 +1672,24 @@
         <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revistadigital-title">
-                    <p class="marca">ÉSIKA</p>
+                <div class="revistadigital-title overflowContenido">
+                    <div class="contenedor_cabecera_revistaDigital">
+                        <div class="fondo_franja"></div>
+                        <div class="contenedor_contenido_cabecera">
+                            <div class="cabecera_contenedor_logoMarca">
+                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                            </div>
+                            <div class="cabecera_texto">YULIANA, LLEG&Oacute; TU<br />NUEVA REVISTA ONLINE<br />PERSONALIZADA</div>
+                        </div>
+                    </div>
+                    <div class="texto_ofertas_bonificaciones">
+                        <span>ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO</span>
+                    </div>
+                    @*<p class="marca">ÉSIKA</p>
                     <div class="giftext">
                         <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
                     </div>
-                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>*@
                 </div>
                 {{else}}
                 <h1>
@@ -1695,9 +1707,11 @@
                 </div>
             </div>
             {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                <p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>            
+                @*<p>MÁS<br>OFERTAS<br>PARA TI</p>
+                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">*@
             </div>
             {{/iff}}
             <hr class="clear" />
