@@ -212,6 +212,7 @@ $(document).ready(function () {
 });
 
 function PopupOfertaFinalCerrar() {
+
     if (agregoOfertaFinal == 1) {
         setTimeout(function () {
             $("#divOfertaFinal").hide();
@@ -495,10 +496,9 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
             }
         }
 
-        if (resultado == true) { 
+        if (resultado == true) {
             productoOfertaFinal = ObtenerProductosOfertaFinal(tipoOfertaFinal);
-            if (productoOfertaFinal.lista.length != 0)
-                tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
+            tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
 

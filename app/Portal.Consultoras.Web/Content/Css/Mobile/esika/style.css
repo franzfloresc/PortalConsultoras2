@@ -11022,6 +11022,7 @@ a{
     background: url(../../../Images/Esika/arrow_left.png) no-repeat left;
     background-size: 18px 18px;
 }
+/*---*/
 .check_intriga:before{
     content: "✓";
     line-height: 11.5px;
@@ -11033,8 +11034,8 @@ a{
 
 }
 .etiqueta_chat{
-    background: url(../../../Images/Esika/ayuda.png) no-repeat left;
-    background-position: 45% 15px;
+    background: url(../../../Images/mobile/icon-chat.png) no-repeat left;
+    background-position: 0% 15px;
 }
 .content_titulo{
     position:absolute;

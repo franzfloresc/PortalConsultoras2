@@ -2076,8 +2076,7 @@ function EjecutarServicioPROL() {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    //showDialog("divReservaSatisfactoria"); <-- llamada antiguo popup
-                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
+                                    showDialog("divReservaSatisfactoria");
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
@@ -2327,8 +2326,7 @@ function MostrarMensajeProl(response) {
                     showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
                 } else {
-                    //showDialog("divReservaSatisfactoria"); --> Popup anterior
-                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
+                    showDialog("divReservaSatisfactoria");
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
