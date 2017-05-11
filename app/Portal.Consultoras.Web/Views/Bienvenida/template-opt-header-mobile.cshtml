@@ -4,11 +4,19 @@
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '101'}}
                 <div class="revistadigital-title">
-                    <p class="marca">ÉSIKA</p>
-                    <div class="giftext">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    <div class="contenedor_cabecera_revistaDigital">
+                        <div class="fondo_franja"></div>
+                        <div class="linea-negra"></div>
+                        <div class="contenedor_contenido_cabecera">
+                            <div class="cabecera_contenedor_logoMarca">
+                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                            </div>
+                            <div class="cabecera_texto">YULIANA, LLEG&Oacute; TU<br />NUEVA REVISTA ONLINE<br />PERSONALIZADA</div>
+                        </div>
                     </div>
-                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                    <div class="texto_ofertas_bonificaciones">
+                        Encuentra ofertas, bonificaciones y lanzamientos de las 3 marcas
+                    </div>
                 </div>
                 {{else}}
                 <div class="titulo_ofertas_home">
@@ -24,9 +32,9 @@
                 <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
             </div>
             {{#iff (Trim CodigoEstrategia) '==' '101'}}
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'" >
-                <p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">
+            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
             </div>
             {{/iff}}
             <hr class="clear" />
