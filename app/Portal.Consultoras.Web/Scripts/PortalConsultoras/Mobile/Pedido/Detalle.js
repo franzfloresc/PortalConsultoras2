@@ -910,7 +910,6 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-    debugger
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -938,7 +937,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(response, inicio) {
-    debugger
     inicio = inicio == null || inicio == undefined ? true : inicio;
     var model = response.data;
 

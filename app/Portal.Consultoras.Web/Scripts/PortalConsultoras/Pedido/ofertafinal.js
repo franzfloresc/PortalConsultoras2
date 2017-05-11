@@ -212,7 +212,6 @@ $(document).ready(function () {
 });
 
 function PopupOfertaFinalCerrar() {
-    debugger
     if (agregoOfertaFinal == 1) {
         setTimeout(function () {
             $("#divOfertaFinal").hide();
@@ -225,7 +224,6 @@ function PopupOfertaFinalCerrar() {
 }
 
 function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
-    debugger
     var aux = "of";
     if (tipoOrigen == "2") {
         aux = "h";

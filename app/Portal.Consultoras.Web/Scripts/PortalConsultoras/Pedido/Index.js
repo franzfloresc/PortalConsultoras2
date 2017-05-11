@@ -2151,9 +2151,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 RespuestaEjecutarServicioPROL(response, false);
-                debugger
-                //$('#dialog_divReservaSatisfactoria #mensajedivReservaSatisfactoria').text('');
-                //$('#dialog_divReservaSatisfactoria').show();
                 MostrarMensajeProl(response);
             }
         },
