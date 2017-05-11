@@ -993,6 +993,7 @@
         
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -2377,8 +2378,7 @@
                @*var tieneCupon = '@Model.TieneCupon';*@
                 var tieneCupon = '1';
                 var paginaOrigenCupon = 11;
-                @*var esEmailActivo = '@Model.EmailActivo';*@
-                var esEmailActivo = 'False';
+                var esEmailActivo = '@Model.EmailActivo';
                 var baseUrl = "@Url.Content("~")";
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
