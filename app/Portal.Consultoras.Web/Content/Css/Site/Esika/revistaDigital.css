@@ -280,10 +280,11 @@
     display: block;
     width: 415px;
     height: 100vh;
-    top: 9px;
+    top: 0px;
     position: absolute;
-    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -194px -71px;
-    background-size: 150%;
+    background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -153px 8px;
+    background-size: contain;
+    background-attachment: fixed;
 }
 
 .fondo_gris{
