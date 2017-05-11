@@ -371,3 +371,22 @@ function OcultarSliderMobile() {
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
 }
+
+function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarca, Posicion) {
+    dataLayer.push({
+        'event': 'productClick',
+        'ecommerce': {
+            'click': {
+                'actionField': { 'list': 'Ofertas Showroom' },
+                'products': [{
+                    'name': Descripcion,
+                    'id': CUV,
+                    'price': PrecioOferta,
+                    'brand': DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'position': Posicion
+                }]
+            }
+        }
+    });
+}

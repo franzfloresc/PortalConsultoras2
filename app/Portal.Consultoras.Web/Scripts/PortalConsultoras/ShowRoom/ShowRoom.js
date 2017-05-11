@@ -19,24 +19,24 @@ $(document).ready(function () {
         var prhidmarca = $("#hmarca").val();
         var prhidprecio = $("#hprecio").val();
 
-        dataLayer.push({
-            'event': 'productClick',
-            'ecommerce': {
-                'click': {
-                    'actionField': { 'list': 'Ofertas Showroom' },
-                    'products': [
-                        {
-                            'name': prhidnombre,
-                            'id': prhidcuv,
-                            'price': prhidprecio,
-                            'brand': prhidmarca,
-                            'category': 'NO DISPONIBLE',
-                            'position': 0
-                        }
-                    ]
-                }
-            }
-        });
+        //dataLayer.push({
+        //    'event': 'productClick',
+        //    'ecommerce': {
+        //        'click': {
+        //            'actionField': { 'list': 'Ofertas Showroom' },
+        //            'products': [
+        //                {
+        //                    'name': prhidnombre,
+        //                    'id': prhidcuv,
+        //                    'price': prhidprecio,
+        //                    'brand': prhidmarca,
+        //                    'category': 'NO DISPONIBLE',
+        //                    'position': 0
+        //                }
+        //            ]
+        //        }
+        //    }
+        //});
 
 
         $(".verDetalleCompraPorCompra").click(function () {
@@ -248,12 +248,24 @@ function CargarProductosShowRoom(busquedaModel) {
             //CerrarLoad();
 
             if (response.success == true) {
-                //var lista = response.lista;
+                
                 var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
                 var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
-
+                var impressions = new Array();
                 $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
                     var descripcion = "";
+
+                    var impression = {
+                        name: value.Descripcion,
+                        id: value.CUV,
+                        price: value.PrecioOferta,
+                        category: 'NO DISPONIBLE',
+                        brand: value.DescripcionMarca,
+                        position: index + 1,
+                        list: 'Ofertas Showroom'
+                    };
+
+                    impressions.push(impression);
 
                     if ($.trim(tipoOrigenPantalla)[0] == '1') {
                         descripcion = value.Descripcion.length > 41
@@ -270,6 +282,14 @@ function CargarProductosShowRoom(busquedaModel) {
                     value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
                     value.Descripcion = descripcion;
                 });
+
+                if (impressions.length > 0)
+                {
+                    dataLayer.push({
+                        'event': 'productImpression',
+                        'ecommerce': { 'impressions': impressions }
+                    });
+                }
 
                 $("#divProductosShowRoom").html("");
 
@@ -531,4 +551,24 @@ function AgregarProductoAlCarrito(padre) {
             });
         });
     }    
+}
+
+function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarca, Posicion)
+{
+    dataLayer.push({
+        'event': 'productClick',
+        'ecommerce': {
+            'click': {
+                'actionField': { 'list': 'Ofertas Showroom' },
+                'products': [{
+                    'name': Descripcion,
+                    'id': CUV,
+                    'price': PrecioOferta,
+                    'brand': DescripcionMarca,
+                    'category': 'NO DISPONIBLE',
+                    'position': Posicion
+                }]
+            }
+        }
+    });
 }

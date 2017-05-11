@@ -11,7 +11,7 @@
     <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
 }
-
+ 
 <input type="hidden" id="hdListaProductosEnShowRoom" value="@JsonConvert.SerializeObject(Model.ListaShowRoomOferta)" />
 <input type="hidden" id="hdTotalProductos" value="@Model.ListaShowRoomOferta.Count" />
 <!--MAQUETADO NUEVO-->
@@ -350,9 +350,9 @@
             <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
             {{else}}
             <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
-            {{/IsNullOrEmpty}}
-
-            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
+            {{/IsNullOrEmpty}}            
+            
+            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">VER DETALLE</a>
         </div>
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>

@@ -12,7 +12,7 @@
         body {
            background: #f5f5f7 !important;
             padding-top: 0px;
-            overflow-x:hidden;
+            overflow-x:hidden; 
         }
     </style>
 
@@ -372,7 +372,7 @@
     <div class="content_item_home" style="position: relative;">
         <div class="liquidacion_item swvdetalle" data-posicion="{{Posicion}}">
             <div class="producto_img_mobile swproddetcompra">
-                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}">
+                <a class="btnVerDetalleOfertaShowRoom swproddetcompraimg" href="{{UrlDetalle}}" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
                     {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
                     {{else}}
