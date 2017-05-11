@@ -353,6 +353,12 @@
   <wsdl:message name="IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEstadoCuponResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetEtiquetas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEtiquetas" />
   </wsdl:message>
@@ -2112,6 +2118,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCupon" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCuponResponse" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEtiquetas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetas" message="tns:IPedidoService_GetEtiquetas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetasResponse" message="tns:IPedidoService_GetEtiquetas_OutputMessage" />
@@ -3641,6 +3651,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateCuponConsultoraEstadoCupon">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCupon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -29,5 +29,11 @@ namespace Portal.Consultoras.BizLogic
             var DACuponConsultora = new DACuponConsultora(paisId);
             DACuponConsultora.UpdateCuponConsultoraEstadoCupon(cuponConsultora);
         }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            var DACuponConsultora = new DACuponConsultora(paisId);
+            DACuponConsultora.UpdateCuponConsultoraEnvioCorreo(cuponConsultora);
+        }
     }
 }

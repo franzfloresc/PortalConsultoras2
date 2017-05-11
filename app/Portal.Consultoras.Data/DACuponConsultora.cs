@@ -44,5 +44,15 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public void UpdateCuponConsultoraEnvioCorreo(BECuponConsultora cuponConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateCuponConsultoraEnvioCorreo");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, cuponConsultora.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, cuponConsultora.CampaniaId);
+            Context.Database.AddInParameter(command, "@EnvioCorreo", DbType.Boolean, cuponConsultora.EnvioCorreo);
+
+            Context.ExecuteNonQuery(command);
+        }
+
     }
 }
