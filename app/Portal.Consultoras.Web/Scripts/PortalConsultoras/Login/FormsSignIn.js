@@ -20,12 +20,13 @@ $(document).ready(function () {
         }
     });
 
-
     $('#btnLoginFB').addClass('center_facebook');
 
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
-    
+
+    if ($('#ddlPais').val() == null) isoPais = "00";
+    $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
     ayudaLogin2();
     
@@ -408,6 +409,9 @@ function ayudaLogin2() {
     var m1 = null;
     var m2 = null;
     var iso = $('#ddlPais2').val();
+    if (iso == "00") {
+        return;
+    }
 
     switch (iso) {
         case "PE":
