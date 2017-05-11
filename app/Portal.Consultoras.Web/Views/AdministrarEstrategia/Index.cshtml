@@ -1493,7 +1493,7 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(cellvalue);
+        var cellValueInt = parseInt(rowObject[10]);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (cellValueInt == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
