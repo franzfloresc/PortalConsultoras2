@@ -1,7 +1,18 @@
 ﻿function Init() {
     $('#ddlPais').on('change', function () {
-        $('#css-main').attr('href', paisesEsika.indexOf($(this).val()) >= 0 ? cssMainEsika : cssMainLbel)
+        var paisISO = $(this).val();
+        if (IsNullOrEmpty(paisISO)) {
+            $('#css-main').attr('href', cssMainEsika);
+            $('#tooltip_usuario').css('display', 'none');
+            $('#tooltip_password').css('display', 'none');
+        }
+        else {
+            $('#css-main').attr('href', paisesEsika.indexOf(paisISO) >= 0 ? cssMainEsika : cssMainLbel);
+            $('#tooltip_usuario').css('display','').html(listTooltipUsuario[paisISO]);
+            $('#tooltip_password').css('display', '').html(listTooltipPassword[paisISO]);
+        }
     });
+    $('#ddlPais').trigger('change');
 }
 
 function LoginNormal() {
