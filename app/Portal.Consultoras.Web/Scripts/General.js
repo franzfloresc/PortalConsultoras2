@@ -1099,3 +1099,103 @@ function GuardarIndicadorPedidoAutentico() {
         }
     }
 }
+
+function ModificarPedido2(pTipo) {
+    if (pTipo == '2') {
+        if (_ModificacionPedidoProl == "0") ConfirmarModificarPedido();
+        else $("#divConfirmModificarPedido").modal("show");
+    }
+    else {
+        if (_ModificacionPedidoProl === "0")
+            ConfirmarModificar2('');
+        else
+            showDialog("divConfirmValidarPROL");
+        return false;
+    }
+}
+
+function ConfirmarModificar2() {
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
+                    closeWaitingDialog();
+                    $('#dialog_PedidoReservado').hide();
+                }
+                else {
+                    closeWaitingDialog();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+    return false;
+}
+
+function ConfirmarModificarPedido() {
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlDeshacerReservaPedidoReservado2 + '?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    //location.href = urlIngresarPedido;
+                    CloseLoading();
+                    $('#popupInformacion2').hide();
+                } else {
+                    CloseLoading();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                messageInfo("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
+            }
+        }
+    });
+}
+
+/*** EPD-1682 ***/
+function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
+    if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
+        if (ViewIndicadorGPRSB == '0') {
+            $('#popupInformacion2 #mensajeInformacion2').html(pMensaje);
+            $('#popupInformacion2').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+    else {
+        if (ViewIndicadorGPRSB == '0') {
+            $('#dialog_PedidoReservado #mensajePedidoReservado_Error').html(pMensaje);
+            $('#dialog_PedidoReservado').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+}
+/**/

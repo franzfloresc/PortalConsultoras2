@@ -533,6 +533,19 @@
         </div>
     </div>
 
+    <div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacion2" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
+        </div>
+    </div>
+
     <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
@@ -720,6 +733,7 @@
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
         var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+        var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
@@ -751,11 +765,11 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
-
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -780,6 +794,8 @@
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.foto_menu').show();
         }
+
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
 
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 

@@ -2,9 +2,6 @@
 
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
-
-    debugger;
-
     if (ControllerName == "ShowRoom") {
         var pEventoID = $("#hdEventoIDShowRoom").val();
         var pEventoIDVenta = $("#hdEventoIDShowRoomVenta").val();
