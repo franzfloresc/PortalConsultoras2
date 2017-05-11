@@ -199,6 +199,23 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader GetShowRoomConsultoraPersonalizacion(int campaniaID, string codigoConsultora)
+        {
+            try
+            {
+                using (DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomConsultoraPersonalizada"))
+                {
+                    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+                    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+                    return Context.ExecuteReader(command);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public void UpdateShowRoomConsultoraMostrarPopup(int campaniaID, string codigoConsultora, bool mostrarPopup)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.UpdateShowRoomConsultoraMostrarPopup");

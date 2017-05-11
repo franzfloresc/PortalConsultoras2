@@ -1,5 +1,5 @@
 
-USE BelcorpCostaRica
+USE BelcorpPeru
 GO
 
 ALTER TABLE ShowRoom.Evento

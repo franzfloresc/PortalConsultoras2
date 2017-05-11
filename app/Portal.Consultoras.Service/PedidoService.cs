@@ -1485,9 +1485,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarProductoCpc(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)

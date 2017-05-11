@@ -19656,10 +19656,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<int> CargarProductoCpcAsync(int paisId, int eventoId, string usuarioCreacion, Portal.Consultoras.Web.ServicePedido.BEShowRoomCompraPorCompra[] listaShowRoomCompraPorCompra);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomConsultora", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomConsultoraResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora);
+        Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetShowRoomConsultora", ReplyAction="http://tempuri.org/IPedidoService/GetShowRoomConsultoraResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora> GetShowRoomConsultoraAsync(int paisID, int campaniaID, string codigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora> GetShowRoomConsultoraAsync(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateShowRoomConsultoraMostrarPopup", ReplyAction="http://tempuri.org/IPedidoService/UpdateShowRoomConsultoraMostrarPopupResponse")]
         void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
@@ -21799,12 +21799,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.CargarProductoCpcAsync(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora) {
-            return base.Channel.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
+        public Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion) {
+            return base.Channel.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora> GetShowRoomConsultoraAsync(int paisID, int campaniaID, string codigoConsultora) {
-            return base.Channel.GetShowRoomConsultoraAsync(paisID, campaniaID, codigoConsultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora> GetShowRoomConsultoraAsync(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion) {
+            return base.Channel.GetShowRoomConsultoraAsync(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
         
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup) {

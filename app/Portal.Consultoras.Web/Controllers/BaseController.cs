@@ -966,8 +966,10 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         string codigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada : model.CodigoConsultora;
-                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                        var tienePersonalizacion = model.BeShowRoom != null ? model.BeShowRoom.TienePersonalizacion : false;
+
+                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, tienePersonalizacion);
 
                         model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();
                         model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();

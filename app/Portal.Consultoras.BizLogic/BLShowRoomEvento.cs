@@ -98,16 +98,27 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.CargarProductoCpc(eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             BEShowRoomEventoConsultora entidad = null;
             var DAPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
+            if(!tienePersonalizacion)
+            {
+                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomEventoConsultora(reader);
                 }
+            }else
+            {
+                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
+                if (reader.Read())
+                {
+                     entidad = new BEShowRoomEventoConsultora(reader);
+                }
+            }
+            
             return entidad;
         }
 
