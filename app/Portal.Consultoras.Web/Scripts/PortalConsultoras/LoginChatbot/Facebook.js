@@ -63,26 +63,32 @@ function AsociarUsuarioFB() {
             }
 
             usuario = {
-                PaisID: paisID,
-                CodigoISO: paisISO,
-                CodigoUsuario: user,
-                ClaveSecreta: password,
-                UsuarioExterno: {
-                    Proveedor: 'Facebook',
-                    IdAplicacion: response.id,
-                    Login: response.name,
-                    Nombres: response.first_name,
-                    Apellidos: response.last_name,
-                    FechaNacimiento: response.birthday,
-                    Correo: response.email,
-                    Genero: response.gender,
-                    Ubicacion: (typeof response.location === 'object') ? response.location.name : "",
-                    LinkPerfil: response.link,
-                    FotoPerfil: (typeof response.picture === 'object') ? response.picture.data.url : "",
+                'PaisID': paisID,
+                'CodigoISO': paisISO,
+                'CodigoUsuario': user,
+                'ClaveSecreta': password,
+                'UsuarioExterno': {
+                    'Proveedor': 'Facebook',
+                    'IdAplicacion': response.id,
+                    'Login': response.name,
+                    'Nombres': response.first_name,
+                    'Apellidos': response.last_name,
+                    'FechaNacimiento': response.birthday,
+                    'Correo': response.email,
+                    'Genero': response.gender,
+                    'Ubicacion': (typeof response.location === 'object') ? response.location.name : "",
+                    'LinkPerfil': response.link,
+                    'FotoPerfil': (typeof response.picture === 'object') ? response.picture.data.url : ""
                 }
             }
 
-            $.post('/Login/Login', usuario)
+            $.ajax({
+                type: 'POST',
+                url: '/Login/Login',
+                data: JSON.stringify(usuario),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            })
                 .always(CloseLoading)
                 .done(function (response) {
                     if (response.success) ResponderBotmakerFB(response.id, accessTokenFB)

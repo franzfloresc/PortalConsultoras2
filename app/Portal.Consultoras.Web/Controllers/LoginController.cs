@@ -153,31 +153,12 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUsuarioExterno.LinkPerfil = userExtModel.LinkPerfil;
                                     beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-
-                                    //EPD-2340
-                                    var IP = string.Empty;
-                                    var ISO = string.Empty;
-                                    try
-                                    {
-                                        IP = GetIPCliente();
-                                        ISO = Util.GetISObyIPAddress(IP);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
-                                    }
-
-                                    if (string.IsNullOrEmpty(ISO))
-                                    {
-                                        IP = "190.187.154.154";
-                                        ISO = "PE";
-                                    }
-
+                                    
                                     BEUsuarioExternoPais beUserExtPais = new BEUsuarioExternoPais();
                                     beUserExtPais.Proveedor = userExtModel.Proveedor;
                                     beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
                                     beUserExtPais.PaisID = model.PaisID;
-                                    beUserExtPais.CodigoISO = ISO;
+                                    beUserExtPais.CodigoISO = Util.GetPaisISO(model.PaisID);
                                     svc.InsUsuarioExternoPais(11, beUserExtPais);
 
                                     if(userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
