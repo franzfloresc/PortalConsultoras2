@@ -207,6 +207,7 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
@@ -3187,6 +3188,7 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />

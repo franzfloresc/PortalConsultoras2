@@ -40,6 +40,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
+            clienteModel.MostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
+
             return View(clienteModel);
         }
 
