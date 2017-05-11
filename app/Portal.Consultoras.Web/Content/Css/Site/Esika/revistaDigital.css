@@ -5,7 +5,7 @@
 }
 
 /*MI REVISTA*/
-.revista {
+.revistadigital {
     /*background: url(http://d33wubrfki0l68.cloudfront.net/img/4a19dc81ab45c532e80be57f07d17242b1fb4d77/parallax-3.jpg) no-repeat;*/
     background-position: center top;
 	margin-top: 30px;
@@ -16,42 +16,42 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
-.revista .pedido{
+.revistadigital .pedido{
     background: #f8f8f8;
     box-shadow:3px 9px 0px 8px rgb(255, 255, 255);
     -webkit-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
     -moz-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
 }
-.revista .pedido.mobile{
+.revistadigital .pedido.mobile{
     background: #f0f0f0;
     box-shadow: none;
 }
-.revista .pedido p.marca:before{
+.revistadigital .pedido p.marca:before{
     border: 0px solid;
 }
-.revista .pedido .giftext:after {
+.revistadigital .pedido .giftext:after {
     border: 0px solid;
 }
-.revista .pedido .giftext{
+.revistadigital .pedido .giftext{
     top: 0;
 }
-.revista .revista-content {
+.revistadigital .revistadigital-content {
 	max-width: 1189px;
 	margin: 0 auto;
     height: auto;
 	position: relative;
 }
-.revista .revista-content img {
+.revistadigital .revistadigital-content img {
   width: auto;
     height: 100%;
 }
-.revista p.marca {
+.revistadigital p.marca {
 	font-size: 30px;
 	letter-spacing: 9px;
 	display: inline-block;
     margin: auto;
 }
-.revista p.marca:before {
+.revistadigital p.marca:before {
 	content: '';
 	width: 120px;
 	border-bottom: solid 1px #000;
@@ -60,7 +60,7 @@
 	top: 68px;
 	z-index: 1;
 }
-.revista .giftext:after {
+.revistadigital .giftext:after {
 	content: '';
 	position: absolute;
 	left: 180px;
@@ -69,31 +69,31 @@
     width: 120px;
     border-bottom: solid 1px #000;
 }
-.revista .giftext {
+.revistadigital .giftext {
 	display: inline-block;
 	position: relative;
 	top: 30px;
 }
-.revista .giftext img {
+.revistadigital .giftext img {
 	height: 75px;
 }
-.revista .revista-desc {
+.revistadigital .revistadigital-desc {
 	font-size: 13px;
 	margin-top: 35px;
 }
-.revista .revista-desc span {
+.revistadigital .revistadigital-desc span {
 	color: #e81c36;
 	font-family: 'Lato-Bold';
 }
-.revista .revista-baj {
+.revistadigital .revistadigital-baj {
 	font-size: 12px;
 	margin-top: 25px;
 }
-.revista .revista-baj a {
+.revistadigital .revistadigital-baj a {
 	text-decoration: underline;
 	color: #e81c36;
 }
-.revista .arrow-right {
+.revistadigital .arrow-right {
 	width: 0;
 	height: 0;
 	border-top: 5px solid transparent;
@@ -103,26 +103,26 @@
 	position: absolute;
 	top: 153px;
 }
-.revista .revista-items {
+.revistadigital .revistadigital-items {
 	max-width: 1189px;
 	height: 404px;
 	margin: 0 auto;
 	margin-top: 30px;
 	position: relative;
 }
-.revista .revista-items img {
+.revistadigital .revistadigital-items img {
 	height: 340px;
 	-webkit-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
 	-moz-box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
 	box-shadow: 0px 15px 21px -8px rgba(150, 150, 150, 0.6);
 }
-.revista .revista-items .item2 {
+.revistadigital .revistadigital-items .item2 {
 	margin: 0 20px;
 }
-.revista .revista-items .item3 {
+.revistadigital .revistadigital-items .item3 {
 	margin: 0 20px 0px 0px;
 }
-.revista .boxoffer {
+.revistadigital .boxoffer {
 	width: 145px;
     height: 90px;
     position: absolute;
@@ -137,12 +137,12 @@
     -webkit-transition:all 0.3s ease;
 }
 
-.revista .boxoffer:hover{
+.revistadigital .boxoffer:hover{
     opacity:0.95;
     right:-35px;
 }
 
-.revista .boxoffer .fondo_boton {
+.revistadigital .boxoffer .fondo_boton {
     width: 100%;
     height: 84px;
     background: #e81c36;
@@ -161,7 +161,7 @@
     -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
 }
 
-.revista .boxoffer .texto_boton{
+.revistadigital .boxoffer .texto_boton{
     position: absolute;
     font-family: 'Lato';
     font-size: 13px;
@@ -173,7 +173,7 @@
     line-height: 17px;
 }
 
-.revista .boxoffer .texto_boton:after{
+.revistadigital .boxoffer .texto_boton:after{
     width: 20px;
     height: 50px;
     position: absolute;
@@ -184,7 +184,7 @@
     background-size: 100%;
     z-index: 100;
 }
-/*.revista .boxoffer p{
+/*.revistadigital .boxoffer p{
     text-align: left;
     position: absolute;
     font-size: 9px;
@@ -195,16 +195,16 @@
     font-family: 'Lato-Light';
     letter-spacing: 1px;
 }
-.revista .boxoffer img {
+.revistadigital .boxoffer img {
 	height: 100%;
 	width: 100%;
 	box-shadow: -3px 3px 7px 0px rgba(150, 150, 150, 0.6);
 }*/
-.revista-landing .content_item_carrusel{
+.revistadigital-landing .content_item_carrusel{
     width: auto;
 }
 
-.revista-title {
+.revistadigital-title {
     display: block;
     width: 100%;
     max-width: 1114px;
@@ -213,25 +213,25 @@
     margin-bottom:14px;
 }
 
-.revista-title .logo-marca, .revista-title .linea-separacion, .revista-title .titulo_nuevaRevista {
+.revistadigital-title .logo-marca, .revistadigital-title .linea-separacion, .revistadigital-title .titulo_nuevaRevista {
     display: inline-block;
     vertical-align: middle;
 }
 
-.revista-title .logo-marca {
+.revistadigital-title .logo-marca {
     width: 245px;
     height: auto;
     margin-left:103px;
 }
 
-.revista-title .logo-marca img{
+.revistadigital-title .logo-marca img{
     width: 100%;
     height: auto;
     position: relative;
     top: 31px;
 }
 
-.revista-title .linea-separacion {
+.revistadigital-title .linea-separacion {
     width: 1px;
     background: #000;
     height: 78px;
@@ -245,23 +245,23 @@
     -webkit-transform: rotate(15deg);
 }
 
-.revista-title .titulo_nuevaRevista {
+.revistadigital-title .titulo_nuevaRevista {
     width: 653px;
     text-align: left;
     padding-top:12px;
 }
 
-.revista-title .mensajeConsultora_nuevaRevista {
+.revistadigital-title .mensajeConsultora_nuevaRevista {
     display:block;
 }
 
-.revista-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista{
+.revistadigital-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista{
     font-family: 'Lato';
     font-size: 20px;
     font-weight: 900;
 }
 
-.revista-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
+.revistadigital-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
     font-family: 'Lato Light';
     font-size: 20px;
 }

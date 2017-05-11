@@ -1664,20 +1664,20 @@
 
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{/iff}}">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{/iff}}">
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
         }
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content pedido{{else}}contenedor_carousel{{/iff}}">
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revista-title">
+                <div class="revistadigital-title">
                     <p class="marca">ÉSIKA</p>
                     <div class="giftext">
                         <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
                     </div>
-                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
                 </div>
                 {{else}}
                 <h1>
