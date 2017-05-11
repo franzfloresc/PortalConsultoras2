@@ -349,7 +349,7 @@ jQuery(document).ready(function () {
     };
 
     if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
-        GuardarIndicadorPedidoAutentico();
+        //GuardarIndicadorPedidoAutentico();
     }
     
 })(jQuery);
