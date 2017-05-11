@@ -90,7 +90,15 @@ $(document).ready(function () {
     });
 
     $("#filter-sorting").change(function() {
-        ObtenerProductosShowRoom();
+        ObtenerProductosShowRoom();        
+        $("#filter-sorting option:selected").each(function () {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas Showroom',
+                'action': 'Ordenar',
+                'label': 'Ordenar por ' + $(this).text()
+            });
+            });
     });
 
     $("[data-filtro-categoria]").click(function () {
@@ -182,9 +190,18 @@ function CargarFiltroRangoPrecio() {
             rangoPrecios = myvalue;
             $(".slider-container").addClass("disabledbutton");
             ObtenerProductosShowRoom();
+
+            var arr = myvalue.toString().split(',');
+
+            dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas ShowRoom',
+            'action': "Filtrar por Precios",
+            'label': arr[0] + " - " + arr[1]
+            });
         }
     });
-    //$('.range-slider').jRange('setValue', '0,100');
+//$('.range-slider').jRange('setValue', '0,100');
     //$('.range-slider').jRange('updateRange', '0,100');
     $('.slider-container').css('width', '');
 }
@@ -216,13 +233,12 @@ function filterShowRoomDesktop() {
             seleccionado = true;
             var valor = $(value).attr("data-categoriacodigo");
             var descripcion = $('.seleccion_filtro_fav.seleccion_click_flitro').html();
-            var etiqueta = $('.titulo_filtro_fav').html();
-            valores.push(valor);
-
+            
+            valores.push(valor);            
             dataLayer.push({
                 'event': 'virtualEvent',
                 'category': 'Ofertas ShowRoom',
-                'action': etiqueta,
+                'action': "Filtrar por Categorías",
                 'label': descripcion
             });
 

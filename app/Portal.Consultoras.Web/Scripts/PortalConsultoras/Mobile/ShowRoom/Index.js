@@ -36,7 +36,7 @@
         $('body').css({ 'overflow-y': 'scroll' });
         $('#PopCompra').hide();
     });
-    //TagManagerOfertaShowRoom();                                   
+    //TagManagerOfertaShowRoom(); 
 
     $("#btnCerrarPedido").click(function () {
         $("#divMensajeProductoAgregado").modal("hide");
@@ -60,6 +60,14 @@
 
     $("#orderby-price").change(function () {
         ObtenerProductosShowRoom();
+        $("#orderby-price option:selected").each(function () {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas Showroom',
+                'action': 'Ordenar',
+                'label': 'Ordenar por ' + $(this).text()
+            });
+        });
     });
 
     $("#btnBuscarShowRoom").click(function () {
@@ -105,6 +113,12 @@ function filterShowRoomMobile() {
         seleccionado = true;
         var valor = $(value).val();
         valores.push(valor);
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas Showroom',
+            'action': "Filtrar por Categorías",
+            'label': $(value).val()
+        });
     });
 
     if (!seleccionado) {
@@ -129,6 +143,12 @@ function filterShowRoomMobile() {
         valoresRangoPrecio = new Array();
         valoresRangoPrecio.push(range[0]);
         valoresRangoPrecio.push(range[1]);
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas Showroom',
+            'action': "Filtrar por Precios",
+            'label': range[0] + " - " + range[1]
+        });
     }
 
     if (valoresRangoPrecio != null) {
@@ -370,23 +390,4 @@ function OcultarSliderMobile() {
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
-}
-
-function click_producto_showroow(Descripcion, CUV, PrecioOferta, DescripcionMarca, Posicion) {
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Ofertas Showroom' },
-                'products': [{
-                    'name': Descripcion,
-                    'id': CUV,
-                    'price': PrecioOferta,
-                    'brand': DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'position': Posicion
-                }]
-            }
-        }
-    });
 }
