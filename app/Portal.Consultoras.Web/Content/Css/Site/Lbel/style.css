@@ -35552,10 +35552,184 @@ h1#penmostreo .campana {
     width:auto;
     display:block;
 }
-.logo_EPT{
-    width:10%;
-    background: black url(../../../Images/RevistaDigital/fondo.png) no-repeat right top;
+.logo_EPT_content{
+    width:20%;
+    height:175px;
+   
+    float:left;  
+    position:relative;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
+.logo_EPT{
+    width:175px;
+    margin-top: 28px;
+}
+
 .logo_EPT img{
+    width:96%;
+}
+.logo_EPT_content::after{
+    top: 0;
+    content: '';
+    position: absolute;
+    width: 300%;
+    left: -300%;
+    height: 175px;    
+    z-index: 100;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+}
+.texto_usuario_ept{
+    font-family:'Lato';
+    font-weight:700;
+    color:white;
+    float:left;
+    width:73%;
+    background:black;
+    height:175px;
+    font-size:18px;
+    padding-top:45px;
+    padding-left:60px;
+    padding-right:60px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    position:relative;
+}
+.texto_light{
+    font-weight:300;
+    font-size:20px;
+}
+.texto_usuario_ept:before{
+    content:'';
+    position:absolute;
+    left:-70px;
+    top:0;
+    z-index:102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 175px 70px;
+    border-color: transparent transparent #000000 transparent;
+}
+.texto_usuario_ept:after{
+    content:'';
+    position:absolute;
+    right:-300%;
+    top:0;
+    z-index:102;
+    width: 300%;
+    height: 175px;
+    background:black;
+    z-index:103;
+}
+.content_slider_ept{
+    max-width:1000px;    
+    margin:0 auto;
+    margin-top:50px;
+    position:relative;
+}
+.imagen_fondo img{
+    width:100%
+}
+.content_item_ept{
+    width:100%;
+    position:relative;
+}
+.detalle_set_banner{
+    position:absolute;
+    width:auto;
+    min-width:357px;
+    top:30px;
+    left:30px;
+    background:white;
+    z-index: 20;
+    padding:60px 20px 10px 20px;
+
+}
+.content_set_imagen_banner{
+    width:auto;
+    height:auto;
+    text-align:center;
+}
+.content_set_imagen_banner img{
+    width:auto;
+    height:150px;
+}
+.titulo_set_banner_ept{
+    font-family:'Lato';
+    font-size:17px;
+    text-align:center;
+    color:#e81c36;
+    margin-top:5px;
+}
+.detalle_set_banner_ept{
+    font-family:'Lato';
+    font-size:15px;
+    text-align:center;
+    font-weight:700;
+    color:black;
+    margin-top:3px;
+    margin-bottom: 3px;
+}
+.btn_mas_info_set{
+    font-family:'Lato';
+    font-size:13px;
+    text-transform:uppercase;
+    text-align:center;
+    margin-bottom: 11px;
+}
+.etiqueta_nuevo_ept{
+    position:absolute;
+    position: absolute;
+    left: 30px;
+    top: 29px;
+    z-index: 30;
+}
+.fondo_imagen_set{
+    width:140px;
+    height:140px;
+}
+.fondo_imagen_set img{
     width:100%;
 }
+.btn-set-previous{
+    width: 140px;
+    height: 140px;
+    background: black;
+    display: block;
+    position: absolute;
+    z-index: 100;
+    /*left: -14%;*/
+    top: 34%;
+    overflow:hidden;
+}
+.btn-set-previous img{
+    width:100%;
+}
+.previous_ofertas_ept{
+    display: block;
+    position: absolute;
+    
+    /* padding-left: 22px; */
+    width: 34px;
+    margin: 0 auto;
+    right:0;
+    left:0;
+    top: 29px;
+    /* left: 0; */
+    /* margin-left: -7%; */
+}
+    
