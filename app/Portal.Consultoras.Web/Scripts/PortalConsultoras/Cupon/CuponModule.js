@@ -19,15 +19,18 @@
     
     var elements = {
         PopupCuponPaginaBienvenida: '#Cupon1',
-        ContenedorConfirmacion: '#',
-        ContenedorGanaste: '#',
+        PopupConfirmacion: '#Cupon2',
+        PopupGanaste: '#',
+        //ContenedorGanaste: '#',
         ContenedorGana: '#',
         LinkVer: '#linkConocerDescuento',
         Body: 'body',
         BtnConfirmar: '#',
-        TxtCorreoIngresado: '#',
-        HdCorreoOriginal: '#',
-        ContenedorTituloGana: '#Cupon1 .monto_gana'
+        TxtCelular: '#Cupon1 #txtCelular',
+        TxtCorreoIngresado: '#Cupon1 #txtEmailIngresado',
+        HdCorreoOriginal: '#Cupon1 #hdEmailOriginal',
+        ContenedorTituloGana: '#Cupon1 .monto_gana',
+        BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon'
     };
 
     var setting = {
@@ -37,7 +40,7 @@
         BaseUrl: '',
         UrlActualizarCupon: 'Cupon/ActualizarCupon',
         UrlEnviarCorreoGanaste: '',
-        UrlEnviarCorreoConfirmacion: '',
+        UrlEnviarCorreoConfirmacionEmail: 'Cupon/EnviarCorreoConfirmacionEmail',
         UrlObtenerCupon: 'Cupon/ObtenerCupon',
         Cupon: null,
         SimboloMoneda:''
@@ -55,14 +58,16 @@
             }
         });
 
-        $(elements.BtnConfirmar).on("click", function () {
+        $(elements.BtnConfirmarDatos).on("click", function () {
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
 
-            if (correoIngresado == correoOriginal) {
-                validarEstadoEmail();
-            } else {
-                procesarConfirmacion();
+            if (confirmarDatosEsValido(correoOriginal, correoIngresado)) {
+                if (correoIngresado == correoOriginal) {
+                    validarEstadoEmail();
+                } else {
+                    procesarConfirmacion();
+                }
             }
         });
     }
@@ -76,18 +81,35 @@
     }
 
     var procesarConfirmacion = function () {
-        $(elements.ContenedorConfirmacion).show();
-        var model = { estado: CONS_CUPON.CUPON_ACTIVO };// Actualizar Estado cupon a 2 (Activo)
-        var cuponPromise = actualizarCuponPromise(model);
+        $(elements.PopupCuponPaginaBienvenida).hide();
+        $(elements.PopupConfirmacion).show();
+        var cuponPromise = actualizarCuponPromise();
+
         cuponPromise.then(function (response) {
-            var result = response;// Enviar correo de confirmación cambio de email
+            if (response.success) {
+                var model = {
+                    eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
+                    celular: $(elements.TxtCelular).val().trim()
+                };
+                var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
+
+                confirmacionPromise.then(function (response) {
+                    if (response.success) {
+
+                    } else {
+                        alert(response.message); 7
+
+                    }
+                }, function (xhr, status, error) { });
+            }
         }, function (xhr, status, error) {});
     }
 
     var procesarGanaste = function () {
-        $(elements.ContenedorGanaste).show();
-        var model = { estado: CONS_CUPON.CUPON_ACTIVO };// Actualizar Estado cupon a 2 (Activo)
-        var cuponPromise = actualizarCuponPromise(model);
+        $(elements.PopupCuponPaginaBienvenida).hide();
+        $(elements.PopupGanaste).show();
+        var cuponPromise = actualizarCuponPromise();
+
         cuponPromise.then(function (response) {
             var result = response;// Enviar correo "Ganaste"
         }, function (xhr, status, error) {});
@@ -129,14 +151,13 @@
         });
     }
 
-    var actualizarCuponPromise = function (estadoCupon) {
+    var actualizarCuponPromise = function () {
         var d = $.Deferred();
         var promise = $.ajax({
             type: 'POST',
             url: setting.BaseUrl + setting.UrlActualizarCupon,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(estadoCupon),
             async: true
         });
 
@@ -167,11 +188,11 @@
         return d.promise();
     }
 
-    var enviarCorreoConfirmacionCuponPromise = function (model) {
+    var enviarCorreoConfirmacionEmailPromise = function (model) {
         var d = $.Deferred();
         var promise = $.ajax({
             type: 'POST',
-            url: setting.BaseUrl + setting.UrlEnviarCorreoConfirmacion,
+            url: setting.BaseUrl + setting.UrlEnviarCorreoConfirmacionEmail,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(model),
@@ -204,10 +225,23 @@
         return d.promise();
     }
 
+    var confirmarDatosEsValido = function(emailOriginal, emailIngresado){
+        if (emailOriginal == "") {
+            alert("debe ingresar su correo(original)");
+            return false;
+        }
+        if (emailIngresado == "") {
+            alert("debe ingresar su correo(ingresado)");
+            return false;
+        }
+        return true;
+    }
+
     return {
         ini: function (parameters) {
             inizializer(parameters);
         },
-        obtenerCupon: obtenerCupon
+        obtenerCupon: obtenerCupon,
+        mostrarObjetoCupon : setting.Cupon
     };
 })();
