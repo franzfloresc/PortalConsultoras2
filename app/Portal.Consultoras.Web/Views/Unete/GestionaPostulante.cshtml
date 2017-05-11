@@ -1040,6 +1040,79 @@
 
 </div>
 
+<div class="background_popup_editarDireccion">
+    <div class="popup_editarDireccion">
+        <div class="titulo_popup_editarDireccion">
+            <h4>EDITAR <b>DIRECCI&Oacute;N</b></h4>
+        </div>
+        <div class="contenedor_datosEditarDireccion">
+            <span>
+                Postulante: <b>Karina Elizabeth Chávez Malca.</b>
+            </span>
+            <span>
+                Celular: <b>9547162543</b>
+            </span>
+            <span class="texto-rojo">
+                Zona Rechaz&oacute;: <b>1021/E</b>
+            </span>
+        </div>
+        <div class="contenedor_formulario_editarDireccion">
+            <form method="post" class="formulario_editarDireccion">
+                <div class="contenedor_datosEditarDireccion">
+                    <div class="titulo_ubigeo">
+                        <span>UBIGEO</span>
+                    </div>
+                    <div class="contenedor_camposUbigeo">
+                        <label for="departamento">Departamento:</label>
+                        <select id="departamento">
+                            <option value="0">Lima</option>
+                        </select>
+                    </div>
+                    <div class="contenedor_camposUbigeo">
+                        <label for="provincia">Provincia:</label>
+                        <select id="provincia">
+                            <option value="0">Lima</option>
+                        </select>
+                    </div>
+                    <div class="contenedor_camposUbigeo">
+                        <label for="distrito">Distrito:</label>
+                        <select id="distrito">
+                            <option value="0">Surco</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="contenedor_datosEditarDireccion">
+                    <div class="contenedor_direccionReferencia">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" name="direccion" id="direccion" value="Lima" />
+                        <button type="button">Grabar direcci&oacute;n</button>
+                    </div>
+                    <div class="contenedor_direccionReferencia">
+                        <label for="referencia">Referencia:</label>
+                        <input type="text" name="referencia" id="referencia" value="Lima" />
+                        <button type="button">Actualizar secci&oacute;n</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="contenedor_mapa_editarDireccion">
+
+        </div>
+        <div class="contenedor_coordenadasYRegion">
+            <div class="campos_CoordenadasXY">
+                <label>X/Y</label>
+                <input type="text" name="coordenadasX" value="-23,8937" />
+                <input type="text" name="coordenadasY" value="-74,3434" />
+            </div>
+            <div class="campos_regionZonaSeccion">
+                <label>Regi&oacute;n/Zona/Secci&oacute;n</label>
+                <input type="text" name="region" value="-10/1021/E" />
+                <button type="button">Editar Posici&oacute;n</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarManualDireccion">
@@ -1066,6 +1139,174 @@
         </div>
         <style>    
  
+            /* POPUP EDITAR DIRECCIÓN */
+
+            .background_popup_editarDireccion{
+                display:none;
+                position:fixed;
+                z-index:1000;
+                width:100%;
+                height:100%;
+                background:rgba(0,0,0,0.6);
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+            }
+
+            .popup_editarDireccion {
+                display: none;
+                margin: 0 auto;
+                top: -10%;
+                width: 873px;
+                height: 815px;
+                background: #FFF;
+                position: relative;
+                padding: 22px 36px;
+                box-sizing: border-box;
+            }
+
+            .titulo_popup_editarDireccion {
+                display: block;
+                width: 100%;
+                position: relative;
+                margin-top: 37px;
+                padding-top: 22px;
+                padding-bottom: 8px;
+            }
+
+            .titulo_popup_editarDireccion h4 {
+                display: block;
+                text-align: center;
+                color: #000;
+                font-family: 'Lato';
+                font-size: 20px;
+                letter-spacing: 0.1px;
+            }
+
+            .contenedor_datosEditarDireccion {
+                display: block;
+                background: #f2f2f2;
+                margin-bottom: 6px;
+                padding: 12px 28px;
+            }
+
+            .contenedor_datosEditarDireccion span {
+                display: inline-block;
+                margin-right: 72px;
+                font-family: 'Lato';
+                font-size: 14px;
+                font-weight: 300;
+                color:#000;
+            }
+
+            .contenedor_datosEditarDireccion span b {
+                font-weight:700;
+            }
+
+            .contenedor_datosEditarDireccion span:last-child {
+                margin-right: 0px;
+            }
+
+            .texto-rojo{
+                color:#e81c36!important;
+            }
+
+            .formulario_editarDireccion {
+                display: block;
+                margin: 0;
+                padding: 0;
+            }
+
+            .titulo_ubigeo {
+                display: block;
+                font-size: 13px;
+                letter-spacing: 0.1px;
+                color: #000;
+                margin-bottom:8px;
+            }
+
+            .titulo_ubigeo span {
+                color: #000;
+                font-weight: 700;
+            }
+
+            .contenedor_camposUbigeo {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 17px;
+                font-family: 'Lato';
+                font-size: 13px;
+                font-weight:600;
+                color:#000;
+            }
+
+            .contenedor_camposUbigeo:last-child{
+                margin-right:0px;
+            }
+
+            .contenedor_camposUbigeo label {
+                margin-right: 6px;
+            }
+
+            .contenedor_camposUbigeo select, .contenedor_direccionReferencia input {
+                height: 35px;
+                border-radius: 0px;
+                font-family: 'Lato';
+                font-weight: 500;
+                border:none;
+                color:#000;
+            }
+
+            .contenedor_camposUbigeo select{
+                width:160px;
+                padding-left: 7px;
+            }
+
+            .contenedor_direccionReferencia{
+                display:block;
+                margin-bottom:17px;
+            }
+
+            .contenedor_direccionReferencia:last-child{
+                margin-bottom:0px;
+            }
+
+            .contenedor_direccionReferencia input {
+                width:403px;
+                padding-left:12px;
+                margin-right:19px;
+            }
+
+            .contenedor_direccionReferencia label {
+                margin-right: 10px;
+                font-family: 'Lato';
+                font-size: 13px;
+                color: #000;
+                font-weight: 700;
+            }
+
+            .contenedor_direccionReferencia:first-child label{
+                margin-right:18px;
+            }
+
+            .contenedor_direccionReferencia button {
+                display: inline-block;
+                width: 227px;
+                height:37px;
+                color: #FFF;
+                text-align: center;
+                border: none;
+                font-family: 'Lato';
+                font-size: 14px;
+                background: #642f80;
+            }
+
+            .contenedor_direccionReferencia:nth-child(2) button{
+                background:rgba(100, 47, 128, 0.2);
+            }
+            
+            /* FIN POPUP EDITAR DIRECCIÓN */  
 
             .popup_GeneralLoading h6 {
                 display: block !Important;
