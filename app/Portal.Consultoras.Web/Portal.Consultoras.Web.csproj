@@ -2707,6 +2707,7 @@
     <Content Include="Content\Images\remove.png" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
+    <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />

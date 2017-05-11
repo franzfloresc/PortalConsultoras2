@@ -77,21 +77,27 @@
             <option>FILTRAR POR MARCA</option>
 
         </select>
-        <select class="marca_ept">
-            <option>ORDENAR POR PRECIO</option>
-            <option>FILTRAR POR MARCA</option>
-
+        <select id="filter-sorting" class="marca_ept">
+            @foreach (var item in Model.FiltersBySorting)
+            {
+                <option value="@item.Codigo">@item.Descripcion</option>
+            }
         </select>
+
         <div class="content_buscador_landing">
             <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
             <a class="buscar_landing_ept">BUSCAR</a>
         </div>
         <hr class="clear" />
-        <div class="">
-            <div id="divCantProductos" class="cantidad_productos_fav">
+        <div id="divCantProductos" class="cantidad_productos_fav" style="float:right; margin-bottom:20px;">
                 Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
-            </div>
-            @if (Model.FiltersBySorting != null)
+        </div>
+        <hr class="clear" />
+        <div class="">
+            @*<div id="divCantProductos" class="cantidad_productos_fav">
+                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
+            </div>*@
+            @*@if (Model.FiltersBySorting != null)
             {
                 <div class="filtros_derecha">
                     ORDENAR POR
@@ -104,7 +110,7 @@
                     </select>
 
                 </div>
-            }
+            }*@
 
             <hr class="clear" />
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>

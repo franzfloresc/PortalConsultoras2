@@ -35732,4 +35732,83 @@ h1#penmostreo .campana {
     /* left: 0; */
     /* margin-left: -7%; */
 }
+.BloqueLandingRD{
+    margin-top:35px;
+}
+.titulo_pagina{
+    float:left;
+    width:300px;
+    height:40px;
+    color:white;
+    font-family:'Lato';
+    font-size:17px;
+    line-height:40px;
+    letter-spacing:2px;
+    font-weight:700;
+    padding-left:20px;
+    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
+}
+.marca_ept{
+    display:block;
+    width:15%;
+    height:40px;
+    color:black;
+    font-family:'Lato';
+    float:right;
+    padding-left:7px;
+    font-size:12px;
+    margin-left:2%;
+}
+.content_buscador_landing{
+    float:right;
+    width:33%;
+}
+.content_buscador_landing input{
+    width:73%;
+    border:1px solid black;
+    display:block;
+    float:left;
+    border-right:0;
+    height:40px;
+    font-size:12px;
+    padding-left:7px;
+    padding-right:7px;
+    color:black;
+}
+.buscar_landing_ept{
+    width:27%;
+    height:40px;
+    line-height:40px;
+    color:white;
+    float:left;
+    background:#e81c36;
+    font-size:12px;
+    text-align:center;
+    padding-right:15px;
+}
+.revistadigital-landing{
+    width: auto;
+    overflow: hidden;
+    float: left;
+    margin-right: 2%;
+    padding-bottom: 18px;
+    margin-bottom:10px;
+}
+.revistadigital-landing .content_item_carrusel{   
+    margin-right: 0;
+    width:100%;
+    padding-top: 10px;
+    padding-right: 16px;
+    padding-left:16px;
+}
+.revistadigital-landing:nth-child(3n){
     
+    margin-right: 0;
+}
+.ProductoResaltante{
+    width:35%;
+}
+.revistadigital-landing .producto_img_home img{
+    height:150px;
+    width:auto;
+}s
