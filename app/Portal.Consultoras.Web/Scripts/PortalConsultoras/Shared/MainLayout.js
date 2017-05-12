@@ -4,6 +4,15 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
+    LayoutHeader();
+
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+
     if (tieneOfertaDelDia == "True") {
         window.OfertaDelDia.CargarODD();
     }
@@ -32,16 +41,13 @@ $(document).ready(function () {
                 CerrarPopup('[data-popup-main]');
             }
 
-            //EPD-1780
-            if ($('#dialog_SesionMainLayout').is(':visible')) {
-                $('#dialog_SesionMainLayout').hide();
+            if ($('#dialog_PedidoReservado').is(':visible')) {
+                $('#dialog_PedidoReservado').hide();
                 window.location.href = "Login";
             }
-            //Fin EPD-1780
         }
     });
-
-    //EPD-1780    
+  
     $('.contenedor_popup_agregarUnidades').click(function (e) {
         if (!$(e.target).closest('.popup_agregarUnidades').length) {
             if ($('#dialog_SesionMainLayout').is(':visible')) {
@@ -50,7 +56,6 @@ $(document).ready(function () {
             }
         }
     });
-    // FIN EPD-1780
 
     $('body').click(function (e) {
         if (!$(e.target).closest('#OfertaDelDia').length) {
@@ -88,7 +93,6 @@ $(document).ready(function () {
         }
     });
 
-
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
@@ -108,11 +112,8 @@ $(document).ready(function () {
         }
     });
 
-    waitingDialog();
-
-    MensajeEstadoPedido();
-
-    closeWaitingDialog();
+    //waitingDialog();
+    //closeWaitingDialog();
 
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
@@ -274,6 +275,7 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
+    //OrdenarCabecera()
 
     LayoutHeader();
 });
@@ -631,12 +633,12 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
+   
+    if (gTipoUsuario == '2') {
+        URL = 'http://comunidad.somosbelcorp.com/';
+        window.open(URL, '_blank');
+        return false;
     }
-
     $.ajaxSetup({
         cache: false
     });
@@ -717,13 +719,7 @@ function ValidarCorreo(correo) {
 };
 
 function MostrarShowRoomBannerLateral() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
+
 
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
@@ -925,8 +921,22 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
-function CerrarSesion() {
-    localStorage.clear();
+function CerrarSesion()
+{  
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
 
     location.href = baseUrl + 'Login/LogOut';
 };
@@ -937,28 +947,10 @@ function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
 
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
-    /*
-    if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
-    }
-    */
 
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
