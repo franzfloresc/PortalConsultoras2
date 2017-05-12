@@ -209,10 +209,10 @@
 
     <!--INICIO CARRUSEL-->
     <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-        <div class="row">
+        <div class="row" id="contenedorCupon">
             <div class="label_cupon">
                 <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
-                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a class="link_cupon_home">conócelo aquí</a> </div>
+                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
             </div>
         </div>
         <div class="titulo_ofertas_home">
@@ -720,4 +720,6 @@
     </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

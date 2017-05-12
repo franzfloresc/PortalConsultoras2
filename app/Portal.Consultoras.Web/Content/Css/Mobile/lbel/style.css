@@ -10185,7 +10185,7 @@ span.icon-advertencia{
     text-align:center;
     margin-top:15px;
 }
-.termino_condiciones_intriga{
+.termino_condiciones_intriga, .termino_condiciones_cupon{
     position:relative;
     padding-left:18px;
     margin:0 auto;
@@ -10195,7 +10195,7 @@ span.icon-advertencia{
     width:248px;    
    text-align: left;
 }
-.termino_condiciones_intriga:before{
+.termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
     content:"";
     left:0;

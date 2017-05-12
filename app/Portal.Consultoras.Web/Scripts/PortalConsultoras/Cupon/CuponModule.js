@@ -34,11 +34,12 @@
         ContenedorTituloGana: '#Cupon1 .monto_gana',
         ContenedorTituloGanaste: '#Cupon3 .titulo_cupon2',
         ContenedorTexto02Ganaste: '#Cupon3 .texto_cupon2',
-        BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon',
+        ContenedorTextoDetalleCuponCampania: '#Cupon3 #detalleCuponCampania',
+        BtnConfirmarDatos: '#Cupon1 #btnConfirmarDatos',
         BtnModificarDatos: '#Cupon2 #btnModificarDatos',
         BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente',
         ContenedorMostrarCorreo: '#Cupon2 div.correo_confirmacion',
-        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_intriga'
+        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_cupon'
     };
 
     var setting = {
@@ -116,7 +117,7 @@
             }, function (xhr, status, error) { });
         });
 
-        $(".termino_condiciones_intriga").click(function () {
+        $("div#chckTerminosCondiciones").click(function () {
             $(this).toggleClass('check_intriga');
         });
     }
@@ -196,14 +197,16 @@
 
     var mostrarPopupCuponPorPagina = function () {
         if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA || setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO) {
-            if (setting.MostrarContenedorCupon) {
-                if ($(elements.ContenedorCuponExclusivo2).length > 0) {
-                    $(elements.ContenedorCuponExclusivo2).show();
-                }
-                $(elements.ContenedorCuponExclusivo).show();
-            } else {
-                $(elements.ContenedorCuponExclusivo).hide();
+            
+        }
+
+        if (setting.MostrarContenedorCupon) {
+            if ($(elements.ContenedorCuponExclusivo2).length > 0) {
+                $(elements.ContenedorCuponExclusivo2).show();
             }
+            $(elements.ContenedorCuponExclusivo).show();
+        } else {
+            $(elements.ContenedorCuponExclusivo).hide();
         }
     }
 
@@ -320,6 +323,8 @@
         
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTexto02Ganaste).append("Debes agregar alguna oferta en web* en la campaña C" + campania);
+        $(elements.ContenedorTextoDetalleCuponCampania).empty();
+        $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();

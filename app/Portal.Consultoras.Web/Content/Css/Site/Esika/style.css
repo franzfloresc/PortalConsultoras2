@@ -34810,7 +34810,7 @@ h1#penmostreo .campana {
     color:black;
     padding-bottom:4px;
 }
-.termino_condiciones_intriga {
+.termino_condiciones_intriga, .termino_condiciones_cupon {
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
@@ -34821,7 +34821,7 @@ h1#penmostreo .campana {
     color:#494949;
     text-align: left;
 }
-.termino_condiciones_intriga:before {
+.termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
     position: absolute;
     content: "";
     left: 0;
