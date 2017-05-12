@@ -35862,7 +35862,12 @@ h1#penmostreo .campana {
 .CerrarOfertaEspecial{
     font-family:'Lato';
     font-size:25px;
-    
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
     color:black;
     position:absolute;
     right:10px;

@@ -14,8 +14,11 @@ $(document).ready(function () {
     $("#CerrarOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').show();
         $('#CerrarOfertaEspecial').hide();
+             
         //$('.promocion_especial_header').css("background", "#fff");
         $('.content_set_oferta_especial').slideUp();
+        $('.banner_especial_showroom').hide();
+        $(".footer_e").css("margin-bottom", "0px");
     });
 
     
