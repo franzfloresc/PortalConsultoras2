@@ -4,7 +4,8 @@
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         getFiltrarEstrategiaAction: config.getFiltrarEstrategiaAction || '',
-        uploadAction: config.uploadAction || ''
+        uploadAction: config.uploadAction || '',
+        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction
     };
 
     var _editData = {};
@@ -265,6 +266,21 @@
             marcarCheckRegistro(_editData.imagen);
         };
     };
+    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
+        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, codigoSAP: data.CodigoSAP, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
+        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
+    };
+    
+    var _obtenerImagenesByCodigoSAPSuccess = function (editData, recargarPaginacion) {
+        return function (data, textStatus, jqXHR) {
+            editData.imagenes = data.imagenes;
+            _editData = editData;
+            
+            _mostrarPaginacion(data.totalRegistros);
+            _mostrarListaImagenes(_editData);
+            marcarCheckRegistro(_editData.imagen);
+        };
+    };
 
     function marcarCheckRegistro(imgRow) {
         $('.chkImagenProducto[value="' + imgRow + '"]').first().attr('checked', 'checked');
@@ -394,9 +410,9 @@
                         //Carga de Imagenes
                         _editData = {
                             EstrategiaID: 0,
-                            CUV2: $("#txtCUV2").val(),
+                            CUV2: '',
                             TipoEstrategiaID: 0,
-                            CodigoSAP: 0,
+                            CodigoSAP: data.codigoSAP,
                             CampaniaID: 0,
                             IdMatrizComercial: data.idMatrizComercial,
                             paisID: $("#ddlPais").val(),
@@ -406,7 +422,7 @@
 
                         _crearFileUploadAdd(_editData);
 
-                        _obtenerImagenes(_editData, 1, true).done(function () {
+                        _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
                             showDialog("matriz-comercial-dialog");
                         });
 

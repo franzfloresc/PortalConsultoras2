@@ -309,7 +309,8 @@
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "AdministrarEstrategia")',
             getFiltrarEstrategiaAction: '@Url.Action("FiltrarEstrategia", "AdministrarEstrategia")',
-            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
+            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+            getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")'
         });
 
         $.jgrid.extend({
@@ -599,6 +600,7 @@
                 $.jstree._reference($("#arbolRegionZona")).uncheck_all();
         });
         $("#txtCUV").keyup(function () {
+            debugger;
             if ($(this).val().length == 5) {
 
                 if ($("#txtCUV2").val() == "") {
@@ -714,7 +716,7 @@
         });
         $("#txtCUV2").keyup(function () {
             var cuvIngresado = $(this).val();
-
+            debugger;
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
              estrategiaObj.mostrarInformacionCUV(cuvIngresado);
@@ -2125,7 +2127,8 @@
     }
 
     function UploadFileLanzamineto(divId) {
-        new qq.FileUploader({
+
+        var uploader = new qq.FileUploader({
             allowedExtensions: ['jpg', 'png', 'jpeg'],
             element: document.getElementById(divId),
             action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
@@ -2137,10 +2140,12 @@
                         $("#src-" + divId).attr('src', rutaTemporal + responseJSON.name);
                     } else alert(responseJSON.message);
                 }
+                return false;
             },
             onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
         });
+        return false;
     }
 </script>

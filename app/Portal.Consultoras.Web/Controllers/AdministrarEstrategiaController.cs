@@ -13,6 +13,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Web.CustomHelpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -526,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                string mensaje = "", descripcion = "", precio = "", codigoSAP = "";
+                string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
                
                 string wsprecio = ""; ///GR-1060
@@ -598,13 +599,13 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
         {
             int resultado = 0;
-            int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
+            int OrdenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
 
             try
             {
                 BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
                 entidad.PaisID = UserData().PaisID;
-                entidad.Orden = ordenEstrategia;
+                entidad.Orden = OrdenEstrategia;
                 entidad.UsuarioCreacion = UserData().CodigoUsuario;
                 entidad.UsuarioModificacion = UserData().CodigoUsuario;
 
@@ -669,8 +670,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(model.NumeroPedido))
                     model.NumeroPedido = "0";
 
-                List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
+                entidad.ImgFondoDesktop = SaveFileS3(model.ImgFondoDesktop);
+                entidad.ImgPrevDesktop = SaveFileS3(model.ImgPrevDesktop);
+                entidad.ImgFichaDesktop = SaveFileS3(model.ImgFichaDesktop);
+                entidad.UrlVideoDesktop = SaveFileS3(model.UrlVideoDesktop);
+                entidad.ImgFondoMobile = SaveFileS3(model.ImgFondoMobile);
+                entidad.ImgFichaMobile = SaveFileS3(model.ImgFichaMobile);
+                entidad.UrlVideoMobile = SaveFileS3(model.UrlVideoMobile);
 
+                List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
                 foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
                     entidad.NumeroPedido = item;
@@ -1629,5 +1637,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public string SaveFileS3(string imagenEstrategia)
+        {
+            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
+            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+            var newfilename = UserData().CodigoISO + "_" + time + "_" + FileManager.RandomString() + ".png";
+            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+            return newfilename;
+        }
     }
 }
