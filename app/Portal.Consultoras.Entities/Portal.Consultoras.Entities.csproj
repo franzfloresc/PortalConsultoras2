@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
+    <Compile Include="BEAnotacion.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraCliente.cs" />
     <Compile Include="BEProductoBusqueda.cs" />

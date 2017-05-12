@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Runtime.Serialization;
+using System.Collections.Generic;
 using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
@@ -17,16 +18,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public long ClienteID { get; set; }
 
-        public BEConsultoraCliente(IDataRecord row)
-        {
-            if (DataRecord.HasColumn(row, "ConsultoraClienteID"))
-                ConsultoraClienteID = Convert.ToInt64(row["ConsultoraClienteID"]);
+        [DataMember]
+        public short Favorito { get; set; }
 
-            if (DataRecord.HasColumn(row, "ConsultoraID"))
-                ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
-
-            if (DataRecord.HasColumn(row, "ClienteID"))
-                ClienteID = Convert.ToInt64(row["ClienteID"]);
-        }
+        [DataMember]
+        public List<BEAnotacion> Anotaciones { get; set; }
     }
 }
