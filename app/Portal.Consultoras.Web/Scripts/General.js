@@ -998,3 +998,20 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
 }
+
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/
