@@ -30,8 +30,8 @@
         <div class="mensaje_landing">Confirma tu correo y entérate primero</div>
         <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
         <div class="correo_showroon icono_celular"><input type="tel" value="@Model.Celular" id="txtIntrigaCelular"  onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
-        <a class="btn_correo_showroom" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
-        <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
+        <a class="btn_correo_showroom" id="btnIntrigaConfirmarCorreo" ">CONFIRMA TU CORREO</a>
+        <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a onclick="click_terminos_y_condiciones_form_intriga()" href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
     </div>
     <div id="divIntrigaEmailRespuestaOk">
         <div class="titulo_confirmacion" style="margin-bottom: 17px;">¡ahora serás la primera en enterarte!</div>
@@ -81,7 +81,7 @@
             <hr class="clear" />
             <input id="hdCampaniaCodigo" type="hidden" value="@Model.CodigoCampania" />
             <input id="hdProductoNombre" type="hidden" value="@Model.Descripcion" />
-            <input id="hdMarcaDescripcion" type="hidden" value="@Model.DescripcionMarca == null ? '' : @Model.DescripcionMarca" />
+            <input id="hdMarcaDescripcion" type="hidden" value="@Model.DescripcionMarca" />
             <a class="boton_Agregalo_home" href="javascript: void(0);">
                 AGRÉGALO
             </a>

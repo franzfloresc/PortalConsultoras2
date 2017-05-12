@@ -8,7 +8,7 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
 
-@{
+@{ 
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0);
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
@@ -2266,12 +2266,12 @@
 
 
 <!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main >
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
         <input type="hidden" id="spnShowRoomEventoDescripcion" /> 
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="CerrarPopShowroomIntriga()">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
@@ -2288,7 +2288,7 @@
 <!--FIN-->
 
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main  >
     <div class="content_pop_up_intriga" data-popup-body>       
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
         <input type="hidden" id="spnShowRoomEventoVenta" /> 
