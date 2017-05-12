@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1000,10 +1001,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
 
         [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia);
 
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
@@ -1018,7 +1019,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
 
         [OperationContract]
-        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int tipoEstrategia);
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
@@ -1043,5 +1044,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
+
+        #region Cupon
+
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
     }
 }

@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.Service
 {
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLCuponConsultora BLCuponConsultora;
 
         public PedidoService()
         {
@@ -54,6 +56,7 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -1818,14 +1821,14 @@ namespace Portal.Consultoras.Service
         }
         /*EPD-1025*/
 
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
-            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, tipoEstrategia);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, tipoEstrategia);
         }
 
         public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
@@ -1848,9 +1851,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
         }
 
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int tipoEstrategia)
         {
-            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
+            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario, tipoEstrategia);
         }
 
         /*PL20-1226*/
@@ -1905,5 +1908,24 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
         }
+
+        #region Cupon
+
+        public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
+        {
+            return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
     }
 }

@@ -437,6 +437,10 @@ namespace Portal.Consultoras.Web.Controllers
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo; 
             }
             catch (FaultException ex)
             {

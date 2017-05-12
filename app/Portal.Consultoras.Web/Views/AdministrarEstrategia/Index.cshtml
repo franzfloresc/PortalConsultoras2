@@ -296,6 +296,7 @@
     var originalContent;
     var imagen = "";
     var imagenPrevia = "";
+    var isNuevo = false;
 
     var estrategiaObj;
 
@@ -316,6 +317,8 @@
         });
 
         $("#btnNuevo").click(function () {
+            isNuevo = true;
+
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
             if ($("#ddlPais").val() == "") {
@@ -476,7 +479,7 @@
         $("#ddlTipoEstrategia").change(function () {
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
             $("#btnActivarDesactivar").hide();
-            if (aux1 == "4")
+            if (aux1 == "4" || aux1 == "7") //O
                 $("#btnActivarDesactivar").show();
 
             SeleccionarTipoOferta();
@@ -771,7 +774,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").attr("data-id");
-                if (estrategiaId != 4) {
+                if (!(estrategiaId == 4 || estrategiaId == 7)) {
                     alert("Debe seleccionar el tipo de Estrategia Oferta para Ti, verifique.");
                     return false;
                 }
@@ -797,7 +800,8 @@
         $("#btnAceptarMasivo1").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 2
+                tipoConfigurado: 2,
+                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
             };
 
             waitingDialog({});
@@ -830,7 +834,8 @@
         $("#btnAceptarMasivo2").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 1
+                tipoConfigurado: 1,
+                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
             };
 
             waitingDialog({});
@@ -1072,7 +1077,8 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                CampaniaID: $("#ddlCampania").val()
+                CampaniaID: $("#ddlCampania").val(),
+                Tipo: $("#ddlTipoEstrategia option:selected").attr("data-id")
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -1380,7 +1386,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4') ? true : false,
+            multiselect: (tipo == '4' || tipo == '7') ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1490,11 +1496,11 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(cellvalue);
+        //var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
-        if (cellValueInt == "1") {
+        //if (cellValueInt == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
-        }
+        //}
         return Des;
     }
 
@@ -1552,7 +1558,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
@@ -1770,10 +1777,10 @@
                         }
                     }
 
-                    /*if ($('.chkImagenProducto:checked').length == 0) {
+                    if ($('.chkImagenProducto:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
-                    }*/
+                    }
 
                     if (imagen=="") {
                         alert("Seleccione una imagen a mostrar.");
@@ -1805,7 +1812,11 @@
                         return false;
                     }
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
-                    var EstrategiaID = $("#hdEstrategiaID").val();
+
+                    var EstrategiaID = 0;
+                    if(!isNuevo)
+                        EstrategiaID = $("#hdEstrategiaID").val();
+
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var CampaniaID = $("#hdCampania").val();
                     var CampaniaIDFin = $("#ddlCampaniaFin").val();

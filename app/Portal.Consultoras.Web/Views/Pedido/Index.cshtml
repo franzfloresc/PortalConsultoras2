@@ -226,6 +226,11 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div class="content_pedido_cupon_monto">
+                                    <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                    <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                </div>
+                                <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <!--SB20-483 - INICIO -->
@@ -526,7 +531,16 @@
     </div>
     <!--14092016 - FIN -->
 
+
+
+
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
+
+        <div id="contenedorCupon" class="content_cupon_pedido">
+            Tienes un descuento exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+        </div>
+        <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
@@ -976,6 +990,10 @@
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1161,6 +1179,8 @@
                 </div>
             </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
+
+            
 
     <!--TAPS-->
             <div class="tapsPedidos"></div>
@@ -1432,7 +1452,7 @@
                 {{/each}}
             </script>
         }
-
+        
         <script id="js-CarruselSugerido" type="text/x-handlebars-template">
             {{#each this}}
             <div class="sugerido" data-item="producto">
@@ -2307,6 +2327,7 @@
         </div>
         <hr class="clear" />
     </div>
+   
 </script>
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2353,6 +2374,12 @@
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
 
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+               @*var tieneCupon = '@Model.TieneCupon';*@
+                var tieneCupon = '1';
+                var paginaOrigenCupon = 11;
+                var esEmailActivo = '@Model.EmailActivo';
+                var baseUrl = "@Url.Content("~")";
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

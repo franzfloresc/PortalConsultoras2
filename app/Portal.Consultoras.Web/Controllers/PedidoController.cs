@@ -408,6 +408,14 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
 
+                model.Simbolo = userData.Simbolo;
+                #region Cupon
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo;
+                #endregion
+
             }
             catch (FaultException ex)
             {

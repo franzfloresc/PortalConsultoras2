@@ -131,6 +131,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
                 
                 string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
                 

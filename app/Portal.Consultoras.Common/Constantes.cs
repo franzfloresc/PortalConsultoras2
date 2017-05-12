@@ -493,6 +493,12 @@ namespace Portal.Consultoras.Common
         {
             public const int Plan20 = 98;
         }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
     }
 }
 
