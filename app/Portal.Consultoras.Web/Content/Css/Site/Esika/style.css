@@ -30211,7 +30211,8 @@ h1#penmostreo .campana {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido {
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 64px;
     display: none;
@@ -30229,21 +30230,22 @@ h1#penmostreo .campana {
     width: 21px;
 }
 
-    .icono_cerrar_mensaje span {
-        display: block;
+.icono_cerrar_mensaje span {
+    display: block;
 }
 
-        .icono_cerrar_mensaje span img {
-            width: 100%;
-            height: auto;
+.icono_cerrar_mensaje span img {
+    width: 100%;
+    height: auto;
 }
 
-        .icono_cerrar_mensaje span:nth-child(2) {
-            font-family: 'Lato';
-            font-size: 10px;
-            text-align: center;
-            color: #FFF;
-            margin-left: -9px;
+.icono_cerrar_mensaje span:nth-child(2) {
+    font-family: 'Lato';
+    font-size: 10px;
+    text-align: center;
+    /*color: #FFF;*/
+    color: black;
+    margin-left: -9px;
 }
 
 .icono_estadoPedido, .mensajes_estadoPedido {
@@ -30259,13 +30261,14 @@ h1#penmostreo .campana {
     margin-top: -3px;
 }
 
-    .icono_estadoPedido img {
-        width: 100%;
-        height: auto;
+.icono_estadoPedido img {
+    width: 100%;
+    height: auto;
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
     font-family: 'Lato';
     line-height: 21px;
 }
@@ -30292,8 +30295,8 @@ h1#penmostreo .campana {
     text-decoration: underline;
 }
 
-        .mensaje_horarioIngresoPedido a:hover {
-            text-decoration: underline;
+.mensaje_horarioIngresoPedido a:hover {
+    text-decoration: underline;
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
@@ -30303,36 +30306,36 @@ h1#penmostreo .campana {
 /*SB20-863* Inicio*/
 
 .producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato';
+    letter-spacing: 0.2px;
+    color: #000;
+    margin-bottom: 16px;
+    margin-top: 35px;
+}
 
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+.nombre_producto2 {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
         
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
+.nombre_producto22 {
+    /*padding: 0px;*/
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    /* height: auto; */
+    max-width: 500px;
+    height: auto;
+    /*max-height: 40px;*/
     margin-bottom: 10px;
-            margin-top: 5px;
-        }
+    margin-top: 5px;
+}
 
 
 /*Sb20-863 - Fín*/
