@@ -2014,13 +2014,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EsMovil = Request.Browser.IsMobileDevice;
                 using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
-                if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.");
+                if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            return ErrorJson("Ocurrió un problema al tratar de enviar el correo a la consultora, intente nuevamente.");
+            return ErrorJson("Ocurrió un problema al tratar de enviar el correo a la consultora, intente nuevamente.", true);
         }
 
         private void SetMensajesBotonesProl(PedidoSb2Model model, bool reservaProl)
