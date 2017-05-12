@@ -347,29 +347,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
         {
-            if (userData == null)
+            try
             {
-                mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
-                HttpContext.Session["UserData"] = null;
-                HttpContext.Session.Clear();
-                HttpContext.Session.Abandon();
-                return true;
-            }
-            mensaje = "";
-            if (EstaProcesoFacturacion(out mensaje)) return true;
-            if (ValidarPedidoReservado(out mensaje)) return true;
-            return ValidarHorarioRestringido(out mensaje);
-        }
+                if (userData == null)
+                {
+                    mensaje = "Se sessión expiró, por favor vuelva a loguearse.";
+                    HttpContext.Session["UserData"] = null;
+                    HttpContext.Session.Clear();
+                    HttpContext.Session.Abandon();
+                    return true;
+                }
 
-        protected bool EstaProcesoFacturacion(out string mensaje)
-        {
-            mensaje = "";
-            if (userData.IndicadorGPRSB == 1)
-            {
-                mensaje = "En este momento nos encontramos facturando tu pedido de C" + userData.CampaniaID.ToString().Substring(4, 2) + ", inténtalo más tarde";
-                return true;
+                using (var sv = new PedidoServiceClient())
+                {
+                    var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
+                    mensaje = result.Mensaje;
+                    return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                }
             }
-            return false;
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensaje = "Ocurrió un error al intentar validar si puede modificar su pedido.";
+                return false;
+            }
         }
 
         protected bool ValidarPedidoReservado(out string mensaje)
@@ -389,54 +390,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return true;
             }
             return false;
-        }
-
-        protected bool ValidarHorarioRestringido(out string mensaje)
-        {
-            bool enHorarioRestringido = false;
-            mensaje = string.Empty;
-            UsuarioModel usuario = (UsuarioModel)Session["UserData"];
-            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-
-            if (!usuario.DiaPROL || !usuario.HabilitarRestriccionHoraria)
-                return false;
-            else
-            {
-                // rango de dias prol
-                if (FechaHoraActual > usuario.FechaInicioCampania &&
-                    FechaHoraActual < usuario.FechaFinCampania.AddDays(1))
-                {
-                    TimeSpan HoraNow = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
-                    TimeSpan HoraAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
-                    // si no es demanda anticipada se usa la hora de cierre normal
-                    if (usuario.EsZonaDemAnti == 0)
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaNormal && HoraNow < usuario.HoraCierreZonaNormal + HoraAdicional)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                    else // sino se usa la hora de cierre de demanda anticipada
-                    {
-                        if (HoraNow > usuario.HoraCierreZonaDemAnti)
-                            enHorarioRestringido = true;
-                        else
-                            enHorarioRestringido = false;
-                    }
-                }
-                // si no es horario restringido se devuelve el resultado false , sino se prepara el mensaje correspondiente
-                if (!enHorarioRestringido)
-                    return false;
-                else
-                {
-                    TimeSpan HoraCierrePais = usuario.EsZonaDemAnti == 0 ? usuario.HoraCierreZonaNormal : usuario.HoraCierreZonaDemAnti;
-                    if (usuario.IngresoPedidoCierre)
-                        mensaje = string.Format("Lamentablemente el rango de fechas para ingresar o modificar tu pedido ha concluido. Te recomendamos que en la siguiente campaña lo hagas antes de las {0}:{1} horas de tu día de facturación.", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
-                    else
-                        mensaje = string.Format("Se ha cerrado el período de facturación a las {0}:{1} horas. Todos los códigos ingresados hasta esa hora han sido registrados en el sistema. Gracias", HoraCierrePais.Hours.ToString().PadLeft(2, '0'), HoraCierrePais.Minutes.ToString().PadLeft(2, '0'));
-                    return true;
-                }
-            }
         }
 
         #endregion

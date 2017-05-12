@@ -819,7 +819,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool modificoBackOrder;
 
             // se valida si esta en horario restringido
-            if (ValidarHorarioRestringido(out mensaje))
+            if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 // se crea el mensaje de error
                 // ViewBag.ErrorDelete = mensaje;
@@ -3108,7 +3108,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var item in TempActualizar)
             {
-                TempPedido.Where(p => p.PedidoDetalleID == item.PedidoDetalleID).Update(p =>
+                TempPedido.Where(p => p.PedidoDetalleID == item.PedidoDetalleID).ToList().ForEach(p =>
                 {
                     p.Cantidad = item.Cantidad;
                     p.ImporteTotal = item.ImporteTotal;
@@ -3129,13 +3129,18 @@ namespace Portal.Consultoras.Web.Controllers
                 string mensaje = string.Empty;
                 bool estado = false;
 
-                if (userData == null)
-                {
-                    mensaje = "Sesión expirada.";
-                }
+                if (userData == null) mensaje = "Sesión expirada.";
                 else
                 {
-                    estado = ValidarHorarioRestringido(out mensaje);
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
+                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+                        {
+                            mensaje = result.Mensaje;
+                            estado = true;
+                        }
+                    }
                 }
 
                 return Json(new
@@ -3165,47 +3170,17 @@ namespace Portal.Consultoras.Web.Controllers
                 bool pedidoReservado = false;
                 bool estado = false;
 
-                if (userData == null)
-                {
-                    mensaje = "Sesión expirada.";
-                }
+                if (userData == null) mensaje = "Sesión expirada.";
                 else
                 {
-                    estado = EstaProcesoFacturacion(out mensaje);
-                    if (!estado)
+                    BEValidacionModificacionPedido result = null;
+                    using (var sv = new PedidoServiceClient())
                     {
-                        pedidoReservado = ValidarPedidoReservado(out mensaje);
-                        estado = pedidoReservado;
-                        if (!estado) estado = ValidarHorarioRestringido(out mensaje);
+                        result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
 
-                    //EPD-2058 Comprobar esta validación 
-
-                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    //{
-                    //    /*
-                    //     *  tipoAccion:
-                    //     *  1: Agregar
-                    //     *  2: Listar
-                    //     */
-                    //    if (!string.IsNullOrEmpty(tipoAccion))
-                    //    {
-                    //        if (tipoAccion == "1")
-                    //        {
-                    //            estado = true;
-                    //            mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //        }
-                    //        else if (tipoAccion == "2")
-                    //        {
-                    //            estado = false;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        estado = true;
-                    //        mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //    }
-                    //}
+                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
 
                 return Json(new
