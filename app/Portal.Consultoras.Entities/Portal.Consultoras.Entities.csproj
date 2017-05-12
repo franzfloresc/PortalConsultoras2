@@ -61,7 +61,6 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEMisPedidosAppCatalogo.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
-    <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
     <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEUsuarioExternoPais.cs" />
