@@ -12,7 +12,7 @@
         body {
            background: #f5f5f7 !important;
             padding-top: 0px;
-            overflow-x:hidden;
+            overflow-x:hidden; 
         }
     </style>
 
@@ -366,7 +366,7 @@ else
                     {{#IsNullOrEmpty ImagenProducto '=='}}
                         <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
                     {{else}}
-                        <img src="{{ImagenProducto}}" alt="" />
+                        <img src="{{ImagenProducto}}" alt="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')" />
                     {{/IsNullOrEmpty}}
                 </a>
             </div>
