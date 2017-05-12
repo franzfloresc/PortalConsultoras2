@@ -1101,13 +1101,15 @@ namespace Portal.Consultoras.Web.Controllers
             historialPostulanteModel.ListaEventos = new List<EventoPostulanteModel>();
             var eventos = new EventoSolicitudPostulanteCollection();
             var estados = new ServiceUnete.ParametroUneteCollection();
-            //eventos.Add(new EventoSolicitudPostulanteBE() {Fecha = FechaRegistro, TipoEvento = EnumsEstadoPostulante.Registrada.ToInt() });
-            //historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = FechaRegistro,TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt()});
+            var tipoRechazosGZ = new ServiceUnete.ParametroUneteCollection();
+            var MalaZonificacionString = string.Empty;
             using (var sv = new PortalServiceClient())
             {
+                tipoRechazosGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
                 estados = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.EstadoPostulante, 0);
                 eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
             }
+            MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
             foreach(var evento in eventos)
             {
                 historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel()
@@ -1116,8 +1118,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Fecha = evento.Fecha,
                     TipoEventoId = evento.TipoEvento,
                     Evento = estados.ToList().Where(e => e.Valor.Value == evento.TipoEvento).FirstOrDefault().Nombre,
-                    Observacion = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Split('|')[0] : "",
-                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length + 1) : ""
+                    Observacion = (evento.Observacion != null && evento.Observacion.Contains(MalaZonificacionString) && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Split('|')[0] : evento.Observacion,
+                    ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Contains(MalaZonificacionString) && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length + 1) : ""
                 });
             }
 
@@ -2568,12 +2570,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var sv = new PortalServiceClient())
                 {
-                    sv.ActualizarEstadoPostulante(CodigoISO
-                                                  , model.SolicitudPostulanteID
-                                                  , Enumeradores.EstadoPostulante.Rechazada.ToInt()
-                                                  , Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt()
-                                                  , model.TipoRechazo
-                                                  , model.MotivoRechazo);
+                    if (model.TipoRechazo == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt().ToString())
+                    {
+                        sv.ActualizarEstadoPostulanteRechazoZonificacionMotivo(CodigoISO
+                                                      , model.SolicitudPostulanteID
+                                                      , Enumeradores.EstadoPostulante.Rechazada.ToInt()
+                                                      , EnumsEstadoGEO.SinConsultar.ToInt()
+                                                      , model.TipoRechazo
+                                                      , model.MotivoRechazo
+                                                      , Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt());
+                    }
+                    else 
+                    {
+                        sv.ActualizarEstadoPostulante(CodigoISO
+                                                      , model.SolicitudPostulanteID
+                                                      , Enumeradores.EstadoPostulante.Rechazada.ToInt()
+                                                      , Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoSAC.ToInt()
+                                                      , model.TipoRechazo
+                                                      , model.MotivoRechazo);
+                    }
                 }
             }
             return Json(ModelState.IsValid, JsonRequestBehavior.AllowGet);
@@ -2743,7 +2758,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.SolicitudPostulanteID = id;
                 model.CodigoPais = CodigoISO;
             }
-
+            //Regresar
             return PartialView("_EditarDireccion", model);
         }
 
