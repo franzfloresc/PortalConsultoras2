@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
                 }
 
                 if (!listaShowRoomOferta.Any())

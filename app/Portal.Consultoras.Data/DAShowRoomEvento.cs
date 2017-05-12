@@ -547,6 +547,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetShowRoomOfertasConsultoraPersonalizada(int campaniaID, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertasConsultoraPersonalizada");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetShowRoomOfertaById(int ofertaShowRoomID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertaById");

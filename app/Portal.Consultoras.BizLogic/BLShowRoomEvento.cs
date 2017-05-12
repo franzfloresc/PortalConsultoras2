@@ -319,17 +319,29 @@ namespace Portal.Consultoras.BizLogic
             dataAccess.GuardarPerfilOfertaShowRoom(perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             var lst = new List<BEShowRoomOferta>();
             var dataAccess = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomOferta(reader);
-                    lst.Add(entity);
-                }
+            if (!tienePersonalizacion)
+            {
+                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
+                    while (reader.Read())
+                    {
+                        var entity = new BEShowRoomOferta(reader);
+                        lst.Add(entity);
+                    }
+            }else
+            {
+                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultoraPersonalizada(campaniaID, codigoConsultora))
+                    while (reader.Read())
+                    {
+                        var entity = new BEShowRoomOferta(reader);
+                        lst.Add(entity);
+                    }
+            }
+            
             return lst;
         }
 

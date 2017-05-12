@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
             }
             
             if (!listaShowRoomOferta.Any())
@@ -2702,7 +2702,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion(), esFacturacion);
                 int cantidadTotal = listaProductos.Count;
 
                 listaFinal = listaProductos;
