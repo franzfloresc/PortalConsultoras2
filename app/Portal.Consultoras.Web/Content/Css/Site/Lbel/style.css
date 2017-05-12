@@ -36136,3 +36136,6 @@ h1#penmostreo .campana {
     margin-top: 5px;
     line-height: 15px;
 }
+.info_recuerda_cupon:last-child{
+    border-right:0;
+}
