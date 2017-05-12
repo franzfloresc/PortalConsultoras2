@@ -140,7 +140,6 @@
 
     <!-- header -->
     <header id="new-header">
-
         <!--BANNER-->
         @if (ViewBag.mostrarBannerPostulante == true)
         {
@@ -293,7 +292,6 @@
         </div>
 
     </header>
-
     @if (ViewBag.MostrarOfertaDelDia == true)
     {
         <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
@@ -824,8 +822,8 @@
             $('.foto_menu').show();
         }
 
-        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 
     </script>
 
@@ -1008,7 +1006,6 @@
             </script>
         }
     }
-
     <script type="text/javascript">
         function messageInfoPostulante() {
             $('.icon-close').click();

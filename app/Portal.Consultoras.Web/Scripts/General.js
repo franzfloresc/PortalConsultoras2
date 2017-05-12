@@ -813,7 +813,6 @@ function xMensajeEstadoPedido(estado) {
         $("#bloquemensajesPedido").hide();
     }
 
-    LayoutHeader();
 }
 
 function LayoutHeader() {
@@ -1154,7 +1153,6 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
     }
 }
 /**/
-
 function GuardarIndicadorPedidoAutentico() {
     //debugger;
 

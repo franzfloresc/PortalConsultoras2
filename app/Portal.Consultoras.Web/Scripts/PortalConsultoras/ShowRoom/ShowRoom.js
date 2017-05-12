@@ -503,13 +503,10 @@ function CargarProductosShowRoomPromise(busquedaModel) {
         d.resolve(response);
     })
     promise.fail(d.reject);
-
     return d.promise();
 }
-
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     if (response.success) {
-        
         if (aplicarFiltrosSubCampanias) {
             var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
             SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
@@ -533,7 +530,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
         $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
             var descripcion = "";
-
             if ($.trim(tipoOrigenPantalla)[0] == '1') {
                 descripcion = value.Descripcion.length > 41
                 ? value.Descripcion.substring(0, 40) + "..."
@@ -543,7 +539,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 ? value.Descripcion.substring(0, 30) + "..."
                 : value.Descripcion;
             }
-
 
             value.Posicion = index + 1;
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;
@@ -602,7 +597,6 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         }
     }
 }
-
 function ConfigurarSlick() {
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
@@ -632,7 +626,6 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
 
     return nuevaListaOfertas;
 }
-
 function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     $.each(arrDescripcion, function (index, value) {
@@ -645,7 +638,6 @@ function OcultarDivOfertaShowroomMobile() {
     $("#content_sub_oferta_showroom").hide();
     $(".content_promocion").hide();
 }
-
 $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", function (e) {
     var accion = $(this).attr("data-odd-accion").toUpperCase();
     if (accion == "AGREGAR") {
@@ -662,7 +654,6 @@ $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", functi
         //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
         $(this).parents("div.content_btn_agregar").find("#txtCantidad").val(1);
-
         e.preventDefault();
         (this).blur();
     }

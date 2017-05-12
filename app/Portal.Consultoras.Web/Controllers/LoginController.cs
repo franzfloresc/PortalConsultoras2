@@ -650,7 +650,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.MensajePedidoDesktop = oBEUsuario.MensajePedidoDesktop;
                         model.MensajePedidoMobile =  oBEUsuario.MensajePedidoMobile;
                     }
-
                     model.MostrarAyudaWebTraking = oBEUsuario.MostrarAyudaWebTraking;
                     model.NroCampanias = oBEUsuario.NroCampanias;
                     model.RolDescripcion = oBEUsuario.RolDescripcion;

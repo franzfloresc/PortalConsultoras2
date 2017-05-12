@@ -63,6 +63,7 @@
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
