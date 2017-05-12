@@ -246,7 +246,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-    //debugger;
+
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -292,7 +292,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
             var UnidadesPermitidas = data.UnidadesPermitidas;
 
             CerrarLoad();
-
+            
             if (Saldo == UnidadesPermitidas)
                 AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
             else {
@@ -309,9 +309,7 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 CUV: CUV,
                 ConfiguracionOfertaID: ConfiguracionOfertaID,
                 OrigenPedidoWeb: origen
-            };
-
-            AgregarProductoAlCarrito($(article).parents("[data-item]"));
+            };            
 
             $.ajaxSetup({ cache: false });
 
@@ -324,7 +322,6 @@ function AgregarOfertaShowRoom(article, cantidad) {
                 async: true,
                 success: function (response) {
                     CerrarLoad();
-
                     if (response.success == true) {
 
                         if ($.trim(tipoOrigenPantalla)[0] == '1') {
@@ -338,9 +335,14 @@ function AgregarOfertaShowRoom(article, cantidad) {
                         }
 
                         var padre = $(article).parents("[data-item]");
-                        $(padre).find("[data-input='cantidad']").val(1);                        
+                        $(padre).find("[data-input='cantidad']").val(1);
+
+                        AgregarProductoAlCarrito($(article).parents("[data-item]"));
                     }
-                    else messageInfoError(response.message);
+                    else {
+                        //AbrirMensaje(response.message);
+                        AbrirPopupPedidoReservado(response.message, tipoOrigenPantalla);
+                    }
                 },
                 error: function (response, error) {
                     if (checkTimeout(response)) {

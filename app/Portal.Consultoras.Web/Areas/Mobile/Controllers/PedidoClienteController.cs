@@ -27,15 +27,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     lst = sv.GetPedidosWebByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
+
+                //List<BEPedidoWeb> lista3Ultimos = new 
+                //if(userData.TipoUsuario  == 2) lista3Ultimos
+                //else
                 var lista3Ultimos = lst.OrderByDescending(p => p.CampaniaID).Take(3).ToList();
 
                 foreach (var item in lista3Ultimos)
                 {
-                    model.ListaPedidoCliente.Add(new PedidoWebMobilModel{
-                        CampaniaID = item.CampaniaID,
-                        ImporteTotal = item.ImporteTotal,
-                        Descuento = -item.DescuentoProl
-                    });
+                    if(item.CampaniaID != 0)
+                    {
+                        model.ListaPedidoCliente.Add(new PedidoWebMobilModel{
+                            CampaniaID = item.CampaniaID,
+                            ImporteTotal = item.ImporteTotal,
+                            Descuento = -item.DescuentoProl
+                        });
+                    }
+                    
                 }
 
                 BEPedidoWebDetalle[] lstPedidoDetalle;

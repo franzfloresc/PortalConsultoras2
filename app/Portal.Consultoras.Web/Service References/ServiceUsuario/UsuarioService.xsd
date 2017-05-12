@@ -59,6 +59,8 @@
       <xs:element minOccurs="0" name="Estado" type="xs:short" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IdPostulante" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajeMobile" type="xs:int" />
       <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
@@ -179,6 +181,8 @@
       <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Lider" type="xs:int" />
       <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajePedidoDesktop" type="xs:int" />
+      <xs:element minOccurs="0" name="MensajePedidoMobile" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoDeuda" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoMaximoPedido" type="xs:decimal" />
@@ -224,7 +228,6 @@
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
-      <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />

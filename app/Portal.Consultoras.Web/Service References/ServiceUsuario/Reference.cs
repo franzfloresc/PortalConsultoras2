@@ -157,6 +157,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int IdPostulanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MensajeDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MensajeMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreCompletoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -277,6 +283,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.IdPostulanteField.Equals(value) != true)) {
                     this.IdPostulanteField = value;
                     this.RaisePropertyChanged("IdPostulante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MensajeDesktop {
+            get {
+                return this.MensajeDesktopField;
+            }
+            set {
+                if ((this.MensajeDesktopField.Equals(value) != true)) {
+                    this.MensajeDesktopField = value;
+                    this.RaisePropertyChanged("MensajeDesktop");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MensajeMobile {
+            get {
+                return this.MensajeMobileField;
+            }
+            set {
+                if ((this.MensajeMobileField.Equals(value) != true)) {
+                    this.MensajeMobileField = value;
+                    this.RaisePropertyChanged("MensajeMobile");
                 }
             }
         }
@@ -930,6 +962,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string LogoLideresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MensajePedidoDesktopField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MensajePedidoMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionInteractivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1063,9 +1101,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
@@ -2193,6 +2228,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MensajePedidoDesktop {
+            get {
+                return this.MensajePedidoDesktopField;
+            }
+            set {
+                if ((this.MensajePedidoDesktopField.Equals(value) != true)) {
+                    this.MensajePedidoDesktopField = value;
+                    this.RaisePropertyChanged("MensajePedidoDesktop");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MensajePedidoMobile {
+            get {
+                return this.MensajePedidoMobileField;
+            }
+            set {
+                if ((this.MensajePedidoMobileField.Equals(value) != true)) {
+                    this.MensajePedidoMobileField = value;
+                    this.RaisePropertyChanged("MensajePedidoMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string MensajeValidacionInteractiva {
             get {
                 return this.MensajeValidacionInteractivaField;
@@ -2773,19 +2834,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneCDRField.Equals(value) != true)) {
                     this.TieneCDRField = value;
                     this.RaisePropertyChanged("TieneCDR");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TieneCupon {
-            get {
-                return this.TieneCuponField;
-            }
-            set {
-                if ((this.TieneCuponField.Equals(value) != true)) {
-                    this.TieneCuponField = value;
-                    this.RaisePropertyChanged("TieneCupon");
                 }
             }
         }
@@ -6273,6 +6321,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[]> GetListaLoginExternoAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajes", ReplyAction="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajesResponse")]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajes", ReplyAction="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajesResponse")]
+        System.Threading.Tasks.Task UpdatePosutlanteMensajesAsync(int paisID, string codigoUsuario, int tipo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -6917,6 +6971,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[]> GetListaLoginExternoAsync(int paisID, string codigoUsuario) {
             return base.Channel.GetListaLoginExternoAsync(paisID, codigoUsuario);
+        }
+        
+        public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo) {
+            base.Channel.UpdatePosutlanteMensajes(paisID, codigoUsuario, tipo);
+        }
+        
+        public System.Threading.Tasks.Task UpdatePosutlanteMensajesAsync(int paisID, string codigoUsuario, int tipo) {
+            return base.Channel.UpdatePosutlanteMensajesAsync(paisID, codigoUsuario, tipo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
