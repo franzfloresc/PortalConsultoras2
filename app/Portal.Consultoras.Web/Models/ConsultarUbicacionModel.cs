@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Models
         public ConsultarUbicacionModel()
         {
             Puntos = new List<Tuple<decimal, decimal, string>>();
+            EditarDireccionModel = new EditarDireccionModel();
         }
     }
 }
