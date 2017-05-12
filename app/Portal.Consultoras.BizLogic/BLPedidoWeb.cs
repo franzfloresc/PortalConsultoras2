@@ -2028,7 +2028,6 @@ namespace Portal.Consultoras.BizLogic
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
-
             entidad.IndicadorToken = AESAlgorithm.Decrypt(entidad.IndicadorToken);
             return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
         }
