@@ -35704,7 +35704,7 @@ h1#penmostreo .campana {
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
-    background:#fff6f4;
+    /*background:#fff6f4;*/
 }
 .promocion_especial_header{
     width:auto;
@@ -35719,9 +35719,9 @@ h1#penmostreo .campana {
     padding-right: 60px;
     position: relative;    
     float: left; 
-   background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top; 
+   /*background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top;*/ 
 }
-.titulo_promocion_showroom:after{
+/*.titulo_promocion_showroom:after{
     content: '';
     left:-150%;
     width: 150%;
@@ -35730,19 +35730,19 @@ h1#penmostreo .campana {
     position: absolute;
     top: 0;
     z-index: 151;
-}
+}*/
 
 .titulo_banner_showroom{
     display:block;
     font-size:24px;
-    color:#f9779f;
+    /*color:#f9779f;*/
     font-weight: 900;
 }
 .content_titulo{
     float:right;    
     position: relative;
     font-family: 'Lato';
-    color: white;
+    /*color: white;*/
     font-size: 15px;
     letter-spacing: 2px;      
     line-height: 26px;
@@ -35795,9 +35795,7 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-weight: 700;
     line-height: 32px;
-    color: white;
-    -webkit-transform: translateZ(0); 
-    transform: translateZ(0);
+    color: white;    
 }
 .info_desplegable{
    background: black url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
