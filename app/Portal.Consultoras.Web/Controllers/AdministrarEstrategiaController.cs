@@ -527,7 +527,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 string mensaje = "", descripcion = "", precio = "", codigoSAP = "";
-                int enMatrizComercial = 1;
+                string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
+               
                 string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
@@ -564,6 +565,7 @@ namespace Portal.Consultoras.Web.Controllers
                     precio = lst[0].PrecioUnitario.ToString();
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
+                    idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
                 }
 
@@ -576,6 +578,7 @@ namespace Portal.Consultoras.Web.Controllers
                     wsprecio = wsprecio,
                     codigoSAP = codigoSAP,
                     enMatrizComercial = enMatrizComercial,
+                    idMatrizComercial = idMatrizComercial,
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -594,7 +597,8 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
         {
-            int ordenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
+            int resultado = 0;
+            int OrdenEstrategia = (!string.IsNullOrEmpty(Orden) ? Convert.ToInt32(Orden) : 0);     /* SB20-312 */
 
             try
             {
@@ -614,12 +618,12 @@ namespace Portal.Consultoras.Web.Controllers
                         var getProductosConfigura = (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()];
                         if (getProductosConfigura == null)
                         {
+                            getProductosConfigura = new List<BETablaLogicaDatos>();
                             using (SACServiceClient sv = new SACServiceClient())
                             {
                                 getProductosConfigura = sv.GetTablaLogicaDatos(userData.PaisID, id).ToList();
                             }
-                            var beTablaLogicaDatoses = getProductosConfigura;
-                            getProductosConfigura = beTablaLogicaDatoses ?? new List<BETablaLogicaDatos>();
+                            getProductosConfigura = getProductosConfigura ?? new List<BETablaLogicaDatos>();
                             Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()] = getProductosConfigura;
                         }
 
@@ -665,34 +669,38 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(model.NumeroPedido))
                     model.NumeroPedido = "0";
 
-               
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                List<int> NumeroPedidosAsociados = NumeroPedido.Split(',').Select(Int32.Parse).ToList();
+
+                foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
-                    List<int> numeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                    foreach (int item in numeroPedidosAsociados) /*R20160301*/
+                    entidad.NumeroPedido = item;
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        entidad.NumeroPedido = item;
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
+                }
 
-                    foreach (var producto in respuestaServiceCdr)
+                foreach (var producto in respuestaServiceCdr)
+                {
+                    var entidadPro = new BEEstrategiaProducto();
+                    entidadPro.PaisID = entidad.PaisID;
+                    entidadPro.EstrategiaID = entidad.EstrategiaID;
+                    entidadPro.Campania = entidad.CampaniaID;
+                    entidadPro.CUV = producto.cuv;
+                    entidadPro.Grupo = producto.grupo;
+                    entidadPro.Orden = producto.orden;
+                    entidadPro.CUV2 = entidad.CUV2;
+                    entidadPro.SAP = producto.codigo_sap;
+                    entidadPro.Cantidad = producto.cantidad;
+                    entidadPro.Precio = producto.precio_unitario;
+                    entidadPro.PrecioValorizado = producto.precio_valorizado;
+                    entidadPro.Digitable = producto.digitable;
+                    entidadPro.CodigoEstrategia = producto.codigo_estrategia;
+                    entidadPro.CodigoError = producto.codigo_error;
+                    entidadPro.CodigoErrorObs = producto.obs_error;
+
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        var entidadPro = new BEEstrategiaProducto();
-                        entidadPro.PaisID = entidad.PaisID;
-                        entidadPro.EstrategiaID = entidad.EstrategiaID;
-                        entidadPro.Campania = entidad.CampaniaID;
-                        entidadPro.CUV = producto.cuv;
-                        entidadPro.Grupo = producto.grupo;
-                        entidadPro.Orden = producto.orden;
-                        entidadPro.CUV2 = entidad.CUV2;
-                        entidadPro.SAP = producto.codigo_sap;
-                        entidadPro.Cantidad = producto.cantidad;
-                        entidadPro.Precio = producto.precio_unitario;
-                        entidadPro.PrecioValorizado = producto.precio_valorizado;
-                        entidadPro.Digitable = producto.digitable;
-                        entidadPro.CodigoEstrategia = producto.codigo_estrategia;
-                        entidadPro.CodigoError = producto.codigo_error;
-                        entidadPro.CodigoErrorObs = producto.obs_error;
                         entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
                     }
                 }
