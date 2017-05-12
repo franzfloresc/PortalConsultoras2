@@ -2084,6 +2084,9 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 
 function EjecutarPROL() {
     // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
     if (HorarioRestringido())
         return;
 
@@ -3615,7 +3618,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                AbrirPopupPedidoReservado(data.message, '1')
             }
         },
         error: function (error, x) {
