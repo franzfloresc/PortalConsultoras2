@@ -163,7 +163,7 @@ namespace Portal.Consultoras.BizLogic
                 esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
             }
 
-            var carpetapais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
 
             if (esFacturacion)
             {
@@ -193,41 +193,28 @@ namespace Portal.Consultoras.BizLogic
 
                     if (!add) return;
 
-                    estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, estrategia.ImagenURL, carpetapais);
-                    estrategia.Simbolo = entidad.Simbolo;
-                    estrategia.TieneStockProl = true;
-                    estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
-                    estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio,codigoIso);
-
                     estrategiasResult.Add(estrategia);
                 });
             }
             else
             {
-                estrategias.ForEach(x =>
-                {
-                    x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
-                    x.Simbolo = entidad.Simbolo;
-                    x.TieneStockProl = true;
-                    x.PrecioString = Util.DecimalToStringFormat(x.Precio2, codigoIso);
-                    x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, codigoIso);
-                });
-
                 estrategiasResult.AddRange(estrategias);
             }
 
-
-            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
-            estrategiasResult.ForEach(item =>
+            estrategiasResult.ForEach(estrategia =>
             {
+                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.Simbolo = entidad.Simbolo;
+                estrategia.TieneStockProl = true;
+                estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
+                estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
 
-                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });
 
             return estrategiasResult;
         }
-
 
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
@@ -380,7 +367,7 @@ namespace Portal.Consultoras.BizLogic
 
             listaEstrategias.ForEach(item =>
             {
-                item.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
                 item.URLCompartir = Util.GetUrlCompartirFB(usuario.CodigoISO);
             });
 
