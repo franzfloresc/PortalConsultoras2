@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
             }
             
             if (!listaShowRoomOferta.Any())
@@ -54,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
 
             var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
             var model = listaShowRoomOfertaModel.FirstOrDefault();
             model.Simbolo = userData.Simbolo;
 
@@ -195,6 +196,30 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ObtenerParametroPersonalizacion(int PaisID)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.Plan20).ToList();
+            }
+
+            var campaniaMinimaPersonalizacion = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
+                if (par != null)
+                {
+                    campaniaMinimaPersonalizacion = par.Codigo;
+                }
+            }
+
+            return Json(new
+            {
+                campaniaMinimaPersonalizacion
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int PaisID, int campaniaID)
         {
             try
@@ -305,30 +330,28 @@ namespace Portal.Consultoras.Web.Controllers
                         select new
                         {
                             id = a.EventoID,
-                            cell = new[]
-                            {
-                                a.EventoID.ToString(),
-                                a.Nombre,
-                                a.Tema,
-                                a.DiasAntes.ToString(),
-                                a.DiasDespues.ToString(),
-                                a.NumeroPerfiles.ToString(),
-                                a.Imagen1,
-                                a.Imagen2,
-                                a.ImagenCabeceraProducto,
-                                a.ImagenVentaSetPopup,
-                                a.ImagenVentaTagLateral,
-                                a.ImagenPestaniaShowRoom,
-                                a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),
-                                a.Descuento.ToString(),
-                                a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),
-                                a.Estado.ToString(),
-                                a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString(),
-                                a.TieneSubCampania.ToString()
-                            }
+                            a.Nombre,
+                            a.Tema,
+                            DiasAntes = a.DiasAntes.ToString(),
+                            DiasDespues = a.DiasDespues.ToString(),
+                            NumeroPerfiles = a.NumeroPerfiles.ToString(),
+                            a.Imagen1,
+                            a.Imagen2,
+                            a.ImagenCabeceraProducto,
+                            a.ImagenVentaSetPopup,
+                            a.ImagenVentaTagLateral,
+                            a.ImagenPestaniaShowRoom,
+                            a.ImagenPreventaDigital,
+                            CampaniaID = a.CampaniaID.ToString(),
+                            Descuento = a.Descuento.ToString(),
+                            a.TextoEstrategia,
+                            OfertaEstrategia = a.OfertaEstrategia.ToString(),
+                            Estado = a.Estado.ToString(),
+                            TieneCategoria = a.TieneCategoria.ToString(),
+                            TieneCompraXcompra = a.TieneCompraXcompra.ToString(),
+                            TieneSubCampania = a.TieneSubCampania.ToString(),
+                            TienePersonalizacion = a.TienePersonalizacion
+                            //a.EventoID
                         }
                 };
 
@@ -1683,6 +1706,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
+
                 return Json(new
                 {
                     success = true,
@@ -1767,6 +1805,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
+
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
 
                 return Json(new
                 {
@@ -2680,7 +2733,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion(), esFacturacion);
                 int cantidadTotal = listaProductos.Count;
 
                 listaFinal = listaProductos;
@@ -2864,6 +2918,9 @@ namespace Portal.Consultoras.Web.Controllers
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+
+                    if (model.EnviarParametrosUTMs)
+                        cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", CorreoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                 }

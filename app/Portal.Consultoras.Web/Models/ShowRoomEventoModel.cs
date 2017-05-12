@@ -60,6 +60,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneSubCampania { get; set; }
 
+        public bool TienePersonalizacion { get; set; }
+
         public string Simbolo { get; set; }
 
         public List<ShowRoomOfertaModel> ListaShowRoomOferta { get; set; }

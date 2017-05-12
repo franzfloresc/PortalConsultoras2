@@ -124,6 +124,7 @@ namespace Portal.Consultoras.Common
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            public const int PersonalizacionShowroom = 9803;
         }
 
 
@@ -486,6 +487,11 @@ namespace Portal.Consultoras.Common
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
+        }
+
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
         }
 
         public class EstadoCupon

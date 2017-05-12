@@ -18,9 +18,9 @@
     };
     
     var elements = {
-        PopupCuponPaginaBienvenida: '#Cupon1',
+        PopupCuponGana: '#Cupon1',
         PopupConfirmacion: '#Cupon2',
-        PopupGanaste: '#',
+        PopupGanaste: '#Cupon3',
         ContenedorCuponExclusivo: '#contenedorCupon',
         ContenedorGana: '#',
         LinkVer: '#linkConocerDescuento',
@@ -30,9 +30,11 @@
         TxtCorreoIngresado: '#Cupon1 #txtEmailIngresado',
         HdCorreoOriginal: '#Cupon1 #hdEmailOriginal',
         ContenedorTituloGana: '#Cupon1 .monto_gana',
+        ContenedorTituloGanaste: '#Cupon3 .titulo_cupon2',
         BtnConfirmarDatos: '#Cupon1 .btn_confirma_cupon',
         BtnModificarDatos: '#Cupon2 #btnModificarDatos',
-        BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente'
+        BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente',
+        ContenedorMostrarCorreo: '#Cupon2 div.correo_confirmacion'
     };
 
     var setting = {
@@ -64,6 +66,7 @@
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
             var celular = $(elements.TxtCelular).val().trim();
+
             if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular)) {
                 if (correoIngresado == correoOriginal) {
                     validarEstadoEmail();
@@ -117,10 +120,9 @@
                 obtenerCupon();
                 confirmacionPromise.then(function (response) {
                     if (response.success) {
-
+                        AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
                     } else {
-                        alert(response.message);
-
+                        AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                     }
                 }, function (xhr, status, error) { });
             }
@@ -270,19 +272,25 @@
     }
 
     var mostrarPopupGanaste = function () {
+        var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
+        $(elements.ContenedorTituloGanaste).empty();
+        $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + simbolo + " " + setting.Cupon.FormatoValorAsociado + "!");
         $(elements.PopupGanaste).show();
-        $(elements.PopupCuponPaginaBienvenida).hide();
+        $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
     }
 
     var mostrarPopupGana = function () {
-        $(elements.PopupCuponPaginaBienvenida).show();
+        $(elements.PopupCuponGana).show();
         $(elements.PopupGanaste).hide();
         $(elements.PopupConfirmacion).hide();
     }
 
     var mostrarPopupConfirmacion = function () {
-        $(elements.PopupCuponPaginaBienvenida).hide();
+        var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
+        $(elements.ContenedorMostrarCorreo).empty();
+        $(elements.ContenedorMostrarCorreo).append(correoIngresado);
+        $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).show();
     }
 

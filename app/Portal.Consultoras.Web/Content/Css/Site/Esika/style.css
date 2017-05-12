@@ -21053,7 +21053,7 @@ label.checkpop.c_on {
     font-size: 10pt;
     color: #767676;
     padding-top: 19px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     z-index: 2;
     position: relative;
 }
@@ -36132,4 +36132,8 @@ h1#penmostreo .campana {
 }
 .info_recuerda_cupon:last-child{
     border-right:0;
+}
+
+.SubHeader{
+    background: #f9f9f9;
 }

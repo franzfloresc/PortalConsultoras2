@@ -20960,7 +20960,7 @@ label.checkpop.c_on {
     font-family: 'lato';
     font-size: 10pt;
     padding-top: 19px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     z-index: 2;
     position: relative;
 }
@@ -36139,3 +36139,6 @@ h1#penmostreo .campana {
 .info_recuerda_cupon:last-child{
     border-right:0;
 }
+ .SubHeader{
+    background: #fff;
+ }
