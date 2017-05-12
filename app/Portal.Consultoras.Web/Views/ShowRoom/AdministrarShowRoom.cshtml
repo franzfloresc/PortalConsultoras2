@@ -2047,6 +2047,11 @@
                     CargarCategorias();
 
                     fnGrilla();
+
+                    if (showroomEvento.TienePersonalizacion && showroomEvento.TienePersonalizacion == 'Activa') {
+                        $("#divPerfilOfertaShowRoom").hide();
+                    }
+
                     $("#divOfertasShowRoom").css("display", "");
                 }
             }
