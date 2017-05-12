@@ -346,7 +346,6 @@ function CatalogoMostrar(accion, btn) {
     }
 
     // Centrar segun cantidad de catalgos
-    //debugger
     var cata = $("#divCatalogo [data-cam='" + aCam[campSelectI] + "'][data-estado='1'] > div");
     if (cata.length < 3) {
         var wUnit = 24.7;//%

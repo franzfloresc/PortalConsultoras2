@@ -758,7 +758,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     // validar que se existan tallas
     //if ($.trim($("#ddlTallaColor").html()) != "") {
     //    if ($.trim($("#ddlTallaColor").val()) == "") {
-    //        AbrirMensaje("Por favor, seleccione la Talla/Color del producto.");
+    //        AbrirMensajeEstrategia("Por favor, seleccione la Talla/Color del producto.");
     //        CerrarLoad();
     //        return false;
     //    }
@@ -776,19 +776,19 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     }
     
     if (!$.isNumeric(cantidad)) {
-        AbrirMensaje("Ingrese un valor numérico.");
+        AbrirMensajeEstrategia("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CerrarLoad();
         return false;
     }
     if (parseInt(cantidad) <= 0) {
-        AbrirMensaje("La cantidad debe ser mayor a cero.");
+        AbrirMensajeEstrategia("La cantidad debe ser mayor a cero.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
         CerrarLoad();
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensaje("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }
@@ -815,7 +815,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         async: false,
         success: function (datos) {
             if (!datos.result) {
-                AbrirMensaje(datos.message);
+                AbrirMensajeEstrategia(datos.message);
                 CerrarLoad();
             } else {
                 jQuery.ajax({
@@ -925,7 +925,7 @@ function AbrirLoad() {
     }
 }
 
-function AbrirMensaje(txt) {
+function AbrirMensajeEstrategia(txt) {
     if (tipoOrigenEstrategia == 1) {
         alert_msg_pedido(txt)
     }

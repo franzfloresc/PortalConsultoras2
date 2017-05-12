@@ -129,7 +129,7 @@ $(document).ready(function () {
     
     $("#linkAgregarCliente").on("click", function () {
         if (gTipoUsuario == '2') {
-            var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+            var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
             $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
             $('#popupInformacionSB2Error').show();
             return false;
@@ -147,7 +147,45 @@ $(document).ready(function () {
         $("#txtCodigoProducto").keyup();
     }
 
+    CargarDialogMesajePostulantePedido();
 });
+
+
+function CargarDialogMesajePostulantePedido() {
+    if (gTipoUsuario == '2' && MensajePedidoMobile == '0') {
+        var mesg = "En este momento podrás simular el ingreso de tu pedido.";
+        var title = "TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA";
+        $('#dialog_MensajePostulante_Pedido #titutloPedido').text(title);
+        $('#dialog_MensajePostulante_Pedido #mensajePedido').text(mesg);
+        $('#dialog_MensajePostulante_Pedido #btnOk').text('CONTINUAR');
+        $('#dialog_MensajePostulante_Pedido').show();
+        return false;
+    }
+}
+
+function CerrarDialogMesajePostulantePedido() {
+    $('#dialog_MensajePostulante_Pedido').hide();
+    UpdateUsuarioTutoriales();
+}
+
+
+function UpdateUsuarioTutoriales() {
+    var item = {
+        tipo: '2' // Para mOBILE
+    };
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/UpdatePostulanteMensaje',
+        data: JSON.stringify(item),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+    return true;
+}
 
 function ValidarPermiso(obj) {
     var permiso = $(obj).attr("disabled") || "";

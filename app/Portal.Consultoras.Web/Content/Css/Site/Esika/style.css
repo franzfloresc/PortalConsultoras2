@@ -1608,7 +1608,7 @@ header {
 .liquidacion_rango_cantidad_pedido {
     width: 40px;
     height: 45px;
-    border-left: 1px solid #CCCCCC !important;
+    border-left: 1px solid #CCCCCC;
     border-right: 0 !important;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -21052,8 +21052,8 @@ label.checkpop.c_on {
     font-family: 'lato';
     font-size: 10pt;
     color: #767676;
-    margin-top: 83px;
-    margin-bottom: 20px;
+    padding-top: 19px;
+    padding-bottom: 20px;
     z-index: 2;
     position: relative;
 }
@@ -21811,12 +21811,11 @@ label.checkpop.c_on {
         vertical-align: middle; 
         height: 45px; 
         line-height: 42px; 
-        background: #000; 
-        color: #fff; 
-        text-align: center; 
-        border: 2px solid #000; 
+    background: #000;
+    color: #fff;
+    text-align: center;
+    border: 2px solid #000;
         font-size: 13px; 
-        /*font-weight: bold;*/
 } 
 
 .liquidacion_rango_home {
@@ -22609,7 +22608,7 @@ hr {
 
 body {
     background: #f9f9f9;
-    overflow-x: hidden;
+    overflow-x:hidden;
 }
 
 .LugaresPago {
@@ -30051,7 +30050,7 @@ h1#penmostreo .campana {
     font-size: 16px;
 }
 
-.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel {
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
     opacity: 1;
 }
 
@@ -30060,12 +30059,13 @@ h1#penmostreo .campana {
 }
 
 .ver_detalle_carrusel {
+    text-align: center;
     display: block;
-    font-size: 13px;
+    font-size: 11px;
     position: absolute;
-    height: 45px;
-    line-height: 42px;
-    width: 42%;
+    height: 40px;
+    line-height: 38px;
+    width: 43%;
     font-weight: 700;
     border: 1px solid black;
     font-family: 'Lato';
@@ -33865,8 +33865,8 @@ h1#penmostreo .campana {
     float: left;
     width: 270px;
     /*height: 90px;*/
-    margin-top: 28px;
-    margin-left: 10px;
+    margin-top: 8px;
+    margin-left: 20px;
 }
 
     .solo_hoy img {
@@ -33875,7 +33875,7 @@ h1#penmostreo .campana {
 
 .nombre_set_oferta {
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 14px;
     height: 15px;
     letter-spacing: 0.75px;
     text-transform: uppercase;
@@ -33889,7 +33889,7 @@ h1#penmostreo .campana {
     width: 130px;
     height: auto;
     float: left;
-    margin-left: 12px;
+    margin-left: 25px;
     margin-top: 12px;
     text-align: center;
 }
@@ -33903,17 +33903,18 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 16px;
     text-align: center;
-    margin-top: 18px;
+    margin-top: 28px;
     color: white;
     margin-left: 15px;
     line-height: 25px;
-    width: 135px;
+    width: 200px;
 }
 
     .precio_set_dia span {
-        font-size: 19px;
+        font-size: 22px;
      display: block;
      text-align: center;
+     margin-top: 7px;
 }
 
 .btn_agrega_set_dia {
@@ -33922,7 +33923,7 @@ h1#penmostreo .campana {
     font-size: 12px;
     color: white;
     border: 1px solid white;
-    width: 145px;
+    width: 130px;
     height: 30px;
     line-height: 28px;
     text-align: center;
@@ -33934,7 +33935,7 @@ h1#penmostreo .campana {
 
 .btn_detalle_hoy {
     display: block;
-    margin-top: 47px;
+    margin-top: 42px;
     margin-left: 19px;
     float: left;
     overflow: hidden;
@@ -33943,26 +33944,30 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    background: white;
+    background: #d9b33f;
     border-radius: 100px;
-    line-height: 15px;
+    line-height: 14px;
     color: black;
-    font-size: 14px;
+    font-weight: 700;
+    font-size: 16px;
     font-family: 'Lato';
     float: left;
     text-align: center;
-    /*padding-left: 2px;*/
+    /* padding-left: 2px; */
+    margin-right: 6px;
+    margin-top: 2px;
 }
 
 .texto_detalle_set {
     float: left;
-    margin-left: 10px;
-    /*margin-top:4px;*/
-    font-size: 11px;
+    /* margin-left: 10px; */
+    /* margin-top: 4px; */
+    font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
-    color: white;
+    color: #d9b33f;
     letter-spacing: 0.75px;
+    border-bottom: 1px solid #d9b33f;
 }
 
 .btn_cerrar_ofertaDia {
@@ -33998,9 +34003,10 @@ h1#penmostreo .campana {
     right: 0;
     position: absolute;
     margin-top: 0px;
-    width: 570px;
-    height: 384px;
+    max-width: 1024px;
+    height: 415px;
     z-index: 2010;
+    background:#000;
     /*background-color: black;*/ /*PL20-1226*/
     /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/ /*PL20-1226*/
 }
@@ -34018,28 +34024,28 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 240px;
+    width: 350px;
     height: auto;
     float: left;
-    margin-left: 15px;
+    /*margin-left: 15px;*/
     /* margin-top: 5px; */
     text-align: center;
 }
 
     .imagen_set_Oferta_pop img {
-        width: 90%;
+        width: 100%;
 }
 
 .descripcion_set_ofertaDia {
     margin: 0 auto;
     margin-top: 5px;
-    width: 210px;
+    /* width: 210px; */
     font-family: 'Lato';
     color: white;
-    font-size: 14.5px;
-    text-align: center;
+    font-size: 13px;
+    text-align: left;
     /* letter-spacing: 0.75px; */
-    line-height: 20px;
+    line-height: 18px;
     /* font-weight: 300; */
 }
 .producto_gratis_ofertaDia{
@@ -34054,31 +34060,31 @@ h1#penmostreo .campana {
 }
 
 .precio_ofertaDia {
-     width: 200px;
+        /* width: 200px; */
     margin: 0 auto;
     font-family: 'Lato';
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.2px;
-    text-align: center;
+    /* text-align: center; */
     color: white;
     margin-bottom: 7px;
 }
 
     .precio_ofertaDia span {
-        font-size: 30px;
+        font-size: 26px;
         display: block;
         height: 40px;
-        margin-top: -6px;
+        margin-top: -8px;
 }
 
 .btn_pop_agregalo_oferta {
     display: inline-block;
-    width: 212px;
+    width: 190px;
     height: 45px;
     margin-top: 7px;
     margin-left: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #fff;
     color: white;
     font-family: 'Lato';
     font-weight: 700;
@@ -34095,34 +34101,37 @@ h1#penmostreo .campana {
 }
 
 .content_set_pop_hoy {
-    width: 450px;
-    height: 166px;
+    width: 90%;
+    /*height: 166px;*/
     margin: 0 auto;
-    margin-top: 45px;
+    margin-top: 21px;
     overflow: hidden;
 }
 
 .right_set_hoy {
+   
     float: left;
-    width: 190px;
-    margin-top: 45px;
+    width: 273px;
+    /* margin-top: 45px; */
+    margin-left: 14%;
 }
 
 .precio_valorizado_oferta {
     color: white;
     font-family: 'Lato';
-    font-size: 12px;
-    margin-top: 10px;
-    text-align: center;
-    margin-bottom: 2px;
+    font-size: 13px;
+    margin-top: 23px;
+    /* text-align: center; */
+    margin-bottom: 5px;
 }
 
     .precio_valorizado_oferta span {
-        text-decoration: line-through;
+        /*text-decoration: line-through;*/
 }
 
 .content_pop_oferta_dia .liquidacion_rango_right_pedido {
     background: transparent !important;
+    border: 1px solid white;
 }
 /*POP UP GENERALES*/
 .Content_general_pop_up {
@@ -34486,20 +34495,21 @@ h1#penmostreo .campana {
 }
 .compartir_redes_ficha{
     margin-top:30px;
-    padding-left:50px;
+    padding-left:64px;
 }
 .texto_compartelo{
     float:left;
     margin-right:15px;
     font-family:'Lato';
-    font-size:12.5px;
+    font-size:12px;
     margin-top:3px;
 }
 .btn_compartir_facebook_ficha{
-        /* width: 73px; */
+    width: 25px;
+    float: left;
     /* border: 1px solid #cbcbcb; */
-    display: inline-block;
-    vertical-align: -webkit-baseline-middle;
+    /* display: inline-block; */
+    /* vertical-align: -webkit-baseline-middle; */
     /* height: 30px; */
     /* line-height: 36px; */
     margin-right: 5px;
@@ -35557,4 +35567,130 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
+}
+/*CAMBIOS EN OFERTA DEL DÍA*/
+.regresar_carrusel{
+    color: white;
+    font-family: 'Lato';
+    font-size: 12px;
+    float: right;
+    margin-right: 15px;
+    background: url(../../../Images/PL20/flecha_regreso.png) no-repeat;
+    padding-left: 16px;
+    background-position: 0px -1px;
+}
+.titulo_set_ODD{
+    color:white;
+    font-family:'Lato';
+    font-size:20px;
+    /*text-align:center;*/
+    letter-spacing:1.3px;
+    text-transform:uppercase;
+    /*margin-top:10px;*/
+}
+.barra_inferior{
+    width:40px;
+    height:1px;
+    background:white;
+    margin:0 auto;
+    margin-top:3px;
+    margin-bottom:55px;
+}
+.saludo_mas_productos{
+    color:white;
+    font-family:'Lato';
+    font-size:15px;
+    text-align:center;
+    margin-top:20px;
+}
+.content_90{
+    width:88%;
+    margin:0 auto;
+}
+.content_780_ODD{
+    width:780px;
+}
+.content_780_ODD .content_set_pop_hoy{
+    width:94%;
+}
+.content_780_ODD .right_set_hoy {
+    margin-left: 40px;
+}
+.content_item_carrusel_ODD{
+    width:260px;
+   padding: 30px 30px 11px 30px;
+    border: 1px solid #d5b03e;
+    float:left;
+    margin-top:12px;
+    margin-bottom:30px;
+}
+.content_img_carrusel_ODD{
+    width:100%;
+    position:relative;
+}
+.content_img_carrusel_ODD img{
+    width:100%;
+}
+.titulo_carrusel_ODD{
+    line-height: 18px;
+    font-family: 'Lato';
+    font-size: 15px;
+    margin-top: 10px;
+    color: white;
+    height: 39px;
+    overflow: hidden;
+    /* margin-bottom: 16px; */
+    text-align: center;
+}
+.valorizado_carrusel_ODD{
+    font-family:'Lato';
+    font-size:11px;
+    color:white;
+    text-align:center;
+}
+    .valorizado_carrusel_ODD span {
+         /*text-decoration: line-through;*/
+    }
+.precio_carrusel_ODD{
+    font-family:'Lato';
+    font-size:22px;
+    color:white;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:14px;
+}
+.content_item_carrusel_ODD .btn_pop_agregalo_oferta{
+    width:-moz-calc(100% -80px);
+    width:calc(100% - 80px);
+    width:-webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
+}
+/*.content_780_ODD .content_item_carrusel_ODD:last-child{
+    float:right;
+}*/
+.content_780_ODD .content_90{
+    width:85%;
+}
+.content_780_ODD .imagen_set_Oferta_pop {
+    width: 300px;
+    margin-top:40px;
+}
+.content_780_ODD .compartir_redes_ficha {    
+    padding-left: 40px;
+}
+.slick-slide .content_item_carrusel_ODD{
+    margin-left:20px;
+}
+
+.color-para-todas-marcas {
+    color: #d9b33f;
+    font-weight: 700;
+}
+
+.content_90 .slick-slider {
+    margin-top: 0 !important;
+}
+
+.SubHeader{
+    background: #f9f9f9;
 }
