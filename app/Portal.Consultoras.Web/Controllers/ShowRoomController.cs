@@ -54,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
 
             var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
             var model = listaShowRoomOfertaModel.FirstOrDefault();
             model.Simbolo = userData.Simbolo;
 
@@ -1705,6 +1706,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
+
                 return Json(new
                 {
                     success = true,
@@ -1789,6 +1805,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
+
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
 
                 return Json(new
                 {
@@ -2887,6 +2918,9 @@ namespace Portal.Consultoras.Web.Controllers
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+
+                    if (model.EnviarParametrosUTMs)
+                        cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", CorreoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                 }

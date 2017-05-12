@@ -1899,6 +1899,16 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
+        }
+
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
+        
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().InsMatrizComercialImagen(entity);

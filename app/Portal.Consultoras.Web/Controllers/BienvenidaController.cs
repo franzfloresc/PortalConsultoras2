@@ -1822,6 +1822,28 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(userData.CerrarRechazado);
         }
 
+        [HttpPost]
+        public JsonResult CerrarMensajePostulante()
+        {
+            try
+            {
+                userData.CerrarBannerPostulante = 1;
+                SetUserData(userData);
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error al procesar la solicitud"
+                });
+            }
+        }
+
         /* SB20-834 - INICIO */
         public JsonResult ObtenerComunicadosPopUps()
         {

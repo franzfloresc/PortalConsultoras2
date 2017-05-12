@@ -109,15 +109,7 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
+    
     if (sesionEsShowRoom == '0') {
         return;
     }
@@ -149,6 +141,7 @@ function MostrarShowRoom() {
                                 $("#imgVentaSetPopupHoy").attr("src", evento.ImagenVentaSetPopup);
 
                                 AgregarTagManagerShowRoomPopup(evento.Tema, true);
+                                
                             } else {
                                 $("#spnShowRoomNombreConsultora").html(response.nombre);
                                 $("#spnShowRoomEvento").html(evento.Tema);
@@ -185,7 +178,7 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
 
     if (esHoy)
         name += " - fase 2";
-
+    
     dataLayer.push({
         'event': 'promotionView',
         'ecommerce': {
@@ -327,7 +320,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     ShowLoading();
@@ -335,7 +327,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    messageInfo(data.message);
+                    //messageInfo(data.message);
+                    AbrirPopupPedidoReservado(data.message,'2');
                 }
                 else fnRedireccionar();
             }
@@ -570,7 +563,57 @@ $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
 });
 
-
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
+}
+
+function VerShowRoomIntriga()
+{    
+    var id = "";
+    var name = "";
+
+    name = $("#hdNombreEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
+    id = $("#hdEventoIDShowRoom").val();
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }
+                ]
+            }
+        }
+    });
+
+}
+
+function VerShowRoomVenta()
+{    
+    var id = "";
+    var name = "";
+
+    name = $("#hdNombreEventoShowRoom").val() + ' - Compra Ya';
+    id = $("#hdEventoIDShowRoom").val();
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }
+                ]
+            }
+        }
+    });
 }
