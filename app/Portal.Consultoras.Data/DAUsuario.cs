@@ -738,5 +738,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1837*/
+
+
+        public int UpdatePostulanteMensajes(string CodigoUsuario, int tipo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdatePostulanteMensajes");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Tipo", DbType.AnsiString, tipo);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
     }
 }
