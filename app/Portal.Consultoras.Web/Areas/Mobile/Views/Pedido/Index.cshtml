@@ -9,7 +9,7 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
-<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+<link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
@@ -383,43 +383,6 @@
     </div>
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
-
-<script id="template-estrategia-header1" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content{{/iff}}">
-            <div>
-                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revista-title">
-                    <p class="marca">ÉSIKA</p>
-                    <div class="giftext">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
-                    </div>
-                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
-                </div>
-                {{else}}
-                <div class="titulo_ofertas_home">
-                    OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-                    <div class="texto_exclusivo">
-                        EXCLUSIVO SÓLO POR WEB
-                    </div>
-                </div>
-                {{/iff}}
-            </div>
-            <hr class="clear" />
-            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia" 
-                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi">
-                <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-            </div>
-            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                <p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">
-            </div>
-            {{/iff}}
-            <hr class="clear" />
-        </div>
-    </div>
-</script>
 
 @Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")

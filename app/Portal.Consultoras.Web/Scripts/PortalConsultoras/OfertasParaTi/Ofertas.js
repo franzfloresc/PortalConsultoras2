@@ -220,6 +220,10 @@ function OfertaCargarProductos(busquedaModel) {
 
                 $("#divOfertaProductos").html("");
                 response.Lista = lista;
+                response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+                response.CodigoEstrategia = "101";
+                response.ClassEstrategia = 'revistadigital-landing';
+
                 var urlTemplate = "#estrategia-template"; //"/Scripts/PortalConsultoras/Bienvenida/template-opt.html";
 
                 var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');

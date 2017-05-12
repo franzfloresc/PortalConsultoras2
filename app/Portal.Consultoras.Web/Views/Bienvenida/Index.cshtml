@@ -1147,12 +1147,12 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
         <div class="background-revistaSeccion"></div>
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content{{/iff}}">
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revista-title">
+                <div class="revistadigital-title">
                     <div class="logo-marca">
                         <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
                     </div>
@@ -1178,8 +1178,6 @@
             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
             {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
             <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                @*<p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">*@
                 <div class="fondo_boton"></div>
                 <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
             </div>

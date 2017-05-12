@@ -207,6 +207,7 @@
     <Compile Include="Areas\Mobile\Controllers\PedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidosFacturadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
@@ -1108,6 +1109,7 @@
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
+    <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
     <Content Include="Content\Css\Mobile\esika\theme.css" />
@@ -2708,6 +2710,7 @@
     <Content Include="Content\Images\remove.png" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
+    <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
@@ -3189,6 +3192,7 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
