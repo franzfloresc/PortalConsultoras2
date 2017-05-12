@@ -873,7 +873,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                        //TagManagerClickAgregarProducto();
+                        TagManagerClickAgregarProducto();
 
                         CerrarLoad();
                         if (popup) {
