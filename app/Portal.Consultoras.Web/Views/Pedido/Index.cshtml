@@ -226,9 +226,9 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
-                                <div class="content_pedido_cupon_monto">
+                                <div class="content_pedido_cupon_monto" style="display: none;">
                                     <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
-                                    <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                    <div class="texto_cupon_monto">Tienes un descuent exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
                                 </div>
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
@@ -2375,10 +2375,9 @@
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
-
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
                 var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-               @*var tieneCupon = '@Model.TieneCupon';*@
-                var tieneCupon = '1';
+                var tieneCupon = '@Model.TieneCupon';
                 var paginaOrigenCupon = 11;
                 var esEmailActivo = '@Model.EmailActivo';
                 var baseUrl = "@Url.Content("~")";

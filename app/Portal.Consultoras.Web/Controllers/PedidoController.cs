@@ -411,6 +411,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
 
+                model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
                 #region Cupon
                 model.TieneCupon = userData.TieneCupon;

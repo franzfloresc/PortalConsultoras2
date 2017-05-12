@@ -360,7 +360,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "TieneCDR") && row["TieneCDR"] != DBNull.Value)
                 TieneCDR = Convert.ToInt32(row["TieneCDR"]);
             if (DataRecord.HasColumn(row, "TieneCupon") && row["TieneCupon"] != DBNull.Value)
-                TieneCDR = Convert.ToInt32(row["TieneCupon"]);
+                TieneCupon = Convert.ToInt32(row["TieneCupon"]);
 
             if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
                 IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
