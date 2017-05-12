@@ -56,9 +56,9 @@ namespace Portal.Consultoras.BizLogic
         public List<string> GetListCandidatoFromTexto(string paisISO, int campaniaID, string texto, int iteracion, int count)
         {
             var listPalabra = GetListPalabraFromTexto(texto);
-            var dictionaryPalabraListCandidato = new Dictionary<string, List<string>>();
-            var listTextoCandidato = new List<string>();
+            if (listPalabra.Count == 0) return listPalabra;
 
+            var dictionaryPalabraListCandidato = new Dictionary<string, List<string>>();
             var listPalabraUnique = new HashSet<string>(listPalabra);
             foreach (var palabra in listPalabraUnique)
             {
@@ -66,6 +66,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if (count > 0) LimitDictionaryPalabraListCandidato(dictionaryPalabraListCandidato, count);
 
+            var listTextoCandidato = new List<string>();
             foreach (var palabraListCandidato in dictionaryPalabraListCandidato)
             {
                 listTextoCandidato = listTextoCandidato.Count == 0 ? palabraListCandidato.Value.Select(dc => dc).ToList() :
