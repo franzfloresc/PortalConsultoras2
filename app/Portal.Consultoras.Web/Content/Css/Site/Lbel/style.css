@@ -35833,17 +35833,20 @@ h1#penmostreo .campana {
     float: none;
 }
 .titulo_set_especial{
-    font-size:15px;
-    margin-bottom:5px;
-    color:black;
-    text-align:left;
-    font-weight:700;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+    font-weight: 700;
+    height: 20px;
+    overflow: hidden;
 }
 .descripcion_set_especial{
-    height:75px;
+    height:93px;
     margin-bottom:5px;
     font-size:12px;
     line-height:15px;
+    overflow:hidden;
 }
 .descripcion_set_especial b{
     color: #e81c36;
@@ -35871,7 +35874,12 @@ h1#penmostreo .campana {
 .CerrarOfertaEspecial{
     font-family:'Lato';
     font-size:25px;
-    
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
     color:black;
     position:absolute;
     right:10px;
