@@ -124,6 +124,26 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int InsertEstrategiaDetalle(BEEstrategiaDetalle entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@ImgFondoDesktop", DbType.Int32, entidad.ImgFondoDesktop);
+                Context.Database.AddInParameter(command, "@ImgPrevDesktop", DbType.Int32, entidad.ImgPrevDesktop);
+                Context.Database.AddInParameter(command, "@ImgFichaDesktop", DbType.Int32, entidad.ImgFichaDesktop);
+                Context.Database.AddInParameter(command, "@UrlVideoDesktop", DbType.Int32, entidad.UrlVideoDesktop);
+                Context.Database.AddInParameter(command, "@ImgFondoMobile", DbType.Int32, entidad.ImgFondoMobile);
+                Context.Database.AddInParameter(command, "@ImgFichaMobile", DbType.Int32, entidad.ImgFichaMobile);
+                Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.Int32, entidad.UrlVideoMobile);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+            }
+            return result;
+        }
+
         public IDataReader GetOfertaByCUV(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConsultarOfertaByCUV"))

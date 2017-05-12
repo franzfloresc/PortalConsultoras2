@@ -280,6 +280,7 @@
 <script type="text/javascript">
     var imagenVacia = '@imagenVacia';
     var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+    var rutaTemporal = '@Url.Content("~/Content/Temporales/")';
     var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
     var urlCargarArbolRegionesZonas = baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas";
     var rutastylejstree = '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")';
@@ -359,7 +360,7 @@
             $('#matriz-imagenes-paginacion').empty();
             $('#matriz-comercial-images').empty();
             $('#file-upload').hide();
-            
+
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
@@ -436,6 +437,9 @@
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('5');
             }
+
+            if ($('#ddlTipoEstrategia option:selected').attr('data-codigo') === '005') $('#div-revista-digital').show();
+            else $('#div-revista-digital').hide();
 
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
@@ -712,13 +716,13 @@
             var cuvIngresado = $(this).val();
             var campaniaID = $("#ddlCampania").val();
             var tipoEstrategiaID = $("#ddlTipoEstrategia").val();
-
+            debugger;
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
-            if (cuvIngresado.length > 4) {
-                estrategiaObj.editarByCUV2(cuvIngresado, campaniaID, tipoEstrategiaID);
-            }
-            //mostrarInformacionCUV(cuvIngresado);
+            //if (cuvIngresado.length > 4) {
+            //    estrategiaObj.editarByCUV2(cuvIngresado, campaniaID, tipoEstrategiaID);
+            //}
+            mostrarInformacionCUV(cuvIngresado);
         });
 
         $(".chk-estrategia-imagen").click(function () {
@@ -898,6 +902,11 @@
             HideDialog("DialogNuevoMasivo");
         });
 
+        UploadFileLanzamineto('img-fondo-desktop');
+        UploadFileLanzamineto('img-prev-desktop');
+        UploadFileLanzamineto('img-fondo-mobile');
+        UploadFileLanzamineto('img-ficha-desktop');
+        UploadFileLanzamineto('img-ficha-mobile');
     });
 
 
@@ -1191,7 +1200,7 @@
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
-    
+
 
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
@@ -1845,6 +1854,15 @@
                     if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
                         NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
                     }
+                    //valores para el carrusel de la estrategia de lanzamiento
+                    var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
+                    var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
+                    var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
+                    var urlVideoDesktop = $("#url-video-desktop").val();
+                    var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
+                    var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
+                    var urlVideoMobile = $("#url-video-mobile").val();
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1872,7 +1890,14 @@
                         Orden: Orden,
                         ColorFondo: colorFondo,
                         FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').attr('data-codigo')
+                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').attr('data-codigo'),
+                        ImgFondoDesktop: imgFondoDesktop,
+                        ImgPrevDesktop: imgPrevDesktop,
+                        ImgFichaDesktop: imgFichaDesktop,
+                        UrlVideoDesktop: urlVideoDesktop,
+                        ImgFondoMobile: imgFondoMobile,
+                        ImgFichaMobile: imgFichaMobile,
+                        UrlVideoMobile: urlVideoMobile
                     };
                     jQuery.ajax({
                         type: 'POST',
@@ -2104,4 +2129,23 @@
         });
     }
 
+    function UploadFileLanzamineto(divId) {
+        new qq.FileUploader({
+            allowedExtensions: ['jpg', 'png', 'jpeg'],
+            element: document.getElementById(divId),
+            action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+            onComplete: function (id, fileName, responseJSON) {
+                debugger;
+                if (checkTimeout(responseJSON)) {
+                    if (responseJSON.success) {
+                        $("#nombre-" + divId).val(responseJSON.name);
+                        $("#src-" + divId).attr('src', rutaTemporal + responseJSON.name);
+                    } else alert(responseJSON.message);
+                }
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+        });
+    }
 </script>

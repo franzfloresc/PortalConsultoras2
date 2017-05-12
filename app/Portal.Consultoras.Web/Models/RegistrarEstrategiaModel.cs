@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Portal.Consultoras.Web.Models
+{
+    public class RegistrarEstrategiaModel
+    {
+        public string EstrategiaID { get; set; }
+        public string TipoEstrategiaID { get; set; }
+        public string CampaniaID { get; set; }
+        public string CampaniaIDFin { get; set; }
+        public string NumeroPedido { get; set; }
+        public string Activo { get; set; }
+        public string ImagenURL { get; set; }
+        public string LimiteVenta{ get; set; }
+        public string DescripcionCUV2{ get; set; }
+        public string FlagDescripcion{ get; set; }
+        public string CUV { get; set; }
+        public string EtiquetaID { get; set; }
+        public string Precio { get; set; }
+        public string FlagCEP { get; set; }
+        public string CUV2 { get; set; }
+        public string EtiquetaID2 { get; set; }
+        public string Precio2 { get; set; }
+        public string FlagCEP2 { get; set; }
+        public string TextoLibre { get; set; }
+        public string FlagTextoLibre { get; set; }
+        public string Cantidad { get; set; }
+        public string FlagCantidad { get; set; }
+        public string Zona { get; set; }
+        public string Orden { get; set; }
+        public string ColorFondo { get; set; }
+        public string FlagEstrella { get; set; }
+        public string CodigoTipoEstrategia { get; set; }
+        // Atributos usados solo para la estrategia de lanzamiento.
+        public string ImgFondoDesktop { get; set; }
+        public string ImgPrevDesktop { get; set; }
+        public string ImgFichaDesktop { get; set; }
+        public string UrlVideoDesktop { get; set; }
+        public string ImgFondoMobile { get; set; }
+        public string ImgFichaMobile { get; set; }
+        public string UrlVideoMobile { get; set; }
+
+    }
+}
