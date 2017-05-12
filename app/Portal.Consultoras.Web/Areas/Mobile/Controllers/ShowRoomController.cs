@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
 
                 var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-
+                listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                 var model = listaShowRoomOfertaModel.FirstOrDefault();
                 model.Simbolo = userData.Simbolo;
 

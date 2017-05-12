@@ -262,12 +262,13 @@
         return true;
     }
 
-    function ObtenerProducto(itemCampos, cantidad) {
+    function ObtenerProducto(itemCampos, cantidad) {        
+        var esMobile = ViewBagEsMobile == 1 ? 0 : 1000; /*1 Desktop, 2 Mobile*/
 
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
-        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
-        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb;
+        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb + esMobile;
+        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb + esMobile;
+        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb + esMobile;
 
         var producto = {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
