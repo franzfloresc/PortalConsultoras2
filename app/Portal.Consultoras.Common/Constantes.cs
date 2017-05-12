@@ -440,6 +440,14 @@ namespace Portal.Consultoras.Common
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
                 public const string BannerLateralBienvenida = "BannerLateralBienvenida";
                 public const string IconoMenuShowRoom = "IconoMenuShowRoom";
+                public const string TextoInicialOfertaSubCampania = "TextoInicialOfertaSubCampania";
+                public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
+                public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
+                public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
+                public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
+                public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
+                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";                                   
             }
 
             public class Mobile
@@ -453,6 +461,11 @@ namespace Portal.Consultoras.Common
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+                public const string TextoInicialOfertaSubCampania = "TextoInicialOfertaSubCampania";
+                public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
+                public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
+                public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";               
             }
 
             public class TipoAplicacion

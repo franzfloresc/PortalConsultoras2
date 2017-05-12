@@ -362,7 +362,7 @@
                                                     <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
-                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
+                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" onclick="VerShowRoomVenta()" />
                                                         </div>
                                                     </a>
                                                 </div>
@@ -381,7 +381,7 @@
                                                     <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
+                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" onclick="VerShowRoomIntriga()"/>
                                                         </div>
                                                     </a>
                                                 </div>
@@ -480,7 +480,7 @@
                 <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
                 <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
                 <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
-                <input type="text" class="origenPedidoWeb-odd" value="4" />
+                <input type="text" class="origenPedidoWeb-odd" value="1" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
