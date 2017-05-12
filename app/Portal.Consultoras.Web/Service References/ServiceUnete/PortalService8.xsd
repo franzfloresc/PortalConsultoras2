@@ -176,6 +176,7 @@
       <xs:element minOccurs="0" name="TipoVinculoFamiliar" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="TipoVinculoNoFamiliar" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaConsultoraLider" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaGZ" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="campania1erPasePedido" nillable="true" type="xs:string" />

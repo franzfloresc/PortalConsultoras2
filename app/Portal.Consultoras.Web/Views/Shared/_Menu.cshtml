@@ -31,11 +31,13 @@
             {
                 //Menu padre con hijos
                 <li class="new_menu">
+
                     <a href="javascript:;" class="new_menu_a" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                         @menuPadre.Descripcion
                         <div class="flecha_menu"></div>
                         <div class="pestana_esika"></div>
                     </a>
+                    
                     <ul class="@(claseSubMenu)">
                         <li>
                             <div class="linea_menu"> </div>
@@ -201,6 +203,25 @@
                             </li>
                         }
                         break;
+                    @*case "VENTA EXCLUSIVA WEB":
+                        if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                        {
+                            <li class="new_menu">
+                                @if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                                {
+                                    menuPadre.UrlItem = "ShowRoom/Index";
+                                }
+                                else
+                                {
+                                    menuPadre.UrlItem = "ShowRoom/Intriga";
+                                }
+                                <a href="javascript:;" class="new_menu_a etiqueta_showroom" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                                    @menuPadre.Descripcion
+                                </a>
+                            </li>
+                        }
+                        break;*@
+                        
                     default:
                         if (string.IsNullOrEmpty(menuPadre.UrlItem))
                         {
@@ -214,7 +235,21 @@
                         {
                             <li class="new_menu">
                                 <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @menuPadre.Descripcion
+                                    @if (menuPadre.EsSoloImagen)
+                                    {
+                                        if ((menuPadre.UrlImagen ?? "") != "")
+                                        {
+                                            <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" />
+                                        }
+                                        else
+                                        {
+                                            @menuPadre.Descripcion
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @menuPadre.Descripcion
+                                    }
                                 </a>
                             </li>
                         }

@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -7,149 +12,141 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServiceSAC;
+using Switch = System.Diagnostics.Switch;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System.Configuration;
+
+using Portal.Consultoras.Web.ServiceGestionWebPROL;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class ShowRoomController : BaseController
+    public class ShowRoomController : BaseShowRoomController
     {
-        public ActionResult Index()
+        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        private static readonly string CodigoProceso = ConfigurationManager.AppSettings["EmailCodigoProceso"];
+        private int OfertaID = 0;
+        private bool blnRecibido = false;
+
+        public ActionResult Intriga()
         {
-            ViewBag.TerminoMostrar = 1;
+            if (!ValidarIngresoShowRoom(true))
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
+            var listaShowRoomOferta = new List<BEShowRoomOferta>();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+            }
             
+            if (!listaShowRoomOferta.Any())
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
+            listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto) 
+                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+            listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini) 
+                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+
+            var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+            var model = listaShowRoomOfertaModel.FirstOrDefault();
+            model.Simbolo = userData.Simbolo;
+
+            model.CodigoISO = userData.CodigoISO;
+            userData.ListaShowRoomPersonalizacionConsultora = userData.ListaShowRoomPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
+            var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+            ViewBag.urlImagenPopupIntriga = string.Empty;
+            ViewBag.urlTerminosyCondiciones = string.Empty;
+
+            foreach (var item in lstPersonalizacion)
+            {
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga)
+                    ViewBag.urlImagenPopupIntriga = item.Valor;
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones)
+                    ViewBag.urlTerminosyCondiciones = item.Valor;
+            }
+
+            var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+            model.Suscripcion = eventoConsultora.Suscripcion;
+            model.EMail = userData.EMail;
+            model.EMailActivo = userData.EMailActivo;
+            model.Celular = userData.Celular;
+            model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+            return View(model);
+        }
+
+        public ActionResult Index(string query)
+        {
+            
+            ViewBag.TerminoMostrar = 1;
+
             try
             {
-                var showRoomEvento = new BEShowRoomEvento();
-                var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
-                var listaShowRoomOferta = new List<BEShowRoomOferta>();
-
-                if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                showRoomEventoConsultora = userData.BeShowRoomConsultora;
-                showRoomEvento = userData.BeShowRoom;
-
-                if (showRoomEvento == null)
-                {
+                if (!ValidarIngresoShowRoom(false))
                     return RedirectToAction("Index", "Bienvenida");
-                }
-                else
+
+                //actualizar showroom.eventoconsultora. campo recibido.
+
+                if (query != null)
                 {
-                    if (showRoomEventoConsultora == null)
+                    string param = Util.DesencriptarQueryString(query);
+                    string[] lista = param.Split(new char[] { ';' });
+
+                    if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
                     {
                         return RedirectToAction("Index", "Bienvenida");
                     }
-                    else
+
+                    if(lista[0] == CodigoProceso)
                     {
-                        if (showRoomEvento.Estado == 1)
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            int diasAntes = showRoomEvento.DiasAntes;
-                            int diasDespues = showRoomEvento.DiasDespues;
-
-                            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                            {
-                                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                                using (PedidoServiceClient sv = new PedidoServiceClient())
-                                {
-                                    var CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.CodigoConsultora.ToString() : userData.CodigoConsultora.ToString();
-                                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, CodigoConsultora).ToList();
-
-                                    if (listaShowRoomOferta != null)
-                                    {
-                                        listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                                        listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                                    }                                    
-                                }                                
-
-                                Mapper.CreateMap<BEShowRoomEvento, ShowRoomEventoModel>()
-                                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                                    .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                                    .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                                    .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                                    .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento));
-
-                                Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
-                                    .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
-                                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                                    .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
-                                    .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
-                                    .ForMember(t => t.StockInicial, f => f.MapFrom(c => c.StockInicial))
-                                    .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                                    .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                                    .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                                    .ForMember(t => t.FlagHabilitarProducto, f => f.MapFrom(c => c.FlagHabilitarProducto))
-                                    .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-                                    .ForMember(t => t.CategoriaID, f => f.MapFrom(c => c.CategoriaID))
-                                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                                    .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini));                                    
-
-                                ShowRoomEventoModel showRoomEventoModel = Mapper.Map<BEShowRoomEvento, ShowRoomEventoModel>(showRoomEvento);
-                                showRoomEventoModel.Simbolo = userData.Simbolo;
-                                showRoomEventoModel.CodigoIso = userData.CodigoISO;
-
-                                var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-
-                                listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-
-                                using (PedidoServiceClient sv = new PedidoServiceClient())
-                                {
-                                    foreach (var item in listaShowRoomOfertaModel)
-                                    {
-                                        var listaDetalle = sv.GetProductosShowRoomDetalle(userData.PaisID, userData.CampaniaID, item.CUV).ToList();
-
-                                        if (listaDetalle != null)
-                                        {
-                                            listaDetalle.Update(x => x.Imagen = string.IsNullOrEmpty(x.Imagen)
-                                                        ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.Imagen, Globals.UrlMatriz + "/" + userData.CodigoISO));
-
-                                            Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>()
-                                            .ForMember(t => t.OfertaShowRoomDetalleID, f => f.MapFrom(c => c.OfertaShowRoomDetalleID))
-                                            .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                                            .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                                            .ForMember(t => t.NombreProducto, f => f.MapFrom(c => c.NombreProducto))
-                                            .ForMember(t => t.Descripcion1, f => f.MapFrom(c => c.Descripcion1))
-                                            .ForMember(t => t.Descripcion2, f => f.MapFrom(c => c.Descripcion2))
-                                            .ForMember(t => t.Descripcion3, f => f.MapFrom(c => c.Descripcion3))
-                                            .ForMember(t => t.Imagen, f => f.MapFrom(c => c.Imagen))
-                                            .ForMember(t => t.FechaCreacion, f => f.MapFrom(c => c.FechaCreacion))
-                                            .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
-                                            .ForMember(t => t.FechaModificacion, f => f.MapFrom(c => c.FechaModificacion))
-                                            .ForMember(t => t.UsuarioModificacion, f => f.MapFrom(c => c.UsuarioModificacion));
-
-                                            var listaDetalleOfertaShowRoom = Mapper.Map<List<BEShowRoomOfertaDetalle>, List<ShowRoomOfertaDetalleModel>>(listaDetalle);
-                                            item.ListaDetalleOfertaShowRoom = listaDetalleOfertaShowRoom;
-                                        }
-                                    }
-                                }
-                                
-                                showRoomEventoModel.ListaShowRoomOferta = listaShowRoomOfertaModel;
-
-                                return View(showRoomEventoModel);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
+                            blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
                         }
-                        else
+
+                        if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                         {
-                            return RedirectToAction("Index", "Bienvenida");
+                            BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                            Entidad.CodigoConsultora = lista[2];
+                            Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                            }
                         }
                     }
+                    else
+                    {
+                        return RedirectToAction("Index", "Bienvenida");
+                    }
                 }
+
+
+                var showRoomEventoModel = CargarValoresModel();
+
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+                }
+
+                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioCatalogo);
+                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioCatalogo);
+
+                ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
+
+                ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                return View(showRoomEventoModel);
+
             }
             catch (Exception ex)
             {
@@ -179,8 +176,6 @@ namespace Portal.Consultoras.Web.Controllers
             };
             return View(cronogramaModel);
         }
-
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
@@ -259,12 +254,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderBy(x => x.DiasDespues);
                             break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderBy(x => x.RutaShowRoomBannerLateral);
-                            break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderBy(x => x.NumeroPerfiles);
                             break;
@@ -289,12 +278,6 @@ namespace Portal.Consultoras.Web.Controllers
                         case "DiasDespues":
                             items = listaShowRoomEvento.OrderByDescending(x => x.DiasDespues);
                             break;
-                        case "SetAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomPopup);
-                            break;
-                        case "CuvUrlAcross":
-                            items = listaShowRoomEvento.OrderByDescending(x => x.RutaShowRoomBannerLateral);
-                            break;
                         case "NumeroPerfiles":
                             items = listaShowRoomEvento.OrderByDescending(x => x.NumeroPerfiles);
                             break;
@@ -313,18 +296,16 @@ namespace Portal.Consultoras.Web.Controllers
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
                     rows = from a in items
-                           select new
-                           {
-                               id = a.EventoID,
-                               cell = new[]
+                        select new
+                        {
+                            id = a.EventoID,
+                            cell = new[]
                             {
                                 a.EventoID.ToString(),
                                 a.Nombre,
                                 a.Tema,
                                 a.DiasAntes.ToString(),
                                 a.DiasDespues.ToString(),
-                                a.RutaShowRoomPopup,
-                                a.RutaShowRoomBannerLateral,
                                 a.NumeroPerfiles.ToString(),
                                 a.Imagen1,
                                 a.Imagen2,
@@ -333,13 +314,15 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.ImagenVentaTagLateral,
                                 a.ImagenPestaniaShowRoom,
                                 a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),                                
+                                a.CampaniaID.ToString(),
                                 a.Descuento.ToString(),
                                 a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),                                
-                                a.Estado.ToString()
+                                a.OfertaEstrategia.ToString(),
+                                a.Estado.ToString(),
+                                a.TieneCategoria.ToString(),
+                                a.TieneCompraXcompra.ToString()
                             }
-                           }
+                        }
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -357,6 +340,63 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult GetShowRoomNiveles()
+        {
+            try
+            {
+                var listaShowRoomNivel = userData.ListaShowRoomNivel ?? new List<BEShowRoomNivel>();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = listaShowRoomNivel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomCategorias(int eventoId)
+        {
+            try
+            {
+                var listaCategorias = new List<BEShowRoomCategoria>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaCategorias = ps.GetShowRoomCategorias(userData.PaisID, eventoId).ToList();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    data = listaCategorias
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }        
+
+        [HttpPost]
         public JsonResult GetShowRoomPerfiles(int paisId, int eventoId)
         {
             try
@@ -367,14 +407,8 @@ namespace Portal.Consultoras.Web.Controllers
                     listaShowRoomPerfil = sv.GetShowRoomPerfiles(paisId, eventoId).ToList();
                 }
 
-                if (listaShowRoomPerfil == null || listaShowRoomPerfil.Count <= 0)
-                    return Json(new
-                    {
-                        success = true,
-                        message = "OK",
-                        data = ""
-                    });
-
+                listaShowRoomPerfil = listaShowRoomPerfil ?? new List<BEShowRoomPerfil>();
+                
                 return Json(new
                 {
                     success = true,
@@ -398,28 +432,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                Mapper.CreateMap<ShowRoomEventoModel, BEShowRoomEvento>()
-                .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
-                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.Imagen1, f => f.MapFrom(c => c.Imagen1))
-                .ForMember(t => t.Imagen2, f => f.MapFrom(c => c.Imagen2))
-                .ForMember(t => t.Descuento, f => f.MapFrom(c => c.Descuento))
-                .ForMember(t => t.OfertaEstrategia, f => f.MapFrom(c => c.OfertaEstrategia))
-                .ForMember(t => t.TextoEstrategia, f => f.MapFrom(c => c.TextoEstrategia))
-                .ForMember(t => t.Tema, f => f.MapFrom(c => c.Tema))
-                .ForMember(t => t.DiasAntes, f => f.MapFrom(c => c.DiasAntes))
-                .ForMember(t => t.DiasDespues, f => f.MapFrom(c => c.DiasDespues))
-                .ForMember(t => t.NumeroPerfiles, f => f.MapFrom(c => c.NumeroPerfiles))
-                .ForMember(t => t.ImagenCabeceraProducto, f => f.MapFrom(c => c.ImagenCabeceraProducto))
-                .ForMember(t => t.ImagenVentaSetPopup, f => f.MapFrom(c => c.ImagenVentaSetPopup))
-                .ForMember(t => t.ImagenVentaTagLateral, f => f.MapFrom(c => c.ImagenVentaTagLateral))
-                .ForMember(t => t.ImagenPestaniaShowRoom, f => f.MapFrom(c => c.ImagenPestaniaShowRoom))
-                .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
-                .ForMember(t => t.RutaShowRoomPopup, f => f.MapFrom(c => c.RutaShowRoomPopup))
-                .ForMember(t => t.RutaShowRoomBannerLateral, f => f.MapFrom(c => c.RutaShowRoomBannerLateral))
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-
                 BEShowRoomEvento beShowRoomEvento = Mapper.Map<ShowRoomEventoModel, BEShowRoomEvento>(showRoomEventoModel);
 
                 if (beShowRoomEvento.EventoID == 0)
@@ -720,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public string ActualizarStockMasivo(HttpPostedFileBase flStock)
+        public string ActualizarStockMasivo(HttpPostedFileBase flStock, int hdCargaStockEventoID)
         {
             string message = string.Empty;
             int registros = 0;
@@ -729,6 +741,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Procesar Carga Masiva Archivo CSV
                 string finalPath = string.Empty;
                 List<BEShowRoomOferta> lstStock = new List<BEShowRoomOferta>();
+                List<BEShowRoomCategoria> listaCategoria = new List<BEShowRoomCategoria>();
 
                 if (flStock != null)
                 {
@@ -740,12 +753,10 @@ namespace Portal.Consultoras.Web.Controllers
                     flStock.SaveAs(finalPath);
 
                     string inputLine = "";
-
                     string[] values = null;
-
                     int contador = 0;
 
-                    using (StreamReader sr = new StreamReader(finalPath))
+                    using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
                     {
                         while ((inputLine = sr.ReadLine()) != null)
                         {
@@ -755,28 +766,105 @@ namespace Portal.Consultoras.Web.Controllers
                                 continue;
                             }
 
-                            values = inputLine.Split(',');
+                            values = inputLine.Split('|');
                             if (values.Length > 1)
                             {
                                 if (IsNumeric(values[1].Trim()) && IsNumeric(values[3].Trim()))
                                 {
                                     BEShowRoomOferta ent = new BEShowRoomOferta();
-                                    ent.ISOPais = values[0].Trim();
-                                    ent.CampaniaID = int.Parse(values[1]);
-                                    ent.CUV = values[2].Trim();
-                                    ent.Stock = int.Parse(values[3].Trim());
-                                    ent.PrecioOferta = decimal.Parse(values[4].Trim());
-                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim());
+                                    ent.ISOPais = values[0].Trim().Replace("\"", ""); ;
+                                    ent.CampaniaID = int.Parse(values[1].Trim().Replace("\"", ""));
+                                    ent.CUV = values[2].Trim().Replace("\"", "");
+                                    ent.Stock = int.Parse(values[3].Trim().Replace("\"", ""));
+                                    ent.PrecioOferta = decimal.Parse(values[4].Trim().Replace("\"", ""));
+                                    ent.UnidadesPermitidas = int.Parse(values[5].Trim().Replace("\"", ""));
+                                    ent.Descripcion = values[6].Trim().Replace("\"", "");
+                                    ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
+                                    ent.TipNegocio = values[8].Trim().Replace("\"", "");
+
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
                                 }
                             }
                         }
                     }
+
                     if (lstStock.Count > 0)
                     {
                         lstStock.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom);
+
+                        //PL20-1398
+                        var lstPrecioProductoPROL = new List<PrecioProducto>();
+                        var stock1 = lstStock.First();
+                        var codigosCuv = string.Join("|", lstStock.Select(x => x.CUV));
+
+                        using (WsGestionWeb svc = new WsGestionWeb())
+                        {
+                            lstPrecioProductoPROL = svc.GetPrecioProductosOfertaWeb(stock1.ISOPais, stock1.CampaniaID.ToString(), codigosCuv).ToList();
+                        }
+
+                        stock1 = null;
+
+                        if (lstPrecioProductoPROL.Any())
+                        {
+                            foreach (var item in lstPrecioProductoPROL)
+                            {
+                                var oStock = lstStock.Where(x => x.CUV == item.cuv).FirstOrDefault();
+                                if (oStock != null)
+                                {
+                                    oStock.PrecioOferta2 = item.precio_producto;
+                                }
+                            }
+
+                            /*
+                            var pid = Util.GetPaisID(tmpItem.ISOPais);
+                            var totalLoad = 0;
+                            tmpItem = null;
+
+                            using (PedidoServiceClient svc = new PedidoServiceClient())
+                            {
+                                totalLoad = svc.InsOfertaShowRoomCargaMasiva(pid, lstStock.ToArray());
+                            }
+                             * */
+                        }
+                        //PL20-1398
+
                         List<BEShowRoomOferta> lstPaises = lstStock.GroupBy(x => x.ISOPais).Select(g => g.First()).ToList();
+
+                        var categorias = lstStock.Select(p => p.CodigoCategoria).Distinct();
+                        foreach (var item in categorias)
+                        {
+                            var beCategoria = new BEShowRoomCategoria();
+                            beCategoria.Codigo = item;
+                            beCategoria.Descripcion = item;
+                            beCategoria.EventoID = hdCargaStockEventoID;
+                            listaCategoria.Add(beCategoria);
+                        }
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
+                        }
+
+                        /*
+                        List<BEShowRoomOferta> lstStock2 = new List<BEShowRoomOferta>();
+                        foreach(var item in lstStock) 
+                        {
+                            var a = new BEShowRoomOferta();
+                            a.ISOPais = item.ISOPais;
+                            a.TipoOfertaSisID = item.TipoOfertaSisID;
+                            a.CampaniaID = item.CampaniaID;
+                            a.CUV = item.CUV;
+                            a.Stock = item.Stock;
+                            a.PrecioOferta = item.PrecioOferta;
+                            a.UnidadesPermitidas = item.UnidadesPermitidas;
+                            a.Descripcion = item.Descripcion;
+                            a.CodigoCategoria = item.CodigoCategoria;
+                            a.TipNegocio = item.TipNegocio;
+                            //a.PrecioOferta2 = item.PrecioOferta2;
+                            lstStock2.Add(a);
+                        }
+                         * */
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -869,13 +957,13 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 BEShowRoomOfertaDetalle ent = new BEShowRoomOfertaDetalle();
                                 ent.CUV = values[0].Trim().Replace("\"", "");
-                                ent.NombreSet = values[1].Trim().Replace("\"", "");
-                                ent.Posicion = values[2].Replace("\"", "0").ToInt();
-                                //ent.Posicion = values[2].Trim().Replace("\"", "").ToString();
-                                ent.NombreProducto = values[3].Trim().Replace("\"", "");
-                                ent.Descripcion1 = values[4].Trim().Replace("\"", "");
-                                ent.Descripcion2 = values[5].Trim().Replace("\"", "");
-                                ent.Descripcion3 = values[6].Trim().Replace("\"", "");
+                                //ent.NombreSet = values[1].Trim().Replace("\"", "");
+                                ent.Posicion = values[1].Replace("\"", "0").ToInt();                                
+                                ent.NombreProducto = values[2].Trim().Replace("\"", "");
+                                ent.Descripcion1 = values[3].Trim().Replace("\"", "");
+                                ent.Descripcion2 = values[4].Trim().Replace("\"", "");
+                                ent.Descripcion3 = values[5].Trim().Replace("\"", "");
+                                ent.MarcaProducto = values[6].Trim().Replace("\"", "");
                                 ent.FechaCreacion = DateTime.Now;
                                 ent.UsuarioCreacion = userData.CodigoConsultora;
                                 ent.FechaModificacion = DateTime.Now;
@@ -913,6 +1001,110 @@ namespace Portal.Consultoras.Web.Controllers
                 if (registros > 0)
                 {
                     message = "Se realizó la carga de " + registros + " set(s)";
+                }
+                else
+                {
+                    message = "No se actualizó ninguna carga de las consultoras que estaban dentro del archivo (CSV), verifique que el código sea correcto.";
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                message = "Se actualizaron solo la carga de " + registros + " set(s).";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                message = "Se actualizaron solo la carga de " + registros + " set(s).";
+            }
+
+            return message;
+        }
+
+        [HttpPost]
+        public string CargarProductoCpc(HttpPostedFileBase flCargarProductoCpc, int hdCargarProductoCpcEventoID,
+            int hdCargarProductoCpcCampaniaID)
+        {
+            string message = string.Empty;
+            int registros = 0;
+
+            try
+            {
+                #region Procesar Carga Masiva Consultoras Archivo CSV
+
+                string finalPath = string.Empty;
+                List<BEShowRoomCompraPorCompra> listaProductoCpc = new List<BEShowRoomCompraPorCompra>();
+
+                if (flCargarProductoCpc != null)
+                {
+                    string fileName = Path.GetFileName(flCargarProductoCpc.FileName);
+                    string extension = Path.GetExtension(flCargarProductoCpc.FileName);
+                    string newfileName = string.Format("{0}{1}", Guid.NewGuid().ToString(), extension);
+                    string pathFile = Server.MapPath("~/Content/FileShowRoomCargaConsultora");
+
+                    if (!Directory.Exists(pathFile))
+                        Directory.CreateDirectory(pathFile);
+                    finalPath = Path.Combine(pathFile, newfileName);
+                    flCargarProductoCpc.SaveAs(finalPath);
+
+                    string inputLine = "";
+
+                    string[] values = null;
+
+                    int contador = 0;
+
+                    using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
+                    {
+                        while ((inputLine = sr.ReadLine()) != null)
+                        {
+                            if (contador == 0)
+                            {
+                                contador++;
+                                continue;
+                            }
+
+                            values = inputLine.Split('|');
+                            if (values.Length > 1)
+                            {
+                                BEShowRoomCompraPorCompra ent = new BEShowRoomCompraPorCompra();
+                                ent.CUV = values[0].Trim().Replace("\"", "");
+                                ent.SAP = values[1].Replace("\"", "0");
+                                ent.Orden = values[2].Trim().Replace("\"", "").ToInt();
+                                ent.PrecioValorizado = decimal.Parse(values[3].Trim().Replace("\"", ""));
+
+                                listaProductoCpc.Add(ent);
+                            }
+                        }
+                    }
+
+                    if (listaProductoCpc.Count > 0)
+                    {
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            int paisID = userData.PaisID;
+                            if (paisID > 0)
+                            {
+                                try
+                                {
+                                    registros += sv.CargarProductoCpc(paisID, hdCargarProductoCpcEventoID, userData.CodigoConsultora, listaProductoCpc.ToArray());
+                                }
+                                catch (FaultException ex)
+                                {
+                                    LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                                }
+                                catch (Exception ex)
+                                {
+                                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                                }
+                            }
+                        }
+                    }
+                }
+                #endregion
+
+                if (registros > 0)
+                {
+                    message = "Se realizó la carga de " + registros + " producto(s) de Compra por Compra";
                 }
                 else
                 {
@@ -1078,6 +1270,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
+                                   a.PrecioCatalogo.ToString("#0.00"),
                                    a.PrecioOferta.ToString("#0.00"),
                                    a.Orden.ToString(),
                                    a.Stock.ToString(),
@@ -1170,6 +1363,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1233,6 +1427,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
+                    .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
                     .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                     .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
                     .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
@@ -1481,8 +1676,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
                     .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
                     .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID));
-
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -1492,6 +1687,91 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CampaniaID = userData.CampaniaID;
                     entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.ShowRoom;
                     entidad.IPUsuario = userData.IPUsuario;
+
+                    entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
+                    entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+
+                    sv.InsPedidoWebDetalleOferta(entidad);
+
+                    Session["PedidoWeb"] = null;
+                    Session["PedidoWebDetalle"] = null;
+                }
+
+                UpdPedidoWebMontosPROL();
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se agregó la Oferta Web satisfactoriamente.",
+                    extra = "",
+                    DataBarra = GetDataBarra()
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult InsertOfertaWebPortalCpc(PedidoDetalleModel model)
+        {
+            try
+            {
+                var mensaje = "";
+                var noPasa = ReservadoEnHorarioRestringido(out mensaje);
+                if (noPasa)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje,
+                        extra = ""
+                    });
+                }
+
+                Mapper.CreateMap<PedidoDetalleModel, BEPedidoWebDetalle>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
+                    .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
+                    .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad))
+                    .ForMember(t => t.PrecioUnidad, f => f.MapFrom(c => c.PrecioUnidad))
+                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
+                    .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
+                    .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
+                    .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
+
+                BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidad.PaisID = userData.PaisID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.CampaniaID = userData.CampaniaID;                    
+                    entidad.OfertaWeb = false;
+                    entidad.ConfiguracionOfertaID = 0;
+                    entidad.TipoOfertaSisID = 0;
+                    entidad.SubTipoOfertaSisID = 0;
+                    entidad.EsSugerido = false;
+                    entidad.EsKitNueva = false;
+                    entidad.IPUsuario = userData.IPUsuario;
+                    entidad.EsCompraPorCompra = true;
 
                     entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
@@ -1606,6 +1886,9 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
                             break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
+                            break;
                     }
                 }
                 else
@@ -1623,6 +1906,9 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case "Descripcion3":
                             items = lst.OrderBy(x => x.Descripcion3);
+                            break;
+                        case "MarcaProducto":
+                            items = lst.OrderBy(x => x.MarcaProducto);
                             break;
                     }
                 }
@@ -1654,8 +1940,9 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NombreProducto,
                                    a.Descripcion1,
                                    a.Descripcion2,
-                                   a.Descripcion3,
-                                   a.Imagen                                
+                                   a.Descripcion3,                                   
+                                   a.Imagen,
+                                   a.MarcaProducto,
                                 }
                            }
                 };
@@ -1677,6 +1964,7 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Descripcion1, f => f.MapFrom(c => c.Descripcion1))
                     .ForMember(t => t.Descripcion2, f => f.MapFrom(c => c.Descripcion2))
                     .ForMember(t => t.Descripcion3, f => f.MapFrom(c => c.Descripcion3))
+                    .ForMember(t => t.MarcaProducto, f => f.MapFrom(c => c.MarcaProducto))
                     .ForMember(t => t.Imagen, f => f.MapFrom(c => c.Imagen))
                     .ForMember(t => t.FechaCreacion, f => f.MapFrom(c => c.FechaCreacion))
                     .ForMember(t => t.UsuarioCreacion, f => f.MapFrom(c => c.UsuarioCreacion))
@@ -1952,7 +2240,299 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
-        }                         
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionNivel(int eventoId, int nivelId)
+        {
+            try
+            {
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Evento).ToList();
+
+                var listaPersonalizacionNivel = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionNivel = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, nivelId, 0).ToList();
+                }
+
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionNivel.FirstOrDefault(p => p.NivelId == nivelId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    listaPersonalizacion = listaPersonalizacionModel,
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GuardarPersonalizacionNivelShowRoom(List<ShowRoomPersonalizacionNivelModel> lista)
+        {
+            try
+            {
+                var listaFinal = new List<ShowRoomPersonalizacionNivelModel>();
+                foreach (var model in lista)
+                {
+                    model.Valor = model.Valor ?? "";
+                    model.ValorAnterior = model.ValorAnterior ?? "";
+
+                    if (model.EsImagen)
+                    {
+                        string imagenProductoFinal = GuardarImagenAmazon(model.Valor, model.ValorAnterior, userData.PaisID);
+                        model.Valor = imagenProductoFinal;
+                    }
+
+                    if (model.Valor != model.ValorAnterior)
+                    {
+                        listaFinal.Add(model);
+                    }
+                }
+
+                Mapper.CreateMap<ShowRoomPersonalizacionNivelModel, BEShowRoomPersonalizacionNivel>()
+                    .ForMember(t => t.PersonalizacionNivelId, f => f.MapFrom(c => c.PersonalizacionNivelId))
+                    .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                    .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
+                    .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                    .ForMember(t => t.NivelId, f => f.MapFrom(c => c.NivelId))
+                    .ForMember(t => t.Valor, f => f.MapFrom(c => c.Valor));
+
+                var listaEntidades = Mapper.Map<IList<ShowRoomPersonalizacionNivelModel>, IList<BEShowRoomPersonalizacionNivel>>(listaFinal);
+
+                foreach (var entidad in listaEntidades)
+                {
+                    using (PedidoServiceClient ps = new PedidoServiceClient())
+                    {
+                        
+                        if (entidad.PersonalizacionNivelId == 0)
+                        {
+                            ps.InsertShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                        else
+                        {
+                            ps.UpdateShowRoomPersonalizacionNivel(userData.PaisID, entidad);
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Se insertó las personalizaciones satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetShowRoomPersonalizacionCategoria(int eventoId, int categoriaId)
+        {
+            try
+            {
+                var categoria = new BEShowRoomCategoria();
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    categoria = ps.GetShowRoomCategoriaById(userData.PaisID, categoriaId);
+                }
+
+                categoria = categoria ?? new BEShowRoomCategoria();
+
+                var listaPersonalizacion = userData.ListaShowRoomPersonalizacion.Where(
+                        p => p.TipoPersonalizacion == Constantes.ShowRoomPersonalizacion.TipoPersonalizacion.Categoria).ToList();
+
+                var listaPersonalizacionCategoria = new List<BEShowRoomPersonalizacionNivel>();
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    listaPersonalizacionCategoria = ps.GetShowRoomPersonalizacionNivel(userData.PaisID, eventoId, 0, categoriaId).ToList();
+                }
+
+                Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                   .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                   .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                   .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                   .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                   .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                   .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                   .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+
+                var listaPersonalizacionModel = Mapper.Map<IList<BEShowRoomPersonalizacion>, IList<ShowRoomPersonalizacionModel>>(listaPersonalizacion);
+
+                foreach (var item in listaPersonalizacionModel)
+                {
+                    var personalizacionnivel =
+                        listaPersonalizacionCategoria.FirstOrDefault(p => p.CategoriaId == categoriaId && p.EventoID == eventoId &&
+                                p.PersonalizacionId == item.PersonalizacionId);
+
+                    if (personalizacionnivel != null)
+                    {
+                        item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionnivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            string ISO = Util.GetPaisISO(userData.PaisID);
+                            var carpetaPais = Globals.UrlMatriz + "/" + ISO;
+
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+                    else
+                    {
+                        item.PersonalizacionNivelId = 0;
+                        item.Valor = "";
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    categoria = categoria,
+                    listaPersonalizacion = listaPersonalizacionModel,
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateShowRoomDescripcionCategoria(ShowRoomCategoriaModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<ShowRoomCategoriaModel, BEShowRoomCategoria>()
+                  .ForMember(t => t.CategoriaId, f => f.MapFrom(c => c.CategoriaId))
+                  .ForMember(t => t.EventoID, f => f.MapFrom(c => c.EventoID))
+                  .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                  .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion));
+
+                var entidad = Mapper.Map<ShowRoomCategoriaModel, BEShowRoomCategoria>(model);
+
+                using (PedidoServiceClient ps = new PedidoServiceClient())
+                {
+                    ps.UpdateShowRoomDescripcionCategoria(userData.PaisID, entidad);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
 
         public static bool IsNumeric(object Expression)
         {
@@ -2019,42 +2599,323 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEConfiguracionOferta>, IEnumerable<ConfiguracionOfertaModel>>(lst);
         }
 
-        private string GetDescripcionMarca(int marcaId)
-        {
-            string result = string.Empty;
+        #region Comprar desde Página de Oferta
 
-            switch (marcaId)
+        public ActionResult DetalleOfertaCUV(string query)
+        {
+            if (query != null)
             {
-                case 1:
-                    result = "Lbel";
-                    break;
-                case 2:
-                    result = "Esika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    result = "NO DISPONIBLE";
-                    break;
+                string param = Util.DesencriptarQueryString(query);
+                string[] lista = param.Split(new char[] { ';' });
+
+                if (lista[2] != userData.CodigoConsultora && lista[1] != userData.CodigoISO)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                if (lista[0] == CodigoProceso)
+                {
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        blnRecibido = Convert.ToBoolean(sv.GetEventoConsultoraRecibido(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID));
+                    }
+                    OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                    if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
+                    {
+                        var intID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
+
+                        OfertaID = intID;
+
+                        BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();
+
+                        Entidad.CodigoConsultora = lista[2];
+                        Entidad.CampaniaID = Convert.ToInt32(lista[3]);
+                        
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            sv.UpdShowRoomEventoConsultoraEmailRecibido(userData.PaisID, Entidad);
+                        }
+
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+  
             }
 
-            return result;
+
+            return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
         }
+
+        
+
+        public ActionResult DetalleOferta(int id)
+        {
+            if (!ValidarIngresoShowRoom(false))
+                return RedirectToAction("Index", "Bienvenida");
+
+            var modelo = ViewDetalleOferta(id);
+
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+            bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+
+            var listaCompraPorCompra = GetProductosCompraPorCompra(esFacturacion, userData.BeShowRoom.EventoID,
+                        userData.BeShowRoom.CampaniaID);
+            modelo.ListaShowRoomCompraPorCompra = listaCompraPorCompra;
+            modelo.TieneCompraXcompra = userData.BeShowRoom.TieneCompraXcompra;
+
+            ViewBag.ImagenFondoProductPage = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoProductPage, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+            return View("DetalleSet", modelo);
+
+        }        
+        #endregion
+
+        [HttpPost]
+        public JsonResult CargarProductosShowRoom(BusquedaProductoModel model)
+        {
+            try
+            {
+                if (!ValidarIngresoShowRoom(false))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var listaFinal = new List<ShowRoomOfertaModel>();
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                int cantidadTotal = listaProductos.Count;
+
+                listaFinal = listaProductos;
+
+                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
+                {
+                    var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
+                    if (filtroCategoria != null)
+                    {
+                        var arrayCategoria = filtroCategoria.Valores.ToArray();
+                        listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                    }
+
+                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
+                    if (filtroRangoPrecio != null)
+                    {
+                        var valorDesde = filtroRangoPrecio.Valores[0];
+                        var valorHasta = filtroRangoPrecio.Valores[1];
+                        listaFinal = listaFinal.Where(p => p.PrecioCatalogo >= Convert.ToDecimal(valorDesde)
+                                     && p.PrecioCatalogo <= Convert.ToDecimal(valorHasta)).ToList();
+                    }
+                }                
+
+                if (model.Ordenamiento != null)
+                {
+                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
+                    {
+                        switch (model.Ordenamiento.Valor)
+                        {
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
+                                listaFinal = listaFinal.OrderBy(p => p.PrecioCatalogo).ToList();
+                                break;
+                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
+                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioCatalogo).ToList();
+                                break;
+                            default:
+                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                break;
+                        }
+                    }
+                    
+                }
+                
+                if (model.Limite > 0)
+                    listaFinal = listaFinal.Take(model.Limite).ToList();
+
+                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+
+                int cantidad = listaFinal.Count;
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    lista = listaFinal,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidad
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }            
+        }
+
+        [HttpPost]
+        public JsonResult CerrarBannerCompraPorCompra()
+        {
+            try
+            {
+                userData.CloseBannerCompraPorCompra = true;
+
+                SetUserData(userData);
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok"
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error"
+                });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult ProgramarAviso(MisDatosModel model)
+        {
+            try
+            {
+                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+
+                entidad.EMail = Util.Trim(entidad.EMail);
+
+                if (entidad.EMail != "")
+                {
+                    using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                    {
+                        int cantidad = svr.ValidarEmailConsultora(userData.PaisID, entidad.EMail, userData.CodigoUsuario);
+
+                        if (cantidad > 0)
+                        {
+                            return Json(new
+                            {
+                                Cantidad = cantidad,
+                                success = false,
+                                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
+                                extra = ""
+                            });
+                        }
+                    }
+                }
+
+                string CorreoAnterior = Util.Trim(userData.EMail);
+                string CorreoNuevo = entidad.EMail;
+                bool emailActivo = userData.EMailActivo;
+                
+                if (CorreoNuevo == "")
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "- El correo no puede ser vacio."
+                    });
+                }
+
+                entidad.Celular = Util.Trim(entidad.Celular);
+                if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
+                {
+                    entidad.CodigoUsuario = userData.CodigoUsuario;
+                    entidad.Telefono = userData.Telefono;
+                    entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
+                    entidad.Sobrenombre = userData.Sobrenombre;
+                    entidad.ZonaID = userData.ZonaID;
+                    entidad.RegionID = userData.RegionID;
+                    entidad.ConsultoraID = userData.ConsultoraID;
+                    entidad.PaisID = userData.PaisID;
+
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        sv.UpdateDatos(entidad, CorreoAnterior);
+                    }
+
+                    userData.EMail = entidad.EMail;
+                    userData.Celular = entidad.Celular;
+                    userData.EMailActivo = CorreoNuevo == CorreoAnterior ? userData.EMailActivo : false;
+                    SetUserData(userData);
+                }
+
+                var emailValidado = userData.EMailActivo;
+
+                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
+                {
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,sr" };
+                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    HttpRequestBase request = this.HttpContext.Request;
+
+                    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+
+                    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+
+                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", CorreoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
+                }
+
+                // registrar en la tabla show room
+
+                userData.BeShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                userData.BeShowRoomConsultora.Suscripcion = true;
+                userData.BeShowRoomConsultora.CorreoEnvioAviso = CorreoNuevo;
+                userData.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
+                userData.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
+
+                using (PedidoServiceClient sac = new PedidoServiceClient())
+                {
+                    sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                    emailValidado = emailValidado
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
+
     }
 }

@@ -1,0 +1,333 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
+
+@{
+    ViewBag.Title = "Intriga";
+}
+
+<div class="content_banner_intriga">
+    <div class="texto_dias_intriga">
+        @if (ViewBag.DiasFaltan == 1)
+        {
+            <text>FALTA 1 DÍA</text>
+        }
+        else
+        {
+            <text>FALTAN @ViewBag.DiasFaltan DÍAS</text>
+        }
+    </div>
+
+    <img src="@ViewBag.urlImagenPopupIntriga" />
+</div>
+<div class="content_belcorp" style="text-align:center;">
+    <div class="content_set_intriga">
+
+        <input type="hidden" id="hdOfertaShowRoomID" value="@Model.OfertaShowRoomID" />
+        <input type="hidden" class="valorCuv" value="@Model.CUV" />
+        <input type="hidden" class="claseMarcaID" value="@Model.MarcaID" />
+        <input type="hidden" class="clasePrecioUnidad" value="@Model.PrecioCatalogo" />
+        <input type="hidden" class="claseConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+        <input type="hidden" class="DescripcionProd" value="@Model.Descripcion" />
+        <input type="hidden" class="DescripcionMarca" value="@Model.DescripcionMarca" />
+        <input type="hidden" class="posicionEstrategia" value="@Model.Orden" />
+        <div class="texto_adelanto_intriga">MIRA EL ADELANTO...</div>
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga1.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+        <div class="set_visible_intriga">
+            <div class="content_set_imagen_intriga">
+            @if (Model.ImagenProducto != "")
+            {
+                <img class="set_img" src="@Model.ImagenProducto">
+            }
+            else
+            {
+                <img class="set_img" src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" />
+            }                
+            </div>
+            
+            <div class="linea_separadora_intriga"></div>
+            <div class="nombre_set_showroom">@Model.Descripcion</div>
+            <div class="precio_showroom_intriga">
+                <span class="precio_oferta_showroom">@Model.Simbolo @Model.FormatoPrecioOferta, </span>@Model.Simbolo @Model.FormatoPrecioCatalogo
+            </div>
+            <div class="liquidacion_rango_home" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                <div class="liquidacion_rango_right_pedido">
+                    <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                    <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                </div>
+            </div>
+            <a class="boton_Agregalo_home" style="width:61%;border:1px solid black;" onclick="AgregarOfertaShowRoom()">
+                AGRÉGALO
+            </a>
+            <div class="agregado product-add" style="text-align:right; padding-top:10px; padding-right: 10px; display: none;">
+                AGREGADO
+                <div class="icono"></div>
+            </div>
+        </div>
+        <div class="set_silueta_intriga">
+            <img src="@Url.Content("~/Content/Images/showroom/intriga2.png")" />
+            <div class="linea_separadora_intriga"></div>
+        </div>
+
+    </div>
+    <div class="content_confirmacion_correo" id="divIntrigaProgramarAviso" style="display: none;" >
+        <div id="divIntrigaProgramarAvisoDatos">
+            <div class="titulo_confirmacion">¡NO TE QUEDES FUERA!</div>
+            <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
+            <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
+            <div class="correo_showroon icono_celular"><input type="text" value="@Model.Celular" id="txtIntrigaCelular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
+            <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
+            <a class="btn_enviar_correo_intriga" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
+        </div>
+        <div id="divIntrigaEmailRespuestaOk">
+            <div class="titulo_confirmacion" style="margin-top:25px;margin-bottom: 30px;">¡ahora serás la primera en enterarte!</div>
+            <div class="texto_confirmacion">Mantente atenta, te notificaremos a:<b data-email-registrado="">@Model.EMail</b></div>
+            <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
+        </div>       
+        <div style="text-align:center;" id="divIntrigaEmailRespuestaConfirmar">
+            <img src="@Url.Content("~/Content/Images/showroom/notificacion.png")" />
+            <div class="titulo_confirmacion" style="margin-bottom: 20px;">AHORA SÓLO DEBES CONFIRMAR TU CORREO</div>
+            <div class="texto_confirmacion">Te hemos enviado un correo a:<b data-email-registrado="">@Model.EMail</b>Entra a tu cuenta para confirmarlo</div>
+            <a class="link_cambiar_correo" data-email-reenviar="">ENVIAR NUEVAMENTE</a> &nbsp; &nbsp; &nbsp; &nbsp;  
+            <a class="link_cambiar_correo" data-email-cambiar="">CAMBIAR CORREO</a>
+        </div>
+    </div>
+    <hr class="clear" />
+    <div class="texto_final_intriga">¿Tienes dudas sobre la Venta Exclusiva Web?.
+        <a href="@ViewBag.urlTerminosyCondiciones" style="display:inline-block">Resuélvelas aquí.</a>
+    </div>
+</div>
+
+<div id="DialogMensajesBanner" style="display: none;">
+    <div class="message_text">
+        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
+    </div>
+</div>
+
+<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+    <div class="titulo_producto_agregado">
+        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+    </div>
+    <div class="div_bonotes_producto">
+        <div class="child_center_botones">
+            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type="text/javascript">
+        var emailOriginal = $.trim('@Model.EMail').toLowerCase();
+        var emailActivo = $.trim('@Model.EMailActivo');
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingIntriga';
+
+        var celularOriginal = $.trim('@Model.Celular').toLowerCase();
+        var suscrito = $.trim('@Model.Suscripcion');
+
+        $(document).ready(function () {
+            $('.ubicacion_web').find('span').eq(0).hide();
+            $('.ubicacion_web').find('span').eq(1).hide();
+            //$('.ubicacion_web').css('margin-top', '162px');
+
+            $('#DialogMensajesBanner').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: true,
+                width: 400,
+                draggable: true,
+                title: ":: Mensaje ::",
+                buttons:
+                {
+                    "Aceptar": function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+            $('#divMensajeProductoAgregado').dialog({
+                autoOpen: false,
+                resizable: false,
+                modal: true,
+                closeOnEscape: true,
+                width: 456,
+                draggable: true,
+            });
+        });
+
+        function AgregarOfertaShowRoom() {
+            //debugger;
+
+            var article = $('.content_set_intriga');
+            var cantidad = $(article).find('[data-input="cantidad"]').val();
+            var listatipo = "0";
+
+            //var cantidad = $(article).find(".txtCantidad").val();
+            var CUV = $(article).find(".valorCuv").val();
+            var MarcaID = $(article).find(".claseMarcaID").val();
+            var PrecioUnidad = $(article).find(".clasePrecioUnidad").val();
+            var ConfiguracionOfertaID = $(article).find(".claseConfiguracionOfertaID").val();
+            var nombreProducto = $(article).find(".DescripcionProd").val();
+            var posicion = $(article).find(".posicionEstrategia").val();
+            var descripcionMarca = $(article).find(".DescripcionMarca").val();
+
+            if (cantidad == "" || cantidad == 0) {
+                AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.");
+            } else {
+                waitingDialog({});
+                $.ajaxSetup({
+                    cache: false
+                });
+                //$.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+                //    if (parseInt(data.Saldo) < parseInt(cantidad)) {
+                //        var Saldo = data.Saldo;
+                //        var UnidadesPermitidas = data.UnidadesPermitidas;
+
+                //        $.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
+                //            //$(article).find(".claseStock").text(data.Stock);
+
+                //            closeWaitingDialog();
+
+                //            if (Saldo == UnidadesPermitidas)
+                //                AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                //            else {
+                //                if (Saldo == "0")
+                //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                //                else
+                //                    AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                //            }
+                //        });
+                //    } else {
+                var Item = {
+                    MarcaID: MarcaID,
+                    Cantidad: cantidad,
+                    PrecioUnidad: PrecioUnidad,
+                    CUV: CUV,
+                    ConfiguracionOfertaID: ConfiguracionOfertaID,
+                    OrigenPedidoWeb: origenPedidoWeb
+                };
+
+                $.ajaxSetup({ cache: false });
+                //$.getJSON(baseUrl + 'ShowRoom/ObtenerStockActualProducto', { CUV: CUV }, function (data) {
+                //    if (parseInt(data.Stock) < parseInt(cantidad)) {
+                //        //$(article).find(".claseStock").text(data.Stock);
+
+                //        closeWaitingDialog();
+                //        AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                //    } else {
+                //console.log(Item);
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(Item),
+                    async: true,
+                    success: function (response) {
+                        closeWaitingDialog();
+
+                        if (response.success == true) {
+                            //$("#spnNombreOfertaShowRoom").html(nombreProducto);
+
+                            //$("#divMensajeProductoAgregado").parent().find(".ui-dialog-titlebar").hide();
+                            //$("#divMensajeProductoAgregado").parent().css("overflow", "inherit");
+                            //$("#divMensajeProductoAgregado").parent().css("border", "0");
+                            //$("#divMensajeProductoAgregado").parent().css("border-radius", "0");
+                            //$("#divMensajeProductoAgregado").parent().css("-webkit-border-radius", "0");
+                            //$("#divMensajeProductoAgregado").parent().css("-moz-border-radius", "0");
+                            //$("#divMensajeProductoAgregado").parent().css("-khtml-border-radius", "0");
+                            //$("#divMensajeProductoAgregado").parent().css("padding", "0");
+                            //$('#divMensajeProductoAgregado').dialog('open');
+
+                            //            var stockRestante = parseInt(data.Stock) - parseInt(cantidad);
+                            //            if (stockRestante < 1) {
+                            //                $(article).find(".resta").attr('disabled', 'disabled');
+                            //                $(article).find(".suma").attr('disabled', 'disabled');
+                            //                $(article).find(".txtCantidad").attr('disabled', 'disabled');
+                            //                $(article).find(".btnAgregarOfertaShowRoom").attr('disabled', 'disabled');
+
+                            //                $(article).find(".claseStock").text("0");
+                            //                $(article).find(".txtCantidad").val("0");
+
+                            //                var htmlAgotado = '<div class="producto_agotado">';
+                            //                htmlAgotado += '<div class="agotado_texto">AGOTADO</div>';
+                            //                htmlAgotado += '</div>';
+                            //                var htmlBotonAgotado = '<a class="boton_agregar_showroom">AGOTADO</a>';
+
+                            //                var divAgotado = $(article).find(".divEstaAgotado");
+                            //                $(divAgotado).html("");
+                            //                $(divAgotado).html(htmlAgotado);
+                            //                var divBotonAgotado = $(article).find(".divBotonAgotado");
+                            //                $(divBotonAgotado).html("");
+                            //                $(divBotonAgotado).html(htmlBotonAgotado);
+
+                            //                var div = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+                            //                $(div).find(".txtCantidad").val("0");
+
+                            //                var htmlAgotadoCarrusel = '<div class="agotado_carrusel">AGOTADO</div>';
+                            //                var divPadreCarrusel = $(".cambiarProductoCarrusel[data-posicion=" + posicion + "]").parent();
+                            //                var divAgotadoCarrusel = $(divPadreCarrusel).find(".divEstaAgotadoCarrusel");
+                            //                $(divAgotadoCarrusel).html("");
+                            //                $(divAgotadoCarrusel).html(htmlAgotadoCarrusel);
+                            //            } else {
+                            //                $(article).find(".claseStock").text(stockRestante);
+                            //                $(article).find(".txtCantidad").val("1");
+
+                            //                var div2 = $(".contenidoCarrusel[data-carrusel-posicion=" + posicion + "]");
+                            //                $(div2).find(".txtCantidad").val("1");
+                            //            }
+
+                            AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, listatipo);
+                            CargarResumenCampaniaHeader(true);
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
+
+                            $('.agregado.product-add').show();
+                        }
+                        else messageInfoError(response.message);
+                    },
+                    error: function (response, error) {
+                        if (checkTimeout(response)) {
+                            closeWaitingDialog();
+                            console.log(response);
+                        }
+                    }
+                });
+                //}
+                //});
+                //    }
+
+                //});
+            }
+        }
+
+        function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca, tipo) {
+            var lista = tipo == 0 ? "Ofertas Showroom" : "Ofertas Showroom popUp";
+            dataLayer.push({
+                'event': 'addToCart',
+                'ecommerce': {
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': nombreProducto,
+                            'id': CUV,
+                            'price': PrecioUnidad,
+                            'brand': descripcionMarca,
+                            'variant': 'Ofertas Showroom',
+                            'category': 'NO DISPONIBLE',
+                            'quantity': cantidad
+                        }]
+                    }
+                }
+            });
+        }
+
+    </script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Intriga.js")"></script>
+}

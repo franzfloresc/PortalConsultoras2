@@ -19,13 +19,6 @@ $(document).ready(function () {
         $('#cssStyleLbel').attr('disabled', false);
     }
 
-    //if ($('#ctl00_cssStyle').is('[disabled=disabled]')) {
-    //    $('#ctl00_cssStyle').attr('disabled', true);
-    //}
-    //if ($('#ctl00_cssStyleLbel').is('[disabled=disabled]')) {
-    //    $('#ctl00_cssStyleLbel').attr('disabled', true);
-    //}
-
     $(".DropDown").change(function () {
         val_Usuario = false;
         val_Password = false;

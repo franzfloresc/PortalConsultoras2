@@ -1,7 +1,9 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
+﻿using System;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class ShowRoomBannerLateralModel
     {
         public bool ConsultoraNoEncontrada { get; set; }
@@ -22,5 +24,18 @@ namespace Portal.Consultoras.Web.Models
         public bool EstaActivoLateral { get; set; }
 
         public string RutaShowRoomBannerLateral { get; set; }
+
+        public string LetrasDias { get; set; }
+        public string ImagenPopupShowroomIntriga { get; set; }
+
+        public string ImagenBannerShowroomIntriga { get; set; }
+
+        public int DiasFalta { get; set; }
+
+        public string ImagenPopupShowroomVenta { get; set; }
+
+        public string ImagenBannerShowroomVenta { get; set; }
+        public string EstadoActivo { get; set; }
+
     }
 }
