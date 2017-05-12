@@ -47,12 +47,12 @@ $(document).ready(function () {
 function IntrigaConfirmarCorreo() {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
     if (emailNuevo == "") {
-        $('#txtIntrigaEmail').focus();
+        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("Debe ingresar EMail.\n");
         return false;
     }
     if (!validateEmail(emailNuevo)) {
-        $('#txtIntrigaEmail').focus();
+        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
