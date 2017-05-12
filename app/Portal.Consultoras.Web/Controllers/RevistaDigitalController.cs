@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "GRACIAS POR SUSCRIBIRSE." : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
             }, JsonRequestBehavior.AllowGet);
         }
 

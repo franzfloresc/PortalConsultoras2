@@ -341,6 +341,7 @@
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
     <Compile Include="Controllers\SuperateController.cs" />
+    <Compile Include="Controllers\SuscripcionRDController.cs" />
     <Compile Include="Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Controllers\UneteController.cs" />
@@ -2707,6 +2708,7 @@
     <Content Include="Content\Images\remove.png" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
+    <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
@@ -3914,6 +3916,7 @@
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
+    <Content Include="Views\SuscripcionRD\Index.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

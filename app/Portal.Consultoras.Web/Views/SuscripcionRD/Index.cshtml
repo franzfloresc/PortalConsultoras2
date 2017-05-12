@@ -1,0 +1,34 @@
+﻿@using Portal.Consultoras.Common
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section styles{
+
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+}
+<div class="content_belcorp" style="margin-top: 62px;">
+    
+    <div class="logo_EPT_content">
+        <div class="logo_EPT">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")"/>
+        </div>
+    </div>
+
+    <div class="texto_usuario_srd">
+        INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA<br/>
+        <span class="texto_light">Inscríbete y aprovecha los beneficios <br/>que te harán ganar más.</span>
+    </div>
+    <div class="botones_cabecera_srd">
+        <button type="button" onclick="RDSuscripcion()">INSCRIBIRME A &Eacute;SIKA PARA M&Iacute;</button><br/>
+        <span>Al inscribirte estas aceptando los Términos y Condiciones.</span>
+    </div>
+    <hr class="clear"/>
+    <div class="backgroud2_srd"></div>
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
