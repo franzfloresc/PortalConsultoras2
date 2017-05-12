@@ -5,7 +5,7 @@ var rangoPrecios = 0;
 $(document).ready(function () {
     $("#VerOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').hide();
-        $('#CerrarOfertaEspecial').show();
+        $('#BajarOfertaEspecial').show();
         //$('.promocion_especial_header').css("background", "#fff6f4");
         $('.content_set_oferta_especial').slideDown();
 
@@ -26,16 +26,19 @@ $(document).ready(function () {
 
         $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
     });
-    $("#CerrarOfertaEspecial").on("click", function () {
+    $("#BajarOfertaEspecial").on("click", function () {
         $('#content_set_especial_header').show();
-        $('#CerrarOfertaEspecial').hide();
+        $('#BajarOfertaEspecial').hide();
              
         //$('.promocion_especial_header').css("background", "#fff");
         $('.content_set_oferta_especial').slideUp();
+        
+    });
+
+    $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
     });
-
     
     
     $(".footer_e").css("margin-bottom", "73px");
