@@ -252,6 +252,17 @@ namespace Portal.Consultoras.Data
             return Convert.ToString(Context.ExecuteScalar(command));
         }
 
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            DbCommand command = Context.Database.GetSqlStringCommand("SELECT Result FROM dbo.fnGetAccesoUsuario(@PaisID, @CodigoUsuario, @CodigoConsultora, @TipoUsuario)");
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@TipoUsuario", DbType.Int16, tipoUsuario);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+
         public int ValidarEmailConsultora(string Email, string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidateConsultoraEmail");
