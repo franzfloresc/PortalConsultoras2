@@ -2339,20 +2339,20 @@
             </div>
             <div class="popup_revistaSuscripcion_contenido">
                 <span>
-                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO.
                 </span>
                 <span>
-                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guía de negocio por tu revista online
                 </span>
             </div>
             <div class="popup_revistaSuscripcion_grupoBotones">
                 <button type="button" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
-                <button type="button" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" onclick="RDInformacion()" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
             </div>
             <div class="popup_revistaSuscripcion_terminos">
                 Al inscribirte est&aacute;s aceptando los
-                <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
-                y recibirás tu Revista únicamente por vía online, a partir de la C10
+                <a href="#" title="Términos y Condiciones" onclick="FichaInformacionRD()">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10.
             </div>
             <div class="img_modeloRevista">
                 <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
@@ -2471,10 +2471,11 @@
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var urlInformacionSuscripcion = '@Url.Action("Index", "SuscripcionRD")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
-        
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

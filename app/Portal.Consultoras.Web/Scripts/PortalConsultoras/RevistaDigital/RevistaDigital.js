@@ -10,7 +10,10 @@
             if (!checkTimeout(data))
                 return false;
 
-            AbrirMensaje(data.message);
+            //AbrirMensaje(data.message);
+            $('#alertDialogMensajesHome .terminos_title_2').html("MENSAJE");
+            $('#alertDialogMensajesHome .pop_pedido_mensaje').html(data.message);
+            $('#alertDialogMensajesHome').dialog('open');
             if (data.success == true) {
                 PopupCerrar("PopRDSuscripcion");
             }
@@ -43,3 +46,6 @@ function RDPopupNoVolverMostrar() {
     });
 }
 
+function RDInformacion() {
+    location.href = urlInformacionSuscripcion;
+}
