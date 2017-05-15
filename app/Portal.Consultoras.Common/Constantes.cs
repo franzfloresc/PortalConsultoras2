@@ -261,6 +261,8 @@ namespace Portal.Consultoras.Common
             public const int DesktopShowRoomProductPageCarrusel = 1532;
             public const int DesktopShowRoomProductPageTactica = 1533;
             public const int DesktopShowRoomBienvenida = 1541;
+            public const int DesktopShowRoomSubCampanias = 1524;
+            public const int MobileShowRoomSubCampanias = 2524;
             public const int MobileShowRoomLandingIntriga = 2511;
             public const int MobileShowRoomLandingCompraTactica = 2522;
             public const int MobileShowRoomProductPage = 2531;

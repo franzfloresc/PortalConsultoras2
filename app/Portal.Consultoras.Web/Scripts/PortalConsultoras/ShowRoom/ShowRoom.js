@@ -246,6 +246,10 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
+    var esSubCampania = $(article).parents('.content_set_oferta_especial').length > 0;
+    if (!esSubCampania) {
+        esSubCampania = $(article).parents('div#contenedor-showroom-subcampanias-mobile').length > 0;
+    }
     //debugger;
     dataLayer.push({
         'event': 'addToCart',
@@ -282,6 +286,9 @@ function AgregarOfertaShowRoom(article, cantidad) {
         }
     }
 
+    if (esSubCampania) {
+        origen = origenPedidoWebSubCampania;
+    }
     AbrirLoad();
     $.ajaxSetup({
         cache: false
