@@ -1236,12 +1236,24 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 
     if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
+        var sentListEstrategia = false;
+        if (typeof (Storage) !== 'undefined') {
+            var sle = localStorage.getItem('sentListEstrategia2');
+            if (sle !== null && sle === '1') {
+                sentListEstrategia = true;
             }
-        });
+            else {
+                localStorage.setItem('sentListEstrategia2', '1');
+            }
+        }
+        if (!sentListEstrategia) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
     }
 }
 function TagManagerClickAgregarProducto() {
@@ -2084,6 +2096,9 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 
 function EjecutarPROL() {
     // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
     if (HorarioRestringido())
         return;
 
@@ -3615,7 +3630,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                AbrirPopupPedidoReservado(data.message, '1')
             }
         },
         error: function (error, x) {
