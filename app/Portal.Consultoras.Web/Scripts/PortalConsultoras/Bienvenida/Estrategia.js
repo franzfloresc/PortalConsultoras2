@@ -121,7 +121,7 @@ function ArmarCarouselEstrategias(data) {
 
     var obj = new Object();
     obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    obj.CodigoEstrategia = "101";
+    //obj.CodigoEstrategia = "101";
     obj.Lista = data;
     obj.Consultora = usuarioNombre.toUpperCase()
 

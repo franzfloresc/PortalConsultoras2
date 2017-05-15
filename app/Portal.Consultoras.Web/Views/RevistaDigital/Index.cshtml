@@ -14,22 +14,29 @@
 }
 
 <!--MAQUETADO NUEVO-->
+<div class="content_belcorp">
+    <div class="logo_EPT_content">
+        <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
+    </div>
+    <div class="texto_usuario_ept">
+        @Model.NombreUsuario, descubre Tu NUEVA REVISTA ONLINE personalizada<br />
+        <span class="texto_light">Encuentra ofertas, bonificaciones, y lanzamientos de las 3 marcas. todos los productos también suman puntos.</span>
+    </div>
+</div>
+<hr class="clear" />
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
-        <div class="logo_EPT_content">
-            <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
-        </div>
-        <div class="texto_usuario_ept">
-            @Model.NombreUsuario, descubre Tu NUEVA REVISTA ONLINE personalizada<br />
-            <span class="texto_light">Encuentra ofertas, bonificaciones, y lanzamientos de las 3 marcas. todos los productos también suman puntos.</span>
-        </div>
-        <hr class="clear" />
-        <div class="content_slider_ept">
+        <div class="content_slider_ept" id="divCarruselLan">
             @foreach (var lan in Model.ListaProducto)
             {
-                <div class="content_item_ept">
+                <div class="content_item_ept" data-item="" data-ImgPrevDesktop="@lan.ImgPrevDesktop">
+                    <div style="display:none;"></div>
                     <div>
-                        <div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>
+                        @*<div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>*@
+                        @if (lan.ImgFichaDesktop != "")
+                        {
+                            <div class="etiqueta_nuevo_ept"><img src="@lan.ImgFichaDesktop" alt="" /></div>
+                        }
                         <div class="detalle_set_banner">
                             <div class="content_set_imagen_banner">
                                 <img src="@lan.ImagenURL" alt="" />
@@ -65,100 +72,49 @@
                             <a class="btn_mas_info_set" href="javascript:;"> ver más de Kadia</a>
                         </div>
                     </div>
-                    <div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>
+                    @*<div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>*@
+                    <div class="imagen_fondo">
+                    @if (lan.ImgFondoDesktop != "")
+                    {
+                        <img src="@lan.ImgFondoDesktop" />
+                    }
+                    </div>
                 </div>
             }
-            @*
-            <div class="content_item_ept">
-                <div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>
-                <div class="detalle_set_banner">
-                    <div class="content_set_imagen_banner"><img src="@Url.Content("~/Content/Images/RevistaDigital/set_revista_digital.png")" /></div>
-                    <div class="titulo_set_banner_ept">MI PACK KADIA SPORT</div>
-                    <div class="detalle_set_banner_ept">8 kadia Sport - 2 Intrepid + 3 Kalos Sport</div>
-                    <div class="producto_nombre_descripcion">
-                        <div class="producto_precio" style="margin-bottom: 3px;">
-                            <span class="precio-oferta-normal">S/. 76.90</span>
-                            <span class="precio-oferta-venta"><b>S/. 0.00</b></span>
-                        </div>
-                        <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                            <input type="text" value="1" min="1" max="99" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " data-input="cantidad" data-cantidad-input="-">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                        <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                            AGRÉGALO
-                        </a>
-                        <div class="clear"></div>
-                        <div style="padding-top: 9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right; display: none;">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn_mas_info_set"> ver más de Kadia</a>
-                </div>
-                <div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>
-            </div>
-            <div class="content_item_ept">
-            <div class="detalle_set_banner">
-                <div class="content_set_imagen_banner"><img src="@Url.Content("~/Content/Images/RevistaDigital/set_revista_digital.png")" /></div>
-            </div>
-            <div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>
-        </div>*@
         </div>
     </div>
 </div>
 <hr class="clear" />
 <div class="BloqueLandingRD">
     <div class="content_belcorp">
-        <div class="titulo_pagina">MIS OFERTAS</div>
-        <select class="marca_ept">
-            <option>FILTRAR POR MARCA</option>
-            <option>FILTRAR POR MARCA</option>
+        <div>
+            <div class="titulo_pagina">MIS OFERTAS</div>
+            <select class="marca_ept">
+                <option>FILTRAR POR MARCA</option>
+                <option>FILTRAR POR MARCA</option>
 
-        </select>
-        <select id="filter-sorting" class="marca_ept">
-            @foreach (var item in Model.FiltersBySorting)
-            {
-                <option value="@item.Codigo">@item.Descripcion</option>
-            }
-        </select>
-
-        <div class="content_buscador_landing">
-            <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-            <a class="buscar_landing_ept">BUSCAR</a>
-        </div>
-        <hr class="clear" />
-        <div id="divCantProductos" class="cantidad_productos_fav" style="float:right; margin-bottom:20px;">
+            </select>
+            <select id="filter-sorting" class="marca_ept">
+                @foreach (var item in Model.FiltersBySorting)
+                {
+                    <option value="@item.Codigo">@item.Descripcion</option>
+                }
+            </select>
+            <div class="content_buscador_landing">
+                <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
+                <a class="buscar_landing_ept">BUSCAR</a>
+            </div>
+            <hr class="clear" />
+            <div id="divCantProductos" class="cantidad_productos_fav" style="float:right; margin-bottom:20px;">
                 Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
+            </div>
         </div>
         <hr class="clear" />
         <div class="">
-            @*<div id="divCantProductos" class="cantidad_productos_fav">
-                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
-            </div>*@
-            @*@if (Model.FiltersBySorting != null)
-            {
-                <div class="filtros_derecha">
-                    ORDENAR POR
-
-                    <select id="filter-sorting" class="select_filtros_fav">
-                        @foreach (var item in Model.FiltersBySorting)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
-                    </select>
-
-                </div>
-            }*@
-
             <hr class="clear" />
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+            <hr class="clear" />
         </div>
-
     </div>
     <hr class="clear" />
 </div>
@@ -431,18 +387,4 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-    <script type="text/javascript" charset="utf-8">
-        $(document).ready(function () {
-            $('.content_slider_ept').slick({
-                vertical: false,
-                dots: false,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 1,
-                prevArrow: '<div class="btn-set-previous" style="left:-14%;"><img src="' + baseUrl + 'Content/Images/RevistaDigital/Kadiavisual2.png")" alt="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/previous.png")" alt="" /></a></div>',
-                nextArrow: '<div class="btn-set-previous" style="right:-14%;"><img src="' + baseUrl + 'Content/Images/RevistaDigital/Kadiavisual2.png")" alt="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/next.png")" alt="" /></a></div>'
-            });
-        });
-     
-    </script>
 }

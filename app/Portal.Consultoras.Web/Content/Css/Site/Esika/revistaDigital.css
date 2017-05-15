@@ -18,9 +18,9 @@
 }
 .revistadigital .pedido{
     background: #f8f8f8;
-    box-shadow:3px 9px 0px 8px rgb(255, 255, 255);
+    /*box-shadow:3px 9px 0px 8px rgb(255, 255, 255);
     -webkit-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
-    -moz-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);
+    -moz-box-shadow: 3px 9px 0px 8px rgb(255, 255, 255);*/
 }
 .revistadigital .pedido.mobile{
     background: #f0f0f0;
@@ -533,8 +533,11 @@
 .content_slider_ept{
     max-width:1000px;    
     margin:0 auto;
-    margin-top:50px;
+    padding-top:50px;
     position:relative;
+}
+.imagen_fondo{
+    min-height: 532px;
 }
 .imagen_fondo img{
     width:100%
@@ -587,7 +590,6 @@
     margin-bottom: 11px;
 }
 .etiqueta_nuevo_ept{
-    position:absolute;
     position: absolute;
     left: 30px;
     top: 29px;
@@ -617,13 +619,12 @@
 .previous_ofertas_ept{
     display: block;
     position: absolute;
-    
     /* padding-left: 22px; */
-    width: 34px;
+    width: 19px;
     margin: 0 auto;
     right:0;
     left:0;
-    top: 29px;
+    top: 45px;
     /* left: 0; */
     /* margin-left: -7%; */
 }
@@ -688,6 +689,7 @@
     overflow: hidden;
     float: left;
     margin-right: 2%;
+    margin-left: 2%;
     padding-bottom: 18px;
     margin-bottom:10px;
 }
@@ -698,9 +700,9 @@
     padding-right: 16px;
     padding-left:16px;
 }
-.revistadigital-landing:nth-child(3n){    
+/*.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
-}
+}*/
 
 .ProductoResaltante{
     width:35%;

@@ -40,8 +40,18 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!model.ListaProducto.Any())
                 {
                     model.ListaProducto = listaProducto;
+                    model.ListaProducto.Update(p => p.ImgFondoDesktop = "/Content/Images/RevistaDigital/lan-fondo.png");
                 }
-                
+                model.ListaProducto.Update(p => {
+                    p.ImgFondoDesktop = Util.Trim(p.ImgFondoDesktop);
+                    p.ImgPrevDesktop = Util.Trim(p.ImgPrevDesktop);
+                    p.ImgFichaDesktop = Util.Trim(p.ImgFichaDesktop);
+                    p.UrlVideoDesktop = Util.Trim(p.UrlVideoDesktop);
+                    p.ImgFondoMobile = Util.Trim(p.ImgFondoMobile);
+                    p.ImgFichaMobile = Util.Trim(p.ImgFichaMobile);
+                    p.UrlVideoMobile = Util.Trim(p.UrlVideoMobile);
+                });
+
                 return View(model);
             }
             catch (Exception ex)
