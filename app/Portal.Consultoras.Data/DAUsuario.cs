@@ -213,8 +213,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlgEnvio", DbType.Int16, 0);
             Context.Database.AddInParameter(command, "@ConsecutivoNueva", DbType.Int16, -1);
             Context.Database.AddInParameter(command, "@EstadoEnvio", DbType.Int16, 1);
-            Context.Database.AddInParameter(command, "@EsPostulante", DbType.Int16, entidad.EsPostulante);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
 
             return Context.ExecuteNonQuery(command);
         }
