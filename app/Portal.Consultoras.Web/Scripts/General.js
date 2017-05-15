@@ -812,7 +812,7 @@ function xMensajeEstadoPedido(estado) {
         //$("#bloquemensajesPedido").slideUp();
         $("#bloquemensajesPedido").hide();
     }
-
+    LayoutHeader();
 }
 
 function LayoutHeader() {
@@ -834,7 +834,7 @@ function LayoutHeaderFin() {
 }
 
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
+    var wtop = $("header").innerHeight();    
     $("[data-content]").css("margin-top", (wtop) + "px");
 }
 function ResizeMensajeEstadoPedido() {
