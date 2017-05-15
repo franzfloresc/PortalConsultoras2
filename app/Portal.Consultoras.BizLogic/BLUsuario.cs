@@ -1380,6 +1380,8 @@ namespace Portal.Consultoras.BizLogic
 
                                         //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
+                                        //Actualizando flag envio de correo
+                                        DAUsuario.UpdFlagEnvioCorreo(codusuario);
                                     }
                                     else
                                     {
