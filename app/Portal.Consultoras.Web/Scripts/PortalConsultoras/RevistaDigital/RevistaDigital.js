@@ -47,19 +47,20 @@ function RDSuscripcion() {
             CerrarLoad();
             if (!checkTimeout(data))
                 return false;
-            
+
             //AbrirMensaje(data.message);
             $('#alertDialogMensajesHome .terminos_title_2').html("MENSAJE");
             $('#alertDialogMensajesHome .pop_pedido_mensaje').html(data.message);
             $('#alertDialogMensajesHome').dialog('open');
-            if (data.success == true) {
+            if (data.success == true)
                 PopupCerrar("PopRDSuscripcion");
-	},
+        },
         error: function (data, error) {
             CerrarLoad();
             PopupCerrar("PopRDSuscripcion");
-	}
-});
+        }
+    });
+}
 
 
 function OfertaArmarEstrategias(response) {
