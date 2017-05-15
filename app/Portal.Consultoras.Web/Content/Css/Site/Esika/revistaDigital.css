@@ -404,7 +404,7 @@
 }
 
 .popup_revistaSuscripcion_terminos {
-    width: 427px;
+    width: 430px;
     font-family: 'Lato';
     font-size: 13px;
     color: #FFF;
@@ -800,4 +800,410 @@
 
 .revistadigital .revistadigital-content{
     position:relative;
+}
+
+/* VISTA SUSCRIPCIÓN REVISTA DIGITAL */
+
+.cabecera_esikaParaMi, .cabecera_fondo_rojo, .cabecera_content span, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi button, .cabecera_boton_inscribeteAEsikaParaMi span{
+    display:block;
+    font-family:'Lato';
+    color:#FFF;
+}
+
+.cabecera_logoMarca, .cabecera_content, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi span a, .imagen_modeloRevistaDigital, .contenido_esikaParaMi {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.cabecera_esikaParaMi {
+    background: #000;
+    margin-top: 62px;
+    height: 165px;
+    padding: 40px 10px;
+    z-index:3;
+}
+
+.cabecera_esikaParaMi:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    width: 300%;
+    height: 165px;
+    left: 100px;
+    z-index: 2;
+    background: #000;
+}
+
+.cabecera_fondo_rojo{
+    width:227px;
+    height:165px;
+    position: absolute;
+    top: 0px;
+    left: -25px;
+    z-index:3;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+}
+
+.cabecera_fondo_rojo:before{
+    display:block;
+    content:"";
+    width: 300%;
+    height:165px;
+    position: absolute;
+    top: 0px;
+    left: -454px;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    z-index:2;
+}
+
+.cabecera_logoMarca {
+    width: 168.52px;
+    height: 132.46px;
+    margin-right:98px;
+    position:relative;
+    z-index:4;
+}
+
+.cabecera_esikaParaMi img {
+    width: auto;
+    height: 100%;
+}
+
+.cabecera_content{
+    width:508px;
+    margin-right:102px;
+    position: relative;
+    z-index: 4;
+}
+
+.cabecera_content span:first-child {
+    font-family:'Lato Black';
+    font-size: 15px;
+    letter-spacing:1px;
+    margin-bottom:3px;
+}
+
+.cabecera_content span:nth-child(2){
+    font-size:20px;
+    letter-spacing:0.4px;
+    line-height:27px;
+}
+
+.cabecera_content span:nth-child(2), .cabecera_boton_inscribeteAEsikaParaMi span{
+    font-family: 'Lato Light';
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi span a{
+    text-decoration:underline;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi{
+    position: relative;
+    z-index: 4;
+    padding-top:4px;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi button {
+    background: #FF1534;
+    border: 0px;
+    width: 256px;
+    height: 52px;
+    color: #FFF;
+    margin-bottom:9px;
+    position:relative;
+    top:0px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi button:hover, .contenido_fondoDesenfocado button:hover{
+    opacity:0.8;
+    top:-8px;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi span {
+    width: 256px;
+    font-size: 14px;
+    text-align: center;
+    line-height:18px;
+}
+
+.imagen_modeloRevistaDigital{
+    width: 391px;
+    height: 520px;
+    margin-bottom: -35px;
+}
+
+.imagen_modeloRevistaDigital img{
+    width: auto;
+    height: 100%;
+    position: relative;
+    top: -35px;
+    left: -30px;
+    z-index: 1;
+}
+
+.contenido_esikaParaMi{
+    font-family:'Lato';
+    color:#000;
+    padding: 60px 0px 0px 0px;
+    position: relative;
+    z-index: 2;
+}
+
+.contenido_desenfocado, fondo_sobreContenidoDesenfocado, .contenido_comoFuncionaEsikaParaMi, .contenido_beneficiosEsikaParaMi span, .grupo_imagenes_carrusel_desenfocadas{
+    display:block;
+}
+
+.contenido_comoFuncionaEsikaParaMi.fondoContenido{
+    background: #EEE;
+    padding: 23px 22px;
+    width: 794px;
+    height: auto;
+}
+
+.contenido_comoFuncionaEsikaParaMi {
+    margin-bottom: 57px;
+}
+
+.contenido_pasos_comoFunciona, .contenido_beneficiosEsikaParaMi, .contenido_pasos_comoFunciona span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4, .contenido_pasos_comoFunciona span b, .contenido_beneficiosEsikaParaMi span:first-child{
+    font-family:'Lato Black';
+}
+
+.contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4{
+    display:block;
+    font-size:15px;
+    margin:0px 0px 14px 0px;
+    padding:0px;
+    color:#000;
+}
+
+.contenido_pasos_comoFunciona{
+    margin-right:10px;
+}
+
+.contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child{
+    margin-right:0px;
+}
+
+.contenido_pasos_comoFunciona span:first-child{
+    font-family:'Lato Light';
+    color:#FF1534;
+    font-size:50px;
+    margin-right:11px;
+}
+
+.contenido_pasos_comoFunciona span:nth-child(2){
+    font-size:16px;
+    width:200px;
+}
+
+.contenido_beneficiosEsikaParaMi {
+    margin-right: 40px;
+}
+
+.contenido_beneficiosEsikaParaMi span:first-child{
+    color:#DA2621;
+    font-size:45px;
+    margin-bottom:14px;
+    letter-spacing:0.4px;
+}
+
+.contenido_beneficiosEsikaParaMi span:nth-child(2){
+    font-size:15px;
+    width:219px;
+}
+
+.contenido_desenfocado{
+    height:1023px;
+    position:relative;
+    padding-top:165px;
+}
+
+.fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index:3;
+}
+
+.fondo_sobreContenidoDesenfocado{
+    padding-top:70px;
+}
+
+.fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after{
+    content:"";
+}
+
+.fondo_sobreContenidoDesenfocado:before{
+    left: -100%;
+    z-index: 2;
+}
+
+.fondo_sobreContenidoDesenfocado:after{
+    left: 100%;
+    z-index: 2;
+}
+
+.grupo_imagenes_carrusel_desenfocadas{
+    margin:0 auto;
+}
+
+.contenido_fondoDesenfocado {
+    display: block;
+    margin: 0 auto;
+    width: 706px;
+    color: #FFF;
+}
+
+.contenido_fondoDesenfocado span, .contenido_fondoDesenfocado button {
+    display: block;
+    text-align: center;
+}
+
+.contenido_fondoDesenfocado span:first-child {
+    font-family: 'Lato';
+    font-size: 18px;
+    margin-bottom: 33px;
+    letter-spacing: 1px;
+    font-weight: 900;
+}
+
+.contenido_fondoDesenfocado span:nth-child(2) {
+    font-family: 'Lato';
+    font-size: 25px;
+    font-weight:700;
+    line-height:30px;
+    letter-spacing: 1px;
+    margin-bottom:60px;
+}
+
+.contenido_fondoDesenfocado button{
+    margin: 0 auto 37px auto;
+    width: 291px;
+    height: 59px;
+    border: none;
+    color: #FFF;
+    font-family: 'Lato';
+    background: #FF1534;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    position:relative;
+    top:0px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+    -moz-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+    -o-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+    -ms-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.35);
+    transition:all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.contenido_fondoDesenfocado span:last-child {
+    font-family: 'Lato Light';
+    font-size: 14px;
+    letter-spacing: 0.4px;
+    line-height: 18px;
+    width:507px;
+    margin:0 auto;
+}
+
+.contenido_fondoDesenfocado span:last-child a{
+    display:inline-block;
+    text-decoration:underline;
+    color:#FFF;
+}
+
+/* POPUP INSCRITA A REVISTA DIGITAL */
+
+.contenedor_popup_inscritaRevistaDigital{
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 396px;
+    top: 50%;
+    margin: -107.5px auto 0 auto;
+    height:215px;
+}
+
+.popup_estasInscritaRevistaDigital{
+    display:block;
+    position:relative;
+    padding:29px 20px 9px 20px;
+    text-align:center;
+    font-family:'Lato';
+    color:#FFF;
+    margin:0 auto;
+    width:100%;
+    height:215px;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+}
+
+.contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
+    display: block;
+}
+
+.contenido_felicitaciones {
+    margin-bottom: 23px;
+}
+
+.contenido_felicitaciones span{
+    font-family: 'Lato Black';
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform:uppercase;
+}
+
+.contenido_felicitaciones span.nombre_usuariaInscrita {
+    display: inline-block;
+}
+
+.contenido_recuerdaIngresar{
+    margin-bottom:27px;
+}
+
+.contenido_recuerdaIngresar span {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height:18px;
+}
+
+.link_entendido{
+    margin: 0 auto;
+    background: #000;
+    width: 252px;
+    height: 43px;
+    line-height: 41px;
+    font-size: 13px;
+    letter-spacing: 0.4px;
 }

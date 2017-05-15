@@ -24,6 +24,13 @@
                     {
                         <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
                            class="menu_mobile_belcorp etiqueta_showroom" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
+                           @*<a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
+                           class="menu_mobile_belcorp" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})" id="lnk-revista-digital">
+                               <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                                   <div class="fondo_boton"></div>
+                                   <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                               </div>
+                           </a>*@
                     }
                     else
                     {

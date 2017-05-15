@@ -178,7 +178,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -2730,6 +2730,7 @@ function playVideo() {
 };
 
 function CrearPopShow() {
+    
     var noMostrarShowRoom = true;
     
     $("#cbNoMostrarPopupShowRoom").click(function () {
@@ -2766,6 +2767,7 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
+    //debugger;
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
             return;
@@ -2775,6 +2777,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
 
