@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a class="btn_mas_info_set" href="javascript:;"> ver más de Kadia</a>
+                            <a class="btn_mas_info_set" href="javascript:;"> ver más</a>
                         </div>
                     </div>
                     @*<div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>*@
@@ -91,7 +91,6 @@
             <select class="marca_ept">
                 <option>FILTRAR POR MARCA</option>
                 <option>FILTRAR POR MARCA</option>
-
             </select>
             <select id="filter-sorting" class="marca_ept">
                 @foreach (var item in Model.FiltersBySorting)
@@ -99,10 +98,10 @@
                     <option value="@item.Codigo">@item.Descripcion</option>
                 }
             </select>
-            <div class="content_buscador_landing">
+            @*<div class="content_buscador_landing">
                 <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
                 <a class="buscar_landing_ept">BUSCAR</a>
-            </div>
+            </div>*@
             <hr class="clear" />
             <div id="divCantProductos" class="cantidad_productos_fav" style="float:right; margin-bottom:20px;">
                 Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>

@@ -1161,9 +1161,11 @@
                     <div class="linea-separacion"></div>
                     <div class="titulo_nuevaRevista">
                         <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
-                            <span>@(Model.NombreConsultora.ToUpper())</span>, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA
+                            {{Titulo}}
                         </span>
-                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS</span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                            {{TituloDescripcion}}
+                        </span>
                     </div>
                 </div>
                 {{else}}

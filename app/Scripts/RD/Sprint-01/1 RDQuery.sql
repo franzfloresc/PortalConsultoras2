@@ -182,14 +182,37 @@ go
 
 -- menu mobile
 go
+
+	update MenuMobile
+	set OrdenItem = 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and descripcion = 'VENTA EXCLUSIVA WEB'
+		and EsSB2=1
+
+	update MenuMobile
+	set OrdenItem = OrdenItem + 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and descripcion != 'VENTA EXCLUSIVA WEB'
+		and EsSB2=1
+go
 if not exists(select 1 from MenuMobile where Codigo = 'RevistaDigital')
 begin
 
 	DECLARE @ID INT = 0
-	DECLARE @OrdenItem INT = 4
+	DECLARE @OrdenItem INT = 2
 
 	SELECT @ID=MAX(MenuMobileID) FROM MenuMobile
 	SET @ID = isnull(@ID, 0) + 1
+
+	
+	update MenuMobile
+	set OrdenItem = OrdenItem + 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and EsSB2=1
+		and OrdenItem >= @OrdenItem
 
   	INSERT INTO MenuMobile
   	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)

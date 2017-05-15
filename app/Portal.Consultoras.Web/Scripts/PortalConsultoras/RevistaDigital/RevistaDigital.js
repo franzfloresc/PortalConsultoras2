@@ -102,8 +102,8 @@ function LayoutProductos() {
             y = y > 0 ? y + 1 : 0;
             $(lista[y]).css("margin-left", (x + parseFloat($(item).css("margin-left").replace("px", ""))) + "px");
 
-            y = index > 0 ? index - 1 : 0;
-            $(lista[y]).css("margin-right", (x + parseFloat($(item).css("margin-right").replace("px", ""))) + "px");
+            y = index > 0 ? index + 1 == lista.length ? index : index - 1 : 0;
+            $(lista[y]).css("margin-right", (x - 1 + parseFloat($(item).css("margin-right").replace("px", ""))) + "px");
 
             //wi = 0;
             //y = y > 0 ? y + 1 : y;
@@ -125,7 +125,7 @@ function LayoutProductos() {
             //    }
             //});
             y = index - 1;
-            wi = 0;
+            wi = $(item).width() + parseFloat($(item).css("margin-left").replace("px", "")) + parseFloat($(item).css("margin-right").replace("px", ""));
         }
     });
 }

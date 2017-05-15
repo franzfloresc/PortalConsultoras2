@@ -4,10 +4,10 @@
          {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home">
-            <div class="etiqueta-producto">
+            @*<div class="etiqueta-producto">
                 <div class="fondo-etiqueta"></div>
                 <span>NUEVO</span>
-            </div>
+            </div>*@
             <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});" {{/iff}}>
                 <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
                     <div class="producto_img_mobile">
@@ -31,26 +31,16 @@
                             {{DescripcionCUV2}}
                         </p>
                         {{/if_eq}}
-
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                        {{#if_eq EtiquetaID '1'}}
                         <div class="producto_precio">
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+                                {{#if_eq EtiquetaID '1'}}
+                                    {{#iff Precio '>' 0}}
+                                        <span class="producto_precio_normal" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
+                                    {{/iff}}
+                                {{/if_eq}}
                             {{/iff}}
                             <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                         </div>
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                        </div>
-                        {{/if_eq}}
-
-                        {{else}}
-                        <div class="producto_precio">
-                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                        </div>
-                        {{/iff}}
                     </div>
                 </div>
             </div>
