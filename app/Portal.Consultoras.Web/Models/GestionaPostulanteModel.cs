@@ -40,5 +40,6 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
 
         public bool IsSelected { get; set; }
+        public string Titulo { get; set; }
     }
 }
