@@ -8559,6 +8559,7 @@ span.title-app-b {
 .mensajes_estadoPedido {
     /*color: #FFF;*/
     color: black;
+    font-weight: bold;
     font-family: 'Lato';
     line-height:19px;
 }
