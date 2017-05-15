@@ -738,5 +738,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1837*/
+
+        //EPD-2539
+        public int UpdFlagEnvioCorreo(string pCodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagEnvioCorreo");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, pCodigoUsuario);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
     }
 }
