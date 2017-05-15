@@ -103,6 +103,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
                 var model = listaShowRoomOfertaModel.FirstOrDefault();
                 model.Simbolo = userData.Simbolo;
+                model.CodigoISO = userData.CodigoISO;
 
                 ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
                 

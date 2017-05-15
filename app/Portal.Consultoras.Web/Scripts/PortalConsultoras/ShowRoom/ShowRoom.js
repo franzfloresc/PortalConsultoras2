@@ -511,7 +511,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
-            //$('#contenedor-showroom-subcampanias').slick('slickGoTo', 0);
+
         }
 
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
@@ -534,8 +534,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         $("#divProductosShowRoom").html("");
         var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
         $('#divProductosShowRoom').append(htmlDiv);
-        $("#spnCantidadFiltro").html(response.cantidad);
-        $("#spnCantidadTotal").html(response.cantidadTotal);
+        $("#spnCantidadFiltro").html(listaProdShowRoomNoSubCampanias.length);
+        $("#spnCantidadTotal").html(response.cantidadTotal - listaProdShowRoomSubCampanias.length);
     }
     else {
         messageInfoError(response.message);

@@ -165,7 +165,7 @@ background: url("/Content/Images/showroom/carrusel_p.png") no-repeat;
 
 .previous_compraxcompra {
             background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/rCJzgZjmUSXGf1x/border_efecto.png) no-repeat center top !important;
-            bottom: -15px;
+            top: 95%;
             height: 40px !important;
             position: absolute !important;
         }

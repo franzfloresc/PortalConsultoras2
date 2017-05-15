@@ -97,7 +97,7 @@
             }
 
             <div class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania">
-                <div class="CerrarOfertaEspecial">x</div>
+                <div id="CerrarOfertaEspecial"> <button type="button" class="CerrarOfertaEspecial"> X</button> </div>
                 <div class="promocion_especial_header">
                     <div class="titulo_promocion_showroom" style="background: url(@Model.ImagenFondoTituloOfertaSubCampania) no-repeat right top">
                         <div class="content_titulo" style="color: @Model.ColorTextoInicialOfertaSubCampania">
@@ -116,14 +116,14 @@
                         </div>
                         <a href="#" class="btn_descubre_set_especial" id="VerOfertaEspecial"><span>@Model.TextoBotonVerMasOfertaSubCampania</span></a>
                     </div>
-                    <a href="#" class="btn_descubre_set_especial info_desplegable" id="CerrarOfertaEspecial"></a>
+                    <a href="#" class="btn_descubre_set_especial info_desplegable" id="BajarOfertaEspecial"></a>
 
                 </div>
                 <div class="content_set_oferta_especial">
-                    <hr class="clear" />
+                    @*<hr class="clear" />*@
 
                     <div class="content_carrusel_oferta_especial" id="contenedor-showroom-subcampanias"></div>
-                    <hr class="clear" />
+                    @*<hr class="clear" />*@
                 </div>
             </div>
         }
@@ -281,7 +281,7 @@
             <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
-        <div class="content_item_carrusel">
+        <div class="content_item_carrusel" style="height: 410px;">
             <div class="producto_img_home" data-img="">
                 <img src="{{producto.ImagenProducto}}" class="imagen_producto">
             </div>
@@ -301,7 +301,7 @@
                 <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>
                 <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{Simbolo}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
-            <div class="producto_nombre_descripcion">
+            <div class="producto_nombre_descripcion" style="position: absolute !important; bottom: 0px !important;">
                 <div class="liquidacion_rango_home js-no-popup">
                     @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
