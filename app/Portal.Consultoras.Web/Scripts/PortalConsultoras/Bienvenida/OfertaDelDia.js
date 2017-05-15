@@ -196,6 +196,16 @@
     function ResolverGetOfertaDelDiaResponse(response) {
         if (response.success) {
             var _data = response.data;
+
+            var tq = _data.TeQuedan;
+            if (tq.TotalSeconds <= 0)
+                return false;
+
+            var clock = $('.clock').FlipClock(tq.TotalSeconds, {
+                clockFace: 'HourlyCounter',
+                countdown: true
+            });
+
             $(elements.ContenedorOfertaDelDiaMobile).hide();
             _data.CantidadProductos = _data.ListaOfertas.length;
             _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
