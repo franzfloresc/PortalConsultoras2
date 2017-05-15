@@ -668,6 +668,10 @@
     </div>
 </script>
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -714,7 +718,11 @@
     var vbSimbolo = simbolo;
     var productoSugerido = false
     var productoAgotado = false;
-        
+    var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon  = 21;
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
     var tipoOrigenEstrategia = 21;
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
     </script>

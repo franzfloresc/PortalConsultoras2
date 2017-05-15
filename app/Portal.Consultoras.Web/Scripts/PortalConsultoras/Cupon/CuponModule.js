@@ -57,7 +57,7 @@
     };
 
     var inizializer = function (parameters) {
-        setting.MostrarContenedorCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
+        //setting.MostrarContenedorCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
@@ -119,6 +119,12 @@
 
         $("div#chckTerminosCondiciones").click(function () {
             $(this).toggleClass('check_intriga');
+        });
+
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                cerrarTodosPopupCupones();
+            }
         });
     }
 
@@ -214,6 +220,10 @@
         var cuponPromise = obtenerCuponPromise();
         cuponPromise.then(function (response) {
             setting.Cupon = response.data;
+            if (setting.Cupon) {
+                setting.MostrarContenedorCupon = true;
+                mostrarPopupCuponPorPagina();
+            }
         }, function (xhr, status, error) {
             console.log(xhr.responseText);
         });
@@ -302,10 +312,10 @@
             AbrirMensaje("Debe ingresar su correo", "VALIDACIÓN");
             return false;
         }
-        if (celular == "") {
-            AbrirMensaje("Debe ingresar su número celular", "VALIDACIÓN");
-            return false;
-        }
+        //if (celular == "") {
+        //    AbrirMensaje("Debe ingresar su número celular", "VALIDACIÓN");
+        //    return false;
+        //}
         return true;
     }
 
@@ -342,6 +352,12 @@
         $(elements.ContenedorMostrarCorreo).append(correoIngresado);
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).show();
+    }
+
+    var cerrarTodosPopupCupones = function () {
+        $(elements.PopupCuponGana).hide();
+        $(elements.PopupConfirmacion).hide();
+        $(elements.PopupGanaste).hide();
     }
 
     return {
