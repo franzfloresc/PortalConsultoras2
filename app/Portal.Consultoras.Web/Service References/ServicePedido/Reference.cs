@@ -22883,6 +22883,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidacionModificarPedido", ReplyAction="http://tempuri.org/IPedidoService/ValidacionModificarPedidoResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido> ValidacionModificarPedidoAsync(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectiva", ReplyAction="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectivaResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectiva", ReplyAction="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectivaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido> ValidacionModificarPedidoSelectivaAsync(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido", ReplyAction="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoRespons" +
             "e")]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity);
@@ -24905,6 +24911,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido> ValidacionModificarPedidoAsync(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA) {
             return base.Channel.ValidacionModificarPedidoAsync(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario) {
+            return base.Channel.ValidacionModificarPedidoSelectiva(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEValidacionModificacionPedido> ValidacionModificarPedidoSelectivaAsync(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario) {
+            return base.Channel.ValidacionModificarPedidoSelectivaAsync(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
         }
         
         public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomEventoConsultora entity) {

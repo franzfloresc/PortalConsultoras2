@@ -2021,7 +2021,7 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
-        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true)
         {
             BEUsuario usuario = null;
             using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
@@ -2037,13 +2037,13 @@ namespace Portal.Consultoras.BizLogic
 
             if (configuracion != null)
             {
-                if (configuracion.IndicadorGPRSB == 1) {
+                if (validarGPR && configuracion.IndicadorGPRSB == 1) {
                     return new BEValidacionModificacionPedido {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
                         Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", campania.Substring(4, 2))
                     };
                 }
-                if (configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
                 {
                     return new BEValidacionModificacionPedido
                     {
@@ -2052,17 +2052,18 @@ namespace Portal.Consultoras.BizLogic
                     };
                 }
             }
-
-            string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario);
-            if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
+            if(validarHorario)
             {
-                return new BEValidacionModificacionPedido
+                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario);
+                if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
                 {
-                    MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
-                    Mensaje = mensajeHorarioRestringido
-                };
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                        Mensaje = mensajeHorarioRestringido
+                    };
+                }
             }
-
             return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
         }
 

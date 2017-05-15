@@ -144,12 +144,13 @@ namespace Portal.Consultoras.BizLogic
             int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount)
         {
             IList<BEProducto> productos = new List<BEProducto>();
+            var bLProductoPalabra = new BLProductoPalabra();            
+            var listTextoCandidato = bLProductoPalabra.GetListCandidatoFromTexto(paisISO, campaniaID, textoBusqueda, 2, 1);
+            if (listTextoCandidato.Count == 0) return productos;
+            
             BEProducto producto = null;
-            var bLProductoPalabra = new BLProductoPalabra();
             var dAProducto = new DAProducto(Util.GetPaisID(paisISO));
             var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
-            
-            var listTextoCandidato = bLProductoPalabra.GetListCandidatoFromTexto(paisISO, campaniaID, textoBusqueda, 2, 1);
             var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]);
 
             using (IDataReader reader = dAProducto.GetByCampaniaAndZonaAndPalabras(campaniaID, zonaID, codigoRegion, codigoZona, rowCount, listPalabra))

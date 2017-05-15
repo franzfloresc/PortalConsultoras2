@@ -312,6 +312,12 @@
   <wsdl:message name="IPedidoService_ValidacionModificarPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidacionModificarPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidacionModificarPedidoSelectiva_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidacionModificarPedidoSelectiva" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidacionModificarPedidoSelectiva_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidacionModificarPedidoSelectivaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdShowRoomEventoConsultoraEmailRecibido" />
   </wsdl:message>
@@ -2091,6 +2097,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidacionModificarPedido" message="tns:IPedidoService_ValidacionModificarPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidacionModificarPedidoResponse" message="tns:IPedidoService_ValidacionModificarPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidacionModificarPedidoSelectiva">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectiva" message="tns:IPedidoService_ValidacionModificarPedidoSelectiva_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectivaResponse" message="tns:IPedidoService_ValidacionModificarPedidoSelectiva_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdShowRoomEventoConsultoraEmailRecibido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibido" message="tns:IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdShowRoomEventoConsultoraEmailRecibidoResponse" message="tns:IPedidoService_UpdShowRoomEventoConsultoraEmailRecibido_OutputMessage" />
@@ -3589,6 +3599,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidacionModificarPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidacionModificarPedido" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidacionModificarPedidoSelectiva">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidacionModificarPedidoSelectiva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

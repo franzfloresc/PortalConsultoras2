@@ -1885,6 +1885,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
 
+        public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
+        {
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
+        }
+
         public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().UpdShowRoomEventoConsultoraEmailRecibido(paisID, entity);
@@ -1924,7 +1929,5 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
-
-
     }
 }

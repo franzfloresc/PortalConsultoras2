@@ -1029,7 +1029,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
-        
+
+        [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
+
         [OperationContract]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
 
