@@ -30325,7 +30325,7 @@ h1#penmostreo .campana {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #82c7bf;
+    background: #F7EF8D;
     width:100%;
     height: 64px;
     display: none;
@@ -30355,7 +30355,7 @@ h1#penmostreo .campana {
     font-family:'Lato';
     font-size:10px;
     text-align:center;
-    color:#FFF;
+    color:black;
     margin-left:-9px;
 }
 .icono_estadoPedido, .mensajes_estadoPedido{
@@ -30377,7 +30377,7 @@ h1#penmostreo .campana {
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    color: black;
     font-family: 'Lato';
     line-height:21px;
 }
