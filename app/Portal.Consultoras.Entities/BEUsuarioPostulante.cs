@@ -60,6 +60,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Region { get; set; }
 
+        [DataMember]
+        public int MensajeDesktop { get; set; }
+
+        [DataMember]
+        public int MensajeMobile { get; set; }
+
         public BEUsuarioPostulante()
         {
 
@@ -118,6 +124,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoRegion") && row["CodigoRegion"] != DBNull.Value)
                 Region = Convert.ToString(row["CodigoRegion"]);
+
+            if (DataRecord.HasColumn(row, "MensajeDesktop") && row["MensajeDesktop"] != DBNull.Value)
+                MensajeDesktop = Convert.ToInt32(row["MensajeDesktop"]);
+
+            if (DataRecord.HasColumn(row, "MensajeMobile") && row["MensajeMobile"] != DBNull.Value)
+                MensajeMobile = Convert.ToInt32(row["MensajeMobile"]);
 
         }
     }

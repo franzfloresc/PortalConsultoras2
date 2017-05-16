@@ -2019,6 +2019,7 @@
     <Content Include="Content\Images\icono_check.svg" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido_negro.png" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\icons\close.png" />
@@ -2858,6 +2859,7 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
+    <Content Include="Scripts\fingerprint2.js" />
     <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
@@ -2926,6 +2928,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Shared\MobileLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
