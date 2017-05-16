@@ -118,6 +118,17 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
+        [HttpGet]
+        public JsonResult ObtenerOfertasPlan20EnPedido()
+        {
+            try
+            {
+                bool tieneOfertasPlan20 = true;
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
         private CuponModel ObtenerDatosCupon()
         {
             CuponModel cuponModel;

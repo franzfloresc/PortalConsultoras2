@@ -226,10 +226,17 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
-                                <div class="content_pedido_cupon_monto" style="display: none;">
-                                    <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
-                                    <div class="texto_cupon_monto">Tienes un descuent exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                <div id="" class="contenedorCupon">
+                                    <div id="" class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Tienes un descuent exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                    </div>
+                                    <div id="" class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+                                    </div>
                                 </div>
+                                
                                 <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
@@ -535,11 +542,16 @@
 
 
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
-
-        <div id="contenedorCupon" class="content_cupon_pedido">
-            Tienes un descuento exclusivo para ti, 
-            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+        <div id="" class="contenedorCupon">
+            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+                Tienes un descuento exclusivo para ti,
+                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            </div>
+            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
         </div>
+        
         <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
