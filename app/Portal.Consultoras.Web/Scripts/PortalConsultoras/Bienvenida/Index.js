@@ -1649,17 +1649,26 @@ function ActualizarMD() {
         alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
         return false;
     }
+
     if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
         ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
-        $('#txtTelefonoMD').focus();
-        alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
-        return false;
+            $('#txtTelefonoMD').focus();
+            alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+            return false;
+    }
+    
+    if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
+        if ($('#txtTelefonoMD').val().substr(1, 1) != "3") {
+            alert('Número de celular tiene formato incorrecto.');
+            $('#txtCelularMD').focus();
+            return false;
+        }
     }
 
     //Validando cantidad de caracteres minimos.
-    var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
-    if (!MinCaracterTelefono) 
-        return false;
+    //var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
+    //if (!MinCaracterTelefono) 
+    //    return false;
 
     var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
     if (!MinCaracterCelular)
