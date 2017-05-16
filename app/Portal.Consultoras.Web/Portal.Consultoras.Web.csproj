@@ -3173,7 +3173,6 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
-    <Content Include="Content\FAQ\RetiroFondosTarjetaHelm.PDF" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
