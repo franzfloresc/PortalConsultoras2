@@ -104,6 +104,20 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
 
+        [HttpPost]
+        public JsonResult EnviarCorreoActivacionCupon()
+        {
+            try
+            {
+                CuponModel cuponModel = ObtenerDatosCupon();
+                var mailBody = MailUtilities.CuerpoCorreoActivacionCupon();
+                Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", mailBody, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
+
+                return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+        }
+
         private CuponModel ObtenerDatosCupon()
         {
             CuponModel cuponModel;

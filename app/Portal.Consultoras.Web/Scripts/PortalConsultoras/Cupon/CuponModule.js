@@ -51,6 +51,7 @@
         UrlEnviarCorreoGanaste: '',
         UrlEnviarCorreoConfirmacionEmail: 'Cupon/EnviarCorreoConfirmacionEmail',
         UrlObtenerCupon: 'Cupon/ObtenerCupon',
+        UrlEnviarCorreoActivacionCupon: 'Cupon/EnviarCorreoActivacionCupon',
         Cupon: null,
         SimboloMoneda: '',
         CampaniaActual: ''
@@ -176,13 +177,30 @@
         if (!setting.Cupon.CorreoGanasteEnviado) {
             
             var cuponPromise = actualizarCuponPromise();
+            var correoGanastePromise = enviarCorreoActivacionCuponPromise();
 
-            cuponPromise.then(function (response) {
-                if (response.success) {
-                    AbrirMensaje(response.message, "CUPÓN");
-                    obtenerCupon();
-                }
-            }, function (xhr, status, error) { });
+            $.when(cuponPromise, correoGanastePromise)
+                .then(function (cuponResponse, correoResponse) {
+                    if (cuponResponse.success) {
+                        AbrirMensaje(response.message, "CUPÓN");
+                        obtenerCupon();
+                    }
+                    if (correoResponse.success) {
+
+                    }
+                })
+                .then(function (cuponResponse, correoResponse) {
+                    var test1 = cuponResponse;
+                    var test2 = correoResponse;
+                    var test3 = "";
+                });
+
+            //cuponPromise.then(function (response) {
+            //    if (response.success) {
+            //        AbrirMensaje(response.message, "CUPÓN");
+            //        obtenerCupon();
+            //    }
+            //}, function (xhr, status, error) { });
         }
     }
 
@@ -290,6 +308,24 @@
         var promise = $.ajax({
             type: 'GET',
             url: setting.BaseUrl + setting.UrlObtenerCupon,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    }
+
+    var enviarCorreoActivacionCuponPromise = function () {
+        var d = $.Deferred();
+        var promise = $.ajax({
+            type: 'POST',
+            url: setting.BaseUrl + setting.UrlEnviarCorreoActivacionCupon,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             async: true
