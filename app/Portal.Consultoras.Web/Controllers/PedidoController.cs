@@ -1942,7 +1942,6 @@ namespace Portal.Consultoras.Web.Controllers
             //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
 
             var input = Mapper.Map<BEInputReservaProl>(userData);
-            input.EsMovil = Request.Browser.IsMobileDevice;
             input.EnviarCorreo = false;
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
@@ -2015,7 +2014,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool envioCorreo = false;
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                input.EsMovil = Request.Browser.IsMobileDevice;
                 using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
                 if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
