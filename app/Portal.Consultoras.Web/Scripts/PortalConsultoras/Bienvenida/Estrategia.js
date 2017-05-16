@@ -129,7 +129,7 @@ function ArmarCarouselEstrategias(data) {
         ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
         : tipoOrigenEstrategia ==2  
             ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
-            : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO";
+            : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
     SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
     $('#divListaEstrategias').show();
