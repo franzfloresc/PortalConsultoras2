@@ -562,7 +562,7 @@ div#tab_revistasdigital_mobile {
     -webkit-transition:all 0.3s ease;
 }
 
-.cabecera_boton_inscribeteAEsikaParaMi button:hover, .contenido_fondoDesenfocado button:hover{
+.cabecera_boton_inscribeteAEsikaParaMi button:hover{
     opacity:0.8;
     top:-8px;
 }

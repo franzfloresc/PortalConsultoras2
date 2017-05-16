@@ -196,7 +196,9 @@ go
 		and MenuPadreID = 0
 		and descripcion != 'VENTA EXCLUSIVA WEB'
 		and EsSB2=1
+
 go
+
 if not exists(select 1 from MenuMobile where Codigo = 'RevistaDigital')
 begin
 
