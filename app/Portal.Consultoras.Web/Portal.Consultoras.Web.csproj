@@ -2473,6 +2473,7 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\icon-chat-lbel.png" />
     <Content Include="Content\Images\mobile\icon-chat.png" />
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
@@ -3191,6 +3192,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
+    <Content Include="Content\FAQ\RetiroFondosTarjetaHelm.PDF" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
