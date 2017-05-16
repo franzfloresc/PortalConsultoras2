@@ -51,6 +51,36 @@ CREATE TABLE [dbo].[RevistaDigitalSuscripcion]
 
 GO
 
+IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
+BEGIN
+	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+END
+
+GO
+
+IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RD' )
+BEGIN
+	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
+	VALUES('RD', 0, 'Revista Digital', 0)
+END
+
+go
+
+declare @rds int = 0
+select @rds = ConfiguracionPaisID from ConfiguracionPais WHERE Codigo = 'RD'
+
+IF  @rds > 0
+BEGIN
+	INSERT INTO ConfiguracionPais(ConfiguracionPaisID,CodigoRegion,CodigoZona,CodigoSeccion,CodigoConsultora,Estado)
+	VALUES(@rds,'', '3032', '', '', 1)
+END
+
+GO
+
+
+GO
+
 -------------------------------------------------------
 -- CREAR O ACTUALIZAR UN REGISTRO DE LA REVISTA DIGITAL 
 -------------------------------------------------------
