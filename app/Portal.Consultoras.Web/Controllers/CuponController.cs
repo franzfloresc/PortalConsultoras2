@@ -110,8 +110,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 CuponModel cuponModel = ObtenerDatosCupon();
-                var mailBody = MailUtilities.CuerpoCorreoActivacionCupon();
-                Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", mailBody, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon();
+                string correo = userData.EMail;
+                Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
                 return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
             }
@@ -123,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool tieneOfertasPlan20 = true;
+                bool tieneOfertasPlan20 = false;
                 return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }

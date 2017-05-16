@@ -434,13 +434,21 @@
                 }
 
                 $(elements.ContenedorCuponInfo).each(function (index) {
-                    var existeContenedorTexto = $(this).find('div.texto_cupon_monto').length > 0;
-                    if (existeContenedorTexto) {
+                    var existeContenedorTextoDesktop = $(this).find('div.texto_cupon_monto').length > 0;
+                    var existeContenedorTextoMobile = $(this).find('div.texto_cupon').length > 0;
+
+                    if (existeContenedorTextoDesktop) {
                         $(this).find('div.texto_cupon_monto').empty();
                         $(this).find('div.texto_cupon_monto').append(mensaje);
                         $(this).show();
                     }
-                    else {
+                    else if (existeContenedorTextoMobile) {
+                        if (existeContenedorTextoMobile) {
+                            $(this).find('div.texto_cupon').empty();
+                            $(this).find('div.texto_cupon').append(mensaje);
+                            $(this).show();
+                        }
+                    } else {
                         $(this).empty();
                         $(this).append(mensaje);
                         $(this).show();
