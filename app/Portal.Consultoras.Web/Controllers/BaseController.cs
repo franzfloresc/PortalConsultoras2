@@ -614,8 +614,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
-                ViewBag.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
-                ViewBag.Usuario = "Hola, " + ViewBag.UsuarioNombre;
+                model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
+                ViewBag.UsuarioNombre = model.UsuarioNombre;
+                ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;

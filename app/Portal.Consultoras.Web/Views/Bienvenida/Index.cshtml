@@ -358,7 +358,7 @@
     <div class="disclaimer_b">@(pieEscala)</div>
 </div>
 <div class="flecha_scroll">
-    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
@@ -834,7 +834,7 @@
                             <span id="nombreGerenteZonal"></span>
                         </div>
                         <div class="enlace_cambiarContraseniachkAceptoContratoMD">
-                            <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
+                            <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                         </div>
                     </div>
                 </div>
@@ -939,7 +939,7 @@
             </div>
 
             <div class="btn_cerrar_actualizarMisDatos">
-                <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <a href="javascript:;" title="Cerrar" class="cerrar_tutorial">
                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                     <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
@@ -1148,7 +1148,9 @@
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
     <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
-        <div class="background-revistaSeccion"></div>
+        {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="background-revistaSeccion"></div>
+        {{/iff}}
         <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
@@ -1159,9 +1161,11 @@
                     <div class="linea-separacion"></div>
                     <div class="titulo_nuevaRevista">
                         <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
-                            <span>@(Model.NombreConsultora.ToUpper())</span>, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA
+                            {{Titulo}}
                         </span>
-                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS</span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                            {{TituloDescripcion}}
+                        </span>
                     </div>
                 </div>
                 {{else}}
@@ -2329,7 +2333,7 @@
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="">
     <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript: CerrarPopup('#PopRDSuscripcion');">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
         <div class="popup_revistaSuscripcion">
@@ -2351,7 +2355,7 @@
             </div>
             <div class="popup_revistaSuscripcion_terminos">
                 Al inscribirte est&aacute;s aceptando los
-                <a href="#" title="Términos y Condiciones" onclick="FichaInformacionRD()">T&eacute;rminos y Condiciones</a>
+                <a href="javascript:;" title="Términos y Condiciones" onclick="FichaInformacionRD()">T&eacute;rminos y Condiciones</a>
                 y recibirás tu Revista únicamente por vía online, a partir de la C10.
             </div>
             <div class="img_modeloRevista">
@@ -2363,30 +2367,30 @@
         </div>
     </div>
 </div>
-@*<div class="Content_general_pop_up" style="display: none;" id="PopRDSuscripcion" data-popup-main="">
-    <div class="content_pop_up_intriga" data-popup-body="" style="padding:25px 0;height: auto;">
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript:PopupCerrar('PopRDSuscripcion');">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="">
-        </a>*@
-       
-        @*<div style="position: relative; z-index: 2 !important;">
-            <img src="/Content/Images/Esika/RevistaDigital/popup1.png" usemap="#imgmap" width="100%" style="position: relative;"/>
-            <map name="imgmap">
-                <area shape="rect" coords="20,200,280,260" href="javascript:RDSuscripcion();" alt="Suscribirse.">
-            </map>
-            <img src="/Content/Images/Esika/RevistaDigital/letra.gif" style="float: left; position: absolute; top : 62px; left: 180px" />
-        </div>*@
-        @*<div style="text-align: center; margin:-26px 0 81px 32px;">
-            <input id="btnRDSuscripcionNo" type="button" value="CANCELAR" data-popup-close="" class="input_modifica_horizontal" style="width: 100px; margin-left: 0;" />
-            <input id="btnRDSuscripcionSi" type="button" value="!QUIERO INSCRIBIRME AHORA¡" onclick="RDSuscripcion()" class="input_modifica_horizontal" style="width: 225px;" />
-        </div>*@
-        @*<div style="color: white; z-index: -1 !important ">
-            <a href="javascript:RDPopupNoVolverMostrar();">No volver a ver este mensaje</a>
-        </div>
-        <div class="clear"></div>
-    </div>
-</div>*@
+
 <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
+
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="display:none;">
+    <div class="contenedor_popup_inscritaRevistaDigital" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript: CerrarPopup('#PopRDInscrita');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_estasInscritaRevistaDigital">
+            <div class="contenido_felicitaciones">
+                <span>¡FELICIDADES <span class="nombre_usuariaInscrita" data-usuario="">YULIANA</span>!</span>
+                <span>Est&aacute;s inscrita a &Eacute;sika para m&iacute;</span>
+            </div>
+            <div class="contenido_recuerdaIngresar">
+                <span>Recuerda ingresar a somosbelcorp.com desde los primeros d&iacute;as de la pr&oacute;xima campaña.</span>
+            </div>
+            <a href="javascript: RDSuscripcionRedireccionar()" class="link_entendido" title="Entendido">ACEPTAR</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+
 <!--FIN REVISTA DIGITAL-->
 
 @section scripts{
@@ -2471,7 +2475,7 @@
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
-        var urlInformacionSuscripcion = '@Url.Action("Index", "SuscripcionRD")';
+        var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;

@@ -272,19 +272,19 @@
         <div class="clear"></div>
     </header>
     <div class="fondo_oscuro"></div>
-    <div class="SubHeader">
-        <div class="ubicacion_web @(controllerAction == "BienvenidaIndex"
-                            || controllerAction == "ShowRoomIndex"
-                            || controllerAction == "ShowRoomIntriga"
-                            || controllerAction == "SuscripcionRDIndex"
-                            || controllerAction == "RevistaDigitalIndex" ? "oculto" : "")">
-        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
-        </div>
-    </div>
 
     <!-- end cabecera -->
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="">
+        <div class="SubHeader">
+            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex"
+                            || controllerAction == "ShowRoomIndex"
+                            || controllerAction == "ShowRoomIntriga"
+                            || controllerAction == "RevistaDigitalIndex"
+                            || controllerAction == "RevistaDigitalInscripcion" ? "oculto" : "")">
+                <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+            </div>
+        </div>
         @RenderBody()
 
         @if (ViewBag.TerminoMostrar == 1)
@@ -454,11 +454,6 @@
     </div>
 
     <div id="alertDialogMensajes" style="display: none;">
-        <div class="terminos_title_2">MENSAJE</div>
-        <div class="linea_superior margin_10"></div>
-        <div class="pop_pedido_mensaje"></div>
-    </div>
-    <div id="alertDialogMensajesHome" style="display: none;">
         <div class="terminos_title_2">MENSAJE</div>
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
@@ -639,6 +634,9 @@
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         var DesktopHomeBanners = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeBanners;
         var DesktopHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;

@@ -210,6 +210,7 @@
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\SuscripcionRDController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
@@ -1133,6 +1134,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
     <Content Include="Content\Css\Site\flipclock.css" />
@@ -2052,6 +2054,8 @@
     <Content Include="Content\Images\ico_print.png" />
     <Content Include="Content\Images\ico_twitter.png" />
     <Content Include="Content\Images\image.png" />
+    <Content Include="Content\Images\img-carrusel1.png" />
+    <Content Include="Content\Images\img-carrusel2.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
@@ -2711,13 +2715,18 @@
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
+    <Content Include="Content\Images\RevistaDigital\lan-fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
     <Content Include="Content\Images\RevistaDigital\previous.png" />
-    <Content Include="Content\Images\RevistaDigital\set_revista_digital.png" />
+    <Content Include="Content\Images\RevistaDigital\prod1.png" />
+    <Content Include="Content\Images\RevistaDigital\prod2.png" />
+    <Content Include="Content\Images\RevistaDigital\prod3.png" />
+    <Content Include="Content\Images\RevistaDigital\prod0.png" />
+    <Content Include="Content\Images\RevistaDigital\prod4.png" />
     <Content Include="Content\Images\revista_no_disponible.jpg" />
     <Content Include="Content\Images\sac.png" />
     <Content Include="Content\Images\scotiabank.png" />
@@ -2946,6 +2955,7 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
@@ -3193,6 +3203,8 @@
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\SuscripcionRD\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3921,6 +3933,7 @@
     <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\SuscripcionRD\Index.cshtml" />
+    <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

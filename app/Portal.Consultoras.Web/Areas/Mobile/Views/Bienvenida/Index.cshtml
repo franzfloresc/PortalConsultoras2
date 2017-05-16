@@ -634,9 +634,9 @@
 
 
 <!--POP UP REVISTA DIGITAL-->
-<div id="popup-revista-digital" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
+<div id="PopRDSuscripcion" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
     <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="top:-12px; right:0px; position:absolute;" href="javascript:$('#popup-revista-digital').hide();">
+        <a class="cerrar_fichaProducto" style="top:-12px; right:0px; position:absolute;" href="javascript:  CerrarPopup('#PopRDSuscripcion');">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
         <div class="popup_revistaSuscripcion">
@@ -654,11 +654,11 @@
             </div>
             <div class="popup_revistaSuscripcion_grupoBotones">
                 <button type="button" id="btnRDSuscripcionSi" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
-                <button type="button" id="btnRDSuscripcionNo" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" id="btnRDSuscripcionNo" onclick="RDInformacion()" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
             </div>
             <div class="popup_revistaSuscripcion_terminos">
                 Al inscribirte est&aacute;s aceptando los
-                <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
+                <a href="javascript:;" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
                 y recibirás tu Revista únicamente por vía online, a partir de la C10
             </div>
             <div class="img_modeloRevista">
@@ -666,11 +666,33 @@
             </div>
         </div>
         <div class="popup_revistaSuscripcion_noAMostrarMensaje">
-            <a href="javascript:NoMostrarPopUpRevistaDigita();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
         </div>
     </div>
 </div>
 <!-- FIN POPUP REVISTA DIGITAL -->
+
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+
+<div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;">
+    <div class="contenedor_popup_inscritaRevistaDigital" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:-32px; right:0px; position:absolute;" href="javascript: CerrarPopup('#PopRDInscrita');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_estasInscritaRevistaDigital">
+            <div class="contenido_felicitaciones">
+                <span>¡FELICIDADES <span class="nombre_usuariaInscrita">YULIANA</span>!</span>
+                <span>Est&aacute;s inscrita a &Eacute;sika para m&iacute;</span>
+            </div>
+            <div class="contenido_recuerdaIngresar">
+                <span>Recuerda ingresar a somosbelcorp.com desde los primeros d&iacute;as de la pr&oacute;xima campaña.</span>
+            </div>
+            <a href="javascript: RDSuscripcionRedireccionar();" class="link_entendido" title="Entendido">ENTENDIDO</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
 <script id="template-estrategia-header1" type="text/x-handlebars-template">
     <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
@@ -1000,7 +1022,7 @@
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                    <a class="btn_agregar_ficha_producto" href="#" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto" href="javascript:;" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
                     <hr class="clear" />
                 </div>
             </div>
@@ -1030,6 +1052,7 @@
             var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})';
             var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })';
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+            var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
 
             var tipoOrigenEstrategia = 2;
             var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi;
@@ -1038,6 +1061,7 @@
         </script>
                 
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
         
     }

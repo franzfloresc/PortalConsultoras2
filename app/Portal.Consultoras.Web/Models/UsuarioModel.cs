@@ -156,6 +156,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
         public string Sobrenombre { get; set; }
+        public string UsuarioNombre { get; set; }
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }
         public int DiasAntes { get; set; }

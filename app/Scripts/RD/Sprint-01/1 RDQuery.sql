@@ -166,7 +166,7 @@ begin
 
   	INSERT INTO Permiso
   	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','',0,0,0, 1, 'RevistaDigital')
+  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
   
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
@@ -182,18 +182,43 @@ go
 
 -- menu mobile
 go
+
+	update MenuMobile
+	set OrdenItem = 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and descripcion = 'VENTA EXCLUSIVA WEB'
+		and EsSB2=1
+
+	update MenuMobile
+	set OrdenItem = OrdenItem + 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and descripcion != 'VENTA EXCLUSIVA WEB'
+		and EsSB2=1
+
+go
+
 if not exists(select 1 from MenuMobile where Codigo = 'RevistaDigital')
 begin
 
 	DECLARE @ID INT = 0
-	DECLARE @OrdenItem INT = 4
+	DECLARE @OrdenItem INT = 1
 
 	SELECT @ID=MAX(MenuMobileID) FROM MenuMobile
 	SET @ID = isnull(@ID, 0) + 1
 
+	
+	update MenuMobile
+	set OrdenItem = OrdenItem + 1
+	where Posicion = 'Menu'
+		and MenuPadreID = 0
+		and EsSB2=1
+		and OrdenItem >= @OrdenItem
+
   	INSERT INTO MenuMobile
   	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital',null,0,'Menu','Mobile', 1, 'RevistaDigital')
+  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
