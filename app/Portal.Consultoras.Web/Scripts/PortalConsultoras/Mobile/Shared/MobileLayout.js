@@ -177,8 +177,6 @@ $(function () {
         }
     }
 
-    //setTimeout(LayoutHeader, 300);
-
     $(".bannersi").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
@@ -271,9 +269,7 @@ $(function () {
         });
 
     });
-
-    LayoutHeader();
-
+    
 });
 
 function loadBannerLP20() {

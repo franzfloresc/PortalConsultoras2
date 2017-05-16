@@ -48,7 +48,7 @@ function OfertaArmarEstrategias(response) {
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";
+    //response.CodigoEstrategia = "101";
 
     // Listado de producto
     var urlTemplate = "#estrategia-template";

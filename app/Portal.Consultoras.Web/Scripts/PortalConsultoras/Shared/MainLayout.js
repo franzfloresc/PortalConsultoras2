@@ -4,7 +4,7 @@ var ventanaChat = null;
 
 $(document).ready(function () {
 
-    LayoutHeader();
+    LayoutMenu();
 
     if (mostrarBannerPostulante == 'True') {
         $('#bloquemensajesPostulante').show();
@@ -276,9 +276,6 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
-    //OrdenarCabecera()
-
-    LayoutHeader();
 });
 
 function AbrirVentanaBelcorpChat(url) {

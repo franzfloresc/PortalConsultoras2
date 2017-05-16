@@ -841,6 +841,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.ListaLoginExterno = Mapper.Map<List<BEUsuarioExterno>, List<UsuarioExternoModel>>(lstLoginExterno);
                                 }
                             }
+                        }
                         #endregion
                         
                         #region ConfiguracionPais
@@ -883,8 +884,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             using (RevistaDigitalServiceClient sv1 = new RevistaDigitalServiceClient())
                                             {
                                                 rds = sv1.GetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
-                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
                                             }
+                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
                                            
                                             //se verifica que el usuario tiene una suscripcion activa
                                             if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
@@ -911,7 +912,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                                 else
                                 {
-                                    model.RevistaDigital.NoVolverMostrar = false;
+                                    model.RevistaDigital.NoVolverMostrar = true;
                                     model.RevistaDigital.EstadoSuscripcion = 0;
                                 }
                                 
@@ -924,7 +925,6 @@ namespace Portal.Consultoras.Web.Controllers
                             
                         }
                         #endregion
-                        }
                     }
                 }
 

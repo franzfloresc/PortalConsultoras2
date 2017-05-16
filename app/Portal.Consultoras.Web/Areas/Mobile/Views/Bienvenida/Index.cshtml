@@ -654,7 +654,6 @@
         </div>
         <!-- FIN POPUP VIDEO INTRODUCTORIO -->
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
 <!--POP UP REVISTA DIGITAL-->
 <div id="PopRDSuscripcion" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
     <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
@@ -715,49 +714,6 @@
 </div>
 
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-
-<script id="template-estrategia-header1" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista{{else}}content_belcorp{{/iff}}" style="text-align:center;">
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revista-content{{/iff}}">
-
-            <div>
-                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revista-title">
-                    <p class="marca">ÉSIKA</p>
-                    <div class="giftext">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
-                    </div>
-                    <p class="revista-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
-                </div>
-                <hr class="clear" />
-                    <div style="position: absolute; z-index: 1; width: 100%; margin-top: -25px;">
-                        <a class="boton_Agregalo_home" tabindex="0" href="javascript: window.location.href = '@Url.Action("Index","RevistaDigital", new { area = "Mobile"})'"
-                           style="width: 39%;display: inline-block;margin-top: auto;">MÁS OFERTAS &nbsp;&nbsp;&gt;</a>
-                    </div>
-                {{else}}
-                <div class="titulo_ofertas_home">
-                    OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-                    <div class="texto_exclusivo">
-                        EXCLUSIVO SÓLO POR WEB
-                    </div>
-                </div>
-                {{/iff}}
-            </div>
-            <hr class="clear" />
-            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia" 
-                 data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi">
-                <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-            </div>
-            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                <p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">
-            </div>
-            {{/iff}}
-            <hr class="clear" />
-        </div>
-    </div>
-</script>
 
 @Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")

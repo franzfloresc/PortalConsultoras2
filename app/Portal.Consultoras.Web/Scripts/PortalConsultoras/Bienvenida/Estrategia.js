@@ -191,7 +191,7 @@ function ArmarCarouselEstrategias(data) {
         var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
-        cant = obj.CodigoEstrategia = "101" ? data.length : cant;
+        cant = obj.CodigoEstrategia == "101" ? data.length : cant;
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,

@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
     });
 
     $("header").resize(function () {
-        LayoutHeader();
+        LayoutMenu();
     });
 
     if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -848,11 +848,11 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function LayoutHeader() {
-    console.log(1);
     LayoutHeaderFin();
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
+}
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
@@ -898,7 +898,6 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     // var listaMenu = $("#ulNavPrincipal > li > a");
-
 
     LayoutHeader();
 }
@@ -1298,4 +1297,3 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
         }
     }
 }
-/**/
