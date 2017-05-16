@@ -16,6 +16,7 @@
 <input type="hidden" id="hdEstrategiaIDConsulta" />
 <input type="hidden" id="ImagenProducto" />
 <input type="hidden" id="hdEstrategiaID" />
+<input type="hidden" id="hdEstrategiaCodigo" />
 <input type="hidden" id="hdTipoConsulta" value="0" />
 <input type="hidden" id="hdZonas" value="" />
 <input type="hidden" id="hdSimbolo" />
@@ -298,7 +299,7 @@
     var imagen = "";
     var imagenPrevia = "";
     var isNuevo = false;
-
+    var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
 
     jQuery(document).ready(function () {
@@ -382,7 +383,7 @@
             $(".checksPedidosAsociados").html('');
 
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
-            $("#btnActivarDesactivar").hide();
+           //$("#btnActivarDesactivar").hide();
 
             if (aux1 == "4") {
                 $("#txtOrden").val("");
@@ -390,7 +391,7 @@
 
                 $('#txt1-estrella').html('Oferta de Último Minuto');
                 $('#txt2-estrella').hide();
-                $("#btnActivarDesactivar").show();
+               // $("#btnActivarDesactivar").show();
             }
             else {
                 $('#div-orden').show();
@@ -438,9 +439,19 @@
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('5');
             }
-
+            
             if ($('#ddlTipoEstrategia option:selected').attr('data-codigo') === '005') $('#div-revista-digital').show();
             else $('#div-revista-digital').hide();
+
+            LimpiarCamposLanzamiento('img-fondo-desktop');
+            LimpiarCamposLanzamiento('img-prev-desktop');
+            LimpiarCamposLanzamiento('img-fondo-mobile');
+            LimpiarCamposLanzamiento('img-ficha-desktop');
+            LimpiarCamposLanzamiento('img-ficha-mobile');
+            LimpiarCamposLanzamiento('img-ficha-fondo-desktop');
+            LimpiarCamposLanzamiento('img-ficha-fondo-mobile');
+            $("#url-video-desktop").val("");
+            $("#url-video-mobile").val("");
 
             HideDialog("DialogZona");
             showDialog("DialogAdministracionEstrategia");
@@ -482,9 +493,9 @@
 
         });
         $("#ddlTipoEstrategia").change(function () {
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
-            if (aux1 == "4")
+            if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
                 $("#btnActivarDesactivar").show();
 
             SeleccionarTipoOferta();
@@ -505,6 +516,7 @@
             }
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdTipoConsulta").val("1");
+            $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
             fnGrilla();
         });
         $('#ddlPais').change(function () {
@@ -600,7 +612,6 @@
                 $.jstree._reference($("#arbolRegionZona")).uncheck_all();
         });
         $("#txtCUV").keyup(function () {
-            debugger;
             if ($(this).val().length == 5) {
 
                 if ($("#txtCUV2").val() == "") {
@@ -716,7 +727,6 @@
         });
         $("#txtCUV2").keyup(function () {
             var cuvIngresado = $(this).val();
-            debugger;
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
              estrategiaObj.mostrarInformacionCUV(cuvIngresado);
@@ -903,7 +913,9 @@
         UploadFileLanzamineto('img-prev-desktop');
         UploadFileLanzamineto('img-fondo-mobile');
         UploadFileLanzamineto('img-ficha-desktop');
+        UploadFileLanzamineto('img-ficha-fondo-desktop');
         UploadFileLanzamineto('img-ficha-mobile');
+        UploadFileLanzamineto('img-ficha-fondo-mobile');
     });
 
 
@@ -1859,6 +1871,8 @@
                     var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
                     var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
                     var urlVideoMobile = $("#url-video-mobile").val();
+                    var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
+                    var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
 
                     var params = {
                         EstrategiaID: EstrategiaID,
@@ -1887,14 +1901,16 @@
                         Orden: Orden,
                         ColorFondo: colorFondo,
                         FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').attr('data-codigo'),
+                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').data('codigo'),
                         ImgFondoDesktop: imgFondoDesktop,
                         ImgPrevDesktop: imgPrevDesktop,
                         ImgFichaDesktop: imgFichaDesktop,
                         UrlVideoDesktop: urlVideoDesktop,
                         ImgFondoMobile: imgFondoMobile,
                         ImgFichaMobile: imgFichaMobile,
-                        UrlVideoMobile: urlVideoMobile
+                        UrlVideoMobile: urlVideoMobile,
+                        ImgFichaFondoDesktop: imgFichaFondoDesktop,
+                        ImgFichaFondoMobile: imgFichaFondoMobile
                     };
                     jQuery.ajax({
                         type: 'POST',
@@ -2147,5 +2163,10 @@
             onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
         });
         return false;
+    }
+
+    function LimpiarCamposLanzamiento(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
     }
 </script>

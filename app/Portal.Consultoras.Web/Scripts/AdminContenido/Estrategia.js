@@ -245,7 +245,18 @@
         if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
         else $("#chkEstrella").attr("checked", false);
         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
-        closeWaitingDialog();   
+
+        _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
+        _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
+        _agregarCamposLanzamiento('img-fondo-mobile', data.ImgFichaDesktop);
+        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFondoMobile);
+        _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
+        _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
+        _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
+        $("#url-video-desktop").val(data.UrlVideoDesktop);
+        $("#url-video-mobile").val(data.UrlVideoMobile);
+
+        closeWaitingDialog();
 
         return data;
     };
@@ -333,8 +344,27 @@
         $("#divInformacionAdicionalEstrategia").css("color", "#702789");
         $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
         $("#txtTextoLibre").val("");
-    };
+        _limpiarCamposLanzamiento('img-fondo-desktop');
+        _limpiarCamposLanzamiento('img-prev-desktop');
+        _limpiarCamposLanzamiento('img-fondo-mobile');
+        _limpiarCamposLanzamiento('img-ficha-desktop');
+        _limpiarCamposLanzamiento('img-ficha-mobile');
+        _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
+        _limpiarCamposLanzamiento('img-ficha-fondo-mobile');
+        $("#url-video-desktop").val("");
+        $("#url-video-mobile").val("");
+        if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
+        else $('#div-revista-digital').hide();
 
+    };
+    var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    };
+    var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
+        $("#nombre-" + nombreCampo).val(valor);
+        $("#src-" + nombreCampo).attr("src", urlS3 + valor);
+    };
     var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
@@ -481,7 +511,8 @@
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
-                 
+               
+
                 _clearFields();
                
                 var params = {

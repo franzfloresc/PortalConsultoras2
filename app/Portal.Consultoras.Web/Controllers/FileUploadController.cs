@@ -154,7 +154,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Stream inputStream = Request.InputStream;
                 byte[] fileBytes = ReadFully(inputStream);
                 string ffFileName = qqfile; // qqfile;
-                var path = Path.Combine(Globals.RutaTemporales, ffFileName);
+                var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                var path = Path.Combine(Globals.RutaTemporales, time + ffFileName);
                 System.IO.File.WriteAllBytes(path, fileBytes);
                 if (!System.IO.File.Exists(Globals.RutaTemporales))
                     System.IO.Directory.CreateDirectory(Globals.RutaTemporales);

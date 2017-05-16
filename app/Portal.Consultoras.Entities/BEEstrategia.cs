@@ -149,6 +149,12 @@ namespace Portal.Consultoras.Entities
         public string ImgFichaMobile { get; set; }
         [DataMember]
         public string UrlVideoMobile { get; set; }
+        [DataMember]
+        public string ImgFichaFondoDesktop { get; set; }
+        [DataMember]
+        public string ImgFichaFondoMobile { get; set; }
+        [DataMember]
+        public string CodigoTipoEstrategia { get; set; }
 
         public BEEstrategia(IDataRecord row)
         {

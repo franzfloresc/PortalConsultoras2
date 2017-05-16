@@ -97,11 +97,8 @@
         <!--SECCION PARA CARRUSEL DE LANZAMIENTOS -->
         <div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
             <div style="color: white;">
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
-                    Desktop Carrusel
-                </div>
-                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
-                    Mobile Carrusel
+                <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                    VISUALES  DE LA SECCIÓN  LANZAMIENTOS
                 </div>
             </div>
             <div>
@@ -142,6 +139,15 @@
                 <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
                     <h4>Ficha Desktop</h4>
                     <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-ficha-fondo-desktop" />
+                        <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
+                        <div id="img-ficha-fondo-desktop" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%;">
                         <input type="hidden" id="nombre-img-ficha-desktop" />
                         <label style="width: 130px; display: inline-block;">Sello: </label>
                         <div id="img-ficha-desktop" style="display: inline-block; vertical-align: middle;"></div>
@@ -149,6 +155,7 @@
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-desktop" class="img-matriz-preview2" data-id="">
                         </div>
                     </div>
+                    
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
                         <label style="width: 130px;display: inline-block;">URL Video: </label>
@@ -157,6 +164,15 @@
                 </div>
                 <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
                     <h4>Ficha Mobile</h4>
+                    <div style="display: inline-block; width: 100%">
+                        <input type="hidden" id="nombre-img-ficha-fondo-mobile" />
+                        <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
+                        <div id="img-ficha-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
                     <div style="display: inline-block; width: 100%">
                         <input type="hidden" id="nombre-img-ficha-mobile" />
                         <label style="width: 130px; display: inline-block;">Sello: </label>

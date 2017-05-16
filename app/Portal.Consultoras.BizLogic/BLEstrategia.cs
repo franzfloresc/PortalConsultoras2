@@ -31,6 +31,20 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
+            var DAEstrategia = new DAEstrategia(paisID);
+            using (IDataReader reader = DAEstrategia.GetEstrategiaDetalle(estrategiaID))
+            {
+                if (reader.Read())
+                {
+                    estrategiaDetalle = new BEEstrategiaDetalle(reader);
+                }
+            }
+            return estrategiaDetalle;
+        }
+
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
         {
             try
@@ -42,8 +56,22 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
+
                         listaEstrategias.Add(new BEEstrategia(reader));
                     }
+                }
+                foreach (var estrategia in listaEstrategias)
+                {
+                    var estrategiaDetalle = GetEstrategiaDetalle(entidad.PaisID, estrategia.EstrategiaID);
+                    estrategia.ImgFondoDesktop = estrategiaDetalle.ImgFondoDesktop;
+                    estrategia.ImgPrevDesktop = estrategiaDetalle.ImgPrevDesktop;
+                    estrategia.ImgFichaDesktop = estrategiaDetalle.ImgFichaDesktop;
+                    estrategia.UrlVideoDesktop = estrategiaDetalle.UrlVideoDesktop;
+                    estrategia.ImgFondoMobile = estrategiaDetalle.ImgFondoMobile;
+                    estrategia.ImgFichaMobile = estrategiaDetalle.ImgFichaMobile;
+                    estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
+                    estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
+                    estrategia.ImgFichaFondoMobile = estrategiaDetalle.ImgFichaFondoMobile;
                 }
                 return listaEstrategias;
             }
@@ -124,9 +152,10 @@ namespace Portal.Consultoras.BizLogic
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
                 int result = DAEstrategia.InsertEstrategia(entidad);
                 // Solo para estrategia de lanzamiento se agrega el detalle de estrategia.
-                if (entidad.CodigoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                 {
                     BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
+                    estrategiaDetalle.EstrategiaID = result;
                     DAEstrategia.InsertEstrategiaDetalle(estrategiaDetalle);
                 }
                 return result;

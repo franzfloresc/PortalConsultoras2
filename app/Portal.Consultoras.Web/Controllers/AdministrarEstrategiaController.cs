@@ -26,12 +26,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/Index"))
                 return RedirectToAction("Index", "Bienvenida");
+
+            string paisISO = Util.GetPaisISO(userData.PaisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
             var EstrategiaModel = new EstrategiaModel()
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
-                ListaEtiquetas = DropDowListEtiqueta()
+                ListaEtiquetas = DropDowListEtiqueta(),
+                UrlS3 = urlS3
             };
             return View(EstrategiaModel);
         }
@@ -611,7 +617,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                if (entidad.Activo == 1 && (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi))
                 {
                     try
                     {
@@ -670,20 +678,15 @@ namespace Portal.Consultoras.Web.Controllers
                 if (string.IsNullOrEmpty(model.NumeroPedido))
                     model.NumeroPedido = "0";
 
-                entidad.ImgFondoDesktop = SaveFileS3(model.ImgFondoDesktop);
-                entidad.ImgPrevDesktop = SaveFileS3(model.ImgPrevDesktop);
-                entidad.ImgFichaDesktop = SaveFileS3(model.ImgFichaDesktop);
-                entidad.UrlVideoDesktop = SaveFileS3(model.UrlVideoDesktop);
-                entidad.ImgFondoMobile = SaveFileS3(model.ImgFondoMobile);
-                entidad.ImgFichaMobile = SaveFileS3(model.ImgFichaMobile);
-                entidad.UrlVideoMobile = SaveFileS3(model.UrlVideoMobile);
-
                 List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
+                BEEstrategiaDetalle estrategiaDetalle =  new BEEstrategiaDetalle();
                 foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
                     entidad.NumeroPedido = item;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
+                        if (entidad.EstrategiaID != 0) estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+                        entidad = verficarArchivos(entidad, estrategiaDetalle);
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
                     }
                 }
@@ -1637,6 +1640,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public BEEstrategia verficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
+        {
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop)
+                estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop)
+                estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop)
+                estrategia.ImgFichaDesktop = SaveFileS3(estrategia.ImgFichaDesktop);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) || estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile)
+                estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile)
+                estrategia.ImgFichaMobile = SaveFileS3(estrategia.ImgFichaMobile);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop)
+                estrategia.ImgFichaFondoDesktop = SaveFileS3(estrategia.ImgFichaFondoDesktop);
+            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile)
+                estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
+            return estrategia;
+        }
         public string SaveFileS3(string imagenEstrategia)
         {
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);

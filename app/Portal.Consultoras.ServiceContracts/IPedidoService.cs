@@ -623,6 +623,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
         [OperationContract]
+        BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID);
+
+        [OperationContract]
         List<BETallaColor> GetTallaColor(BETallaColor entidad);
 
         [OperationContract]

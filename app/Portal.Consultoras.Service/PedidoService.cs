@@ -1124,6 +1124,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().GetEstrategias(entidad);
         }
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            return new BLEstrategia().GetEstrategiaDetalle(paisID, estrategiaID);
+        }
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().GetTallaColor(entidad);
