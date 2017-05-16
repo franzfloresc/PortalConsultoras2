@@ -26,18 +26,15 @@
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
-
     }
     else
     {
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
-        
-       
     }
 
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
-
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -48,8 +45,6 @@
 <body>
     <!-- Google Tag Manager -->
     <script type="text/javascript">
-
-        
 
         dataLayer = [{
             'campana': '@ViewBag.AnalyticsCampania',
@@ -112,12 +107,21 @@
                 <img src="@Url.Content("~/Content/Images/mobile/Esika/btn_cerrar_header.png")" alt="X" />
             </div>
         </div>
-        <div class="foto_menu" style="display:none">
+        <div class="foto_menu">
+            <!--
             <div class="content_foto">
                 <div class="foto_usuaria_mobile">
                     <img src="/Content/Images/mobile/Esika/user.jpg" alt="-">
                 </div>
             </div>
+                -->
+
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            {
+                <div class="foto_usuaria_mobile">
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
+                </div>
+            }
         </div>
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
@@ -137,15 +141,63 @@
 
     <!-- header -->
     <header id="new-header">
-    @if (ViewBag.MostrarBannerTopPL20 == true)
-    {
-
-        <div id="flexslidertop" class="header_slider" style="overflow:hidden;">
-         
-                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>
-           
-            
-            <ul class="slides">
+        <!--BANNER-->
+        @if (ViewBag.mostrarBannerPostulante == true)
+        {
+            <div id="bloquemensajesPostulante" style="display:none;">
+                @*<div class="oscurecer_animacion"></div>*@
+                <div class="bloque_mensajesPedido">
+                    <div class="icono_cerrar_mensaje">
+                        <span>
+                            <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
+                            </a>
+                        </span>
+                    </div>
+                    <div class="icono_estadoPedido" style="position: absolute;">
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
+                    </div>
+                    <div class="mensajes_estadoPedido" style="margin-left: 40px; margin-right: 15px;">TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA
+                        <span class="mensaje_horarioIngresoPedido">
+                            Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.MostrarBannerRechazo == true)
+        {
+            <div id="bloquemensajesPedido" style="display:none;">
+                @*<div class="oscurecer_animacion"></div>*@
+                <div class="bloque_mensajesPedido">
+                    <div class="icono_cerrar_mensaje">
+                        <span>
+                            <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
+                            </a>
+                        </span>
+                    </div>
+                    <div class="icono_estadoPedido">
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
+                    </div>
+                    <div class="mensajes_estadoPedido">
+                        <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
+                        <span class="mensaje_horarioIngresoPedido">
+                            @ViewBag.GPRBannerMensaje
+                            @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
+                            {
+                                <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.MostrarBannerTopPL20 == true)
+        {
+            <div id="flexslidertop" class="header_slider" style="overflow:hidden;">         
+                <a id="btn_cerrar_oferta_mobile" class="btn_cerrar_oferta_mobile">X</a>            
+                <ul class="slides">
                 @if (ViewBag.MostrarOfertaDelDia == true)
                 {
                     <li>
@@ -154,9 +206,20 @@
                             <div class="row_contador" style="padding:0;">
                                 <div class="float_left" style="margin-left:16px;">
                                     <div class="solo_hoy_mobile2"><img src="@ofertaDelDia.ImagenSoloHoy" alt="Solo Hoy" /></div>
-                                    <div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0; width:195px;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+                                    
+                                    @*<div class="nombre_set_oferta_mobile" style="margin-left:10px; margin-top:0; width:195px;">@ofertaDelDia.NombreOferta <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>*@
+                                    @if (ofertaDelDia.ListaOfertas.Count > 1)
+                                    {
+                                        <a class="btn_compralo_ahora cabecera-no-home" href="#">VER MÁS OFERTAS</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn_compralo_ahora cabecera-no-home" href="#">VER OFERTA</a>
+                                    }
                                 </div>
-                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:5px;"><img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" /></div>
+                                <div class="imagen_set_oferta_mobile" style="float:right;width:78px; margin-right:5px;">
+                                    <img style="width:83%;" src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" />
+                                </div>
                                 <hr class="clear" />
                                 <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
                                 <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
@@ -183,7 +246,6 @@
                                     <img src="@ViewBag.ImagenBannerShowroomVenta" alt="Solo Hoy" />
                                 </div>
                             </a>
-
                         </li>
                     }
                     else
@@ -192,262 +254,179 @@
                             <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                 <div class="content_banner_header_showroom">
                                     <div class="content_titulo"><div class="titulo_intriga">VENTA EXCLUSIVA WEB</div></div>
-
                                     <div class="faltan_dias_header"><b>@ViewBag.DiasFaltantesLetras</b></div>
                                     <img src="@ViewBag.ImagenBannerShowroomIntriga" alt="Solo Hoy" />
                                 </div>
                             </a>
-
                         </li>
 
                     }
                 }
+                </ul>
+            </div>
+        }
+        <!--END BANNER-->
 
-
-                
-
-            </ul>
+        <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
+            <div class="row">
+                <div class="col-xs-4">
+                    <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
+                </div>
+                <div class="col-xs-4 text-center">
+                    <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
+                        class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div class="menu-shop">
+                        <a role="link" region="Superior" parent="Pedido" title="Pedido"
+                            class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
+                            <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
+                        </a>
+                        <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
+                            class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
+                            <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
-        
-                <div id="bloquemensajesPedido" style="display:none;">
-                    <div class="oscurecer_animacion"></div>
-                    <div class="bloque_mensajesPedido">
-                        <div class="icono_cerrar_mensaje">
-                            <span>
-                                <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                                    <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
-                                </a>
-                            </span>
-                        </div>
-                        <div class="icono_estadoPedido">
-                            <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
-                        </div>
-                        <div class="mensajes_estadoPedido">
-                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
-                    <span class="mensaje_horarioIngresoPedido">
-                        @ViewBag.GPRBannerMensaje
-                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                        {
-                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
-                        }
-                            </span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
-                        </div>
-                        <div class="col-xs-4 text-center">
-                            <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                               class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                        </div>
-                        <div class="col-xs-4 text-right">
-                            <div class="menu-shop">
-                                <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                                   class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                                    <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                                </a>
-                                <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                                   class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                                    <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
     </header>
-    @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
+    @if (ViewBag.MostrarOfertaDelDia == true)
     {
-        if (ViewBag.MostrarOfertaDelDia == true)
-        {
-            <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
-                <div class="header_pop_oferta" style="background-color:@ofertaDelDia.ColorFondo2">
-                    <div class="content_320" style="padding:0;">
-                        <div class="float_left">
-                            <a class="btn_cerrar_pop_oferta_hoy">
-                                <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
-                            </a>
-                        </div>
-                        <div class="imagen_set_hoy_mobile">
-                            <img id="img2-solohoy-odd" alt="regresar" src="@ofertaDelDia.ImagenSoloHoy" />
-                        </div>
-                        <hr class="clear" />
-                    </div>
-                </div>
-                <div class="set_oferta_content">
-                    <div class="producto_img_mobile">
-                        <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
-                    </div>
-                    <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
-                    <div class="producto_nombre_descripcion">
-                        <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
-                        <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
-                        <div class="producto_precio_hoy_mobile">
-                            A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
-                        </div>
-
-                        <div class="liquidacion_rango_home">
-                            <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                            <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(0)">
-                            AGRÉGALO
+        <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
+            <div class="header_pop_oferta" style="background-color:@ofertaDelDia.ColorFondo2">
+                <div class="content_320" style="padding:0;">
+                    <div class="float_left">
+                        <a class="btn_cerrar_pop_oferta_hoy">
+                            <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
                         </a>
-                        <div style="padding-top:9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align:right;display:none;">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
                     </div>
+                    <div class="imagen_set_hoy_mobile">
+                        <img id="img2-solohoy-odd" alt="regresar" src="@ofertaDelDia.ImagenSoloHoy" />
+                    </div>
+                    <hr class="clear" />
                 </div>
             </div>
-        }
 
-        if (ViewBag.MostrarODD == false)
-        {
-            <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-                @if (ViewBag.PermitirCerrarBannerPL20 == true)
-                {
-                    <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-                }
-                <div id="flexslider">
-                    <ul class="slides">
-                        @if (ViewBag.MostrarShowRoomBannerLateral == true)
-                    {
-                        if (showRoomBannerLateral.MostrarShowRoomProductos)
-                        {
-                                <li>
-                                    <div id="divShowRoomHoy" class="divShowRoom">
-                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                        <div class="fondo_m">
-                                            <a href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
-                                                <div class="content_banner_new_showroom">
-                                                    @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
-                                                    <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
-                                                </div>
-                                            </a>
-                                        </div>
-                                </div>
-                                </li>
-                            }
-                             else if(showRoomBannerLateral.MostrarShowRoomProductos == false)
-                            {
-                                <li>
-                                    <div id="divShowRoom" class="divShowRoom">
-                                        <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                        <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    <div class="fondo_m">
-                                        <a href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
-                                            <div class="content_banner_new_showroom">
-                                                <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
-                                            </div>
-                                        </a>
-                                     </div>
-                                </div>
-                                </li>
-                            }
-                        }
-
-                        @if (ViewBag.MostrarOfertaDelDia == true)
-                    {
-                            <li>
-                                <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
-                                    <div class="solo_hoy_mobile">
-                                        <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-                                    </div>
-                                        <div class="imagen_set_oferta_mobile">
-                                            <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
-                                    </div>
-                                    <div class="float_left" style="width:50%; margin-left:1%;">                                       
-                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b> A SOLO @ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
-                                     </div>
-                                        <hr class="clear" />
-                                        <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                                        <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                                        <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                                        <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                                        <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                                        <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                                        <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                                        <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                                        <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
-                                </div>
+            <div >
+                <div id="OfertasDiaMobile" class="set_oferta_content"></div>
+                <div class="row contenedor-botones">
+                    <div class="content_btn_agregar">
+                        <div class="content_320">
+                            <div class="content_cantidad_ficha_producto">
+                                <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                                <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                             </div>
-                            </li>
-                        }
-                    </ul>
+                            <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                            <hr class="clear">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        }
-
-
     }
-    else
-    {
-        if (ViewBag.MostrarOfertaDelDia == true)
-        {
-            <div id="pop_oferta_mobile_sw" class="content_pop_oferta_mobile">
-                <div id="cerrar_pop_oferta" class="header_pop_oferta" style="background-color:@ofertaDelDia.ColorFondo2">
-                    <div class="content_320" style="padding:0;">
-                        <div class="float_left">
-                            <a class="btn_cerrar_pop_oferta_hoy">
-                                <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
-                            </a>
-                        </div>
-                        <div class="imagen_set_hoy_mobile">
-                            <img id="img2-solohoy-odd" alt="regresar" src="@ofertaDelDia.ImagenSoloHoy" />
-                        </div>
-                        <hr class="clear" />
-                    </div>
-                </div>
-                <div class="set_oferta_content">
-                    <div class="producto_img_mobile">
-                        <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
-                    </div>
-                    <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
-                    <div class="producto_nombre_descripcion">
-                        <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
-                        <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
-                        <div class="producto_precio_hoy_mobile">
-                            A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
-                        </div>
-
-                        <div class="liquidacion_rango_home">
-                            <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                            <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido(1)">
-                            AGRÉGALO
-                        </a>
-                        <div style="padding-top:9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align:right;display:none;">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
-
+    
     <!-- content -->
     <section style="min-height: 380px;">
-        <div id="contentmobile" data-content="">
+        <div id="contentmobile" data-content="" style="margin-top: 60px;">
+
+            @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
+            {
+                if (ViewBag.MostrarODD == false)
+                {
+                    <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
+                        @if (ViewBag.PermitirCerrarBannerPL20 == true)
+                        {
+                            <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
+                        }
+                        <div id="flexslider">
+                            <ul class="slides">
+                                @if (ViewBag.MostrarShowRoomBannerLateral == true)
+                                {
+                                    if (showRoomBannerLateral.MostrarShowRoomProductos)
+                                    {
+                                        <li>
+                                            <div id="divShowRoomHoy" class="divShowRoom">
+                                                <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                                <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                                <input type="hidden" id="hdtiposw" value="1" />
+                                                <div class="fondo_m">
+                                                    <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                                        <div class="content_banner_new_showroom">
+                                                            @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
+                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                    else if (showRoomBannerLateral.MostrarShowRoomProductos == false)
+                                    {
+                                        <li>
+                                            <div id="divShowRoom" class="divShowRoom">
+                                                <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                                <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                                <input type="hidden" id="hdtiposw" value="2" />
+                                                <div class="fondo_m">
+
+                                                    <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                                        <div class="content_banner_new_showroom">
+                                                            <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
+                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+
+                                @if (ViewBag.MostrarOfertaDelDia == true)
+                                {
+                                    <li>
+                                        <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
+                                            <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
+                                                <div class="solo_hoy_mobile">
+                                                    <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
+                                                </div>
+                                                <div class="imagen_set_oferta_mobile">
+                                                    <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
+                                                </div>
+                                                <div class="float_left" style="width:50%; margin-left:1%;">
+                                                    <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
+
+                                                    @if (ofertaDelDia.ListaOfertas.Count > 1)
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER MÁS OFERTAS</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a class="btn_compralo_ahora" href="#">VER OFERTA</a>
+                                                    }
+                                                </div>
+                                                <hr class="clear" />
+                                                <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
+                                                <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
+                                                <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
+                                                <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
+                                                <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
+                                                <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
+                                                <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
+                                                <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
+                                                <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+            }
             @RenderBody()
         </div>
         <div class="clear">
@@ -481,6 +460,69 @@
         </div>
     </div>
 
+    <script id="estrategia-template_carrusel" type="text/x-handlebars-template">
+        {{#each this.ListaOfertas  as |oferta|}}
+        <div data-item="">
+            <div style="display:none;" data-item-campos="">
+                <input type="text" class="tipoestrategia-id-odd" value="{{oferta.TipoEstrategiaID}}" />
+                <input type="text" class="estrategia-id-odd" value="{{oferta.EstrategiaID}}" />
+                <input type="text" class="marca-id-odd" value="{{oferta.MarcaID}}" />
+                <input type="text" class="cuv2-odd" value="{{oferta.CUV2}}" />
+                <input type="text" class="limite-venta-odd" value="{{oferta.LimiteVenta}}" />
+                <input type="text" class="flagnueva-odd" value="{{oferta.FlagNueva}}" />
+                <input type="text" class="precio-odd" value="{{oferta.PrecioOferta}}" />
+                <input type="text" class="nombre-odd" value="{{oferta.NombreOferta}}" />
+                <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
+                <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
+                <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
+                <input type="text" class="origenPedidoWeb-odd" value="4" />
+            </div>
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{../FBRuta}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{../FBRuta}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{oferta.ImagenDisplay}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{oferta.ImagenDisplay}}" />
+                <input type="hidden" class="MarcaID" value="{{oferta.MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{oferta.DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{oferta.NombreOferta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{oferta.DescripcionOferta}}" />
+                <input type="hidden" class="Palanca" value="ODD" />
+            </div>
+            <div class="saludo_paginacion">
+                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                {{#iff ../CantidadProductos '>' 1}}
+                &nbsp;ofertas
+                {{/iff}}
+                {{#iff ../CantidadProductos '<' 2}}
+                &nbsp;oferta
+                {{/iff}}
+            </div>
+            <div class="producto_img_mobile">
+                <img src="{{oferta.ImagenDisplay}}" alt="Solo Hoy" id="img-display-odd" />
+            </div>
+            <div class="nombre_set_display">{{oferta.NombreOferta}}</div>
+            <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo {{oferta.PrecioCatalogoFormat}}</span></div>
+            <div class="producto_precio_hoy_mobile">
+                A SOLO <span>@ViewBag.Simbolo {{oferta.PrecioOfertaFormat}}</span>
+            </div>
+
+            {{#IsNullOrEmpty oferta.DescripcionOferta '!='}}
+            <div class="titulo_contenido">CONTENIDO</div>
+            <div class="nombre_set_producto_hoy">{{{oferta.DescripcionOferta}}}</div>
+            {{/IsNullOrEmpty}}
+            
+            <div class="content_redes_ficha" data-item="">
+                <div class="texto_redes">Comparte la oferta con tus clientes</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+
     <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
@@ -494,14 +536,28 @@
         </div>
     </div>
 
+    <div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+            <div id="mensajeInformacion2" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
+        </div>
+    </div>
+
     <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
                 <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
             </a>
             <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+            <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+            <div class="icono_alerta check_icono_mobile"  style="display: none;"></div>
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
             <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
             <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
@@ -588,6 +644,21 @@
         </div>
     </div>
 
+    <!--POP MENSAJE POSTULANTE-->
+    <div id="dialog_MensajePostulante_Pedido" class="MensajeAlertaMobile" style="display:none;">
+        <div class="content_mensajeAlerta">
+            <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();">
+                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+            </a>
+            <hr class="clear">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="titulo_compartir"><b id="titutloPedido">IMPORTANTE</b></div>
+            <div id="mensajePedido" class="mensaje_alerta"></div>
+            <a href="javascript:;" onclick="CerrarDialogMesajePostulantePedido();" class="btn_ok_mobile"><b>CONTINUAR</b></a>
+        </div>
+    </div>
+    <!--FIN-->
+
     <!--POP MENSAJE IMPORTANTE-->
     <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
@@ -649,8 +720,12 @@
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
-
+    
     @Scripts.Render("~/Scripts/Mobile")
+
+    @if (ViewBag.MostrarOfertaDelDia == true) {
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+    }
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
     
@@ -665,6 +740,7 @@
         var urlGetShowRoom = '@Url.Action("MostrarShowRoomBannerLateral", "Bienvenida", new { area = "" })';
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
         var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
+        var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
@@ -679,28 +755,41 @@
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
+
+        var IsoPais = '@ViewBag.CodigoISODL';
+        var gTipoUsuario = '@ViewBag.TipoUsuario';
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
+        //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
         var cerrarRechazado = '@ViewBag.CerrarRechazado';
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var campaniaCodigo = '@ViewBag.CampaniaCodigo';
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
-
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+        var TipoOrigenPantallaODD = 2;
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
         var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
         var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
-        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
-        var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var EstadoActivo = '@ViewBag.EstadoActivo';
-        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
-
         var ViewBagEsMobile = '@ViewBag.EsMobile';
+
+        var fingerprintOk = '@ViewBag.FingerprintOk';
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -713,6 +802,16 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
+
+        var vbFotoPerfil = '@ViewBag.FotoPerfil';
+        if (vbFotoPerfil != null && vbFotoPerfil != "") {
+            $('.foto_menu').show();
+        }
+
+        var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+
+        var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
+
     </script>
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
@@ -724,21 +823,98 @@
                 var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
                 var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
                 var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
-               
+
+                function AgregarTagManagerShowRoomAnalytics() {
+                    var EventoIdentificador = $("#hdEventoIDShowRoom").val();
+                    var EventoShowRoomNombre = $("#hdNombreEventoShowRoom").val();
+                    if (mostrarShowRoomProductos == 'True') {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce': {
+                                'promoView': [{
+                                    'id': EventoIdentificador,
+                                    'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
+                                    'position': 'Home Slider – 1',
+                                    'creative': 'Banner'
+                                }]
+                            }
+                        });
+                    } else {
+                        dataLayer.push({
+                            'event': 'promotionView',
+                            'ecommerce': {
+                                'promoView': [{
+                                    'id': EventoIdentificador,
+                                    'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
+                                    'position': 'Home Slider – 1',
+                                    'creative': 'Banner'
+                                }]
+                            }
+                        });
+                    }
+                    if ($('#flexslidertop ul.slides li').length > 0) {
+                        if (mostrarShowRoomProductos == 'True') {
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce': {
+                                    'promoView': [{
+                                        'id': EventoIdentificador,
+                                        'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
+                                        'position': 'Home superior - 1',
+                                        'creative': 'Banner'
+                                    }]
+                                }
+                            });
+                        } else {
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce': {
+                                    'promoView': [{
+                                        'id': EventoIdentificador,
+                                        'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
+                                        'position': 'Home superior - 1',
+                                        'creative': 'Banner'
+                                    }]
+                                }
+                            });
+                        }
+                    }
+                }
+
                 function CargarShowRoom() {
+                    AgregarTagManagerShowRoomAnalytics();
                     if (mostrarShowRoomProductos == 'True') {
                         $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(true);
                         });
-                        AgregarTagManagerShowRoomBannerLateral(true);
+                        //AgregarTagManagerShowRoomBannerLateral(true);
                     }
                     else {
                         $("#lnkConoceMasShowRoomBannerLateral").click(function () {
                             AgregarTagManagerShowRoomBannerLateralConocesMas(false);
                         });
                         AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        AgregarTagManagerShowRoomBannerLateral(false);
+                        //AgregarTagManagerShowRoomBannerLateral(false);
                     }
+                }
+
+                function AgregarTagManagerShowRoomBannerClick() {
+                    dataLayer.push({
+                        'event': 'promotionClick',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': [
+                                    {
+                                        'id': '123',
+                                        'name': 'venta',
+                                        'position': 'Home pop-up - 1',
+                                        'creative': 'Banner'
+                                    }
+                                ]
+                            }
+                        }
+                    });
+
                 }
 
                 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
@@ -788,7 +964,7 @@
 
                         seconds = Math.floor((date_future - (date_now)) / 1000);
                         minutes = Math.floor(seconds / 60);
-                        hours = Math.floor(minutes / 60);                        
+                        hours = Math.floor(minutes / 60);
                         days = Math.floor(hours / 24);
 
                         hours = hours - (days * 24);
@@ -813,1066 +989,24 @@
                         }
                     }, 1000);
                 }
+               
             </script>
         }
-        if (ViewBag.MostrarOfertaDelDia == true)
-        {
-            <script type="text/javascript">
-                function CargarEventosODD() {
-                    $("#content_oferta_dia_mobile").click(function () {
-                        $('#txtCantidad').val('1');
-                        $('body').css({ 'overflow-x': 'hidden' });
-                        $('body').css({ 'overflow-y': 'hidden' });
-                        $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
-                    });
 
-                    $(".header_pop_oferta").click(function () {
-                        $('body').css({ 'overflow-y': 'scroll' });
-                        $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
-                    });                   
-                };
-
-                function closeBannerPL20() {
-                    $.ajax({
-                        type: 'GET',
-                        url: urlCloseBannerPL20,
-                        cache: false,
-                        success: function (response) {
-                            if (checkTimeout(data)) {
-                                if (response.success) {
-                                    $('#content_slider_banner').hide();
-                                    $('#contentmobile').css('margin-top', '');
-                                }
-                            }
-                        },
-                        error: function (err) { 
-                            if (checkTimeout(data)) {
-                                console.log(err); 
-                            }
-                        }
-                    });
-                };
-
-                function addOfertaDelDiaPedido(popup){
-                    var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
-                    var estrategiaID = $('#estrategia-id-odd').val();
-                    var flagNueva = $('#flag-nueva-odd').val();
-                    var teImagenMostrar = $('#teimagenmostrar-odd').val();
-                    var cantidad = $('#txtCantidad').val();//$("#txtCantidadZE").val();
-                    var cantidadLimite = $('#limite-venta-odd').val();//$("#txtCantidadZE").attr("est-cantidad");
-                    var cuv = $('#cuv2-odd').val();//$("#txtCantidadZE").attr("est-cuv2");
-                    var marcaID = $('#marca-id-odd').val();//$("#txtCantidadZE").attr("est-marcaID");
-                    var precio = $('#precio-odd').val();//$("#txtCantidadZE").attr("est-precio2");
-                    var descripcion = $('#nombre-odd').val();//$("#txtCantidadZE").attr("est-descripcion");
-                    var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
-                    var origenPedidoWeb = 0;
-
-                    if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
-                    else if (origenPagina == 1) origenPedidoWeb = 2191// home
-                    else if (origenPagina == 2) origenPedidoWeb = 2291; // pedido
-
-                    var intCantidad = parseInt(cantidad);
-                    var intLimiteVenta = parseInt(cantidadLimite);
-                    var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
-
-                    if (intCantidad > intLimiteVenta) {
-                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
-                        $('#popupInformacionSB2Error').show();
-                        return ;
-                    }
-
-                    if (!checkCountdownODD()) {
-                        messageInfoMalo('La Oferta del Día se termino','');
-                        return false;
-                    }
-
-                    var cqty = getQtyPedidoDetalleByCuvODD(cuv, tipoEstrategiaID);
-                    if (cqty > 0) {
-                        var tqty = parseInt(cqty) + intCantidad;
-                        if (parseInt(tqty) > intLimiteVenta) {
-                            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
-                            $('#popupInformacionSB2Error').show();
-                            return;
-                        }
-                    }
-
-                    if (ReservadoOEnHorarioRestringido())
-                        return false;
-
-                    var param = ({
-                        MarcaID: marcaID,
-                        CUV: cuv,
-                        PrecioUnidad: precio,
-                        Descripcion: descripcion,
-                        Cantidad: cantidad,
-                        IndicadorMontoMinimo: indicadorMontoMinimo,
-                        TipoOferta: tipoEstrategiaID,
-                        tipoEstrategiaImagen: teImagenMostrar || 0,
-                        OrigenPedidoWeb: origenPedidoWeb
-                    });
-
-                    ShowLoading();
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlValidarStockEstrategia,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(param),
-                        async: true,
-                        success: function (datos) {
-                            if (!datos.result) {
-                                messageInfo(datos.message);
-                                CloseLoading();
-                            } else {
-                                jQuery.ajax({
-                                    type: 'POST',
-                                    url: urlPedidoInsertZe,
-                                    dataType: 'json',
-                                    contentType: 'application/json; charset=utf-8',
-                                    data: JSON.stringify(param),
-                                    async: true,
-                                    success: function (data) {
-                                        if (!checkTimeout(data)) {
-                                            CloseLoading();
-                                            return false;
-                                        }
-
-                                        if (data.success != true) {
-                                            messageInfoError(data.message);
-                                            CloseLoading();
-                                            return false;
-                                        }
-
-                                        ShowLoading();
-
-                                        ActualizarGanancia(data.DataBarra);
-                                        
-                                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-
-                                        if (typeof origenPagina !== 'undefined') {
-                                            if (origenPagina == 1) {    // home
-                                                TagManagerClickAgregarProducto();
-                                            }
-                                        }
-
-                                        CloseLoading();
-
-                                        $('body').css({ 'overflow-y': 'scroll' });
-                                        var effect = 'slide';
-                                        var options = {direction: 'right' };
-                                        var duration = 500;
-                                        if (popup == 1){
-                                            $('#pop_oferta_mobile_sw').toggle(effect, options, duration);
-                                        }
-                                        if (popup == 0){
-                                            $('#pop_oferta_mobile').toggle(effect, options, duration);
-                                        }
-                                        $('#txtCantidad').val('1');
-
-                                        if (typeof origenPagina !== 'undefined') {
-                                            if (origenPagina == 2) {    // pedido
-                                                CargarPedido();
-                                            }
-                                        }
-
-                                    },
-                                    error: function (data, error) {
-                                        if (checkTimeout(data)) {
-                                            CloseLoading();
-                                        }
-                                    }
-                                });
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                            }
-                        }
-                    });
-                };
-
-                function checkCountdownODD() {
-                    var ok = true;
-                    $.ajax({
-                        type: 'GET',
-                        url: baseUrl + 'Pedido/GetOfertaDelDia',
-                        //data: '{}',
-                        async: false,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            if (checkTimeout(response)) {
-                                if (response.success) {
-                                    var _data = response.data;
-                                    var tq = _data.TeQuedan;
-
-                                    if (tq.TotalSeconds <= 0)
-                                        ok = false;
-                                }
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-
-                    return ok;
-                };
-
-                function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
-                    var qty = 0;
-                    var obj = { cuv: cuv2, tipoEstrategiaID: tipoEstrategiaID };
-
-                    $.ajax({
-                        type: 'POST',
-                        url: baseUrl + 'Pedido/GetQtyPedidoDetalleByCuvODD',
-                        data: JSON.stringify(obj),
-                        async: false,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            if (checkTimeout(response)) {
-                                if (response.success) {
-                                    qty = parseInt(response.cantidad);
-                                }
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-
-                    return qty;
-                };
-            </script>
-        }
     }
-
-    <script type="text/javascript">
-        $(function () {
-            SetFormatDecimalPais(formatDecimalPaisMain);
-            MensajeEstadoPedido();
-            HandlebarsRegisterHelper();
-
-            $('.menu_footer').on('click', function () {
-                var $obj = $(this);
-                if ($obj.hasClass('menu_footer')) {
-                    $obj.addClass('menu_footer_menos').removeClass('menu_footer');
-                } else {
-                    $obj.addClass('menu_footer').removeClass('menu_footer_menos');
-                }
-            });
-
-            $(".alert-close").click(function (event) {
-                $(this).parent(".alert-top").slideUp();
-            });
-
-            CargarCantidadProductosPedidos(true);
-            CargarCantidadNotificacionesSinLeer();
-
-            $("body").on("keyup", ".ValidaNumeral", function (evt) {
-                var theEvent = evt || window.event;
-                var key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-                var regex = /[0-9]|\./;
-                if (!regex.test(key)) {
-                    theEvent.returnValue = false;
-                    if (theEvent.preventDefault) theEvent.preventDefault();
-                }
-            });
-
-            $("body").on("keypress", ".ValidaNumeral", function (e) {
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    return false;
-                }
-            });
-
-            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
-                var $input = $(this);
-                var previousVal = $input.val();
-                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
-                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
-                    $input.val(pastedValue);
-                    e.preventDefault();
-                } else {
-                    $input.val(previousVal);
-                    e.preventDefault();
-                };
-            });
-
-            $("body").on("click", "[data-cantidad-agregar]", function () {
-                var signo = $(this).attr("data-cantidad-agregar");
-                var objPadre = $(this).parents("[data-cantidad-contenedor]");
-                var objInput = objPadre.find("[data-cantidad-input]");
-
-                var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
-                var actual = objInput.val();
-                actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
-
-                actual = actual + agregar;
-                actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;
-
-                objInput.val(actual);
-            });
-
-            $(document).on("click", ".cantidad_menos_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-                $txtcantidad.val(cantidad);
-            });
-
-            $(document).on("click", ".cantidad_mas_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-                $txtcantidad.val(cantidad);
-            });
-
-            
-            $("body").on("click", "[data-popup-main]", function (e) {
-                if (!$(e.target).closest('[data-popup-body]').length) {
-
-                    if ($(e.target).is(':visible')) {
-
-                        var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                        if (functionHide != "") {
-                            setTimeout(functionHide + "()", 100);
-                        }
-                        $(e.target).hide();
-                        $('body').css({ 'overflow-y': 'scroll' });
-                    }
-                }
-            });
-
-
-            $("body").on("click", "[data-popup-close]", function (e) {
-                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
-
-                var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
-                $(popupClose).hide();
-                $('body').css({ 'overflow-y': 'scroll' });
-            });
-
-            $("#btn_cerrar_oferta_mobile").click(function () {
-                $('.header_slider').slideUp();
-                $("#contentmobile").css({ 'margin-top': '63px' });
-
-                OcultarBannerTop();
-
-            }); 
-
     
 
-            if(MostrarBannerPL20){
-                loadBannerLP20();
-            } 
-            if (EstadoActivo === '1') {
-                var URLactual = window.location.href;
-                
-
-                var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-                if (urlBienvenida > 0){
-                    $("#contentmobile").css({ 'margin-top': '0px' });
-                }else{
-                    $("#contentmobile").css({ 'margin-top': '63px' });
-                }
-            }else{
-                var URLactual = window.location.href;
-                var urlPagina = URLactual.indexOf("Cliente");
-                $("#contentmobile").css({ 'margin-top': '123px' });
-            }
-            
-            var URLactual = window.location.href;
-            var urlIntriga = URLactual.indexOf("Intriga");
-
-            if (urlIntriga > 0) {
-                $("#OfertaDelDia").css('display', 'none');
-            }
-
-            if (ocultarBannerTop) {
-                $('.header_slider').slideUp();
-                $("#content").css({ 'margin-top': '63px' });
-                LayoutHeader();
-            }
-
-            var URLactual = window.location.href;
-            var urlBienvenida = URLactual.indexOf("Bienvenida");
-
-            if (urlBienvenida > 0){
-                if (sesionEsShowRoom != null && sesionEsShowRoom == "1"){
-                    $("#contentmobile").css({ 'margin-top': '0px' });
-                }else{
-                    $("#contentmobile").css({ 'margin-top': '63px' });
-                }
-            }else{
-                if($('#flexslidertop ul.slides li').length == 0){
-                    $("#contentmobile").css({ 'margin-top': '63px' });
-                }
-            }
-
-            setTimeout(LayoutHeader, 300);
-        });
-
-        function loadBannerLP20() {
-            if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
-            if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
-
-            
-
-            $(".BloqueOfertaDiaHeader").click(function () {
-                $('#txtCantidad').val('1');
-                $('body').css({ 'overflow-x': 'hidden' });
-                $('body').css({ 'overflow-y': 'hidden' });
-                $('#pop_oferta_mobile_sw').toggle('slide', {direction: 'Right' }, 500);
-            });
-
-            $("#cerrar_pop_oferta").click(function () {
-                $('body').css({ 'overflow-y': 'scroll' });
-                $('#pop_oferta_mobile_sw').toggle('slide', {direction: 'right' }, 500);
-            }); 
-
-            if($('#flexslider ul.slides li').length > 0){
-                $("#contentmobile").css("margin-top", "0px");
-                $('#content_slider_banner').show();
-
-                $('#flexslider').flexslider({ 
-                    animation: "slide",
-                    pauseOnAction: false,
-                    animationSpeed: 1600
-                });
-
-            }else{
-                var url = location.href.toLowerCase();
-            }
-
-            if($('#flexslidertop ul.slides li').length > 0){
-                $('#flexslidertop').flexslider({ 
-                    animation: "fade",
-                    pauseOnAction: false,
-                    animationSpeed: 1600
-                });
-            }
-        }
-
-        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-            var restringido = true;
-
-            $.ajaxSetup({ cache: false });
-            jQuery.ajax({
-                type: 'GET',
-                url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                async: false,
-                success: function (data) {
-                    if (!checkTimeout(data)) {
-                        return false;
-                    }
-            
-                    if (data.success == false) {
-                        restringido = false;
-                        return false;
-                    }
-
-                    if (data.pedidoReservado) {
-                        var fnRedireccionar = function () {
-                            ShowLoading();
-                            location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-                        }
-                        if (mostrarAlerta == true) {
-                            CloseLoading();
-                            messageInfo(data.message);
-                        }
-                        else fnRedireccionar();
-                    }
-                    else if (mostrarAlerta == true) {
-                        messageInfo(data.message);
-                    }
-                },
-                error: function (error) {
-                    console.log(error);
-                    messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-                }
-        });
-            return restringido;
-        };
-
-        function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-
-            if (variant == null || variant == "") {
-                variant = "Estándar";
-            }
-            if (category == null || category == "") {
-                category = "Sin Categoría";
-            }
-
-            dataLayer.push({
-                'event': 'productClick',
-                'ecommerce': {
-                    'click': {
-                        'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                        'products': [{
-                            'name': name,
-                            'id': id,
-                            'category': category,
-                            'variant': variant,
-                            'position': position
-                        }]
-                    }
-                }
-            });
-        };
-
-        function ValidarCorreoComunidad(tipo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            var result = true;
-            ShowLoading();
-            var mensaje = "<b>¡Gracias por unirte a Somos Belcorp!</b>, una comunidad de mujeres emprendedoras" +
-                "y apasionadas por el negocio de la belleza." +
-                "<br />" +
-                "<br />" +
-                "Revisa tu correo y sigue los pasos para ingresar." +
-                "¡Te esperamos!" +
-                "<br />";
-            if (tipo == 2) {
-
-                if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
-                    $('#ErrorUsuario').html("Debe ingresar un apodo.");
-                    CloseLoading();
-                    result = false;
-                } else {
-                    if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
-
-                    }
-                }
-                
-
-                if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    $('#ErrorCorreo').html("Debe ingresar su correo.");
-                    result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
-                        $('#ErrorCorreo').css({ "display": "block" });
-                        $('#ES_Correo').css({ "display": "block" });
-                        $('#ErrorCorreo').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    } else {
-                        if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
-
-                        }
-                    }
-                }
-
-                if (result) {
-
-                    if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.') {
-                        CloseLoading();
-                        return;
-                    }
-
-                    var params = {
-                        usuario: $("#txtUsuarioComunidad").val(),
-                        correo: $("#txtNuevoCorreoComunidad").val()
-                    };
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlRegistrarUsuarioComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Satisfactorio'
-                                    });
-
-                                } else {
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Error'
-                                    });
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                CloseComunidad();
-                                messageInfo(data.message);
-
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Comunidad',
-                                    'action': 'Crear cuenta',
-                                    'label': 'Error'
-                                });
-                            }
-                        }
-                    });
-
-                } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
-            } else {
-
-                if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
-                    $('#ErrorCorreoC').css({ "display": "block" });
-                    $('#ES_CorreoC').css({ "display": "block" });
-                    $('#ErrorCorreoC').html("Debe ingresar su correo.");
-                    CloseLoading();
-                    result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
-                        $('#ErrorCorreoC').css({ "display": "block" });
-                        $('#ES_CorreoC').css({ "display": "block" });
-                        $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreoC').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    }
-                }
-
-                if (result) {
-                    if ($('#ErrorCorreo').html() != '')
-                        return;
-
-                    var params = {
-                        correo: $("#txtCorreoComunidad").val()
-                    };
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlValidarCorreoComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Satisfactorio'
-                                    });
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
-
-                                } else {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Error'
-                                    });
-
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Comunidad',
-                                    'action': 'Ingresar',
-                                    'label': 'Error'
-                                });
-
-                                CloseLoading();
-                                CloseComunidad();
-                                messageInfo(data.message);
-                            }
-                        }
-                    });
-                } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Ingresar',
-                        'label': 'Error'
-                    });
-                }
-            }
-        }
-
-        function ValidarCorreo(correo) {
-            expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            return expr.test(correo);
-        }
-
-        function ValidarCorreoIngresado(correo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            ShowLoading();
-            $('#ValCorreo').css({ "display": "block" });
-            $('#ErrorCorreo').css({ "display": "none" });
-            $.ajax({
-                type: "POST",
-                url: urlValidarCorreoIngresado,
-                data: "{'correo': '" + correo + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValCorreo').css({ "display": "none" });
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    if (data.success == true) {
-                        $('#ErrorCorreo').html("Este correo ya existe.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorCorreo').html("Correo Disponible.");
-                        $('#ErrorCorreo').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
-                    CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
-            });
-        }
-
-        function ValidarUsuarioIngresado(usuario) {
-            $.ajaxSetup({
-                cache: false
-            });
-            $('#ValUsuario').css({ "display": "block" });
-            $('#ErrorUsuario').css({ "display": "none" });
-            ShowLoading();
-            $.ajax({
-                type: "POST",
-                url: urlValidarUsuarioIngresado,
-                data: "{'usuario': '" + usuario + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValUsuario').css({ "display": "none" });
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
-
-                    if (data.success == true) {
-                        $('#ErrorUsuario').html("Este apodo ya existe.");
-                        $('#ErrorUsuario').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorUsuario').html("Apodo Disponible.");
-                        $('#ErrorUsuario').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
-                    CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
-            });
-        }
-
-        function ShowComunidad() {
+    <script type="text/javascript">
+        function messageInfoPostulante() {
             $('.icon-close').click();
-
-            $("#popupComunidad").modal("show");
-        }
-
-        function CloseComunidad() {
-            $("#popupComunidad").modal("hide");
-        }
-
-        function ShowLoading() {
-            $("#loading-spin").fadeIn();
-        }
-
-        function CloseLoading() {
-            $("#loading-spin").fadeOut("fast");
-        }
-
-        function messageInfo(message, fnAceptar) {
-            message = $.trim(message);
-            if (message == "") {
-                return false;
-            }
-
-            $('#mensajeInformacion').html(message);
-            $('#popupInformacion').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacion .btn-aceptar').off('click');
-                $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoBueno(message, fnAceptar) {
-            $('#mensajeInformacionSB2Bueno').html(message);
-            $('#popupInformacionSB2Bueno').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoMalo(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Malo').html(message);
-            $('#popupInformacionSB2Malo').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
-                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoError(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Error').html(message);
-            $('#popupInformacionSB2Error').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Error .btn-aceptar').off('click');
-                $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoValidado(message, fnAceptar) {
-            $('#mensajeInformacionvalidado').html(message);
+            $('#mensajeInformacionvalidado').html('Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.');
             $('#popupInformacionValidado').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
-            }
+            return false;
         }
-
-        function CargarCantidadProductosPedidos(noMostrarEfecto) {
-            noMostrarEfecto = noMostrarEfecto || false;
-
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetCantidadProductos,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-
-                        if (data.montoWebAcumulado == 0) {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = "0";
-                            else
-                                montoWebAcumulado = "0.00";
-                        } else {
-                            if (data.paisID == 4)  //Formato de decimales para Colombia
-                                montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                            else
-                                montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                        }
-
-                        $(".num-menu-shop").html(data.cantidadProductos);
-                        $(".js-span-pedidoingresado").html(montoWebAcumulado);
-                        if (!noMostrarEfecto) {
-                            $('.num-menu-shop').removeClass('microefecto_color');
-                            setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        }
-
-        function CargarCantidadNotificacionesSinLeer() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetNotificacionesSinLeer,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        if (data.cantidadNotificaciones > 0) {
-                            $("#divNotificacionesSinLeer").html(data.cantidadNotificaciones);
-                            $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
-                            $("#divNotificacionesSinLeer").show();
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        }
-
-        function CargarCantidadPedidosConsultoraOnline() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetCantidadPedidos,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        var cantidadPedidosOnline = data.cantidadPedidos;
-
-                        $("#divPedidosOnlineSinLeer").html(cantidadPedidosOnline);
-
-                        if (cantidadPedidosOnline > 0) {
-                            $("#divPedidosOnlineSinLeer").show();
-
-                            $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
-                            $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
-                            $("#divAlertaPedidosOnline").show();
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        }
-
-        function SeparadorMiles(pnumero) {
-
-            var resultado = "";
-            var numero = pnumero.replace(/\,/g, '');
-            var nuevoNumero = "";
-            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-            else nuevoNumero = numero.replace(/\./g, '');
-
-            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
-            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
-            if (numero[0] == "-") return "-" + resultado;
-            else return resultado;
-        };
-
-        function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) {
-                JL.tracker.addToCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) {
-                JL.tracker.removeFromCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemoveAll(lista) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) JL.tracker.removeFromCart(lista);
-        }
-
-        function OcultarBannerTop() {
-            $.ajax({
-                type: 'GET',
-                url: urlOcultarBannerTop,
-                cache: false,
-                success: function (response) {
-                    if (response.success) {
-                        //ocultarBannerTop = true;
-                        LayoutHeader();
-                    }
-                },
-                error: function (err) { console.log(err); }
-            });
-        }
-
     </script>
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>

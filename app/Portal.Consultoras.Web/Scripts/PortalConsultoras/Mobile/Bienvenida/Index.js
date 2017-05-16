@@ -62,6 +62,14 @@ $(document).ready(function () {
 });
 
 function CrearPopShow() {
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     $("#btnCerrarPopShowroom").click(function () {        
         $("#PopShowroom").modal("hide");
     });
@@ -103,6 +111,15 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
+
+    /*
+    if (typeof gTipoUsuario !== 'undefined') {
+        if (gTipoUsuario == '2') {
+            return false;
+        }
+    }
+    */
+
     if (sesionEsShowRoom == '0') {
         return;
     }
@@ -285,6 +302,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+    */
+
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -301,7 +329,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     ShowLoading();
@@ -309,7 +336,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    messageInfo(data.message);
+                    //messageInfo(data.message);
+                    AbrirPopupPedidoReservado(data.message,'2');
                 }
                 else fnRedireccionar();
             }

@@ -115,6 +115,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, usuario.Activo);
             Context.Database.AddInParameter(command, "@TipoUsuario", DbType.Byte, usuario.TipoUsuario);
             Context.Database.AddInParameter(command, "@CambioClave", DbType.Boolean, usuario.CambioClave);
+            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, usuario.DocumentoIdentidad); //EPD-1836
 
             return Context.ExecuteNonQuery(command);
         }
@@ -192,6 +193,26 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
             Context.Database.AddInParameter(command, "@ClaveSecreta", DbType.AnsiString, ClaveSecreta);
             Context.Database.AddInParameter(command, "@CambioClave", DbType.Boolean, CambioClave);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetUsuarioPostulanteEmail(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioPostulanteEmail");
+            Context.Database.AddInParameter(command, "@DocumentoIdentidad", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int InsLogEnvioEmailConsultora(BEConsultoraEmail entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsLogEnvioEmails");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, entidad.Codigo);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, entidad.CodigoZona);
+            Context.Database.AddInParameter(command, "@FlgEnvio", DbType.Int16, 0);
+            Context.Database.AddInParameter(command, "@ConsecutivoNueva", DbType.Int16, -1);
+            Context.Database.AddInParameter(command, "@EstadoEnvio", DbType.Int16, 1);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -279,15 +300,38 @@ namespace Portal.Consultoras.Data
         }
 
         /*EPD-1012*/
-        public IDataReader GetValidarLoginSB2(string CodigoUsuario, string Contrasenia)
+        public IDataReader GetValidarLoginSB2(string codigoUsuario, string contrasenia)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
-            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, Contrasenia);
+            //DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin_SB2");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarLogin");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Contrasenia", DbType.AnsiString, contrasenia);
 
             return Context.ExecuteReader(command);
         }
         /*EPD-1012*/
+
+        /*EPD-2340*/
+        public IDataReader GetValidarAutoLogin(string codigoUsuario, string proveedor)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAutoLogin");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int InsUsuarioExternoPais(BEUsuarioExternoPais entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertUsuarioExternoPais");
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, entidad.Proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, entidad.IdAplicacion);
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, entidad.PaisID);
+            Context.Database.AddInParameter(command, "@CodigoISO", DbType.AnsiString, entidad.CodigoISO);
+
+            return Context.ExecuteNonQuery(command);
+        }
+        /*EPD-2340*/
 
         public IDataReader GetInfoPreLoginConsultoraCatalogo(string CodigoUsuario)
         {
@@ -591,5 +635,123 @@ namespace Portal.Consultoras.Data
 
         //    return Convert.ToInt16(Context.ExecuteScalar(command));
         //}
+
+        //EPD-1836
+        public int InsUsuarioPostulante(BEUsuarioPostulante entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioPostulante");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
+            //Context.Database.AddInParameter(command, "@NombreCompleto", DbType.AnsiString, entidad.NombreCompleto);
+            //Context.Database.AddInParameter(command, "@TipoDocumento", DbType.AnsiString, entidad.TipoDocumento);
+            //Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, entidad.NumeroDocumento);
+            Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, entidad.Zona);
+            Context.Database.AddInParameter(command, "@Seccion", DbType.AnsiString, entidad.Seccion);
+            //Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, entidad.Correo);
+            Context.Database.AddInParameter(command, "@EnvioCorreo", DbType.AnsiString, entidad.EnvioCorreo);
+            Context.Database.AddInParameter(command, "@UsuarioReal", DbType.AnsiString, entidad.UsuarioReal);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int DelUsuarioPostulante(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelUsuarioPostulante");
+            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
+            Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        //EPD-2058
+        public IDataReader GetUsuarioPostulante(string numeroDocumento)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioPostulante");
+            //Context.Database.AddInParameter(command, "@Pais", DbType.AnsiString, Pais);
+            Context.Database.AddInParameter(command, "@NumeroDocumento", DbType.AnsiString, numeroDocumento);
+
+            return Context.ExecuteReader(command);
+        }
+        
+        /*EPD-1837*/
+        public int InsUsuarioExterno(BEUsuarioExterno usuarioExterno)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioExterno");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuarioExterno.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, usuarioExterno.Proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, usuarioExterno.IdAplicacion);
+            Context.Database.AddInParameter(command, "@Login", DbType.AnsiString, usuarioExterno.Login);
+            Context.Database.AddInParameter(command, "@Nombres", DbType.AnsiString, usuarioExterno.Nombres);
+            Context.Database.AddInParameter(command, "@Apellidos", DbType.AnsiString, usuarioExterno.Apellidos);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.AnsiString, usuarioExterno.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Correo", DbType.AnsiString, usuarioExterno.Correo);
+            Context.Database.AddInParameter(command, "@Genero", DbType.AnsiString, usuarioExterno.Genero);
+            Context.Database.AddInParameter(command, "@Ubicacion", DbType.AnsiString, usuarioExterno.Ubicacion);
+            Context.Database.AddInParameter(command, "@LinkPerfil", DbType.AnsiString, usuarioExterno.LinkPerfil);
+            Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, usuarioExterno.FotoPerfil);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetUsuarioExternoByCodigoUsuario(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExternoByCodigoUsuario");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetUsuarioExternoPaisByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExternoPaisByProveedorAndIdAplicacion");
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, idAplicacion);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExternoByProveedorAndIdApp");
+            Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, proveedor);
+            Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, idAplicacion);
+
+            return Context.ExecuteReader(command);
+        }
+
+        /*
+        public bool GetExisteEmailActivo(string email)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteEmailActivo");
+            Context.Database.AddInParameter(command, "@Email", DbType.AnsiString, email);
+
+            return Convert.ToBoolean(Context.ExecuteScalar(command));
+        }
+         * */
+
+        public IDataReader GetListaLoginExterno(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaLoginExterno");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1837*/
+
+        public int UpdatePostulanteMensajes(string CodigoUsuario, int tipo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdatePostulanteMensajes");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Tipo", DbType.AnsiString, tipo);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+        
+        //EPD-2539
+        public int UpdFlagEnvioCorreo(string pCodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagEnvioCorreo");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, pCodigoUsuario);
+
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }

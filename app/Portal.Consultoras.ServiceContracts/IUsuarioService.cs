@@ -272,6 +272,14 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
         /*EPD-1012*/
 
+        /*EPD-2340*/
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
+
+        [OperationContract]
+        int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
+        /*EPD-2340*/
+
         [OperationContract]
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
@@ -288,5 +296,39 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
+        
+        //EPD-1836
+        [OperationContract]
+        int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
+
+        [OperationContract]
+        int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
+
+        //EPD-2058
+        [OperationContract]
+        BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
+        
+        /*EPD-1837*/
+        [OperationContract]
+        int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
+
+        [OperationContract]
+        BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+
+        [OperationContract]
+        List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
+
+        /*
+        [OperationContract]
+        bool GetExisteEmailActivo(int paisID, string email);
+         * */
+       
+        /*EPD-1837*/
+
+        [OperationContract]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
     }
 }

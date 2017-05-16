@@ -16,10 +16,10 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -385,6 +385,8 @@
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\EventoPostulanteModel.cs" />
+    <Compile Include="Models\HistorialPostulanteModel.cs" />
     <Compile Include="Models\MatrizComercialResultadoModel.cs" />
     <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
@@ -525,6 +527,7 @@
     <Compile Include="Models\TipoLinkModel.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
+    <Compile Include="Models\UsuarioExternoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\UsuarioRolModel.cs" />
     <Compile Include="Models\ValidacionAutomaticaModel.cs" />
@@ -1984,6 +1987,7 @@
     <Content Include="Content\Images\esika_logo.png" />
     <Content Include="Content\Images\Esika_portal_logo.png" />
     <Content Include="Content\Images\facebook_share.png" />
+    <Content Include="Content\Images\face_login.png" />
     <Content Include="Content\Images\faq.png" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="Content\Images\filtros_faltantes.png" />
@@ -2030,6 +2034,7 @@
     <Content Include="Content\Images\icono_check.svg" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.svg" />
+    <Content Include="Content\Images\icono_exclamacion_estado_pedido_negro.png" />
     <Content Include="Content\Images\icono_lupa.png" />
     <Content Include="Content\Images\icons.png" />
     <Content Include="Content\Images\icons\close.png" />
@@ -2053,12 +2058,13 @@
     <Content Include="Content\Images\ico_twitter.png" />
     <Content Include="Content\Images\image.png" />
     <Content Include="Content\Images\img-carrusel1.png" />
+    <Content Include="Content\Images\img-historialPostulante.svg" />
     <Content Include="Content\Images\img-carrusel2.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
-    <Content Include="Content\Images\IncentivosSMS\licuadora.png" />
     <Content Include="Content\Images\IncentivosSMS\producto1.png" />
+    <Content Include="Content\Images\IncentivosSMS\reloj.png" />
     <Content Include="Content\Images\indicador.png" />
     <Content Include="Content\Images\interbank.png" />
     <Content Include="Content\Images\kit-nuevo-producto.png" />
@@ -2445,11 +2451,13 @@
     <Content Include="Content\Images\mobile\Esika\catalogo_home.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_mensaje.png" />
     <Content Include="Content\Images\mobile\Esika\catalogo_ws.png" />
+    <Content Include="Content\Images\mobile\Esika\catalogo_ws2.png" />
     <Content Include="Content\Images\mobile\Esika\cerrar_04.png" />
     <Content Include="Content\Images\mobile\Esika\cyzone_revista.png" />
     <Content Include="Content\Images\mobile\Esika\esika_blog.png" />
     <Content Include="Content\Images\mobile\Esika\esika_revista.png" />
     <Content Include="Content\Images\mobile\Esika\facebook.png" />
+    <Content Include="Content\Images\mobile\Esika\facebook2.png" />
     <Content Include="Content\Images\mobile\Esika\flechita_barra.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
@@ -2679,11 +2687,14 @@
     <Content Include="Content\Images\paypal_exito.png" />
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
+    <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
+    <Content Include="Content\Images\PL20\left_compra.png" />
     <Content Include="Content\Images\PL20\mas.png" />
     <Content Include="Content\Images\PL20\menos.png" />
     <Content Include="Content\Images\PL20\regresar.png" />
+    <Content Include="Content\Images\PL20\right_compra.png" />
     <Content Include="Content\Images\PL20\set_hoy.png" />
     <Content Include="Content\Images\PL20\solo_hoy.png" />
     <Content Include="Content\Images\PL20\textura_fondo.png" />
@@ -2878,6 +2889,7 @@
     <Content Include="Scripts\DD_roundies.js" />
     <Content Include="Scripts\donetyping.js" />
     <Content Include="Scripts\fileuploader.min.js" />
+    <Content Include="Scripts\fingerprint2.js" />
     <Content Include="Scripts\flipclock.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.1.min.js" />
     <Content Include="Scripts\fuzemodal-1.3\fuzemodal-1.3.2.min.js" />
@@ -2922,6 +2934,7 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
@@ -2944,6 +2957,7 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Validado.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\Pedido\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\OfertaLiquidacion\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\Shared\MobileLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
@@ -3926,6 +3940,8 @@
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
     <Content Include="Views\Bienvenida\template-opt.cshtml" />
+    <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
+    <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />

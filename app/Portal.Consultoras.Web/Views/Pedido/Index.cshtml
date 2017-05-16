@@ -346,13 +346,35 @@
                     <div class="contenedor_btnGuardarPedido">
                         @{
                             string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
-                            string tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
-                            string tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
+                            string tooltip1 = "";
+                            string tooltip2 = "";
+                            
+                            if (ViewBag.TipoUsuario == 2)
+                            {
+                                tooltip1 = "TE ENCUENTRAS UNA SESIÓN DE PRUEBA";
+                                tooltip2 = "Muy pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+                            }
+                            else
+                            {
+                                tooltip1 = tooltips.Count() > 0 ? tooltips[0] : "";
+                                tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
+                            }
                         }
-                        <div class="tooltip_importanteGuardarPedido">
-                            <text>@tooltip1</text>
-                            <span>@tooltip2</span>
-                        </div>
+                        @{
+                            if (ViewBag.TipoUsuario == 2)
+                            { 
+                                <div class="tooltip_importanteGuardarPedido" style="width:370px;">
+                                    <text>@tooltip1</text>
+                                    <span>@tooltip2</span>
+                                </div>
+                            }
+                            else { 
+                                <div class="tooltip_importanteGuardarPedido">
+                                    <text>@tooltip1</text>
+                                    <span>@tooltip2</span>
+                                </div>
+                            }
+                        }
                         <div class="boton_guardarPedido">
                             <input type="button" id="btnValidarPROL" value="@Model.Prol" style="text-transform: uppercase;" class="info_copy" />
                         </div>
@@ -1634,12 +1656,20 @@
                     <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
                 </div>
                 {{else}}
+
                 <div class="stock_content">
-                    <div class="texto_stock" style="margin-top: 10PX;">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
-                    <a class="btn_no_stock" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
-                    <a class="btn_si_stock" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+                    <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
+                    <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
+
+                        <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
+
+                        <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+
+
+                    </div>
                     <hr class="clear" />
                 </div>
+
                 {{/if}}
                 {{/if}}
             </div>
@@ -2214,6 +2244,8 @@
                     <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
+                    <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
+
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}" data-verdetalle="" onclick="javascript:CargarVerDetalleOF(this, event);">

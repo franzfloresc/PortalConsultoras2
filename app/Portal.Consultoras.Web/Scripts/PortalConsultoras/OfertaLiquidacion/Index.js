@@ -368,7 +368,9 @@ function ValidarCargaOfertasLiquidacion() {
     cargandoRegistros = true;
 
     waitingDialog();
-    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    /*** EPD-1682 La consultora podra visualizar las liquidaciones cuando su pedido este reservado***/
+    //ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    CargarOfertasLiquidacion();
 }
 function CargarOfertasLiquidacion() {
     $.ajax({
@@ -576,6 +578,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
+    /*
+    if (mostrarAlerta) {
+        if (typeof gTipoUsuario !== 'undefined') {
+            if (gTipoUsuario == '2') {
+                alert('Acceso restringido, aun no puede agregar pedidos');
+                return true;
+            }
+        }
+    }
+    */
+
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -600,7 +613,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    AbrirMensaje(data.message, "LO SENTIMOS");
+                    AbrirPopupPedidoReservado(data.message, "1");
+                    //AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }
@@ -624,6 +638,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
     jQuery.ajax({
         type: 'GET',
         url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        data: { tipoAccion: '2' },
         dataType: 'json',
         async: true,
         contentType: 'application/json; charset=utf-8',

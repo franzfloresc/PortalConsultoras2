@@ -33,7 +33,7 @@
 
 <div style="overflow:hidden;">
     <br/>
-    @if (!Model.Afiliado && !Model.EmailActivo && !Model.Email.Equals(""))
+    @if (!Model.Afiliado && !Model.EmailActivo && Model.Email != null && !Model.Email.Equals(""))
     {
         <div class="col-xs-12">
             <div class="block-white text-center text-danger">

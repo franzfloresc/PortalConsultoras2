@@ -19,12 +19,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
-
+            
             if (Session["UserData"] == null) return;
 
             var userData = UserData();
-
             ViewBag.CodigoCampania = userData.CampaniaID.ToString();
+
             try
             {
                 ViewBag.EsMobile = 2;//EPD-1780
@@ -50,11 +50,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                bool mostrarBannerTop = false;
-                if (NuncaMostrarBannerTopPL20()) { mostrarBannerTop = false; } else { mostrarBannerTop = userData.IndicadorGPRSB == 1 ? false : true; }
+                bool mostrarBannerTop = NuncaMostrarBannerTopPL20() || userData.IndicadorGPRSB == 1 ? false : true;
+
                 ViewBag.MostrarBannerTopPL20 = mostrarBannerTop;
                 
-
                 if (mostrarBanner || mostrarBannerTop)
                 {
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
@@ -63,12 +62,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
-
-
-                    if (showRoomBannerLateral.DiasFalta < 1)
-                    {
-                        //ViewBag.MostrarShowRoomBannerLateral = false;
-                    }
+                    
+                    //if (showRoomBannerLateral.DiasFalta < 1)
+                    //{
+                    //    //ViewBag.MostrarShowRoomBannerLateral = false;
+                    //}
 
                     if (showRoomBannerLateral.DiasFalta > 0)
                     {
@@ -78,8 +76,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         }
                         else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFalta).ToString() + " DÍA"; }
                     }
-
-
+                    
                     ViewBag.ImagenPopupShowroomIntriga = showRoomBannerLateral.ImagenPopupShowroomIntriga;
                     ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
                     ViewBag.ImagenPopupShowroomVenta = showRoomBannerLateral.ImagenPopupShowroomVenta;
@@ -87,68 +84,36 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ViewBag.DiasFaltantesLetras = showRoomBannerLateral.LetrasDias;
 
                     ViewBag.MostrarShowRoomProductos = showRoomBannerLateral.MostrarShowRoomProductos;
-
-
+                    
                     OfertaDelDiaModel ofertaDelDia = GetOfertaDelDiaModel();
                     ViewBag.OfertaDelDia = ofertaDelDia;
 
-                    ViewBag.MostrarOfertaDelDia = userData.IndicadorGPRSB == 1 ? false : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
+                    ViewBag.MostrarOfertaDelDia = 
+                        userData.IndicadorGPRSB == 1 || userData.CloseOfertaDelDia
+                        ? false 
+                        : (userData.TieneOfertaDelDia && ofertaDelDia != null && ofertaDelDia.TeQuedan.TotalSeconds > 0);
 
-
-                    if (userData.CloseOfertaDelDia)
-                        ViewBag.MostrarOfertaDelDia = false;
-
-                    if (mostrarBannerTop)
-                    {
-                        showRoomBannerLateral.EstadoActivo = "0";
-                    }
-                    else
-                    {
-                        showRoomBannerLateral.EstadoActivo = "1";
-                    }
-
-
+                    showRoomBannerLateral.EstadoActivo = mostrarBannerTop ? "0" : "1";
                 }
+
                 ViewBag.MostrarBannerPL20 = mostrarBanner;
                 ViewBag.MostrarBannerOtros = mostrarBannerTop;
 
-                if (mostrarBannerTop)
-                {
-
-                    ViewBag.EstadoActivo = "0";
-                }
-                else
-                {
-
-                    ViewBag.EstadoActivo = "1";
-                }
-
-
+                ViewBag.EstadoActivo = mostrarBannerTop ? "0" : "1";
+                
                 if (mostrarBanner)
                 {
-                    if (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                    {
-                        ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }
-                    else if (userData.IndicadorGPRSB == 0)
-                    {
-                        ViewBag.MostrarBannerPL20 = mostrarBanner;
-                    }
-                    else
+                    if (!(
+                        (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                        || userData.IndicadorGPRSB == 0)
+                    )
                     {
                         ViewBag.MostrarBannerPL20 = false;
                         ViewBag.MostrarOfertaDelDia = false;
                     }
                 }
 
-                if (NoMostrarBannerODD())
-                {
-                    ViewBag.MostrarODD = true;
-                }
-                else
-                {
-                    ViewBag.MostrarODD = false;
-                }
+                ViewBag.MostrarODD = NoMostrarBannerODD();
 
                 /*FIN: PL20-1289*/
             }
@@ -305,6 +270,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (Session["UserData"] != null)
             {
                 ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
+                int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
+                if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim(); 
+
                 ViewBag.NumeroCampania = userData.NombreCorto.Substring(4);
                 ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
                 ViewBag.AnalyticsCampania = userData.CampaniaID;

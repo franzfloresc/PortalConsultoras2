@@ -132,8 +132,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
                 .ForMember(t => t.ConsultoraSaldo, f => f.MapFrom(c => c.ConsultoraSaldo))
                 .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
-                
-            Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
+
+            Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
+                .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
+                .ForMember(t => t.Proveedor, f => f.MapFrom(c => c.Proveedor))
+                .ForMember(t => t.IdAplicacion, f => f.MapFrom(c => c.IdAplicacion))
+                .ForMember(t => t.Login, f => f.MapFrom(c => c.Login))
+                .ForMember(t => t.Nombres, f => f.MapFrom(c => c.Nombres))
+                .ForMember(t => t.Apellidos, f => f.MapFrom(c => c.Apellidos))
+                .ForMember(t => t.FechaNacimiento, f => f.MapFrom(c => c.FechaNacimiento))
+                .ForMember(t => t.Correo, f => f.MapFrom(c => c.Correo))
+                .ForMember(t => t.Genero, f => f.MapFrom(c => c.Genero))
+                .ForMember(t => t.Ubicacion, f => f.MapFrom(c => c.Ubicacion))
+                .ForMember(t => t.LinkPerfil, f => f.MapFrom(c => c.LinkPerfil))
+                .ForMember(t => t.FotoPerfil, f => f.MapFrom(c => c.FotoPerfil))
+                .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+            
+           Mapper.CreateMap<BEShowRoomOferta, ShowRoomOfertaModel>()
                 .ForMember(t => t.OfertaShowRoomID, f => f.MapFrom(c => c.OfertaShowRoomID))
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
                 .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
@@ -141,7 +157,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
                 .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
                 .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
                 .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
                 .ForMember(t => t.StockInicial, f => f.MapFrom(c => c.StockInicial))
                 .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))

@@ -31,7 +31,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.unobtrusive-ajax.js",
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
-               "~/Scripts/donetyping.js"
+               "~/Scripts/donetyping.js",
+               "~/Scripts/fingerprint2.js"
                ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
@@ -90,7 +91,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
-                "~/Scripts/General.js"));
+                "~/Scripts/fingerprint2.js",
+                "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Site").Include(
                 "~/Content/Css/Mobile/theme*",
@@ -162,6 +166,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"

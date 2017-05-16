@@ -109,8 +109,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
 
+            ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
             return View(model);
         }
         
@@ -273,6 +274,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
+            
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                model.Prol = "GUARDA TU PEDIDO";
+                      
             return View(model);
         }
         
@@ -291,12 +296,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             if (beConfiguracionCampania != null)
             {
-                if (userData.EstadoPedido == Constantes.EstadoPedido.Procesado && !beConfiguracionCampania.ValidacionAbierta )
-                {
-                     userData.CerrarRechazado = 1;
-                     userData.MostrarBannerRechazo = false;
-                     SetUserData(userData);
-                }
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
@@ -474,6 +473,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
             model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                model.Prol = "GUARDA TU PEDIDO";
 
             return View(model);
         }

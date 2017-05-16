@@ -5,214 +5,597 @@
     ViewBag.Title = "Login";
 }
 
-<input type="hidden" id="PaginaLogin" />
+<body>
+    <script>
+        var fbAppId = '@ViewBag.FBAppId';
 
-<div id="FormsSignInContentPopup">
-    <!-- OLVIDASTE TU CONTRASEÑA -->
-    <div id="popup1" style="display: none;">
-        <div id="popup_olvidasteContrasenia">
-            <div class="content_bg_olvidasteContrasenia">
-                <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: fbAppId,
+                cookie: true,
+                xfbml: true,
+                version: 'v2.8'
+            });
 
-                <div id="header">¿OLVIDASTE TU CONTRASEÑA?</div>
-                <div class="indicador_lbel"></div>
-                <div class="mensaje_pop_up2">
-                    Te enviaremos un correo con las instrucciones.
-                    <br />
-                </div>
-                <div class="formCont popupOlvideContrasenia">
-                    <div class="boxform">
-                        <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
-                            <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
-                                <option value="0">Elige tu País</option>
-                                @if (Model.ListaPaises != null)
-                                {
-                                    foreach (var item in Model.ListaPaises)
-                                    {
-                                        <option value="@item.PaisID">@item.Nombre</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                    </div>
-                    <div class="boxform">
-                        <div class="formcontrol email" style="margin-bottom: 45px; color: black;">
-                            <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Correo Electrónico" style="color: black;" />
-                        </div>
-                    </div>
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    //console.log('Logged in.');
+                    getInfoFB(1);
+                }
+            });
+        };
 
-                    <div id="mensajesOC" style="text-align: left; color: #CF2D3A;"></div>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
 
-                    <div class="boxform">
-                        <div class="formbtn">
-                            <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        function loginFB() {
+            //if (!openloginPopup) {
+               // openloginPopup = true;
+                FB.login(function (response) {
+                    //openloginPopup = false;
+                    if (response.status === 'connected') {
+                        //console.log('Logged in.');
+                        getInfoFB(2);
+                    }
+                    else if (response.status === 'not_authorized') {
+                        //console.log('We are not logged in.');
+                    }
+                    else {
+                        //console.log('You are not logged into Facebook.');
 
-    <!-- CONTRASEÑA ENVIADA -->
-    <div id="popup2" style="display: none;">
-        <div id="popup_contraseniaEnviada">
-            <div class="content_bg_contraseniaEnviada">
-                <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();"></a>
-                <div class="mensaje_pop_up_contraseniaEnviada">
-                    <h1>Por favor, revisa tu correo</h1>
-                    <br />
-                    <br />
-                    <div class="icono_correo">
-                        <img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />
-                    </div>
-                    <br />
-                    <br />
-                    <p>
-                        Te hemos enviado las instrucciones a :
+                    }
+                }, { scope: 'public_profile,email,user_birthday,user_location' });
+            //}
+        }
+
+        function getInfoFB(opt) {
+            FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
+                //console.log(response);
+                if (response.id !== null && response.id !== "") {
+                    var exists = checkExternalUser('Facebook', response.id);
+
+                    if (exists) {
+                        if (opt == 2) {
+                            validExternalUser('Facebook', response.id);
+                        }
+                        else {
+                            var fullname = response.name.trim();
+                            var j = fullname.indexOf(' ');
+                            var fname = fullname;
+                            if (j > 0) {
+                                fname = fullname.substring(0, j).trim();
+                            }
+
+                            $('#hdeNameUserExt').val(fname);
+                            //resizeNameUserExt();
+                            $('#btnLoginFB2').removeClass('center_facebook');
+                            $('#btnLoginFB2').text('Continuar como ' + fname);
+                            $('#imgFotoPerfil2').attr('src', response.picture.data.url);
+                            
+                            $('#_nomusufb').html('¿No eres ' + response.name + '? ');
+                            $('#_nomusufb').append('<a class="_ccfb" onclick="mostrarLoginAnterior()">Cambiar de cuenta</a>');
+
+                            $('.webForm').css('padding-bottom', '75px');
+                            $('#cambcuentaboton').hide();
+                            $('#_olgn').hide();
+                            $('#loginanterior').hide();
+
+                            $('#btnfblogin').show();
+                            //$('#cambcuentatext').show();
+                        }
+                    }
+                    else {
+                        //$('#btnLoginFB').hide();
+                        //$('#spnLoginFB').text(data.name);
+
+                        if (opt == 2) {
+                            var lc = (typeof response.location === 'object') ? response.location.name : "";
+                            var fp = (typeof response.picture === 'object') ? response.picture.data.url : "";
+                            $('#hdeProveedor').val('Facebook');
+                            $('#hdeIdApp').val(response.id);
+                            $('#hdeLogin').val(response.name);
+                            $('#hdeNombres').val(response.first_name);
+                            $('#hdeApellidos').val(response.last_name);
+                            $('#hdeFechaNacimiento').val(response.birthday);
+                            $('#hdeCorreo').val(response.email);
+                            $('#hdeGenero').val(response.gender);
+                            $('#hdeUbicacion').val(lc);
+                            $('#hdeLinkPerfil').val(response.link);
+                            $('#hdeFotoPerfil').val(fp);
+
+                            $('#txtUsuario2').val('');
+                            $('#txtContrasenia2').val('');
+                            $('#ErrorTextLabel2').html('');
+
+                            $('.nombre_usuario_facebook').text(response.name);
+                            $('.foto_pop_face img').attr('src', response.picture.data.url);
+
+                            $('#divMensajeError2').hide();
+                            $('#popupAsociarUsuarioExt').show();
+                        }
+                    }
+                }
+            });
+        }
+
+        function checkExternalUser(provider, id) {
+            var r = false;
+            var obj = {
+                codigoISO: $('#ddlPais').val(),
+                proveedor: provider,
+                appid: id
+            };
+
+            waitingDialog();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/CheckExternalUser',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                async: false,
+                success: function (response) {
+                    //console.log(response);
+                    closeWaitingDialog();
+                    if (response.success) {
+                        if (response.exists) {
+                            r = true;
+                        }
+                    }
+                },
+                error: function (response) {
+                    //console.log(response);
+                    alert("Error al procesar la solicitud");
+                }
+            });
+
+            return r;
+        }
+
+        function validExternalUser(provider, id) {
+            var obj = {
+                codigoISO: $('#ddlPais').val(),
+                proveedor: provider,
+                appid: id,
+                returnUrl: $('#returnUrl').val()
+            };
+
+            waitingDialog();
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/ValidExternalUser',
+                data: JSON.stringify(obj),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (response) {
+                    //console.log(response);
+                    
+                    if (response.success) {
+                        //if (!response.exists) {
+                            if (response.redirectTo !== "") {
+                                document.location.href = response.redirectTo;
+                            }
+                        //}
+                    }
+                    else {
+                        closeWaitingDialog();
+                        alert(response.message);
+                    }
+                },
+                error: function (response) {
+                    //console.log(response);
+                    closeWaitingDialog();
+                    alert("Error al procesar la solicitud");
+                },
+            });
+        }
+
+        function mostrarLoginAnterior() {
+            $('.webForm').css('padding-bottom', '10px');
+            $('#btnfblogin').hide();
+            //$('#cambcuentatext').hide();
+
+            $('#cambcuentaboton').fadeIn('slow');
+            $('#_olgn').fadeIn('slow');
+            $('#loginanterior').fadeIn('slow');
+            //$('#nvobtnfacebook').fadeIn('slow');
+        }
+
+        function mostrarLoginFB() {
+            $('.webForm').css('padding-bottom', '75px');
+            $('#cambcuentaboton').hide();
+            $('#_olgn').hide();
+            $('#loginanterior').hide();
+            //$('#nvobtnfacebook').hide();
+            
+            $('#btnfblogin').fadeIn('slow');
+            //$('#cambcuentatext').fadeIn('slow'); 
+        }
+
+    </script>
+</body>
+
+    <input type="hidden" id="PaginaLogin" />
+
+    <div id="FormsSignInContentPopup">
+        <!-- OLVIDASTE TU CONTRASEÑA -->
+        <div id="popup1" style="display: none;">
+            <div id="popup_olvidasteContrasenia">
+                <div class="content_bg_olvidasteContrasenia">
+                    <a id="btnCerrarContraseniaPopup" href="#" class="cerrar" onclick="$('#popup1').hide();"></a>
+
+                    <div id="header">¿OLVIDASTE TU CONTRASEÑA?</div>
+                    <div class="indicador_lbel"></div>
+                    <div class="mensaje_pop_up2">
+                        Te enviaremos un correo con las instrucciones.
                         <br />
-                    <p id="correoDestino"><strong></strong></p>
+                    </div>
+                    <div class="formCont popupOlvideContrasenia">
+                        <div class="boxform">
+                            <div class="formcontrol pais" id="cargarBandera2" style="margin-bottom: 35px;">
+                                <select id="cboPaisCambioClave" class="cboPaisCambioClave" tabindex="1" style="color: black !important">
+                                    <option value="0">Elige tu País</option>
+                                    @if (Model.ListaPaises != null)
+                                    {
+                                        foreach (var item in Model.ListaPaises)
+                                        {
+                                            <option value="@item.PaisID">@item.Nombre</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="boxform">
+                            <div class="formcontrol email" style="margin-bottom: 45px; color: black;">
+                                <input type="text" class="inputForm" value="" id="txtCorreoElectronico" placeholder="Correo Electrónico" style="color: black;" />
+                            </div>
+                        </div>
 
-                    </p>
+                        <div id="mensajesOC" style="text-align: left; color: #CF2D3A;"></div>
+
+                        <div class="boxform">
+                            <div class="formbtn">
+                                <input type="button" id="btnRecuperarClave" class="btnCrear" value="ENVIAR" onclick="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTRASEÑA ENVIADA -->
+        <div id="popup2" style="display: none;">
+            <div id="popup_contraseniaEnviada">
+                <div class="content_bg_contraseniaEnviada">
+                    <a id="btnCerrarContraseniaEnviadaPopup" href="#" class="cerrar" onclick="$('#popup2').hide();"></a>
+                    <div class="mensaje_pop_up_contraseniaEnviada">
+                        <h1>Por favor, revisa tu correo</h1>
+                        <br />
+                        <br />
+                        <div class="icono_correo">
+                            <img src="~/Content/Images/Login2/Icons/icono_nuevo_correo.png" alt="Alternate Text" />
+                        </div>
+                        <br />
+                        <br />
+                        <p>
+                            Te hemos enviado las instrucciones a :
+                            <br />
+                        <p id="correoDestino"><strong></strong></p>
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-@using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
-{
     <!-- webForm -->
+        
     <div class="webForm">
 
         <div class="logo-esika">
         </div>
         <div class="text_bienvenida_esika">
-            ¡Bienvenida a tu zona para consultora!
+            ¡Bienvenida a la Compañía de Belleza <br/>
+            con la que puedes<span style="font-size:21px"> ganar más!</span>
         </div>
         <div class="title">
             <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
         </div>
 
-        <input type="hidden" id="hdfContrasenia" />
-        
-        @*@Html.Hidden("returnUrl", @Request.QueryString)*@
-        <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
+        <!--LOGIN EXTERNO -->
+        <div class="formbtn" style="float: none;">
+            
+            <div id="cambcuentaboton" >
+                @*<div style="margin-bottom:20px;text-align: center">
+                    <img id="imgFotoPerfil" src="" alt="" style="width: 110px; height: 110px;border-radius: 100px; display:none;" />
+                </div>*@
+                
+                <div class="content_btn_face">
+                    <button id="btnLoginFB" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px;display: block;">
+                         Ingresa con Facebook
+                    </button>
+                    @*<div class="imagen_perfil_facebook" style="display: none;">
+                        <img id="imgFotoPerfilh" src="" alt="" style="width: 50px; height: 50px;" />
+                    </div>*@
+                </div>
 
-        <div class="formCont">
+            </div>
+            
+            <div id="_olgn" class="div-o-login">
+                <div class="linea_o"></div>
+                <div class="o_login">ó</div>
+                <div class="linea_o"></div>
+            </div>
+            <hr class="clear" />
 
-            <!--- FORM CONTROL PAIS --->
-            <div class="boxform">
-                <div class="flecha_select">
-                    <div class="formcontrol pais" id="cargarBandera">
+            <!--
+            <div class="text_bienvenida_esika" id="divAsociarLoginExterno" style="display: none; margin-bottom: 5px;">
+                @*<b>Registro.</b> Asociando tu cuenta de Facebook a SomosBelcorp.
+                <br /><br />*@
+                <div style="font-size: 14px;">Hola, <span id="spnLoginFB"></span></div>
+                <br />
+                <div style="font-size: 11px;">
+                    Estas correctamente autenticado con <span style="font-size: 16px;">Facebook</span>. Por favor ingresa tu usuario y contraseña de SomosBelcorp, por única vez, para asociarlo.
+                </div>
+                <br />
+            </div>
+                -->
+        </div>
 
-                        <input type="hidden" id="hdfPaisSelect" value="00" />
-                        <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
-                        <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
-                        @*<input type="hidden" id="hdf_AR" value="fondo_default.jpg" />*@
-                        <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
-                        <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
-                        <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
-                        <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
-                        <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
-                        <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+        <!--LOGIN EXTERNO -->
+        <div id="btnfblogin" style="display:none;">
 
-                        <input type="hidden" id="HdePaisID" name="PaisID" />
+            <div class="content_sesion_facebook">
+                <img id="imgFotoPerfil2" src="" alt=""/>
+            </div>
+
+            <div class="content_btn_face">
+                <button id="btnLoginFB2" class="loginBtn loginBtn--facebook" onclick="loginFB()" style="width: 100%; height: 48px; display:block;">
+                    Ingresa con Facebook
+                </button>
+                @*<div class="imagen_perfil_facebook" style="">
+                    <img id="imgFotoPerfil2" src="" alt="" style="width: 50px; height: 50px;" />
+                </div>*@
+            </div>
+
+            <div id="cambcuentatext" class="text_bienvenida_esika">
+                <span id="_nomusufb" style="display: inline; font-size:14px;"></span>
+            </div>
+
+            @*<div id="_olgn" class="div-o-login">
+                <div class="linea_o"></div>
+                <div class="o_login">ó</div>
+                <div class="linea_o"></div>
+            </div>*@
+            <hr class="clear" />
+        </div>
+
+        @using (@Html.BeginForm("Login", "Login", FormMethod.Post, new { id = "frmLogin" }))
+        {
+            <div id="loginanterior" class="formCont">
+                <input type="hidden" id="hdfContrasenia" />
+                @*@Html.Hidden("returnUrl", @Request.QueryString)*@
+                <input type="hidden" id="returnUrl" name="returnUrl" value="@ViewBag.ReturnURL" />
+
+                <div class="info-userext">
+                    @*@Html.AntiForgeryToken()*@
+                    <input type="hidden" id="hdeProveedor" name="UsuarioExterno.Proveedor" />
+                    <input type="hidden" id="hdeIdApp" name="UsuarioExterno.IdAplicacion" />
+                    <input type="hidden" id="hdeLogin" name="UsuarioExterno.Login" />
+                    <input type="hidden" id="hdeNombres" name="UsuarioExterno.Nombres" />
+                    <input type="hidden" id="hdeApellidos" name="UsuarioExterno.Apellidos" />
+                    <input type="hidden" id="hdeFechaNacimiento" name="UsuarioExterno.FechaNacimiento" />
+                    <input type="hidden" id="hdeCorreo" name="UsuarioExterno.Correo" />
+                    <input type="hidden" id="hdeGenero" name="UsuarioExterno.Genero" />
+                    <input type="hidden" id="hdeUbicacion" name="UsuarioExterno.Ubicacion" />
+                    <input type="hidden" id="hdeLinkPerfil" name="UsuarioExterno.LinkPerfil" />
+                    <input type="hidden" id="hdeFotoPerfil" name="UsuarioExterno.FotoPerfil" />
+                </div>
+
+                <!--- FORM CONTROL PAIS --->
+                <div class="boxform">
+                    <div class="flecha_select">
+                        <div class="formcontrol pais" id="cargarBandera">
+
+                            <input type="hidden" id="hdfPaisSelect" value="00" />
+                            <input type="hidden" id="hdfPaises" value="PE;BO;CL;SV;CR;PA;GT;EC;AR;MX;DO;PR;VE;CO" />
+                            <input type="hidden" id="hdfURL" value="https://www2.somosbelcorp.com" />
+                            @*<input type="hidden" id="hdf_AR" value="fondo_default.jpg" />*@
+                            <input type="hidden" id="hdf_BO" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_CL" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_CO" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_CR" value="fondo_default.jpg" />
+                            <input type="hidden" id="hdf_EC" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_SV" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_GT" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_MX" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_PA" value="fondo_default.jpg" />
+                            <input type="hidden" id="hdf_PE" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_PR" value="LoginLoveBomb.jpg" />
+                            <input type="hidden" id="hdf_DO" value="fondo_default.jpg" />
+                            <input type="hidden" id="hdf_VE" value="fondo_default.jpg" />
+                            <input type="hidden" id="hdeCodigoISO" name="hdeCodigoISO" />
+
+                            <input type="hidden" id="HdePaisID" name="PaisID" />
 
 
-                        <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
-                            <option value="00">Elige tu País</option>
-                            @if (Model.ListaPaises != null)
-                            {
-                                foreach (var item in Model.ListaPaises)
+                            <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
+                                <option value="00">Elige tu País</option>
+                                @if (Model.ListaPaises != null)
                                 {
-                                    <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                    foreach (var item in Model.ListaPaises)
+                                    {
+                                        <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                    }
                                 }
-                            }
-                        </select>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!--- FORM CONTROL USUARIO --->
+                <div class="boxform">
+                    <div class="formcontrol user">
+                        <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
+                    </div>
+                    <div id="Div3" class="btn">
+                        <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
+                    </div>
+                </div>
+
+                <!--- FORM CONTROL PASSWORD -->
+                <div class="boxform">
+                    <div class="formcontrol pass">
+                        <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
+                    </div>
+                    <div id="Div5" class="btn">
+                        <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
+                    </div>
+                </div>
+
+                <div class="boxform">
+                    <div class="formbtn">
+                        <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                            <label id="ErrorTextLabel" class="img_error_login"></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="boxform float_r">
+                    <div class="formbtn">
+                        <div style="padding-left: 4px;">
+                            <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FORM OLVIDASTE TU CONTRASEÑA -->
+                <div class="boxform float_r">
+                    <div class="formbtn">
+                        <label for="">
+                            <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                        </label>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="clear"></div>
+
+                @*<div id="nvobtnfacebook" style="cursor:pointer; display:none;">
+                    <img src="~/Content/Images/face_login.png" alt="icoFace" height="16" width="16">
+                    <span class="text_bienvenida_esika" style="font-size:14px;" onclick="mostrarLoginFB()">Iniciar sesión con Facebook</span>
+                </div>*@
+
+                <!-- INGRESA A TU CUENTA -->
+                <div class="boxform">
+                    <div class="formbtn">
+                        <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
+                    </div>
+                    <div style="display: none;">
+                        <input type="submit" id="SubmitButton" />
+                    </div>
+                </div>
+
+                <!-- ADMINISTRADOR FORMULARIO -->
+                <div class="boxform">
+                    <div class="admin">
+                        <a href="@Url.Action("Admin","Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <!-- webForm -->
+<div id="popupAsociarUsuarioExt" class="content_pop_login" style="display: none;">
+    <input type="hidden" id="hdeNameUserExt" />
+    <div class="content_facebook_sb">
+        <div class="header_facebook">
+            SOMOS BELCORP
+            <a class="btn_cerrar_login" href="javascript:;" onclick="closePopupAsociarLoginExt()"></a>
+        </div>
+        <div class="body_facebook">
+            <div class="texto_login">
+                <b class="solo_texto_paso">Solo un paso más... </b> Por favor ingresa tu usuario y contraseña de <b style="font-size:16px;">SomosBelcorp</b> por única vez para asociarlo.
+            </div>
+
+            <div class="content_foto_face_pop">
+                <div class="foto_pop_face"> <img src=""/></div>
+                <div class="nombre_usuario_facebook">Valeria</div>
+            </div>
+
+            <div id="cargarBandera3" class="campo_input">
+                <select class="select_pais_facebook" id="ddlPais2">
+                    <option value="00">Elige tu País</option>
+                    @if (Model.ListaPaises != null)
+                    {
+                        foreach (var item in Model.ListaPaises)
+                        {
+                            <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                        }
+                    }
+                </select>
+            </div>
+            <hr class="clear" />
+            
+            <div class="campo_input icono_usuario">
+                <input type="text" value="" class="usuario_facebook" id="txtUsuario2" placeholder="Usuario o Correo Electrónico" />
+                <div class="ayuda_usuario_facebook">
+                    <a href="#" class="helper_facebook"></a>
+                    <div class="mensaje_ayuda_usuario" id="ayuda-msg-user">
+                         Tu código de consultora,
+                                DNI o correo electronico.
+                    </div>
+                </div>               
+            </div>
+            <hr class="clear" />
+            
+            <div class="campo_input icono_pass">
+                <input type="password" value="" class="usuario_facebook" id="txtContrasenia2" placeholder="Contraseña" />
+                <div class="ayuda_usuario_facebook">
+                    <a href="#"  class="helper_facebook"></a>
+                    <div class="mensaje_ayuda_usuario" id="ayuda-msg-clave">
+                        Si es la primera vez que
+                        ingresas, es tu número
+                        de DNI.
+                    </div>
+                </div>
+            </div>
+            <hr class="clear" />
+
+            <div id="divMensajeError2" class="boxform" style="display: none;">
+                <div class="formbtn">
+                    <div style="text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
+                        <label id="ErrorTextLabel2" class="img_error_login icono_esika"></label>
                     </div>
                 </div>
             </div>
 
-            <!--- FORM CONTROL USUARIO --->
-            <div class="boxform">
-                <div class="formcontrol user">
-                    <input id="txtUsuario" name="CodigoUsuario" type="text" class="inputForm" value="" onfocus="" onblur="" placeholder="Usuario o Correo Electrónico" />
-                </div>
-                <div id="Div3" class="btn">
-                    <a href="javascript:void(0);" id="abrirMSJ01" onclick="AbrirMensajeLogin(1)" class="helper huno"></a>
-                </div>
+            <div class="formbtn">
+                <label for="">
+                    <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
+                </label>
+                <br>
             </div>
+            <hr class="clear" />
 
-            <!--- FORM CONTROL PASSWORD -->
-            <div class="boxform">
-                <div class="formcontrol pass">
-                    <input type="password" name="ClaveSecreta" id="txtContrasenia" class="inputForm" placeholder="Contraseña" value="" />
-                </div>
-                <div id="Div5" class="btn">
-                    <a href="javascript:void(0);" id="abrirMSJ02" onclick="AbrirMensajeLogin(2)" class="helper hdos"></a>
-                </div>
-            </div>
-
-            <div class="boxform">
-                <div class="formbtn">
-                    <div style="color: #ABEAE3; text-align: left; padding-left: 4px; margin-bottom: 5px; font-family: 'lato'; font-size: 12px; font-weight: bold;">
-                        <label id="ErrorTextLabel" class="img_error_login"></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="boxform float_r">
-                <div class="formbtn">
-                    <div style="padding-left: 4px;">
-                        <a id="AvisoASP" class="aviso_privacidad" href="javascript:void(0)" style="display: none;">Aviso de Privacidad</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FORM OLVIDASTE TU CONTRASEÑA -->
-            <div class="boxform float_r">
-                <div class="formbtn">
-                    <label for="">
-                        <a href="javascript:void(0);" onclick="olvidasteContrasenia();" rel="formulario-login" title="Recupérala aquí" role="menu" region="Lateral" parent="Recupérala aquí">¿Olvidaste tu contraseña?</a>
-                    </label>
-                    <br />
-                </div>
-            </div>
-
-            <div class="clear"></div>
-
-            <!-- INGRESA A TU CUENTA -->
-            <div class="boxform">
-                <div class="formbtn">
-                    <input type="submit" id="btnLogin" class="btnCrear" value="INGRESA A TU CUENTA" />
-                </div>
-                <div style="display: none;">
-                    <input type="submit" id="SubmitButton" />
-                </div>
-            </div>
-
-            <!-- ADMINISTRADOR FORMULARIO -->
-            <div class="boxform">
-                <div class="admin">
-                    <a href="@Url.Action("Admin","Login")" onclick="return RedirectAdministrador();" rel="menu-superior" title="Administrador">INGRESA COMO <strong>ADMINISTRADOR</strong></a>
-                </div>
-            </div>
+            <a class="btn_validar_usuario" id="btnLogin2" onclick="login2()" style="cursor:pointer;">INGRESA A TU CUENTA</a>
         </div>
     </div>
-    <!-- webForm -->
-}
-
+</div>
 
 
 <script type="text/javascript">
+    //var fbAppId = '@ViewBag.FBAppId';
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
     var paisesLBel = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesLBel")';
 
@@ -232,6 +615,5 @@
 @section scripts {
     <script src="~/Scripts/General.js"></script>
     <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
-
 }
 

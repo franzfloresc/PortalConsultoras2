@@ -143,6 +143,7 @@
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombreAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RechazadoPor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
@@ -222,4 +223,14 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoCR_BE" nillable="true" type="tns:UbigeoCR_BE" />
+  <xs:complexType name="EventoSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EventoId" type="xs:int" />
+      <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEvento" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EventoSolicitudPostulanteBE" nillable="true" type="tns:EventoSolicitudPostulanteBE" />
 </xs:schema>
