@@ -10506,8 +10506,11 @@ span.icon-advertencia{
 
 }
 .etiqueta_chat{
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/3m00NcLwdPjImja/etiqueta_esika.png) no-repeat;
-    background-position: 45% 15px;
+    /*background: url(../../../Images/mobile/icon-chat-lbel.png) no-repeat left;
+    background-position: 5px 15px;*/
+    background: url(../../../Images/mobile/icon-chat-lbel.png) no-repeat;
+    background-size: 13px;
+    background-position: 6px 16px;
 }
 .content_titulo{
     position:absolute;
