@@ -279,6 +279,14 @@
                 </div>
             </div>
         </div>
+        <div class="div-3">
+            <div>
+                <div class="titG">Habilitar SubCampañas</div>
+                <div class="selectCheck borde_redondeado" style="float: left; width: 170px; margin-right: 30px; ">
+                    <input type="checkbox" class="check" id="chkEventoTieneSubCampania" />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -336,6 +344,7 @@
                     <div>- Nombre del Set</div>
                     <div>- Codigo de Categoria</div>
                     <div>- Tip de Negocio</div>
+                    <div>- EsSubCampania</div>
                 </div>
             </div>
         </div>
@@ -444,8 +453,10 @@
                 <input type="text" id="txtPrecioOfertaModal" />
             </div>
 
-            <div></div>
-            <div></div>
+            <div class="selectCheck borde_redondeado">
+                <input style="text-align:left; position:absolute; right:222px; top:-4px;" type="checkbox" class="check" id="chkEsSubCampania" />
+            </div>
+            <div style="text-align:left; position:absolute; right:85px;" class="titG">¿Es SubCampaña?</div>
         </div>
         <div class="div-3">
             <div class="titG">Descripción:</div>
@@ -848,7 +859,7 @@
             closeOnEscape: true,
             width: 800,
             draggable: true,
-            title: "Carga de Consultoras",
+            title: "Carga de Evento ShowRoom",
             buttons:
             {
                 "Guardar": function () {
@@ -913,7 +924,7 @@
             closeOnEscape: true,
             width: 480,
             draggable: true,
-            title: "Carga Stock de Productos",
+            title: "Carga de Pack de Productos",
             buttons:
             {
                 "Cargar": function () {
@@ -1864,7 +1875,8 @@
                                     clase = 'selected="selected"';
                                 }
 
-                                var html = '<option value="' + value.CUV + '" ' + clase + '>' + value.CUV + '</option>';
+                                var cuvMostrar = value.EsSubCampania ? value.CUV + " (Sub Campaña)" : value.CUV;
+                                var html = '<option value="' + value.CUV + '" ' + clase + '>' + cuvMostrar + '</option>';
 
                                 $("#cbPerfilOfertaShowRoom").append(html);
                             });
@@ -2278,7 +2290,7 @@
     }
 
     function ShowActionsEvento(cellvalue, options, rowObject) {
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[19] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EditarEvento('" + options.rowId + "','" + rowObject[13] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[19] + "','" + rowObject[20] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Evento ShowRoom' title='Editar Evento Show Room' border='0' /></a>";
         var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').DeshabilitarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Evento ShowRoom' title='Deshabilitar Evento ShowRoom' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#listEvento').EliminarEvento('" + options.rowId + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Evento ShowRoom' title='Eliminar Evento ShowRoom' border='0' /></a>";
 
@@ -2317,6 +2329,7 @@
         var estado = $("#chkEventoEstado").is(":checked");
         var tieneCategoria = $("#chkEventoTieneCategoria").is(":checked");
         var tieneCompraXcompra = $("#chkEventocompraXcompra").is(":checked");
+        var tieneSubCampania = $("#chkEventoTieneSubCampania").is(":checked");
         
         var showRoom = {
             EventoID: eventoID == "" || eventoID == undefined ? 0 : eventoID,
@@ -2328,7 +2341,8 @@
             NumeroPerfiles: parseInt(numeroPerfiles),
             Estado: estado,
             TieneCategoria: tieneCategoria,
-            TieneCompraXcompra: tieneCompraXcompra
+            TieneCompraXcompra: tieneCompraXcompra,
+            TieneSubCampania: tieneSubCampania
         };
 
         waitingDialog({ title: "Procesando" });
@@ -2389,7 +2403,6 @@
             CampaniaID: jQuery('#hdCampaniaID').val(),
             CUV: jQuery('#txtCUVModal').val(),
             Descripcion: $("#txtDescripcionModal").val(),
-            //PrecioOferta: $("#txtPrecioOfertaModal").val(),
             PrecioValorizado: $("#txtPrecioValorizadoModal").val(),
             PrecioOferta: $("#txtPrecioOfertaModal").val(),
             ImagenProducto: $("#hdImagenProducto").val(),
@@ -2407,8 +2420,10 @@
             Incrementa: 0,
             //Agotado: $("#chkAgotado").attr('checked') ? 1 : 0
             Agotado: 0,
-            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val()
+            ConfiguracionOfertaID: $("#hdConfiguracionOfertaID").val(),
+            EsSubCampania: $("#chkEsSubCampania").attr('checked') ? true : false
         };
+
         waitingDialog({ title: "Procesando" });
         jQuery.ajax({
             type: 'POST',
@@ -2452,12 +2467,12 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo Oferta', 'Código SAP', 'Campaña', 'CUV', 'Descripción', 'Precio Valorizado', 'Precio Oferta', 'Orden', 'Saldo', 'Stock Inicial', 'Unid.Permitidas',
-                'Foto', 'Set', 'Productos'],
+            colNames: ['Código TipoOferta', 'Código SAP', 'CUV', 'Descripción', 'Precio Valorizado', 'Precio Oferta', 'Orden', 'Stock',
+                'Stock Inicial', 'Unid.Permitidas', 'CampaniaID', 'OfertaShowRoomID', 'FlagHabilitarProducto', 'ConfiguracionOfertaID',
+                'EsSubCampania', 'CodigoCampania', 'Foto', 'Set', 'Productos'],
             colModel: [
-                { name: 'TipoOferta', index: 'TipoOferta', width: 50, editable: true, resizable: false, hidden: true },
+                { name: 'CodigoTipoOferta', index: 'CodigoTipoOferta', width: 50, editable: true, resizable: false },
                 { name: 'CodigoProducto', index: 'CodigoProducto', width: 60, editable: true, resizable: false },
-                { name: 'CodigoCampania', index: 'CodigoCampania', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'CUV', index: 'CUV', width: 40, editable: true, resizable: false },
                 { name: 'Descripcion', index: 'Descripcion', width: 135, editable: true, resizable: false },
                 { name: 'PrecioValorizado', index: 'PrecioValorizado', width: 60, editable: true, resizable: false },
@@ -2466,6 +2481,12 @@
                 { name: 'Stock', index: 'Stock', width: 35, editable: true, resizable: false, hidden: true },
                 { name: 'StockInicial', index: 'StockInicial', width: 50, editable: true, resizable: false, hidden: true },
                 { name: 'UnidadesPermitidas', index: 'UnidadesPermitidas', width: 65, editable: true, resizable: false },
+                { name: 'CampaniaID', index: 'CampaniaID', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'OfertaShowRoomID', index: 'OfertaShowRoomID', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'FlagHabilitarProducto', index: 'FlagHabilitarProducto', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'ConfiguracionOfertaID', index: 'ConfiguracionOfertaID', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'EsSubCampania', index: 'EsSubCampania', width: 65, editable: true, resizable: false, hidden: true },
+                { name: 'CodigoCampania', index: 'CodigoCampania', width: 65, editable: true, resizable: false, hidden: true },
                 { name: 'Imagen', index: 'Imagen', width: 55, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
                 { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
                 { name: 'Options', index: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActionsProductos }
@@ -2572,17 +2593,20 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        //console.log(rowObject);
-        //var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "','" + rowObject[16] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[15] + "','" + rowObject[19] + "','" + rowObject[20] + "','" + rowObject[13] + "','" + rowObject[10] + "','" + rowObject[11] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
-        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "','" + rowObject[17] + "','" + rowObject[18] + "','" + rowObject[19] + "','" + rowObject[16] + "','" + rowObject[20] + "','" + rowObject[21] + "','" + rowObject[14] + "','" + rowObject[11] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
-        //var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
-        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
-        //var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[12] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
-        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + options.rowId + "','" + rowObject[3] + "','" + rowObject[13] + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
+        var id = options.rowId;
+        var imagenProducto = rowObject[16];
+        var imagenMini = rowObject[17];
+        var cuv = rowObject[2];
+        var campaniaId = rowObject[10];
+        var flagHabilitarProducto = rowObject[12];
+
+        var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + id + "','" + imagenProducto + "','" + imagenMini + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Oferta Show Room' title='Editar Oferta Show Room' border='0' /></a>";
+        var del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + id + "','" + cuv + "','" + campaniaId + "');\" >" + "<img src='" + imagenDeshabilitar + "' alt='Deshabilitar Oferta Show Room' title='Deshabilitar Oferta Show Room' border='0' /></a>";
+        var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Remover('" + id + "','" + cuv + "','" + campaniaId + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Oferta Show Room' title='Eliminar Oferta Show Room' border='0' /></a>";
 
         var resultado = edit;
 
-        if (rowObject[16] == "True")
+        if (flagHabilitarProducto == "True")
             resultado += del;
 
         resultado += remove;
@@ -2592,8 +2616,8 @@
 
     function ShowActionsProductos(cellvalue, options, rowObject) {
         var id = options.rowId;
-        var campaniaId = rowObject[2];
-        var cuv = rowObject[3];
+        var campaniaId = rowObject[15];
+        var cuv = rowObject[2];
 
         var edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EditarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + imagenEdit + "' alt='Editar Productos Oferta Show Room' title='Editar Productos Oferta Show Room' border='0' /></a>";
         var remove = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').EliminarProducto('" + id + "','" + campaniaId + "','" + cuv + "');\" >" + "<img src='" + imagenEliminar + "' alt='Eliminar Productos Oferta Show Room' title='Eliminar Productos Oferta Show Room' border='0' /></a>";
@@ -2615,8 +2639,8 @@
 
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
-        if (rowObject[11] != "") {
-            image = '<img src="' + rowObject[11] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
+        if (rowObject[16] != "") {
+            image = '<img src="' + rowObject[16] + '" alt="" width="70px" height="60px" title="" border="0" />'; // 1664
         } else {
             image = '<img src="' + imagenProductoVacio + '" alt="" width="60px" height="60px" title="" border="0" />';
         }
@@ -2687,29 +2711,30 @@
     }
 
     $.jgrid.extend({
-        Editar: function(ID, CUV, CampaniaID, OfertaShowRoomID, CodigoOferta, ISO, FlagHabilitarProducto, ConfiguracionOfertaID, CodigoSAP, Stock, ImagenProducto, ImagenMini) {
+        Editar: function(ID, ImagenProducto, ImagenMini) {
             if (ID) {
                 LimpiarDatos();
 
-                if (OfertaShowRoomID != "0")
+                var ofertaShowRoomID = jQuery("#list").jqGrid('getCell', ID, 'OfertaShowRoomID');
+
+                if (ofertaShowRoomID != "0")
                     $("#FlagTransaccion").val("1");
 
                 $.ajaxSetup({
                     cache: false
                 });
 
-                $('#hdCampaniaID').val(CampaniaID);
-                $('#hdConfiguracionOfertaID').val(ConfiguracionOfertaID);
-                $('#hdStockProducto').val(Stock);
+                $('#hdCampaniaID').val(jQuery("#list").jqGrid('getCell', ID, 'CampaniaID'));
+                $('#hdConfiguracionOfertaID').val(jQuery("#list").jqGrid('getCell', ID, 'ConfiguracionOfertaID'));
+                $('#hdStockProducto').val(jQuery("#list").jqGrid('getCell', ID, 'Stock'));
                 $("#txtPaisModal").val(paisNombre);
                 $('#txtCampaniaModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoCampania'));
-
-                $('#txtTipoOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'TipoOferta'));
                 $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', ID, 'CUV'));
                 $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-                //$('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
                 $('#txtPrecioValorizadoModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioValorizado'));
                 $('#txtPrecioOfertaModal').val(jQuery("#list").jqGrid('getCell', ID, 'PrecioOferta'));
+                $('#hdCodigoOferta').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoTipoOferta'));
+
                 if (jQuery("#list").jqGrid('getCell', ID, 'UnidadesPermitidas') == "0")
                     $("#txtUnidadesPermitidasModal").val("1");
                 else
@@ -2738,13 +2763,16 @@
                     $('#hdImagenMini').val("");
                     $('#imgMini').attr('src', imagenProductoVacio);
                 }
-
-                if (FlagHabilitarProducto == "True")
+                
+                if (jQuery("#list").jqGrid('getCell', ID, 'FlagHabilitarProducto') == "True")
                     $('#chkHabilitarOferta').attr('checked', true);
                 else
                     $('#chkHabilitarOferta').removeAttr('checked');
 
-                $('#hdCodigoOferta').val(CodigoOferta);
+                if(jQuery("#list").jqGrid('getCell', ID, 'EsSubCampania') == "True")
+                    $('#chkEsSubCampania').attr('checked', true);
+                else
+                    $('#chkEsSubCampania').removeAttr('checked');
 
                 //$('#ddlIncrementar').val('0');
                 //$('#txtCantidad').val('0');
@@ -2842,7 +2870,7 @@
             });
             return false;
         },
-        EditarEvento: function(ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra) {
+        EditarEvento: function (ID, campaniaID, estado, tieneCategoria, tieneCompraXCompra, tieneSubCampania) {
             $("#txtEventoPaisID").val(paisNombre);
             $("#txtEventoCampaniaID").val(campaniaID);
             $('#txtEventoNombre').val(jQuery("#listEvento").jqGrid('getCell', ID, 'Nombre'));
@@ -2856,7 +2884,8 @@
             $("#chkEventoEstado").prop('checked', estado == "1");            
             $("#chkEventoTieneCategoria").prop('checked', tieneCategoria == "True");
             $("#chkEventocompraXcompra").prop('checked', tieneCompraXCompra == "True");
-            
+            $("#chkEventoTieneSubCampania").prop('checked', tieneSubCampania == "True");
+
             $("#divEventoEstado").css("display", "");
 
             showDialog("DialogDatosShowRoom");
@@ -3123,10 +3152,8 @@
     function LimpiarDatos() {
         $('#hdCampaniaID').val("");
         $('#txtPaisModal').val("");
-        $('#txtTipoOfertaModal').val("");
         $('#txtCUVModal').val("");
         $('#txtDescripcionModal').val("");
-        //$('#txtPrecioOfertaModal').val("");
         $('#txtPrecioValorizadoModal').val("");
         $('#txtPrecioOfertaModal').val("");
         $('#chkHabilitarOferta').removeAttr('checked');
@@ -3134,6 +3161,7 @@
         $("#hdCodigoOferta").val("");
         $("#hdStockProducto").val("0");
         $('#txtUnidadesPermitidasModal').val("");
+        $("#chkEsSubCampania").removeAttr('checked');
     }
 
     function LimpiarDatosShowRoomDetalle() {

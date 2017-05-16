@@ -144,6 +144,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [ViewProperty]
         public string DescripcionCategoria { get; set; }
 
+        [DataMember]
+        public bool EsSubCampania { get; set; }
+
         public BEShowRoomOferta(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "OfertaShowRoomID") && row["OfertaShowRoomID"] != DBNull.Value)
@@ -206,7 +209,10 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(row, "TipNegocio") && row["TipNegocio"] != DBNull.Value)
                 TipNegocio = Convert.ToString(row["TipNegocio"]);
             if (DataRecord.HasColumn(row, "DescripcionCategoria") && row["DescripcionCategoria"] != DBNull.Value)
-                DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);            
+                DescripcionCategoria = Convert.ToString(row["DescripcionCategoria"]);
+            if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
+                EsSubCampania = Convert.ToBoolean(row["EsSubCampania"]);
+            
         }
     }
 }

@@ -194,13 +194,25 @@
     }
 
     function ResolverGetOfertaDelDiaResponse(response) {
-        var _data = response.data;
-        $(elements.ContenedorOfertaDelDiaMobile).hide();
-        _data.CantidadProductos = _data.ListaOfertas.length;
-        _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
-        _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
-        _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
-        SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
+        if (response.success) {
+            var _data = response.data;
+
+            var tq = _data.TeQuedan;
+            if (tq.TotalSeconds <= 0)
+                return false;
+
+            var clock = $('.clock').FlipClock(tq.TotalSeconds, {
+                clockFace: 'HourlyCounter',
+                countdown: true
+            });
+
+            $(elements.ContenedorOfertaDelDiaMobile).hide();
+            _data.CantidadProductos = _data.ListaOfertas.length;
+            _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
+            _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
+            _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
+            SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
+        }
     }
 
     function ConstruirDescripcionOferta(arrDescripcion) {
@@ -260,12 +272,13 @@
         return true;
     }
 
-    function ObtenerProducto(itemCampos, cantidad) {
+    function ObtenerProducto(itemCampos, cantidad) {        
+        var esMobile = ViewBagEsMobile == 1 ? 0 : 1000; /*1 Desktop, 2 Mobile*/
 
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
-        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
-        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb;
+        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb + esMobile;
+        else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb + esMobile;
+        else if (origenPagina == 2) origenPedidoWeb = 1290 + origenPedidoWeb + esMobile;
 
         var producto = {
             MarcaID: itemCampos.find('.marca-id-odd').val(),
@@ -716,6 +729,10 @@
                 $('#PopOfertaDia').slideUp();
                 $('.circulo_hoy span').html('+');
                 showDisplayODD = 0;
+            }
+
+            if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
+                $('div [data-odd-tipoventana="detalle"]').show();
             }
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
