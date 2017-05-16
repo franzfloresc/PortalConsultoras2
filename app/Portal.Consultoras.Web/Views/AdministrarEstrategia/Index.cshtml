@@ -495,8 +495,13 @@
         $("#ddlTipoEstrategia").change(function () {
             var aux1 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
-            if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
+            $("#btnNuevoMasivo").hide();
+            //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
+            if (aux1 == "001") {
                 $("#btnActivarDesactivar").show();
+                $("#btnNuevoMasivo").show();
+            }
+                
 
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
@@ -2149,7 +2154,6 @@
             element: document.getElementById(divId),
             action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
             onComplete: function (id, fileName, responseJSON) {
-                debugger;
                 if (checkTimeout(responseJSON)) {
                     if (responseJSON.success) {
                         $("#nombre-" + divId).val(responseJSON.name);
