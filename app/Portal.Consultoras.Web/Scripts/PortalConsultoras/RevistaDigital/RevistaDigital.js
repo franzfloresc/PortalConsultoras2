@@ -59,7 +59,6 @@ function OfertaArmarEstrategias(response) {
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
 
-    LayoutProductos();
 }
 
 function LayoutProductos() {
@@ -76,28 +75,9 @@ function LayoutProductos() {
             y = y > 0 ? y + 1 : 0;
             $(lista[y]).css("margin-left", (x + parseFloat($(item).css("margin-left").replace("px", ""))) + "px");
 
-            y = index > 0 ? index + 1 == lista.length ? index : index - 1 : 0;
-            $(lista[y]).css("margin-right", (x - 1 + parseFloat($(item).css("margin-right").replace("px", ""))) + "px");
+            //y = index > 0 ? index + 1 == lista.length ? index : index - 1 : 0;
+            //$(lista[y]).css("margin-right", (x - 1 + parseFloat($(item).css("margin-right").replace("px", ""))) + "px");
 
-            //wi = 0;
-            //y = y > 0 ? y + 1 : y;
-            //$.each(lista, function (ind, itemP) {
-            //    if (ind >= y && ind < index) {
-            //        if (wi == 0) {
-            //            $(itemP).css("margin-left", 0 + "px");
-            //            $(itemP).css("margin-right", x + "px");
-            //        }
-            //        else if (ind == index - 1) {
-            //            $(itemP).css("margin-left", x + "px");
-            //            $(itemP).css("margin-right", 0 + "px");
-            //        }
-            //        else {
-            //            $(itemP).css("margin-left", x + "px");
-            //            $(itemP).css("margin-right", x + "px");
-            //        }
-            //        wi = wi + 1;
-            //    }
-            //});
             y = index - 1;
             wi = $(item).width() + parseFloat($(item).css("margin-left").replace("px", "")) + parseFloat($(item).css("margin-right").replace("px", ""));
         }
