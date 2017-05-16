@@ -210,7 +210,6 @@
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\SuscripcionRDController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
@@ -343,7 +342,6 @@
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
     <Compile Include="Controllers\SuperateController.cs" />
-    <Compile Include="Controllers\SuscripcionRDController.cs" />
     <Compile Include="Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Controllers\TrackingController.cs" />
     <Compile Include="Controllers\UneteController.cs" />
@@ -3203,7 +3201,6 @@
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\SuscripcionRD\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
@@ -3932,7 +3929,6 @@
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
-    <Content Include="Views\SuscripcionRD\Index.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
