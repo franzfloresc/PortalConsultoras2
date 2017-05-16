@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActivarCupon();
-                return Json(new { success = true, message = "El cupón fue activado." });
+                return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CuponModel cuponModel = ObtenerDatosCupon();
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
         [HttpPost]
@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
         private CuponModel ObtenerDatosCupon()
