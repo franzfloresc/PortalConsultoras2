@@ -256,6 +256,10 @@ namespace Portal.Consultoras.BizLogic
                         usuario.RegionID = postulante.RegionID;
                         usuario.ConsultoraID = postulante.ConsultoraID;
 
+                        //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
+                        usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
+                        usuario.MensajePedidoMobile = postulante.MensajeMobile;
+
                         using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
                         {
                             if (reader.Read())
@@ -1484,10 +1488,10 @@ namespace Portal.Consultoras.BizLogic
                                         if (eslbel)
                                         {
                                             if (paisISO == "MX" || paisISO == "CR") {
-                                                htmlTemplate.Replace("#DISPLAY1#", "block");
+                                                htmlTemplate.Replace("#DISPLAY1#", "");
                                             }
                                             else {
-                                                htmlTemplate.Replace("#DISPLAY1#", "none");
+                                                htmlTemplate.Replace("#DISPLAY1#", "nomostrar");
                                             }
                                         }
 
@@ -1504,6 +1508,8 @@ namespace Portal.Consultoras.BizLogic
 
                                         //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
                                         DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
+                                        //Actualizando flag envio de correo
+                                        DAUsuario.UpdFlagEnvioCorreo(codusuario);
                                     }
                                     else
                                     {
@@ -1636,6 +1642,12 @@ namespace Portal.Consultoras.BizLogic
          * */
 
         /*EPD-1837*/
+
+        public void UpdatePostulantesMensajes(int paisID, string CodigoUsuario, int tipo)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            DAUsuario.UpdatePostulanteMensajes(CodigoUsuario, tipo);
+        }
 
 
         public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)

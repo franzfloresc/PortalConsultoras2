@@ -734,5 +734,12 @@ namespace Portal.Consultoras.Service
         }
          * */
         /*EPD-1837*/
+
+        public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
+        }
+
     }
 }

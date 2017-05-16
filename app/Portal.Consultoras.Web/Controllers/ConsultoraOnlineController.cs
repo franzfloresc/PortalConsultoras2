@@ -1517,6 +1517,18 @@ namespace Portal.Consultoras.Web.Controllers
                 oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
                 oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
 
+                //EPD-2248
+                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
+                indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
+                indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
+                indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
+
+                oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                //EPD-2248
+
                 switch (TipoAdm)
                 {
                     case "I":
