@@ -1056,5 +1056,8 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotMensajeProactiva> listMensajeProactiva);
     }
 }

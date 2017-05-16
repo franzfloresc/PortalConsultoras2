@@ -1929,5 +1929,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
+
+        public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotMensajeProactiva> listMensajeProactiva)
+        {
+            return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
+        }
     }
 }
