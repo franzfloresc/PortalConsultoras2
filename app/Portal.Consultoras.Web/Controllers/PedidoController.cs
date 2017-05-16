@@ -2167,18 +2167,6 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        private void UpdateSesionProlMontos(BEPedidoWeb pedido)
-        {
-            var modeloProl = new ObjMontosProl();
-            modeloProl.AhorroCatalogo = pedido.MontoAhorroCatalogo.ToString();
-            modeloProl.AhorroRevista = pedido.MontoAhorroRevista.ToString();
-            modeloProl.MontoTotalDescuento = pedido.DescuentoProl.ToString();
-            modeloProl.MontoEscala = pedido.MontoEscala.ToString();
-            var lista = new List<ObjMontosProl>();
-            lista.Add(modeloProl);
-            Session[Constantes.ConstSession.PROL_CalculoMontosProl] = lista;
-        }
-
         #region Campaña y Zona No Configurada
 
         public ActionResult CampaniaZonaNoConfigurada()
