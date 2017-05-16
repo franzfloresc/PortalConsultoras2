@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Portal.Consultoras.Common;
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -247,109 +249,30 @@
 
                         <!-- ALERTAS PARA VALIDACION DE INPUTS USUARIO-->
                         <div class="content-alerta-red-user  left">
-                            <div class="alerta_red_peru_user left">
-                                Tu código de consultora,<br />
-                                DNI o correo electronico.
-                            </div>
-                            <div class="alerta_red_bolivia_user left">
-                                Tu código de consultora,<br />
-                                Carné de Identidad <br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_chile_user left">
-                                Tu número de RUT
-                                <br />
-                                (sin puntos ni guión).<br />
-                                Ejem:12345678k<br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_pr_user left">
-                                Tu código de consultora,<br />
-                                tarjeta electoral <br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_do_user left">
-                                Tu código de consultora,<br />
-                                cédula de identidad <br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_mx_user left">
-                                Tu código de consultora,<br />
-                                INE o correo electrónico.
-                            </div>
-                            <div class="alerta_red_ec_user left">
-                                Tu número de cédula de identidad<br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_ve_user left">
-                                Tu código de consultora,<br />
-                                cédula de identidad<br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_cam_user7 left">
-                                Tu código de consultora,<br />
-                                documento único de identidad o<br />
-                                correo electrónico.
-                            </div>
-                            <div class="alerta_red_cam_user9 left">
-                                Tu código de consultora,<br />
-                                documento de identidad<br />
-                                o correo electrónico.
-                            </div>
-                            <div class="alerta_red_co_user left">
-                                Tu número de cédula de ciudadanía, <br />
-                                o correo electrónico.
-                            </div>
+                            <div class="alerta_red_peru_user left">@Html.Raw(Constantes.TooltipLoginUsuario.PE)</div>
+                            <div class="alerta_red_bolivia_user left">@Html.Raw(Constantes.TooltipLoginUsuario.BO)</div>
+                            <div class="alerta_red_chile_user left">@Html.Raw(Constantes.TooltipLoginUsuario.CL)</div>
+                            <div class="alerta_red_pr_user left">@Html.Raw(Constantes.TooltipLoginUsuario.PR)</div>
+                            <div class="alerta_red_do_user left">@Html.Raw(Constantes.TooltipLoginUsuario.DO)</div>
+                            <div class="alerta_red_mx_user left">@Html.Raw(Constantes.TooltipLoginUsuario.MX)</div>
+                            <div class="alerta_red_ec_user left">@Html.Raw(Constantes.TooltipLoginUsuario.EC)</div>
+                            <div class="alerta_red_ve_user left">@Html.Raw(Constantes.TooltipLoginUsuario.VE)</div>
+                            <div class="alerta_red_co_user left">@Html.Raw(Constantes.TooltipLoginUsuario.CO)</div>
+                            <div class="alerta_red_cam_user9 left">@Html.Raw(Constantes.TooltipLoginUsuario.PA)</div>
+                            <div class="alerta_red_cam_user7 left">@Html.Raw(Constantes.TooltipLoginUsuario.CAM)</div>
                         </div>
                         <!-- ALERTAS PARA VALIDACION DE INPUTS CLAVE-->
                         <div class="content-alerta-red-clave">
-                            <div class="alerta_red_peru_clave left">
-                                Si es la primera vez que<br />
-                                ingresas, es tu número<br />
-                                de DNI.
-                            </div>
-                            <div class="alerta_red_bolivia_clave left">
-                                Si es la primera vez que ingresas, es<br />
-                                el número de tu Carné de Identidad,<br />
-                                con las 3 letras de la extensión del<br />
-                                lugar de emisión.
-                            </div>
-                            <div class="alerta_red_chile_clave left">
-                                Si es la primera vez que ingresas, es<br />
-                                tu código de consultora de 7 dígitos<br />
-                                (incluido el 0 inicial, si lo tuviera).
-                            </div>
-                            <div class="alerta_red_pr_clave left">
-                                Los 4 últimos dígitos de<br />
-                                tu Seguro Social (sin guiones).
-                            </div>
-                            <div class="alerta_red_do_clave left">
-                                Los 4 últimos dígitos de<br />
-                                tu Cédula de Identidad<br />
-                                (sin guiones).
-                            </div>
-                            <div class="alerta_red_mx_clave left">
-                                Los 4 últimos dígitos de<br />
-                                tu código de consultora.
-                            </div>
-                            <div class="alerta_red_ec_clave left">
-                                El número de tu<br />
-                                cédula de identidad.
-                            </div>
-                            <div class="alerta_red_ve_clave left">
-                                Los 4 últimos dígitos de<br />
-                                tu Cédula de Identidad.
-                            </div>
-                            <div class="alerta_red_co_clave left">
-                                El número de tu<br />
-                                cédula de identidad.
-                            </div>
-                            <div class="alerta_red_cam_clave left">
-                                Si es la primera vez<br />
-                                que ingresas, son los<br />
-                                4 últimos dígitos de tu<br />
-                                documento de identidad.
-                            </div>
+                            <div class="alerta_red_peru_clave left">@Html.Raw(Constantes.TooltipLoginPassword.PE)</div>
+                            <div class="alerta_red_bolivia_clave left">@Html.Raw(Constantes.TooltipLoginPassword.BO)</div>
+                            <div class="alerta_red_chile_clave left">@Html.Raw(Constantes.TooltipLoginPassword.CL)</div>
+                            <div class="alerta_red_pr_clave left">@Html.Raw(Constantes.TooltipLoginPassword.PR)</div>
+                            <div class="alerta_red_do_clave left">@Html.Raw(Constantes.TooltipLoginPassword.DO)</div>
+                            <div class="alerta_red_mx_clave left">@Html.Raw(Constantes.TooltipLoginPassword.MX)</div>
+                            <div class="alerta_red_ec_clave left">@Html.Raw(Constantes.TooltipLoginPassword.EC)</div>
+                            <div class="alerta_red_ve_clave left">@Html.Raw(Constantes.TooltipLoginPassword.VE)</div>
+                            <div class="alerta_red_co_clave left">@Html.Raw(Constantes.TooltipLoginPassword.CO)</div>
+                            <div class="alerta_red_cam_clave left">@Html.Raw(Constantes.TooltipLoginPassword.CAM)</div>
                         </div>
 
                     </div>

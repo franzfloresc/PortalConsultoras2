@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {

@@ -294,6 +294,12 @@ namespace Portal.Consultoras.ServiceContracts
         //EPD-1836
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
+        
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string correo);
+
+        [OperationContract]
+        string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
 
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
@@ -324,5 +330,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
+        
+        [OperationContract]
+        BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
+            bool usuarioPrueba, int aceptacionConsultoraDA);
     }
 }

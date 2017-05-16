@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoSAP { get; set; }
         [DataMember]
-        public int  EnMatrizComercial { get; set; }
+        public int EnMatrizComercial { get; set; }
         [DataMember]
         public string CodigoEstrategia { get; set; }
         [DataMember]
@@ -137,6 +137,35 @@ namespace Portal.Consultoras.Entities
 
         //[DataMember]
         //public string CodigoSAP { get; set; }
+
+        /// <summary>
+        /// Url para compartir, es llenado en el servicio de estrategia
+        /// GetEstrategiasPedido
+        /// </summary>
+        [DataMember]
+        public string URLCompartir { get; set; }
+
+        /// <summary>
+        /// [Filtro] para la validacion del periodo de facturacion
+        /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion
+        /// </summary>
+        [DataMember]
+        public bool ValidarPeriodoFacturacion { get; set; }
+        
+        /// <summary>
+        /// [Filtro] del usuario
+        /// </summary>
+        [DataMember]
+        public double ZonaHoraria { get; set; }
+
+        /// <summary>
+        /// [Filtro] del usuario
+        /// </summary>
+        [DataMember]
+        public DateTime FechaInicioFacturacion { get; set; }
+        
+        public BEEstrategia()
+        { }
         
         public BEEstrategia(IDataRecord row)
         {
