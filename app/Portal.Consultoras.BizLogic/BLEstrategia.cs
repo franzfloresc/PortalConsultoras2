@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.ServicePROLConsultas;
+using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -162,21 +163,76 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            try
-            {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
+            var estrategiasResult = new List<BEEstrategia>();
+            var estrategias = new List<BEEstrategia>();
+            var codigoIso = Util.GetPaisISO(entidad.PaisID);
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetEstrategiaPedido(entidad))
+            var daEstrategia = new DAEstrategia(entidad.PaisID);
+            using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    estrategias.Add(new BEEstrategia(reader));
+                }
+            }
+            var esFacturacion = false;
+            if (entidad.ValidarPeriodoFacturacion)
+            {
+                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
+                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
+            }
+
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+
+            if (esFacturacion)
+            {
+                /*Obtener si tiene stock de PROL por CodigoSAP*/
+                var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
+
+                var listaTieneStock = new List<Lista>();
+
+                if (!string.IsNullOrEmpty(codigoSap))
+                {
+                    using (var sv = new wsConsulta())
                     {
-                        listaEstrategias.Add(new BEEstrategia(reader));
+                        sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                        listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
                     }
                 }
-                return listaEstrategias;
+
+                estrategias.ForEach(estrategia =>
+                {
+                    var add = true;
+                    if (estrategia.TipoEstrategiaImagenMostrar ==
+                        Constantes.TipoEstrategia.OfertaParaTi)
+                    {
+                        add = listaTieneStock.Any(
+                            p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+                    }
+
+                    if (!add) return;
+
+                    estrategiasResult.Add(estrategia);
+                });
             }
-            catch (Exception) { throw; }
+            else
+            {
+                estrategiasResult.AddRange(estrategias);
+            }
+
+            estrategiasResult.ForEach(estrategia =>
+            {
+                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.Simbolo = entidad.Simbolo;
+                estrategia.TieneStockProl = true;
+                estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
+                estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
+
+                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+            });
+
+            return estrategiasResult;
         }
 
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
@@ -314,21 +370,27 @@ namespace Portal.Consultoras.BizLogic
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            try
-            {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-                var DAEstrategia = new DAEstrategia(paisID);
+            var listaEstrategias = new List<BEEstrategia>();
+            var daEstrategia = new DAEstrategia(paisID);
 
-                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader));
-                    }
+                    listaEstrategias.Add(new BEEstrategia(reader));
                 }
-                return listaEstrategias;
             }
-            catch (Exception) { throw; }
+
+            var usuario = new BLUsuario().GetSesionUsuario(paisID, codConsultora);
+            var carpetaPais = Globals.UrlMatriz + "/" + usuario.CodigoISO;
+
+            listaEstrategias.ForEach(item =>
+            {
+                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.URLCompartir = Util.GetUrlCompartirFB(usuario.CodigoISO);
+            });
+
+            return listaEstrategias;
         }
 
         public int ActivarDesactivarEstrategias(int paisID, String UsuarioModificacion, String EstrategiasActivas, String EstrategiasDesactivas)

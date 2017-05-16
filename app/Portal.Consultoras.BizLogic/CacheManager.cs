@@ -30,7 +30,8 @@ namespace Portal.Consultoras.BizLogic
         MenuGeneralSB2,
         EscalaDescuento,
         ParametriaOfertaFinal,
-        MotivoSolicitud
+        MotivoSolicitud,
+        ProductoPalabra
     }
 
     internal class CacheManager<T>
@@ -46,22 +47,18 @@ namespace Portal.Consultoras.BizLogic
         {
             addData(0, cacheItem, customKey, value);
         }
-
         public static void AddData(ECacheItem cacheItem, IList<T> value)
         {
             addData(0, cacheItem, string.Empty, value);
         }
-
         public static void AddData(int paisID, ECacheItem cacheItem, IList<T> value)
         {
             addData(paisID, cacheItem, string.Empty, value);
         }
-
         public static void AddData(int paisID, ECacheItem cacheItem, string customKey, IList<T> value)
         {
             addData(paisID, cacheItem, customKey, value);
         }
-
         private static void addData(int paisID, ECacheItem cacheItem, string customKey, IList<T> value)
         {
             if (Connection != null)
@@ -81,32 +78,28 @@ namespace Portal.Consultoras.BizLogic
         {
             return getData(paisID, cacheItem, string.Empty);
         }
-
         public static IList<T> GetData(ECacheItem cacheItem)
         {
             return getData(0, cacheItem, string.Empty);
         }
-
         public static IList<T> GetData(ECacheItem cacheItem, string customKey)
         {
             return getData(0, cacheItem, customKey);
         }
-
         public static IList<T> GetData(int paisID, ECacheItem cacheItem, string customKey)
         {
             return getData(paisID, cacheItem, customKey);
         }
-
         private static IList<T> getData(int paisID, ECacheItem cacheItem, string customKey)
         {
             IList<T> result = null;
             if (Connection != null)
             {
-                string key = getKey(paisID, cacheItem, customKey);                                
+                string key = getKey(paisID, cacheItem, customKey);
                 try
                 {
                     IDatabase cache = Connection.GetDatabase();
-                    if(cache.KeyExists(key)) result = JsonConvert.DeserializeObject<IList<T>>(cache.StringGet(key));
+                    if (cache.KeyExists(key)) result = JsonConvert.DeserializeObject<IList<T>>(cache.StringGet(key));
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
             }
@@ -114,26 +107,86 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
+        public static T GetDataElement(int paisID, ECacheItem cacheItem)
+        {
+            return getDataElement(paisID, cacheItem, string.Empty);
+        }
+        public static T GetDataElement(ECacheItem cacheItem)
+        {
+            return getDataElement(0, cacheItem, string.Empty);
+        }
+        public static T GetDataElement(ECacheItem cacheItem, string customKey)
+        {
+            return getDataElement(0, cacheItem, customKey);
+        }
+        public static T GetDataElement(int paisID, ECacheItem cacheItem, string customKey)
+        {
+            return getDataElement(paisID, cacheItem, customKey);
+        }
+        private static T getDataElement(int paisID, ECacheItem cacheItem, string customKey)
+        {
+            T result = default(T);
+            if (Connection != null)
+            {
+                string key = getKey(paisID, cacheItem, customKey);                                
+                try
+                {
+                    IDatabase cache = Connection.GetDatabase();
+                    if(cache.KeyExists(key)) result = JsonConvert.DeserializeObject<T>(cache.StringGet(key));
+                }
+                catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
+            }
+
+            return result;
+        }
+
+        public static void AddDataElement(ECacheItem cacheItem, string customKey, T value)
+        {
+            addDataElement(0, cacheItem, customKey, value);
+        }
+        public static void AddDataElement(ECacheItem cacheItem, T value)
+        {
+            addDataElement(0, cacheItem, string.Empty, value);
+        }
+        public static void AddData(int paisID, ECacheItem cacheItem, T value)
+        {
+            addDataElement(paisID, cacheItem, string.Empty, value);
+        }
+        public static void AddDataElement(int paisID, ECacheItem cacheItem, string customKey, T value)
+        {
+            addDataElement(paisID, cacheItem, customKey, value);
+        }
+        private static void addDataElement(int paisID, ECacheItem cacheItem, string customKey, T value)
+        {
+            if (Connection != null)
+            {
+                string key = getKey(paisID, cacheItem, customKey);
+                try
+                {
+                    IDatabase cache = Connection.GetDatabase();
+                    TimeSpan TimeCache = TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]);
+                    cache.StringSet(key, JsonConvert.SerializeObject(value), TimeCache);
+                }
+                catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
+            }
+        }
+
         public static void RemoveData(int paisID, ECacheItem cacheItem)
         {
             removeData(paisID, cacheItem, string.Empty);
         }
-
         public static void RemoveData(int paisID, ECacheItem cacheItem, string customKey)
         {
             removeData(paisID, cacheItem, customKey);
         }
-
         public static void RemoveData(ECacheItem cacheItem)
         {
             removeData(0, cacheItem, string.Empty);
         }
-
         public static void RemoveData(ECacheItem cacheItem, string customKey)
         {
             removeData(0, cacheItem, customKey);
         }
-
         private static void removeData(int paisID, ECacheItem cacheItem, string customKey)
         {
             if (Connection != null)

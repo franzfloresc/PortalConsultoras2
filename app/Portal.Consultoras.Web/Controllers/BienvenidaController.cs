@@ -774,7 +774,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONGetMisDatos()
         {
-            BEUsuario beusuario = new BEUsuario();
+            var beusuario = new ServiceUsuario.BEUsuario();
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())

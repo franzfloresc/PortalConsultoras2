@@ -1951,8 +1951,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                                 {
                                     item.EstaEnRevista = 1;
-                                    if (isEsika) item.MensajeValidacion = Constantes.OfertaEspecialMensajes.EsikaMobile;
-                                    else item.MensajeValidacion = Constantes.OfertaEspecialMensajes.LbelMobile;
+                                    if (isEsika) item.MensajeValidacion = Constantes.MensajeEstaEnRevista.EsikaMobile;
+                                    else item.MensajeValidacion = Constantes.MensajeEstaEnRevista.LbelMobile;
                                 }
                             }
                             else

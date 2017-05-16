@@ -122,6 +122,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="CollectionExtension.cs" />
+    <Compile Include="BETuplaEditable.cs" />
     <Compile Include="BEGrid.cs" />
     <Compile Include="BEPager.cs" />
     <Compile Include="ConfigS3.cs" />
@@ -143,6 +145,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexUtilities.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="WebConfig.cs" />
     <Compile Include="WebConfigKeys.cs" />
   </ItemGroup>
   <ItemGroup>
