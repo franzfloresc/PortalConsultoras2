@@ -201,6 +201,12 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public static string CuerpoCorreoActivacionCupon()
+        {
+            StringBuilder sBuilder = new StringBuilder();
+            sBuilder.Append("This is a test for");
+            return sBuilder.ToString();
+        }
     }
 
     public class ToWithType

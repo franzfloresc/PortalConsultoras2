@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.DiaPROL = userData.DiaPROL;
                 model.VioTutorial = userData.VioTutorialModelo;
                 model.UrlEnterateMas = ConfigS3.GetUrlFileS3("Mobile/AppCatalogo/" + userData.CodigoISO, "enteratemas.png", String.Empty);
-
+                model.CampaniaActual = userData.CampaniaID;
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
 
                 if (userData.CodigoISO == "CL" || userData.CodigoISO == "CO")
@@ -131,7 +131,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UrlImagenCatalogoPersonalizado = ConfigS3.GetUrlFileS3("Mobile/CatalogoPersonalizado/" + userData.CodigoISO, "catalogo.png", String.Empty);
                 model.EsCatalogoPersonalizadoZonaValida = userData.EsCatalogoPersonalizadoZonaValida;
                 model.CodigoUsuario = userData.CodigoUsuario; //EPD-1180
-                
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+
+                model.EmailActivo = userData.EMailActivo;
+                model.TieneCupon = userData.TieneCupon;
+
                 string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
                 
                 if (PaisesCatalogoWhatsUp.Contains(userData.CodigoISO))

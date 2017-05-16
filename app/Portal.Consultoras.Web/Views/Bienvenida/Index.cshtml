@@ -242,8 +242,14 @@
     <hr class="clear" />
 </div>
 
+
+
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
+    <div id="contenedorCupon" class="contenedor_cupon">
+        Tienes un descuento exclusivo para ti, <br/>
+        <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
+    </div>
     <div class="content_belcorp" style="text-align:center;">
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
@@ -2307,8 +2313,23 @@
 
 </div>
 <!--FIN-->
+<!--POP UP DE CUPON-->
+
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
+
+<!--FIN-->
 
 @section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {
+                $(this).toggleClass('check_intriga');
+                
+            });
+        });
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
@@ -2384,7 +2405,7 @@
 
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
-        
+
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
@@ -2392,7 +2413,7 @@
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
-        
+
         //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -2400,10 +2421,14 @@
             $('div.resumen_belcorp_cam').css('margin-left', '3%');
             $('div.resumen_belcorp_cam').css('margin-right', '0%');
             $('div.socia_negocio_home').css('margin-left', '4%');
-            
+
             $('div.contenedor_img_perfil').show();
         }
 
+        var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon = 1;
+        var esEmailActivo = '@Model.EmailActivo';
+        var baseUrl = "@Url.Content("~")";
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

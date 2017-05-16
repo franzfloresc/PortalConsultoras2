@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.Service
 {
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLCuponConsultora BLCuponConsultora;
 
         public PedidoService()
         {
@@ -54,6 +56,7 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -413,6 +416,16 @@ namespace Portal.Consultoras.Service
         public IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP)
         {
             return new BLOfertaProducto().GetMatrizComercialByCodigoSAP(paisID, codigoSAP);
+        }
+
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros)
+        {
+            return new BLOfertaProducto().GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, registros);
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros)
+        {
+            return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP, pagina, registros);
         }
 
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
@@ -1134,6 +1147,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().FiltrarEstrategia(entidad);
         }
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            return new BLEstrategia().GetImagenesByEstrategiaMatrizComercialImagen(entidad , pagina, registros);
+        }
         public int DeshabilitarEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().DeshabilitarEstrategia(entidad);
@@ -1471,9 +1488,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarProductoCpc(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)
@@ -1596,9 +1613,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.GuardarPerfilOfertaShowRoom(paisId, perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
@@ -1692,9 +1709,9 @@ namespace Portal.Consultoras.Service
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
-        public IList<BEMatrizComercial> GetImagenesByCUV(int paisID, int campaniaID, string cuv)
+        public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
         {
-            return BLProductoSugerido.GetImagenesByCUV(paisID, campaniaID, cuv);
+            return BLProductoSugerido.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
         }
 
         public string InsProductoSugerido(int paisID, BEProductoSugerido entity)
@@ -1804,14 +1821,14 @@ namespace Portal.Consultoras.Service
         }
         /*EPD-1025*/
 
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
-            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, tipoEstrategia);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
-            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado);
+            return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, tipoEstrategia);
         }
 
         public int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
@@ -1834,9 +1851,9 @@ namespace Portal.Consultoras.Service
             return new BLEstrategia().DeleteEstrategiaTemporal(paisId, campaniaId);
         }
 
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int tipoEstrategia)
         {
-            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario);
+            return new BLEstrategia().InsertEstrategiaOfertaParaTi(paisId, lista, campaniaId, codigoUsuario, tipoEstrategia);
         }
 
         /*PL20-1226*/
@@ -1881,5 +1898,44 @@ namespace Portal.Consultoras.Service
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
+        }
+
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
+        
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+        }
+
+        #region Cupon
+
+        public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
+        {
+            return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
     }
 }

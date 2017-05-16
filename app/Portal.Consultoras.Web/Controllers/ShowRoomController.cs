@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
             }
             
             if (!listaShowRoomOferta.Any())
@@ -196,6 +196,30 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult ObtenerParametroPersonalizacion(int PaisID)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.Plan20).ToList();
+            }
+
+            var campaniaMinimaPersonalizacion = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
+                if (par != null)
+                {
+                    campaniaMinimaPersonalizacion = par.Codigo;
+                }
+            }
+
+            return Json(new
+            {
+                campaniaMinimaPersonalizacion
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult ConsultarShowRoom(string sidx, string sord, int page, int rows, int PaisID, int campaniaID)
         {
             try
@@ -306,30 +330,28 @@ namespace Portal.Consultoras.Web.Controllers
                         select new
                         {
                             id = a.EventoID,
-                            cell = new[]
-                            {
-                                a.EventoID.ToString(),
-                                a.Nombre,
-                                a.Tema,
-                                a.DiasAntes.ToString(),
-                                a.DiasDespues.ToString(),
-                                a.NumeroPerfiles.ToString(),
-                                a.Imagen1,
-                                a.Imagen2,
-                                a.ImagenCabeceraProducto,
-                                a.ImagenVentaSetPopup,
-                                a.ImagenVentaTagLateral,
-                                a.ImagenPestaniaShowRoom,
-                                a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),
-                                a.Descuento.ToString(),
-                                a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),
-                                a.Estado.ToString(),
-                                a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString(),
-                                a.TieneSubCampania.ToString()
-                            }
+                            a.Nombre,
+                            a.Tema,
+                            DiasAntes = a.DiasAntes.ToString(),
+                            DiasDespues = a.DiasDespues.ToString(),
+                            NumeroPerfiles = a.NumeroPerfiles.ToString(),
+                            a.Imagen1,
+                            a.Imagen2,
+                            a.ImagenCabeceraProducto,
+                            a.ImagenVentaSetPopup,
+                            a.ImagenVentaTagLateral,
+                            a.ImagenPestaniaShowRoom,
+                            a.ImagenPreventaDigital,
+                            CampaniaID = a.CampaniaID.ToString(),
+                            Descuento = a.Descuento.ToString(),
+                            a.TextoEstrategia,
+                            OfertaEstrategia = a.OfertaEstrategia.ToString(),
+                            Estado = a.Estado.ToString(),
+                            TieneCategoria = a.TieneCategoria.ToString(),
+                            TieneCompraXcompra = a.TieneCompraXcompra.ToString(),
+                            TieneSubCampania = a.TieneSubCampania.ToString(),
+                            TienePersonalizacion = a.TienePersonalizacion
+                            //a.EventoID
                         }
                 };
 
@@ -1295,6 +1317,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
+            List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -1302,21 +1325,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            lstFinal.Add(new BEMatrizComercial { IdMatrizComercial = lst[0].IdMatrizComercial,
+                CodigoSAP = lst[0].CodigoSAP, Descripcion = lst[0].Descripcion, PaisID = lst[0].PaisID});
 
             if (lst != null && lst.Count > 0)
             {
-                if (lst[0].FotoProducto01 != "")
-                    lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[0].FotoProducto != "")
+                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto02 != "")
-                    lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[1].FotoProducto != "")
+                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[2].FotoProducto != "")
+                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
             }
             return Json(new
             {
-                lista = lst
+                lista = lstFinal
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1681,6 +1706,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 UpdPedidoWebMontosPROL();
 
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
+
                 return Json(new
                 {
                     success = true,
@@ -1765,6 +1805,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
+
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
 
                 return Json(new
                 {
@@ -2678,7 +2733,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal = new List<ShowRoomOfertaModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion(), esFacturacion);
                 int cantidadTotal = listaProductos.Count;
 
                 listaFinal = listaProductos;

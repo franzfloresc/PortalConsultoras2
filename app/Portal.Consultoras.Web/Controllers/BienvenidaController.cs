@@ -437,6 +437,10 @@ namespace Portal.Consultoras.Web.Controllers
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo; 
             }
             catch (FaultException ex)
             {
@@ -1816,6 +1820,28 @@ namespace Portal.Consultoras.Web.Controllers
             userData.CerrarRechazado = 1;
             SetUserData(userData);
             return Json(userData.CerrarRechazado);
+        }
+
+        [HttpPost]
+        public JsonResult CerrarMensajePostulante()
+        {
+            try
+            {
+                userData.CerrarBannerPostulante = 1;
+                SetUserData(userData);
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error al procesar la solicitud"
+                });
+            }
         }
 
         /* SB20-834 - INICIO */

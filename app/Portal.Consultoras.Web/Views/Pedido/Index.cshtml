@@ -226,6 +226,11 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div class="content_pedido_cupon_monto" style="display: none;">
+                                    <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                    <div class="texto_cupon_monto">Tienes un descuent exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                </div>
+                                <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <!--SB20-483 - INICIO -->
@@ -350,8 +355,8 @@
                             
                             if (ViewBag.TipoUsuario == 2)
                             {
-                                tooltip1 = "Por el momento no podemos facturar tu pedido, te encuentras en una sesión de prueba";
-                                tooltip2 = "Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com y pasar tu pedido.";
+                                tooltip1 = "TE ENCUENTRAS UNA SESIÓN DE PRUEBA";
+                                tooltip2 = "Muy pronto podrás acceder a todos los beneficios de Somos Belcorp.";
                             }
                             else
                             {
@@ -526,7 +531,16 @@
     </div>
     <!--14092016 - FIN -->
 
+
+
+
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
+
+        <div id="contenedorCupon" class="content_cupon_pedido">
+            Tienes un descuento exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+        </div>
+        <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
@@ -976,6 +990,10 @@
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1161,6 +1179,8 @@
                 </div>
             </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
+
+            
 
     <!--TAPS-->
             <div class="tapsPedidos"></div>
@@ -1432,7 +1452,7 @@
                 {{/each}}
             </script>
         }
-
+        
         <script id="js-CarruselSugerido" type="text/x-handlebars-template">
             {{#each this}}
             <div class="sugerido" data-item="producto">
@@ -1655,18 +1675,20 @@
                     <div class="texto_stock" style="color:black;"><b>Te entregaremos el producto en la siguiente campaña.</b></div>
                 </div>
                 {{else}}
+
                 <div class="stock_content">
                     <div class="texto_stock" style="margin-top: 10PX;width:60%">No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña?</div>
                     <div class="text_stock" style="margin-top:10px;float:left;width:35%;margin-left:35px;">
 
                         <a class="btn_no_stock" style="font-size:9px;float:left;margin-left:9px;" onclick="DeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', '{{EsBackOrder}}');">NO, GRACIAS</a>
 
-                        <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;"  onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
-                        
-                        
+                        <a class="btn_si_stock" style="float:right;height:35px;line-height:39px;" onclick="AceptarBackOrder('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{ClienteID_}}');" href="javascript:;">¡SI, POR FAVOR!</a>
+
+
                     </div>
                     <hr class="clear" />
                 </div>
+
                 {{/if}}
                 {{/if}}
             </div>
@@ -2307,6 +2329,7 @@
         </div>
         <hr class="clear" />
     </div>
+   
 </script>
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2352,7 +2375,12 @@
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
-
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 11;
+                var esEmailActivo = '@Model.EmailActivo';
+                var baseUrl = "@Url.Content("~")";
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

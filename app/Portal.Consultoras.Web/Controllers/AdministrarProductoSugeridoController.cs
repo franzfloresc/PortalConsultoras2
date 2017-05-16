@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenerImagenesByCUV(int paisID, int campaniaID, string cuv)
+        public JsonResult ObtenerMatriz(int paisID, int campaniaID, string cuv)
         {
             BEPais pais = new BEPais();
             int nroCampanias = -1;
@@ -224,33 +224,47 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if(nroCampanias == -1) return Json(new { success = false, message = "Ocurrió un error al intentar cargar las imágenes del CUV" }, JsonRequestBehavior.AllowGet);
 
-            List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            BEMatrizComercial matriz = null;
+            List<BEMatrizComercialImagen> imagenes = null;
+            using (var sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagenesByCUV(paisID, campaniaID, cuv).ToList();
+                matriz = sv.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
+                if(matriz != null && matriz.IdMatrizComercial!=0)
+                {
+                    imagenes = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, matriz.IdMatrizComercial, 1, 10).ToList();
+                }
             }
 
-            List<MatrizComercialResultadoModel> modelList = Mapper.Map<List<MatrizComercialResultadoModel>>(lst);
-            if (modelList != null && modelList.Count > 0)
-            {
-                string carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
-                string carpetaAnterior = Globals.RutaImagenesMatriz + "/" + pais.CodigoISO;
+            MatrizComercialResultadoModel model = null;
 
-                modelList[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto01, carpetaAnterior);
-                modelList[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto02, carpetaAnterior);
-                modelList[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto03, carpetaAnterior);
-                modelList[0].FotoProducto04 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto04, carpetaAnterior);
-                modelList[0].FotoProducto05 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto05, carpetaAnterior);
-                modelList[0].FotoProducto06 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto06, carpetaAnterior);
-                modelList[0].FotoProducto07 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto07, carpetaAnterior);
-                modelList[0].FotoProducto08 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto08, carpetaAnterior);
-                modelList[0].FotoProducto09 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto09, carpetaAnterior);
-                modelList[0].FotoProducto10 = ConfigS3.GetUrlFileS3(carpetaPais, modelList[0].FotoProducto10, carpetaAnterior);
+            int totalImagenes = 0;
+            if(matriz != null)
+            {
+                model = Mapper.Map<MatrizComercialResultadoModel>(matriz);
+
+                if(imagenes != null)
+                {
+                    var carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
+                    var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+                    Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
+                        .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
+
+                    model.Imagenes = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(imagenes);
+                    totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
+                }else
+                {
+                    model.Imagenes = new List<MatrizComercialImagen>();
+                }
+
+                int nroCampaniasAtras = 0;
+                Int32.TryParse(ConfigurationManager.AppSettings["ProductoSugeridoAppCatalogosNroCampaniasAtras"] ?? "", out nroCampaniasAtras);
+                if (nroCampaniasAtras <= 0) nroCampaniasAtras = 3;
 
                 string paisesCCC = ConfigurationManager.AppSettings["Permisos_CCC"] ?? "";
-                if(paisesCCC.Contains(pais.CodigoISO)) modelList[0].FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, lst[0].CodigoSAP, 3, nroCampanias);
+                if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
-            return Json(new { success = true, lista = modelList }, JsonRequestBehavior.AllowGet);
+            return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -381,21 +395,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int intentos, int nroCampanias)
+        private string ImagenAppCatalogo(int campaniaID, string codigoSAP, int nroCampaniasAtras)
         {
-            int campanaAppCatalogo;
+            Producto[] arrayProducto = null;
             using (ProductoServiceClient sv = new ProductoServiceClient())
             {
-                for (int i = 0; i < intentos; i++)
-                {
-                    campanaAppCatalogo = AddCampaniaAndNumero(campaniaID, -i, nroCampanias);
-                    var arrayProducto = sv.ObtenerProductosByCodigoSap(userData.CodigoISO, campanaAppCatalogo, codigoSAP);
-
-                    if (arrayProducto == null || arrayProducto.Length == 0) continue;
-                    if (!string.IsNullOrEmpty(arrayProducto[0].Imagen)) return arrayProducto[0].Imagen;
-                }
+                arrayProducto = sv.ObtenerProductosPorCampaniasBySap(userData.CodigoISO, campaniaID, codigoSAP, nroCampaniasAtras);                
             }
-            return null;
+            if (arrayProducto == null || arrayProducto.Length == 0) return null;
+            return arrayProducto[0].Imagen;
         }
     }
 }

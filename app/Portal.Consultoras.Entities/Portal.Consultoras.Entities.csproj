@@ -59,7 +59,9 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
@@ -171,6 +173,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />

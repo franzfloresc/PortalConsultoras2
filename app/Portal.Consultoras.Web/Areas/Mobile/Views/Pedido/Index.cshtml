@@ -209,6 +209,12 @@
 
     <!--INICIO CARRUSEL-->
     <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+        <div class="row" id="contenedorCupon">
+            <div class="label_cupon">
+                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
+                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+            </div>
+        </div>
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
             <div class="texto_exclusivo">
@@ -662,6 +668,10 @@
     </div>
 </script>
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -708,10 +718,16 @@
     var vbSimbolo = simbolo;
     var productoSugerido = false
     var productoAgotado = false;
-        
+    var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon  = 21;
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
     var tipoOrigenEstrategia = 21;
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
     </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

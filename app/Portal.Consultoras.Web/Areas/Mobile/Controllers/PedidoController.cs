@@ -109,7 +109,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+
+            ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
 
             return View(model);
         }
@@ -295,12 +303,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             if (beConfiguracionCampania != null)
             {
-                if (userData.EstadoPedido == Constantes.EstadoPedido.Procesado && !beConfiguracionCampania.ValidacionAbierta )
-                {
-                     userData.CerrarRechazado = 1;
-                     userData.MostrarBannerRechazo = false;
-                     SetUserData(userData);
-                }
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }

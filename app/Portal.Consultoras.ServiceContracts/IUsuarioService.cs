@@ -321,5 +321,8 @@ namespace Portal.Consultoras.ServiceContracts
          * */
        
         /*EPD-1837*/
+
+        [OperationContract]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
     }
 }
