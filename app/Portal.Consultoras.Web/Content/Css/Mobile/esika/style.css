@@ -8501,7 +8501,8 @@ span.title-app-b {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 77px;
     /*display: none;*/
@@ -8533,7 +8534,8 @@ span.title-app-b {
     font-family:'Lato';
     font-size:10px;
     text-align:center;
-    color:#FFF;
+    /*color:#FFF;*/
+    color: black;
     margin-left:-9px;
 }
 
@@ -8555,7 +8557,9 @@ span.title-app-b {
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
+    font-weight: bold;
     font-family: 'Lato';
     line-height:19px;
 }

@@ -213,8 +213,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FlgEnvio", DbType.Int16, 0);
             Context.Database.AddInParameter(command, "@ConsecutivoNueva", DbType.Int16, -1);
             Context.Database.AddInParameter(command, "@EstadoEnvio", DbType.Int16, 1);
-            Context.Database.AddInParameter(command, "@EsPostulante", DbType.Int16, entidad.EsPostulante);
-            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, entidad.CodigoUsuario);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -738,5 +736,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1837*/
+
+        public int UpdatePostulanteMensajes(string CodigoUsuario, int tipo)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdatePostulanteMensajes");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@Tipo", DbType.AnsiString, tipo);
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+        
+        //EPD-2539
+        public int UpdFlagEnvioCorreo(string pCodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlagEnvioCorreo");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, pCodigoUsuario);
+
+            return Context.ExecuteNonQuery(command);
+        }
     }
 }
