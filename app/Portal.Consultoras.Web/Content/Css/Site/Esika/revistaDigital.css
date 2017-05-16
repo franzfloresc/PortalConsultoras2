@@ -818,7 +818,7 @@
 
 .cabecera_esikaParaMi {
     background: #000;
-    margin-top: 62px;
+    /*margin-top: 62px;*/
     height: 165px;
     padding: 40px 10px;
     z-index:3;

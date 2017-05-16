@@ -280,8 +280,8 @@
             <div class="ubicacion_web @(controllerAction == "BienvenidaIndex"
                             || controllerAction == "ShowRoomIndex"
                             || controllerAction == "ShowRoomIntriga"
-                            || controllerAction == "SuscripcionRDIndex"
-                            || controllerAction == "RevistaDigitalIndex" ? "oculto" : "")">
+                            || controllerAction == "RevistaDigitalIndex"
+                            || controllerAction == "RevistaDigitalInscripcion" ? "oculto" : "")">
                 <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
             </div>
         </div>
@@ -634,6 +634,9 @@
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
         var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         var DesktopHomeBanners = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeBanners;
         var DesktopHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;

@@ -1,4 +1,10 @@
-﻿function RDSuscripcion() {
+﻿
+$(document).ready(function () {
+    $("[data-campania1]").html(campaniaNro + 1);
+    $("[data-campania2]").html(campaniaNro + 2);
+});
+
+function RDSuscripcion() {
     AbrirLoad();
     $.ajax({
         type: 'GET',
