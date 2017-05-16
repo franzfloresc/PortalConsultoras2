@@ -62,6 +62,12 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+
+        public ActionResult Inscripcion()
+        {
+            return View();
+        }
+
         private bool RevistaDigitalValidar(out string respuesta)
         {
             var activo = true;
@@ -75,7 +81,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return activo;
         }
-
 
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
@@ -147,11 +152,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.Limite > 0)
                     listaFinal = listaFinal.Take(model.Limite).ToList();
-                
+
+                var cont = 0;
                 listaFinal.Update(s =>
                 {
                     s.ID = s.EstrategiaID;
-                    s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, IsMobile() ? 30 : 40);
+                    s.ImagenURL = "";
                     if (s.FlagMostrarImg == 1)
                     {
                         if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
@@ -167,10 +173,8 @@ namespace Portal.Consultoras.Web.Controllers
                             s.ImagenURL = "";
                         }
                     }
-                    else
-                    {
-                        s.ImagenURL = "";
-                    }
+                    s.FotoProducto01 = "/Content/Images/RevistaDigital/prod" + cont + ".png";
+                    cont++;
                 });
 
                 int cantidad = listaFinal.Count;

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+@section styles{
+    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
+}
+
+<div class="contenedor_cabecera_revistaDigital cabecera_vistaRevistaSuscripcion">
+    <div class="fondo_franja"></div>
+    <div class="linea-negra"></div>
+    <div class="contenedor_contenido_cabecera">
+        <div class="cabecera_contenedor_logoMarca">
+            <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+        </div>
+        <div class="cabecera_texto">@(ViewBag.UsuarioNombre.ToUpper()), LLEG&Oacute; TU<br />NUEVA REVISTA ONLINE<br />PERSONALIZADA</div>
+    </div>
+</div>
+<div class="texto_ofertas_bonificaciones texto_vistaRevistaSuscripcion">
+    <span>APROVECHA LOS BENEFICIOS REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE</span>
+</div>
+
+<div class="contenido_esikaParaMi">
+    <div class="contenido_comoFuncionaEsikaParaMi">
+        <h4>¿C&Oacute;MO FUNCIONA &Eacute;SIKA PARA M&Iacute;?</h4>
+        <div class="contenido_pasos_comoFunciona">
+            <span>1</span>
+            <span><b>Te inscribes</b> a &Eacute;sika para m&iacute; en esta campaña.</span>
+        </div>
+        <div class="contenido_pasos_comoFunciona">
+            <span>2</span>
+            <span>En la C-11 podr&aacute;s <b>ver todas tus ofertas.</b></span>
+        </div>
+        <div class="contenido_pasos_comoFunciona">
+            <span>3</span>
+            <span>En <b>C-12 podr&aacute;s comprar</b> tus ofertas de &Eacute;sika para m&iacute;.</span>
+        </div>
+    </div>
+    <div class="contenido_comoFuncionaEsikaParaMi fondoContenido">
+        <h4>SER&Aacute; UN &Eacute;XITO</h4>
+        <div class="contenido_beneficiosEsikaParaMi">
+            <span>GANA +</span>
+            <span>Hasta 65% dscto todas las campañas.</span>
+        </div>
+        <div class="contenido_beneficiosEsikaParaMi">
+            <span>VENDE +</span>
+            <span>Encuentra los productos que tus clientes siempre te piden.</span>
+        </div>
+        <div class="contenido_beneficiosEsikaParaMi">
+            <span>+ PUNTOS</span>
+            <span>Todos los productos que compras en &Eacute;sika para m&iacute; suman puntos.</span>
+        </div>
+    </div>
+</div>
+<div class="contenido_desenfocado">
+    <div class="fondo_sobreContenidoDesenfocado">
+        <div class="contenido_fondoDesenfocado">
+            <span>OFERTAS DISPONIBLES CON TU INSCRIPCI&Oacute;N</span>
+            <span>Inscribete a &Eacute;sika para m&iacute; y accede a ofertas, bonificaciones, y lanzamientos de las 3 marcas.</span>
+            <button type="button" onclick="RDSuscripcion()">INSCRIBIRME A &Eacute;SIKA PARA M&Iacute;</button>
+            <span>Al inscribirte estas aceptando los <a href="#" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a> y recibir&aacute;s tu Revista &uacute;nicamente por v&iacute;a online, en campaña 12</span>
+        </div>
+    </div>
+    <div class="grupo_imagenes_carrusel_desenfocadas">
+        <img src="@Url.Content("~/Content/Images/img-carrusel-mobile.png")" alt="Carrusel" />
+    </div>
+</div>
+
+@section scripts{
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    }

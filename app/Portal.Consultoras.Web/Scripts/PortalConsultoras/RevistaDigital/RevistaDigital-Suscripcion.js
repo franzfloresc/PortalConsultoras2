@@ -10,14 +10,15 @@
             if (!checkTimeout(data))
                 return false;
 
-            AbrirMensaje(data.message);
             if (data.success == true) {
-                PopupCerrar("PopRDSuscripcion");
+                CerrarPopup("#PopRDSuscripcion");
+                $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
+                AbrirPopup("#PopRDInscrita");
             }
         },
         error: function (data, error) {
             CerrarLoad();
-            PopupCerrar("PopRDSuscripcion");
+            CerrarPopup("#PopRDSuscripcion");
         }
     });
 }
@@ -27,7 +28,7 @@ function RDDesuscripcion() {
 }
 
 function RDPopupNoVolverMostrar() {
-    PopupCerrar("PopRDSuscripcion");
+    CerrarPopup("#PopRDSuscripcion");
     AbrirLoad();
     $.ajax({
         type: 'GET',
@@ -43,3 +44,17 @@ function RDPopupNoVolverMostrar() {
     });
 }
 
+function RDInformacion() {
+    location.href = urlInformacionSuscripcion;
+}
+
+function RDSuscripcionRedireccionar() {
+    var url = location.href + "/";
+    url = url.toUpperCase();
+    if (url.indexOf("/BIENVENIDA/") < 0) {
+        window.location = "/";
+    }
+    else {
+        CerrarPopup("#PopRDInscrita");
+    }
+}

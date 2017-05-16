@@ -136,19 +136,7 @@ $(document).ready(function () {
         draggable: true,
         buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
-
-    $('#alertDialogMensajesHome').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons: { "Aceptar": function() {
-            location.href = "/";
-        } }
-    });
-
+    
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
