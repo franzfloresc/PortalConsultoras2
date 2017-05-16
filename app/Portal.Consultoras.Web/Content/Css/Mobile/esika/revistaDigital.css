@@ -891,3 +891,53 @@ div#tab_revistasdigital_mobile {
     letter-spacing: 0.4px;
     color:#FFF;
 }
+
+.logo_EPT_content{
+    width: 35%;
+    height: 112px;
+    text-align:right;
+    padding-right:20px;
+    float: left;
+    position: relative;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+    padding-top:15px;
+}
+.logo_EPT_content img{
+   width: auto;
+    height: 65px;
+}
+.texto_usuario_ept {
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    float: left;
+    width: 65%;
+    background: black;
+    height: 112px;
+    font-size: 14px;
+    padding-top: 25px;
+    padding-left: 17px;
+    padding-right: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+.texto_usuario_ept:before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0;
+    z-index: 102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 112px 20px;
+    border-color: transparent transparent #000000 transparent;
+}

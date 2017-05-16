@@ -1,7 +1,24 @@
 ﻿
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model BienvenidaModel
+
 @{
-    ViewBag.Title = "Index";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+    
 }
 
-<h2>Index</h2>
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
 
+<div class="logo_EPT_content"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
+<div class="texto_usuario_ept">
+    YULIANA, DESCUBRE Tu NUEVA REVISTA ONLINE personalizada
+    
+</div>
