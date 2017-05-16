@@ -4,7 +4,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -19,7 +19,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -34,7 +34,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -49,7 +49,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -64,7 +64,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -79,7 +79,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -94,7 +94,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -109,7 +109,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -124,7 +124,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -139,7 +139,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -154,7 +154,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -169,7 +169,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
@@ -184,7 +184,7 @@ GO
 IF NOT EXISTS (select  * from MenuMobile where MenuMobileID  = 1039)
    BEGIN
       INSERT INTO MenuMobile 
-		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1,null)
+		VALUES(1039,'¿Necesitas ayuda?',0,9,'Mobile/Bienvenida/ChatBelcorp','~/Content/Images/mobile/img-icon/mobile_icon_campana.png',1,'Menu','Mobile',1)
 
    END
 
