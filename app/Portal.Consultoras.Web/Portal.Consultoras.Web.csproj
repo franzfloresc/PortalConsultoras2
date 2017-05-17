@@ -353,6 +353,7 @@
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilterProvider.cs" />
     <Compile Include="CustomHelpers\ConsultoraOnlineHelper.cs" />
+    <Compile Include="CustomHelpers\UploadHelper.cs" />
     <Compile Include="GestionPasos\AsignacionFactory.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
@@ -385,6 +386,7 @@
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\FileNameFormat.cs" />
     <Compile Include="Models\EventoPostulanteModel.cs" />
     <Compile Include="Models\HistorialPostulanteModel.cs" />
     <Compile Include="Models\MatrizComercialResultadoModel.cs" />
@@ -497,6 +499,7 @@
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
+    <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
@@ -598,11 +601,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceProductoCatalogoPersonalizado\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\ServiceRevistaDigital\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -2884,6 +2882,10 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
+    <Content Include="Scripts\AdminContenido\Estrategia.js" />
+    <Content Include="Scripts\AdminContenido\Paginador.js" />
+    <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
@@ -2920,6 +2922,7 @@
     <Content Include="Scripts\jquery.custom-scrollbar.min.js" />
     <Content Include="Scripts\jquery.easy-pie-chart.js" />
     <Content Include="Scripts\jquery.maskedinput.min.js" />
+    <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -3342,6 +3345,9 @@
     <None Include="Service References\ServicePedido\PedidoService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
       <SubType>Designer</SubType>
@@ -3368,13 +3374,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService.disco" />
-    <None Include="Service References\ServiceRevistaDigital\configuration91.svcinfo" />
-    <None Include="Service References\ServiceRevistaDigital\configuration.svcinfo" />
-    <None Include="Service References\ServiceRevistaDigital\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Service References\ServiceSAC\SACService.disco" />
     <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
@@ -3384,19 +3383,6 @@
     </Content>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <Content Include="Service References\ServiceSAC\SACService.wsdl" />
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService.wsdl" />
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceRevistaDigital\RevistaDigitalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3699,6 +3685,7 @@
     <Content Include="Content\Template\mailing_detalle_codigo_operacion_trueque.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\AdminContenido\MatrizComercial.js" />
     <Content Include="Views\Unete\ReporteConsolidado.cshtml" />
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
@@ -3956,6 +3943,10 @@
     <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
     <Content Include="Views\Bienvenida\template-opt.cshtml" />
+    <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
+    <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
+    <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
+    <Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
@@ -4375,7 +4366,6 @@
     <WCFMetadataStorage Include="Service References\ServicePedidoRechazado\" />
     <WCFMetadataStorage Include="Service References\ServicePedido\" />
     <WCFMetadataStorage Include="Service References\ServiceProductoCatalogoPersonalizado\" />
-    <WCFMetadataStorage Include="Service References\ServiceRevistaDigital\" />
     <WCFMetadataStorage Include="Service References\ServiceSAC\" />
     <WCFMetadataStorage Include="Service References\ServiceSeguridad\" />
     <WCFMetadataStorage Include="Service References\ServiceUnete\" />
@@ -4402,7 +4392,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

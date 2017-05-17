@@ -103,7 +103,6 @@
     <Content Include="ConsultoraWebService.svc" />
     <Content Include="ContenidoService.svc" />
     <Content Include="ODSService.svc" />
-    <Content Include="RevistaDigitalService.svc" />
     <Content Include="PedidoService.svc" />
     <Content Include="SACService.svc" />
     <Content Include="SeguridadService.svc" />

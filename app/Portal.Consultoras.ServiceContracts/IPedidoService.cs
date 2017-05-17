@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -191,10 +192,22 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdMatrizComercial(BEMatrizComercial entity);
 
         [OperationContract]
+        int InsMatrizComercialImagen(BEMatrizComercialImagen entity);
+
+        [OperationContract]
+        int UpdMatrizComercialImagen(BEMatrizComercialImagen entity);
+
+        [OperationContract]
         IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
+
+        [OperationContract]
+        IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
+
+        [OperationContract]
+        IList<BEMatrizComercialImagen> GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros);
 
         [OperationContract]
         int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro);
@@ -611,6 +624,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
         [OperationContract]
+        BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID);
+
+        [OperationContract]
         List<BETallaColor> GetTallaColor(BETallaColor entidad);
 
         [OperationContract]
@@ -624,6 +640,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
+
+        [OperationContract]
+        List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros);
 
         [OperationContract]
         int DeshabilitarEstrategia(BEEstrategia entidad);
@@ -922,7 +941,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
 
         [OperationContract]
-        IList<BEMatrizComercial> GetImagenesByCUV(int PaisID, int campaniaID, string cuv);
+        BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
         string InsProductoSugerido(int PaisID, BEProductoSugerido entidad);
@@ -1035,5 +1054,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
     }
 }

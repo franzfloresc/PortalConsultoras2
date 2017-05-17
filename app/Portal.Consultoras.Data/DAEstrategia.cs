@@ -29,11 +29,38 @@ namespace Portal.Consultoras.Data
             }
         }
 
+
+        public IDataReader GetEstrategiaDetalle(int idEstrategiaDetalle)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, idEstrategiaDetalle);
+                return Context.ExecuteReader(command);
+            }
+        }
+
         public IDataReader FiltrarEstrategia(BEEstrategia entidad)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.FiltrarEstrategia"))
             {
                 Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);              
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int numeroPagina, int registros)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByEstrategiaMatrizComercialImagen"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@TipoEstrategiaID", DbType.Int32, entidad.TipoEstrategiaID);
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
+                Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
                 return Context.ExecuteReader(command);
             }
         }
@@ -101,6 +128,28 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
                 Context.Database.AddInParameter(command, "@TieneVariedad", DbType.Int32, entidad.TieneVariedad);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 1000);
+                Context.ExecuteNonQuery(command);
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+            }
+            return result;
+        }
+
+        public int InsertEstrategiaDetalle(BEEstrategiaDetalle entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarEstrategiaDetalle"))
+            {
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@ImgFondoDesktop", DbType.String, entidad.ImgFondoDesktop);
+                Context.Database.AddInParameter(command, "@ImgPrevDesktop", DbType.String, entidad.ImgPrevDesktop);
+                Context.Database.AddInParameter(command, "@ImgFichaDesktop", DbType.String, entidad.ImgFichaDesktop);
+                Context.Database.AddInParameter(command, "@UrlVideoDesktop", DbType.String, entidad.UrlVideoDesktop);
+                Context.Database.AddInParameter(command, "@ImgFondoMobile", DbType.String, entidad.ImgFondoMobile);
+                Context.Database.AddInParameter(command, "@ImgFichaMobile", DbType.String, entidad.ImgFichaMobile);
+                Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
+                Context.Database.AddInParameter(command, "@ImgFichaFondoDesktop", DbType.String, entidad.ImgFichaFondoDesktop);
+                Context.Database.AddInParameter(command, "@ImgFichaFondoMobile", DbType.String, entidad.ImgFichaFondoMobile);
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
             }
