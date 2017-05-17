@@ -1,6 +1,8 @@
 ﻿
 /* POPUP INSCRIPCIÓN A REVISTA DIGITAL MOBILE */
-
+body{
+    overflow-x:hidden;
+}
 .contenedor_popup_revistaSuscripcion {
     display: block;
     position: relative;
@@ -940,4 +942,105 @@ div#tab_revistasdigital_mobile {
     border-style: solid;
     border-width: 0 0 112px 20px;
     border-color: transparent transparent #000000 transparent;
+}
+.content_carrusel_landing{
+    width:85%;
+    margin: 0 auto;
+    padding-top:43px;
+    padding-bottom:20px;
+}
+.content_item_ept {
+    background: white;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    position: relative;
+    margin-bottom:20px;
+    padding:0;
+}
+.titulo_set_banner_ept{
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #FF1534;
+}
+.detalle_set_banner_ept{
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 13px;
+    /* color: #FF1534; */
+    font-weight: 700;
+    margin-top: 2px;
+}
+.btn_mas_info_set{
+   
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    display: block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+.etiqueta_nuevo_ept{
+        position: absolute;
+    top: 0;
+    left: 0;
+}
+.content_set_imagen_banner{
+    text-align: center;
+    margin-top: 34px;
+    height: 111px;
+}
+.content_set_imagen_banner img{
+    width:auto;
+    height:106px;
+}
+.slick-slider{
+    margin-top:0;
+    
+}
+.subtitulo_landing{
+    width:200px;
+    background:#D6251F;
+    font-family:'LAto';
+    font-size:17px;
+    height:45px;
+    line-height:45px;
+    color:white;
+    padding-left:15px;
+    font-weight:700;
+    letter-spacing:2px;
+    position:relative;
+    margin-top:30px;
+}
+.subtitulo_landing:after{
+    content:'';
+    position:absolute;
+    right:-20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 45px 20px 0 0;
+    border-color: #d6251f transparent transparent transparent;
+}
+.buscar_producto_landing{
+     font-family: 'lato';
+    font-size: 13px;
+    font-weight: 700;
+    width: 60%;
+    margin-right: 2%;
+    height: 45px;
+    padding: 6px 30px 6px 14px;
+    /* display: inline-block; */
+    /* border-radius: 0; */
+    /* -webkit-appearance: none; */
+    border: 1px solid #ccc;
+    float: left;
+    margin-bottom: 18px;
+    display:block;
 }
