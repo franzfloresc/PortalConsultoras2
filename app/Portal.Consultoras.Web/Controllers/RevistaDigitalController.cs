@@ -41,15 +41,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ListaProducto = listaProducto;
                     model.ListaProducto.Update(p => p.ImgFondoDesktop = "/Content/Images/RevistaDigital/lan-fondo.png");
                 }
-                model.ListaProducto.Update(p => {
-                    p.ImgFondoDesktop = Util.Trim(p.ImgFondoDesktop);
-                    p.ImgPrevDesktop = Util.Trim(p.ImgPrevDesktop);
-                    p.ImgFichaDesktop = Util.Trim(p.ImgFichaDesktop);
-                    p.UrlVideoDesktop = Util.Trim(p.UrlVideoDesktop);
-                    p.ImgFondoMobile = Util.Trim(p.ImgFondoMobile);
-                    p.ImgFichaMobile = Util.Trim(p.ImgFichaMobile);
-                    p.UrlVideoMobile = Util.Trim(p.UrlVideoMobile);
-                });
 
                 return View(model);
             }
@@ -61,6 +52,20 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+
+        public ActionResult Detalle()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
 
         public ActionResult Inscripcion()
         {
@@ -188,6 +193,57 @@ namespace Portal.Consultoras.Web.Controllers
                     lista = listaFinal,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidad
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult GetProductoDetalle(BusquedaProductoModel model)
+        {
+            try
+            {
+                var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
+
+                var cont = 0;
+                listaFinal.Update(s =>
+                {
+                    s.ID = s.EstrategiaID;
+                    s.ImagenURL = "";
+                    if (s.FlagMostrarImg == 1)
+                    {
+                        if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            if (s.FlagEstrella == 1)
+                            {
+                                s.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
+                            }
+                        }
+                        else if (!(s.TipoEstrategiaImagenMostrar == @Constantes.TipoEstrategia.PackNuevas
+                            || s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
+                        {
+                            s.ImagenURL = "";
+                        }
+                    }
+                    s.FotoProducto01 = "/Content/Images/RevistaDigital/prod" + cont + ".png";
+                    cont++;
+                });
+                
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    lista = listaFinal[0]
                 });
             }
             catch (Exception ex)

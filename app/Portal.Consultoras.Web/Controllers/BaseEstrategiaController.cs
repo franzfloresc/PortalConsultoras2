@@ -344,8 +344,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 estrategia.UrlCompartirFB = GetUrlCompartirFB();
+                estrategia.ImgFondoDesktop = Util.Trim(estrategia.ImgFondoDesktop);
+                estrategia.ImgPrevDesktop = Util.Trim(estrategia.ImgPrevDesktop);
+                estrategia.ImgFichaDesktop = Util.Trim(estrategia.ImgFichaDesktop);
+                estrategia.UrlVideoDesktop = Util.Trim(estrategia.UrlVideoDesktop);
+                estrategia.ImgFondoMobile = Util.Trim(estrategia.ImgFondoMobile);
+                estrategia.ImgFichaMobile = Util.Trim(estrategia.ImgFichaMobile);
+                estrategia.UrlVideoMobile = Util.Trim(estrategia.UrlVideoMobile);
             });
-
+            
             return ListaProductoModel;
         }
     }
