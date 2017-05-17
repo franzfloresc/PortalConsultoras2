@@ -17,8 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                    return RedirectToAction("Index", "Bienvenida");
+                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                //    return RedirectToAction("Index", "Bienvenida");
 
                 var model = new RevistaDigitalModel();
                 model.NombreUsuario = userData.UsuarioNombre.ToUpper();
@@ -94,17 +94,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
+                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = "",
+                //        lista = new List<ShowRoomOfertaModel>(),
+                //        cantidadTotal = 0,
+                //        cantidad = 0
+                //    });
+                //}
 
                 var listaFinal = new List<EstrategiaPedidoModel>();
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;

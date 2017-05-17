@@ -12,8 +12,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                return RedirectToAction("Index", "Bienvenida");
+            //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            //    return RedirectToAction("Index", "Bienvenida");
 
             var model = new RevistaDigitalModel();
             model.NombreUsuario = userData.UsuarioNombre.ToUpper();
@@ -57,6 +57,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View();
         }
-        
+        public ActionResult DetalleProducto()
+        {
+            return View();
+        }
+
     }
 }

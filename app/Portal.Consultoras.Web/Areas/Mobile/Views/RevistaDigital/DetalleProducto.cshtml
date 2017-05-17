@@ -1,0 +1,35 @@
+﻿
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+<div class="content_detalle_set_bpt_general">
+    <div class="content_detalle_set_bpt">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/bg_detalle.png")" />
+    </div>
+    <div class="content_imagen_principal_bpt">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/KADIA.png")" />
+    </div>
+    <div class="wrapper_resumen_mobile">
+        <div class="nombre_producto_bpt">KADIA SPORT</div>
+        <div class="info-set_bpt">CONOCE POR QUÉ KADIA SPORT SERÁ GANADORA</div>
+        <div class="content_descripcion_bpt">
+            <b>1</b> Es la primera fragancia femenida de la exitosa línea kalos<br/>
+            <b>2</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
+            <b>3</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
+            <b>4</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
+        </div>
+    </div>
+</div>
