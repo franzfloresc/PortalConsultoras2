@@ -62,7 +62,9 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
-     <Compile Include="BEConsultoraEmail.cs" />
+    <Compile Include="BEEstrategiaDetalle.cs" />
+    <Compile Include="BEMatrizComercialImagen.cs" />
+    <Compile Include="BEConsultoraEmail.cs" />
     <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 
@@ -30,6 +31,20 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
+            var DAEstrategia = new DAEstrategia(paisID);
+            using (IDataReader reader = DAEstrategia.GetEstrategiaDetalle(estrategiaID))
+            {
+                if (reader.Read())
+                {
+                    estrategiaDetalle = new BEEstrategiaDetalle(reader);
+                }
+            }
+            return estrategiaDetalle;
+        }
+
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
         {
             try
@@ -41,13 +56,46 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
+
                         listaEstrategias.Add(new BEEstrategia(reader));
                     }
+                }
+                foreach (var estrategia in listaEstrategias)
+                {
+                    var estrategiaDetalle = GetEstrategiaDetalle(entidad.PaisID, estrategia.EstrategiaID);
+                    estrategia.ImgFondoDesktop = estrategiaDetalle.ImgFondoDesktop;
+                    estrategia.ImgPrevDesktop = estrategiaDetalle.ImgPrevDesktop;
+                    estrategia.ImgFichaDesktop = estrategiaDetalle.ImgFichaDesktop;
+                    estrategia.UrlVideoDesktop = estrategiaDetalle.UrlVideoDesktop;
+                    estrategia.ImgFondoMobile = estrategiaDetalle.ImgFondoMobile;
+                    estrategia.ImgFichaMobile = estrategiaDetalle.ImgFichaMobile;
+                    estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
+                    estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
+                    estrategia.ImgFichaFondoMobile = estrategiaDetalle.ImgFichaFondoMobile;
                 }
                 return listaEstrategias;
             }
             catch (Exception) { throw; }
         }
+
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            try
+            {
+                List<BEMatrizComercialImagen> listaImagenes = new List<BEMatrizComercialImagen>();
+
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = DAEstrategia.GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros))
+                {
+                    while (reader.Read())
+                    {
+                        listaImagenes.Add(new BEMatrizComercialImagen(reader));
+                    }
+                }
+                return listaImagenes;
+            }
+            catch (Exception) { throw; }
+        } 
 
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
@@ -103,9 +151,19 @@ namespace Portal.Consultoras.BizLogic
             {
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
                 int result = DAEstrategia.InsertEstrategia(entidad);
+                // Solo para estrategia de lanzamiento se agrega el detalle de estrategia.
+                if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                {
+                    BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
+                    estrategiaDetalle.EstrategiaID = result;
+                    DAEstrategia.InsertEstrategiaDetalle(estrategiaDetalle);
+                }
                 return result;
             }
-            catch (Exception) { throw; }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public int DeshabilitarEstrategia(BEEstrategia entidad)

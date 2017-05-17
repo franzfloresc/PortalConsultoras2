@@ -1,0 +1,423 @@
+﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
+@{
+    ViewBag.Title = "Administración de Estrategias";
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+
+<div id="DialogAdministracionEstrategia" style="display: none;">
+    <input type="hidden" id="hdPais" value="" />
+    <input type="hidden" id="hdCampania" value="" />
+    <input type="hidden" id="hdTipoEstrategiaID" value="" />
+    <input type="hidden" id="hdColorFondo" value="#FFF" />
+    <input type="hidden" id="hdCodigoPrograma" value="">
+    <input type="hidden" id="hdNumeroPedido" value="">
+    <div class="Content_modal">
+
+        <div class="div-3">
+            <div class="titG">Campaña:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanCampania" type="text" readonly="readonly" />
+            </div>
+            <div class="titG">Tipo de Estrategia:</div>
+            <div class="selectP2 borde_redondeado">
+                <input id="spanTipoEstrategia" type="text" readonly="readonly" />
+            </div>
+        </div>
+
+        <div class="div-3 DatosNuevas" style="display: none">
+            <div class="titG">Campaña fin:</div>
+            <div class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaFin" })
+            </div>
+            <div class="titG">Pedido Asociado:</div>
+            <div class="checksPedidosAsociados">
+            </div>
+        </div>
+        <div class="div-3 Content_modal" style="margin-left: 12px; width: 92%; padding-top: 10px; padding-bottom: 0;">
+            <div style="color: white;">
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
+                    Información CUV Oferta
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
+                    Precio Valorizado
+                </div>
+            </div>
+            <div>
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <div style="display: inline-block;">CUV2:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block; padding-left: 40px;">Precio para ti:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px;">
+                    <div style="display: inline-block;">CUV:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
+                    </div>
+                    <div style="display: inline-block;">Precio:</div>
+                    <div style="display: inline-block;">
+                        <input type="text" id="txtPrecio" style="width: 60px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Descripción:</div>
+            <div class="titG">
+                <input type="text" id="txtDescripcion" style="width: 520px;" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Talla/Color:</div>
+            <div class="titG" style="width: auto;">
+                <a href="#" style="margin-left: 5px" id="linkTallaColor">
+                    <img src='@Url.Content("~/Content/Images/icons/small/list-icon2.png")' border="0" alt="Agregar Tonos/Tallas/Colores" title="Agregar Tonos/Tallas/Colores" />
+                </a>
+            </div>
+            <div class="titG">¿Activar Oferta?</div>
+            <div class="selectCheck borde_redondeado">
+                <input type="checkbox" class="check" id="chkHabilitarOferta" style="margin-top: 2px; margin-left: 15px;" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">
+                <span>Imagen Seleccionada:</span>
+            </div>
+            <div class="titG">
+                <div class="pdr_modal borde_redondeado alignrigth">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
+                </div>
+            </div>
+        </div>
+
+        <!--SECCION PARA CARRUSEL DE LANZAMIENTOS -->
+        <div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+            <div style="color: white;">
+                <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                    VISUALES  DE LA SECCIÓN  LANZAMIENTOS
+                </div>
+            </div>
+            <div>
+                <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <h4>Carrusel Desktop</h4>
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-fondo-desktop" />
+                        <label style="width: 130px; display: inline-block;">Imagen Fondo: </label>
+                        <div id="img-fondo-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-prev-desktop" />
+                        <label style="width: 130px; display: inline-block;">Imagen Previsualizar: </label>
+                        <div id="img-prev-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-prev-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
+                    <h4>Carrusel Mobile</h4>
+                    <div style="display: inline-block; width: 100%">
+                        <input type="hidden" id="nombre-img-fondo-mobile" />
+                        <label style="width: 130px; display: inline-block;">Imagen Fondo: </label>
+                        <div id="img-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear-fix"></div>
+            <div>
+                <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <h4>Ficha Desktop</h4>
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-ficha-fondo-desktop" />
+                        <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
+                        <div id="img-ficha-fondo-desktop" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-ficha-desktop" />
+                        <label style="width: 130px; display: inline-block;">Sello: </label>
+                        <div id="img-ficha-desktop" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%;">
+                        <label style="width: 130px;display: inline-block;">URL Video: </label>
+                        <input type="text" id="url-video-desktop" />
+                    </div>
+                </div>
+                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
+                    <h4>Ficha Mobile</h4>
+                    <div style="display: inline-block; width: 100%">
+                        <input type="hidden" id="nombre-img-ficha-fondo-mobile" />
+                        <label style="width: 130px; display: inline-block;">Imagen de Fondo: </label>
+                        <div id="img-ficha-fondo-mobile" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%">
+                        <input type="hidden" id="nombre-img-ficha-mobile" />
+                        <label style="width: 130px; display: inline-block;">Sello: </label>
+                        <div id="img-ficha-mobile" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div style="display: inline-block; width: 100%;">
+                        <label style="width: 130px;display: inline-block;">URL Video: </label>
+                        <input type="text" id="url-video-mobile" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--FIN SECCION PARA CARRUSEL DE LANZAMIENTOS -->
+
+        <div class="Content_modal" style="margin-left: 10px; width: 94%; padding-top: 10px; padding-bottom: 0;">
+            <div class="div-3">
+                <div style="color: white;">
+                    <div id="divImagenEstrategia" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Imagen - Matriz Somos Belcorp
+                    </div>
+                    <div id="divInformacionAdicionalEstrategia" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                        Información Adicional
+                    </div>
+                </div>
+            </div>
+            <!--IMAGENES-->
+            <div id="divImagenEstrategiaContenido">
+                <div>
+                    <div id="matriz-imagenes-paginacion"></div>
+                </div>
+                <div class="actions">
+                    <div class="file-upload" id="file-upload"></div>
+                </div>
+                <div class="div-3">
+                    <div id="matriz-comercial-images" class="matriz-comercial-list matriz-comercial-zona-estrategia">
+                    </div>
+                </div>
+            </div>
+                <div id="divInformacionAdicionalEstrategiaContenido" style="display: none;">
+                    <div class="div-3">
+                        <div class="titG">Mensaje Adicional:</div>
+                        <div class="titE">
+                            <input type="text" id="txtTextoLibre" maxlength="100" style="width: 360px;" />
+                        </div>
+                    </div>
+                    <div class="div-3 OfertaUltimoMinuto">
+                        <div class="titH">Oferta de Último Minuto</div>
+                        <div class="selectCheck borde_redondeado">
+                            <input type="checkbox" class="check" id="chkOfertaUltimoMinuto" style="margin-top: 2px; margin-left: 15px;" />
+                        </div>
+                    </div>
+                    <div class="div-est-3 DatosNuevas" id="div-orden" style="display: none">
+                        <!--SB20-312 -->
+                        <div class="titB">&nbsp;</div>
+                        <div class="titB">Orden:</div>
+                        <div class="titB">
+                            <input type="text" id="txtOrden" value="" maxlength="3" />
+                        </div>
+                    </div>
+                    <div class="div-3">
+                        <div class="titG">Limite de Venta:</div>
+                        <div class="titAuto">
+                            <input type="text" id="txtLimite" value="99" style="width: 26px;" />
+                        </div>
+                        <div class="titE">&nbsp;(Número de Unidades máximas por Consultora)</div>
+                    </div>
+                    <div class="div-est-3 DatosNuevas" style="display: none">
+                        <div class="titB">&nbsp;</div>
+                        <div class="titB">Alcance:</div>
+                        <div class="titD">
+                            <input type="text" id="txtAlcance" readonly="readonly" />
+                        </div>
+                        <div class="titA" style="width: 20px">
+                            <a href="#" style="margin-left: 5px" id="linkAlcance">
+                                <img src='@Url.Content("~/Content/Images/search.png")' border="0" alt="Seleccionar alcance" title="Seleccionar alcance" />
+                            </a>
+                        </div>
+                        <div class="titG" style="width: 300px">&nbsp;(Seleccionar Pa&iacute;s, Regi&oacute;n o Zona)</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">   
+    {{#each imagenes}}
+    <div class="titG2 div-img-matriz-comercial">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-preview">
+        </div>
+        <div class="pdr_modal_check aligncenter">
+            <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
+        </div>
+       
+    </div>
+    {{/each}}
+</script>
+
+<script type="text/javascript">
+     $("#linkTallaColor").click(function () {
+            if ($.trim($("#txtCUV2").val()) == "") {
+                alert("Debe ingresar un valor para CUV2");
+                return false;
+            }
+            fnGrillaTC();
+            showDialog("DialogTonoMarca");
+            return false;
+                                 });
+     function CerrarTallaColor() {
+
+         var params = {
+             CampaniaID: $("#ddlCampania").val(),
+             CUV2: $("#txtCUV2").val(),
+             TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+             CUV1: "",
+             flag: "3",
+             FlagNueva: "0",
+             FlagRecoProduc: "0",
+             FlagRecoPerfil: "0"
+         };
+
+         jQuery.ajax({
+             type: 'POST',
+             url: baseUrl + 'AdministrarEstrategia/GetOfertaByCUV',
+             dataType: 'json',
+             contentType: 'application/json; charset=utf-8',
+             data: JSON.stringify(params),
+             async: true,
+             success: function (data) {
+                 if (data.message == "OK") {
+                     var cantidad = parseInt(data.precio);
+                     if (cantidad > 0) {
+                         alert("Debe ingresar todas las descripciones a las tallas/colores.");
+                         return false;
+                     } else {
+                         HideDialog("DialogTonoMarca");
+                     }
+                 } else {
+                     alert(data.message);
+                 }
+             },
+             error: function (data, error) {
+                 alert(data.message);
+             }
+         });
+     }
+
+     function fnGrillaTC() {
+         $("#listTC").jqGrid("GridUnload");
+         jQuery("#listTC").jqGrid({
+             url: baseUrl + "AdministrarEstrategia/ConsultarTallaColor",
+             hidegrid: false,
+             datatype: 'json',
+             postData: ({
+                 CampaniaID: $("#ddlCampania").val(),
+                 CUV: $("#txtCUV2").val()
+             }),
+             mtype: 'GET',
+             contentType: "application/json; charset=utf-8",
+             colNames: ['ID', 'CUV', 'Descripción', 'Precio', 'Tipo', 'Talla/Color', 'Desc T/C', '', ''],
+             colModel: [
+                 { name: 'ID', index: 'ID', width: 0, editable: true, resizable: false, hidden: true },
+                 { name: 'CUV', index: 'CUV', width: 20, editable: true, resizable: false, hidden: false },
+                 { name: 'DescripcionCUV', index: 'DescripcionCUV', width: 110, editable: true, resizable: false, hidden: false },
+                 { name: 'PrecioUnitario', index: 'PrecioUnitario', width: 30, editable: true, resizable: false, hidden: false },
+                 { name: 'Tipo', index: 'Tipo', width: 0, editable: true, resizable: false, hidden: true },
+                 { name: 'DescripcionTipo', index: 'DescripcionTipo', width: 50, editable: true, resizable: false, hidden: false },
+                 { name: 'DescripcionTallaColor', index: 'DescripcionTallaColor', width: 90, editable: true, resizable: false, hidden: false },
+                 { name: 'Accion', index: 'Accion', width: 30, editable: true, resizable: false, hidden: false, align: "center", formatter: ShowActionsTC },
+                 { name: 'IDAux', index: 'IDAux', width: 0, editable: true, resizable: false, hidden: true }
+             ],
+             jsonReader:
+             {
+                 root: "rows",
+                 page: "page",
+                 total: "total",
+                 records: "records",
+                 repeatitems: true,
+                 cell: "cell",
+                 id: "id"
+             },
+             pager: jQuery('#pagerTC'),
+             loadtext: 'Cargando datos...',
+             recordtext: "{0} - {1} de {2} Registros",
+             emptyrecords: 'No hay resultados',
+             rowNum: 10,
+             scrollOffset: 0,
+             rowList: [],
+             sortname: 'ID',
+             sortorder: 'asc',
+             viewrecords: true,
+             multiselect: false,
+             height: 'auto',
+             width: 650,
+             pgtext: 'Pág: {0} de {1}',
+             altRows: true,
+             altclass: 'jQGridAltRowClass',
+             loadComplete: function () { },
+             gridComplete: function () {
+                 showDialog("DialogTonoMarca");
+             }
+         });
+         jQuery("#listTC").jqGrid('navGrid', "#pagerTC", { edit: false, add: false, refresh: false, del: false, search: false });
+         jQuery("#listTC").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+     }
+
+     var chkImagenProductoOnClick = function () {
+
+         imagen = '';
+
+         $(".chkImagenProducto").prop('checked', false);
+         $(this).attr('checked', 'checked');
+         imagen = $(this).attr('value');
+         $("#imgSeleccionada").attr("src", imagen);
+     };
+
+     var imagenOnClick = function () {
+         $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
+         showDialog('divVistaPrevia');
+     };
+
+     var imagenEstrategiaOnClick = function () {
+         $('#divImagenEstrategiaContenido').show();
+         $('#divInformacionAdicionalEstrategiaContenido').hide();
+     };
+
+     var informacionAdicionalEstrategiaOnClick = function () {
+         $('#divImagenEstrategiaContenido').hide();
+         $('#divInformacionAdicionalEstrategiaContenido').show();
+     };
+
+     $(".chkImagenProducto").on("click", chkImagenProductoOnClick);
+
+     $("#imgSeleccionada").on("click", imagenOnClick);
+
+     $("#matriz-comercial-images").on("click", ".img-matriz-preview", imagenOnClick);
+
+     $("#matriz-comercial-images").on("click", ".chkImagenProducto", chkImagenProductoOnClick);
+
+     $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
+
+     $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
+
+</script>

@@ -415,6 +415,16 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetMatrizComercialByCodigoSAP(paisID, codigoSAP);
         }
 
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros)
+        {
+            return new BLOfertaProducto().GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, registros);
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros)
+        {
+            return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP, pagina, registros);
+        }
+
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP);
@@ -1114,6 +1124,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().GetEstrategias(entidad);
         }
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            return new BLEstrategia().GetEstrategiaDetalle(paisID, estrategiaID);
+        }
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().GetTallaColor(entidad);
@@ -1133,6 +1147,10 @@ namespace Portal.Consultoras.Service
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategia(entidad);
+        }
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            return new BLEstrategia().GetImagenesByEstrategiaMatrizComercialImagen(entidad , pagina, registros);
         }
         public int DeshabilitarEstrategia(BEEstrategia entidad)
         {
@@ -1692,9 +1710,9 @@ namespace Portal.Consultoras.Service
             return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
         }
 
-        public IList<BEMatrizComercial> GetImagenesByCUV(int paisID, int campaniaID, string cuv)
+        public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
         {
-            return BLProductoSugerido.GetImagenesByCUV(paisID, campaniaID, cuv);
+            return BLProductoSugerido.GetMatrizComercialByCampaniaAndCUV(paisID, campaniaID, cuv);
         }
 
         public string InsProductoSugerido(int paisID, BEProductoSugerido entity)
@@ -1880,6 +1898,16 @@ namespace Portal.Consultoras.Service
         public bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID)
         {
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
+        }
+
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
