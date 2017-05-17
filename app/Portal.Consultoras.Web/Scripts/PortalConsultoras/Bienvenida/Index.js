@@ -118,6 +118,10 @@ $(document).ready(function () {
             if ($('#PopShowroomIntriga').is(':visible')) {
                 PopupCerrar('PopShowroomIntriga');
             }
+
+            if ($('#PopRDSuscripcion').is(':visible')) {
+                PopupCerrar('PopRDSuscripcion');
+            }
             
         }
     };
@@ -171,7 +175,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -214,6 +218,10 @@ $(document).ready(function () {
 
         case popupComunicado:
             ObtenerComunicadosPopup();
+            break;
+
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
             break;
     }
 
@@ -1633,7 +1641,6 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
-
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1656,23 +1663,21 @@ function ActualizarMD() {
             alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
             return false;
     }
+
+    //Validando cantidad de caracteres minimos.
+    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+    if (!MinCaracterCelular) {
+        $('#txtCelularMD').focus();
+        return false;
+    }
     
     if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-        if ($('#txtTelefonoMD').val().substr(1, 1) != "3") {
+        if ($('#txtCelularMD').val().substr(0, 1) != "3") {
             alert('Número de celular tiene formato incorrecto.');
             $('#txtCelularMD').focus();
             return false;
         }
     }
-
-    //Validando cantidad de caracteres minimos.
-    //var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
-    //if (!MinCaracterTelefono) 
-    //    return false;
-
-    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-    if (!MinCaracterCelular)
-        return false;
 
     if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
         
@@ -1680,7 +1685,6 @@ function ActualizarMD() {
         if (!MinCaracterOtroTelefono)
             return false;
     }
-    //
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
@@ -2831,6 +2835,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
@@ -3290,8 +3295,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
 
     $(id).attr("data-popup-activo", "1");
-    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
-        $("#fondoComunPopUp").show();
+    var padreComun = $(id).parent().attr("id");
+    if (padreComun == "fondoComunPopUp") {
+        if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+            $("#fondoComunPopUp").show();
+        }
     }
 
     $(id).show();
@@ -3301,11 +3309,19 @@ function PopupCerrar(idPopup) {
     if (typeof (idPopup) == "string")
         id = "#" + idPopup;
 
-    if (id == "") return false;
+    var obj = "";
+    if (id == "") {
+        obj = $(idPopup);
+    }
+    else {
+        obj = $(id);
+    }
 
-    $(id).attr("data-popup-activo", "0");
+    if (obj == "") return false;
 
-    $(id).hide();
+    $(obj).attr("data-popup-activo", "0");
+
+    $(obj).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
     }

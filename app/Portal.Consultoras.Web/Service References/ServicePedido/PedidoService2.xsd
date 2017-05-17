@@ -283,6 +283,7 @@
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
@@ -309,6 +310,13 @@
       <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="Imagen" type="xs:int" />
       <xs:element minOccurs="0" name="ImagenURL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
@@ -332,6 +340,8 @@
       <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
       <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="URLCompartir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidarPeriodoFacturacion" type="xs:boolean" />
@@ -617,6 +627,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEChatbotMensajeProactiva" nillable="true" type="tns:BEChatbotMensajeProactiva" />
+  <xs:complexType name="BaseEntidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEEtiqueta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
@@ -696,6 +712,21 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBETipoEstrategia" nillable="true" type="tns:ArrayOfBETipoEstrategia" />
+  <xs:complexType name="BEEstrategiaDetalle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
+      <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEstrategiaDetalle" nillable="true" type="tns:BEEstrategiaDetalle" />
   <xs:complexType name="BETallaColor">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />

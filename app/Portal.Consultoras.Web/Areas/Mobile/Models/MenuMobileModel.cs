@@ -29,6 +29,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string Version { get; set; }
 
+        public string Codigo { get; set; }
+
         public IList<MenuMobileModel> SubMenu { get; set; }
     }
 }

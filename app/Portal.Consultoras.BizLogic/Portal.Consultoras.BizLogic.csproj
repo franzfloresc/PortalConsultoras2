@@ -89,6 +89,8 @@
   <ItemGroup>
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
+    <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReservaProl.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
@@ -207,6 +209,7 @@
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

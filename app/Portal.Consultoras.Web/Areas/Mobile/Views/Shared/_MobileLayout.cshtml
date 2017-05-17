@@ -98,6 +98,8 @@
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+    <input type="hidden" id="hdLimiteProductoCarrusel" value="@(ViewBag.LimiteProductoCarrusel)" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -789,11 +791,14 @@
         //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
         var TipoOrigenPantallaODD = 2;
-
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
         var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;

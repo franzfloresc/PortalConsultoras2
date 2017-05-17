@@ -16,6 +16,7 @@
 <input type="hidden" id="hdEstrategiaIDConsulta" />
 <input type="hidden" id="ImagenProducto" />
 <input type="hidden" id="hdEstrategiaID" />
+<input type="hidden" id="hdEstrategiaCodigo" />
 <input type="hidden" id="hdTipoConsulta" value="0" />
 <input type="hidden" id="hdZonas" value="" />
 <input type="hidden" id="hdSimbolo" />
@@ -280,6 +281,7 @@
 <script type="text/javascript">
     var imagenVacia = '@imagenVacia';
     var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+    var rutaTemporal = '@Url.Content("~/Content/Temporales/")';
     var urlGetOfertaByCUV = baseUrl + 'AdministrarEstrategia/GetOfertaByCUV';
     var urlCargarArbolRegionesZonas = baseUrl + "AdministrarEstrategia/CargarArbolRegionesZonas";
     var rutastylejstree = '@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")';
@@ -296,7 +298,8 @@
     var originalContent;
     var imagen = "";
     var imagenPrevia = "";
-
+    var isNuevo = false;
+    var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
 
     jQuery(document).ready(function () {
@@ -307,7 +310,8 @@
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesBySapCodeAction: '@Url.Action("GetImagesBySapCode", "AdministrarEstrategia")',
             getFiltrarEstrategiaAction: '@Url.Action("FiltrarEstrategia", "AdministrarEstrategia")',
-            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")'
+            uploadAction: '@Url.Action("ImageMatrizUpload", "FileUpload")',
+            getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")'
         });
 
         $.jgrid.extend({
@@ -316,6 +320,8 @@
         });
 
         $("#btnNuevo").click(function () {
+            isNuevo = true;
+
             $.jstree._reference($("#arbolRegionZona")).check_all();
 
             if ($("#ddlPais").val() == "") {
@@ -356,7 +362,7 @@
             $('#matriz-imagenes-paginacion').empty();
             $('#matriz-comercial-images').empty();
             $('#file-upload').hide();
-            
+
             $('#imgSeleccionada').attr("src", rutaImagenVacia);
             $('#imgZonaEstrategia').attr("src", rutaImagenVacia);
 
@@ -377,7 +383,7 @@
                 $(".checksPedidosAsociados").html('');
 
                 var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
-            $("#btnActivarDesactivar").hide();
+           //$("#btnActivarDesactivar").hide();
 
                 if (aux1 == "4") {
                     $("#txtOrden").val("");
@@ -385,7 +391,7 @@
 
                     $('#txt1-estrella').html('Oferta de Último Minuto');
                     $('#txt2-estrella').hide();
-                $("#btnActivarDesactivar").show();
+               // $("#btnActivarDesactivar").show();
                 }
                 else {
                     $('#div-orden').show();
@@ -433,6 +439,19 @@
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('5');
             }
+            
+            if ($('#ddlTipoEstrategia option:selected').attr('data-codigo') === '005') $('#div-revista-digital').show();
+            else $('#div-revista-digital').hide();
+
+            LimpiarCamposLanzamiento('img-fondo-desktop');
+            LimpiarCamposLanzamiento('img-prev-desktop');
+            LimpiarCamposLanzamiento('img-fondo-mobile');
+            LimpiarCamposLanzamiento('img-ficha-desktop');
+            LimpiarCamposLanzamiento('img-ficha-mobile');
+            LimpiarCamposLanzamiento('img-ficha-fondo-desktop');
+            LimpiarCamposLanzamiento('img-ficha-fondo-mobile');
+            $("#url-video-desktop").val("");
+            $("#url-video-mobile").val("");
 
                 HideDialog("DialogZona");
                 showDialog("DialogAdministracionEstrategia");
@@ -474,10 +493,15 @@
 
         });
         $("#ddlTipoEstrategia").change(function () {
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
-            if (aux1 == "4")
+            $("#btnNuevoMasivo").hide();
+            //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
+            if (aux1 == "001") {
                 $("#btnActivarDesactivar").show();
+                $("#btnNuevoMasivo").show();
+            }
+                
 
             SeleccionarTipoOferta();
             PedidoAsociadoChecks();
@@ -497,6 +521,7 @@
             }
             $("#hdEstrategiaIDConsulta").val($("#ddlTipoEstrategia").val());
             $("#hdTipoConsulta").val("1");
+            $("#hdEstrategiaCodigo").val($('#ddlTipoEstrategia option:selected').data('codigo'));
             fnGrilla();
         });
         $('#ddlPais').change(function () {
@@ -707,15 +732,9 @@
         });
         $("#txtCUV2").keyup(function () {
             var cuvIngresado = $(this).val();
-            var campaniaID = $("#ddlCampania").val();
-            var tipoEstrategiaID = $("#ddlTipoEstrategia").val();
-
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
-            if (cuvIngresado.length > 4) {
-                estrategiaObj.editarByCUV2(cuvIngresado, campaniaID, tipoEstrategiaID);
-            }
-            //mostrarInformacionCUV(cuvIngresado);
+             estrategiaObj.mostrarInformacionCUV(cuvIngresado);
         });
 
         $(".chk-estrategia-imagen").click(function () {
@@ -895,6 +914,13 @@
             HideDialog("DialogNuevoMasivo");
         });
 
+        UploadFileLanzamineto('img-fondo-desktop');
+        UploadFileLanzamineto('img-prev-desktop');
+        UploadFileLanzamineto('img-fondo-mobile');
+        UploadFileLanzamineto('img-ficha-desktop');
+        UploadFileLanzamineto('img-ficha-fondo-desktop');
+        UploadFileLanzamineto('img-ficha-mobile');
+        UploadFileLanzamineto('img-ficha-fondo-mobile');
         });
 
 
@@ -1188,7 +1214,7 @@
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
-    
+
 
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
@@ -1490,7 +1516,7 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(cellvalue);
+        var cellValueInt = parseInt(rowObject[10]);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (cellValueInt == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
@@ -1770,10 +1796,10 @@
                         }
                     }
 
-                    /*if ($('.chkImagenProducto:checked').length == 0) {
+                    if ($('.chkImagenProducto:checked').length == 0) {
                         alert("Seleccione una imagen a mostrar.");
                         return false;
-                    }*/
+                    }
 
                     if (imagen=="") {
                         alert("Seleccione una imagen a mostrar.");
@@ -1805,7 +1831,11 @@
                         return false;
                     }
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
-                    var EstrategiaID = $("#hdEstrategiaID").val();
+
+                    var EstrategiaID = 0;
+                    if(!isNuevo)
+                        EstrategiaID = $("#hdEstrategiaID").val();
+
                     var TipoEstrategiaID = $("#hdTipoEstrategiaID").val();
                     var CampaniaID = $("#hdCampania").val();
                     var CampaniaIDFin = $("#ddlCampaniaFin").val();
@@ -1838,6 +1868,17 @@
                     if (NumeroPedidoAsociado == "" && $("#txtPedidoAsociado").length) {
                         NumeroPedidoAsociado = $("#txtPedidoAsociado").val();
                     }
+                    //valores para el carrusel de la estrategia de lanzamiento
+                    var imgFondoDesktop = $("#nombre-img-fondo-desktop").val();
+                    var imgPrevDesktop = $("#nombre-img-prev-desktop").val();
+                    var imgFichaDesktop = $("#nombre-img-ficha-desktop").val();
+                    var urlVideoDesktop = $("#url-video-desktop").val();
+                    var imgFondoMobile = $("#nombre-img-fondo-mobile").val();
+                    var imgFichaMobile = $("#nombre-img-ficha-mobile").val();
+                    var urlVideoMobile = $("#url-video-mobile").val();
+                    var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
+                    var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
+
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1865,7 +1906,16 @@
                         Orden: Orden,
                         ColorFondo: colorFondo,
                         FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').attr('data-codigo')
+                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').data('codigo'),
+                        ImgFondoDesktop: imgFondoDesktop,
+                        ImgPrevDesktop: imgPrevDesktop,
+                        ImgFichaDesktop: imgFichaDesktop,
+                        UrlVideoDesktop: urlVideoDesktop,
+                        ImgFondoMobile: imgFondoMobile,
+                        ImgFichaMobile: imgFichaMobile,
+                        UrlVideoMobile: urlVideoMobile,
+                        ImgFichaFondoDesktop: imgFichaFondoDesktop,
+                        ImgFichaFondoMobile: imgFichaFondoMobile
                     };
                     jQuery.ajax({
                         type: 'POST',
@@ -2097,4 +2147,30 @@
         });
     }
 
+    function UploadFileLanzamineto(divId) {
+
+        var uploader = new qq.FileUploader({
+            allowedExtensions: ['jpg', 'png', 'jpeg'],
+            element: document.getElementById(divId),
+            action: '@Url.Action("ImageLanzamientoUpload", "FileUpload")',
+            onComplete: function (id, fileName, responseJSON) {
+                if (checkTimeout(responseJSON)) {
+                    if (responseJSON.success) {
+                        $("#nombre-" + divId).val(responseJSON.name);
+                        $("#src-" + divId).attr('src', rutaTemporal + responseJSON.name);
+                    } else alert(responseJSON.message);
+                }
+                return false;
+            },
+            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+        });
+        return false;
+    }
+
+    function LimpiarCamposLanzamiento(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    }
 </script>

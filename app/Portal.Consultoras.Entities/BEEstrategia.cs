@@ -134,6 +134,27 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
+        // Campos solo para la estrategia de lanzamiento...
+        [DataMember]
+        public string ImgFondoDesktop { get; set; }
+        [DataMember]
+        public string ImgPrevDesktop { get; set; }
+        [DataMember]
+        public string ImgFichaDesktop { get; set; }
+        [DataMember]
+        public string UrlVideoDesktop { get; set; }
+        [DataMember]
+        public string ImgFondoMobile { get; set; }
+        [DataMember]
+        public string ImgFichaMobile { get; set; }
+        [DataMember]
+        public string UrlVideoMobile { get; set; }
+        [DataMember]
+        public string ImgFichaFondoDesktop { get; set; }
+        [DataMember]
+        public string ImgFichaFondoMobile { get; set; }
+        [DataMember]
+        public string CodigoTipoEstrategia { get; set; }
 
         //[DataMember]
         //public string CodigoSAP { get; set; }

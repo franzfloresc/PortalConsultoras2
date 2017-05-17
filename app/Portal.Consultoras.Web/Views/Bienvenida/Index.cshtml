@@ -6,6 +6,7 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 
 @{ 
@@ -257,6 +258,9 @@
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
+<!--REVISTA DIGITAL -->
+<div class="fondo_gris" id="divRevistaDigital"></div>
+<!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
 <div class="content_belcorp" id="divProductosShowRoom"></div>
 <!-- FIN-->
@@ -367,7 +371,7 @@
     <div class="disclaimer_b">@(pieEscala)</div>
 </div>
 <div class="flecha_scroll">
-    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
@@ -505,8 +509,7 @@
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main="" ></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
-</div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
@@ -844,7 +847,7 @@
                             <span id="nombreGerenteZonal"></span>
                         </div>
                         <div class="enlace_cambiarContraseniachkAceptoContratoMD">
-                            <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
+                            <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                         </div>
                     </div>
                 </div>
@@ -949,7 +952,7 @@
             </div>
 
             <div class="btn_cerrar_actualizarMisDatos">
-                <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <a href="javascript:;" title="Cerrar" class="cerrar_tutorial">
                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                     <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
@@ -1156,7 +1159,54 @@
     </div>
 </div>
 
-<script id="estrategia-template" type="text/x-handlebars-template">
+<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
+        {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="background-revistaSeccion"></div>
+        {{/iff}}
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+                <div class="revistadigital-title">
+                    <div class="logo-marca">
+                        <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+                    </div>
+                    <div class="linea-separacion"></div>
+                    <div class="titulo_nuevaRevista">
+                        <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                            {{Titulo}}
+                        </span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                            {{TituloDescripcion}}
+                        </span>
+                    </div>
+                </div>
+                {{else}}
+                <div class="titulo_ofertas_home">
+                    OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+                    <div class="texto_exclusivo">
+                        EXCLUSIVAS S&Oacute;LO POR WEB
+                    </div>
+                </div>
+                <div class="linea_titulo_absoluto"></div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+<script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -1178,7 +1228,6 @@
                 <div class="etiqueta_producto">
                     <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
                 </div>
-
                 {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
                 {{#if_eq FlagEstrella '1' }}
                 <div class="etiqueta_producto">
@@ -1212,7 +1261,6 @@
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                     </div>
                     {{/if_eq}}
-
                     {{else}}
                     <div class="producto_precio">
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
@@ -1242,7 +1290,7 @@
                 </a>
                 {{else}}
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad'/>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1263,7 +1311,6 @@
                     </a>
                 </div>
                 {{/iff}}
-
                 <div class="clear"></div>
                 <div style="padding-top:9px; height: 15px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
@@ -2309,6 +2356,70 @@
 </div>
 <!--FIN-->
 
+<!--REVISTA DIGITAL -->
+<!-- POPUP REVISTA DIGITAL Suscripcion -->
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="">
+    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript: CerrarPopup('#PopRDSuscripcion');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_revistaSuscripcion">
+            <div class="background_popupEsika"></div>
+            <div class="popup_revistaSuscripcion_logoMarca">
+                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
+            </div>
+            <div class="popup_revistaSuscripcion_contenido">
+                <span>
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO.
+                </span>
+                <span>
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guía de negocio por tu revista online
+                </span>
+            </div>
+            <div class="popup_revistaSuscripcion_grupoBotones">
+                <button type="button" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" onclick="RDInformacion()" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+            </div>
+            <div class="popup_revistaSuscripcion_terminos">
+                Al inscribirte est&aacute;s aceptando los
+                <a href="javascript:;" title="Términos y Condiciones" onclick="FichaInformacionRD()">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10.
+            </div>
+            <div class="img_modeloRevista">
+                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
+            </div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
+
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="display:none;">
+    <div class="contenedor_popup_inscritaRevistaDigital" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:1px; right:-35px;" href="javascript: CerrarPopup('#PopRDInscrita');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_estasInscritaRevistaDigital">
+            <div class="contenido_felicitaciones">
+                <span>¡FELICIDADES <span class="nombre_usuariaInscrita" data-usuario="">YULIANA</span>!</span>
+                <span>Est&aacute;s inscrita a &Eacute;sika para m&iacute;</span>
+            </div>
+            <div class="contenido_recuerdaIngresar">
+                <span>Recuerda ingresar a somosbelcorp.com desde los primeros d&iacute;as de la pr&oacute;xima campaña.</span>
+            </div>
+            <a href="javascript: RDSuscripcionRedireccionar()" class="link_entendido" title="Entendido">ACEPTAR</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+
+<!--FIN REVISTA DIGITAL-->
+
 @section scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2375,6 +2486,7 @@
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
         var popupComunicado = '@Constantes.TipoPopUp.Comunicado';
+        var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 
@@ -2390,6 +2502,7 @@
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
