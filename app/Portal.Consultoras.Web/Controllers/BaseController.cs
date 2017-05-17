@@ -71,7 +71,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.SegmentoConsultoraMenu = 1;
                     }
-                    else {
+                    else
+                    {
                         if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                         {
                             ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
@@ -79,7 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                         {
                             ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
-                        } 
+                        }
                     }
                     /*** FIN EPD 2170 ***/
 
@@ -89,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
-                    
+
                     ViewBag.EsMobile = 1;//EPD-1780
 
                     if (userData.TieneLoginExterno)
@@ -464,7 +465,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
-                    IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
+            IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
 
             using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
             {
@@ -479,14 +480,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
             List<PermisoModel> lstModel = new List<PermisoModel>();
-            
-                lst2 = lst;
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
-                }
 
-                foreach (var permiso in lst2)
+            lst2 = lst;
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            {
+                lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
+            }
+
+            foreach (var permiso in lst2)
             {
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
                 if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
@@ -495,7 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                         permiso.UrlItem = AccionControlador("sr", 1);
                     else
                         continue;
-                    
+
                     permiso.EsSoloImagen = true;
                     var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
@@ -650,7 +651,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Cargar variables
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-                
+
                 model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
                 ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
                 ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
@@ -874,7 +875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // ShowRoom (Mobile)
 
                 #endregion Banner
-                
+
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
@@ -1622,10 +1623,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = userData.OfertasDelDia[0].Clone();
             model.ListaOfertas = userData.OfertasDelDia;
             int posicion = 0;
-            model.ListaOfertas.Update(p=>p.ID = posicion++);
+            model.ListaOfertas.Update(p => p.ID = posicion++);
             var listPedidosDetalles = ObtenerPedidoWebDetalle();
             foreach (var oferta in model.ListaOfertas) { oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none"; }
-            
+
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
             return model;
@@ -2032,37 +2033,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
             {
                 if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
-                    return false;            
+                    return false;
                 if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                     return false;
                 return true;
             }
 
-
             return false;
-
-            //if (codigoConfig == "")
-            //    return false;
-
-            //var validado = false;
-            //var entidadConfigPaisDet = new BEConfiguracionPaisDetalle();
-            //entidadConfigPaisDet.PaisID = userData.PaisID;
-            //entidadConfigPaisDet.ConfiguracionPaisID = existe.ConfiguracionPaisID;
-            //entidadConfigPaisDet.CodigoConsultora = userData.CodigoConsultora;
-            //entidadConfigPaisDet.CodigoRegion = userData.CodigorRegion;
-            //entidadConfigPaisDet.CodigoZona = userData.CodigoZona;
-            //entidadConfigPaisDet.CodigoSeccion = userData.SeccionAnalytics;
-
-            //using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            //{
-            //    validado = sv.ValidarConfiguracionPaisDetalle(entidadConfigPaisDet);
-            //}
-            //if (!validado)
-            //{
-            //    existe.Estado = false;
-            //}
-
-            //return validado;
         }
 
         public string AccionControlador(string tipo, int isControlador = 0)
@@ -2094,7 +2071,7 @@ namespace Portal.Consultoras.Web.Controllers
         //{
         //    return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
         //}
-        
+
         public bool IsMobile()
         {
             return Request.Browser.IsMobileDevice;
