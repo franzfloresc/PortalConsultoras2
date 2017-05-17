@@ -59,19 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
                     
                     var emailValidado = userData.EMailActivo;
 
-                    //if ((correoAnterior != correoNuevo) || (correoAnterior == correoNuevo && !userData.EMailActivo))
-                    //{
-                    //    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,sr" };
-                    //    string param_querystring = Util.EncriptarQueryString(parametros);
-                    //    HttpRequestBase request = this.HttpContext.Request;
-
-                    //    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-
-                    //    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
-
-                    //    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
-                    //}
-
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,sr" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
@@ -110,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 CuponModel cuponModel = ObtenerDatosCupon();
-                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon();
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
