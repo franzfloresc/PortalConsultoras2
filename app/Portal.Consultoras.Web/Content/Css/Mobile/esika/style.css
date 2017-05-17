@@ -1277,6 +1277,7 @@ h4.re3 {
     padding-bottom: 17px;
     /*margin-bottom: 54px;*/
     position: relative;
+    overflow:hidden;
 }
 
 .list-inline-border {
