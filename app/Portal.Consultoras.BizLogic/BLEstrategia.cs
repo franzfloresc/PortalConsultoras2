@@ -381,13 +381,13 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            var usuario = new BLUsuario().GetSesionUsuario(paisID, codConsultora);
-            var carpetaPais = Globals.UrlMatriz + "/" + usuario.CodigoISO;
+            var codigoIso = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
 
             listaEstrategias.ForEach(item =>
             {
                 item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
-                item.URLCompartir = Util.GetUrlCompartirFB(usuario.CodigoISO);
+                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });
 
             return listaEstrategias;
