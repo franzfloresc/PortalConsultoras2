@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
     });
 
     $("header").resize(function () {
-        LayoutHeader();
+        LayoutMenu();
     });
 
     if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -152,6 +152,7 @@ jQuery(document).ready(function () {
         });
         return array;
     };
+
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
 
@@ -228,6 +229,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString("");
             });
 
+            Handlebars.registerHelper('Trim', function (cadena) {
+                cadena = $.trim(cadena);
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -256,6 +262,40 @@ jQuery(document).ready(function () {
         }
     }
 
+    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
+        if (!Handlebars.helpers.iff)
+            HandlebarsRegisterHelper();
+
+        if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
+            return false;
+        }
+
+        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        jQuery.get(urlTemplate, function (dataTemplate) {
+            dataTemplate = $.trim(dataTemplate);
+            //console.log(dataTemplate);
+            if (dataTemplate == "") {
+                return false;
+            }
+
+            if (dataTemplate.substr(0, 2) == "/*") {
+                dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
+            }
+
+            if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
+                dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
+            }
+
+            var template = Handlebars.compile(dataTemplate);
+            var htmlDiv = template(modelo);
+            idHtml = $.trim(idHtml);
+            if (idHtml == "") return htmlDiv;
+            $(idHtml).html(htmlDiv);
+        });
+
+        return "";
+
+    }
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -816,7 +856,6 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function LayoutHeader() {
-    console.log(1);
     LayoutHeaderFin();
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
@@ -832,10 +871,53 @@ function LayoutHeaderFin() {
     //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
     $("[data-content]").css("margin-top", (wtop) + "px");
 }
-
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();    
+    var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutMenu() {
+    LayoutMenuFin();
+    $(document).ajaxStop(function () {
+        LayoutMenuFin();
+    });
+}
+function LayoutMenuFin() {
+    // validar si sale en dos lineas
+    var hok = true;
+    do {
+        $(".logo_esika").css("width", "");
+        hok = false;
+        var wt = $(".wrapper_header").width();
+        var wl = $(".logo_esika").innerWidth();
+        var wr = $(".menu_esika_b").innerWidth();
+        wt = wt - wl - wr;
+        $(".menu_new_esika").css("width", wt + "px");
+        $(".logo_esika").css("width", wl + "px");
+        var h = $(".wrapper_header").height();
+        if (h > 61) {
+            $("#ulNavPrincipal > li").css("margin-left", "20px");
+            h = $(".wrapper_header").height();
+            if (h > 61) {
+                $($("#ulNavPrincipal > li").get(0)).css("margin-left", "5px");
+                h = $(".wrapper_header").height();
+            }
+        }
+        if (h > 61) {
+            wt = $(".wrapper_header").width();
+            var wh = $("header").width();
+            if (wh > wt) {
+                wt = parseInt((wh - wt) / 2);
+                $(".wrapper_header").css("max-width", (wh - wt) + "px");
+                h = $(".wrapper_header").height();
+                hok = h > 61;
+            }
+        }
+    } while (hok);
+    // caso no entre en el menu
+    // poner en dos renglones
+    // var listaMenu = $("#ulNavPrincipal > li > a");
+
+    LayoutHeader();
 }
 function ResizeMensajeEstadoPedido() {
 
@@ -1152,7 +1234,7 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
         }
     }
 }
-/**/
+
 function GuardarIndicadorPedidoAutentico() {
     //debugger;
 

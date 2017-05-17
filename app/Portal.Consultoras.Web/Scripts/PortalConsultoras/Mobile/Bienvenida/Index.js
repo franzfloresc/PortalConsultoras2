@@ -13,7 +13,9 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $(".footer-page").css({ "margin-bottom": "54px" });
+
     mostrarTutorialMobile();
+
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
@@ -348,9 +350,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 };
 
 function CargarPopupsConsultora() {
-  
-    MostrarDemandaAnticipada();
     
+    MostrarDemandaAnticipada();
+    if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
+        $("#PopRDSuscripcion").show();
+    }
 };
 
 function MostrarDemandaAnticipada() {

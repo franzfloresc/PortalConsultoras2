@@ -8,6 +8,8 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
@@ -33,6 +35,7 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLEstrategia blEstrategia;
+        private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
 
         public PedidoService()
         {
@@ -56,6 +59,7 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
+            BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
         }
 
         #region Reporte Lider
@@ -1131,6 +1135,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().GetEstrategias(entidad);
         }
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            return new BLEstrategia().GetEstrategiaDetalle(paisID, estrategiaID);
+        }
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
             return new BLEstrategia().GetTallaColor(entidad);
@@ -2006,6 +2014,21 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+        }
+        
+        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+
+        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
+        }
+
+        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Single(entidad);
         }
     }
 }

@@ -4,7 +4,8 @@
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         getFiltrarEstrategiaAction: config.getFiltrarEstrategiaAction || '',
-        uploadAction: config.uploadAction || ''
+        uploadAction: config.uploadAction || '',
+        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction
     };
 
     var _editData = {};
@@ -17,7 +18,6 @@
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
-
 
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
@@ -245,7 +245,18 @@
         if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
         else $("#chkEstrella").attr("checked", false);
         $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
-        closeWaitingDialog();   
+
+        _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
+        _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
+        _agregarCamposLanzamiento('img-fondo-mobile', data.ImgFichaDesktop);
+        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFondoMobile);
+        _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
+        _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
+        _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
+        $("#url-video-desktop").val(data.UrlVideoDesktop);
+        $("#url-video-mobile").val(data.UrlVideoMobile);
+
+        closeWaitingDialog();
 
         return data;
     };
@@ -263,7 +274,22 @@
 
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
-            marcarCheckRegistro(imagen);          
+            marcarCheckRegistro(_editData.imagen);
+        };
+    };
+    var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
+        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, codigoSAP: data.CodigoSAP, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
+        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
+    };
+    
+    var _obtenerImagenesByCodigoSAPSuccess = function (editData, recargarPaginacion) {
+        return function (data, textStatus, jqXHR) {
+            editData.imagenes = data.imagenes;
+            _editData = editData;
+            
+            _mostrarPaginacion(data.totalRegistros);
+            _mostrarListaImagenes(_editData);
+            marcarCheckRegistro(_editData.imagen);
         };
     };
 
@@ -284,9 +310,7 @@
 
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
-        //_crearFileUploadElements(editData);
     };
-
 
     var _clearFields = function () {
 
@@ -320,17 +344,175 @@
         $("#divInformacionAdicionalEstrategia").css("color", "#702789");
         $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
         $("#txtTextoLibre").val("");
+        _limpiarCamposLanzamiento('img-fondo-desktop');
+        _limpiarCamposLanzamiento('img-prev-desktop');
+        _limpiarCamposLanzamiento('img-fondo-mobile');
+        _limpiarCamposLanzamiento('img-ficha-desktop');
+        _limpiarCamposLanzamiento('img-ficha-mobile');
+        _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
+        _limpiarCamposLanzamiento('img-ficha-fondo-mobile');
+        $("#url-video-desktop").val("");
+        $("#url-video-mobile").val("");
+        if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
+        else $('#div-revista-digital').hide();
+
     };
+    var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
+        $("#nombre-" + nombreCampo).val("");
+        $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    };
+    var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
+        $("#nombre-" + nombreCampo).val(valor);
+        $("#src-" + nombreCampo).attr("src", urlS3 + valor);
+    };
+    var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
+        $("#hdnCodigoSAP").val("");
+        $("#hdnEnMatrizComercial").val("");
+        if (cuvIngresado.length == 5) {
+            waitingDialog({});
+            $.ajaxSetup({ cache: false });
+
+            var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
+            var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
+            var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
+            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
+
+            var flagOD = "";
+            if (auxOD == '7') {
+                flagOD = '4';
+            }
+            else {
+                flagOD = '0';
+            }
+
+            var params = {
+                CampaniaID: $("#ddlCampania").val(),
+                CUV2: $("#txtCUV2").val(),
+                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                CUV1: "0",
+                flag: flagOD,
+                FlagNueva: flagNueva,
+                FlagRecoProduc: flagRecoProduc,
+                FlagRecoPerfil: flagRecoPerfil
+            };
+
+            jQuery.ajax({
+                type: 'POST',
+                url: urlGetOfertaByCUV,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(params),
+                async: true,
+                success: function (data) {
+                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
+                    $('#mensajeErrorCUV').val("");
+
+                    if (data.message == "OK") {
+                        $("#txtDescripcion").val(data.descripcion);
+
+                        if (data.wsprecio > 0) {
+                            $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
+                            $("#txtPrecio2")[0].disabled = true;
+                        }
+                        else if (data.wsprecio == 0) {
+                            if (data.precio == 0) {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                            else {
+                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
+                                $("#txtPrecio2")[0].disabled = true;
+                            }
+                        }
+                        else if (data.wsprecio == -1) {
+                            $("#txtPrecio2")[0].disabled = true;
+                            alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
+                        }
+                        else if (data.wsprecio == -2) {
+                            $("#txtPrecio2")[0].disabled = false;
+                            $("#txtPrecio2").val("");
+                            $("#txtPrecio2").focus();
+                        }
+
+                        $("#hdnCodigoSAP").val(data.codigoSAP);
+                        $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
+
+                        //Carga de Imagenes
+                        _editData = {
+                            EstrategiaID: 0,
+                            CUV2: '',
+                            TipoEstrategiaID: 0,
+                            CodigoSAP: data.codigoSAP,
+                            CampaniaID: 0,
+                            IdMatrizComercial: data.idMatrizComercial,
+                            paisID: $("#ddlPais").val(),
+                            imagenes: [],
+                            imagen: null
+                        };
+
+                        _crearFileUploadAdd(_editData);
+
+                        _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
+                            showDialog("matriz-comercial-dialog");
+                        });
+
+                        $('#file-upload').show();
+
+                        $("#divInformacionAdicionalEstrategiaContenido").hide();
+
+                        $('#mensajeErrorCUV2').val("");
+                        closeWaitingDialog();
+                    } else {
+                        $('#mensajeErrorCUV2').val(data.message);
+                        alert($('#mensajeErrorCUV2').val());
+                        $("#txtDescripcion").val("");
+                        $("#txtPrecio2").val("");
+
+                        $("#txtPrecio").val("");
+                        $("#txtCUV").val("");
+
+                        for (var i = 1; i <= nroImagenes; i++) {
+                            idImagen = ('0' + i).substr(-2);
+                            objPreview = $('#preview' + i);
+                            objChkImagen = $('#chkImagenProducto' + idImagen);
+                            dataImagen = data['imagen' + i];
+
+                            if (dataImagen != '') {
+                                objPreview.attr('src', data.imagen1);
+                                objChkImagen.attr('disabled', false);
+                            }
+                            else {
+                                objPreview.attr('src', rutaImagenVacia);
+                                objChkImagen.attr('disabled', true);
+                            }
+                            objChkImagen.attr('checked', false);
+                        }
+
+                        closeWaitingDialog();
+                    }
+                },
+                error: function (data, error) {
+                    alert(data.message);
+                    closeWaitingDialog();
+                }
+            });
+        }
+    }
 
     return {
         editar: function (id, event) {
             event.preventDefault();
             event.stopPropagation();
+
+            if (id != 0)
+                isNuevo = false;
+
             if (id) {
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
-                 
+               
+
                 _clearFields();
                
                 var params = {
@@ -342,21 +524,9 @@
 
             return false;
         },
-        editarByCUV2: function (cuv2, campaniaID, tipoEstrategiaID) {
+        mostrarInformacionCUV: function (cuv2) {
 
-            waitingDialog({});
-
-            _clearFields();
-
-             var id = 0;
-             var params = {
-                 EstrategiaID: 0,
-                 CUV2: cuv2,
-                 CampaniaID: campaniaID,
-                 TipoEstrategiaID: tipoEstrategiaID
-             };
-              _editar(params, id);
-
+            _mostrarInformacionCUV(cuv2);
             return false;
         },
         eliminar: function (id, event) {

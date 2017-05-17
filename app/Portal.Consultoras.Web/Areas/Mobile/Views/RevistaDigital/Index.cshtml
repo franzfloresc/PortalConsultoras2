@@ -1,0 +1,141 @@
+﻿
+@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+    
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="logo_EPT_content"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
+<div class="texto_usuario_ept">
+    @(ViewBag.UsuarioNombre.ToUpper()), DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA
+</div>
+<hr class="clear" />
+@* Lanzamientos con etiqueta NUEVO *@
+<div style="background:#F6F6F6">
+    <div class="content_carrusel_landing">
+    <div id="divCarruselLan">
+        @foreach (var lan in Model.ListaProducto)
+        {   <div>
+            <div class="content_item_ept" data-item="" data-ImgPrevDesktop="@lan.ImgPrevDesktop">
+                <div style="display:none;"></div>
+                <div>
+                    <div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>
+                    @*@if (lan.ImgFichaDesktop != "")
+                        {
+                            <div class="etiqueta_nuevo_ept"><img src="@lan.ImgFichaDesktop" alt="" /></div>
+                        }*@
+                    <div class="detalle_set_banner">
+                        <div class="content_set_imagen_banner">
+                            <img src="@lan.ImagenURL" alt="" />
+                        </div>
+                        <div class="titulo_set_banner_ept">MI PACK KADIA SPORT</div>
+                        <div class="detalle_set_banner_ept">@lan.DescripcionCUV2</div>
+                        <div class="producto_nombre_descripcion">
+                            <div class="producto_precio" style="margin-bottom: 3px;">
+                                @if (lan.Precio > 0)
+                            {
+                                <span class="precio-oferta-normal">@lan.Simbolo @lan.PrecioTachado</span>
+                            }
+                                <span class="precio-oferta-venta"><b>@lan.Simbolo @lan.PrecioString</b></span>
+                            </div>
+
+                        </div>
+                        <div class="producto_nombre_descripcion">
+                            <div class="liquidacion_rango_home">
+                                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
+                                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                            </div>
+                            <div class="clear"></div>
+                            <a class="boton_Agregalo_home">
+                                AGRÉGALO
+                            </a>
+                            <div class="clear"></div>
+                            <div style="padding-top:9px; height: 15px;">
+                                <div class="agregado product-add" style="text-align:right;display:block;">
+                                    AGREGADO
+                                    <div class="icono"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn_mas_info_set" href="javascript:;"> ver más</a>
+                    </div>
+                </div>
+                @*<div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>*@
+                @*<div class="imagen_fondo">
+                        @if (lan.ImgFondoDesktop != "")
+                    {
+                            <img src="@lan.ImgFondoDesktop" />
+                    }
+                    </div>*@
+            </div>
+        </div>
+        }
+    </div>
+</div>
+</div>
+
+<hr class="clear" />
+<div class="subtitulo_landing">MIS OFERTAS</div>
+
+@* area de productos *@
+
+@* filtros *@
+<div class="wrapper_resumen_mobile">
+    <div id="orderby-filter" style="display: block;">
+        <div id="content-orderby" style="margin-top: 15px;">
+            <input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
+
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick=" showCustomFilters(); ">
+        </div>
+        <hr class="clear">
+        <div id="summary-filters">
+            <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro">17</span> de <span id="spnCantidadTotal">17</span> productos</span>
+            </div>
+
+            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                <a href="#" class="link-ffc_landing" onclick=" deleteFilters(); ">Borrar Filtros</a>
+            </div>
+            <br><br>
+        </div>
+    </div>
+</div>
+<hr class="clear" />
+@* listado *@
+<div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex"></div>
+
+<hr class="clear" />
+@* Template producto *@
+@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var precioMin = '@Model.PrecioMin';
+        var precioMax = '@Model.PrecioMax';
+        var urlOfertaDetalle = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
+        var urlOfertaAgregar = '@Url.Action("AgregarProducto", "RevistaDigital")';
+        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex';
+        var origenPedidoWebCarrusel = -1;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+}
