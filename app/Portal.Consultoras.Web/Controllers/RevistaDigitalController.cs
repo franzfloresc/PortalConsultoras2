@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceRevistaDigital;
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
@@ -235,11 +234,11 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
-            using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
+            using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (sv.Suscripcion(entidad) > 0)
+                if (sv.RDSuscripcion(entidad) > 0)
                 {
-                    var rds = sv.GetSuscripcion(entidad);
+                    var rds = sv.RDGetSuscripcion(entidad);
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
@@ -270,9 +269,9 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
 
-                using (RevistaDigitalServiceClient sv = new RevistaDigitalServiceClient())
+                using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    if (sv.Suscripcion(entidad) > 0)
+                    if (sv.RDSuscripcion(entidad) > 0)
                     {
                         userData.RevistaDigital.NoVolverMostrar = true;
                         userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;

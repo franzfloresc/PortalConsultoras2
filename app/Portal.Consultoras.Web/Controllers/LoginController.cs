@@ -4,7 +4,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceRevistaDigital;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
@@ -881,9 +880,9 @@ namespace Portal.Consultoras.Web.Controllers
                                             var rds = new BERevistaDigitalSuscripcion();
                                             rds.PaisID = model.PaisID;
                                             rds.CodigoConsultora = model.CodigoConsultora;
-                                            using (RevistaDigitalServiceClient sv1 = new RevistaDigitalServiceClient())
+                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                             {
-                                                rds = sv1.GetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
+                                                rds = sv1.RDGetSuscripcion(rds) ?? new BERevistaDigitalSuscripcion();
                                             }
                                             model.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
                                            

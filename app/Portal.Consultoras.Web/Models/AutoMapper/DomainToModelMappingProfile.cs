@@ -5,9 +5,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-
 using Portal.Consultoras.Web.ServiceCDR;
-using Portal.Consultoras.Web.ServiceRevistaDigital;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -172,7 +170,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipNegocio, f => f.MapFrom(c => c.TipNegocio))
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
                 .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria));
-
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
