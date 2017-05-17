@@ -38,7 +38,16 @@
 
     .ui-datepicker-trigger {
         cursor: pointer;
+    }
+
+    .fechaGrillaPrincipal .ui-datepicker-trigger {
+        cursor: pointer;
         padding-left: 50px;
+    }
+
+    .fechaDetalleSolicitud .ui-datepicker-trigger {
+        cursor: pointer;
+        padding-left: 22px;
     }
 
     .ui-widget-header {
@@ -87,12 +96,12 @@
             <div class="div-3">
                 
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina txtFiltro">
+                    <div class="selectP2 seleccion_pagina txtFiltro fechaGrillaPrincipal">
                         @Html.TextBoxFor(m => Model.FechaDesde, new { @class = "textEbel ", @placeholder = "Fecha desde" })
                     </div>
                 </div>
                 <div class="filterDistr">
-                    <div class="selectP2 seleccion_pagina txtFiltro">
+                    <div class="selectP2 seleccion_pagina txtFiltro fechaGrillaPrincipal">
                         @Html.TextBoxFor(m => Model.FechaHasta, new { @class = "textEbel ", @placeholder = "Fecha hasta" })
                     </div>
                 </div>
@@ -1623,9 +1632,11 @@
     }
 
     function buildDocsEC(solicitudPostulanteID) {
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DNI'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DNI Reverso'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo Pago'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CÉDULA DE IDENTIDAD'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'ANVERSO CÉDULA DE IDENTIDAD'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'PAGARÉ'));
     }
 
     function buildDocsMX(solicitudPostulanteID) {
@@ -2555,6 +2566,8 @@
         text-align: center;
         padding: 20px;
         border: 1px solid rgba(0, 0, 0, 0.1);
+        overflow-y:auto;
+        height:380px;
     }
 
     .img18 {
@@ -2566,6 +2579,8 @@
         display: inline-block !important;
         margin-left: 10px;
         cursor: pointer;
+        vertical-align:middle;
+        width: 148px;
     }
 
     #divEliminarCliente {
