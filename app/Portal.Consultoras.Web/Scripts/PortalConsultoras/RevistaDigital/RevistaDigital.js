@@ -33,22 +33,26 @@ $(document).ready(function () {
         slick.$nextArrow.find("img[data-prev]").attr("src", $.trim($(slides[next]).attr("data-ImgPrevDesktop")));
 
     });
+
+    RDDetalleObtener();
+
 });
 
 function OfertaArmarEstrategias(response) {
     var lista = EstructurarDataCarousel(response.lista);
 
-    $.each(lista, function (index, value) {
-        value.Posicion = index + 1;
-        value.UrlDetalle = urlOfertaDetalle + '/' + (value.ID || value.Id);
-    });
+    if (lista.Posicion != undefined) {
+        var objDetalle = lista;
+        lista = new Array();
+        lista.push(objDetalle);
+    }
 
     $("#divOfertaProductos").html("");
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    //response.CodigoEstrategia = "101";
+    response.CodigoEstrategia = "101";
 
     // Listado de producto
     var urlTemplate = "#estrategia-template";
@@ -59,6 +63,44 @@ function OfertaArmarEstrategias(response) {
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
 
+}
+
+function RDDetalleObtener() {
+    $.ajaxSetup({
+        cache: false
+    });
+
+    var busquedaModel = {};
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/RevistaDigital/GetProductoDetalle",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(busquedaModel),
+        async: true,
+        success: function (response) {
+            //CerrarLoad();
+
+            if (response.success == true) {
+                OfertaArmarEstrategias(response);
+            } else {
+                messageInfoError(response.message);
+                if (busquedaModel.hidden == true) {
+                    $("#divOfertaProductos").hide();
+                }
+            }
+        },
+        error: function (response, error) {
+            if (busquedaModel.hidden == true) {
+                $("#divOfertaProductos").hide();
+            }
+            if (checkTimeout(response)) {
+                CerrarLoad();
+                console.log(response);
+            }
+        }
+    });
 }
 
 function LayoutProductos() {

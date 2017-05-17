@@ -1,0 +1,22 @@
+﻿
+@using Portal.Consultoras.Common
+@{
+    ViewBag.Title = "Revista Digital - Detalle";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
+}
+
+
+
+<div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+
+
+@section scripts{
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+}

@@ -360,7 +360,13 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 }
 
 function EstructurarDataCarousel(array) {
-    $.each(array, function (i, item) {
+    var isList = array.DescripcionCUV2 == undefined;
+    var lista = isList ? array : new Array();
+    if (!isList)
+        lista.push(array);
+    
+    var urlOfertaDetalle = $.trim(urlOfertaDetalle);
+    $.each(lista, function (i, item) {
         item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
         item.DescripcionCompleta = item.DescripcionCUV2.split('|')[0];
         if (item.FlagNueva == 1) {
@@ -372,8 +378,9 @@ function EstructurarDataCarousel(array) {
 
         item.Posicion = i + 1;
         item.MostrarTextoLibre = $.trim(item.TextoLibre).length > 0;
+        item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
     });
-    return array;
+    return isList ? lista : lista[0];
 };
 
 function EstrategiaVerDetalle(id, origen) {
