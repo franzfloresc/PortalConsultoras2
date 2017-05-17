@@ -1922,6 +1922,71 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora)
+        {
+            var listaResultado = new List<BEPedidoWeb>();
+
+            var BLPais = new BLPais();
+
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            var DAPHedidoWeb = new DAHPedido();
+
+            var listaPedidoIngresado = new List<BEPedidoWeb>();
+            var listaPedidoFacturado = new List<BEPedidoWeb>();
+            var listaPedido = new List<BEPedidoWeb>();
+
+            if (!BLPais.EsPaisHana(paisID))
+            {
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(consultoraID, campaniaID, top))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaResultado.Add(entidad);
+                    }
+                }
+            }
+            else
+            {
+                listaPedidoFacturado = DAPHedidoWeb.GetPedidosIngresadoFacturado(paisID, codigoConsultora);
+
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresado(consultoraID, campaniaID))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaPedidoIngresado.Add(entidad);
+                    }
+                }
+
+                listaPedido.AddRange(listaPedidoIngresado.OrderByDescending(p => p.CampaniaID).Take(top));
+                listaPedido.AddRange(listaPedidoFacturado.OrderByDescending(p => p.CampaniaID).Take(top));
+
+                var listaPedidoAgrupada = (from tbl in listaPedido
+                                            group tbl by tbl.CampaniaID into grp
+                                            select new 
+                                            {
+                                                CampaniaID = grp.Key,
+                                                Cantidad = grp.Count()
+                                            }).Where(x=>x.Cantidad > 1);
+
+                var listaPedidoEliminar = (from tblPedido in listaPedido
+                                           join tblGroup in listaPedidoAgrupada
+                                           on tblPedido.CampaniaID equals tblGroup.CampaniaID
+                                           where tblPedido.EstadoPedidoDesc == "INGRESADO"
+                                           select tblPedido).ToList();
+
+                listaPedidoEliminar.ForEach(itemPedido =>
+                {
+                    listaPedido.Remove(itemPedido);
+                });
+
+                listaPedido = listaPedido.Take(top).ToList();
+            }
+
+            return listaResultado;
+        }
+
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);

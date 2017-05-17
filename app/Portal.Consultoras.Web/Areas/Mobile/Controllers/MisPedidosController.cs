@@ -21,12 +21,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using(var service = new PedidoServiceClient())
                 {
-                    listaPedidos = service.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, userData.CodigoConsultora).ToList();
+                    listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, 3, userData.CodigoConsultora).ToList();
                 }
 
-                var lista3Ultimos = listaPedidos.OrderByDescending(p => p.CampaniaID).Take(3).ToList();
-
-                foreach (var pedido in lista3Ultimos)
+                foreach (var pedido in listaPedidos)
                 {
                     var bePedidoWeb = new PedidoWebMobilModel();
                     bePedidoWeb.PedidoId = pedido.PedidoID;
@@ -118,12 +116,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         string.IsNullOrEmpty(item.ObservacionPROL) && item.IndicadorOfertaCUV
                     )
                 );
-                if (model.TieneDescuentoCuv)
-                {
-                    model.Subtotal = pedidoWebMobile.ImporteTotal;
-                    model.Descuento = pedidoWebMobile.Descuento;
-                    model.ImporteTotal = pedidoWebMobile.Subtotal + pedidoWebMobile.Descuento;
-                }
+
+                model.Subtotal = pedidoWebMobile.ImporteTotal;
+                model.Descuento = pedidoWebMobile.Descuento;
+                model.ImporteTotal = pedidoWebMobile.Subtotal + pedidoWebMobile.Descuento;
 
                 if (userData.PaisID == 4)
                 {
@@ -138,6 +134,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ImporteTotalString = model.ImporteTotal.ToString("n2", new System.Globalization.CultureInfo("es-PE"));
                 }
 
+                model.Simbolo = userData.Simbolo;
                 model.PaisID = userData.PaisID;
                 model.CampaniaID = campaniaID;
             }
