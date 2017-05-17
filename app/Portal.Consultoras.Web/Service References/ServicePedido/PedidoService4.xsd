@@ -44,7 +44,6 @@
       <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
-      <xs:element minOccurs="0" name="EsMovil" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHoraReserva" type="xs:boolean" />

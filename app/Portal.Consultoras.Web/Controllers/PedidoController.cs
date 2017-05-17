@@ -23,6 +23,7 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -403,6 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
+                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
 
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -1939,7 +1941,6 @@ namespace Portal.Consultoras.Web.Controllers
             //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
 
             var input = Mapper.Map<BEInputReservaProl>(userData);
-            input.EsMovil = Request.Browser.IsMobileDevice;
             input.EnviarCorreo = false;
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
@@ -2012,7 +2013,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool envioCorreo = false;
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                input.EsMovil = Request.Browser.IsMobileDevice;
                 using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
                 if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
@@ -2976,6 +2976,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 /*EPD-1252*/
 
+                //EPD-2248
+                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
+                indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
+                indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
+                indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
+
+                oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                //EPD-2248
+
                 switch (TipoAdm)
                 {
                     case "I":
@@ -2985,6 +2997,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             oBePedidoWebDetalleTemp = sv.Insert(oBEPedidoWebDetalle);
                         }
+
                         oBePedidoWebDetalleTemp.ImporteTotal = oBEPedidoWebDetalle.ImporteTotal;
                         oBePedidoWebDetalleTemp.DescripcionProd = oBEPedidoWebDetalle.DescripcionProd;
                         oBePedidoWebDetalleTemp.Nombre = oBEPedidoWebDetalle.Nombre;
@@ -4102,6 +4115,91 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "Bienvenida", new { area = area });
             }
+        }
+
+        public JsonResult GuardarIndicadorPedidoAutentico(string accion, string codigo)
+        {
+            try
+            {
+                switch (accion)
+                {
+                    case "1":
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["Fingerprint"] = codigo;
+                        }
+                        break;
+                    case "2":
+                        using (PedidoServiceClient svc = new PedidoServiceClient())
+                        {
+                            var tpa  = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                            codigo = AESAlgorithm.Encrypt(tpa);
+                        }
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["TokenPedidoAutentico"] = codigo;
+                        }
+                        break;
+                    case "3":
+                        if (!string.IsNullOrEmpty(codigo))
+                        {
+                            Session["TokenPedidoAutentico"] = codigo;
+                        }
+                        break;
+                }
+
+                return Json(new { success = true, message = codigo });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdatePostulanteMensaje(string tipo)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(tipo))
+                {
+                    var tipoMensaje = Convert.ToInt32(tipo);
+
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        sv.UpdatePosutlanteMensajes(userData.PaisID, userData.CodigoUsuario, tipoMensaje);
+                    }
+
+                    switch (tipoMensaje)
+                    {
+                        case 1:
+                            userData.MensajePedidoDesktop = 1;
+                            break;
+                        case 2:
+                            userData.MensajePedidoMobile = 1;
+                            break;
+                    }
+
+                    SetUserData(userData);
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return Json(new
+            {
+                result = "OK"
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

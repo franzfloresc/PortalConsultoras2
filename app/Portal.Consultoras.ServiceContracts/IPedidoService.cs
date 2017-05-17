@@ -1042,6 +1042,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool GetEventoConsultoraRecibido(int paisID, string CodigoConsultora, int CampaniaID);
 
+        //EPD-2248
+        [OperationContract]
+        string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona);
+
+        [OperationContract]
+        int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+        
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
@@ -1059,5 +1066,8 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotMensajeProactiva> listMensajeProactiva);
     }
 }

@@ -9,7 +9,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Transactions;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -2149,6 +2151,33 @@ namespace Portal.Consultoras.BizLogic
             TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
             return string.Format(" En este momento nos encontramos facturando tu pedido de C-XX. Todos los códigos ingresados hasta las {0} horas han sido registrados en el sistema. Gracias!", horaCierre.ToString(@"hh\:mm"));
         }
+        
+        /*EPD-2248*/
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            entidad.IndicadorToken = AESAlgorithm.Decrypt(entidad.IndicadorToken);
+            return DAPedidoWeb.InsIndicadorPedidoAutentico(entidad);
+        }
+
+        public int UpdIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.UpdIndicadorPedidoAutentico(entidad);
+        }
+
+        public void DelIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            DAPedidoWeb.UpdIndicadorPedidoAutentico(entidad);
+        }
+
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
+        }
+        /*EPD-2248*/
     }
 
     internal class TemplateField

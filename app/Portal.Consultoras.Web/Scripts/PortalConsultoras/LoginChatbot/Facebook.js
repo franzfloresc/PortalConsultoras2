@@ -26,7 +26,7 @@ function LoginFB() {
 }
 
 function ValidarUsuarioFBAsociado(responseFB) {
-    var exists = ExistsExternalUser('Facebook', responseFB.id, function (exists) {
+    var exists = ExistsExternalUser('Facebook', responseFB.authResponse.userID, function (exists) {
         if (exists == null) MessageInfoError('Ocurrió un problema al intentar validar si tiene una consultora asociada.');
         else if (!exists) MostrarLoginNormal(responseFB);
         else ResponderBotmakerFB(responseFB.authResponse.userID, responseFB.authResponse.accessToken);
@@ -55,9 +55,9 @@ function MostrarLoginNormal(responseFB) {
 function AsociarUsuarioFB() {
     ValidarLoginNormal(function(paisID, paisISO, user, password){ 
         ShowLoading();
-        FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (response) {
+        FB.api('/me', 'GET', { fields: 'birthday,email,first_name,gender,hometown,id,last_name,link,location,name,picture.type(large)' }, function (responseFB) {
             CloseLoading();
-            if (IsNullOrEmpty(response.id)) {
+            if (IsNullOrEmpty(responseFB.id)) {
                 MessageInfoError('Ocurrió un error al intentar obtener los datos de su cuenta de Facebook.');
                 return;
             }
@@ -69,16 +69,16 @@ function AsociarUsuarioFB() {
                 'ClaveSecreta': password,
                 'UsuarioExterno': {
                     'Proveedor': 'Facebook',
-                    'IdAplicacion': response.id,
-                    'Login': response.name,
-                    'Nombres': response.first_name,
-                    'Apellidos': response.last_name,
-                    'FechaNacimiento': response.birthday,
-                    'Correo': response.email,
-                    'Genero': response.gender,
-                    'Ubicacion': (typeof response.location === 'object') ? response.location.name : "",
-                    'LinkPerfil': response.link,
-                    'FotoPerfil': (typeof response.picture === 'object') ? response.picture.data.url : ""
+                    'IdAplicacion': responseFB.id,
+                    'Login': responseFB.name,
+                    'Nombres': responseFB.first_name,
+                    'Apellidos': responseFB.last_name,
+                    'FechaNacimiento': responseFB.birthday,
+                    'Correo': responseFB.email,
+                    'Genero': responseFB.gender,
+                    'Ubicacion': (typeof responseFB.location === 'object') ? responseFB.location.name : "",
+                    'LinkPerfil': responseFB.link,
+                    'FotoPerfil': (typeof responseFB.picture === 'object') ? responseFB.picture.data.url : ""
                 }
             }
 
@@ -91,7 +91,7 @@ function AsociarUsuarioFB() {
             })
                 .always(CloseLoading)
                 .done(function (response) {
-                    if (response.success) ResponderBotmakerFB(response.id, accessTokenFB)
+                    if (response.success) ResponderBotmakerFB(responseFB.id, accessTokenFB)
                     else MessageInfoError(response.message);
                 })
                 .fail(function (error) { MessageInfoError('Ocurrió un error al intentar asociar su consultora con su cuenta de Facebook.'); });

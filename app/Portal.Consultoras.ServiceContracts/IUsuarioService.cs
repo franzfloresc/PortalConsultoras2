@@ -332,6 +332,9 @@ namespace Portal.Consultoras.ServiceContracts
         /*EPD-1837*/
 
         [OperationContract]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
+        
+        [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
     }

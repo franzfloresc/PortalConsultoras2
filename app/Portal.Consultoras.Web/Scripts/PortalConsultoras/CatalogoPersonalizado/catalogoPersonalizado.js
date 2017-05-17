@@ -144,18 +144,22 @@ function CargarCatalogoScroll() {
 function ValidarCargaCatalogoPersonalizado() {
     if (cargandoRegistros) return false;
     cargandoRegistros = true;
-
     DialogLoadingAbrir();
-    ReservadoOEnHorarioRestringidoAsync(
-        true,
-        function () {
-            UnlinkCargarCatalogoToScroll();
-            DialogLoadingCerrar();
-        },
-        function () {
-            DialogLoadingCerrar();
-            CargarCatalogoPersonalizado();
-        });
+    /*** EPD-1682 Ahora el usuario podra visualizar los productos cuándo tenga su pedido reservado ***/
+    //ReservadoOEnHorarioRestringidoAsync(
+    //    true,
+    //    function () {
+    //        UnlinkCargarCatalogoToScroll();
+    //        DialogLoadingCerrar();
+    //    },
+    //    function () {
+    //        DialogLoadingCerrar();
+    //        CargarCatalogoPersonalizado();
+    //    });
+    /*** Fin EPD-1682 ***/
+
+    DialogLoadingCerrar();
+    CargarCatalogoPersonalizado();
 }
 
 function MostrarNoHayProductos() {
@@ -311,7 +315,6 @@ function deleteFilters() {
 }
 
 function CargarCatalogoPersonalizado() {
-
     var cataPer = $("#hdTipoCatalogoPersonalizado").val();
     if (cataPer != "1" && cataPer != "2") {
         if (tipoOrigen == '3') $("#divMainCatalogoPersonalizado").remove();        
@@ -941,6 +944,7 @@ function DialogMensaje(msj, funcionRedireccionar) {
         messageInfo(msj, funcionRedireccionar);
     }
     else {
+
         AbrirMensaje(msj);
     }
 }
@@ -996,11 +1000,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (!data.pedidoReservado || mostrarAlerta == true) {
                 if (mostrarAlerta == true) {
                     DialogLoadingCerrar();
-                    DialogMensaje(data.message);
+                    //DialogMensaje(data.message);
+                    AbrirPopupPedidoReservado(data.message, tipoOrigen);
                 }
                 return false;
             }
-
             if (mostrarAlerta != true) {
                 DialogLoadingAbrir();
                 location.href = urlPedidoValidado;
@@ -1035,8 +1039,8 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 fnNoRestringido();
                 return false;
             }
-            DialogLoadingAbrir();
 
+            DialogLoadingAbrir();
             var fnRedireccionar = function () {
                 DialogLoadingAbrir();
                 location.href = urlPedidoValidado;
@@ -1049,7 +1053,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
                 } else
                     fnRedireccionar();
                 return false;
-            }
+            }            
             
             fnRestringido();
         },
@@ -1167,7 +1171,6 @@ function cambiarInfoFichaProductoFAV(tipo, cuv, origen) {
 }
 
 function agregarCuvPedidoFichaProductoFAV(tipo) {
-    
     var container = null;
     if (tipo == 2)
         container = $('#PrecioCatalogo').find('[data-item="catalogopersonalizado"]');
