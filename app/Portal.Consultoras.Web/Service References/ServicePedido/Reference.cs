@@ -7368,9 +7368,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EnviarCorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EsMovilField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoSimplificacionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7531,19 +7528,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EnviarCorreoField.Equals(value) != true)) {
                     this.EnviarCorreoField = value;
                     this.RaisePropertyChanged("EnviarCorreo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool EsMovil {
-            get {
-                return this.EsMovilField;
-            }
-            set {
-                if ((this.EsMovilField.Equals(value) != true)) {
-                    this.EsMovilField = value;
-                    this.RaisePropertyChanged("EsMovil");
                 }
             }
         }
