@@ -161,7 +161,6 @@
                     celular: $(elements.TxtCelular).val().trim()
                 };
                 var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
-                obtenerCupon();
                 confirmacionPromise.then(function (response) {
                     if (response.success) {
                         AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
