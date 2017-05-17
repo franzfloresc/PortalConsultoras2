@@ -153,16 +153,16 @@ namespace Portal.Consultoras.Web.Controllers
                     using (SACServiceClient sac = new SACServiceClient())
                     {
                         tabla = sac.GetTablaLogicaDatos(userData.PaisID, 60).ToList();
-                        model.NroCampana = ((List<BETablaLogicaDatos>)tabla).Find(X => X.TablaLogicaDatosID == 6001).Codigo;
+                    }
+                    model.NroCampana = tabla.Find(X => X.TablaLogicaDatosID == 6001).Codigo;
 
-                        if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
-                        {
-                            model.rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
-                        }
-                        else
-                        {
-                            model.rutaChile = string.Empty;
-                        }
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
+                    {
+                        model.rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
+                    }
+                    else
+                    {
+                        model.rutaChile = string.Empty;
                     }
                 }
                 else
@@ -303,9 +303,9 @@ namespace Portal.Consultoras.Web.Controllers
                             //    mostrarPopUp = true;
                             //}
                             if (mostrarPopUp)
-                            {
                                 break;
-                            }
+                            
+                            continue;
                         }
                         // TODO
                         //if (Popup.CodigoPopup == Constantes.TipoPopUp.GPR) // validar lógica para mostrar la franja de GPR (BO)
@@ -325,6 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     break;
                                 }
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato)
@@ -341,6 +342,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom)
@@ -350,6 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                                 break;
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)
@@ -377,6 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago)
@@ -385,20 +389,18 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
                                 {
-                                    if (model.InscritaFlexipago == "0")
+                                    if (model.InscritaFlexipago == "0" && model.IndicadorFlexipago == 1 && model.CampanaInvitada != "0")
                                     {
-                                        if (model.IndicadorFlexipago == 1 && model.CampanaInvitada != "0")
+                                        if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >=
+                                            Convert.ToInt32(model.NroCampana))
                                         {
-                                            if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >=
-                                                Convert.ToInt32(model.NroCampana))
-                                            {
-                                                TipoPopUpMostrar = Constantes.TipoPopUp.Flexipago;
-                                                break;
-                                            }
-                                        }
+                                            TipoPopUpMostrar = Constantes.TipoPopUp.Flexipago;
+                                            break;
+                                        }                                        
                                     }
                                 }
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado)
@@ -406,26 +408,27 @@ namespace Portal.Consultoras.Web.Controllers
                             if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
                                 List<BEComunicado> comunicados = new List<BEComunicado>();
-                                using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                                using (SACServiceClient sac = new SACServiceClient())
                                 {
-                                    var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID,
-                                        userData.CodigoConsultora);
-                                    if (tempComunicados != null && tempComunicados.Length > 0)
+                                    comunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora).ToList();
+                                }
+
+                                if (comunicados != null && comunicados.Any())
+                                {
+                                    //
+                                    comunicados =
+                                        comunicados.Where(
+                                            c =>
+                                                String.IsNullOrEmpty(c.CodigoCampania) ||
+                                                Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                                    if (comunicados.Any())
                                     {
-                                        //
-                                        comunicados =
-                                            tempComunicados.Where(
-                                                c =>
-                                                    String.IsNullOrEmpty(c.CodigoCampania) ||
-                                                    Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-                                        if (comunicados.Any())
-                                        {
-                                            TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
-                                            break;
-                                        }
+                                        TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
+                                        break;
                                     }
                                 }
                             }
+                            continue;
                         }
 
                         if (Popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
@@ -438,6 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     break;
                                 }
                             }
+                            continue;
                         }
                     }
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
