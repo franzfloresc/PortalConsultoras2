@@ -118,6 +118,10 @@ $(document).ready(function () {
             if ($('#PopShowroomIntriga').is(':visible')) {
                 PopupCerrar('PopShowroomIntriga');
             }
+
+            if ($('#PopRDSuscripcion').is(':visible')) {
+                PopupCerrar('PopRDSuscripcion');
+            }
             
         }
     };
@@ -171,7 +175,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -214,6 +218,10 @@ $(document).ready(function () {
 
         case popupComunicado:
             ObtenerComunicadosPopup();
+            break;
+
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
             break;
     }
 
@@ -2831,6 +2839,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
@@ -3290,8 +3299,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
 
     $(id).attr("data-popup-activo", "1");
-    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
-        $("#fondoComunPopUp").show();
+    var padreComun = $(id).parent().attr("id");
+    if (padreComun == "fondoComunPopUp") {
+        if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+            $("#fondoComunPopUp").show();
+        }
     }
 
     $(id).show();
@@ -3301,11 +3313,19 @@ function PopupCerrar(idPopup) {
     if (typeof (idPopup) == "string")
         id = "#" + idPopup;
 
-    if (id == "") return false;
+    var obj = "";
+    if (id == "") {
+        obj = $(idPopup);
+    }
+    else {
+        obj = $(id);
+    }
 
-    $(id).attr("data-popup-activo", "0");
+    if (obj == "") return false;
 
-    $(id).hide();
+    $(obj).attr("data-popup-activo", "0");
+
+    $(obj).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
     }

@@ -6867,7 +6867,7 @@ input[type="checkbox"]:checked + span:after {
     height: 100%;
     overflow: scroll;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 1000;
+    z-index: 2000;
 }
 
 .popup_demandaAnticipada {
@@ -11899,7 +11899,7 @@ a{
     cursor: pointer;
 }
 .texto_elige_tono{
-    font-family:'LAto';
+    font-family:'Lato';
     font-size:11px;
     font-weight: 700;
     color:#e81c36;

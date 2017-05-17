@@ -564,7 +564,7 @@ function MostrarRevistaCorrecta(campania) {
 
     $.when(defered).done(function () {
         $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-        $('[data-tag-html="Revistas"] .titulo_catalogo').text("REVISTA C-" + rCampSelect.substring(4, 6));
+        $('[data-tag-html="Revistas"] [data-titulo]').text("REVISTA C-" + rCampSelect.substring(4, 6));
         FinRenderCatalogo();
     });
 }

@@ -4,7 +4,7 @@ var ventanaChat = null;
 
 $(document).ready(function () {
     LayoutHeader();
-    LayoutHeader();
+    LayoutMenu();
 
     if (mostrarBannerPostulante == 'True') {
         $('#bloquemensajesPostulante').show();
@@ -94,7 +94,8 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         if (functionHide != "") {
@@ -138,7 +139,7 @@ $(document).ready(function () {
         draggable: true,
         buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
-
+    
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -284,7 +285,6 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
-    LayoutHeader();
 });
 
 

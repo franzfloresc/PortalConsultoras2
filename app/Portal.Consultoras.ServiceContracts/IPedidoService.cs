@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -627,6 +628,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
         [OperationContract]
+        BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID);
+
+        [OperationContract]
         List<BETallaColor> GetTallaColor(BETallaColor entidad);
 
         [OperationContract]
@@ -1087,5 +1091,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotMensajeProactiva> listMensajeProactiva);
+        
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
     }
 }

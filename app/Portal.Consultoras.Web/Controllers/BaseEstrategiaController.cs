@@ -4,8 +4,10 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -23,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
                 return lst;
             }
-
+            
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -37,6 +39,10 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true
             };
+            
+            entidad.CodigoEstrategia = "";//Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
             var listaTemporal = new List<BEEstrategia>();
 
@@ -51,7 +57,57 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ListadoEstrategiaPedido"] = lst;
                 return lst;
             }
-            lst.AddRange(listaTemporal);
+                foreach (var beEstrategia in listaTemporal)
+                {
+
+                    if (beEstrategia.Precio2 <= 0)
+                        continue;
+
+                    var add = true;
+                    if (beEstrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    {
+                        add = false;
+                        var itemStockProl = listaTieneStock.FirstOrDefault(p => p.Codsap.ToString() == beEstrategia.CodigoProducto);
+                        if (itemStockProl != null)
+                            add = itemStockProl.estado == 1;
+                    }
+                    if (!add)
+                        continue;
+
+                    if (beEstrategia.Precio >= beEstrategia.Precio2)
+                        beEstrategia.Precio = Convert.ToDecimal(0.0);
+                    beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
+                    beEstrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.ImagenURL, carpetapais);
+                    beEstrategia.Simbolo = userData.Simbolo;
+                    beEstrategia.TieneStockProl = true;
+                    beEstrategia.PrecioString = Util.DecimalToStringFormat(beEstrategia.Precio2, userData.CodigoISO);
+                    beEstrategia.PrecioTachado = Util.DecimalToStringFormat(beEstrategia.Precio, userData.CodigoISO);
+                    beEstrategia.CodigoEstrategia = Util.Trim(beEstrategia.CodigoEstrategia);
+                    lst.Add(beEstrategia);
+                }
+            }
+            else
+            {
+                foreach (var x in listaTemporal)
+                {
+                    if (x.Precio2 <= 0)
+                        continue;
+
+                    if (x.Precio >= x.Precio2)
+                        x.Precio = Convert.ToDecimal(0.0);
+
+                    x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
+                    x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais);
+                    x.Simbolo = userData.Simbolo;
+                    x.TieneStockProl = true;
+                    x.PrecioString = Util.DecimalToStringFormat(x.Precio2, userData.CodigoISO);
+                    x.PrecioTachado = Util.DecimalToStringFormat(x.Precio, userData.CodigoISO);
+                    x.CodigoEstrategia = Util.Trim(x.CodigoEstrategia);
+                    lst.Add(x);
+                };
+
+            }
+
             Session["ListadoEstrategiaPedido"] = lst;
 
 
@@ -245,6 +301,21 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return estrategia;
+        }
+
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
+        {
+            var listaProducto = ConsultarEstrategias(cuv);
+            var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            ListaProductoModel.Update(estrategia =>
+            {
+                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+            });
+
+            return ListaProductoModel;
         }
     }
 }

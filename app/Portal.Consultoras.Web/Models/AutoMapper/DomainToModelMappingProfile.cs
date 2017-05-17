@@ -174,6 +174,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
             Mapper.CreateMap<BEResultadoReservaProl, ObservacionModel>();
+            Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
         }
     }
 }
