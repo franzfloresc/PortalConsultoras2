@@ -1970,16 +1970,6 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().EjecutarReservaProl(input);
         }
-        
-        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
-        {
-            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
-        }
-
-        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
-        {
-            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
-        }
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
