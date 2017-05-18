@@ -3959,7 +3959,6 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
-    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
     <Content Include="Views\Bienvenida\template-opt.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
