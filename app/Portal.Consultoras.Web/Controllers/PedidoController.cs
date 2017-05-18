@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -22,8 +23,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-
-using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -419,6 +418,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
+                ViewBag.paisISO = userData.CodigoISO;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("Ambiente") ?? string.Empty;
 
             }
             catch (FaultException ex)

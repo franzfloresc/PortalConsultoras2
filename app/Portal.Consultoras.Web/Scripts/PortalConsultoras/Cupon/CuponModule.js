@@ -40,7 +40,8 @@
         BtnModificarDatos: '#Cupon2 #btnModificarDatos',
         BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente',
         ContenedorMostrarCorreo: '#Cupon2 div.correo_confirmacion',
-        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_cupon'
+        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_cupon',
+        LinkTerminosCondiciones: '#lnkTerminosCondiciones'
     };
 
     var setting = {
@@ -57,7 +58,10 @@
         UrlObtenerOfertasPlan20EnPedido: 'Cupon/ObtenerOfertasPlan20EnPedido',
         Cupon: null,
         SimboloMoneda: '',
-        CampaniaActual: ''
+        CampaniaActual: '',
+        PaisISO: '',
+        UrlS3: 'https://s3.amazonaws.com',
+        Ambiente: ''
     };
 
     var inizializer = function (parameters) {
@@ -65,9 +69,17 @@
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
-        setting.CampaniaActual = parameters.campaniaActual
+        setting.CampaniaActual = parameters.campaniaActual;
+        setting.PaisISO = parameters.paisISO;
+        setting.Ambiente = parameters.ambiente;
+        setDefaultValues();
         mostrarPopupCuponPorPagina();
         bindEvents();
+    }
+
+    var setDefaultValues = function () {
+        var urlTerminosCondiciones = setting.UrlS3 + "/" + setting.Ambiente + "/SomosBelcorp/FileConsultoras/" + setting.PaisISO + "/Contrato_Cupon.pdf";
+        $(elements.LinkTerminosCondiciones).attr("href", urlTerminosCondiciones);
     }
 
     var bindEvents = function () {

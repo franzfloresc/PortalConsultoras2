@@ -440,7 +440,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
-                model.EmailActivo = userData.EMailActivo; 
+                model.EmailActivo = userData.EMailActivo;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("Ambiente") ?? string.Empty;
+
             }
             catch (FaultException ex)
             {
