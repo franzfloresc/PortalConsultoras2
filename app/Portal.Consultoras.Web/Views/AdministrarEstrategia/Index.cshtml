@@ -383,9 +383,10 @@
                 $(".checksPedidosAsociados").html('');
 
                 var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
            //$("#btnActivarDesactivar").hide();
 
-                if (aux1 == "4") {
+                if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
                     $("#txtOrden").val("");
                     $('#div-orden').hide();
 
@@ -409,7 +410,7 @@
 
                 $("#hdnEtiqueta1").val('4');
                 }
-                else if (aux1 == "4" || aux1 == "5") {
+                else if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
 
                 $("#hdnEtiqueta1").val('1');
                 $("#hdnEtiqueta2").val('3');
@@ -440,12 +441,12 @@
                 $("#hdnEtiqueta2").val('5');
             }
             
-            if ($('#ddlTipoEstrategia option:selected').attr('data-codigo') === '005') $('#div-revista-digital').show();
+            if (aux2 == '005') $('#div-revista-digital').show();
             else $('#div-revista-digital').hide();
 
             LimpiarCamposLanzamiento('img-fondo-desktop');
             LimpiarCamposLanzamiento('img-prev-desktop');
-            LimpiarCamposLanzamiento('img-fondo-mobile');
+            //LimpiarCamposLanzamiento('img-fondo-mobile');
             LimpiarCamposLanzamiento('img-ficha-desktop');
             LimpiarCamposLanzamiento('img-ficha-mobile');
             LimpiarCamposLanzamiento('img-ficha-fondo-desktop');
@@ -493,11 +494,12 @@
 
         });
         $("#ddlTipoEstrategia").change(function () {
-            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
-            if (aux1 == "001") {
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
             }
@@ -789,9 +791,9 @@
                 alert("Debe seleccionar un tipo de estrategia, verifique.");
                 return false;
             } else {
-                var estrategiaId = $("#ddlTipoEstrategia option:selected").attr("data-id");
-                if (estrategiaId != 4) {
-                    alert("Debe seleccionar el tipo de Estrategia Oferta para Ti, verifique.");
+                var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
+                if (estrategiaId !== 4 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11) {
+                    alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
             }
@@ -816,7 +818,8 @@
         $("#btnAceptarMasivo1").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 2
+                tipoConfigurado: 2,
+                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
             };
 
             waitingDialog({});
@@ -849,7 +852,8 @@
         $("#btnAceptarMasivo2").click(function () {
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
-                tipoConfigurado: 1
+                tipoConfigurado: 1,
+                estrategiaId: $('#ddlTipoEstrategia').find(':selected').data('id')
             };
 
             waitingDialog({});
@@ -916,7 +920,7 @@
 
         UploadFileLanzamineto('img-fondo-desktop');
         UploadFileLanzamineto('img-prev-desktop');
-        UploadFileLanzamineto('img-fondo-mobile');
+        //UploadFileLanzamineto('img-fondo-mobile');
         UploadFileLanzamineto('img-ficha-desktop');
         UploadFileLanzamineto('img-ficha-fondo-desktop');
         UploadFileLanzamineto('img-ficha-mobile');
@@ -1098,7 +1102,8 @@
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                CampaniaID: $("#ddlCampania").val()
+                CampaniaID: $("#ddlCampania").val(),
+                EstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -1390,6 +1395,7 @@
     function fnGrilla() {
         $("#list").jqGrid("GridUnload");
         var tipo = $('#ddlTipoEstrategia').find(':selected').data('id');
+        var codigo = $('#ddlTipoEstrategia').find(':selected').data('codigo');
         var allRowsInGrid = [];
         var flag = true;
         jQuery("#list").jqGrid({
@@ -1406,7 +1412,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4') ? true : false,
+            multiselect: (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1459,7 +1465,7 @@
             }
         });
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        if (tipo == '4') { $("#list").jqGrid('hideCol', ["Orden"]); }
+        if (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008") { $("#list").jqGrid('hideCol', ["Orden"]); }
     }
 
     function ShowInputTC(cellvalue, options, rowObject) {
@@ -1527,7 +1533,7 @@
     function ShowImage(cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, '');
-        image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';
+        image = '<img src="' + (filename != "" ? image : rutaImagenVacia) + '" alt="" width="70px" height="60px" title="" border="0" />';
         return image;
     }
 
@@ -1578,7 +1584,8 @@
 
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
-            tipoConfigurado: parseInt(tipo)
+            tipoConfigurado: parseInt(tipo),
+            estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
@@ -1805,9 +1812,9 @@
                         alert("Seleccione una imagen a mostrar.");
                         return false;
                     }
-
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    if (aux2 != "4" && aux2 != '7') {
+                    var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
+                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -1832,6 +1839,41 @@
                     }
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
+                    if (aux3 == '005') {
+                        if ($("#nombre-img-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-prev-desktop").val() == "") {
+                            alert("Seleccione una imagen de previsualización para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-desktop").val() == "") {
+                            alert("Seleccione una imagen para el sello de ficha para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo de ficha para Desktop. ");
+                            return false;
+                        }
+                        if ($("#url-video-desktop").val() == "") {
+                            alert("Ingrese la url para el video para desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-mobile").val() == "") {
+                            alert("Seleccione una imagen para el sello de ficha para Mobile. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo de ficha para Mobile. ");
+                            return false;
+                        }
+                        if ($("#url-video-mobile").val() == "") {
+                            alert("Ingrese la url para el video para Mobile. ");
+                            return false;
+                        }
+                    }
+                       
                     var EstrategiaID = 0;
                     if(!isNuevo)
                         EstrategiaID = $("#hdEstrategiaID").val();
@@ -1906,7 +1948,7 @@
                         Orden: Orden,
                         ColorFondo: colorFondo,
                         FlagEstrella: flagEstrella,
-                        CodigoTipoEstrategia: $('#ddlTipoEstrategia option:selected').data('codigo'),
+                        CodigoTipoEstrategia: aux3,
                         ImgFondoDesktop: imgFondoDesktop,
                         ImgPrevDesktop: imgPrevDesktop,
                         ImgFichaDesktop: imgFichaDesktop,
@@ -2162,9 +2204,9 @@
                 }
                 return false;
             },
-            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+            onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+            onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
         });
         return false;
     }

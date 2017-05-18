@@ -191,8 +191,9 @@
         }
 
         var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+        var aux2 = $("#hdEstrategiaCodigo").val();
 
-        if (aux1 == "4") {
+        if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
             $("#txtOrden").val("");
             $('#div-orden').hide();
 
@@ -207,7 +208,7 @@
             $('#txt2-estrella').show();
         }
 
-        if (aux1 == "4" || aux1 == "5") {
+        if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
             $("#ddlEtiqueta1").children('option').hide();
             $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -248,8 +249,8 @@
 
         _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
         _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
-        _agregarCamposLanzamiento('img-fondo-mobile', data.ImgFichaDesktop);
-        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFondoMobile);
+        //_agregarCamposLanzamiento('img-fondo-mobile', data.ImgFondoMobile);
+        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFichaDesktop);
         _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
         _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
         _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
@@ -346,7 +347,7 @@
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento('img-fondo-desktop');
         _limpiarCamposLanzamiento('img-prev-desktop');
-        _limpiarCamposLanzamiento('img-fondo-mobile');
+        //_limpiarCamposLanzamiento('img-fondo-mobile');
         _limpiarCamposLanzamiento('img-ficha-desktop');
         _limpiarCamposLanzamiento('img-ficha-mobile');
         _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
