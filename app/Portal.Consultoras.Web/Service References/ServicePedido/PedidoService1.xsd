@@ -18,6 +18,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="EventoID" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PerfilID" type="xs:int" />
@@ -51,6 +52,7 @@
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagAgotado" type="xs:int" />
@@ -142,7 +144,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCategoria" nillable="true" type="tns:BEShowRoomCategoria" />
-      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
   <xs:complexType name="ArrayOfBEShowRoomTipoOferta">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEShowRoomTipoOferta" nillable="true" type="tns:BEShowRoomTipoOferta" />
@@ -264,5 +265,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEShowRoomCompraPorCompra" nillable="true" type="tns:BEShowRoomCompraPorCompra" />
-      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
 </xs:schema>
