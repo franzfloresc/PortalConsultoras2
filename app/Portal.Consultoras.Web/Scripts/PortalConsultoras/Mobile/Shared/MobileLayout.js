@@ -313,7 +313,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
-        url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })',
+        url: urlReservadoEnHorarioRestringuido,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,
@@ -330,7 +330,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     ShowLoading();
-                    location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+                    location.href = urlPedidoValidado
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
