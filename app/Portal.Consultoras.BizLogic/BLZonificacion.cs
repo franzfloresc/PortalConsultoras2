@@ -45,7 +45,8 @@ namespace Portal.Consultoras.BizLogic
 
         public BEPais SelectPais(int paisID)
         {
-            return SelectPaises().FirstOrDefault(pais => pais.PaisID == paisID);
+            IList<BEPais> paises = SelectPaises();
+            return paises.Where(p => p.PaisID == paisID).ToList().FirstOrDefault();
         }
 
         public int GetPaisNumeroCampaniasByPaisID(int paisID)
