@@ -4,6 +4,7 @@
 @using Newtonsoft.Json;
 
 @{
+    Layout = null;
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
 
@@ -47,10 +48,7 @@
 </head>
 <body>
     <!-- Google Tag Manager -->
-    <script type="text/javascript">
-
-        
-
+    <script type="text/javascript"> 
         dataLayer = [{
             'campana': '@ViewBag.AnalyticsCampania',
             'segmento': '@ViewBag.AnalyticsSegmento',
@@ -67,41 +65,6 @@
             'semana-periodo': '@ViewBag.SemanaAnalytics'
         }];
     </script>
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-TTK6KS" height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TTK6KS');
-    </script>
-    <!-- End Google Tag Manager -->
-    @if (ViewBag.PaisesConTrackingJetlore == "1")
-    {
-        <script type="text/javascript" src="https://assets.jetlore.com/js/jltracking.js"></script>
-
-        <script type="text/javascript">
-            var trackingJetloreAccessToken = '@System.Configuration.ConfigurationManager.AppSettings.Get("TrackingJetloreAccessToken")';
-
-            JL.tracking({
-                cid: trackingJetloreAccessToken,
-                user_id: '@ViewBag.CodigoConsultoraDL',
-                feed_id: 'Belcorp_' + '@ViewBag.CodigoISODL',
-            });
-        </script>
-    }
-
-    <input type="hidden" id="hdCampaniaCodigo" value="@ViewBag.CampaniaCodigo" />
-    <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
-    <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
-    <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -124,249 +87,6 @@
         <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
-    <!-- alert-top -->
-    <div id="divAlertaPedidosOnline" class="alert-top alert-success alert-top-conline" style="display: none;">
-        <a href="@Url.Action("MisPedidos", "ConsultoraOnline", new { area = "Mobile" })">
-            <span class="alert-icon"><i class="icon-notificaciones-belcorp"></i></span>
-            <span id="spanNumeroPedidoOnline1" class="alert-number"></span>
-            <div class="alert-text upper center-min">TIENES <span id="spanNumeroPedidoOnline2">0</span> NUEVOS PEDIDOS DE CONSULTORA ONLINE</div>
-        </a>
-        <span class="alert-close"><i class="icon-close-belcorp"></i></span>
-    </div>
-
-    <!-- header -->
-    @*<header id="new-header">
-        <div id="bloquemensajesPedido" style="display:none;">
-            <div class="oscurecer_animacion"></div>
-            <div class="bloque_mensajesPedido">
-                <div class="icono_cerrar_mensaje">
-                    <span>
-                        <a href="javascript:void();" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                            <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
-                        </a>
-                    </span>
-                </div>
-                <div class="icono_estadoPedido">
-                    <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
-                </div>
-                <div class="mensajes_estadoPedido">
-                    <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
-                    <span class="mensaje_horarioIngresoPedido">
-                        @ViewBag.GPRBannerMensaje
-                        @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                        {
-                            <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido", new { area = "Mobile" })'>MODIFICA TU PEDIDO</a>
-                        }
-                    </span>
-                </div>
-            </div>
-        </div>
-            
-            <div class="container-fluid" style="padding-top:9px; padding-bottom:9px;">
-                <div class="row">
-                    <div class="col-xs-4">
-                        <img src="@Url.Content("~/Content/Images/mobile/Esika/icon_menu.png")" id="ic_menu" class="icon-menu" alt="Menú" />
-                    </div>
-                    <div class="col-xs-4 text-center">
-                        <a role="link" region="Superior" parent="Bienvenida" title="Bienvenida"
-                           class="logo_mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })"></a>
-                    </div>
-                    <div class="col-xs-4 text-right">
-                        <div class="menu-shop">
-                            <a role="link" region="Superior" parent="Pedido" title="Pedido"
-                               class="campana_mobile" href="@Url.Action("Detalle", "Pedido", new { area = "Mobile" })" id="lnk-sup-pedido">
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="icon-menu-shop"><i class="icon-shop-belcorp"></i></span>
-                                <span role="link" region="Superior" parent="Pedido" title="Pedido" class="num-menu-shop">0</span>
-                            </a>
-                            <a role="link" region="Superior" parent="Notificaciones" title="Notificaciones"
-                               class="campana_mobile" href="@Url.Action("Index","Notificaciones", new { area = "Mobile" })" style="margin-left: -15px;">
-                                <div role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="campana_svg_mobile"><p role="link" region="Superior" parent="Notificaciones" title="Notificaciones" class="notificaciones_mobiles">0</p></div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</header>*@
-    @if (ViewBag.MostrarBannerPL20 == true)
-    {
-        if (ViewBag.MostrarOfertaDelDia == true)
-        {
-            <div id="pop_oferta_mobile" class="content_pop_oferta_mobile">
-                <div class="header_pop_oferta" style="background-color:@ofertaDelDia.ColorFondo2">
-                    <div class="content_320" style="padding:0;">
-                        <div class="float_left">
-                            <a class="btn_cerrar_pop_oferta_hoy">
-                                <img src="@Url.Content("~/Content/Images/PL20/regresar.png")" alt="regresar" />
-                            </a>
-                        </div>
-                        <div class="imagen_set_hoy_mobile">
-                            <img id="img2-solohoy-odd" alt="regresar" src="@ofertaDelDia.ImagenSoloHoy" />
-                        </div>
-                        <hr class="clear" />
-                    </div>
-                </div>
-                <div class="set_oferta_content">
-                    <div class="producto_img_mobile">
-                        <img src="@ofertaDelDia.ImagenDisplay" alt="Solo Hoy" id="img-display-odd" />
-                    </div>
-                    <div class="nombre_set_display">@ofertaDelDia.NombreOferta</div>
-                    <div class="producto_nombre_descripcion">
-                        <div class="nombre_set_producto_hoy">@Html.Raw(ofertaDelDia.DescripcionOferta)</div>
-                        <div class="precio_valorizado_mobile">VALORIZADO EN <span>@ViewBag.Simbolo @ofertaDelDia.PrecioCatalogoFormat</span></div>
-                        <div class="producto_precio_hoy_mobile">
-                            A SOLO <span>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</span>
-                        </div>
-
-                        <div class="liquidacion_rango_home">
-                            <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                            <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        </div>
-                        <div class="clear"></div>
-                        <a class="boton_Agregalo_home boton_estilo_marca" href="#" onclick="addOfertaDelDiaPedido()">
-                            AGRÉGALO
-                        </a>
-                        <div style="padding-top:9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align:right;display:none;">
-                                AGREGADO
-                                <div class="icono"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div id="content_slider_banner" class="content_slider_banner" style="display:none;">
-            @if (ViewBag.PermitirCerrarBannerPL20 == true)
-            {
-                <a class="btn_cerrar_oferta_mobile" href="javascript:void(0);" onclick="closeBannerPL20();">X</a>
-            }        
-            <div id="flexslider">
-                <ul class="slides">
-                    @if (ViewBag.MostrarShowRoomBannerLateral == true)
-                    {
-                        if (showRoomBannerLateral.MostrarShowRoomProductos)
-                        {
-                            <li>
-                                <div id="divShowRoomHoy" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-        <div class="imagen_preventa">
-            <div class="etiqueta_2">
-                <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-            </div>
-            <div class="titulo_contador_m">
-                @*PRE · VENTA DIGITAL*@
-                                            <span id="spnPreventaDigitalHoy">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-            </div>
-        </div>
-                                    <div class="fondo_white" style="height:80px; overflow:hidden">
-                                        <div class="row_contador">
-                                            <div style="text-align: center;">
-                                                <a id="lnkConoceMasShowRoomBannerLateralImagenHoy" class="content_imagen_slider_showroom" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
-                                                    <img id="imgVentaSetPopupBannerHoy" alt="imgVentaSetPopupBannerHoy" src="@showRoomBannerLateral.BEShowRoom.ImagenVentaSetPopup" />
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="contenedor_encuentralos2">
-                                        <div class="row_contador">
-                                            <a href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" class="btn_encuentralos" id="lnkConoceMasShowRoomBannerLateralHoy">ENCUENTRALOS AQUI</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        else if(ViewBag.MostrarOfertaDelDia == false)
-                        {
-                            <li>
-                                <div id="divShowRoom" class="divShowRoom">
-                                    <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                    <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
-                                    <div class="imagen_preventa">
-                                        <div class="etiqueta_2">
-                                            <img src="@Url.Content("~/Content/Images/mobile/img-showroom/etiqueta_2.png")" alt="-" />
-                                        </div>
-                                        <div class="titulo_contador_m">
-                                            @*PRE · VENTA DIGITAL*@
-                                            <span id="spnPreventaDigital">@showRoomBannerLateral.BEShowRoom.Nombre</span>
-                                        </div>
-                                    </div>
-        <div class="fondo_m">
-            <div class="row_contador">
-                <div style="float: left; margin-top: 12px; margin-left: 20px; width: 110px;">
-                    <div class="texto_dias_m">
-                        SÓLO FALTAN
-                    </div>
-                    <div class="texto_fecha_m">
-                        <span id="spnDiasFaltantes" class="clsDia">12</span>
-                    </div>
-                    <div class="texto_dias_m">
-                        DÍAS
-                    </div>
-                </div>
-                <div style="float: left; margin-top: 12px; margin-left: 22px; width: 135px;">
-                    <div style="height: 20px; width: 135px;">
-                        <div class="text_hora_m">hrs</div>
-                        <div class="text_hora_m">min</div>
-                        <div class="text_hora_m no_margin_right">sec</div>
-                    </div>
-                    <div class="fondo_contador">
-                        <div class="text_numero"><span id="spnHorasFaltantes" class="clsHora">18</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnMinutosFaltantes" class="clsMinuto">25</span></div>
-                        <div class="text_bolita">•</div>
-                        <div class="text_numero"><span id="spnSegundosFaltantes" class="clsSegundo">02</span></div>
-                    </div>
-                    <div style="margin-top: 6px;">
-                                                    <a href="@showRoomBannerLateral.RutaShowRoomBannerLateral" class="boton_showroom" id="lnkConoceMasShowRoomBannerLateral" target="_blank">CONOCE MÁS AQUÍ</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
-                            </li>
-                        }
-                    }
-                    @if (ViewBag.MostrarOfertaDelDia == true)
-                    {
-                        <li>
-                            <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
-                                <div class="content_320" style="padding:0;" id="content_oferta_dia_mobile">
-                                    <div class="float_left">
-                                        <div class="solo_hoy_mobile">
-                                            <img id="img1-solohoy-odd" alt="" src="@ofertaDelDia.ImagenSoloHoy" />
-            </div>
-                                        <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br />A SOLO <b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
-                                        <a class="btn_compralo_ahora" href="#">CÓMPRALO AHORA</a>
-            </div>
-                                    <div class="imagen_set_oferta_mobile">
-                                        <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
-        </div>
-                                    <hr class="clear" />
-
-                                    <input type="hidden" id="tipoestrategia-id-odd" value="@ofertaDelDia.TipoEstrategiaID" />
-                                    <input type="hidden" id="marca-id-odd" value="@ofertaDelDia.MarcaID" />
-                                    <input type="hidden" id="cuv2-odd" value="@ofertaDelDia.CUV2" />
-                                    <input type="hidden" id="limite-venta-odd" value="@ofertaDelDia.LimiteVenta" />
-                                    <input type="hidden" id="flagnueva-odd" value="@ofertaDelDia.FlagNueva" />
-                                    <input type="hidden" id="precio-odd" value="@ofertaDelDia.PrecioOferta" />
-                                    <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
-                                    <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
-                                    <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
-                </div>
-            </div>
-                        </li>
-                    }
-                </ul>
-        </div>
-            </div>
-    }
-
-    <!-- content -->
     <section style="min-height: 380px;">
         <div id="content" data-content="" style="margin-top: 5px;">
             @RenderBody()
@@ -377,201 +97,22 @@
         </div>
     </section>
 
-    <!-- footer -->
-    @*<footer class="footer-page">
-        @Html.Partial("_MobileMenuFooter")
-        <hr class="clear" />
-    </footer>*@
-
-    @*<div class="content-spinner2" id="loading-spin">
-        <div class="busy-loader">
-            <div class="w-ball-wrapper ball-1">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-2">
-                <div class="w-ball"></div>
-            </div>
-            <div class="w-ball-wrapper ball-3">
-                <div class="w-ball"> </div>
-            </div> <div class="w-ball-wrapper ball-4">
-                <div class="w-ball"> </div>
-            </div>
-            <div class="w-ball-wrapper ball-5">
-                <div class="w-ball"> </div>
-            </div>
-        </div>
-    </div>*@
-
-    <div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacion" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
-        </div>
-    </div>
-
-    <div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-
-    <div id="popupComunidad" class="modal fade" data-backdrop="static" data-keyboard="false" style="z-index: 10000 !important; ">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-body">
-
-                    <div class="row text-left">
-                        <div class="col-xs-12">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
-                            <ol class="breadcrumb-next upper">
-                                <li>
-                                    Comunidad Somos Belcorp
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-
-                    <div class="row text-left">
-
-                        <div class="form-controls-grey">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    ¿Aún no eres parte de nuestra comunidad?
-                                    Ingresa tus datos aquí.
-                                </div>
-                                <div class="form-group">
-                                    <input id="txtNombreConCom" class="form-control" placeholder="" value="@ViewBag.NombreC" type="text" readonly="readonly" />
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtApellidoConCom" class="form-control" placeholder="" value="@ViewBag.ApellidoC" type="text" readonly="readonly" />
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtUsuarioComunidad" class="form-control" placeholder="Tu apodo en la Comunidad" maxlength="25" type="text" onblur="if (this.value != '') { ValidarUsuarioIngresado(this.value); }" />
-                                    <div id="ErrorUsuario" style="font-size: 11px; color: red; display: none;">Debe ingresar un apodo.</div>
-                                    <div id="ValUsuario" style="font-size: 11px; display: none;"></div>
-                                </div>
-
-                                <div class="form-group">
-                                    <input id="txtNuevoCorreoComunidad" class="form-control" placeholder="Correo Electronico" onblur="if (this.value != '') { ValidarCorreoIngresado(this.value); }" />
-                                    <div id="ErrorCorreo" style="font-size: 11px; color: red; display: none;"></div>
-                                    <div id="ValCorreo" style="font-size: 11px; display: none;"></div>
-                                </div>
-
-                                <div class="block-center text-center">
-                                    <a id="btnRegistrarUsuarioComunidad" onclick="return ValidarCorreoComunidad(2)" class="btn btn-line-action btn-round">Crea tu cuenta</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="clear">
-                        </div>
-
-                        <div class="col-xs-12">
-                            <hr style="border-top: 1px solid #CCC;" />
-                        </div>
-                        <div class="form-controls-grey">
-
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    Si ya eres miembro de la Comunidad Somos Belcorp, ingresa tu correo aquí:
-                                </div>
-                                <div class="form-group">
-
-                                    <input id="txtCorreoComunidad" class="form-control" placeholder="Correo Electronico" />
-                                    <div id="ErrorCorreoC" style="font-size: 11px; color: red; display: none;"></div>
-                                    <div id="ES_CorreoC" style="height: 10px; display: none;"></div>
-
-                                </div>
-
-                                <div class="block-center text-center">
-                                    <a id="btnValidarCorreo" class="btn btn-line-action btn-round" onclick="return ValidarCorreoComunidad(1)">Ingresar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!--POP MENSAJE IMPORTANTE-->
-    <div id="popupInformacionSB2Malo" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Malo').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-            <div id="mensajeInformacionSB2_Malo" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->
-    <!--POP MENSAJE Error-->
-    <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->
-
-    @*<!--POP MENSAJE SESION FINALIZADA Error-->
-    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
-            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-    <!--FIN-->*@
-
-    <!--POP MENSAJE LO LOGRASTE-->
-    <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta check_icono_mobile"></div>
-            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
-            <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
-    </div>
-
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
 
     @Scripts.Render("~/Scripts/Mobile")
+
+    @*<script src="/Scripts/jquery-1.11.2.js"></script>
+    <script src="/Scripts/jquery-ui-1.9.2.custom.js"></script>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/menu.js"></script>
+    <script src="/Scripts/accordion.js"></script>
+    <script src="/Scripts/fingerprint2.js"></script>
+    <script src="/Scripts/General.js"></script>*@
+
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
     
@@ -625,870 +166,456 @@
         };
     </script>
 
-    @if (ViewBag.MostrarBannerPL20 == true)
-    {
-        if (ViewBag.MostrarShowRoomBannerLateral == true)
-        {
-            <script type="text/javascript">
-                var mostrarShowRoomProductos = '@showRoomBannerLateral.MostrarShowRoomProductos';
-                var showRoomDiasFaltantes = @showRoomBannerLateral.DiasFaltantes;
-                var showRoomMesFaltante = @showRoomBannerLateral.MesFaltante;
-                var showRoomAnioFaltante = @showRoomBannerLateral.AnioFaltante;
-
-                function CargarShowRoom() {
-                    if (mostrarShowRoomProductos == 'True') {
-                        $("#lnkConoceMasShowRoomBannerLateralHoy, #lnkConoceMasShowRoomBannerLateralImagenHoy").click(function () {
-                            AgregarTagManagerShowRoomBannerLateralConocesMas(true);
-                        });
-                        AgregarTagManagerShowRoomBannerLateral(true);
-                    }
-                    else {
-                        $("#lnkConoceMasShowRoomBannerLateral").click(function () {
-                            AgregarTagManagerShowRoomBannerLateralConocesMas(false);
-                        });
-                        AgregarTimerShowRoom(showRoomDiasFaltantes, showRoomMesFaltante, showRoomAnioFaltante);
-                        AgregarTagManagerShowRoomBannerLateral(false);
-                    }
-                }
-
-                function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-                    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-                    if (esHoy) name += " - fase 2";
-
-                    dataLayer.push({
-                        'event': 'promotionClick',
-                        'ecommerce': {
-                            'promoClick': {
-                                'promotions': [
-                                    {
-                                        'id': $("#hdEventoIDShowRoom").val(),
-                                        'name': name,
-                                        'position': 'Home lateral - 1',
-                                        'creative': 'Banner'
-                                    }]
-                            }
-                        }
-                    });
-                }
-
-                function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-                    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
-                    if (esHoy) name += " - fase 2";
-
-                    dataLayer.push({
-                        'event': 'promotionView',
-                        'ecommerce': {
-                            'promoView': {
-                                'promotions': [
-                                    {
-                                        'id': $("#hdEventoIDShowRoom").val(),
-                                        'name': name,
-                                        'position': 'Home lateral - 1',
-                                        'creative': 'Banner'
-                                    }]
-                            }
-                        }
-                    });
-                }
-
-                function AgregarTimerShowRoom(dia, mes, anio) {
-                    var calcNewYear = setInterval(function () {
-                        //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
-                        date_future = new Date(anio, mes - 1, dia);
-                        date_now = new Date();
-
-                        seconds = Math.floor((date_future - (date_now)) / 1000);
-                        minutes = Math.floor(seconds / 60);
-                        hours = Math.floor(minutes / 60);                        
-                        days = Math.floor(hours / 24);
-
-                        hours = hours - (days * 24);
-                        minutes = minutes - (days * 24 * 60) - (hours * 60);
-                        seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
-
-                        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);                        
-                        $(".clsDia").html(days);
-                        $(".clsHora").html(hours);
-                        $(".clsMinuto").html(minutes);
-                        $(".clsSegundo").html(seconds);
-
-                        if (days == 0 && hours == 0 && minutes == 0 && seconds == 0) {
-                            clearInterval(calcNewYear);
-                        }
-                        if (days < 0) {
-                            $(".clsDia").html(0);
-                            $(".clsHora").html(0);
-                            $(".clsMinuto").html(0);
-                            $(".clsSegundo").html(0);
-                            clearInterval(calcNewYear);
-                        }
-                    }, 1000);
-                }
-            </script>
-        }
-        if (ViewBag.MostrarOfertaDelDia == true)
-        {
-            <script type="text/javascript">
-                function CargarEventosODD() {
-                    $("#content_oferta_dia_mobile").click(function () {
-                        $('#txtCantidad').val('1');
-                        $('body').css({ 'overflow-x': 'hidden' });
-                        $('body').css({ 'overflow-y': 'hidden' });
-                        $('#pop_oferta_mobile').toggle('slide', {direction: 'Right' }, 500);
-                    });
-
-                    $(".header_pop_oferta").click(function () {
-                        $('body').css({ 'overflow-y': 'scroll' });
-                        $('#pop_oferta_mobile').toggle('slide', {direction: 'right' }, 500);
-                    });
-                };
-
-                function closeBannerPL20() {
-                    $.ajax({
-                        type: 'GET',
-                        url: urlCloseBannerPL20,
-                        cache: false,
-                        success: function (response) {
-                            if (checkTimeout(data)) {
-                                if (response.success) {
-                                    $('#content_slider_banner').hide();
-                                    $('#content').css('margin-top', '');
-                                }
-                            }
-                        },
-                        error: function (err) { 
-                            if (checkTimeout(data)) {
-                                console.log(err); 
-                            }
-                        }
-                    });
-                };
-
-                function addOfertaDelDiaPedido(){
-                    var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
-                    var estrategiaID = $('#estrategia-id-odd').val();
-                    var flagNueva = $('#flag-nueva-odd').val();
-                    var teImagenMostrar = $('#teimagenmostrar-odd').val();
-                    var cantidad = $('#txtCantidad').val();//$("#txtCantidadZE").val();
-                    var cantidadLimite = $('#limite-venta-odd').val();//$("#txtCantidadZE").attr("est-cantidad");
-                    var cuv = $('#cuv2-odd').val();//$("#txtCantidadZE").attr("est-cuv2");
-                    var marcaID = $('#marca-id-odd').val();//$("#txtCantidadZE").attr("est-marcaID");
-                    var precio = $('#precio-odd').val();//$("#txtCantidadZE").attr("est-precio2");
-                    var descripcion = $('#nombre-odd').val();//$("#txtCantidadZE").attr("est-descripcion");
-                    var indicadorMontoMinimo = $('#indmonto-min-odd').val();//$("#txtCantidadZE").attr("est-montominimo");
-                    var origenPedidoWeb = 0;
-
-                    //directo display
-                    if (typeof origenPagina == 'undefined') origenPedidoWeb = 2991; // general
-                    else if (origenPagina == 1) origenPedidoWeb = 2191// home
-                    else if (origenPagina == 2) origenPedidoWeb = 2291; // pedido
-
-                    var intCantidad = parseInt(cantidad);
-                    var intLimiteVenta = parseInt(cantidadLimite);
-                    var msg1 = 'Solo puede llevar ' + cantidadLimite + ' unidades de este producto.';
-
-                    if (intCantidad > intLimiteVenta) {
-                        //messageInfoMalo('Solo puede llevar ' + cantidadLimite.toStrin + ' unidades de este producto.','');
-                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
-                        $('#popupInformacionSB2Error').show();
-                        return ;
-                    }
-
-                    // validar si la oferta aun esta activa
-                    if (!checkCountdownODD()) {
-                        messageInfoMalo('La Oferta del Día se termino','');
-                        return false;
-                    }
-
-                    // validar cantidad a agregar (nuevas unidades o ya existentes)
-                    var cqty = getQtyPedidoDetalleByCuvODD(cuv, tipoEstrategiaID);
-                    if (cqty > 0) {
-                        var tqty = parseInt(cqty) + intCantidad;
-                        if (parseInt(tqty) > intLimiteVenta) {
-                            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msg1);
-                            $('#popupInformacionSB2Error').show();
-                            return;
-                        }
-                    }
-
-                    // validar horario restringido y pedido reservado
-                    if (ReservadoOEnHorarioRestringido())
-                        return false;
-
-                    var param = ({
-                        MarcaID: marcaID,
-                        CUV: cuv,
-                        PrecioUnidad: precio,
-                        Descripcion: descripcion,
-                        Cantidad: cantidad,
-                        IndicadorMontoMinimo: indicadorMontoMinimo,
-                        TipoOferta: tipoEstrategiaID, //$("#hdTipoEstrategiaID").val(),
-                        tipoEstrategiaImagen: teImagenMostrar || 0,
-                        OrigenPedidoWeb: origenPedidoWeb
-                    });
-
-                    ShowLoading();
-                    //console.log(param);
-                    //closeWaitingDialog();
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlValidarStockEstrategia,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(param),
-                        async: true,
-                        success: function (datos) {
-                            if (!datos.result) {
-                                messageInfo(datos.message);
-                                CloseLoading();
-                            } else {
-                                jQuery.ajax({
-                                    type: 'POST',
-                                    url: urlPedidoInsertZe,
-                                    dataType: 'json',
-                                    contentType: 'application/json; charset=utf-8',
-                                    data: JSON.stringify(param),
-                                    async: true,
-                                    success: function (data) {
-                                        if (!checkTimeout(data)) {
-                                            CloseLoading();
-                                            return false;
-                                        }
-
-                                        if (data.success != true) {
-                                            messageInfoError(data.message);
-                                            CloseLoading();
-                                            return false;
-                                        }
-
-                                        ShowLoading();
-
-                                        ActualizarGanancia(data.DataBarra);
-                                        
-                                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-
-                                        if (typeof origenPagina !== 'undefined') {
-                                            if (origenPagina == 1) {    // home
-                                                TagManagerClickAgregarProducto();
-                                            }
-                                        }
-
-                                        CloseLoading();
-
-                                        // ocultar display
-                                        $('body').css({ 'overflow-y': 'scroll' });
-                                        var effect = 'slide';
-                                        var options = {direction: 'right' };
-                                        var duration = 500;
-                                        $('#pop_oferta_mobile').toggle(effect, options, duration);
-                                        $('#txtCantidad').val('1');
-
-                                        // si es pagina de pedido, recargar el detalle
-                                        if (typeof origenPagina !== 'undefined') {
-                                            if (origenPagina == 2) {    // pedido
-                                                CargarPedido();
-                                            }
-                                        }
-
-                                    },
-                                    error: function (data, error) {
-                                        if (checkTimeout(data)) {
-                                            CloseLoading();
-                                        }
-                                    }
-                                });
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                            }
-                        }
-                    });
-                };
-
-                function checkCountdownODD() {
-                    var ok = true;
-                    $.ajax({
-                        type: 'GET',
-                        url: baseUrl + 'Pedido/GetOfertaDelDia',
-                        //data: '{}',
-                        async: false,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            if (checkTimeout(response)) {
-                                if (response.success) {
-                                    var _data = response.data;
-                                    var tq = _data.TeQuedan;
-
-                                    if (tq.TotalSeconds <= 0)
-                                        ok = false;
-                                }
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-
-                    return ok;
-                };
-
-                function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
-                    var qty = 0;
-                    var obj = { cuv: cuv2, tipoEstrategiaID: tipoEstrategiaID };
-
-                    $.ajax({
-                        type: 'POST',
-                        url: baseUrl + 'Pedido/GetQtyPedidoDetalleByCuvODD',
-                        data: JSON.stringify(obj),
-                        async: false,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            if (checkTimeout(response)) {
-                                if (response.success) {
-                                    qty = parseInt(response.cantidad);
-                                }
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err);
-                        }
-                    });
-
-                    return qty;
-                };
-            </script>
-        }
-    }
-
     <script type="text/javascript">
-        $(function () {
-            SetFormatDecimalPais(formatDecimalPaisMain);
-            if (mostrarBannerPostulante == 'True') {
-                $('#bloquemensajesPostulante').show();
-            }
-            else {
-                MensajeEstadoPedido();
-            }
-            
-            HandlebarsRegisterHelper();
-            $('.menu_footer').on('click', function () {
-                var $obj = $(this);
-                if ($obj.hasClass('menu_footer')) {
-                    $obj.addClass('menu_footer_menos').removeClass('menu_footer');
-                } else {boton_Agregalo_home
-                    $obj.addClass('menu_footer').removeClass('menu_footer_menos');
+        
+        $(document).ready(function () {
+            aCam.push($("#hdCampaniaAnterior").val());
+            aCam.push($("#hdCampaniaActual").val());
+            aCam.push($("#hdCampaniaSiguiente").val());
+
+            aCamRev.push($("#hdrCampaniaAnterior").val());
+            aCamRev.push($("#hdrCampaniaActual").val());
+            aCamRev.push($("#hdrCampaniaSiguiente").val());
+            rCampSelect = $("#hdrCampaniaAnterior").val();//$("#hdrCampaniaActual").val();
+            $("#contentRevista .titulo_central[data-titulo='revista']").text("REVISTA C-" + rCampSelect.substring(4, 6));
+            RevistaMostrar(-1); 
+            //MostrarRevistaCorrecta(rCampSelect);
+
+            $('#campaniaRevista').val(rCampSelect);
+
+            $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
+                $("[data-tag-html]").hide();
+                var tag = $(this).attr("data-tag") || "";
+                var obj = $("[data-tag-html='" + tag + "']");
+                $.each(obj, function (ind, objTag) {
+                    $(objTag).fadeIn(300).show();
+                });
+
+                $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
+                $(this).find("div.marcador_tab").removeClass("oculto");
+            });
+
+            $('ul[data-tab="tab"]').mouseover(function () {
+                $("#barCursor").css("opacity", "1");
+            }).mouseout(function () {
+                $("#barCursor").css("opacity", "0");
+            });
+
+            ordenCat[0] = isEsika ? tagLbel : tagEsika;
+            ordenCat[1] = isEsika ? tagEsika : tagLbel;
+            ordenCat[2] = tagCyzone;
+            ordenCat[3] = "";
+
+            CargarCarruselCatalogo();
+            ColumnasDeshabilitadasxPais();
+        });
+
+        var tagLbel = "Lbel";
+        var tagEsika = "Esika";
+        var tagCyzone = "Cyzone";
+
+        var campSelect = "";
+        var campSelectI = 1;
+
+        var aCam = new Array();
+        var linkCat = new Object();
+        var descrCat = new Object();
+        var ordenCat = new Object();
+
+        var cantCat = 3;
+        var cantCam = 3;
+        var cont = 0;
+
+        var listaCorreo = new Array();
+
+        var imgIssuu = '';
+        imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
+
+        function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
+            InsertarLogDymnamo(
+                'Catalogo-Compartir',
+                opcionAccion,
+                true,
+                [
+                    { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+                    { 'key': 'Marca', 'value': marca },
+                    { 'key': 'Cantidad', 'value': cantidad }
+                ]
+            );
+        }
+
+        function CargarCarruselCatalogo() {
+            ShowLoading();
+            var htmlBase = "";
+            var totalItem = cantCat * cantCam;
+
+            $("#divCatalogo").children()
+                             .not('.previous_carrusel_catalogo, .next_carrusel_catalogo, .previous_carrusel_catalogo *, .next_carrusel_catalogo *')
+                             .remove();
+
+            for (var i = 0; i < totalItem; i++) {
+                var nro = "";
+                var anio = "";
+                var tipo = "";
+
+                if (i < cantCat) {
+                    anio = $("#hdCampaniaAnterior").val().substring(0, 4);
+                    nro = $("#hdCampaniaAnterior").val().substring(4, 6);
                 }
-            });
-
-            $(".alert-close").click(function (event) {
-                $(this).parent(".alert-top").slideUp();
-            });
-
-            //CargarCantidadProductosPedidos(true);
-            //CargarCantidadNotificacionesSinLeer();
-            //CargarCantidadPedidosConsultoraOnline();
-
-            $("body").on("keyup", ".ValidaNumeral", function (evt) {
-                var theEvent = evt || window.event;
-                var key = theEvent.keyCode || theEvent.which;
-                key = String.fromCharCode(key);
-                var regex = /[0-9]|\./;
-                if (!regex.test(key)) {
-                    theEvent.returnValue = false;
-                    if (theEvent.preventDefault) theEvent.preventDefault();
+                else if (i < cantCat * 2) {
+                    anio = $("#hdCampaniaActual").val().substring(0, 4);
+                    nro = $("#hdCampaniaActual").val().substring(4, 6);
                 }
-            });
-
-            $("body").on("keypress", ".ValidaNumeral", function (e) {
-                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    return false;
+                else if (i < cantCat * 3) {
+                    anio = $("#hdCampaniaSiguiente").val().substring(0, 4);
+                    nro = $("#hdCampaniaSiguiente").val().substring(4, 6);
                 }
-            });
 
-            $("body").on('paste', ".ValidaPasteNumeral", function (e) {
-                var $input = $(this);
-                var previousVal = $input.val();
-                var pastedValue = e.originalEvent.clipboardData.getData('text/plain').trim();
-                if (isNaN(pastedValue) === false && isInt(Number(pastedValue))) {
-                    $input.val(pastedValue);
-                    e.preventDefault();
-                } else {
-                    $input.val(previousVal);
-                    e.preventDefault();
+                var x = i - parseInt(i / cantCat) * cantCat;
+                x = x < 0 ? 3 : x > 2 ? 3 : x;
+
+                tipo = ordenCat[x];
+                if (nro == "" || anio == "" || tipo == "") {
+                    continue;
+                }
+
+                var data = {
+                    campania: anio + nro,
+                    tipoCatalogo: tipo,
+                    comp: tipo,
+                    descripcion: descrCat[tipo],
+                    estado: "0"
                 };
+                var source = $("#catalogo-template").html();
+                var template = Handlebars.compile(source);
+                var context = data;
+                var html = template(context);
+
+                $("#divCatalogo").append(html);
+            }
+    
+            CloseLoading();
+        }
+        function ColumnasDeshabilitadasxPais(valor, accion, label) {
+            ShowLoading();
+
+            if (!(typeof (accion) === 'undefined')) {
+                SetGoogleAnalytics("", accion, label);
+            }
+
+            var deferedCam = new Object();
+            for (var i = 0; i < aCam.length; i++) {
+                var camp = aCam[i];
+                deferedCam[camp] = jQuery.Deferred();
+
+                deferedCam[camp] = ObtenerEstadoCatalogo(camp, deferedCam[camp]);
+                deferedCam[camp].done(function (data, camp) {
+                    if (data != null) GetCatalogosLinksByCampania(data, camp);
+                    else cont += cantCat;
+                });
+            }
+
+            $.when(deferedCam[aCam[0]], deferedCam[aCam[1]], deferedCam[aCam[2]]).done(function () {
+                FinRenderCatalogo();
             });
-
-            $("body").on("click", "[data-cantidad-agregar]", function () {
-                var signo = $(this).attr("data-cantidad-agregar");
-                var objPadre = $(this).parents("[data-cantidad-contenedor]");
-                var objInput = objPadre.find("[data-cantidad-input]");
-
-                var agregar = signo == "-" ? -1 : signo == "+" ? 1 : 0
-                var actual = objInput.val();
-                actual = parseInt(actual, 10) == NaN ? 0 : parseInt(actual, 10);
-
-                actual = actual + agregar;
-                actual = actual < 1 ? 1 : actual > 99 ? 99 : actual;
-
-                objInput.val(actual);
-            });
-
-            $(document).on("click", ".cantidad_menos_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
-                $txtcantidad.val(cantidad);
-            });
-
-            $(document).on("click", ".cantidad_mas_home", function () {
-                var $txtcantidad = $(this).siblings('input');
-                var cantidad = parseInt($txtcantidad.val());
-
-                cantidad = isNaN(cantidad) ? 0 : cantidad;
-                cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
-                $txtcantidad.val(cantidad);
-            });
-
-            
-            $("body").on("click", "[data-popup-main]", function (e) {
-                if (!$(e.target).closest('[data-popup-body]').length) {
-
-                    if ($(e.target).is(':visible')) {
-
-                        var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                        if (functionHide != "") {
-                            setTimeout(functionHide + "()", 100);
-                        }
-                        $(e.target).hide();
-                        $('body').css({ 'overflow-y': 'scroll' });
+        }
+        function ObtenerEstadoCatalogo(campana, defered) {
+            jQuery.ajax({
+                type: "GET",
+                url: urlDetalle,
+                dataType: "json",
+                data: { campania: campana },
+                success: function (result) {
+                    if (checkTimeout(result)) {
+                        defered.resolve(result, campana);
+                    }
+                },
+                error: function (result, x, xh, xhr) {
+                    if (checkTimeout(result)) {
+                        defered.resolve(null, campana);
                     }
                 }
             });
+            return defered.promise();
 
+        }
+        function GetCatalogosLinksByCampania(data, campania) {
+            ShowLoading();
+            $.ajaxSetup({ cache: false });
 
-            $("body").on("click", "[data-popup-close]", function (e) {
-                var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+            var paisNombre = $("#hdPaisNombre").val();
 
-                var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
+            var defered = new Object();
+
+            var anio = campania.substring(0, 4);
+            var nro = campania.substring(4, 6);
+            var idCat = "#divCatalogo";
+
+            for (var i = 0; i < cantCat; i++) {
+                var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
+                : i == 1 && data.estadoCyzone != 1 ? tagCyzone
+                : i == 2 && data.estadoEsika != 1 ? tagEsika
+                : "";
+
+                if (tagCat == "") {
+                    cont++;
+                    continue;
                 }
-                $(popupClose).hide();
-                $('body').css({ 'overflow-y': 'scroll' });
+
+                var estado = i == 0 && data.estadoLbel != 1 ? "1"
+                    : i == 1 && data.estadoCyzone != 1 ? "1"
+                    : i == 2 && data.estadoEsika != 1 ? "1"
+                    : "0";
+
+                defered[tagCat] = jQuery.Deferred();
+
+                var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
+                $(idCat).find(elemItem).find("[data-tipo='content']").hide();
+                $(elemItem).attr("data-estado", estado || "0")
+
+                var catalogo = tagCat.toLowerCase() + "." + paisNombre + ".c" + nro + "." + anio;
+
+                var codigoISSUU = '', urlCat;
+                $.each(data.listCatalogo, function (key, catalogo) {
+                    if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
+                        codigoISSUU = catalogo.DocumentID;
+                        urlCat = catalogo.SkinURL;
+                    }
+                });
+                cont++;
+                if (codigoISSUU == '') {
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgNoDisponible);
+                }
+                else {
+                    var n = campania.substring(4, 6);
+                    var a = campania.substring(0, 4);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('" + codigoISSUU + "','Ver catálogo','" + tagCat + "')");
+                    var urlCatWS = urlCat;
+
+                    urlCatWS = urlCatWS.ReplaceAll("/", "%2F");
+                    urlCatWS = urlCatWS.ReplaceAll(":", "%3A");
+                    urlCatWS = urlCatWS.ReplaceAll("?", "%3F");
+                    urlCatWS = urlCatWS.ReplaceAll("=", "%3D");
+
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", urlCat);
+                    $(idCat).find(elemItem).find("#txtUrl" + tagCat).val(urlCat);
+                    $(idCat).find(elemItem).find("[data-tipo='img'] img").attr("src", imgIssuu.replace("{img}", codigoISSUU));
+
+                    $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
+                    $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
+
+                    $(idCat).find(elemItem).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWS);
+                    $(idCat).find(elemItem).find(".btn_ws").attr("data-action", "share/whatsapp/share");
+                }
+            }
+
+            FinRenderCatalogo();
+        }
+
+        function SetGoogleAnalytics(Imagen, Accion, Label) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': Accion,
+                'label': Label,
+                'value': 0
             });
-
-            if(MostrarBannerPL20) loadBannerLP20();
-            });
-
-        function loadBannerLP20() {
-            if(typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
-            if(typeof CargarEventosODD !== 'undefined' && $.isFunction(CargarEventosODD)) CargarEventosODD();
-
-            if($('#flexslider ul.slides li').length > 0){
-                $("#content").css("margin-top", "0px");
-                $('#content_slider_banner').show();
-
-                //Dejar esta línea al último, ya que antes de ejecutar flexslider el div ya debe de mostrarse.
-                $('#flexslider').flexslider({ 
-                    animation: "slide",
-                    pauseOnAction: false,
-                    //pausePlay: true 
-            });
+        }
+        function FinRenderCatalogo() {
+            ShowLoading();
+            if (cont >= cantCam * cantCat) {
+                campSelect = campSelect || $("#hdCampaniaAnterior").val().substring(4, 6);
+                campSelectI = campSelectI || 1;
+                $('[data-tag-html="Catalogos"] .titulo_catalogo').text("CATÁLOGOS C-" + campSelect);
+                $("#divCatalogo > div > div").show();
+                CatalogoMostrar(-1); //-1 Catalogo Anterior, 0 Catalogo actual, 1 Catalogo siguiente.
+                CloseLoading();
             }
         }
-        
-        /*Inicio: ShowRoom*/
-        /*Fin: ShowRoom*/
 
-        function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-            mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-            var restringido = true;
+        function CatalogoMostrar(accion, btn) {
+            campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
+            campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
+            
+            var campS = aCam[campSelectI];
+            campSelect = campS.substring(4, 6);
+            $('[data-tag-html="Catalogos"] .titulo_catalogo').text("CATÁLOGOS C-" + campSelect);
+            $("#divCatalogo > div").hide();
+            $("#divCatalogo > div[data-cam='" + campS + "'][data-estado='1']").show();
+            
+            $("#divCatalogo > a img").show();
+            if (campSelectI == 0 || campSelectI == cantCam - 1) {
+                if (btn != null) {
+                    $(btn).hide();
+                }
+            }
 
-            $.ajaxSetup({ cache: false });
+            if (btn != null) {
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Catálogos y revistas',
+                    'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+                    'label': 'Catálogos C-' + campSelect,
+                    'value': 0
+                });
+            }
+
+            if (campSelectI == "0")
+                $(".previous_carrusel_catalogo img").hide();
+        }
+        function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Compartir FB',
+                'label': catalogo,
+                'value': 0
+            });
+            InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+            var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
+
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + u;
+            window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+        }
+        function renderItemCliente(event, ui) {
+            var htmlTag = ''
+                + '<a>'
+                        + '<div class="content_datos_c">'
+                            + '<div class="nombre_compartir">{nombre}</div>'
+                            + '<div class="correo_compartir">{email}</div>'
+                        + '</div>'
+            + '</a>';
+            $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                var htmlTagAdd = htmlTag.replace('{nombre}', item.nombre);
+                htmlTagAdd = htmlTagAdd.replace('{email}', item.email);
+                return $('<li>')
+                    .append(htmlTagAdd)
+                    .appendTo(ul);
+            };
+        }        
+
+        var campaniaEmail = "";
+        function AbrirCompartirCorreo(tipoCatalogo, campania) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Compartir email – clic botón',
+                'label': tipoCatalogo,
+                'value': 0
+            });
+
+            $("#comentarios").val(valContenidoCorreoDefecto);
+            $('#tagCorreo').removeTagAll();
+            campaniaEmail = campania;
+            $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
+            $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);
+            $('#CompartirCorreoMobile').show();
+        }
+
+        var rCampSelect = "";
+        var rCampSelectI = 1;
+        var cantCamRev = 3;
+        var aCamRev = new Array();
+
+
+        function MostrarRevistaCorrecta(campania) {
+            var urlImagen = "";
+            var defered = jQuery.Deferred();
+            defered = ObtenerImagenRevista(campania, defered);
+            defered.done(function (urlRevista) { urlImagen = urlRevista; });
+
+            $.when(defered).done(function () {
+                $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
+                $('[data-tag-html="Revistas"] .titulo_catalogo').text("REVISTA C-" + rCampSelect.substring(4, 6));
+                FinRenderCatalogo();
+            });
+        }
+
+        function MostrarMiRevista() {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Ver revista',
+                'label': 'Revista',
+                'value': 0
+            });
+
+            var frmMiRevista = $('#frmMiRevista');
+            frmMiRevista.submit();
+        }
+
+        function ObtenerImagenRevista(campania, defered) {
             jQuery.ajax({
-                type: 'GET',
-                url: '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })',
+                type: 'POST',
+                url: urlObtenerPortadaRevista,
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
-                async: false,
-                success: function (data) {
-                    if (!checkTimeout(data)) {
-                        return false;
-                    }
-            
-                    if (data.success == false) {
-                        restringido = false;
-                        return false;
-                    }
-
-                    if (data.pedidoReservado) {
-                        var fnRedireccionar = function () {
-                            ShowLoading();
-                            location.href = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-                        }
-                        if (mostrarAlerta == true) {
-                            CloseLoading();
-                            messageInfo(data.message);
-                        }
-                        else fnRedireccionar();
-                    }
-                    else if (mostrarAlerta == true) {
-                        messageInfo(data.message);
+                data: JSON.stringify({ codigoRevista: RevistaCodigoIssuu[campania] }),
+                success: function (response) {
+                    if (checkTimeout(response)) {
+                        defered.resolve(!response ? defaultImageRevista :
+                            response.startsWith("https") ? response.replace("https://", "http://") : response);
                     }
                 },
-                error: function (error) {
-                    console.log(error);
-                    messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                error: function (data, error) {
+                    if (checkTimeout(data)) defered.resolve(defaultImageRevista);
                 }
-        });
-            return restringido;
-        };
+            });
+            return defered.promise();
+        }
+        function RevistaMostrar(accion, btn) {
+            rCampSelectI = accion == -1 ? rCampSelectI - 1 : accion == 1 ? rCampSelectI + 1 : rCampSelectI;
+            rCampSelectI = rCampSelectI <= 0 ? 0 : rCampSelectI >= cantCamRev - 1 ? cantCamRev - 1 : rCampSelectI;
 
-        /*PL20-1233*/
-
-        /**** ****/
-        function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
-
-            if (variant == null || variant == "") {
-                variant = "Estándar";
-            }
-            if (category == null || category == "") {
-                category = "Sin Categoría";
-            }
+            rCampSelect = aCamRev[rCampSelectI] || "";
 
             dataLayer.push({
-                'event': 'productClick',
-                'ecommerce': {
-                    'click': {
-                        'actionField': { 'list': 'Productos destacados', 'action': 'click' },
-                        'products': [{
-                            'name': name,
-                            'id': id,
-                            'category': category,
-                            'variant': variant,
-                            'position': position
-                        }]
-                    }
-                }
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': accion == -1 ? 'Ver anterior campaña' : 'Ver siguiente campaña',
+                'label': 'Revista C-' + rCampSelect.substr(4),
+                'value': 0
             });
-        };
-
-        function ValidarCorreoComunidad(tipo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            var result = true;
+    
             ShowLoading();
-            var mensaje = "<b>¡Gracias por unirte a Somos Belcorp!</b>, una comunidad de mujeres emprendedoras" +
-                "y apasionadas por el negocio de la belleza." +
-                "<br />" +
-                "<br />" +
-                "Revisa tu correo y sigue los pasos para ingresar." +
-                "¡Te esperamos!" +
-                "<br />";
-            if (tipo == 2) {
+            MostrarRevistaCorrecta(rCampSelect);
 
-                if ($('#txtUsuarioComunidad').val() == 'Tu apodo en la comunidad') {
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
-                    $('#ErrorUsuario').html("Debe ingresar un apodo.");
-                    CloseLoading();
-                    result = false;
-                } else {
-                    if ($('#ErrorUsuario').html() != "Este apodo ya existe.") {
-
-                    }
-                }
-
-                if ($('#txtNuevoCorreoComunidad').val() == 'Correo electrónico') {
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    $('#ErrorCorreo').html("Debe ingresar su correo.");
-                    result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtNuevoCorreoComunidad').val())) {
-                        $('#ErrorCorreo').css({ "display": "block" });
-                        $('#ES_Correo').css({ "display": "block" });
-                        $('#ErrorCorreo').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    } else {
-                        if ($('#ErrorCorreo').html() != "Este correo ya existe.") {
-
-                        }
-                    }
-                }
-
-                if (result) {
-
-                    if ($('#ErrorUsuario').html() != 'Apodo Disponible.' || $('#ErrorCorreo').html() != 'Correo Disponible.') {
-                        CloseLoading();
-                        return;
-                    }
-
-                    var params = {
-                        usuario: $("#txtUsuarioComunidad").val(),
-                        correo: $("#txtNuevoCorreoComunidad").val()
-                    };
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlRegistrarUsuarioComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Satisfactorio'
-                                    });
-
-                                } else {
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Crear cuenta',
-                                        'label': 'Error'
-                                    });
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                CloseComunidad();
-                                messageInfo(data.message);
-
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Comunidad',
-                                    'action': 'Crear cuenta',
-                                    'label': 'Error'
-                                });
-                            }
-                        }
-                    });
-
-                } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
-            } else {
-
-                if ($('#txtCorreoComunidad').val() == 'Correo electrónico') {
-                    $('#ErrorCorreoC').css({ "display": "block" });
-                    $('#ES_CorreoC').css({ "display": "block" });
-                    $('#ErrorCorreoC').html("Debe ingresar su correo.");
-                    CloseLoading();
-                    result = false;
-                } else {
-                    if (!ValidarCorreo($('#txtCorreoComunidad').val())) {
-                        $('#ErrorCorreoC').css({ "display": "block" });
-                        $('#ES_CorreoC').css({ "display": "block" });
-                        $('#ErrorCorreoC').html("El formato del correo es incorrecto.");
-                        $('#ErrorCorreoC').css({ "color": "red" });
-                        CloseLoading();
-                        result = false;
-                    }
-                }
-
-                if (result) {
-                    if ($('#ErrorCorreo').html() != '')
-                        return;
-
-                    var params = {
-                        correo: $("#txtCorreoComunidad").val()
-                    };
-
-                    jQuery.ajax({
-                        type: 'POST',
-                        url: urlValidarCorreoComunidad,
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(params),
-                        async: true,
-                        success: function (data) {
-
-                            if (checkTimeout(data)) {
-                                CloseLoading();
-                                if (data.success == true) {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Satisfactorio'
-                                    });
-                                    CloseComunidad();
-                                    messageInfo(mensaje, function () {
-                                        window.location.reload(true);
-                                    });
-
-                                } else {
-                                    dataLayer.push({
-                                        'event': 'virtualEvent',
-                                        'category': 'Comunidad',
-                                        'action': 'Ingresar',
-                                        'label': 'Error'
-                                    });
-
-                                    CloseComunidad();
-                                    messageInfo(data.message);
-                                }
-                            }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                dataLayer.push({
-                                    'event': 'virtualEvent',
-                                    'category': 'Comunidad',
-                                    'action': 'Ingresar',
-                                    'label': 'Error'
-                                });
-
-                                CloseLoading();
-                                CloseComunidad();
-                                messageInfo(data.message);
-                            }
-                        }
-                    });
-                } else {
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Ingresar',
-                        'label': 'Error'
-                    });
-                }
+            $(".content_revistas_mobile > a img").show();
+            if (rCampSelectI == 0 || rCampSelectI == cantCamRev - 1) {
+                $(btn).hide();
             }
+
+            $('#campaniaRevista').val(rCampSelect);
+
+            if(rCampSelectI == "0")
+                $(".previous_revistas_mobile img").hide();
         }
 
-        function ValidarCorreo(correo) {
-            expr = /^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-            return expr.test(correo);
-        }
-
-        function ValidarCorreoIngresado(correo) {
-            $.ajaxSetup({
-                cache: false
-            });
-            ShowLoading();
-            $('#ValCorreo').css({ "display": "block" });
-            $('#ErrorCorreo').css({ "display": "none" });
-            $.ajax({
-                type: "POST",
-                url: urlValidarCorreoIngresado,
-                data: "{'correo': '" + correo + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValCorreo').css({ "display": "none" });
-                    $('#ErrorCorreo').css({ "display": "block" });
-                    $('#ES_Correo').css({ "display": "block" });
-                    if (data.success == true) {
-                        $('#ErrorCorreo').html("Este correo ya existe.");
-                        $('#ErrorCorreo').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorCorreo').html("Correo Disponible.");
-                        $('#ErrorCorreo').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
-                    CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el correo. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
+        function TagManagerPaginasVirtuales() {
+            dataLayer.push({
+                'event': 'virtualPage',
+                'pageUrl': '/Mobile/catalogo/revistas/',
+                'pageName': 'Catálogo – Revistas | Somos Belcorp'
             });
         }
-
-        function ValidarUsuarioIngresado(usuario) {
-            $.ajaxSetup({
-                cache: false
+        function TagManagerWS(catalogo, campaniaCatalogo) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Compartir WhatsApp',
+                'label': catalogo,
+                'value': 0
             });
-            $('#ValUsuario').css({ "display": "block" });
-            $('#ErrorUsuario').css({ "display": "none" });
-            ShowLoading();
-            $.ajax({
-                type: "POST",
-                url: urlValidarUsuarioIngresado,
-                data: "{'usuario': '" + usuario + "'}",
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                    $('#ValUsuario').css({ "display": "none" });
-                    $('#ErrorUsuario').css({ "display": "block" });
-                    $('#ES_Usuario').css({ "display": "block" });
-
-                    if (data.success == true) {
-                        $('#ErrorUsuario').html("Este apodo ya existe.");
-                        $('#ErrorUsuario').css({ "color": "red" });
-                        CloseLoading();
-                    } else {
-                        $('#ErrorUsuario').html("Apodo Disponible.");
-                        $('#ErrorUsuario').css({ "color": "green" });
-                        CloseLoading();
-                    }
-                },
-                error: function (result) {
-                    CloseLoading();
-                    CloseComunidad();
-                    messageInfo('Ocurrió un error al intentar validar el usuario. Por favor, volver a intentar.');
-
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Comunidad',
-                        'action': 'Crear cuenta',
-                        'label': 'Error'
-                    });
-                }
-            });
+            InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
         }
 
-        function ShowComunidad() {
-            $('.icon-close').click();
-
-            $("#popupComunidad").modal("show");
-        }
-
-        function CloseComunidad() {
-            $("#popupComunidad").modal("hide");
-        }
 
         function ShowLoading() {
             $("#loading-spin").fadeIn();
@@ -1497,213 +624,8 @@
         function CloseLoading() {
             $("#loading-spin").fadeOut("fast");
         }
-
-        function messageInfo(message, fnAceptar) {
-            message = $.trim(message);
-            if (message == "") {
-                return false;
-            }
-
-            $('#mensajeInformacion').html(message);
-            $('#popupInformacion').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacion .btn-aceptar').off('click');
-                $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoBueno(message, fnAceptar) {
-            $('#mensajeInformacionSB2Bueno').html(message);
-            $('#popupInformacionSB2Bueno').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').off('click');
-                $('#popupInformacionSB2Bueno .btn_ok_mobile').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoMalo(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Malo').html(message);
-            $('#popupInformacionSB2Malo').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Malo .btn-aceptar').off('click');
-                $('#popupInformacionSB2Malo .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoError(message, fnAceptar) {
-            $('#mensajeInformacionSB2_Error').html(message);
-            $('#popupInformacionSB2Error').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionSB2Error .btn-aceptar').off('click');
-                $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-            }
-        }
-
-        function messageInfoValidado(message, fnAceptar) {
-            $('#mensajeInformacionvalidado').html(message);
-            $('#popupInformacionValidado').show();
-            if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
-            }
-        }
-
-        //function CargarCantidadProductosPedidos(noMostrarEfecto) {
-        //    noMostrarEfecto = noMostrarEfecto || false;
-
-        //    jQuery.ajax({
-        //        type: 'POST',
-        //        url: urlGetCantidadProductos,
-        //        dataType: 'json',
-        //        contentType: 'application/json; charset=utf-8',
-        //        success: function (data) {
-        //            if (checkTimeout(data)) {
-
-        //                if (data.montoWebAcumulado == 0) {
-        //                    if (data.paisID == 4)  //Formato de decimales para Colombia
-        //                        montoWebAcumulado = "0";
-        //                    else
-        //                        montoWebAcumulado = "0.00";
-        //                } else {
-        //                    if (data.paisID == 4)  //Formato de decimales para Colombia
-        //                        montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-        //                    else
-        //                        montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-        //                }
-
-        //                $(".num-menu-shop").html(data.cantidadProductos);
-        //                $(".js-span-pedidoingresado").html(montoWebAcumulado);
-        //                if (!noMostrarEfecto) {
-        //                    $('.num-menu-shop').removeClass('microefecto_color');
-        //                    setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
-        //                }
-
-        //                data.mensaje = data.mensaje || "";
-        //                if (data.mensaje != '') {
-        //                    console.log(data.mensaje);
-        //                }
-        //            }
-        //        },
-        //        error: function (data, error) {
-        //            if (checkTimeout(data)) {
-        //                console.error(error);
-        //            }
-        //        }
-        //    });
-        //}
-
-        //function CargarCantidadNotificacionesSinLeer() {
-        //    jQuery.ajax({
-        //        type: 'POST',
-        //        url: urlGetNotificacionesSinLeer,
-        //        dataType: 'json',
-        //        contentType: 'application/json; charset=utf-8',
-        //        success: function (data) {
-        //            if (checkTimeout(data)) {
-        //                if (data.cantidadNotificaciones > 0) {
-        //                    $("#divNotificacionesSinLeer").html(data.cantidadNotificaciones);
-        //                    $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
-        //                    $("#divNotificacionesSinLeer").show();
-        //                }
-
-        //                data.mensaje = data.mensaje || "";
-        //                if (data.mensaje != '') {
-        //                    console.log(data.mensaje);
-        //                }
-        //            }
-        //        },
-        //        error: function (data, error) {
-        //            if (checkTimeout(data)) {
-        //                console.error(error);
-        //            }
-        //        }
-        //    });
-        //}
-
-        function CargarCantidadPedidosConsultoraOnline() {
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetCantidadPedidos,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data)) {
-                        var cantidadPedidosOnline = data.cantidadPedidos;
-
-                        $("#divPedidosOnlineSinLeer").html(cantidadPedidosOnline);
-
-                        if (cantidadPedidosOnline > 0) {
-                            $("#divPedidosOnlineSinLeer").show();
-
-                            $("#spanNumeroPedidoOnline1").html(parseInt(cantidadPedidosOnline) > 9 ? "+9" : cantidadPedidosOnline);
-                            $("#spanNumeroPedidoOnline2").html(cantidadPedidosOnline);
-                            $("#divAlertaPedidosOnline").show();
-                        }
-
-                        data.mensaje = data.mensaje || "";
-                        if (data.mensaje != '') {
-                            console.log(data.mensaje);
-                        }
-                    }
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data)) {
-                        console.error(error);
-                    }
-                }
-            });
-        }
-
-        function SeparadorMiles(pnumero) {
-            // Función que colocará el caracter "." como separador de miles.
-
-            var resultado = "";
-            var numero = pnumero.replace(/\,/g, '');
-            var nuevoNumero = "";
-            if (numero[0] == "-") nuevoNumero = numero.replace(/\./g, '').substring(1);
-            else nuevoNumero = numero.replace(/\./g, '');
-
-            if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
-
-            for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
-                resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
-
-            if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
-
-            if (numero[0] == "-") return "-" + resultado;
-            else return resultado;
-        };
-
-        /* Tracking Jetlore */
-        function TrackingJetloreAdd(cantidad, campania, cuv) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) {
-                JL.tracker.addToCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemove(cantidad, campania, cuv) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) {
-                JL.tracker.removeFromCart({
-                    count: cantidad,
-                    deal_id: cuv,
-                    option_id: campania
-                });
-            }
-        }
-
-        function TrackingJetloreRemoveAll(lista) {
-            var esJetlore = esPaisTrackingJetlore == "1";
-            if (esJetlore) JL.tracker.removeFromCart(lista);
-            }
-        /* Fin Tracking Jetlore */
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>
