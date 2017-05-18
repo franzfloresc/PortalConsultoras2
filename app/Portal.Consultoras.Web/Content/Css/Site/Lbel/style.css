@@ -31863,7 +31863,8 @@ h1#penmostreo .campana {
 }
 
 .bloque_mensajesPedido {
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 64px;
     display: none;
@@ -31881,21 +31882,22 @@ h1#penmostreo .campana {
     width: 21px;
 }
 
-    .icono_cerrar_mensaje span {
-        display: block;
+.icono_cerrar_mensaje span {
+    display: block;
 }
 
-        .icono_cerrar_mensaje span img {
-            width: 100%;
-            height: auto;
+.icono_cerrar_mensaje span img {
+    width: 100%;
+    height: auto;
 }
 
-        .icono_cerrar_mensaje span:nth-child(2) {
-            font-family: 'Lato';
-            font-size: 10px;
-            text-align: center;
-            color: #FFF;
-            margin-left: -9px;
+.icono_cerrar_mensaje span:nth-child(2) {
+    font-family: 'Lato';
+    font-size: 10px;
+    text-align: center;
+    /*color: #FFF;*/
+    color: black;
+    margin-left: -9px;
 }
 
 .icono_estadoPedido, .mensajes_estadoPedido {
@@ -31911,13 +31913,14 @@ h1#penmostreo .campana {
     margin-top: -3px;
 }
 
-    .icono_estadoPedido img {
-        width: 100%;
-        height: auto;
+.icono_estadoPedido img {
+    width: 100%;
+    height: auto;
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
     font-family: 'Lato';
     line-height: 21px;
 }
@@ -34641,7 +34644,7 @@ h1#penmostreo .campana {
     color:black;
     padding-bottom:4px;
 }
-.termino_condiciones_intriga {
+.termino_condiciones_intriga, .termino_condiciones_cupon {
     position: relative;
     padding-left: 18px;
     margin: 0 auto;
@@ -34652,7 +34655,7 @@ h1#penmostreo .campana {
     color:#494949;
     text-align: left;
 }
-.termino_condiciones_intriga:before {
+.termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
     position: absolute;
     content: "";
     left: 0;
@@ -35705,7 +35708,7 @@ h1#penmostreo .campana {
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
-    background:#fff6f4;
+    /*background:#fff6f4;*/
 }
 .promocion_especial_header{
     width:auto;
@@ -35720,9 +35723,9 @@ h1#penmostreo .campana {
     padding-right: 60px;
     position: relative;    
     float: left; 
-   background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top; 
+   /*background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top;*/ 
 }
-.titulo_promocion_showroom:after{
+/*.titulo_promocion_showroom:after{
     content: '';
     left:-150%;
     width: 150%;
@@ -35731,19 +35734,19 @@ h1#penmostreo .campana {
     position: absolute;
     top: 0;
     z-index: 151;
-}
+}*/
 
 .titulo_banner_showroom{
     display:block;
     font-size:24px;
-    color:#f9779f;
+    /*color:#f9779f;*/
     font-weight: 900;
 }
 .content_titulo{
     float:right;    
     position: relative;
     font-family: 'Lato';
-    color: white;
+    /*color: white;*/
     font-size: 15px;
     letter-spacing: 2px;      
     line-height: 26px;
@@ -35796,9 +35799,7 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-weight: 700;
     line-height: 32px;
-    color: white;
-    -webkit-transform: translateZ(0); 
-    transform: translateZ(0);
+    color: white;    
 }
 .info_desplegable{
    background: black url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
@@ -35836,17 +35837,20 @@ h1#penmostreo .campana {
     float: none;
 }
 .titulo_set_especial{
-    font-size:15px;
-    margin-bottom:5px;
-    color:black;
-    text-align:left;
-    font-weight:700;
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+    font-weight: 700;
+    height: 20px;
+    overflow: hidden;
 }
 .descripcion_set_especial{
-    height:75px;
+    height:93px;
     margin-bottom:5px;
     font-size:12px;
     line-height:15px;
+    overflow:hidden;
 }
 .descripcion_set_especial b{
     color: #e81c36;
@@ -35874,7 +35878,12 @@ h1#penmostreo .campana {
 .CerrarOfertaEspecial{
     font-family:'Lato';
     font-size:25px;
-    
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
     color:black;
     position:absolute;
     right:10px;

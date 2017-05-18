@@ -155,18 +155,6 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar el archivo para la descarga de Paypal.", ex);
                 }
 
-                if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
-                {
-                try
-                {
-                    BLFileManager.FtpUploadFile(ftpElementPaypal.Address + ftpElementPaypal.Header, pathFilePaypal, ftpElementPaypal.UserName, ftpElementPaypal.Password);
-                }
-                catch (Exception ex)
-                {
-                    throw new BizLogicException("No se pudo subir los archivos de Paypal al destino FTP.", ex);
-                }
-                }
-
                 try
                 {
                     string fileName = Path.GetFileName(pathFilePaypal);

@@ -8502,7 +8502,8 @@ span.title-app-b {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 77px;
     /*display: none;*/
@@ -8534,7 +8535,8 @@ span.title-app-b {
     font-family:'Lato';
     font-size:10px;
     text-align:center;
-    color:#FFF;
+    /*color:#FFF;*/
+    color: black;
     margin-left:-9px;
 }
 
@@ -8556,7 +8558,9 @@ span.title-app-b {
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
+    font-weight: bold;
     font-family: 'Lato';
     line-height:19px;
 }
@@ -10929,7 +10933,7 @@ a{
     text-align:center;
     margin-top:15px;
 }
-.termino_condiciones_intriga{
+.termino_condiciones_intriga, .termino_condiciones_cupon{
     position:relative;
     padding-left:18px;
     margin:0 auto;
@@ -10939,7 +10943,7 @@ a{
     width:248px;    
    text-align: left;
 }
-.termino_condiciones_intriga:before{
+.termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
     content:"";
     left:0;
@@ -11922,7 +11926,7 @@ a{
     background:black;
 }
 .content_titulo_sub_oferta{
-    background:black;
+    /*background:black;*/
     height:45px;
     width:280px;
     margin:0 auto;
@@ -11933,7 +11937,7 @@ a{
     font-family: 'Lato';
     font-size: 13px;
     font-weight: 700;
-    color: white;
+    /*color: white;*/
     letter-spacing: 1.3px;
     line-height: 16px;
     width: 72%;
@@ -11943,7 +11947,7 @@ a{
     float: left;
 }
 .titulo_banner_showroom{
-    color:#fc8faf;
+    /*color:#fc8faf;*/
 }
 .btn_descubre_set_especial{
     background: url(../../../Images/PL20/flecha_set_Especial_white.png) no-repeat;
@@ -11957,7 +11961,7 @@ a{
     float: left;
     margin-top: 10px;
 }
-.content_titulo_sub_oferta:after {
+/*.content_titulo_sub_oferta:after {
     top: 100%;
     left: 50%;
     border: solid transparent;
@@ -11970,7 +11974,7 @@ a{
     border-top-color: #000000;
     border-width: 12px;
     margin-left: -12px;
-}
+}*/
 /*.content_info_set_especial{
     background:white;
     display: none;

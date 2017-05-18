@@ -1,5 +1,5 @@
-﻿<div class="contenedor_fondo_popup" id="Cupon1" style="display: none;">
-    <div class="content_cupon">
+﻿<div class="contenedor_fondo_popup" id="Cupon1" style="display: none;" data-popup-main>
+    <div class="content_cupon" data-popup-body>
         <a class="cerrar_fichaProducto" href="javascript:;" onclick="javascript: $('#Cupon1').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text"="">
         </a>
@@ -22,9 +22,8 @@
             <div class="correo_showroon icono_celular">
                 <input type="text" id="txtCelular" placeholder="Ingresa tu celular " value="@Model.Celular">
             </div>
-            <div class="termino_condiciones_intriga" style="margin-left:30px; width:auto;">Estoy de acuerdo con los <a href="#" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
-            <a class="btn_confirma_cupon"> CONFIRMA TUS DATOS</a>
+            <div id="chckTerminosCondiciones" class="termino_condiciones_cupon" style="margin-left:30px; width:auto;">Estoy de acuerdo con los <a href="#" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
+            <a id="btnConfirmarDatos" class="btn_confirma_cupon"> CONFIRMA TUS DATOS</a>
         </div>
-
     </div>
 </div>

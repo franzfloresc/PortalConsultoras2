@@ -319,10 +319,17 @@
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-    <div class="row">
-        <div class="label_cupon">
+    <div class="row contenedorCupon" id="">
+        <div class="label_cupon contenedorCuponConocelo">
             <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
-            <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a class="link_cupon_home">conócelo aquí</a> </div>
+            <div class="texto_cupon">Tienes un descuento exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="label_cupon contenedorCuponInfo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
         </div>
     </div>
     <div class="titulo_ofertas_home">
@@ -952,72 +959,19 @@
             </div>
         </script>
 <!--POP UP CUPONES-->
-<div class="PopMobile1" id="Cupon1Mobile">
-    <div class="content_cupon">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#Cupon1Mobile').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="-">
-        </a>
-        <div class="titulo_gana">GANA</div>
-        <div class="subtitulo_gana">UN CUPÓN DE DSCTO DE </div>
-        <div class="monto_gana"><span class="tipo_moneda">S/.</span> 40.00</div>
-        <div class="subtitulo_gana" style="font-size:16px; margin-top: -8px;">EN TODO TU PEDIDO</div>
-        <div class="texto_cupon_datos">SÓLO ACTUALIZA TUS DATOS <br /> Y COMPRA ALGUNA OFERTA WEB*</div>
-        <div class="correo_showroon"><input type="text" value="" placeholder="Ingresa tu correo"></div>
-        <div class="correo_showroon icono_celular"><input type="text" value="" placeholder="Ingresa tu celular"></div>
-        <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a href="" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
-        <div class="texto_legal_mobile_c">*Válido por la compra mínima de 1 oferta. No aplica para productos en liquidación.</div>
-        <a class="btn_cupon_mobile1" href="#">CONFIRMA TUS DATOS</a>
-    </div>
-</div>
-<div class="PopMobile1" id="Cupon2Mobile">
-    <div class="content_cupon cupon2mobile">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#Cupon2Mobile').hide();">
-            <img src="/Content/Images/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear" />
-        <div class="icono_cupon2"></div>
-        <div class="titulo_cupon2">GRACIAS POR TU CONFIRMACIÓN </div>
-        <div class="texto_cupon2">Para ganar tu cupón de dscto te enviamos un correo a:</div>
-        <div class="correo_confirmacion">ashimabukuro@belcorp.biz</div>
-        <div style="text-align:center">
-            Entra y valida tus datos
-            <a class="btn_cupon2">ENVIAR NUEVAMENTE </a>
-            <a class="btn_cupon2">MODIFICAR MIS DATOS</a>
-        </div>
-    </div>
-</div>
-<div class="PopMobile1" id="Cupon3Mobile" style="display:block;">
-    <div class="content_cupon cupon3mobile">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#Cupon3Mobile').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="-">
-        </a>
-        <hr class="clear" />
-        <div class="icono_cupon3"></div>
-        <div class="titulo_cupon2 titulo_cupon3">¡GANASTE TU CUPÓN DE DSCTO DE S/. 40.00!</div>
-        <div class="texto_cupon3">Debes agregar alguna oferta en web* <br/>en la campaña C07</div>
-        <div style="text-align:center">
-            <div class="info_recuerda_cupon">
-                <img src="@Url.Content("~/Content/Images/PL20/calendario.png")" />
-                <div>Sólo válido en la campaña C07</div>
-            </div>
-            <div class="info_recuerda_cupon">
-                <img src="@Url.Content("~/Content/Images/PL20/maquillaje.png")" />
-                <div>*Agrega mínimo 1 oferta web. No aplica para liquidación web.</div>
-            </div>
-            <div class="info_recuerda_cupon">
-                <img src="@Url.Content("~/Content/Images/PL20/agenda.png")"  />
-                <div>El cupón se aplicará en tu facturación </div>
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
+
 <!--FIN-->
         @section scripts{
         <script type="text/javascript">
             $(document).ready(function () {
                 $(".termino_condiciones_intriga").click(function () {
                     $(this).toggleClass('check_intriga');
-                    intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    }
                 });
             });
         </script>
@@ -1051,9 +1005,16 @@
                 if (vbFotoPerfil != null && vbFotoPerfil != "") {
                     $('.content_foto').show();
                 }
+
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 2;
+                var esEmailActivo = '@Model.EmailActivo';
             </script>
 
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         }

@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActivarCupon();
-                return Json(new { success = true, message = "El cupón fue activado." });
+                return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
@@ -59,19 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
                     
                     var emailValidado = userData.EMailActivo;
 
-                    //if ((correoAnterior != correoNuevo) || (correoAnterior == correoNuevo && !userData.EMailActivo))
-                    //{
-                    //    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,sr" };
-                    //    string param_querystring = Util.EncriptarQueryString(parametros);
-                    //    HttpRequestBase request = this.HttpContext.Request;
-
-                    //    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-
-                    //    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
-
-                    //    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
-                    //}
-
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,sr" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
@@ -101,7 +88,33 @@ namespace Portal.Consultoras.Web.Controllers
                 CuponModel cuponModel = ObtenerDatosCupon();
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        [HttpPost]
+        public JsonResult EnviarCorreoActivacionCupon()
+        {
+            try
+            {
+                CuponModel cuponModel = ObtenerDatosCupon();
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
+                string correo = userData.EMail;
+                Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
+
+                return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        [HttpGet]
+        public JsonResult ObtenerOfertasPlan20EnPedido()
+        {
+            try
+            {
+                bool tieneOfertasPlan20 = false;
+                return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
         private CuponModel ObtenerDatosCupon()

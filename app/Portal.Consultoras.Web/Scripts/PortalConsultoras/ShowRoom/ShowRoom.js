@@ -246,7 +246,10 @@ function AgregarOfertaShowRoom(article, cantidad) {
     var nombreProducto = $(article).find(".DescripcionProd").val();
     var posicion = $(article).find(".posicionEstrategia").val();
     var descripcionMarca = $(article).find(".DescripcionMarca").val();
-
+    var esSubCampania = $(article).parents('.content_set_oferta_especial').length > 0;
+    if (!esSubCampania) {
+        esSubCampania = $(article).parents('div#contenedor-showroom-subcampanias-mobile').length > 0;
+    }
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -282,6 +285,9 @@ function AgregarOfertaShowRoom(article, cantidad) {
         }
     }
 
+    if (esSubCampania) {
+        origen = origenPedidoWebSubCampania;
+    }
     AbrirLoad();
     $.ajaxSetup({
         cache: false
@@ -515,10 +521,12 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
-            //$('#contenedor-showroom-subcampanias').slick('slickGoTo', 0);
+
         }
 
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
+        var cantidadSubCampanias = (listaProdShowRoomSubCampanias ? listaProdShowRoomSubCampanias.length : 0);
+
         $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
             var descripcion = "";
 
@@ -540,8 +548,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         $("#divProductosShowRoom").html("");
         var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
         $('#divProductosShowRoom').append(htmlDiv);
-        $("#spnCantidadFiltro").html(response.cantidad);
-        $("#spnCantidadTotal").html(response.cantidadTotal);
+        $("#spnCantidadFiltro").html(listaProdShowRoomNoSubCampanias.length);
+        $("#spnCantidadTotal").html(response.cantidadTotal - cantidadSubCampanias);
     }
     else {
         messageInfoError(response.message);
