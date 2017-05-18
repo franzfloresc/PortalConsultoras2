@@ -13329,3 +13329,8 @@ label.checkpop {
     border-bottom-right-radius: 6px;
 }
 /*EPD1973 -->*/
+
+.fontColorAdm {
+    color: #702789;
+    font-size: 14px;
+}
