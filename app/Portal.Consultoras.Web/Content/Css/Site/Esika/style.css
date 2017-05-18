@@ -35866,6 +35866,11 @@ h1#penmostreo .campana {
 .content_90 .slick-slider {
     margin-top: 0 !important;
 }
+
+.SubHeader{
+    background: #f9f9f9;
+}
+
 .CerrarOfertaEspecial{
     font-family:'Lato';
     font-size:25px;    
