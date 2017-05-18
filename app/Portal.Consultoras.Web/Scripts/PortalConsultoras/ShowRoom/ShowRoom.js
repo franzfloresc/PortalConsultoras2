@@ -501,11 +501,20 @@ function CargarProductosShowRoomPromise(busquedaModel) {
     return d.promise();
 }
 
+function recortarPalabra(palabra, tamanio) {
+    return palabra.length > tamanio ? (palabra.substring(0, tamanio - 3) + '...') : palabra;
+}
+
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     if (response.success) {
         
         if (aplicarFiltrosSubCampanias) {
             var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
+
+            $.each(listaProdShowRoomSubCampanias, function (i, v) {
+                v.Descripcion = recortarPalabra(v.Descripcion, 35);
+            });
+
             SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
             $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
             $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
@@ -589,6 +598,11 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         data.Lista = listaProdShowRoomSubCampanias;
         data.CantidadProductos = listaProdShowRoomSubCampanias.length;
         data.Lista = AsignarPosicionAListaOfertas(data.Lista);
+
+        $.each(listaProdShowRoomSubCampanias, function (i, v) {
+            v.Descripcion = recortarPalabra(v.Descripcion, 30);
+        });
+
         SetHandlebars("#template-showroom-subcampanias-mobile", data, "#contenedor-showroom-subcampanias-mobile");
     }
     else {
