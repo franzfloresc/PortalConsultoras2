@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
-            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("Ambiente") ?? string.Empty;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             return View(model);
         }

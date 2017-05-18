@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("Ambiente") ?? string.Empty;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             }
             catch (FaultException ex)

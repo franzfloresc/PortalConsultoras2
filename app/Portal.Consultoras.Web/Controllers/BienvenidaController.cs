@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
-                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("Ambiente") ?? string.Empty;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             }
             catch (FaultException ex)
