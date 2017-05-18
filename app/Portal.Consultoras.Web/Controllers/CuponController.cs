@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
@@ -111,7 +112,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool tieneOfertasPlan20 = false;
+                bool tieneOfertasPlan20 = TieneOfertasPlan20();
                 return Json(new { success = true, tieneOfertasPlan20 = tieneOfertasPlan20, message = "" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -181,6 +182,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 svClient.UpdateCuponConsultoraEstadoCupon(userData.PaisID, cuponBE);
                 svClient.UpdateCuponConsultoraEnvioCorreo(userData.PaisID, cuponBE);
+            }
+        }
+
+        private bool TieneOfertasPlan20()
+        {
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                var listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora);
+                return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == 35 || x.CodigoCatalago == 44 || x.CodigoCatalago == 45 || x.CodigoCatalago == 46));
             }
         }
 

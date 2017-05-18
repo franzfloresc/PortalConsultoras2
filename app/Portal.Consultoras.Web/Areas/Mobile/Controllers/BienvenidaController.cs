@@ -136,6 +136,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.EmailActivo = userData.EMailActivo;
                 model.TieneCupon = userData.TieneCupon;
+                ViewBag.paisISO = userData.CodigoISO;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
                 string PaisesCatalogoWhatsUp = ConfigurationManager.AppSettings.Get("PaisesCatalogoWhatsUp") ?? string.Empty;
                 

@@ -8,7 +8,9 @@
         esEmailActivo: esEmailActivo,
         baseUrl: baseUrl,
         simboloMoneda: viewBagSimbolo,
-        campaniaActual: viewBagCampaniaActual
+        campaniaActual: viewBagCampaniaActual,
+        paisISO: paisISO,
+        ambiente: viewBagAmbiente
     };
 
     cupon.ini(objInitializer);

@@ -40,7 +40,8 @@
         BtnModificarDatos: '#Cupon2 #btnModificarDatos',
         BtnEnviarNuevamente: '#Cupon2 #btnEnviarNuevamente',
         ContenedorMostrarCorreo: '#Cupon2 div.correo_confirmacion',
-        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_cupon'
+        CheckTerminosCondiciones: '#Cupon1 .termino_condiciones_cupon',
+        LinkTerminosCondiciones: '#lnkTerminosCondiciones'
     };
 
     var setting = {
@@ -57,17 +58,30 @@
         UrlObtenerOfertasPlan20EnPedido: 'Cupon/ObtenerOfertasPlan20EnPedido',
         Cupon: null,
         SimboloMoneda: '',
-        CampaniaActual: ''
+        CampaniaActual: '',
+        PaisISO: '',
+        UrlS3: 'https://s3.amazonaws.com',
+        Ambiente: '',
+        TieneCupon: false
     };
-
+    
     var inizializer = function (parameters) {
+        setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
         setting.SimboloMoneda = parameters.simboloMoneda;
-        setting.CampaniaActual = parameters.campaniaActual
+        setting.CampaniaActual = parameters.campaniaActual;
+        setting.PaisISO = parameters.paisISO;
+        setting.Ambiente = parameters.ambiente;
+        setDefaultValues();
         mostrarPopupCuponPorPagina();
         bindEvents();
+    }
+
+    var setDefaultValues = function () {
+        var urlTerminosCondiciones = setting.UrlS3 + "/" + setting.Ambiente + "/SomosBelcorp/FileConsultoras/" + setting.PaisISO + "/Contrato_Cupon.pdf";
+        $(elements.LinkTerminosCondiciones).attr("href", urlTerminosCondiciones);
     }
 
     var bindEvents = function () {
@@ -233,7 +247,7 @@
         cuponPromise.then(function (response) {
             setting.Cupon = response.data;
             if (setting.Cupon) {
-                setting.MostrarContenedorPadreCupon = true;
+                setting.MostrarContenedorPadreCupon = setting.TieneCupon;
                 setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
                 mostrarPopupCuponPorPagina();
             }
