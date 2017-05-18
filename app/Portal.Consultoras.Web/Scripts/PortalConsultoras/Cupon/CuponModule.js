@@ -61,10 +61,12 @@
         CampaniaActual: '',
         PaisISO: '',
         UrlS3: 'https://s3.amazonaws.com',
-        Ambiente: ''
+        Ambiente: '',
+        TieneCupon: false
     };
-
+    
     var inizializer = function (parameters) {
+        setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
         setting.PaginaOrigen = parseInt(parameters.paginaOrigenCupon);
         setting.EsEmailActivo = (parameters.esEmailActivo.toLowerCase() == "true");
         setting.BaseUrl = parameters.baseUrl;
@@ -245,7 +247,7 @@
         cuponPromise.then(function (response) {
             setting.Cupon = response.data;
             if (setting.Cupon) {
-                setting.MostrarContenedorPadreCupon = true;
+                setting.MostrarContenedorPadreCupon = setting.TieneCupon;
                 setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
                 mostrarPopupCuponPorPagina();
             }
