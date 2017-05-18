@@ -8237,7 +8237,8 @@ a{
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido{
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 77px;
    
@@ -8269,7 +8270,8 @@ a{
     font-family:'Lato';
     font-size:10px;
     text-align:center;
-    color:#FFF;
+    /*color:#FFF;*/
+    color: black;
     margin-left:-9px;
 }
 
@@ -8291,7 +8293,9 @@ a{
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
+    font-weight: bold;
     font-family: 'Lato';
     line-height:19px;
 }
@@ -11165,9 +11169,93 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
    font-family: 'Lato';
    font-size: 13px;
    text-align: center;
+   text-transform:lowercase;
 }
 .saludo_paginacion b{
     font-size:15px;
+}
+/*SPRINT 11*/
+.content_sub_oferta_showroom{
+    position:fixed;
+    z-index:2000;
+    bottom: 0;    
+    width: 100%;
+    left: 0;
+    /*overflow-y: auto;*/
+    height:45px;
+}
+.content_header_sub{
+    width:100%;
+    background:black;
+}
+.content_titulo_sub_oferta{
+    /*background:black;*/
+    height:45px;
+    width:280px;
+    margin:0 auto;
+    position:relative;
+    margin-bottom: 26px;
+}
+.content_titulo_texto_sw {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    /*color: white;*/
+    letter-spacing: 1.3px;
+    line-height: 16px;
+    width: 72%;
+    margin-left: 8%;
+    margin-top: 7px;
+    position: relative;
+    float: left;
+}
+.titulo_banner_showroom{
+    /*color:#fc8faf;*/
+}
+.btn_descubre_set_especial{
+    background: url(../../../Images/PL20/flecha_set_Especial_white.png) no-repeat;
+    background-position: -1px 3px;
+    margin-left: 3%;
+    z-index: 200;
+    display: block;
+    width: 26px;
+    height: 26px;
+    border: 1px solid white;
+    float: left;
+    margin-top: 10px;
+}
+/*.content_titulo_sub_oferta:after {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-top-color: #000000;
+    border-width: 12px;
+    margin-left: -12px;
+}*/
+/*.content_info_set_especial{
+    background:white;
+    display: none;
+}*/
+.content_display_set_suboferta{
+    position:absolute;
+    z-index: 2000;
+    width:100%;
+    height:100%;
+    background:white;
+    top:0;
+    overflow-y:auto;
+    padding-bottom:45px;
+    display:none;
+}
+.btn_descubre_set_especial_click {
+    background: url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
+    background-position: -1px 3px;
 }
 
 .color-por-marca {
@@ -11177,4 +11265,17 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 .btn_compralo_ahora.cabecera-no-home {
     margin-top: -5px !important;
+}
+
+.content_cronometro{
+    margin-top: 26px;
+    margin-bottom: -28px;
+}
+.saludo_paginacion p {
+	margin:0;
+    display:inline-block;
+}
+.saludo_paginacion p::first-letter {
+	text-transform: uppercase;
+    display:inline-block;
 }

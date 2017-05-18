@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
         [DataMember]
         public int Orden { get; set; }
 
+        [DataMember]
+        public bool EsSubCampania { get; set; }
+
         public BEShowRoomPerfilOferta(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "PerfilOfertaShowRoomID") && datarec["PerfilOfertaShowRoomID"] != DBNull.Value)
@@ -45,6 +48,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
                 CUV = DbConvert.ToString(datarec["CUV"]);
             if (DataRecord.HasColumn(datarec, "Orden") && datarec["Orden"] != DBNull.Value)
                 Orden = DbConvert.ToInt32(datarec["Orden"]);
+            if (DataRecord.HasColumn(datarec, "EsSubCampania") && datarec["EsSubCampania"] != DBNull.Value)
+                EsSubCampania = DbConvert.ToBoolean(datarec["EsSubCampania"]);            
         }
     }
 }

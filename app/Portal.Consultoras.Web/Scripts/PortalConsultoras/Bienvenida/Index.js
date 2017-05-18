@@ -2484,14 +2484,28 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 
     if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
+        var sentListEstrategia = false;
+        if (typeof (Storage) !== 'undefined') {
+            var sle = localStorage.getItem('sentListEstrategia1');
+            if (sle !== null && sle === '1') {
+                sentListEstrategia = true;
             }
-        });
+            else {
+                localStorage.setItem('sentListEstrategia1', '1');
+            }
+        }
+
+        if (!sentListEstrategia) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
     }
 }
+
 function TagManagerClickAgregarProducto() {
     dataLayer.push({
         'event': 'addToCart',
@@ -2805,15 +2819,6 @@ function CrearPopShow() {
     });
 }
 function MostrarShowRoom() {
-
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            return false;
-        }
-    }
-    */
-
     if (viewBagRol == 1) {
         if (sesionEsShowRoom == '0') {
             return;
@@ -2848,13 +2853,11 @@ function MostrarShowRoom() {
                         });
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (showroomConsultora.MostrarPopup) {
-                                //$("#hdEventoIDShowRoom").val(evento.EventoID);
-
                                 if (response.mostrarShowRoomProductos) {
                                     $("#spnShowRoomEvento").html(evento.Tema);
                                     
                                     if (noMostrarShowRoomVenta) {
-                                        //AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                                        
                                         $("#spnShowRoomEventoVenta").html(eventoNombre);
                                         $("#spnShowRoomEventoVenta").val(eventoNombre);
                                         $("#spnShowRoomEventoDescripcionVenta").val(evento.Tema);
@@ -2866,20 +2869,17 @@ function MostrarShowRoom() {
                                         $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
                                         $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                                         $(container).show();
-                                        //venta analytics
-
-                                        
-
+                                        //venta analytics                                     
                                     }
                                 } else {
                                     $("#spnShowRoomEvento").html(evento.Tema);
-
+                                    
                                     if (noMostrarShowRoomIntriga) {
-                                        //AgregarTagManagerShowRoomPopup(evento.Tema, false);
+                                        
                                         $("#spnShowRoomEvento").html(eventoNombre);
                                         $("#spnShowRoomEvento").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);
-                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "1")
+                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);                                        
+                                        AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
                                         $('#hdEventoIDShowRoom').val(eventoID);
                                         if (parseInt(response.diasFaltan) > 0) {
                                             var container = $('#PopShowroomIntriga');
@@ -2890,9 +2890,7 @@ function MostrarShowRoom() {
                                             $(container).find('.dias_intriga_home').text(txtDiasIntriga);
                                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
                                             $(container).show();
-                                            //intriga analytics
-
-                                           
+                                            //intriga analytics                                           
                                         }
                                     }                                    
                                 }
@@ -2925,12 +2923,12 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         success: function (response) {
             if (checkTimeout(response)) {
                     if (!response.data && response.tipo == "I") {
-                        AgregarTagManagerShowRoomCheckBox();
+                        click_no_volver_a_ver_este_anuncio_PopShowroomIntriga();
                         $('#PopShowroomIntriga').hide();
                     }
 
                     if (!response.data && response.tipo == "V") {
-                        AgregarTagManagerShowRoomCheckBox();
+                        click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
                         $('#PopShowroomVenta').hide();
                     }
             }
@@ -2951,7 +2949,7 @@ function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, t
     } else {
         streventoNombre = eventoNombre + ' ' + tema + ' Entérate Primero';
     }
-
+    
     dataLayer.push({
         'event': 'promotionView',
         'ecommerce': {
@@ -2991,22 +2989,29 @@ function AgregarTagManagerShowRoomPopup(nombreEvento, esHoy) {
     });
 }
 
-function AgregarTagManagerShowRoomPopupClick(tipo) {
-    var nombre = tipo == 1 ? $("#spnShowRoomEvento").html() : $("#spnShowRoomEventoHoy").html();
-    var streventoNombre = "";
-    if (tipo == 1) {
-        streventoNombre = nombre + ' Compra Ya';
-    } else {
-        streventoNombre = nombre + + ' Entérate Primero';
+function AgregarTagManagerShowRoomPopupClick(tipo) {    
+    var id = "";
+    var name = "";  
+
+    if (tipo == 1)
+    {
+        name = $("#spnShowRoomEvento").html() + ' Compra Ya';
+        id = $("#hdEventoIDShowRoomVenta").val();        
     }
+    else
+    {
+        name = $("#spnShowRoomEventoHoy").html() + ' Entérate Primero';
+        id = $("#hdEventoIDShowRoom").val();        
+    }
+    
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
             'promoView': {
                 'promotions': [
                     {
-                        'id': $("#hdEventoIDShowRoom").val(),
-                        'name': streventoNombre,
+                        'id': id,
+                        'name': name,
                         'position': 'Home pop-up - 1',
                         'creative': 'Banner'
                     }
@@ -3340,15 +3345,69 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(2);
     document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    //AgregarTagManagerShowRoomPopupConocesMas(1);
     AgregarTagManagerShowRoomPopupClick(1);
     document.location.href = urlShowRoomVenta;
     $('#PopShowroomVenta').hide();
 }
+
+function CerrarPopShowroomIntriga()
+{
+    var action = 'Banner ' + $("#spnShowRoomEventoDescripcion").val() + ' Entérate Primero';
+    
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action, 'label': 'Cerrar Popup'
+    });
+
+    $('#PopShowroomIntriga').hide();
+}
+
+function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()
+{
+    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action, 'label': 'Cerrar Popup'
+    });
+}
+
+function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
+    var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action, 'label': 'Cerrar Popup'
+    });
+}
+
+/*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
+function click_zona_oscura_PopShowroomVenta() {
+    var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action, 'label': 'Cerrar Popup'
+    });
+}
+
+function click_zona_oscura_PopShowroomIntriga() {
+    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action, 'label': 'Cerrar Popup'
+    });
+}
+*/

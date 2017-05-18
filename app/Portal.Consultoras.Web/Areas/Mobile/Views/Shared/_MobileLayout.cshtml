@@ -34,6 +34,7 @@
     }
 
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/flipclock.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
@@ -148,12 +149,12 @@
                     <div class="icono_cerrar_mensaje">
                         <span>
                             <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
-                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
                             </a>
                         </span>
                     </div>
                     <div class="icono_estadoPedido" style="position: absolute;">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
                     </div>
                     <div class="mensajes_estadoPedido" style="margin-left: 40px; margin-right: 15px;">TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA
                         <span class="mensaje_horarioIngresoPedido">
@@ -171,12 +172,12 @@
                     <div class="icono_cerrar_mensaje">
                         <span>
                             <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
                             </a>
                         </span>
                     </div>
                     <div class="icono_estadoPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
                     </div>
                     <div class="mensajes_estadoPedido">
                         <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
@@ -309,6 +310,10 @@
             </div>
 
             <div >
+            <div class="content_cronometro">
+                <div class="clock"></div>
+                <div class="message"></div>
+            </div>
                 <div id="OfertasDiaMobile" class="set_oferta_content"></div>
                 <div class="row contenedor-botones">
                     <div class="content_btn_agregar">
@@ -355,7 +360,7 @@
                                                     <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
-                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
+                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" onclick="VerShowRoomVenta()" />
                                                         </div>
                                                     </a>
                                                 </div>
@@ -374,7 +379,7 @@
                                                     <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
                                                         <div class="content_banner_new_showroom">
                                                             <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
+                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" onclick="VerShowRoomIntriga()"/>
                                                         </div>
                                                     </a>
                                                 </div>
@@ -473,7 +478,7 @@
                 <input type="text" class="indmonto-min-odd" value="{{oferta.IndicadorMontoMinimo}}" />
                 <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
                 <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
-                <input type="text" class="origenPedidoWeb-odd" value="4" />
+                <input type="text" class="origenPedidoWeb-odd" value="1" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
@@ -490,7 +495,7 @@
                 <input type="hidden" class="Palanca" value="ODD" />
             </div>
             <div class="saludo_paginacion">
-                @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+                <p>@ViewBag.NombreConsultora</p>, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
                 {{#iff ../CantidadProductos '>' 1}}
                 &nbsp;ofertas
                 {{/iff}}
@@ -725,7 +730,21 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
+    
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/flipclock.js")"></script>
+    <!--<script type="text/javascript">
+
+
+		$(document).ready(function() {
+			
+		    var clock = $('.clock').FlipClock(3600, {
+		        countdown: true
+		    });
+  
+
+		});
+    </script>-->
     
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -739,6 +758,8 @@
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
         var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
