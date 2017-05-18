@@ -73,6 +73,9 @@ $(document).ready(function () {
 
         $('#ddlPais2').val(imgISO);
         ayudaLogin2();
+
+        if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
+        else $("#VinculoTarjetaHelm").hide();
     });
 
     $("#ddlPais2").change(function () {
