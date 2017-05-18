@@ -149,12 +149,12 @@
                     <div class="icono_cerrar_mensaje">
                         <span>
                             <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
-                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
                             </a>
                         </span>
                     </div>
                     <div class="icono_estadoPedido" style="position: absolute;">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
                     </div>
                     <div class="mensajes_estadoPedido" style="margin-left: 40px; margin-right: 15px;">TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA
                         <span class="mensaje_horarioIngresoPedido">
@@ -172,12 +172,12 @@
                     <div class="icono_cerrar_mensaje">
                         <span>
                             <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                                <img src="/Content/Images/btn_cerrar_popup.png" alt="Cerrar">
+                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
                             </a>
                         </span>
                     </div>
                     <div class="icono_estadoPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido.png")" alt="Icono Estado Pedido" />
+                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
                     </div>
                     <div class="mensajes_estadoPedido">
                         <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
@@ -758,6 +758,8 @@
         var urlCloseBannerPL20 = '@Url.Action("CloseBannerPL20", "Pedido", new { area = "" })';
         var urlOcultarBannerTop = '@Url.Action("OcultarBannerTop", "Pedido", new { area = "" })';
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';

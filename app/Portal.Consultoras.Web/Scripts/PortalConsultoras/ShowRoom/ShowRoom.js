@@ -525,6 +525,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         }
 
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
+        var cantidadSubCampanias = (listaProdShowRoomSubCampanias ? listaProdShowRoomSubCampanias.length : 0);
+
         $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
             var descripcion = "";
 
@@ -547,7 +549,7 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
         var htmlDiv = SetHandlebars("#template-showroom", listaProdShowRoomNoSubCampanias);
         $('#divProductosShowRoom').append(htmlDiv);
         $("#spnCantidadFiltro").html(listaProdShowRoomNoSubCampanias.length);
-        $("#spnCantidadTotal").html(response.cantidadTotal - listaProdShowRoomSubCampanias.length);
+        $("#spnCantidadTotal").html(response.cantidadTotal - cantidadSubCampanias);
     }
     else {
         messageInfoError(response.message);
