@@ -267,6 +267,8 @@ namespace Portal.Consultoras.Common
             public const int DesktopShowRoomProductPageCarrusel = 1532;
             public const int DesktopShowRoomProductPageTactica = 1533;
             public const int DesktopShowRoomBienvenida = 1541;
+            public const int DesktopShowRoomSubCampanias = 1524;
+            public const int MobileShowRoomSubCampanias = 2524;
             public const int MobileShowRoomLandingIntriga = 2511;
             public const int MobileShowRoomLandingCompraTactica = 2522;
             public const int MobileShowRoomProductPage = 2531;
@@ -444,6 +446,14 @@ namespace Portal.Consultoras.Common
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
                 public const string BannerLateralBienvenida = "BannerLateralBienvenida";
                 public const string IconoMenuShowRoom = "IconoMenuShowRoom";
+                public const string TextoInicialOfertaSubCampania = "TextoInicialOfertaSubCampania";
+                public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
+                public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
+                public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
+                public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
+                public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
+                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";                                   
             }
 
             public class Mobile
@@ -457,6 +467,11 @@ namespace Portal.Consultoras.Common
                 public const string TextoCondicionCompraCpc = "TextoCondicionCompraCpc";
                 public const string TextoDescripcionLegalCpc = "TextoDescripcionLegalCpc";
                 public const string ImagenFondoProductPage = "ImagenFondoProductPage";
+                public const string TextoInicialOfertaSubCampania = "TextoInicialOfertaSubCampania";
+                public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
+                public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
+                public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";               
             }
 
             public class TipoAplicacion
