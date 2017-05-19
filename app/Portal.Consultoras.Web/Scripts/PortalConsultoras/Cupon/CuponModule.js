@@ -437,16 +437,16 @@
             if (response.success) {
                 if (response.tieneOfertasPlan20) {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "¡Tu descuento de " + simbolo + " " + valor + " es válido! Lo verás reflejado en tu facturación!";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "¡Tu descuento de " + valor + " " + simbolo + " es válido! Lo verás reflejado en tu facturación!";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + " " + simbolo + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación!";
                     }
                 }
                 else {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta web para hacer válido tu cupón de descuento de " + simbolo + " " + valor;
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + simbolo + " " + valor + "</b>";
                     } else {
-                        mensaje = "Agrega alguna oferta web para hacer válido tu cupón de descuento de " + valor + " " + simbolo;
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + valor + " " + simbolo + "</b>";
                     }
                 }
 
