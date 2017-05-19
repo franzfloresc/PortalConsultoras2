@@ -1033,7 +1033,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 };
 function AgregarProductoLiquidacion(contenedor) {
-
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -1121,6 +1120,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
                             closeWaitingDialog();
                             HidePopupTonosTallas();
+
+                            ProcesarActualizacionMostrarContenedorCupon();
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
@@ -1135,6 +1136,15 @@ function AgregarProductoLiquidacion(contenedor) {
         }
     });
 };
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
 function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     waitingDialog({});
 

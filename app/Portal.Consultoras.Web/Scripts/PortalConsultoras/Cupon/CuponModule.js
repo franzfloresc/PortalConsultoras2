@@ -75,7 +75,7 @@
         setting.PaisISO = parameters.paisISO;
         setting.Ambiente = parameters.ambiente;
         setDefaultValues();
-        mostrarPopupCuponPorPagina();
+        mostrarContenedorCuponPorPagina();
         bindEvents();
     }
 
@@ -225,20 +225,24 @@
         mostrarPopupGana();
     }
 
-    var mostrarPopupCuponPorPagina = function () {
-        //if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA || setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO) { }
+    var mostrarContenedorCuponPorPagina = function () {
+        if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA ||
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO ||
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_BIENVENIDA ||
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO)
+        {
+            if (setting.MostrarContenedorPadreCupon) {
+                $(elements.ContenedorPadreCupon).show();
 
-        if (setting.MostrarContenedorPadreCupon) {
-            $(elements.ContenedorPadreCupon).show();
+                if (setting.MostrarContenedorInfo) {
+                    mostrarContenedorInfo();
+                } else {
+                    mostrarContenedorConocelo();
+                }
 
-            if (setting.MostrarContenedorInfo) {
-                mostrarContenedorInfo();
             } else {
-                mostrarContenedorConocelo();
+                $(elements.ContenedorPadreCupon).hide();
             }
-
-        } else {
-            $(elements.ContenedorPadreCupon).hide();
         }
     }
 
@@ -249,7 +253,7 @@
             if (setting.Cupon) {
                 setting.MostrarContenedorPadreCupon = setting.TieneCupon;
                 setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
-                mostrarPopupCuponPorPagina();
+                mostrarContenedorCuponPorPagina();
             }
         }, function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -427,8 +431,8 @@
         var mensaje = "";
         var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
         var valor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.Cupon.FormatoValorAsociado : parseInt(setting.Cupon.FormatoValorAsociado));
-
         var ofertasPlan20Promise = obtenerOfertasPlan20EnPedidoPormise();
+
         ofertasPlan20Promise.then(function (response) {
             if (response.success) {
                 if (response.tieneOfertasPlan20) {
@@ -466,6 +470,7 @@
                         $(this).append(mensaje);
                         $(this).show();
                     }
+                    camiarImagenPorGif($(this));
                 });
 
                 $(elements.ContenedorCuponConocelo).hide();
@@ -478,13 +483,29 @@
         $(elements.ContenedorCuponConocelo).show();
     }
 
+    var camiarImagenPorGif = function (contenedor) {
+
+        if ($(contenedor).find('img').length > 0) {
+            var backImg = $(contenedor).find('img').attr('src');
+            var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+            $(contenedor).find('img').attr('src', nuevoBackImg);
+            return;
+        }
+        var backImg = $(contenedor).css('background-image');
+        var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+        $(contenedor).css('background-image', nuevoBackImg);
+    }
+
     return {
         ini: function (parameters) {
             inizializer(parameters);
         },
         obtenerCupon: obtenerCupon,
-        mostrarObjetoCupon: function () {
+        mostrarCupon: function () {
             return setting.Cupon;
+        },
+        actualizarContenedorCupon: function () {
+            mostrarContenedorCuponPorPagina();
         }
     };
 })();
