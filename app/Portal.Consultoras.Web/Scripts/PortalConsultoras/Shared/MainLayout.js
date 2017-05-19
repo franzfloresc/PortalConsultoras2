@@ -6,6 +6,10 @@ $(document).ready(function () {
 
     LayoutMenu();
 
+    window.onresize = function (event) {
+        LayoutMenu();
+    };
+
     if (mostrarBannerPostulante == 'True') {
         $('#bloquemensajesPostulante').show();
     }

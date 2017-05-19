@@ -11,7 +11,7 @@ using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class RevistaDigitalController : BaseEstrategiaController
+    public class RevistaDigitalController : BaseRevistaDigitalController
     {
         public ActionResult Index()
         {
@@ -20,27 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                 //    return RedirectToAction("Index", "Bienvenida");
 
-                var model = new RevistaDigitalModel();
-                model.NombreUsuario = userData.UsuarioNombre.ToUpper();
-                var listaProducto = ConsultarEstrategiasModel();
-                using (SACServiceClient svc = new SACServiceClient())
-                {
-                    model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-                }
-
-                model.ListaProducto = listaProducto.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-                var listadoNoLanzamiento = listaProducto.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "").ToList() ?? new List<EstrategiaPedidoModel>();
-
-                if (listadoNoLanzamiento.Any())
-                {
-                    model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
-                    model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
-                }
-                if (!model.ListaProducto.Any())
-                {
-                    model.ListaProducto = listaProducto;
-                    model.ListaProducto.Update(p => p.ImgFondoDesktop = "/Content/Images/RevistaDigital/lan-fondo.png");
-                }
+                var model = IndexModel();
 
                 return View(model);
             }
@@ -51,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
 
         public ActionResult Detalle()
         {
@@ -111,6 +90,8 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var listModel = ConsultarEstrategiasModel("");
 
+                listModel = listModel.Where(e=>e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
                 int cantidadTotal = listModel.Count;
 
                 listaFinal = listModel;
@@ -156,34 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-
-                if (model.Limite > 0)
-                    listaFinal = listaFinal.Take(model.Limite).ToList();
-
-                var cont = 0;
-                listaFinal.Update(s =>
-                {
-                    s.ID = s.EstrategiaID;
-                    s.ImagenURL = "";
-                    if (s.FlagMostrarImg == 1)
-                    {
-                        if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                        {
-                            if (s.FlagEstrella == 1)
-                            {
-                                s.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                            }
-                        }
-                        else if (!(s.TipoEstrategiaImagenMostrar == @Constantes.TipoEstrategia.PackNuevas
-                            || s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                        {
-                            s.ImagenURL = "";
-                        }
-                    }
-                    s.FotoProducto01 = "/Content/Images/RevistaDigital/prod" + cont + ".png";
-                    cont++;
-                });
-
+                
                 int cantidad = listaFinal.Count;
 
                 return Json(new
@@ -206,44 +160,20 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-
+        
         [HttpPost]
-        public JsonResult GetProductoDetalle(BusquedaProductoModel model)
+        public JsonResult GetProductoDetalle(int id)
         {
             try
             {
                 var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
-
-                var cont = 0;
-                listaFinal.Update(s =>
-                {
-                    s.ID = s.EstrategiaID;
-                    s.ImagenURL = "";
-                    if (s.FlagMostrarImg == 1)
-                    {
-                        if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                        {
-                            if (s.FlagEstrella == 1)
-                            {
-                                s.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                            }
-                        }
-                        else if (!(s.TipoEstrategiaImagenMostrar == @Constantes.TipoEstrategia.PackNuevas
-                            || s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                        {
-                            s.ImagenURL = "";
-                        }
-                    }
-                    s.FotoProducto01 = "/Content/Images/RevistaDigital/prod" + cont + ".png";
-                    cont++;
-                });
+                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
                 
                 return Json(new
                 {
-                    success = true,
-                    message = "Ok",
-                    lista = listaFinal[0]
+                    success = producto.EstrategiaID > 0,
+                    message = producto.EstrategiaID > 0 ? "Ok" : "Error al cargar el producto",
+                    lista = producto
                 });
             }
             catch (Exception ex)
@@ -252,7 +182,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error al cargar los productos",
+                    message = "Error al cargar el producto",
                     data = ""
                 });
             }
@@ -269,18 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "USTED YA ESTÁ SUSCRITO, GRACIAS."
                 }, JsonRequestBehavior.AllowGet);
             }
-
-            // Usar este metodo para validadcion extras (aun no esta en uso)
-            //var mensaje = "";
-            //if (!RevistaDigitalValidar(out mensaje))
-            //{
-            //    return Json(new
-            //    {
-            //        success = false,
-            //        message = mensaje
-            //    }, JsonRequestBehavior.AllowGet);
-            //}
-
+            
             var entidad = new BERevistaDigitalSuscripcion();
             entidad.PaisID = userData.PaisID;
             entidad.CodigoConsultora = userData.CodigoConsultora;

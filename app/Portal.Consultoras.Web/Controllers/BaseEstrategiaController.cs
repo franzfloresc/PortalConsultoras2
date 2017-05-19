@@ -30,10 +30,10 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
             entidad.CUV2 = cuv ?? "";
             entidad.Zona = userData.ZonaID.ToString();
-            entidad.CodigoEstrategia = "";//Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            entidad.CodigoAgrupacion = "";
 
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                entidad.CodigoEstrategia = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
             
             var listaTemporal = new List<BEEstrategia>();
 
@@ -340,19 +340,64 @@ namespace Portal.Consultoras.Web.Controllers
             var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
 
             var listaPedido = ObtenerPedidoWebDetalle();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             ListaProductoModel.Update(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 estrategia.UrlCompartirFB = GetUrlCompartirFB();
-                estrategia.ImgFondoDesktop = Util.Trim(estrategia.ImgFondoDesktop);
-                estrategia.ImgPrevDesktop = Util.Trim(estrategia.ImgPrevDesktop);
-                estrategia.ImgFichaDesktop = Util.Trim(estrategia.ImgFichaDesktop);
-                estrategia.UrlVideoDesktop = Util.Trim(estrategia.UrlVideoDesktop);
-                estrategia.ImgFondoMobile = Util.Trim(estrategia.ImgFondoMobile);
-                estrategia.ImgFichaMobile = Util.Trim(estrategia.ImgFichaMobile);
-                estrategia.UrlVideoMobile = Util.Trim(estrategia.UrlVideoMobile);
+                estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
+                estrategia.EstrategiaDetalle.ImgFondoDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
+                estrategia.EstrategiaDetalle.ImgPrevDesktop =   ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
+                estrategia.EstrategiaDetalle.ImgFichaDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
+                estrategia.EstrategiaDetalle.UrlVideoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.UrlVideoDesktop);
+                estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
+                estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
+                estrategia.EstrategiaDetalle.UrlVideoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.UrlVideoMobile);
+
+                estrategia.DescripcionResumen = "";
+                estrategia.DescripcionDetalle = "";
+                if (estrategia.FlagNueva == 1)
+                {
+                    estrategia.DescripcionResumen = estrategia.DescripcionCUV2.Split('|')[0];
+                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
+                    estrategia.DescripcionCortada = estrategia.DescripcionResumen;
+                }
+                else
+                {
+                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
+                };
+
+                estrategia.ID = estrategia.EstrategiaID;
+                if (estrategia.FlagMostrarImg == 1)
+                {
+                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    {
+                        if (estrategia.FlagEstrella == 1)
+                        {
+                            estrategia.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
+                        }
+                    }
+                    else if (!(estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
+                        || estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
+                    {
+                        estrategia.ImagenURL = "";
+                    }
+                }
+                else
+                {
+                    estrategia.ImagenURL = "";
+                }
+
+                estrategia.PuedeCambiarCantidad = 1;
+                if (estrategia.TieneVariedad == 0)
+                {
+                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
+                    {
+                        estrategia.PuedeCambiarCantidad = 0;
+                    }
+                }
             });
-            
+
             return ListaProductoModel;
         }
     }

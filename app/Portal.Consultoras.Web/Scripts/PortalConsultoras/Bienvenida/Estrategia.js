@@ -89,11 +89,9 @@ function CargarCarouselEstrategias(cuv) {
     //    '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-' + (isEsika ? 'esika' : 'lbel') + '" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
     //);
 
-    var top = $("#hdLimiteProductoCarrusel").val() || 0;
-
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv + '&top=' + top,
+        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
