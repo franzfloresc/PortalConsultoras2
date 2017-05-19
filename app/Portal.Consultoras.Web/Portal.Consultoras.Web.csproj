@@ -2702,7 +2702,6 @@
     <Content Include="Content\Images\paypal_tarjetas.png" />
     <Content Include="Content\Images\PE_2014813641_01_pibfepfhqu.jpg" />
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
-    <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial_2.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial_2white.png" />
@@ -3378,8 +3377,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
       <SubType>Designer</SubType>

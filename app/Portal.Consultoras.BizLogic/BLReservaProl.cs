@@ -198,7 +198,7 @@ namespace Portal.Consultoras.BizLogic
                 resultado.PedidoID = input.PedidoID;
 
                 resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado, listPedidoWebDetalle);
-                if(resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
+                if(input.EnviarCorreo || resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return resultado;
             }
             catch (Exception ex)
