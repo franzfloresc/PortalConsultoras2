@@ -3890,7 +3890,6 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
-    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />

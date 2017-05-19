@@ -53,14 +53,15 @@
                     <div class="div-3 contenedor_campoMotivo">
 
                         <div class="selectP2 seleccion_pagina textboxSB2">
-                            @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "Tipo Rechazo", new { @class = "field_85 textboxSB" })
+                            @Html.DropDownListFor(m => m.TipoRechazo, ViewBag.TipoRechazosSAC as SelectList, "TIPO RECHAZO", new { @class = "field_85 textboxSB" })
                         </div>
                     </div>
-                    <div class="div-3">
-                        <div class="validation_clear"></div>
-                        <div class="validation">
+                    <div class="div-3-Rechazo">
+                        <div class="validation_clear_Rechazo"></div>
+                        <div class="validation_Rechazo">
                             @Html.ValidationMessageFor(m => Model.TipoRechazo)
                         </div>
+
                     </div>
 
                     <div class="div-3 contenedor_campoMotivo">
@@ -478,8 +479,27 @@
         width: 170px !important;
         padding: 0 9px !important;
         min-height: 1px !important;
-        /*color: #702789;*/
-        color: #dc001d;
+        color: #702789;
+        /*color: #dc001d;*/
+        font-weight: 700;
+    }
+
+    .div-3-Rechazo {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin: 0 0 12px 0;
+    padding: 0 0 0px 0;
+    }
+
+    .validation_Rechazo {
+        float: left;
+        width: 170px !important;
+        padding: 0 9px !important;
+        min-height: 1px !important;
+        color: #702789;
+        /*color: #dc001d;*/
+        font-weight: 700;
     }
 
     .validation_clear {
@@ -488,6 +508,14 @@
         height: 1px !important;
         padding: 0 9px !important;
     }
+
+    .validation_clear_Rechazo {
+        float: left;
+        width: 101px !important;
+        height: 1px !important;
+        padding: 0 9px !important;
+    }
+
     .estilo2 {
         width: 80%;
     margin-left: 10%;
