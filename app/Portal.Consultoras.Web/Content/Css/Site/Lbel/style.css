@@ -30999,7 +30999,7 @@ h1#penmostreo .campana {
     display: -ms-flexbox;
     display: -o-flex;
     justify-content:space-between;
-    z-index:5;
+    z-index: 4;
 }
 /*.content_pasos::after{
     position:absolute;
@@ -31171,18 +31171,25 @@ h1#penmostreo .campana {
     margin-right:0%;
 }*/
 .reclamo_motivo_select{
-    width:45%;
-    height:45px;
-    font-family:'Lato';
-    font-size:15px;
-    line-height:45px;
-    padding-left:50px;
-    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
-    background-position:20px 14px;
-    border-bottom:1px solid #d1d1d1;
-    cursor:pointer;
-    float: left;
-    margin-left: 22px;
+    display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+	width: 48%;
+	height: 50px;
+	font-family: 'Lato';
+	font-size: 14px;
+    padding-left: 50px;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
+    background-position: 20px 14px;
+	border-bottom: 1px solid #d1d1d1  ;
+	cursor: pointer;
+	float: left;
+	margin-right: 4%;
+}
+
+.reclamo_motivo_select:nth-child(2n) {
+	margin-right: 0;
 }
 .reclamo_motivo_select:hover{    
     color:#613c87;
@@ -33184,15 +33191,16 @@ h1#penmostreo .campana {
     height: 14px;
 }
 .content_pasos_linea {
-        position: relative;
-        width: 99%;
-        height: 2px;      
-        z-index: 3;
+    position: relative;
+    width: 99%;
+    height: 2px;      
+    /*z-index: 3;*/
+    z-index:4;
     left: 0;
     width: 310px;
     margin: 0 auto;
     margin-top: -18px;
-        background: #d1d1d1;
+    background: #d1d1d1;
 }
 
 
@@ -34777,3 +34785,7 @@ h1#penmostreo .campana {
 .SubHeader{
     background: #fff;
  }
+
+.reclamo_motivo_select:nth-child(2n) {
+	margin-right: 0;
+}

@@ -134,7 +134,7 @@ function ArmarCarouselEstrategias(data) {
     SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
     $('#divListaEstrategias').show();
     SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
-    
+
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
@@ -144,7 +144,7 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
 
-
+  
     //var data1 = $('#divListadoEstrategia').find('.nombre_producto');
     //var nbData = data1.length;
     //for (var iData = 0; iData < nbData; iData++) {
@@ -204,8 +204,8 @@ function ArmarCarouselEstrategias(data) {
             pantallaPedido: false,
             prevArrow: '<button type="button" data-role="none" class="slick-next"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev"></button>'
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);        
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {          
+            EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
 
         if (data.length > cant) {
@@ -270,7 +270,7 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {           
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
@@ -298,7 +298,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
         var recomendado = arrayOfertasParaTi[posicionEstrategia];
         var arrayEstrategia = new Array();
-
+     
         var impresionRecomendado = {
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
@@ -330,7 +330,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
         var recomendado = arrayOfertasParaTi[posicionEstrategia];
         var arrayEstrategia = new Array();
-
+  
         var impresionRecomendado = {
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
@@ -590,7 +590,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
                 $.each(cuvs, function (i, item) {
                     var cuv = $(item).attr("data-tono-select");
-                    if ( cuv != "") {
+                    if (cuv != "") {
                         datos.data.CUV2 = cuv;
                         if (codigoEstrategia == "2003") {
                             datos.data.MarcaID = $(item).find("#Estrategia_hd_MarcaID").val();
@@ -604,7 +604,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             else {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
-            
+
         },
         error: function (data, error) {
             alert(datos.data.message);
@@ -784,7 +784,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     else {
         descripcion = datosEst.DescripcionCUV2;
     }
-    
+
     if (!$.isNumeric(cantidad)) {
         AbrirMensajeEstrategia("Ingrese un valor numérico.");
         $('.liquidacion_rango_cantidad_pedido').val(1);
@@ -883,7 +883,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                        TagManagerClickAgregarProducto();
+                        TagManagerClickAgregarProductoOfertaParaTI(datosEst);
 
                         CerrarLoad();
                         if (popup) {
