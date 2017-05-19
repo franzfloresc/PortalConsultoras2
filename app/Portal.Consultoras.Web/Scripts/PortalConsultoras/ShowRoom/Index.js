@@ -3,6 +3,44 @@ var rangoPrecios = 0;
 //var busquedaModel = null;
 
 $(document).ready(function () {
+    $("#VerOfertaEspecial").on("click", function () {
+        $('#content_set_especial_header').hide();
+        $('#BajarOfertaEspecial').show();
+        //$('.promocion_especial_header').css("background", "#fff6f4");
+        $('.content_set_oferta_especial').slideDown();
+
+        $('#contenedor-showroom-subcampanias.slick-initialized').slick('unslick');
+        $('#contenedor-showroom-subcampanias').not('.slick-initialized').slick({
+            slidesToShow: 3,
+            dots: false,
+            vertical: false,
+            infinite: true,
+            speed: 300,
+            centerPadding: '0px',
+            centerMode: true,
+            slidesToScroll: 1,
+            variableWidth: false,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+        });
+
+        $('#contenedor-showroom-subcampanias').slick('slickGoTo', 1);
+    });
+    $("#BajarOfertaEspecial").on("click", function () {
+        $('#content_set_especial_header').show();
+        $('#BajarOfertaEspecial').hide();
+             
+        //$('.promocion_especial_header').css("background", "#fff");
+        $('.content_set_oferta_especial').slideUp();
+        
+    });
+
+    $("#CerrarOfertaEspecial").on("click", function () {
+        $('.banner_especial_showroom').hide();
+        $(".footer_e").css("margin-bottom", "0px");
+    });
+    
+    
     $(".footer_e").css("margin-bottom", "73px");
 
     $(".seleccion_filtro_fav").on("click", function () {
@@ -73,7 +111,15 @@ $(document).ready(function () {
     });
 
     $("#filter-sorting").change(function() {
-        ObtenerProductosShowRoom();
+        ObtenerProductosShowRoom();        
+        $("#filter-sorting option:selected").each(function () {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Ofertas Showroom',
+                'action': 'Ordenar',
+                'label': 'Ordenar por ' + $(this).text()
+            });
+            });
     });
 
     $("[data-filtro-categoria]").click(function () {
@@ -165,9 +211,18 @@ function CargarFiltroRangoPrecio() {
             rangoPrecios = myvalue;
             $(".slider-container").addClass("disabledbutton");
             ObtenerProductosShowRoom();
+
+            var arr = myvalue.toString().split(',');
+
+            dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas ShowRoom',
+            'action': "Filtrar por Precios",
+            'label': arr[0] + " - " + arr[1]
+            });
         }
     });
-    //$('.range-slider').jRange('setValue', '0,100');
+//$('.range-slider').jRange('setValue', '0,100');
     //$('.range-slider').jRange('updateRange', '0,100');
     $('.slider-container').css('width', '');
 }
@@ -199,13 +254,12 @@ function filterShowRoomDesktop() {
             seleccionado = true;
             var valor = $(value).attr("data-categoriacodigo");
             var descripcion = $('.seleccion_filtro_fav.seleccion_click_flitro').html();
-            var etiqueta = $('.titulo_filtro_fav').html();
-            valores.push(valor);
-
+            
+            valores.push(valor);            
             dataLayer.push({
                 'event': 'virtualEvent',
                 'category': 'Ofertas ShowRoom',
-                'action': etiqueta,
+                'action': "Filtrar por Categorías",
                 'label': descripcion
             });
 
