@@ -118,7 +118,7 @@
         });
 
         $(elements.BtnEnviarNuevamente).on("click", function () {
-            AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
+            //AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
             var model = {
                 eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
                 celular: $(elements.TxtCelular).val().trim()
@@ -127,7 +127,7 @@
 
             confirmacionPromise.then(function (response) {
                 if (response.success) {
-                    AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
+                    //AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
                 } else {
                     AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                 }
@@ -177,7 +177,7 @@
                 var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
                 confirmacionPromise.then(function (response) {
                     if (response.success) {
-                        AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
+                        //AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
                     } else {
                         AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                     }
@@ -197,8 +197,8 @@
             $.when(cuponPromise, correoGanastePromise)
                 .then(function (cuponResponse, correoResponse) {
                     if (cuponResponse.success && correoResponse.success) {
-                        AbrirMensaje(cuponResponse.message, "CUPÓN");
-                        AbrirMensaje(correoResponse.message, "CUPÓN");
+                        //AbrirMensaje(cuponResponse.message, "CUPÓN");
+                        //AbrirMensaje(correoResponse.message, "CUPÓN");
                         obtenerCupon();
                     }
                 })

@@ -3,10 +3,12 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using static Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -187,11 +189,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool TieneOfertasPlan20()
         {
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            List<BEPedidoWebDetalle> listaPedidoWebDetalle = new List<BEPedidoWebDetalle>();
+
+            if (Session["PedidoWebDetalle"] == null)
             {
-                var listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora);
-                return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == 35 || x.CodigoCatalago == 44 || x.CodigoCatalago == 45 || x.CodigoCatalago == 46));
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                }
             }
+            else
+            {
+                listaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+            }
+
+            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == TipoOfertasPlan20.Showroom || x.CodigoCatalago == TipoOfertasPlan20.OPT || x.CodigoCatalago == TipoOfertasPlan20.ODD));
         }
 
         private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
