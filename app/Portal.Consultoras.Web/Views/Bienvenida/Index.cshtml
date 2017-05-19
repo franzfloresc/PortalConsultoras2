@@ -9,7 +9,7 @@
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 
-@{
+@{ 
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0);
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
@@ -1705,7 +1705,7 @@
                         <input type="hidden" class="hdOfertaShowRoomID" value="{{OfertaShowRoomID}}" />
                         <input type="hidden" class="valorCuv" value="{{CUV}}" />
                         <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-                        <input type="hidden" class="clasePrecioUnidad" value="{{PrecioCatalogo}}" />
+                        <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
                         <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
                         <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
                         <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
@@ -1911,6 +1911,7 @@
         </div>
     </div>
 </script>
+
 <script id="template-mod-ofer2" type="text/x-handlebars-template">
     <div class="cuerpo-mod" data-oferta-popup="">
         <div style="display:none;" id="hiddenCatalogo">
@@ -2050,6 +2051,7 @@
         </div>
     </div>
 </script>
+
 <script id="template-mod-ofer3" type="text/x-handlebars-template">
     <div class="cuerpo-mod" data-oferta-popup="">
         <div class="cerrar-mod" data-close=""><img src="@Url.Content("/Content/Images/btn_cerrar_popupPercepcion.png")" /></div>
@@ -2310,12 +2312,12 @@
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 <!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main >
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
         <input type="hidden" id="spnShowRoomEventoDescripcion" /> 
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomIntriga').hide();">
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="CerrarPopShowroomIntriga()">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
@@ -2332,7 +2334,7 @@
 <!--FIN-->
 
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main  >
     <div class="content_pop_up_intriga" data-popup-body>       
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
         <input type="hidden" id="spnShowRoomEventoVenta" /> 
