@@ -1,4 +1,6 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models
 {
     public class MisDatosModel
     {
@@ -20,5 +22,8 @@
         public string CodigoConsultoraAsociada { get; set; }
         public string NombreArchivoContrato { get; set; }
         public string DigitoVerificador { get; set; }
+        public bool EnviarParametrosUTMs { get; set; }
+        public string CadenaParametrosUTMs {get {return @"utm_source=Transactional&utm_medium=email&utm_content=ConfirmarCuenta&utm_campaing=Registro"; }//Google Analytics
+        }
     }
 }

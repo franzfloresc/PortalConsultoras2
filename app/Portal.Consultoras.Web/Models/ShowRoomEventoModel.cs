@@ -58,6 +58,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCompraXcompra { get; set; }
 
+        public bool TieneSubCampania { get; set; }
+
         public string Simbolo { get; set; }
 
         public List<ShowRoomOfertaModel> ListaShowRoomOferta { get; set; }
@@ -79,5 +81,21 @@ namespace Portal.Consultoras.Web.Models
         public List<ShowRoomCategoriaModel> ListaCategoria { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
+
+        public string TextoInicialOfertaSubCampania { get; set; }
+
+        public string ColorTextoInicialOfertaSubCampania { get; set; }
+
+        public string TextoTituloOfertaSubCampania { get; set; }
+
+        public string ColorTextoTituloOfertaSubCampania { get; set; }
+
+        public string ColorFondoTituloOfertaSubCampania { get; set; }
+
+        public string ImagenFondoTituloOfertaSubCampania { get; set; }
+
+        public string ColorFondoContenidoOfertaSubCampania { get; set; }
+
+        public string TextoBotonVerMasOfertaSubCampania { get; set; }
     }
 }
