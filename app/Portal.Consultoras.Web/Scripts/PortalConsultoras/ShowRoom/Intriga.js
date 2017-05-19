@@ -47,12 +47,12 @@ $(document).ready(function () {
 function IntrigaConfirmarCorreo() {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
     if (emailNuevo == "") {
-        $('#txtIntrigaEmail').focus();
+        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("Debe ingresar EMail.\n");
         return false;
     }
     if (!validateEmail(emailNuevo)) {
-        $('#txtIntrigaEmail').focus();
+        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
@@ -78,7 +78,8 @@ function IntrigaActualizarDatos() {
     var item = {
         EMail: emailNuevo,
         Celular: $.trim($("#txtIntrigaCelular").val()),
-        AceptoContrato: intrigaAceptoTerminos
+        AceptoContrato: intrigaAceptoTerminos,
+        EnviarParametrosUTMs: true
     };
 
     jQuery.ajax({
@@ -97,6 +98,8 @@ function IntrigaActualizarDatos() {
                     $("#divIntrigaProgramarAvisoDatos").show();
                     return false;
                 }
+
+                click_completar_registro_form_intriga();
 
                 emailActivo = $.trim(data.emailValidado).toLowerCase();
                 $("[data-email-registrado]").html(emailNuevo);
@@ -126,4 +129,24 @@ function IntrigaActualizarDatos() {
 
 
    
+}
+
+function click_terminos_y_condiciones_form_intriga()
+{
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom Formulario',
+        'action': 'Click Términos y Condiciones',
+        'label': '(not available)'
+    });
+}
+
+function click_completar_registro_form_intriga()
+{
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom Formulario',
+        'action': 'Registro Exitoso',
+        'label': '(not available)'
+    });
 }

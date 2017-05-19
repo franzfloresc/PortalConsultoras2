@@ -59,6 +59,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionLegalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaModificacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -289,6 +292,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionLegalField, value) != true)) {
                     this.DescripcionLegalField = value;
                     this.RaisePropertyChanged("DescripcionLegal");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSubCampania {
+            get {
+                return this.EsSubCampaniaField;
+            }
+            set {
+                if ((this.EsSubCampaniaField.Equals(value) != true)) {
+                    this.EsSubCampaniaField = value;
+                    this.RaisePropertyChanged("EsSubCampania");
                 }
             }
         }
@@ -9492,83 +9508,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEChatbotMensajeProactiva", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEChatbotMensajeProactiva : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoUsuarioField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreMensajeField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Tuple<string, string>[] VariablesField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoUsuario {
-            get {
-                return this.CodigoUsuarioField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
-                    this.CodigoUsuarioField = value;
-                    this.RaisePropertyChanged("CodigoUsuario");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreMensaje {
-            get {
-                return this.NombreMensajeField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreMensajeField, value) != true)) {
-                    this.NombreMensajeField = value;
-                    this.RaisePropertyChanged("NombreMensaje");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Tuple<string, string>[] Variables {
-            get {
-                return this.VariablesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.VariablesField, value) != true)) {
-                    this.VariablesField = value;
-                    this.RaisePropertyChanged("Variables");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEOferta", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEOferta : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -13506,6 +13445,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneCompraXcompraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsuarioCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13803,6 +13745,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCompraXcompraField.Equals(value) != true)) {
                     this.TieneCompraXcompraField = value;
                     this.RaisePropertyChanged("TieneCompraXcompra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneSubCampania {
+            get {
+                return this.TieneSubCampaniaField;
+            }
+            set {
+                if ((this.TieneSubCampaniaField.Equals(value) != true)) {
+                    this.TieneSubCampaniaField = value;
+                    this.RaisePropertyChanged("TieneSubCampania");
                 }
             }
         }
@@ -14394,6 +14349,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSubCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EventoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14437,6 +14395,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSubCampania {
+            get {
+                return this.EsSubCampaniaField;
+            }
+            set {
+                if ((this.EsSubCampaniaField.Equals(value) != true)) {
+                    this.EsSubCampaniaField = value;
+                    this.RaisePropertyChanged("EsSubCampania");
                 }
             }
         }
@@ -23217,12 +23188,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
         System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EnviarProactivaChatbot", ReplyAction="http://tempuri.org/IPedidoService/EnviarProactivaChatbotResponse")]
-        bool EnviarProactivaChatbot(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServicePedido.BEChatbotMensajeProactiva[] listMensajeProactiva);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EnviarProactivaChatbot", ReplyAction="http://tempuri.org/IPedidoService/EnviarProactivaChatbotResponse")]
-        System.Threading.Tasks.Task<bool> EnviarProactivaChatbotAsync(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServicePedido.BEChatbotMensajeProactiva[] listMensajeProactiva);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetOfertas", ReplyAction="http://tempuri.org/IPedidoService/GetOfertasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEOferta[] GetOfertas(Portal.Consultoras.Web.ServicePedido.BEOferta entidad);
         
@@ -25283,14 +25248,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
             return base.Channel.DeshacerPedidoValidadoAsync(usuario, tipo);
-        }
-        
-        public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServicePedido.BEChatbotMensajeProactiva[] listMensajeProactiva) {
-            return base.Channel.EnviarProactivaChatbot(paisISO, urlRelativa, listMensajeProactiva);
-        }
-        
-        public System.Threading.Tasks.Task<bool> EnviarProactivaChatbotAsync(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServicePedido.BEChatbotMensajeProactiva[] listMensajeProactiva) {
-            return base.Channel.EnviarProactivaChatbotAsync(paisISO, urlRelativa, listMensajeProactiva);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEOferta[] GetOfertas(Portal.Consultoras.Web.ServicePedido.BEOferta entidad) {
