@@ -638,7 +638,9 @@
                 if (auxOD == '7' || auxOD == '4') {
                     flagOD = '1';
                 }
-                else {
+                else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+                    flagOD = auxOD;
+                } else {
                     flagOD = '0';
                 }
 
@@ -939,12 +941,12 @@
             var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
             var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
             var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
-
             var flagOD = "";
             if (auxOD == '7') {
                 flagOD = '4';
-            }
-            else {
+            } else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+                flagOD = auxOD;
+            }else {
                 flagOD = '0';
             }
 

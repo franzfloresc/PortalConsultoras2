@@ -382,7 +382,9 @@
             if (auxOD == '7') {
                 flagOD = '4';
             }
-            else {
+            else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+                flagOD = auxOD;
+            } else {
                 flagOD = '0';
             }
 
@@ -493,8 +495,8 @@
                     }
                 },
                 error: function (data, error) {
-                    alert(data.message);
                     closeWaitingDialog();
+                    alert(data.message);
                 }
             });
         }

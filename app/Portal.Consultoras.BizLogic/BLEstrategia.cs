@@ -289,7 +289,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
-                        listaEstrategias.Add(new BEEstrategia(reader));
+                        listaEstrategias.Add(new BEEstrategia(reader,  true));
                     }
                 }
                 return listaEstrategias;
