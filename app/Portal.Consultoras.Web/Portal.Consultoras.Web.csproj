@@ -3881,7 +3881,6 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
-    <Content Include="Views\Shared\_SinSesionLayout.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
