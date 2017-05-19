@@ -1374,8 +1374,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-
         //fR20151202
-
+        
+        public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
+        {
+            return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
+        }
     }
 }
