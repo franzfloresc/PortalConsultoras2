@@ -3661,7 +3661,7 @@ a.subir_carousel, a.bajar_carousel {
     width: 100%;
     padding-left: 16px;
     padding-right: 16px;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: 0.2px;
@@ -7860,7 +7860,7 @@ a {
 }
 
     a, a > * {
-        color: black;
+        /*color: black;*/
         text-decoration: none;
         /*-webkit-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
         -moz-transition: background-color .2s ease, border .2s ease, color .2s ease, opacity .2s ease-in-out;
@@ -21053,7 +21053,7 @@ label.checkpop.c_on {
     font-size: 10pt;
     color: #767676;
     padding-top: 19px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
     z-index: 2;
     position: relative;
 }
@@ -21727,9 +21727,9 @@ label.checkpop.c_on {
 .content_item_carrusel {
     position: relative;
     float: left;
-    width: 248px !important;
+    width: 248px;
     margin-right: 25px;
-    height: 372px;
+    min-height: 372px;
     background: white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -21764,7 +21764,7 @@ label.checkpop.c_on {
 }
 
 .producto_img_home {
-    height: 166px;
+    height: 158px;
     text-align: center;
     margin-top: 20px;
     /*background:#ccc;*/
@@ -21803,19 +21803,23 @@ label.checkpop.c_on {
 }*/
 
 .boton_Agregalo_home { 
-        display: block; 
-        /* margin: 0 auto; */ 
-        margin-top: 7px; 
-        width: 55%; 
-        display: inline-block; 
-        vertical-align: middle; 
-        height: 45px; 
-        line-height: 42px; 
+     display: block; 
+     /* margin: 0 auto; */ 
+     margin-top: 7px; 
+    /*width: 55%;*/ 
+    display: inline-block; 
+    vertical-align: middle; 
+    height: 45px; 
+    line-height: 42px; 
     background: #000;
     color: #fff;
     text-align: center;
     border: 2px solid #000;
-        font-size: 13px; 
+    font-size: 13px; 
+    width:-moz-calc(100% -80px);
+    width:calc(100% - 80px);
+    width:-webkit-calc(100% - 80px);
+    width: -webkit-calc(~'100% - 80px');
 } 
 
 .liquidacion_rango_home {
@@ -30211,7 +30215,8 @@ h1#penmostreo .campana {
 /* MENSAJES PEDIDO RECHAZADO */
 
 .bloque_mensajesPedido {
-    background: #82c7bf;
+    /*background: #82c7bf;*/
+    background: #F7EF8D;
     width: 100%;
     height: 64px;
     display: none;
@@ -30229,21 +30234,22 @@ h1#penmostreo .campana {
     width: 21px;
 }
 
-    .icono_cerrar_mensaje span {
-        display: block;
+.icono_cerrar_mensaje span {
+    display: block;
 }
 
-        .icono_cerrar_mensaje span img {
-            width: 100%;
-            height: auto;
+.icono_cerrar_mensaje span img {
+    width: 100%;
+    height: auto;
 }
 
-        .icono_cerrar_mensaje span:nth-child(2) {
-            font-family: 'Lato';
-            font-size: 10px;
-            text-align: center;
-            color: #FFF;
-            margin-left: -9px;
+.icono_cerrar_mensaje span:nth-child(2) {
+    font-family: 'Lato';
+    font-size: 10px;
+    text-align: center;
+    /*color: #FFF;*/
+    color: black;
+    margin-left: -9px;
 }
 
 .icono_estadoPedido, .mensajes_estadoPedido {
@@ -30259,13 +30265,14 @@ h1#penmostreo .campana {
     margin-top: -3px;
 }
 
-    .icono_estadoPedido img {
-        width: 100%;
-        height: auto;
+.icono_estadoPedido img {
+    width: 100%;
+    height: auto;
 }
 
 .mensajes_estadoPedido {
-    color: #FFF;
+    /*color: #FFF;*/
+    color: black;
     font-family: 'Lato';
     line-height: 21px;
 }
@@ -30292,8 +30299,8 @@ h1#penmostreo .campana {
     text-decoration: underline;
 }
 
-        .mensaje_horarioIngresoPedido a:hover {
-            text-decoration: underline;
+.mensaje_horarioIngresoPedido a:hover {
+    text-decoration: underline;
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
@@ -30303,36 +30310,36 @@ h1#penmostreo .campana {
 /*SB20-863* Inicio*/
 
 .producto_precio2 {
-        width: 100%;
-        padding-left: 16px;
-        padding-right: 16px;
-        font-family: 'Lato';
-        letter-spacing: 0.2px;
-        color: #000;
-        margin-bottom: 16px;
-        margin-top: 35px;
-        }
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato';
+    letter-spacing: 0.2px;
+    color: #000;
+    margin-bottom: 16px;
+    margin-top: 35px;
+}
 
-        .nombre_producto2 {
-            height: 40px;
-            padding-left: 10px;
-            padding-right: 10px;
-        }
+.nombre_producto2 {
+    height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
         
-        .nombre_producto22 {
-            /*padding: 0px;*/
-            padding-left: 6px;
-            padding-right: 6px;
-            font-size: 13px;
-            margin: 0 auto;
-            width: 100%;
-            /* height: auto; */
-            max-width: 500px;
-            height: auto;
-            /*max-height: 40px;*/
+.nombre_producto22 {
+    /*padding: 0px;*/
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 13px;
+    margin: 0 auto;
+    width: 100%;
+    /* height: auto; */
+    max-width: 500px;
+    height: auto;
+    /*max-height: 40px;*/
     margin-bottom: 10px;
-            margin-top: 5px;
-        }
+    margin-top: 5px;
+}
 
 
 /*Sb20-863 - Fín*/
@@ -32114,8 +32121,7 @@ h1#penmostreo .campana {
     display: -ms-flexbox;
     display: -o-flex;
     justify-content: space-between;
-    z-index: 1;
-    z-index: 5;
+    z-index: 4;
 }
 
     
@@ -32277,18 +32283,22 @@ h1#penmostreo .campana {
     margin-right:0%;
 }*/
 .reclamo_motivo_select {
-    width: 45%;
-    height: 45px;
-    font-family: 'Lato';
-    font-size: 15px;
-    line-height: 45px;
-    padding-left: 50px;
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
-    background-position: 20px 14px;
-    border-bottom: 1px solid #d1d1d1;
-    cursor: pointer;
-    float: left;
-    margin-left: 22px;
+    display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+	width: 48%;
+	height: 50px;
+	font-family: 'Lato';
+	font-size: 14px;
+	/* line-height: 45px; */
+	padding-left: 50px;
+	background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
+	background-position: 20px 14px;
+	border-bottom: 1px solid #d1d1d1  ;
+	cursor: pointer;
+	float: left;
+	margin-right: 4%;
 }
 
     .reclamo_motivo_select:hover {
@@ -35681,6 +35691,174 @@ h1#penmostreo .campana {
 .slick-slide .content_item_carrusel_ODD{
     margin-left:20px;
 }
+/*SPRINT 11*/
+.banner_especial_showroom{
+    position:fixed;
+    height:auto;
+    bottom:0;
+    z-index:150;
+    width: 100%;
+    -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
+    /*background:#fff6f4;*/
+}
+.promocion_especial_header{
+    width:auto;
+    height:73px;
+    /*background:white;*/
+    max-width: 1024px;
+    margin: 0 auto;
+}
+.titulo_promocion_showroom{
+    width: 425px;
+    height: 73px;
+    padding-right: 60px;
+    position: relative;
+    /*background: black;*/
+    float: left; 
+    /*background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top;*/ 
+}
+/*.titulo_promocion_showroom:after{
+    content: '';
+    left:-150%;
+    width: 150%;
+    height: 73px;
+    background: black;
+    position: absolute;
+    top: 0;
+    z-index: 151;
+}*/
+.titulo_banner_showroom{
+    display:block;
+    font-size:24px;
+    /*color:#f9779f;*/
+    font-weight: 900;
+}
+.content_titulo{
+    float:right;    
+    position: relative;
+    font-family: 'Lato';
+    /*color: white;*/
+    font-size: 15px;
+    letter-spacing: 2px;      
+    line-height: 26px;
+    padding-top: 11px;
+}
+.content_set_especial_header{
+    float:right;
+    /*margin-left: 70px;*/
+    
+}
+.content_imagen_promocion{
+    height: auto;
+    width: 85px;
+    text-align: center;
+    margin-top: -12px;
+    float: left;
+    margin-right: 14px;
+}
+.content_imagen_promocion img{
+    width:94%;
+}
+.content_set_precio_especial{
+    font-family:'Lato';
+    font-size:15px;
+    color:black;
+    font-weight:700;
+    float:left;
+    width: 215px;
+    margin-right: 20px;
+    margin-top: 17px;
+    line-height: 21px;
+    text-transform: uppercase;
+}
+.precio_set_especial{
+    font-size:18px;
+}
+.btn_descubre_set_especial{
+   margin-top: 21px;
+    float: left;
+    display: block;
+    /* width: 192px; */
+    height: 35px;
+    border: 1px solid black;
+    text-align: center;
+    background: black url(../../../Images/PL20/flecha_set_Especial_white.png) no-repeat;
+    background-position: 6px 6px;
+    padding-left: 34px;
+    padding-right: 20px;
+    font-family: 'LAto';
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 32px;
+    color: white;
+}
+.info_desplegable{
+    background: black url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
+    background-position: 4px 8px;
+    width: 35px;
+    float: right;
+    /* margin-left: 44%; */
+    display: none;
+    /* position: absolute; */
+    z-index: 200;
+    /* right: -45px; */
+    /* top: -64px; */
+    padding-right: 0px;
+}
+.content_set_oferta_especial{
+    width:100%;
+    height:440px;
+    /*background:#fff6f4;*/
+    position:relative;
+    /*overflow:hidden;*/
+    display:none;
+}
+.content_carrusel_oferta_especial{
+    max-width:1100px;
+    margin: 0 auto;
+    /*padding-top: 20px;*/
+    font-family:'Lato';
+}
+.content_carrusel_oferta_especial .content_item_carrusel{
+    width: 290px;
+    /* margin-left: 29px; */
+    /* margin-right: 20px; */
+    margin-bottom: 13px;
+    margin: 0 auto;
+    float: none;
+}
+.titulo_set_especial{
+    font-size: 15px;
+    margin-bottom: 5px;
+    color: black;
+    text-align: left;
+    font-weight: 700;
+    height: 20px;
+    overflow: hidden;
+}
+.descripcion_set_especial{
+    height:93px;
+    margin-bottom:5px;
+    font-size:12px;
+    line-height:15px;
+    overflow:hidden;
+}
+.descripcion_set_especial b{
+    color: #e81c36;
+}
+.content_info_set_especial{
+    padding-left:16px;
+    padding-right:16px;
+}
+.precio_set_especial_showroom{
+    font-size:11px;
+}
+.precio_real_set{
+    font-weight:700;
+    font-size:17px;
+}
 
 .color-para-todas-marcas {
     color: #d9b33f;
@@ -35689,4 +35867,29 @@ h1#penmostreo .campana {
 
 .content_90 .slick-slider {
     margin-top: 0 !important;
+}
+
+.SubHeader{
+    background: #f9f9f9;
+}
+
+.CerrarOfertaEspecial{
+    font-family:'Lato';
+    font-size:25px;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    color:black;
+    position:absolute;
+    right:10px;
+    top:-2px;
+}
+.SubHeader{
+    background: #f9f9f9;
+}
+.reclamo_motivo_select:nth-child(2n) {
+	margin-right: 0;
 }

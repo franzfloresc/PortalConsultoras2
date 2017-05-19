@@ -11,6 +11,10 @@ jQuery(document).ready(function () {
     $("header").resize(function () {
         LayoutHeader();
     });
+
+    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+        GuardarIndicadorPedidoAutentico();
+    }
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -347,7 +351,7 @@ jQuery(document).ready(function () {
 
         return newLista;
     };
-
+    
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -792,16 +796,29 @@ function MensajeEstadoPedido() {
 }
 
 function xMensajeEstadoPedido(estado) {
+    if (estado) {
+        $("#bloquemensajesPedido").show();
+        ResizeMensajeEstadoPedido();
+    }
+    else {
+        //$("#bloquemensajesPedido").slideUp();
+        $("#bloquemensajesPedido").hide();
+    }
     LayoutHeader();
 }
 
 function LayoutHeader() {
-    setTimeout(function () {
-        var wtop = $("header").height();
-        $("[data-content]").animate({ "margin-top": (wtop) + "px" });
-    }, 500);
+    console.log(1);
+    LayoutHeaderFin();
+    $(document).ajaxStop(function () {
+        LayoutHeaderFin();
+    });
 }
 
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();    
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");
@@ -850,6 +867,29 @@ function cerrarMensajeEstadoPedido() {
             cerrarRechazado = '0';
         }
     });
+}
+
+function cerrarMensajePostulante() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
+        //data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                $('#bloquemensajesPostulante').hide();
+                LayoutHeader();
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+
+    //OrdenarCabecera();
+
 }
 
 function MostrarMensajePedidoRechazado() {
@@ -1015,3 +1055,179 @@ function EnviarCorreoPedidoReservado() {
     });
 }
 /*** Fin EPD-2378 ***/
+
+function GuardarIndicadorPedidoAutentico() {
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data2),
+                    success: function (response) {
+                        if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
+                            localStorage.setItem('SBTokenPedido', response.message);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
+
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        }
+    }
+}
+
+function ModificarPedido2(pTipo) {
+    if (pTipo == '2') {
+        if (_ModificacionPedidoProl == "0") ConfirmarModificarPedido();
+        else $("#divConfirmModificarPedido").modal("show");
+    }
+    else {
+        if (_ModificacionPedidoProl === "0")
+            ConfirmarModificar2('');
+        else
+            showDialog("divConfirmValidarPROL");
+        return false;
+    }
+}
+
+function ConfirmarModificar2() {
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
+                    closeWaitingDialog();
+                    $('#dialog_PedidoReservado').hide();
+                }
+                else {
+                    closeWaitingDialog();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+    return false;
+}
+
+function ConfirmarModificarPedido() {
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlDeshacerReservaPedidoReservado2 + '?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    //location.href = urlIngresarPedido;
+                    CloseLoading();
+                    $('#popupInformacion2').hide();
+                } else {
+                    CloseLoading();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                messageInfo("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
+            }
+        }
+    });
+}
+
+/*** EPD-1682 ***/
+function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
+    if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
+        if (ViewIndicadorGPRSB == '0') {
+            $('#popupInformacion2 #mensajeInformacion2').html(pMensaje);
+            $('#popupInformacion2').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+    else {
+        if (ViewIndicadorGPRSB == '0') {
+            $('#dialog_PedidoReservado #mensajePedidoReservado_Error').html(pMensaje);
+            $('#dialog_PedidoReservado').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+}
+/**/

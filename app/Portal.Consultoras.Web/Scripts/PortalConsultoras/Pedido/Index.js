@@ -21,11 +21,15 @@ var tipoOrigen = '1';
 var FlagEnviarCorreo = false; //EPD-23787
 
 $(document).ready(function () {
+   // debugger;
+    
+ 
     ReservadoOEnHorarioRestringido(false);
 
     AnalyticsBannersInferioresImpression();
     $('#salvavidaTutorial').show();
-    $(".abrir_tutorial").click(function () {
+
+    $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial();
     });
 
@@ -33,20 +37,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    function abrir_popup_tutorial() {
-        $('#popup_tutorial_pedido').fadeIn();
-        $('html').css({ 'overflow-y': 'hidden' });
-
-        fnMovimientoTutorial = setInterval(function () {
-            $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
-            numImagen++;
-            if (numImagen > 5) {
-                numImagen = 1;
-            }
-
-        }, 3000);
-
-    }
 
     //EPD-1564
     $("body").click(function (e) {        
@@ -63,13 +53,7 @@ $(document).ready(function () {
     })
     //FIn EPD-1564
 
-    function cerrar_popup_tutorial() {
-        $('#popup_tutorial_pedido').fadeOut();
-        $('html').css({ 'overflow-y': 'auto' });
-        $(".imagen_tutorial").animate({ 'opacity': '1' });
-        window.clearInterval(fnMovimientoTutorial);
-        numImagen = 1;
-    }
+   
 
     $(document).on('change', '.seleccion_pagina select', function () {
         dataLayer.push({
@@ -84,18 +68,26 @@ $(document).ready(function () {
         minLength: 4,
         select: function (event, ui) {
             ui.item.ClienteID = ui.item.ClienteID || 0;
-            if (ui.item.ClienteID == 0) {
-                return false;
-            }
 
-            if (ui.item.ClienteID != -1) {
-                $("#hdfClienteID").val(ui.item.ClienteID);
-                $("#hdnClienteID_").val(ui.item.ClienteID);
-                $("#txtClienteDescripcion").val(ui.item.Nombre);
-                $("#hdfClienteDescripcion").val(ui.item.Nombre);
+            if (gTipoUsuario == 2)  {
+                var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp";
+                $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
+                $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+                $('#dialog_MensajePostulante').show();
+                return false;
             } else {
-                $('#Nombres').val($("#txtClienteDescripcion").val());
-                $("#divClientes").show();
+                if (ui.item.ClienteID == 0) {
+                    return false;
+                }
+                if (ui.item.ClienteID != -1) {
+                    $("#hdfClienteID").val(ui.item.ClienteID);
+                    $("#hdnClienteID_").val(ui.item.ClienteID);
+                    $("#txtClienteDescripcion").val(ui.item.Nombre);
+                    $("#hdfClienteDescripcion").val(ui.item.Nombre);
+                } else {
+                    $('#Nombres').val($("#txtClienteDescripcion").val());
+                    $("#divClientes").show();
+                }
             }
             event.preventDefault();
         }
@@ -210,6 +202,7 @@ $(document).ready(function () {
     $('#btnValidarPROL').click(function () {
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+            $('#dialog_MensajePostulante #tituloContenido').text("IMPORTANTE");
             $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
             $('#dialog_MensajePostulante').show();
             
@@ -413,7 +406,66 @@ $(document).ready(function () {
     CargarCarouselEstrategias("");
     CargarAutocomplete();
     MostrarBarra();
+    CargarDialogMesajePostulantePedido();
 });
+
+function CargarDialogMesajePostulantePedido() {
+    if (gTipoUsuario == '2' && MensajePedidoDesktop == '0') {
+        var mesg = "En este momento podrás simular el ingreso de tu pedido.";
+        var title = "TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA";
+        $('#dialog_MensajePostulante_Pedido #titutloPedido').text(title);
+        $('#dialog_MensajePostulante_Pedido #mensajePedido').text(mesg);
+        $('#dialog_MensajePostulante_Pedido #btnOk').text('CONTINUAR');
+        $('#dialog_MensajePostulante_Pedido').show();
+        return false;
+    }
+}
+function CerrarDialogMesajePostulantePedido() {
+    $('#dialog_MensajePostulante_Pedido').hide();
+    abrir_popup_tutorial();
+    UpdateUsuarioTutoriales();
+}
+
+function abrir_popup_tutorial() {
+    $('#popup_tutorial_pedido').fadeIn();
+    $('html').css({ 'overflow-y': 'hidden' });
+
+    fnMovimientoTutorial = setInterval(function () {
+        $(".img_slide" + numImagen + "Pedido").animate({ 'opacity': '0' });
+        numImagen++;
+        if (numImagen > 5) {
+            numImagen = 1;
+            $(".imagen_tutorial").animate({ 'opacity': '1' });
+        }
+
+    }, 3000);
+}
+
+function UpdateUsuarioTutoriales() {
+    var item = {
+        tipo: '1' // Para Desktop
+    };
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/UpdatePostulanteMensaje',
+        data: JSON.stringify(item),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+        },
+        error: function (data) {
+        }
+    });
+    return true; 
+}
+
+function cerrar_popup_tutorial() {
+    $('#popup_tutorial_pedido').fadeOut();
+    $('html').css({ 'overflow-y': 'auto' });
+    $(".imagen_tutorial").animate({ 'opacity': '1' });
+    window.clearInterval(fnMovimientoTutorial);
+    numImagen = 1;
+}
 
 function CrearDialogs() {
 
@@ -1045,7 +1097,8 @@ function AbrirModalCliente() {
     */
 
     if (gTipoUsuario == '2') {
-        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de somosbelcorp.com.";
+        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
+        $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
         $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
         $('#dialog_MensajePostulante').show();
         return false;
@@ -1183,12 +1236,24 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 
     if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
+        var sentListEstrategia = false;
+        if (typeof (Storage) !== 'undefined') {
+            var sle = localStorage.getItem('sentListEstrategia2');
+            if (sle !== null && sle === '1') {
+                sentListEstrategia = true;
             }
-        });
+            else {
+                localStorage.setItem('sentListEstrategia2', '1');
+            }
+        }
+        if (!sentListEstrategia) {
+            dataLayer.push({
+                'event': 'productImpression',
+                'ecommerce': {
+                    'impressions': arrayEstrategia
+                }
+            });
+        }
     }
 }
 function TagManagerClickAgregarProducto() {
@@ -2031,6 +2096,9 @@ function SaveDeleteAnalytics(descripcion, cuv, price, brand, category, variant, 
 
 function EjecutarPROL() {
     // HorarioRestringido()||(AbrirSplash(),RecalcularPROL())
+    if (ReservadoOEnHorarioRestringido(true)) {
+        return false;
+    }
     if (HorarioRestringido())
         return;
 
@@ -3562,7 +3630,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                AbrirPopupPedidoReservado(data.message, '1')
             }
         },
         error: function (error, x) {

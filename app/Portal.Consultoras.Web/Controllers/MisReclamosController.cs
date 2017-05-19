@@ -109,8 +109,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (userData.PaisID == 4)
             {
-                model.limiteMinimoTelef = 7;
-                model.limiteMaximoTelef = 7;
+                model.limiteMinimoTelef = 10;
+                model.limiteMaximoTelef = 10;
             }
             else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
             {

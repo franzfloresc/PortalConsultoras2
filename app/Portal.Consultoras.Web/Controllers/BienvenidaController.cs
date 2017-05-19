@@ -229,8 +229,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (userData.PaisID == 4)
                 {
-                    model.limiteMinimoTelef = 7;
-                    model.limiteMaximoTelef = 7;
+                    model.limiteMinimoTelef = 10;
+                    model.limiteMaximoTelef = 10;
                 }
                 else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
                 {
@@ -1816,6 +1816,28 @@ namespace Portal.Consultoras.Web.Controllers
             userData.CerrarRechazado = 1;
             SetUserData(userData);
             return Json(userData.CerrarRechazado);
+        }
+
+        [HttpPost]
+        public JsonResult CerrarMensajePostulante()
+        {
+            try
+            {
+                userData.CerrarBannerPostulante = 1;
+                SetUserData(userData);
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error al procesar la solicitud"
+                });
+            }
         }
 
         /* SB20-834 - INICIO */

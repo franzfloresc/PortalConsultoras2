@@ -20,12 +20,13 @@ $(document).ready(function () {
         }
     });
 
-
     $('#btnLoginFB').addClass('center_facebook');
 
     $("#ErrorTextLabel").css("padding-left", "0");
     $('#ddlPais').val(isoPais);
-    
+
+    if ($('#ddlPais').val() == null) isoPais = "00";
+    $('#ddlPais').val(isoPais);
     $('#ddlPais2').val(isoPais);
     ayudaLogin2();
     
@@ -72,6 +73,9 @@ $(document).ready(function () {
 
         $('#ddlPais2').val(imgISO);
         ayudaLogin2();
+
+        if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
+        else $("#VinculoTarjetaHelm").hide();
     });
 
     $("#ddlPais2").change(function () {
@@ -408,6 +412,9 @@ function ayudaLogin2() {
     var m1 = null;
     var m2 = null;
     var iso = $('#ddlPais2').val();
+    if (iso == "00") {
+        return;
+    }
 
     switch (iso) {
         case "PE":
