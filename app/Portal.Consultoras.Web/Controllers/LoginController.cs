@@ -1640,7 +1640,9 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
                         return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
-                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
+                        bool autoReservar = false;
+                        bool.TryParse(model.AutoReservar, out autoReservar);
+                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
                         return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
                 }

@@ -282,8 +282,11 @@ namespace Portal.Consultoras.BizLogic
 
             resultado.MontoAhorroCatalogo = datos.montoAhorroCatalogo.ToDecimalSecure();
             resultado.MontoAhorroRevista = datos.montoAhorroRevista.ToDecimalSecure();
+            resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
             resultado.MontoDescuento = datos.montoDescuento.ToDecimalSecure();
             resultado.MontoEscala = datos.montoEscala.ToDecimalSecure();
+            resultado.MontoTotal = olstPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+            resultado.UnidadesAgregadas = olstPedidoWebDetalle.Sum(pd => pd.Cantidad);
             resultado.CodigoMensaje = datos.codigoMensaje;
             this.UpdateMontosPedidoWeb(resultado, input);
             resultado.RefreshPedido = true;
@@ -381,8 +384,11 @@ namespace Portal.Consultoras.BizLogic
 
             resultado.MontoAhorroCatalogo = RespuestaPROL.montoAhorroCatalogo.ToDecimalSecure();
             resultado.MontoAhorroRevista = RespuestaPROL.montoAhorroRevista.ToDecimalSecure();
+            resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
             resultado.MontoDescuento = RespuestaPROL.montoDescuento.ToDecimalSecure();
             resultado.MontoEscala = RespuestaPROL.montoEscala.ToDecimalSecure();
+            resultado.MontoTotal = olstPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+            resultado.UnidadesAgregadas = olstPedidoWebDetalle.Sum(pd => pd.Cantidad);
             resultado.CodigoMensaje = RespuestaPROL.codigoMensaje;
             this.UpdateMontosPedidoWeb(resultado, input);
             resultado.RefreshPedido = true;
@@ -415,6 +421,11 @@ namespace Portal.Consultoras.BizLogic
                 }
                 resultado.Restrictivas = (RespuestaPROL.ListaObservaciones.Count() > 0);
                 resultado.Reserva = input.FechaHoraReserva && (RespuestaPROL.ListaObservaciones.Count() == ValidacionReemplazo);
+                resultado.ResultadoReservaEnum =
+                    RespuestaPROL.ListaObservaciones.Count() == ValidacionReemplazo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
+                    CUV_Val == "XXXXX" ? Enumeradores.ResultadoReserva.NoReservadoMontoMinimo :
+                    CUV_Val == "YYYYY" ? Enumeradores.ResultadoReserva.NoReservadoMontoMaximo :
+                    Enumeradores.ResultadoReserva.NoReservadoObservaciones;
 
                 var bLPedidoWebDetalle = new BLPedidoWebDetalle();
                 if (input.ValidacionAbierta && ValidacionPROLMM && CUV_Val == "XXXXX")
@@ -423,7 +434,11 @@ namespace Portal.Consultoras.BizLogic
                 }
                 bLPedidoWebDetalle.UpdBackOrderListPedidoWebDetalle(input.PaisID, input.CampaniaID, input.PedidoID, lstPedidoWebDetalleBackOrder);
             }
-            else resultado.Reserva = input.FechaHoraReserva;
+            else
+            {
+                resultado.ResultadoReservaEnum = Enumeradores.ResultadoReserva.Reservado;
+                resultado.Reserva = input.FechaHoraReserva;
+            }
 
             if (resultado.Reserva)
             {
