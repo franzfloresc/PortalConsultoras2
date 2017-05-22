@@ -1,13 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using svUsuario = Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    BEUsuario entidad = new BEUsuario();
+                    svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
                     entidad.EMail = Util.Trim(confirmarModel.EMailNuevo);
                     entidad.Celular = Util.Trim(confirmarModel.Celular);
                     entidad.CodigoUsuario = userData.CodigoUsuario;
@@ -148,22 +148,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool ValidarDisponibilidadDeNuevoEmail(string email)
         {
-            using (UsuarioServiceClient svr = new UsuarioServiceClient())
+            using (svUsuario.UsuarioServiceClient svr = new svUsuario.UsuarioServiceClient())
             {
                 int cantidad = svr.ValidarEmailConsultora(userData.PaisID, email, userData.CodigoUsuario);
                 return (cantidad <= 0);
             }
         }
 
-        private void ActualizarDatos(BEUsuario entidad, string correoAnterior)
+        private void ActualizarDatos(svUsuario.BEUsuario entidad, string correoAnterior)
         {
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            using (svUsuario.UsuarioServiceClient sv = new svUsuario.UsuarioServiceClient())
             {
                 sv.UpdateDatos(entidad, correoAnterior);
             }
         }
 
-        private void ActualizarDatosSesion(BEUsuario entidad, string correoNuevo, string correoAnterior)
+        private void ActualizarDatosSesion(svUsuario.BEUsuario entidad, string correoNuevo, string correoAnterior)
         {
             userData.EMail = entidad.EMail;
             userData.Celular = entidad.Celular;
