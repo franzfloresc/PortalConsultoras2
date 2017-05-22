@@ -738,11 +738,13 @@
                                     </div>
                                 </div>
                                 <div class="right_set_hoy">
-                                    <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                                    <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                    <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                    <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
-                                    <div style="text-align: center">
+                                    <div class="height_min">
+                                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
+                                        <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
+                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                    </div>                                   
+                                    <div @*style="text-align: center"*@>
                                         <div class="liquidacion_rango_home js-no-popup">
                                             <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">

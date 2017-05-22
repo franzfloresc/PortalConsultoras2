@@ -32923,7 +32923,7 @@ h1#penmostreo .campana {
 .right_set_hoy {
     
     float: left;
-    width: 273px;
+    width: 295px;
     /* margin-top: 45px; */
     margin-left: 14%;
 }
@@ -34491,10 +34491,11 @@ h1#penmostreo .campana {
 .titulo_set_ODD{
     color:white;
     font-family:'Lato';
-    font-size:20px;
+    font-size:18px;
     /*text-align:center;*/
     letter-spacing:1.3px;
     text-transform:uppercase;
+    font-weight:700;
     /*margin-top:10px;*/
 }
 .barra_inferior{
@@ -34521,9 +34522,10 @@ h1#penmostreo .campana {
 }
 .content_780_ODD .content_set_pop_hoy{
     width:94%;
+    margin-top:40px;
 }
 .content_780_ODD .right_set_hoy {
-    margin-left: 40px;
+    margin-left: 27px;
 }
 .content_item_carrusel_ODD{
     width:260px;
@@ -34582,7 +34584,7 @@ h1#penmostreo .campana {
 }
 .content_780_ODD .imagen_set_Oferta_pop {
     width: 300px;
-    margin-top:40px;
+    /*margin-top:40px;*/
 }
 
 .content_780_ODD .compartir_redes_ficha {    
@@ -35052,4 +35054,11 @@ h1#penmostreo .campana {
 
 .reclamo_motivo_select:nth-child(2n) {
 	margin-right: 0;
+}
+
+.height_min{
+    min-height:267px;
+}
+.content_780_ODD .height_min{
+    min-height:238px;
 }
