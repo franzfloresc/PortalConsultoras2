@@ -139,7 +139,7 @@
 </div>
 @if (Model.CodigoPais == "CO")
 {
-    <div class="contenedor_camposUbigeo">
+    <div class="contenedor_camposUbigeo quitarMargenDerecho">
         <label>Dirección:</label>
         @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
         @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
@@ -147,8 +147,8 @@
 }
 else
 {
-    <div class="contenedor_camposUbigeo">
-        <label>Codigo Postal:</label>
+    <div class="contenedor_camposUbigeo quitarMargenDerecho">
+        <label>C&oacute;digo Postal:</label>
         @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
         @*<span>@Html.ValidationMessageFor(m => Model.Numero)</span>*@
     </div>
@@ -161,7 +161,7 @@ else
 }
 else
 {
-    tit1 = "Calle &oacute; avenida";
+    tit1 = "Calle o Avenida";
 
 }
 
@@ -176,7 +176,7 @@ else
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
-        <label>Direccion Edicion(Referencia):</label>
+        <label>Referencia:</label>
         @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @placeholder = "Ejm: 97B 35 2" })
         @*<span>@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>*@
         <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
