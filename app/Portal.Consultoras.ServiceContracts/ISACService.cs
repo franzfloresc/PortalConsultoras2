@@ -681,7 +681,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProveedorDespachoCobranza> GetProveedorDespachoCobranzaBYiD(int paisID, BEProveedorDespachoCobranza entity);
         //F R20151202
-
-
+        
+        [OperationContract]
+        bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
     }
 }
