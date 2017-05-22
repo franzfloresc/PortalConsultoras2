@@ -8,7 +8,7 @@ GO
 ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 
@@ -69,10 +69,10 @@ GO
 USE BelcorpMexico
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -132,10 +132,10 @@ GO
 USE BelcorpColombia
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -195,10 +195,10 @@ GO
 USE BelcorpVenezuela
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -258,10 +258,10 @@ GO
 USE BelcorpSalvador
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -321,10 +321,10 @@ GO
 USE BelcorpPuertoRico
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -384,10 +384,10 @@ GO
 USE BelcorpPanama
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -447,10 +447,10 @@ GO
 USE BelcorpGuatemala
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -510,10 +510,10 @@ GO
 USE BelcorpEcuador
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -573,10 +573,10 @@ GO
 USE BelcorpDominicana
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -636,10 +636,10 @@ GO
 USE BelcorpCostaRica
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -699,10 +699,10 @@ GO
 USE BelcorpChile
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
@@ -762,10 +762,10 @@ GO
 USE BelcorpBolivia
 GO
 
-CREATE procedure dbo.GetCantidadOfertasParaTi
+ALTER PROCEDURE dbo.GetCantidadOfertasParaTi
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 as
 BEGIN
 	declare @resultado int = 0
