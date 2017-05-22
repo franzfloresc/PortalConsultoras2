@@ -995,7 +995,7 @@
 
 
     function OnSuccess(html) {
-        alert('Se actualizo la direccion');
+        alert('Se actualizó la direccion');
         //modalOpcion.dialog('close');
         //modal.dialog('close');
         //$('#divEditarDireccion').hide();
@@ -1125,13 +1125,26 @@
     });
 
     $('#btnGrabarPosicion').click(function () {
-        var solicitudPostulanteID = $('#SolicitudPostulanteID').val();
+        var data = {
+            id: $('#SolicitudPostulanteID').val(),
+            latitud: parseFloat($('#coordenadasX').val()),
+            longitud: parseFloat($('#coordenadasY').val()),
+            direccionCorrecta: $(this).attr('data-direccion-correcta'),
+            direccionCadena: $('#DireccionCadena').val(),
+            region: $('#NombreRegion').val(),
+            comuna: $('#NombreComuna').val(),
+            codregion: $('#Region').val(),
+            codzona: $('#Zona').val(),
+            codseccion: $('#Seccion').val(),
+            codterritorio: $('#Territorio').val(),
+            direccion: $('#Direccion').val()
+        };
         $('#divConfirmarPosicion').empty();
         $('#divConfirmarPosicion').show();
 
         LoadSpinner('divConfirmarPosicion');
         $('#divConfirmarPosicion').css('z-index', '2000');
-        $.get('@Url.Action("ConfirmarPosicion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+        $.get('@Url.Action("ConfirmarPosicion", "Unete")', data, function (html) {
             $('#divConfirmarPosicion').html(html);
             $('#divConfirmarPosicion').show();
             $('#divConfirmarPosicion').css('z-index', '2000');
@@ -1140,7 +1153,7 @@
         });
     });
 
-    $('#btnConfirmarPosicionFinal').click(function () {
+    $('#btnConfirmarGrabarPosicion').click(function () {
         $('#btnGrabarPosicion').attr('disabled', true);
         $('#btnModificarDireccion').removeClass('HabInaButton');
         $('#btnGrabarDireccion').removeClass('HabInaButton');
@@ -1259,7 +1272,8 @@
                     $('mensaje_territorio').show();
                 }
 
-                $('#mapa').removeClass('height_100');
+                //no quitar altura del mapa
+                //$('#mapa').removeClass('height_100');
 
             }).complete(function () {
                 // closeWaitingDialog({});
@@ -1268,7 +1282,86 @@
 
         }
     });
+    function GetMarkerMorado() {
+        var makerMorado = null;
+        for (var i in markers) {
+            if (markers[i].icon = urlContentImages + 'icono-maps-lbel.png') {
+                return markers[i];
+            }
+        }
+        return makerMorado;
+    }
+    function MostrarTerritorio(lat, lnt) {
 
+        if (map) {
+
+            map.panTo(new google.maps.LatLng(lat, lnt));
+            for (var i in markers) {
+                var marker = markers[i];
+                if (marker.setAnimation) {
+                    marker.setAnimation(null);
+                }
+                //if (marker[i].Icon = '') {
+                //}
+            }
+            var markerMorado = GetMarkerMorado()
+            markerMorado.setAnimation(google.maps.Animation.BOUNCE);
+
+            // Consultar servicio para buscar territorio
+
+            var data = {
+                latitud: lat,
+                longitud: lnt
+            }
+
+            //  waitingDialog({});
+            generalLoading();
+
+            $.post('@Url.Action("ConsultarTerritorios", "Unete")', data, function (json) {
+
+                if (polygon != null) {
+                    polygon.setMap(null);
+                }
+
+                var coords = JSON.parse(json.Vertices);
+
+                if (coords != null && coords.length > 0) {
+                    var bounds = new google.maps.LatLngBounds();
+
+                    $.each(coords, function (i, coord) {
+                        bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
+                    })
+
+                    polygon = new google.maps.Polygon({
+                        paths: coords,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35
+                    });
+
+                    polygon.setMap(map);
+
+                    map.fitBounds(bounds);
+
+                    $('#regionXY').html(json.Region + '/' + json.Zona + '/' + json.Seccion);
+
+                } else {
+                    $('#regionXY').html('');
+                    //$('mensaje_territorio').show();
+                }
+
+                //no quitar altura del mapa
+                //$('#mapa').removeClass('height_100');
+
+            }).complete(function () {
+                // closeWaitingDialog({});
+                generalCloseLoading();
+            });
+
+        }
+    }
     //function clearMarkers() {
     //    if (currentMaker) {
     //        currentMaker.setMap(null);
@@ -1459,11 +1552,10 @@
         }
     }
 
-    function pintarMorado(marcador)
-    {
+    function pintarMorado(marcador) {
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].position.lat() == marcador.position.lat() && markers[i].position.lng() == marcador.position.lng())
-            { markers[i].setIcon(urlContentImages + 'icono-maps-lbel.png');}
+            { markers[i].setIcon(urlContentImages + 'icono-maps-lbel.png'); }
             else
             { markers[i].setIcon(urlContentImages + 'icono-maps-esika.png'); }
         }
@@ -1482,7 +1574,6 @@
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
             modalOpcion.dialog('close');
-
             @if (Model.Puntos.Count > 0)
             {
 
@@ -1506,7 +1597,7 @@
                     {
                         <text>var nombreIcono = 'icono-maps-lbel.png';</text>
                         var numeroPuntos = Model.Puntos.Count;
-                        if (numeroPuntos > 1)
+                        if (numeroPuntos > 1 || (numeroPuntos == 1 && Model.FuenteIngreso == "MovilSE"))
                         {
                           <text>  nombreIcono = 'icono-maps-esika.png'; </text>
                         }
@@ -1516,18 +1607,20 @@
                         }
                         var punto = Model.Puntos[i];
                         <text>
-                marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
                 position: new google.maps.LatLng(parseFloat('@punto.Item1'.replace(",", ".")), parseFloat('@punto.Item2'.replace(",", "."))),
                 map: map,
                 animation: google.maps.Animation.DROP,
                 icon: urlContentImages + nombreIcono
-                });
+            });
             marker.addListener('click', function () {
                 //Change the marker icon
                 pintarRojo();
                 setMarkerOnMap(map, this);
                 this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                MostrarTerritorio(this.position.lat(), this.position.lng());
             });
+            @*var DireccionVentana = @(string.IsNullOrEmpty(Model.Item3)?punto.Item3:Model.Direccion)*@
             marker.addListener('mouseover', function () {
                 infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
                 infowindow.open(map, this);
@@ -1543,17 +1636,22 @@
                     {
                         // Markers Purple
                         <text>
-
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(parseFloat('@Model.Latitud'.replace(",", ".")), parseFloat('@Model.Longitud'.replace(",", "."))),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                icon: urlContentImages + 'icono-maps-lbel.png'
+                icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
+                //icon: urlContentImages + 'icono-maps-lbel.png'
             });
             markers.push(marker);
             markerBounds.extend(marker.getPosition());
             marker.setAnimation(google.maps.Animation.BOUNCE);
 
+            marker.addListener('mouseover', function () {
+                infowindow.setContent('<div><strong>' + '@Model.Direccion' + '</strong></div>');
+                infowindow.open(map, this);
+                //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+            });
 
             </text>
                     }
@@ -1592,7 +1690,10 @@
 
                     if (string.IsNullOrEmpty(Model.Region) || string.IsNullOrEmpty(Model.Zona) || string.IsNullOrEmpty(Model.Territorio))
                     {
+                        //var regionXY = Model.Region + '/' + Model.Zona + '/' + Model.Seccion;
                         <text>
+
+            //$('#regionXY').val(regionXY);
             $('#datos_territorio').hide();
             $('#mensaje_territorio').show();
             </text>
@@ -1600,6 +1701,7 @@
                     else
                     {
                         <text>
+            //$('#regionXY').val('');
             $('#datos_territorio').show();
             $('#mensaje_territorio').hide();
             $('#btnAceptar').attr('disabled', false);
@@ -1667,14 +1769,14 @@
 
             map.addListener('drag', function () {
                 //   searchBox.setBounds(map.getBounds());
-
-                if (marker) {
-                    marker.setPosition(map.getCenter());
-                    $('#coordenadasX').val(marker.position.lat());
-                    $('#coordenadasY').val(marker.position.lng());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    markerMorado.setPosition(map.getCenter());
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     var pos = {
-                        lat: marker.position.lat(),
-                        lng: marker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
 
                     };
                     //geocodePosition(pos);
@@ -1683,13 +1785,14 @@
             });
             map.addListener('dragend', function () {
                 // searchBox.setBounds(map.getBounds());
-                if (marker) {
-                    marker.setPosition(map.getCenter());
-                    $('#coordenadasX').val(marker.position.lat());
-                    $('#coordenadasY').val(marker.position.lng());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    markerMorado.setPosition(map.getCenter());
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     var pos = {
-                        lat: marker.position.lat(),
-                        lng: marker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
                 }
@@ -1698,13 +1801,14 @@
 
             map.addListener('bounds_changed', function () {
                 // searchBox.setBounds(map.getBounds());
-                if (marker) {
-                    $('#coordenadasX').val(marker.position.lat());
-                    $('#coordenadasY').val(marker.position.lng());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     marker.setPosition(map.getCenter());
                     var pos = {
-                        lat: marker.position.lat(),
-                        lng: marker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
                 }

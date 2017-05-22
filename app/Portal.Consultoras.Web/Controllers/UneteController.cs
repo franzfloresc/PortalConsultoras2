@@ -3625,9 +3625,119 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new { success = true, Msg = "Se actualizó los datos" }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ConfirmarPosicion(int id)
+        public ActionResult ConfirmarPosicion(int id, decimal latitud,
+            decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
+            string codregion, string codzona, string codseccion, string codterritorio, string direccion)
         {
             ConfirmarPosicionModel model = new ConfirmarPosicionModel();
+
+            var solicitudPostulanteID = Convert.ToInt32(id);
+            int InitialStatus = 0;
+
+            using (var sv = new PortalServiceClient())
+            {
+                var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+
+                InitialStatus = solicitudPostulante.EstadoGEO.Value;
+
+                solicitudPostulante.Latitud = latitud;
+                solicitudPostulante.Longitud = longitud;
+                solicitudPostulante.Direccion = direccion.ToUpper(); // (comuna + " " + direccion).ToUpper();
+                solicitudPostulante.LugarPadre = region;
+                solicitudPostulante.LugarHijo = comuna;
+
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
+                {
+                    try
+                    {
+                        var resultadoGEO = ConsultarServicio(new
+                        {
+                            punto = new
+                            {
+                                Latitud = latitud,
+                                Longitud = longitud
+                            },
+                            pais = CodigoISO,
+                            aplicacion = 1
+                        }, "ObtenerTerritorioPorPunto");
+
+                        var obtenerTerritorioPorPuntoResult = resultadoGEO.SelectToken("ObtenerTerritorioPorPuntoResult");
+
+                        if (obtenerTerritorioPorPuntoResult.HasValues &&
+                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta").ToObject<string>() == "OK")
+                        {
+                            var resultado = obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
+                            if (!string.IsNullOrWhiteSpace(resultado))
+                            {
+                                solicitudPostulante.RespuestaGEO = resultado;
+                                solicitudPostulante.CodigoZona = resultado.Substring(2, 4);
+                                solicitudPostulante.CodigoSeccion = resultado.Substring(6, 1);
+                                solicitudPostulante.CodigoTerritorio = resultado.Substring(7, resultado.Length - 7);
+                                solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
+                            }
+                            else
+                            {
+                                solicitudPostulante.EstadoGEO = !string.IsNullOrWhiteSpace(direccionCorrecta) &&
+                                                                direccionCorrecta == "no"
+                                    ? Enumeradores.EstadoGEO.NoEncontroTerritorioNoLatLong.ToInt()
+                                    : Enumeradores.EstadoGEO.NoEncontroTerritorioSiLatLong.ToInt();
+                            }
+                        }
+                        else
+                        {
+                            solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
+                    }
+
+                }
+                else if (CodigoISO == Pais.Colombia)
+                {
+                    try
+                    {
+
+                        if (codregion != null)
+                        {
+                            if (!string.IsNullOrWhiteSpace(codregion))
+                            {
+                                //solicitudPostulante.RespuestaGEO = ;
+                                solicitudPostulante.CodigoZona = codzona;
+                                solicitudPostulante.CodigoSeccion = codseccion;
+                                solicitudPostulante.CodigoTerritorio = codterritorio;
+                                solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
+
+                                model.Zona = codzona;
+                                model.Seccion = codseccion;
+                                model.Territorio = codterritorio;
+                            }
+                            else
+                            {
+                                solicitudPostulante.EstadoGEO = !string.IsNullOrWhiteSpace(direccionCorrecta) &&
+                                                                direccionCorrecta == "no"
+                                    ? Enumeradores.EstadoGEO.NoEncontroTerritorioNoLatLong.ToInt()
+                                    : Enumeradores.EstadoGEO.NoEncontroTerritorioSiLatLong.ToInt();
+                            }
+                        }
+                        else
+                        {
+                            solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
+                    }
+                }
+
+                model.Region = string.IsNullOrEmpty(solicitudPostulante.CodigoZona)? null : solicitudPostulante.CodigoZona.Substring(0, 2);
+                model.Zona = solicitudPostulante.CodigoZona;
+                model.Seccion = solicitudPostulante.CodigoSeccion;
+                model.Territorio = solicitudPostulante.CodigoTerritorio;
+            }
+
             return PartialView("_ConfirmarPosicion", model);
         }
         public ActionResult EditarDireccion(int id)
