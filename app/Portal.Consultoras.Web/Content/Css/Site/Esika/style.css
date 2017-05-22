@@ -32121,8 +32121,7 @@ h1#penmostreo .campana {
     display: -ms-flexbox;
     display: -o-flex;
     justify-content: space-between;
-    z-index: 1;
-    z-index: 5;
+    z-index: 4;
 }
 
     
@@ -32284,18 +32283,22 @@ h1#penmostreo .campana {
     margin-right:0%;
 }*/
 .reclamo_motivo_select {
-    width: 45%;
-    height: 45px;
-    font-family: 'Lato';
-    font-size: 15px;
-    line-height: 45px;
-    padding-left: 50px;
-    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
-    background-position: 20px 14px;
-    border-bottom: 1px solid #d1d1d1;
-    cursor: pointer;
-    float: left;
-    margin-left: 22px;
+    display: flex;
+	justify-content: center;
+	align-content: center;
+	flex-direction: column;
+	width: 48%;
+	height: 50px;
+	font-family: 'Lato';
+	font-size: 14px;
+	/* line-height: 45px; */
+	padding-left: 50px;
+	background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
+	background-position: 20px 14px;
+	border-bottom: 1px solid #d1d1d1  ;
+	cursor: pointer;
+	float: left;
+	margin-right: 4%;
 }
 
     .reclamo_motivo_select:hover {
@@ -34118,7 +34121,7 @@ h1#penmostreo .campana {
 .right_set_hoy {
    
     float: left;
-    width: 273px;
+    width: 295px;
     /* margin-top: 45px; */
     margin-left: 14%;
 }
@@ -35590,7 +35593,8 @@ h1#penmostreo .campana {
 .titulo_set_ODD{
     color:white;
     font-family:'Lato';
-    font-size:20px;
+    font-size:18px;
+    font-weight:700;
     /*text-align:center;*/
     letter-spacing:1.3px;
     text-transform:uppercase;
@@ -35620,9 +35624,10 @@ h1#penmostreo .campana {
 }
 .content_780_ODD .content_set_pop_hoy{
     width:94%;
+    margin-top:40px;
 }
 .content_780_ODD .right_set_hoy {
-    margin-left: 40px;
+    margin-left: 27px;
 }
 .content_item_carrusel_ODD{
     width:260px;
@@ -35681,7 +35686,7 @@ h1#penmostreo .campana {
 }
 .content_780_ODD .imagen_set_Oferta_pop {
     width: 300px;
-    margin-top:40px;
+    /*margin-top:40px;*/
 }
 .content_780_ODD .compartir_redes_ficha {    
     padding-left: 40px;
@@ -36023,7 +36028,12 @@ h1#penmostreo .campana {
     color:white;
     font-size:14px;
     /*font-weight:900;*/
-    letter-spacing:1.2px;   
+    letter-spacing:1.2px;
+    -moz-text-align-last: justify;
+    -webkit-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
+    padding-right: 10px;   
 }
 .monto_gana{
     font-family:'Lato';
@@ -36148,4 +36158,13 @@ h1#penmostreo .campana {
 
 .SubHeader{
     background: #f9f9f9;
+}
+.reclamo_motivo_select:nth-child(2n) {
+	margin-right: 0;
+}
+.height_min{
+    min-height:267px;
+}
+.content_780_ODD .height_min{
+    min-height:231px;
 }

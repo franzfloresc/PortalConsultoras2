@@ -1973,6 +1973,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             CerrarSplash();
 
             window.OfertaDelDia.CargarODDEscritorio();
+            ProcesarActualizacionMostrarContenedorCupon();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -3692,3 +3693,10 @@ function EnviarCorreoPedidoReservado() {
 }
 /*** Fin EPD-2378 ***/
 
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}

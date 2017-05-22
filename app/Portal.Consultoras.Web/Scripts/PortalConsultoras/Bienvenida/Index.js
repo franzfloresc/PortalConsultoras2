@@ -1033,7 +1033,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 };
 function AgregarProductoLiquidacion(contenedor) {
-
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -1121,6 +1120,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
                             closeWaitingDialog();
                             HidePopupTonosTallas();
+
+                            ProcesarActualizacionMostrarContenedorCupon();
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
@@ -1135,6 +1136,15 @@ function AgregarProductoLiquidacion(contenedor) {
         }
     });
 };
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
 function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     waitingDialog({});
 
@@ -1639,7 +1649,6 @@ function CambiarContrasenia() {
     }
 }
 function ActualizarMD() {
-
     if (jQuery.trim($('#txtEMailMD').val()) == "") {
         $('#txtEMailMD').focus();
         alert("Debe ingresar EMail.\n");
@@ -1655,21 +1664,28 @@ function ActualizarMD() {
         alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
         return false;
     }
+
     if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
         ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
-        $('#txtTelefonoMD').focus();
-        alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
-        return false;
+            $('#txtTelefonoMD').focus();
+            alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+            return false;
     }
 
     //Validando cantidad de caracteres minimos.
-    var MinCaracterTelefono = limitarMinimo($('#txtTelefonoMD').val(), $("#hdn_CaracterMinimo").val(), 1);
-    if (!MinCaracterTelefono) 
-        return false;
-
     var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-    if (!MinCaracterCelular)
+    if (!MinCaracterCelular) {
+        $('#txtCelularMD').focus();
         return false;
+    }
+    
+    if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
+        if ($('#txtCelularMD').val().substr(0, 1) != "3") {
+            alert('Número de celular tiene formato incorrecto.');
+            $('#txtCelularMD').focus();
+            return false;
+        }
+    }
 
     if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
         
@@ -1677,7 +1693,6 @@ function ActualizarMD() {
         if (!MinCaracterOtroTelefono)
             return false;
     }
-    //
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
