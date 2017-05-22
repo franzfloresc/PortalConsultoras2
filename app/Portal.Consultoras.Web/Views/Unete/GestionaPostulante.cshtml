@@ -1054,6 +1054,8 @@
 
 <div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
 </div>
+<div class="contenedor_popup_eliminarCliente" id="divConfirmarPosicion">
+</div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarManualDireccion">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarDireccion">
@@ -1580,10 +1582,7 @@
         }).done(function () {
 
         });
-
-
     }
-
 
     function generalLoading() {
 
@@ -2023,6 +2022,7 @@
     function limpiarPopUps()
     {
         $('#divConsultarUbicacion').empty();
+        $('#divConfirmarPosicion').empty();
         $('#divEditarManualDireccion').empty();
         $('#divEditarDireccion').empty();
         $('#divEvaluacionCrediticia').empty();
@@ -2624,7 +2624,10 @@
         #divConsultarUbicacion {
         display: none;
     }
-
+        #divConfirmarPosicion {
+        display: none;
+    }
+        
     .contenedor_popup_eliminarCliente {
         display: block;
         position: fixed;

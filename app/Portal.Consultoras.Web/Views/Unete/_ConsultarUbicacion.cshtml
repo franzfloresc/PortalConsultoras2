@@ -1049,10 +1049,6 @@
         }).done(function () {
 
         });
-
-
-
-
     });
 
     $('#btnNingunaDireccion').click(function () {
@@ -1129,6 +1125,22 @@
     });
 
     $('#btnGrabarPosicion').click(function () {
+        var solicitudPostulanteID = $('#SolicitudPostulanteID').val();
+        $('#divConfirmarPosicion').empty();
+        $('#divConfirmarPosicion').show();
+
+        LoadSpinner('divConfirmarPosicion');
+        $('#divConfirmarPosicion').css('z-index', '2000');
+        $.get('@Url.Action("ConfirmarPosicion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#divConfirmarPosicion').html(html);
+            $('#divConfirmarPosicion').show();
+            $('#divConfirmarPosicion').css('z-index', '2000');
+        }).done(function () {
+
+        });
+    });
+
+    $('#btnConfirmarPosicionFinal').click(function () {
         $('#btnGrabarPosicion').attr('disabled', true);
         $('#btnModificarDireccion').removeClass('HabInaButton');
         $('#btnGrabarDireccion').removeClass('HabInaButton');
