@@ -100,10 +100,10 @@
     @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
-    <label>Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
+    <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
     @*<span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>*@
-    @Html.TextBoxFor(m => Model.LugarNivel4, Model.LugaresNivel4, new { @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
+    @Html.TextBoxFor(m => Model.LugarNivel4, new { @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
     @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>*@
     <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
     <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
