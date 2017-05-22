@@ -8,7 +8,6 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using static Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -203,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
             }
 
-            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == TipoOfertasPlan20.Showroom || x.CodigoCatalago == TipoOfertasPlan20.OPT || x.CodigoCatalago == TipoOfertasPlan20.ODD));
+            return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
         }
 
         private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)

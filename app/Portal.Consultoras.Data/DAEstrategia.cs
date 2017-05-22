@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Data
             command.Parameters.Add("@TipoEstrategia", SqlDbType.Int).Value = tipoEstrategia;
            
             var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int);
-            parameter2.Value = estrategiaId;
+            parameter2.Value = tipoEstrategia;
 
             command.Parameters.Add(parameter);
             command.Parameters.Add(parameter2);
