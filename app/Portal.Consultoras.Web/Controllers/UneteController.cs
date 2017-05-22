@@ -3343,6 +3343,293 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_Detalle", model);
         }
 
+        [HttpPost]
+        public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
+        {
+            string direccion = null;
+
+            if (CodigoISO == Pais.Chile)
+            {
+                direccion = model.CalleOAvenida;
+
+            }
+            else if (CodigoISO == Pais.Colombia)
+            {
+                direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreDireccionEdicion,
+                    model.CalleOAvenida);
+            }
+
+            else if (CodigoISO == Pais.Mexico)
+            {
+                direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.CalleOAvenida, model.Numero);
+            }
+            else if (CodigoISO == Pais.Ecuador)
+            {
+                //direccion = string.Format("{0} {1} {2}", model.LugarNivel3, model.CalleOAvenida, model.LugarNivel4);
+                direccion = string.Format("{0} ", model.CalleOAvenida);
+            }
+            else if (CodigoISO == Pais.Peru)
+            {
+                direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.CalleOAvenida);
+                model.Numero = default(string);
+                model.NombreDireccionEdicion = default(string);
+            }
+            else if (CodigoISO == Pais.Guatemala)
+            {
+                direccion = string.Format("{0} {1} {2} {3}", model.NombreLugarNivel3, model.NombreLugarNivel4, model.NombreLugarNivel5, model.CalleOAvenida);
+                model.Numero = default(string);
+                model.NombreDireccionEdicion = default(string);
+            }
+            var consultarUbicacionModel = new ConsultarUbicacionModel
+            {
+                SolicitudPostulanteID = model.SolicitudPostulanteID,
+
+                DireccionCadena = direccion,
+                Direccion = model.CodigoPais == Pais.Chile
+                    ? model.CalleOAvenida + "|" + model.Numero
+                    : model.CodigoPais == Pais.Colombia
+                        ? model.CalleOAvenida + "|" + model.NombreLugarNivel3 + "|" + model.NombreDireccionEdicion
+                        : model.CodigoPais == Pais.Mexico
+                            ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida + "|" + model.Numero
+                            : model.CodigoPais == Pais.Peru
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                             : model.CodigoPais == Pais.Guatemala
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.NombreLugarNivel5 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Pais.CostaRica
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Pais.Panama
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Pais.Salvador
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Pais.Ecuador
+                            ? model.LugarNivel3 + "|" + model.CalleOAvenida + "|" + model.LugarNivel4
+                            : model.CalleOAvenida + "|" + model.Numero,
+
+                NombreRegion = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
+                NombreComuna = CodigoISO == Pais.Peru ? model.NombreLugarNivel3 : model.NombreLugarNivel2
+            };
+
+            if (ModelState.IsValid)
+            {
+
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
+                {
+                    try
+                    {
+                        var resultadoGEO = ConsultarServicio(new
+                        {
+                            direccion = direccion,
+                            pais = CodigoISO,
+                            ciudad = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
+                            area = CodigoISO == Pais.Peru ? model.NombreLugarNivel3
+                                        : CodigoISO == Pais.Ecuador
+                                        ? model.LugarNivel3
+                                            : model.NombreLugarNivel2,
+                            aplicacion = 1
+                        }, "ObtenerPuntosPorDireccion");
+
+                        var obtenerPuntosPorDireccionResult = resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
+
+                        if (obtenerPuntosPorDireccionResult.HasValues &&
+                            obtenerPuntosPorDireccionResult.SelectToken("MensajeRespuesta").ToObject<string>() == "OK")
+                        {
+                            var jsonPuntos =
+                                obtenerPuntosPorDireccionResult.SelectToken("Resultado").ToObject<JValue>().Value.ToString();
+                            var puntos = JArray.Parse(jsonPuntos);
+
+                            if (puntos.HasValues)
+                            {
+                                foreach (var item in puntos)
+                                {
+                                    consultarUbicacionModel.Puntos.Add(new Tuple<decimal, decimal, string>
+                                        (
+                                        item.SelectToken("Latitud").ToObject<decimal>(),
+                                        item.SelectToken("Longitud").ToObject<decimal>(),
+                                        item.SelectToken("formatted_address").ToObject<string>()
+                                        ));
+                                }
+
+                                #region Validar si solo existe un punto
+
+                                if (consultarUbicacionModel.Puntos.Count == 1)
+                                {
+                                    var punto = consultarUbicacionModel.Puntos.First();
+
+                                    // no encontro la dirección pero devuelve el punto geométrico
+                                    if (punto.Item3.ToLower().Contains("no pudo ser"))
+                                    {
+                                        consultarUbicacionModel.Puntos.Clear();
+                                    }
+                                    else
+                                    {
+                                        //1. buscar el territorio por el punto
+                                        var obtenerTerritorioPorPuntoResult = ConsultarServicio(new
+                                        {
+                                            punto = new
+                                            {
+                                                Latitud = punto.Item1,
+                                                Longitud = punto.Item2
+                                            },
+                                            pais = CodigoISO,
+                                            aplicacion = 1
+                                        }, "ObtenerTerritorioPorPunto").SelectToken("ObtenerTerritorioPorPuntoResult");
+
+                                        if (obtenerTerritorioPorPuntoResult.HasValues &&
+                                            obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
+                                                .ToObject<string>() == "OK")
+                                        {
+                                            var resultado =
+                                                obtenerTerritorioPorPuntoResult.SelectToken("Resultado").ToObject<string>();
+
+                                            consultarUbicacionModel.Region = resultado.Substring(0, 2);
+                                            consultarUbicacionModel.Zona = resultado.Substring(2, 4);
+                                            consultarUbicacionModel.Seccion = resultado.Substring(6, 1);
+                                            consultarUbicacionModel.Territorio = resultado.Substring(7, resultado.Length - 7);
+
+                                            // 2. Buscamos los vertices por territorio
+                                            var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
+                                            {
+                                                codigo = resultado,
+                                                pais = CodigoISO,
+                                                aplicacion = 1
+                                            }, "ObtenerVerticesTerritorioPorCodigo")
+                                                .SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
+
+                                            if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
+                                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta")
+                                                    .ToObject<string>() == "OK")
+                                            {
+                                                consultarUbicacionModel.Vertices =
+                                                    obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
+                                                        .ToObject<JValue>()
+                                                        .Value.ToString();
+                                                consultarUbicacionModel.Vertices =
+                                                    consultarUbicacionModel.Vertices.Replace("Lat", "lat")
+                                                        .Replace("Long", "lng");
+                                            }
+                                        }
+                                    }
+                                }
+
+                                #endregion
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+                else if (CodigoISO == Pais.Colombia)
+                {
+
+                    var zonaEncontrada = default(string);
+                    //var listaPuntos = new List<Tuple<decimal, decimal, string>>();
+
+                    try
+                    {
+                        var urlServicioLocalColombia = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
+
+
+
+                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
+                        var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
+                            parametro, urlServicioLocalColombia);
+                        if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
+                        {
+                            zonaEncontrada = resultadoGeo.data.zona1;
+                            if (!string.IsNullOrWhiteSpace(zonaEncontrada))
+                            {
+                                consultarUbicacionModel.Puntos.Add(
+                                    new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.data.latitude),
+                                        decimal.Parse(resultadoGeo.data.longitude), resultadoGeo.data.dirtrad));
+                                model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
+                            }
+
+                            consultarUbicacionModel.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24
+                                ? true
+                                : false;
+                        }
+
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+
+                    if (!string.IsNullOrEmpty(zonaEncontrada))
+                    {
+                        consultarUbicacionModel.Region = zonaEncontrada.Substring(0, 2);
+                        consultarUbicacionModel.Zona = zonaEncontrada.Substring(2, 4);
+                        consultarUbicacionModel.Seccion = zonaEncontrada.Substring(6, 1);
+                        consultarUbicacionModel.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
+
+                        // 2. Buscamos los vertices por territorio
+                        var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
+                        {
+                            codigo = zonaEncontrada,
+                            pais = CodigoISO,
+                            aplicacion = 1
+                        }, "ObtenerVerticesTerritorioPorCodigo").SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
+
+                        if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
+                            obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta").ToObject<string>() ==
+                            "OK")
+                        {
+                            consultarUbicacionModel.Vertices =
+                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
+                                    .ToObject<JValue>()
+                                    .Value.ToString();
+                            consultarUbicacionModel.Vertices =
+                                consultarUbicacionModel.Vertices.Replace("Lat", "lat").Replace("Long", "lng");
+                        }
+                    }
+                }
+
+                using (var sv = new PortalServiceClient())
+                {
+                    SolicitudPostulante solicitudPostulante =
+                        sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
+
+                    solicitudPostulante.LugarPadre = model.NombreLugarNivel1;
+                    solicitudPostulante.LugarHijo = model.NombreLugarNivel2;
+                    solicitudPostulante.Direccion = consultarUbicacionModel.Direccion;
+                    solicitudPostulante.Referencia = model.Referencia;
+                    solicitudPostulante.CodigoPostal = model.Numero;
+
+
+                    if (consultarUbicacionModel.Puntos.FirstOrDefault() == null)
+                    {
+                        solicitudPostulante.Longitud = null;
+                        solicitudPostulante.Latitud = null;
+                    }
+
+
+                    // Activacion de la geolocalización para CAM 
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador)
+                    {
+                        BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
+                        var codigoLugarNivel = CodigoISO == Pais.Guatemala ? model.LugarNivel5.ToInt() : model.LugarNivel4.ToInt();
+                        var parametro = svPaises.ObtenerParametroUnete(CodigoISO, codigoLugarNivel);
+                        var resultado = parametro.Descripcion;
+
+                        solicitudPostulante.RespuestaGEO = resultado;
+                        solicitudPostulante.CodigoZona = resultado.Substring(2, 4);
+                        solicitudPostulante.CodigoSeccion = resultado.Substring(6, 1);
+                        solicitudPostulante.CodigoTerritorio = resultado.Substring(7, resultado.Length - 7);
+                        solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
+                    }
+
+                    actualziarCampaniaRegistro(ref solicitudPostulante);
+                    sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
+                }
+            }
+            return Json(new { success = true, Msg = "Se actualizó los datos" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ConfirmarPosicion(int id)
+        {
+            ConfirmarPosicionModel model = new ConfirmarPosicionModel();
+            return PartialView("_ConfirmarPosicion", model);
+        }
         public ActionResult EditarDireccion(int id)
         {
             var model = new EditarDireccionModel();
