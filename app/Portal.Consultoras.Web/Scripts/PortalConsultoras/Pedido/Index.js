@@ -2008,6 +2008,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             CerrarSplash();
 
             window.OfertaDelDia.CargarODDEscritorio();
+            ProcesarActualizacionMostrarContenedorCupon();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -3727,3 +3728,10 @@ function ConfirmarModificar() {
     return false;
 }
 
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}

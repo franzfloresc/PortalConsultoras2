@@ -473,24 +473,26 @@
 
                         $("#txtPrecio").val("");
                         $("#txtCUV").val("");
+                        try {
+                            for (var i = 1; i <= nroImagenes; i++) {
+                                idImagen = ('0' + i).substr(-2);
+                                objPreview = $('#preview' + i);
+                                objChkImagen = $('#chkImagenProducto' + idImagen);
+                                dataImagen = data['imagen' + i];
 
-                        for (var i = 1; i <= nroImagenes; i++) {
-                            idImagen = ('0' + i).substr(-2);
-                            objPreview = $('#preview' + i);
-                            objChkImagen = $('#chkImagenProducto' + idImagen);
-                            dataImagen = data['imagen' + i];
-
-                            if (dataImagen != '') {
-                                objPreview.attr('src', data.imagen1);
-                                objChkImagen.attr('disabled', false);
+                                if (dataImagen != '') {
+                                    objPreview.attr('src', data.imagen1);
+                                    objChkImagen.attr('disabled', false);
+                                }
+                                else {
+                                    objPreview.attr('src', rutaImagenVacia);
+                                    objChkImagen.attr('disabled', true);
+                                }
+                                objChkImagen.attr('checked', false);
                             }
-                            else {
-                                objPreview.attr('src', rutaImagenVacia);
-                                objChkImagen.attr('disabled', true);
-                            }
-                            objChkImagen.attr('checked', false);
+                        }catch (e) {
+                            console.error('error al procesar nroImagenes');
                         }
-
                         closeWaitingDialog();
                     }
                 },
