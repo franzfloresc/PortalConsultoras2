@@ -36026,7 +36026,12 @@ h1#penmostreo .campana {
     color:white;
     font-size:14px;
     /*font-weight:900;*/
-    letter-spacing:1.2px;   
+    letter-spacing:1.2px;
+    -moz-text-align-last: justify;
+    -webkit-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
+    padding-right: 10px;   
 }
 .monto_gana{
     font-family:'Lato';
