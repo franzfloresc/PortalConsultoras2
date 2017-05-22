@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -24,8 +25,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-using Portal.Consultoras.PublicService.Cryptography;
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
@@ -411,6 +410,17 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
+
+                model.CampaniaActual = userData.CampaniaID;
+                model.Simbolo = userData.Simbolo;
+                #region Cupon
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo;
+                #endregion
+                ViewBag.paisISO = userData.CodigoISO;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             }
             catch (FaultException ex)

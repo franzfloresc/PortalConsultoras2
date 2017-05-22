@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLProductoPalabra.cs" />
+    <Compile Include="BLCuponConsultora.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
     <Compile Include="BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />

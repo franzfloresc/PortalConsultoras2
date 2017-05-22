@@ -321,6 +321,19 @@
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+    <div class="row contenedorCupon" id="">
+        <div class="label_cupon contenedorCuponConocelo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">Tienes un descuento exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="label_cupon contenedorCuponInfo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+        </div>
+    </div>
     <div class="titulo_ofertas_home">
         OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
         <div class="texto_exclusivo">
@@ -1015,8 +1028,23 @@
                 </div>
             </div>
         </script>
+<!--POP UP CUPONES-->
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
 
+<!--FIN-->
         @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".termino_condiciones_intriga").click(function () {
+                    $(this).toggleClass('check_intriga');
+                    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    }
+                });
+            });
+        </script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">
 
@@ -1049,10 +1077,19 @@
                 if (vbFotoPerfil != null && vbFotoPerfil != "") {
                     $('.content_foto').show();
                 }
+
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 2;
+                var esEmailActivo = '@Model.EmailActivo';
+                var paisISO = '@ViewBag.paisISO';
+                var viewBagAmbiente = '@ViewBag.Ambiente';
             </script>
 
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
-
+            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+            <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         }

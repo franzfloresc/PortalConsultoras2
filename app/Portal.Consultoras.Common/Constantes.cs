@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.SQS.Model;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -124,22 +117,22 @@ namespace Portal.Consultoras.Common
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            public const int PersonalizacionShowroom = 9803;
         }
-
-
+        
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
             public const string TelefonoRequerido = "TelefonoRequerido";
         }
+
         public class TipoNivelesRiesgo
         {
             public const string Bajo = "BAJO";
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-
-
+        
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -386,6 +379,7 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+
         public class TipoPopUp
         {
             public const int VideoIntroductorio = 1;
@@ -425,7 +419,6 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-
         
         public class MensajeEstaEnRevista
         {
@@ -614,6 +607,25 @@ namespace Portal.Consultoras.Common
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+        
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
+        }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
         }
     }
 }

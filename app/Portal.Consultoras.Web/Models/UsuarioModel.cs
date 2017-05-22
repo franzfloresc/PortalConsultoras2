@@ -309,6 +309,7 @@ namespace Portal.Consultoras.Web.Models
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
         public int TieneCDR { get; set; }
+        public int TieneCupon { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string GPRBannerTitulo { get; set; }
