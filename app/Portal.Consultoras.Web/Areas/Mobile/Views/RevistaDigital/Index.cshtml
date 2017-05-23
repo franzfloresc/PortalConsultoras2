@@ -72,7 +72,7 @@
 <hr class="clear" />
 @* listado *@
 <div class="wrapper_resumen_mobile">
-    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex" class="ofertaProductoslanding"></div>
+    <div id="divOfertaProductos" data-divitem="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel" class="ofertaProductoslanding"></div>
 </div>
 
 <hr class="clear" />
@@ -85,11 +85,9 @@
         var tipoOrigenPantalla = 1;
         var precioMin = '@Model.PrecioMin';
         var precioMax = '@Model.PrecioMax';
-        var urlOfertaDetalle = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
-        var urlOfertaAgregar = '@Url.Action("AgregarProducto", "RevistaDigital")';
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex';
-        var origenPedidoWebCarrusel = -1;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var tipoOrigenEstrategia = 27;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

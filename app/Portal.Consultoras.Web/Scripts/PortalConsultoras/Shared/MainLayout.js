@@ -1017,6 +1017,12 @@ function agregarProductoAlCarrito(o) {
     if (imagenProducto.length > 0) {
         var carrito = $('.campana');
 
+        $.each(carrito, function (indC, car) {
+            if ($(car).offset().left > 0) {
+                carrito = $(car);
+            }
+        });
+
         $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
         $(".transicion").css({

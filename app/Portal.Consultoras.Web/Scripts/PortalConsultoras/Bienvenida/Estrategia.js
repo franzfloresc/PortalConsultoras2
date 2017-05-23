@@ -8,6 +8,8 @@ var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 var conPopup = conPopup || "";
 
 var origenRetorno = $.trim(origenRetorno);
+var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
+var divAgregado = null;
 
 $(document).ready(function () {
     $(document).on('click', '[data-tono-change]', function (e) {
@@ -528,7 +530,7 @@ function CargarEstrategiaSet(cuv) {
     return detalle;
 }
 
-function CargarProductoDestacado(objParameter, objInput, popup, limite) {
+function CargarProductoDestacado1(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
@@ -553,6 +555,56 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     }
 
     AbrirLoad();
+    
+    popup = popup || false;
+    limite = limite || 0;
+
+    var tipoEstrategiaID = objParameter.TipoEstrategiaID;
+    var estrategiaID = objParameter.EstrategiaID;
+    var posicionItem = objParameter.Posicion;
+    var flagNueva = objParameter.FlagNueva;
+
+    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
+    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+
+    $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
+
+    var params = {
+        EstrategiaID: estrategiaID,
+        FlagNueva: flagNueva
+    };
+}
+
+function CargarProductoDestacado(objParameter, objInput, popup, limite) {
+
+    var attrClass = $.trim($(objInput).attr("class"));
+    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+        setTimeout(function () {
+            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+        }, 500);
+        return false;
+    }
+
+    if (ReservadoOEnHorarioRestringido())
+        return false;
+
+    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) 
+    {
+
+        agregarProductoAlCarrito(objInput);
+
+        if (objParameter.FlagNueva == "1")
+            $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
+        else
+            $('#OfertaTipoNuevo').val("");
+    }
+
+    AbrirLoad();
 
     popup = popup || false;
     limite = limite || 0;
@@ -567,6 +619,8 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
+
+    divAgregado = $(objInput).parents("[data-item]").find(".agregado.product-add");
 
     var params = {
         EstrategiaID: estrategiaID,
@@ -764,25 +818,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     var cantidadLimite = datosEst.LimiteVenta; // $("#txtCantidadZE").attr("est-cantidad");
     var indicadorMontoMinimo = datosEst.IndicadorMontoMinimo; // $("#txtCantidadZE").attr("est-montominimo");
     var OrigenPedidoWeb = origenPedidoWebEstrategia;
-
-    //var tipoOferta = datosEst.TipoOferta; // $("#txtCantidadZE").attr("est-tipooferta");
-    //var categoria = datosEst.DescripcionCategoria; // $("#txtCantidadZE").attr("est-descripcionCategoria");
-    //var variant = datosEst.DescripcionEstrategia;// $("#txtCantidadZE").attr("est-descripcionEstrategia");
-    //var posicion = datosEst.posicionItem; // $("#txtCantidadZE").attr("est-posicion");
-    //var urlImagen = datosEst.FotoProducto01; // $("#imgZonaEstrategiaEdit").attr("src");
-    // validar que se existan tallas
-    //if ($.trim($("#ddlTallaColor").html()) != "") {
-    //    if ($.trim($("#ddlTallaColor").val()) == "") {
-    //        AbrirMensajeEstrategia("Por favor, seleccione la Talla/Color del producto.");
-    //        CerrarLoad();
-    //        return false;
-    //    }
-    //}
-    //Quitar estas validaciones cuando exista Programa de Ofertas nuevas 
-    //if ($("#hdnProgramaOfertaNuevo").val() == "true") {
-    //    cantidad = cantidadLimite;
-    //}
-
+    
     if (datosEst.FlagNueva == 1) {
         cantidad = cantidadLimite;
     }
@@ -853,6 +889,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         }
 
                         AbrirLoad();
+
+                        if (divAgregado != null) {
+                            $(divAgregado).show();
+                        } 
+
                         if (tipoOrigenEstrategia == 1) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
@@ -873,6 +914,9 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             CargarDetallePedido();
                             MostrarBarra(data);
                         }
+                        else if ($.trim(tipoOrigenEstrategia)[0] == "1") {
+                            CargarResumenCampaniaHeader(true);
+                        }
                         else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
@@ -883,12 +927,16 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             }
                             else {
                                 CargarCarouselEstrategias(cuv);
-
                             }
                         }
 
-                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                        TagManagerClickAgregarProducto();
+                        // falta agregar este metodo en para las revista digital
+                        try {
+                            TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+                            TagManagerClickAgregarProducto();
+                        } catch (e) {
+
+                        }
 
                         CerrarLoad();
                         if (popup) {
@@ -917,25 +965,25 @@ function HidePopupEstrategiasEspeciales() {
 };
 
 function CerrarLoad() {
-    if (tipoOrigenEstrategia == 1) {
+    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
         closeWaitingDialog()
     }
     else if (tipoOrigenEstrategia == 11) {
         CerrarSplash();
     }
-    else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
+    else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         CloseLoading();
     }
 }
 
 function AbrirLoad() {
-    if (tipoOrigenEstrategia == 1) {
+    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
         waitingDialog()
     }
     else if (tipoOrigenEstrategia == 11) {
         AbrirSplash();
     }
-    else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
+    else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         ShowLoading();
     }
 }
