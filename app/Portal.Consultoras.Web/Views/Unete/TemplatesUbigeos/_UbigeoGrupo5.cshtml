@@ -101,19 +101,21 @@
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
     <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
-    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
+    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "direccionPrincipal", @placeholder = " Ejm: Av. Castellana 100" })
     @*<span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>*@
-    @Html.TextBoxFor(m => Model.LugarNivel4, new { @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
+    @Html.TextBoxFor(m => Model.LugarNivel4, new { @class = "direccionSecundaria", @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
     @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>*@
-    <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
-    <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
 </div>
 <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
     <label>Referencia:</label>
-    @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Ej. entre calle 1 y calle 3" })
+    @Html.TextBoxFor(m => Model.Referencia, new { @class = "ancho99", @placeholder = "Ej. entre calle 1 y calle 3" })
     @*<span>@Html.ValidationMessageFor(m => Model.Referencia)</span>*@
-    <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-    <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+    <div class="contenedor_grupo_botones_campoDireccion">
+        <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
+        <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
+        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+    </div>
 </div>
 
 @Html.HiddenFor(m => Model.SolicitudPostulanteID)

@@ -335,11 +335,41 @@
     }
 
     .contenedor_camposUbigeo input[type="text"]{
-        width:99px;
+        width:165px;
     }
 
     .contenedor_camposUbigeo select{
         width: 171px;
+    }
+
+    .contenedor_camposUbigeo.campoDireccionUbigeo.campo_dropDown{
+        width: 175px;
+        margin-right: 13px;
+    }
+
+    .contenedor_camposUbigeo.campoReferenciaUbigeo.campo_dropDownReferencia{
+        display: inline-block;
+        width: 550px;
+    }
+
+    .contenedor_camposUbigeo.campoReferenciaUbigeo.campo_dropDownReferencia label{
+        display: block;
+    }
+
+    .contenedor_camposUbigeo.campoReferenciaUbigeo.campo_dropDownReferencia input{
+        width:100%;
+    }
+
+    .contenedor_camposUbigeo.anchoDropdown select{
+        width:162px;
+    }
+
+    .contenedor_camposUbigeo.campoBarrio{
+        margin-right:0px;
+    }
+
+    .contenedor_camposUbigeo.campoBarrio input[type="text"]{
+        width:124px;
     }
 
     .contenedor_camposUbigeo.campoDireccionUbigeo, .contenedor_camposUbigeo.campoReferenciaUbigeo {
@@ -375,6 +405,46 @@
         box-sizing: border-box;
     }
 
+    .contenedor_camposUbigeo.campoDireccionUbigeo input.ancho99{
+        width:99.5%;
+    }
+
+    .contenedor_camposUbigeo.campoReferenciaUbigeo input.ancho99{
+        width: 87.45%;
+        margin-right: 0px;
+    }
+
+    /*.contenedor_camposUbigeo button{
+        transition:opacity 0.3s ease;
+        -moz-transition:opacity 0.3s ease;
+        -o-transition:opacity 0.3s ease;
+        -ms-transition:opacity 0.3s ease;
+        -webkit-transition:opacity 0.3s ease;
+    }
+
+    .contenedor_camposUbigeo button:hover{
+        opacity:0.8;
+    }*/
+
+    .contenedor_grupo_botones_campoDireccion {
+        display: block;
+        text-align: center;
+        margin: 17px 3px 4px 0px;
+    }
+
+    .contenedor_grupo_botones_campoDireccion button#btnModificarDireccion, .contenedor_grupo_botones_campoDireccion button#btnGrabarDireccion{
+        margin-right:12px;
+    }
+
+    .contenedor_camposUbigeo.campoDireccionUbigeo .direccionPrincipal{
+        width:344px;
+    }
+
+    .contenedor_camposUbigeo.campoDireccionUbigeo .direccionSecundaria{
+        width:286px;
+        margin-right:0px;
+    }
+
     .contenedor_direccionReferencia {
         display: block;
         margin-bottom: 17px;
@@ -402,7 +472,7 @@
         margin-right: 17px;
     }
 
-    .contenedor_direccionReferencia button, .campos_regionZonaSeccion button, .contenedor_camposUbigeo.campoDireccionUbigeo button, .contenedor_camposUbigeo.campoReferenciaUbigeo button {
+    .contenedor_direccionReferencia button, .campos_regionZonaSeccion button, .contenedor_camposUbigeo.campoDireccionUbigeo button, .contenedor_camposUbigeo.campoReferenciaUbigeo button, .contenedor_grupo_botones_campoDireccion button {
         display: inline-block;
         height: 37px;
         color: #FFF;
@@ -864,19 +934,39 @@
 
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
             var camposUbigeoReferenciaLabel = $(".campoReferenciaUbigeo label");
-
-            if ($(camposUbigeoDireccionLabel).html().length > 11) {
-                $(camposUbigeoDireccionLabel).css({ "top": "3px" });
-            } else if ($(camposUbigeoReferenciaLabel).html().length > 11) {
-                $(camposUbigeoReferenciaLabel).css({ "top": "3px" });
-            }
-
             var camposUbigeo = $(".contenedor_camposUbigeo");
 
-            if ($(camposUbigeo).length <= 5) {
-                $(camposUbigeo).find("label").css({ "display": "inline-block" });
-                $(camposUbigeo).find("input[type='text']").css({ "display": "inline-block" });
-                $(camposUbigeo).find("select").css({ "display": "inline-block" });
+            if ($(camposUbigeoDireccionLabel).html().length > 11) {
+
+                $(camposUbigeoDireccionLabel).css({ "top": "3px" });
+
+                if ($(camposUbigeo).length <= 5) {
+                    $(camposUbigeo).find("label").css({ "display": "inline-block" });
+                    $(camposUbigeo).find("input[type='text']").css({ "display": "inline-block" });
+                    $(camposUbigeo).find("select").css({ "display": "inline-block" });
+                }
+
+            } else {
+
+                if ($(camposUbigeoReferenciaLabel).length != 0) {
+
+                    if ($(camposUbigeoReferenciaLabel).html().length > 11) {
+                        $(camposUbigeoReferenciaLabel).css({ "top": "3px" });
+                    }
+
+                    if ($(camposUbigeo).length <= 5) {
+                        $(camposUbigeo).find("label").css({ "display": "inline-block" });
+                        $(camposUbigeo).find("input[type='text']").css({ "display": "inline-block" });
+                        $(camposUbigeo).find("select").css({ "display": "inline-block" });
+                    }
+
+                } else {
+
+                    $(camposUbigeo).find("label").css({ "display": "block" });
+                    $(camposUbigeo).find("select").css({ "display": "block" });
+
+                }
+
             }
 
             $('#DivSinGEO').hide();
@@ -1057,6 +1147,11 @@
         <text>$('#DivConGEO').hide();</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
+        if (Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.CostaRica || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Panama || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Salvador || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Guatemala)
+        {
+            <text>$('.contenedor_coordenadasYRegion').hide();</text>
+            <text>$('.popup_editarDireccion').css({ "padding-bottom": "0px" });</text>
+        }
     }
 
     $(function () {
