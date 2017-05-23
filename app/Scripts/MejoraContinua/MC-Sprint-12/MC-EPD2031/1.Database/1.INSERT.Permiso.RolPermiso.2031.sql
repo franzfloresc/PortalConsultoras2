@@ -25,7 +25,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -76,7 +76,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -127,7 +127,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -178,7 +178,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -229,7 +229,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -280,7 +280,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -331,7 +331,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -382,7 +382,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -433,7 +433,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -484,7 +484,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -535,7 +535,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -586,7 +586,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
@@ -637,7 +637,7 @@ INSERT INTO [dbo].[Permiso]
            ,'Catálogos Belcorp'
            ,81
            ,107
-           ,'CatalogosBelcorp\Index'
+           ,'CatalogosBelcorp/Index'
            ,0
            ,'Header'
            ,''
