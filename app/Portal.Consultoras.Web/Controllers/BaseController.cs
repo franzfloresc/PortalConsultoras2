@@ -1708,11 +1708,20 @@ namespace Portal.Consultoras.Web.Controllers
         protected string GetRevistaCodigoIssuu(string campania)
         {
             string codigo = null;
-            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
-            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
-            if (!string.IsNullOrEmpty(codigo)) return codigo;
+            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+        }
 
+        protected string GetRevistaCodigoIssuu(string campania, bool flagRevistaDigital)
+        {
+            string codigo = null;
+            if (flagRevistaDigital)
+            {
+                //piloto_rev1017pe
+                codigo = ConfigurationManager.AppSettings["CodigoRevistaDigitalIssuu"].ToString();
+                return string.Format(codigo, campania.Substring(4, 2), campania.Substring(2, 2), userData.CodigoISO.ToLower()); ;
+            }
+            //sbconsultorarevista.{0}.c{1}.{2}
             codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
             return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
         }
