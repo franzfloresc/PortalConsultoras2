@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
+using System;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -16,6 +17,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
+        public ActionResult Detalle(int id)
+        {
+            try
+            {
+                var model = DetalleModel(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
         public ActionResult Inscripcion()
         {
             if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
@@ -23,10 +39,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View();
         }
-        public ActionResult DetalleProducto()
-        {
-            return View();
-        }
-
     }
 }

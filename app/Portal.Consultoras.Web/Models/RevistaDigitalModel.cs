@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal PrecioMax { get; set; }
         public string NombreUsuario { get; set; }
         public bool IsMobile { get; set; }
-
+        
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }

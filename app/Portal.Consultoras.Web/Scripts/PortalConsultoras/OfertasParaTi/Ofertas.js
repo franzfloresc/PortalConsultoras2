@@ -7,9 +7,22 @@ var listatipo = "";
 var rangoPrecios = 0;
 var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
+var listaFiltros = {
+    ListaFiltro: new Array(),
+    Ordenamiento: new Object()
+};
 
 $(document).ready(function () {
 
+    $("select[data-filtro-tipo]").change(function (event) {
+        OfertaObtenerProductos(this);
+    });
+
+
+    $("a[data-filtro-tipo]").click(function (event) {
+        OfertaObtenerProductos(this);
+    });
+    
     $('#DialogMensajesBanner').dialog({
         autoOpen: false,
         resizable: false,
@@ -55,11 +68,7 @@ $(document).ready(function () {
             'label': 'Ir a carrito'
         });
     });
-
-    $("#filter-sorting").change(function () {
-        OfertaObtenerProductos();
-    });
-
+    
     $("#divBorrarFiltros").click(function () {
         $(".content_filtro_range").html("");
         $(".content_filtro_range").html('<input class="range-slider" value="" style="width: 100%; display: none;" />');
@@ -134,56 +143,120 @@ function CargarFiltroRangoPrecio() {
     $('.slider-container').css('width', '');
 }
 
-function OfertaObtenerProductos() {
-    var busquedaModel = OfertaFilterDesktop();
+function OfertaObtenerProductos(filtro) {
+    var busquedaModel = OfertaFilter(filtro);
     OfertaCargarProductos(busquedaModel);
 }
 
-function OfertaFilterDesktop() {
-    var busquedaModel = null;
+function OfertaFilter(filtro) {
 
-    var listaFiltro = new Array();
-    var ordenamiento = null;
-
-    /*Ordenamiento*/
-    var tipoOrdenamiento = "PRECIO";
-    var valorOrdenamiento = $("#filter-sorting").val();
-
-    ordenamiento = {
-        Tipo: tipoOrdenamiento,
-        Valor: valorOrdenamiento
-    }
-    /*FIN Ordenamiento*/
-
-    /*Filtros de Busqueda*/
-
-    /*RANGO PRECIOS*/
-    var filtro = null;
-    var filtroTipo = "RANGOPRECIOS";
-    var filtroValores = new Array();
-
-    if (rangoPrecios != 0) {
-        filtroValores = $.trim(rangoPrecios).split(',');
-        filtro = {
-            Tipo: filtroTipo,
-            Valores: filtroValores
+    var variante = $(filtro).attr("data-filtro-tipo") || "";
+    var campo = $(filtro).attr("data-filtro-campo") || "";
+    var accion = $(filtro).attr("data-filtro-accion") || "";
+    if (variante == "borrar" || variante == "" || campo == "") {
+        listaFiltros = {
+            ListaFiltro: new Array(),
+            Ordenamiento: new Object()
         };
-        listaFiltro.push(filtro);
+
+        $("[data-filtro-tipo='borrar']").parent().hide();
+
+        $.each($("[data-filtro-tipo]"), function (indSel, select) {
+            $(select).val($($(select).find("option").get(0)).val());
+        });
+        
+        return listaFiltros;
     }
-    /*FIN RANGO PRECIOS*/
 
-    if (listaFiltro.length > 0) {
-        $("#divBorrarFiltros").show();
-    } else {
-        $("#divBorrarFiltros").hide();
+    var valor = $(filtro).val(); // para este caso solo hay combox
+        
+    $("[data-filtro-tipo='borrar']").parent().show();
+
+    if (accion == "orden") {
+        listaFiltros.Ordenamiento = {
+            Tipo: campo,
+            Valor: valor
+        };
+        return listaFiltros;
+    }
+    
+    var posFiltro = -1;
+    $.each(listaFiltros.ListaFiltro, function (index, item) {
+        if (item.Tipo == campo) {
+            posFiltro = index;
+        }
+    });
+    
+    if (posFiltro < 0) {
+        listaFiltros.ListaFiltro = new Array();
+        listaFiltros.ListaFiltro.push({
+            Tipo: campo,
+            Valores: [valor]
+        });
+        return listaFiltros;
     }
 
-    busquedaModel = {
-        ListaFiltro: listaFiltro,
-        Ordenamiento: ordenamiento
-    };
+    if (variante == "multiple") {
+        var listaValores = listaFiltros.ListaFiltro[posFiltro].Valores || new Array();
+        listaValores.push(valor);
+        listaFiltros.ListaFiltro[posFiltro] = {
+            Tipo: campo,
+            Valores: listaValores
+        };
+    }
+    else if (variante == "fijo") {
+        listaFiltros.ListaFiltro[posFiltro] = {
+            Tipo: campo,
+            Valores: [valor]
+        };
+    }
 
-    return busquedaModel;
+    return listaFiltros;
+
+    //var busquedaModel = null;
+
+    //var listaFiltro = new Array();
+    //var ordenamiento = null;
+
+    ///*Ordenamiento*/
+    //var tipoOrdenamiento = "PRECIO";
+    //var valorOrdenamiento = $("#filter-sorting").val();
+
+    //ordenamiento = {
+    //    Tipo: tipoOrdenamiento,
+    //    Valor: valorOrdenamiento
+    //}
+    ///*FIN Ordenamiento*/
+
+    ///*Filtros de Busqueda*/
+
+    ///*RANGO PRECIOS*/
+    //var filtro = null;
+    //var filtroTipo = "RANGOPRECIOS";
+    //var filtroValores = new Array();
+
+    //if (rangoPrecios != 0) {
+    //    filtroValores = $.trim(rangoPrecios).split(',');
+    //    filtro = {
+    //        Tipo: filtroTipo,
+    //        Valores: filtroValores
+    //    };
+    //    listaFiltro.push(filtro);
+    //}
+    ///*FIN RANGO PRECIOS*/
+
+    //if (listaFiltro.length > 0) {
+    //    $("#divBorrarFiltros").show();
+    //} else {
+    //    $("#divBorrarFiltros").hide();
+    //}
+
+    //busquedaModel = {
+    //    ListaFiltro: listaFiltro,
+    //    Ordenamiento: ordenamiento
+    //};
+
+    //return busquedaModel;
 }
 
 function OfertaCargarProductos(busquedaModel) {

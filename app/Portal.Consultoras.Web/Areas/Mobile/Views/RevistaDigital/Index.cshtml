@@ -24,9 +24,9 @@
 @* Lanzamientos con etiqueta NUEVO *@
 <div style="background:#F6F6F6">
     <div class="content_carrusel_landing">
-    <div id="divCarruselLan">
-        @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
-    </div>
+        <div id="divCarruselLan">
+            @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
+        </div>
     </div>
 </div>
 
@@ -38,19 +38,32 @@
 @* filtros *@
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter" style="display: block;">
-        <div id="content-orderby" style="margin-top: 15px;">
-            <input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
-
-            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick=" showCustomFilters(); ">
+        <div id="content-orderby" style="margin: 15px 0; text-align: center;">
+            @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
+            <div id="divFiltros">
+                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca" style="float: none;display: inline-block;">
+                    @foreach (var item in Model.FiltersByBrand)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;display: inline-block;width: 50%;">
+                    @foreach (var item in Model.FiltersBySorting)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+            </div>
         </div>
         <hr class="clear">
         <div id="summary-filters">
             <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro">17</span> de <span id="spnCantidadTotal">17</span> productos</span>
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span> productos</span>
             </div>
 
             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                <a href="#" class="link-ffc_landing" onclick=" deleteFilters(); ">Borrar Filtros</a>
+                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
             </div>
             <br><br>
         </div>
@@ -61,7 +74,6 @@
 <div class="wrapper_resumen_mobile">
     <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex" class="ofertaProductoslanding"></div>
 </div>
-
 
 <hr class="clear" />
 @* Template producto *@

@@ -3231,7 +3231,7 @@
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\DetalleProducto.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />

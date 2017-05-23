@@ -25,6 +25,17 @@ namespace Portal.Consultoras.Web.Controllers
                 model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
             }
 
+            var listaMarca = listaProducto.GroupBy(p => p.DescripcionMarca).ToList();
+            model.FiltersByBrand = new List<BETablaLogicaDatos>();
+            if (listaMarca.Any())
+            {
+                model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = "Todas" });
+                foreach (var marca in listaMarca)
+                {
+                    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key });
+                }
+            }
+
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 
@@ -35,12 +46,21 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.IsMobile = IsMobile();
-            model.ListaProducto.Update(p => {
-                p.EstrategiaDetalle.ImgFondoDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgFondoDesktop;
-                p.EstrategiaDetalle.ImgPrevDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgPrevDesktop;
-                p.EstrategiaDetalle.ImgFichaDesktop = model.IsMobile ? p.EstrategiaDetalle.ImgFichaMobile : p.EstrategiaDetalle.ImgFichaDesktop;
-            });
+            //model.ListaProducto.Update(p => {
+            //    p.EstrategiaDetalle.ImgFondoDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgFondoDesktop;
+            //    p.EstrategiaDetalle.ImgPrevDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgPrevDesktop;
+            //    p.EstrategiaDetalle.ImgFichaDesktop = model.IsMobile ? p.EstrategiaDetalle.ImgFichaMobile : p.EstrategiaDetalle.ImgFichaDesktop;
+            //    p.EstrategiaDetalle.ImgFichaFondoDesktop = model.IsMobile ? p.EstrategiaDetalle.ImgFichaFondoMobile : p.EstrategiaDetalle.ImgFichaFondoDesktop;
+            //});
 
+            return model;
+        }
+
+        public EstrategiaPedidoModel DetalleModel(int id)
+        {
+            var listaProducto = ConsultarEstrategiasModel();
+            var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+            
             return model;
         }
     }

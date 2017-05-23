@@ -45,7 +45,9 @@ $(document).ready(function () {
     // para renderizar las vistas previas
     $('#divCarruselLan').slick('slickGoTo', 0);
 
-    //RDDetalleObtener();
+    if (location.href.toLowerCase().indexOf("/detalle/") > 0) {
+        RDDetalleObtener();
+    }
 
 });
 
@@ -66,14 +68,11 @@ function OfertaArmarEstrategias(response) {
     response.CodigoEstrategia = "101";
 
     // Listado de producto
-    var urlTemplate = "#estrategia-template";
-
-    var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');
+    var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
     //$('#divOfertaProductos').append(htmlDiv);
 
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
-
 }
 
 function RDDetalleObtener() {
@@ -81,20 +80,23 @@ function RDDetalleObtener() {
         cache: false
     });
 
-    var busquedaModel = {};
+    var nro = location.href.toLowerCase().split('/');
+    nro = nro[nro.length - 1];
 
     jQuery.ajax({
         type: 'POST',
-        url: "/RevistaDigital/GetProductoDetalle",
+        url: "/RevistaDigital/GetProductoDetalle/" + nro,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(busquedaModel),
+        //data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
             //CerrarLoad();
 
             if (response.success == true) {
                 OfertaArmarEstrategias(response);
+                $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
+                $(".ver_detalle_carrusel").remove();
             } else {
                 messageInfoError(response.message);
                 if (busquedaModel.hidden == true) {

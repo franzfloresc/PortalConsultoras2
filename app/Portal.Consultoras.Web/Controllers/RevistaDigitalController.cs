@@ -32,11 +32,12 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(int id)
         {
             try
             {
-                return View();
+                var model = DetalleModel(id);
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -53,21 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-
-        private bool RevistaDigitalValidar(out string respuesta)
-        {
-            var activo = true;
-
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    listaShowRoomCPC = sv.GetProductosCompraPorCompra(userData.PaisID, eventoId, campaniaId).ToList();
-            //}
-
-            respuesta = "";
-
-            return activo;
-        }
-
+        
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
         {
@@ -84,46 +71,77 @@ namespace Portal.Consultoras.Web.Controllers
                 //        cantidad = 0
                 //    });
                 //}
-
-                var listaFinal = new List<EstrategiaPedidoModel>();
+                
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var listModel = ConsultarEstrategiasModel("");
 
-                listModel = listModel.Where(e=>e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
 
-                listaFinal = listModel;
+                var listaFinal = listModel;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
-                    //var filtroCategoria = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.Categoria);
-                    //if (filtroCategoria != null)
-                    //{
-                    //    var arrayCategoria = filtroCategoria.Valores.ToArray();
-                    //    listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
-                    //}
-
-                    var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
-                    if (filtroRangoPrecio != null)
+                    listaFinal = new List<EstrategiaPedidoModel>();
+                    var universo = listModel;
+                    model.ListaFiltro.Update(f => f.Valores = f.Valores ?? new List<string>());
+                    int cont = 0, contVal = 0;
+                    foreach (var filtro in model.ListaFiltro)
                     {
-                        var valorDesde = filtroRangoPrecio.Valores[0];
-                        var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaFinal = listaFinal.Where(p => p.Precio2 >= Convert.ToDecimal(valorDesde)
-                                     && p.Precio2 <= Convert.ToDecimal(valorHasta)).ToList();
+                        universo = cont == 0 ? listModel : listaFinal;
+                        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
+                        contVal = 0;
+                        foreach (var valor in filtro.Valores)
+                        {
+                            var val = Util.Trim(valor);
+                            if (val == "" || val == "-")
+                            {
+                                listaFinal = universo;
+                                break;
+                            }
+
+                            if (filtro.Tipo == "marca")
+                            {
+                                if (contVal > 0)
+                                {
+                                    listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == valor.ToLower()));
+                                }
+                                else
+                                {
+                                    listaFinal = universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == valor.ToLower()).ToList();
+                                }
+                            }
+                            else if (filtro.Tipo == "precio")
+                            {
+                                var listaValDet = valor.Split(',');
+                                var valorDesde = Convert.ToDecimal(listaValDet[0]);
+                                var valorHasta = Convert.ToDecimal(listaValDet[1]);
+
+                                if (contVal > 0)
+                                {
+                                    listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
+                                }
+                                else
+                                {
+                                    listaFinal = universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta).ToList();
+                                }
+
+                            }
+                            contVal++;
+                        }
+                        cont++;
                     }
                 }
 
                 if (model.Ordenamiento != null)
                 {
-                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
+                    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
+                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio.ToLower())
                     {
                         switch (model.Ordenamiento.Valor)
                         {
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
-                                break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
                                 listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
                                 break;
