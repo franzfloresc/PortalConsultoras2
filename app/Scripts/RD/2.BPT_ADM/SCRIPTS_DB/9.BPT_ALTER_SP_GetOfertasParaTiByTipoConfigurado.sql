@@ -8,7 +8,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -135,7 +135,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -262,7 +262,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -389,7 +389,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -516,7 +516,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -643,7 +643,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -770,7 +770,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -897,7 +897,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -1024,7 +1024,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -1151,7 +1151,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -1278,7 +1278,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -1405,7 +1405,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (
@@ -1532,7 +1532,7 @@ GO
 ALTER PROCEDURE dbo.GetOfertasParaTiByTipoConfigurado
 @CampaniaID int,
 @TipoConfigurado int,
-@TipoEstrategia int
+@TipoEstrategia int = 4
 AS
 BEGIN
 	DECLARE @tablaResultado TABLE (

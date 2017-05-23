@@ -1236,8 +1236,6 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
 }
 
 function GuardarIndicadorPedidoAutentico() {
-    //debugger;
-
     if (fingerprintOk == 0) {
         new Fingerprint2().get(function (result, components) {
             var data1 = { 'accion': 1, 'codigo': result };

@@ -1247,7 +1247,7 @@ function TagManagerCarruselInicio(arrayItems) {
         var sentListEstrategia = false;
         if (typeof (Storage) !== 'undefined') {
             var sle = localStorage.getItem('sentListEstrategia2');
-            if (sle != null && sle == '1') {
+            if (sle !== null && sle === '1') {
                 sentListEstrategia = true;
             }
             else {
