@@ -2214,6 +2214,16 @@ ul.tabs {
     border: 1px solid #cfcfcf;
 }
 
+.div-3 .pdr_modal2 {
+    float: right;
+    width: 35px;
+    height: auto;
+    padding: 10px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+}
 
 .div-3 .pdr_modal_check {
     float: left;
@@ -13034,6 +13044,12 @@ label.checkpop {
     height: 35px;
 }
 
+.img-matriz-preview2 {
+    cursor: pointer;
+    width: 100%;
+    height: 35px;
+}
+
 .matriz-comercial-list .item{
     display:inline-block;
     width:171px;
@@ -13313,3 +13329,8 @@ label.checkpop {
     border-bottom-right-radius: 6px;
 }
 /*EPD1973 -->*/
+
+.fontColorAdm {
+    color: #702789;
+    font-size: 14px;
+}
