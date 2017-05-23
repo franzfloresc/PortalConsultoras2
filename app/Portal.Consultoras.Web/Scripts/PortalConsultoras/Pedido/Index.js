@@ -2147,7 +2147,7 @@ function EjecutarServicioPROL() {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    showDialog("divReservaSatisfactoria");
+                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
@@ -2405,7 +2405,7 @@ function MostrarMensajeProl(response) {
                     showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
                 } else {
-                    showDialog("divReservaSatisfactoria");
+                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
