@@ -135,10 +135,22 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.InsMatrizComercial(entity);
         }
 
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.InsMatrizComercialImagen(entity);
+        }
+
         public int UpdMatrizComercial(BEMatrizComercial entity)
         {
             var dataAccess = new DAOfertaProducto(entity.PaisID);
             return dataAccess.UpdMatrizComercial(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.UpdMatrizComercialImagen(entity);
         }
 
         public IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP)
@@ -150,6 +162,34 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entity = new BEMatrizComercial(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByIdMatrizImagen(idMatrizComercial, numeroPagina, registros))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenesByCodigoSAP(int paisID, string codigoSAP, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByCodigoSap(codigoSAP, numeroPagina, registros))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
                     lst.Add(entity);
                 }
             return lst;

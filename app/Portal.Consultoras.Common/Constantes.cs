@@ -171,6 +171,12 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
+            public const string PackNuevas = "002";
+            public const string Lanzamiento = "005";
+            public const string OfertasParaMi = "007";
+            public const string PackAltoDesembolso = "008";
+            public const string RevistaDigital = "101"; // No tiene referecia con BD
+
         }
 
         public class ConstSession

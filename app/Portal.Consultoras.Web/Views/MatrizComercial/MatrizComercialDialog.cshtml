@@ -1,0 +1,40 @@
+﻿<script id="matriz-comercial-template" type="text/x-handlebars-template">
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titF">País:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" value="{{pais}}" readonly="readonly" />
+            </div>
+            <div class="titG">Código SAP:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" value="{{codigoSAP}}" readonly="readonly" />
+            </div>
+        </div>
+        <div class="div-3" style="margin-bottom: 0px; padding-bottom: 2px;">
+            <div class="titF">Descripción Original:</div>
+            <div class="selectP2 borde_redondeado" style="width: 515px;">
+                <input type="text" value="{{descripcionOriginal}}" readonly="readonly" style="width: 515px;" />
+            </div>
+            <div class="titG" style="padding:0px"><div id="file-upload-add"></div></div>
+        </div>
+        <div>
+            <div id="matriz-imagenes-paginacion"></div>
+        </div>
+        <div class="div-3">
+            <div id="matriz-comercial-images" class="matriz-comercial-list">                
+            </div>
+        </div>
+    </div>
+</script>
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">
+    {{#each imagenes}}
+    <div class="item">
+        <div class="content selectP2 borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
+        </div>
+        <div class="actions">
+            <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
+        </div>
+    </div>
+    {{/each}}
+</script>
