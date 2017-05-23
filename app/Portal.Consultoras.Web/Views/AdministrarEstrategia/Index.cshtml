@@ -1498,16 +1498,16 @@
     function ShowActions(cellvalue, options, rowObject) {
         //var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
-        //if (cellValueInt == "1") {
+        if (rowObject[10] == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
-        //}
+        }
         return Des;
     }
 
     function ShowImage(cellvalue, options, rowObject) {
         var image = $.trim(rowObject[9]);
         var filename = image.replace(/^.*[\\\/]/, '');
-        image = '<img src="' + (filename != "" ? image : imageUrlVacio) + '" alt="" width="70px" height="60px" title="" border="0" />';
+        image = '<img src="' + (filename != "" ? image : rutaImagenVacia) + '" alt="" width="70px" height="60px" title="" border="0" />';
         return image;
     }
 
