@@ -264,7 +264,8 @@
             ReservadoObservaciones = 2,
             NoReservadoObservaciones = 3,
             NoReservadoMontoMinimo = 4,
-            NoReservadoMontoMaximo = 5
+            NoReservadoMontoMaximo = 5,
+            ReservaNoDisponible = 6
         }
     }
 }
