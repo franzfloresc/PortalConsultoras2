@@ -6,13 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using Microsoft.Practices.ObjectBuilder2;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -41,10 +39,10 @@ namespace Portal.Consultoras.BizLogic
                 .Select(async o => await ProcesarEnviarAsync(urlAbsolute, paisISO, o))
                 .ToArray();
 
-            //var tasksResult = Task.WhenAll(sendOfertaTasks);
-            Task.WaitAll(sendOfertaTasks);
-            return sendOfertaTasks.All(st => st.Result);
-            //return tasksResult.IsCompleted && !tasksResult.Result.Any(t => !t);
+            var tasksResult = Task.WhenAll(sendOfertaTasks);
+            Task.WaitAll(tasksResult);
+            
+            return tasksResult.IsCompleted && tasksResult.Result.All(t => t);
         }
 
         private async Task<bool> ProcesarEnviarAsync(string urlAbsolute, string paisIso, BEChatbotProactivaMensaje mensaje)
