@@ -56,7 +56,10 @@
                     //_crearFileUploadAdd(_editData);
                 }
                 $("#matriz-imagenes-paginacion").empty();
-                _obtenerImagenes(_editData, 1, true);
+                //actualiza para la carga de imagenes actualizada
+                _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
+                    showDialog("matriz-comercial-dialog");
+                });
             } else {
                 alert(response.message);
             };
@@ -442,11 +445,11 @@
 
                         //Carga de Imagenes
                         _editData = {
-                            EstrategiaID: 0,
-                            CUV2: '',
-                            TipoEstrategiaID: 0,
+                            EstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                            CUV2: $("#txtCUV2").val(),
+                            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                             CodigoSAP: data.codigoSAP,
-                            CampaniaID: 0,
+                            CampaniaID: $("#ddlCampania").val(),
                             IdMatrizComercial: data.idMatrizComercial,
                             paisID: $("#ddlPais").val(),
                             imagenes: [],
