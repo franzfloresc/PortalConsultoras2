@@ -367,8 +367,6 @@ namespace Portal.Consultoras.Data
             var parameter = new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured);
             parameter.TypeName = "dbo.EstrategiaTemporalType";
             parameter.Value = new GenericDataReader<BEEstrategiaType>(listaTypes);
-
-            command.Parameters.Add("@TipoEstrategia", SqlDbType.Int).Value = estrategiaId;
            
             var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int);
             parameter2.Value = estrategiaId;
