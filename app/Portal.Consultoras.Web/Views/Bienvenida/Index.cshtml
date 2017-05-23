@@ -2435,6 +2435,7 @@
         var esEmailActivo = '@Model.EmailActivo';
         var baseUrl = "@Url.Content("~")";
         var viewBagAmbiente = '@ViewBag.Ambiente';
+        var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

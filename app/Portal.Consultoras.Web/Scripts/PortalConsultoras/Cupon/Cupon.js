@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     "use strict"
 
-    var cupon = cuponModule;
+    var _mostrarPopupCuponGanaste = (mostrarPopupCuponGanaste ? mostrarPopupCuponGanaste.toLowerCase() == "true" : false);
     var objInitializer = {
         tieneCupon: tieneCupon,
         paginaOrigenCupon: paginaOrigenCupon,
@@ -13,6 +13,9 @@
         ambiente: viewBagAmbiente
     };
 
-    cupon.ini(objInitializer);
-    cupon.obtenerCupon();
+    cuponModule.ini(objInitializer);
+    cuponModule.obtenerCupon();
+    if (_mostrarPopupCuponGanaste) {
+        cuponModule.mostrarPopupGanaste();
+    }
 });

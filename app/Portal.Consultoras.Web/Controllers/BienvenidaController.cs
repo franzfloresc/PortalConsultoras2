@@ -442,7 +442,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-
+                TempData.Keep("MostrarPopupCuponGanaste");
             }
             catch (FaultException ex)
             {
@@ -2067,6 +2067,11 @@ namespace Portal.Consultoras.Web.Controllers
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr");
                 }
+                else if (tipo == "cupon") {
+                    EnviarCorreoActivacionCupon();
+                    TempData["MostrarPopupCuponGanaste"] = true;
+                }
+
                 SetUserData(userData);
 
             }
@@ -2074,6 +2079,62 @@ namespace Portal.Consultoras.Web.Controllers
             {
             }
             return RedirectToAction(accion, controlador, new { area = area });
+        }
+
+        private void EnviarCorreoActivacionCupon()
+        {
+            CuponModel cuponModel = ObtenerDatosCupon();
+            string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
+            string correo = userData.EMail;
+            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
+        }
+
+        private CuponModel ObtenerDatosCupon()
+        {
+            CuponModel cuponModel;
+            BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
+
+            if (cuponResult != null)
+                cuponModel = MapearBECuponACuponModel(cuponResult);
+            else
+                throw new Exception();
+
+            return cuponModel;
+        }
+
+        private BECuponConsultora ObtenerCuponDesdeServicio()
+        {
+            using (PedidoServiceClient svClient = new PedidoServiceClient())
+            {
+                int paisId = userData.PaisID;
+                BECuponConsultora cuponBE = new BECuponConsultora();
+                cuponBE.CodigoConsultora = userData.CodigoConsultora;
+                cuponBE.CampaniaId = userData.CampaniaID;
+
+                var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBE);
+                return cuponResult;
+            }
+        }
+
+        private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
+        {
+            var codigoISO = userData.CodigoISO;
+
+            return new CuponModel(codigoISO)
+            {
+                CuponConsultoraId = cuponBE.CuponConsultoraId,
+                CodigoConsultora = cuponBE.CodigoConsultora,
+                CampaniaId = cuponBE.CampaniaId,
+                CuponId = cuponBE.CuponId,
+                ValorAsociado = cuponBE.ValorAsociado,
+                EstadoCupon = cuponBE.EstadoCupon,
+                CorreoGanasteEnviado = cuponBE.EnvioCorreo,
+                FechaCreacion = cuponBE.FechaCreacion,
+                FechaModificacion = cuponBE.FechaModificacion,
+                UsuarioCreacion = cuponBE.UsuarioCreacion,
+                UsuarioModificacion = cuponBE.UsuarioModificacion,
+                TipoCupon = cuponBE.TipoCupon
+            };
         }
     }
 }
