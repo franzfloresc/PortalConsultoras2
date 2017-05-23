@@ -86,15 +86,25 @@
     }
 
     var bindEvents = function () {
-        $(elements.LinkVer).on("click", function () {
+        $("div#chckTerminosCondiciones").click(function () {
+            $(this).toggleClass('check_intriga');
+        });
+
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                cerrarTodosPopupCupones();
+            }
+        });
+
+        $(document).on("click", elements.LinkVer, function () {
             procesarVerOferta();
         });
 
-        $(elements.LinkVer2).on("click", function () {
+        $(document).on("click", elements.LinkVer2, function () {
             procesarVerOferta();
         });
 
-        $(elements.BtnConfirmarDatos).on("click", function () {
+        $(document).on("click", elements.BtnConfirmarDatos, function () {
             var aceptoTerCond = $(elements.CheckTerminosCondiciones).hasClass("check_intriga");
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
@@ -114,11 +124,11 @@
             }
         });
 
-        $(elements.BtnModificarDatos).on("click", function () {
+        $(document).on("click", elements.BtnModificarDatos, function () {
             mostrarPopupGana();
         });
 
-        $(elements.BtnEnviarNuevamente).on("click", function () {
+        $(document).on("click", elements.BtnEnviarNuevamente, function () {
             //AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
             var model = {
                 eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
@@ -133,20 +143,6 @@
                     AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
                 }
             }, function (xhr, status, error) { });
-        });
-
-        $("div#chckTerminosCondiciones").click(function () {
-            $(this).toggleClass('check_intriga');
-        });
-
-        $(document).on("click", elements.LinkVer, function () {
-            procesarVerOferta();
-        });
-
-        $(document).keyup(function (e) {
-            if (e.keyCode == 27) { // escape key maps to keycode `27`
-                cerrarTodosPopupCupones();
-            }
         });
     }
 
