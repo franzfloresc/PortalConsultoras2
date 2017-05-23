@@ -6,7 +6,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS 
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -60,12 +60,14 @@ BEGIN
 END
 GO
 
+/*end*/
+
 USE BelcorpMexico
 GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -126,7 +128,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -187,7 +189,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -247,7 +249,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -305,7 +307,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -362,7 +364,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -419,7 +421,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -477,7 +479,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -536,7 +538,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -593,7 +595,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -650,7 +652,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
@@ -709,7 +711,7 @@ GO
 
 ALTER PROCEDURE dbo.InsertEstrategiaOfertaParaTi
 	@EstrategiaTemporal dbo.EstrategiaTemporalType READONLY,
-	@TipoEstrategia INT
+	@TipoEstrategia INT = 4
 AS
 BEGIN
 	DECLARE @FechaGeneral DATETIME
