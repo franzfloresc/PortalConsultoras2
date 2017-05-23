@@ -19,20 +19,30 @@ namespace Portal.Consultoras.BizLogic
         private readonly string _chatBotToken;
         private readonly string _chatBotUrl;
         private readonly bool _saveLogAlways;
-        private readonly int _messageLenght;
+        private readonly int _messagePerRequest;
         private readonly int _chatBotTimeOut;
 
         public BLProactivaChatbot()
         {
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BotmakerApiSaveLogAlways"]))
+                throw new ArgumentException("Key vacia: BotmakerApiSaveLogAlways");
+
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BotmakerToken"]))
+                throw new ArgumentException("Key vacia: BotmakerToken");
+
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BotmakerApi"]))
+                throw new ArgumentException("Key vacia: BotmakerApi");
+
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BotmakerMenssagePerRequest"]))
+                throw new ArgumentException("Key vacia: BotmakerMenssagePerRequest");
+
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["BotmakerTimeOut"]))
+                throw new ArgumentException("Key vacia: BotmakerTimeOut");
+
             _saveLogAlways = ((ConfigurationManager.AppSettings["BotmakerApiSaveLogAlways"] ?? "0") == "1");
             _chatBotToken = ConfigurationManager.AppSettings["BotmakerToken"];
             _chatBotUrl = ConfigurationManager.AppSettings["BotmakerApi"];
-
-            if (string.IsNullOrEmpty(_chatBotUrl))
-            {
-                throw new ArgumentException("Key vacia: BotmakerApi");
-            }
-            _messageLenght = int.Parse(ConfigurationManager.AppSettings["BotmakerMenssagePerRequest"]);
+            _messagePerRequest = int.Parse(ConfigurationManager.AppSettings["BotmakerMenssagePerRequest"]);
             _chatBotTimeOut = int.Parse(ConfigurationManager.AppSettings["BotmakerTimeOut"]);
         }
 
@@ -40,7 +50,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var urlAbsolute = string.Format("{0}/{1}", _chatBotUrl, urlRelative);
 
-            var pages = listProactivaMensaje.Count / _messageLenght;
+            var pages = listProactivaMensaje.Count / _messagePerRequest;
             if (pages == 0)
                 pages = 1;
 
@@ -49,8 +59,8 @@ namespace Portal.Consultoras.BizLogic
             for (int i = 1; i <= pages; i++)
             {
                 var group = listProactivaMensaje
-                    .Skip((i - 1) * _messageLenght)
-                    .Take(_messageLenght);
+                    .Skip((i - 1) * _messagePerRequest)
+                    .Take(_messagePerRequest);
 
                 tasks.Add(ProcesarEnviarAsync(urlAbsolute, paisISO, group));
             }
@@ -59,18 +69,6 @@ namespace Portal.Consultoras.BizLogic
             Task.WaitAll(resultTask);
 
             return resultTask.IsCompleted && tasks.All(a => a.Result);
-        }
-
-        [Obsolete]
-        private async Task<bool> ProcesarEnviarAsync(string urlAbsolute, string paisIso, BEChatbotProactivaMensaje mensaje)
-        {
-            var content = CreateJsonContent(paisIso, mensaje);
-            var resultado = await EnviarAsync(urlAbsolute, paisIso, content);
-
-            if (_saveLogAlways || !resultado.Exitoso)
-                SaveDatabaseLog(resultado, new List<BEChatbotProactivaMensaje> { mensaje });
-
-            return resultado.Exitoso;
         }
 
         private async Task<bool> ProcesarEnviarAsync(string urlAbsolute, string paisIso, IEnumerable<BEChatbotProactivaMensaje> mensaje)
@@ -111,29 +109,6 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return resultado;
-        }
-
-        [Obsolete]
-        private static StringContent CreateJsonContent(string paisISO, BEChatbotProactivaMensaje mensaje)
-        {
-            var bodyJson = new[] {
-            new {
-                    variables = mensaje.Variables.Select(v =>
-                        new
-                        {
-                            name = v.Item1,
-                            value = v.Item2
-                        }).ToArray(),
-                    customerQuery = new[] {
-                        new { name = "belcorpConsultoraState-userContext.loginResult.PaisISO", value = paisISO},
-                        new { name = "belcorpConsultoraState-userContext.loginResult.CodigoUsuario", value = mensaje.CodigoUsuario }
-                    },
-                    messageRuleName = mensaje.NombreMensaje,
-                    platform = "MESSENGER"
-                }
-            };
-
-            return new StringContent(JsonConvert.SerializeObject(bodyJson), Encoding.UTF8, "application/json");
         }
 
         private static StringContent CreateJsonContent(string paisISO, IEnumerable<BEChatbotProactivaMensaje> listMensajeProactiva)
