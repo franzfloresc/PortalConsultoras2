@@ -112,7 +112,6 @@ namespace Portal.Consultoras.Web.Controllers
                         ViewBag.TokenPedidoAutenticoOk = 1;
 
                     ViewBag.CodigoEstrategia = GetCodigoEstrategia();
-                    ViewBag.LimiteProductoCarrusel = ViewBag.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.RevistaDigital ? Request.Browser.IsMobileDevice ? 1 : 4 : 0;
                 }
 
                 base.OnActionExecuting(filterContext);

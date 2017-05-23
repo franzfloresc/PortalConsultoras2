@@ -1,5 +1,8 @@
 ﻿
 @using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+
 @{
     ViewBag.Title = "Revista Digital - Detalle";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -9,34 +12,47 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
 }
 
-
-<div class="revista_ficha" style='background: url(@Url.Content("/Content/Images/RevistaDigital/bg_ficha_kadia.jpg"));'>
+<div class="revista_ficha" style='background: url(@Model.EstrategiaDetalle.ImgFichaFondoDesktop);'>
     <div class="revista_fondo_ficha"></div>
     <div class="content_belcorp">       
         <div class="rd_volver">
-            <a href="#"><img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")"/>VOLVER</a>
+            <a href="@Url.Action("Index","RevistaDigital", new { area = ""})">
+                <img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")"/>
+                VOLVER
+            </a>
         </div>
         <div class="content_revista_ficha">
             <div class="content_revista_ficha_descripcion">
-                <div class="tag_nuevo">NUEVO</div>
+                @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
+                {
+                    <div class="etiqueta_nuevo_bpt">
+                        <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" />
+                    </div>
+                }
+                @*<div class="tag_nuevo">NUEVO</div>*@
                 <div class="descripcion_text">
-                    <div class="tit_revista_producto">KADIA SPORT</div>
-                    <div class="revista_separador">CONOCE POR QUÉ KADIA SPORT SERÁ GANADORA</div>
-                    <div class="revista_list">
-                        <b>1</b> Es la primera fragancia femenina de la exitosa línea Kalos.
-                        <br/>
-                        <b>2</b> Tiene un aroma floral frutal de alta duración.
-                        <br/>
-                        <b>3</b> Su envase es moderno y exclusivo.
-                        <br/>
-                        <b>4</b> Véndele a las parejas de quienes te compran Kalos Sport y a mujeres llenas de energía.
-                        <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
-                            <div class="texto_compartelo">Compártelo con tus clientes</div>
-                            <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB" style="float: left;">
-                                <img src="/Content/Images/Esika/facebook.png">
-                            </a>
-                            <hr class="clear">
+                    <div class="tit_revista_producto">@Model.DescripcionResumen</div>
+                    @if (Model.DescripcionDetalle != "")
+                    {
+                        <div class="revista_separador">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
+                        <div class="revista_list">
+                            @Html.Raw(Model.DescripcionDetalle)
+                            @*<b>1</b> Es la primera fragancia femenina de la exitosa línea Kalos.
+                            <br />
+                            <b>2</b> Tiene un aroma floral frutal de alta duración.
+                            <br />
+                            <b>3</b> Su envase es moderno y exclusivo.
+                            <br />
+                            <b>4</b> Véndele a las parejas de quienes te compran Kalos Sport y a mujeres llenas de energía.*@
                         </div>
+                    }
+                    <hr class="clear">
+                    <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
+                        <div class="texto_compartelo">Compártelo con tus clientes</div>
+                        <a class="btn_compartir_facebook_ficha" href="javascript:;" data-compartir="FB" style="float: left;">
+                            <img src="/Content/Images/Esika/facebook.png">
+                        </a>
+                        <hr class="clear">
                     </div>
                 </div>
             </div>
@@ -44,23 +60,24 @@
     </div>
 </div>
 
-
-
-
-
 <div class="pack_personalizado_ficha">
     <div class="content_belcorp">
         <div class="tit_pack">GARANTIZA EL NUEVO ÉXITO DE TU NEGOCIO</div>
-        <div class="">
-        <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+        <div style="width: 30%; display: inline-block; text-align: center;">
+            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
         </div>
-        <div class="revista_producto_video" style="width: 60%">
-            <iframe id="divPlayer" frameborder="0" allowfullscreen="1" title="YouTube video player" width="100%" height="390" src="https://www.youtube.com/embed/Xw4ze_j2Gw8?modestbranding=1&enablejsapi=1&iv_load_policy=3&playerapiid=cp-video-player_component_383&disablekb=1&wmode=transparent&controls=0&fs=0&playsinline=0&showinfo=0&rel=0&autoplay=1&loop=0&vq=auto&origin=https://belcorp.hipchat.com"></iframe>
-        </div>
-        @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+        @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+        {
+            <div class="revista_producto_video" style="width: 60%">
+                <iframe frameborder="0" allowfullscreen="allowfullscreen" title="YouTube video player" width="100%" height="390"
+                        src="@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+            </div>
+        }
     </div>
 </div>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 @section scripts{
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 }

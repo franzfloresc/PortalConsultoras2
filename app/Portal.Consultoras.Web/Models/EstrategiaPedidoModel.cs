@@ -23,6 +23,9 @@ namespace Portal.Consultoras.Web.Models
         public string CUV1 { get; set; }
         public string CUV2 { get; set; }
         public string DescripcionCUV2 { get; set; }
+        public string DescripcionResumen { get; set; } // Puede ser el nombre de un set, o la descripcion simple
+        public string DescripcionDetalle { get; set; } // Es la descripcion extendida 
+        public string DescripcionCortada { get; set; } // Es la descripcion extendida solo con 40 caracteres
         public int Activo { get; set; }
         public int LimiteVenta { get; set; }
         public string CodigoProducto { get; set; }
@@ -71,12 +74,7 @@ namespace Portal.Consultoras.Web.Models
 
         public int Origen { get; set; }
 
-        public string ImgFondoDesktop { get; set; }
-        public string ImgPrevDesktop { get; set; }
-        public string ImgFichaDesktop { get; set; }//en el sello
-        public string UrlVideoDesktop { get; set; }
-        public string ImgFondoMobile { get; set; }
-        public string ImgFichaMobile { get; set; }//en el sello
-        public string UrlVideoMobile { get; set; }
+        public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
+        public TipoEstrategiaModelo TipoEstrategia { get; set; }
     }
 }

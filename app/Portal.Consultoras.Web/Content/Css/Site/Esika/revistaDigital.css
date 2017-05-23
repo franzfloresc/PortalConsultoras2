@@ -545,6 +545,7 @@
 .content_item_ept{
     width:100%;
     position:relative;
+    min-height: 532px;
 }
 .detalle_set_banner{
     position:absolute;
@@ -687,7 +688,7 @@
 .revistadigital-landing{
     width: auto;
     overflow: hidden;
-    float: left;
+    display: inline-block;
     margin-right: 2%;
     margin-left: 2%;
     padding-bottom: 18px;
@@ -696,6 +697,7 @@
 .revistadigital-landing .content_item_carrusel{   
     margin-right: 0;
     width:100%;
+    min-width: 230px;
     padding-top: 10px;
     padding-right: 16px;
     padding-left:16px;

@@ -256,6 +256,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
+    <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
@@ -384,6 +385,7 @@
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
+    <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\FileNameFormat.cs" />
@@ -527,6 +529,7 @@
     <Compile Include="Models\SolicitudCreditoModel.cs" />
     <Compile Include="Models\StockCargaLogModel.cs" />
     <Compile Include="Models\TipoEstrategiaModel.cs" />
+    <Compile Include="Models\TipoEstrategiaModelo.cs" />
     <Compile Include="Models\TipoLinkModel.cs" />
     <Compile Include="Models\UpdatePassSACModel.cs" />
     <Compile Include="Models\UrlModel.cs" />
@@ -3228,7 +3231,7 @@
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\DetalleProducto.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3947,6 +3950,7 @@
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
+    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

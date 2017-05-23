@@ -8,8 +8,8 @@ $(document).ready(function () {
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 3000,
-        prevArrow: '<div class="btn-set-previous" style="left:-14%;"><img src="' + baseUrl + 'Content/Images/RevistaDigital/Kadiavisual2.png")" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/previous.png")" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous" style="right:-14%;"><img src="' + baseUrl + 'Content/Images/RevistaDigital/Kadiavisual2.png")" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/next.png")" alt="" /></a></div>'
+        prevArrow: '<div class="btn-set-previous" style="left:-14%;top: 35%;"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/previous.png" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous" style="right:-14%;top: 35%;"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/next.png" alt="" /></a></div>'
     }).on('afterChange', function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
@@ -29,12 +29,25 @@ $(document).ready(function () {
         prev = prev == 0 ? slides.length - 1 : (prev - 1);
         next = next == slides.length - 1 ? 0 : (next + 1);
 
-        slick.$prevArrow.find("img[data-prev]").attr("src", $.trim($(slides[prev]).attr("data-ImgPrevDesktop")));
-        slick.$nextArrow.find("img[data-prev]").attr("src", $.trim($(slides[next]).attr("data-ImgPrevDesktop")));
+        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
+        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$prevArrow.find("img[data-prev]").hide();
+        }
+        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
+        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$nextArrow.find("img[data-prev]").hide();
+        }
 
     });
 
-    RDDetalleObtener();
+    // para renderizar las vistas previas
+    $('#divCarruselLan').slick('slickGoTo', 0);
+
+    if (location.href.toLowerCase().indexOf("/detalle/") > 0) {
+        RDDetalleObtener();
+    }
 
 });
 
@@ -55,14 +68,11 @@ function OfertaArmarEstrategias(response) {
     response.CodigoEstrategia = "101";
 
     // Listado de producto
-    var urlTemplate = "#estrategia-template";
-
-    var htmlDiv = SetHandlebars(urlTemplate, response, '#divOfertaProductos');
+    var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
     //$('#divOfertaProductos').append(htmlDiv);
 
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
-
 }
 
 function RDDetalleObtener() {
@@ -70,20 +80,23 @@ function RDDetalleObtener() {
         cache: false
     });
 
-    var busquedaModel = {};
+    var nro = location.href.toLowerCase().split('/');
+    nro = nro[nro.length - 1];
 
     jQuery.ajax({
         type: 'POST',
-        url: "/RevistaDigital/GetProductoDetalle",
+        url: "/RevistaDigital/GetProductoDetalle/" + nro,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(busquedaModel),
+        //data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
             //CerrarLoad();
 
             if (response.success == true) {
                 OfertaArmarEstrategias(response);
+                $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
+                $(".ver_detalle_carrusel").remove();
             } else {
                 messageInfoError(response.message);
                 if (busquedaModel.hidden == true) {
