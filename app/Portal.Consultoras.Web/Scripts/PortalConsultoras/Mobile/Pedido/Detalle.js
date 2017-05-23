@@ -452,6 +452,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                         }
                     }
                 });
+                cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {
