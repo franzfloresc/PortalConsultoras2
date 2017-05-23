@@ -275,11 +275,25 @@
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
         <hr class="clear" />
-        <div class="label_pedido_cupon">
-            <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
-        </div>     
-        <div class="texto_cupon_black">Tienes un dscto exclusivo para ti, <a class="link_cupon_home">conócelo aquí</a> </div>
-        <hr class="clear" />   
+    <div class="contenedorCupon">
+        <div class="contenedorCuponConocelo" style="display: none;">
+            <div class="label_pedido_cupon">
+                <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            </div>
+            <div class="texto_cupon_black">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="contenedorCuponInfo" style="display: none;">
+            <div class="label_pedido_cupon">
+                <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            </div>
+            <div class="texto_cupon_black texto_cupon">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+            @*<div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>*@
+        </div>
+    </div>
+        
+    <hr class="clear" />   
         <div class="detalle_pedido_ingresado">
             <span class="titulo_detalle">DETALLE</span>
         </div>
@@ -702,6 +716,9 @@
     </script>
 <!-- PL20 1287 - FIN -->
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
 
 @section Scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -751,7 +768,16 @@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
+        var tieneCupon = '@Model.TieneCupon';
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var paginaOrigenCupon = 21;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

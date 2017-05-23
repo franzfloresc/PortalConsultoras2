@@ -15,6 +15,7 @@
         MOBILE_BIENVENIDA: 2,
         DESKTOP_PEDIDO: 11,
         MOBILE_PEDIDO: 21,
+        MOBILE_PEDIDO_DETALLE: 21
     };
     
     var elements = {
@@ -138,6 +139,10 @@
             $(this).toggleClass('check_intriga');
         });
 
+        $(document).on("click", elements.LinkVer, function () {
+            procesarVerOferta();
+        });
+
         $(document).keyup(function (e) {
             if (e.keyCode == 27) { // escape key maps to keycode `27`
                 cerrarTodosPopupCupones();
@@ -229,7 +234,8 @@
         if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_BIENVENIDA ||
-            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO)
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO ||
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO_DETALLE)
         {
             if (setting.MostrarContenedorPadreCupon) {
                 $(elements.ContenedorPadreCupon).show();

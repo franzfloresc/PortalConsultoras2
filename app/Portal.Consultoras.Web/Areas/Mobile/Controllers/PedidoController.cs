@@ -284,7 +284,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
-            
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
+
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
                       

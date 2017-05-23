@@ -125,5 +125,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal MontoMinimo { get; set; }
         public decimal MontoMaximo { get; set; }
         /* SB20-565 - FINAL */
+        public int TieneCupon { get; set; }
+        public bool EmailActivo { get; set; }
+        public string EMail { get; set; }
+        public string Celular { get; set; }
     }
 }
