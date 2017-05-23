@@ -181,8 +181,8 @@ namespace Portal.Consultoras.BizLogic
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
-            if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true };
-            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl();
+            if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
+            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
                 var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
