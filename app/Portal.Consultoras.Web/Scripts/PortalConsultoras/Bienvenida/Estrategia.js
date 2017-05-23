@@ -385,8 +385,9 @@ function EstructurarDataCarousel(array) {
 
 function EstrategiaVerDetalle(id, origen) {
     if ($.trim(origen) == "") {
-        origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb");
+        origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
     }
+    origen = $.trim(origen) || 0;
     window.location = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
 }
 

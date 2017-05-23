@@ -21,12 +21,27 @@
                 VOLVER
             </a>
         </div>
-        <div class="content_revista_ficha">
+        <div class="content_revista_ficha" data-item="">
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="@Model.CUV2" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+                <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+                <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+                <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+                <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+                <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+                <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+                <input type="hidden" class="Volumen" value="" />
+                <input type="hidden" class="Palanca" value="LAN" />
+            </div>
             <div class="content_revista_ficha_descripcion">
                 @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
                 {
                     <div class="etiqueta_nuevo_bpt">
-                        <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" />
+                        <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
                     </div>
                 }
                 @*<div class="tag_nuevo">NUEVO</div>*@
@@ -69,7 +84,8 @@
         @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
         {
             <div class="revista_producto_video" style="width: 60%">
-                <iframe frameborder="0" allowfullscreen="allowfullscreen" title="YouTube video player" width="100%" height="390"
+                @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
+                <iframe width="100%" height="390" frameborder="0" allowfullscreen
                         src="@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
             </div>
         }

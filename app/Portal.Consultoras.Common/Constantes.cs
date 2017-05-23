@@ -307,14 +307,14 @@ namespace Portal.Consultoras.Common
             //public const int LanzamientoMobileLandingCarrusel = 2622;
             //public const int LanzamientoMobileProductPage = 2631;
 
-            public const int RevistaDigitalDesktopLanding = 1622;
-            public const int RevistaDigitalDesktopLandingCarrusel = 1622;
-            public const int RevistaDigitalDesktopLandingPopUp = 1622;
-            public const int RevistaDigitalDesktopProductPage = 1631;
-            public const int RevistaDigitalMobileLanding = 1622;
-            public const int RevistaDigitalMobileLandingCarrusel = 1622;
-            public const int RevistaDigitalMobileLandingPopUp = 1622;
-            public const int RevistaDigitalMobileProductPage = 1631;
+            public const int RevistaDigitalDesktopLanding = 1711;
+            public const int RevistaDigitalDesktopLandingCarrusel = 1721;
+            public const int RevistaDigitalDesktopLandingPopUp = 1712;
+            public const int RevistaDigitalDesktopProductPage = 1731;
+            public const int RevistaDigitalMobileLanding = 2711;
+            public const int RevistaDigitalMobileLandingCarrusel = 2721;
+            public const int RevistaDigitalMobileLandingPopUp = 2712;
+            public const int RevistaDigitalMobileProductPage = 2731;
 
             /* FIN Revista Digital */
         }

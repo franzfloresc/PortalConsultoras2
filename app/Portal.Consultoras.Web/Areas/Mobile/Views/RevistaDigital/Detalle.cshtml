@@ -14,12 +14,27 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general">
+<div class="content_detalle_set_bpt_general" data-item="">
+    <div data-compartir-campos="" style="display:none;">
+        <input type="hidden" class="CUV" value="@Model.CUV2" />
+        <input type="hidden" class="rsFBMensaje" value="" />
+        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsWAMensaje" value="" />
+        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+        <input type="hidden" class="Volumen" value="" />
+        <input type="hidden" class="Palanca" value="LAN" />
+    </div>
     <div class="content_detalle_set_bpt">
         <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
         @if (Model.EstrategiaDetalle.ImgFichaFondoDesktop != "")
         {
-            <img src="@Model.EstrategiaDetalle.ImgFichaFondoDesktop" />
+            <img src="@Model.EstrategiaDetalle.ImgFichaFondoDesktop" alt="" />
         }        
     </div>
     
@@ -27,7 +42,7 @@
         @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
         {
             <div class="etiqueta_nuevo_bpt">
-                <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" />
+                <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
             </div>
         }
         

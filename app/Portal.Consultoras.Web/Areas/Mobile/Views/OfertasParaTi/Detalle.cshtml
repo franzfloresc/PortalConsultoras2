@@ -364,7 +364,7 @@
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
-        var origenRetorno = '';
+        var origenRetorno = '@Model.OrigenUrl';
         if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi') {
             origenRetorno = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'
         }
