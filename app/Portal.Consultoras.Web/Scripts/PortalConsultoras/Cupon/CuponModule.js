@@ -147,7 +147,7 @@
     }
 
     var procesarVerOferta = function () {
-        if (setting.Cupon != null && setting.Cupon != undefined) {
+        if (setting.Cupon) {
             if (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_RESERVADO) {
                 procesarGana();
             }
@@ -161,7 +161,7 @@
         if (setting.EsEmailActivo) {
             procesarGanaste();
         } else {
-            mostrarPopupConfirmacion();
+            procesarConfirmacion();
         }
     }
 
@@ -171,6 +171,7 @@
 
         cuponPromise.then(function (response) {
             if (response.success) {
+                obtenerCupon();
                 var model = {
                     eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
                     celular: $(elements.TxtCelular).val().trim()
