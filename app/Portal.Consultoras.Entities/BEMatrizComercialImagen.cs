@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Entities
         public string UsuarioModificacion { get; set; }
 
         [DataMember]
+        public string NemoTecnico { get; set; }
+
+        [DataMember]
         public int TotalRegistros { get; set; }
 
         public BEMatrizComercialImagen(IDataRecord row)

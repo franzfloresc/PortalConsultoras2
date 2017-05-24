@@ -292,6 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
+                var nombreArchivoSinExtension = nombreArchivo.Substring(0, nombreArchivo.LastIndexOf('.'));
 
                 var formatoArchivo = GetFileNameFormat(model.PaisID, model.CodigoSAP);
                 var entity = new BEMatrizComercialImagen
@@ -299,7 +300,8 @@ namespace Portal.Consultoras.Web.Controllers
                     IdMatrizComercial = idMatrizComercial,
                     PaisID = model.PaisID,
                     UsuarioRegistro = userData.CodigoConsultora,
-                    UsuarioModificacion = userData.CodigoConsultora
+                    UsuarioModificacion = userData.CodigoConsultora,
+                    NemoTecnico = nombreArchivoSinExtension
                 };
 
                 bool isNewImage = false;
