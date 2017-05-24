@@ -117,7 +117,7 @@
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
-            public const int PersonalizacionShowroom = 9803;
+            public const int PersonalizacionShowroom = 9850;
         }
         
         public class ParametrosNames
