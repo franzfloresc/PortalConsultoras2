@@ -1083,7 +1083,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="Chatbot.html" />
+    <Content Include="ChateaConAlma.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
