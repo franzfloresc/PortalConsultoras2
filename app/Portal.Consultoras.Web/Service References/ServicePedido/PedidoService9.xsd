@@ -639,7 +639,7 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="tipoConfigurado" type="xs:int" />
-        <xs:element minOccurs="0" name="tipoEstrategia" type="xs:int" />
+        <xs:element minOccurs="0" name="estrategiaId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -656,7 +656,7 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="tipoConfigurado" type="xs:int" />
-        <xs:element minOccurs="0" name="tipoEstrategia" type="xs:int" />
+        <xs:element minOccurs="0" name="estrategiaId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -738,7 +738,7 @@
         <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="lista" nillable="true" type="q44:ArrayOfBEEstrategia" />
         <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
         <xs:element minOccurs="0" name="codigoUsuario" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="tipoEstrategia" type="xs:int" />
+        <xs:element minOccurs="0" name="estrategiaId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
