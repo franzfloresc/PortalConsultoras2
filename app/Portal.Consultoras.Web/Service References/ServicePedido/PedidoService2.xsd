@@ -501,6 +501,7 @@
       <xs:element minOccurs="0" name="Foto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="IdMatrizComercialImagen" type="xs:int" />
+      <xs:element minOccurs="0" name="NemoTecnico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="TotalRegistros" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />

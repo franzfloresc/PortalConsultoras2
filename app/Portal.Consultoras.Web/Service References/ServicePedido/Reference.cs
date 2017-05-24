@@ -7628,6 +7628,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int IdMatrizComercialImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NemoTecnicoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7697,6 +7700,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.IdMatrizComercialImagenField.Equals(value) != true)) {
                     this.IdMatrizComercialImagenField = value;
                     this.RaisePropertyChanged("IdMatrizComercialImagen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NemoTecnico {
+            get {
+                return this.NemoTecnicoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NemoTecnicoField, value) != true)) {
+                    this.NemoTecnicoField = value;
+                    this.RaisePropertyChanged("NemoTecnico");
                 }
             }
         }

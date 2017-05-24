@@ -1,4 +1,4 @@
-﻿//dependencia con variable global 'imagen', paginador.js
+﻿//dependencia con variable global 'imagen', paginador.js y MatrizComercialFileUpload.js
 var ProductoSugerido = function (config) {
 
     var _config = {
@@ -22,29 +22,13 @@ var ProductoSugerido = function (config) {
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
-    var _onFileSubmit = function (id, fileName) {
-        $(".qq-upload-list").css("display", "none");
-        waitingDialog({});
-    };
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
 
     var _crearObjetoUpload = function (params) {
-        var uploader = new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
-            element: document.getElementById(_config.fileUploadElementId),
-            action: _config.actualizarMatrizComercialAction,
-            params: {
-                IdMatrizComercial: params.idMatrizComercial,
-                IdMatrizComercialImagen: params.idImagenMatriz,
-                PaisID: _config.paisID,
-                CodigoSAP: params.codigoSAP,
-                DescripcionOriginal: params.descripcionOriginal
-            },
-            onComplete: _uploadComplete,
-            onSubmit: _onFileSubmit,
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-        });
-        $("#" + _config.fileUploadElementId + " .qq-upload-button span").text("Subir Imagen");
+        params.elementId = _config.fileUploadElementId;
+        params.onComplete = _uploadComplete;
+        params.paisID = _config.paisID;
+        _matrizFileUploader.crearFileUpload(params);
     };
 
     var _obtenerMatrizComercialByCUV = function (params) {
@@ -72,12 +56,14 @@ var ProductoSugerido = function (config) {
                 if (response.isNewRecord) {
                     $("#" + _config.fileUploadElementId).empty();
                     var params = {
+                        elementId: _config.fileUploadElementId,
                         idMatrizComercial: response.idMatrizComercial,
                         idImagenMatriz: 0,
                         paisID: _config.paisID,
-                        codigoSAP: response.codigoSap
+                        codigoSAP: response.codigoSap,
+                        onComplete: _uploadComplete
                     };
-                    _crearObjetoUpload(params);
+                    _matrizFileUploader.crearFileUpload(params);
                 }
                 var params = _obtenerParametrosGetImagenes();
                 $("#matriz-imagenes-paginacion").empty();

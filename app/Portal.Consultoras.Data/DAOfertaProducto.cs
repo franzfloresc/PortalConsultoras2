@@ -227,6 +227,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IdMatrizComercial", DbType.AnsiString, entity.IdMatrizComercial);
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
@@ -247,6 +248,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
 
             return Context.ExecuteNonQuery(command);
         }

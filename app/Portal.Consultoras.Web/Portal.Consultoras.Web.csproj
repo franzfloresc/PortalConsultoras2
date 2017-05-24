@@ -2867,6 +2867,7 @@
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
     <Content Include="Scripts\AdminContenido\Estrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />

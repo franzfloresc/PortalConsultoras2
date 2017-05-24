@@ -1,4 +1,4 @@
-﻿//depende de Paginador
+﻿//depende de Paginador.js y MatrizComercialFileUpload.js
 var MatrizComercial = function (config) {
 
     var _config = {
@@ -14,6 +14,8 @@ var MatrizComercial = function (config) {
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
 
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
+
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
 
@@ -21,40 +23,30 @@ var MatrizComercial = function (config) {
             var img = editData.imagenes[x];
             var id = img.IdMatrizComercialImagen;
             var foto = img.Foto.substring(img.Foto.lastIndexOf('/') + 1);
-            var itemData = { elementId: 'file-upload-' + x, imageElementId: 'img-matriz-' + x, idImagenMatriz: id, foto: foto}
-            _crearObjetoUpload(itemData, editData);
+            var itemData = { elementId: 'file-upload-' + x, imageElementId: 'img-matriz-' + x, idImagenMatriz: id, foto: foto };
+            var params = _obtenerParamsFileUpload(itemData, editData);
+            _matrizFileUploader.crearFileUpload(params);
         }
     };
 
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload-add', idImagenMatriz: 0 };
-        _crearObjetoUpload(itemData, editData);
+        var params = _obtenerParamsFileUpload(itemData, editData);
+        _matrizFileUploader.crearFileUpload(params);
         $("#file-upload-add .qq-upload-button span").text("Nueva Imagen");
     };
 
-    var _onFileSubmit = function (id, fileName) {
-        $(".qq-upload-list").css("display", "none");
-        waitingDialog({});
-    };
-
-    var _crearObjetoUpload = function (itemData, editData) {
-        var uploader = new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
-            element: document.getElementById(itemData.elementId),
-            action: _config.actualizarMatrizComercialAction,
-            params: {
-                IdMatrizComercial: editData.idMatrizComercial,
-                IdMatrizComercialImagen: itemData.idImagenMatriz,
-                Foto: itemData.foto,
-                PaisID: editData.paisID,
-                CodigoSAP: editData.codigoSAP,
-                DescripcionOriginal: editData.descripcionOriginal
-            },
-            onComplete: _uploadComplete(itemData.imageElementId),
-            onSubmit: _onFileSubmit,
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-        });
+    var _obtenerParamsFileUpload = function (itemData, editData) {
+        return {
+            elementId: itemData.elementId,
+            idMatrizComercial: editData.idMatrizComercial,
+            idImagenMatriz: itemData.idImagenMatriz,
+            foto: itemData.foto,
+            paisID: editData.paisID,
+            codigoSAP: editData.codigoSAP,
+            descripcionOriginal: editData.descripcionOriginal,
+            onComplete: _uploadComplete(itemData.imageElementId)
+        }
     };
 
     var _uploadComplete = function (imageElementId) {
