@@ -1,5 +1,5 @@
 
-USE [BelcorpPeru]
+USE [BelcorpSalvador]
 
 GO
 
@@ -7,14 +7,14 @@ ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CampaniaID INT,
 	@ConsultoraID VARCHAR(30),
 	@CUV VARCHAR(20),
-	@ZonaID VARCHAR(20)
+	@ZonaID VARCHAR(20),
+	@CodigoAgrupacion VARCHAR(10) = ''
 AS
 /*
 dbo.ListarEstrategiasPedido_SB2 201612,'2','','2161'
 */
 BEGIN
-	SET
- NOCOUNT ON;
+	SET NOCOUNT ON;
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
 	insert into @tablaCuvPedido
@@ -172,7 +172,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 	SELECT
-
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -213,16 +212,17 @@ BEGIN
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 	--ORDER BY te.Orden ASC, op.Orden
-	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 
+THEN te.Orden ELSE op.Orden END ASC
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
+		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 89)
 
-        INSERT INTO #TEMPORAL
+INSERT INTO #TEMPORAL
 		SELECT
 			EstrategiaID,
 			CUV2,
@@ -264,11 +264,10 @@ BEGIN
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-			AND TE.TipoEstrategiaID = 3009
+			AND TE.TipoEstrategiaID = 4
 		--ORDER BY te.Orden ASC, op.Orden
 		ORDER BY CASE 
-WHEN ISNULL(op.Orden,0) = 0
- THEN te.Orden ELSE op.Orden END ASC
+WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	END
 
 	/*SB20-1080 - FIN */
@@ -315,7 +314,8 @@ WHEN ISNULL(op.Orden,0) = 0
 		AND TE.flagRecoPerfil = 0
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 	ORDER BY
-		te.Orden ASC,e.Orden ASC
+		te.Orden ASC,
+		e.Orden ASC
 
 	SELECT
 		T.EstrategiaID,
@@ -341,7 +341,6 @@ WHEN ISNULL(op.Orden,0) = 0
 		TE.DescripcionEstrategia AS DescripcionEstrategia,
 		T.FlagNueva, -- R2621
 		T.TipoTallaColor,
-
 		case
 			when UPPER(TE.DescripcionEstrategia) = 'LANZAMIENTO' then 5		--Lanzamiento
 			else T.TipoEstrategiaImagenMostrar
@@ -364,5 +363,4 @@ WHEN ISNULL(op.Orden,0) = 0
 END
 
 
-
-
+GO

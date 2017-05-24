@@ -19,7 +19,7 @@ function RDSuscripcion() {
             if (data.success == true) {
                 CerrarPopup("#PopRDSuscripcion");
                 $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                AbrirPopup("#PopRDInscrita");
+                AbrirPopupFade("#PopRDInscrita");
             }
         },
         error: function (data, error) {
@@ -55,12 +55,7 @@ function RDInformacion() {
 }
 
 function RDSuscripcionRedireccionar() {
-    var url = location.href + "/";
-    url = url.toUpperCase();
-    if (url.indexOf("/BIENVENIDA/") < 0) {
-        window.location = "/";
-    }
-    else {
-        CerrarPopup("#PopRDInscrita");
-    }
+    var url = urlRevistaDigital;
+    window.location = url;
+        //CerrarPopup("#PopRDInscrita");
 }

@@ -1,5 +1,5 @@
 
-USE [BelcorpPeru]
+USE [BELCORPECUADOR]
 
 GO
 
@@ -13,8 +13,7 @@ AS
 dbo.ListarEstrategiasPedido_SB2 201612,'2','','2161'
 */
 BEGIN
-	SET
- NOCOUNT ON;
+	SET NOCOUNT ON;
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
 	insert into @tablaCuvPedido
@@ -172,7 +171,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 	SELECT
-
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -213,7 +211,8 @@ BEGIN
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 	--ORDER BY te.Orden ASC, op.Orden
-	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 
+THEN te.Orden ELSE op.Orden END ASC
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
@@ -221,8 +220,8 @@ BEGIN
 	IF (@cont1 = @cont2)
 	BEGIN
 		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaID = 92)
-
-        INSERT INTO #TEMPORAL
+	
+INSERT INTO #TEMPORAL
 		SELECT
 			EstrategiaID,
 			CUV2,
@@ -264,11 +263,10 @@ BEGIN
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-			AND TE.TipoEstrategiaID = 3009
+			AND TE.TipoEstrategiaID = 4
 		--ORDER BY te.Orden ASC, op.Orden
 		ORDER BY CASE 
-WHEN ISNULL(op.Orden,0) = 0
- THEN te.Orden ELSE op.Orden END ASC
+WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	END
 
 	/*SB20-1080 - FIN */
@@ -315,7 +313,8 @@ WHEN ISNULL(op.Orden,0) = 0
 		AND TE.flagRecoPerfil = 0
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 	ORDER BY
-		te.Orden ASC,e.Orden ASC
+		te.Orden ASC,
+		e.Orden ASC
 
 	SELECT
 		T.EstrategiaID,
@@ -331,7 +330,7 @@ WHEN ISNULL(op.Orden,0) = 0
 		T.TipoEstrategiaID,
 		T.FotoProducto01,
 		T.ImagenURL,
-		T.LimiteVenta,
+		T.LimiteVenta,	
 		T.MarcaID,
 		T.Orden1,
 		T.Orden2,
@@ -341,7 +340,6 @@ WHEN ISNULL(op.Orden,0) = 0
 		TE.DescripcionEstrategia AS DescripcionEstrategia,
 		T.FlagNueva, -- R2621
 		T.TipoTallaColor,
-
 		case
 			when UPPER(TE.DescripcionEstrategia) = 'LANZAMIENTO' then 5		--Lanzamiento
 			else T.TipoEstrategiaImagenMostrar
@@ -356,13 +354,11 @@ WHEN ISNULL(op.Orden,0) = 0
 	INNER JOIN TipoEstrategia TE ON TE.TipoEstrategiaID = T.TipoEstrategiaID
 	LEFT JOIN Marca M ON M.MarcaId = T.MarcaId
 	--ORDER BY Orden1 ASC, Orden2 ASC, EstrategiaID ASC
-	ORDER BY
- Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
+	ORDER BY Orden1 ASC, CASE WHEN ISNULL(T.Orden2,0) = 0 THEN T.Orden1 ELSE T.Orden2 END ASC, EstrategiaID ASC
 
 	DROP TABLE #TEMPORAL
 	SET NOCOUNT OFF
 END
 
 
-
-
+GO

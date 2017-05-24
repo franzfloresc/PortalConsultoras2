@@ -18,17 +18,36 @@
         <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     </div>
     <div class="texto_usuario_ept">
-        @Model.NombreUsuario, descubre Tu NUEVA REVISTA ONLINE personalizada<br />
-        <span class="texto_light">Encuentra ofertas, bonificaciones, y lanzamientos de las 3 marcas. todos los productos también suman puntos.</span>
+        @Html.Raw(Model.Titulo)
+        <span class="texto_light">@Model.TituloDescripcion</span>
     </div>
 </div>
 <hr class="clear" />
-<div class="content_tabs_landing">
+<input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
+@if (Model.EstadoAccion > 0)
+{
+    <div class="content_tabs_landing">
+        <div class="content_tabs_bpt">
+            <ul class="tabs_pagos">
+                @foreach (var tabs in Model.ListaTabs)
+                {
+                    <li class="one">
+                        <a href="javascript:;" id="@tabs.Id">
+                            <div class="texto_tab_pagos">@tabs.Descripcion</div>
+                            <div class="marcador_tab oculto"></div>
+                        </a>
+                    </li>
+                }
+                <hr id="barCursor" style="opacity: 1;">
+            </ul>
+        </div>
+    </div>
+}
+<div class="content_tabs_landing" style="display:none;">
     <div class="content_tabs_bpt">
         <ul class="tabs_pagos">
             <li class="one">
                 <a href="javascript:;" id="VerVista1">
-                    
                     <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
                     <div class="marcador_tab"></div>
                 </a>
@@ -41,7 +60,6 @@
             </li>
             <li class="three">
                 <a href="javascript:;" id="VerVista3">
-                    
                     <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
                     <div class="marcador_tab oculto"></div>
                 </a>
@@ -52,7 +70,7 @@
     <hr class="clear" />
 </div>
 <hr class="clear" />
-<div id="Vista1">
+<div id="Vista1" style="display: none;">
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
             <div class="content_slider_ept" id="divCarruselLan">
@@ -119,7 +137,7 @@
     </div>
 </div>
 <hr class="clear" />
-<div id="Vista3" class="Vista3">
+<div id="Vista3" class="Vista3" style="display: none;">
     <div class="content_gana_mas">
         <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
         
@@ -444,6 +462,7 @@
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
         var tipoOrigenEstrategia = 17;
+        var estadoAccion = '@Model.EstadoAccion';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
