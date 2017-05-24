@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                     
                     var emailValidado = userData.EMailActivo;
 
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,sr" };
+                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
                     string param_querystring = Util.EncriptarQueryString(parametros);
                     HttpRequestBase request = this.HttpContext.Request;
 

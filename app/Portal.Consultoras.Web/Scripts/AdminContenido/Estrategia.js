@@ -520,12 +520,14 @@
 
                 $("#hdEstrategiaID").val(id);
                
-
                 _clearFields();
                
                 var params = {
-                    EstrategiaID: $("#hdEstrategiaID").val()
+                    EstrategiaID: $("#hdEstrategiaID").val(),
+                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                    CampaniaID: $("#ddlCampania").val()
                 };
+
 
                 _editar(params, id);
             }

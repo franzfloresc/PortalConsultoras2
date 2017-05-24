@@ -1009,10 +1009,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
        
         [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia);
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int tipoEstrategia);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
@@ -1027,7 +1027,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
 
         [OperationContract]
-        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int tipoEstrategia);
+        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);

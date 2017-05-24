@@ -617,8 +617,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null && 
+                    (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi))
                 {
                     try
@@ -685,12 +687,12 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.NumeroPedido = item;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                         {
                             estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
                             
                         }
-                        if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                         {
                             entidad = verficarArchivos(entidad, estrategiaDetalle);
                         }
@@ -1191,21 +1193,21 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID, string Tipo)
+        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID, int EstrategiaID)
         {
             if (ModelState.IsValid)
             {
                 List<ComunModel> lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas = 0;
                 int cantidadEstrategiasSinConfigurar = 0;
-                int tipoEstrategia = Convert.ToInt32(Tipo);
+                int tipoEstrategia = Convert.ToInt32(EstrategiaID);
 
                 try
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 1, tipoEstrategia);
-                        cantidadEstrategiasSinConfigurar = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, tipoEstrategia);
+                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 1, EstrategiaID);
+                        cantidadEstrategiasSinConfigurar = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, EstrategiaID);
                     }
                 }
                 catch (Exception ex)
@@ -1274,7 +1276,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int tipoEstrategia)
+         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
         {
             if (ModelState.IsValid)
             {
@@ -1284,7 +1286,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, tipoEstrategia).ToList();
+                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -1328,7 +1330,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int tipoEstrategia)
+        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID)
         {
             try
             {
@@ -1338,7 +1340,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, tipoEstrategia).ToList();
+                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
                     }
 
                     foreach (var opt in lst)
@@ -1567,7 +1569,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int tipoEstrategia)
+        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int estrategiaId)
         {
             try
             {
@@ -1591,7 +1593,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient ps = new PedidoServiceClient())
                         {
-                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId, userData.CodigoUsuario, tipoEstrategia);
+                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId, userData.CodigoUsuario, estrategiaId);
                         }
                     }
                     catch (Exception ex)
