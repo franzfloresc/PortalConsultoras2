@@ -1467,7 +1467,7 @@
    min-height: 200px;
    margin-top: -24px;
    position: relative;
-   padding-top: 70px;
+   /*padding-top: 70px;*/
    padding-bottom: 80px;
 }
 .titulo_funciona{
@@ -1476,6 +1476,8 @@
     font-weight:300;
     text-transform:uppercase;
     letter-spacing:1px;
+    padding-top:70px;
+    margin-bottom:20px;
 }
 .bloque_respuesta{
     width:32%;
@@ -1484,11 +1486,35 @@
     font-size:14px;
     line-height:18px;
     float: left;
-    margin-top: 40px;
+    margin-top: 20px;
+    LETTER-SPACING: 0.5PX;
 }
 .bloque_respuesta:last-child{
     margin-right:0;
 }
 .bloque_respuesta img{
     margin-bottom:12px;
+}
+.content_preguntas{
+    font-family:'Lato';
+    font-size:15px;
+    width:48%;
+    margin-right:4%;
+    border-bottom:1px solid black;
+    padding-top:15px;
+    padding-bottom:15px;
+    padding-right:10%;
+    float:left;
+    /*margin-top:10px;*/
+    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+}
+.content_preguntas:nth-child(2n){
+    margin-right:0;
+
+}
+.seccion_preguntas{
+    padding-bottom: 70px;
+    margin-bottom: 50px;
+    border-bottom: 1.5px solid black;
+    overflow: hidden;
 }
