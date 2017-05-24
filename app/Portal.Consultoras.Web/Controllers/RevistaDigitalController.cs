@@ -17,10 +17,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                    return RedirectToAction("Index", "Bienvenida");
+                var model = new RevistaDigitalModel();
+                model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
 
-                var model = IndexModel();
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                {
+                    if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                    {
+                        if (model.EstadoSuscripcion == 1) // Suscrita
+                        {
+                            return View(model);
+                        }
+                    }
+
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                model = IndexModel();
+                model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
 
                 return View(model);
             }
