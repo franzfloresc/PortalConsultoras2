@@ -952,8 +952,7 @@ function SetMarcaGoogleAnalyticsTermino() {
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
-
-
+    
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -974,19 +973,19 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     waitingDialog({});
-                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
+                    location.href = baseUrl + 'Pedido/PedidoValidado'
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    alert_msg_pedido(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+                AbrirMensaje(data.message);
         },
-        error: function (error) {
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;

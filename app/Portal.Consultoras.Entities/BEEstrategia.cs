@@ -166,6 +166,31 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; }
 
+        public BEEstrategia(IDataRecord row, bool partial)
+        {
+
+            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
+                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
+
+            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
+                DescripcionCUV2 = row["DescripcionCUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
+                CUV2 = row["CUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
+                Precio2 = Convert.ToDecimal(row["Precio2"]);
+
+            if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
+                ID = Convert.ToInt32(row["ID"]);
+
+            if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
+                FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]);
+
+            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+                CodigoProducto = row["CodigoProducto"].ToString();
+
+        }
         public BEEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)

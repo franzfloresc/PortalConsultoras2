@@ -17,8 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                //    return RedirectToAction("Index", "Bienvenida");
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                    return RedirectToAction("Index", "Bienvenida");
 
                 var model = IndexModel();
 
@@ -60,17 +60,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = "",
-                //        lista = new List<ShowRoomOfertaModel>(),
-                //        cantidadTotal = 0,
-                //        cantidad = 0
-                //    });
-                //}
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
                 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
