@@ -1959,7 +1959,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
             {
-                if(resultado.Reserva) CambioBannerGPR(true);
+                if (resultado.Reserva) CambioBannerGPR(true);
                 Session["ObservacionesPROL"] = listObservacionModel;
                 if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
             }
