@@ -380,7 +380,8 @@
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
-            public const int Cupon = 11;
+
+            public const int Cupon = 10;
         }
 
         // Constantes de los motivos de GPR.
