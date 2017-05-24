@@ -23,69 +23,113 @@
     </div>
 </div>
 <hr class="clear" />
-<div class="catalogoPersonalizadoBloque">
-    <div class="content_belcorp">
-        <div class="content_slider_ept" id="divCarruselLan">
-            @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
+<div class="content_tabs_landing">
+    <div class="content_tabs_bpt">
+        <ul class="tabs_pagos">
+            <li class="one">
+                <a href="javascript:;" id="VerVista1">
+                    
+                    <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
+                    <div class="marcador_tab"></div>
+                </a>
+            </li>
+            <li class="two">
+                <a href="javascript:;" id="VerVista2">                   
+                    <div class="texto_tab_pagos">VER CAMPAÑA 13</div>
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>
+            <li class="three">
+                <a href="javascript:;" id="VerVista3">
+                    
+                    <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>            
+            <hr id="barCursor" style="opacity: 1;">
+        </ul>
+    </div>
+    <hr class="clear" />
+</div>
+<hr class="clear" />
+<div id="Vista1">
+    <div class="catalogoPersonalizadoBloque">
+        <div class="content_belcorp">
+            <div class="content_slider_ept" id="divCarruselLan">
+                @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
+            </div>
+        </div>
+    </div>
+    <hr class="clear" />
+    <div class="BloqueLandingRD">
+        <div class="content_belcorp">
+            <div>
+                <div class="titulo_pagina">MIS OFERTAS</div>
+                <div id="divFiltros">
+                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                        @foreach (var item in Model.FiltersByBrand)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                        @foreach (var item in Model.FiltersBySorting)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                </div>
+                @*<div class="content_buscador_landing">
+                        <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
+                        <a class="buscar_landing_ept">BUSCAR</a>
+                    </div>*@
+                <hr class="clear" />
+                <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
+                    <div style="display:inline-block;">
+                        Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
+                    </div>
+                    <div style="display:inline-block; margin: 0 0 0 15px;">
+                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="clear" />
+            <div class="">
+                <hr class="clear" />
+                <div id="divOfertaProductos" data-divitem="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" style="text-align: center;"></div>
+                <hr class="clear" />
+            </div>
+        </div>
+        <hr class="clear" />
+    </div>
+    <!--FIN-->
+
+    <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+        <div class="titulo_producto_agregado">
+            ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+        </div>
+        <div class="div_bonotes_producto">
+            <div class="child_center_botones">
+                <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+                <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+            </div>
         </div>
     </div>
 </div>
 <hr class="clear" />
-<div class="BloqueLandingRD">
-    <div class="content_belcorp">
-        <div>
-            <div class="titulo_pagina">MIS OFERTAS</div>
-            <div id="divFiltros">
-                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                    @foreach (var item in Model.FiltersByBrand)
-                    {
-                        <option value="@item.Codigo">@item.Descripcion</option>
-                    }
-                </select>
-                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                    @foreach (var item in Model.FiltersBySorting)
-                    {
-                        <option value="@item.Codigo">@item.Descripcion</option>
-                    }
-                </select>
-            </div>
-            @*<div class="content_buscador_landing">
-                <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-                <a class="buscar_landing_ept">BUSCAR</a>
-            </div>*@
-            <hr class="clear" />
-            <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
-                <div style="display:inline-block;">
-                    Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                </div>
-                <div style="display:inline-block; margin: 0 0 0 15px;">
-                    <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                        <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr class="clear" />
-        <div class="">
-            <hr class="clear" />
-            <div id="divOfertaProductos" data-divitem="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" style="text-align: center;"></div>
-            <hr class="clear" />
-        </div>
-    </div>
-    <hr class="clear" />
-</div>
-<!--FIN-->
+<div id="Vista3" class="Vista3">
+    <div class="content_gana_mas">
+        <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
+        <div class="content_texto_gana">
+            <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
 
-<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-    <div class="titulo_producto_agregado">
-        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
-    </div>
-    <div class="div_bonotes_producto">
-        <div class="child_center_botones">
-            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
         </div>
+        <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
+        <hr class="clear" />
     </div>
+    
 </div>
 
 <div id="DialogMensajesBanner" style="display: none;">
@@ -323,6 +367,19 @@
 </script>
 
 @section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#VerVista1").on("click", function () {
+                $('#Vista1').show();
+                $('#Vista3').hide();
+            });
+            $("#VerVista3").on("click", function () {
+                $('#Vista1').hide();
+                $('#Vista3').show();
+                $('.Vista3').css('padding-top', '90px');
+            });
+        });
+    </script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;

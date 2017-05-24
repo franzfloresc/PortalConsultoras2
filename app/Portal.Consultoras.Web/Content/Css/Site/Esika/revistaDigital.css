@@ -1352,3 +1352,79 @@
         transform: translateX(-4px);
     }
 }
+
+/*MODIFICACION LANDING*/
+.content_tabs_landing{
+    position: relative;
+    background: #f6f6f6;
+    border-bottom: 2px solid black;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.25);
+}
+.content_tabs_bpt{
+    width:690px;
+    height:50px;
+    margin: 0 auto;
+}
+.content_tabs_bpt .tabs_pagos li{
+    width:33%;
+}
+.content_tabs_bpt .tabs_pagos li a{
+    padding-top:0;
+    padding-bottom:0;
+    line-height: 46px;
+}
+.content_tabs_bpt hr {   
+    width: 33%;    
+}
+.content_tabs_bpt .two:hover ~ hr {
+  margin-left: 33%;
+}
+
+.content_tabs_bpt .three:hover ~ hr {
+  margin-left: 66%;
+}
+.content_revista_izquierda{
+    width:250px;
+    height:513px;
+    position:absolute;
+    left:0;
+        top: -40px;
+}
+.content_revista_izquierda img{
+    width:100%;
+}
+.Vista3{
+    min-height: 500px;
+    display: none;
+    padding-top: 35px;
+    position: relative;
+    /* top: -30px; */
+    
+}
+.content_revista_derecha{
+   position: absolute;
+    right: 0;
+    width: 415px;
+    /*height: 576px;*/
+    top: -104px;
+    z-index: 105;
+}
+.content_revista_derecha img{
+    width:100%;
+}
+.content_gana_mas{
+    margin-top:25px;
+    position:relative;
+}
+.content_texto_gana{
+   width:420px;   
+   margin:0 auto;
+}
+.titulo_gana_landing{
+    font-family:'Lato';
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:1px;
+}
