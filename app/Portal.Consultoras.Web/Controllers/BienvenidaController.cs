@@ -248,10 +248,21 @@ namespace Portal.Consultoras.Web.Controllers
                     model.limiteMaximoTelef = 15;
                 }
                 //
-                
+
                 #region Lógica de Popups
-                
-                model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model);
+
+                PopupForzado popupForzado = new PopupForzado();
+
+                if (TempData["MostrarPopupCuponGanaste"] != null)
+                {
+                    popupForzado.Mostrar = true;
+                    popupForzado.TipoPopup = Convert.ToInt32(TempData["TipoPopup"]);
+                }
+                else {
+                    popupForzado.Mostrar = false;
+                    popupForzado.TipoPopup = 0;
+                }
+                model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
 
                 #endregion
 
@@ -309,15 +320,21 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception) { return listaPopUps; }
         }
 
-        private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model)
+        private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model, PopupForzado popupForzado)
         {
             int TipoPopUpMostrar = 0;
             List<BEPopupPais> listaPopUps = new List<BEPopupPais>();
 
+            if (popupForzado.Mostrar)
+            {
+                TipoPopUpMostrar = popupForzado.TipoPopup;
+                TempData["MostrarPopupCuponGanaste"] = null;
+                return TipoPopUpMostrar;
+            }
+
             if (Session["TipoPopUpMostrar"] != null)
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
-                return TipoPopUpMostrar;
             }
             else {
                 listaPopUps = ObtenerListaPopupsDesdeServicio();
@@ -2103,6 +2120,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
                     TempData["MostrarPopupCuponGanaste"] = true;
+                    TempData["TipoPopup"] = Constantes.TipoPopUp.Cupon;
                 }
 
                 userData.EMailActivo = true;
