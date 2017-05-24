@@ -2062,8 +2062,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
-                    userData.EMailActivo = true;
-
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr");
                 }
@@ -2072,6 +2070,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TempData["MostrarPopupCuponGanaste"] = true;
                 }
 
+                userData.EMailActivo = true;
                 SetUserData(userData);
 
             }

@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     "use strict"
-
-    var _mostrarPopupCuponGanaste = (mostrarPopupCuponGanaste ? mostrarPopupCuponGanaste.toLowerCase() == "true" : false);
+    
+    var _mostrarPopupCuponGanaste = ((typeof mostrarPopupCuponGanaste != 'undefined') ? mostrarPopupCuponGanaste.toLowerCase() == "true" : false);
     var objInitializer = {
         tieneCupon: tieneCupon,
         paginaOrigenCupon: paginaOrigenCupon,
