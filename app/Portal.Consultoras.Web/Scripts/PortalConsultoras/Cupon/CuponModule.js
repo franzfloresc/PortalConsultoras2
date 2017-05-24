@@ -15,6 +15,7 @@
         MOBILE_BIENVENIDA: 2,
         DESKTOP_PEDIDO: 11,
         MOBILE_PEDIDO: 21,
+        MOBILE_PEDIDO_DETALLE: 21
     };
     
     var elements = {
@@ -85,15 +86,25 @@
     }
 
     var bindEvents = function () {
-        $(elements.LinkVer).on("click", function () {
+        $("div#chckTerminosCondiciones").click(function () {
+            $(this).toggleClass('check_intriga');
+        });
+
+        $(document).keyup(function (e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                cerrarTodosPopupCupones();
+            }
+        });
+
+        $(document).on("click", elements.LinkVer, function () {
             procesarVerOferta();
         });
 
-        $(elements.LinkVer2).on("click", function () {
+        $(document).on("click", elements.LinkVer2, function () {
             procesarVerOferta();
         });
 
-        $(elements.BtnConfirmarDatos).on("click", function () {
+        $(document).on("click", elements.BtnConfirmarDatos, function () {
             var aceptoTerCond = $(elements.CheckTerminosCondiciones).hasClass("check_intriga");
             var correoIngresado = $(elements.TxtCorreoIngresado).val().trim();
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
@@ -113,11 +124,11 @@
             }
         });
 
-        $(elements.BtnModificarDatos).on("click", function () {
+        $(document).on("click", elements.BtnModificarDatos, function () {
             mostrarPopupGana();
         });
 
-        $(elements.BtnEnviarNuevamente).on("click", function () {
+        $(document).on("click", elements.BtnEnviarNuevamente, function () {
             //AbrirMensaje("Enviando correo de confirmación nuevamente...", "CORREO DE CONFIRMACIÓN");
             var model = {
                 eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
@@ -133,20 +144,10 @@
                 }
             }, function (xhr, status, error) { });
         });
-
-        $("div#chckTerminosCondiciones").click(function () {
-            $(this).toggleClass('check_intriga');
-        });
-
-        $(document).keyup(function (e) {
-            if (e.keyCode == 27) { // escape key maps to keycode `27`
-                cerrarTodosPopupCupones();
-            }
-        });
     }
 
     var procesarVerOferta = function () {
-        if (setting.Cupon != null && setting.Cupon != undefined) {
+        if (setting.Cupon) {
             if (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_RESERVADO) {
                 procesarGana();
             }
@@ -160,7 +161,7 @@
         if (setting.EsEmailActivo) {
             procesarGanaste();
         } else {
-            mostrarPopupConfirmacion();
+            procesarConfirmacion();
         }
     }
 
@@ -170,6 +171,7 @@
 
         cuponPromise.then(function (response) {
             if (response.success) {
+                obtenerCupon();
                 var model = {
                     eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
                     celular: $(elements.TxtCelular).val().trim()
@@ -229,7 +231,8 @@
         if (setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_BIENVENIDA ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.DESKTOP_PEDIDO ||
             setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_BIENVENIDA ||
-            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO)
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO ||
+            setting.PaginaOrigen == CONS_PAGINA_ORIGEN.MOBILE_PEDIDO_DETALLE)
         {
             if (setting.MostrarContenedorPadreCupon) {
                 $(elements.ContenedorPadreCupon).show();

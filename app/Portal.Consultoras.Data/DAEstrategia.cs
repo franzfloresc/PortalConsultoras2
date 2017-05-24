@@ -263,26 +263,22 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteScalar(command).ToString();
         }
 
-        public int GetCantidadOfertasParaTi(int campaniaId, int tipoConfigurado, int tipo)
         {
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadOfertasParaTi"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
-                Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, tipo);
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
             }
             return result;
         }
 
-        public IDataReader GetOfertasParaTiByTipoConfigurado(int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetOfertasParaTiByTipoConfigurado"))
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
-                Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, tipoEstrategia);
                 return Context.ExecuteReader(command);
             }
         }
@@ -347,7 +343,6 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int tipoEstrategia)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {
@@ -368,11 +363,9 @@ namespace Portal.Consultoras.Data
             var parameter = new SqlParameter("@EstrategiaTemporal", SqlDbType.Structured);
             parameter.TypeName = "dbo.EstrategiaTemporalType";
             parameter.Value = new GenericDataReader<BEEstrategiaType>(listaTypes);
-
-            command.Parameters.Add("@TipoEstrategia", SqlDbType.Int).Value = tipoEstrategia;
            
             var parameter2 = new SqlParameter("@TipoEstrategia", SqlDbType.Int);
-            parameter2.Value = tipoEstrategia;
+            parameter2.Value = estrategiaId;
 
             command.Parameters.Add(parameter);
             command.Parameters.Add(parameter2);

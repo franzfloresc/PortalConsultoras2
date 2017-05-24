@@ -1191,21 +1191,18 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID, string Tipo)
         {
             if (ModelState.IsValid)
             {
                 List<ComunModel> lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas = 0;
                 int cantidadEstrategiasSinConfigurar = 0;
-                int tipoEstrategia = Convert.ToInt32(Tipo);
+                int tipoEstrategia = Convert.ToInt32(EstrategiaID);
 
                 try
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        cantidadEstrategiasConfiguradas = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 1, tipoEstrategia);
-                        cantidadEstrategiasSinConfigurar = ps.GetCantidadOfertasParaTi(userData.PaisID, int.Parse(CampaniaID), 2, tipoEstrategia);
                     }
                 }
                 catch (Exception ex)
@@ -1274,7 +1271,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
             if (ModelState.IsValid)
             {
@@ -1284,7 +1280,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, tipoEstrategia).ToList();
                     }
                 }
                 catch (Exception ex)
@@ -1328,7 +1323,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
             try
             {
@@ -1338,7 +1332,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, tipoEstrategia).ToList();
                     }
 
                     foreach (var opt in lst)
@@ -1567,7 +1560,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult InsertEstrategiaOfertaParaTi(int campaniaId, int tipoConfigurado, int tipoEstrategia)
         {
             try
             {
@@ -1591,7 +1583,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient ps = new PedidoServiceClient())
                         {
-                            ps.InsertEstrategiaOfertaParaTi(userData.PaisID, lst.ToArray(), campaniaId, userData.CodigoUsuario, tipoEstrategia);
                         }
                     }
                     catch (Exception ex)

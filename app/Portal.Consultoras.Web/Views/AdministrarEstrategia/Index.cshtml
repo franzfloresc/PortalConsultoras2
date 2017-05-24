@@ -794,7 +794,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId != 7) {
+                if (estrategiaId !== 4  && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
                     alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
@@ -821,7 +821,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
-                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
+                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
             };
 
             waitingDialog({});
@@ -855,7 +855,7 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 1,
-                tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
+                estrategiaId: $('#ddlTipoEstrategia').find(':selected').data('id')
             };
 
             waitingDialog({});
@@ -1041,7 +1041,7 @@
                         $("#txtPrecio").val("");
                         $("#txtCUV").val("");
 
-                        for (var i = 1; i <= nroImagenes; i++) {
+                        /*for (var i = 1; i <= nroImagenes; i++) {
                             idImagen = ('0' + i).substr(-2);
                             objPreview = $('#preview' + i);
                             objChkImagen = $('#chkImagenProducto' + idImagen);
@@ -1056,7 +1056,7 @@
                                 objChkImagen.attr('disabled', true);
                             }
                             objChkImagen.attr('checked', false);
-                        }
+                        }*/
 
                         closeWaitingDialog();
                     }
@@ -1105,7 +1105,7 @@
             datatype: 'json',
             postData: ({
                 CampaniaID: $("#ddlCampania").val(),
-                Tipo: $("#ddlTipoEstrategia option:selected").attr("data-id")
+                EstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
@@ -1524,7 +1524,6 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        //var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
         if (rowObject[10] == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
@@ -1587,7 +1586,6 @@
         var parametros = {
             campaniaId: parseInt($("#ddlCampania").val()),
             tipoConfigurado: parseInt(tipo),
-            tipoEstrategia: $("#ddlTipoEstrategia option:selected").attr("data-id")
         };
 
         $('#listGrillaCuv1').setGridParam({ postData: parametros });
