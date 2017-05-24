@@ -88,16 +88,17 @@ namespace Portal.Consultoras.BizLogic
                 using (var client = new HttpClient())
                 {
                     client.Timeout = TimeSpan.FromSeconds(_chatBotTimeOut);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
                     client.DefaultRequestHeaders.Add("access-token", _chatBotToken);
 
                     var response = await client.PutAsync(urlAbsolute, content);
                     if (!response.IsSuccessStatusCode)
                     {
-                        resultado.Respuesta = response.StatusCode.ToString();
-                        resultado.ErrorLog = await response.Content.ReadAsStringAsync();
+                        resultado.ErrorLog = response.StatusCode.ToString();
                     }
 
+                    resultado.Respuesta = await response.Content.ReadAsStringAsync();
                     resultado.Exitoso = response.IsSuccessStatusCode;
                 }
             }
