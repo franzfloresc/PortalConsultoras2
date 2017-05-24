@@ -68,7 +68,7 @@
 
                         <div class="selectP2 seleccion_pagina textboxSB2">
                             @*@Html.TextBoxFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Motivo de Rechazo" })*@
-                            @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB", @placeholder = "Comentarios adicionales...", maxlength = 255 })
+                            @Html.TextAreaFor(m => m.MotivoRechazo, new { @class = "field_85 textboxSB espaciadoDeLinea", @placeholder = "Comentarios adicionales...", maxlength = 255 })
                         </div>
                     </div>
                     <div class="div-3">
@@ -126,6 +126,10 @@
 
 
 <style>
+
+    .textboxSB.espaciadoDeLinea{
+        line-height:17px;
+    }
 
     .btnRechazarPost {
         float: none !important;
