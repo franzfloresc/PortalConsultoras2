@@ -312,6 +312,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.SolicitudPostulanteID = id;
                     var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
 
+                    if (solicitudPostulante.Latitud == null || solicitudPostulante.Longitud == null)
+                    { 
+                    }
+
                     if (CodigoISO == Pais.Chile)
                     {
                         switch (direccion.Length)
@@ -1435,7 +1439,8 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
                 }
 
-
+                solicitudPostulante.Latitud = latitud;
+                solicitudPostulante.Longitud = longitud;
                 sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 //sv.ActualizarEstado(CodigoISO, solicitudPostulanteID, EnumsTipoParametro.EstadoGEO,
                 //    solicitudPostulante.EstadoGEO.Value);
@@ -1928,7 +1933,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SolicitudPostulanteID = i.SolicitudPostulanteID,
                 FechaCreacion = i.FechaCreacion == null ? "" : i.FechaCreacion.Value.ToString("dd/MM/yyyy hh:mm:ss tt"),
                 Tipo = i.TipoSolicitud,
-                FuenteIngreso = i.FuenteIngreso,
+                FuenteIngreso = i.FuenteIngreso == "MovilSE" ? "AppSE" : i.FuenteIngreso,
                 NombreCompleto = i.NombreCompleto,
                 NumeroDocumento = i.NumeroDocumento,
                 CodigoZona = i.CodigoZona,
@@ -4329,7 +4334,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     FechaCreacion = c.FechaCreacion,
                     TipoSolicitud = c.TipoSolicitud,
-                    FuenteIngreso = c.FuenteIngreso,
+                    FuenteIngreso = c.FuenteIngreso == "MovilSE" ? "AppSE" : c.FuenteIngreso,
                     NombreCompleto = c.NombreCompleto,
                     NumeroDocumento = c.NumeroDocumento,
                     CodigoZona = c.CodigoZona,

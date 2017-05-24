@@ -1651,26 +1651,26 @@
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
     function buildDocsSV(solicitudPostulanteID) {
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));//ImagenCDD
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'CONTRATO COMPRA VENTA Y PAGARE'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO Y DECLARACIÓN JURADA'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));//ImagenContrato
 
 
     }
     function buildDocsGT(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'ACUERDO DE COMPRA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'ACUERDO DE COMPRA Y PAGARE'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));
     }
     function buildDocsPA(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'CONTRATO COMPRA VENTA Y PAGARE'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));
     }
 
@@ -1720,14 +1720,14 @@
         //Documentos Fiador
         if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA') {
             if (codigoIso == 'SV') {
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN Y DECLARACIÓN JURADA'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));//ImagenDniAval
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));//ImagenReciboOtraMarca
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN Y DECLARACIÓN JURADA'));//ImagenCreditoAval
             }
             else if (codigoIso == 'GT') {
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));//ImagenDniAval
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));//ImagenReciboOtraMarca
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));//ImagenCreditoAval
             }
             else if (codigoIso == 'PA') {
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));

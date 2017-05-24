@@ -606,7 +606,7 @@
                 </div>
                 <div class="campos_regionZonaSeccion">
                     <label>Regi&oacute;n/Zona/Secci&oacute;n</label>
-                    <input type="text" id="regionXY" name="region" value="@Model.Region" />
+                    <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
                     <button type="button" id="btnGrabarPosicion">Grabar Posici&oacute;n</button>
                 </div>
@@ -1185,53 +1185,7 @@
         });
     });
 
-    $('#btnConfirmarGrabarPosicion').click(function () {
-        $('#btnGrabarPosicion').attr('disabled', true);
-        $('#btnModificarDireccion').removeClass('HabInaButton');
-        $('#btnGrabarDireccion').removeClass('HabInaButton');
-        $('#btnActualizarSeccion').removeClass('HabInaButton');
-        $('#btnModificarDireccion').attr('disabled', false);
-        $('#btnGrabarDireccion').attr('disabled', false);
-        $('#btnActualizarSeccion').attr('disabled', false);
-        if (map) {
-            var center = map.center;
-
-            // post
-            var data = {
-                id: $('#SolicitudPostulanteID').val(),
-                latitud: parseFloat(currentMaker.position.lat()),
-                longitud: parseFloat(currentMaker.position.lat()),
-                direccionCorrecta: $(this).attr('data-direccion-correcta'),
-                direccionCadena: $('#DireccionCadena').val(),
-                region: $('#NombreRegion').val(),
-                comuna: $('#NombreComuna').val(),
-                codregion: $('#Region').val(),
-                codzona: $('#Zona').val(),
-                codseccion: $('#Seccion').val(),
-                codterritorio: $('#Territorio').val(),
-                direccion: $('#Direccion').val()
-            };
-
-
-
-            // waitingDialog({});
-            generalLoading();
-
-            $.post('@Url.Action("ConsultarUbicacion", "Unete")', data, function (actualizado) {
-                if (actualizado) {
-                    //  modal.dialog('close');
-                    $('#divConsultarUbicacion').hide();
-                    fnGrilla();
-                }
-            }).complete(function () {
-                // closeWaitingDialog({});
-                generalCloseLoading();
-                $('#btnEditarPosicion').hide();
-                $('#btnGrabarPosicion').show();
-                $('#btnGrabarPosicion').attr('disabled', false);
-            });
-        }
-    });
+    
 
     $('.fila-direccion').click(function () {
         $('#btnAceptar').attr('disabled', false);
@@ -1316,11 +1270,16 @@
     });
     function GetMarkerMorado() {
         var makerMorado = null;
-        for (var i in markers) {
+        for (var i = 0; i < markers.length; i++) {
             if (markers[i].icon = urlContentImages + 'icono-maps-lbel.png') {
                 return markers[i];
             }
         }
+        //for (var mark in markers) {
+        //    if (mark.icon = urlContentImages + 'icono-maps-lbel.png') {
+        //        return mark;
+        //    }
+        //}
         return makerMorado;
     }
     function MostrarTerritorio(lat, lnt) {
@@ -1377,10 +1336,11 @@
 
                     map.fitBounds(bounds);
 
-                    $('#regionXY').html(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                    //$('#regionXY').val('');
+                    $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
 
                 } else {
-                    $('#regionXY').html('');
+                    $('#regionXY').val('');
                     //$('mensaje_territorio').show();
                 }
 
@@ -1401,33 +1361,11 @@
     //    }
     //}
 
-    //function ComprobarMarkerMorado()
-    //{
-    //    for (var i in markers) {
-    //        var marker = markers[i];
-    //        if (marker.Icon) {
-
-    //        }
-    //    }
-    //}
-
-    //function QuitarMarkerMoradoAll() {
-    //    for (var i in markers) {
-    //        var marker = markers[i];
-    //        marker.setIcon = urlContentImages + 'icono-maps-esika.png';
-    //    }
-    //}
-
-
     function EditMapa() {
 
         if (google && google.maps) {
             modalOpcion.dialog('close');
-            //var markerBounds = new google.maps.LatLngBounds();
-            //map = new google.maps.Map(document.getElementById('mapa'), {
-            //    center: { lat: -33.8688, lng: 151.2195 },
-            //    zoom:15
-            //});
+
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: { lat: -12.0463667, lng: -77.0427891 },
                 zoom: 18,
@@ -1437,15 +1375,6 @@
             var infowindow = new google.maps.InfoWindow();
             //searchBox
             var searchBox = new google.maps.places.SearchBox(document.getElementById('inputSearchBox'));
-            //var boundsNM = new google.maps.LatLngBounds();
-            //var marker = new google.maps.Marker({
-            //    map: map,
-            //    anchorPoint: new google.maps.Point(0, -29),
-            //    draggable : true
-            //});
-            //map.fitBounds(boundsNM);
-            ////map.fitBounds(markerBounds);
-            //map.setZoom(15);
 
             // Try HTML5 geolocation.
             if (navigator.geolocation) {
@@ -1463,20 +1392,31 @@
 
                     map.setCenter(pos);
                     markers.push(marker);
-                    currentMaker = marker;
+
+                    marker.addListener('click', function () {
+                        //Change the marker icon
+                        pintarRojo();
+                        setMarkerOnMap(map, this);
+                        this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                        MostrarTerritorio(this.position.lat(), this.position.lng());
+                    });
+
                     map.setZoom(18);
+                    //Se agregó
+                    //MostrarTerritorio(pos.lat,pos.lng);
                 }, function () { });
             }
 
             map.addListener('drag', function () {
                 //   searchBox.setBounds(map.getBounds());
-                if (currentMaker) {
-                    currentMaker.setPosition(map.getCenter());
-                    $('#coordenadasX').val(currentMaker.position.lat());
-                    $('#coordenadasY').val(currentMaker.position.lng());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    markerMorado.setPosition(map.getCenter());
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     var pos = {
-                        lat: currentMaker.position.lat(),
-                        lng: currentMaker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
 
                     };
                     //geocodePosition(pos);
@@ -1485,13 +1425,14 @@
             });
             map.addListener('dragend', function () {
                 // searchBox.setBounds(map.getBounds());
-                if (currentMaker) {
-                    currentMaker.setPosition(map.getCenter());
-                    $('#coordenadasX').val(currentMaker.position.lat());
-                    $('#coordenadasY').val(currentMaker.position.lng());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    markerMorado.setPosition(map.getCenter());
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     var pos = {
-                        lat: currentMaker.position.lat(),
-                        lng: currentMaker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
                 }
@@ -1500,38 +1441,21 @@
 
             map.addListener('bounds_changed', function () {
                 // searchBox.setBounds(map.getBounds());
-                if (currentMaker) {
-                    $('#coordenadasX').val(currentMaker.position.lat());
-                    $('#coordenadasY').val(currentMaker.position.lng());
-                    currentMaker.setPosition(map.getCenter());
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                    markerMorado.setPosition(map.getCenter());
+                    $('#coordenadasX').val(markerMorado.position.lat());
+                    $('#coordenadasY').val(markerMorado.position.lng());
                     var pos = {
-                        lat: currentMaker.position.lat(),
-                        lng: currentMaker.position.lng()
+                        lat: markerMorado.position.lat(),
+                        lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
                 }
             });
 
-            //evento searchBox changed
-            //google.maps.event.addListener(searchBox, 'places_changed', function () {
-            //    marker.setVisible(false);
-            //    var places = searchBox.getPlaces();
-            //    var boundsSB = new google.maps.LatLngBounds();
-            //    var indice, place;
-            //    for (indice = 0; place = places[indice]; indice++) {
-            //        boundsSB.extend(place.geometry.location);
-            //        marker.setPosition(place.geometry.location);
-            //        marker.setVisible(true);
-            //        $('#CoordenadasX').val(parseFloat(marker.getPosition().lat()));
-            //        $('#CoordenadasY').val(parseFloat(marker.getPosition().lng()));
-            //    }
-            //    map.fitBounds(boundsSB);
-            //    //map.fitBounds(boundsNM);
-            //    map.setZoom(15);
-            //});
-
             searchBox.addListener('places_changed', function () {
-                clearMarkers();
+                //clearMarkers();
                 var places = searchBox.getPlaces();
                 if (places.length == 0) {
                     map.setZoom(15);
@@ -1553,14 +1477,14 @@
                     //    newMarker.setIcon('/Content/Images/icono-maps-lbel.png');
                     //});
 
-                    currentMaker = newMarker;
+                    //currentMaker = newMarker;
                     if (place.geometry.viewport) {
                         bounds.union(place.geometry.viewport);
                     } else {
                         bounds.extend(place.geometry.location);
                     }
-                    $('#coordenadasX').val(currentMaker.position.lat());
-                    $('#coordenadasY').val(currentMaker.position.lng());
+                    $('#coordenadasX').val(newMarker.position.lat());
+                    $('#coordenadasY').val(newMarker.position.lng());
                 });
                 map.fitBounds(bounds);
                 map.setZoom(18);
@@ -1602,7 +1526,7 @@
         }
     }
     function cargarMapa() {
-
+        var GLOBAL = {};
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
             modalOpcion.dialog('close');
@@ -1653,40 +1577,24 @@
                 MostrarTerritorio(this.position.lat(), this.position.lng());
             });
             @*var DireccionVentana = @(string.IsNullOrEmpty(Model.Item3)?punto.Item3:Model.Direccion)*@
-            marker.addListener('mouseover', function () {
-                infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
-                infowindow.open(map, this);
-                //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-            });
+            @if(!string.IsNullOrEmpty(punto.Item3))
+            {
+                <text>
+                marker.addListener('mouseover', function () {
 
-            markers.push(marker);
+                    infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
+                    infowindow.open(map, this);
+                
+                //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                });
+                </text>
+            }
             markerBounds.extend(marker.getPosition());
+            markers.push(marker);
             </text>
                     }
 
-            @if( (Model.FuenteIngreso == "MovilSE") && Model.Latitud!=null && Model.Longitud!=null)
-                    {
-                        // Markers Purple
-                        <text>
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(parseFloat('@Model.Latitud'.replace(",", ".")), parseFloat('@Model.Longitud'.replace(",", "."))),
-                map: map,
-                animation: google.maps.Animation.DROP,
-                icon: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'
-                //icon: urlContentImages + 'icono-maps-lbel.png'
-            });
-            markers.push(marker);
-            markerBounds.extend(marker.getPosition());
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-
-            marker.addListener('mouseover', function () {
-                infowindow.setContent('<div><strong>' + '@Model.Direccion' + '</strong></div>');
-                infowindow.open(map, this);
-                //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-            });
-
-            </text>
-                    }
+            
 
             </text>
 
@@ -1722,18 +1630,18 @@
 
                     if (string.IsNullOrEmpty(Model.Region) || string.IsNullOrEmpty(Model.Zona) || string.IsNullOrEmpty(Model.Territorio))
                     {
-                        //var regionXY = Model.Region + '/' + Model.Zona + '/' + Model.Seccion;
+                        
                         <text>
-
-            //$('#regionXY').val(regionXY);
+            $('#regionXY').val('');
             $('#datos_territorio').hide();
             $('#mensaje_territorio').show();
             </text>
                     }
                     else
                     {
+                        var regionXYValue = Model.Region + '/' + Model.Zona + '/' + Model.Seccion;
                         <text>
-            //$('#regionXY').val('');
+            $('#regionXY').val('@regionXYValue');
             $('#datos_territorio').show();
             $('#mensaje_territorio').hide();
             $('#btnAceptar').attr('disabled', false);
@@ -1745,7 +1653,7 @@
             $('#btnAceptar').attr('disabled', false);
             markers[0].setAnimation(google.maps.Animation.BOUNCE);
             </text>
-                }
+                }//termina if (Model.Puntos.Count == 1)
 
                 <text>map.fitBounds(markerBounds);
 
@@ -1779,24 +1687,32 @@
                     });
 
                     if (place.geometry.viewport) {
-                        bounds.union(place.geometry.viewport);
+                        //se comentó
+                        //bounds.union(place.geometry.viewport);
+                        markerBounds.union(place.geometry.viewport);
                     } else {
-                        bounds.extend(place.geometry.location);
+                        //se comentó
+                        //bounds.extend(place.geometry.location);
+                        markerBounds.extend(place.geometry.location);
                     }
                     $('#coordenadasX').val(marker.position.lat());
                     $('#coordenadasY').val(marker.position.lng());
                 });
-                map.fitBounds(bounds);
-                map.setZoom(18);
+                //se comentó
+                //map.fitBounds(bounds);
+                //map.setZoom(18);
+                map.fitBounds(markerBounds);
             });
 
             map.addListener('dragstart', function () {
                 //   searchBox.setBounds(map.getBounds());
-                //if (markers.length > 1)
-                //{
-                //    alert('Para arrastrar el mapa primero debe seleccionar una dirección');
-                //    return false;
-                //}
+                var markerMorado = GetMarkerMorado();
+                if (markerMorado) {
+                //    alert('Para arrastrar el mapa primero debe seleccionar un punto');
+                //    return;
+                }
+                var mapOldPositionCenter = this.getCenter();
+                GLOBAL.startDragPositionCenter = mapOldPositionCenter;
             });
 
             map.addListener('drag', function () {
@@ -1817,6 +1733,7 @@
             });
             map.addListener('dragend', function () {
                 // searchBox.setBounds(map.getBounds());
+                var mapNewPositionCenter = this.getCenter();
                 var markerMorado = GetMarkerMorado();
                 if (markerMorado) {
                     markerMorado.setPosition(map.getCenter());
@@ -1827,6 +1744,15 @@
                         lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
+                } else
+                {
+                    if (markers.length > 1)
+                    {
+                        var DiffPosition = mapNewPositionCenter - GLOBAL.startDragPositionCenter;
+                        for (var i = 0; i < markers.length; i++) {
+                            markers[i].setPosition(markers[i].position + DiffPosition);
+                        }
+                    }
                 }
             });
 

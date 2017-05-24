@@ -88,4 +88,55 @@
         $('#divConfirmarPosicion').hide();
     })
 
+    $('#btnConfirmarGrabarPosicion').click(function () {
+        $('#btnGrabarPosicion').attr('disabled', true);
+        $('#btnModificarDireccion').removeClass('HabInaButton');
+        $('#btnGrabarDireccion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnModificarDireccion').attr('disabled', false);
+        $('#btnGrabarDireccion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
+        if (map) {
+            var center = map.center;
+
+            var MiMarkerMorado = GetMarkerMorado();
+            // post
+            var data = {
+                id: $('#SolicitudPostulanteID').val(),
+                latitud: parseFloat($('#coordenadasX').val()),
+                longitud: parseFloat($('#coordenadasY').val()),
+                direccionCorrecta: $(this).attr('data-direccion-correcta'),
+                direccionCadena: $('#DireccionCadena').val(),
+                region: $('#NombreRegion').val(),
+                comuna: $('#NombreComuna').val(),
+                codregion: $('#Region').val(),
+                codzona: $('#Zona').val(),
+                codseccion: $('#Seccion').val(),
+                codterritorio: $('#Territorio').val(),
+                direccion: $('#Direccion').val()
+            };
+
+
+
+            // waitingDialog({});
+            generalLoading();
+
+            $.post('@Url.Action("ConsultarUbicacion", "Unete")', data, function (actualizado) {
+                if (actualizado) {
+                    //  modal.dialog('close');
+                    $('#divConsultarUbicacion').hide();
+                    $('#divConfirmarPosicion').hide();
+                    $("body").css({ "overflow-y": "auto" });
+                    fnGrilla();
+                }
+            }).complete(function () {
+                // closeWaitingDialog({});
+                generalCloseLoading();
+                $('#btnEditarPosicion').hide();
+                $('#btnGrabarPosicion').show();
+                $('#btnGrabarPosicion').attr('disabled', false);
+            });
+        }
+    });
+    //# sourceURL===_ConfirmarPosicion.cshtml
 </script>
