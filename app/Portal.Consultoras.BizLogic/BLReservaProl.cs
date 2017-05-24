@@ -145,7 +145,13 @@ namespace Portal.Consultoras.BizLogic
                     input.MontoMaximo = usuario.MontoMaximoPedido;
                 }
                 
-                return EjecutarReservaProl(input);
+                var resultado = EjecutarReservaProl(input);
+                resultado.Simbolo = input.Simbolo;
+                resultado.MontoMinimo = input.MontoMinimo;
+                resultado.MontoMaximo = input.MontoMaximo;
+                resultado.FacturaHoy = (DateTime.Now.AddHours(input.ZonaHoraria).Date >= input.FechaInicioCampania.Date);
+                if(!resultado.FacturaHoy) resultado.FechaFacturacion = input.FechaInicioCampania;
+                return resultado;
             }
             catch (Exception ex)
             {
