@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEChatbotMensajeProactiva
+    public class BEChatbotProactivaMensaje
     {
         [DataMember]
         public string CodigoUsuario { get; set; }

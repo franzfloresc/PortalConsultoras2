@@ -2,7 +2,6 @@
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:complexType name="ArrayOfBEProductoSugerido">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoSugerido" nillable="true" type="tns:BEProductoSugerido" />
@@ -552,20 +551,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
-  <xs:complexType name="ArrayOfBEChatbotMensajeProactiva">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEChatbotMensajeProactiva" nillable="true" type="tns:BEChatbotMensajeProactiva" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEChatbotMensajeProactiva" nillable="true" type="tns:ArrayOfBEChatbotMensajeProactiva" />
-  <xs:complexType name="BEChatbotMensajeProactiva">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NombreMensaje" nillable="true" type="xs:string" />
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Variables" nillable="true" type="q2:ArrayOfTupleOfstringstring" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEChatbotMensajeProactiva" nillable="true" type="tns:BEChatbotMensajeProactiva" />
   <xs:complexType name="BEOferta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoOferta" nillable="true" type="xs:string" />

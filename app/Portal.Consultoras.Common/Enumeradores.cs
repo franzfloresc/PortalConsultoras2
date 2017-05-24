@@ -257,5 +257,15 @@
             Normal = 1,
             Facebook = 2
         }
+
+        public enum ResultadoReserva
+        {
+            Reservado = 1,
+            ReservadoObservaciones = 2,
+            NoReservadoObservaciones = 3,
+            NoReservadoMontoMinimo = 4,
+            NoReservadoMontoMaximo = 5,
+            ReservaNoDisponible = 6
+        }
     }
 }

@@ -61,6 +61,8 @@
     <Compile Include="BEAnotacion.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraCliente.cs" />
+    <Compile Include="DEChatbotProactivaMensaje.cs" />
+    <Compile Include="DEChatbotProactivaResultado.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
     <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />

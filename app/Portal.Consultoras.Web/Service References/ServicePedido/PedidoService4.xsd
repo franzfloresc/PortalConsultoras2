@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoMensaje" nillable="true" type="xs:string" />
@@ -11,11 +12,15 @@
       <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoGanancia" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="RefreshMontosProl" type="xs:boolean" />
       <xs:element minOccurs="0" name="RefreshPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="Reserva" type="xs:boolean" />
       <xs:element minOccurs="0" name="Restrictivas" type="xs:boolean" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="ResultadoReservaEnum" type="q1:Enumeradores.ResultadoReserva" />
+      <xs:element minOccurs="0" name="UnidadesAgregadas" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEResultadoReservaProl" nillable="true" type="tns:BEResultadoReservaProl" />

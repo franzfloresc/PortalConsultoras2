@@ -8,9 +8,8 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_GetShowRoomOfertaById_InputMessage">
@@ -384,12 +383,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_DeshacerPedidoValidado_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerPedidoValidadoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EnviarProactivaChatbot_InputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarProactivaChatbot" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_EnviarProactivaChatbot_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarProactivaChatbotResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetOfertas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOfertas" />
@@ -2170,10 +2163,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" message="tns:IPedidoService_DeshacerPedidoValidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse" message="tns:IPedidoService_DeshacerPedidoValidado_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EnviarProactivaChatbot">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EnviarProactivaChatbot" message="tns:IPedidoService_EnviarProactivaChatbot_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EnviarProactivaChatbotResponse" message="tns:IPedidoService_EnviarProactivaChatbot_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetOfertas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetOfertas" message="tns:IPedidoService_GetOfertas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetOfertasResponse" message="tns:IPedidoService_GetOfertas_OutputMessage" />
@@ -3748,15 +3737,6 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarProactivaChatbot">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/EnviarProactivaChatbot" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
