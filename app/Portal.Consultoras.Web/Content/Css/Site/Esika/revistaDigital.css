@@ -1515,6 +1515,46 @@
 .seccion_preguntas{
     padding-bottom: 70px;
     margin-bottom: 50px;
-    border-bottom: 1.5px solid black;
+    border-bottom: 2px solid black;
     overflow: hidden;
+}
+.titulo_no_inscrita{
+    font-family:'Lato';
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:1px;
+    padding-top:30px;
+    text-transform:uppercase;
+    text-align:center;
+}
+.texto_no_inscrita{
+    font-family:'Lato';
+    font-size:20px;
+    font-weight:300;
+    letter-spacing:1px;
+    margin-top:25px;
+    margin-bottom:25px;
+    line-height:25px;
+    text-transform:uppercase;
+    text-align:center;
+}
+.advertencia_no_inscrita{
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    margin-bottom:30px;
+    text-align:center;
+    letter-spacing:0.4px;
+}
+.btn_cancelar_inscripcion{
+    font-family:'Lato';
+    font-size:16px;
+    width:267px;
+    margin:0 auto;
+    height:59px;
+    border:1px solid black;
+    line-height:59px;
+    text-align:center;
+    display:block;
+    margin-bottom:40px;
 }
