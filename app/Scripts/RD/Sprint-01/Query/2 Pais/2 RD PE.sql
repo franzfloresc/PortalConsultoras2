@@ -1,4 +1,6 @@
 
+USE [BelcorpPeru]
+
 GO
 
 ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
@@ -6,7 +8,7 @@ ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@ConsultoraID VARCHAR(30),
 	@CUV VARCHAR(20),
 	@ZonaID VARCHAR(20),
-	@CodigoEstrategia VARCHAR(10) = ''
+	@CodigoAgrupacion VARCHAR(10) = ''
 AS
 /*
 dbo.ListarEstrategiasPedido_SB2 201708,'76502','','2096', '101'
@@ -14,7 +16,7 @@ dbo.ListarEstrategiasPedido_SB2 201708,'76502','','2096', '101'
 BEGIN
 	SET NOCOUNT ON;
 		
-	declare @CodigoAgrupacion VARCHAR(10) = @CodigoEstrategia
+	--declare @CodigoAgrupacion VARCHAR(10) = @CodigoEstrategia
 	--set @CodigoAgrupacion = ''
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
 	
