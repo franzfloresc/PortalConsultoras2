@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
-using static Portal.Consultoras.Common.Enumeradores;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ReservaProl
 {
@@ -40,9 +41,22 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
-        public ResultadoReserva ResultadoReservaEnum { get; set; }
+        public Enumeradores.ResultadoReserva ResultadoReservaEnum { get; set; }
         [DataMember]
         public List<BEPedidoObservacion> ListPedidoObservacion { get; set; }
+
+        #region Atributos Cargar Session
+        [DataMember]
+        public string Simbolo { get; set; }
+        [DataMember]
+        public decimal MontoMinimo { get; set; }
+        [DataMember]
+        public decimal MontoMaximo { get; set; }
+        [DataMember]
+        public DateTime FechaFacturacion { get; set; }
+        [DataMember]
+        public bool FacturaHoy { get; set; }
+        #endregion
 
         public BEResultadoReservaProl()
         {
