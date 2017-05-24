@@ -140,12 +140,47 @@
 <div id="Vista3" class="Vista3" style="display: none;">
     <div class="content_gana_mas">
         <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
+        
         <div class="content_texto_gana">
-            <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
-
+            <div style="width:406px;margin:0 auto;">
+                <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
+                <div>
+                    <div class="texto_resaltante_gana">GANA+</div>
+                    <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
+                </div>
+                <div>
+                    <div class="texto_resaltante_gana">VENDE+</div>
+                    <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
+                </div>
+                <div>
+                    <div class="texto_resaltante_gana">PUNTOS+</div>
+                    <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
+                </div>
+                <div class="legal_gana_mas">Comparación VS. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+            </div>           
         </div>
         <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
         <hr class="clear" />
+        <div class="content_funciona_esika">
+            <div class="content_belcorp">
+                <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
+                <div class="bloque_respuesta">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br/>
+                    <b>En esta campaña</b> te inscribes Ésika para mí, tu nueva revista online personalizada. 
+                </div>
+                <div class="bloque_respuesta">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
+                    <b>A partir de C-11</b> recibirás unicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.
+
+                </div>
+                <div class="bloque_respuesta">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
+                    <b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
+                </div>
+            </div>
+            <hr class="clear" />
+
+        </div>
     </div>
     
 </div>
@@ -394,7 +429,7 @@
             $("#VerVista3").on("click", function () {
                 $('#Vista1').hide();
                 $('#Vista3').show();
-                $('.Vista3').css('padding-top', '90px');
+                $('.Vista3').css('padding-top', '105px');
             });
         });
     </script>

@@ -1386,11 +1386,12 @@
   margin-left: 66%;
 }
 .content_revista_izquierda{
-    width:250px;
-    height:513px;
-    position:absolute;
-    left:0;
-        top: -40px;
+    width: 300px;
+    height: auto;
+    /* position: absolute; */
+    left: 0;
+    margin-top: -40px;
+    float: left;
 }
 .content_revista_izquierda img{
     width:100%;
@@ -1398,33 +1399,96 @@
 .Vista3{
     min-height: 500px;
     display: none;
-    padding-top: 35px;
+    padding-top: 40px;
     position: relative;
+    z-index:106;
     /* top: -30px; */
     
 }
 .content_revista_derecha{
-   position: absolute;
+   /*position: absolute; */
     right: 0;
-    width: 415px;
-    /*height: 576px;*/
-    top: -104px;
+    width: 465px;
+    /* height: 576px; */
+    margin-top: -95px;
     z-index: 105;
+    float: right
 }
 .content_revista_derecha img{
     width:100%;
 }
 .content_gana_mas{
-    margin-top:25px;
+    margin-top:10px;
     position:relative;
 }
 .content_texto_gana{
-   width:420px;   
-   margin:0 auto;
+    margin: 0 auto;
+    float: left;
+    width: -moz-calc(100% -765px);
+    width: calc(100% - 765px);
+    width: -webkit-calc(100% - 765px);
+    width: -webkit-calc(~'100% - 765px');
 }
 .titulo_gana_landing{
     font-family:'Lato';
     font-size:16px;
     font-weight:900;
     letter-spacing:1px;
+    margin-bottom:20px;
+}
+.texto_resaltante_gana{
+    font-family:'Lato';
+    font-size:25px;
+    letter-spacing:1.5px;
+    color: #FF1534;
+    width:34%;
+    display:inline-block;
+    vertical-align:middle;
+    font-weight:900;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+.texto_descripcion_resaltante{
+     font-family:'Lato';
+    font-size:14px;     
+    width:65%;
+    display:inline-block;
+    vertical-align:middle;
+}
+.legal_gana_mas{
+    font-family:'Lato';
+    font-size:10px;
+    font-weight:300;
+    margin-top:40px;
+
+}
+.content_funciona_esika{
+   background: #EEEEEE;
+   min-height: 200px;
+   margin-top: -24px;
+   position: relative;
+   padding-top: 70px;
+   padding-bottom: 80px;
+}
+.titulo_funciona{
+    font-family:'Lato';
+    font-size:18px;
+    font-weight:300;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+.bloque_respuesta{
+    width:32%;
+    margin-right:2%;
+    font-family:'Lato';
+    font-size:14px;
+    line-height:18px;
+    float: left;
+    margin-top: 40px;
+}
+.bloque_respuesta:last-child{
+    margin-right:0;
+}
+.bloque_respuesta img{
+    margin-bottom:12px;
 }
