@@ -1121,6 +1121,19 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow': 'auto' });
 }
 
+function AbrirPopupFade(ident) {
+    $(ident).fadeIn();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopupFade(ident) {
+    $(ident).fadeOut();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
+
 function GuardarIndicadorPedidoAutentico() {
     //debugger;
 

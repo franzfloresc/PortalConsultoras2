@@ -104,15 +104,16 @@ body{
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
-    display: block;
+    /*display: block;*/
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
     color: #FFF;
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 11px;
     position: relative;
     top: 17px;
+    margin-left: 100px;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a {
