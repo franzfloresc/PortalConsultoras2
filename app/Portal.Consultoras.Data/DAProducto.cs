@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
+using System.Data.SqlClient;
 
 namespace Portal.Consultoras.Data
 {
@@ -58,6 +55,21 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, CodigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, CodigoZona);
             Context.Database.AddInParameter(command, "@ValidarOPT", DbType.Boolean, validarOpt);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader SearchListProductoChatbotByCampaniaRegionZona(int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaZona");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, regionID);
+            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, zonaID);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+            Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, rowCount);
+            Context.Database.AddInParameter(command, "@Criterio", DbType.Int32, criterio);
+            Context.Database.AddInParameter(command, "@TextoBusqueda", DbType.String, textoBusqueda);
 
             return Context.ExecuteReader(command);
         }
@@ -163,5 +175,37 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetByCampaniaAndZonaAndPalabras(int campaniaID, int zonaID, string codigoRegion, string codigoZona, int rowCount, List<string> listPalabra)
+        {
+            DbCommand dbCommand = Context.Database.GetStoredProcCommand("dbo.GetOrderedProductoByCampaniaAndZonaAndPalabras");
+            dbCommand.CommandType = CommandType.StoredProcedure;
+            dbCommand.CommandTimeout = 30;
+
+            dbCommand.Parameters.Add(new SqlParameter("@CampaniaID", SqlDbType.Int) { Value = campaniaID });
+            dbCommand.Parameters.Add(new SqlParameter("@ZonaID", SqlDbType.Int) { Value = campaniaID });
+            dbCommand.Parameters.Add(new SqlParameter("@CodigoRegion", SqlDbType.VarChar) { Value = codigoRegion });
+            dbCommand.Parameters.Add(new SqlParameter("@CodigoZona", SqlDbType.VarChar) { Value = codigoZona });
+            dbCommand.Parameters.Add(new SqlParameter("@RowCount", SqlDbType.Int) { Value = rowCount });
+
+            var parListPalabra = new SqlParameter("@TextoBusqueda", SqlDbType.Structured);
+            parListPalabra.TypeName = "ffvv.TablaPalabras";
+            parListPalabra.Value = ConvertListProductoToDataTable(listPalabra);
+            dbCommand.Parameters.Add(parListPalabra);
+
+            return Context.ExecuteReader(dbCommand);
+        }
+
+        private static DataTable ConvertListProductoToDataTable(List<string> listPalabra)
+        {
+            var table = new DataTable();
+            table.Columns.Add("Palabra", typeof(string));
+            foreach (string palabra in listPalabra)
+            {
+                DataRow row = table.NewRow();
+                row["Palabra"] = palabra;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
     }
 }

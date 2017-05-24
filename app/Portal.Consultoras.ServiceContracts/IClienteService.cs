@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -59,6 +56,12 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID);
 
         [OperationContract]
+        IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu);
+
+        [OperationContract]
+        IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania);
+
+        [OperationContract]
         IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);
 
         [OperationContract]
@@ -67,5 +70,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+
+        [OperationContract]
+        bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente);
+
+        [OperationContract]
+        bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID);
+
+        [OperationContract]
+        List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID);
     }
 }

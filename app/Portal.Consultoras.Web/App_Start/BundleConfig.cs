@@ -91,9 +91,12 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
                 "~/Scripts/fingerprint2.js",
-                "~/Scripts/General.js",
+                "~/Scripts/General.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
                 "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
-                ));
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Site").Include(
                 "~/Content/Css/Mobile/theme*",

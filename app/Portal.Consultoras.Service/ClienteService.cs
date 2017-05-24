@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -93,6 +94,16 @@ namespace Portal.Consultoras.Service
             return BLCatalogo.GetCatalogoConfiguracion(paisID);
         }
 
+        public IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
+        {
+            return BLCatalogo.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
+        }
+
+        public IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania)
+        {
+            return BLCatalogo.GetListCatalogoRevistaPublicadoWithTitulo(paisISO, codigoZona, campania);
+        }
+
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
         {
             return BLPedidoWebAnteriores.GetPedidosWebAnterioresByConsultora(paisID, consultoraID);
@@ -119,5 +130,22 @@ namespace Portal.Consultoras.Service
         {
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
+
+        #region ConsultoraCliente
+        public bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente)
+        {
+            return new BLConsultoraCliente().InsertConsultoraCliente(paisID, consultoraCliente);
+        }
+
+        public bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID)
+        {
+            return new BLConsultoraCliente().DeleteConsultoraCliente(paisID, ConsultoraID, ClienteID);
+        }
+
+        public List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID)
+        {
+            return new BLConsultoraCliente().GetConsultoraCliente(paisID, ConsultoraID);
+        }
+        #endregion
     }
-    }
+}

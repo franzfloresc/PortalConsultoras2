@@ -235,5 +235,27 @@
             GenerarLideres = 5,
             DigitacionDistribuidaParcial = 6
         }
+
+        public enum TamanioImagenIssu
+        {
+            ThumbSmall = 1,
+            ThumbMedium = 2,
+            ThumbLarge = 3,
+            Normal = 4
+        }
+
+        public enum MotivoPedidoLock
+        {
+            Ninguno = 0,
+            GPR = 2,
+            Reservado = 3,
+            HorarioRestringido = 4
+        }
+
+        public enum TipoLogin
+        {
+            Normal = 1,
+            Facebook = 2
+        }
     }
 }

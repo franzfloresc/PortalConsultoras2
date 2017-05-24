@@ -13,6 +13,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -343,9 +344,9 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
-                                   a.ID.ToString(),                                   
+                                   a.ID.ToString(),
                                    a.CUV.ToString(),
                                    a.DescripcionCUV.ToString(),
                                    a.PrecioUnitario.ToString(),
@@ -576,7 +577,7 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
-                    imagen1 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    imagen1 = lst[0].FotoProducto01; // ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                     imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
@@ -814,7 +815,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lst != null && lst.Count > 0)
                 {
-                    lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01 ?? "", carpetapais));
+                    lst.Update(x => x.FotoProducto01 = x.FotoProducto01); // ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto02 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto02 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto03 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto03 ?? "", carpetapais));
                     lst.Update(x => x.FotoProducto04 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto04 ?? "", carpetapais));
@@ -878,7 +879,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); //ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
                 lst.Update(x => x.Simbolo = UserData().Simbolo);
             }
@@ -1017,13 +1018,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -1033,26 +1038,29 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public List<BEEstrategia> ConsultarEstrategias()
         {
+            var usuario = ObtenerUsuarioConfiguracion();
+
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            entidad.CampaniaID = UserData().CampaniaID;
-            entidad.ConsultoraID = UserData().ConsultoraID.ToString();
+            entidad.PaisID = userData.PaisID;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.CUV2 = "";
-            entidad.Zona = UserData().ZonaID.ToString();
+            entidad.Zona = userData.ZonaID.ToString();
+            entidad.ZonaHoraria = usuario.ZonaHoraria;
+            entidad.FechaInicioFacturacion = usuario.FechaInicioFacturacion;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
                 lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
 
-            string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
             }
 
             return lst;

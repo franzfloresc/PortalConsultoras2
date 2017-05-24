@@ -107,6 +107,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetUsuarioAsociado(int paisID, string CodigoConsultora);
 
         [OperationContract]
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+
+        [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
 
         [OperationContract]
@@ -294,6 +297,12 @@ namespace Portal.Consultoras.ServiceContracts
         //EPD-1836
         [OperationContract]
         int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
+        
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string correo);
+
+        [OperationContract]
+        string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
 
         [OperationContract]
         int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
@@ -324,5 +333,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
+        
+        [OperationContract]
+        BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
+            bool usuarioPrueba, int aceptacionConsultoraDA);
     }
 }

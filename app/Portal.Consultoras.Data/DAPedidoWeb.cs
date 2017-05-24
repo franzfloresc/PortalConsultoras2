@@ -654,6 +654,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosIngresadoFacturadoWebMobile(int consultoraID, int campaniaID, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@top", DbType.Int32, top);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPedidosIngresado(int consultoraID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresado_SB2");
