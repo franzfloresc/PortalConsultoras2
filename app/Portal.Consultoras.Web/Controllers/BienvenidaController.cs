@@ -2120,7 +2120,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
                     TempData["MostrarPopupCuponGanaste"] = true;
-                    TempData["TipoPopup"] = Constantes.TipoPopUp.Cupon;
+                    TempData["TipoPopup"] = Constantes.TipoPopUp.CuponForzado;
                 }
 
                 userData.EMailActivo = true;
