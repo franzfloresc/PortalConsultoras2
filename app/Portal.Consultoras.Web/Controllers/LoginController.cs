@@ -872,7 +872,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         // model.ConsultoraNueva; referencia de la columna idestadoactividad 
                                         // Validacion de la fecha de cierre de campaña y  del idestadoactividad
                                         if (c.Codigo.Equals(Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
-                                            &&  DateTime.Now < model.FechaFinCampania.AddDays(-1) 
+                                           // &&  DateTime.Now < model.FechaFinCampania.AddDays(-1) 
                                             && model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                             )
                                         {
