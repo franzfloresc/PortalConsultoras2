@@ -499,6 +499,19 @@
         $(contenedor).css('background-image', nuevoBackImg);
     }
 
+    var mostrarPopupGanasteAlConfirmarCorreo = function () {
+        var keepAsking = false;
+        var timerId = setInterval(function () {
+            if (keepAsking) {
+                clearInterval(timerId);
+            }
+            if (setting.Cupon) {
+                mostrarPopupGanaste();
+                keepAsking = true;
+            }
+        }, 2000);
+    }
+
     return {
         ini: function (parameters) {
             inizializer(parameters);
@@ -509,6 +522,7 @@
         },
         actualizarContenedorCupon: function () {
             mostrarContenedorCuponPorPagina();
-        }
+        },
+        mostrarPopupGanaste: mostrarPopupGanasteAlConfirmarCorreo
     };
 })();
