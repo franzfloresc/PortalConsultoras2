@@ -78,7 +78,7 @@
 </div>
 <div style="background:#F6F6F6; padding-top:30px; padding-bottom:30px;">
     @*<div class="nombre_titulo_set_detalle">MI PACK KADIA SPORT</div>*@
-    <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+    <div id="divOfertaProductos"></div>
     @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
     {
         <div class="wrapper_resumen_mobile" style="padding-top:30px;" id="divDiveo">
@@ -92,7 +92,7 @@
 @Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
 @section scripts{
 <script type="text/javascript">
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
     var tipoOrigenEstrategia = 272;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>

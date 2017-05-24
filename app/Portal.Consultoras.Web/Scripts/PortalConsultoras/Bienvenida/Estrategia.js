@@ -144,7 +144,6 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
 
-
     //var data1 = $('#divListadoEstrategia').find('.nombre_producto');
     //var nbData = data1.length;
     //for (var iData = 0; iData < nbData; iData++) {
@@ -531,55 +530,6 @@ function CargarEstrategiaSet(cuv) {
     return detalle;
 }
 
-function CargarProductoDestacado1(objParameter, objInput, popup, limite) {
-
-    var attrClass = $.trim($(objInput).attr("class"));
-    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
-        setTimeout(function () {
-            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-        }, 500);
-        return false;
-    }
-
-    if (ReservadoOEnHorarioRestringido())
-        return false;
-
-    if (tipoOrigenEstrategia == 1) {
-
-        agregarProductoAlCarrito(objInput);
-
-        if (objParameter.FlagNueva == "1")
-            $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
-        else
-            $('#OfertaTipoNuevo').val("");
-    }
-
-    AbrirLoad();
-    
-    popup = popup || false;
-    limite = limite || 0;
-
-    var tipoEstrategiaID = objParameter.TipoEstrategiaID;
-    var estrategiaID = objParameter.EstrategiaID;
-    var posicionItem = objParameter.Posicion;
-    var flagNueva = objParameter.FlagNueva;
-
-    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
-    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-        || origenPedidoWebEstrategia;
-    var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
-
-    $("#hdTipoEstrategiaID").val(tipoEstrategiaID);
-
-    var params = {
-        EstrategiaID: estrategiaID,
-        FlagNueva: flagNueva
-    };
-}
-
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
     var attrClass = $.trim($(objInput).attr("class"));
@@ -616,7 +566,13 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var flagNueva = objParameter.FlagNueva;
 
     var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
-    origenPedidoWebEstrategia = $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val() || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb") || origenPedidoWebEstrategia;
+    origenPedidoWebEstrategia =
+        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+       || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+       || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+       || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+       || origenPedidoWebEstrategia;
+
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     $("#hdTipoEstrategiaID").val(tipoEstrategiaID);

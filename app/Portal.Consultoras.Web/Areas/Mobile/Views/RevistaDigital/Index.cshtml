@@ -24,7 +24,7 @@
 @* Lanzamientos con etiqueta NUEVO *@
 <div style="background:#F6F6F6">
     <div class="content_carrusel_landing">
-        <div id="divCarruselLan">
+        <div id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
             @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
         </div>
     </div>
@@ -72,7 +72,7 @@
 <hr class="clear" />
 @* listado *@
 <div class="wrapper_resumen_mobile">
-    <div id="divOfertaProductos" data-divitem="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel" class="ofertaProductoslanding"></div>
+    <div id="divOfertaProductos" class="ofertaProductoslanding"></div>
 </div>
 
 <hr class="clear" />

@@ -1314,33 +1314,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Insert(pedidoModel);
         }
 
-
-        /// <summary>
-        /// En el JS antes de agregar, llaman a varios metodos con Ajax, Este metodo Serivira tenerlo todo en uno solo.
-        /// Falta la implementacion, copiar toda la logica de Estrategia.JS => CargarProductoDestacado
-        /// </summary>
-        /// <param name="MarcaID"></param>
-        /// <param name="CUV"></param>
-        /// <param name="PrecioUnidad"></param>
-        /// <param name="Descripcion"></param>
-        /// <param name="Cantidad"></param>
-        /// <param name="indicadorMontoMinimo"></param>
-        /// <param name="TipoOferta"></param>
-        /// <param name="OrigenPedidoWeb"></param>
-        /// <param name="ClienteID_"></param>
-        /// <param name="tipoEstrategiaImagen"></param>
-        /// <returns></returns>
-        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public JsonResult AgregarProductoPedido(string cuv, int cantidad, int origen, string cliente = "")
-        {
-            // Pedido/ReservadoOEnHorarioRestringido
-            // AdministrarEstrategia/FiltrarEstrategiaPedido
-            // Pedido/ValidarStockEstrategia
-            // Pedido/AgregarProductoZE
-
-            return Json(new { });
-        }
-
         #endregion
 
         #region Eliminar Detalle Pack Nueva
