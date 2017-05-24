@@ -153,7 +153,7 @@ namespace Portal.Consultoras.BizLogic
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
                 int result = DAEstrategia.InsertEstrategia(entidad);
                 // Solo para estrategia de lanzamiento se agrega el detalle de estrategia.
-                if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                 {
                     BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
                     estrategiaDetalle.EstrategiaID = result;
