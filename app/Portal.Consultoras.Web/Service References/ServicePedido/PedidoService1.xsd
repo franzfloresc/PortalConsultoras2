@@ -14,6 +14,7 @@
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionLegal" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagAgotado" type="xs:int" />
@@ -173,6 +174,7 @@
       <xs:element minOccurs="0" name="TextoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneCategoria" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCompraXcompra" type="xs:boolean" />
+      <xs:element minOccurs="0" name="TieneSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -249,6 +251,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:boolean" />
       <xs:element minOccurs="0" name="EventoID" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PerfilID" type="xs:int" />
