@@ -61,6 +61,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
                 .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                 .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+
+            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
         }
     }
 }
