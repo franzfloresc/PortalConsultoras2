@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
             GestionaPostulanteModel vm = new GestionaPostulanteModel();
             vm.CodigoIso = CodigoISO;
             vm.FuenteIngresoListAvailable = new List<FuenteIngresoModel>();
-            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "MovilSE", Descripcion = "SE", Titulo = "Movil SE", IsSelected = false });
+            vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "MovilSE", Descripcion = "SE", Titulo = "App SE", IsSelected = false });
             vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "PortalGZ", Descripcion = "GZ", Titulo="Portal GZ", IsSelected = false });
             vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "UB", Descripcion = "UB",Titulo = "Unete a Belcorp", IsSelected = false });
             vm.FuenteIngresoListAvailable.Add(new FuenteIngresoModel { ID = "CALL_CENTER", Descripcion = "CC", Titulo = "Call Center", IsSelected = false });
@@ -299,10 +299,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarUbicacion(int id)
+        public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular)
         {
             var model = new ConsultarUbicacionModel();
-
+            model.NombreCompleto = nombreCompleto;
+            model.Celular = celular;
             using (var sv = new PortalServiceClient())
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
@@ -311,10 +312,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.SolicitudPostulanteID = id;
                     var direccion = solicitudPostulante.Direccion == null ? new string[0] : solicitudPostulante.Direccion.Split('|');
-
-                    if (solicitudPostulante.Latitud == null || solicitudPostulante.Longitud == null)
-                    { 
-                    }
 
                     if (CodigoISO == Pais.Chile)
                     {
@@ -525,12 +522,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-            }
 
-            using (var sv = new PortalServiceClient())
-            {
-                SolicitudPostulante solicitudPostulante =
-                    sv.ObtenerSolicitudPostulante(CodigoISO, model.SolicitudPostulanteID);
+                #region "Cargar Ubigeo"
 
                 if (CodigoISO == Pais.Peru)
                 {
@@ -965,8 +958,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
-                    DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-
                     if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {
                         model.EditarDireccionModel.NombreLugarNivel1 = solicitudPostulante.LugarPadre;
@@ -1004,6 +995,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
+                        if (CodigoISO != Pais.Guatemala)
+                        {
+                            DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                        }
                         switch (DireccionConcatenada.Length)
                         {
                             case 4:
@@ -1189,6 +1184,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.EditarDireccionModel.SolicitudPostulanteID = id;
                 model.EditarDireccionModel.CodigoPais = CodigoISO;
+                #endregion
             }
 
             return PartialView("_ConsultarUbicacion", model);
@@ -2012,6 +2008,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = (i.SubEstadoPostulante != null) ?
                                         ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
                                         :"",
+                TelefonoCelular = i.TelefonoCelular,
                 
             }).ToList();
 

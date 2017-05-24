@@ -609,13 +609,13 @@
             </div>
             <div class="contenedor_datosEditarDireccion">
                 <span>
-                    Postulante: <b>Karina Elizabeth Chávez Malca.</b>
+                    Postulante: <b>@Model.NombreCompleto</b>
                 </span>
                 <span>
-                    Celular: <b>9547162543</b>
+                    Celular: <b>@Model.Celular</b>
                 </span>
                 <span class="texto-rojo">
-                    Zona Rechaz&oacute;: <b>1021/E</b>
+                    Zona Rechaz&oacute;: <b>@Model.ZonaSeccionRechazo</b>
                 </span>
             </div>
             <div class="contenedor_formulario_editarDireccion">
@@ -623,6 +623,7 @@
 
                 @using (Ajax.BeginForm("GrabarDatosDireccion", "Unete", null, new AjaxOptions()
                 {
+                    
                     HttpMethod = "POST",
                     InsertionMode = InsertionMode.Replace,
                     OnSuccess = "OnSuccess",
@@ -931,7 +932,8 @@
     $(function () {
 
         $(document).ready(function () {
-
+            $.validator.unobtrusive.parse('form');
+            $.validator.unobtrusive.parse('form0');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
             var camposUbigeoReferenciaLabel = $(".campoReferenciaUbigeo label");
             var camposUbigeo = $(".contenedor_camposUbigeo");
@@ -1435,8 +1437,17 @@
                     $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
 
                 } else {
-                    $('#regionXY').val('');
+                    if (json.Region != null && json.Zona != null && json.Seccion != null && json.Region != '' && json.Zona != '' && json.Seccion != '')
+                    {
+                        $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                    }
+                    else
+                    {
+                        $('#regionXY').val('');
+                    }
+                    
                     //$('mensaje_territorio').show();
+                    alert('No se encontraron vertices');
                 }
 
                 //no quitar altura del mapa
@@ -1565,14 +1576,10 @@
                         position: place.geometry.location,
                         icon: urlContentImages + 'icono-maps-lbel.png'
                     });
-                    markers.push(marker);
-                    //newMarker.addListener('click', function () {
-                    //    //infowindow.open(map);
-                    //    //Change the marker icon
-                    //    newMarker.setIcon('/Content/Images/icono-maps-lbel.png');
-                    //});
+                    markers.push(newMarker);
+                    setMarkerOnMap(map, newMarker);//quitamos los markers del mapa y ponemos solo el seleccionado
+                    pintarMorado(newMarker)//pintamos morado el marker y los demas rojo
 
-                    //currentMaker = newMarker;
                     if (place.geometry.viewport) {
                         bounds.union(place.geometry.viewport);
                     } else {
