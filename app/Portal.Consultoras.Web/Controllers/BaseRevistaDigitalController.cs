@@ -18,7 +18,12 @@ namespace Portal.Consultoras.Web.Controllers
         public RevistaDigitalModel IndexModel()
         {
             var model = new RevistaDigitalModel();
-            model.NombreUsuario = userData.UsuarioNombre.ToUpper();
+            model = ListarTabs(model);
+
+            if (model.EstadoAccion < 0)
+                return model;
+
+            model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             var listaProducto = ConsultarEstrategiasModel();
             using (SACServiceClient svc = new SACServiceClient())
             {
@@ -46,12 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.IsMobile = IsMobile();
-            //model.ListaProducto.Update(p => {
-            //    p.EstrategiaDetalle.ImgFondoDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgFondoDesktop;
-            //    p.EstrategiaDetalle.ImgPrevDesktop = model.IsMobile ? "" : p.EstrategiaDetalle.ImgPrevDesktop;
-            //    p.EstrategiaDetalle.ImgFichaDesktop = model.IsMobile ? p.EstrategiaDetalle.ImgFichaMobile : p.EstrategiaDetalle.ImgFichaDesktop;
-            //    p.EstrategiaDetalle.ImgFichaFondoDesktop = model.IsMobile ? p.EstrategiaDetalle.ImgFichaFondoMobile : p.EstrategiaDetalle.ImgFichaFondoDesktop;
-            //});
 
             return model;
         }
@@ -61,6 +60,51 @@ namespace Portal.Consultoras.Web.Controllers
             var listaProducto = ConsultarEstrategiasModel();
             var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
             
+            return model;
+        }
+
+        public RevistaDigitalModel ListarTabs(RevistaDigitalModel model = null)
+        {
+            model = model ?? new RevistaDigitalModel();
+            model.EstadoAccion = -1;
+            model.ListaTabs = new List<ComunModel>();
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != 1)
+            {
+                return model;
+            }
+
+            model.Titulo = userData.UsuarioNombre.ToUpper();
+            model.TituloDescripcion = "";
+            if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+            {
+                model.EstadoAccion = 0;
+                model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                return model;
+            }
+
+            string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
+            model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+
+            if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
+            {
+                model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
+                model.EstadoAccion = 1;
+
+                model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIRÁ DE LA PRÓXIMA CAMPAÑA";
+            }
+            else if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -2))
+            {
+                model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
+                model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
+                model.EstadoAccion = 2;
+                
+                model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+            }
+            model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = "QUÉ ES ESIKA PARA MÍ" });
+
             return model;
         }
     }
