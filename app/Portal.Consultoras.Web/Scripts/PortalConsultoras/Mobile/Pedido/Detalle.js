@@ -215,8 +215,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 }
 
 function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
-
-    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val());
+    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
     var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
 
     if (cantidadActual == cantidadAnterior || cantidadActual == NaN || cantidadAnterior == NaN)
@@ -227,7 +226,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
         $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
         return false;
     }
-
+    
     if (cantidadActual <= 0) {
         messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
         $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
@@ -338,10 +337,9 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
 }
 
 function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder) {
-
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
-    var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
+    var Cantidad = $('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val();
     var CantidadAnti = $('#CantidadTemporal_' + PedidoDetalleID).val();
     var DesProd = $('#DescripcionProducto_' + PedidoDetalleID).html();
 
@@ -354,7 +352,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         messageInfoMalo('Por favor ingrese una cantidad válida.');
         return false;
     }
-
+    
     if (Cantidad == 0) {
         messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
         return false;
