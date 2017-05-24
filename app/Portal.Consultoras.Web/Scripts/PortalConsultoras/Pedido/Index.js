@@ -2147,7 +2147,7 @@ function EjecutarServicioPROL() {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    showDialog("divReservaSatisfactoria");
+                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
@@ -2405,7 +2405,7 @@ function MostrarMensajeProl(response) {
                     showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
                 } else {
-                    showDialog("divReservaSatisfactoria");
+                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
@@ -3675,20 +3675,4 @@ function ConfirmarModificar() {
     });
     return false;
 }
-/*** EPD-2378 ***/
-function EnviarCorreoPedidoReservado() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) { },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
-    });
-}
-/*** Fin EPD-2378 ***/
 

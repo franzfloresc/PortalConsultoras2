@@ -23,15 +23,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetImagenesByCUV(int campaniaID, string cuv)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCUV_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
-            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
-
-            return Context.ExecuteReader(command);
-        }
-
         public string InsProductoSugerido(BEProductoSugerido entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsProductoSugerido_SB2");
