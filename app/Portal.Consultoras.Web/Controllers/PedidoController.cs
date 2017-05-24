@@ -1957,9 +1957,9 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
             }
-            if (userData.ZonaValida && userData.ValidacionInteractiva && resultado.Reserva)
+            if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
             {
-                CambioBannerGPR(true);
+                if (resultado.Reserva) CambioBannerGPR(true);
                 Session["ObservacionesPROL"] = listObservacionModel;
                 if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
             }
