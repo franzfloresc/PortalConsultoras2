@@ -219,6 +219,10 @@ $(document).ready(function () {
         case popupComunicado:
             ObtenerComunicadosPopup();
             break;
+
+        case popupCupon:
+            cuponModule.mostrarPopupGana();
+            break;
     }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
