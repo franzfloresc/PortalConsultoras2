@@ -687,16 +687,20 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.NumeroPedido = item;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        if (entidad.CodigoTipoEstrategia != null)
                         {
-                            estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                            
-                        }
-                        if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
-                        {
-                            entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+
+                            }
+                            if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            }
                         }
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                        
                     }
                 }
 
