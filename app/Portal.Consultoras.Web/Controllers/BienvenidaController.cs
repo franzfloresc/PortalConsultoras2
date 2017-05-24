@@ -478,6 +478,19 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
+
+                if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
+                {
+                    var cupon = ObtenerCuponDesdeServicio();
+                    bool consultoraTieneCupon = (cupon != null);
+                    bool paisConsultoraTieneCupon = (userData.TieneCupon == 1);
+
+                    if (paisConsultoraTieneCupon && consultoraTieneCupon && cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
+                    {
+                        TipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
+                        break;
+                    }
+                }
             }
 
             return TipoPopUpMostrar;
