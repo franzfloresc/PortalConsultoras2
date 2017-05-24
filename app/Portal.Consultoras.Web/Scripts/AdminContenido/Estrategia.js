@@ -56,7 +56,10 @@
                     //_crearFileUploadAdd(_editData);
                 }
                 $("#matriz-imagenes-paginacion").empty();
-                _obtenerImagenes(_editData, 1, true);
+                //actualiza para la carga de imagenes actualizada
+                _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
+                    showDialog("matriz-comercial-dialog");
+                });
             } else {
                 alert(response.message);
             };
@@ -191,8 +194,9 @@
         }
 
         var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+        var aux2 = $("#hdEstrategiaCodigo").val();
 
-        if (aux1 == "4") {
+        if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
             $("#txtOrden").val("");
             $('#div-orden').hide();
 
@@ -207,7 +211,7 @@
             $('#txt2-estrella').show();
         }
 
-        if (aux1 == "4" || aux1 == "5") {
+        if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
             $("#ddlEtiqueta1").children('option').hide();
             $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -248,8 +252,8 @@
 
         _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
         _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
-        _agregarCamposLanzamiento('img-fondo-mobile', data.ImgFichaDesktop);
-        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFondoMobile);
+        //_agregarCamposLanzamiento('img-fondo-mobile', data.ImgFondoMobile);
+        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFichaDesktop);
         _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
         _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
         _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
@@ -346,7 +350,7 @@
         $("#txtTextoLibre").val("");
         _limpiarCamposLanzamiento('img-fondo-desktop');
         _limpiarCamposLanzamiento('img-prev-desktop');
-        _limpiarCamposLanzamiento('img-fondo-mobile');
+        //_limpiarCamposLanzamiento('img-fondo-mobile');
         _limpiarCamposLanzamiento('img-ficha-desktop');
         _limpiarCamposLanzamiento('img-ficha-mobile');
         _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
@@ -381,7 +385,9 @@
             if (auxOD == '7') {
                 flagOD = '4';
             }
-            else {
+            else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
+                flagOD = auxOD;
+            } else {
                 flagOD = '0';
             }
 
@@ -439,11 +445,11 @@
 
                         //Carga de Imagenes
                         _editData = {
-                            EstrategiaID: 0,
-                            CUV2: '',
-                            TipoEstrategiaID: 0,
+                            EstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                            CUV2: $("#txtCUV2").val(),
+                            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
                             CodigoSAP: data.codigoSAP,
-                            CampaniaID: 0,
+                            CampaniaID: $("#ddlCampania").val(),
                             IdMatrizComercial: data.idMatrizComercial,
                             paisID: $("#ddlPais").val(),
                             imagenes: [],
@@ -470,30 +476,32 @@
 
                         $("#txtPrecio").val("");
                         $("#txtCUV").val("");
+                        try {
+                            for (var i = 1; i <= nroImagenes; i++) {
+                                idImagen = ('0' + i).substr(-2);
+                                objPreview = $('#preview' + i);
+                                objChkImagen = $('#chkImagenProducto' + idImagen);
+                                dataImagen = data['imagen' + i];
 
-                        for (var i = 1; i <= nroImagenes; i++) {
-                            idImagen = ('0' + i).substr(-2);
-                            objPreview = $('#preview' + i);
-                            objChkImagen = $('#chkImagenProducto' + idImagen);
-                            dataImagen = data['imagen' + i];
-
-                            if (dataImagen != '') {
-                                objPreview.attr('src', data.imagen1);
-                                objChkImagen.attr('disabled', false);
+                                if (dataImagen != '') {
+                                    objPreview.attr('src', data.imagen1);
+                                    objChkImagen.attr('disabled', false);
+                                }
+                                else {
+                                    objPreview.attr('src', rutaImagenVacia);
+                                    objChkImagen.attr('disabled', true);
+                                }
+                                objChkImagen.attr('checked', false);
                             }
-                            else {
-                                objPreview.attr('src', rutaImagenVacia);
-                                objChkImagen.attr('disabled', true);
-                            }
-                            objChkImagen.attr('checked', false);
+                        }catch (e) {
+                            console.error('error al procesar nroImagenes');
                         }
-
                         closeWaitingDialog();
                     }
                 },
                 error: function (data, error) {
-                    alert(data.message);
                     closeWaitingDialog();
+                    alert(data.message);
                 }
             });
         }
