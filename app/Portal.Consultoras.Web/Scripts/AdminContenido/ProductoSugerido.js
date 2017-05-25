@@ -8,7 +8,8 @@ var ProductoSugerido = function (config) {
         paisID: config.paisID || 0,
         fileUploadElementId: config.fileUploadElementId || '',
         matrizIdElementId: config.matrizIdElementId || '',
-        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
+        habilitarNemotecnico: false
     };
 
     var _paginadorClick = function (page) {
@@ -103,11 +104,17 @@ var ProductoSugerido = function (config) {
         _config.paisID = pais;
     };
 
+    var _actualizarParNemotecnico = function (val) {
+        _config.habilitarNemotecnico = val;
+        _matrizFileUploader.actualizarParNemotecnico(val);
+    };
+
     return {
         crearObjetoUpload: _crearObjetoUpload,
         obtenerMatriz: _obtenerMatrizComercialByCUV,
         mostrarListaImagenes: _mostrarListaImagenes,
         mostrarPaginacion: _mostrarPaginacion,
-        actualizarPais: _actualizarPais
+        actualizarPais: _actualizarPais,
+        actualizarParNemotecnico: _actualizarParNemotecnico
     }
 };

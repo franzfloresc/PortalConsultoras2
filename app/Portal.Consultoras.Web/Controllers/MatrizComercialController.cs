@@ -292,7 +292,12 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreArchivo = Request["qqfile"];
                 //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
-                var nombreArchivoSinExtension = nombreArchivo.Substring(0, nombreArchivo.LastIndexOf('.'));
+
+                string nombreArchivoSinExtension = null;
+                if (model.NemotecnicoActivo)
+                {
+                    nombreArchivoSinExtension = nombreArchivo.Substring(0, nombreArchivo.LastIndexOf('.'));
+                }
 
                 var formatoArchivo = GetFileNameFormat(model.PaisID, model.CodigoSAP);
                 var entity = new BEMatrizComercialImagen
@@ -462,10 +467,12 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerISOPais(int paisID)
         {
             string ISO = Util.GetPaisISO(paisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
 
             return Json(new
             {
-                ISO = ISO
+                ISO = ISO,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
 

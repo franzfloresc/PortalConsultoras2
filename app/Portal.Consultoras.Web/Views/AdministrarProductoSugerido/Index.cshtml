@@ -391,7 +391,7 @@
         }
 
         waitingDialog({});
-        $.getJSON(baseUrl + 'ShowRoom/ObtenterCampaniasPorPais', { PaisID: pais }, function (data) {
+        $.getJSON(baseUrl + 'AdministrarProductoSugerido/ObtenerCampaniasPorPais', { PaisID: pais }, function (data) {
             if (!checkTimeout(data)) {
                 closeWaitingDialog();
                 return false;
@@ -407,7 +407,8 @@
                 closeWaitingDialog();
                 return false;
             }
-
+            
+            productoSugeridoObj.actualizarParNemotecnico(data.habilitarNemotecnico);
 
             $.each(listaCombo, function (index, combo) {
                 var ddlCampania = $('#' + $.trim(combo));

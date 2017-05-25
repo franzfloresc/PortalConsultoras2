@@ -1,7 +1,8 @@
 ﻿var MatrizComercialFileUpload = function (config) {
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
-        allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg']
+        allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
+        habilitarNemotecnico: false
     };
 
     var _validarNemotecnico = function (fileName) {
@@ -12,7 +13,7 @@
     };
 
     var _onFileSubmit = function (id, fileName) {
-        if (!_validarNemotecnico(fileName)) {
+        if (_config.habilitarNemotecnico && !_validarNemotecnico(fileName)) {
             alert('El formato del nombre de imagen no es válido.');
             return false;
         }
@@ -32,7 +33,8 @@
                 Foto: data.foto,
                 PaisID: data.paisID,
                 CodigoSAP: data.codigoSAP,
-                DescripcionOriginal: data.descripcionOriginal
+                DescripcionOriginal: data.descripcionOriginal,
+                NemotecnicoActivo: _config.habilitarNemotecnico
             },
             onComplete: data.onComplete,
             onSubmit: _onFileSubmit,
@@ -41,7 +43,12 @@
         });
     };
 
+    var _actualizarParNemotecnico = function (val) {
+        _config.habilitarNemotecnico = val;
+    }
+
     return {
-        crearFileUpload: _crearFileUpload
+        crearFileUpload: _crearFileUpload,
+        actualizarParNemotecnico: _actualizarParNemotecnico
     }
 }

@@ -59,6 +59,7 @@
                 $.getJSON(baseUrl + 'MatrizComercial/ObtenerISOPais', { paisID: paisID }, function (data) {
                     closeWaitingDialog();
                     isoPAIS = data.ISO;
+                    matrizComercialObj.actualizarParNemotecnico(data.habilitarNemotecnico);
                 });
             } else
                 $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");

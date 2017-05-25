@@ -2016,5 +2016,33 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
         }
+
+        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(paisID, tablaLogicaId).ToList();
+            }
+            return datos;
+        }
+
+        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos)
+        {
+            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
+        }
+        public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
+        {
+            var valor = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos);
+                if (par != null)
+                {
+                    valor = par.Codigo;
+                }
+            }
+            return valor;
+        }
     }
 }

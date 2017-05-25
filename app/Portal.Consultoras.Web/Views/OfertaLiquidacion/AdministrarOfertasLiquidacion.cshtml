@@ -199,6 +199,9 @@
 
                         var ddlCampania = $('#ddlCampania');
                         var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+
+                        ofertaLiquidacionObj.actualizarParNemotecnico(data.habilitarNemotecnico);
+
                         ddlCampania.empty();
                         ddlConfiguracionOferta.empty();
                         if (data.lista.length > 0) {

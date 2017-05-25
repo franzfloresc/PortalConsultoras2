@@ -537,10 +537,13 @@ namespace Portal.Consultoras.Web.Controllers
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+
             return Json(new
             {
                 lista = lst,
-                lstConfig = lstConfig
+                lstConfig = lstConfig,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
 

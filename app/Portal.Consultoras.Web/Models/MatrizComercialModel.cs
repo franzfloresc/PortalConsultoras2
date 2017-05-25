@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
         public string UsuarioRegistro { get; set; }
         public string UsuarioModificacion { get; set; }
+        public bool NemotecnicoActivo { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
     }
 

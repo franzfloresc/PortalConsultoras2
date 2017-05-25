@@ -118,6 +118,10 @@
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
             public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
         
         public class ParametrosNames

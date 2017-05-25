@@ -4,7 +4,8 @@ var MatrizComercial = function (config) {
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || '',
-        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10
+        numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
+        habilitarNemotecnico: false
     };
     var _editData = {};
 
@@ -132,7 +133,13 @@ var MatrizComercial = function (config) {
         _crearFileUploadElements(editData);
     };
 
+    var _actualizarParNemotecnico = function (val) {
+        _config.habilitarNemotecnico = val;
+        _matrizFileUploader.actualizarParNemotecnico(val);
+    };
+
     return {
-        editar: _editar
+        editar: _editar,
+        actualizarParNemotecnico: _actualizarParNemotecnico
     }
 };
