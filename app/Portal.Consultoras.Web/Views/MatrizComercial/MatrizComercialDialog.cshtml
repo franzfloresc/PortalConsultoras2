@@ -27,13 +27,19 @@
     </div>
 </script>
 <script id="matriz-comercial-item-template" type="text/x-handlebars-template">
-    {{#each imagenes}}
+    {{#each data.imagenes}}
     <div class="item">
         <div class="content selectP2 borde_redondeado aligncenter">
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
-        <div class="actions">
+        <div class="actions" style="text-align:center">
             <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
+            {{#if ../habilitarNemotecnico}}
+                <div class="nemotecnico-wrapper">
+                    <a title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+                </div>
+            {{/if}}
+            
         </div>
     </div>
     {{/each}}
