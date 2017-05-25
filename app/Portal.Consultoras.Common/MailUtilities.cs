@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</div>");
             sBuilder.Append("</div>");
             sBuilder.Append("<div style=\"padding-top: 20px; background: #fff; padding-bottom: 20px;\" > ");
-            sBuilder.Append("<a style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px;\">INGRESA A SOMOSBELCORP</a>");
+            sBuilder.Append("<a href=\"https://www.somosbelcorp.com/Bienvenida\" style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
             sBuilder.Append("</div>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
