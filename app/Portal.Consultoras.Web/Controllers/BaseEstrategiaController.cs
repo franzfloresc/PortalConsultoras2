@@ -30,15 +30,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PaisID = userData.PaisID,
                 CampaniaID = userData.CampaniaID,
-                ConsultoraID = userData.UsuarioPrueba == 1
-                    ? userData.ConsultoraAsociadaID.ToString()
-                    : userData.ConsultoraID.ToString(),
+                ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString(),
                 CUV2 = cuv ?? "",
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = usuario.ZonaHoraria,
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true,
-                CodigoAgrupacion = "";
+                CodigoAgrupacion = ""
             };
             
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
