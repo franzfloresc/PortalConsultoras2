@@ -2,39 +2,40 @@
 using System.Data;
 using System.Data.Common;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Configuration;
+using System.Threading.Tasks;
+
 using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
     public class DAConsultoraCliente : DataAccess
     {
+        private HttpClient httpClient = null;
+        private string requestUri = "api/Cliente";
+        private BEAPISB2Response beAPISB2Response;
+        private string ServiceResponse_SUCCESS = "0000";
+
         public DAConsultoraCliente(int paisID)
             : base(paisID, EDbSource.Portal)
         {
+            httpClient = new HttpClient();
+            string baseAddress = ConfigurationManager.AppSettings["UrlApiSB2"];
+            httpClient.BaseAddress = new Uri(baseAddress);
+            httpClient.DefaultRequestHeaders.Accept.Clear();
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            beAPISB2Response = new BEAPISB2Response();
         }
 
-        public long InsertConsultoraCliente(BEConsultoraCliente consultoraCliente)
+        ~DAConsultoraCliente()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.InsertConsultoraCliente");
-
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraCliente.ConsultoraID);
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, consultoraCliente.ClienteID);
-            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, consultoraCliente.Favorito);
-
-            return Convert.ToInt64(Context.ExecuteScalar(command));
+            GC.SuppressFinalize(httpClient);
         }
 
-        public bool DeleteConsultoraCliente(long ConsultoraID, long ClienteID)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.DeleteConsultoraCliente");
-
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, ClienteID);
-
-            return Context.ExecuteNonQuery(command) > 0;
-        }
-
+        #region ConsultoraCliente
         public List<BEAnotacion> GetConsultoraCliente(long ConsultoraID)
         {
             var list = new List<BEAnotacion>();
@@ -63,6 +64,108 @@ namespace Portal.Consultoras.Data
 
             return list;
         }
+
+        public bool DeleteConsultoraCliente(long ConsultoraID, long ClienteID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.DeleteConsultoraCliente");
+
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, ClienteID);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public long InsertConsultoraCliente(BEConsultoraCliente consultoraCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.InsertConsultoraCliente");
+
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraCliente.ConsultoraID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, consultoraCliente.ClienteID);
+            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, consultoraCliente.Favorito);
+
+            return Convert.ToInt64(Context.ExecuteScalar(command));
+        }
+        #endregion
+
+        #region Cliente
+        public List<BEConsultoraCliente> GetClienteByClienteID(string Clientes)
+        {
+            List<BEConsultoraCliente> result = new List<BEConsultoraCliente>();
+
+            string getRequestUri = string.Format("{0}?Clientes={1}", requestUri, Clientes);
+            HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEConsultoraCliente>>();
+            }
+
+            return result;
+        }
+
+        public List<BEConsultoraCliente> GetCliente(long ClienteID,short TipoContactoID, string Valor)
+        {
+            List<BEConsultoraCliente> result = new List<BEConsultoraCliente>();
+
+            string getRequestUri = string.Format("{0}?ClienteID={1}&TipoContactoID={2}&Valor={3}", requestUri,ClienteID, TipoContactoID, Valor);
+            HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEConsultoraCliente>>();
+            }
+
+            return result;
+        }
+
+        public long InsertCliente(BEConsultoraCliente cliente)
+        {
+            long result = 0;
+
+            HttpResponseMessage response = httpClient.PostAsJsonAsync(requestUri, cliente).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (long)beAPISB2Response.Respuesta;
+            }
+
+            return result;
+        }
+
+        public bool UpdateCliente(BEConsultoraCliente cliente)
+        {
+            bool result = false;
+
+            HttpResponseMessage response = httpClient.PutAsJsonAsync(requestUri, cliente).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
+            }
+
+            return result;
+        }
+
+        public bool DeleteContactoCliente(BEContactoCliente contactoCliente)
+        {
+            bool result = false;
+
+            string deleteRequestUri = string.Format("{0}/Delete/contactoCliente?ContactoClienteID={1}&ClienteID={2}&TipoContactoID={3}&Valor={4}", requestUri, contactoCliente.ContactoClienteID, contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+            HttpResponseMessage response = httpClient.DeleteAsync(deleteRequestUri).GetAwaiter().GetResult();
+
+            if (response.IsSuccessStatusCode)
+            {
+                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
+            }
+
+            return result;
+        }
+        #endregion
 
         #region Anotacion
         public bool InsertAnotacion(BEAnotacion anotacion)
@@ -93,13 +196,53 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command) > 0;
         }
+        #endregion
 
-        public IDataReader GetAnotacion(long ConsultoraClienteID)
+        #region TelefonoFavorito
+        public bool InsertTelefonoFavorito(BETelefonoFavorito telefonoFavorito)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.GetAnotacion");
-            Context.Database.AddInParameter(command, "@ConsultoraClienteID", DbType.Int64, ConsultoraClienteID);
+            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.InsertTelefonoFavorito");
 
-            return Context.ExecuteReader(command);
+            Context.Database.AddInParameter(command, "@ConsultoraClienteID", DbType.Int64, telefonoFavorito.ConsultoraClienteID);
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, telefonoFavorito.TipoContactoID);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public bool DeleteTelefonoFavorito(BETelefonoFavorito telefonoFavorito)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.DeleteTelefonoFavorito");
+
+            Context.Database.AddInParameter(command, "@ConsultoraClienteID", DbType.Int64, telefonoFavorito.ConsultoraClienteID);
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, telefonoFavorito.TipoContactoID);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public List<BETelefonoFavorito> GetTelefonoFavorito(long ConsultoraID)
+        {
+            var list = new List<BETelefonoFavorito>();
+
+            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.GetTelefonoFavorito");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+
+            using (var reader = Context.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    var entity = new BETelefonoFavorito
+                    {
+                        TelefonoFavoritoID = GetDataValue<long>(reader, "TelefonoFavoritoID"),
+                        ConsultoraClienteID = GetDataValue<long>(reader, "ConsultoraClienteID"),
+                        TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
+                    };
+
+                    list.Add(entity);
+                }
+            }
+
+            return list;
         }
         #endregion
     }

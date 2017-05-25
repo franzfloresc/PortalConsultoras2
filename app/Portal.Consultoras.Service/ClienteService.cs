@@ -132,19 +132,19 @@ namespace Portal.Consultoras.Service
         }
 
         #region ConsultoraCliente
-        public bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente)
+        public List<BEConsultoraClienteResponse> SincronizacionSubida(int paisID, long consultoraID, List<BEConsultoraCliente> clientes)
         {
-            return new BLConsultoraCliente().InsertConsultoraCliente(paisID, consultoraCliente);
+            return new BLConsultoraCliente(paisID).SincronizacionSubida(consultoraID, clientes);
         }
 
-        public bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID)
+        public List<BEConsultoraCliente> SincronizacionBajada(int paisID, long consultoraID)
         {
-            return new BLConsultoraCliente().DeleteConsultoraCliente(paisID, ConsultoraID, ClienteID);
+            return new BLConsultoraCliente(paisID).SincronizacionBajada(consultoraID);
         }
 
-        public List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID)
+        public BEConsultoraClienteResponse ValidaTelefono(int paisID, BEContactoCliente contactoCliente)
         {
-            return new BLConsultoraCliente().GetConsultoraCliente(paisID, ConsultoraID);
+            return new BLConsultoraCliente(paisID).ValidaTelefono(contactoCliente);
         }
         #endregion
     }
