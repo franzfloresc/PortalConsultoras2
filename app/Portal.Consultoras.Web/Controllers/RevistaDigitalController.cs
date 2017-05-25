@@ -1,13 +1,11 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Configuration;
-using System;
-using Portal.Consultoras.Web.ServicePedido;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -64,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
         {
@@ -81,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-                
+
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var listModel = ConsultarEstrategiasModel("");
@@ -165,7 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                
+
                 int cantidad = listaFinal.Count;
 
                 return Json(new
@@ -188,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetProductoDetalle(int id)
         {
@@ -196,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
-                
+
                 return Json(new
                 {
                     success = producto.EstrategiaID > 0,
@@ -227,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "USTED YA ESTÁ SUSCRITO, GRACIAS."
                 }, JsonRequestBehavior.AllowGet);
             }
-            
+
             var entidad = new BERevistaDigitalSuscripcion();
             entidad.PaisID = userData.PaisID;
             entidad.CodigoConsultora = userData.CodigoConsultora;
@@ -241,11 +239,16 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (sv.RDSuscripcion(entidad) > 0)
                 {
-                    var rds = sv.RDGetSuscripcion(entidad);
-                    userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
-                    userData.RevistaDigital.NoVolverMostrar = true;
-                    userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                    entidad.CampaniaID = 0;
+                    entidad = sv.RDGetSuscripcion(entidad);
                 }
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             }
 
             SetUserData(userData);

@@ -275,10 +275,13 @@ END
 -- ALTERAR EL ORDEN DE LOS POPUPS (PARA LA CONVIVENCIA CON OTROS POPUPS)
 ------------------------------------------------------------------------
 IF not EXISTS (SELECT * FROM PopupPais where CodigoPopup = 9) 
+begin
 	UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
 	INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
 	VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+end
 GO
+
 
 ----------------------------------------------------------------------------------------------
 -- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA
@@ -326,7 +329,7 @@ BEGIN
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
 			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
-			,case when @EstadoRegistro = 1 then 0 else 2 end
+			,0
 			,@IsoPais
 			,@CodigoZona
 			,@EMail
@@ -339,7 +342,6 @@ BEGIN
 		SET  FechaSuscripcion =  case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else FechaSuscripcion end
 			,FechaDesuscripcion = case when @EstadoRegistro = 2  then dbo.fnObtenerFechaHoraPais() else FechaDesuscripcion end
 			,EstadoRegistro = @EstadoRegistro
-			,EstadoEnvio = case when @EstadoRegistro = 1 then 0 else 2 end
 			,IsoPais = @IsoPais
 			,CodigoZona = @CodigoZona
 			,EMail = @EMail
