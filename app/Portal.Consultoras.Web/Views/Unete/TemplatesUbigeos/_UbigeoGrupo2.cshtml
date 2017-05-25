@@ -100,7 +100,7 @@
     </div>
 </div>
 <div class="contenedor_camposUbigeo">
-    <label style="top:0px; width:44px;">Codigo Postal:</label>
+    <label>Codigo Postal:</label>
     <div class="contenedor_campoFormulario campoCodigoPostal_MX">
         @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
