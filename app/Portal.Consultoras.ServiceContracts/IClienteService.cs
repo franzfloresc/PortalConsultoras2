@@ -70,14 +70,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+        #region ConsultoraCliente
+        [OperationContract]
+        List<BEConsultoraClienteResponse> SincronizacionSubida(int PaisID, long ConsultoraID, List<BEConsultoraCliente> clientes);
 
         [OperationContract]
-        bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente);
+        List<BEConsultoraCliente> SincronizacionBajada(int PaisID, long ConsultoraID);
 
         [OperationContract]
-        bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID);
-
-        [OperationContract]
-        List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID);
+        BEConsultoraClienteResponse ValidaTelefono(int paisID, BEContactoCliente contactoCliente);
+        #endregion
     }
 }

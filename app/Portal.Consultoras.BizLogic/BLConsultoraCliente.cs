@@ -3,41 +3,424 @@ using System.Collections.Generic;
 using System.Data;
 using System.Transactions;
 using System.Linq;
+using System.Text.RegularExpressions;
+
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraCliente
     {
-        public bool InsertConsultoraCliente(int paisID, BEConsultoraCliente consultoraCliente)
+        private DAConsultoraCliente daConsultoraCliente;
+        private List<BEConsultoraClienteResponse> lstResponse;
+        private int PaisID;
+
+        public BLConsultoraCliente(int paisID)
+        {
+            daConsultoraCliente = new DAConsultoraCliente(paisID);
+
+            lstResponse = new List<BEConsultoraClienteResponse>();
+
+            PaisID = paisID;
+        }
+
+        #region MetodosPublicos
+        public List<BEConsultoraClienteResponse> SincronizacionSubida(long consultoraID, List<BEConsultoraCliente> clientes)
+        {
+            bool validacionTelefono = false;
+
+            foreach(var clienteItem in clientes)
+            {
+                validacionTelefono = false;
+
+                //VALIDACION DE CLIENTE
+                if (!this.Validacion(clienteItem)) continue;
+
+                //OBTENER CELULAR O FIJO
+                var lstContactoTelefono = (from tbl in clienteItem.Contactos
+                                    where tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular
+                                    || tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Fijo
+                                    select tbl).OrderBy(x => x.TipoContactoID);
+
+                foreach(var telefonoCliente in lstContactoTelefono)
+                {
+                    if(!this.ValidacionTelefono(telefonoCliente.TipoContactoID, telefonoCliente.Valor))
+                    {
+                        validacionTelefono = true;
+                        lstResponse.Add(new BEConsultoraClienteResponse()
+                        {
+                            ClienteID = clienteItem.ClienteID,
+                            CodigoRespuesta = (telefonoCliente.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular ? Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELCELULAR : Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELFIJO),
+                            MensajeRespuesta = (telefonoCliente.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular ? Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELCELULAR] : Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELFIJO])
+                        });
+                        continue;
+                    }
+                }
+
+                if (validacionTelefono) continue;
+
+                var contactoItem = lstContactoTelefono.FirstOrDefault();
+
+                if (contactoItem == null)
+                {
+                    lstResponse.Add(new BEConsultoraClienteResponse()
+                        {
+                            ClienteID = clienteItem.ClienteID,
+                            CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONONOENVIADO,
+                            MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONONOENVIADO]
+                        });
+                    continue;
+                }
+
+                //VERIFICACION CLIENTE
+                var resGetCliente = daConsultoraCliente.GetCliente(clienteItem.ClienteID, contactoItem.TipoContactoID, contactoItem.Valor);
+                
+                if (resGetCliente.Count > 0)
+                {
+                    if (clienteItem.ClienteID == 0)
+                    {
+                        clienteItem.ClienteID = resGetCliente.First().ClienteID;
+                    }
+                    else
+                    {
+                        lstResponse.Add(new BEConsultoraClienteResponse()
+                        {
+                            ClienteID = clienteItem.ClienteID,
+                            CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE,
+                            MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE]
+                        });
+                        continue;
+                    }
+                }
+
+                //ACCION A REALIZAR
+                if (clienteItem.Estado == Constantes.ConsultoraClienteEstado.Inactivo)
+                {
+                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.DatosGenerales)
+                    {
+                        if (clienteItem.ClienteID > 0) daConsultoraCliente.DeleteConsultoraCliente(consultoraID, clienteItem.ClienteID);
+                    }
+                }
+                else
+                {
+                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.DatosGenerales || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
+                    {
+                        clienteItem.Contactos = new List<BEContactoCliente>();
+                    }
+
+                    if (clienteItem.ClienteID == 0)
+                    {
+                        //INSERTA CLIENTES Y CONTACTOS
+                        clienteItem.ClienteID = daConsultoraCliente.InsertCliente(clienteItem);
+
+                        if (clienteItem.ClienteID == 0)
+                        {
+                            lstResponse.Add(new BEConsultoraClienteResponse()
+                            {
+                                ClienteID = clienteItem.ClienteID,
+                                CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO,
+                                MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO]
+                            });
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        if (clienteItem.TipoRegistro != Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
+                        {
+                            //ACTUALIZA CLIENTES Y CONTACTOS (Insert,Update)
+                            var lstContactos = clienteItem.Contactos;
+                            clienteItem.Contactos = lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Activo).ToList();
+                            var resUpdateCliente = daConsultoraCliente.UpdateCliente(clienteItem);
+
+                            if (!resUpdateCliente)
+                            {
+                                lstResponse.Add(new BEConsultoraClienteResponse()
+                                {
+                                    ClienteID = clienteItem.ClienteID,
+                                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO,
+                                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO]
+                                });
+                                continue;
+                            }
+
+                            if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.TipoContacto)
+                            {
+                                //ACTUALIZA CONTACTOS (Delete)
+                                foreach (var contactoItemDelete in lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Inactivo))
+                                {
+                                    var resultDeleteContactoCliente = daConsultoraCliente.DeleteContactoCliente(contactoItemDelete);
+                                }
+                            }
+                        }
+                    }
+
+                    //ASOCIACION CLIENTE CONSULTORA - ANOTACIONES
+                    var consultoraCliente = new BEConsultoraCliente()
+                        {
+                            ConsultoraID = consultoraID,
+                            ClienteID = clienteItem.ClienteID,
+                            Favorito = clienteItem.Favorito,
+                            Contactos = clienteItem.Contactos
+                        };
+
+                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
+                        consultoraCliente.Anotaciones = clienteItem.Anotaciones;
+                    else
+                        consultoraCliente.Anotaciones = new List<BEAnotacion>();
+
+                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.DatosGenerales ||
+                            clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
+                    {
+                        var resultInsertConsultoraCliente = this.InsertConsultoraCliente(consultoraCliente);
+                    }
+                }
+
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                    {
+                        ClienteID = clienteItem.ClienteID,
+                        CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.SUCCESS,
+                        MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.SUCCESS]
+                    });
+            }
+
+            return lstResponse;
+        }
+
+        public List<BEConsultoraCliente> SincronizacionBajada(long consultoraID)
+        {
+            List<BEConsultoraCliente> lstResult = new List<BEConsultoraCliente>();
+
+            //1. OBTENER CONSULTORA CLIENTES Y ANOTACIONES
+            var lstAnotacion = daConsultoraCliente.GetConsultoraCliente(consultoraID);
+
+            var lstConsultoraCliente = (from tbl in lstAnotacion
+                                        group tbl by tbl.ConsultoraClienteID into grp
+                                        select new BEConsultoraCliente
+                                        {
+                                            ConsultoraClienteID = grp.Key,
+                                            ConsultoraID = grp.Max(x => x.ConsultoraID),
+                                            ClienteID = grp.Max(x => x.ClienteID),
+                                            Favorito = grp.Max(x => x.Favorito),
+                                            Anotaciones = grp.ToList(),
+                                        }).ToList();
+
+            //2. OBTENER TELEFONOS FAVORITOS
+            var lstTelefonoFavorito = daConsultoraCliente.GetTelefonoFavorito(consultoraID);
+
+            //3. OBTENER CLIENTES Y TIPO CONTACTOS
+            string clientes = string.Join("|", lstConsultoraCliente.Select(x => x.ClienteID));
+            var lstCliente = daConsultoraCliente.GetClienteByClienteID(clientes);
+
+            //4. CRUZAR 1,2 Y 3
+            lstResult = (from tblConsultoraCliente in lstConsultoraCliente
+                         join tblCliente in lstCliente
+                          on tblConsultoraCliente.ClienteID equals tblCliente.ClienteID
+                         select new BEConsultoraCliente
+                          {
+                              ClienteID = tblConsultoraCliente.ClienteID,
+                              Apellidos = tblCliente.Apellidos,
+                              Nombres = tblCliente.Nombres,
+                              Alias = tblCliente.Alias,
+                              Foto = tblCliente.Foto,
+                              FechaNacimiento = tblCliente.FechaNacimiento,
+                              Sexo = tblCliente.Sexo,
+                              Documento = tblCliente.Documento,
+                              Origen = tblCliente.Origen,
+                              Favorito = tblConsultoraCliente.Favorito,
+                              Estado = 1,
+                              Contactos = tblCliente.Contactos,
+                              Anotaciones = tblConsultoraCliente.Anotaciones.Where(x => x.AnotacionID != 0).Any() ? tblConsultoraCliente.Anotaciones : new List<BEAnotacion>()
+                          }).OrderBy(x => x.Nombres).ToList();
+
+            foreach(var cliente in lstResult)
+            {
+                cliente.Contactos = (from tblContactos in cliente.Contactos
+                                     join tblFavorito in lstTelefonoFavorito
+                                     on new { tblContactos.ClienteID, tblContactos.TipoContactoID } equals new { tblFavorito.ClienteID, tblFavorito.TipoContactoID } into tblJoin
+                                     from tblFinal in tblJoin.DefaultIfEmpty()
+                                     select new BEContactoCliente
+                                     {
+                                         ContactoClienteID = tblContactos.ContactoClienteID,
+                                         ClienteID = tblContactos.ClienteID,
+                                         TipoContactoID = tblContactos.TipoContactoID,
+                                         Valor = tblContactos.Valor,
+                                         Estado = tblContactos.Estado,
+                                         Favorito = (short)(tblFinal == null ? 0 : 1)
+                                     }).ToList();
+            }
+
+            return lstResult;
+        }
+
+        public BEConsultoraClienteResponse ValidaTelefono(BEContactoCliente contactoCliente)
+        {
+            BEConsultoraClienteResponse consultoraClienteResponse = null;
+
+            if (!this.ValidacionTelefono(contactoCliente.TipoContactoID, contactoCliente.Valor))
+            {
+                consultoraClienteResponse = new BEConsultoraClienteResponse()
+                {
+                    ClienteID = contactoCliente.ClienteID,
+                    CodigoRespuesta = (contactoCliente.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular ? Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELCELULAR : Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELFIJO),
+                    MensajeRespuesta = (contactoCliente.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular ? Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELCELULAR] : Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_FORMATOTELFIJO])
+                };
+            }
+            else if (contactoCliente.ClienteID > 0)
+            {
+                var lstCliente = daConsultoraCliente.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+
+                if (lstCliente.Count > 0)
+                {
+                    consultoraClienteResponse = new BEConsultoraClienteResponse()
+                    {
+                        ClienteID = contactoCliente.ClienteID,
+                        CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE,
+                        MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE]
+                    };
+                }
+            }
+
+            if (consultoraClienteResponse == null)
+            {
+                consultoraClienteResponse = new BEConsultoraClienteResponse()
+                {
+                    ClienteID = contactoCliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.SUCCESS,
+                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.SUCCESS]
+                };
+            }
+
+            return consultoraClienteResponse;
+        }
+        #endregion
+
+        #region MetodosPrivados
+        private bool Validacion(BEConsultoraCliente cliente)
+        {
+            if (string.IsNullOrEmpty(cliente.Nombres))
+            {
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                {
+                    ClienteID = cliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_NOMBRENOENVIADO,
+                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_NOMBRENOENVIADO]
+                });
+
+                return false;
+            }
+            else if (string.IsNullOrEmpty(cliente.Origen))
+            {
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                {
+                    ClienteID = cliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_ORIGENNOENVIADO,
+                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_ORIGENNOENVIADO]
+                });
+
+                return false;
+            }
+            else if (cliente.Contactos.Count == 0)
+            {
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                {
+                    ClienteID = cliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_CONTACTOSNOENVIADO,
+                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_CONTACTOSNOENVIADO]
+                });
+
+                return false;
+            }
+
+            var validacionTipoContacto = cliente.Contactos.Where(x => string.IsNullOrEmpty(x.Valor)).FirstOrDefault();
+
+            if (validacionTipoContacto != null)
+            {
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                {
+                    ClienteID = cliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_TIPOCONTACTONOENVIADO,
+                    MensajeRespuesta = string.Format(Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_TIPOCONTACTONOENVIADO], validacionTipoContacto.TipoContactoID)
+                });
+
+                return false;
+            }
+
+            var validacionAnotacion = cliente.Anotaciones.Where(x => string.IsNullOrEmpty(x.Descripcion)).FirstOrDefault();
+
+            if (validacionAnotacion != null)
+            {
+                lstResponse.Add(new BEConsultoraClienteResponse()
+                {
+                    ClienteID = cliente.ClienteID,
+                    CodigoRespuesta = Constantes.ConsultoraClienteValidacion.Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO,
+                    MensajeRespuesta = Constantes.ConsultoraClienteValidacion.Message[Constantes.ConsultoraClienteValidacion.Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO]
+                });
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidacionTelefono(short TipoContactoID, string telefono )
+        {
+            string paisISO = Util.GetPaisISO(PaisID);
+
+            string expression = (TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular ? Constantes.CelularValidacion.RegExp[paisISO] : Constantes.TelefonoValidacion.RegExp[paisISO]);
+
+            Regex regex = new Regex(expression);
+            Match match = regex.Match(telefono);
+
+            return match.Success;
+        }
+
+        private bool InsertConsultoraCliente(BEConsultoraCliente consultoraCliente)
         {
             bool resultado = false;
 
-            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required,TimeSpan.FromMinutes(0)))
+            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
-                var DAConsultoraCliente = new DAConsultoraCliente(paisID);
-
-                var ConsultoraClienteID = DAConsultoraCliente.InsertConsultoraCliente(consultoraCliente);
+                var ConsultoraClienteID = daConsultoraCliente.InsertConsultoraCliente(consultoraCliente);
 
                 if (ConsultoraClienteID > 0)
                 {
-                    foreach(var item in consultoraCliente.Anotaciones)
+                    foreach (var item in consultoraCliente.Anotaciones)
                     {
                         item.ConsultoraClienteID = ConsultoraClienteID;
 
                         if (item.Estado == 1)
                         {
                             if (item.AnotacionID == 0)
-                                resultado = DAConsultoraCliente.InsertAnotacion(item);
+                                daConsultoraCliente.InsertAnotacion(item);
                             else
-                                resultado = DAConsultoraCliente.UpdateAnotacion(item);
-
-                            if (!resultado) break;
+                                daConsultoraCliente.UpdateAnotacion(item);
                         }
                         else
                         {
-                            resultado = DAConsultoraCliente.DeleteAnotacion(item.AnotacionID);
+                            daConsultoraCliente.DeleteAnotacion(item.AnotacionID);
+                        }
+                    }
+
+                    foreach (var itemTelefonoFavorito in consultoraCliente.Contactos)
+                    {
+                        if (itemTelefonoFavorito.Favorito == 1)
+                        {
+                            daConsultoraCliente.InsertTelefonoFavorito(new BETelefonoFavorito()
+                                {
+                                    ConsultoraClienteID = ConsultoraClienteID,
+                                    TipoContactoID = itemTelefonoFavorito.TipoContactoID
+                                });
+                        }
+                        else
+                        {
+                            daConsultoraCliente.DeleteTelefonoFavorito(new BETelefonoFavorito()
+                            {
+                                ConsultoraClienteID = ConsultoraClienteID,
+                                TipoContactoID = itemTelefonoFavorito.TipoContactoID
+                            });
                         }
                     }
 
@@ -47,32 +430,6 @@ namespace Portal.Consultoras.BizLogic
 
             return resultado;
         }
-
-        public bool DeleteConsultoraCliente(int paisID, long ConsultoraID, long ClienteID)
-        {
-            var DAConsultoraCliente = new DAConsultoraCliente(paisID);
-
-            return DAConsultoraCliente.DeleteConsultoraCliente(ConsultoraID, ClienteID);
-        }
-
-        public List<BEConsultoraCliente> GetConsultoraCliente(int paisID, long ConsultoraID)
-        {
-            var DAConsultoraCliente = new DAConsultoraCliente(paisID);
-
-            var lst = DAConsultoraCliente.GetConsultoraCliente(ConsultoraID);
-
-            var result = (from tbl in lst
-                          group tbl by tbl.ConsultoraClienteID into grp
-                          select new BEConsultoraCliente
-                          {
-                              ConsultoraClienteID = grp.Key,
-                              ConsultoraID = grp.Max(x => x.ConsultoraID),
-                              ClienteID = grp.Max(x => x.ClienteID),
-                              Favorito = grp.Max(x => x.Favorito),
-                              Anotaciones = grp.ToList(),
-                          }).ToList();
-
-            return result;
-        }
+        #endregion
     }
 }
