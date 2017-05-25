@@ -205,7 +205,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
-        IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros);
+        IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros);
 
         [OperationContract]
         IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
