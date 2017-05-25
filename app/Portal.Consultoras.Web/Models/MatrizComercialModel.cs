@@ -25,5 +25,6 @@ namespace Portal.Consultoras.Web.Models
         public int IdMatrizComercialImagen { get; set; }
         public string Foto { get; set; }
         public DateTime FechaRegistro { get; set; }
+        public string NemoTecnico { get; set; }
     }
 }

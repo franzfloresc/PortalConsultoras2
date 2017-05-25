@@ -128,8 +128,9 @@ var MatrizComercial = function (config) {
         _paginador.paginar(numRegistros);
     };
 
-    var _mostrarListaImagenes = function(editData) {
-        SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+    var _mostrarListaImagenes = function (editData) {
+
+        SetHandlebars('#matriz-comercial-item-template', { data: editData, habilitarNemotecnico: _config.habilitarNemotecnico }, '#matriz-comercial-images');
         _crearFileUploadElements(editData);
     };
 

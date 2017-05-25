@@ -1323,6 +1323,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
         }
+
         #endregion
 
         #region Eliminar Detalle Pack Nueva
@@ -4341,34 +4342,6 @@ namespace Portal.Consultoras.Web.Controllers
                         estado = pedidoReservado;
                         if (!estado) estado = ValidarHorarioRestringido(out mensaje);
                     }
-
-                    //EPD-2058 Comprobar esta validación 
-                   
-                    //if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    //{
-                    //    /*
-                    //     *  tipoAccion:
-                    //     *  1: Agregar
-                    //     *  2: Listar
-                    //     */
-                    //    if (!string.IsNullOrEmpty(tipoAccion))
-                    //    {
-                    //        if (tipoAccion == "1")
-                    //        {
-                    //            estado = true;
-                    //            mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //        }
-                    //        else if (tipoAccion == "2")
-                    //        {
-                    //            estado = false;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        estado = true;
-                    //        mensaje = "Acceso restringido, aun no puede agregar pedidos";
-                    //    }
-                    //}
                 }
 
                 return Json(new

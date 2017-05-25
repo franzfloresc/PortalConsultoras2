@@ -222,27 +222,25 @@
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
             </div>
-
             <div class="menu_new_esika">
                 @Html.Partial("~/Views/Shared/_Menu.cshtml")
             </div>
 
             @{
                 string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
+                controllerAction = controllerAction.ToLower();
             }
             <div class="menu_esika_b">
-                <div class="campana user-profile">
-                    <img class="mostrar_perfil oculto" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
+                <div class="campana user-profile oculto">
+                    <img class="mostrar_perfil" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
                 </div>
-
-                <div class="campana">
-                    <a class="@(controllerAction == "BienvenidaIndex" ? "oculto" : "")" href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                <div class="campana @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
+                    <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                         <div class="campana_svg mensaje_svg"></div>
                         <p class="notificaciones notificaciones_existentes js-notificaciones">0</p>
                     </a>
                 </div>
-
-                <div class="borde_c @(controllerAction == "BienvenidaIndex" ? "invisible" : "")"></div>
+                <div class="borde_c @(controllerAction == "bienvenidaindex" ? "invisible" : "")"></div>
                 <div class="campana cart_compras" style="width: auto;">
                     <div class="contenedor_circulos">
                         <div class="circulo-1 iniciarTransicion"></div>
@@ -311,6 +309,7 @@
                     </a>
                 </div>
             </div>
+            <div class="clear"></div>
         </div>
         <div class="clear"></div>
     </header>
@@ -322,7 +321,12 @@
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         <div class="SubHeader">
-            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex" || controllerAction == "ShowRoomIndex" || controllerAction == "ShowRoomIntriga" ? "oculto" : "")">
+            <div class="ubicacion_web @(controllerAction == "bienvenidaindex"
+                            || controllerAction == "showroomindex"
+                            || controllerAction == "showroomintriga"
+                            || controllerAction == "revistadigitalindex"
+                            || controllerAction == "revistadigitaldetalle"
+                            || controllerAction == "revistadigitalinscripcion" ? "oculto" : "")">
                 <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
             </div>
         </div>
@@ -444,6 +448,7 @@
     <input type="hidden" id="hdFlagValidacion" value="0" />
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
 
     <!--Div Banner Lateral ShowRoom-->
     <div id="ctras" class="caja-traslado" style="display: none;">
@@ -497,7 +502,6 @@
         <div class="linea_superior margin_10"></div>
         <div class="pop_pedido_mensaje"></div>
     </div>
-
     <!-- POPUP MENSAJE ERROR - exclamacion  -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_ErrorMainLayout" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -853,6 +857,10 @@
         var vbSimbolo = '@ViewBag.Simbolo';
         var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
         var viewBagRol = '@ViewBag.Rol';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         var DesktopHomeBanners = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeBanners;
         var DesktopHomeOfertasParaTi = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi;

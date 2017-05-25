@@ -13065,9 +13065,24 @@ label.checkpop {
 }
 
 .matriz-comercial-list .item .content {
-  height:140px;
+  height:134px;
   padding:0;
   margin-bottom: 2px;
+}
+
+.matriz-comercial-list .item .actions .nemotecnico-wrapper {
+  width:170px; 
+  display:inline-block; 
+  font-size:0.9em;
+  color:gray !important;
+  padding-top:2px; 
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+}
+
+.matriz-comercial-list .item .actions .nemotecnico-wrapper a {
+   text-decoration: none !important;
 }
 
 .matriz-comercial-list .item.disabledItem {

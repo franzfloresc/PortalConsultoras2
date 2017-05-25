@@ -78,6 +78,8 @@
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DAComunicado.cs" />
+    <Compile Include="DAConfiguracionPais.cs" />
+    <Compile Include="DAConfiguracionPaisDetalle.cs" />
     <Compile Include="DAConfiguracionParametroCarga.cs" />
     <Compile Include="DAConfiguracionProgramaNuevas.cs" />
     <Compile Include="DAConfiguracionTipoProcesoCargaPedidos.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevistaDigital\DARevistaDigitalSuscripcion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
