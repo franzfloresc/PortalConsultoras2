@@ -262,6 +262,25 @@
         color: #000;
     }
 
+    .contenedor_campoFormulario, .contenedor_grupoBotones {
+        display: inline-block;
+        vertical-align:top;
+    }
+
+    .contenedor_datosEditarDireccion .mensaje_validacion_error{
+        display: block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding-left: 10px;
+        padding-top:3px;
+    }
+
+    .contenedor_datosEditarDireccion .mensaje_validacion_error span{
+        color: red;
+        font-size: 13px;
+    }
+
     .contenedor_datosEditarDireccion span b {
         font-weight: 700;
     }
@@ -295,12 +314,16 @@
 
     .contenedor_camposUbigeo {
         display: inline-block;
-        vertical-align: middle;
+        vertical-align: top;
         margin-right: 17px;
         font-family: 'Lato';
         font-size: 13px;
         font-weight: 600;
         color: #000;
+    }
+
+    .campo_error_validacion{
+        margin-bottom:10px;
     }
 
     .quitarMargenDerecho{
@@ -317,7 +340,13 @@
 
     .contenedor_camposUbigeo label {
         margin-right: 6px;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
+        position:relative;
+        top:9px;
+    }
+
+    .campoCodigoPostal_MX input[type="text"]{
+        width:165px!important;
     }
 
     .contenedor_camposUbigeo select, .contenedor_direccionReferencia input, .contenedor_camposUbigeo input[type="text"] {
@@ -335,7 +364,7 @@
     }
 
     .contenedor_camposUbigeo input[type="text"]{
-        width:165px;
+        width:118px;
     }
 
     .contenedor_camposUbigeo select{
@@ -386,6 +415,7 @@
         display: inline-block;
         position: relative;
         vertical-align: middle;
+        top:9px;
     }
 
     /*.contenedor_camposUbigeo.campoDireccionUbigeo label {
@@ -405,8 +435,8 @@
         box-sizing: border-box;
     }
 
-    .contenedor_camposUbigeo.campoDireccionUbigeo input.ancho99{
-        width:99.5%;
+    .ancho99{
+        width:99.5%!important;
     }
 
     .contenedor_camposUbigeo.campoReferenciaUbigeo input.ancho99{

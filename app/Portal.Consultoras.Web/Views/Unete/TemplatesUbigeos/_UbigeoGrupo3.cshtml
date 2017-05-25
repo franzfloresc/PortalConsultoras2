@@ -125,40 +125,55 @@
 
 
 @*aqui nuevo*@
-
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
-    <span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
-    <span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar3[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
-    <span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel4, Model.LugaresNivel4)
-    <span>@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel4, Model.LugaresNivel4)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
     <label>Dirección:</label>
-    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = "Dirección Ejm: Av. Castellana 100" })
-    <span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
-    <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
-    <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
+    <div class="contenedor_campoFormulario">
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = "Dirección Ejm: Av. Castellana 100" })
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
+    </div>
+    <div class="contenedor_grupoBotones">
+        <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
+        <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
     <label>Referencia:</label>
-    @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Referencia" })
-    <span>@Html.ValidationMessageFor(m => Model.Referencia)</span>
-    <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-    <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+    <div class="contenedor_campoFormulario">
+        @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Referencia" })
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
+    </div>
+    <div class="contenedor_grupoBotones">
+        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+    </div>
 </div>
 
 @Html.HiddenFor(m => Model.SolicitudPostulanteID)
@@ -238,8 +253,9 @@
             $('#btnActualizarSeccion').attr('disabled', false);
             HabilitarDatosDireccion(0);
         }
-        else {
-            return;}
+        else {           
+
+        }
     });
 
     $('#btnCancelarEdicion').click(function () {

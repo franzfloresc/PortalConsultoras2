@@ -129,28 +129,34 @@
 
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>*@
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
+    </div>
 </div>
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
-    @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>*@
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
+    </div>
 </div>
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
         <label>Dirección:</label>
-        @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
-        @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
+        <div class="contenedor_campoFormulario">
+            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
+        </div>
     </div>
 }
 else
 {
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
-        <label>C&oacute;digo Postal:</label>
+        <label style="top:0px;">C&oacute;digo Postal:</label>
         @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
-        @*<span>@Html.ValidationMessageFor(m => Model.Numero)</span>*@
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
     </div>
 }
 
@@ -167,30 +173,42 @@ else
 
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
     <label>@tit1:</label>
-    @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
-    @*<span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>*@
-    <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
-    <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
+    <div class="contenedor_campoFormulario">
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
+    </div>
+    <div class="contenedor_grupoBotones">
+        <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
+        <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
+    </div>
 </div>
 
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
         <label>Referencia:</label>
-        @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @placeholder = "Ejm: 97B 35 2" })
-        @*<span>@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>*@
-        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @placeholder = "Ejm: 97B 35 2" })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
+        </div>
+        <div class="contenedor_grupoBotones">
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        </div>
     </div>
 }
 else
 {
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
         <label>Referencia:</label>
-        @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Ej. entre calle 1 y calle 3" })
-        @*<span>@Html.ValidationMessageFor(m => Model.Referencia)</span>*@
-        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Ej. entre calle 1 y calle 3" })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
+        </div>
+        <div class="contenedor_grupoBotones">
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        </div>
     </div>
 }
 
