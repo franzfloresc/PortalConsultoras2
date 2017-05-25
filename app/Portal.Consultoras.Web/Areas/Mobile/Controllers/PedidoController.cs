@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     model.Prol = "MODIFICA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aquí para modificar tu pedido";
+                    model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste."; //EPD-2561
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -396,14 +396,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
-                        {
-                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                        }
-                        else
-                        {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                        }
+                        model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt")); //EPD-2561
                     }
                 }
                 else // PROL 1
