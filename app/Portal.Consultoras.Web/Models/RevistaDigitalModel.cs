@@ -18,11 +18,15 @@ namespace Portal.Consultoras.Web.Models
 
         public int Activo { get; set; }
         public int EstadoSuscripcion { get; set; }
+        public int EstadoAccion { get; set; }
+        public List<ComunModel> ListaTabs { get; set; }
         public bool NoVolverMostrar { get; set; }
         public decimal PrecioMin { get; set; }
         public decimal PrecioMax { get; set; }
-        public string NombreUsuario { get; set; }
-
+        public string Titulo { get; set; }
+        public string TituloDescripcion { get; set; }
+        public bool IsMobile { get; set; }
+        
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }

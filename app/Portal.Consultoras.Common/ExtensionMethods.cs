@@ -234,5 +234,10 @@ namespace Portal.Consultoras.Common
             if (obj.Trim() == string.Empty) return true;
             return false;
         }
+
+        public static string Substring(this int obj, int startIndex, int length)
+        {
+            return obj.ToString().Substring(startIndex, length);
+        }
     }
 }

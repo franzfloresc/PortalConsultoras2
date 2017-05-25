@@ -1,7 +1,7 @@
 
-GO
+USE [BelcorpPeru]
 
---sp_helptext ListarEstrategiasPedido_SB2
+GO
 
 ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CampaniaID INT,
