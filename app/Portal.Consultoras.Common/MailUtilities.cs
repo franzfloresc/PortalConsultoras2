@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<tr><td colspan=\"2\" style=\"height: 6px;\"></td></tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"text-align:center; width: 49%; border-right:1px solid #000; padding-right: 13px;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\"><a style=\"text-decoration: none;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"text-align:center; width: 49%;\">");
             sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">");
