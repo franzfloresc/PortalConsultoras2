@@ -433,6 +433,11 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP);
         }
 
+        public IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            return new BLOfertaProducto().GetImagenByNemotecnico(paisID, idMatrizImagen, nemotecnico, tipoBusqueda, numeroPagina, registros);
+        }
+
         public int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro)
         {
             return new BLOfertaProducto().UpdMatrizComercialDescripcionMasivo(paisID, lstmatriz, UsuarioRegistro);

@@ -528,5 +528,11 @@
             public const int OPT = 45;
             public const int ODD = 46;
         }
+
+        public class TipoBusqueda
+        {
+            public const int Aproximacion = 1;
+            public const int Exacta = 2;
+        }
     }
 }

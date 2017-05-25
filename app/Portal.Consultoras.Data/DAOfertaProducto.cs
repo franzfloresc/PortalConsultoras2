@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
 using OpenSource.Library.DataAccess;
+using static Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.Data
 {
@@ -295,6 +296,71 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAP");
             Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, codigoSAP);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetImagenByNemotecnico(int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            StringBuilder query = new StringBuilder();
+
+            query.Append("SELECT *,COUNT(*) OVER() AS TotalRegistros FROM (");
+
+            if (!String.IsNullOrEmpty(cuv2))
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen,0) IdMatrizComercialImagen, ");
+                query.Append("mci.IdMatrizComercial, isnull(mci.Foto, '''') Foto, mci.FechaRegistro ");
+                query.Append("FROM dbo.Estrategia e ");
+                query.Append("INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv ");
+                query.Append("INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto ");
+                query.Append("INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID ");
+                query.Append("INNER JOIN MatrizComercialImagen mci on mci.IdMatrizComercial = mc.IdMatrizComercial ");
+                query.Append(String.Format(" WHERE (({0} = 0) OR (e.EstrategiaID = {0} )) ", estrategiaID));
+                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
+                query.Append(String.Format(" AND (({0} = 0) OR (e.CampaniaID = {0})) ", campaniaID));
+                query.Append(String.Format(" AND (({0} = 0) OR (e.TipoEstrategiaID = {0})) ", tipoEstrategiaID));
+
+            }
+            else if (!String.IsNullOrEmpty(codigoSAP))
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
+                query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.FechaRegistro FROM MatrizComercial mc ");
+                query.Append("inner join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
+                query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
+                query.Append(String.Format("where pc.CodigoProducto = {0}", codigoSAP));
+            }
+            else
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen, 0) IdMatrizComercialImagen,");
+                query.Append(" IdMatrizComercial, isnull(Foto, '''') Foto, FechaRegistro FROM MatrizComercialImagen ");
+                query.Append(String.Format(" WHERE idMatrizComercial = {0} ", idMatrizImagen));
+            }
+
+            if (tipoBusqueda.Equals(TipoBusqueda.Aproximacion))
+            {
+                String[] nemotecnicoItems = nemotecnico.Split('&');
+                int countNemotecnico = 0;
+
+                foreach (String nemotecnicoItem in nemotecnicoItems)
+                {
+                    if (countNemotecnico == 0)
+                        query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
+                    else
+                        query.Append(String.Format(" OR Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
+                    countNemotecnico++;
+                }
+            } else if (tipoBusqueda.Equals(TipoBusqueda.Exacta))
+            {
+                query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnico));
+            }
+
+
+            query.Append(" ) as T order by FechaRegistro desc");
+            query.Append(String.Format(" OFFSET({0} - 1) * {1} ROWS", numeroPagina, registros));
+            query.Append(String.Format(" FETCH NEXT {1} ROWS ONLY; ", registros));
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByNemotecnico");
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.Int32, query);
 
             return Context.ExecuteReader(command);
         }

@@ -49,6 +49,17 @@
                 return false;
             }
         });
+
+        $("#btnBuscarNemotecnico").click(function () {
+            var msjex = "";
+            if ($("#txtNemotecnico").val() === "")
+                msjex += " - Debe ingresar un Nemotecnico .\n";
+            else {
+                alert(msjex);
+                return false;
+            }
+        });
+
         $(".qq-upload-list").css("display", "none");
         $.ajaxSetup({ cache: false });
         $('#ddlPais').change(function () {

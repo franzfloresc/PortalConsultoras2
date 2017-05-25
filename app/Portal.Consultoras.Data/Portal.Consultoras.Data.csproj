@@ -188,6 +188,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136FA1D7-AB98-4FFA-8C03-C011D34D8D27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
       <Project>{2a3b50df-c243-4d7d-b8c0-e4e6c9c6c8d9}</Project>
       <Name>Portal.Consultoras.Entities</Name>

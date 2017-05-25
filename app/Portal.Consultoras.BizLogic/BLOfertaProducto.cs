@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLOfertaProducto   
+    public class BLOfertaProducto
     {
         public IList<BEConfiguracionOferta> GetTipoOfertasAdministracion(int paisID, int TipoOfertaSisID)
         {
@@ -201,6 +201,20 @@ namespace Portal.Consultoras.BizLogic
             var dataAccess = new DAOfertaProducto(paisID);
 
             using (IDataReader reader = dataAccess.GetImagenesByCodigoSAP(codigoSAP))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercial(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercial>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetImagenByNemotecnico(idMatrizImagen, nemotecnico, tipoBusqueda, numeroPagina, registros))
                 while (reader.Read())
                 {
                     var entity = new BEMatrizComercial(reader);
