@@ -12040,7 +12040,7 @@ a{
     position:relative;
 }
 .icono_label{
-    width:54px;
+    width:66px;
     display:inline-block;
     vertical-align:middle;
 }
@@ -12053,8 +12053,9 @@ a{
     color:white;
     font-family:'Lato';
     line-height: 16px;
-    padding-left:12px;
+    /*padding-left:12px;*/
     font-size:12.5px;
+    text-align:left;
 }
 .texto_cupon_black{
     color:black;
@@ -12086,14 +12087,14 @@ a{
 	margin-left: -13px;
 }
 .icono_pedido_cupon{
-    width:73px;
-    height:44px;
-    background:black;
-    text-align:center;
-    padding-top:10px;
-    position:relative;
-    padding-left:5px;
-    float:left;
+   width: 85px;
+    height: 44px;
+    background: black;
+    text-align: center;
+    padding-top: 7px;
+    position: relative;
+    padding-left: 5px;
+    float: left;
 }
 .icono_pedido_cupon img{
     width:80%;
