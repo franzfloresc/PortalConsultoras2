@@ -93,7 +93,8 @@
     }
 
     var bindEvents = function () {
-        $("div#chckTerminosCondiciones").click(function () {
+
+        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
         });
 
@@ -117,12 +118,7 @@
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
             var celular = $(elements.TxtCelular).val().trim();
 
-            if (!aceptoTerCond) {
-                AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
-                return false;
-            }
-
-            if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular)) {
+            if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular, aceptoTerCond)) {
                 if (correoIngresado == correoOriginal) {
                     validarEstadoEmail();
                 } else {
@@ -224,7 +220,8 @@
         var valor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.Cupon.FormatoValorAsociado : parseInt(setting.Cupon.FormatoValorAsociado));
         $(elements.TxtCorreoIngresado).val(userModel.correo);
         $(elements.TxtCelular).val(userModel.celular);
-        
+        $("div#chckTerminosCondiciones").addClass('check_intriga');
+
         $(elements.ContenedorTituloGana).empty();
 
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
@@ -382,13 +379,17 @@
         return d.promise();
     }
 
-    var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular) {
+    var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
         if (emailOriginal == "") {
             AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
             return false;
         }
         if (emailIngresado == "") {
             AbrirMensaje("Debe ingresar su correo", "VALIDACIÓN");
+            return false;
+        }
+        if (!aceptoTerCond) {
+            AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
             return false;
         }
         //if (celular == "") {
