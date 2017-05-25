@@ -154,9 +154,11 @@
 else
 {
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
-        <label style="top:0px;">C&oacute;digo Postal:</label>
-        @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
-        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
+        <label style="top:0px; width:44px;">C&oacute;digo Postal:</label>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
+        </div>
     </div>
 }
 
@@ -172,7 +174,7 @@ else
 }
 
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
-    <label>@tit1:</label>
+    <label style="margin-bottom:0px;">@tit1:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
