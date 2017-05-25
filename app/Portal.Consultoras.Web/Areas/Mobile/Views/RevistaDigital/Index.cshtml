@@ -24,66 +24,10 @@
 @* Lanzamientos con etiqueta NUEVO *@
 <div style="background:#F6F6F6">
     <div class="content_carrusel_landing">
-    <div id="divCarruselLan">
-        @foreach (var lan in Model.ListaProducto)
-        {   <div>
-            <div class="content_item_ept" data-item="" data-ImgPrevDesktop="@lan.ImgPrevDesktop">
-                <div style="display:none;"></div>
-                <div>
-                    <div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>
-                    @*@if (lan.ImgFichaDesktop != "")
-                        {
-                            <div class="etiqueta_nuevo_ept"><img src="@lan.ImgFichaDesktop" alt="" /></div>
-                        }*@
-                    <div class="detalle_set_banner">
-                        <div class="content_set_imagen_banner">
-                            <img src="@lan.ImagenURL" alt="" />
-                        </div>
-                        <div class="titulo_set_banner_ept">MI PACK KADIA SPORT</div>
-                        <div class="detalle_set_banner_ept">@lan.DescripcionCUV2</div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="producto_precio" style="margin-bottom: 3px;">
-                                @if (lan.Precio > 0)
-                            {
-                                <span class="precio-oferta-normal">@lan.Simbolo @lan.PrecioTachado</span>
-                            }
-                                <span class="precio-oferta-venta"><b>@lan.Simbolo @lan.PrecioString</b></span>
-                            </div>
-
-                        </div>
-                        <div class="producto_nombre_descripcion">
-                            <div class="liquidacion_rango_home">
-                                <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" tabindex="0">
-                                <a class="cantidad_mas_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                            </div>
-                            <div class="clear"></div>
-                            <a class="boton_Agregalo_home">
-                                AGRÉGALO
-                            </a>
-                            <div class="clear"></div>
-                            <div style="padding-top:9px; height: 15px;">
-                                <div class="agregado product-add" style="text-align:right;display:block;">
-                                    AGREGADO
-                                    <div class="icono"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="btn_mas_info_set" href="javascript:;"> ver más</a>
-                    </div>
-                </div>
-                @*<div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>*@
-                @*<div class="imagen_fondo">
-                        @if (lan.ImgFondoDesktop != "")
-                    {
-                            <img src="@lan.ImgFondoDesktop" />
-                    }
-                    </div>*@
-            </div>
+        <div id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
+            @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
         </div>
-        }
     </div>
-</div>
 </div>
 
 <hr class="clear" />
@@ -94,19 +38,32 @@
 @* filtros *@
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter" style="display: block;">
-        <div id="content-orderby" style="margin-top: 15px;">
-            <input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
-
-            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick=" showCustomFilters(); ">
+        <div id="content-orderby" style="margin: 15px 0; text-align: center;">
+            @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
+            <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
+            <div id="divFiltros">
+                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca" style="float: none;display: inline-block;">
+                    @foreach (var item in Model.FiltersByBrand)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;display: inline-block;width: 50%;">
+                    @foreach (var item in Model.FiltersBySorting)
+                    {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                    }
+                </select>
+            </div>
         </div>
         <hr class="clear">
         <div id="summary-filters">
             <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro">17</span> de <span id="spnCantidadTotal">17</span> productos</span>
+                <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span> productos</span>
             </div>
 
             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                <a href="#" class="link-ffc_landing" onclick=" deleteFilters(); ">Borrar Filtros</a>
+                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
             </div>
             <br><br>
         </div>
@@ -114,7 +71,9 @@
 </div>
 <hr class="clear" />
 @* listado *@
-<div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex"></div>
+<div class="wrapper_resumen_mobile">
+    <div id="divOfertaProductos" class="ofertaProductoslanding"></div>
+</div>
 
 <hr class="clear" />
 @* Template producto *@
@@ -126,11 +85,9 @@
         var tipoOrigenPantalla = 1;
         var precioMin = '@Model.PrecioMin';
         var precioMax = '@Model.PrecioMax';
-        var urlOfertaDetalle = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
-        var urlOfertaAgregar = '@Url.Action("AgregarProducto", "RevistaDigital")';
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiIndex';
-        var origenPedidoWebCarrusel = -1;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
+        var tipoOrigenEstrategia = 27;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

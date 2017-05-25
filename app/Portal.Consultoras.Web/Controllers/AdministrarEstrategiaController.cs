@@ -20,8 +20,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
-        //
-        // GET: /AdministrarEstrategia/
 
         public ActionResult Index()
         {

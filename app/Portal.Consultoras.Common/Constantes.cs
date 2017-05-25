@@ -168,7 +168,7 @@
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
 
         }
 
@@ -295,10 +295,19 @@
 
 
             /* Revista Digital */
-            public const int DesktopLanzamientoLandingCarrusel = 1622;
-            public const int DesktopLanzamientoProductPage = 1631;
-            public const int MobileLanzamientoLandingCarrusel = 2622;
-            public const int MobileLanzamientoProductPage = 2631;
+            //public const int LanzamientoDesktopLandingCarrusel = 1622;
+            //public const int LanzamientoDesktopProductPage = 1631;
+            //public const int LanzamientoMobileLandingCarrusel = 2622;
+            //public const int LanzamientoMobileProductPage = 2631;
+
+            public const int RevistaDigitalDesktopLanding = 1711;
+            public const int RevistaDigitalDesktopLandingCarrusel = 1721;
+            public const int RevistaDigitalDesktopLandingPopUp = 1712;
+            public const int RevistaDigitalDesktopProductPage = 1731;
+            public const int RevistaDigitalMobileLanding = 2711;
+            public const int RevistaDigitalMobileLandingCarrusel = 2721;
+            public const int RevistaDigitalMobileLandingPopUp = 2712;
+            public const int RevistaDigitalMobileProductPage = 2731;
 
             /* FIN Revista Digital */
         }

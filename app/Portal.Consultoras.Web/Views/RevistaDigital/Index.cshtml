@@ -18,116 +18,191 @@
         <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     </div>
     <div class="texto_usuario_ept">
-        @Model.NombreUsuario, descubre Tu NUEVA REVISTA ONLINE personalizada<br />
-        <span class="texto_light">Encuentra ofertas, bonificaciones, y lanzamientos de las 3 marcas. todos los productos también suman puntos.</span>
+        @Html.Raw(Model.Titulo)
+        <span class="texto_light">@Model.TituloDescripcion</span>
     </div>
 </div>
 <hr class="clear" />
-<div class="catalogoPersonalizadoBloque">
-    <div class="content_belcorp">
-        <div class="content_slider_ept" id="divCarruselLan">
-            @foreach (var lan in Model.ListaProducto)
-            {
-                <div class="content_item_ept" data-item="" data-ImgPrevDesktop="@lan.ImgPrevDesktop">
-                    <div style="display:none;"></div>
-                    <div>
-                        @*<div class="etiqueta_nuevo_ept"><img src="@Url.Content("~/Content/Images/RevistaDigital/nuevo.png")" /></div>*@
-                        @if (lan.ImgFichaDesktop != "")
-                        {
-                            <div class="etiqueta_nuevo_ept"><img src="@lan.ImgFichaDesktop" alt="" /></div>
-                        }
-                        <div class="detalle_set_banner">
-                            <div class="content_set_imagen_banner">
-                                <img src="@lan.ImagenURL" alt="" />
-                            </div>
-                            <div class="titulo_set_banner_ept">MI PACK KADIA SPORT</div>
-                            <div class="detalle_set_banner_ept">@lan.DescripcionCUV2</div>
-                            <div class="producto_nombre_descripcion">
-                                <div class="producto_precio" style="margin-bottom: 3px;">
-                                    @if (lan.Precio > 0)
-                                    {
-                                        <span class="precio-oferta-normal">@lan.Simbolo @lan.PrecioTachado</span>
-                                    }
-                                    <span class="precio-oferta-venta"><b>@lan.Simbolo @lan.PrecioString</b></span>
-                                </div>
-                                <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                                    <input type="text" value="1" min="1" max="99" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " data-input="cantidad" data-cantidad-input="-">
-                                    <div class="liquidacion_rango_right_pedido">
-                                        <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                        <a class="menos" data-cantidad-agregar="-" href="javascript:;"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <a class="boton_Agregalo_home" data-btn-agregar-sr="">
-                                    AGRÉGALO
-                                </a>
-                                <div class="clear"></div>
-                                <div style="padding-top: 9px; height: 15px;">
-                                    <div class="agregado product-add" style="text-align: right; display: none;">
-                                        AGREGADO
-                                        <div class="icono"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a class="btn_mas_info_set" href="javascript:;"> ver más</a>
-                        </div>
-                    </div>
-                    @*<div class="imagen_fondo"><img src="@Url.Content("~/Content/Images/RevistaDigital/Kadiavisual2.png")" /></div>*@
-                    <div class="imagen_fondo">
-                        @if (lan.ImgFondoDesktop != "")
-                        {
-                            <img src="@lan.ImgFondoDesktop" />
-                        }
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-<hr class="clear" />
-<div class="BloqueLandingRD">
-    <div class="content_belcorp">
-        <div>
-            <div class="titulo_pagina">MIS OFERTAS</div>
-            <select class="marca_ept">
-                <option>FILTRAR POR MARCA</option>
-                <option>FILTRAR POR MARCA</option>
-            </select>
-            <select id="filter-sorting" class="marca_ept">
-                @foreach (var item in Model.FiltersBySorting)
+<input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
+@if (Model.EstadoAccion > 0)
+{
+    <div class="content_tabs_landing">
+        <div class="content_tabs_bpt">
+            <ul class="tabs_pagos">
+                @foreach (var tabs in Model.ListaTabs)
                 {
-                    <option value="@item.Codigo">@item.Descripcion</option>
+                    <li class="one">
+                        <a href="javascript:;" id="@tabs.Id">
+                            <div class="texto_tab_pagos">@tabs.Descripcion</div>
+                            <div class="marcador_tab oculto"></div>
+                        </a>
+                    </li>
                 }
-            </select>
-            @*<div class="content_buscador_landing">
-                <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-                <a class="buscar_landing_ept">BUSCAR</a>
-            </div>*@
-            <hr class="clear" />
-            <div id="divCantProductos" class="cantidad_productos_fav" style="float:right; margin-bottom:20px;">
-                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
-            </div>
+                <hr id="barCursor" style="opacity: 1;">
+            </ul>
         </div>
-        <hr class="clear" />
-        <div class="">
-            <hr class="clear" />
-            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
-            <hr class="clear" />
-        </div>
+    </div>
+}
+<div class="content_tabs_landing" style="display:none;">
+    <div class="content_tabs_bpt">
+        <ul class="tabs_pagos">
+            <li class="one">
+                <a href="javascript:;" id="VerVista1">
+                    <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
+                    <div class="marcador_tab"></div>
+                </a>
+            </li>
+            <li class="two">
+                <a href="javascript:;" id="VerVista2">                   
+                    <div class="texto_tab_pagos">VER CAMPAÑA 13</div>
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>
+            <li class="three">
+                <a href="javascript:;" id="VerVista3">
+                    <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
+                    <div class="marcador_tab oculto"></div>
+                </a>
+            </li>            
+            <hr id="barCursor" style="opacity: 1;">
+        </ul>
     </div>
     <hr class="clear" />
 </div>
-<!--FIN-->
-
-<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-    <div class="titulo_producto_agregado">
-        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
-    </div>
-    <div class="div_bonotes_producto">
-        <div class="child_center_botones">
-            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+<hr class="clear" />
+<div id="Vista1" style="display: none;">
+    <div class="catalogoPersonalizadoBloque">
+        <div class="content_belcorp">
+            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+                @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
+            </div>
         </div>
     </div>
+    <hr class="clear" />
+    <div class="BloqueLandingRD">
+        <div class="content_belcorp">
+            <div>
+                <div class="titulo_pagina">MIS OFERTAS</div>
+                <div id="divFiltros">
+                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                        @foreach (var item in Model.FiltersByBrand)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                        @foreach (var item in Model.FiltersBySorting)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                </div>
+                @*<div class="content_buscador_landing">
+                        <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
+                        <a class="buscar_landing_ept">BUSCAR</a>
+                    </div>*@
+                <hr class="clear" />
+                <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
+                    <div style="display:inline-block;">
+                        Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
+                    </div>
+                    <div style="display:inline-block; margin: 0 0 0 15px;">
+                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="clear" />
+            <div class="">
+                <hr class="clear" />
+                <div id="divOfertaProductos" style="text-align: center;"></div>
+                <hr class="clear" />
+            </div>
+        </div>
+        <hr class="clear" />
+    </div>
+    <!--FIN-->
+
+    <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+        <div class="titulo_producto_agregado">
+            ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+        </div>
+        <div class="div_bonotes_producto">
+            <div class="child_center_botones">
+                <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+                <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="clear" />
+<div id="Vista3" class="Vista3" style="display: none;">
+    <div class="content_gana_mas">
+        <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
+        
+        <div class="content_texto_gana">
+            <div style="width:406px;margin:0 auto;">
+                <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
+                <div>
+                    <div class="texto_resaltante_gana">GANA+</div>
+                    <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
+                </div>
+                <div>
+                    <div class="texto_resaltante_gana">VENDE+</div>
+                    <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
+                </div>
+                <div>
+                    <div class="texto_resaltante_gana">PUNTOS+</div>
+                    <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
+                </div>
+                <div class="legal_gana_mas">Comparación VS. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+            </div>           
+        </div>
+        <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
+        <hr class="clear" />      
+    </div>
+    <div class="content_funciona_esika">
+        <div class="content_belcorp">
+            <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
+                <b>En esta campaña</b> te inscribes Ésika para mí, tu nueva revista online personalizada.
+            </div>
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
+                <b>A partir de C-11</b> recibirás unicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.
+
+            </div>
+            <div class="bloque_respuesta">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
+                <b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
+            </div>
+        </div>
+        <hr class="clear" />
+    </div>
+    <div class="content_belcorp">
+        <div class="titulo_funciona">preguntas frecuentes</div>
+        <div class="seccion_preguntas">
+            <div class="content_preguntas"><span>¿Qué es “Esika para mi”?</span></div>
+            <div class="content_preguntas"><span>¿Cómo hago para cancelar la inscripción?</span></div>
+            <div class="content_preguntas"><span>¿Cómo me inscribo en "Ésika para mi”?</span></div>
+            <div class="content_preguntas"><span>¿Cuál es el tiempo  mínimo de permanencia?</span></div>
+            <div class="content_preguntas"><span>¿Los productos que pido en Esika para mí, suman a mi pedido mínimo y para mis bonificaciones vigentes de la campaña?</span></div>
+            <div class="content_preguntas"><span>No encuentro las ofertas que tenía en la Guía de Negocio en “Ésika para mí”. ¿Dónde están?</span></div>
+            <div class="content_preguntas"><span>¿Ya me registre en “Ésika para mí” pero también quiero la revista impresa ¿Se puede?</span></div>
+            <div class="content_preguntas"><span>Por equivocación he dado click a la inscripción de “Ésika para mí” en el portal Somos Belcorp ¿Cómo la cancelo?</span></div>
+            <div class="content_preguntas"><span>¿Desde cuál campaña no recibiré mi Revista Impresa ¿Por qué?</span></div>
+            <div class="content_preguntas"><span>¿Por qué cancelaron mi revista impresa?</span></div>
+         </div>
+        <div class="titulo_no_inscrita">
+            ¿ya no quieres estar inscrita a ésika para mí?
+        </div>
+        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online ésika<br/> para mí Y volverás a recibir tu revista impresa en 2 campañas.</div>
+        <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa<br/> dentro de dos campañas. Cualquier duda entrar en contacto con el servicio de atención al cliente de tu país.</div>
+        <a class="btn_cancelar_inscripcion">CANCELAR MI INSCRIPCIÓN</a>
+    </div>
+    
 </div>
 
 <div id="DialogMensajesBanner" style="display: none;">
@@ -366,16 +441,28 @@
 
 @section scripts{
     <script type="text/javascript">
+        $(document).ready(function () {
+            $("#VerVista1").on("click", function () {
+                $('#Vista1').show();
+                $('#Vista3').hide();
+            });
+            $("#VerVista3").on("click", function () {
+                $('#Vista1').hide();
+                $('#Vista3').show();
+                $('.Vista3').css('padding-top', '105px');
+            });
+        });
+    </script>
+    <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var precioMin = '@Model.PrecioMin';
         var precioMax = '@Model.PrecioMax';
-        var urlOfertaDetalle = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var urlOfertaDetalle = '@Url.Action("Detalle", "RevistaDigital")';
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
-        var urlOfertaAgregar = '@Url.Action("AgregarProducto", "RevistaDigital")';
-        var origenPedidoWeb = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompra';
-        var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.DesktopShowRoomLandingCompraTactica';
-        var origenPedidoWebCarrusel = -1;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var estadoAccion = '@Model.EstadoAccion';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

@@ -3,6 +3,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -19,93 +20,60 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string cuv, int top = 0)
+        public JsonResult JsonConsultarEstrategias(string cuv)
         {
-            List<BEEstrategia> lst = ConsultarEstrategias(cuv ?? "");
-            var listModel1 = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
-            var listModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(lst);
-
-            var listaPedido = ObtenerPedidoWebDetalle();
-            listModel.Update(estrategia => 
+            var listModel = ConsultarEstrategiasModel(cuv ?? "");
+           
+            if (GetCodigoEstrategia() == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             {
-                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
-                estrategia.UrlCompartirFB = GetUrlCompartirFB();
-            });
+                listModel = ConsultarEstrategiasSegunPantalla(listModel);
+            }
             
-            top = top < listModel.Count() ? top : listModel.Count();
+            return Json(listModel, JsonRequestBehavior.AllowGet);
+        }
 
-            if (top > 0)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasSegunPantalla(List<EstrategiaPedidoModel> listModel)
+        {
+            var top = listModel.Count();
+            if (GetCodigoEstrategia() == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             {
-                var listaLanz = new EstrategiaPedidoModel();
-                if (top == 1)
+                top = Math.Min(top, IsMobile() ? 1 : 4);
+            }
+
+            if (top <= 0)
+                return new List<EstrategiaPedidoModel>();
+
+            var listaLanz = new EstrategiaPedidoModel();
+            if (top == 1)
+            {
+                listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
+                listModel = new List<EstrategiaPedidoModel>();
+                if (listaLanz == default(EstrategiaPedidoModel))
                 {
-                    listaLanz = listModel.FirstOrDefault(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "") ?? new EstrategiaPedidoModel();
-                    listModel = new List<EstrategiaPedidoModel>();
+                    listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
+                }
+
+                if (listaLanz != default(EstrategiaPedidoModel))
+                    listModel.Add(listaLanz);
+            }
+            else
+            {
+                listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
+                var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
+                listModel = new List<EstrategiaPedidoModel>();
+                if (listaLanz != default(EstrategiaPedidoModel))
+                {
+                    top--;
                     listModel.Add(listaLanz);
                 }
-                else // if (top == 4)
+                if (listaDemas.Count() > top)
                 {
-                    listaLanz = listModel.FirstOrDefault(e=>e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
-                    var listaDemas = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento && e.CodigoEstrategia != "").ToList() ?? new List<EstrategiaPedidoModel>();
-                    listModel = new List<EstrategiaPedidoModel>();
-                    if (listaLanz.CampaniaID > 0)
-                    {
-                        top--;
-                        listModel.Add(listaLanz);
-                    }
-                    if (listaDemas.Count() > top)
-                    {
-                        listaDemas.RemoveRange(top, listaDemas.Count() - top);
-                    }
-                    listModel.AddRange(listaDemas);
+                    listaDemas.RemoveRange(top, listaDemas.Count() - top);
                 }
-                
-                //listModel.RemoveRange(top, listModel.Count() - top);
+                listModel.AddRange(listaDemas);
             }
 
-            if (listModel.Count() == 0)
-            {
-                listModel = listModel1;
-                if (listModel.Count() > top)
-                {
-                    listModel.RemoveRange(top, listModel.Count() - top);
-                }
-            }
-
-            listModel.Update(s =>
-            {
-                s.ID = s.EstrategiaID;
-                if (s.FlagMostrarImg == 1)
-                {
-                    if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
-                    {
-                        if (s.FlagEstrella == 1)
-                        {
-                            s.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
-                        }
-                    }
-                    else if (!(s.TipoEstrategiaImagenMostrar == @Constantes.TipoEstrategia.PackNuevas
-                        || s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
-                    {
-                        s.ImagenURL = "";
-                    }
-                }
-                else
-                {
-                    s.ImagenURL = "";
-                }
-
-                s.PuedeCambiarCantidad = 1;
-                if (s.TieneVariedad == 0)
-                {
-                    if (s.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
-                    {
-                        s.PuedeCambiarCantidad = 0;
-                    }
-                }
-            });
-
-            return Json(listModel, JsonRequestBehavior.AllowGet);
+            return listModel;
         }
     }
 }

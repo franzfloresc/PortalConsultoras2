@@ -1303,6 +1303,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
         }
+
         #endregion
 
         #region Eliminar Detalle Pack Nueva
@@ -3195,7 +3196,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-
                     pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                     estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }

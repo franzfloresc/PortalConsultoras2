@@ -104,15 +104,16 @@ body{
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje {
-    display: block;
+    /*display: block;*/
     width: 213px;
     margin-top: 9px;
     font-family: 'Lato';
     color: #FFF;
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 11px;
     position: relative;
     top: 17px;
+    margin-left: 100px;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a {
@@ -1043,4 +1044,112 @@ div#tab_revistasdigital_mobile {
     float: left;
     margin-bottom: 18px;
     display:block;
+}
+.ofertaProductoslanding .content_item_home{
+    margin-bottom:35px;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow: none;
+    border: 0;
+}
+.content_detalle_set_bpt{
+    width:100%;
+    height:auto;
+    position:relative;
+}
+.content_detalle_set_bpt img{
+    display: block;
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+}
+.content_imagen_principal_bpt{
+    height:273px;
+    width:auto;
+    text-align:center;
+    margin-top:-200px;
+    z-index: 10;
+    position: relative;
+}
+.content_imagen_principal_bpt img{
+    width:auto;
+    height:273px;
+}
+.content_detalle_set_bpt_general{
+    font-family:'Lato';
+}
+.nombre_producto_bpt{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+.info-set_bpt{
+    font-size:12px;
+    text-transform:uppercase;
+}
+.content_descripcion_bpt{
+    border-top:1px solid black;
+    padding-top:10px;
+    font-size:13px;
+    margin-top:10px;
+    line-height: 20px;
+}
+.title-compartir{
+    font-family:'Lato';
+    text-align:center;
+    margin-top:20px;
+}
+.btn_ver_video_bpt{
+    font-family:'Lato';
+    text-align:center;
+    margin-top:20px;
+    display:block;
+    width:180px;
+    margin:0 auto;
+    height:32px;
+    line-height:32px;
+    margin-top:40px;
+    margin-bottom:30px;
+    border:1px solid black;
+}
+.nombre_titulo_set_detalle{
+    color:#e81c36;
+    font-family:'Lato';
+    font-size:18px;
+    text-align:center;
+    padding-left:14px;
+    padding-right:14px;
+    margin-bottom:10px;
+}
+.video-responsive-bpt {
+position: relative;
+padding-bottom: 56.25%; /* 16/9 ratio */
+padding-top: 30px; /* IE6 workaround*/
+height: 0;
+overflow: hidden;
+}
+ 
+.video-responsive-bpt iframe,
+.video-responsive-bpt object,
+.video-responsive-bpt embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+.etiqueta_nuevo_bpt{
+    margin-bottom:15px;
+}
+.regresar_landing{
+    position:absolute;
+    left:14px;
+    font-family:'Lato';
+    color:black;
+    top:10px;
+    padding-left:20px;
+    background: url(../../../Images/Esika/pagina.png) no-repeat;
+    background-position: 3px 2px;
+    height:20px;
 }

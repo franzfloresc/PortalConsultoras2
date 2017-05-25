@@ -226,18 +226,19 @@
             </div>
             @{
                 string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
+                controllerAction = controllerAction.ToLower();
             }
             <div class="menu_esika_b">
                 <div class="campana user-profile oculto">
                     <img class="mostrar_perfil" region="Superior" src="/Content/Images/Esika/user.jpg" alt="Esika">
                 </div>
-                <div class="campana @(controllerAction == "BienvenidaIndex" ? "oculto" : "")">
+                <div class="campana @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
                     <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
                         <div class="campana_svg mensaje_svg"></div>
                         <p class="notificaciones notificaciones_existentes js-notificaciones">0</p>
                     </a>
                 </div>
-                <div class="borde_c @(controllerAction == "BienvenidaIndex" ? "invisible" : "")"></div>
+                <div class="borde_c @(controllerAction == "bienvenidaindex" ? "invisible" : "")"></div>
                 <div class="campana cart_compras" style="width: auto;">
                     <div class="contenedor_circulos">
                         <div class="circulo-1 iniciarTransicion"></div>
@@ -314,11 +315,12 @@
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         <div class="SubHeader">
-            <div class="ubicacion_web @(controllerAction == "BienvenidaIndex"
-                            || controllerAction == "ShowRoomIndex"
-                            || controllerAction == "ShowRoomIntriga"
-                            || controllerAction == "RevistaDigitalIndex"
-                            || controllerAction == "RevistaDigitalInscripcion" ? "oculto" : "")">
+            <div class="ubicacion_web @(controllerAction == "bienvenidaindex"
+                            || controllerAction == "showroomindex"
+                            || controllerAction == "showroomintriga"
+                            || controllerAction == "revistadigitalindex"
+                            || controllerAction == "revistadigitaldetalle"
+                            || controllerAction == "revistadigitalinscripcion" ? "oculto" : "")">
                 <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
             </div>
         </div>
@@ -436,7 +438,6 @@
     <input type="hidden" id="hdFlagValidacionReserva" value="0" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
     <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
-    <input type="hidden" id="hdLimiteProductoCarrusel" value="@ViewBag.LimiteProductoCarrusel" />
     <!--Div Banner Lateral ShowRoom-->
     <div id="ctras" class="caja-traslado" style="display: none;">
         <input type="hidden" id="hdEventoIDShowRoom" />
