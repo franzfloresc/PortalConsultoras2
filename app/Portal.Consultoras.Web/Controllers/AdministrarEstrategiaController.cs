@@ -825,11 +825,14 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
-
             int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
-            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+
+            var data = lst.Select(p => new MatrizComercialImagen
+            {
+                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                Foto = urlS3 + p.Foto
+            }).ToList();
 
             return Json(new { imagenes = data, totalRegistros = totalRegistros });
         }
