@@ -364,13 +364,7 @@
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
-        var origenRetorno = '';
-        if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'
-        }
-        else if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Pedido", new { area = "Mobile" })'
-        }
+        var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>

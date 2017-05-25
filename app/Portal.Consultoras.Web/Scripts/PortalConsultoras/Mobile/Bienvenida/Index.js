@@ -13,7 +13,9 @@ $(document).ready(function () {
         $('.btn_agregarPedido').show();
     });
     $(".footer-page").css({ "margin-bottom": "54px" });
+
     mostrarTutorialMobile();
+
     $(".cerrar").click(function () {
         UpdateUsuarioTutorialMobile();
         $('#tutorialesMobile').hide();
@@ -293,17 +295,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
-    /*
-    if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
-    }
-    */
-
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -348,9 +339,11 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
 };
 
 function CargarPopupsConsultora() {
-  
-    MostrarDemandaAnticipada();
     
+    MostrarDemandaAnticipada();
+    if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
+        $("#PopRDSuscripcion").show();
+    }
 };
 
 function MostrarDemandaAnticipada() {

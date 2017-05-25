@@ -43,6 +43,7 @@
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
         public string EMail { get; set; }
+        public bool RevistaDigitalPopUpMostrar { get; set; }
         public string Celular { get; set; }
         public int CampaniaActual { get; set; }
         public bool EmailActivo { get; set; }

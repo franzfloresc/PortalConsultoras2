@@ -14,9 +14,11 @@
     <style type="text/css">
         body {
             background: #FFF !important;
+         
         }
     </style>
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -666,16 +668,80 @@
         </div>
         <!-- FIN POPUP VIDEO INTRODUCTORIO -->
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
-            {{#each this as |item|}}
-            <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
-                <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                <div class="content_item_home">
-                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}}, @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi);" {{/iff}}>
-                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
-                            <div class="producto_img_mobile">
-                                <img src="{{FotoProducto01}}" />
+<!--POP UP REVISTA DIGITAL-->
+<div id="PopRDSuscripcion" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;">
+    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:-12px; right:0px; position:absolute;" href="javascript:  CerrarPopup('#PopRDSuscripcion');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_revistaSuscripcion">
+            <div class="background_popupEsika"></div>
+            <div class="popup_revistaSuscripcion_logoMarca">
+                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
+            </div>
+            <div class="popup_revistaSuscripcion_contenido">
+                <span>
+                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
+                </span>
+                <span>
+                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
+                </span>
+            </div>
+            <div class="popup_revistaSuscripcion_grupoBotones">
+                <button type="button" id="btnRDSuscripcionSi" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
+                <button type="button" id="btnRDSuscripcionNo" onclick="RDInformacion()" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
+            </div>
+            <div class="popup_revistaSuscripcion_terminos">
+                Al inscribirte est&aacute;s aceptando los
+                <a href="javascript:;" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
+                y recibirás tu Revista únicamente por vía online, a partir de la C10
+            </div>
+            <div class="img_modeloRevista">
+                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
+            </div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+</div>
+<!-- FIN POPUP REVISTA DIGITAL -->
+
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+
+<div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;">
+    <div class="contenedor_popup_inscritaRevistaDigital" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="top:-32px; right:0px; position:absolute;" href="javascript: CerrarPopup('#PopRDInscrita');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_estasInscritaRevistaDigital">
+            <div class="contenido_felicitaciones">
+                <span>¡FELICIDADES <span class="nombre_usuariaInscrita">YULIANA</span>!</span>
+                <span>Est&aacute;s inscrita a &Eacute;sika para m&iacute;</span>
+            </div>
+            <div class="contenido_recuerdaIngresar">
+                <span>Recuerda ingresar a somosbelcorp.com desde los primeros d&iacute;as de la pr&oacute;xima campaña.</span>
+            </div>
+            <a href="javascript: RDSuscripcionRedireccionar();" class="link_entendido" title="Entendido">ENTENDIDO</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+
+@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+
+    <script id="estrategia-template1" type="text/x-handlebars-template">
+                {{#each this as |item|}}
+                <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
+                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
+                    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                    <div class="content_item_home">
+                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}}, @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi);" {{/iff}}>
+                            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
+                                <div class="producto_img_mobile">
+                                    <img src="{{FotoProducto01}}" />
                                 </div>
                                 {{#if_eq FlagMostrarImg '1'}}
                                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
@@ -763,14 +829,14 @@
                             <div class="clear"></div>
                             <div style="padding-top:9px; height: 15px;">
                                 <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                AGREGADO
-                                <div class="icono"></div>
+                                    AGREGADO
+                                    <div class="icono"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {{/each}}
+                {{/each}}
         </script>
 
         <!--SHOWROOM: modal popup -->
@@ -978,7 +1044,6 @@
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">
 
-                var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
                 var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
                 var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
                 var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -996,9 +1061,11 @@
                 var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
                 var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
                 var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+            var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
 
                 var tipoOrigenEstrategia = 2;
                 var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
+                var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
 
                 //EPD-1837
                 var vbFotoPerfil = '@ViewBag.FotoPerfil';
@@ -1018,5 +1085,7 @@
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         }

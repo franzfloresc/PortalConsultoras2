@@ -6,9 +6,10 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 
-@{ 
+@{
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0);
     var nombreConsultora = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
@@ -38,7 +39,7 @@
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
                 </div>
             }
-            
+
             <div class="clear"></div>
 
         </div>
@@ -72,7 +73,7 @@
                 </div>
             }
             @if (ViewBag.TipoUsuario != 2)
-            { 
+            {
                 <a role="link" region="Cuerpo" parent="Mis Datos" title="Mis Datos" class="mis_datos" id="abrirPopupMisDatos">MIS DATOS <img src="@Url.Content("~/Content/Images/Esika/lapiz.png")" alt="" /></a>
             }
             <hr class="clear" />
@@ -268,6 +269,9 @@
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
+<!--REVISTA DIGITAL -->
+<div class="fondo_gris" id="divRevistaDigital"></div>
+<!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
 <div class="content_belcorp" id="divProductosShowRoom"></div>
 <!-- FIN-->
@@ -279,8 +283,8 @@
             <div class="linea_separadora"></div>
             <div class="banner_favoritos_home" onclick="mostrarCatalogoPersonalizado();" style="cursor: pointer;">
                 <div class="titulo_banner_fav">
-                    @ViewBag.NombreConsultoraFAV, estos son los 
-                    <span class="texto_altas_fav">FAVORITOS</span> 
+                    @ViewBag.NombreConsultoraFAV, estos son los
+                    <span class="texto_altas_fav">FAVORITOS</span>
                     <span class="texto_2_fav">DE TUS CLIENTES</span>
                 </div>
                 <div class="content_imagen_fav">
@@ -288,7 +292,7 @@
                 </div>
                 <div class="texto_inf_banner">Porque conocemos a tus clientes, seleccionamos los productos que podrás venderles fácilmente</div>
                 <hr class="clear" />
-                <a class="btn_ver_mas_fav" href="javascript:" >VER MÁS PRODUCTOS</a>
+                <a class="btn_ver_mas_fav" href="javascript:">VER MÁS PRODUCTOS</a>
             </div>
             <div id="divCatalogoPersonalizado" style="width:74%;float:left;"></div>
             <hr class="clear" />
@@ -378,7 +382,7 @@
     <div class="disclaimer_b">@(pieEscala)</div>
 </div>
 <div class="flecha_scroll">
-    <a href="#" title="Flecha Scroll" class="enlace_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
@@ -425,7 +429,6 @@
     </div>
 </div>
 <!-- DIV PARA FUNCIONALIDAD DE AGREGAR PRODUCTO DESDE CAROUSEL HORIZONTAL-->
-
 <!-- POPUP ESCOGER TONO -->
 <div class="contenedor_popup_escogerTono js-contenedor-popup-tonotalla">
     <div class="popup_escogerTono" id="divTonosTallas">
@@ -513,11 +516,10 @@
 </div>
 <!-- FIN AGREGASTE UNIDADES -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main="" ></div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
-<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas">
-</div>
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
@@ -700,7 +702,7 @@
                             }
                             else
                             {
-                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>                                
+                                <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y que me encuentro de acuerdo con los mismos.</text>
                             }
                         </label>
                     </div>
@@ -855,7 +857,7 @@
                             <span id="nombreGerenteZonal"></span>
                         </div>
                         <div class="enlace_cambiarContraseniachkAceptoContratoMD">
-                            <a href="#" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
+                            <a href="javascript:;" class="cambiar_contrasenia misDatosContraseniaEnlace">CAMBIAR CONTRASEÑA</a>
                         </div>
                     </div>
                 </div>
@@ -889,7 +891,7 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            @if(Model.PaisID == 4)
+                            @if (Model.PaisID == 4)
                             {
                                 <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
                             }
@@ -960,7 +962,7 @@
             </div>
 
             <div class="btn_cerrar_actualizarMisDatos">
-                <a href="#" title="Cerrar" class="cerrar_tutorial">
+                <a href="javascript:;" title="Cerrar" class="cerrar_tutorial">
                     <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                     <span class="texto_btn_cerrar">CERRAR</span>
                 </a>
@@ -1167,7 +1169,54 @@
     </div>
 </div>
 
-<script id="estrategia-template" type="text/x-handlebars-template">
+<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
+        {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+        <div class="background-revistaSeccion"></div>
+        {{/iff}}
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+                <div class="revistadigital-title">
+                    <div class="logo-marca">
+                        <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+                    </div>
+                    <div class="linea-separacion"></div>
+                    <div class="titulo_nuevaRevista">
+                        <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                            {{Titulo}}
+                        </span>
+                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                            {{TituloDescripcion}}
+                        </span>
+                    </div>
+                </div>
+                {{else}}
+                <div class="titulo_ofertas_home">
+                    OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+                    <div class="texto_exclusivo">
+                        EXCLUSIVAS S&Oacute;LO POR WEB
+                    </div>
+                </div>
+                <div class="linea_titulo_absoluto"></div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+<script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -1189,7 +1238,6 @@
                 <div class="etiqueta_producto">
                     <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
                 </div>
-
                 {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
                 {{#if_eq FlagEstrella '1' }}
                 <div class="etiqueta_producto">
@@ -1223,7 +1271,6 @@
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                     </div>
                     {{/if_eq}}
-
                     {{else}}
                     <div class="producto_precio">
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
@@ -1253,7 +1300,7 @@
                 </a>
                 {{else}}
                 <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad'/>
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
                     <div class="liquidacion_rango_right_pedido js-no-popup">
                         <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
                         <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
@@ -1274,7 +1321,6 @@
                     </a>
                 </div>
                 {{/iff}}
-
                 <div class="clear"></div>
                 <div style="padding-top:9px; height: 15px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
@@ -1402,7 +1448,7 @@
 </script>
 
 <script id="lanzamiento-template" type="text/x-handlebars-template">
-    <div class="content_ficha_producto_nueva" data-popup-body="" data-item="" >
+    <div class="content_ficha_producto_nueva" data-popup-body="" data-item="">
         <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
@@ -1444,15 +1490,15 @@
             </div>
             <div class="content_right_ficha">
                 <div style="min-height:300px;">
-                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}class="content_left_ficha"{{/iff}} >
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
                         <div class="marca_producto">{{DescripcionMarca}}</div>
-                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion="" 
-                           {{#iff CodigoEstrategia '==' ''}}  style="font-size:22px; line-height:30px;" {{/iff}}>
-                        {{DescripcionCompleta}}
+                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
+                             {{#iff CodigoEstrategia '==' ''}} style="font-size:22px; line-height:30px;" {{/iff}}>
+                            {{DescripcionCompleta}}
                         </div>
                         @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
                     </div>
-                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}class="content_right_ficha" style="text-align:right;" {{/iff}} >
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
                         <div class="precio_ficha_producto">
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
@@ -1478,20 +1524,20 @@
 
                                 <div class="content_tonos_select" style="display:none;">
                                     {{#each this.Detalle as |Tono|}}
-                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
-                                            <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
-                                            <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
-                                            <hr class="clear" />
-                                        </div>
+                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
+                                        <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
+                                        <hr class="clear" />
+                                    </div>
                                     {{/each}}
                                 </div>
                             </div>
                             <!--FIN-->
                             @*<select class="tono_labial_select" data-tono-change="">
-                                {{#each this.Detalle as |item2|}}
-                                <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
-                                {{/each}}
-                            </select>*@
+                                    {{#each this.Detalle as |item2|}}
+                                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                                    {{/each}}
+                                </select>*@
                             <div class="content_tonos_maquillaje" data-tono-div="">
                                 {{#each this.Detalle as |item1|}}
                                 <div style="display: none;">
@@ -1509,9 +1555,9 @@
                         {{/iff}}
                         {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
                         <div class="titulo_contenido">CONTENIDO</div>
-                        
+
                         {{#each this.Detalle as |item1|}}
-                        
+
                         <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
                             <div style="display: none;">
                                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
@@ -1546,18 +1592,18 @@
                                 </div>
                                 <!--FIN-->
                                 @*<div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
-                                <div>
-                                    <div class="combo_select_tono">
-                                        <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
-                                    </div>
-                                    <div class="content_tonos_ficha">
-                                        {{#each item1.Hermanos as |tono|}}
-                                        <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                            <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                    <div>
+                                        <div class="combo_select_tono">
+                                            <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
                                         </div>
-                                        {{/each}}
-                                    </div>
-                                </div>*@
+                                        <div class="content_tonos_ficha">
+                                            {{#each item1.Hermanos as |tono|}}
+                                            <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
+                                                <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                            </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>*@
                             </div>
                             {{/iff}}
                             <hr class="clear" />
@@ -1691,9 +1737,9 @@
                             <span class="precio-oferta-venta"><b>{{Simbolo}} {{FormatoPrecioOferta}}</b></span>
                         </div>
                         <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                            <input type="text" value="1" min="1" max="99" size="2" maxlength="2" 
-                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
-                                   oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); " 
+                            <input type="text" value="1" min="1" max="99" size="2" maxlength="2"
+                                   class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                   oninput="maxLengthCheck(this, 2)" onkeypress=" return FuncionesGenerales.ValidarSoloNumeros(event); "
                                    data-input="cantidad" data-cantidad-input="-">
                             <div class="liquidacion_rango_right_pedido">
                                 <a class="mas" data-cantidad-agregar="+" href="javascript:;"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -1703,7 +1749,7 @@
                         <a class="boton_Agregalo_home" data-btn-agregar-sr="">AGRÉGALO</a>
                         <div class="clear"></div>
                         <div style="padding-top: 9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right; display: {{Agregado}};" >
+                            <div class="agregado product-add" style="text-align: right; display: {{Agregado}};">
                                 AGREGADO
                                 <div class="icono"></div>
                             </div>
@@ -1967,7 +2013,7 @@
                                         {
                                             <img src="Url.Content(ViewBag.RutaImagenNoDisponible)" alt="" style="width: 55px; height: 55px; border: 0;" />
                                         }
-                                        
+
                                     </div>
                                     {{/IsNullOrEmpty}}
                                 </div>
@@ -2276,13 +2322,13 @@
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 <!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main >
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main>
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
-        <input type="hidden" id="spnShowRoomEventoDescripcion" /> 
+        <input type="hidden" id="spnShowRoomEventoDescripcion" />
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="CerrarPopShowroomIntriga()">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">            
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
         <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
@@ -2293,21 +2339,20 @@
         </div>
         <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/popup_intriga.png")" onclick="VerShowRoomIntriga()" style="cursor: pointer;" />
     </div>
-  
+
 </div>
 <!--FIN-->
-
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main  >
-    <div class="content_pop_up_intriga" data-popup-body>       
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
+    <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
-        <input type="hidden" id="spnShowRoomEventoVenta" /> 
-        <input type="hidden" id="spnShowRoomEventoDescripcionVenta" /> 
+        <input type="hidden" id="spnShowRoomEventoVenta" />
+        <input type="hidden" id="spnShowRoomEventoDescripcionVenta" />
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
         </a>
         <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
-      
+
         <div class="check_01">
             <label class="checkpop2">
                 <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>
@@ -2325,6 +2370,78 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
 
 <!--FIN-->
+<!--REVISTA DIGITAL -->
+<!-- POPUP REVISTA DIGITAL Suscripcion -->
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important">
+    <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" href="javascript: CerrarPopup('#PopRDSuscripcion');">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div class="popup_rd_cabecera">
+            <div class="rd_logo">
+                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
+            </div>
+            <div class="popup_cabecera_text" style="top: 14px;">
+                <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                <div>INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE</div>
+            </div>
+        </div>
+        <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
+            <div class="popup_rd_text">
+                <div class="popup_saludo">MILAGROS, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
+                <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
+                <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
+                <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>
+                <div class="rd_desc" style="top: 120px; left: 124px;">Productos que tus<br>clientes piden</div>
+                <div class="btn_diagonal"><a href="javascript: RDSuscripcion()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+            </div>
+            <div class="popup-textleg">Al inscribirte estás aceptando los <a href="#">Términos y Condiciones.</a></div>
+        </div>
+        <div class="rid_text" style="left: 10px">
+            <div class="rid_tit">ANTES</div>
+            <hr class="rid_line">
+            <div>REVISTA IMPRESA</div>
+        </div>
+        <div class="rid_text" style="right: 10px; text-align: right;">
+            <div class="rid_tit">AHORA</div>
+            <hr class="rid_line">
+            <div>REVISTA ONLINE</div>
+        </div>
+        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important">
+    <div class="popup_rd rd_confirmacion" style="width: 620px;">
+        <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" href="javascript: CerrarPopup('#PopRDInscrita');" onclick="">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
+        </a>
+        <div class="popup_rd_cabecera">
+            <div class="rd_logo" style="width: 160px;">
+                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
+            </div>
+            <div class="popup_cabecera_text" style="top: 22px; left: 190px;">
+                <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                <div>INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA</div>
+            </div>
+        </div>
+        <div class="popup_rd_content" style="background-color: #f2eeef">
+            <div class="popup_rd_text">
+                <div class="popup_saludo">¡FELICIDADES MILAGROS ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
+                <div class="rd_desc" style="top: 70px;">A partir de la C-12 tu revista online reemplazará a tu revista impresa.</div>
+                <div class="btn_diagonal"><a href="javascript: RDSuscripcionRedireccionar()">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
+            </div>
+            <img class="rd_cons" src="/Content/Images/RevistaDigital/rd_cons.png" />
+        </div>
+    </div>
+</div>
+
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+<!--FIN REVISTA DIGITAL-->
 
 @section scripts{
     <script type="text/javascript">
@@ -2400,7 +2517,7 @@
         var popupActualizarDatos = '@Constantes.TipoPopUp.ActualizarDatos';
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
         var popupComunicado = '@Constantes.TipoPopUp.Comunicado';
-
+        var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
         var popupCupon = '@Constantes.TipoPopUp.Cupon';
         var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
@@ -2418,6 +2535,8 @@
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
+        var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;

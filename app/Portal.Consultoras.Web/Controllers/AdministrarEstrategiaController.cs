@@ -19,8 +19,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
-        //
-        // GET: /AdministrarEstrategia/
 
         public ActionResult Index()
         {
@@ -617,8 +615,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null && 
+                    (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi))
                 {
                     try
