@@ -45,21 +45,21 @@ namespace Portal.Consultoras.BizLogic
 
         public static void AddData(ECacheItem cacheItem, string customKey, IList<T> value)
         {
-            addData(0, cacheItem, customKey, value);
+            AddData(0, cacheItem, customKey, value);
         }
         public static void AddData(ECacheItem cacheItem, IList<T> value)
         {
-            addData(0, cacheItem, string.Empty, value);
+            AddData(0, cacheItem, string.Empty, value);
         }
         public static void AddData(int paisID, ECacheItem cacheItem, IList<T> value)
         {
-            addData(paisID, cacheItem, string.Empty, value);
+            AddData(paisID, cacheItem, string.Empty, value);
         }
         public static void AddData(int paisID, ECacheItem cacheItem, string customKey, IList<T> value)
         {
-            addData(paisID, cacheItem, customKey, value);
+            AddData(paisID, cacheItem, customKey, value, TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]));
         }
-        private static void addData(int paisID, ECacheItem cacheItem, string customKey, IList<T> value)
+        public static void AddData(int paisID, ECacheItem cacheItem, string customKey, IList<T> value, TimeSpan timeCache)
         {
             if (Connection != null)
             {
@@ -67,8 +67,7 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     IDatabase cache = Connection.GetDatabase();
-                    TimeSpan TimeCache = TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]);
-                    cache.StringSet(key, JsonConvert.SerializeObject(value), TimeCache);
+                    cache.StringSet(key, JsonConvert.SerializeObject(value), timeCache);
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
             }
@@ -142,21 +141,21 @@ namespace Portal.Consultoras.BizLogic
 
         public static void AddDataElement(ECacheItem cacheItem, string customKey, T value)
         {
-            addDataElement(0, cacheItem, customKey, value);
+            AddDataElement(0, cacheItem, customKey, value);
         }
         public static void AddDataElement(ECacheItem cacheItem, T value)
         {
-            addDataElement(0, cacheItem, string.Empty, value);
+            AddDataElement(0, cacheItem, string.Empty, value);
         }
         public static void AddData(int paisID, ECacheItem cacheItem, T value)
         {
-            addDataElement(paisID, cacheItem, string.Empty, value);
+            AddDataElement(paisID, cacheItem, string.Empty, value);
         }
         public static void AddDataElement(int paisID, ECacheItem cacheItem, string customKey, T value)
         {
-            addDataElement(paisID, cacheItem, customKey, value);
+            AddDataElement(paisID, cacheItem, customKey, value, TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]));
         }
-        private static void addDataElement(int paisID, ECacheItem cacheItem, string customKey, T value)
+        public static void AddDataElement(int paisID, ECacheItem cacheItem, string customKey, T value, TimeSpan timeCache)
         {
             if (Connection != null)
             {
@@ -164,8 +163,7 @@ namespace Portal.Consultoras.BizLogic
                 try
                 {
                     IDatabase cache = Connection.GetDatabase();
-                    TimeSpan TimeCache = TimeSpan.Parse(ConfigurationManager.AppSettings["TimeCacheRedis"]);
-                    cache.StringSet(key, JsonConvert.SerializeObject(value), TimeCache);
+                    cache.StringSet(key, JsonConvert.SerializeObject(value), timeCache);
                 }
                 catch (Exception ex) { LogManager.SaveLog(ex, "", paisID.ToString()); }
             }

@@ -48,7 +48,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dAProductoPalabra = new DAProductoPalabra(paisID);
                 dictionaryPalabraConteo = dAProductoPalabra.GetByCampaniaID(campaniaID);
-                CacheManager<Dictionary<string, long>>.AddDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo);
+                CacheManager<Dictionary<string, long>>.AddDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1,1,0,0));
             }
             return dictionaryPalabraConteo;
         }
