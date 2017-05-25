@@ -3400,6 +3400,7 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
 
+            string strLugarPadre = Dictionaries.LabelLugar1[CodigoISO] == "Estado" ? "DirEstado" : Dictionaries.LabelLugar1[CodigoISO];
 
             Dictionary<string, string> dic = new Dictionary<string, string>
             {
@@ -3415,7 +3416,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Sección", "CodigoSeccion"},//En Grilla
                 {"Territorio", "CodigoTerritorio"},//En Grilla
                 {"Dirección", "Direccion"},//En Grilla
-                {Dictionaries.LabelLugar1[CodigoISO], "LugarPadre"},
+                {strLugarPadre, "LugarPadre"},
                 {Dictionaries.LabelLugar2[CodigoISO], "LugarHijo"},
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
