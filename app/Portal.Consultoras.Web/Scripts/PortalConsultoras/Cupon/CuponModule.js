@@ -450,9 +450,9 @@
             if (response.success) {
                 if (response.tieneOfertasPlan20) {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + " " + simbolo + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación!";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + " " + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     }
                 }
                 else {
