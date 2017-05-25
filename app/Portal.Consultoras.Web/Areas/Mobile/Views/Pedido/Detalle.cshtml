@@ -2,9 +2,9 @@
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
 @model PedidoDetalleMobileModel
-
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
@@ -274,6 +274,26 @@
             <span><b>{{Simbolo}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
             <span class="mi_ganancia"><b>{{Simbolo}}&nbsp;&nbsp;</b><b class="lblDescripcionGanancia" data-ganancia="">{{FormatoMontoGanancia}}</b></span>
         </div>
+        <hr class="clear" />
+    <div class="contenedorCupon">
+        <div class="contenedorCuponConocelo" style="display: none;">
+            <div class="label_pedido_cupon">
+                <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            </div>
+            <div class="texto_cupon_black">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="contenedorCuponInfo" style="display: none;">
+            <div class="label_pedido_cupon">
+                <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            </div>
+            <div class="texto_cupon_black texto_cupon">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+            @*<div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>*@
+        </div>
+    </div>
+        
+    <hr class="clear" />   
         <div class="detalle_pedido_ingresado">
             <span class="titulo_detalle">DETALLE</span>
         </div>
@@ -322,7 +342,15 @@
 
                             {{/if_eq}}
                         </span>
-                        <span class="cod_prod">{{detalle.CUV}}</span>
+                        <span class="cod_prod">
+                            {{#if detalle.EstadoSimplificacionCuv}}
+                            {{#if detalle.IndicadorOfertaCUV}}
+                            <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                            <span class="icon-advertencia"></span>
+                            {{/if}}
+                            {{/if}}
+                            {{detalle.CUV}}
+                        </span>
                         <span class="desc_prod">
                             {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                             <span class="texto_rojo">*</span>
@@ -696,6 +724,9 @@
     </script>
 <!-- PL20 1287 - FIN -->
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
 
 @section Scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -745,7 +776,16 @@
 
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
+        var tieneCupon = '@Model.TieneCupon';
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var paginaOrigenCupon = 21;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

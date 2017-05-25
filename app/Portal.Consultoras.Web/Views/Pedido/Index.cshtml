@@ -8,6 +8,7 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 
 <span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
@@ -226,6 +227,18 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div id="" class="contenedorCupon">
+                                    <div id="" class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Tienes un descuent exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                    </div>
+                                    <div id="" class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+                                    </div>
+                                </div>
+                                
+                                <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <!--SB20-483 - INICIO -->
@@ -239,7 +252,7 @@
                                         <span id="spnNombreCliente"></span>
                                     </p>
                                     <div class="monto_total">
-                                        <span>Monto total:</span>
+                                        <span><b>Monto total:</b></span>
                                     </div>
                                     <br />
                                     <div class="monto_ganancia">
@@ -526,11 +539,23 @@
     </div>
     <!--14092016 - FIN -->
 
-    <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
+        
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
         }
+    <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
+        
+        <div id="" class="contenedorCupon">
+            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+                Tienes un descuento exclusivo para ti,
+                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            </div>
+            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+            <hr class="clear" />
+        </div>
         <div class="contenedor_carousel">
             <h1>
                 OFERTAS
@@ -854,6 +879,36 @@
     </div>
 </div>
 
+ <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_divReservaSatisfactoria" style="display: none;">
+    <div class="popup_agregarUnidades">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            @*<span class="icono_exclamacion"></span>*@
+            <div class="icono_mensaje_alerta icono_check_alerta" id="ofIconoSuperior" style="margin-bottom: 20px;"></div>
+            <h1 class="titulo_agregarUnidades"><b>¡LO LOGRASTE!</b></h1>
+            <div id="mensajedivReservaSatisfactoria" class="mensaje_agregarUnidades">
+                @if (Model.ZonaNuevoProlM == true)
+                {
+                    <p>Tu pedido fue reservado con éxito.</p>
+                }
+                else
+                {
+                    <p>Tu pedido fue validado con éxito. Tus productos fueron reservados.</p>
+                }
+            </div>
+            <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
+               OK
+            </button>
+        </div>
+   </div>
+</div>
+<!-- FIN POPUP CONFIRMACION DE PEDIDO RESEERVADO -->
+
 <!-- POPUP PRODUCTOS AGOTADOS -->
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
@@ -976,6 +1031,9 @@
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1021,7 +1079,6 @@
                 </div>
             </div>
     <!--Popup mensaje como lo atenderas -->
-
 
     <!--PENDIENTES PORTAL-->
             <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
@@ -1161,6 +1218,8 @@
                 </div>
             </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
+
+            
 
     <!--TAPS-->
             <div class="tapsPedidos"></div>
@@ -1432,7 +1491,7 @@
                 {{/each}}
             </script>
         }
-
+        
         <script id="js-CarruselSugerido" type="text/x-handlebars-template">
             {{#each this}}
             <div class="sugerido" data-item="producto">
@@ -1523,7 +1582,7 @@
             {{else}}
             <div class="contenido_ingresoPedido mouse_encima" data-cuv="{{CUV}}">
                 <div class="texto_pedidos celda_codigo">{{CUV}}</div>
-                <div class="texto_pedidos celda_producto">
+        <div class="texto_pedidos celda_producto pedidoPadreToolTip" style="position:relative">
                     {{#if_eq FlagConsultoraOnline '1'}}
                     <span class="texto_pedidos_ofertas">
                         <label>CLIENTE ONLINE</label>
@@ -1560,13 +1619,18 @@
                         <p class="productos_ingresados_movil">
                             <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span>
                         </p>
-                        <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
                     </span>
                     {{else}}
                     <span style="position:relative">
-                        <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
+                <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
                     </span>
                     {{/if_eq}}
+
+
+            <div id="tooltipDescPro" class="tooltipPedido">
+                {{Split DescripcionProd '|' 0}}
+            </div>
 
                     <input type="hidden" name="hdfTipoEstrategia{{PedidoID}}" value="{{TipoEstrategiaID}}" id="hdfTipoEstrategia{{PedidoID}}" />
                     <input type="hidden" name="hdfCampaniaID{{PedidoID}}" value="{{CampaniaID}}" id="hdfCampaniaID{{PedidoID}}" />
@@ -1691,7 +1755,76 @@
             {{/each}}
         </script>
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
+
+<script id="template-estrategia-header" type="text/x-handlebars-template">
+        <div id="" class="contenedorCupon">
+            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+                Tienes un descuento exclusivo para ti,
+                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            </div>
+            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+            <hr class="clear" />
+        </div>
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{/iff}}">
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <div class="truco_bloqueo sim2"></div>
+        }
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+                <div class="revistadigital-title overflowContenido">
+                    <div class="contenedor_cabecera_revistaDigital">
+                        <div class="fondo_franja"></div>
+                        <div class="contenedor_contenido_cabecera">
+                            <div class="cabecera_contenedor_logoMarca">
+                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                            </div>
+                            <div class="cabecera_texto">{{Titulo}}</div>
+                        </div>
+                    </div>
+                    <div class="texto_ofertas_bonificaciones">
+                        {{TituloDescripcion}}
+                    </div>
+                    @*<p class="marca">ÉSIKA</p>
+                    <div class="giftext">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    </div>
+                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>*@
+                </div>
+                {{else}}
+                <h1>
+                    OFERTAS <b>PARA TI @Model.SobreNombre</b>
+                </h1>
+                <div class="texto_exclusivo_web">
+                    EXCLUSIVAS SÓLO POR WEB
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="contenedor_productos">
+                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+                </div>
+            </div>
+            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>            
+                @*<p>MÁS<br>OFERTAS<br>PARA TI</p>
+                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">*@
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+        <script id="estrategia-template1" type="text/x-handlebars-template">
             {{#each this as |item|}}
             <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
                 <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
@@ -1768,7 +1901,7 @@
                             {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral"
-                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
+                                        onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
                                 <div class="liquidacion_rango_right_pedido js-no-popup">
                                     <a class="mas js-no-popup">
                                         <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
@@ -1784,7 +1917,7 @@
                             {{else}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral"
-                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad'/>
+                                        onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
                                 <div class="liquidacion_rango_right_pedido js-no-popup">
                                     <a class="mas js-no-popup">
                                         <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
@@ -2309,6 +2442,7 @@
         </div>
         <hr class="clear" />
     </div>
+   
 </script>
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2340,21 +2474,27 @@
                 var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
                 var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
                 var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-
                 var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
-                var urlPedido = '@Url.Action("Index","Pedido")';
+                var urlPedido = '@Url.Action("Index","Pedido")';        
                 var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
 
-                if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaWeb';
-                else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelWeb';
+                if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
+                else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
                 var origenPagina = 2;
                 var tipoOrigenEstrategia = 11;
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
-
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 11;
+                var esEmailActivo = '@Model.EmailActivo';
+                var baseUrl = "@Url.Content("~")";
+                var paisISO = '@ViewBag.paisISO';
+                var viewBagAmbiente = '@ViewBag.Ambiente';
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

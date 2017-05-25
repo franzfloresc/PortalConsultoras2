@@ -90,13 +90,7 @@
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
-            <div class="div-2" style="letter-spacing: 2.1px;
-    font-size: 25px;
-    font-weight: 300;
-  color:black;
-    margin-bottom: 37px;
-    font-family: 'lato';
-    ">
+            <div class="div-2" style="letter-spacing: 2.1px; font-size: 25px; font-weight: 300; color:black; margin-bottom: 37px; font-family: 'lato'; ">
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
@@ -171,7 +165,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -203,8 +196,8 @@
                 <div class="cellGrid  headerGrid" data-colName="CodigoConsultora">Codigo<br />de<br />Consultora</div>
                 <div class="cellGrid  headerGrid"  data-colName="FechaIngreso">Fecha<br />Ingreso</div>
                 <div class="cellGrid  headerGrid" data-colName="CampanaIngreso">Campaña<br />Ingreso</div>   
-                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
-                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
                 <div class="cellGrid  headerGrid"  data-colName="EvaluacionTelefonica">Evaluacion<br />Telefonica</div>
                 <div class="cellGrid  headerGrid"  onclick="OrderListByColumnn(this, 'EstadoPostulante')" data-colName="Estado">Estado</div>
                 <div class="cellGrid  headerGrid" data-colName="TipoRechazo">Tipo<br />Rechazo</div>
@@ -1332,7 +1325,7 @@
                },
                {
                    name: 'Tipo Rechazo', index: 'Tipo Rechazo', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
-                       return rowObject[27].toUpperCase();
+                       return  rowObject[27].toUpperCase();
                    }
                },
                 {
@@ -1385,13 +1378,13 @@
                     name: 'RFC', index: 'RFC', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[21].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[21] + '\', 1)" /></a>' : '';
                     }
-                },
+                }
+                 ,
                 {
                     name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
                     }
-                }
-                ,
+                },
                 {
                     name: 'ComprobanteDomicilio', index: 'ComprobanteDomicilio', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
@@ -1403,7 +1396,7 @@
                         return rowObject[23].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[23] + '\', 3)" /></a>' : '';
                     }
                 }
-                ,
+                 ,
                 {
                     name: 'Pagare', index: 'Pagare', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[24].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[24] + '\', 4)" /></a>' : '';
@@ -1472,6 +1465,23 @@
             ],
             gridComplete: function () {
 
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo Otra Marca');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo de Pago de Servicios de Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Autorizacion de consulta de credito Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Constancia Laboral Fiador');
+
+       
+                    
+                    var showImageColumnsWhenStatusIn = ['0','2','3','4','5','7','8','9'];
+                  
+                    if (jQuery.inArray(option, showImageColumnsWhenStatusIn) !== -1)
+                    {
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Otra Marca');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo de Pago de Servicios de Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Autorizacion de consulta de credito Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Fiador');
+                    }  
+
             }
         });
     }
@@ -1493,6 +1503,7 @@
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
         var CodigoRegion = $("#CodigoRegionFiltro").val();
         var FuenteIngreso = ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : '');
+
         
         generalLoading();
 
@@ -1517,9 +1528,9 @@
             "&DocumentoIdentidad=" +
             DocumentoIdentidad +
             "&CodigoZona=" +
-            codigoZonaFiltro +
+            codigoZonaFiltro+
             "&CodigoRegion=" +
-            CodigoRegion +
+            CodigoRegion+
             "&FuenteIngreso=" +
             FuenteIngreso;
 
@@ -1648,8 +1659,8 @@
     function buildDocsSV(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO Y DECLARACIÓN JURADA'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO y DECLARACIÓN JURADA'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
 
 
@@ -1663,7 +1674,7 @@
     }
     function buildDocsPA(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA y PAGARE'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));
@@ -1710,14 +1721,14 @@
             buildDocsPA(solicitudPostulanteID);
         }
 
-
-
         //Documentos Fiador
-        if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA') {
-            if (codigoIso == 'SV') {
+        if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA')
+        {
+            if (codigoIso == 'SV')
+            {
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN Y DECLARACIÓN JURADA'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN y DECLARACIÓN JURADA'));
             }
             else if (codigoIso == 'GT') {
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));
@@ -1729,12 +1740,14 @@
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));
             }
         }
-        else {
+        else
+        {
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
         }
+        
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');

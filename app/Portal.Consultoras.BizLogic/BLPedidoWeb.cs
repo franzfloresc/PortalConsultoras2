@@ -1,4 +1,4 @@
-ï»¿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
@@ -11,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
-
 using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.BizLogic
@@ -53,9 +52,9 @@ namespace Portal.Consultoras.BizLogic
             //        pedidoDDWeb.Add(entidad);
             //    }
 
-            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10010, PedidoID = 10001, NroRegistro = "000001", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0001", ConsultoraCodigo = "C00001", ConsultoraNombre = "ConsultÃ³ra 01", ImporteTotal = 80, UsuarioResponsable = "Usuario 1", ConsultoraSaldo = 12, OrigenNombre = "DD", EstadoValidacionNombre = "SI" });
-            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10009, PedidoID = 10002, NroRegistro = "000002", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0002", ConsultoraCodigo = "C00002", ConsultoraNombre = "Consult#ra 02", ImporteTotal = 970, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 15, OrigenNombre = "Web", EstadoValidacionNombre = "NO" });
-            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10008, PedidoID = 10003, NroRegistro = "000003", FechaRegistro = Convert.ToDateTime("02/01/2013 10:00:00"), CampaniaCodigo = "CM002 - 2013", Seccion = "S0003", ConsultoraCodigo = "C00003", ConsultoraNombre = "Consultor@ 03", ImporteTotal = 900, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 14, OrigenNombre = "DD", EstadoValidacionNombre = "NO" });
+            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10010, PedidoID = 10001, NroRegistro = "000001", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0001", ConsultoraCodigo = "C00001", ConsultoraNombre = "Consultora 01", ImporteTotal = 80, UsuarioResponsable = "Usuario 1", ConsultoraSaldo = 12, OrigenNombre = "DD", EstadoValidacionNombre = "SI" });
+            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10009, PedidoID = 10002, NroRegistro = "000002", FechaRegistro = Convert.ToDateTime("01/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0002", ConsultoraCodigo = "C00002", ConsultoraNombre = "Consultora 02", ImporteTotal = 970, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 15, OrigenNombre = "Web", EstadoValidacionNombre = "NO" });
+            pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10008, PedidoID = 10003, NroRegistro = "000003", FechaRegistro = Convert.ToDateTime("02/01/2013 10:00:00"), CampaniaCodigo = "CM002 - 2013", Seccion = "S0003", ConsultoraCodigo = "C00003", ConsultoraNombre = "Consultora 03", ImporteTotal = 900, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 14, OrigenNombre = "DD", EstadoValidacionNombre = "NO" });
             pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10007, PedidoID = 10004, NroRegistro = "000004", FechaRegistro = Convert.ToDateTime("03/01/2013 10:00:00"), CampaniaCodigo = "CM001 - 2013", Seccion = "S0004", ConsultoraCodigo = "C00004", ConsultoraNombre = "Consultora 04", ImporteTotal = 870, UsuarioResponsable = "Usuario 1", ConsultoraSaldo = 0, OrigenNombre = "Web", EstadoValidacionNombre = "NO" });
             pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10006, PedidoID = 10005, NroRegistro = "000005", FechaRegistro = Convert.ToDateTime("04/01/2013 10:00:00"), CampaniaCodigo = "CM003 - 2013", Seccion = "S0005", ConsultoraCodigo = "C00005", ConsultoraNombre = "Consultora 05", ImporteTotal = 420, UsuarioResponsable = "Usuario 2", ConsultoraSaldo = 56, OrigenNombre = "DD", EstadoValidacionNombre = "SI" });
             pedidoDDWeb.Add(new BEPedidoDDWeb { CampaniaID = 10005, PedidoID = 10006, NroRegistro = "000006", FechaRegistro = Convert.ToDateTime("05/01/2013 10:00:00"), CampaniaCodigo = "CM004 - 2013", Seccion = "S0006", ConsultoraCodigo = "C00001", ConsultoraNombre = "Consultora 02", ImporteTotal = 350, UsuarioResponsable = "Usuario 1", ConsultoraSaldo = 57, OrigenNombre = "DD", EstadoValidacionNombre = "SI" });
@@ -210,7 +209,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         LogManager.SaveLog(ex, usuario, codigoPais);
                         exceptionCoDat = ex;
-                        ErrorCoDat = "No se pudo acceder a la informaciÃ³n de las Consultoras.";
+                        ErrorCoDat = "No se pudo acceder a la información de las Consultoras.";
                     }
                 }
                 //----- Log Pedidos
@@ -367,7 +366,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (headerFile != null) //Si generÃ³ algÃºn archivo continÃºa
+                if (headerFile != null) //Si generó algún archivo continúa
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
@@ -482,11 +481,11 @@ namespace Portal.Consultoras.BizLogic
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                     MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
 
-                    if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
-                    {
+                        if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
+                        {
                         try { DAPedidoDD.UpdPedidoDDIndicadorEnviado(nroLote, false, FechaHoraPais); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                    }
+                        }
 
                     if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
                     {
@@ -677,7 +676,7 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
 
-                if (headerFile != null) //Si generÃ³ algÃºn archivo continÃºa
+                if (headerFile != null) //Si generó algún archivo continúa
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
@@ -878,7 +877,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
-                if (headerFile != null) //Si generÃ³ algÃºn archivo continÃºa
+                if (headerFile != null) //Si generó algún archivo continúa
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
                     {
@@ -1310,7 +1309,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWeb> lstPedidosDD = new List<BEPedidoDDWeb>();
-                if (BEPedidoDDWeb.Origen != 2)
+                if (BEPedidoDDWeb.Origen != 2 && BEPedidoDDWeb.EstadoValidacion != 202)
                 {
                     try
                     {
@@ -1821,10 +1820,10 @@ namespace Portal.Consultoras.BizLogic
                     (int) Enumeradores.TypeDocPais.DO,
                     (int) Enumeradores.TypeDocPais.EC
                 };
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CL); //R2140  â€“ ECM - Se solicito que no se implemente la funcionalidad para este paÃ­s
-            //listaPais.Add((int)Enumeradores.TypeDocPais.GT);//R2140  â€“ ECM - Se solicito que no se implemente la funcionalidad para este paÃ­s
-            //listaPais.Add((int)Enumeradores.TypeDocPais.SV);//R2140  â€“ ECM - Se solicito que no se implemente la funcionalidad para este paÃ­s
-            //listaPais.Add((int)Enumeradores.TypeDocPais.CR);//R2140  â€“ ECM - Se solicito que no se implemente la funcionalidad para este paÃ­s
+            //listaPais.Add((int)Enumeradores.TypeDocPais.CL); //R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
+            //listaPais.Add((int)Enumeradores.TypeDocPais.GT);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
+            //listaPais.Add((int)Enumeradores.TypeDocPais.SV);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
+            //listaPais.Add((int)Enumeradores.TypeDocPais.CR);//R2140  – ECM - Se solicito que no se implemente la funcionalidad para este país
             return listaPais;
         }
 
@@ -2024,6 +2023,70 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true)
+        {
+            BEUsuario usuario = null;
+            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+
+            BEConfiguracionCampania configuracion = null;
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+            {
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+            }
+
+            if (configuracion != null)
+            {
+                if (validarGPR && configuracion.IndicadorGPRSB == 1) {
+                    return new BEValidacionModificacionPedido {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C{0}, intÃ©ntalo mÃ¡s tarde", campania.Substring(4, 2))
+                    };
+                }
+                if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                        Mensaje = "Ya tienes un pedido reservado para esta campaÃ±a."
+                    };
+                }
+            }
+            if(validarHorario)
+            {
+                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario);
+                if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                        Mensaje = mensajeHorarioRestringido
+                    };
+                }
+            }
+            return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
+        }
+
+        private string ValidarHorarioRestringido(BEUsuario usuario)
+        {
+            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            if (!usuario.HabilitarRestriccionHoraria) return null;
+            if (FechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;
+            
+            TimeSpan horaActual = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
+            TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+
+            bool enHorarioRestringido = false;
+            if (usuario.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > usuario.HoraCierreZonaDemAnti);
+            else enHorarioRestringido = (usuario.HoraCierreZonaNormal < horaActual && horaActual < usuario.HoraCierreZonaNormal + horaAdicional);
+            if (!enHorarioRestringido) return null;
+
+            TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
+            return string.Format(" En este momento nos encontramos facturando tu pedido de C-XX. Todos los cÃ³digos ingresados hasta las {0} horas han sido registrados en el sistema. Gracias!", horaCierre.ToString(@"hh\:mm"));
+        }
+        
         /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {

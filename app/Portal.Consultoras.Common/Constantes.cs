@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.SQS.Model;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -124,22 +117,22 @@ namespace Portal.Consultoras.Common
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            public const int PersonalizacionShowroom = 9850;
         }
-
-
+        
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
             public const string TelefonoRequerido = "TelefonoRequerido";
         }
+
         public class TipoNivelesRiesgo
         {
             public const string Bajo = "BAJO";
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-
-
+        
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -220,24 +213,24 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-
-            // Primer Dígito
+            // Primer Dígito -- Plataforma
             // 1: Desktop                   2: Mobile
 
-            // Segundo Dígito
+            // Segundo Dígito -- Pantalla
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi              6: OfertaParaTi
+            // 6: OfertaParaTi
+            // 7: RevistaDigital
 
-            // Tercer Dígito
+            // Tercer Dígito -- Sección dentro de la Pantalla
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
             // 9: Oferta del dia
-            // 1: index                     1: Index
-            // 2: OfertaParaTi Detalle      2: OfertaParaTi Detalle
+            // 1: index
+            // 2: OfertaParaTi Detalle
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -298,8 +291,26 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
+
+
+
+            /* Revista Digital */
+            public const int DesktopLanzamientoLandingCarrusel = 1622;
+            public const int DesktopLanzamientoProductPage = 1631;
+            public const int MobileLanzamientoLandingCarrusel = 2622;
+            public const int MobileLanzamientoProductPage = 2631;
+
+            /* FIN Revista Digital */
         }
-        
+
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
+        }
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -313,14 +324,6 @@ namespace Portal.Consultoras.Common
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
         
-        public class TipoTutorial
-        {
-            public const int Video = 1;
-            public const int Desktop = 2;
-            public const int Salvavidas = 3;
-            public const int Mobile = 4;
-        }
-
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
@@ -333,6 +336,7 @@ namespace Portal.Consultoras.Common
             public const int Aceptado = 3;
             public const int Observado = 4;
         }
+
 
         public class TipoMensajeCDR
         {
@@ -358,7 +362,6 @@ namespace Portal.Consultoras.Common
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
         }
-
         public class CdrWebMensajes
         {
             public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
@@ -376,6 +379,7 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+
         public class TipoPopUp
         {
             public const int VideoIntroductorio = 1;
@@ -386,6 +390,7 @@ namespace Portal.Consultoras.Common
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
+            public const int RevistaDigitalSuscripcion = 9;
         }
 
         // Constantes de los motivos de GPR.
@@ -398,6 +403,14 @@ namespace Portal.Consultoras.Common
             public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
 
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+            
+        }
+        
         public class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
@@ -406,15 +419,8 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-
-        public class ValidacionExisteUsuario
-        {
-            public const int NoExiste = 0;
-            public const int ExisteDiferenteClave = 1;
-            public const int Existe = 2;
-        }
         
-        public class OfertaEspecialMensajes
+        public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelWeb = "Producto en Mi Negocio L’Bel con oferta especial.";
@@ -508,6 +514,118 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
+        public class MenuCodigo
+        {
+            public const string RevistaDigital = "RevistaDigital";
+            public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
+            public const string CatalogoPersonalizado = "FDTC";
+        }
+
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalSuscripcion = "RDS";
+        }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
+
+        public class IngresoExternoPagina
+        {
+            public const string EstadoCuenta = "ESTADOCUENTA";
+            public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
+            public const string PedidoDetalle = "PEDIDODETALLE";
+            public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
+        }
+
+        public class EstadoCuentaTipoMovimiento
+        {
+            public const int Abono = 2;
+            public const int Cargo = 1;
+        }
+
+        public class TamaniosImagenIssuu
+        {
+            public const string ThumbSmall = "_thumb_small";
+            public const string ThumbMedium = "_thumb_medium";
+            public const string ThumbLarge = "_thumb_large";
+        }
+
+        public class CatalogoImagenDefault
+        {
+            public const string Catalogo = "https://www.somosbelcorp.com/Content/Images/catalogo_no_disponible.jpg";
+            public const string Revista = "https://www.somosbelcorp.com/Content/Images/revista_no_disponible.jpg";
+        }
+
+        public class CatalogoUrlDefault
+        {
+            public const string Esika = "http://www.esika.biz";
+            public const string Lbel = "http://www.lbel.com";
+            public const string Cyzone = "http://www.cyzone.com";
+        }
+
+        public class RevistaNombre
+        {
+            public const string Esika = "Guía de Negocio Ésika";
+            public const string Lbel = "Mi Negocio L’Bel";
+        }
+
+        public class MensajesError
+        {
+            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+        }
+
+        public class TooltipLoginUsuario
+        {
+            public const string BO = "Tu código de consultora,<br/>Carné de Identidad<br/>o correo electrónico.";
+            public const string CL = "Tu número de RUT<br/>(sin puntos ni guión).<br/>Ejem:12345678k<br/>o correo electrónico.";
+            public const string CO = "Tu número de cédula de ciudadanía,<br/>o correo electrónico.";
+            public const string DO = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
+            public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
+            public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
+            public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
+        }
+
+        public class TooltipLoginPassword
+        {
+            public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
+            public const string CL = "Si es la primera vez que ingresas, es<br/>tu código de consultora de 7 dígitos<br/>(incluido el 0 inicial, si lo tuviera).";
+            public const string CO = "El número de tu<br/>cédula de identidad.";
+            public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
+            public const string EC = "El número de tu<br/>cédula de identidad.";
+            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
+            public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
+            public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
+            public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
+            public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+        
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
+        }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
+        }
     }
 }
-

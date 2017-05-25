@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.IndicadorOferta, f => f.MapFrom(c => c.IndicadorOferta ? 1 : 0));
 
             Mapper.CreateMap<BEMisPedidosDetalle, MisPedidosDetalleModel2>();
-
+            
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
 
             Mapper.CreateMap<BEMatrizComercial, MatrizComercialResultadoModel>();
@@ -171,9 +171,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoProducto))
                 .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
                 .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));
-
-
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
+
+            Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
+            Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
         }
     }
 }

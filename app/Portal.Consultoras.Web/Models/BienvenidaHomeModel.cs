@@ -78,8 +78,9 @@ namespace Portal.Consultoras.Web.Models
 
         public string ImagenUsuario { get; set; }
 
-        public BarraConsultoraModel DataBarra { get; set; }
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
+        
+        public BarraConsultoraModel DataBarra { get; set; }
 
         public int VioTutorialSalvavidas { get; set; }
 
@@ -96,5 +97,6 @@ namespace Portal.Consultoras.Web.Models
 
         public int ShowRoomMostrarLista { get; set; }
         public string ShowRoomBannerUrl { get; set; }
+        public int TieneCupon { get; set; }
     }
 }

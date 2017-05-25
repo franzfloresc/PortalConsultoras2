@@ -118,6 +118,10 @@ $(document).ready(function () {
             if ($('#PopShowroomIntriga').is(':visible')) {
                 PopupCerrar('PopShowroomIntriga');
             }
+
+            if ($('#PopRDSuscripcion').is(':visible')) {
+                PopupCerrar('PopRDSuscripcion');
+            }
             
         }
     };
@@ -136,12 +140,8 @@ $(document).ready(function () {
                     opacity: 1
                 }, 100, 'swing');
             });
-
-
         } else {
-
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
         }
 
     });
@@ -175,7 +175,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -218,6 +218,10 @@ $(document).ready(function () {
 
         case popupComunicado:
             ObtenerComunicadosPopup();
+            break;
+
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
             break;
     }
 
@@ -500,12 +504,12 @@ function CortarFoto() {
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 if (checkTimeout(data)) {
-                    alert_msg(data.message);
-                    if (data.success) {
-                        $('#imgFotoUsuario').show();
-                        $('#imgFotoUsuarioDefault').hide();
-                        $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                    }
+                alert_msg(data.message);
+                if (data.success) {
+                    $('#imgFotoUsuario').show();
+                    $('#imgFotoUsuarioDefault').hide();
+                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+                }
                 }
             },
             error: function (data, error) {
@@ -540,12 +544,12 @@ function SubirFoto() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
+            alert_msg(data.message);
+            if (data.success) {
+                $('#imgFotoUsuario').show();
+                $('#imgFotoUsuarioDefault').hide();
+                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+            }
             }
         },
         error: function (data, error) {
@@ -760,8 +764,6 @@ function CargarPopupsConsultora() {
     }
 };
 
-
-    
 function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
 };
@@ -823,7 +825,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             //console.log(error);
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
+        }
         }
     });
     return restringido;
@@ -865,13 +867,13 @@ function CargarCarouselLiquidaciones() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                ArmarCarouselLiquidaciones(data);
+            ArmarCarouselLiquidaciones(data);
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                $('#divCarruselLiquidaciones').html('');
-            }
+            $('#divCarruselLiquidaciones').html('');
+        }
         }
     });
 };
@@ -1033,7 +1035,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 };
 function AgregarProductoLiquidacion(contenedor) {
-
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -1121,6 +1122,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
                             closeWaitingDialog();
                             HidePopupTonosTallas();
+
+                            ProcesarActualizacionMostrarContenedorCupon();
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
@@ -1135,6 +1138,15 @@ function AgregarProductoLiquidacion(contenedor) {
         }
     });
 };
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
 function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     waitingDialog({});
 
@@ -1794,28 +1806,28 @@ function CargarMisCursos() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response.success) {
-                    if (paisISO == 'VE') {
-                        SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
-                        $('#divTutoriales').hide();
-                        $('#divTutorialesV').show();
-                    }
-                    else {
-                        SetHandlebars("#miscursos-template", response.data, "#divMisCursos");
-                        $('#divTutoriales').show();
-                    }
+            if (response.success) {
+                if (paisISO == 'VE') {
+                    SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
+                    $('#divTutoriales').hide();
+                    $('#divTutorialesV').show();
                 }
                 else {
-                    $('#divTutoriales').hide();
-                    $('#divSinTutoriales').show();
+                    SetHandlebars("#miscursos-template", response.data, "#divMisCursos");
+                    $('#divTutoriales').show();
                 }
+            }
+            else {
+                $('#divTutoriales').hide();
+                $('#divSinTutoriales').show();
+            }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                $('#divTutoriales').hide();
-                $('#divSinTutoriales').show();
-            }
+            $('#divTutoriales').hide();
+            $('#divSinTutoriales').show();
+        }
         }
     });
 };
@@ -2511,7 +2523,7 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 }
 
-function TagManagerClickAgregarProducto() {
+function TagManagerClickAgregarProducto() {  
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -2630,6 +2642,30 @@ function TagManagerCarruselLiquidacionesInicio(arrayItems) {
         });
     }
 }
+
+function TagManagerClickAgregarProductoOfertaParaTI(item) {
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'products': [
+                    {
+                        'name': item.DescripcionCUV2,
+                        'price': item.Precio2,
+                        'brand': item.DescripcionMarca,
+                        'id': item.CUV2,
+                        'category': 'NO DISPONIBLE',
+                        'variant': item.DescripcionEstrategia,
+                        'quantity': parseInt(item.Cantidad),
+                        'position': parseInt(item.posicionItem)
+                    }
+                ]
+            }
+        }
+    });
+}
+
 function TagManagerClickAgregarProductoLiquidacion(item) {
     dataLayer.push({
         'event': 'addToCart',
@@ -2833,6 +2869,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
@@ -3105,22 +3142,21 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response);
-                var images = $("#popupComunicados img.img-comunicado");
-                var loadedImgNum = 0;
+            armarComunicadosPopup(response);
+            var images = $("#popupComunicados img.img-comunicado");
+            var loadedImgNum = 0;
 
-                if (images.length == 0) {
-                    closeWaitingDialog();
-                } else {
-                    images.on('load', function () {
-                        loadedImgNum += 1;
-                        if (loadedImgNum == images.length) {
-                            closeWaitingDialog();
-
-                            mostrarComunicadosPopup();
-                        }
-                    });
-                }
+            if (images.length == 0) {
+                closeWaitingDialog();
+            } else {
+                images.on('load', function () {
+                    loadedImgNum += 1;
+                    if (loadedImgNum == images.length) {
+                        closeWaitingDialog();
+                        mostrarComunicadosPopup();
+                    }
+                });
+            }
             }
         },
         error: function (data, error) {
@@ -3293,8 +3329,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
 
     $(id).attr("data-popup-activo", "1");
-    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
-        $("#fondoComunPopUp").show();
+    var padreComun = $(id).parent().attr("id");
+    if (padreComun == "fondoComunPopUp") {
+        if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+            $("#fondoComunPopUp").show();
+        }
     }
 
     $(id).show();
@@ -3304,11 +3343,19 @@ function PopupCerrar(idPopup) {
     if (typeof (idPopup) == "string")
         id = "#" + idPopup;
 
-    if (id == "") return false;
+    var obj = "";
+    if (id == "") {
+        obj = $(idPopup);
+    }
+    else {
+        obj = $(id);
+    }
 
-    $(id).attr("data-popup-activo", "0");
+    if (obj == "") return false;
 
-    $(id).hide();
+    $(obj).attr("data-popup-activo", "0");
+
+    $(obj).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
     }

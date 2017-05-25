@@ -15,7 +15,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLUsuario
+    public partial class BLUsuario
     {
         public BEUsuario Select(int paisID, string codigoUsuario)
         {
@@ -235,6 +235,7 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaActualPais = configuracion.FechaActualPais;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                        usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
                     }
                 }
 
@@ -701,7 +702,7 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == IdEstadoActividad);
                                     if (Restriccion_Egresada != null)
                                     {
-										//if (paisID == 6)  R2133
+                                        //if (paisID == 6)  R2133
                                         //    return 2;
                                         //else
                                         //{
@@ -1262,6 +1263,132 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var resultado = string.Empty;
+            var paso = "1";
+
+            try
+            {
+                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+
+                List<BEUsuarioCorreo> lst = SelectByEmail(correo, paisId).ToList();
+                paso = "2";
+
+                if (paisId.ToString().Trim() == "4")
+                {
+                    if (lst.Count == 0)
+                    {
+                        resultado = "0" + "|" + "1";
+                        return resultado;
+                    }
+                    else
+                    {
+                        correo = lst[0].Descripcion;// contiene el correo del destinatario
+                        if (correo.Trim() == "")
+                        {
+                            resultado = "0" + "|" + "2";
+                            return resultado;
+                        }
+                    }
+                }
+
+                if (lst[0].Cantidad == 0)
+                {
+                    resultado = "0" + "|" + "3";
+                    return resultado;
+                }
+                else
+                {
+                    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                    DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                    string paisiso = lst[0].CodigoISO;
+                    string codigousuario = lst[0].CodigoUsuario;
+                    string nombre = lst[0].Nombre.Trim().Split(' ').First();
+
+                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, correo, paisiso, codigousuario, fechasolicitud, nombre);
+
+                    paso = "3";
+
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = correo;
+                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
+                    string fondo = (esEsika ? "e81c36" : "642f80");
+                    string displayname = "Somos Belcorp";
+
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
+
+                    resultado = "1" + "|" + "4" + "|" + correo;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                if (usuario.EMail != string.Empty)
+                {
+                    int cantidad = this.ValidarEmailConsultora(usuario.PaisID, usuario.EMail, usuario.CodigoUsuario);
+
+                    if (cantidad > 0) 
+                    {
+                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.", cantidad);
+                    }
+                    else
+                    {
+                        this.UpdateDatos(usuario, CorreoAnterior);
+
+                        if(usuario.EMail != CorreoAnterior)
+                        {
+                            string emailFrom = "no-responder@somosbelcorp.com"; 
+                            string emailTo = usuario.EMail;
+                            string titulo = "Confirmación de Correo";
+                            string displayname = usuario.Nombre;
+                            string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                            string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
+
+                            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
+                            string param_querystring = Portal.Consultoras.Common.Util.EncriptarQueryString(parametros);
+
+                            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+                            string fondo = (esEsika ? "e81c36" : "642f80");
+
+                            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, param_querystring);
+
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
+                        }
+                        else
+                        {
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            }
+
+            return resultado;
+        }
+
         //EPD-1836
         public int InsUsuarioPostulante(int paisID, string paisISO, BEUsuarioPostulante entidad)
         {
@@ -1300,7 +1427,6 @@ namespace Portal.Consultoras.BizLogic
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
-                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)
@@ -1522,5 +1648,65 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdatePostulanteMensajes(CodigoUsuario, tipo);
         }
 
+
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        {
+            BEUsuario usuario = null;
+            using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+
+            if (usuario == null)
+                return null;
+
+            var usuarioConfiguracion = new BEUsuarioConfiguracion()
+            {
+                PaisID = usuario.PaisID,
+                CodigoISO = usuario.CodigoISO,
+                TieneHana = usuario.TieneHana,
+                Simbolo = usuario.Simbolo,
+                EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
+                ZonaHoraria = usuario.ZonaHoraria,
+                PROLSinStock = usuario.PROLSinStock,
+                NuevoPROL = usuario.NuevoPROL,
+                ZonaNuevoPROL = usuario.ZonaNuevoPROL,
+                ZonaValida = usuario.ZonaValida,
+                DiasAntes = usuario.DiasAntes,
+                HoraInicio = usuario.HoraInicio,
+                HoraFin = usuario.HoraFin,
+                HoraInicioNoFacturable = usuario.HoraInicioNoFacturable,
+                HoraCierreNoFacturable = usuario.HoraCierreNoFacturable,
+                ValidacionInteractiva = usuario.ValidacionInteractiva,
+                HabilitarRestriccionHoraria = usuario.HabilitarRestriccionHoraria,
+                HorasDuracionRestriccion = usuario.HorasDuracionRestriccion,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                PrimerNombre = usuario.PrimerNombre,
+                MontoMinimoPedido = usuario.MontoMinimoPedido,
+                MontoMaximoPedido = usuario.MontoMaximoPedido,
+                ConsultoraNueva = usuario.ConsultoraNueva,
+                CodigoConsultora = usuario.CodigoConsultora,
+                CodigoUsuario = usuario.CodigoUsuario,
+                NombreCompleto = usuario.Nombre,
+                Email = usuario.EMail,
+                UsuarioPrueba = usuario.UsuarioPrueba,
+                RegionID = usuario.RegionID,
+                CodigorRegion = usuario.CodigorRegion,
+                ZonaID = usuario.ZonaID,
+                CodigoZona = usuario.CodigoZona,
+                ConsultoraAsociadoID = usuario.ConsultoraAsociadaID,
+                ConsultoraAsociada = usuario.ConsultoraAsociada,
+                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                FechaFinFacturacion = usuario.FechaFinFacturacion,
+                HoraCierreZonaNormal = usuario.HoraCierreZonaNormal,
+                HoraCierreZonaDemAnti = usuario.HoraCierreZonaDemAnti,
+                EsZonaDemAnti = usuario.EsZonaDemAnti,
+                TipoUsuario = usuario.TipoUsuario,
+                TieneOfertaDelDia = usuario.OfertaDelDia
+            };
+
+            return usuarioConfiguracion;
+        }
     }
 }

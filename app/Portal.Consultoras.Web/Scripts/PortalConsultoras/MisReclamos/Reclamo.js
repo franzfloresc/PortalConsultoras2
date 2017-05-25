@@ -99,11 +99,11 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
         $("#hdImporteTotal2").val(0);
-        $("#txtCUVDescripcion2").val("");
+        $("#txtCUVDescripcion2").val(""); 
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
-
+        
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });
@@ -193,7 +193,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({        
+    $('#alertEMailDialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -308,7 +308,7 @@ function BuscarCUV(CUV) {
         error: function (data, error) {
             closeWaitingDialog();
             if (checkTimeout(data)) {
-            }
+        }
         }
     });
 }
@@ -503,11 +503,11 @@ function ValidarPaso1() {
         success: function (data) {
             closeWaitingDialog();
             if (checkTimeout(data)) {
-                ok = data.success;
+            ok = data.success;
 
-                if (!data.success && data.message != "") {
-                    alert_msg(data.message);
-                }
+            if (!data.success && data.message != "") {
+                alert_msg(data.message);
+            }
             }
         },
         error: function (data, error) {
@@ -1166,12 +1166,12 @@ function SolicitudEnviar() {
                 }
             }
 
-            $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-            $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-            $("#spnSolicitudCampania").html(formatoCampania);
-            $("#divProcesoReclamo").hide();
-            $("#divUltimasSolicitudes").hide();
-            $("#TituloReclamo").hide();
+                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+                $("#spnSolicitudCampania").html(formatoCampania);
+                $("#divProcesoReclamo").hide();
+                $("#divUltimasSolicitudes").hide();
+                $("#TituloReclamo").hide();
             $("#SolicitudEnviada").show();
            
             if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");

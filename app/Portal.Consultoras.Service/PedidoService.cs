@@ -7,12 +7,15 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
     public class PedidoService : IPedidoService
     {
-
         private BLPedidoWebDetalle BLPedidoWebDetalle;
         private BLPedidoWeb BLPedidoWeb;
         private BLPedidoReporteLider BLPedidoReporteLider;
@@ -32,6 +35,9 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLEstrategia blEstrategia;
+        private BLCuponConsultora BLCuponConsultora;
+        private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
 
         public PedidoService()
         {
@@ -54,6 +60,9 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            blEstrategia = new BLEstrategia();
+            BLCuponConsultora = new BLCuponConsultora();
+            BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
         }
 
         #region Reporte Lider
@@ -87,6 +96,11 @@ namespace Portal.Consultoras.Service
         public BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle)
         {
             return BLPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle)
+        {
+            return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
         public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
@@ -1166,8 +1180,9 @@ namespace Portal.Consultoras.Service
         }
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            return new BLEstrategia().GetEstrategiasPedido(entidad);
+            return blEstrategia.GetEstrategiasPedido(entidad);
         }
+
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1489,9 +1504,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarProductoCpc(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)
@@ -1614,9 +1629,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.GuardarPerfilOfertaShowRoom(paisId, perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
@@ -1785,7 +1800,7 @@ namespace Portal.Consultoras.Service
         {
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
-
+        
         public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
         {
             BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
@@ -1812,7 +1827,8 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
-        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
+        {
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
 
@@ -1821,13 +1837,13 @@ namespace Portal.Consultoras.Service
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
         }
         /*EPD-1025*/
-
+        
         public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int  estrategiaId)
         {
             return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, estrategiaId);
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado,int  estrategiaId)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
         {
             return new BLEstrategia().GetOfertasParaTiByTipoConfigurado(paisId, campaniaId, tipoConfigurado, estrategiaId);
         }
@@ -1860,14 +1876,14 @@ namespace Portal.Consultoras.Service
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+            return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
 
         public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
-        
+
         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
@@ -1884,10 +1900,57 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
 
+        #region AppCatalogo
 
+        /*      EPD-2035        */
+        public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania )
+        {
+            Boolean error = true;
+            try
+            {
+                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código ISO de País.");
+                if (prefijoISO.Length > 2) return new BEResultadoMisPedidosAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
+                if (tipoUsuario == 1 && (dispositivoID == null || dispositivoID == string.Empty)) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código del dispositivo.");
+                if (tipoUsuario == 2 && consultoraID == 0) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código de consultora.");
+
+                int paisID = GetPaisID(prefijoISO);
+                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
+                return blSolicitudCliente.GetPedidosAppCatalogo(paisID, consultoraID, dispositivoID, tipoUsuario, campania);
+            }
+            catch (Exception ex) { return new BEResultadoMisPedidosAppCatalogo(error, ex.Message); }
+        }
+
+        public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID)
+        {
+            Boolean error = true;
+            try
+            {
+                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código ISO de País.");
+                if (prefijoISO.Length > 2) return new BEResultadoPedidoDetalleAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
+                if ( pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
+
+                int paisID = GetPaisID(prefijoISO);
+                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
+                return blSolicitudCliente.GetPedidoDetalle(paisID, pedidoID);
+            }
+            catch (Exception ex) { return new BEResultadoPedidoDetalleAppCatalogo(error, ex.Message); }
+        }
+
+        /*      FIN EPD-2035        */
+        #endregion
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
+        }
+
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        {
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
+        }
+
+        public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
+        {
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
         }
 
         public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
@@ -1900,14 +1963,34 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
         {
-            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
 
-        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
-            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+            return new BLReservaProl().EjecutarReservaProl(input);
+        }
+
+        public bool EnviarCorreoReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EnviarCorreoReservaProl(input);
+        }
+
+        public int InsertarDesglose(BEInputReservaProl input)
+        {
+            return new BLReservaProl().InsertarDesglose(input);
+        }
+
+        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
+        {
+            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+        }
+
+        public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
+        {
+            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
@@ -1919,5 +2002,49 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
+        
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+        }
+        
+        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+
+        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
+        }
+
+        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Single(entidad);
+        }
+        
+        #region Cupon
+
+        public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
+        {
+            return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
     }
 }

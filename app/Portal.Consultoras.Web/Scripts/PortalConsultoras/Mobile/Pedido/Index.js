@@ -526,13 +526,13 @@ function AgregarProductoListado() {
         async: true,
         success: function (datos) {
             if (checkTimeout(datos)) {
-                if (!datos.result) {
-                    MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-                    CloseLoading();
-                } else {
-                    InsertarProducto();
-                    return true;
-                }
+            if (!datos.result) {
+                MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
+                CloseLoading();
+            } else {
+                InsertarProducto();
+                return true;
+            }
             }
         },
         error: function (data, error) {
@@ -595,9 +595,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.log(error);
-                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
+            console.log(error);
+            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
         }
     });
     return restringido;
@@ -742,7 +742,7 @@ function VisibleEstrategias(accion) {
     else {
         $("#divListaEstrategias").hide();
     }
-}
+        }
 
 function PedidoOnSuccess() {
     var ItemCantidad = $("#txtCantidad").val();

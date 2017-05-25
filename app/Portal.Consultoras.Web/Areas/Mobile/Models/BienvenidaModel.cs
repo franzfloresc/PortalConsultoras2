@@ -42,5 +42,11 @@
         public int ActivacionAppCatalogoWhastUp { get; set; }
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
+        public bool RevistaDigitalPopUpMostrar { get; set; }
+        public string EMail { get; set; }
+        public string Celular { get; set; }
+        public int CampaniaActual { get; set; }
+        public bool EmailActivo { get; set; }
+        public int TieneCupon { get; set; }
     }
 }

@@ -851,8 +851,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                                 {
                                     item.EstaEnRevista = 1;
-                                    if (isEsika) item.MensajeValidacion = Constantes.OfertaEspecialMensajes.EsikaWeb;
-                                    else item.MensajeValidacion = Constantes.OfertaEspecialMensajes.LbelWeb;
+                                    if (isEsika) item.MensajeValidacion = Constantes.MensajeEstaEnRevista.EsikaWeb;
+                                    else item.MensajeValidacion = Constantes.MensajeEstaEnRevista.LbelWeb;
                                 }
                             }
                             else
@@ -1054,8 +1054,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
 
             //ViewBag.Simbolo = UserData().Simbolo;
-            //string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
 
+            //string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
             int tipo;
             string marcaPedido;
 

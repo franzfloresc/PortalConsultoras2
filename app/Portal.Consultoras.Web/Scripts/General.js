@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
     });
 
     $("header").resize(function () {
-        LayoutHeader();
+        LayoutMenu();
     });
 
     if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -152,8 +152,10 @@ jQuery(document).ready(function () {
         });
         return array;
     };
+
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
+
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
                 if (a == b) {
                     return opts.fn(this);
@@ -227,6 +229,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString("");
             });
 
+            Handlebars.registerHelper('Trim', function (cadena) {
+                cadena = $.trim(cadena);
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -255,6 +262,40 @@ jQuery(document).ready(function () {
         }
     }
 
+    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
+        if (!Handlebars.helpers.iff)
+            HandlebarsRegisterHelper();
+
+        if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
+            return false;
+        }
+
+        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        jQuery.get(urlTemplate, function (dataTemplate) {
+            dataTemplate = $.trim(dataTemplate);
+            //console.log(dataTemplate);
+            if (dataTemplate == "") {
+                return false;
+            }
+
+            if (dataTemplate.substr(0, 2) == "/*") {
+                dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
+            }
+
+            if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
+                dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
+            }
+
+            var template = Handlebars.compile(dataTemplate);
+            var htmlDiv = template(modelo);
+            idHtml = $.trim(idHtml);
+            if (idHtml == "") return htmlDiv;
+            $(idHtml).html(htmlDiv);
+        });
+
+        return "";
+
+    }
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -328,6 +369,12 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    $(document).scroll(function () {
+        try {
+            $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
+        } catch (e) { }        
+    });
+    
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = new Array();
@@ -530,7 +577,7 @@ function isInt(n) {
 }
 
 function checkTimeout(data) {
-    var thereIsStillTime = true
+    var thereIsStillTime = true;
 
     if (data) {
         var eval = data.responseText ? data.responseText : data;
@@ -546,11 +593,11 @@ function checkTimeout(data) {
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
-            }
+        }
             else {
                 $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
                 $('#popupInformacionSB2SesionFinalizada').show();
-            }
+    }
         }
     }
     else {
@@ -561,7 +608,7 @@ function checkTimeout(data) {
 
 function checkUserSession() {
     var res = -1;
-
+    
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -636,7 +683,8 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
     $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
@@ -808,16 +856,68 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function LayoutHeader() {
-    console.log(1);
     LayoutHeaderFin();
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
+    //setTimeout(function () {
+    //    var wtop = $("header").innerHeight();
+    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    //}, 350);
 }
 
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();    
+    var wtop = $("header").innerHeight();
+    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
     $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutMenu() {
+    LayoutMenuFin();
+    $(document).ajaxStop(function () {
+        LayoutMenuFin();
+    });
+}
+function LayoutMenuFin() {
+    // validar si sale en dos lineas
+    var hok = true;
+    do {
+        $(".logo_esika").css("width", "");
+        hok = false;
+        var wt = $(".wrapper_header").width();
+        var wl = $(".logo_esika").innerWidth();
+        var wr = $(".menu_esika_b").innerWidth();
+        wt = wt - wl - wr;
+        $(".menu_new_esika").css("width", wt + "px");
+        $(".logo_esika").css("width", wl + "px");
+        var h = $(".wrapper_header").height();
+        if (h > 61) {
+            $("#ulNavPrincipal > li").css("margin-left", "20px");
+            h = $(".wrapper_header").height();
+            if (h > 61) {
+                $($("#ulNavPrincipal > li").get(0)).css("margin-left", "5px");
+                h = $(".wrapper_header").height();
+            }
+        }
+        if (h > 61) {
+            wt = $(".wrapper_header").width();
+            var wh = $("header").width();
+            if (wh > wt) {
+                wt = parseInt((wh - wt) / 2);
+                $(".wrapper_header").css("max-width", (wh - wt) + "px");
+                h = $(".wrapper_header").height();
+                hok = h > 61;
+            }
+        }
+    } while (hok);
+    // caso no entre en el menu
+    // poner en dos renglones
+    // var listaMenu = $("#ulNavPrincipal > li > a");
+
+    LayoutHeader();
 }
 function ResizeMensajeEstadoPedido() {
 
@@ -887,9 +987,6 @@ function cerrarMensajePostulante() {
             console.log(response);
         }
     });
-
-    //OrdenarCabecera();
-
 }
 
 function MostrarMensajePedidoRechazado() {
@@ -1012,7 +1109,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
                 if (response.success) {
                     CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
                 } else {
-                    window.messageInfo(response.message);
+                    AbrirMensaje(response.message);
                 }
             }
             //CerrarLoad();
@@ -1037,84 +1134,6 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow-y': 'auto' });
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
-}
-
-function GuardarIndicadorPedidoAutentico() {
-    //debugger;
-
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
-
-    if (tokenPedidoAutenticoOk == 0) {
-        if (typeof (Storage) !== 'undefined') {
-            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
-            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
-
-                var data2 = { 'accion': 2 };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data2),
-                    success: function (response) {
-                        if (response.success) {
-                            localStorage.setItem('SBTokenPais', IsoPais);
-                            localStorage.setItem('SBTokenPedido', response.message);
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            } else {
-                
-                var accion = 3;
-                var tp = localStorage.getItem('SBTokenPais');
-                if (tp !== IsoPais) {
-                    accion = 2;
-                }
-
-                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data3),
-                    success: function (response) {
-                        if (response.success) {
-                            if (accion == 2) {
-                                localStorage.setItem('SBTokenPais', IsoPais);
-                                localStorage.setItem('SBTokenPedido', response.message);
-                            }
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            }
-        }
-    }
 }
 
 function ModificarPedido2(pTipo) {
@@ -1215,4 +1234,96 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
         }
     }
 }
-/**/
+
+function GuardarIndicadorPedidoAutentico() {
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data2),
+                    success: function (response) {
+                        if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
+                            localStorage.setItem('SBTokenPedido', response.message);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
+
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        }
+    }
+}
+
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/

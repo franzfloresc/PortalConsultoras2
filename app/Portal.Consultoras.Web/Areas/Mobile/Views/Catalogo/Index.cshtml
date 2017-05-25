@@ -44,13 +44,13 @@
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
         <li class="one">
-            <a href="#" data-tag="Catalogos">
+            <a href="javascript:;" data-tag="Catalogos">
                 CATÁLOGOS
                 <div class="marcador_tab"></div>
             </a>
         </li>
         <li class="two">
-            <a href="#" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
+            <a href="javascript:;" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
                 REVISTAS
                 <div class="marcador_tab oculto"></div>
             </a>
@@ -74,17 +74,38 @@
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo" data-titulo="" >REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_revistas_mobile">
             <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
             <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
-            <a id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
+            <a id="lbPortadaGana" href="javascript:;" onclick="MostrarMiRevista();">
                 <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
             </a>
         </div>
     </div>
     <!--FIN TAB REVISTA-->
-    
+    <!--TAB REVISTA DIGITAL-->
+    @if (Model.MostrarRevistaDigital)
+    {
+        <div id="tab_revistasdigital_mobile" data-tag-html="Revistas" style="display:none;">
+            <div class="contenedor_seccionRevistaDigital">
+                <div class="seccionRevistaDigital_logo_marca">
+                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Ésika para mí" />
+                </div>
+                <div class="contenido_seccionRevistaDigital">
+                    <span>TU REVISTA ONLINE PERSONALIZADA</span>
+                    <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                </div>
+                <div class="revistadigital contenedor_botonVerMasOfertas">
+                    <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                        <div class="fondo_boton"></div>
+                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!--FIN TAB REVISTA DIGITAL-->
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->
@@ -184,16 +205,15 @@
 <script id="catalogo-template" type="text/x-handlebars-template">
     <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
         <div data-tipo="content">
-            <a class="content_catalogo" data-tipo="img" target="_blank" href="">
+            <a class="content_catalogo" data-tipo="img" target="_blank" href="javascript:;">
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a><!--colocar ws2-->
+                <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
-            
         </div>
     </div>
 </script>
@@ -201,11 +221,16 @@
 @section styles{
 
     <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
-<style type="text/css">
-    body {
-        overflow-x: hidden;
+    @if (Model.MostrarRevistaDigital)
+    {
+        <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
     }
-</style>
+
+    <style type="text/css">
+        body {
+            overflow-x: hidden;
+        }
+    </style>
 
 }
 @section scripts{

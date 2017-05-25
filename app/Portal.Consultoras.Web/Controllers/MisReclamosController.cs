@@ -443,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = CargarMotivoOperacionPorDias(model);
@@ -636,7 +636,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var respuestaServiceCdr = new RptCdr[1];
                 using (WsGestionWeb sv = new WsGestionWeb())
                 {
-                    respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
+                    respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
                     
@@ -648,10 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-                
-            }
+            catch (Exception ex) { }
 
             #endregion
 
@@ -667,7 +664,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ValidarNoPack(MisReclamosModel model)
         {
             #region Validar Pack y Sets
-           
 
             try
             {
@@ -685,10 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex) { }
 
             #endregion
 
@@ -1055,18 +1048,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model = model ?? new MisReclamosModel();
-                if (model.CDRWebID <= 0) return ErrorJson("Error, vuelva a intentarlo");
+                if (model.CDRWebID <= 0) return ErrorJson("Error, vuelva a intentarlo", true);
 
                 string mensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
-                if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada);
+                if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada, true);
 
                 var cdrWebFiltro = new BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).ToList().FirstOrDefault();
-                    if(cdrWeb == null) return ErrorJson("Error al buscar reclamo.");
+                    if(cdrWeb == null) return ErrorJson("Error al buscar reclamo.", true);
                     cdrWeb.CDRWebDetalle = sv.GetCDRWebDetalle(userData.PaisID, new BECDRWebDetalle { CDRWebID = cdrWeb.CDRWebID }, cdrWeb.PedidoID);
-                    if(TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea);
+                    if(TieneDetalleFueraFecha(cdrWeb, model)) return ErrorJson(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea, true);
                 }
 
                 int resultadoUpdate = 0;
@@ -1125,7 +1118,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Error, vuelva a intentarlo");
+                return ErrorJson("Error, vuelva a intentarlo", true);
             }
         }
 

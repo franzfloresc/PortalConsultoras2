@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
             .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
 
-            Mapper.CreateMap<MisDatosModel, BEUsuario>()
+            Mapper.CreateMap<MisDatosModel, ServiceUsuario.BEUsuario>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                 .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
                 .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
@@ -61,8 +61,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => c.NombreCompleto))
                 .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                 .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+                
+                Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+                Mapper.CreateMap<UsuarioModel, BEInputReservaProl>()
+                .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))
+                .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
+                .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
 
-            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+                Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
         }
     }
 }

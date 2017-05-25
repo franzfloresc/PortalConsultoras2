@@ -98,6 +98,8 @@
     <input type="hidden" id="hdTipoOfertaFinal" value="@ViewBag.OfertaFinal" />
     <input type="hidden" id="hdTipoCatalogoPersonalizado" value="@ViewBag.CatalogoPersonalizado" />
     <input type="hidden" id="hdEsCatalogoPersonalizadoZonaValida" value="@Convert.ToString(ViewBag.EsCatalogoPersonalizadoZonaValida)" />
+    <input type="hidden" id="hdCodigoEstrategia" value="@Util.Trim(ViewBag.CodigoEstrategia)" />
+    <input type="hidden" id="hdLimiteProductoCarrusel" value="@(ViewBag.LimiteProductoCarrusel)" />
 
     <!-- Menu icon -->
     <div class="menu">
@@ -115,7 +117,7 @@
             </div>
                 -->
 
-            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPe5rfil))
             {
                 <div class="foto_usuaria_mobile">
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
@@ -125,7 +127,7 @@
         <br />
         <div class="saludo_menu">¡Hola @ViewBag.NombreConsultora!</div>
         @Html.Partial("_MobileMenuLateral")
-        <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
+       <a role="menu" region="Menú Lateral" parent="Cerrar Sesion" title="Cerrar Sesion" class="btn_cerrar_sesion" href="@Url.Action("LogOut", "Login", new { area = "" })">Cerrar sesión</a>
     </div>
 
     <!-- alert-top -->
@@ -725,6 +727,7 @@
     </div>
     
     @Scripts.Render("~/Scripts/Mobile")
+    @Scripts.Render("~/Scripts/MobileLayout")
 
     @if (ViewBag.MostrarOfertaDelDia == true) {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
@@ -789,11 +792,14 @@
         //ODD
         var mostrarOfertaDelDia = '@ViewBag.MostrarODD';
         var vbMmostrarOfertaDelDia = '@ViewBag.MostrarOfertaDelDia';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
         var MostrarBannerOtros = '@ViewBag.MostrarBannerOtros';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
         var TipoOrigenPantallaODD = 2;
-
         var MobileShowRoom = @Constantes.OrigenPedidoWeb.MobileShowRoom;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLiquidacion;
         var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
@@ -803,9 +809,10 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
+        
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
 
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
@@ -818,14 +825,12 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
-
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.foto_menu').show();
         }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 
     </script>
@@ -1005,13 +1010,10 @@
                         }
                     }, 1000);
                 }
-               
+
             </script>
         }
-
     }
-    
-
     <script type="text/javascript">
         function messageInfoPostulante() {
             $('.icon-close').click();

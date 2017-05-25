@@ -1,1 +1,1 @@
-# Portal Consultoras 2
+# Portal Consultoras2.  Independización script, appspec

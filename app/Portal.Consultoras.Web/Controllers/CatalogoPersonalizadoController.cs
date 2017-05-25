@@ -19,6 +19,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado))
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
             var model = new CatalogoPersonalizadoModel();
  
             if (!userData.EsCatalogoPersonalizadoZonaValida)
@@ -58,6 +63,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult ObtenerProductosCatalogoPersonalizadoHome()
         {
+            if (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado))
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "",
+                    data = ""
+                });
+            }
+
             int CantProFav = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings.Get("LimiteJetloreCatalogoPersonalizadoHome"));
             return ObtenerProductos(CantProFav);
         }
@@ -629,6 +644,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             
         }
+
         //PL20-1237
         public JsonResult InsertarProductoCompartido(ProductoCompartidoModel ProCompModel)
         {

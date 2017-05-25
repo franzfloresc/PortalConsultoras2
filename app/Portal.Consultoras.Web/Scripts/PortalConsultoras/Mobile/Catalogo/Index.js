@@ -12,7 +12,6 @@ $(document).ready(function () {
     MostrarRevistaCorrecta(rCampSelect);
 
     $('#campaniaRevista').val(rCampSelect);
-
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
@@ -542,6 +541,13 @@ function AbrirCompartirCorreo(tipoCatalogo, campania) {
     $("#divCheckbox").find("[type='checkbox']").removeAttr('checked');
     $("#divCheckbox").find("[data-cat='" + tipoCatalogo + "']").find("[type='checkbox']").prop("checked", true);
     $('#CompartirCorreoMobile').show();
+    // Mostrar las marcas adecuadas.
+    var cata = $("#divCatalogo [data-cam='" + campania + "'][data-estado='1']");
+    $("#divCheckbox [data-cat]").hide();
+    for (var i = 0; i < cata.length; i++) {
+        var cat = $(cata[i]).attr("data-cat");
+        $("#divCheckbox [data-cat='" + cat + "']").show();
+    }
 }
 
 var rCampSelect = "";
@@ -558,7 +564,7 @@ function MostrarRevistaCorrecta(campania) {
 
     $.when(defered).done(function () {
         $("#imgPortadaGana").attr("src", !urlImagen || urlImagen == "" ? defaultImageRevista : urlImagen);
-        $('[data-tag-html="Revistas"] .titulo_catalogo').text("REVISTA C-" + rCampSelect.substring(4, 6));
+        $('[data-tag-html="Revistas"] [data-titulo]').text("REVISTA C-" + rCampSelect.substring(4, 6));
         FinRenderCatalogo();
     });
 }

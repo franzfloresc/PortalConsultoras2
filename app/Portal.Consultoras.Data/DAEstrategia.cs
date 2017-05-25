@@ -216,6 +216,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.String, entidad.CodigoEstrategia);
                 return Context.ExecuteReader(command);
             }
         }
@@ -346,7 +347,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
+         public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {

@@ -3,8 +3,8 @@ var showDisplayODD = 0;
 var ventanaChat = null;
 
 $(document).ready(function () {
-
     LayoutHeader();
+    LayoutMenu();
 
     if (mostrarBannerPostulante == 'True') {
         $('#bloquemensajesPostulante').show();
@@ -94,7 +94,8 @@ $(document).ready(function () {
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         if (functionHide != "") {
@@ -111,10 +112,14 @@ $(document).ready(function () {
             }
         }
     });
-
-    //waitingDialog();
-    //closeWaitingDialog();
-
+    
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();        
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+   
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
@@ -134,7 +139,7 @@ $(document).ready(function () {
         draggable: true,
         buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
-
+    
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -250,6 +255,11 @@ $(document).ready(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
+    $("#belcorpChat a_").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
+    });
 
     $("body").on('click', '.belcorpChat', function () {
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
@@ -275,10 +285,8 @@ $(document).ready(function () {
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
-    //OrdenarCabecera()
-
-    LayoutHeader();
 });
+
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);  
@@ -621,13 +629,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+
 function alert_msg(message, titulo) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
 }
-
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');

@@ -1171,7 +1171,7 @@ namespace Portal.Consultoras.Service
         }
 
         //RQ_PBS - R2161
-        /*RE2544 - CS(CGI)*/
+        /*RE2544 - CS(CGI)*/        
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
             BLServicio.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
@@ -1304,8 +1304,6 @@ namespace Portal.Consultoras.Service
         #endregion
         /*R20150804 - MER - fin*/
 
-
-
         public List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID)
         {
             return BLSolicitudCliente.GetEstadoSolicitudCliente(paisID);
@@ -1374,8 +1372,11 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-
         //fR20151202
-
+        
+        public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
+        {
+            return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
+        }
     }
 }
