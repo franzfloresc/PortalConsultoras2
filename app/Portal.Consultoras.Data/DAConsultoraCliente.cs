@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Configuration;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 using Portal.Consultoras.Entities;
 
@@ -99,7 +100,8 @@ namespace Portal.Consultoras.Data
 
             if (response.IsSuccessStatusCode)
             {
-                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                var strResult = response.Content.ReadAsStringAsync().Result;
+                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEConsultoraCliente>>();
             }
 
@@ -110,12 +112,13 @@ namespace Portal.Consultoras.Data
         {
             List<BEConsultoraCliente> result = new List<BEConsultoraCliente>();
 
-            string getRequestUri = string.Format("{0}?ClienteID={1}&TipoContactoID={2}&Valor={3}", requestUri,ClienteID, TipoContactoID, Valor);
+            string getRequestUri = string.Format("{0}?ClienteID={1}&TipoContactoID={2}&Valor={3}", requestUri, ClienteID, TipoContactoID, Valor);
             HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
 
             if (response.IsSuccessStatusCode)
             {
-                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                var strResult = response.Content.ReadAsStringAsync().Result;
+                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEConsultoraCliente>>();
             }
 
@@ -126,11 +129,14 @@ namespace Portal.Consultoras.Data
         {
             long result = 0;
 
-            HttpResponseMessage response = httpClient.PostAsJsonAsync(requestUri, cliente).GetAwaiter().GetResult();
+            HttpContent contentPost = new StringContent(JsonConvert.SerializeObject(cliente), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = httpClient.PostAsync(requestUri, contentPost).GetAwaiter().GetResult();
 
             if (response.IsSuccessStatusCode)
             {
-                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                var strResult = response.Content.ReadAsStringAsync().Result;
+                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (long)beAPISB2Response.Respuesta;
             }
 
@@ -141,11 +147,14 @@ namespace Portal.Consultoras.Data
         {
             bool result = false;
 
-            HttpResponseMessage response = httpClient.PutAsJsonAsync(requestUri, cliente).GetAwaiter().GetResult();
+            HttpContent contentPost = new StringContent(JsonConvert.SerializeObject(cliente), System.Text.Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = httpClient.PutAsync(requestUri, contentPost).GetAwaiter().GetResult();
 
             if (response.IsSuccessStatusCode)
             {
-                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                var strResult = response.Content.ReadAsStringAsync().Result;
+                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
             }
 
@@ -161,7 +170,8 @@ namespace Portal.Consultoras.Data
 
             if (response.IsSuccessStatusCode)
             {
-                beAPISB2Response = response.Content.ReadAsAsync<BEAPISB2Response>().Result;
+                var strResult = response.Content.ReadAsStringAsync().Result;
+                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
             }
 
