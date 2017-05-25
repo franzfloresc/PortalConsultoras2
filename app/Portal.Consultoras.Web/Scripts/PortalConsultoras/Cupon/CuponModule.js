@@ -65,6 +65,11 @@
         Ambiente: '',
         TieneCupon: false
     };
+
+    var userModel = {
+        celular: '',
+        correo: ''
+    };
     
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
@@ -75,6 +80,8 @@
         setting.CampaniaActual = parameters.campaniaActual;
         setting.PaisISO = parameters.paisISO;
         setting.Ambiente = parameters.ambiente;
+        userModel.correo = parameters.correo;
+        userModel.celular = parameters.celular;
         setDefaultValues();
         mostrarContenedorCuponPorPagina();
         bindEvents();
@@ -215,7 +222,9 @@
     var procesarGana = function () {
         var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
         var valor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.Cupon.FormatoValorAsociado : parseInt(setting.Cupon.FormatoValorAsociado));
-
+        $(elements.TxtCorreoIngresado).val(userModel.correo);
+        $(elements.TxtCelular).val(userModel.celular);
+        
         $(elements.ContenedorTituloGana).empty();
 
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {

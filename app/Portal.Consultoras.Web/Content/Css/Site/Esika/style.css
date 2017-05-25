@@ -34816,9 +34816,22 @@ h1#penmostreo .campana {
     color:black;
     padding-bottom:4px;
 }
-.termino_condiciones_intriga, .termino_condiciones_cupon {
+.termino_condiciones_intriga {
     position: relative;
     padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 22px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color:#494949;
+    text-align: left;
+}
+.termino_condiciones_cupon {
+    position: relative;
+    padding-left: 18px;
+}
+.contenedor_termino_condiciones_cupon {
     margin: 0 auto;
     margin-top: 22px;
     font-family: 'Lato';

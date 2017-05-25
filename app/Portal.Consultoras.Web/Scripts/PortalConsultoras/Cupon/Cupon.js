@@ -10,7 +10,9 @@
         simboloMoneda: viewBagSimbolo,
         campaniaActual: viewBagCampaniaActual,
         paisISO: paisISO,
-        ambiente: viewBagAmbiente
+        ambiente: viewBagAmbiente,
+        correo: correo,
+        celular: celular
     };
 
     cuponModule.ini(objInitializer);
