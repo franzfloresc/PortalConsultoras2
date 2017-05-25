@@ -6,8 +6,9 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPedidoService_EliminarOfertaShowRoomDetalleAll_InputMessage">
@@ -357,6 +358,24 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsIndicadorPedidoAutentico_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsIndicadorPedidoAutenticoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEtiquetas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEtiquetas" />
@@ -2121,6 +2140,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" message="tns:IPedidoService_InsIndicadorPedidoAutentico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_InsIndicadorPedidoAutentico_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcion" message="tns:IPedidoService_RDSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcionResponse" message="tns:IPedidoService_RDSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcion" message="tns:IPedidoService_RDDesuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcionResponse" message="tns:IPedidoService_RDDesuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEtiquetas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetas" message="tns:IPedidoService_GetEtiquetas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEtiquetasResponse" message="tns:IPedidoService_GetEtiquetas_OutputMessage" />
@@ -3659,6 +3690,33 @@
     </wsdl:operation>
     <wsdl:operation name="InsIndicadorPedidoAutentico">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

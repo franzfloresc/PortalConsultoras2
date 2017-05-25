@@ -68,7 +68,7 @@ header {
 }
 
 .wrapper_header {
-    height: 61px;
+    min-height: 61px;
     margin: 0 auto;
     max-width: 1189px;
 }
@@ -91,14 +91,14 @@ header {
 .menu_new_esika {
     float: left;
     width: 62%;
-    height: 60px;
+    min-height: 60px;
     position: relative;
 }
 
 .menu_esika_b {
     height: 60px;
-    float: left;
-    width: 28%;
+    float: right;
+    max-width: 28%;
     /*overflow: hidden;*/
 }
 
@@ -22293,7 +22293,7 @@ label.checkpop.c_on {
     text-decoration: none;
     font-family: 'lato';
     font-size: 10pt;
-    font-weight: 300;
+    font-weight: 400;
     color: black;
     position: relative;
     /* background: url(../../../Images/Esika/estado_cuenta.png) no-repeat; */
@@ -22922,6 +22922,7 @@ body {
     display: inline-block;
     /*margin-right:80px;*/
     margin-bottom: 70px;
+    overflow:hidden;
 }
 
 .arrow_revista {
@@ -23092,9 +23093,9 @@ body {
         font-size: 9.3px;
     }
 
-    .menu_esika_b {
+    /*.menu_esika_b {
         width: 31%;
-    }
+    }*/
 
     .EstadoCuenta {
         zoom: 90%;
@@ -34157,7 +34158,7 @@ h1#penmostreo .campana {
     width: 100%;
     height: 100%;
     background: transparent url(../../../Images/bg_popups.png) repeat left top;
-    z-index: 1000;
+    z-index: 10000002;
     overflow: auto;
     display: none;
 }
@@ -35582,6 +35583,93 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
+}
+
+/*Seccion para suscripcion. */    
+.texto_usuario_srd{
+    font-family:'Lato';
+    font-weight:700;
+    color:white;
+    float:left;
+    width:55%;
+    background:black;
+    height:175px;
+    font-size:18px;
+    padding-top:45px;
+    padding-left:60px;
+    padding-right:0px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    position:relative;
+}
+.texto_usuario_srd:before{
+    content:'';
+    position:absolute;
+    left:-70px;
+    top:0;
+    z-index:102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 175px 70px;
+    border-color: transparent transparent #000000 transparent;
+}
+.texto_usuario_srd:after{
+    content:'';
+    position:absolute;
+    right:-300%;
+    top:0;
+    z-index:102;
+    width: 300%;
+    height: 175px;
+    background:black;
+    z-index:103;
+}
+.botones_cabecera_srd {
+    z-index: 999 !important;
+    font-family:'Lato';
+    font-weight:700;
+    color:white !important;
+    float:right;
+    width:25%;
+    height:175px;
+    font-size:18px;
+    padding-top:45px;
+    padding-left:0px;
+    padding-right:0px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    position:relative;
+    text-align: center;
+}
+
+.botones_cabecera_srd button {
+    background: #FF1534;
+    color:white !important;
+    opacity: 1.00;
+    width: 251px;
+    height: 59px;
+    line-height: 100%;
+    border: none;
+    text-align: center;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    margin-right: 23px;
+    margin-bottom: 15px;
+}
+
+.botones_cabecera_srd span {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 8px;
+    line-height: 18px;
+    letter-spacing: 0.56px;
+    opacity: 1.00;
+}
+.backgroud2_srd {
+     background: url(../../../Images/RevistaDigital/fondo_srd2.svg);
+    width: 605px;
+    height: 675px;
 }
 /*CAMBIOS EN OFERTA DEL DÍA*/
 .regresar_carrusel{

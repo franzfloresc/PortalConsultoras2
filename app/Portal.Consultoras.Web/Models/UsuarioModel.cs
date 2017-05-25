@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
+            this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
             this.EsLebel = false;
@@ -158,6 +159,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
         public string Sobrenombre { get; set; }
+        public string UsuarioNombre { get; set; }
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }
         public int DiasAntes { get; set; }
@@ -345,8 +347,13 @@ namespace Portal.Consultoras.Web.Models
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
         
         public bool CloseBannerCompraPorCompra { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
+        public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
+        
         public bool EsLebel { get; set; }
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
+
     }
 }

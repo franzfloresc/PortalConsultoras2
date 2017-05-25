@@ -7,6 +7,7 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1053,5 +1054,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
     }
 }

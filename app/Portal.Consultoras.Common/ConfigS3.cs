@@ -18,8 +18,10 @@ namespace Portal.Consultoras.Common
         //MEJORA S3
         public static string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
 
-        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior)
+        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
+            carpetaPais = carpetaPais ?? "";
+            fileName = fileName ?? "";
             if (fileName.Trim() == "") return fileName;
             return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
         }
