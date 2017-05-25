@@ -206,5 +206,10 @@ namespace Portal.Consultoras.Common
         {
             return obj.Substring(0, numberOfCharacters).ToLower() + obj.Substring(numberOfCharacters);
         }
+
+        public static string Substring(this int obj, int startIndex, int length)
+        {
+            return obj.ToString().Substring(startIndex, length);
+        }
     }
 }

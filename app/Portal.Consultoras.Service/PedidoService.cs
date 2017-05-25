@@ -8,6 +8,8 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
@@ -34,6 +36,7 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLCuponConsultora BLCuponConsultora;
+        private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
 
         public PedidoService()
         {
@@ -57,6 +60,7 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             BLCuponConsultora = new BLCuponConsultora();
+            BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
         }
 
         #region Reporte Lider
@@ -1933,6 +1937,21 @@ namespace Portal.Consultoras.Service
         public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
         {
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+
+        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
+        }
+
+        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)

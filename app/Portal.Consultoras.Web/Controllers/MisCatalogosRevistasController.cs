@@ -22,18 +22,21 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
+            var mostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
-            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
-            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
-            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
+            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual, mostrarRevistaDigital);
+            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, mostrarRevistaDigital);
+            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, mostrarRevistaDigital);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
-                userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
+                                        userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
+
+            clienteModel.MostrarRevistaDigital = mostrarRevistaDigital;
 
             return View(clienteModel);
         }
@@ -578,9 +581,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var mostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
+
                 if (string.IsNullOrEmpty(campania)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                string codigo = GetRevistaCodigoIssuu(campania);
+                string codigo = GetRevistaCodigoIssuu(campania, mostrarRevistaDigital);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
                 string url = ConfigurationManager.AppSettings["UrlIssuu"].ToString();
