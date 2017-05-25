@@ -1,3 +1,5 @@
+USE AppCatalogo
+GO
 
 ALTER PROCEDURE [dbo].[GetProductoCatalogoByCodigoIsoBySap]
 (
