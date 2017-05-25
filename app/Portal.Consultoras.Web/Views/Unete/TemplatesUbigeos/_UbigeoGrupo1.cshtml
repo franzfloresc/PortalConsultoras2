@@ -3,219 +3,326 @@
 @model Portal.Consultoras.Web.Models.EditarDireccionModel
 
 @* Template para los países Colombia y Chile *@
+@*@{
+
+        var tit1 = "";
+    }
+    <div class="div-3">
+
+        <div class="selectP2 seleccion_pagina textboxSB2">
+            @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, Dictionaries.LabelLugar1[Model.CodigoPais], new { @class = "field_85 textboxSB" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => Model.LugarNivel1)
+        </div>
+    </div>
+
+    <div class="div-3">
+
+        <div class="selectP2 seleccion_pagina textboxSB2">
+            @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), Dictionaries.LabelLugar2[Model.CodigoPais], new { @class = "field_85 textboxSB" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => Model.LugarNivel2)
+        </div>
+    </div>
+    <div class="div-3">
+        @if (Model.CodigoPais == "CO")
+        {
+            tit1= "Barrio";
+
+        }
+        else
+        {
+            tit1 = "Calle &oacute; avenida";
+
+        }
+
+        <div class="selectP2 seleccion_pagina textboxSB2">
+
+            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85 textboxSB", @placeholder = tit1 + " Ejm: Av. Castellana 100" })
+        </div>
+
+
+
+    </div>
+    <div class="div-3">
+        <div class="validation_clear"></div>
+        <div class="validation">
+            @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+        </div>
+    </div>
+
+    @if (Model.CodigoPais == "CO")
+    {
+        <div class="div-3">
+
+             <div class="selectP2 seleccion_pagina textboxSB2" >
+                 @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, "Dirección", new { @class = "field_85 textboxSB", })
+             </div>
+        </div>
+        <div class="div-3">
+            <div class="validation_clear"></div>
+            <div class="validation">
+                @Html.ValidationMessageFor(m => Model.LugarNivel3)
+            </div>
+        </div>
+        <div class="div-3">
+
+
+
+            <div class="selectP2 seleccion_pagina textboxSB2">
+                @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85 textboxSB", @placeholder = "Ejm: 97B 35 2" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="validation_clear"></div>
+            <div class="validation">
+                @Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="div-3">
+
+            <div class="selectP2 seleccion_pagina textboxSB2">
+                @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85 textboxSB", @placeholder = "Ejm: 100", @maxlength = 5 })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="validation_clear"></div>
+            <div class="validation">
+                @Html.ValidationMessageFor(m => Model.Numero)
+            </div>
+        </div>
+        <div class="div-3">
+
+
+            <div class="selectP2 seleccion_pagina textboxSB2">
+                @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85 textboxSB", @placeholder = "Ej. entre calle 1 y calle 3" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="validation_clear"></div>
+            <div class="validation">
+                @Html.ValidationMessageFor(m => Model.Referencia)
+            </div>
+        </div>
+    }*@
+
+
+
+@*nuevo aqui*@
+
 @{
 
     var tit1 = "";
 }
-<div class="div-3">
- 
-    <div class="selectP2 seleccion_pagina textboxSB2">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, Dictionaries.LabelLugar1[Model.CodigoPais], new { @class = "field_85 textboxSB" })
-    </div>
-</div>
-<div class="div-3">
-    <div class="validation_clear"></div>
-    <div class="validation">
-        @Html.ValidationMessageFor(m => Model.LugarNivel1)
-    </div>
-</div>
 
-<div class="div-3">
-  
-    <div class="selectP2 seleccion_pagina textboxSB2">
-        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), Dictionaries.LabelLugar2[Model.CodigoPais], new { @class = "field_85 textboxSB" })
-    </div>
-</div>
-<div class="div-3">
-    <div class="validation_clear"></div>
-    <div class="validation">
-        @Html.ValidationMessageFor(m => Model.LugarNivel2)
-    </div>
-</div>
-<div class="div-3">
-    @if (Model.CodigoPais == "CO")
-    {
-        tit1= "Barrio";
-    
-    }
-    else
-    {
-        tit1 = "Calle &oacute; avenida";
-       
-    }
-    
-    <div class="selectP2 seleccion_pagina textboxSB2">
-         
-        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85 textboxSB", @placeholder = tit1 + " Ejm: Av. Castellana 100" })
-    </div>
 
-   
-
-</div>
-<div class="div-3">
-    <div class="validation_clear"></div>
-    <div class="validation">
-        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+<div class="contenedor_camposUbigeo anchoDropdown">
+    <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
     </div>
 </div>
-
+<div class="contenedor_camposUbigeo anchoDropdown">
+    <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
+    <div class="contenedor_campoFormulario">
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
+    </div>
+</div>
 @if (Model.CodigoPais == "CO")
 {
-    <div class="div-3">
-    
-         <div class="selectP2 seleccion_pagina textboxSB2" >
-             @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, "Dirección", new { @class = "field_85 textboxSB", })
-         </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.LugarNivel3)
-        </div>
-    </div>
-    <div class="div-3">
-
- 
-
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85 textboxSB", @placeholder = "Ejm: 97B 35 2" })
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)
+    <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
+        <label>Dirección:</label>
+        <div class="contenedor_campoFormulario">
+            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
         </div>
     </div>
 }
 else
 {
-    <div class="div-3">
-         
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85 textboxSB", @placeholder = "Ejm: 100", @maxlength = 5 })
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.Numero)
-        </div>
-    </div>
-    <div class="div-3">
-       
-
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85 textboxSB", @placeholder = "Ej. entre calle 1 y calle 3" })
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.Referencia)
+    <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
+        <label style="top:0px; width:44px;">C&oacute;digo Postal:</label>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
         </div>
     </div>
 }
 
+@if (Model.CodigoPais == "CO")
+{
+    tit1 = "Barrio";
 
+}
+else
+{
+    tit1 = "Calle o Avenida";
 
-@*<div class="div-3">
+}
 
-    <div class="selectP2 seleccion_pagina textboxSB2">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, Dictionaries.LabelLugar1[Model.CodigoPais], new { @class = "field_85 textboxSB" })
-        @Html.DropDownListFor(m => Model.LugarNivel2, new List<SelectListItem>(), Dictionaries.LabelLugar2[Model.CodigoPais], new { @class = "field_85 textboxSB" })
+<div class="contenedor_camposUbigeo campoDireccionUbigeo">
+    <label style="margin-bottom:0px;">@tit1:</label>
+    <div class="contenedor_campoFormulario">
+        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = " Ejm: Av. Castellana 100" })
+        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
     </div>
-</div>
-<div class="div-3">
-    <div class="validation_clear"></div>
-    <div class="validation">
-        @Html.ValidationMessageFor(m => Model.LugarNivel1)
-        @Html.ValidationMessageFor(m => Model.LugarNivel2)
-    </div>
-</div>
-
-<div class="div-3">
-    @if (Model.CodigoPais == "CO")
-    {
-        tit1 = "Barrio";
-
-    }
-    else
-    {
-        tit1 = "Calle &oacute; avenida";
-
-    }
-
-    <div class="selectP2 seleccion_pagina textboxSB2">
-
-        @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "field_85 textboxSB", @placeholder = tit1 + " Ejm: Av. Castellana 100" })
-    </div>
-
-
-
-</div>
-<div class="div-3">
-    <div class="validation_clear"></div>
-    <div class="validation">
-        @Html.ValidationMessageFor(m => Model.CalleOAvenida)
+    <div class="contenedor_grupoBotones">
+        <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
+        <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
     </div>
 </div>
 
 @if (Model.CodigoPais == "CO")
 {
-    <div class="div-3">
-
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, "Dirección", new { @class = "field_85 textboxSB", })
+    <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
+        <label>Referencia:</label>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @placeholder = "Ejm: 97B 35 2" })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
         </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.LugarNivel3)
-        </div>
-    </div>
-    <div class="div-3">
-
-
-
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @class = "field_85 textboxSB", @placeholder = "Ejm: 97B 35 2" })
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)
+        <div class="contenedor_grupoBotones">
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
 }
 else
 {
-    <div class="div-3">
-
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.Numero, new { @class = "numero field_85 textboxSB", @placeholder = "Ejm: 100", @maxlength = 5 })
+    <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
+        <label>Referencia:</label>
+        <div class="contenedor_campoFormulario">
+            @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Ej. entre calle 1 y calle 3" })
+            <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
+        </div>
+        <div class="contenedor_grupoBotones">
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.Numero)
-        </div>
-    </div>
-    <div class="div-3">
+}
 
 
-        <div class="selectP2 seleccion_pagina textboxSB2">
-            @Html.TextBoxFor(m => Model.Referencia, new { @class = "field_85 textboxSB", @placeholder = "Ej. entre calle 1 y calle 3" })
-        </div>
-    </div>
-    <div class="div-3">
-        <div class="validation_clear"></div>
-        <div class="validation">
-            @Html.ValidationMessageFor(m => Model.Referencia)
-        </div>
-    </div>
-}*@
+@Html.HiddenFor(m => Model.SolicitudPostulanteID)
+@Html.HiddenFor(m => Model.CodigoPais)
+@Html.HiddenFor(m => Model.NombreLugarNivel1)
+@Html.HiddenFor(m => Model.NombreLugarNivel2)
+@Html.HiddenFor(m => Model.NombreLugarNivel3)
+@Html.HiddenFor(m => Model.NombreLugarNivel4)
+@Html.HiddenFor(m => Model.NombreLugarNivel5)
+@Html.HiddenFor(m => Model.ContaValorNivel3)
 
+
+<script>
+
+    var codigoPais = '@Model.CodigoPais'
+
+    $('#btnGrabarDireccion').hide();
+    $('#btnCancelarEdicion').hide();
+    $('#btnModificarDireccion').show();
+    $('#btnActualizarSeccion').show();
+    HabilitarDatosDireccion(0);
+
+    function HabilitarDatosDireccion(IsEdit) {
+        if (IsEdit == 1) {
+            $('#LugarNivel1').prop('disabled', false);
+            $("#LugarNivel2").prop('disabled', false);
+            
+            $("#CalleOAvenida").prop('readonly', false);
+            $("#Referencia").prop('readonly', false);
+            if (codigoPais == 'CO') {
+                $("#LugarNivel3").prop('disabled', false);
+            } else {
+                $("#Numero").prop('readonly', false);
+            }
+        }
+        else {
+            $("#LugarNivel1").prop('disabled', true);
+            $("#LugarNivel2").prop('disabled', true);
+            $("#CalleOAvenida").prop('readonly', true);
+            $("#Referencia").prop('readonly', true);
+            if (codigoPais == 'CO') {
+                $("#LugarNivel3").prop('disabled', true);
+            } else {
+                $("#Numero").prop('readonly', true);
+            }
+        }
+    }
+
+    $('#btnModificarDireccion').click(function () {
+        $('#btnModificarDireccion').hide();
+        $('#btnGrabarDireccion').show();
+        //$('#btnCancelarEdicion').show();
+        //$('#btnActualizarSeccion').hide();
+        $('#btnEditarPosicion').addClass('HabInaButton');
+        $('#btnGuardarPosicion').addClass('HabInaButton');
+        $('#btnActualizarSeccion').addClass('HabInaButton');
+        $('#btnEditarPosicion').attr('disabled', true);
+        $('#btnGuardarPosicion').attr('disabled', true);
+        $('#btnActualizarSeccion').attr('disabled', true);
+        HabilitarDatosDireccion(1);
+    });
+
+    $('#btnGrabarDireccion').click(function () {
+        if ($('#LugarNivel1').val() == '0')
+        { $('#LugarNivel1').val(''); }
+        if ($('#LugarNivel2').val() == '0')
+        { $('#LugarNivel2').val(''); }
+        if (codigoPais == 'CO') {
+            $('#LugarNivel3').val('');
+        }
+        if ($('#form0').valid()) {
+            $('#btnModificarDireccion').show();
+            $('#btnGrabarDireccion').hide();
+            //$('#btnCancelarEdicion').hide();
+            $('#btnActualizarSeccion').show();
+            $('#btnEditarPosicion').removeClass('HabInaButton');
+            $('#btnGuardarPosicion').removeClass('HabInaButton');
+            $('#btnActualizarSeccion').removeClass('HabInaButton');
+            $('#btnEditarPosicion').attr('disabled', false);
+            $('#btnGuardarPosicion').attr('disabled', false);
+            $('#btnActualizarSeccion').attr('disabled', false);
+            HabilitarDatosDireccion(0);
+        }
+    });
+
+    $('#btnCancelarEdicion').click(function () {
+        $('#btnGrabarDireccion').hide();
+        //$('#btnCancelarEdicion').hide();
+        $('#btnModificarDireccion').show();
+        $('#btnActualizarSeccion').show();
+        $('#btnEditarPosicion').removeClass('HabInaButton');
+        $('#btnGuardarPosicion').removeClass('HabInaButton');
+        HabilitarDatosDireccion(0);
+    });
+
+    $('#btnActualizarSeccion').click(function () {
+
+        var solicitudPostulanteID = '@Model.SolicitudPostulanteID';
+        $('#divEditarManualDireccion').empty();
+        $('#divEditarManualDireccion').show();
+
+        LoadSpinner('divEditarManualDireccion');
+        $('#divEditarManualDireccion').css('z-index', '2000');
+        $.get('@Url.Action("EditarDireccionManualmente", "Unete")', { id: solicitudPostulanteID }, function (html) {
+            $('#divEditarManualDireccion').html(html);
+            $('#divEditarManualDireccion').show();
+            $('#divEditarManualDireccion').css('z-index', '2000');
+        }).done(function () {
+
+        });
+    });
+    //# sourceURL===_Ubigeogrupo3.cshtml
+</script>
