@@ -12,9 +12,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -29,9 +29,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -46,9 +46,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -63,9 +63,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -80,9 +80,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -97,9 +97,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -114,9 +114,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -131,9 +131,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -148,9 +148,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -165,9 +165,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -182,9 +182,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -199,9 +199,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
 
@@ -216,8 +216,9 @@ CREATE TABLE [dbo].[EstrategiaDetalle](
 	[EstrategiaDetalleID] [int] IDENTITY(1,1) NOT NULL,
 	[EstrategiaID] [int] NOT NULL,
 	[TablaLogicaDatosID] [smallint] NOT NULL,
-	[Valor] [varchar](500) NOT NULL,
+	[Valor] [varchar](500) NULL,
 	[Descripcion] [varchar](1000) NULL,
-	[Estado] [bit] NOT NULL
+	[Estado] [bit] NULL
 )
 GO
+

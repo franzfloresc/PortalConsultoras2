@@ -25,6 +25,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+
+                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
+                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
+                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
+
+                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+
                 //EPD-2058
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
@@ -114,11 +123,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
-
-                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
-                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
-
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
@@ -202,8 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
-
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
 
@@ -266,11 +269,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
-
                 //PL20-1283
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+                
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {

@@ -8,6 +8,7 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
+<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 
 <span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
@@ -1723,7 +1724,66 @@
             {{/each}}
         </script>
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
+
+<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{/iff}}">
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <div class="truco_bloqueo sim2"></div>
+        }
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+                <div class="revistadigital-title overflowContenido">
+                    <div class="contenedor_cabecera_revistaDigital">
+                        <div class="fondo_franja"></div>
+                        <div class="contenedor_contenido_cabecera">
+                            <div class="cabecera_contenedor_logoMarca">
+                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                            </div>
+                            <div class="cabecera_texto">{{Titulo}}</div>
+                        </div>
+                    </div>
+                    <div class="texto_ofertas_bonificaciones">
+                        {{TituloDescripcion}}
+                    </div>
+                    @*<p class="marca">ÉSIKA</p>
+                    <div class="giftext">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    </div>
+                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>*@
+                </div>
+                {{else}}
+                <h1>
+                    OFERTAS <b>PARA TI @Model.SobreNombre</b>
+                </h1>
+                <div class="texto_exclusivo_web">
+                    EXCLUSIVAS SÓLO POR WEB
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="contenedor_productos">
+                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+                </div>
+            </div>
+            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>            
+                @*<p>MÁS<br>OFERTAS<br>PARA TI</p>
+                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">*@
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+
+        <script id="estrategia-template1" type="text/x-handlebars-template">
             {{#each this as |item|}}
             <div class="vertical" data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
                 <div class="producto_carousel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
@@ -1800,7 +1860,7 @@
                             {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral"
-                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
+                                        onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
                                 <div class="liquidacion_rango_right_pedido js-no-popup">
                                     <a class="mas js-no-popup">
                                         <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">
@@ -1816,7 +1876,7 @@
                             {{else}}
                             <div class="liquidacion_rango_wrapper_pedido">
                                 <input type="text" value="1" size="2" maxlength="2" style="text-align: center;" class="liquidacion_rango_cantidad_pedido js-no-popup ValidaNumeral ValidaPasteNumeral"
-                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad'/>
+                                        onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event); " onfocus="SeleccionarContenido(this) " data-input='cantidad' />
                                 <div class="liquidacion_rango_right_pedido js-no-popup">
                                     <a class="mas js-no-popup">
                                         <img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="">

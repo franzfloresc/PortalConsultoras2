@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1063,6 +1064,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
 
+
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
         [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
