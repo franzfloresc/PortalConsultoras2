@@ -227,7 +227,7 @@
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
             $(elements.ContenedorTituloGana).append("<span class='tipo_moneda'>" + simbolo + "</span> " + valor);
         } else {
-            $(elements.ContenedorTituloGana).append(valor + " <span class='tipo_moneda'>" + simbolo + "</span> ");
+            $(elements.ContenedorTituloGana).append(valor + "<span class='tipo_moneda'>" + simbolo + "</span> ");
         }
 
         mostrarPopupGana();
@@ -408,7 +408,7 @@
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
             $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + simbolo + " " + valor + "!");
         } else {
-            $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + valor + " " + simbolo + "!");
+            $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + valor + simbolo + "!");
         }
         
         $(elements.ContenedorTexto02Ganaste).empty();
@@ -459,7 +459,7 @@
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + simbolo + " " + valor + "</b>";
                     } else {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + valor + " " + simbolo + "</b>";
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + valor + simbolo + "</b>";
                     }
                 }
 
