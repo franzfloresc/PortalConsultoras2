@@ -10509,6 +10509,13 @@ span.icon-advertencia{
     background-position: 5px 14px;
 
 }
+.etiqueta_chat{
+    /*background: url(../../../Images/mobile/icon-chat-lbel.png) no-repeat left;
+    background-position: 5px 15px;*/
+    background: url(../../../Images/mobile/icon-chat-lbel.png) no-repeat;
+    background-size: 13px;
+    background-position: 6px 16px;
+}
 .content_titulo{
     position:absolute;
     top:5px;

@@ -32293,18 +32293,22 @@ h1#penmostreo .campana {
 	font-size: 14px;
 	/* line-height: 45px; */
 	padding-left: 50px;
-	background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
-	background-position: 20px 14px;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/83Cw11qENt0ifAk/selector_reclamo.png) no-repeat;
+    background-position: 20px 14px;
 	border-bottom: 1px solid #d1d1d1  ;
 	cursor: pointer;
 	float: left;
 	margin-right: 4%;
 }
 
-    .reclamo_motivo_select:hover {
-        color: #e81c36;
-        background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png) no-repeat;
-        background-position: 20px 14px;
+.reclamo_motivo_select:nth-child(2n) {
+	margin-right: 0;
+}
+
+.reclamo_motivo_select:hover {
+    color: #e81c36;
+    background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4019711/n8mE0rwMroEtyGv/selector_reclamo_esika.png) no-repeat;
+    background-position: 20px 14px;
 }
     
 .reclamo_motivo_select_click {
@@ -34339,15 +34343,16 @@ h1#penmostreo .campana {
 }
 
 .content_pasos_linea {
-        position: relative;
-        width: 99%;
-        height: 2px;      
-        z-index: 3;
+    position: relative;
+    width: 99%;
+    height: 2px;      
+    /*z-index: 3;*/
+    z-index:4;
     left: 0;
     width: 310px;
     margin: 0 auto;
     margin-top: -18px;
-        background: #d1d1d1;
+    background: #d1d1d1;
 }
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante{

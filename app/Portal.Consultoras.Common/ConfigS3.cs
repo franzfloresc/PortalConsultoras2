@@ -24,6 +24,11 @@ namespace Portal.Consultoras.Common
             return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
         }
 
+        public static string GetUrlS3(string carpetaPais)
+        {
+            return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "");
+        }
+
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {
             var client = Amazon.AWSClientFactory.CreateAmazonS3Client(
