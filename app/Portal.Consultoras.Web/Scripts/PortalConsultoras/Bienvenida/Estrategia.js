@@ -349,7 +349,7 @@ function EstructurarDataCarousel(array) {
         };
 
         item.Posicion = i + 1;
-        item.MostrarTextoLibre = item.TextoLibre.length > 0;
+        item.MostrarTextoLibre = (item.TextoLibre ? item.TextoLibre.length > 0 : false);
     });
     return array;
 };
