@@ -158,24 +158,14 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     //ASOCIACION CLIENTE CONSULTORA - ANOTACIONES
-                    var consultoraCliente = new BEConsultoraCliente()
-                        {
-                            ConsultoraID = consultoraID,
-                            ClienteID = clienteItem.ClienteID,
-                            Favorito = clienteItem.Favorito,
-                            Contactos = clienteItem.Contactos
-                        };
+                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.DatosGenerales || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.TipoContacto)
+                        clienteItem.Anotaciones = new List<BEAnotacion>();
 
-                    if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
-                        consultoraCliente.Anotaciones = clienteItem.Anotaciones;
-                    else
-                        consultoraCliente.Anotaciones = new List<BEAnotacion>();
+                    clienteItem.ConsultoraID = consultoraID;
 
                     if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.DatosGenerales ||
                             clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
-                    {
-                        var resultInsertConsultoraCliente = this.InsertConsultoraCliente(consultoraCliente);
-                    }
+                        this.InsertConsultoraCliente(clienteItem);
                 }
 
                 lstResponse.Add(new BEConsultoraClienteResponse()
@@ -204,17 +194,15 @@ namespace Portal.Consultoras.BizLogic
                                             ConsultoraID = grp.Max(x => x.ConsultoraID),
                                             ClienteID = grp.Max(x => x.ClienteID),
                                             Favorito = grp.Max(x => x.Favorito),
+                                            TipoContactoFavorito = grp.Max(x => x.TipoContactoFavorito),
                                             Anotaciones = grp.ToList(),
                                         }).ToList();
 
-            //2. OBTENER TELEFONOS FAVORITOS
-            var lstTelefonoFavorito = daConsultoraCliente.GetTelefonoFavorito(consultoraID);
-
-            //3. OBTENER CLIENTES Y TIPO CONTACTOS
+            //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string clientes = string.Join("|", lstConsultoraCliente.Select(x => x.ClienteID));
             var lstCliente = daConsultoraCliente.GetClienteByClienteID(clientes);
 
-            //4. CRUZAR 1,2 Y 3
+            //4. CRUZAR 1 Y 2
             lstResult = (from tblConsultoraCliente in lstConsultoraCliente
                          join tblCliente in lstCliente
                           on tblConsultoraCliente.ClienteID equals tblCliente.ClienteID
@@ -230,27 +218,11 @@ namespace Portal.Consultoras.BizLogic
                               Documento = tblCliente.Documento,
                               Origen = tblCliente.Origen,
                               Favorito = tblConsultoraCliente.Favorito,
+                              TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
                               Estado = 1,
                               Contactos = tblCliente.Contactos,
                               Anotaciones = tblConsultoraCliente.Anotaciones.Where(x => x.AnotacionID != 0).Any() ? tblConsultoraCliente.Anotaciones : new List<BEAnotacion>()
                           }).OrderBy(x => x.Nombres).ToList();
-
-            foreach(var cliente in lstResult)
-            {
-                cliente.Contactos = (from tblContactos in cliente.Contactos
-                                     join tblFavorito in lstTelefonoFavorito
-                                     on new { tblContactos.ClienteID, tblContactos.TipoContactoID } equals new { tblFavorito.ClienteID, tblFavorito.TipoContactoID } into tblJoin
-                                     from tblFinal in tblJoin.DefaultIfEmpty()
-                                     select new BEContactoCliente
-                                     {
-                                         ContactoClienteID = tblContactos.ContactoClienteID,
-                                         ClienteID = tblContactos.ClienteID,
-                                         TipoContactoID = tblContactos.TipoContactoID,
-                                         Valor = tblContactos.Valor,
-                                         Estado = tblContactos.Estado,
-                                         Favorito = (short)(tblFinal == null ? 0 : 1)
-                                     }).ToList();
-            }
 
             return lstResult;
         }
@@ -401,26 +373,6 @@ namespace Portal.Consultoras.BizLogic
                         else
                         {
                             daConsultoraCliente.DeleteAnotacion(item.AnotacionID);
-                        }
-                    }
-
-                    foreach (var itemTelefonoFavorito in consultoraCliente.Contactos)
-                    {
-                        if (itemTelefonoFavorito.Favorito == 1)
-                        {
-                            daConsultoraCliente.InsertTelefonoFavorito(new BETelefonoFavorito()
-                                {
-                                    ConsultoraClienteID = ConsultoraClienteID,
-                                    TipoContactoID = itemTelefonoFavorito.TipoContactoID
-                                });
-                        }
-                        else
-                        {
-                            daConsultoraCliente.DeleteTelefonoFavorito(new BETelefonoFavorito()
-                            {
-                                ConsultoraClienteID = ConsultoraClienteID,
-                                TipoContactoID = itemTelefonoFavorito.TipoContactoID
-                            });
                         }
                     }
 

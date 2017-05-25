@@ -56,6 +56,9 @@ namespace Portal.Consultoras.Entities
         public short Favorito { get; set; }
 
         [DataMember]
+        public short TipoContactoFavorito { get; set; }
+
+        [DataMember]
         public List<BEContactoCliente> Contactos { get; set; }
 
         [DataMember]
