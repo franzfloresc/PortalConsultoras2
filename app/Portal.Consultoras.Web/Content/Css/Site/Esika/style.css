@@ -27835,9 +27835,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     line-height:30px;
 }
 
-.dscto_ofertasNiveles{
+/*.dscto_ofertasNiveles{
     margin-left:20px;
-}
+}*/
 
 .separador_montos{
     display: block;
