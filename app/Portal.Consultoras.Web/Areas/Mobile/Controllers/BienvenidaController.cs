@@ -149,6 +149,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
+                // mostrar popup de revista digital....
+                model.RevistaDigitalPopUpMostrar = userData.RevistaDigital.NoVolverMostrar;
             }
             catch (FaultException ex)
             {
@@ -164,7 +166,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NombreConsultoraFAV = sobrenombre.First().ToString().ToUpper() + sobrenombre.ToLower().Substring(1);
             ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
 
-            model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
+            model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
             return View(model);
         }
 

@@ -25,6 +25,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
+                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
+
+                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
+                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
+                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
+
+                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
+
                 //EPD-2058
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
@@ -115,16 +124,13 @@ namespace Portal.Consultoras.Web.Controllers
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
 
-                string nombreCarpetaTC = WebConfigurationManager.AppSettings["NombreCarpetaTC"];
-                string nombreArchivoTC = WebConfigurationManager.AppSettings["NombreArchivoTC"] + ".pdf";
-                ViewBag.UrlPdfTerminosyCondiciones = ConfigS3.GetUrlFileS3(nombreCarpetaTC, userData.CodigoISO + "/" + nombreArchivoTC, String.Empty);
-
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 int j = model.NombreConsultora.Trim().IndexOf(' ');
-                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim(); 
+                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim();
 
                 model.PaisID = userData.PaisID;
                 model.IndicadorContrato = userData.IndicadorContrato;
@@ -140,22 +146,23 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
+
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
                     var tabla = new List<BETablaLogicaDatos>();
                     using (SACServiceClient sac = new SACServiceClient())
                     {
                         tabla = sac.GetTablaLogicaDatos(userData.PaisID, 60).ToList();
-                        model.NroCampana = ((List<BETablaLogicaDatos>)tabla).Find(X => X.TablaLogicaDatosID == 6001).Codigo;
+                    }
+                    model.NroCampana = tabla.Find(X => X.TablaLogicaDatosID == 6001).Codigo;
 
-                        if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
-                        {
-                            model.rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
-                        }
-                        else
-                        {
-                            model.rutaChile = string.Empty;
-                        }
+                    if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
+                    {
+                        model.rutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
+                    }
+                    else
+                    {
+                        model.rutaChile = string.Empty;
                     }
                 }
                 else
@@ -203,8 +210,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
 
-                ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
-
                 int Visualizado = 1, ComunicadoVisualizado = 1;
 
                 model.VisualizoComunicado = Visualizado;
@@ -218,14 +223,15 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
                 //EPD-1089
-                if (userData.PaisID == 9){
+                if (userData.PaisID == 9)
+                {
                     model.limiteMinimoTelef = 5;
-                    model.limiteMaximoTelef = 15;                    
+                    model.limiteMaximoTelef = 15;
                 }
                 else if (userData.PaisID == 11)
                 {
                     model.limiteMinimoTelef = 7;
-                    model.limiteMaximoTelef = 9;                    
+                    model.limiteMaximoTelef = 9;
                 }
                 else if (userData.PaisID == 4)
                 {
@@ -248,7 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.limiteMaximoTelef = 15;
                 }
                 //
-                
+
                 #region Lógica de Popups
 
                 List<BEPopupPais> PopUps = new List<BEPopupPais>();
@@ -262,158 +268,180 @@ namespace Portal.Consultoras.Web.Controllers
                 int TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
 
 
-                if (PopUps.Any())
+                if (PopUps.Any() && Session["TipoPopUpMostrar"] == null)
                 {
                     foreach (BEPopupPais Popup in PopUps)
-                    {
-                        if (Session["TipoPopUpMostrar"] == null)
+                    {                        
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.VideoIntroductorio)
                         {
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.VideoIntroductorio)   // validar logica para mostrar video (por ende se muestra: Tutorial y salvavidas)
+                            bool mostrarPopUp = false;
+                            if (userData.VioVideoModelo == 0)
                             {
-                                bool mostrarPopUp = false;
-                                if (userData.VioVideoModelo == 0)
-                                {
-                                    model.VioVideoBienvenidaModel = 0;
-                                    UpdateUsuarioTutorial(Constantes.TipoTutorial.Video);
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                    mostrarPopUp = true;
-                                }
-                                if (userData.VioTutorialDesktop == 0)
-                                {
-                                    if (userData.VioTutorialSalvavidas == 0)
-                                    {
-                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
-                                        ViewBag.MostrarUbicacionTutorial = 0;
-                                    }
-                                    else
-                                    {
-                                        UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);
-                                    }
-                                    mostrarPopUp = true;
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                }
-                                //if (userData.VioTutorialSalvavidas == 0)
-                                //{
-                                //    model.VioTutorialSalvavidas = 0;
-                                //    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
-                                //    mostrarPopUp = true;
-                                //}
-                                if (mostrarPopUp)
-                                {
-                                    break;
-                                }
+                                model.VioVideoBienvenidaModel = 0;
+                                UpdateUsuarioTutorial(Constantes.TipoTutorial.Video);
+                                TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                                mostrarPopUp = true;
                             }
-                            // TODO
-                            //if (Popup.CodigoPopup == Constantes.TipoPopUp.GPR) // validar lógica para mostrar la franja de GPR (BO)
+                            if (userData.VioTutorialDesktop == 0)
+                            {
+                                if (userData.VioTutorialSalvavidas == 0)
+                                {
+                                    UpdateUsuarioTutorial(Constantes.TipoTutorial.Salvavidas);
+                                    ViewBag.MostrarUbicacionTutorial = 0;
+                                }
+                                else
+                                {
+                                    UpdateUsuarioTutorial(Constantes.TipoTutorial.Desktop);
+                                }
+                                mostrarPopUp = true;
+                                TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                            }
+                            //if (userData.VioTutorialSalvavidas == 0)
                             //{
-                            //    TipoPopUpMostrar = Constantes.TipoPopUp.GPR;
-                            //    break;
+                            //    model.VioTutorialSalvavidas = 0;
+                            //    TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
+                            //    mostrarPopUp = true;
                             //}
+                            if (mostrarPopUp)
+                                break;
+                            
+                            continue;
+                        }
+                        // TODO
+                        //if (Popup.CodigoPopup == Constantes.TipoPopUp.GPR) // validar lógica para mostrar la franja de GPR (BO)
+                        //{
+                        //    TipoPopUpMostrar = Constantes.TipoPopUp.GPR;
+                        //    break;
+                        //}
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada)
+                        // validar lógica para mostrar Demanda anticipada (PE)
+                        {
+                            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                if (ValidarConsultoraDemandaAnticipada(model))
                                 {
-                                    if (ValidarConsultoraDemandaAnticipada(model))
-                                    {
-                                        TipoPopUpMostrar = Constantes.TipoPopUp.DemandaAnticipada;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
-                            {
-                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                                {
-                                    if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
-                                    {
-                                        if (Session["IsContrato"] != null && Convert.ToInt32(Session["IsContrato"]) == 1)
-                                        {
-                                            TipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
-                            {
-                                if (ValidarMostrarShowroomPopUp())
-                                {
-                                    TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.DemandaAnticipada;
                                     break;
                                 }
                             }
+                            continue;
+                        }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato)
+                        // validar lógica para mostrar Aceptacion Contrato (CO)
+                        {
+                            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                if (userData.CambioClave == 0 && userData.IndicadorContrato == 0 && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
                                 {
-                                    if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico && model.ValidaDatosActualizados == 1 &&
-                                    model.ValidaTiempoVentana == 1 && model.ValidaSegmento == 1)
+                                    if (Session["IsContrato"] != null && Convert.ToInt32(Session["IsContrato"]) == 1)
                                     {
-                                        model.MostrarPopupActualizarDatosXPais = 9;
-                                        TipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
+                                        TipoPopUpMostrar = Constantes.TipoPopUp.AceptacionContrato;
                                         break;
                                     }
-                                    else
+                                }
+                            }
+                            continue;
+                        }
+
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.Showroom)
+                        {
+                            if (ValidarMostrarShowroomPopUp())
+                            {
+                                TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
+                                break;
+                            }
+                            continue;
+                        }
+
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)
+                        {
+                            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                if (userData.CodigoISO == Constantes.CodigosISOPais.Mexico && model.ValidaDatosActualizados == 1 &&
+                                model.ValidaTiempoVentana == 1 && model.ValidaSegmento == 1)
+                                {
+                                    model.MostrarPopupActualizarDatosXPais = 9;
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
+                                    break;
+                                }
+                                else
+                                {
+                                    if (model.PrimeraVez == 0 || model.PrimeraVezSession == 0)
                                     {
-                                        if (model.PrimeraVez == 0 || model.PrimeraVezSession == 0)
+                                        model.MostrarPopupActualizarDatosXPais = 0;
+                                        TipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
+
+                                        if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
+                                            model.MostrarPopupActualizarDatosXPais = 11;
+
+                                        break;
+                                    }
+                                }
+                            }
+                            continue;
+                        }
+
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago)
+                        {
+                            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                            {
+                                if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
+                                {
+                                    if (model.InscritaFlexipago == "0" && model.IndicadorFlexipago == 1 && model.CampanaInvitada != "0")
+                                    {
+                                        if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >=
+                                            Convert.ToInt32(model.NroCampana))
                                         {
-                                            model.MostrarPopupActualizarDatosXPais = 0;
-                                            TipoPopUpMostrar = Constantes.TipoPopUp.ActualizarDatos;
-
-                                            if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
-                                                model.MostrarPopupActualizarDatosXPais = 11;
-
+                                            TipoPopUpMostrar = Constantes.TipoPopUp.Flexipago;
                                             break;
-                                        }
+                                        }                                        
                                     }
                                 }
                             }
+                            continue;
+                        }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado)
+                        {
+                            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                             {
-                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                List<BEComunicado> comunicados = new List<BEComunicado>();
+                                using (SACServiceClient sac = new SACServiceClient())
                                 {
-                                    if (userData.InvitacionRechazada == "False" || userData.InvitacionRechazada == "0" || userData.InvitacionRechazada == "")
-                                    {
-                                        if (model.InscritaFlexipago == "0")
-                                        {
-                                            if (model.IndicadorFlexipago == 1 && model.CampanaInvitada != "0")
-                                            {
-                                                if ((model.CampaniaActual - Convert.ToInt32(model.CampanaInvitada)) >= Convert.ToInt32(model.NroCampana))
-                                                {
-                                                    TipoPopUpMostrar = Constantes.TipoPopUp.Flexipago;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
+                                    comunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora).ToList();
                                 }
-                            }
 
-                            if (Popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
-                            {
-                                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+                                if (comunicados != null && comunicados.Any())
                                 {
-                                    List<BEComunicado> comunicados = new List<BEComunicado>();
-                                    using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
+                                    //
+                                    comunicados =
+                                        comunicados.Where(
+                                            c =>
+                                                String.IsNullOrEmpty(c.CodigoCampania) ||
+                                                Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
+                                    if (comunicados.Any())
                                     {
-                                        var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
-                                        if (tempComunicados != null && tempComunicados.Length > 0)
-                                        {       //
-                                            comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
-                                            if (comunicados.Any())
-                                            {
-                                                TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
-                                                break;
-                                            }
-                                        }
+                                        TipoPopUpMostrar = Constantes.TipoPopUp.Comunicado;
+                                        break;
                                     }
                                 }
                             }
+                            continue;
+                        }
+
+                        if (Popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                        {
+                            if (!userData.RevistaDigital.NoVolverMostrar)
+                            {
+                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+                                {
+                                    TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                                    break;
+                                }
+                            }
+                            continue;
                         }
                     }
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
@@ -422,20 +450,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
-
-                //PL20-1283
-                ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
-                ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
-
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
-                } 
+                }
 
                 // validar si se muestra Show Room en Bienvenida
-                model.ShowRoomMostrarLista = MostrarFAV() ? 0 : 1;
+                model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
             }
             catch (FaultException ex)
@@ -1669,73 +1691,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-                if (paisesShowRoom.Contains(userData.CodigoISO))
-                {
-                    if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
-                    var beShowRoomConsultora = userData.BeShowRoomConsultora;
-                    var beShowRoom = userData.BeShowRoom;
-                    var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
-                    var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
-
-                    if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
-                    if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
-
-                    if (beShowRoom.Estado == 1)
-                    {
-                        bool mostrarShowRoomProductos = false;
-                        var rutaShowRoomPopup = "";
-                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                        int diasAntes = beShowRoom.DiasAntes;
-                        int diasDespues = beShowRoom.DiasDespues;
-
-                        if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
-                            && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                        {
-                            rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                            mostrarShowRoomProductos = true;
-                        }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
-
-                        //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
-                        TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
-                        int df = DiasFalta.Days;
-
-                        var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
-
-                        return Json(new
-                        {
-                            success = true,
-                            data = beShowRoomConsultora,
-                            diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
-                            diaFin = userData.FechaInicioCampania.Day,
-                            mesFin = NombreMes(userData.FechaInicioCampania.Month),
-                            diasFaltan = df,
-                            nombre = string.IsNullOrEmpty(userData.Sobrenombre)
-                                ? userData.NombreConsultora
-                                : userData.Sobrenombre,
-                            message = "ShowRoomConsultora encontrada",
-                            evento = beShowRoom,
-                            mostrarShowRoomProductos,
-                            rutaShowRoomPopup,
-                            personalizacion = lstPersonalizacion,
-                            mostrarPopupIntriga = beMostrarPopupIntriga,
-                            mostrarPopupVenta = beMostrarPopupVenta
-                        });
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            data = "",
-                            message = "ShowRoomEvento no encontrado"
-                        });
-                    }
-
-                }
-                else
+                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
                 {
                     return Json(new
                     {
@@ -1744,6 +1700,81 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "ShowRoomConsultora encontrada"
                     });
                 }
+
+                var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+                if (!paisesShowRoom.Contains(userData.CodigoISO))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora encontrada"
+                    });
+                }
+
+                if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                var beShowRoomConsultora = userData.BeShowRoomConsultora;
+                var beShowRoom = userData.BeShowRoom;
+                var beMostrarPopupIntriga = userData.BeShowRoomConsultora.MostrarPopup;
+                var beMostrarPopupVenta = userData.BeShowRoomConsultora.MostrarPopupVenta;
+
+                if (beShowRoomConsultora == null) beShowRoomConsultora = new BEShowRoomEventoConsultora();
+                if (beShowRoom == null) beShowRoom = new BEShowRoomEvento();
+
+                if (beShowRoom.Estado == 1)
+                {
+                    bool mostrarShowRoomProductos = false;
+                    var rutaShowRoomPopup = "";
+                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                    int diasAntes = beShowRoom.DiasAntes;
+                    int diasDespues = beShowRoom.DiasDespues;
+
+                    if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
+                        && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                    {
+                        rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                        mostrarShowRoomProductos = true;
+                    }
+                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
+
+                    //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
+                    TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
+                    int df = DiasFalta.Days;
+
+                    var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+
+                    return Json(new
+                    {
+                        success = true,
+                        data = beShowRoomConsultora,
+                        diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
+                        diaFin = userData.FechaInicioCampania.Day,
+                        mesFin = NombreMes(userData.FechaInicioCampania.Month),
+                        diasFaltan = df,
+                        nombre = string.IsNullOrEmpty(userData.Sobrenombre)
+                            ? userData.NombreConsultora
+                            : userData.Sobrenombre,
+                        message = "ShowRoomConsultora encontrada",
+                        evento = beShowRoom,
+                        mostrarShowRoomProductos,
+                        rutaShowRoomPopup,
+                        personalizacion = lstPersonalizacion,
+                        mostrarPopupIntriga = beMostrarPopupIntriga,
+                        mostrarPopupVenta = beMostrarPopupVenta
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+
             }
             catch (Exception ex)
             {

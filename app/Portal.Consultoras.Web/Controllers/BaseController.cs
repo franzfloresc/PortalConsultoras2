@@ -71,7 +71,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.SegmentoConsultoraMenu = 1;
                     }
-                    else {
+                    else
+                    {
                         if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                         {
                             ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
@@ -79,7 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                         else
                         {
                             ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID.HasValue ? userData.SegmentoInternoID.Value : userData.SegmentoID;
-                        } 
+                        }
                     }
                     /*** FIN EPD 2170 ***/
 
@@ -89,7 +90,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
-                    
+
                     ViewBag.EsMobile = 1;//EPD-1780
 
                     if (userData.TieneLoginExterno)
@@ -109,6 +110,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (Session["TokenPedidoAutentico"] != null)
                         ViewBag.TokenPedidoAutenticoOk = 1;
+
+                    ViewBag.CodigoEstrategia = GetCodigoEstrategia();
                 }
 
                 base.OnActionExecuting(filterContext);
@@ -455,79 +458,88 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<PermisoModel> BuildMenu()
         {
-            if (userData.Menu == null)
+            if (userData.Menu != null)
             {
-                IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
-                    IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
-
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
-                {
-                    lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
-                }
-
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-                if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-                if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
-
-                List<PermisoModel> lstModel = new List<PermisoModel>();
-
-                lst2 = lst;
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                {
-                    lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
-                }
-
-                foreach (var permiso in lst2)
-                {
-                    if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
-                    {
-                        if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
-                        {
-                            permiso.UrlItem = AccionControlador("sr", 1);
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                        permiso.EsSoloImagen = true;
-                        var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-
-                        if (urlImagen != "")
-                        {
-                            permiso.UrlImagen = urlImagen;
-                        }
-                        else
-                        {
-                            permiso.EsSoloImagen = false;
-                        }
-                    }
-
-                    lstModel.Add(new PermisoModel
-                    {
-                        PermisoID = permiso.PermisoID,
-                        RolId = permiso.RolId,
-                        Descripcion = permiso.Descripcion,
-                        IdPadre = permiso.IdPadre,
-                        OrdenItem = permiso.OrdenItem,
-                        UrlItem = permiso.UrlItem,
-                        PaginaNueva = permiso.PaginaNueva,
-                        Mostrar = permiso.Mostrar,
-                        Posicion = permiso.Posicion,
-                        UrlImagen = permiso.UrlImagen,
-                        EsMenuEspecial = permiso.EsMenuEspecial,
-                        EsSoloImagen = permiso.EsSoloImagen,
-                        EsServicios = permiso.EsServicios,
-                        EsDireccionExterior = permiso.UrlItem.ToLower().StartsWith("http"),
-                        DescripcionFormateada = Util.RemoveDiacritics(permiso.Descripcion.ToLower()).Replace(" ", "-")
-                    });
-                }
-
-                // Separar los datos obtenidos y para generar el 
-                userData.Menu = SepararItemsMenu(lstModel);
+                return userData.Menu;
             }
+
+            IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
+            IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
+
+            using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+            {
+                lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
+            }
+
+            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+            if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+
+            List<PermisoModel> lstModel = new List<PermisoModel>();
+
+            lst2 = lst;
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
+            {
+                lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
+            }
+
+            foreach (var permiso in lst2)
+            {
+                permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
+                if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                {
+                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                        permiso.UrlItem = AccionControlador("sr", 1);
+                    else
+                        continue;
+
+                    permiso.EsSoloImagen = true;
+                    var urlImagen = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoMenuShowRoom, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+
+                    if (urlImagen != "")
+                        permiso.UrlImagen = urlImagen;
+                    else
+                        permiso.EsSoloImagen = false;
+                }
+
+                if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+                {
+                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        continue;
+                }
+
+                if (permiso.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+                {
+                    if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        continue;
+                }
+
+                lstModel.Add(new PermisoModel
+                {
+                    PermisoID = permiso.PermisoID,
+                    RolId = permiso.RolId,
+                    Descripcion = permiso.Descripcion,
+                    IdPadre = permiso.IdPadre,
+                    OrdenItem = permiso.OrdenItem,
+                    UrlItem = permiso.UrlItem,
+                    PaginaNueva = permiso.PaginaNueva,
+                    Mostrar = permiso.Mostrar,
+                    Posicion = permiso.Posicion,
+                    UrlImagen = permiso.UrlImagen,
+                    EsMenuEspecial = permiso.EsMenuEspecial,
+                    EsSoloImagen = permiso.EsSoloImagen,
+                    EsServicios = permiso.EsServicios,
+                    EsDireccionExterior = permiso.UrlItem.ToLower().StartsWith("http"),
+                    DescripcionFormateada = Util.RemoveDiacritics(permiso.Descripcion.ToLower()).Replace(" ", "-")
+                });
+            }
+
+            // Separar los datos obtenidos y para generar el 
+            userData.Menu = SepararItemsMenu(lstModel);
+
             return userData.Menu;
         }
 
@@ -638,9 +650,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Cargar variables
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
-                
-                ViewBag.Usuario = "Hola, " + (string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre);
+
+                model.UsuarioNombre = string.IsNullOrEmpty(model.Sobrenombre) ? model.NombreConsultora : model.Sobrenombre;
                 ViewBag.UsuarioNombre = (Util.Trim(model.Sobrenombre) == "" ? model.NombreConsultora : model.Sobrenombre);
+                ViewBag.Usuario = "Hola, " + model.UsuarioNombre;
                 ViewBag.Rol = model.RolID;
                 ViewBag.Campania = NombreCampania(model.NombreCorto);
                 ViewBag.CampaniaCodigo = model.CampaniaID;
@@ -861,7 +874,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // ShowRoom (Mobile)
 
                 #endregion Banner
-                
+
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
@@ -1609,10 +1622,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = userData.OfertasDelDia[0].Clone();
             model.ListaOfertas = userData.OfertasDelDia;
             int posicion = 0;
-            model.ListaOfertas.Update(p=>p.ID = posicion++);
+            model.ListaOfertas.Update(p => p.ID = posicion++);
             var listPedidosDetalles = ObtenerPedidoWebDetalle();
             foreach (var oferta in model.ListaOfertas) { oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none"; }
-            
+
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
             return model;
@@ -1695,11 +1708,32 @@ namespace Portal.Consultoras.Web.Controllers
         protected string GetRevistaCodigoIssuu(string campania)
         {
             string codigo = null;
+
             string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
             bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
             if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
+            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
+            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
+        }
+
+        protected string GetRevistaCodigoIssuu(string campania, bool flagRevistaDigital)
+        {
+            string codigo = null;
+
+            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
+            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
+            if (!string.IsNullOrEmpty(codigo)) return codigo;
+
+            if (flagRevistaDigital)
+            {
+                //piloto_rev1017pe
+                codigo = ConfigurationManager.AppSettings["CodigoRevistaDigitalIssuu"].ToString();
+                return string.Format(codigo, campania.Substring(4, 2), campania.Substring(2, 2), userData.CodigoISO.ToLower()); ;
+            }
+            //sbconsultorarevista.{0}.c{1}.{2}
             codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
             return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
         }
@@ -1978,6 +2012,56 @@ namespace Portal.Consultoras.Web.Controllers
 
             return "";
         }
+
+        public string GetCodigoEstrategia()
+        {
+            var codigo = Constantes.TipoEstrategiaCodigo.OfertaParaTi;
+            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            {
+                codigo = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+            }
+            return codigo;
+        }
+
+        public bool ValidarPermiso(string codigo)
+        {
+            codigo = Util.Trim(codigo).ToLower();
+            if (codigo == "") return false;
+
+            //var codigoConfig = "";
+            var listaConfigPais = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
+            var existe = new ConfiguracionPaisModel();
+            if (codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+            {
+                //codigoConfig = Constantes.ConfiguracionPais.RevistaDigital;
+                existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
+                if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
+                    return false;
+                else if (existe.Validado)
+                    return true;
+                return true;
+            }
+
+            if (codigo == Constantes.MenuCodigo.RevistaDigitalSuscripcion.ToLower())
+            {
+                existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion) ?? new ConfiguracionPaisModel();
+                if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
+                    return false;
+                return true;
+            }
+
+            if (codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+            {
+                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
+                    return false;
+                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                    return false;
+                return true;
+            }
+
+            return false;
+        }
+
         public string AccionControlador(string tipo, int isControlador = 0)
         {
             var accion = "";
@@ -2003,9 +2087,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public bool MostrarFAV()
+        //public bool MostrarFAV()
+        //{
+        //    return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
+        //}
+
+        public bool IsMobile()
         {
-            return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
+            return Request.Browser.IsMobileDevice;
         }
     }
 }

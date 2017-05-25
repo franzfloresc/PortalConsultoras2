@@ -1,0 +1,1155 @@
+﻿
+/* POPUP INSCRIPCIÓN A REVISTA DIGITAL MOBILE */
+body{
+    overflow-x:hidden;
+}
+.contenedor_popup_revistaSuscripcion {
+    display: block;
+    position: relative;
+    width: 89%;
+    max-width: 480px;
+    top: 50%;
+    margin: -275px auto 47px auto;
+}
+
+.popup_revistaSuscripcion_logoMarca, .popup_revistaSuscripcion_contenido, .popup_revistaSuscripcion_grupoBotones, .popup_revistaSuscripcion_terminos{
+    display:block;
+    position:relative;
+    z-index:2;
+}
+
+.popup_revistaSuscripcion_logoMarca {
+    width: 132px;
+    height: 85px;
+    left: -9px;
+    margin-top:14px;
+    margin-bottom: 0px;
+}
+
+.popup_revistaSuscripcion_logoMarca img{
+    width:100%;
+    height:auto;
+}
+
+.popup_revistaSuscripcion_contenido span{
+    display: block;
+    font-size: 13px;
+    color: #FFF;
+    letter-spacing: 1.5px;
+}
+
+.popup_revistaSuscripcion_contenido span:first-child{
+    font-family: 'Lato';
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.popup_revistaSuscripcion_contenido span.porcentaje_descuento {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.popup_revistaSuscripcion_contenido span:nth-child(2){
+    font-family:'Lato';
+    margin-bottom:47px;
+}
+
+.popup_revistaSuscripcion_grupoBotones {
+    margin-bottom: 36px;
+}
+
+.popup_revistaSuscripcion_grupoBotones button{
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    line-height: 50px;
+    border: none;
+    text-align: center;
+    font-family: 'Lato';
+    letter-spacing: 0.5px;
+    font-size: 12px;
+}
+
+.popup_revistaSuscripcion_grupoBotones button:first-child{
+    background:#000;
+    color:#FFF;
+}
+
+.popup_revistaSuscripcion_grupoBotones button:nth-child(2){
+    color:#000;
+    border:1px solid #000;
+    background:transparent;
+}
+
+.popup_revistaSuscripcion_terminos {
+    /*width: 209px;*/
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #FFF;
+    letter-spacing: 1px;
+}
+
+.popup_revistaSuscripcion_terminos a {
+    display: inline-block;
+    text-decoration: underline;
+    color:#FFF;
+}
+
+.popup_revistaSuscripcion .img_modeloRevista {
+    display: none;
+    position: absolute;
+    bottom: -6px;
+    right: 0px;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje {
+    /*display: block;*/
+    width: 213px;
+    margin-top: 9px;
+    font-family: 'Lato';
+    color: #FFF;
+    /*font-weight: bold;*/
+    font-size: 11px;
+    position: relative;
+    top: 17px;
+    margin-left: 100px;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje a {
+    color:#FFF;
+    text-decoration: underline;
+    transition:opacity 0.3s ease;
+    -moz-transition:opacity 0.3s ease;
+    -o-transition:opacity 0.3s ease;
+    -ms-transition:opacity 0.3s ease;
+    -webkit-transition:opacity 0.3s ease;
+}
+
+.popup_revistaSuscripcion_noAMostrarMensaje a:hover{
+    opacity:0.7;
+}
+
+.popup_revistaSuscripcion{
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #FFF;
+    position: relative;
+    overflow: hidden;
+    margin-top:13px;
+    padding-left: 23px;
+    padding-right: 23px;
+    padding-bottom: 23px;
+    top:22px;
+}
+
+.background_popupEsika{
+    display: block;
+    position: absolute;
+    width: 774px;
+    left: -136px;
+    height: 100%;
+    background: #CCC;
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+    background: -moz-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(135deg, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 20%, rgba(223,40,34,1) 100%);
+}
+
+/* SECCIÓN REVISTA DIGITAL VISTA BIENVENIDA MOBILE */
+
+.contenedor_cabecera_revistaDigital {
+    display: block;
+    width: 108%;
+    height: 112px;
+    background: #000;
+    padding-top: 20px;
+    padding-bottom: 17px;
+    position: relative;
+    overflow: hidden;
+    left: -14px;
+}
+
+.fondo_franja {
+    display: block;
+    position: absolute;
+    width: 139px;
+    height: 100%;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    top: 0px;
+    left: -23px;
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+}
+
+.linea-negra {
+    display: block;
+    width: 3px;
+    height: 117px;
+    position: absolute;
+    background: #000;
+    top: 0px;
+    transform: skewX(-14deg);
+    left: 115px;
+}
+
+.contenedor_contenido_cabecera{
+    display: block;
+    text-align: left;
+    padding-left: 12px;
+}
+
+.cabecera_contenedor_logoMarca, .cabecera_texto{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.cabecera_contenedor_logoMarca {
+    width: 116px;
+    height: 75px;
+    position:relative;
+    top:9px;
+}
+
+.cabecera_contenedor_logoMarca img{
+    width:100%;
+    height:auto;
+}
+
+.cabecera_texto{
+    width: 100%;
+    max-width: 234px;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: left;
+    color: #FFF;
+    padding-left: 28px;
+    letter-spacing: 1px;
+}
+
+.texto_ofertas_bonificaciones {
+    font-family: 'Lato Light';
+    font-size: 16px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 34px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+
+.revistadigital .boxoffer, .contenedor_botonVerMasOfertas .boxoffer {
+	width: 102px;
+    height: 60px;
+    position: absolute;
+    top: 275px;
+    right: -5px;
+    background: transparent;
+    overflow: hidden;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.revistadigital .boxoffer:hover, .contenedor_botonVerMasOfertas .boxoffer:hover{
+    opacity:0.95;
+}
+
+.revistadigital .boxoffer .fondo_boton, .contenedor_botonVerMasOfertas .boxoffer .fondo_boton {
+    width: 100%;
+    height: 67px;
+    background: #e81c36;
+    transform: skewX(-14deg);
+    position: absolute;
+    left: -14px;
+    background: -moz-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    background: -o-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    background: -ms-linear-gradient(top, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    background: linear-gradient(to bottom, rgba(213,37,31,1) 0%, rgba(163,16,18,1) 100%);
+    box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    -moz-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    -o-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    -ms-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 3px 2px 5px rgba(0,0,0,0.25);
+}
+
+.revistadigital .boxoffer .texto_boton, .contenedor_botonVerMasOfertas .boxoffer .texto_boton{
+    position: absolute;
+    font-family: 'Lato';
+    font-size: 11px;
+    color: #FFF;
+    top: 8px;
+    left: 12px;
+    text-align: left;
+    width: 72px;
+    line-height: 15px;
+}
+
+.revistadigital .boxoffer .texto_boton:after, .contenedor_botonVerMasOfertas .boxoffer .texto_boton:after{
+    width: 13px;
+    height: 32px;
+    position: absolute;
+    content: "";
+    top: 7px;
+    right: 5px;
+    background: url(../../../Images/flecha-right.svg) no-repeat center center;
+    background-size: 100%;
+    z-index: 100;
+}
+
+.revistadigital .revistadigital-content{
+    position:relative;
+}
+
+.revistadigital .content_item_home .etiqueta-producto {
+    display: block;
+    width: 95px;
+    height: 28px;
+    position: relative;
+    overflow:hidden;
+}
+
+.revistadigital .content_item_home .fondo-etiqueta {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    transform: skew(-17deg);
+    left:-5px;
+}
+
+.revistadigital .content_item_home .etiqueta-producto span {
+    display: block;
+    color: #FFF;
+    font-family: 'Lato';
+    font-size: 13px;
+    position: relative;
+    text-align: left;
+    padding-top: 4px;
+    padding-left: 10px;
+    letter-spacing: 3.5px;
+}
+
+/* SECCIÓN REVISTA DIGITAL VISTA CATÁLOGOS Y REVISTAS */
+
+div#tab_revistasdigital_mobile {
+    margin:-35px auto 0 auto;
+    width: 100%;
+    max-width: 400px;
+}
+
+.contenedor_seccionRevistaDigital{
+    display:block;
+    margin:0 15px;
+    padding-left:34px;
+}
+
+.seccionRevistaDigital_logo_marca{
+    height: 97px;
+    display: block;
+    position: relative;
+    top: 23px;
+    left: -8px;
+}
+
+.seccionRevistaDigital_logo_marca img{
+    text-align: left;
+    width: auto;
+    height: 100%;
+}
+
+.contenido_seccionRevistaDigital{
+    display: block;
+    margin-top: 9px;
+    position: relative;
+    z-index: 5;
+}
+
+.contenido_seccionRevistaDigital span{
+    font-family: 'Lato';
+    font-weight: bold;
+    width: 100%;
+}
+
+.contenido_seccionRevistaDigital span:first-child{
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.contenido_seccionRevistaDigital span:last-child{
+    font-size:13px;
+}
+
+.contenedor_botonVerMasOfertas{
+    display: block;
+    position: relative;
+    margin-top:32px;
+}
+
+.contenedor_botonVerMasOfertas .boxoffer {
+    left: 0px;
+    right: 0px;
+    top: 0px;
+}
+
+@media screen and (max-width:365px){
+
+    .cabecera_texto {
+        width:166px;
+        padding-left:10px;
+    }
+
+    .texto_ofertas_bonificaciones{
+        padding: 0 5px;
+    }
+
+}
+
+/* VISTA SUSCRIPCIÓN REVISTA DIGITAL */
+
+.contenedor_cabecera_revistaDigital.cabecera_vistaRevistaSuscripcion{
+    width:100%;
+    left:0px;
+}
+
+.texto_ofertas_bonificaciones.texto_vistaRevistaSuscripcion{
+    padding: 0 34px;
+    text-align: center;
+}
+
+.cabecera_esikaParaMi, .cabecera_fondo_rojo, .cabecera_content span, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi button, .cabecera_boton_inscribeteAEsikaParaMi span{
+    display:block;
+    font-family:'Lato';
+    color:#FFF;
+}
+
+.cabecera_logoMarca, .cabecera_content, .cabecera_boton_inscribeteAEsikaParaMi, .cabecera_boton_inscribeteAEsikaParaMi span a, .imagen_modeloRevistaDigital, .contenido_esikaParaMi {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.cabecera_esikaParaMi {
+    background: #000;
+    margin-top: 62px;
+    height: 165px;
+    padding: 40px 10px;
+    z-index:3;
+}
+
+.cabecera_esikaParaMi:after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    width: 300%;
+    height: 165px;
+    left: 100px;
+    z-index: 2;
+    background: #000;
+}
+
+.cabecera_fondo_rojo{
+    width:227px;
+    height:165px;
+    position: absolute;
+    top: 0px;
+    left: -25px;
+    z-index:3;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
+}
+
+.cabecera_fondo_rojo:before{
+    display:block;
+    content:"";
+    width: 300%;
+    height:165px;
+    position: absolute;
+    top: 0px;
+    left: -454px;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    z-index:2;
+}
+
+.cabecera_logoMarca {
+    width: 168.52px;
+    height: 132.46px;
+    margin-right:98px;
+    position:relative;
+    z-index:4;
+}
+
+.cabecera_esikaParaMi img {
+    width: auto;
+    height: 100%;
+}
+
+.cabecera_content{
+    width:508px;
+    margin-right:102px;
+    position: relative;
+    z-index: 4;
+}
+
+.cabecera_content span:first-child {
+    font-family:'Lato Black';
+    font-size: 15px;
+    letter-spacing:1px;
+    margin-bottom:3px;
+}
+
+.cabecera_content span:nth-child(2){
+    font-size:20px;
+    letter-spacing:0.4px;
+    line-height:27px;
+}
+
+.cabecera_content span:nth-child(2), .cabecera_boton_inscribeteAEsikaParaMi span{
+    font-family: 'Lato Light';
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi span a{
+    text-decoration:underline;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi{
+    position: relative;
+    z-index: 4;
+    padding-top:4px;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi button {
+    background: #FF1534;
+    border: 0px;
+    width: 256px;
+    height: 52px;
+    color: #FFF;
+    margin-bottom:9px;
+    position:relative;
+    top:0px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi button:hover{
+    opacity:0.8;
+    top:-8px;
+}
+
+.cabecera_boton_inscribeteAEsikaParaMi span {
+    width: 256px;
+    font-size: 14px;
+    text-align: center;
+    line-height:18px;
+}
+
+.imagen_modeloRevistaDigital{
+    width: 391px;
+    height: 520px;
+    margin-bottom: -35px;
+}
+
+.imagen_modeloRevistaDigital img{
+    width: auto;
+    height: 100%;
+    position: relative;
+    top: -35px;
+    left: -30px;
+    z-index: 1;
+}
+
+.contenido_esikaParaMi{
+    font-family:'Lato';
+    color:#000;
+    padding: 22px 20px 0px 20px;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.contenido_desenfocado, fondo_sobreContenidoDesenfocado, .contenido_comoFuncionaEsikaParaMi, .grupo_imagenes_carrusel_desenfocadas{
+    display:block;
+}
+
+.contenido_comoFuncionaEsikaParaMi.fondoContenido{
+    background: #EEE;
+    padding: 23px 22px;
+    width: 100%;
+    height: auto;
+}
+
+.contenido_comoFuncionaEsikaParaMi {
+    margin-bottom: 40px;
+    padding-left:5px;
+    text-align:center;
+}
+
+.contenido_pasos_comoFunciona, .contenido_beneficiosEsikaParaMi, .contenido_pasos_comoFunciona span, .contenido_beneficiosEsikaParaMi span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4, .contenido_pasos_comoFunciona span b, .contenido_beneficiosEsikaParaMi span:first-child{
+    font-family:'Lato Black';
+}
+
+.contenido_comoFuncionaEsikaParaMi h4, .contenido_beneficiosEsikaParaMi h4{
+    display:block;
+    font-size:15px;
+    margin:0px 0px 14px 0px;
+    padding:0px;
+    color:#000;
+}
+
+.contenido_pasos_comoFunciona{
+    margin-right:0px;
+    text-align:left;
+}
+
+.contenido_pasos_comoFunciona:last-child, .contenido_beneficiosEsikaParaMi:last-child{
+    margin-right:0px;
+}
+
+.contenido_pasos_comoFunciona span:first-child{
+    font-family:'Lato Light';
+    color:#FF1534;
+    font-size:50px;
+    margin-right:11px;
+}
+
+.contenido_pasos_comoFunciona span:nth-child(2){
+    font-size:16px;
+    width:269px;
+}
+
+.contenido_beneficiosEsikaParaMi {
+    margin-right: 0px;
+    margin-bottom:27px;
+    text-align:center;
+}
+
+.contenido_beneficiosEsikaParaMi:last-child {
+    margin-bottom:0px;
+}
+
+.contenido_beneficiosEsikaParaMi span:first-child{
+    color:#DA2621;
+    font-size:28px;
+    margin-bottom:14px;
+    letter-spacing:0.4px;
+    width:160px;
+    padding-top:7px;
+    text-align:left;
+}
+
+.contenido_beneficiosEsikaParaMi span:nth-child(2){
+    font-size:14px;
+    width:44%;
+    text-align:left;
+}
+
+.contenido_desenfocado{
+    height:603px;
+    position:relative;
+    padding-top:165px;
+    overflow:hidden;
+    margin-bottom:-120px;
+}
+
+.fondo_sobreContenidoDesenfocado, .fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after {
+    position: absolute;
+    top:0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index:3;
+}
+
+.fondo_sobreContenidoDesenfocado{
+    padding-top:43px;
+}
+
+.fondo_sobreContenidoDesenfocado:before, .fondo_sobreContenidoDesenfocado:after{
+    content:"";
+}
+
+.fondo_sobreContenidoDesenfocado:before{
+    left: -100%;
+    z-index: 2;
+}
+
+.fondo_sobreContenidoDesenfocado:after{
+    left: 100%;
+    z-index: 2;
+}
+
+.grupo_imagenes_carrusel_desenfocadas{
+    margin:0 auto;
+    position: relative;
+    top: -76px;
+}
+
+.grupo_imagenes_carrusel_desenfocadas img {
+    width: 100%;
+    height: auto;
+}
+
+.contenido_fondoDesenfocado {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    color: #FFF;
+}
+
+.contenido_fondoDesenfocado span, .contenido_fondoDesenfocado button {
+    display: block;
+    text-align: center;
+}
+
+.contenido_fondoDesenfocado span:first-child {
+    font-family: 'Lato';
+    font-size: 16px;
+    margin-bottom: 33px;
+    letter-spacing: 1px;
+    font-weight: 900;
+}
+
+.contenido_fondoDesenfocado span:nth-child(2) {
+    font-family: 'Lato';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 1px;
+    margin-bottom: 60px;
+    padding: 0px 18px;
+}
+
+.contenido_fondoDesenfocado button{
+    margin: 0 auto 37px auto;
+    width: 100%;
+    height: 59px;
+    border: none;
+    color: #FFF;
+    font-family: 'Lato';
+    background: #FF1534;
+    font-size: 15px;
+    letter-spacing: 0.1px;
+    position: absolute;
+    bottom: -37px;
+    box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+    -o-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+    -ms-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+    -webkit-box-shadow: 0px -2px 11px rgba(0,0,0,0.25);
+    transition:all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+}
+
+.contenido_fondoDesenfocado span:last-child {
+    font-family: 'Lato Light';
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    line-height: 18px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0px 16px;
+}
+
+.contenido_fondoDesenfocado span:last-child a{
+    display:inline-block;
+    text-decoration:underline;
+    color:#FFF;
+}
+
+@media screen and (max-width:374px) {
+
+    .contenido_beneficiosEsikaParaMi span:first-child{
+        width:152px;
+    }
+
+    .contenido_beneficiosEsikaParaMi span:nth-child(2){
+        width:38%;
+    }
+
+    .contenido_esikaParaMi{        
+        padding: 22px 13px 0px 13px;
+    }
+
+    .contenido_comoFuncionaEsikaParaMi.fondoContenido{
+        padding:23px 7px;
+    }
+
+    .contenido_pasos_comoFunciona{
+        padding-left:15px;
+    }
+
+    .contenido_pasos_comoFunciona span:nth-child(2){
+        width:231px;
+    }
+
+}
+
+/* POPUP INSCRITA A REVISTA DIGITAL */
+
+.contenedor_popup_inscritaRevistaDigital{
+    display: block;
+    position: relative;
+    width: 89%;
+    max-width: 480px;
+    top: 50%;
+    margin: -107.5px auto 0 auto;
+    height:215px;
+}
+
+.popup_estasInscritaRevistaDigital{
+    display:block;
+    position:relative;
+    padding:29px 20px 18px 20px;
+    text-align:center;
+    font-family:'Lato';
+    color:#FFF;
+    margin:0 auto;
+    width:100%;
+    height:auto;
+    background: -moz-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -webkit-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -o-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: -ms-linear-gradient(left, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+    background: linear-gradient(to right, rgba(177,19,19,1) 0%, rgba(197,31,28,1) 15%, rgba(223,40,34,1) 100%);
+}
+
+.contenido_felicitaciones, .contenido_felicitaciones span, .contenido_recuerdaIngresar, .link_entendido {
+    display: block;
+}
+
+.contenido_felicitaciones {
+    margin-bottom: 23px;
+}
+
+.contenido_felicitaciones span{
+    font-family: 'Lato Black';
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform:uppercase;
+}
+
+.contenido_felicitaciones span.nombre_usuariaInscrita {
+    display: inline-block;
+}
+
+.contenido_recuerdaIngresar{
+    margin-bottom:27px;
+}
+
+.contenido_recuerdaIngresar span {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height:18px;
+}
+
+.link_entendido{
+    margin: 0 auto;
+    background: #000;
+    width: 252px;
+    height: 43px;
+    line-height: 41px;
+    font-size: 13px;
+    letter-spacing: 0.4px;
+    color:#FFF;
+}
+
+.logo_EPT_content{
+    width: 35%;
+    height: 112px;
+    text-align:right;
+    padding-right:20px;
+    float: left;
+    position: relative;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+    padding-top:15px;
+}
+.logo_EPT_content img{
+   width: auto;
+    height: 65px;
+}
+.texto_usuario_ept {
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    float: left;
+    width: 65%;
+    background: black;
+    height: 112px;
+    font-size: 14px;
+    padding-top: 25px;
+    padding-left: 17px;
+    padding-right: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+.texto_usuario_ept:before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0;
+    z-index: 102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 112px 20px;
+    border-color: transparent transparent #000000 transparent;
+}
+.content_carrusel_landing{
+    width:85%;
+    margin: 0 auto;
+    padding-top:43px;
+    padding-bottom:20px;
+}
+.content_item_ept {
+    background: white;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    position: relative;
+    margin-bottom:20px;
+    padding:0;
+}
+.titulo_set_banner_ept{
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: #FF1534;
+}
+.detalle_set_banner_ept{
+    text-align: center;
+    padding-left: 8%;
+    padding-right: 8%;
+    font-family: 'Lato';
+    font-size: 13px;
+    /* color: #FF1534; */
+    font-weight: 700;
+    margin-top: 2px;
+}
+.btn_mas_info_set{
+   
+    text-align: center;
+    font-family: 'Lato';
+    font-size: 13px;
+    display: block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+.etiqueta_nuevo_ept{
+        position: absolute;
+    top: 0;
+    left: 0;
+}
+.content_set_imagen_banner{
+    text-align: center;
+    margin-top: 34px;
+    height: 111px;
+}
+.content_set_imagen_banner img{
+    width:auto;
+    height:106px;
+}
+.slick-slider{
+    margin-top:0;
+    
+}
+.subtitulo_landing{
+    width:200px;
+    background:#D6251F;
+    font-family:'LAto';
+    font-size:17px;
+    height:45px;
+    line-height:45px;
+    color:white;
+    padding-left:15px;
+    font-weight:700;
+    letter-spacing:2px;
+    position:relative;
+    margin-top:30px;
+}
+.subtitulo_landing:after{
+    content:'';
+    position:absolute;
+    right:-20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 45px 20px 0 0;
+    border-color: #d6251f transparent transparent transparent;
+}
+.buscar_producto_landing{
+     font-family: 'lato';
+    font-size: 13px;
+    font-weight: 700;
+    width: 60%;
+    margin-right: 2%;
+    height: 45px;
+    padding: 6px 30px 6px 14px;
+    /* display: inline-block; */
+    /* border-radius: 0; */
+    /* -webkit-appearance: none; */
+    border: 1px solid #ccc;
+    float: left;
+    margin-bottom: 18px;
+    display:block;
+}
+.ofertaProductoslanding .content_item_home{
+    margin-bottom:35px;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow: none;
+    border: 0;
+}
+.content_detalle_set_bpt{
+    width:100%;
+    height:auto;
+    position:relative;
+}
+.content_detalle_set_bpt img{
+    display: block;
+    width: 100vw;
+    height: auto;
+    object-fit: cover;
+}
+.content_imagen_principal_bpt{
+    height:273px;
+    width:auto;
+    text-align:center;
+    margin-top:-200px;
+    z-index: 10;
+    position: relative;
+}
+.content_imagen_principal_bpt img{
+    width:auto;
+    height:273px;
+}
+.content_detalle_set_bpt_general{
+    font-family:'Lato';
+}
+.nombre_producto_bpt{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:5px;
+    text-transform:uppercase;
+}
+.info-set_bpt{
+    font-size:12px;
+    text-transform:uppercase;
+}
+.content_descripcion_bpt{
+    border-top:1px solid black;
+    padding-top:10px;
+    font-size:13px;
+    margin-top:10px;
+    line-height: 20px;
+}
+.title-compartir{
+    font-family:'Lato';
+    text-align:center;
+    margin-top:20px;
+}
+.btn_ver_video_bpt{
+    font-family:'Lato';
+    text-align:center;
+    margin-top:20px;
+    display:block;
+    width:180px;
+    margin:0 auto;
+    height:32px;
+    line-height:32px;
+    margin-top:40px;
+    margin-bottom:30px;
+    border:1px solid black;
+}
+.nombre_titulo_set_detalle{
+    color:#e81c36;
+    font-family:'Lato';
+    font-size:18px;
+    text-align:center;
+    padding-left:14px;
+    padding-right:14px;
+    margin-bottom:10px;
+}
+.video-responsive-bpt {
+position: relative;
+padding-bottom: 56.25%; /* 16/9 ratio */
+padding-top: 30px; /* IE6 workaround*/
+height: 0;
+overflow: hidden;
+}
+ 
+.video-responsive-bpt iframe,
+.video-responsive-bpt object,
+.video-responsive-bpt embed {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+}
+.etiqueta_nuevo_bpt{
+    margin-bottom:15px;
+}
+.regresar_landing{
+    position:absolute;
+    left:14px;
+    font-family:'Lato';
+    color:black;
+    top:10px;
+    padding-left:20px;
+    background: url(../../../Images/Esika/pagina.png) no-repeat;
+    background-position: 3px 2px;
+    height:20px;
+}
