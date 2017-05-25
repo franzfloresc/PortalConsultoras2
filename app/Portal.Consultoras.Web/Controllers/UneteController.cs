@@ -528,7 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (CodigoISO == Pais.Peru)
                 {
                     ServiceUnete.ParametroUneteCollection lstSeleccione = new ServiceUnete.ParametroUneteCollection();
-                    lstSeleccione.Add(new ServiceUnete.ParametroUneteBE() { IdParametroUnete = 0, Nombre = "SELECCIONE" });
+                    lstSeleccione.Add(new ServiceUnete.ParametroUneteBE() { IdParametroUnete = 0, Nombre = "SELECCIONE", });
 
                     ServiceUnete.ParametroUneteCollection lugaresNivel1;
                     ServiceUnete.ParametroUneteCollection lugaresNivel2;
