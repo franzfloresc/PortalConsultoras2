@@ -130,19 +130,19 @@
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
 </div>
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
 </div>
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
         <label>Dirección:</label>
         @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
-        @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
+        <span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
     </div>
 }
 else
@@ -150,7 +150,7 @@ else
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
         <label>C&oacute;digo Postal:</label>
         @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
-        @*<span>@Html.ValidationMessageFor(m => Model.Numero)</span>*@
+        <span>@Html.ValidationMessageFor(m => Model.Numero)</span>
     </div>
 }
 
@@ -256,17 +256,26 @@ else
     });
 
     $('#btnGrabarDireccion').click(function () {
-        $('#btnModificarDireccion').show();
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
-        $('#btnActualizarSeccion').show();
-        $('#btnEditarPosicion').removeClass('HabInaButton');
-        $('#btnGuardarPosicion').removeClass('HabInaButton');
-        $('#btnActualizarSeccion').removeClass('HabInaButton');
-        $('#btnEditarPosicion').attr('disabled', false);
-        $('#btnGuardarPosicion').attr('disabled', false);
-        $('#btnActualizarSeccion').attr('disabled', false);
-        HabilitarDatosDireccion(0);
+        if ($('#LugarNivel1').val() == '0')
+        { $('#LugarNivel1').val(''); }
+        if ($('#LugarNivel2').val() == '0')
+        { $('#LugarNivel2').val(''); }
+        if (codigoPais == 'CO') {
+            $('#LugarNivel3').val('');
+        }
+        if ($('#form0').valid()) {
+            $('#btnModificarDireccion').show();
+            $('#btnGrabarDireccion').hide();
+            //$('#btnCancelarEdicion').hide();
+            $('#btnActualizarSeccion').show();
+            $('#btnEditarPosicion').removeClass('HabInaButton');
+            $('#btnGuardarPosicion').removeClass('HabInaButton');
+            $('#btnActualizarSeccion').removeClass('HabInaButton');
+            $('#btnEditarPosicion').attr('disabled', false);
+            $('#btnGuardarPosicion').attr('disabled', false);
+            $('#btnActualizarSeccion').attr('disabled', false);
+            HabilitarDatosDireccion(0);
+        }
     });
 
     $('#btnCancelarEdicion').click(function () {

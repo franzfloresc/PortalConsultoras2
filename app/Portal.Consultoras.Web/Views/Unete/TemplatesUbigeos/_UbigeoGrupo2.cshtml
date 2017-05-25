@@ -81,34 +81,34 @@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>Colonia:</label>
     @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>Codigo Postal:</label>
     @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
-    @*<span>@Html.ValidationMessageFor(m => Model.Numero)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.Numero)</span>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
     <label>Direccion:</label>
     @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = "Ej. Calle/Nº/Edif/Apto" })
-    @*<span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
     <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
     <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
 </div>
 <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
     <label>Referencia:</label>
     @Html.TextBoxFor(m => Model.Referencia, new { @placeholder = "Ej. entre calle 1 y calle 3" })
-    @*<span>@Html.ValidationMessageFor(m => Model.Referencia)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.Referencia)</span>
     <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
     <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
 </div>
@@ -164,17 +164,25 @@
     });
 
     $('#btnGrabarDireccion').click(function () {
-        $('#btnModificarDireccion').show();
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
-        $('#btnActualizarSeccion').show();
-        $('#btnEditarPosicion').removeClass('HabInaButton');
-        $('#btnGuardarPosicion').removeClass('HabInaButton');
-        $('#btnActualizarSeccion').removeClass('HabInaButton');
-        $('#btnEditarPosicion').attr('disabled', false);
-        $('#btnGuardarPosicion').attr('disabled', false);
-        $('#btnActualizarSeccion').attr('disabled', false);
-        HabilitarDatosDireccion(0);
+        if ($('#LugarNivel1').val() == '0')
+        { $('#LugarNivel1').val(''); }
+        if ($('#LugarNivel2').val() == '0')
+        { $('#LugarNivel2').val(''); }
+        if ($('#LugarNivel3').val() == '0')
+        { $('#LugarNivel3').val(''); }
+        if ($('#form0').valid()) {
+            $('#btnModificarDireccion').show();
+            $('#btnGrabarDireccion').hide();
+            //$('#btnCancelarEdicion').hide();
+            $('#btnActualizarSeccion').show();
+            $('#btnEditarPosicion').removeClass('HabInaButton');
+            $('#btnGuardarPosicion').removeClass('HabInaButton');
+            $('#btnActualizarSeccion').removeClass('HabInaButton');
+            $('#btnEditarPosicion').attr('disabled', false);
+            $('#btnGuardarPosicion').attr('disabled', false);
+            $('#btnActualizarSeccion').attr('disabled', false);
+            HabilitarDatosDireccion(0);
+        }
     });
 
     $('#btnCancelarEdicion').click(function () {

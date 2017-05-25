@@ -91,34 +91,34 @@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar3[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     @Html.DropDownListFor(m => Model.LugarNivel4, Model.LugaresNivel4)
-    @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>*@
+    <span>@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>
 </div>
 @if (Model.CodigoPais == "GT")
 {
     <div class="contenedor_camposUbigeo campoDireccionUbigeo campo_dropDown">
         <label>@Dictionaries.LabelLugar5[Model.CodigoPais]:</label>
         @Html.DropDownListFor(m => Model.LugarNivel5, Model.LugaresNivel5)
-        @*<span>@Html.ValidationMessageFor(m => Model.LugarNivel5)</span>*@
+        <span>@Html.ValidationMessageFor(m => Model.LugarNivel5)</span>
     </div>
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo campo_dropDownReferencia">
         <label>Direcci&oacute;n:</label>
         @Html.TextBoxFor(m => Model.CalleOAvenida, new { @placeholder = "Ejm: Av. Castellana 100" })
-        @*<span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>*@
+        <span>@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
     </div>
     <div class="contenedor_grupo_botones_campoDireccion">
         <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
@@ -184,17 +184,30 @@ else
     }
 
     $('#btnModificarDireccion').click(function () {
-        $('#btnModificarDireccion').hide();
-        $('#btnGrabarDireccion').show();
-        //$('#btnCancelarEdicion').show();
-        //$('#btnActualizarSeccion').hide();
-        $('#btnEditarPosicion').addClass('HabInaButton');
-        $('#btnGuardarPosicion').addClass('HabInaButton');
-        $('#btnActualizarSeccion').addClass('HabInaButton');
-        $('#btnEditarPosicion').attr('disabled', true);
-        $('#btnGuardarPosicion').attr('disabled', true);
-        $('#btnActualizarSeccion').attr('disabled', true);
-        HabilitarDatosDireccion(1);
+        if ($('#LugarNivel1').val() == '0')
+        { $('#LugarNivel1').val(''); }
+        if ($('#LugarNivel2').val() == '0')
+        { $('#LugarNivel2').val(''); }
+        if ($('#LugarNivel3').val() == '0')
+        { $('#LugarNivel3').val(''); }
+        if ($('#LugarNivel4').val() == '0')
+        { $('#LugarNivel4').val(''); }
+        if (codigoPais == 'GT') {
+            $('#LugarNivel5').val('');;
+        }
+        if ($('#form0').valid()) {
+            $('#btnModificarDireccion').hide();
+            $('#btnGrabarDireccion').show();
+            //$('#btnCancelarEdicion').show();
+            //$('#btnActualizarSeccion').hide();
+            $('#btnEditarPosicion').addClass('HabInaButton');
+            $('#btnGuardarPosicion').addClass('HabInaButton');
+            $('#btnActualizarSeccion').addClass('HabInaButton');
+            $('#btnEditarPosicion').attr('disabled', true);
+            $('#btnGuardarPosicion').attr('disabled', true);
+            $('#btnActualizarSeccion').attr('disabled', true);
+            HabilitarDatosDireccion(1);
+        }
     });
 
     $('#btnGrabarDireccion').click(function () {

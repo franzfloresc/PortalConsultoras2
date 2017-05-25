@@ -629,7 +629,7 @@
                     OnSuccess = "OnSuccess",
                     OnBegin = "generalLoading();",
                     OnComplete = "generalCloseLoading();"
-                }, new { @class = "formulario_editarDireccion" }))
+                }, new { @class = "formulario_editarDireccion"  }))
                 {
 
                     @Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
@@ -1133,7 +1133,7 @@
 
 
 <script>
-    var map, marker, markers = [], markersSeleccionados = [], polygon, currentMaker;
+    var map, marker, markers = [], markersSeleccionados = [], polygon, currentMaker, polygons = [];
     var urlContentImages = '@Url.Content("~/Content/Images/")';
     @{
         var titulo = Model.Puntos.Count > 1 ? "Elige la dirección correcta" : (Model.Puntos.Count > 0 ? "Confirma si es la dirección correcta" : "No se ha encontrado tu ubicación en el mapa");
@@ -1338,7 +1338,7 @@
                         fillColor: '#FF0000',
                         fillOpacity: 0.35
                     });
-
+                    
                     polygon.setMap(map);
 
                     map.fitBounds(bounds);
@@ -1409,7 +1409,7 @@
             $.post('@Url.Action("ConsultarTerritorios", "Unete")', data, function (json) {
 
                 if (polygon != null) {
-                    polygon.setMap(null);
+                    //polygon.setMap(null);
                 }
 
                 var coords = JSON.parse(json.Vertices);
@@ -1429,7 +1429,7 @@
                         fillColor: '#FF0000',
                         fillOpacity: 0.35
                     });
-
+                    polygons.push(polygon);
                     polygon.setMap(map);
 
                     map.fitBounds(bounds);
@@ -1461,12 +1461,18 @@
 
         }
     }
-    //function clearMarkers() {
-    //    if (currentMaker) {
-    //        currentMaker.setMap(null);
-    //        currentMaker = null;
-    //    }
-    //}
+    function clearMarkers() {
+       for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+       }
+       markers = [];
+    }
+    function clearPoligonos() {
+        for (var i = 0; i < polygons.length; i++) {
+            polygons[i].setMap(null);
+        }
+        polygons = [];
+    }
 
     function EditMapa() {
 
@@ -1505,7 +1511,7 @@
                         pintarRojo();
                         setMarkerOnMap(map, this);
                         this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-                        MostrarTerritorio(this.position.lat(), this.position.lng());
+                        
                     });
 
                     map.setZoom(18);
@@ -1526,6 +1532,7 @@
                         lng: markerMorado.position.lng()
 
                     };
+                    //MostrarTerritorio(markerMorado.position.lat(), markerMorado.position.lng());
                     //geocodePosition(pos);
                 }
 
@@ -1542,6 +1549,7 @@
                         lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
+                    MostrarTerritorio(markerMorado.position.lat(), markerMorado.position.lng());
                 }
             });
 
@@ -1558,11 +1566,13 @@
                         lng: markerMorado.position.lng()
                     };
                     //geocodePosition(pos);
+                    //MostrarTerritorio(markerMorado.position.lat(), markerMorado.position.lng());
                 }
             });
 
             searchBox.addListener('places_changed', function () {
-                //clearMarkers();
+                clearMarkers();
+                clearPoligonos();
                 var places = searchBox.getPlaces();
                 if (places.length == 0) {
                     map.setZoom(15);
@@ -1578,16 +1588,23 @@
                         icon: urlContentImages + 'icono-maps-lbel.png'
                     });
                     markers.push(newMarker);
-                    setMarkerOnMap(map, newMarker);//quitamos los markers del mapa y ponemos solo el seleccionado
-                    pintarMorado(newMarker)//pintamos morado el marker y los demas rojo
+                    newMarker.addListener('mouseover', function () {
+                        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                          place.formatted_address + '</div>');
+                        infowindow.open(map, this);
+                    });
+                    //setMarkerOnMap(map, newMarker);//quitamos los markers del mapa y ponemos solo el seleccionado
+                    //pintarMorado(newMarker)//pintamos morado el marker y los demas rojo
 
                     if (place.geometry.viewport) {
                         bounds.union(place.geometry.viewport);
                     } else {
                         bounds.extend(place.geometry.location);
                     }
+                    MostrarTerritorio(newMarker.position.lat(), newMarker.position.lng());
                     $('#coordenadasX').val(newMarker.position.lat());
                     $('#coordenadasY').val(newMarker.position.lng());
+                    
                 });
                 map.fitBounds(bounds);
                 map.setZoom(18);
@@ -1595,16 +1612,6 @@
         }
     }
 
-    //function deleteMarkers() {
-    //    setMarkerOnMap(null);
-    //    markers = [];
-    //}
-
-    //function setMarkerNullOnMap() {
-    //    for (var i = 0; i < markers.length; i++) {
-    //        markers[i].setMap(null);
-    //    }
-    //}
     function pintarRojo() {
         for (var i = 0; i < markers.length; i++) {
             markers[i].setIcon(urlContentImages + 'icono-maps-esika.png');
@@ -1617,6 +1624,18 @@
             { markers[i].setIcon(urlContentImages + 'icono-maps-lbel.png'); }
             else
             { markers[i].setIcon(urlContentImages + 'icono-maps-esika.png'); }
+        }
+    }
+
+    function clearMarkerMenosSeleccionado(marcador) {
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].position.lat() == marcador.position.lat() && markers[i].position.lng() == marcador.position.lng())
+            {  }
+            else
+            {
+                //delete markers[i];
+                markers.splice(i, 1);
+            }
         }
     }
 
@@ -1650,20 +1669,19 @@
             var infowindow = new google.maps.InfoWindow();
             //searchBox
             var searchBox = new google.maps.places.SearchBox(document.getElementById('inputSearchBox'));
-
+            var nombreIcono = 'icono-maps-lbel.png';
+            @*@if (Model.Puntos.Count > 1)
+            {
+                <text>  nombreIcono = 'icono-maps-esika.png'; </text>
+            }
+            else
+            {
+                <text>  nombreIcono = 'icono-maps-lbel.png'; </text>
+            }*@
             // Markers
             @for (var i = 0; i < Model.Puntos.Count; i++)
                     {
-                        <text>var nombreIcono = 'icono-maps-lbel.png';</text>
-                        var numeroPuntos = Model.Puntos.Count;
-                        if (numeroPuntos > 1 || (numeroPuntos == 1 && Model.FuenteIngreso == "MovilSE"))
-                        {
-                          <text>  nombreIcono = 'icono-maps-esika.png'; </text>
-                        }
-                        else
-                        {
-                          <text>  nombreIcono = 'icono-maps-lbel.png'; </text>
-                        }
+                        
                         var punto = Model.Puntos[i];
                         <text>
             marker = new google.maps.Marker({
@@ -1674,12 +1692,13 @@
             });
             marker.addListener('click', function () {
                 //Change the marker icon
-                pintarRojo();
+                //pintarRojo();
                 setMarkerOnMap(map, this);
+                clearMarkerMenosSeleccionado(this)
                 this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                 MostrarTerritorio(this.position.lat(), this.position.lng());
+
             });
-            @*var DireccionVentana = @(string.IsNullOrEmpty(Model.Item3)?punto.Item3:Model.Direccion)*@
             @if(!string.IsNullOrEmpty(punto.Item3))
             {
                 <text>
@@ -1687,8 +1706,6 @@
 
                     infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
                     infowindow.open(map, this);
-                
-                //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                 });
                 </text>
             }
@@ -1762,7 +1779,7 @@
 
             //evento searchBox changed
             google.maps.event.addListener(searchBox, 'places_changed', function () {
-                //clearMarkers();
+                clearMarkers();
                 var places = searchBox.getPlaces();
                 if (places.length == 0) {
                     map.setZoom(15);
@@ -1798,6 +1815,7 @@
                         //bounds.extend(place.geometry.location);
                         markerBounds.extend(place.geometry.location);
                     }
+                    MostrarTerritorio(marker.position.lat(), marker.position.lng());
                     $('#coordenadasX').val(marker.position.lat());
                     $('#coordenadasY').val(marker.position.lng());
                 });
@@ -1809,52 +1827,73 @@
 
             map.addListener('dragstart', function () {
                 //   searchBox.setBounds(map.getBounds());
-                var markerMorado = GetMarkerMorado();
-                if (markerMorado) {
-                //    alert('Para arrastrar el mapa primero debe seleccionar un punto');
-                //    return;
+                if (markers.length > 1) {
+                    var mapOldPositionCenter = this.getCenter();
+                    //GLOBAL.startDragPositionCenter = mapOldPositionCenter;
                 }
-                var mapOldPositionCenter = this.getCenter();
-                GLOBAL.startDragPositionCenter = mapOldPositionCenter;
+                else {
+                    var markerMorado = GetMarkerMorado();
+                    if (markerMorado) {
+                        //    alert('Para arrastrar el mapa primero debe seleccionar un punto');
+                        //    return;
+                    }
+                }
+                
+                
             });
 
             map.addListener('drag', function () {
                 //   searchBox.setBounds(map.getBounds());
                 var markerMorado = GetMarkerMorado();
-                if (markerMorado) {
-                    markerMorado.setPosition(map.getCenter());
-                    $('#coordenadasX').val(markerMorado.position.lat());
-                    $('#coordenadasY').val(markerMorado.position.lng());
-                    var pos = {
-                        lat: markerMorado.position.lat(),
-                        lng: markerMorado.position.lng()
+                if (markers.length > 1) {
+                    //var mapNewPositionCenter = this.getCenter();
+                    //GLOBAL.endDragPositionCenter = mapNewPositionCenter;
+                    //GLOBAL.endDragPositionCenter.lat = mapNewPositionCenter.lat() - GLOBAL.startDragPositionCenter.lat();
+                    //GLOBAL.endDragPositionCenter.lng = mapNewPositionCenter.lng() - GLOBAL.startDragPositionCenter.lng();
+                    //for (var i = 0; i < markers.length; i++) {
+                    //    //markers[i].position.lat = 
+                    //    markers[i].setPosition(GLOBAL.endDragPositionCenter);
+                    //}
+                    
+                }
+                else {
+                    if (markerMorado) {
+                        markerMorado.setPosition(map.getCenter());
+                        $('#coordenadasX').val(markerMorado.position.lat());
+                        $('#coordenadasY').val(markerMorado.position.lng());
+                        var pos = {
+                            lat: markerMorado.position.lat(),
+                            lng: markerMorado.position.lng()
 
-                    };
-                    //geocodePosition(pos);
+                        };
+                        //geocodePosition(pos);
+                    }
                 }
 
             });
             map.addListener('dragend', function () {
                 // searchBox.setBounds(map.getBounds());
-                var mapNewPositionCenter = this.getCenter();
-                var markerMorado = GetMarkerMorado();
-                if (markerMorado) {
-                    markerMorado.setPosition(map.getCenter());
-                    $('#coordenadasX').val(markerMorado.position.lat());
-                    $('#coordenadasY').val(markerMorado.position.lng());
-                    var pos = {
-                        lat: markerMorado.position.lat(),
-                        lng: markerMorado.position.lng()
-                    };
-                    //geocodePosition(pos);
-                } else
-                {
-                    if (markers.length > 1)
-                    {
-                        var DiffPosition = mapNewPositionCenter - GLOBAL.startDragPositionCenter;
-                        for (var i = 0; i < markers.length; i++) {
-                            markers[i].setPosition(markers[i].position + DiffPosition);
-                        }
+                if (markers.length > 1) {
+                    //var mapNewPositionCenter = this.getCenter();
+                    //GLOBAL.endDragPositionCenter = mapNewPositionCenter;
+                    //GLOBAL.endDragPositionCenter.lat = mapNewPositionCenter.lat() - GLOBAL.startDragPositionCenter.lat();
+                    //GLOBAL.endDragPositionCenter.lng = mapNewPositionCenter.lng() - GLOBAL.startDragPositionCenter.lng();
+                    //for (var i = 0; i < markers.length; i++) {
+                    //    //markers[i].position.lat = 
+                    //    markers[i].setPosition(GLOBAL.endDragPositionCenter);
+                    //}
+                }
+                else {
+                    var markerMorado = GetMarkerMorado();
+                    if (markerMorado) {
+                        markerMorado.setPosition(map.getCenter());
+                        $('#coordenadasX').val(markerMorado.position.lat());
+                        $('#coordenadasY').val(markerMorado.position.lng());
+                        var pos = {
+                            lat: markerMorado.position.lat(),
+                            lng: markerMorado.position.lng()
+                        };
+                        //geocodePosition(pos);
                     }
                 }
             });

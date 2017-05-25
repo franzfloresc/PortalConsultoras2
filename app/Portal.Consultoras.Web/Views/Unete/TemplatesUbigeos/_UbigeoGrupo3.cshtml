@@ -170,9 +170,6 @@
 @Html.HiddenFor(m => Model.NombreLugarNivel5)
 @Html.HiddenFor(m => Model.ContaValorNivel3)
 
-@*@Html.HiddenFor(m => Model.CalleOAvenida)
-    @Html.HiddenFor(m => Model.Referencia)
-    @Html.HiddenFor(m => Model.CodigoPostal)*@
 
 <script>
     $.validator.unobtrusive.parse('form');
@@ -238,8 +235,8 @@
             $('#btnActualizarSeccion').attr('disabled', false);
             HabilitarDatosDireccion(0);
         }
-        else {
-            return;}
+        //else {
+        //    return;}
     });
 
     $('#btnCancelarEdicion').click(function () {
