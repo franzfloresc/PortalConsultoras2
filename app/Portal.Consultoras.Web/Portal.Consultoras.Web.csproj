@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F8B9B37B-8270-4602-B70C-4EDB2986A28B}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Portal.Consultoras.Web</RootNamespace>
@@ -263,6 +263,7 @@
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
+    <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
@@ -3984,6 +3985,7 @@
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
+    <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
