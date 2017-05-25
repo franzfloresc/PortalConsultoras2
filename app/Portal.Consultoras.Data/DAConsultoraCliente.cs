@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Data
                         ConsultoraID = GetDataValue<long>(reader, "ConsultoraID"),
                         ClienteID = GetDataValue<long>(reader, "ClienteID"),
                         Favorito = GetDataValue<short>(reader, "Favorito"),
+                        TipoContactoFavorito = GetDataValue<short>(reader, "TipoContactoFavorito"),
 
                         AnotacionID = GetDataValue<long>(reader, "AnotacionID"),
                         Descripcion = GetDataValue<string>(reader, "Descripcion")
@@ -82,6 +83,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraCliente.ConsultoraID);
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, consultoraCliente.ClienteID);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, consultoraCliente.Favorito);
+            Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, consultoraCliente.TipoContactoFavorito);
 
             return Convert.ToInt64(Context.ExecuteScalar(command));
         }
@@ -195,54 +197,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@AnotacionID", DbType.Int64, AnotacionID);
 
             return Context.ExecuteNonQuery(command) > 0;
-        }
-        #endregion
-
-        #region TelefonoFavorito
-        public bool InsertTelefonoFavorito(BETelefonoFavorito telefonoFavorito)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.InsertTelefonoFavorito");
-
-            Context.Database.AddInParameter(command, "@ConsultoraClienteID", DbType.Int64, telefonoFavorito.ConsultoraClienteID);
-            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, telefonoFavorito.TipoContactoID);
-
-            return Context.ExecuteNonQuery(command) > 0;
-        }
-
-        public bool DeleteTelefonoFavorito(BETelefonoFavorito telefonoFavorito)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.DeleteTelefonoFavorito");
-
-            Context.Database.AddInParameter(command, "@ConsultoraClienteID", DbType.Int64, telefonoFavorito.ConsultoraClienteID);
-            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, telefonoFavorito.TipoContactoID);
-
-            return Context.ExecuteNonQuery(command) > 0;
-        }
-
-        public List<BETelefonoFavorito> GetTelefonoFavorito(long ConsultoraID)
-        {
-            var list = new List<BETelefonoFavorito>();
-
-            DbCommand command = Context.Database.GetStoredProcCommand("Cliente.GetTelefonoFavorito");
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
-
-            using (var reader = Context.ExecuteReader(command))
-            {
-                while (reader.Read())
-                {
-                    var entity = new BETelefonoFavorito
-                    {
-                        TelefonoFavoritoID = GetDataValue<long>(reader, "TelefonoFavoritoID"),
-                        ConsultoraClienteID = GetDataValue<long>(reader, "ConsultoraClienteID"),
-                        TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
-                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
-                    };
-
-                    list.Add(entity);
-                }
-            }
-
-            return list;
         }
         #endregion
     }

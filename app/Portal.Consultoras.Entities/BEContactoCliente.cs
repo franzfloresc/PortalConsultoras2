@@ -31,8 +31,5 @@ namespace Portal.Consultoras.Entities
                 _Estado = value;
             }
         }
-
-        [DataMember]
-        public short Favorito { get; set; }
     }
 }
