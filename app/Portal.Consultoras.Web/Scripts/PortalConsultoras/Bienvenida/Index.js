@@ -118,6 +118,10 @@ $(document).ready(function () {
             if ($('#PopShowroomIntriga').is(':visible')) {
                 PopupCerrar('PopShowroomIntriga');
             }
+
+            if ($('#PopRDSuscripcion').is(':visible')) {
+                PopupCerrar('PopRDSuscripcion');
+            }
             
         }
     };
@@ -175,7 +179,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    debugger;
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -218,6 +222,10 @@ $(document).ready(function () {
 
         case popupComunicado:
             ObtenerComunicadosPopup();
+            break;
+
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
             break;
     }
 
@@ -776,58 +784,6 @@ function CambiarTonoTalla(ddlTonoTalla) {
     $(ddlTonoTalla).parents('#divTonosTallas').find('.nombre_producto').html('<b>' + $("option:selected", ddlTonoTalla).attr("desc-talla") + '</b>');
     $(ddlTonoTalla).parents('#divTonosTallas').find('.producto_precio_oferta').html('<b>' + viewBagSimbolo + " " + $("option:selected", ddlTonoTalla).attr("desc-precio") + '</b>'); //2024
 };
-function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return true;
-        }
-    }
-    */
-    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-    var restringido = true;
-
-    $.ajaxSetup({ cache: false });
-    jQuery.ajax({
-        type: 'GET',
-        url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (!checkTimeout(data)) {
-                return false;
-            }
-
-            if (data.success == false) {
-                restringido = false;
-                return false;
-            }
-
-            if (data.pedidoReservado) {
-                var fnRedireccionar = function () {
-                    waitingDialog({});
-                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
-                }
-                if (mostrarAlerta == true) {
-                    closeWaitingDialog();
-                    AbrirMensaje(data.message);
-                }
-                else fnRedireccionar();
-            }
-            else if (mostrarAlerta == true)
-                AbrirMensaje(data.message);
-        },
-        error: function (data, error) {
-            //console.log(error);
-            if (checkTimeout(data)) {
-                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
-        }
-    });
-    return restringido;
-}
 
 function alert_unidadesAgregadas(message, exito) {
     if (exito == 1) {
@@ -2843,6 +2799,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
@@ -3303,8 +3260,11 @@ function PopupMostrar(idPopup) {
     if (id == "") return false;
 
     $(id).attr("data-popup-activo", "1");
-    if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
-        $("#fondoComunPopUp").show();
+    var padreComun = $(id).parent().attr("id");
+    if (padreComun == "fondoComunPopUp") {
+        if ($("#fondoComunPopUp").attr("data-activo-salvavidas") != "1") {
+            $("#fondoComunPopUp").show();
+        }
     }
 
     $(id).show();
@@ -3314,11 +3274,19 @@ function PopupCerrar(idPopup) {
     if (typeof (idPopup) == "string")
         id = "#" + idPopup;
 
-    if (id == "") return false;
+    var obj = "";
+    if (id == "") {
+        obj = $(idPopup);
+    }
+    else {
+        obj = $(id);
+    }
 
-    $(id).attr("data-popup-activo", "0");
+    if (obj == "") return false;
 
-    $(id).hide();
+    $(obj).attr("data-popup-activo", "0");
+
+    $(obj).hide();
     if ($("#fondoComunPopUp >div[data-popup-activo='1']").length == 0) {
         $("#fondoComunPopUp").hide();
     }

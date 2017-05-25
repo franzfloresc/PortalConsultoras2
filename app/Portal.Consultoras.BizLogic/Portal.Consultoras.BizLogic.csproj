@@ -87,6 +87,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLCuponConsultora.cs" />
+    <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
@@ -202,6 +204,7 @@
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

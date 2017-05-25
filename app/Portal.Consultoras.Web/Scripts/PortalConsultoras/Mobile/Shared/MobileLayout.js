@@ -177,8 +177,6 @@ $(function () {
         }
     }
 
-    //setTimeout(LayoutHeader, 300);
-
     $(".bannersi").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
@@ -271,9 +269,7 @@ $(function () {
         });
 
     });
-
-    LayoutHeader();
-
+    
 });
 
 function loadBannerLP20() {
@@ -334,17 +330,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    messageInfo(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                messageInfo(data.message);
+                AbrirMensaje(data.message);
             }
         },
         error: function (error) {
             console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
 
