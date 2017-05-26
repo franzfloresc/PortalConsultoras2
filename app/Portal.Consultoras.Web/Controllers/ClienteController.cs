@@ -50,7 +50,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Mapper.CreateMap<ClienteModel, BECliente>()
                     .ForMember(t => t.ClienteID, f => f.MapFrom(c => c.ClienteID))
                     .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
 
                 BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
                 //string x = "sdasda";
@@ -118,7 +120,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Mapper.CreateMap<ClienteModel, BECliente>()
                     .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+                    .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
 
                 BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
 

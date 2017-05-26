@@ -53,6 +53,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, cliente.eMail);
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
             Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);//R20150903
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
             
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -67,6 +68,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, cliente.Nombre);
             Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, cliente.eMail);
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
 
             return Context.ExecuteNonQuery(command);
         }

@@ -169,10 +169,14 @@ function ShowDivEditar(obj) {
     var id = $(div).find('.cliente_id').html();
     var nombre = $(div).find('.nombre_cliente_sb').html();
     var correo = $(div).find('.correo_clientes').html();
+    var telefono = $(div).find('.telefonofijo_cliente_sb').html();
+    var celular = $(div).find('.celular_cliente_sb').html();
 
     $('#divEditarCliente').find('#hdeClienteID').val(id);
     $('#divEditarCliente').find('#Nombres2').val(nombre);
     $('#divEditarCliente').find('#Correo2').val(correo);
+    $('#divEditarCliente').find('#Telefono2').val(telefono);
+    $('#divEditarCliente').find('#Celular2').val(celular);
 
     $('#divEditarCliente').show();
 }
@@ -202,7 +206,7 @@ function MantenerCliente(opt) {
         if (jQuery.trim($(div).find('#Telefono').val()) == "" && jQuery.trim($(div).find('#Celular').val()) == "")
         {
             vcont++;
-            $("#divValidationSummary").html("Debes Ingresar al menos un teléfono de contacto");
+            $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
         }
 
         if (jQuery.trim($(div).find('#Correo').val()) != "") {
@@ -218,6 +222,13 @@ function MantenerCliente(opt) {
             //vMessage += "- Debe ingresar el Nombre del Cliente.\n";
             vcont++;
             $('#divNotiNombre2').show();
+        }
+
+
+        $("#divValidationSummary2").html("");
+        if (jQuery.trim($(div).find('#Telefono2').val()) == "" && jQuery.trim($(div).find('#Celular2').val()) == "") {
+            vcont++;
+            $("#divValidationSummary2").html("* Debes Ingresar al menos un teléfono de contacto");
         }
 
         if (jQuery.trim($(div).find('#Correo2').val()) != "") {
@@ -236,23 +247,31 @@ function MantenerCliente(opt) {
     var id = 0;
     var nombre = "";
     var correo = "";
+    var telefono = "";
+    var celular = "";
 
     if (opt == 1) {
         nombre = $(div).find('#Nombres').val();
         correo = $(div).find('#Correo').val();
+        telefono = $(div).find('#Telefono').val();
+        celular = $(div).find('#Celular').val();
     }
 
     if (opt == 2) {
         id = $(div).find('#hdeClienteID').val();
         nombre = $(div).find('#Nombres2').val();
         correo = $(div).find('#Correo2').val();
+        telefono = $(div).find('#Telefono2').val();
+        celular = $(div).find('#Celular2').val();
     }
 
     var item = {
         ClienteID: id,
         Nombre: nombre,
         eMail: correo,
-        FlagValidate: opt
+        FlagValidate: opt,
+        Telefono: telefono,
+        Celular: celular
     };
 
     AbrirSplash();
@@ -356,6 +375,8 @@ function Limpiar() {
     $('#hdeClienteID').val("0");
     $('#Nombres').val("");
     $('#Correo').val("");
+    $('#Telefono').val("");
+    $('#Celular').val("");
     $('#divValidationSummary').html("");
 }
 
