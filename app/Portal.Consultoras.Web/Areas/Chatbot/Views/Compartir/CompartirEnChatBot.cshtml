@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Areas/Chatbot/Views/Shared/_Layout.cshtml";
-    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutEmpty.cshtml";
 }
 @model Portal.Consultoras.Web.Areas.Chatbot.Models.CatalogoCompartirModel
 
@@ -12,7 +11,7 @@
             campania: "@Model.Campania",
             tipoCatalogo: "@Model.TipoCatalogo",
             comp: "@Model.TipoCatalogo",
-            descripcion: "", // descrCat[tipo], //todo:?
+            descripcion: "", // descrCat[tipo],
             estado: "0"
         };
 
@@ -24,9 +23,8 @@
                 'label': catalogo,
                 'value': 0
             });
-            InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
-            //var u = $(btn).parents("[data-cat='" + catalogo + "']").find("#txtUrl" + catalogo).val();
+            InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
             var popWwidth = 570;
             var popHeight = 420;
@@ -35,18 +33,9 @@
             var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlCat;
             window.open(url,
                 'Facebook',
-                "width=" +
-                popWwidth +
-                ",height=" +
-                popHeight +
-                ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" +
-                left +
-                ",top=" +
-                top +
-                "");
+                "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left +",top=" +top +"");
         }
-
-
+        
         function TagManagerWS(catalogo, campaniaCatalogo) {
             dataLayer.push({
                 'event': 'virtualEvent',
@@ -55,6 +44,7 @@
                 'label': catalogo,
                 'value': 0
             });
+
             InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
         }
 
@@ -92,6 +82,5 @@
         <a class="btn_facebook" href="#" data-accion="face" onclick="CompartirFacebook('@Model.TipoCatalogo', '@Model.Campania', this);return false;">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" />
         </a>
-        @*<a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('@Model.TipoCatalogo','@Model.Campania');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>*@
     </div>
 </div>
