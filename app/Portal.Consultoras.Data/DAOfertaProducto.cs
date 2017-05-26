@@ -331,7 +331,7 @@ namespace Portal.Consultoras.Data
             {
                 query.Append("SELECT isnull(IdMatrizComercialImagen, 0) IdMatrizComercialImagen,");
                 query.Append(" IdMatrizComercial, isnull(Foto, '''') Foto, NemoTecnico, FechaRegistro FROM MatrizComercialImagen ");
-                query.Append(String.Format(" WHERE idMatrizComercial = {0} ", idMatrizImagen));
+                query.Append(String.Format(" WHERE (({0} = 0) OR idMatrizComercial = {0}) ", idMatrizImagen));
             }
 
             if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Aproximacion))
@@ -344,15 +344,14 @@ namespace Portal.Consultoras.Data
                     if (countNemotecnico == 0)
                         query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
                     else
-                        query.Append(String.Format(" OR Nemotecnico like '%{0}%' ", nemotecnicoItem));
+                        query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
                     countNemotecnico++;
                 }
             }
             else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
             {
-                query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnico));
+                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnico));
             }
-
 
             query.Append(" ) as T order by FechaRegistro desc");
             query.Append(String.Format(" OFFSET({0} - 1) * {1} ROWS", numeroPagina, registros));

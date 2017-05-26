@@ -5,7 +5,7 @@
         habilitarNemotecnico: config.habilitarNemotecnico || false       
     };
 
-    var _nemotecnico = config.nemotecnico || Nemotecnico({})
+    var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));

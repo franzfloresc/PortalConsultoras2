@@ -1356,18 +1356,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (habilitarNemotecnico)
                             {
+                                List<RptProductoEstrategia> productoEstrategias = new List<RptProductoEstrategia>();
                                 //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
-                                /*using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                                using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb())
                                 {
-                                    nombreSet = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
-                                }*/
+                                    productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), userData.CodigoConsultora, opt.CUV2, userData.PaisID.ToString()).ToList();
+                                }
                                 nemoTecnico = "210080203#01&200083988#02";
 
                                 List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
                                 using (PedidoServiceClient ps = new PedidoServiceClient())
                                 {
-                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, opt.CUV2, null, 0, campaniaId, estrategiaID, nemoTecnico, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
-                                    opt.FotoProducto01 = lstImagenes[0].Foto;
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnico, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
+                                    opt.FotoProducto01 = lstImagenes!=null ? lstImagenes[0].Foto : String.Empty;
                                 }
                             }
 
