@@ -23,6 +23,7 @@
         matrizComercialObj = MatrizComercial({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
+            getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina
         });
 
@@ -44,16 +45,6 @@
                 paisID = $("#ddlPais").val();
                 fnGrilla();
             }
-            else {
-                alert(msjex);
-                return false;
-            }
-        });
-
-        $("#btnBuscarNemotecnico").click(function () {
-            var msjex = "";
-            if ($("#txtNemotecnico").val() === "")
-                msjex += " - Debe ingresar un Nemotecnico .\n";
             else {
                 alert(msjex);
                 return false;
