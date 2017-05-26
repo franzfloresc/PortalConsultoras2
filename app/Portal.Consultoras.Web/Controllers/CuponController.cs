@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActivarCupon();
+                ValidarPopupDelGestorPopups();
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
@@ -203,6 +204,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
+        }
+
+        private void ValidarPopupDelGestorPopups()
+        {
+            if (!IsMobile())
+            {
+                int tipoPopup = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+
+                if (tipoPopup == Constantes.TipoPopUp.Cupon)
+                {
+                    Session["TipoPopUpMostrar"] = null;
+                }
+            }
         }
 
         private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
