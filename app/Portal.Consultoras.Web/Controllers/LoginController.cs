@@ -1645,6 +1645,15 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
                         return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
+                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
+                        return RedirectToAction("CompartirEnChatBot", "Compartir",
+                            new
+                            {
+                                //Area = "Chatbot",
+                                campania = model.Campania,
+                                tipoCatalogo = model.TipoCatalogo,
+                                url = model.UrlCatalogo
+                            });
                 }
             }
             catch (Exception ex)
