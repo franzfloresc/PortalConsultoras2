@@ -169,26 +169,26 @@
     }
 
     var procesarConfirmacion = function () {
-        mostrarPopupConfirmacion();
-        var cuponPromise = actualizarCuponPromise();
+        var model = {
+            eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
+            celular: $(elements.TxtCelular).val().trim()
+        };
+        var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
 
-        cuponPromise.then(function (response) {
+        confirmacionPromise.then(function (response) {
             if (response.success) {
-                obtenerCupon();
-                var model = {
-                    eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
-                    celular: $(elements.TxtCelular).val().trim()
-                };
-                var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
-                confirmacionPromise.then(function (response) {
+                mostrarPopupConfirmacion();
+                var cuponPromise = actualizarCuponPromise();
+
+                cuponPromise.then(function (response) {
                     if (response.success) {
-                        //AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
-                    } else {
-                        AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
+                        obtenerCupon();
                     }
                 }, function (xhr, status, error) { });
+            } else {
+                AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
             }
-        }, function (xhr, status, error) {});
+        }, function (xhr, status, error) { });
     }
 
     var procesarGanaste = function () {
