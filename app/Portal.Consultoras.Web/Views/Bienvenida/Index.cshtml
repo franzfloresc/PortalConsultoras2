@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Common
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.BienvenidaHomeModel
 
 @section styles{
@@ -2383,9 +2384,9 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important">
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar">
     <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" href="javascript: CerrarPopup('#PopRDSuscripcion');">
+        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="" >
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
         <div class="popup_rd_cabecera">
@@ -2406,7 +2407,7 @@
                 <div class="rd_desc" style="top: 120px; left: 124px;">Productos que tus<br>clientes piden</div>
                 <div class="btn_diagonal"><a href="javascript: RDSuscripcion()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
             </div>
-            <div class="popup-textleg">Al inscribirte estás aceptando los <a href="#">Términos y Condiciones.</a></div>
+            <div class="popup-textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a></div>
         </div>
         <div class="rid_text" style="left: 10px">
             <div class="rid_tit">ANTES</div>
@@ -2546,6 +2547,8 @@
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].ToString() ';
+
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;

@@ -78,99 +78,6 @@ END
 
 GO
 
-
-GO
-
--------------------------------------------------------
--- CREAR O ACTUALIZAR UN REGISTRO DE LA REVISTA DIGITAL 
--------------------------------------------------------
-go
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Registro]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
-GO
-
-CREATE PROCEDURE RevistaDigitalSuscripcion_Registro
-(
-	 @CodigoConsultora varchar(20)
-	,@CampaniaID int
-	,@FechaSuscripcion datetime = null
-	,@FechaDesuscripcion datetime = null
-	,@EstadoRegistro int = -1
-	,@EstadoEnvio int = 0
-	,@IsoPais varchar(2) = ''
-	,@CodigoZona varchar(4) = ''
-	,@EMail varchar(100) = ''
-	,@RetornoID int output
-)
-AS
-BEGIN
-	
-	-- este store se considera para Suscripcion y Desuscripcion, cambiar para considerar ambos estados
-
-	set @RetornoID = 0
-	set @FechaSuscripcion = ISNULL(@FechaSuscripcion, GETDATE())
-
-  	INSERT INTO RevistaDigitalSuscripcion
-  	(
-		 CodigoConsultora
-		,CampaniaID
-		,FechaSuscripcion
-		,FechaDesuscripcion
-		,EstadoRegistro
-		,EstadoEnvio
-		,IsoPais
-		,CodigoZona
-		,EMail
-	)
-  	VALUES(
-		 @CodigoConsultora
-		,@CampaniaID
-		,@FechaSuscripcion
-		,@FechaDesuscripcion
-		,@EstadoRegistro
-		,@EstadoEnvio
-		,@IsoPais
-		,@CodigoZona
-		,@EMail
-	)
-
-	set @RetornoID = 1
-  
-END
-GO
-
-------------------------------------------------------------------
--- OBTENER UN REGISTRO DE LA TABLA RevistaDigitalSuscripcion
-------------------------------------------------------------------
-GO
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Single]') AND type in (N'P', N'PC')) 
-	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Single]
-GO
-
-CREATE PROCEDURE RevistaDigitalSuscripcion_Single
-(
-	 @CodigoConsultora varchar(20)
-	,@CampaniaID int
-)
-AS
-BEGIN
-	select top 1
-		 RevistaDigitalSuscripcionID
-		,CodigoConsultora
-		,CampaniaID
-		,FechaSuscripcion
-		,FechaDesuscripcion
-		,EstadoRegistro
-		,EstadoEnvio
-		,IsoPais
-		,CodigoZona
-		,EMail
-	from RevistaDigitalSuscripcion
-	where CodigoConsultora = @CodigoConsultora
-	order by RevistaDigitalSuscripcionID desc
-END
-GO
-
 ------------------------------------------------------------------------------------------------
 -- Menu Revista Digital
 ------------------------------------------------------------------------------------------------
@@ -213,6 +120,8 @@ go
 -- menu mobile
 go
 
+if (select top 1 OrdenItem from MenuMobile where descripcion = 'VENTA EXCLUSIVA WEB') <> 1
+begin
 	update MenuMobile
 	set OrdenItem = 1
 	where Posicion = 'Menu'
@@ -226,7 +135,7 @@ go
 		and MenuPadreID = 0
 		and descripcion != 'VENTA EXCLUSIVA WEB'
 		and EsSB2=1
-
+end
 go
 
 if not exists(select 1 from MenuMobile where Codigo = 'RevistaDigital')
@@ -366,10 +275,13 @@ END
 -- ALTERAR EL ORDEN DE LOS POPUPS (PARA LA CONVIVENCIA CON OTROS POPUPS)
 ------------------------------------------------------------------------
 IF not EXISTS (SELECT * FROM PopupPais where CodigoPopup = 9) 
+begin
 	UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
 	INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
 	VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+end
 GO
+
 
 ----------------------------------------------------------------------------------------------
 -- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA
@@ -393,9 +305,12 @@ CREATE PROCEDURE [dbo].[RevistaDigitalSuscripcion_Registro]
 )
 AS
 BEGIN
+
+	set @EstadoRegistro = case when @EstadoRegistro <= 0 then 1 else @EstadoRegistro end
+
 	-- este store se considera para Suscripcion y Desuscripcion, cambiar para considerar ambos estados
-	set @FechaSuscripcion = ISNULL(@FechaSuscripcion, GETDATE())
-	IF NOT EXISTS(SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora)
+
+	IF NOT EXISTS(SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID)
 	BEGIN
   		INSERT INTO RevistaDigitalSuscripcion(	
 			CodigoConsultora
@@ -411,10 +326,10 @@ BEGIN
   		VALUES(
 			 @CodigoConsultora
 			,@CampaniaID
-			,@FechaSuscripcion
-			,@FechaDesuscripcion
+			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
+			,case when @EstadoRegistro = 2 then dbo.fnObtenerFechaHoraPais() else null end
 			,@EstadoRegistro
-			,@EstadoEnvio
+			,0
 			,@IsoPais
 			,@CodigoZona
 			,@EMail
@@ -424,17 +339,57 @@ BEGIN
 	ELSE
 	BEGIN
 		UPDATE RevistaDigitalSuscripcion 
-		SET CampaniaID = @CampaniaID
-			,FechaSuscripcion = @FechaSuscripcion
-			,FechaDesuscripcion = @FechaDesuscripcion
+		SET  FechaSuscripcion =  case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else FechaSuscripcion end
+			,FechaDesuscripcion = case when @EstadoRegistro = 2  then dbo.fnObtenerFechaHoraPais() else FechaDesuscripcion end
 			,EstadoRegistro = @EstadoRegistro
-			,EstadoEnvio = @EstadoEnvio
 			,IsoPais = @IsoPais
 			,CodigoZona = @CodigoZona
 			,EMail = @EMail
-		WHERE CodigoConsultora = @CodigoConsultora
+		WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID
 		SET @RetornoID = (SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora);
 	END 
 END
 
+GO
+
+------------------------------------------------------------------
+-- OBTENER UN REGISTRO DE LA TABLA RevistaDigitalSuscripcion
+------------------------------------------------------------------
+GO
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[RevistaDigitalSuscripcion_Single]') AND type in (N'P', N'PC')) 
+	DROP PROCEDURE [dbo].[RevistaDigitalSuscripcion_Single]
+GO
+
+CREATE PROCEDURE RevistaDigitalSuscripcion_Single
+(
+	 @CodigoConsultora varchar(20)
+	,@CampaniaID int = 0
+)
+AS
+BEGIN
+
+	declare @CampaniaIDAnt int = 0
+
+	if	@CampaniaID > 0
+		select 
+			@CampaniaIDAnt = dbo.fnAddCampaniaAndNumero(CodigoISO, @CampaniaID, -2) 
+		from Pais where EstadoActivo = 1
+
+	select top 1
+		 RevistaDigitalSuscripcionID
+		,CodigoConsultora
+		,CampaniaID
+		,FechaSuscripcion
+		,FechaDesuscripcion
+		,EstadoRegistro
+		,EstadoEnvio
+		,IsoPais
+		,CodigoZona
+		,EMail
+	from RevistaDigitalSuscripcion
+	where CodigoConsultora = @CodigoConsultora  
+		and	 (CampaniaID <= @CampaniaIDAnt or @CampaniaID = 0)
+	order by CampaniaID desc, RevistaDigitalSuscripcionID desc
+	
+END
 GO

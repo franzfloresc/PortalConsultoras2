@@ -393,6 +393,7 @@
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
+    <Compile Include="Models\ConfirmarPosicionModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\CuponModel.cs" />
@@ -2035,6 +2036,8 @@
     <Content Include="Content\Images\group.svg" />
     <Content Include="Content\Images\icono-campanias.png" />
     <Content Include="Content\Images\icono-excel.png" />
+    <Content Include="Content\Images\icono-maps-esika.png" />
+    <Content Include="Content\Images\icono-maps-lbel.png" />
     <Content Include="Content\Images\icono-pack-documentario.png" />
     <Content Include="Content\Images\icono-percepcion-color.png" />
     <Content Include="Content\Images\icono-percepcion.png" />
@@ -2049,6 +2052,7 @@
     <Content Include="Content\Images\Esika\icono_acordion_desplegado.png" />
     <Content Include="Content\Images\Esika\icono_acordion_sin_desplegar.png" />
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
+    <Content Include="Content\Images\icono_advertencia_notificacion-blanco.svg" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
@@ -2079,6 +2083,7 @@
     <Content Include="Content\Images\img-carrusel1.png" />
     <Content Include="Content\Images\img-historialPostulante.svg" />
     <Content Include="Content\Images\img-carrusel2.png" />
+    <Content Include="Content\Images\img-sinGeo.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
@@ -4006,6 +4011,7 @@
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
+    <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
     <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />

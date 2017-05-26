@@ -24,7 +24,7 @@
 </div>
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
-@if (Model.EstadoAccion > 0)
+@*@if (Model.EstadoAccion > 0)
 {
     <div class="content_tabs_landing">
         <div class="content_tabs_bpt">
@@ -42,8 +42,8 @@
             </ul>
         </div>
     </div>
-}
-<div class="content_tabs_landing" style="display:none;">
+}*@
+@*<div class="content_tabs_landing" style="display:none;">
     <div class="content_tabs_bpt">
         <ul class="tabs_pagos">
             <li class="one">
@@ -68,9 +68,9 @@
         </ul>
     </div>
     <hr class="clear" />
-</div>
+</div>*@
 <hr class="clear" />
-<div id="Vista1" style="display: none;">
+<div id="Vista1" style="display: block;">
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
             <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
@@ -441,17 +441,17 @@
 
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#VerVista1").on("click", function () {
-                $('#Vista1').show();
-                $('#Vista3').hide();
-            });
-            $("#VerVista3").on("click", function () {
-                $('#Vista1').hide();
-                $('#Vista3').show();
-                $('.Vista3').css('padding-top', '105px');
-            });
-        });
+        //$(document).ready(function () {
+        //    $("#VerVista1").on("click", function () {
+        //        $('#Vista1').show();
+        //        $('#Vista3').hide();
+        //    });
+        //    $("#VerVista3").on("click", function () {
+        //        $('#Vista1').hide();
+        //        $('#Vista3').show();
+        //        $('.Vista3').css('padding-top', '105px');
+        //    });
+        //});
     </script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
