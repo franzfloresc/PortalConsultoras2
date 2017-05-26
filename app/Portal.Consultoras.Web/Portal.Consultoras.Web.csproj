@@ -2027,6 +2027,7 @@
     <Content Include="Content\Images\icons\favicon_esika.ico" />
     <Content Include="Content\Images\icons\favicon_lbel.ico" />
     <Content Include="Content\Images\icons\icono_nuevo_correo.png" />
+    <Content Include="Content\Images\icons\icoWarning.png" />
     <Content Include="Content\Images\icons\warning.png" />
     <Content Include="Content\Images\icons\sign-check.png" />
     <Content Include="Content\Images\icons\sign-error.png" />

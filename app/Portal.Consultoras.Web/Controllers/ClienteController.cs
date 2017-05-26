@@ -202,6 +202,12 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Nombre":
                             items = lst.OrderBy(x => x.Nombre);
                             break;
+                        case "Telefono":
+                            items = lst.OrderBy(x => x.Telefono);
+                            break;
+                        case "Celular":
+                            items = lst.OrderBy(x => x.Celular);
+                            break;
                         case "eMail":
                             items = lst.OrderBy(x => x.eMail);
                             break;
@@ -216,6 +222,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         case "Nombre":
                             items = lst.OrderByDescending(x => x.Nombre);
+                            break;
+                        case "Telefono":
+                            items = lst.OrderByDescending(x => x.Telefono);
+                            break;
+                        case "Celular":
+                            items = lst.OrderByDescending(x => x.Celular);
                             break;
                         case "eMail":
                             items = lst.OrderByDescending(x => x.eMail);

@@ -198,6 +198,13 @@ function MantenerCliente(opt) {
             $('#divNotiNombre').show();
         }
 
+        $("#divValidationSummary").html("");
+        if (jQuery.trim($(div).find('#Telefono').val()) == "" && jQuery.trim($(div).find('#Celular').val()) == "")
+        {
+            vcont++;
+            $("#divValidationSummary").html("Debes Ingresar al menos un teléfono de contacto");
+        }
+
         if (jQuery.trim($(div).find('#Correo').val()) != "") {
             if (!validateEmail($(div).find('#Correo').val())) {
                 //vMessage += "- Debe ingresar un correo con la estructura válida.\n";

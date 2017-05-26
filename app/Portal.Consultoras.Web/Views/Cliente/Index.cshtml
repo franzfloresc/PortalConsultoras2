@@ -6,6 +6,19 @@
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
+<style>
+    .clienteMensaje
+    {
+        color:#df3d3d;
+        font-weight:bold;
+        display:table
+    }
+    .clienteMensaje span{
+        vertical-align: middle;
+        display: table-cell;
+        padding-right:5px
+    }
+</style>
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
         <div class="fondo_negro_lateral"></div>
@@ -17,6 +30,11 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <hr class="clear" />
+    <br />
+    <div class="clienteMensaje">
+        <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span> 
+        <span>Tienes hasta el @System.Configuration.ConfigurationManager.AppSettings["FechaCliente"] para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+    </div>
     <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" />
    
     <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
@@ -50,7 +68,10 @@
     <div class="linea_separadora" style="height:2px"></div>
     <!--LISTADO ITEMS-->
     <div class="content_listado_notificaciones">
+        <div class="icono_cliente_sb texto_gris"></div>
         <div class="nombre_cliente_sb texto_gris">Nombres y Apellidos</div>
+        <div class="telefonofijo_cliente_sb texto_gris">Teléfono Fijo</div>
+        <div class="celular_cliente_sb texto_gris">Celular</div>
         <div class="correo_clientes texto_gris">Correo</div>
         <div class="editar_cliente texto_gris">Editar</div>
         <div class="eliminar_cliente texto_gris">Eliminar</div>
@@ -127,6 +148,10 @@
                     </span>
                 </div>
             </div>
+
+            <input type="text" name="telefono" id="Telefono" value="" placeholder="Teléfono Fijo" maxlength="20" class="input_search_form ValidaAlfabeto input-nombre" />
+            <input type="text" name="celular" id="Celular" value="" placeholder="Celular" maxlength="20" class="input_search_form ValidaAlfabeto input-nombre" />
+
             <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo input-correo" />
             <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
                 <div class="noti_message red_texto_size">
@@ -331,7 +356,14 @@
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+        <div class="icono_cliente_sb">
+            {{#if_eq TieneTelefono '0'}}
+                <img src="/Content/Images/icons/icoWarning.png" height="24" />
+            {{/if_eq}}
+        </div>
         <div class="nombre_cliente_sb">{{Nombre}}</div>
+        <div class="telefonofijo_cliente_sb">{{Telefono}}</div>
+        <div class="celular_cliente_sb">{{Celular}}</div>
         <div class="correo_clientes">{{eMail}}</div>
         <div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
         <div class="eliminar_cliente"><a href="#" onclick="ShowDivEliminar('{{ClienteID}}');"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>

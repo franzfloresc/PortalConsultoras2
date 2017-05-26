@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Entities
         private long miConsultoraID;
         private int miClienteID;
         private string msNombre;
+        private string msCelular;
         private string mseMail;
         private bool mbActivo;
         private int miPaisID;
@@ -31,6 +32,8 @@ namespace Portal.Consultoras.Entities
             miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
             miClienteID = Convert.ToInt32(datarec["ClienteID"]);
             msNombre = datarec["Nombre"].ToString();
+            Telefono = datarec["Telefono"].ToString();
+            msCelular = datarec["Celular"].ToString();
             mseMail = datarec["eMail"].ToString();
             mbActivo = Convert.ToBoolean(datarec["Activo"]);
         }
@@ -90,5 +93,29 @@ namespace Portal.Consultoras.Entities
             set;
         }
 
+        [DataMember]
+        public string Celular
+        {
+            get { return msCelular; }
+            set { msCelular = value; }
+        }
+
+        [DataMember]
+        public short TieneTelefono
+        {
+            get
+            {
+                short resultado = 0;
+
+                if (!string.IsNullOrEmpty(Telefono) || !string.IsNullOrEmpty(Celular))
+                    resultado = 1;
+
+                return resultado;
+            }
+            set
+            {
+
+            }
+        }
     }
 }

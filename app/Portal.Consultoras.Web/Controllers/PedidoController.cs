@@ -4118,7 +4118,7 @@ namespace Portal.Consultoras.Web.Controllers
                 /*EPD-1252*/
 
                 //EPD-2248
-                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico indPedidoAutentico = new Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico();
                 indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
