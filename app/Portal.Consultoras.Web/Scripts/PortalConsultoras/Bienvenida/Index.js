@@ -179,7 +179,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-    debugger;
+
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -2789,7 +2789,6 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
-                //debugger;   
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;

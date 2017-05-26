@@ -810,7 +810,6 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-    debugger
     cuvOfertaProl = cuvOfertaProl || "";
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -880,7 +879,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                debugger
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);

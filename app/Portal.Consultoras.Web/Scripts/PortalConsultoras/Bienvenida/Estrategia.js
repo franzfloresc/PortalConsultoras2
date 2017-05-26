@@ -143,15 +143,7 @@ function ArmarCarouselEstrategias(data) {
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
-
-    //var data1 = $('#divListadoEstrategia').find('.nombre_producto');
-    //var nbData = data1.length;
-    //for (var iData = 0; iData < nbData; iData++) {
-    //    if (data1[iData].children[0].innerHTML.length > 40) {
-    //        data1[iData].children[0].innerHTML = data1[iData].children[0].innerHTML.substring(0, 40) + "...";
-    //    }
-    //}
-
+    
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();

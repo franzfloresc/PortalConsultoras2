@@ -539,6 +539,7 @@ namespace Portal.Consultoras.Common
         public class ConfiguracionPais
         {
             public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
         }
 

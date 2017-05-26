@@ -1,14 +1,7 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.ServiceSAC;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -71,11 +64,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.Titulo = userData.UsuarioNombre.ToUpper();
             model.TituloDescripcion = "";
+            string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
             if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
             {
                 model.EstadoAccion = 0;
                 model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                 model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+
+                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                {
+                    model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
+                    model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = "QUÉ ES ESIKA PARA MÍ" });
+                }
+
                 return model;
             }
 
@@ -87,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return model;
             }
 
-            string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
             model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
 
             if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
