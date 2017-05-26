@@ -1328,7 +1328,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID)
+        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID, bool habilitarNemotecnico)
         {
             try
             {
@@ -1344,6 +1344,8 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
+                        string nemoTecnico = String.Empty;
+                        string nombreSet = String.Empty;
                         try
                         {
                             using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
@@ -1351,6 +1353,24 @@ namespace Portal.Consultoras.Web.Controllers
                                 svs.Url = ConfigurarUrlServiceProl();
                                 precioOferta = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
                             }
+
+                            if (habilitarNemotecnico)
+                            {
+                                //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
+                                /*using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
+                                {
+                                    nombreSet = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
+                                }*/
+                                nemoTecnico = "210080203#01&200083988#02";
+
+                                List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
+                                using (PedidoServiceClient ps = new PedidoServiceClient())
+                                {
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, opt.CUV2, null, 0, campaniaId, estrategiaID, nemoTecnico, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
+                                    opt.FotoProducto01 = lstImagenes[0].Foto;
+                                }
+                            }
+
                         }
                         catch (Exception ex)
                         {

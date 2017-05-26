@@ -578,7 +578,15 @@
                     }
                 }
             });
+
+            $.getJSON(baseUrl + 'MatrizComercial/ObtenerISOPais', { paisID: Id }, function (data) {
+                closeWaitingDialog();
+                estrategiaObj.actualizarParNemotecnico(data.habilitarNemotecnico);
+            });
+           
         });
+               
+        
         $("#linkAlcance").click(function () {
             var strZonas = $("#hdZonas").val();
             if (strZonas != "") {
@@ -823,7 +831,8 @@
             var params = {
                 campaniaId: parseInt($("#ddlCampania").val()),
                 tipoConfigurado: 2,
-                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
+                estrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
+                habilitarNemotecnico: estrategiaObj.habilitarNemotecnico
             };
 
             waitingDialog({});
