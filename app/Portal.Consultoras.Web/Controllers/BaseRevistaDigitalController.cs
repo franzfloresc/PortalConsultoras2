@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.Titulo = userData.UsuarioNombre.ToUpper();
             model.TituloDescripcion = "";
-            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
             {
                 model.EstadoAccion = 0;
                 model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
