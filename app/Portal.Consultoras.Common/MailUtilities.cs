@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Common
         public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta)
         {
             string codigoCampania = campaniaActual.Substring(4, 2);
-            var textoGanaste = (tipoOferta.Equals("MONTO") ? ("GANASTE TU DSCTO DE " + simbolo + " " + monto) : "GANASTE TU DSCTO DE " + Convert.ToInt32(monto) + " %");
+            var textoGanaste = (tipoOferta.Equals("MONTO") ? ("GANASTE TU DSCTO DE " + simbolo + " " + monto) : "GANASTE TU DSCTO DE " + Convert.ToInt32(monto) + "%");
 
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.Append("<html>");
@@ -264,7 +264,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</div>");
             sBuilder.Append("</div>");
             sBuilder.Append("<div style=\"padding-top: 20px; background: #fff; padding-bottom: 20px;\" > ");
-            sBuilder.Append("<a style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px;\">INGRESA A SOMOSBELCORP</a>");
+            sBuilder.Append("<a href=\"https://www.somosbelcorp.com/Bienvenida\" style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
             sBuilder.Append("</div>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
@@ -312,7 +312,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<tr><td colspan=\"2\" style=\"height: 6px;\"></td></tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td style=\"text-align:center; width: 49%; border-right:1px solid #000; padding-right: 13px;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\"><a href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
             sBuilder.Append("</td>");
             sBuilder.Append("<td style=\"text-align:center; width: 49%;\">");
             sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">");

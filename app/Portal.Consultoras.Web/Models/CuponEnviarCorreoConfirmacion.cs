@@ -6,7 +6,6 @@ namespace Portal.Consultoras.Web.Models
     {
         [Required]
         public string EMailNuevo { get; set; }
-        [Required]
         public string Celular { get; set; }
     }
 }

@@ -131,7 +131,7 @@ function ArmarCarouselEstrategias(data) {
             ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
             : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
-    SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
+    SetHandlebars("#template-estrategia-header", obj, '#contenedor_template_estrategia_cabecera');
     $('#divListaEstrategias').show();
     SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
     
