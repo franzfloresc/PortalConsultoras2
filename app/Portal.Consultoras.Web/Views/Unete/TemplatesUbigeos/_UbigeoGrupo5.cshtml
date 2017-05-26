@@ -106,7 +106,7 @@
     </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
-    <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
+    <label style="margin-bottom:0px;">@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "direccionPrincipal", @placeholder = " Ejm: Av. Castellana 100" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
