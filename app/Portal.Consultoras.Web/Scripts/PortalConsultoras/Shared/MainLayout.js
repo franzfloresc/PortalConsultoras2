@@ -75,8 +75,11 @@ $(document).ready(function () {
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-
             if ($(e.target).is(':visible')) {
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                if (functionHide != "") {
+                    setTimeout(functionHide + "()", 100);
+                }
                 CerrarPopup(e.target);
             }
         }
@@ -87,7 +90,7 @@ $(document).ready(function () {
 
             if ($(e.target).is(':visible')) {
 
-                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
                 if (functionHide != "") {
                     setTimeout(functionHide + "()", 100);
                 }

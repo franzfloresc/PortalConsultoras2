@@ -26,12 +26,13 @@ namespace Portal.Consultoras.Web.Models
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public bool IsMobile { get; set; }
-        
+
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }
         public List<BETablaLogicaDatos> FiltersByPublished { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnteriorModel { get; set; }
         public List<EstrategiaPedidoModel> ListaProducto { get; set; }
     }
 }

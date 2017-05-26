@@ -300,5 +300,30 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpGet]
+        public JsonResult PopupCerrar()
+        {
+            try
+            {
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                SetUserData(userData);
+                Session["TipoPopUpMostrar"] = null;
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

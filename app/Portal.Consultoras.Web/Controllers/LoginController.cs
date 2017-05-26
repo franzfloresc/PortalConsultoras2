@@ -868,6 +868,21 @@ namespace Portal.Consultoras.Web.Controllers
                                     foreach (var c in model.ConfiguracionPais)
                                     {
                                         model.RevistaDigital.EstadoSuscripcion = 0;
+
+                                        if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
+                                        {
+                                            var rdEntidad = new BERevistaDigitalSuscripcion();
+                                            rdEntidad.PaisID = model.PaisID;
+                                            rdEntidad.CodigoConsultora = model.CodigoConsultora;
+                                            rdEntidad.CampaniaID = model.CampaniaID;
+                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                            {
+                                                rdEntidad = sv1.RDGetSuscripcion(rdEntidad) ?? new BERevistaDigitalSuscripcion();
+                                            }
+                                            model.RevistaDigital.SuscripcionAnteriorModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rdEntidad);
+
+                                        }
+
                                         // model.FechaFinCampania; fecha de fin de  la campaña
                                         // model.ConsultoraNueva; referencia de la columna idestadoactividad 
                                         // Validacion de la fecha de cierre de campaña y  del idestadoactividad

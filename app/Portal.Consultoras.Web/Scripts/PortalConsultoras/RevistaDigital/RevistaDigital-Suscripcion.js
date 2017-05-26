@@ -4,6 +4,24 @@ $(document).ready(function () {
     $("[data-campania2]").html(campaniaNro + 2);
 });
 
+function RDPopupCerrar() {
+    AbrirLoad();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'RevistaDigital/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+            CerrarPopup("#PopRDSuscripcion");
+        },
+        error: function (data, error) {
+            CerrarLoad();
+            CerrarPopup("#PopRDSuscripcion");
+        }
+    });
+}
+
 function RDSuscripcion() {
     AbrirLoad();
     $.ajax({
@@ -57,5 +75,5 @@ function RDInformacion() {
 function RDSuscripcionRedireccionar() {
     var url = urlRevistaDigital;
     window.location = url;
-        //CerrarPopup("#PopRDInscrita");
+    //CerrarPopup("#PopRDInscrita");
 }
