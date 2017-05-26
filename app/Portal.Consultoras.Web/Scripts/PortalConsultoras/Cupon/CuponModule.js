@@ -452,14 +452,14 @@
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + " " + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     }
                 }
                 else {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + simbolo + " " + valor + "</b>";
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b>";
                     } else {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + valor + simbolo + "</b>";
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b>";
                     }
                 }
 
