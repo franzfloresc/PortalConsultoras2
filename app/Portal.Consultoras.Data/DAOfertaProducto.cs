@@ -1,14 +1,12 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using OpenSource.Library.DataAccess;
-using static Portal.Consultoras.Common.Constantes;
+using System.Text;
 
 namespace Portal.Consultoras.Data
 {
@@ -336,7 +334,7 @@ namespace Portal.Consultoras.Data
                 query.Append(String.Format(" WHERE idMatrizComercial = {0} ", idMatrizImagen));
             }
 
-            if (tipoBusqueda.Equals(TipoBusqueda.Aproximacion))
+            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Aproximacion))
             {
                 String[] nemotecnicoItems = nemotecnico.Split('&');
                 int countNemotecnico = 0;
@@ -349,7 +347,8 @@ namespace Portal.Consultoras.Data
                         query.Append(String.Format(" OR Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
                     countNemotecnico++;
                 }
-            } else if (tipoBusqueda.Equals(TipoBusqueda.Exacta))
+            }
+            else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
             {
                 query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnico));
             }
