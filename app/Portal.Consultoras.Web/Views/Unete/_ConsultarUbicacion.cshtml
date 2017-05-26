@@ -644,7 +644,7 @@
                 <span>
                     Celular: <b>@Model.Celular</b>
                 </span>
-                <span class="texto-rojo">
+                <span id="spMalaZonificacion" class="texto-rojo">
                     Zona Rechaz&oacute;: <b>@Model.ZonaSeccionRechazo</b>
                 </span>
             </div>
@@ -700,13 +700,13 @@
                 <img src="@Url.Content("~/Content/Images/img-sinGeo.png")" alt="Sin Geo" />
             </div>
             <div class="contenedor_coordenadasYRegion">
-                <div class="campos_CoordenadasXY">
+                <div id ="divLatLng" class="campos_CoordenadasXY">
                     <label>X/Y</label>
                     <input type="text" id="coordenadasX" name="coordenadasX" value="@Model.Latitud" />
                     <input type="text" id="coordenadasY" name="coordenadasY" value="@Model.Longitud" />
                 </div>
                 <div class="campos_regionZonaSeccion">
-                    <label>Regi&oacute;n/Zona/Secci&oacute;n</label>
+                    <label id="spRegZonaSec">Regi&oacute;n/Zona/Secci&oacute;n</label>
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
                     <button type="button" id="btnGrabarPosicion">Grabar Posici&oacute;n</button>
@@ -957,12 +957,14 @@
 
 <script>
 
-    var defaultOption = '<option value="" >SELECCIONE</option>';
+    var defaultOption = '<option value="" >Seleccione</option>';
 
 
     $(function () {
 
         $(document).ready(function () {
+
+            $('#spMalaZonificacion').hide();
             $.validator.unobtrusive.parse('form');
             $.validator.unobtrusive.parse('form0');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
@@ -1004,6 +1006,9 @@
 
             $('#DivSinGEO').hide();
             $('#DivConGEO').hide();
+            $('#spRegZonaSec').hide();
+            $('#divLatLng').hide();
+            $('#regionXY').hide();
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').hide();
             $('#coordenadasX').prop('readonly', true);
@@ -1033,7 +1038,7 @@
                            })
                        .complete(function () {
                            nivel2.attr('disabled', false);
-                           if (nivel1.val() == '0') {
+                           if (nivel1.val() == '') {
                                nivel2.html(defaultOption);
                            }
                        });
@@ -1062,7 +1067,7 @@
                             })
                         .complete(function () {
                             nivel3.attr('disabled', false);
-                            if (nivel2.val() == '0') {
+                            if (nivel2.val() == '') {
                                 nivel3.html(defaultOption);
                             }
                         });
@@ -1085,7 +1090,7 @@
                                 nivel4.html(defaultOption);
                                 if (data.length == 0) {
                                     $('#ContaValorNivel3').val('0');
-                                    nivel4.val('0');
+                                    nivel4.val('');
                                     div.hide();
                                 }
                                 else {
@@ -1099,7 +1104,7 @@
                             })
                         .complete(function () {
                             nivel4.attr('disabled', false);
-                            if (nivel3.val() == '0') {
+                            if (nivel3.val() == '') {
                                 nivel4.html(defaultOption);
 
                             }
@@ -1128,7 +1133,7 @@
                         })
                     .complete(function () {
                         nivel5.attr('disabled', false);
-                        if (nivel3.val() == '0') {
+                        if (nivel3.val() == '') {
                             nivel5.html(defaultOption);
 
                         }
@@ -1178,6 +1183,9 @@
         <text>$('#btnAceptar').hide();</text>
         <text>$('#DivSinGEO').show();</text>
         <text>$('#DivConGEO').hide();</text>
+        <text>$('#spRegZonaSec').hide();</text>
+        <text>$('#DivLatLng').hide();</text>
+        <text>$('#regionXY').hide();</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
         if (Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.CostaRica || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Panama || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Salvador || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Guatemala)
@@ -1272,6 +1280,9 @@
     $('#btnEditarPosicion').click(function () {
         $('#DivSinGEO').hide();
         $('#DivConGEO').show();
+        $('#spRegZonaSec').show();
+        $('#divLatLng').show();
+        $('#regionXY').show();
         $('#mapa').addClass('height_100');
         $('#btnEditarPosicion').hide();
         $('#btnGrabarPosicion').show();
@@ -1478,7 +1489,7 @@
                     }
                     
                     //$('mensaje_territorio').show();
-                    alert('No se encontraron vertices');
+                    //alert('No se encontraron vertices');
                 }
 
                 //no quitar altura del mapa
@@ -1538,10 +1549,13 @@
 
                     marker.addListener('click', function () {
                         //Change the marker icon
-                        pintarRojo();
+                        //pintarRojo();
+                        //setMarkerOnMap(map, this);
+                        //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                         setMarkerOnMap(map, this);
+                        clearMarkerMenosSeleccionado(this)
                         this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-                        
+                        MostrarTerritorio(this.position.lat(), this.position.lng());
                     });
 
                     map.setZoom(18);
@@ -1952,7 +1966,7 @@
 
     setTimeout(function () {
         $('.button_purple').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
-    }, 10);
+    }, 8);
 
 
     //# sourceURL===_CargarMapa.cshtml

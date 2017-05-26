@@ -189,6 +189,13 @@
 <script>
     $.validator.unobtrusive.parse('form');
 
+    $(document).ready(function () {
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>").val('');
+    });
+
     $('#btnGrabarDireccion').hide();
     $('#btnCancelarEdicion').hide();
     $('#btnModificarDireccion').show();
@@ -229,14 +236,6 @@
     });
 
     $('#btnGrabarDireccion').click(function () {
-        if ($('#LugarNivel1').val() == '0')
-        { $('#LugarNivel1').val(''); }
-        if ($('#LugarNivel2').val() == '0')
-        { $('#LugarNivel2').val(''); }
-        if ($('#LugarNivel3').val() == '0')
-        { $('#LugarNivel3').val(''); }
-        if ($('#LugarNivel4').val() == '0')
-        { $('#LugarNivel4').val(''); }
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
