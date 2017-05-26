@@ -1006,9 +1006,6 @@
 
             $('#DivSinGEO').hide();
             $('#DivConGEO').hide();
-            $('#spRegZonaSec').hide();
-            $('#divLatLng').hide();
-            $('#regionXY').hide();
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').hide();
             $('#coordenadasX').prop('readonly', true);
@@ -1184,7 +1181,7 @@
         <text>$('#DivSinGEO').show();</text>
         <text>$('#DivConGEO').hide();</text>
         <text>$('#spRegZonaSec').hide();</text>
-        <text>$('#DivLatLng').hide();</text>
+        <text>$('#divLatLng').hide();</text>
         <text>$('#regionXY').hide();</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
@@ -1553,7 +1550,7 @@
                         //setMarkerOnMap(map, this);
                         //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                         setMarkerOnMap(map, this);
-                        clearMarkerMenosSeleccionado(this)
+                        clearMarkerMenosSeleccionado(this);
                         this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                         MostrarTerritorio(this.position.lat(), this.position.lng());
                     });
@@ -1703,6 +1700,9 @@
 		        <text>
             $('#DivSinGEO').hide();
             $('#DivConGEO').show();
+            $('#spRegZonaSec').show();
+            $('#divLatLng').show();
+            $('#regionXY').show();
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').show();
             map = new google.maps.Map(document.getElementById('mapa'), {
@@ -1938,6 +1938,7 @@
                             lng: markerMorado.position.lng()
                         };
                         //geocodePosition(pos);
+                        MostrarTerritorio(markerMorado.position.lat(), markerMorado.position.lng());
                     }
                 }
             });
