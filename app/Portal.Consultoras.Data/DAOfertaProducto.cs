@@ -343,9 +343,7 @@ namespace Portal.Consultoras.Data
                 {
                     if (countNemotecnico == 0)
                         query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
-                        //query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
                     else
-                        //query.Append(String.Format(" OR Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
                         query.Append(String.Format(" OR Nemotecnico like '%{0}%' ", nemotecnicoItem));
                     countNemotecnico++;
                 }
