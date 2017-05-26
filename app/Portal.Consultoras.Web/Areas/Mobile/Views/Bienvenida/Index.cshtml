@@ -324,7 +324,7 @@
     <div class="row contenedorCupon" id="">
         <div class="label_cupon contenedorCuponConocelo">
             <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
-            <div class="texto_cupon">Tienes un descuento exclusivo para ti, 
+            <div class="texto_cupon">Tienes un dscto exclusivo para ti, 
             <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
         </div>
         <div class="label_cupon contenedorCuponInfo">
@@ -1080,6 +1080,8 @@
                 var esEmailActivo = '@Model.EmailActivo';
                 var paisISO = '@ViewBag.paisISO';
                 var viewBagAmbiente = '@ViewBag.Ambiente';
+                var correo = '@Model.EMail';
+                var celular = '@Model.Celular';
             </script>
 
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>

@@ -65,6 +65,11 @@
         Ambiente: '',
         TieneCupon: false
     };
+
+    var userModel = {
+        celular: '',
+        correo: ''
+    };
     
     var inizializer = function (parameters) {
         setting.TieneCupon = (parameters.tieneCupon == CONS_CUPON.MOSTRAR_CUPON);
@@ -75,6 +80,8 @@
         setting.CampaniaActual = parameters.campaniaActual;
         setting.PaisISO = parameters.paisISO;
         setting.Ambiente = parameters.ambiente;
+        userModel.correo = parameters.correo;
+        userModel.celular = parameters.celular;
         setDefaultValues();
         mostrarContenedorCuponPorPagina();
         bindEvents();
@@ -86,7 +93,8 @@
     }
 
     var bindEvents = function () {
-        $("div#chckTerminosCondiciones").click(function () {
+
+        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
         });
 
@@ -110,12 +118,7 @@
             var correoOriginal = $(elements.HdCorreoOriginal).val().trim();
             var celular = $(elements.TxtCelular).val().trim();
 
-            if (!aceptoTerCond) {
-                AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
-                return false;
-            }
-
-            if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular)) {
+            if (confirmarDatosEsValido(correoOriginal, correoIngresado, celular, aceptoTerCond)) {
                 if (correoIngresado == correoOriginal) {
                     validarEstadoEmail();
                 } else {
@@ -166,26 +169,26 @@
     }
 
     var procesarConfirmacion = function () {
-        mostrarPopupConfirmacion();
-        var cuponPromise = actualizarCuponPromise();
+        var model = {
+            eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
+            celular: $(elements.TxtCelular).val().trim()
+        };
+        var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
 
-        cuponPromise.then(function (response) {
+        confirmacionPromise.then(function (response) {
             if (response.success) {
-                obtenerCupon();
-                var model = {
-                    eMailNuevo: $(elements.TxtCorreoIngresado).val().trim(),
-                    celular: $(elements.TxtCelular).val().trim()
-                };
-                var confirmacionPromise = enviarCorreoConfirmacionEmailPromise(model);
-                confirmacionPromise.then(function (response) {
+                mostrarPopupConfirmacion();
+                var cuponPromise = actualizarCuponPromise();
+
+                cuponPromise.then(function (response) {
                     if (response.success) {
-                        //AbrirMensaje(response.message, "CORREO DE CONFIRMACIÓN");
-                    } else {
-                        AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
+                        obtenerCupon();
                     }
                 }, function (xhr, status, error) { });
+            } else {
+                AbrirMensaje(response.message, "MENSAJE DE VALIDACIÓN");
             }
-        }, function (xhr, status, error) {});
+        }, function (xhr, status, error) { });
     }
 
     var procesarGanaste = function () {
@@ -215,13 +218,16 @@
     var procesarGana = function () {
         var simbolo = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.SimboloMoneda : "%");
         var valor = (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO ? setting.Cupon.FormatoValorAsociado : parseInt(setting.Cupon.FormatoValorAsociado));
+        $(elements.TxtCorreoIngresado).val(userModel.correo);
+        $(elements.TxtCelular).val(userModel.celular);
+        $("div#chckTerminosCondiciones").addClass('check_intriga');
 
         $(elements.ContenedorTituloGana).empty();
 
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
             $(elements.ContenedorTituloGana).append("<span class='tipo_moneda'>" + simbolo + "</span> " + valor);
         } else {
-            $(elements.ContenedorTituloGana).append(valor + " <span class='tipo_moneda'>" + simbolo + "</span> ");
+            $(elements.ContenedorTituloGana).append(valor + "<span class='tipo_moneda'>" + simbolo + "</span> ");
         }
 
         mostrarPopupGana();
@@ -373,13 +379,17 @@
         return d.promise();
     }
 
-    var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular) {
+    var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
         if (emailOriginal == "") {
             AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
             return false;
         }
         if (emailIngresado == "") {
             AbrirMensaje("Debe ingresar su correo", "VALIDACIÓN");
+            return false;
+        }
+        if (!aceptoTerCond) {
+            AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
             return false;
         }
         //if (celular == "") {
@@ -398,7 +408,7 @@
         if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
             $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + simbolo + " " + valor + "!");
         } else {
-            $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + valor + " " + simbolo + "!");
+            $(elements.ContenedorTituloGanaste).append("¡GANASTE TU CUPÓN DE DSCTO DE " + valor + simbolo + "!");
         }
         
         $(elements.ContenedorTexto02Ganaste).empty();
@@ -440,16 +450,16 @@
             if (response.success) {
                 if (response.tieneOfertasPlan20) {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     } else {
-                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + " " + simbolo + " ES VÁLIDO</b>!<br>Lo verás reflejado en tu facturación!";
+                        mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + valor + simbolo + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
                     }
                 }
                 else {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + simbolo + " " + valor + "</b>";
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b>";
                     } else {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu de dscto de " + valor + " " + simbolo + "</b>";
+                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b>";
                     }
                 }
 
@@ -473,7 +483,8 @@
                         $(this).append(mensaje);
                         $(this).show();
                     }
-                    camiarImagenPorGif($(this));
+                    if (response.tieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
+                    else { cambiarGifPorImagen($(this)); }
                 });
 
                 $(elements.ContenedorCuponConocelo).hide();
@@ -486,7 +497,7 @@
         $(elements.ContenedorCuponConocelo).show();
     }
 
-    var camiarImagenPorGif = function (contenedor) {
+    var cambiarImagenPorGif = function (contenedor) {
 
         if ($(contenedor).find('img').length > 0) {
             var backImg = $(contenedor).find('img').attr('src');
@@ -496,6 +507,19 @@
         }
         var backImg = $(contenedor).css('background-image');
         var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+        $(contenedor).css('background-image', nuevoBackImg);
+    }
+
+    var cambiarGifPorImagen = function (contenedor) {
+
+        if ($(contenedor).find('img').length > 0) {
+            var backImg = $(contenedor).find('img').attr('src');
+            var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
+            $(contenedor).find('img').attr('src', nuevoBackImg);
+            return;
+        }
+        var backImg = $(contenedor).css('background-image');
+        var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
         $(contenedor).css('background-image', nuevoBackImg);
     }
 
