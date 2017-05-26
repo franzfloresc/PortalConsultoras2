@@ -2734,7 +2734,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion(), esFacturacion);
+                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 int cantidadTotal = listaProductos.Count;
 
                 listaFinal = listaProductos;

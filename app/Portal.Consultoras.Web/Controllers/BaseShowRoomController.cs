@@ -245,11 +245,19 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
-        public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool tienePersonalizacion = false, bool esFacturacion = false)
+        public bool TienePersonalizacion()
+        {
+            var showRoomEvento = userData.BeShowRoom;
+            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
+            return tienePersonalizacion;
+        }
+
+        public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
             //var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
             var listaShowRoomOfertaFinal = new List<BEShowRoomOferta>();
+            var tienePersonalizacion = TienePersonalizacion();
 
             var listaDetalle = ObtenerPedidoWebDetalle();
 
