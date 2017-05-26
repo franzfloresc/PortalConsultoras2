@@ -307,7 +307,7 @@ namespace Portal.Consultoras.Data
             if (!String.IsNullOrEmpty(cuv2))
             {
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0) IdMatrizComercialImagen, ");
-                query.Append("mci.IdMatrizComercial, isnull(mci.Foto, '''') Foto, mci.FechaRegistro ");
+                query.Append("mci.IdMatrizComercial, isnull(mci.Foto, '''') Foto, mci.NemoTecnico, mci.FechaRegistro ");
                 query.Append("FROM dbo.Estrategia e ");
                 query.Append("INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv ");
                 query.Append("INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto ");
@@ -322,7 +322,7 @@ namespace Portal.Consultoras.Data
             else if (!String.IsNullOrEmpty(codigoSAP))
             {
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
-                query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.FechaRegistro FROM MatrizComercial mc ");
+                query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
                 query.Append("inner join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
                 query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
                 query.Append(String.Format("where pc.CodigoProducto = {0}", codigoSAP));
@@ -330,7 +330,7 @@ namespace Portal.Consultoras.Data
             else
             {
                 query.Append("SELECT isnull(IdMatrizComercialImagen, 0) IdMatrizComercialImagen,");
-                query.Append(" IdMatrizComercial, isnull(Foto, '''') Foto, FechaRegistro FROM MatrizComercialImagen ");
+                query.Append(" IdMatrizComercial, isnull(Foto, '''') Foto, NemoTecnico, FechaRegistro FROM MatrizComercialImagen ");
                 query.Append(String.Format(" WHERE idMatrizComercial = {0} ", idMatrizImagen));
             }
 
@@ -342,9 +342,11 @@ namespace Portal.Consultoras.Data
                 foreach (String nemotecnicoItem in nemotecnicoItems)
                 {
                     if (countNemotecnico == 0)
-                        query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
+                        query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
+                        //query.Append(String.Format(" AND Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
                     else
-                        query.Append(String.Format(" OR Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
+                        //query.Append(String.Format(" OR Nemotecnico like ''%'' + {0}  + ''%'' ", nemotecnicoItem));
+                        query.Append(String.Format(" OR Nemotecnico like '%{0}%' ", nemotecnicoItem));
                     countNemotecnico++;
                 }
             }
@@ -356,10 +358,10 @@ namespace Portal.Consultoras.Data
 
             query.Append(" ) as T order by FechaRegistro desc");
             query.Append(String.Format(" OFFSET({0} - 1) * {1} ROWS", numeroPagina, registros));
-            query.Append(String.Format(" FETCH NEXT {1} ROWS ONLY; ", registros));
+            query.Append(String.Format(" FETCH NEXT {0} ROWS ONLY; ", registros));
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByNemotecnico");
-            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.Int32, query);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, query.ToString());
 
             return Context.ExecuteReader(command);
         }

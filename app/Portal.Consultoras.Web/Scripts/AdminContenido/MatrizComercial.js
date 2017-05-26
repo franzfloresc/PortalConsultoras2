@@ -1,4 +1,4 @@
-﻿//depende de Paginador.js y MatrizComercialFileUpload.js
+﻿//depende de Paginador.js, Nemotecnico.js y MatrizComercialFileUpload.js
 var MatrizComercial = function (config) {
 
     var _config = {
@@ -15,6 +15,8 @@ var MatrizComercial = function (config) {
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
+
+    var _nemotecnico = Nemotecnico({ expresionValidacion: /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g });
 
     var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
 
@@ -110,8 +112,7 @@ var MatrizComercial = function (config) {
 
     var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
         var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: $('#txtBusquedaNemotecnico').val(), pagina: pagina };
-        //return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
-        return $.post(_config.getImagesByNemotecnico, params);
+        return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
     var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
