@@ -31,6 +31,8 @@ namespace Portal.Consultoras.BizLogic
         EscalaDescuento,
         ParametriaOfertaFinal,
         MotivoSolicitud,
+        Producto,
+        PalabraInvalida,
         ProductoPalabra
     }
 
@@ -50,6 +52,10 @@ namespace Portal.Consultoras.BizLogic
         public static void AddData(ECacheItem cacheItem, IList<T> value)
         {
             AddData(0, cacheItem, string.Empty, value);
+        }
+        public static void AddData(ECacheItem cacheItem, IList<T> value, TimeSpan timeCache)
+        {
+            AddData(0, cacheItem, string.Empty, value, timeCache);
         }
         public static void AddData(int paisID, ECacheItem cacheItem, IList<T> value)
         {
