@@ -539,6 +539,7 @@
 
         public class EstadoRDSuscripcion
         {
+            public const int SinRegistroDB = 0;
             public const int Activo = 1;
             public const int Desactivo = 2;
             public const int NoPopUp = 3;

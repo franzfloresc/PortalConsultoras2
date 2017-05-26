@@ -3,7 +3,7 @@ USE [BelcorpChile]
 
 GO
 
-CREATE PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
+ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CampaniaID INT,
 	@ConsultoraID VARCHAR(30),
 	@CUV VARCHAR(20),
