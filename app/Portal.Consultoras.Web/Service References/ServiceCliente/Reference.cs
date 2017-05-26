@@ -32,6 +32,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int ClienteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CodigoClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -97,6 +100,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ClienteIDField.Equals(value) != true)) {
                     this.ClienteIDField = value;
                     this.RaisePropertyChanged("ClienteID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CodigoCliente {
+            get {
+                return this.CodigoClienteField;
+            }
+            set {
+                if ((this.CodigoClienteField.Equals(value) != true)) {
+                    this.CodigoClienteField = value;
+                    this.RaisePropertyChanged("CodigoCliente");
                 }
             }
         }
@@ -2267,6 +2283,83 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEClienteResponse", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEClienteResponse : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long CodigoClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeRespuestaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long CodigoCliente {
+            get {
+                return this.CodigoClienteField;
+            }
+            set {
+                if ((this.CodigoClienteField.Equals(value) != true)) {
+                    this.CodigoClienteField = value;
+                    this.RaisePropertyChanged("CodigoCliente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoRespuesta {
+            get {
+                return this.CodigoRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoRespuestaField, value) != true)) {
+                    this.CodigoRespuestaField = value;
+                    this.RaisePropertyChanged("CodigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeRespuesta {
+            get {
+                return this.MensajeRespuestaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeRespuestaField, value) != true)) {
+                    this.MensajeRespuestaField = value;
+                    this.RaisePropertyChanged("MensajeRespuesta");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceCliente.IClienteService")]
     public interface IClienteService {
@@ -2378,6 +2471,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/InsCatalogoCampania", ReplyAction="http://tempuri.org/IClienteService/InsCatalogoCampaniaResponse")]
         System.Threading.Tasks.Task InsCatalogoCampaniaAsync(int paisID, string CodigoConsultora, int CampaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/Save", ReplyAction="http://tempuri.org/IClienteService/SaveResponse")]
+        Portal.Consultoras.Web.ServiceCliente.BEClienteResponse[] Save(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente[] clientes);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/Save", ReplyAction="http://tempuri.org/IClienteService/SaveResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteResponse[]> SaveAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente[] clientes);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2549,6 +2648,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task InsCatalogoCampaniaAsync(int paisID, string CodigoConsultora, int CampaniaID) {
             return base.Channel.InsCatalogoCampaniaAsync(paisID, CodigoConsultora, CampaniaID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCliente.BEClienteResponse[] Save(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente[] clientes) {
+            return base.Channel.Save(paisID, clientes);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BEClienteResponse[]> SaveAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente[] clientes) {
+            return base.Channel.SaveAsync(paisID, clientes);
         }
     }
 }

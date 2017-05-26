@@ -14,17 +14,21 @@ namespace Portal.Consultoras.Entities
         private long miConsultoraID;
         private int miClienteID;
         private string msNombre;
+        private string msTelefono;
         private string msCelular;
         private string mseMail;
         private bool mbActivo;
         private int miPaisID;
         private int mPagina;
+        private long mCodigoCliente;
 
 
         public BECliente()
         {
             msNombre = string.Empty;
             mseMail = string.Empty;
+            msTelefono = string.Empty;
+            msCelular = string.Empty;
         }
 
         public BECliente(IDataRecord datarec)
@@ -32,10 +36,13 @@ namespace Portal.Consultoras.Entities
             miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
             miClienteID = Convert.ToInt32(datarec["ClienteID"]);
             msNombre = datarec["Nombre"].ToString();
-            Telefono = datarec["Telefono"].ToString();
+            msTelefono = datarec["Telefono"].ToString();
             msCelular = datarec["Celular"].ToString();
             mseMail = datarec["eMail"].ToString();
             mbActivo = Convert.ToBoolean(datarec["Activo"]);
+
+            if (datarec["CodigoCliente"]!= DBNull.Value)
+                mCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
         }
 
         [DataMember]
@@ -89,8 +96,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Telefono
         {
-            get;
-            set;
+            get { return msTelefono; }
+            set { msTelefono = value; }
         }
 
         [DataMember]
@@ -116,6 +123,13 @@ namespace Portal.Consultoras.Entities
             {
 
             }
+        }
+
+        [DataMember]
+        public long CodigoCliente
+        {
+            get { return mCodigoCliente; }
+            set { mCodigoCliente = value; }
         }
     }
 }

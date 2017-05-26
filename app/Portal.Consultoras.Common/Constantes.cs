@@ -508,6 +508,111 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
+        public class ClienteTipoContacto
+        {
+            public const short Celular = 1;
+            public const short TelefonoFijo = 2;
+            public const short Correo = 3;
+            public const short Direccion = 4;
+            public const short Referencia = 5;
+        }
+
+        public class ClienteCelularValidacion
+        {
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"MX", @"(\d)\1{5,}"},
+                        {"CO", @"^(?:(3)[0-9]{9}|)$"},
+                        {"CL", @"^(?:(9)[0-9]{8}|)$"},
+                        {"PE", @"^(?:(9)[0-9]{8}|)$"},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                        {"GT", @"^[0-9]{8}$"},
+                        {"SV", @"^[0-9]{8}$"},
+                        {"PA", @"^[0-9]{8}$"},
+                        {"CR", @"^[0-9]{8}$"},
+                    });
+                }
+            }
+        }
+
+        public class ClienteTelefonoValidacion
+        {
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"MX", @"(\d)\1{5,}"},
+                        {"PE", @"^(?:[0-9]{7,9}|)$"},
+                        {"CO", @"^(?:[0-9]{7}|)$"},
+                        {"GT", @"^(?:[0-9]{8}|)$"},
+                        {"SV", @"^(?:[0-9]{8}|)$"},
+                        {"PA", @"^(?:[0-9]{8}|)$"},
+                        {"CR", @"^(?:[0-9]{8}|)$"},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                    });
+                }
+            }
+        }
+
+        public class ClienteValidacion
+        {
+            private static Dictionary<string, string> _Message;
+
+            public class Code
+            {
+                public const string SUCCESS = "0";
+                public const string ERROR_FORMATOTELCELULAR = "1";
+                public const string ERROR_FORMATOTELFIJO = "2";
+                public const string ERROR_NOMBRENOENVIADO = "3";
+                public const string ERROR_NUMEROTELEFONONOENVIADO = "4";
+                public const string ERROR_FORMATOCORREO = "5";
+                
+                //public const string ERROR_CLIENTENOREGISTRADO = "2";
+                //public const string ERROR_CLIENTENOACTUALIZADO = "3";
+                //public const string ERROR_NUMEROTELEFONOEXISTE = "4";
+                //public const string ERROR_ORIGENNOENVIADO = "6";
+                //public const string ERROR_CONTACTOSNOENVIADO = "7";
+                //public const string ERROR_TIPOCONTACTONOENVIADO = "8";
+                //public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
+                //public const string ERROR_CONSULTORATELEFONOEXISTE = "12";
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
+                        {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
+                        {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
+                        {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente debe tener un teléfono de contacto."},
+                        {Code.ERROR_FORMATOCORREO, "Formato de correo incorrecto."},
+
+                        //{Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
+                        //{Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
+                        //{Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
+                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},
+                        //{Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
+                        //{Code.ERROR_TIPOCONTACTONOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
+                        //{Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
+                        //{Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
+                    });
+                }
+            }
+        }
     }
 }
 

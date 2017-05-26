@@ -67,5 +67,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+        [OperationContract]
+        List<BEClienteResponse> Save(int paisID, List<BECliente> clientes);
     }
 }
