@@ -24,7 +24,6 @@
 
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
-        //_crearObjetoUpload(itemData, editData);
         var params = _obtenerParamsFileUpload(itemData, editData);
         _matrizFileUploader.crearFileUpload(params);
         $("#file-upload .qq-upload-button span").text("Nueva Imagen");
@@ -40,25 +39,6 @@
             onComplete: _uploadComplete
         }
     };
-
-    //var _crearObjetoUpload = function (itemData, editData) {
-    //    var uploader = new qq.FileUploader({
-    //        allowedExtensions: ['jpg', 'png', 'jpeg'],
-    //        element: document.getElementById(itemData.elementId),
-    //        action: _config.actualizarMatrizComercialAction,
-    //        params: {
-    //            IdMatrizComercial: editData.IdMatrizComercial,
-    //            IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
-    //            CodigoSAP: editData.CodigoSAP,
-    //            Foto: itemData.foto,
-    //            PaisID: editData.paisID
-    //        },
-    //        onComplete: _uploadComplete,
-    //        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-    //        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-    //        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-    //    });
-    //};
 
     var _uploadComplete = function (id, fileName, response) {
         if (checkTimeout(response)) {
