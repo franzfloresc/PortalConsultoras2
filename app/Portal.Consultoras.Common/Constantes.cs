@@ -584,6 +584,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
                 public const string ERROR_FORMATOTELCELULAR = "10";
                 public const string ERROR_FORMATOTELFIJO = "11";
+                public const string ERROR_CONSULTORATELEFONOEXISTE = "12";
             }
 
             public static Dictionary<string, string> Message
@@ -596,7 +597,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente no tiene un número de teléfono."},
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya existe."},
+                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
                         {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
                         {Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},
                         {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
@@ -604,6 +605,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
                         {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
                         {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
                     });
                 }
             }
