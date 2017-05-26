@@ -33722,9 +33722,22 @@ h1#penmostreo .campana {
     color:black;
     padding-bottom:4px;
 }
-.termino_condiciones_intriga, .termino_condiciones_cupon {
+.termino_condiciones_intriga {
     position: relative;
     padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 22px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 90%;
+    color:#494949;
+    text-align: left;
+}
+.termino_condiciones_cupon {
+    position: relative;
+    padding-left: 18px;
+}
+.contenedor_termino_condiciones_cupon {
     margin: 0 auto;
     margin-top: 22px;
     font-family: 'Lato';
@@ -34894,8 +34907,8 @@ h1#penmostreo .campana {
     padding-left:10%;
     padding-top:8px;
     background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
-    background-size:45px 19px;
-   background-position: 23% 16px;
+    background-size: 20%;
+    background-position: 21% 9px;
 }
 .contenedor_cupon::after{
     position:absolute;
@@ -34918,8 +34931,8 @@ h1#penmostreo .campana {
     width: 94%;
     height: 44px;
     background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
-    background-size:45px 19px;
-    background-position: 23px 12px;
+    background-size: 22%;
+    background-position: 19px 6px;
     position: relative;
     font-family: 'Lato';
     font-size:12px;
@@ -34956,18 +34969,18 @@ h1#penmostreo .campana {
 .icono_cupon_monto{
     display: block !important;
     float: left;
-    width:85px;
-    height:40px;
-    font-family:'LAto';
-    font-size:12px;
+    width: 85px;
+    height: 40px;
+    font-family: 'LAto';
+    font-size: 12px;
     background: black;
-    position:relative;
+    position: relative;
     text-align: right;
     padding-right: 13px;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 .icono_cupon_monto img{
-    width:63%;
+    width: 87%;
 }
 .icono_cupon_monto::before{
     content:'';

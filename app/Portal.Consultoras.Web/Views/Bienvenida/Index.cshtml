@@ -250,24 +250,14 @@
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div id="" class="contenedorCupon">
         <div id="" class="contenedorCuponConocelo contenedor_cupon" style="display: none;">
-            Tienes un descuento exclusivo para ti, <br />
+            Tienes un dscto exclusivo para ti, <br />
             <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
         </div>
         <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
             Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
         </div>
     </div>
-    <div class="content_belcorp" style="text-align:center;">
-        <div class="titulo_ofertas_home">
-            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-            <div class="texto_exclusivo">
-                EXCLUSIVAS S&Oacute;LO POR WEB
-            </div>
-        </div>
-        <div class="linea_titulo_absoluto"></div>
-        <hr class="clear" />
-        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia"></div>
-    </div>
+    <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -2570,6 +2560,8 @@
         var baseUrl = "@Url.Content("~")";
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

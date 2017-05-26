@@ -10952,7 +10952,7 @@ a{
     text-align:center;
     margin-top:15px;
 }
-.termino_condiciones_intriga, .termino_condiciones_cupon{
+.termino_condiciones_intriga {
     position:relative;
     padding-left:18px;
     margin:0 auto;
@@ -10960,7 +10960,19 @@ a{
     font-family:'Lato';
     font-size:10.5px;
     width:248px;    
-   text-align: left;
+    text-align: left;
+}
+.termino_condiciones_cupon {
+    position: relative;
+    padding-left: 18px;
+}
+.contenedor_termino_condiciones_cupon {
+    margin:0 auto;
+    margin-top:20px;
+    font-family:'Lato';
+    font-size:10.5px;
+    width:248px;    
+    text-align: left;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
@@ -12054,7 +12066,7 @@ a{
     position:relative;
 }
 .icono_label{
-    width:54px;
+    width:66px;
     display:inline-block;
     vertical-align:middle;
 }
@@ -12067,8 +12079,9 @@ a{
     color:white;
     font-family:'Lato';
     line-height: 16px;
-    padding-left:12px;
+    /*padding-left:12px;*/
     font-size:12.5px;
+    text-align:left;
 }
 .texto_cupon_black{
     color:black;
@@ -12100,14 +12113,14 @@ a{
 	margin-left: -13px;
 }
 .icono_pedido_cupon{
-    width:73px;
-    height:44px;
-    background:black;
-    text-align:center;
-    padding-top:10px;
-    position:relative;
-    padding-left:5px;
-    float:left;
+   width: 85px;
+    height: 44px;
+    background: black;
+    text-align: center;
+    padding-top: 7px;
+    position: relative;
+    padding-left: 5px;
+    float: left;
 }
 .icono_pedido_cupon img{
     width:80%;
