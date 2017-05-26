@@ -844,6 +844,9 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region ConfiguracionPais
+
+                        model.RevistaDigital.NoVolverMostrar = true;
+
                         model.ConfiguracionPais = model.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
                         if (!model.ConfiguracionPais.Any())
                         {
@@ -862,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     var listaConfigPais = sv.GetConfiguracionPais(config);
                                     model.ConfiguracionPais = Mapper.Map<IList<BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
                                 }
-
+                                
                                 if (model.ConfiguracionPais.Any())
                                 {
                                     foreach (var c in model.ConfiguracionPais)
@@ -880,7 +883,6 @@ namespace Portal.Consultoras.Web.Controllers
                                                 rdEntidad = sv1.RDGetSuscripcion(rdEntidad) ?? new BERevistaDigitalSuscripcion();
                                             }
                                             model.RevistaDigital.SuscripcionAnteriorModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rdEntidad);
-
                                         }
 
                                         // model.FechaFinCampania; fecha de fin de  la campaña
@@ -917,19 +919,9 @@ namespace Portal.Consultoras.Web.Controllers
                                                 model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
                                             }
                                         }
-                                        else
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = true;
-                                        }
                                     }
 
                                 }
-                                else
-                                {
-                                    model.RevistaDigital.NoVolverMostrar = true;
-                                    model.RevistaDigital.EstadoSuscripcion = 0;
-                                }
-
                             }
                             catch (Exception)
                             {
