@@ -483,7 +483,8 @@
                         $(this).append(mensaje);
                         $(this).show();
                     }
-                    camiarImagenPorGif($(this));
+                    if (response.tieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
+                    else { cambiarGifPorImagen($(this)); }
                 });
 
                 $(elements.ContenedorCuponConocelo).hide();
@@ -496,7 +497,7 @@
         $(elements.ContenedorCuponConocelo).show();
     }
 
-    var camiarImagenPorGif = function (contenedor) {
+    var cambiarImagenPorGif = function (contenedor) {
 
         if ($(contenedor).find('img').length > 0) {
             var backImg = $(contenedor).find('img').attr('src');
@@ -506,6 +507,19 @@
         }
         var backImg = $(contenedor).css('background-image');
         var nuevoBackImg = backImg.replace('icono_cupon.png', 'cupon_gif_negro.gif');
+        $(contenedor).css('background-image', nuevoBackImg);
+    }
+
+    var cambiarGifPorImagen = function (contenedor) {
+
+        if ($(contenedor).find('img').length > 0) {
+            var backImg = $(contenedor).find('img').attr('src');
+            var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
+            $(contenedor).find('img').attr('src', nuevoBackImg);
+            return;
+        }
+        var backImg = $(contenedor).css('background-image');
+        var nuevoBackImg = backImg.replace('cupon_gif_negro.gif', 'icono_cupon.png');
         $(contenedor).css('background-image', nuevoBackImg);
     }
 
