@@ -5,7 +5,7 @@
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         getFiltrarEstrategiaAction: config.getFiltrarEstrategiaAction || '',
         uploadAction: config.uploadAction || '',
-        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction,
+        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction || '',
         habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 
@@ -272,6 +272,7 @@
             marcarCheckRegistro(_editData.imagen);
         };
     };
+
     var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
         var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, codigoSAP: data.CodigoSAP, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
         return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
@@ -352,14 +353,17 @@
         else $('#div-revista-digital').hide();
 
     };
+
     var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
         $("#nombre-" + nombreCampo).val("");
         $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
     };
+
     var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
         $("#nombre-" + nombreCampo).val(valor);
         $("#src-" + nombreCampo).attr("src", urlS3 + valor);
     };
+
     var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
@@ -498,6 +502,12 @@
         }
     }
 
+    var _actualizarParNemotecnico = function (val) {
+        _config.habilitarNemotecnico = val;
+        _matrizFileUploader.actualizarParNemotecnico(val);
+    };
+
+
     return {
         editar: function (id, event) {
             event.preventDefault();
@@ -566,6 +576,8 @@
                 });
             }
             return false;
-        }
+        },
+        actualizarParNemotecnico: _actualizarParNemotecnico,
+        habilitarNemotecnico: _config.habilitarNemotecnico
     }
 };
