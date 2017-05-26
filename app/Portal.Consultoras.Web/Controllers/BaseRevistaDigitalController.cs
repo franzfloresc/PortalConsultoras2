@@ -68,21 +68,17 @@ namespace Portal.Consultoras.Web.Controllers
             model = model ?? new RevistaDigitalModel();
             model.EstadoAccion = -1;
             model.ListaTabs = new List<ComunModel>();
-            //if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != 1)
-            //{
-            //    return model;
-            //}
 
-            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            model.Titulo = userData.UsuarioNombre.ToUpper();
+            model.TituloDescripcion = "";
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
             {
                 model.EstadoAccion = 0;
-                model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                 model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
                 return model;
             }
 
-            model.Titulo = userData.UsuarioNombre.ToUpper();
-            model.TituloDescripcion = "";
             if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
             {
                 model.EstadoAccion = 0;

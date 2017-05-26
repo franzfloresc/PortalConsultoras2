@@ -1,17 +1,17 @@
 ﻿
 $(document).ready(function () {
 
-    $("#Vista1").hide();
-    $("#Vista3").hide();
-    if (estadoAccion == 0) {
-        $("#Vista1").hide();
-        $("#Vista3").show();
-        return;
-    }
-    else {
-        $("#Vista1").show();
-        $("#Vista3").hide();
-    }
+    //$("#Vista1").hide();
+    //$("#Vista3").hide();
+    //if (estadoAccion == 0) {
+    //    $("#Vista1").hide();
+    //    $("#Vista3").show();
+    //    return;
+    //}
+    //else {
+    //    $("#Vista1").show();
+    //    $("#Vista3").hide();
+    //}
 
     $('#divCarruselLan').slick({
         vertical: false,
