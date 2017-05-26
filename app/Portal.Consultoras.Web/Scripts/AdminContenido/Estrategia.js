@@ -5,7 +5,8 @@
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         getFiltrarEstrategiaAction: config.getFiltrarEstrategiaAction || '',
         uploadAction: config.uploadAction || '',
-        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction
+        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction,
+        habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 
     var _editData = {};
@@ -19,42 +20,52 @@
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
 
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, habilitarNemotecnico: _config.habilitarNemotecnico });
+
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
-        _crearObjetoUpload(itemData, editData);
+        //_crearObjetoUpload(itemData, editData);
+        var params = _obtenerParamsFileUpload(itemData, editData);
+        _matrizFileUploader.crearFileUpload(params);
         $("#file-upload .qq-upload-button span").text("Nueva Imagen");
     };
 
-    var _crearObjetoUpload = function (itemData, editData) {
-        var uploader = new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
-            element: document.getElementById(itemData.elementId),
-            action: _config.actualizarMatrizComercialAction,
-            params: {
-                IdMatrizComercial: editData.IdMatrizComercial,
-                IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
-                CodigoSAP: editData.CodigoSAP,
-                Foto: itemData.foto,
-                PaisID: editData.paisID
-            },
-            onComplete: _uploadComplete,
-            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-        });
+    var _obtenerParamsFileUpload = function (itemData, editData) {
+        return {
+            elementId: itemData.elementId,
+            idMatrizComercial: editData.IdMatrizComercial,
+            idImagenMatriz: itemData.idImagenMatriz,
+            paisID: editData.paisID,
+            codigoSAP: editData.CodigoSAP,
+            onComplete: _uploadComplete
+        }
     };
+
+    //var _crearObjetoUpload = function (itemData, editData) {
+    //    var uploader = new qq.FileUploader({
+    //        allowedExtensions: ['jpg', 'png', 'jpeg'],
+    //        element: document.getElementById(itemData.elementId),
+    //        action: _config.actualizarMatrizComercialAction,
+    //        params: {
+    //            IdMatrizComercial: editData.IdMatrizComercial,
+    //            IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
+    //            CodigoSAP: editData.CodigoSAP,
+    //            Foto: itemData.foto,
+    //            PaisID: editData.paisID
+    //        },
+    //        onComplete: _uploadComplete,
+    //        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+    //        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+    //        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+    //    });
+    //};
 
     var _uploadComplete = function (id, fileName, response) {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
                 _editData.IdMatrizComercial = response.idMatrizComercial;
-                if (response.isNewRecord) {
-                    //$('#list').trigger('reloadGrid');//refrescar la grilla con id generado
-                    //regenerar el file-upload-add para que use el id generado
-                    //$("#file-upload-add").empty();
-                    //_crearFileUploadAdd(_editData);
-                }
+                
                 $("#matriz-imagenes-paginacion").empty();
                 //actualiza para la carga de imagenes actualizada
                 _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {

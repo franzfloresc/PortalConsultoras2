@@ -2,12 +2,12 @@
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
-        habilitarNemotecnico: false
+        habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-        var expr = /^((\d{9}#\d{1,2})?(&\d{9}#\d{1,2}?)*)$/g;
+        var expr = /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g;
         var patt = new RegExp(expr);
         return patt.test(sinExtension);
     };

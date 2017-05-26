@@ -29,13 +29,16 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
+            string habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+
             var EstrategiaModel = new EstrategiaModel()
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
                 ListaEtiquetas = DropDowListEtiqueta(),
-                UrlS3 = urlS3
+                UrlS3 = urlS3,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             };
             return View(EstrategiaModel);
         }
