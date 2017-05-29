@@ -255,8 +255,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
-    $('body').css({ 'overflow-x': 'hidden' });
-    $('body').css({ 'overflow-y': 'hidden' });
+   
 
     debugger;
     var msgRegaloPN = null;
@@ -299,6 +298,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $("#divOfertaFinal").show();
 
     if (tipoOrigen == "2") {
+      
+        $('body').css({ 'overflow-y': 'hidden' });
         $('#divCarruselOfertaFinal').slick({
             infinite: true,
             vertical: false,
@@ -308,8 +309,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png" style="width:100%; height:auto;" /></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right: 0.5%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png" style="width:100%; height:auto;" /></a>'
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -4%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right:-4%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
         });
     }
     else {

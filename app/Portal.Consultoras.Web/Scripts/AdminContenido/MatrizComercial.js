@@ -6,19 +6,27 @@ var MatrizComercial = function (config) {
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || '',
         getImagesByNemotecnico: config.getImagesByNemotecnico || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,      
-        habilitarNemotecnico: false
+        habilitarNemotecnico: false,
+        expValidacionNemotecnico: config.expValidacionNemotecnico
     };
     var _editData = {};
 
     var _paginadorClick = function (page) {
-        _obtenerImagenes(_editData, page, false);
+        var valNemotecnico = $('#txtBusquedaNemotecnico').val();
+        var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenes;
+        fnObtenerImagenes(_editData, page, false);
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
 
-    var _nemotecnico = Nemotecnico({ expresionValidacion: /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g });
+    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
 
-    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
+    var _limpiarFiltrosNemotecnico = function () {
+        $('#txtBusquedaNemotecnico').val('');
+        $('#chkTipoBusquedaNemotecnico').prop('checked', false);
+    };
+
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, nemotecnico: _nemotecnico });
 
     var _crearFileUploadElements = function (editData) {
         $.ajaxSetup({ cache: false });
@@ -76,6 +84,7 @@ var MatrizComercial = function (config) {
 
     var _updateImageListOnUpload = function (imageElementId, response) {
         if (response.isNewImage) {
+            _limpiarFiltrosNemotecnico();
             _obtenerImagenes(_editData, 1, true);
         } else {
             $('#' + imageElementId).attr('src', response.foto);
@@ -90,7 +99,8 @@ var MatrizComercial = function (config) {
             paisID: $("#ddlPais").val(),
             codigoSAP: getCell(id, 'CodigoSAP'),
             descripcionOriginal: getCell(id, 'DescripcionOriginal'),
-            imagenes: []
+            imagenes: [],
+            habilitarNemotecnico: _config.habilitarNemotecnico
         };
 
         $("#matriz-imagenes-paginacion").empty();
@@ -111,8 +121,15 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: $('#txtBusquedaNemotecnico').val(), pagina: pagina };
+        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
+        var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
         return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
+    };
+
+    var _limpiarBusquedaNemotecnico = function () {
+        _limpiarFiltrosNemotecnico();
+        _obtenerImagenes(_editData, 1 , true);
     };
 
     var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
@@ -140,6 +157,7 @@ var MatrizComercial = function (config) {
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars('#matriz-comercial-item-template', { data: editData, habilitarNemotecnico: _config.habilitarNemotecnico }, '#matriz-comercial-images');
         _crearFileUploadElements(editData);
+        $(".qq-upload-list").css("display", "none");
     };
 
     var _actualizarParNemotecnico = function (val) {
@@ -148,10 +166,13 @@ var MatrizComercial = function (config) {
     };
 
     var _validarNemotecnico = function () {
-        var msjex = '';
-        if ($('#txtBusquedaNemotecnico').val() === '')
-            msjex += ' - Debe ingresar un Nemotecnico .\n';
-        return msjex;
+        var msj = '';
+        var val = $('#txtBusquedaNemotecnico').val();
+        if (!val) {
+            msj += ' - Debe ingresar un Nemotecnico .\n';
+        }
+            
+        return msj;
     };
 
     var _buscarNemotecnico = function () {
@@ -162,14 +183,13 @@ var MatrizComercial = function (config) {
             return false;
         }
 
-        _obtenerImagenesByNemotecnico(_editData, 1, true).done(function () {
-            console.log('search done!');
-        });
+        _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
     return {
         editar: _editar,
         actualizarParNemotecnico: _actualizarParNemotecnico,
-        fnBuscarNemotecnico: _buscarNemotecnico
+        buscarNemotecnico: _buscarNemotecnico,
+        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico
     }
 };

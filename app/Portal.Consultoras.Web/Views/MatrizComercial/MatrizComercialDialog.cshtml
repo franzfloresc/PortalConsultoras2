@@ -18,13 +18,28 @@
             <div class="titG" style="padding:0px"><div id="file-upload-add"></div></div>
         </div>
         <div>
+            {{#if habilitarNemotecnico}}
             <div id="matriz-busqueda-nemotecnico">
+                <div class="busqueda-exacta">
+                    <label for="chkTipoBusquedaNemotecnico">B.Exacta</label>
+                    <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                </div>
+
                 <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="Ingrese patrón de búsqueda" maxlength="100" type="text" />
                 <a id="btnBuscarNemotecnico" class="search-button-field">
                     <i class="material-icons">search</i>
                 </a>
+                <a id="btnLimpiarBusquedaNemotecnico" class="search-button-field">
+                    <i class="material-icons">undo</i>
+                </a>
             </div>
+            {{/if}}
+            {{#if habilitarNemotecnico}}
             <div id="matriz-imagenes-paginacion" style="display:inline-block"></div>
+            {{else}}
+            <div id="matriz-imagenes-paginacion"></div>
+            {{/if}}
+            
         </div>
         <div class="div-3">
             <div id="matriz-comercial-images" class="matriz-comercial-list">                
@@ -39,13 +54,12 @@
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
         <div class="actions" style="text-align:center">
-            <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
             {{#if ../habilitarNemotecnico}}
-                <div class="nemotecnico-wrapper">
-                    <a title="{{NemoTecnico}}">{{NemoTecnico}}</a>
-                </div>
+            <div class="nemotecnico-wrapper">
+                <a title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+            </div>
             {{/if}}
-            
+            <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
         </div>
     </div>
     {{/each}}
