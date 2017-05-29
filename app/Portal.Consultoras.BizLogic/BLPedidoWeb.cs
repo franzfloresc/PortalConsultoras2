@@ -2050,6 +2050,21 @@ namespace Portal.Consultoras.BizLogic
             return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
         }
         /*EPD-2248*/
+
+        public BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            BECumpleTippingPOint entidad = new BECumpleTippingPOint();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = DAPedidoWeb.CumpleRegaloTippingPoint(campaniaId, codigoConsultora, codigoRegion, codigoZona))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BECumpleTippingPOint(reader);
+                }
+            }
+            return entidad;
+        }
     }
 
     internal class TemplateField
