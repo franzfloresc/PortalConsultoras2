@@ -237,11 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (sv.RDSuscripcion(entidad) > 0)
-                {
-                    entidad.CampaniaID = 0;
-                    entidad = sv.RDGetSuscripcion(entidad);
-                }
+                entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
             }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)
@@ -261,6 +257,40 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpGet]
+        public JsonResult Desuscripcion()
+        {
+            var entidad = new BERevistaDigitalSuscripcion();
+            entidad.PaisID = userData.PaisID;
+            entidad.CodigoConsultora = userData.CodigoConsultora;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.CodigoZona = userData.CodigoZona;
+            entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo;
+            entidad.IsoPais = userData.CodigoISO;
+            entidad.EMail = userData.EMail;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            }
+
+            SetUserData(userData);
+            Session["TipoPopUpMostrar"] = null;
+
+            return Json(new
+            {
+                success = userData.RevistaDigital.EstadoSuscripcion > 0,
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public JsonResult PopupNoVolverMostrar()
         {

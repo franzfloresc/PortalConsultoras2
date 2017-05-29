@@ -86,11 +86,16 @@
             <div class="revista_producto_video" style="width: 60%">
                 @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
                 <iframe width="100%" height="390" frameborder="0" allowfullscreen
-                        src="@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+                        src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
             </div>
         }
     </div>
 </div>
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
+    </a>
+</div>
+
 
 @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 @section scripts{

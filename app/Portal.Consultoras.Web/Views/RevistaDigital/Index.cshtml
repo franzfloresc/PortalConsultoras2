@@ -172,9 +172,9 @@
         <div class="titulo_no_inscrita">
             ¿ya no quieres estar inscrita a ésika para mí?
         </div>
-        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online ésika<br/> para mí Y volverás a recibir tu revista impresa en 2 campañas.</div>
+        <div class="texto_no_inscrita" id="divAnularSuscripcion">al anular tu inscripción dejarás de recibir tu revista online ésika<br/> para mí Y volverás a recibir tu revista impresa en 2 campañas.</div>
         <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa<br/> dentro de dos campañas. Cualquier duda entrar en contacto con el servicio de atención al cliente de tu país.</div>
-        <a class="btn_cancelar_inscripcion">CANCELAR MI INSCRIPCIÓN</a>
+        <a class="btn_cancelar_inscripcion" href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a>
     </div>
 </div>
 
@@ -412,6 +412,11 @@
     </div>
 </script>
 
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
+    </a>
+</div>
+
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
@@ -428,6 +433,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }
