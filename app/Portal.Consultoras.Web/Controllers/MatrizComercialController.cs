@@ -489,7 +489,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, 10).ToList();
             }
 
-            int totalRegistros = lst.Any()? lst[0].TotalRegistros: 0;
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
             var data = MapImages(lst, paisID);
 
             return Json(new { imagenes= data, totalRegistros=totalRegistros } );
@@ -507,11 +507,9 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-            .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
             int totalRegistros = 0;
             int idMatrizComercial = 0;
-            List<MatrizComercialImagen> data = new List<MatrizComercialImagen>();
+            var data = new List<MatrizComercialImagen>();
             if (lst.Any())
             {
                 var tieneImagenes = lst.First().IdMatrizComercialImagen != 0;
@@ -519,7 +517,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
-                    data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+                    data = lst.Select(p => new MatrizComercialImagen
+                    {
+                        IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                        FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                        Foto = urlS3 + p.Foto
+                    }).ToList();
                 }
             }
 

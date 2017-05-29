@@ -1039,6 +1039,8 @@ namespace Portal.Consultoras.BizLogic
                     case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
                     case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
                     case "IPUSUARIO": item = (row["IPUsuario"] == DBNull.Value ? string.Empty : row["IPUsuario"].ToString()); break;
+                    case "TIPOCUPON": item = (row["TipoCupon"] == DBNull.Value ? string.Empty : row["TipoCupon"].ToString()); break;
+                    case "VALORCUPON": item = (row["ValorCupon"] == DBNull.Value ? string.Empty : row["ValorCupon"].ToString()); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
@@ -2050,6 +2052,21 @@ namespace Portal.Consultoras.BizLogic
             return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
         }
         /*EPD-2248*/
+
+        public BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            BECumpleTippingPOint entidad = new BECumpleTippingPOint();
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = DAPedidoWeb.CumpleRegaloTippingPoint(campaniaId, codigoConsultora, codigoRegion, codigoZona))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BECumpleTippingPOint(reader);
+                }
+            }
+            return entidad;
+        }
     }
 
     internal class TemplateField

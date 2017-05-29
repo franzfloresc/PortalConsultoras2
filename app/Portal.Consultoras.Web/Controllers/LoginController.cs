@@ -750,7 +750,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
-                        #region TieneHana
+                        #region Hana
                         if (model.TieneHana == 1)
                         {
                             if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -801,13 +801,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-
                         #endregion
 
                         #region GPR
                         model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        #region OfertaDelDia
                         {
                             CalcularMotivoRechazo(model);
 
@@ -818,9 +816,8 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
-
                         #endregion
-
+ 
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -829,6 +826,19 @@ namespace Portal.Consultoras.Web.Controllers
                             //model.OfertaDelDia = model.OfertasDelDia[0];
                         }
                         #endregion 
+
+                        #region TippingPoint
+                        //DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                        //var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+
+                        //if (esDiasFacturacion)
+                        //{
+                        //    using (PedidoServiceClient svc = new PedidoServiceClient())
+                        //    {
+                                
+                        //    }
+                        //}
+                        #endregion
 
                         if (oBEUsuario.TieneLoginExterno)
                         {
@@ -842,7 +852,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-                        #endregion
                         
                         #region ConfiguracionPais
                         model.ConfiguracionPais = model.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
