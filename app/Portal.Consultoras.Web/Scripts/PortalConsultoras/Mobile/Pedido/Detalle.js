@@ -77,6 +77,8 @@ function CargarPedido() {
             $(".tooltip_noOlvidesGuardarTuPedido").show();
             $(".btn_guardarPedido").show();
             $("footer").hide();
+
+            cuponModule.actualizarContenedorCupon();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {

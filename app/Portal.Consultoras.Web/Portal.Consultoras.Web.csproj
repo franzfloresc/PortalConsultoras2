@@ -4022,11 +4022,11 @@
     <Content Include="Views\Shared\Cupon\popupCuponGanaste.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanasteMobile.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanaMobile.cshtml" />
-    <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
+    <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

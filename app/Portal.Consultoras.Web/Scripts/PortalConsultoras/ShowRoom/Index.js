@@ -38,8 +38,10 @@ $(document).ready(function () {
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
+        localStorage["cerrar_banner_sub_campanias"] = true;
     });
-    
+    if (localStorage["cerrar_banner_sub_campanias"])
+        $('.banner_especial_showroom').hide();
     
     $(".footer_e").css("margin-bottom", "73px");
 
@@ -107,7 +109,37 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-        });        
+        });
+
+        var divs = $("#PopDetalleCompra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
     });
 
     $("#filter-sorting").change(function() {

@@ -1,5 +1,4 @@
-﻿
-// 1: escritorio Home    11 : escritorio Pedido 
+﻿// 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
@@ -131,7 +130,7 @@ function ArmarCarouselEstrategias(data) {
             ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
             : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
-    SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
+    SetHandlebars("#template-estrategia-header", obj, '#contenedor_template_estrategia_cabecera');
     $('#divListaEstrategias').show();
     SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
 
@@ -376,7 +375,7 @@ function EstructurarDataCarousel(array) {
         };
 
         item.Posicion = i + 1;
-        item.MostrarTextoLibre = $.trim(item.TextoLibre).length > 0;
+        item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
         item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
     });
     return isList ? lista : lista[0];
