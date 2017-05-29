@@ -75,6 +75,9 @@
 
 <script>
 
+    var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
+    $(".popup_infoError").css({ "top": centrarPopupInfoError });
+
     $('#btnAceptarMensajeTemplate').click(function () {
         //modal.dialog('close');
         $('#divTemplateMensaje').hide();

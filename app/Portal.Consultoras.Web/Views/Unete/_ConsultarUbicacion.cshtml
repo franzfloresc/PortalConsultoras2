@@ -623,6 +623,10 @@
         padding: 0px 7px;
     }
 
+    .anchoValidacionCampoPostal{
+        width:145px;
+    }
+
     /* FIN POPUP EDITAR DIRECCIÓN */
 </style>
 
@@ -996,9 +1000,6 @@
 
         $(document).ready(function () {
             
-            var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
-            $(".popup_infoError").css({ "top": centrarPopupInfoError });
-
             var ZonaSeccionRechazo = "@Model.ZonaSeccionRechazo";
             if (ZonaSeccionRechazo == null || ZonaSeccionRechazo == "") {
                 $('#spMalaZonificacion').hide();
@@ -1015,7 +1016,7 @@
 
             if ($(camposUbigeoDireccionLabel).html().length > 11) {
 
-                $(camposUbigeoDireccionLabel).css({ "top": "3px" });
+                //$(camposUbigeoDireccionLabel).css({ "top": "3px" });
 
                 if ($(camposUbigeo).length <= 5) {
                     $(camposUbigeo).find("label").css({ "display": "inline-block" });
