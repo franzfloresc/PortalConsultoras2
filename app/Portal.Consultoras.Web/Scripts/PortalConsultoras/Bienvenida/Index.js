@@ -48,6 +48,7 @@ $(document).ready(function () {
         });
     });
 
+
     ////EDP-1564
     $('.contenedor_fondo_popup').click(function (e) {
         if (!$(e.target).closest('.popup_actualizarMisDatos').length) {
@@ -240,6 +241,9 @@ $(document).ready(function () {
         CerrarPopupActualizacionDatosMexico();
         return false;
     });
+
+
+
 
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
@@ -3394,6 +3398,46 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
         'action': action, 'label': 'Cerrar Popup'
     });
 }
+
+
+//EPD-1204 INICIO
+function onclickObtenerLugaresPagoVZ() {       
+    localStorage.setItem("redirectFromIndex", "1");
+    document.location.href = '/MisPagos';
+    
+    
+}
+
+function getLugarPagoVZ() {
+    
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + "MisPagos/ListarLugaresPago",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({}),
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+                }
+            },
+            error: function (data, error) {
+                $("#divContenidoLugarPago").html("");
+                if (checkTimeout(data)) {
+                    AbrirMensaje(data.message);
+                }
+            }
+        });
+}
+
+$("#cerrarPopUpPagoOnlineVZ").on("click", function () {
+    PopupCerrar("popUpPagoOnlineVZ");
+});
+
+
+//EPD-1204 FIN
 
 /*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
 function click_zona_oscura_PopShowroomVenta() {
