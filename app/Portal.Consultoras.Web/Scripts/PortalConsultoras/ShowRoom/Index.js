@@ -38,8 +38,10 @@ $(document).ready(function () {
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
+        localStorage["cerrar_banner_sub_campanias"] = true;
     });
-    
+    if (localStorage["cerrar_banner_sub_campanias"])
+        $('.banner_especial_showroom').hide();
     
     $(".footer_e").css("margin-bottom", "73px");
 
