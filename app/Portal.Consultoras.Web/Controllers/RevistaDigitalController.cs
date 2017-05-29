@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "USTED YA ESTÁ SUSCRITO, GRACIAS."
+                    message = "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias."
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -261,6 +261,24 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult Desuscripcion()
         {
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted no está inscrita a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted ya está desuscrito a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
             var entidad = new BERevistaDigitalSuscripcion();
             entidad.PaisID = userData.PaisID;
             entidad.CodigoConsultora = userData.CodigoConsultora;
@@ -288,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Que pena, usted se desuscribio a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo."
             }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]

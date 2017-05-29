@@ -10,10 +10,14 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnteriorModel = new RevistaDigitalSuscripcionModel();
+            ListaProducto = new List<EstrategiaPedidoModel>();
+            ListaTabs = new List<ComunModel>();
             FiltersBySorting = new List<BETablaLogicaDatos>();
             FiltersByCategory = new List<BETablaLogicaDatos>();
             FiltersByBrand = new List<BETablaLogicaDatos>();
             FiltersByPublished = new List<BETablaLogicaDatos>();
+            NombreRevista = "QUÉ ES ESIKA PARA MÍ";
         }
 
         public int Activo { get; set; }
@@ -23,6 +27,7 @@ namespace Portal.Consultoras.Web.Models
         public bool NoVolverMostrar { get; set; }
         public decimal PrecioMin { get; set; }
         public decimal PrecioMax { get; set; }
+        public string NombreRevista { get; set; }
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public bool IsMobile { get; set; }

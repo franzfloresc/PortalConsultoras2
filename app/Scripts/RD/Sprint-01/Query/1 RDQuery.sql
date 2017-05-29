@@ -59,11 +59,18 @@ END
 
 GO
 
-IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RD' )
+IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDR' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
 	VALUES('RDR', 0, 'Revista Digital Reducida', 0)
 END
+
+IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RD' )
+BEGIN
+	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
+	VALUES('RD', 0, 'Revista Digital Completa', 0)
+END
+
 
 go
 
