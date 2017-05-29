@@ -237,8 +237,6 @@ else
     }
 
     $('#btnModificarDireccion').click(function () {
-
-        if ($('#form0').valid()) {
             $('#btnModificarDireccion').hide();
             $('#btnGrabarDireccion').show();
             //$('#btnCancelarEdicion').show();
@@ -250,21 +248,22 @@ else
             $('#btnGuardarPosicion').attr('disabled', true);
             $('#btnActualizarSeccion').attr('disabled', true);
             HabilitarDatosDireccion(1);
-        }
     });
 
     $('#btnGrabarDireccion').click(function () {
-        $('#btnModificarDireccion').show();
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
-        $('#btnActualizarSeccion').show();
-        $('#btnEditarPosicion').removeClass('HabInaButton');
-        $('#btnGuardarPosicion').removeClass('HabInaButton');
-        $('#btnActualizarSeccion').removeClass('HabInaButton');
-        $('#btnEditarPosicion').attr('disabled', false);
-        $('#btnGuardarPosicion').attr('disabled', false);
-        $('#btnActualizarSeccion').attr('disabled', false);
-        HabilitarDatosDireccion(0);
+        if ($('#form0').valid()) {
+            $('#btnModificarDireccion').show();
+            $('#btnGrabarDireccion').hide();
+            //$('#btnCancelarEdicion').hide();
+            $('#btnActualizarSeccion').show();
+            $('#btnEditarPosicion').removeClass('HabInaButton');
+            $('#btnGuardarPosicion').removeClass('HabInaButton');
+            $('#btnActualizarSeccion').removeClass('HabInaButton');
+            $('#btnEditarPosicion').attr('disabled', false);
+            $('#btnGuardarPosicion').attr('disabled', false);
+            $('#btnActualizarSeccion').attr('disabled', false);
+            HabilitarDatosDireccion(0);
+        }
     });
 
     $('#btnCancelarEdicion').click(function () {
