@@ -628,7 +628,7 @@
 
 <!-- POPUP MENSAJE ERROR -->
 
-@*<div class="popup_infoError">
+<div class="popup_infoError" style="display:none;">
     <div class="info_error">
         <span>No se encontraron los v&eacute;rtices.</span>
     </div>
@@ -636,9 +636,11 @@
         <button id="btnConfirmarGrabarPosicion" type="button">Aceptar</button>
         <button id="btnCancelarGrabarPosicion" type="button">Cancelar</button>
     </div>
-</div>*@
+</div>
 
 <!-- FIN MENSAJE ERROR -->
+
+<div class="contenedor_popup_eliminarCliente" id="divTemplateMensaje" style="display:none;"></div>
 
 <div class="popup_eliminarCliente popup_ConsultaUbic">
 
@@ -689,14 +691,14 @@
                 }, new { @class = "formulario_editarDireccion"  }))
                 {
 
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
+                    @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.CodigoPais)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel1)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel2)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel3)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel4)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel5)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.ContaValorNivel3)
+                    @Html.HiddenFor(m => Model.EditarDireccionModel.ContaValorNivel3)*@
 
                     <div class="contenedor_datosEditarDireccion">
                         <div class="titulo_ubigeo">
@@ -736,7 +738,7 @@
                     <label id="spRegZonaSec">Regi&oacute;n/Zona/Secci&oacute;n</label>
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
-                    <button type="button" id="btnGrabarPosicion">Grabar Posici&oacute;n</button>
+                    <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
                 </div>
             </div>
         </div>
@@ -964,60 +966,7 @@
         -webkit-writing-mode: horizontal-tb;
     }
 
-    /* MENSAJE ERROR */
-
-    .popup_infoError{
-        position: absolute;
-        left: 0;
-        right: 0;
-        /*top: 50%;*/
-        width: 359px;
-        height: auto;
-        background: #FFF;
-        font-family: 'Lato';
-        font-size: 14px;
-        color: #000;
-        margin: 0 auto;
-        z-index: 2000;
-        padding: 13px 35px 20px 35px;
-        box-sizing: border-box;
-    }
-
-    .info_error, .info_error span, .grupo_botones_acciones_mensajeError{
-        display:block;
-    }
-
-    .info_error span{
-        margin: 19px 0px 19px 0px;
-        overflow-wrap:break-word;
-    }
-
-    .grupo_botones_acciones_mensajeError button{
-        display: inline-block;
-        background: #642f80;
-        color: #FFF;
-        border: 0px;
-        width: 139px;
-        height: 37px;
-        font-family: 'Lato';
-        text-align: center;
-        letter-spacing:0.5px;
-        transition:all 0.3s ease;
-        -moz-transition:all 0.3s ease;
-        -o-transition:all 0.3s ease;
-        -ms-transition:all 0.3s ease;
-        -webkit-transition:all 0.3s ease;
-    }
-
-    .grupo_botones_acciones_mensajeError button:hover{
-        opacity:0.8;
-    }
-
-    .grupo_botones_acciones_mensajeError button:first-child{
-        margin-right:8px;
-    }
-
-    /* FIN MENSAJE ERROR */
+    
 
 </style>
 
@@ -1046,12 +995,18 @@
     $(function () {
 
         $(document).ready(function () {
-
+            
             var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
+            $(".popup_infoError").css({ "top": centrarPopupInfoError });
 
-            $(".popup_infoError").css({"top": centrarPopupInfoError});
+            var ZonaSeccionRechazo = "@Model.ZonaSeccionRechazo";
+            if (ZonaSeccionRechazo == null || ZonaSeccionRechazo == "") {
+                $('#spMalaZonificacion').hide();
+            }
+            else {
+                $('#spMalaZonificacion').show();
+            }
 
-            $('#spMalaZonificacion').hide();
             $.validator.unobtrusive.parse('form');
             $.validator.unobtrusive.parse('form0');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
@@ -1239,7 +1194,21 @@
 
 
     function OnSuccess(html) {
-        alert('Se actualizó la direccion');
+        $('#divConsultarUbicacion').css({ "overflow-y": "hidden" });
+        $('#divTemplateMensaje').empty();
+        $('#divTemplateMensaje').html(html);
+        $('#divTemplateMensaje').show();
+        $('#divTemplateMensaje').css('z-index', '2000');
+        
+        //Aqui mostrar en un popup
+        //$('#divTemplateMensaje').empty();
+        //$('#divMensajes').show();
+        //LoadSpinner('divMensajes');
+        //$('#divTemplateMensaje').html(html);
+        //$('#divTemplateMensaje').show();
+        //alert('Se actualizó la direccion');
+        //alert(html.Msg);
+        
         //modalOpcion.dialog('close');
         //modal.dialog('close');
         //$('#divEditarDireccion').hide();
@@ -1563,15 +1532,27 @@
 
                     //$('#regionXY').val('');
                     $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                    $('#Region').val(json.Region);
+                    $('#Zona').val(json.Zona);
+                    $('#Seccion').val(json.Seccion);
+                    $('#Territorio').val(json.Territorio);
 
                 } else {
                     if (json.Region != null && json.Zona != null && json.Seccion != null && json.Region != '' && json.Zona != '' && json.Seccion != '')
                     {
                         $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                        $('#Region').val(json.Region);
+                        $('#Zona').val(json.Zona);
+                        $('#Seccion').val(json.Seccion);
+                        $('#Territorio').val(json.Territorio);
                     }
                     else
                     {
                         $('#regionXY').val('');
+                        $('#Region').val('');
+                        $('#Zona').val('');
+                        $('#Seccion').val('');
+                        $('#Territorio').val('');
                     }
                     
                     //$('mensaje_territorio').show();

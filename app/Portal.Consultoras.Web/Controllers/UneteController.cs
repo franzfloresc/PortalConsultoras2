@@ -299,13 +299,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular)
+        public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular, string pintarMalaZonificacion)
         {
             var model = new ConsultarUbicacionModel();
             model.NombreCompleto = nombreCompleto;
             model.Celular = celular;
             using (var sv = new PortalServiceClient())
             {
+                if (!string.IsNullOrEmpty(pintarMalaZonificacion))
+                {
+                    var eventos = new EventoSolicitudPostulanteCollection();
+                    eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
+                    var tipoRechazosGZ = new ServiceUnete.ParametroUneteCollection();
+                    tipoRechazosGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                    var MalaZonificacionString = string.Empty;
+                    MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
+
+                    var eventoMZ = eventos.
+                                        Where(e => e.Observacion.Contains(MalaZonificacionString)).
+                                            OrderByDescending(ev => ev.Fecha.ToDatetime()).ToList().FirstOrDefault();
+
+                    model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
+                                                  eventoMZ.Observacion.Split(':')[1].ToString()
+                                               : string.Empty);
+                }
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
                 if (solicitudPostulante != null)
@@ -539,7 +556,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
-                    DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                    //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                     if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {
@@ -564,7 +581,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -593,7 +610,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 
                                 model.EditarDireccionModel.NombreLugarNivel4 = DirlugarNivel4;
                                 lugaresNivel4 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel4, model.EditarDireccionModel.LugarNivel3.ToInt());
-                                model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre == DirlugarNivel4).FirstOrDefault().IdParametroUnete.ToString();
+                                if (string.IsNullOrEmpty(model.EditarDireccionModel.NombreLugarNivel4))
+                                    model.EditarDireccionModel.LugarNivel4 = string.Empty;
+                                else
+                                    model.EditarDireccionModel.LugarNivel4 = lugaresNivel4.Where(x => x.Nombre == DirlugarNivel4).FirstOrDefault().IdParametroUnete.ToString();
                                 model.EditarDireccionModel.LugaresNivel4 = new SelectList(lugaresNivel4, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel4);
 
                                 model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -639,7 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
-                    DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                    //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                     if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {
@@ -664,7 +684,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -757,7 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -794,7 +814,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
-                    DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                    //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                     if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {
@@ -819,7 +839,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -877,7 +897,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                                 solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
 
-                    DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
+                    //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                     if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {
@@ -902,7 +922,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -977,7 +997,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -991,10 +1011,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (CodigoISO != Pais.Guatemala)
-                        {
-                            DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
-                        }
                         switch (DireccionConcatenada.Length)
                         {
                             case 4:
@@ -1108,7 +1124,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-                    if (solicitudPostulante.Direccion.Contains(','))
+                    if (!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(','))
                     {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
                         model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
@@ -3341,6 +3357,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
         {
+            MensajeModel modelMensaje = new MensajeModel();
             string direccion = null;
 
             if (CodigoISO == Pais.Chile)
@@ -3512,6 +3529,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
+                        modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
                 }
                 else if (CodigoISO == Pais.Colombia)
@@ -3548,6 +3566,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
+                        modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
 
                     if (!string.IsNullOrEmpty(zonaEncontrada))
@@ -3617,7 +3636,10 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
-            return Json(new { success = true, Msg = "Se actualizó los datos" }, JsonRequestBehavior.AllowGet);
+
+            modelMensaje.TextoMensaje = "Se actualizaron los datos de Ubigeo.";
+            return PartialView("_TemplateMensaje",modelMensaje);
+            //return Json(new { success = true, Msg = modelMensaje }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ConfirmarPosicion(int id, decimal latitud,
@@ -4510,6 +4532,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private ServiceUnete.ParametroUneteCollection ConvertListToTitleCase(ServiceUnete.ParametroUneteCollection listaRecibida)
+        {
+            foreach (var item in listaRecibida)
+            {
+                item.Nombre = ConvertToTitleCase(item.Nombre);
+            }
+            return listaRecibida;
+        }
+        private string ConvertToTitleCase(string cadena)
+        {
+            string respuesta = string.Empty;
+            if (!string.IsNullOrEmpty(cadena))
+            {
+                respuesta = cadena.Substring(0, 1).ToUpper();
+                if (cadena.Length > 1)
+                {
+                    respuesta = respuesta + cadena.Substring(1, cadena.Length - 1).ToLower(); 
+                }
+            }
+            return respuesta;
         }
 
         public JsonResult GetConfiguracionZonasTelefonicas(int idParametroTelefonico)
