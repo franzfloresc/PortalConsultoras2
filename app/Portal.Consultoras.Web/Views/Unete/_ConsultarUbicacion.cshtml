@@ -24,7 +24,7 @@
     #inputSearchBox {
         background-color: #fff;
         font-family: Roboto;
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 300;
         margin-left: 12px;
         padding: 0 11px 0 13px;
@@ -580,6 +580,11 @@
         display: block;
     }
 
+    .contenedor_coordenadasYRegion.alineadoDerecha{
+        text-align: right;
+        padding-right: 29px;
+    }
+
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY, .campos_regionZonaSeccion {
         display: inline-block;
     }
@@ -587,16 +592,18 @@
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY label, .campos_regionZonaSeccion label {
         font-family: 'Lato';
         text-align: center;
-        font-size: 15px;
+        font-size: 13px;
         color: #000;
     }
 
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"] {
-        width: 113.5px;
+        width: 110px;
         height: 35px;
         margin-right: 4px;
         border: 1px solid #000;
         background: #FFF;
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
     .campos_regionZonaSeccion input[type="text"] {
@@ -610,8 +617,19 @@
     /* FIN POPUP EDITAR DIRECCIÓN */
 </style>
 
+<!-- POPUP MENSAJE ERROR -->
 
+@*<div class="popup_infoError">
+    <div class="info_error">
+        <span>No se encontraron los v&eacute;rtices.</span>
+    </div>
+    <div class="grupo_botones_acciones_mensajeError">
+        <button id="btnConfirmarGrabarPosicion" type="button">Aceptar</button>
+        <button id="btnCancelarGrabarPosicion" type="button">Cancelar</button>
+    </div>
+</div>*@
 
+<!-- FIN MENSAJE ERROR -->
 
 <div class="popup_eliminarCliente popup_ConsultaUbic">
 
@@ -936,6 +954,62 @@
     user agent stylesheet input, textarea, keygen, select, button, meter, progress {
         -webkit-writing-mode: horizontal-tb;
     }
+
+    /* MENSAJE ERROR */
+
+    .popup_infoError{
+        position: absolute;
+        left: 0;
+        right: 0;
+        /*top: 50%;*/
+        width: 359px;
+        height: auto;
+        background: #FFF;
+        font-family: 'Lato';
+        font-size: 14px;
+        color: #000;
+        margin: 0 auto;
+        z-index: 2000;
+        padding: 13px 35px 20px 35px;
+        box-sizing: border-box;
+    }
+
+    .info_error, .info_error span, .grupo_botones_acciones_mensajeError{
+        display:block;
+    }
+
+    .info_error span{
+        margin: 19px 0px 19px 0px;
+        overflow-wrap:break-word;
+    }
+
+    .grupo_botones_acciones_mensajeError button{
+        display: inline-block;
+        background: #642f80;
+        color: #FFF;
+        border: 0px;
+        width: 139px;
+        height: 37px;
+        font-family: 'Lato';
+        text-align: center;
+        letter-spacing:0.5px;
+        transition:all 0.3s ease;
+        -moz-transition:all 0.3s ease;
+        -o-transition:all 0.3s ease;
+        -ms-transition:all 0.3s ease;
+        -webkit-transition:all 0.3s ease;
+    }
+
+    .grupo_botones_acciones_mensajeError button:hover{
+        opacity:0.8;
+    }
+
+    .grupo_botones_acciones_mensajeError button:first-child{
+        margin-right:8px;
+    }
+
+    /* FIN MENSAJE ERROR */
+
 </style>
 
 
@@ -963,6 +1037,10 @@
     $(function () {
 
         $(document).ready(function () {
+
+            var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
+
+            $(".popup_infoError").css({"top": centrarPopupInfoError});
 
             $('#spMalaZonificacion').hide();
             $.validator.unobtrusive.parse('form');
@@ -1183,6 +1261,7 @@
         <text>$('#spRegZonaSec').hide();</text>
         <text>$('#divLatLng').hide();</text>
         <text>$('#regionXY').hide();</text>
+        <text>$('.contenedor_coordenadasYRegion').addClass('alineadoDerecha');</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
         if (Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.CostaRica || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Panama || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Salvador || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Guatemala)
@@ -1280,6 +1359,7 @@
         $('#spRegZonaSec').show();
         $('#divLatLng').show();
         $('#regionXY').show();
+        $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
         $('#mapa').addClass('height_100');
         $('#btnEditarPosicion').hide();
         $('#btnGrabarPosicion').show();
@@ -1487,6 +1567,7 @@
                     
                     //$('mensaje_territorio').show();
                     //alert('No se encontraron vertices');
+
                 }
 
                 //no quitar altura del mapa
@@ -1703,6 +1784,7 @@
             $('#spRegZonaSec').show();
             $('#divLatLng').show();
             $('#regionXY').show();
+            $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').show();
             map = new google.maps.Map(document.getElementById('mapa'), {
