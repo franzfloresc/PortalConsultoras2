@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CatalogoDescripcion { get; set; }
 
+        [DataMember]
         public string TextoBusqueda { get; set; }
 
         public BEProducto(IDataRecord datarec)

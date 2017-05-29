@@ -151,15 +151,17 @@ namespace Portal.Consultoras.BizLogic
             var paisID = Util.GetPaisID(paisISO);
             var dAProducto = new DAProducto(paisID);
             var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
-            var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]);
+            var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]).Select(p => p.ToLower()).ToList();
 
             listProducto = CacheManager<BEProducto>.GetData(paisID, ECacheItem.Producto, campaniaID.ToString());
             if (listProducto != null && listProducto.Count > 0)
             {
                 listProducto = listProducto.Select(producto => new {
                     Producto = producto,
-                    Repeticion = listPalabra.Count(palabra => producto.TextoBusqueda.Contains(palabra))
-                }).Where(pp => pp.Repeticion > 0).OrderByDescending(pp => pp.Repeticion).Select(pp => pp.Producto).Take(rowCount).ToList();
+                    Repeticion = listPalabra.Count(palabra => producto.TextoBusqueda.ToLower().Contains(palabra))
+                })
+                    .Where(pp => pp.Repeticion > 0).OrderByDescending(pp => pp.Repeticion).ThenBy(pp => pp.Producto.CUV)
+                    .Select(pp => pp.Producto).Take(rowCount).ToList();
 
                 dAProducto.SetTieneStockByCampaniaAndZonaAndProductos(campaniaID, zonaID, codigoRegion, codigoZona, listProducto.ToList());
             }
