@@ -774,9 +774,9 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-2248*/
 
-        public IDataReader CumpleRegaloTippingPoint(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConsultoraCumpleRegaloProgramaNuevas");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);

@@ -5350,5 +5350,38 @@ namespace Portal.Consultoras.Web.Controllers
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetRegaloProgramaNuevas()
+        {
+            try
+            {
+                UsuarioModel userData = UserData();
+                ConsultoraRegaloProgramaNuevasModel model = null;
+                var f = false;
+
+                if (userData != null)
+                {
+                    model = userData.ConsultoraRegaloProgramaNuevas;
+                    if (model != null) f = true;
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    message = "OK",
+                    data = model,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud",
+                    data = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

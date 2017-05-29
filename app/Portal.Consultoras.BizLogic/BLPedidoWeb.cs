@@ -2051,16 +2051,16 @@ namespace Portal.Consultoras.BizLogic
         }
         /*EPD-2248*/
 
-        public BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
-            BECumpleTippingPOint entidad = new BECumpleTippingPOint();
+            BEConsultoraRegaloProgramaNuevas entidad = new BEConsultoraRegaloProgramaNuevas();
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.CumpleRegaloTippingPoint(campaniaId, codigoConsultora, codigoRegion, codigoZona))
+            using (IDataReader reader = DAPedidoWeb.GetConsultoraRegaloProgramaNuevas(campaniaId, codigoConsultora, codigoRegion, codigoZona))
             {
                 while (reader.Read())
                 {
-                    entidad = new BECumpleTippingPOint(reader);
+                    entidad = new BEConsultoraRegaloProgramaNuevas(reader);
                 }
             }
             return entidad;
