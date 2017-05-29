@@ -881,6 +881,36 @@
     </div>
 </div>
 
+ <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_divReservaSatisfactoria" style="display: none;">
+    <div class="popup_agregarUnidades">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.png")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp">
+            @*<span class="icono_exclamacion"></span>*@
+            <div class="icono_mensaje_alerta icono_check_alerta" id="ofIconoSuperior" style="margin-bottom: 20px;"></div>
+            <h1 class="titulo_agregarUnidades"><b>¡LO LOGRASTE!</b></h1>
+            <div id="mensajedivReservaSatisfactoria" class="mensaje_agregarUnidades">
+                @if (Model.ZonaNuevoProlM == true)
+                {
+                    <p>Tu pedido fue reservado con éxito.</p>
+                }
+                else
+                {
+                    <p>Tu pedido fue validado con éxito. Tus productos fueron reservados.</p>
+                }
+            </div>
+            <button type="button" name="btn_ok" class="btn_ok" onclick="return $('#dialog_divReservaSatisfactoria').hide();">
+               OK
+            </button>
+        </div>
+   </div>
+</div>
+<!-- FIN POPUP CONFIRMACION DE PEDIDO RESEERVADO -->
+
 <!-- POPUP PRODUCTOS AGOTADOS -->
 <div class="contenedor_popup_productosAgotados" id="divProductoAgotado" style="display: none;">
     <div class="popup_productosAgotados">
