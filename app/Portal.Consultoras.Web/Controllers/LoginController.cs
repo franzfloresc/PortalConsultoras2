@@ -1351,7 +1351,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
-                odd.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, odd.FotoProducto01, carpetaPais);
+                //odd.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, odd.FotoProducto01, carpetaPais); este campo ya se calcula en el servicio
                 odd.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, odd.ImagenURL, carpetaPais);
 
                 var oddModel = new OfertaDelDiaModel();
@@ -1731,9 +1731,20 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
                         return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
-                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile" });
+                        var listTrue = new List<string> { "1", bool.TrueString };
+                        bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
+                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
                         return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
+                    case Constantes.IngresoExternoPagina.CompartirCatalogo:
+                        return RedirectToAction("CompartirEnChatBot", "Compartir",
+                            new
+                            {
+                                //Area = "Chatbot",
+                                campania = model.Campania,
+                                tipoCatalogo = model.TipoCatalogo,
+                                url = model.UrlCatalogo
+                            });
                 }
             }
             catch (Exception ex)

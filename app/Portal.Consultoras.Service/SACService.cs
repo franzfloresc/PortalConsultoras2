@@ -1376,6 +1376,7 @@ namespace Portal.Consultoras.Service
         
         public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
         {
+
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
     }

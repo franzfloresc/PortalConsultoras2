@@ -5,7 +5,6 @@ var tipoOrigen = '2';
 var esPedidoValidado = false;
 
 $(document).ready(function () {
-
     ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
@@ -38,7 +37,7 @@ function ValidarKitNuevas() {
         success: function (data) {
             if (!checkTimeout(data)) return false;
             if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-            else CargarPedido();
+            else CargarPedido(true);
         },
         error: function (error) {
             console.log(error);
@@ -47,7 +46,7 @@ function ValidarKitNuevas() {
     });
 }
 
-function CargarPedido() {
+function CargarPedido(firstLoad) {
     var obj = {
         sidx: "",
         sord: "",
@@ -79,6 +78,8 @@ function CargarPedido() {
             $("footer").hide();
 
             cuponModule.actualizarContenedorCupon();
+            
+            if (firstLoad && autoReservar) { EjecutarPROL(); }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
