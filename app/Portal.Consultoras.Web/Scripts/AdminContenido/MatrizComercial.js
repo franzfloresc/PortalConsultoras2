@@ -1,4 +1,4 @@
-﻿//depende de Paginador.js y MatrizComercialFileUpload.js
+﻿//depende de Paginador.js, Nemotecnico.js y MatrizComercialFileUpload.js
 var MatrizComercial = function (config) {
 
     var _config = {
@@ -15,6 +15,8 @@ var MatrizComercial = function (config) {
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
+
+    var _nemotecnico = Nemotecnico({ expresionValidacion: /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g });
 
     var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
 
@@ -98,7 +100,6 @@ var MatrizComercial = function (config) {
 
         _obtenerImagenes(editData, 1, true).done(function () {
             showDialog("matriz-comercial-dialog");
-            _buscarNemotecnicoOnClick();
         });
 
         return false;
@@ -110,7 +111,7 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, codigoSAP: data.codigoSAP, nemoTecnico: data.nemoTecnico, pagina: pagina };
+        var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: $('#txtBusquedaNemotecnico').val(), pagina: pagina };
         return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
@@ -137,7 +138,6 @@ var MatrizComercial = function (config) {
     };
 
     var _mostrarListaImagenes = function (editData) {
-
         SetHandlebars('#matriz-comercial-item-template', { data: editData, habilitarNemotecnico: _config.habilitarNemotecnico }, '#matriz-comercial-images');
         _crearFileUploadElements(editData);
     };
@@ -147,38 +147,29 @@ var MatrizComercial = function (config) {
         _matrizFileUploader.actualizarParNemotecnico(val);
     };
 
-    var _buscarNemotecnicoOnClick = function () {
-        var paisNombre = "";
-        var isoPAIS = "";
-        var paisID = 11;
+    var _validarNemotecnico = function () {
+        var msjex = '';
+        if ($('#txtBusquedaNemotecnico').val() === '')
+            msjex += ' - Debe ingresar un Nemotecnico .\n';
+        return msjex;
+    };
 
-        $('#btnBuscarNemotecnico').on('click', function () {
-            var msjex = "";
-            if ($("#txtNemotecnico").val() === "")
-                msjex += " - Debe ingresar un Nemotecnico .\n";
-            if ($("#txtCodigoSAP").val() === "")
-                msjex += " - Debe ingresar un Código SAP .\n";
-            if (isNaN($("#txtCodigoSAP").val()))
-                msjex += " - Debe ingresar un Código SAP válido.\n";
-            if ($("#ddlPais").val() == "")
-                msjex += " - Debe seleccionar un País .\n";
-            if (msjex == "") {
-                paisNombre = $("#ddlPais option:selected").text();
-                paisID = $("#ddlPais").val();
-                
-                _obtenerImagenesByNemotecnico(editData, 1, true).done(function () {
-                    showDialog("matriz-comercial-dialog");
-                });
-            }
-            else {
-                alert(msjex);
-                return false;
-            }
+    var _buscarNemotecnico = function () {
+        var validacionMsj = _validarNemotecnico();
+
+        if (validacionMsj) {
+            alert(validacionMsj);
+            return false;
+        }
+
+        _obtenerImagenesByNemotecnico(_editData, 1, true).done(function () {
+            console.log('search done!');
         });
     };
 
     return {
         editar: _editar,
-        actualizarParNemotecnico: _actualizarParNemotecnico
+        actualizarParNemotecnico: _actualizarParNemotecnico,
+        fnBuscarNemotecnico: _buscarNemotecnico
     }
 };
