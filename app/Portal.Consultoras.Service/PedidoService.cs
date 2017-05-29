@@ -1923,10 +1923,6 @@ namespace Portal.Consultoras.Service
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
         
-        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
-        {
-            return new BLReservaProl().EjecutarReservaProl(input);
-        }
 
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
