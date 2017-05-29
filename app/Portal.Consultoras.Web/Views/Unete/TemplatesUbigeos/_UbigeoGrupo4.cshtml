@@ -143,8 +143,8 @@ else
 {
     <div class="contenedor_camposUbigeo campoDireccionUbigeo">
         <label>Direcci&oacute;n:</label>
-        <div class="contenedor_campoFormulario ancho99">
-            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "ancho99", @placeholder = "Ejm: Av. Castellana 100" })
+        <div class="contenedor_campoFormulario" style="width:99.85%;">
+            @Html.TextBoxFor(m => Model.CalleOAvenida, new { @style = "width:99.85%;", @placeholder = "Ejm: Av. Castellana 100" })
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
         </div>
         <div class="contenedor_grupo_botones_campoDireccion">
