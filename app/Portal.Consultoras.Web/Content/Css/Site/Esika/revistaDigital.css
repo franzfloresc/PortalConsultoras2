@@ -1790,6 +1790,16 @@
     animation: bounceRight 1.2s infinite;
 }
 
+.div-carousel-rd-prev {
+    left: -14%;
+    top: 35%;
+    text-align: right;
+}
+
+.div-carousel-rd-next {
+    right: -14%;
+    top: 35%;
+}
 
 
 /*TRANSITIONS*/

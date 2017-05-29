@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Data.RevistaDigital
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.RevistaDigitalSuscripcion_Registro");
 
             Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.CodigoConsultora);
-            Context.Database.AddInParameter(command, "CampaniaID", DbType.String, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
             Context.Database.AddInParameter(command, "EstadoRegistro", DbType.Int32, entity.EstadoRegistro);
             Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
             Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
@@ -33,10 +33,12 @@ namespace Portal.Consultoras.Data.RevistaDigital
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.RevistaDigitalSuscripcion_Registro");
 
-            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.Int64, entity.CodigoConsultora);
+            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.CodigoConsultora);
             Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
-            Context.Database.AddInParameter(command, "FechaDesuscripcion", DbType.DateTime, entity.FechaDesuscripcion);
             Context.Database.AddInParameter(command, "EstadoRegistro", DbType.Int32, 0);
+            Context.Database.AddInParameter(command, "IsoPais", DbType.String, entity.IsoPais);
+            Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.CodigoZona);
+            Context.Database.AddInParameter(command, "EMail", DbType.String, entity.EMail);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);

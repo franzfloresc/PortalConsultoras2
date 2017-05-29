@@ -948,7 +948,7 @@ div#tab_revistasdigital_mobile {
     border-color: transparent transparent #000000 transparent;
 }
 .content_carrusel_landing{
-    width:85%;
+    width:80%;
     margin: 0 auto;
     padding-top:43px;
     padding-bottom:20px;
@@ -1155,4 +1155,116 @@ height: 100%;
     background: url(../../../Images/Esika/pagina.png) no-repeat;
     background-position: 3px 2px;
     height:20px;
+}
+
+.rd_ver_mas .arrow_rigth {
+    width: 8px;
+    height: 12px;
+    position: absolute;
+    right: 82px;
+    bottom: 25px;
+}
+
+.rd_ver_mas:hover {
+    transition: all 0.2s ease-in-out;
+}
+
+.rd_ver_mas:after {
+    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-repeat: no-repeat;
+    background-size: 6px 10px;
+    display: inline-block;
+    width: 6px;
+    position: absolute;
+    height: 10px;
+    content: "";
+    margin-left: 8px;
+    margin-top: 4px;
+}
+
+.rd_ver_mas:hover:after {
+    animation: bounceRight 1.2s infinite;
+}
+
+.div-carousel-rd-prev {
+    left: -14%;
+    top: 35%;
+    text-align: right;
+}
+
+.div-carousel-rd-next {
+    right: -14%;
+    top: 35%;
+}
+
+@media (max-width : 800px) {
+    .js-slick-prev {
+        padding-right: 10px;
+    }
+    .js-slick-next {
+        padding-left: 10px;
+    }
+
+    .js-slick-prev img {
+        width: 25px;
+    }
+    .js-slick-next img {
+        width: 25px;
+    }
+}
+
+@media (max-width : 425px) {
+    .div-carousel-rd-prev {
+        left: -13%;
+    }
+
+    .div-carousel-rd-next {
+        right: -13%;
+    }
+}
+
+@media (min-width: 426px) and (max-width: 1024px) {
+    .div-carousel-rd-prev {
+        left: -10%;
+    }
+
+    .div-carousel-rd-next {
+        right: -10%;
+    }
+}
+
+
+/*TRANSITIONS*/
+@keyframes bounceLeft {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(-4px);
+        transform: translateX(-4px);
+    }
+}
+
+@keyframes bounceRight {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(4px);
+        transform: translateX(4px);
+    }
 }
