@@ -24,53 +24,27 @@
 </div>
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
-@*@if (Model.EstadoAccion > 0)
+@if (Model.ListaTabs.Any())
 {
     <div class="content_tabs_landing">
         <div class="content_tabs_bpt">
-            <ul class="tabs_pagos">
+            <ul class="tabs_pagos" data-tab="tab">
                 @foreach (var tabs in Model.ListaTabs)
                 {
-                    <li class="one">
-                        <a href="javascript:;" id="@tabs.Id">
+                    <li>
+                        <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
                             <div class="texto_tab_pagos">@tabs.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
                 }
-                <hr id="barCursor" style="opacity: 1;">
+                <hr id="barCursor">
             </ul>
         </div>
     </div>
-}*@
-@*<div class="content_tabs_landing" style="display:none;">
-    <div class="content_tabs_bpt">
-        <ul class="tabs_pagos">
-            <li class="one">
-                <a href="javascript:;" id="VerVista1">
-                    <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
-                    <div class="marcador_tab"></div>
-                </a>
-            </li>
-            <li class="two">
-                <a href="javascript:;" id="VerVista2">                   
-                    <div class="texto_tab_pagos">VER CAMPAÑA 13</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>
-            <li class="three">
-                <a href="javascript:;" id="VerVista3">
-                    <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>            
-            <hr id="barCursor" style="opacity: 1;">
-        </ul>
-    </div>
-    <hr class="clear" />
-</div>*@
+}
 <hr class="clear" />
-<div id="Vista1" style="display: block;">
+<div style="display: block;" data-tag-html="1">
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
             <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
@@ -137,7 +111,7 @@
     </div>
 </div>
 <hr class="clear" />
-<div id="Vista3" class="Vista3" style="display: none;">
+<div class="Vista3" style="display: none;" data-tag-html="0">
     <div class="content_gana_mas">
         <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
         
@@ -202,7 +176,6 @@
         <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa<br/> dentro de dos campañas. Cualquier duda entrar en contacto con el servicio de atención al cliente de tu país.</div>
         <a class="btn_cancelar_inscripcion">CANCELAR MI INSCRIPCIÓN</a>
     </div>
-    
 </div>
 
 <div id="DialogMensajesBanner" style="display: none;">
@@ -445,19 +418,6 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript">
-        //$(document).ready(function () {
-        //    $("#VerVista1").on("click", function () {
-        //        $('#Vista1').show();
-        //        $('#Vista3').hide();
-        //    });
-        //    $("#VerVista3").on("click", function () {
-        //        $('#Vista1').hide();
-        //        $('#Vista3').show();
-        //        $('.Vista3').css('padding-top', '105px');
-        //    });
-        //});
-    </script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;

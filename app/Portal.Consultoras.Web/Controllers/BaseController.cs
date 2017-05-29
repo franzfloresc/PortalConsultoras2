@@ -2023,22 +2023,33 @@ namespace Portal.Consultoras.Web.Controllers
             return codigo;
         }
 
-        public bool ValidarPermiso(string codigo)
+        public bool ValidarPermiso(string codigo, string codigoConfig = "")
         {
             codigo = Util.Trim(codigo).ToLower();
-            if (codigo == "") return false;
+            codigoConfig = Util.Trim(codigoConfig);
 
-            //var codigoConfig = "";
             var listaConfigPais = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
             var existe = new ConfiguracionPaisModel();
+
+            if (codigoConfig != "" && codigo == "")
+            {
+                existe = listaConfigPais.FirstOrDefault(c => c.Codigo == codigoConfig) ?? new ConfiguracionPaisModel();
+                return !(existe.ConfiguracionPaisID == 0 || !existe.Estado);
+            }
+
+            if (codigo == "") return false;
+
             if (codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
             {
-                //codigoConfig = Constantes.ConfiguracionPais.RevistaDigital;
                 existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
                 if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
-                    return false;
-                else if (existe.Validado)
-                    return true;
+                {
+                    existe = listaConfigPais.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida) ?? new ConfiguracionPaisModel();
+                    if (existe.ConfiguracionPaisID == 0 || !existe.Estado)
+                    {
+                        return false;
+                    }
+                }
                 return true;
             }
 

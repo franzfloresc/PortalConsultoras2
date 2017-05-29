@@ -21,8 +21,6 @@ var tipoOrigen = '1';
 var FlagEnviarCorreo = false; //EPD-23787
 
 $(document).ready(function () {
-   // debugger;
-    
  
     ReservadoOEnHorarioRestringido(false);
 
