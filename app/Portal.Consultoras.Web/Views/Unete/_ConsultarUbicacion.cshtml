@@ -1124,6 +1124,13 @@
                     var div = $('#centroPoblado');
                     nivel4.attr('disabled', 'disabled');
 
+                    if (this.value == '')
+                    {
+                        $('#LugarNivel4').html(defaultOption);
+                        nivel4.attr('disabled', false);
+                        return;
+                    }
+
                     $.getJSON('@Url.Action("ObtenerNivelN")',
                             { id: this.value, codigoIso: "@Model.EditarDireccionModel.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
                             function (data) {
