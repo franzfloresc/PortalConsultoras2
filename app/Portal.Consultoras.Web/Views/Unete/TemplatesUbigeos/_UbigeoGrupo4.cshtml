@@ -165,6 +165,12 @@ else
 @Html.HiddenFor(m => Model.NombreLugarNivel5)
 @Html.HiddenFor(m => Model.ContaValorNivel3)
 
+@Html.HiddenFor(m => Model.LugarNivel1)
+@Html.HiddenFor(m => Model.LugarNivel2)
+@Html.HiddenFor(m => Model.LugarNivel3)
+@Html.HiddenFor(m => Model.LugarNivel4)
+@Html.HiddenFor(m => Model.LugarNivel5)
+
 <script>
     var codigoPais = '@Model.CodigoPais';
 
@@ -172,12 +178,32 @@ else
 
         codigoPais = '@Model.CodigoPais';
 
-        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel1))
+        {
+            <text>$("#LugarNivel1").val('');</text>
+        }
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel2))
+        {
+            <text>$("#LugarNivel2").val('');</text>
+        }
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel3))
+        {
+            <text>$("#LugarNivel3").val('');</text>
+        }
+        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel4))
+        {
+            <text>$("#LugarNivel4").val('');</text>
+        }
         if (codigoPais == 'GT') {
-            $("#LugarNivel5").prepend("<option value=''>--Seleccione--</option>").val('');
+            $("#LugarNivel5").prepend("<option value=''>--Seleccione--</option>");//.val('');
+            @if (string.IsNullOrEmpty(Model.LugarNivel5))
+            {
+                <text>$("#LugarNivel5").val('');</text>
+            }
         }
     });
 
@@ -211,7 +237,7 @@ else
     }
 
     $('#btnModificarDireccion').click(function () {
-        
+
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').hide();
             $('#btnGrabarDireccion').show();

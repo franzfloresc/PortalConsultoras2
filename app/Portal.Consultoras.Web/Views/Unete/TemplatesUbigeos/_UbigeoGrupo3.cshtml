@@ -185,15 +185,37 @@
 @Html.HiddenFor(m => Model.NombreLugarNivel5)
 @Html.HiddenFor(m => Model.ContaValorNivel3)
 
+@Html.HiddenFor(m => Model.LugarNivel1)
+@Html.HiddenFor(m => Model.LugarNivel2)
+@Html.HiddenFor(m => Model.LugarNivel3)
+@Html.HiddenFor(m => Model.LugarNivel4)
+
 
 <script>
     $.validator.unobtrusive.parse('form');
 
     $(document).ready(function () {
-        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>").val('');
-        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel1))
+        {
+            <text>$("#LugarNivel1").val('');</text>
+        }
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel2))
+        {
+            <text>$("#LugarNivel2").val('');</text>
+        }
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel3))
+        {
+            <text>$("#LugarNivel3").val('');</text>
+        }
+        $("#LugarNivel4").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel4))
+        {
+            <text>$("#LugarNivel4").val('');</text>
+        }
+
     });
 
     $('#btnGrabarDireccion').hide();
@@ -248,10 +270,11 @@
             $('#btnGuardarPosicion').attr('disabled', false);
             $('#btnActualizarSeccion').attr('disabled', false);
             HabilitarDatosDireccion(0);
+
         }
         //else {
         //    return;}
-        
+
     });
 
     $('#btnCancelarEdicion').click(function () {
