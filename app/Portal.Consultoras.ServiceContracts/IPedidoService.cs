@@ -205,7 +205,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
-        IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros);
+        IList<BEMatrizComercialImagen> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros);
 
         [OperationContract]
         IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
@@ -1058,6 +1058,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+
+        [OperationContract]
+        BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
         #region Cupon
 

@@ -11,6 +11,8 @@ using AutoMapper;
 using Portal.Consultoras.Common;
 using System.IO;
 using Portal.Consultoras.Web.CustomHelpers;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -30,8 +32,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MatrizComercialModel()
             {
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
+
             return View(model);
         }
 
@@ -485,15 +489,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, 10).ToList();
             }
 
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
-
-            int totalRegistros = lst.Any()? lst[0].TotalRegistros: 0;
-            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            var data = MapImages(lst, paisID);
 
             return Json(new { imagenes= data, totalRegistros=totalRegistros } );
         }
@@ -510,11 +507,9 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-            .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
             int totalRegistros = 0;
             int idMatrizComercial = 0;
-            List<MatrizComercialImagen> data = new List<MatrizComercialImagen>();
+            var data = new List<MatrizComercialImagen>();
             if (lst.Any())
             {
                 var tieneImagenes = lst.First().IdMatrizComercialImagen != 0;
@@ -522,11 +517,47 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
-                    data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+                    data = lst.Select(p => new MatrizComercialImagen
+                    {
+                        IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                        FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                        Foto = urlS3 + p.Foto
+                    }).ToList();
                 }
             }
 
             return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
+        }
+
+        public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int tipoBusqueda, int pagina)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenByNemotecnico(paisID, idMatrizComercial, null, null, 0, 0, 0, nemoTecnico, tipoBusqueda, pagina, 10).ToList();
+            }
+
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            var data = MapImages(lst, paisID);
+
+            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+        }
+
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            string paisISO = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+            var data = lst.Select(p => new MatrizComercialImagen
+            {
+                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                Foto = urlS3 + p.Foto,
+                NemoTecnico = p.NemoTecnico
+            }).ToList();
+
+            return data;
         }
     }
 }

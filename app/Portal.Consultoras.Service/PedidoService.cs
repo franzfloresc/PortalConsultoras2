@@ -437,7 +437,7 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP);
         }
 
-        public IList<BEMatrizComercial> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        public IList<BEMatrizComercialImagen> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
         {
             return new BLOfertaProducto().GetImagenByNemotecnico(paisID, idMatrizImagen, cuv2, codigoSAP, estrategiaID, campaniaID, tipoEstrategiaID, nemotecnico, tipoBusqueda, numeroPagina, registros);
         }
@@ -1930,6 +1930,11 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+        }
+
+        public BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            return new BLPedidoWeb().CumpleRegaloTippingPoint(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
         }
 
         #region Cupon

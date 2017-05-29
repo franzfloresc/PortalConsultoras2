@@ -33,7 +33,20 @@
                 }
             }
         }
-        else
+        else if (item.Descripcion.Trim() == "¿Necesitas ayuda?")
+        {
+            var target = item.PaginaNueva ? "_blank" : "_self";
+            var url = item.Version == "Completa"
+                ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
+                : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
+            var onclickF = "";
+                     <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
+                       class="etiqueta_chat menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                        @item.Descripcion
+                    </a>
+    
+        }
+        else if (item.SubMenu.Count == 0)
         {
             var target = item.PaginaNueva ? "_blank" : "_self";
             var url = item.Version == "Completa"
@@ -43,7 +56,7 @@
             var onclickF = tipoUsuaio == 2 && item.Descripcion.ToLower().Trim() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
 
             <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
-               class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
+                class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
                 @if (item.UrlImagen != "")
                 {
                     <img src="@item.UrlImagen" alt="@item.Descripcion" />

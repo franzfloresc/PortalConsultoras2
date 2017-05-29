@@ -2497,6 +2497,8 @@
     <Content Include="Content\Images\mobile\Esika\video.png" />
     <Content Include="Content\Images\mobile\Esika\ws.png" />
     <Content Include="Content\Images\mobile\Esika\youtube.png" />
+    <Content Include="Content\Images\mobile\icon-chat-lbel.png" />
+    <Content Include="Content\Images\mobile\icon-chat.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
@@ -2921,6 +2923,7 @@
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
     <Content Include="Scripts\AdminContenido\Estrategia.js" />
     <Content Include="Scripts\AdminContenido\Paginador.js" />

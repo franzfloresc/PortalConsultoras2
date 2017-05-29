@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioModificacion { get; set; }
         public bool NemotecnicoActivo { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
+        public string ExpValidacionNemotecnico { get; set; }
     }
 
     public class MatrizComercialImagen
