@@ -56,6 +56,10 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,6 +81,10 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DACalculoPROL.cs" />
+    <Compile Include="DABotmakerApiLog.cs" />
+    <Compile Include="DAPalabraInvalida.cs" />
+    <Compile Include="DAProductoPalabra.cs" />
     <Compile Include="DAComunicado.cs" />
     <Compile Include="DAConfiguracionParametroCarga.cs" />
     <Compile Include="DAConfiguracionProgramaNuevas.cs" />
@@ -128,6 +136,7 @@
     <Compile Include="DAMailing.cs" />
     <Compile Include="DAMensajeCUV.cs" />
     <Compile Include="DAMensajeMetaConsultora.cs" />
+    <Compile Include="DAMenuApp.cs" />
     <Compile Include="DAMenuMobile.cs" />
     <Compile Include="DAMiAcademia.cs" />
     <Compile Include="DAConsultoraOnline.cs" />
@@ -185,12 +194,149 @@
     <Compile Include="DAValidacionAutomatica.cs" />
     <Compile Include="DAZonificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServiceCalculoPROL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServicePROLConsultas\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ServicePROL\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
       <Project>{2a3b50df-c243-4d7d-b8c0-e4e6c9c6c8d9}</Project>
       <Name>Portal.Consultoras.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServicePROLConsultas\</RelPath>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Data_ServicePROLConsultas_wsConsulta</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServicePROL\</RelPath>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsPROLSicc/ServiceStockSsic.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Data_ServicePROL_ServiceStockSsic</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ServiceCalculoPROL\</RelPath>
+      <UpdateFromURL>http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Portal_Consultoras_Data_ServiceCalculoPROL_ServicesCalculoPrecioNiveles</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ServiceCalculoPROL\ObjMontosProl.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiceCalculoPROL\ObjOfertaCatalogos.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiceCalculoPROL\ObjProductosNiveles.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServiceCalculoPROL\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ServiceCalculoPROL\ServicesCalculosPROL.wsdl" />
+    <None Include="Web References\ServicePROLConsultas\ArchivoStock.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\ControlCarga.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\DetallePedido.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\DispoProl.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\Lista.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\LogCarga.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\LogError.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\OfertaProl.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\ReportStockxZona.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\Respuesta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\RptStock.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\StockReservado.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROLConsultas\wsConsulta.wsdl" />
+    <None Include="Web References\ServicePROL\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\ServicePROL\RespuestaProl.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROL\ServiceStockSsic.wsdl" />
+    <None Include="Web References\ServicePROL\TransferirDatos.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\ServicePROL\TransferirDatosDeuda.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

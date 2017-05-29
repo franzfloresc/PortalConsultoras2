@@ -8,6 +8,7 @@ using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
 using System.Data; //R2004
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -135,6 +136,12 @@ namespace Portal.Consultoras.Service
         {
             var BLResumenCampania = new BLResumenCampania();
             return BLResumenCampania.GetPedidoWebAcumulado(paisID, CampaniaID, ConsultoraID);
+        }
+
+        public decimal GetMontoDeuda(int paisID, int campaniaID, long consultoraID, string codigoUsuario, bool revisarHana)
+        {
+            var BLResumenCampania = new BLResumenCampania();
+            return BLResumenCampania.GetMontoDeuda(paisID, campaniaID, Convert.ToInt32(consultoraID), codigoUsuario, revisarHana);
         }
 
         public IList<BEResumenCampania> GetSaldoPendiente(int paisID, int CampaniaID, int ConsultoraID)

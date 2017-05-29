@@ -2234,8 +2234,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
         },
         error: function (data, error) {
             CerrarSplash();
-            if (checkTimeout(data)) {
-            }
+            checkTimeout(data);
         }
     });
 }

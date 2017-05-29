@@ -85,6 +85,8 @@ namespace Portal.Consultoras.Entities
         public int IndicadorGPRSB { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
+        [DataMember]
+        public int AceptacionConsultoraDA { get; set; }
 
         public BEConfiguracionCampania(IDataRecord datarec)
         {
@@ -165,11 +167,17 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "EstadoPedido") && datarec["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(datarec["EstadoPedido"]);
 
+            if (DataRecord.HasColumn(datarec, "ModificaPedidoReservado") && datarec["ModificaPedidoReservado"] != DBNull.Value)
+                ModificaPedidoReservado = Convert.ToBoolean(datarec["ModificaPedidoReservado"]);
+
             if (DataRecord.HasColumn(datarec, "ValidacionAbierta") && datarec["ValidacionAbierta"] != DBNull.Value)
                 ValidacionAbierta = Convert.ToBoolean(datarec["ValidacionAbierta"]);
 
             if (DataRecord.HasColumn(datarec, "FechaActualPais"))
                 FechaActualPais = Convert.ToDateTime(datarec["FechaActualPais"]);
+                
+            if (DataRecord.HasColumn(datarec, "AceptacionConsultoraDA") && datarec["AceptacionConsultoraDA"] != DBNull.Value)
+                AceptacionConsultoraDA = Convert.ToInt32(datarec["AceptacionConsultoraDA"]);
         }
     }
 }

@@ -154,6 +154,9 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         private string CodigoISOProdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaEnfoqueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -194,6 +197,19 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
                 if ((object.ReferenceEquals(this.CodigoISOProdField, value) != true)) {
                     this.CodigoISOProdField = value;
                     this.RaisePropertyChanged("CodigoISOProd");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaEnfoque {
+            get {
+                return this.MarcaEnfoqueField;
+            }
+            set {
+                if ((this.MarcaEnfoqueField.Equals(value) != true)) {
+                    this.MarcaEnfoqueField = value;
+                    this.RaisePropertyChanged("MarcaEnfoque");
                 }
             }
         }

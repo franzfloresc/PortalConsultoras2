@@ -1,10 +1,12 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using common = Portal.Consultoras.Common.Constantes;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -40,12 +42,31 @@ namespace Portal.Consultoras.BizLogic
                         paises.Add(new BEPais(reader));
                 CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
             }
+            
+            var arrPaisesEsika = WebConfig.PaisesEsika.Split(';');
+            
+            foreach (var pais in paises)
+            {
+                pais.MarcaEnfoque = (arrPaisesEsika.Any(p => p == pais.CodigoISO) ? common.Marca.Esika : common.Marca.LBel);
+            }
+            
             return paises;
         }
 
         public BEPais SelectPais(int paisID)
         {
-            return SelectPaises().FirstOrDefault(pais => pais.PaisID == paisID);
+            IList<BEPais> paises = (IList<BEPais>)CacheManager<BEPais>.GetData(paisID, ECacheItem.Paises);
+            if (paises == null)
+            {
+                paises = new List<BEPais>();
+                var DAZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = DAZonificacion.GetPaisActivo())
+                {
+                    if (reader.Read()) paises.Add(new BEPais(reader));
+                }                    
+                CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
+            }
+            return paises.FirstOrDefault();
         }
 
         public int GetPaisNumeroCampaniasByPaisID(int paisID)
