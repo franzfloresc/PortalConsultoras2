@@ -232,6 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CampaniaID = userData.CampaniaID;
             entidad.CodigoZona = userData.CodigoZona;
             entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo;
+            entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
@@ -285,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CampaniaID = userData.CampaniaID;
             entidad.CodigoZona = userData.CodigoZona;
             entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo;
+            entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 

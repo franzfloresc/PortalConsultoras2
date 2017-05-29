@@ -1268,3 +1268,192 @@ height: 100%;
         transform: translateX(4px);
     }
 }
+
+
+.mpopup_rd {
+    background-color: #F2EEF0;
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    max-width: 440px;
+    min-width: 320px;
+    position: relative;
+    top: 50%;
+}
+.mob_rd_inscripcion {
+    min-height: 568px;
+    max-height: 684px;
+}
+.mpopup_rd_cabecera {
+    height: 85px;
+    background-color: black;
+    width: 100%;
+    padding-left: 40%;
+    padding-top: 30px;
+}
+.mpopup_tit {
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 17px;
+    width: 90%;
+    max-width: 200px;
+    min-width: 160px;
+    letter-spacing: 0.5px;
+}
+.mrd_logo {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
+    text-align: center;
+    position: relative;
+}
+.mrd_logo:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    clear: both;
+}
+.mrd_logo {
+    width: 32%;
+    height: 85px;
+    padding-top: 24px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 110px;
+}
+.mrd_logo:after {
+    border-left: 22px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 85px solid #000;
+}
+/* CONTENIDO POPUP INSCRIPCIÓN */
+.mpopup_rd_content {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+.mpopup_saludo {
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    line-height: 18px;
+}
+.mpopup_text {
+    font-size: 14px;
+}
+.mpopup_text .mtit {
+    font-size: 15px;
+    color: #e81c36;
+    font-weight: 700;
+}
+.mpopup_inscripcion img {
+    margin: 4% 0;
+}
+.btn_bpt {
+    margin: 15px 0 5px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    height: 60px;
+}
+.btn_bpt.btn_red a {
+    background-color: #e81c36;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    height: 53px;
+    width: 100%;
+    position: absolute;
+    line-height: 53px;
+}
+.mpopup_textleg {
+    text-align: center;
+    font-size: 11px;
+}
+.mpopup_textleg a {
+    color: black;
+    text-decoration: underline;
+}
+.mpopup_rd .mpopup_nomostrar {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    left: 50%;
+    margin-left: -75px;
+}
+.mpopup_rd .mpopup_nomostrar a {
+    font-size: 11px;
+    color: #757575;
+    letter-spacing: 0.5px;
+}
+
+
+
+
+/* CONTENIDO POPUP CONFIRMACIÓN */
+.mob_rd_confirmacion {
+    max-height: 450px;
+    margin-top: -225px!important;
+}
+.btn_bpt.btn_transparent a {
+    background-color: transparent;
+    border: 1px solid black;
+    text-decoration: none;
+    color: black;
+    text-align: center;
+    height: 53px;
+    width: 100%;
+    position: absolute;
+    line-height: 53px;
+}
+.mob_rd_confirmacion .btn_transparent a {
+    letter-spacing: 0.2px;
+    width: 240px;
+}
+.mob_rd_confirmacion .mpopup_text {
+    letter-spacing: 0.5px;
+    line-height: 17px;
+    margin: 30px 0;
+}
+.mob_rd_confirmacion .mpopup_textleg {
+    text-align: left;
+}
+.mob_rd_confirmacion .rd_consultora {
+    position: absolute;
+    bottom: 0;
+    right: -30px;
+    width: 52%;
+}
+
+@media (min-width: 460px){
+    .mpopup_text  div {
+        margin-bottom: 10px;
+    }
+    .mpopup_text .mtit {
+        font-size: 18px;
+    }
+    .mtit span {
+        font-size: 20px!important;
+    }
+}
+
+@media (max-height: 567px){
+    .mpopup_rd {
+        margin-top: -240px;
+    }
+}
+@media (min-height: 568px){
+    .mpopup_rd {
+        margin-top: -284px;
+    }
+}
