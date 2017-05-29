@@ -27,9 +27,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MisClientes()
         {
-
             return View();
+        }
 
+        [HttpGet]
+        public PartialViewResult Detalle(ClienteModel cliente)
+        {
+            return PartialView(cliente);
         }
 
         [HttpPost]
@@ -40,44 +44,72 @@ namespace Portal.Consultoras.Web.Controllers
             //else
             //    return Update(model);
 
+            List<BEClienteDB> clientes = new List<BEClienteDB>();
+            List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
+            List<BEClienteResponse> response = new List<BEClienteResponse>();
+
             try
             {
+                contactos.Add(new BEClienteContactoDB()
+                {
+                    ClienteID = model.ClienteID,
+                    ContactoClienteID = 0,
+                    Estado = (string.IsNullOrEmpty(model.Celular) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                    Valor = model.Celular
+                });
+
+                contactos.Add(new BEClienteContactoDB()
+                {
+                    ClienteID = model.ClienteID,
+                    ContactoClienteID = 0,
+                    Estado = (string.IsNullOrEmpty(model.Telefono) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                    Valor = model.Telefono
+                });
+
+                contactos.Add(new BEClienteContactoDB()
+                {
+                    ClienteID = model.ClienteID,
+                    ContactoClienteID = 0,
+                    Estado = (string.IsNullOrEmpty(model.eMail) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                    Valor = model.eMail
+                });
+
+                clientes.Add(new BEClienteDB()
+                {
+                    ClienteID = model.ClienteID,
+                    Nombres = model.Nombre,
+                    ConsultoraID = userData.ConsultoraID,
+                    Origen = Constantes.ClienteOrigen.Desktop,
+                    Contactos = contactos.ToArray()
+                });
+
                 using (ClienteServiceClient sv = new ClienteServiceClient())
                 {
-                    List<BECliente> lst = new List<BECliente>();
-                    lst.Add(new BECliente()
-                        {
-                            ClienteID = model.ClienteID,
-                            Nombre = model.Nombre,
-                            Celular = model.Celular,
-                            Telefono = model.Telefono,
-                            eMail = model.eMail,
-                            ConsultoraID = userData.ConsultoraID,
-                            Activo = true
-                        });
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                }
 
-                    var response = sv.Save(userData.PaisID, lst.ToArray());
+                var itemResponse = response.First();
 
-                    var itemResponse = response.First();
-
-                    if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
+                if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = true,
-                            message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                            extra = ""
-                        });
-                    }
-                    else
+                        success = true,
+                        message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = itemResponse.MensajeRespuesta,
-                            extra = ""
-                        });
-                    }
+                        success = false,
+                        message = itemResponse.MensajeRespuesta,
+                        extra = ""
+                    });
                 }
             }
             catch (FaultException ex)

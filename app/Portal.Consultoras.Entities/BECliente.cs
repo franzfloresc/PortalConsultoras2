@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.Data;
 
+using Portal.Consultoras.Common;
+
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
@@ -21,6 +23,8 @@ namespace Portal.Consultoras.Entities
         private int miPaisID;
         private int mPagina;
         private long mCodigoCliente;
+        private short miFavorito;
+        private short miTipoContactoFavorito;
 
 
         public BECliente()
@@ -29,6 +33,9 @@ namespace Portal.Consultoras.Entities
             mseMail = string.Empty;
             msTelefono = string.Empty;
             msCelular = string.Empty;
+            mCodigoCliente = 0;
+            miFavorito = 0;
+            miTipoContactoFavorito = 0;
         }
 
         public BECliente(IDataRecord datarec)
@@ -37,12 +44,20 @@ namespace Portal.Consultoras.Entities
             miClienteID = Convert.ToInt32(datarec["ClienteID"]);
             msNombre = datarec["Nombre"].ToString();
             msTelefono = datarec["Telefono"].ToString();
-            msCelular = datarec["Celular"].ToString();
             mseMail = datarec["eMail"].ToString();
             mbActivo = Convert.ToBoolean(datarec["Activo"]);
 
-            if (datarec["CodigoCliente"]!= DBNull.Value)
+            if (DataRecord.HasColumn(datarec, "Celular") && datarec["Celular"] != DBNull.Value)
+                msCelular = datarec["Celular"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "CodigoCliente") && datarec["CodigoCliente"] != DBNull.Value)
                 mCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
+
+            if (DataRecord.HasColumn(datarec, "Favorito") && datarec["Favorito"] != DBNull.Value)
+                mCodigoCliente = Convert.ToInt64(datarec["Favorito"]);
+
+            if (DataRecord.HasColumn(datarec, "TipoContactoFavorito") && datarec["TipoContactoFavorito"] != DBNull.Value)
+                mCodigoCliente = Convert.ToInt64(datarec["TipoContactoFavorito"]);
         }
 
         [DataMember]
@@ -130,6 +145,21 @@ namespace Portal.Consultoras.Entities
         {
             get { return mCodigoCliente; }
             set { mCodigoCliente = value; }
+        }
+
+        [DataMember]
+        public short Favorito
+        {
+            get { return miFavorito; }
+            set { miFavorito = value; }
+        }
+
+
+        [DataMember]
+        public short TipoContactoFavorito
+        {
+            get { return miTipoContactoFavorito; }
+            set { miTipoContactoFavorito = value; }
         }
     }
 }

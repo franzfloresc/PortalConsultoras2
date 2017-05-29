@@ -509,6 +509,7 @@ namespace Portal.Consultoras.Common
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
 
+        #region Clientes
         public class ClienteTipoContacto
         {
             public const short Celular = 1;
@@ -577,15 +578,17 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NOMBRENOENVIADO = "3";
                 public const string ERROR_NUMEROTELEFONONOENVIADO = "4";
                 public const string ERROR_FORMATOCORREO = "5";
-                
-                //public const string ERROR_CLIENTENOREGISTRADO = "2";
-                //public const string ERROR_CLIENTENOACTUALIZADO = "3";
-                //public const string ERROR_NUMEROTELEFONOEXISTE = "4";
+                public const string ERROR_CONTACTOSNOENVIADO = "6";
+                public const string ERROR_TIPOCONTACTOVALORNOENVIADO = "7";
+                public const string ERROR_CONSULTORANOMBREEXISTE = "8";
+                public const string ERROR_CONSULTORATELEFONOEXISTE = "9";
+                public const string ERROR_NUMEROTELEFONOEXISTE = "10";
+                public const string ERROR_CLIENTENOREGISTRADO = "11";
+                public const string ERROR_CLIENTENOACTUALIZADO = "12";
+
                 //public const string ERROR_ORIGENNOENVIADO = "6";
-                //public const string ERROR_CONTACTOSNOENVIADO = "7";
-                //public const string ERROR_TIPOCONTACTONOENVIADO = "8";
                 //public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
-                //public const string ERROR_CONSULTORATELEFONOEXISTE = "12";
+                
             }
 
             public static Dictionary<string, string> Message
@@ -600,19 +603,40 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
                         {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente debe tener un teléfono de contacto."},
                         {Code.ERROR_FORMATOCORREO, "Formato de correo incorrecto."},
+                        {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
+                        {Code.ERROR_TIPOCONTACTOVALORNOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
+                        {Code.ERROR_CONSULTORANOMBREEXISTE, "Nombre ya se encuentra registrado para la consultora."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
+                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
+                        {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
+                        {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
 
-                        //{Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
-                        //{Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-                        //{Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
-                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},
-                        //{Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
-                        //{Code.ERROR_TIPOCONTACTONOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
+                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},                        
                         //{Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
-                        //{Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
                     });
                 }
             }
         }
+
+        public class ClienteEstado
+        {
+            public const short Activo = 1;
+            public const short Inactivo = 0;
+        }
+
+        public class ClienteTipoRegistro
+        {
+            public const short Todos = 0;
+            public const short DatosGenerales = 1;
+            public const short TipoContacto = 2;
+        }
+
+        public class ClienteOrigen
+        {
+            public const string Desktop = "SOMOS_BELCORP_DESKTOP";
+            public const string Mobile = "SOMOS_BELCORP_MOBILE";
+        }
+        #endregion
     }
 }
 

@@ -120,9 +120,14 @@ namespace Portal.Consultoras.Service
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public List<BEClienteResponse> Save(int paisID, List<BECliente> clientes)
+        public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
-            return BLCliente.Save(paisID, clientes);
+            return BLCliente.SaveDB(paisID, clientes);
+        }
+
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        {
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
         }
     }
 }

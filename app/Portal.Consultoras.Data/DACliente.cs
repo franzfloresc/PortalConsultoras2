@@ -55,6 +55,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);//R20150903
             Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
+            Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
             
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -71,15 +73,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
             Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);
             Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
+            Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
 
             return Context.ExecuteNonQuery(command);
         }
 
-        public int DelCliente(long ConsultoraID, int ClienteID, out bool Deleted)
+        public int DelCliente(long ConsultoraID, int ClienteID, long CodigoCliente, out bool Deleted)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCliente");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, CodigoCliente);
             Context.Database.AddOutParameter(command, "@Deleted", DbType.Boolean, 1);
 
             int result = Context.ExecuteNonQuery(command);

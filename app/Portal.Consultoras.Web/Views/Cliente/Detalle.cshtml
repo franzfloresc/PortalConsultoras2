@@ -1,0 +1,156 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+@{
+    if(Model.ClienteID == 0)
+    {
+        <h6>AGREGAR <b>CLIENTE</b></h6>
+    }   
+    else
+    { 
+        <h6>EDITAR <b>CLIENTE</b></h6>
+    }
+}
+@Html.HiddenFor(model => model.ClienteID)
+<form action="" method="post">
+    @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre"})
+    <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+        <div class="noti_message red_texto_size">
+            <span class="icono_advertencia_notificacion"></span>
+            <span class="descripcion_mensaje">
+                Por favor ingresa un nombre válido.
+            </span>
+        </div>
+    </div>
+
+    @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+    @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+
+    @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
+    <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
+        <div class="noti_message red_texto_size">
+            <span class="icono_advertencia_notificacion"></span>
+            <span class="descripcion_mensaje">
+                El correo ingresado <b>no existe.</b> <br />
+                Por favor ingresa un correo válido.
+            </span>
+        </div>
+    </div>
+    <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
+    <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
+    <br />
+    <br />
+    <br />
+    <div id="divValidationSummary"></div>
+</form>
+<script>
+    $(".input-correo").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+                $('#divNotiCorreo').hide();
+                $('#divNotiCorreo2').hide();
+                return re.test(keyChar);
+
+            }
+        });
+
+    $(".input-nombre").keypress(
+        function (evt) {
+            var charCode = (evt.which) ? evt.which : window.event.keyCode;
+            if (charCode <= 13) {
+                return false;
+            }
+            else {
+                var keyChar = String.fromCharCode(charCode);
+                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+                $('#divNotiNombre').hide();
+                $('#divNotiNombre2').hide();
+                return re.test(keyChar);
+            }
+        });
+
+    function MantenerClienteDetalle() {
+        var div = $('#divAgregarCliente');
+        var vcont = 0;
+
+        if (jQuery.trim($(div).find('#Nombre').val()) == "") {
+            vcont++;
+            $('#divNotiNombre').show();
+        }
+
+        $("#divValidationSummary").html("");
+        if (jQuery.trim($(div).find('#Telefono').val()) == "" && jQuery.trim($(div).find('#Celular').val()) == "") {
+            vcont++;
+            $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
+        }
+
+        if (jQuery.trim($(div).find('#eMail').val()) != "") {
+            if (!validateEmail($(div).find('#eMail').val())) {
+                vcont++;
+                $('#divNotiCorreo').show();
+            }
+        }
+
+        if (vcont > 0) return false;
+
+        var id = $(div).find('#ClienteID').val();
+        var nombre = $(div).find('#Nombre').val();
+        var correo = $(div).find('#eMail').val();
+        var telefono = $(div).find('#Telefono').val();
+        var celular = $(div).find('#Celular').val();
+
+        var item = {
+            ClienteID: id,
+            Nombre: nombre,
+            eMail: correo,
+            //FlagValidate: opt,
+            Telefono: telefono,
+            Celular: celular
+        };
+
+        AbrirSplash();
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'Cliente/Mantener',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        AbrirMensaje(data.message);
+                        CerrarSplash();
+
+                        $(div).hide();
+
+                        Limpiar();
+                        CargarListaCliente();
+
+                    }
+                    else {
+                        alert(data.message);
+                        CerrarSplash();
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    $(div).hide();
+                    alert(data.message);
+                }
+            }
+        });
+    }
+
+    function CerrarClienteDetalle() {
+        $('#divAgregarCliente').hide();
+        $('#divNotiNombre').hide();
+        $('#divNotiCorreo').hide();
+    }
+</script>

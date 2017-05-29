@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Data
         private BEAPISB2Response beAPISB2Response;
         private string ServiceResponse_SUCCESS = "0000";
 
-        public DAClienteDB(int paisID)
+        public DAClienteDB()
         {
             httpClient = new HttpClient();
             string baseAddress = ConfigurationManager.AppSettings["UrlApiSB2"];

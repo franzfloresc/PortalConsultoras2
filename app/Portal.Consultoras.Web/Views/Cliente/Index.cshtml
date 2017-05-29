@@ -127,9 +127,21 @@
     <hr class="clear" />
 </div>
 
-<!-- POPUP AGREGAR CLIENTE -->
-
+<!-- POPUP DETAllE CLIENTE -->
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div class="btn_cerrar_agregarUnidades">
+            <a href="javascript:;" onclick="CerrarDiv(1);">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div id="divDetalle"></div>
+    </div>
+</div>
+
+<!-- POPUP AGREGAR CLIENTE -->
+@*<div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarDiv(1);">
@@ -170,12 +182,12 @@
             <div id="divValidationSummary"></div>
         </form>
     </div>
-</div>
+</div>*@
 
 <!-- FIN POPUP AGREGAR CLIENTE -->
 <!-- POPUP EDITAR CLIENTE -->
 
-<div class="contenedor_popup_agregarCliente mis_clientes" id="divEditarCliente">
+@*<div class="contenedor_popup_agregarCliente mis_clientes" id="divEditarCliente">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarDiv(2);">
@@ -211,12 +223,13 @@
             </div>
             <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarDiv(2);" />
             <input type="button" class="btnCliente_agregar" name="editarCliente" value="GUARDAR" onclick="MantenerCliente(2);" />
+            <br />
+            <br />
+            <br />
+            <div id="divValidationSummary2"></div>
         </form>
-
-        <br />
-        <div id="divValidationSummary2"></div>
     </div>
-</div>
+</div>*@
 
 <!-- FIN POPUP EDITAR CLIENTE -->
 <!-- POPUP ELIMINAR CLIENTE -->
@@ -361,6 +374,7 @@
     {{#each this}}
     <div class="content_listado_notificaciones">
         <div style="display:none;" class="cliente_id">{{ClienteID}}</div>
+        <div style="display:none;" class="codigo_cliente">{{CodigoCliente}}</div>
         <div class="icono_cliente_sb">
             {{#if_eq TieneTelefono '0'}}
                 <img src="/Content/Images/icons/icoWarning.png" height="24" />
