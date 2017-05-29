@@ -192,6 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Chatbot\Controllers\CompartirController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
+    <Compile Include="Areas\Chatbot\Models\CatalogoCompartirModel.cs" />
     <Compile Include="Areas\Mobile\Models\ConsultoraOnlineHistorialMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\EstadoCuentaDetalleMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
@@ -2883,6 +2885,8 @@
     <Content Include="Scripts\HojaInscripcion\loader.js" />
     <Content Include="Scripts\HojaInscripcion\utilsCommon.js" />
     <Content Include="Scripts\HojaInscripcion\validations.js" />
+    <Content Include="Areas\Chatbot\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Chatbot\Views\Compartir\CompartirEnChatBot.cshtml" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3197,6 +3201,7 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
+    <Content Include="Areas\Chatbot\Views\Web.config" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4194,7 +4199,9 @@
     <Folder Include="GestionPasos\Asignaciones\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

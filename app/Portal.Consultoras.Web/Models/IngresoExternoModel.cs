@@ -10,5 +10,9 @@
         public string NumeroPedido { get; set; }
         public long ProcesoId { get; set; }
         public string AutoReservar { get; set; }
+
+        public string TipoCatalogo { get; set; }
+
+        public string UrlCatalogo { get; set; }
     }
 }
