@@ -54,6 +54,37 @@ $(document).ready(function () {
             prevArrow: '<button type="button" data-role="none" class="slick-next next_compraxcompra"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         });
+        //marca google analytics*******************************
+        var divs = $(".content_ficha_compra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
+        //***************************************
     }
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
         $(".verDetalleCompraPorCompra").click(function () {
@@ -129,7 +160,39 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
-        });       
+        });
+        //marca google analytics*******************************
+        debugger;
+        var divs = $(".content_pop_compra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
+        //***************************************
     }
     else if (tipoOrigenPantalla == 2) {
         CargarShowroomMobile(null);

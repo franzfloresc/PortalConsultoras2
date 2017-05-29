@@ -999,13 +999,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Tiene;
         }
 
-        public bool TienePersonalizacion()
-        {
-            var showRoomEvento = userData.BeShowRoom;
-            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
-            return tienePersonalizacion;
-        }
-
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
 
