@@ -315,26 +315,14 @@ namespace Portal.Consultoras.Web.Controllers
                     var MalaZonificacionString = string.Empty;
                     MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
 
-                    foreach (var item in eventos.ToList())
-                    {
-                        if (item.Observacion != null)
-                        {
-                            if (item.Observacion.Contains(MalaZonificacionString))
-                            {
-                                model.ZonaSeccionRechazo = (item.Observacion.Split(':').Length > 1 ?
-                                                      item.Observacion.Split(':')[1].ToString()
-                                                  : string.Empty);
-                            }
-                        }
-                    }
-                    
-                    //var eventoMZ = eventos.ToList().
-                    //                    Where(e => e.Observacion.Contains(MalaZonificacionString)).
-                    //                        OrderByDescending(ev => ev.Fecha.ToDatetime()).ToList().FirstOrDefault();
+                    var eventoMZ = eventos.ToList().
+                                        Where(e => e.Observacion != null && e.Observacion.Contains(MalaZonificacionString)).
+                                            OrderByDescending(ev => ev.Fecha.ToDatetime()).ToList().FirstOrDefault();
 
-                    //model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
-                    //                              eventoMZ.Observacion.Split(':')[1].ToString()
-                    //                           : string.Empty);
+                    model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
+                                                  eventoMZ.Observacion.Split(':')[1].ToString()
+                                               : string.Empty);
+                    model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo)? string.Empty :  model.ZonaSeccionRechazo.Replace('|', '/');
                 }
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
