@@ -130,14 +130,14 @@
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, new { @class = "paisColombia"})
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
     </div>
 </div>
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2, new { @class = "paisColombia" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
     </div>
 </div>
@@ -146,7 +146,7 @@
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
         <label>Dirección:</label>
         <div class="contenedor_campoFormulario">
-            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
+            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, new { @class = "paisColombia" })
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
         </div>
     </div>
@@ -194,7 +194,7 @@ else
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
         </div>
         <div class="contenedor_grupoBotones">
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
             <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
@@ -208,7 +208,7 @@ else
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
         </div>
         <div class="contenedor_grupoBotones">
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
             <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
@@ -244,6 +244,7 @@ else
             $("#Referencia").prop('readonly', false);
             if (codigoPais == 'CO') {
                 $("#LugarNivel3").prop('disabled', false);
+                $("#NombreDireccionEdicion").prop('readonly', false);
             } else {
                 $("#Numero").prop('readonly', false);
             }
@@ -255,6 +256,7 @@ else
             $("#Referencia").prop('readonly', true);
             if (codigoPais == 'CO') {
                 $("#LugarNivel3").prop('disabled', true);
+                $("#NombreDireccionEdicion").prop('readonly', true);
             } else {
                 $("#Numero").prop('readonly', true);
             }
