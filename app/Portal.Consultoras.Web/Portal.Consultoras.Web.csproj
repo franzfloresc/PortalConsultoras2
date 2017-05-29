@@ -2749,6 +2749,8 @@
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
+    <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
+    <Content Include="Content\Images\RevistaDigital\mpopup_inscripcion.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\next_mob.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />

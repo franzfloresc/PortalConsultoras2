@@ -1432,14 +1432,16 @@
 	z-index: 1;
 }
 .popup_rd .popup_rd_cabecera .rd_logo {
-	width: 200px;
-	height: 100%;
-	padding-top: 15px;
+    width: 200px;
+    height: 100%;
+    padding-top: 15px;
+    z-index: 2;
 }
+
 .popup_rd .popup_rd_cabecera .rd_logo:after {
-	border-left: 22px solid transparent;
-	border-right: 0px solid transparent;
-	border-bottom: 80px solid #000;
+    border-left: 22px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 80px solid #000;
 }
 .popup_rd .popup_rd_cabecera .popup_cabecera_text {
 	color: white;
