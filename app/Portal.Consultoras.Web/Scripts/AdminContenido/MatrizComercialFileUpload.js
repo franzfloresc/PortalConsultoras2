@@ -1,4 +1,5 @@
-﻿var MatrizComercialFileUpload = function (config) {
+﻿//depende de Nemotecnico.js
+var MatrizComercialFileUpload = function (config) {
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
@@ -9,10 +10,7 @@
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-        //var expr = /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g;
-        //var patt = new RegExp(expr);
-        //return patt.test(sinExtension);
-        //_nemotecnico.
+        return _nemotecnico.validarNemotecnico(sinExtension);
     };
 
     var _onFileSubmit = function (id, fileName) {
