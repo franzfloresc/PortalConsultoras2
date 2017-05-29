@@ -709,7 +709,7 @@
                     <label id="spRegZonaSec">Regi&oacute;n/Zona/Secci&oacute;n</label>
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
-                    <button type="button" id="btnGrabarPosicion">Grabar Posici&oacute;n</button>
+                    <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
                 </div>
             </div>
         </div>
@@ -964,7 +964,14 @@
 
         $(document).ready(function () {
 
-            $('#spMalaZonificacion').hide();
+            var ZonaSeccionRechazo = "@Model.ZonaSeccionRechazo";
+            if (ZonaSeccionRechazo == null || ZonaSeccionRechazo == "") {
+                $('#spMalaZonificacion').hide();
+            }
+            else {
+                $('#spMalaZonificacion').show();
+            }
+
             $.validator.unobtrusive.parse('form');
             $.validator.unobtrusive.parse('form0');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
@@ -1152,7 +1159,14 @@
 
 
     function OnSuccess(html) {
-        alert('Se actualizó la direccion');
+        //Aqui mostrar en un popup
+        $('#divMensajes').empty();
+        $('#divMensajesdivMensajes').show();
+        LoadSpinner('divMensajes');
+        $('#divMensajes').html(html);
+        $('#divMensajes').show();
+        //alert('Se actualizó la direccion');
+        
         //modalOpcion.dialog('close');
         //modal.dialog('close');
         //$('#divEditarDireccion').hide();
@@ -1474,15 +1488,27 @@
 
                     //$('#regionXY').val('');
                     $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                    $('#Region').val(json.Region);
+                    $('#Zona').val(json.Zona);
+                    $('#Seccion').val(json.Seccion);
+                    $('#Territorio').val(json.Territorio);
 
                 } else {
                     if (json.Region != null && json.Zona != null && json.Seccion != null && json.Region != '' && json.Zona != '' && json.Seccion != '')
                     {
                         $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                        $('#Region').val(json.Region);
+                        $('#Zona').val(json.Zona);
+                        $('#Seccion').val(json.Seccion);
+                        $('#Territorio').val(json.Territorio);
                     }
                     else
                     {
                         $('#regionXY').val('');
+                        $('#Region').val('');
+                        $('#Zona').val('');
+                        $('#Seccion').val('');
+                        $('#Territorio').val('');
                     }
                     
                     //$('mensaje_territorio').show();

@@ -146,7 +146,7 @@
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
     </div>
 </div>
-<div class="contenedor_camposUbigeo">
+<div class="contenedor_camposUbigeo" id="centroPoblado">
     <label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.DropDownListFor(m => Model.LugarNivel4, Model.LugaresNivel4)

@@ -299,13 +299,30 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular)
+        public ActionResult ConsultarUbicacion(int id, string nombreCompleto, string celular, string pintarMalaZonificacion)
         {
             var model = new ConsultarUbicacionModel();
             model.NombreCompleto = nombreCompleto;
             model.Celular = celular;
             using (var sv = new PortalServiceClient())
             {
+                if (!string.IsNullOrEmpty(pintarMalaZonificacion))
+                {
+                    var eventos = new EventoSolicitudPostulanteCollection();
+                    eventos = sv.ObtenerEventosSolicitudPostulante(CodigoISO, id);
+                    var tipoRechazosGZ = new ServiceUnete.ParametroUneteCollection();
+                    tipoRechazosGZ = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.TipoRechazo, 0);
+                    var MalaZonificacionString = string.Empty;
+                    MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
+
+                    var eventoMZ = eventos.
+                                        Where(e => e.Observacion.Contains(MalaZonificacionString)).
+                                            OrderByDescending(ev => ev.Fecha.ToDatetime()).ToList().FirstOrDefault();
+
+                    model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
+                                                  eventoMZ.Observacion.Split(':')[1].ToString()
+                                               : string.Empty);
+                }
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
                 if (solicitudPostulante != null)
@@ -3341,6 +3358,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
         {
+            MensajeModel modelMensaje = new MensajeModel();
             string direccion = null;
 
             if (CodigoISO == Pais.Chile)
@@ -3512,6 +3530,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
+                        modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
                 }
                 else if (CodigoISO == Pais.Colombia)
@@ -3548,6 +3567,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     catch (Exception ex)
                     {
+                        modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
 
                     if (!string.IsNullOrEmpty(zonaEncontrada))
@@ -3617,7 +3637,10 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
-            return Json(new { success = true, Msg = "Se actualizó los datos" }, JsonRequestBehavior.AllowGet);
+
+            modelMensaje.TextoMensaje = "Se actualizaron los datos";
+            return View("_TemplateMensaje",modelMensaje);
+            //return Json(new { success = true, Msg = "Se actualizó los datos" }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ConfirmarPosicion(int id, decimal latitud,

@@ -140,6 +140,13 @@
 
 
 <script>
+
+    $(document).ready(function () {
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>").val('');
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>").val('');
+    });
+
     $('#btnGrabarDireccion').hide();
     $('#btnCancelarEdicion').hide();
     $('#btnModificarDireccion').show();

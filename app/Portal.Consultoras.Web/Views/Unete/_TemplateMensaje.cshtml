@@ -1,0 +1,88 @@
+﻿@model Portal.Consultoras.Web.Models.ConfirmarPosicionModel
+
+<style>
+    .popup_infoGeo{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        width: 359px;
+        height: 271px;
+        background: #FFF;
+        font-family: 'Lato';
+        font-size: 14px;
+        color: #000;
+        margin: -135.5px auto 0 auto;
+        z-index: 2000;
+        padding: 13px 35px 20px 35px;
+        box-sizing: border-box;
+    }
+
+    .info_geo_datos, .info_geo_datos span, .info_geo_acciones, .info_geo_acciones span, .grupo_botones_acciones_geo{
+        display:block;
+    }
+
+    .info_geo_datos span:first-child{
+        margin: 19px 0px 12px 0px;
+    }
+
+    .info_geo_acciones span{
+        margin: 19px 0px 17px 0px;
+    }
+
+    .grupo_botones_acciones_geo button{
+        display: inline-block;
+        background: #642f80;
+        color: #FFF;
+        border: 0px;
+        width: 139px;
+        height: 37px;
+        font-family: 'Lato';
+        text-align: center;
+        letter-spacing:0.5px;
+        transition:all 0.3s ease;
+        -moz-transition:all 0.3s ease;
+        -o-transition:all 0.3s ease;
+        -ms-transition:all 0.3s ease;
+        -webkit-transition:all 0.3s ease;
+    }
+
+    .grupo_botones_acciones_geo button:hover{
+        opacity:0.8;
+    }
+
+    .grupo_botones_acciones_geo button:first-child{
+        margin-right:8px;
+    }
+
+    .info_geo_datos span b{
+        font-weight:700;
+    }
+
+</style>
+
+
+
+        <div class="popup_infoGeo">
+            @*<div class="info_geo_datos">
+                <span>La posici&oacute;n X/Y pertenece a:</span>
+            </div>*@
+            <div class="info_geo_acciones">
+                <span>@Model.TextoMensaje</span>
+                <div class="grupo_botones_acciones_geo">
+                    <button id="btnAceptarMensaje" type="button">Aceptar</button>
+                    @*<button id="btnCancelarMensaje" type="button">Cancelar</button>*@
+                </div>
+            </div>
+        </div>
+
+
+<script>
+
+    $('#btnAceptarMensaje').click(function () {
+        //modal.dialog('close');
+        $('#divMensajes').hide();
+    })
+
+    //# sourceURL===_ConfirmarPosicion.cshtml
+</script>
