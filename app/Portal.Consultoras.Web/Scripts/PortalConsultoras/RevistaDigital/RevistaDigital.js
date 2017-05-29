@@ -1,28 +1,6 @@
 ﻿
 $(document).ready(function () {
 
-    //$(".tabs_pagos li > a").on("click", function () {
-    //    var id = $(this).attr("id");
-    //    if (id == "0") {
-    //        $('#VistaProductos').hide();
-    //        $('#VistaQueEs').css('padding-top', '105px');
-    //        $('#VistaQueEs').show();
-    //    }
-    //    else {
-    //        $('#VistaProductos').show();
-    //        $('#VistaQueEs').hide();
-    //    }
-    //});
-
-    //$("#VistaProductos").hide();
-    //$("#VistaQueEs").hide();
-    //if (estadoAccion == 0) {
-    //    $(".tabs_pagos li > a[id=0]").click();
-    //}
-    //else {
-    //    $($(".tabs_pagos li > a").get(0)).click();
-    //}
-
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
@@ -35,9 +13,7 @@ $(document).ready(function () {
             if (tag == 0) {
                 $(objTag).css('padding-top', '105px');
             }
-        });
-
-        
+        });        
 
         //mantener seleccionado
         $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
@@ -53,7 +29,18 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+    if ($('ul[data-tab="tab"] li a').length == 0) {
+        if (estadoAccion == 0) {
+            $('[data-tag-html="0"]').show();
+        }
+        else {
+            $('[data-tag-html="1"]').show();
+        }
+    }
+    else {
+        $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+    }
+    
 
     $('#divCarruselLan').slick({
         vertical: false,
@@ -122,11 +109,15 @@ function OfertaArmarEstrategias(response) {
     }
 
     $("#divOfertaProductos").html("");
+    $.each(lista, function (ind, item) {
+        item.PuedeAgregar = '0';
+    });
+
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";
+    response.CodigoEstrategia = "101";    
 
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
@@ -173,29 +164,6 @@ function RDDetalleObtener() {
                 CerrarLoad();
                 console.log(response);
             }
-        }
-    });
-}
-
-function LayoutProductos() {
-    var w = $("#divOfertaProductos").width();
-    var lista = $("#divOfertaProductos [data-item]");
-    var wi = 0;
-    var x, y = 0;
-    $.each(lista, function (index, item) {
-        wi += $(item).width() + parseFloat($(item).css("margin-left").replace("px", "")) + parseFloat($(item).css("margin-right").replace("px", ""));
-        if (wi > w || index + 1 == lista.length) {
-            x = index + 1 == lista.length ? Math.abs(wi - w) : Math.abs(wi - w - $(item).width());
-            x = x / 2;
-
-            y = y > 0 ? y + 1 : 0;
-            $(lista[y]).css("margin-left", (x + parseFloat($(item).css("margin-left").replace("px", ""))) + "px");
-
-            //y = index > 0 ? index + 1 == lista.length ? index : index - 1 : 0;
-            //$(lista[y]).css("margin-right", (x - 1 + parseFloat($(item).css("margin-right").replace("px", ""))) + "px");
-
-            y = index - 1;
-            wi = $(item).width() + parseFloat($(item).css("margin-left").replace("px", "")) + parseFloat($(item).css("margin-right").replace("px", ""));
         }
     });
 }

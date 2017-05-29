@@ -65,6 +65,58 @@ namespace Portal.Consultoras.Web.Controllers
             model.Titulo = userData.UsuarioNombre.ToUpper();
             model.TituloDescripcion = "";
             string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
+
+            if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+            {
+                model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                {
+                    model.EstadoAccion = 1;
+                    model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
+                    model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = "QUÉ ES ESIKA PARA MÍ" });
+                    return model;
+                }
+
+                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
+                {
+                    model.EstadoAccion = 2;
+                    // logica de los 3 tabs y los textos de cabecera
+                    return model;
+                }
+                
+                model.EstadoAccion = 0;
+                return model;
+            }
+            else
+            {
+                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                {
+                    model.EstadoAccion = 1;
+                    model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                    return model;
+                }
+
+                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
+                {
+                    model.EstadoAccion = 2;
+                    // logica de los 3 tabs y los textos de cabecera
+                    return model;
+                }
+
+                model.EstadoAccion = -1;
+                return model;
+            }            
+        }
+
+        public RevistaDigitalModel ListarTabsRD(RevistaDigitalModel model)
+        {
+            model.EstadoAccion = -1;
+            model.ListaTabs = new List<ComunModel>();
+
+            model.Titulo = userData.UsuarioNombre.ToUpper();
+            model.TituloDescripcion = "";
+            string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
+
             if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
             {
                 model.EstadoAccion = 0;
@@ -104,12 +156,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
                 model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
                 model.EstadoAccion = 2;
-                
+
                 model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
             }
             model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = "QUÉ ES ESIKA PARA MÍ" });
 
             return model;
         }
+
     }
 }

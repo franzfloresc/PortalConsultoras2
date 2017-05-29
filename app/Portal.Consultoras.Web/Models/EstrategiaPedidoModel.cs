@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Web.Models
         public bool IsAgregado { get; set; }
         public int TieneVariedad { get; set; }
         public int PuedeCambiarCantidad { get; set; }
+        public int PuedeAgregar { get; set; }
 
         public string UrlCompartirFB { get; set; }
         public string CodigoEstrategia { get; set; }
