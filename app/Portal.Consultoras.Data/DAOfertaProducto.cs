@@ -323,9 +323,9 @@ namespace Portal.Consultoras.Data
             {
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
                 query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
-                query.Append("inner join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
-                query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
-                query.Append(String.Format("where pc.CodigoProducto = {0}", codigoSAP));
+                query.Append("left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
+                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
+                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
             }
             else
             {
