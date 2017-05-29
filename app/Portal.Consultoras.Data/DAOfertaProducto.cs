@@ -337,15 +337,10 @@ namespace Portal.Consultoras.Data
             if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Aproximacion))
             {
                 String[] nemotecnicoItems = nemotecnico.Split('&');
-                int countNemotecnico = 0;
 
                 foreach (String nemotecnicoItem in nemotecnicoItems)
                 {
-                    if (countNemotecnico == 0)
-                        query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
-                    else
-                        query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
-                    countNemotecnico++;
+                    query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
                 }
             }
             else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))

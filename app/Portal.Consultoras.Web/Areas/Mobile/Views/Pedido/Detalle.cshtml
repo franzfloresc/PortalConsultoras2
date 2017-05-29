@@ -536,7 +536,7 @@
 <!--SB20-565 - INICIO -->
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body=""> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
@@ -648,6 +648,10 @@
                 RESERVA TU PEDIDO
             </a>
         </div>
+        <div class="content_producto_alternativo">
+            <div class="content_imagen_alternativo"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png"></div>
+            <div class="content-texto-producto-alternativo">Llega al monto mínimo <b>Gana 1 ÉSIKA MAGNAT</b></div>
+        </div>
     </div>
 </script>
 <!--SB20-565 - FIN -->
@@ -665,7 +669,7 @@
             <div class="precio_ficha_producto">
                 {{#iff PrecioValorizado '>' '0'}}
                 <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
-                {{/iff}}
+                {{/iff}}contenedor_carruselOfertaFinal
                 <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
             </div>
             {{#iff DescripcionRelacionado '!=' ''}}
