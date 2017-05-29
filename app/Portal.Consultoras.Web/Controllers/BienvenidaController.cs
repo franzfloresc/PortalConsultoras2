@@ -459,6 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.CampaniaMasDos = AddCampaniaAndNumero(model.CampaniaActual, 2);
             }
             catch (FaultException ex)
             {

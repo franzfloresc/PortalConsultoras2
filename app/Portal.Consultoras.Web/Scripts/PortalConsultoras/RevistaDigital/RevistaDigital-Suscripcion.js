@@ -77,7 +77,12 @@ function RDSuscripcionRedireccionar() {
     window.location = url;
     //CerrarPopup("#PopRDInscrita");
 }
-
+function RDRedireccionarDesuscripcion() {
+    var url = urlRevistaDigital;
+    var divPosition = '#divAnularSuscripcion';
+    window.location = url + divPosition;
+    //CerrarPopup("#PopRDInscrita");
+}
 function MostrarTerminos() {
     var win = window.open(urlTerminosCondicionesRD, '_blank');
     if (win) {

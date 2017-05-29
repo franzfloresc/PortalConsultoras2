@@ -237,11 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (sv.RDSuscripcion(entidad) > 0)
-                {
-                    entidad.CampaniaID = 0;
-                    entidad = sv.RDGetSuscripcion(entidad);
-                }
+                entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
             }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)

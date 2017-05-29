@@ -278,10 +278,9 @@ IF not EXISTS (SELECT * FROM PopupPais where CodigoPopup = 9)
 begin
 	UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
 	INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
-	VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+	VALUES (9, 'Suscripcion Revista Digital', (select CodigoISO from Pais where EstadoActivo = 1), 5, 1)
 end
 GO
-
 
 ----------------------------------------------------------------------------------------------
 -- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA
