@@ -142,6 +142,31 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        /* 
+         * Controller para subir los archivos de estrategia lanzamiento en una carpeta temporal.
+         * 
+         */
+        [HttpPost]
+        public ActionResult ImageLanzamientoUpload(string qqfile)
+        {
+            try
+            {
+                Stream inputStream = Request.InputStream;
+                byte[] fileBytes = ReadFully(inputStream);
+                string ffFileName = qqfile; // qqfile;
+                var time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
+                var path = Path.Combine(Globals.RutaTemporales, time + ffFileName);
+                System.IO.File.WriteAllBytes(path, fileBytes);
+                if (!System.IO.File.Exists(Globals.RutaTemporales))
+                    System.IO.Directory.CreateDirectory(Globals.RutaTemporales);
+                return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
+            }
+        }
+
         [HttpPost]
         public ActionResult ImageOfertaNuevaUpload(string qqfile)
         {

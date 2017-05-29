@@ -195,10 +195,22 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdMatrizComercial(BEMatrizComercial entity);
 
         [OperationContract]
+        int InsMatrizComercialImagen(BEMatrizComercialImagen entity);
+
+        [OperationContract]
+        int UpdMatrizComercialImagen(BEMatrizComercialImagen entity);
+
+        [OperationContract]
         IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
+
+        [OperationContract]
+        IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
+
+        [OperationContract]
+        IList<BEMatrizComercialImagen> GetImagenesByCodigoSAPPaginado(int paisID, string codigoSAP, int pagina, int registros);
 
         [OperationContract]
         int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro);
@@ -615,6 +627,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
 
         [OperationContract]
+        BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID);
+
+        [OperationContract]
         List<BETallaColor> GetTallaColor(BETallaColor entidad);
 
         [OperationContract]
@@ -628,6 +643,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad);
+
+        [OperationContract]
+        List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros);
 
         [OperationContract]
         int DeshabilitarEstrategia(BEEstrategia entidad);
@@ -926,7 +944,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
 
         [OperationContract]
-        IList<BEMatrizComercial> GetImagenesByCUV(int PaisID, int campaniaID, string cuv);
+        BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
 
         [OperationContract]
         string InsProductoSugerido(int PaisID, BEProductoSugerido entidad);
@@ -989,10 +1007,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
 
         [OperationContract]
-        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado);
+        int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
-        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado);
+        List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
         [OperationContract]
         int InsertEstrategiaTemporal(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
@@ -1007,7 +1025,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DeleteEstrategiaTemporal(int paisId, int campaniaId);
 
         [OperationContract]
-        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario);
+        int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId);
 
         [OperationContract]
         List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact);
