@@ -12,21 +12,27 @@ namespace Portal.Consultoras.Data
 
         public IDataReader Insert(DEChatbotProactivaResultado resultado)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertBotmakerApiLog");
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandTimeout = 30;
+            using (var command = Context.Database.GetStoredProcCommand("dbo.InsertBotmakerApiLog"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandTimeout = 30;
 
-            Context.Database.AddInParameter(command, "@Url", DbType.String, resultado.Url ?? "");
-            Context.Database.AddInParameter(command, "@Exitoso", DbType.Boolean, resultado.Exitoso);
-            Context.Database.AddInParameter(command, "@RespuestaBotmaker", DbType.String, resultado.Respuesta ?? "");
-            Context.Database.AddInParameter(command, "@ErrorLog", DbType.String, resultado.ErrorLog ?? "");
+                Context.Database.AddInParameter(command, "@Url", DbType.String, resultado.Url ?? "");
+                Context.Database.AddInParameter(command, "@Exitoso", DbType.Boolean, resultado.Exitoso);
+                Context.Database.AddInParameter(command, "@RespuestaBotmaker", DbType.String, resultado.Respuesta ?? "");
+                Context.Database.AddInParameter(command, "@ErrorLog", DbType.String, resultado.ErrorLog ?? "");
 
-            var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
-            parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
-            parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
-            command.Parameters.Add(parDetalle);
+                var parDetalle = new SqlParameter("@Detalle", SqlDbType.Structured);
+                parDetalle.TypeName = "dbo.BotmakerApiLogDetalleType";
+                parDetalle.Value = new GenericDataReader<DEChatbotProactivaMensaje>(resultado.ListMensaje);
+                command.Parameters.Add(parDetalle);
 
-            return Context.ExecuteReader(command);
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader;
+                }
+            }
+
         }
     }
 }

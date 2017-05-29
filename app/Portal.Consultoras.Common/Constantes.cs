@@ -551,6 +551,7 @@
             public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
             public const string PedidoDetalle = "PEDIDODETALLE";
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
+            public const string CompartirCatalogo = "COMPARTIRCATALOGO";
         }
 
         public class EstadoCuentaTipoMovimiento

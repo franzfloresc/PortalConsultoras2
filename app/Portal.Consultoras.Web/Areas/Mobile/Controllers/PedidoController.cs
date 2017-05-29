@@ -123,7 +123,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
         
-        public ActionResult Detalle()
+        public ActionResult Detalle(bool autoReservar = false)
         {
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
@@ -145,6 +145,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
             var model = new PedidoDetalleMobileModel();
+            model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = userData.CampaniaID.ToString();

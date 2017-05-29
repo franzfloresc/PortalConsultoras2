@@ -1,9 +1,11 @@
-﻿using Portal.Consultoras.Entities;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Portal.Consultoras.Data
 {
@@ -173,29 +175,72 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
 
             return Context.ExecuteReader(command);
+        }        
+
+        public void SetTieneStockByCampaniaAndZonaAndProductos(int campaniaID, int zonaID, string codigoRegion, string codigoZona, List<BEProducto> listProducto)
+        {
+            using (DbCommand dbCommand = Context.Database.GetStoredProcCommand("dbo.GetTieneStockByCampaniaAndZonaAndCUVs"))
+            {
+                dbCommand.CommandType = CommandType.StoredProcedure;
+
+                dbCommand.Parameters.Add(new SqlParameter("@CampaniaID", SqlDbType.Int) { Value = campaniaID });
+                dbCommand.Parameters.Add(new SqlParameter("@ZonaID", SqlDbType.Int) { Value = campaniaID });
+                dbCommand.Parameters.Add(new SqlParameter("@CodigoRegion", SqlDbType.VarChar) { Value = codigoRegion });
+                dbCommand.Parameters.Add(new SqlParameter("@CodigoZona", SqlDbType.VarChar) { Value = codigoZona });
+
+                var parListPalabra = new SqlParameter("@ListCUV", SqlDbType.Structured);
+                parListPalabra.TypeName = "ffvv.TablaPalabras";
+                parListPalabra.Value = new GenericDataReader<DEPalabra>(listProducto.Select(p => new DEPalabra { Palabra = p.CUV }));
+                dbCommand.Parameters.Add(parListPalabra);
+
+                BEProducto producto = null;
+                using (var reader = Context.ExecuteReader(dbCommand))
+                {
+                    while (reader.Read())
+                    {
+                        producto = listProducto.First(p => p.CUV == Convert.ToString(reader["CUV"]));
+                        producto.TieneStock = Convert.ToBoolean(reader["TieneStock"]);
+                    }
+                }
+            }
         }
 
         public IDataReader GetByCampaniaAndZonaAndPalabras(int campaniaID, int zonaID, string codigoRegion, string codigoZona, int rowCount, List<string> listPalabra)
         {
-            DbCommand dbCommand = Context.Database.GetStoredProcCommand("dbo.GetOrderedProductoByCampaniaAndZonaAndPalabras");
-            dbCommand.CommandType = CommandType.StoredProcedure;
-            dbCommand.CommandTimeout = 30;
+            using (DbCommand dbCommand = Context.Database.GetStoredProcCommand("dbo.GetOrderedProductoByCampaniaAndZonaAndPalabras"))
+            {
+                dbCommand.CommandType = CommandType.StoredProcedure;
+                dbCommand.CommandTimeout = 30;
 
-            dbCommand.Parameters.Add(new SqlParameter("@CampaniaID", SqlDbType.Int) { Value = campaniaID });
-            dbCommand.Parameters.Add(new SqlParameter("@ZonaID", SqlDbType.Int) { Value = campaniaID });
-            dbCommand.Parameters.Add(new SqlParameter("@CodigoRegion", SqlDbType.VarChar) { Value = codigoRegion });
-            dbCommand.Parameters.Add(new SqlParameter("@CodigoZona", SqlDbType.VarChar) { Value = codigoZona });
-            dbCommand.Parameters.Add(new SqlParameter("@RowCount", SqlDbType.Int) { Value = rowCount });
+                dbCommand.Parameters.Add(new SqlParameter("@CampaniaID", SqlDbType.Int) { Value = campaniaID });
+                dbCommand.Parameters.Add(new SqlParameter("@ZonaID", SqlDbType.Int) { Value = campaniaID });
+                dbCommand.Parameters.Add(new SqlParameter("@CodigoRegion", SqlDbType.VarChar) { Value = codigoRegion });
+                dbCommand.Parameters.Add(new SqlParameter("@CodigoZona", SqlDbType.VarChar) { Value = codigoZona });
+                dbCommand.Parameters.Add(new SqlParameter("@RowCount", SqlDbType.Int) { Value = rowCount });
 
-            var parListPalabra = new SqlParameter("@TextoBusqueda", SqlDbType.Structured);
-            parListPalabra.TypeName = "ffvv.TablaPalabras";
-            parListPalabra.Value = ConvertListProductoToDataTable(listPalabra);
-            dbCommand.Parameters.Add(parListPalabra);
+                var parListPalabra = new SqlParameter("@TextoBusqueda", SqlDbType.Structured);
+                parListPalabra.TypeName = "ffvv.TablaPalabras";
+                parListPalabra.Value = new GenericDataReader<DEPalabra>(listPalabra.Select(p => new DEPalabra { Palabra = p }));
+                dbCommand.Parameters.Add(parListPalabra);
 
-            return Context.ExecuteReader(dbCommand);
+                return Context.ExecuteReader(dbCommand);
+            }
         }
 
-        private static DataTable ConvertListProductoToDataTable(List<string> listPalabra)
+        private static DataTable ConvertListProductoToDataTable(List<BEProducto> listProducto)
+        {
+            var table = new DataTable();
+            table.Columns.Add("Palabra", typeof(string));
+            foreach (var producto in listProducto)
+            {
+                DataRow row = table.NewRow();
+                row["Palabra"] = producto.CUV;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
+        private static DataTable ConvertListPalabraToDataTable(List<string> listPalabra)
         {
             var table = new DataTable();
             table.Columns.Add("Palabra", typeof(string));

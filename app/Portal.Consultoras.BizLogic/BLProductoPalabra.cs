@@ -13,10 +13,11 @@ namespace Portal.Consultoras.BizLogic
         private static readonly string ALPHABET = "abcdefghijklmnopqrstuvwxyzáéíóúñ'";
         private static readonly string REGEXP = string.Format("[{0}]+", ALPHABET.Replace("'", "\\'"));
         //private static readonly string REGEXP = "[a-záéíóúñ\\']+";
-        private static readonly List<string> LIST_PALABRA_INVALIDA = new List<string> { "hola", "mas", "lts", "edp", "noc", "del", "rcto", "len" };
                 
         private void GetTokens(List<string> listTexto, Action<string> loadTokens)
         {
+            var listPalabraInvalida = new BLPalabraInvalida().GetAll().ToList();
+
             string token;
             foreach (var texto in listTexto)
             {
@@ -24,16 +25,16 @@ namespace Portal.Consultoras.BizLogic
                 while (matches.MoveNext())
                 {
                     token = matches.Current.ToString();
-                    if (EsPalabraValida(token)) loadTokens(token);
+                    if (EsPalabraValida(listPalabraInvalida, token)) loadTokens(token);
                 }
             }
         }
 
-        private bool EsPalabraValida(string palabra)
+        private bool EsPalabraValida(List<string> listPalabraInvalida, string palabra)
         {
             if (string.IsNullOrEmpty(palabra)) return false;
             if (palabra.Length < 3) return false;
-            if (LIST_PALABRA_INVALIDA.Contains(palabra.ToLower())) return false;
+            if (listPalabraInvalida.Contains(palabra.ToLower())) return false;
 
             return true;
         }
@@ -48,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 var dAProductoPalabra = new DAProductoPalabra(paisID);
                 dictionaryPalabraConteo = dAProductoPalabra.GetByCampaniaID(campaniaID);
-                CacheManager<Dictionary<string, long>>.AddDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo);
+                CacheManager<Dictionary<string, long>>.AddDataElement(paisID, ECacheItem.ProductoPalabra, campaniaID.ToString(), dictionaryPalabraConteo, new TimeSpan(1,1,0,0));
             }
             return dictionaryPalabraConteo;
         }

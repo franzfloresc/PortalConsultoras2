@@ -205,43 +205,43 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-            if (ModelState.IsValid)
-            {
-                List<BEEstrategia> lst;
-                if (Consulta == "1")
+                if (ModelState.IsValid)
                 {
-                    var entidad = new BEEstrategia();
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
-                    entidad.CUV2 = (CUV != "") ? CUV : "0";
-                    entidad.CampaniaID = Convert.ToInt32(CampaniaID);
-                    entidad.Activo = Activo;
-                    entidad.Imagen = Imagen;
-
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    List<BEEstrategia> lst;
+                    if (Consulta == "1")
                     {
-                        lst = sv.GetEstrategias(entidad).ToList();
+                        var entidad = new BEEstrategia();
+                        entidad.PaisID = UserData().PaisID;
+                        entidad.TipoEstrategiaID = Convert.ToInt32(TipoEstrategiaID);
+                        entidad.CUV2 = (CUV != "") ? CUV : "0";
+                        entidad.CampaniaID = Convert.ToInt32(CampaniaID);
+                        entidad.Activo = Activo;
+                        entidad.Imagen = Imagen;
+
+                        using (PedidoServiceClient sv = new PedidoServiceClient())
+                        {
+                            lst = sv.GetEstrategias(entidad).ToList();
+                        }
                     }
-                }
-                else
-                {
-                    lst = new List<BEEstrategia>();
-                }
+                    else
+                    {
+                        lst = new List<BEEstrategia>();
+                    }
 
-                string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
 
-                if (lst != null && lst.Count > 0)
-                    lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                    if (lst != null && lst.Count > 0)
+                        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
 
-                // Usamos el modelo para obtener los datos
-                BEGrid grid = new BEGrid();
-                grid.PageSize = rows;
-                grid.CurrentPage = page;
-                grid.SortColumn = sidx;
-                grid.SortOrder = sord;
-                //int buscar = int.Parse(txtBuscar);
-                BEPager pag = new BEPager();
-                IEnumerable<BEEstrategia> items = lst;
+                    // Usamos el modelo para obtener los datos
+                    BEGrid grid = new BEGrid();
+                    grid.PageSize = rows;
+                    grid.CurrentPage = page;
+                    grid.SortColumn = sidx;
+                    grid.SortOrder = sord;
+                    //int buscar = int.Parse(txtBuscar);
+                    BEPager pag = new BEPager();
+                    IEnumerable<BEEstrategia> items = lst;
                     if (lst.Any())
                     {
                         if (sord == "asc")
@@ -269,21 +269,21 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                pag = Util.PaginadorGenerico(grid, lst);
+                    items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                    pag = Util.PaginadorGenerico(grid, lst);
 
-                // Creamos la estructura
-                var data = new
-                {
-                    total = pag.PageCount,
-                    page = pag.CurrentPage,
-                    records = pag.RecordCount,
-                    rows = from a in items
-                           select new
-                           {
-                               id = a.EstrategiaID,
-                               cell = new string[] 
+                    // Creamos la estructura
+                    var data = new
+                    {
+                        total = pag.PageCount,
+                        page = pag.CurrentPage,
+                        records = pag.RecordCount,
+                        rows = from a in items
+                               select new
                                {
+                                   id = a.EstrategiaID,
+                                   cell = new string[]
+                                   {
                                    a.EstrategiaID.ToString(),
                                    a.Orden.ToString(),
                                    a.ID.ToString(),
@@ -295,13 +295,13 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.CodigoProducto.ToString(),
                                    a.ImagenURL.ToString(),
                                    a.Activo.ToString()
-                                }
-                           }
-                };
-                return Json(data, JsonRequestBehavior.AllowGet);
+                                    }
+                               }
+                    };
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+                return RedirectToAction("Index", "AdministrarEstrategia");
             }
-            return RedirectToAction("Index", "AdministrarEstrategia");
-        }
             catch (Exception ex)
             {
                 return RedirectToAction("Index", "AdministrarEstrategia");

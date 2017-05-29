@@ -1967,11 +1967,23 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
+        
+
 
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             return new BLReservaProl().EjecutarReservaProl(input);
         }
+        
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+	}
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
@@ -2003,15 +2015,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
         
-        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
-        {
-            return new BLOfertaProducto().InsMatrizComercialImagen(entity);
-        }
-
-        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
-        {
-            return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
-        }
         
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
