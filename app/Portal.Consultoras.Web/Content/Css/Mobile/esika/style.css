@@ -8582,8 +8582,12 @@ span.title-app-b {
 .mensaje_horarioIngresoPedido a{
     display: block;
     margin-left: 2px;
-    color: #FFF;
+    color: #AAA;
     text-decoration:underline;
+}
+
+.mensaje_horarioIngresoPedido a.CerrarBanner{
+    color: #000;
 }
 
 /* FIN MENSAJES PEDIDO RECHAZADO */
