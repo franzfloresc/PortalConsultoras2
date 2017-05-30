@@ -192,7 +192,16 @@
 
 
 <script>
-    $.validator.unobtrusive.parse('form');
+
+    var htmlLugarNivel2Ant = '';
+    var htmlLugarNivel3Ant = '';
+    var htmlLugarNivel4Ant = '';
+    var LugarNivel1Ant = '';
+    var LugarNivel2Ant = '';
+    var LugarNivel3Ant = '';
+    var LugarNivel4Ant = '';
+    var CalleOAvenidaAnt = '';
+    var ReferenciaAnt = '';
 
     $(document).ready(function () {
         $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
@@ -244,10 +253,20 @@
     }
 
     $('#btnModificarDireccion').click(function () {
+        htmlLugarNivel2Ant = $("#LugarNivel2").html();
+        htmlLugarNivel3Ant = $("#LugarNivel3").html();
+        htmlLugarNivel4Ant = $("#LugarNivel4").html();
+        LugarNivel1Ant = $("#LugarNivel1").val();
+        LugarNivel2Ant = $("#LugarNivel2").val();
+        LugarNivel3Ant = $("#LugarNivel3").val();
+        LugarNivel4Ant = $("#LugarNivel4").val();
+        CalleOAvenidaAnt = $("#CalleOAvenida").val();
+        ReferenciaAnt = $("#Referencia").val();
+
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
-        //$('#btnCancelarEdicion').show();
-        //$('#btnActualizarSeccion').hide();
+        $('#btnCancelarEdicion').show();
+        $('#btnActualizarSeccion').hide();
         $('#btnEditarPosicion').addClass('HabInaButton');
         $('#btnGuardarPosicion').addClass('HabInaButton');
         $('#btnActualizarSeccion').addClass('HabInaButton');
@@ -261,7 +280,7 @@
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
-            //$('#btnCancelarEdicion').hide();
+            $('#btnCancelarEdicion').hide();
             $('#btnActualizarSeccion').show();
             $('#btnEditarPosicion').removeClass('HabInaButton');
             $('#btnGuardarPosicion').removeClass('HabInaButton');
@@ -278,12 +297,27 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
+
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#LugarNivel3").html(htmlLugarNivel3Ant);
+        $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#LugarNivel4").html(htmlLugarNivel4Ant);
+        $("#LugarNivel4").val(LugarNivel4Ant);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        $("#Referencia").val(ReferenciaAnt);
+
         $('#btnModificarDireccion').show();
+        $('#btnGrabarDireccion').hide();
+        $('#btnCancelarEdicion').hide();
         $('#btnActualizarSeccion').show();
         $('#btnEditarPosicion').removeClass('HabInaButton');
         $('#btnGuardarPosicion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnEditarPosicion').attr('disabled', false);
+        $('#btnGuardarPosicion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
     });
 

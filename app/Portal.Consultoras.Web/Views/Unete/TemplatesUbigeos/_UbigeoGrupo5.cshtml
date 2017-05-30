@@ -185,8 +185,8 @@
     $('#btnModificarDireccion').click(function () {
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
-        //$('#btnCancelarEdicion').show();
-        //$('#btnActualizarSeccion').hide();
+        $('#btnCancelarEdicion').show();
+        $('#btnActualizarSeccion').hide();
         $('#btnEditarPosicion').addClass('HabInaButton');
         $('#btnGuardarPosicion').addClass('HabInaButton');
         $('#btnActualizarSeccion').addClass('HabInaButton');
@@ -200,7 +200,7 @@
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
-            //$('#btnCancelarEdicion').hide();
+            $('#btnCancelarEdicion').hide();
             $('#btnActualizarSeccion').show();
             $('#btnEditarPosicion').removeClass('HabInaButton');
             $('#btnGuardarPosicion').removeClass('HabInaButton');
@@ -213,12 +213,16 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
         $('#btnModificarDireccion').show();
+        $('#btnGrabarDireccion').hide();
+        $('#btnCancelarEdicion').hide();
         $('#btnActualizarSeccion').show();
         $('#btnEditarPosicion').removeClass('HabInaButton');
         $('#btnGuardarPosicion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnEditarPosicion').attr('disabled', false);
+        $('#btnGuardarPosicion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
     });
 
