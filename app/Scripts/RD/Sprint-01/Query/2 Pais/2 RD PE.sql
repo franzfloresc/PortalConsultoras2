@@ -11,15 +11,13 @@ ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CodigoAgrupacion VARCHAR(10) = ''
 AS
 /*
-dbo.ListarEstrategiasPedido_SB2 201708,'76502','','2096', '101'
+dbo.ListarEstrategiasPedido_SB2 201708,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
 		
-	--declare @CodigoAgrupacion VARCHAR(10) = @CodigoEstrategia
-	--set @CodigoAgrupacion = ''
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-	
+
 	-- CrossSelling se implemento a un servicio
 	--DECLARE @CuvReco VARCHAR(20)
 	--SELECT @CuvReco = CSA.CUV
@@ -271,9 +269,10 @@ BEGIN
 	
 	IF (@cont1 = @cont2)
 	BEGIN
-		SET @codConsultoraDefault = (SELECT TOP 1 Codigo FROM TablaLogicaDatos WHERE TablaLogicaDatosID = 10001)
 
-        INSERT INTO #TEMPORAL
+		SELECT TOP 1 @codConsultoraDefault = Codigo FROM TablaLogicaDatos WHERE TablaLogicaDatosID = 10001
+
+		INSERT INTO #TEMPORAL
 		SELECT
 			EstrategiaID,
 			CUV2,
@@ -319,8 +318,7 @@ BEGIN
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-			AND TE.TipoEstrategiaID = 3009
-		--ORDER BY te.Orden ASC, op.Orden
+			AND TE.Codigo = '001'
 		ORDER BY CASE 
 		WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	END
@@ -401,10 +399,6 @@ BEGIN
 		T.FlagNueva, -- R2621
 		T.TipoTallaColor,
 		T.TipoEstrategiaImagenMostrar,
-		--case
-		--	when UPPER(T.DescripcionEstrategia) = 'LANZAMIENTO' then 5		--Lanzamiento
-		--	else T.TipoEstrategiaImagenMostrar
-		--end as TipoEstrategiaImagenMostrar,
 		T.CodigoProducto
 		, T.EtiquetaID		-- SB20-351
 		, T.EtiquetaID2		-- SB20-351
@@ -433,4 +427,4 @@ BEGIN
 END
 
 
-
+GO
