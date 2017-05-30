@@ -270,7 +270,7 @@
         <div class="cellGrid " data-colname="CodigoConsultora">{{CodigoConsultora}}</div>
         <div class="cellGrid " data-colname="FechaIngreso">{{FechaIngreso}}</div>
         <div class="cellGrid " data-colname="CampanaIngreso">{{CampanaIngreso}}</div>
-        <div class="cellGrid alignCenter" data-colname="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{TelefonoCelular}}');" /></a></div>
+        <div class="cellGrid alignCenter" data-colname="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{TelefonoCelular}}', '{{PintarMalaZonificacion}}');" /></a></div>
         <div class="cellGrid alignCenter" data-colname="EvaluacionCrediticia"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionCrediticia}}" onclick="consultarEvaluacionCrediticia('{{SolicitudPostulanteID}}');" /></a></div>
         <div class="cellGrid alignCenter" data-colname="EvaluacionTelefonica"> <img style="visibility:{{ShowEvaliuacionTelefonica}}; height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
         <div class="cellGrid " data-colname="Estado">{{Estado}}</div>
@@ -1049,6 +1049,8 @@
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divConfirmarPosicion">
 </div>
+<div class="contenedor_popup_eliminarCliente" id="divMensajes">
+</div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarManualDireccion">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarDireccion">
@@ -1569,7 +1571,7 @@
         document.body.appendChild(iframe_);
     }
 
-    function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular) {
+    function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
 
         limpiarPopUps();
 
@@ -1582,7 +1584,7 @@
         $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
         $("body").css({ "overflow-y": "hidden" });
 
-        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto:NombreCompleto, celular: Celular }, function (html) {
+        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
 
             $('#divConsultarUbicacion').html(html);
             loadExtraData(solicitudPostulanteID);
@@ -2034,6 +2036,7 @@
     {
         $('#divConsultarUbicacion').empty();
         $('#divConfirmarPosicion').empty();
+        $('#divMensajes').empty();
         $('#divEditarManualDireccion').empty();
         $('#divEditarDireccion').empty();
         $('#divEvaluacionCrediticia').empty();
@@ -2636,6 +2639,9 @@
         display: none;
     }
         #divConfirmarPosicion {
+        display: none;
+    }
+        #divMensajes {
         display: none;
     }
         

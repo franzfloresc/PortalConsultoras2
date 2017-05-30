@@ -90,7 +90,7 @@
             <div class="elements" style="width: 95% !important; padding-top: 10px !important;">
                 <div class="div-3">
                    
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina textboxSB2 editarDireccion_camposSelect">
                         @Html.DropDownListFor(m => Model.Region, ViewBag.Regiones as SelectList, " Región", new { @class = "field_85 textboxSB" })
                     </div>
                 </div>
@@ -103,7 +103,7 @@
 
                 <div class="div-3">
                   
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina textboxSB2 editarDireccion_camposSelect">
                         @Html.DropDownListFor(m => Model.Zona, zonas, "Zona", new { @class = "field_85 textboxSB", @disabled = true })
                     </div>
                 </div>
@@ -117,7 +117,7 @@
                 <div class="div-3">
                      
 
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina textboxSB2 editarDireccion_camposSelect">
                         @Html.DropDownListFor(m => Model.Seccion, secciones, "Sección", new { @class = "field_85 textboxSB", @disabled = true })
                     </div>
                 </div>
@@ -130,7 +130,7 @@
 
                 <div class="div-3">
                    
-                    <div class="selectP2 seleccion_pagina textboxSB2">
+                    <div class="selectP2 seleccion_pagina textboxSB2 editarDireccion_camposSelect">
                         @Html.DropDownListFor(m => Model.Territorio, territorios, "Territorio", new { @class = "field_85 textboxSB", @disabled = true })
                     </div>
                 </div>
@@ -207,6 +207,14 @@
             margin: 0;
             padding: 0;
             width: 300px;
+        }
+
+        .div-3 .selectP2.editarDireccion_camposSelect{
+            height:38px;
+            margin:0 auto!important;
+            position: relative;
+            box-sizing: border-box;
+            float:none;
         }
 
         .selectUbicacion {

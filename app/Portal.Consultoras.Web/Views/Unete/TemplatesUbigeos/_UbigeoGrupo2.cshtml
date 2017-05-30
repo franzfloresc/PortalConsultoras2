@@ -100,10 +100,10 @@
     </div>
 </div>
 <div class="contenedor_camposUbigeo">
-    <label>Codigo Postal:</label>
+    <label>C&oacute;digo Postal:</label>
     <div class="contenedor_campoFormulario campoCodigoPostal_MX">
         @Html.TextBoxFor(m => Model.Numero, new { @placeholder = "Ejm: 100", @maxlength = 5 })
-        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Numero)</span>
+        <span class="mensaje_validacion_error anchoValidacionCampoPostal">@Html.ValidationMessageFor(m => Model.Numero)</span>
     </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
@@ -124,7 +124,7 @@
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
     </div>
     <div class="contenedor_grupoBotones">
-        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
         <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
     </div>
 </div>
@@ -138,8 +138,30 @@
 @Html.HiddenFor(m => Model.NombreLugarNivel5)
 @Html.HiddenFor(m => Model.ContaValorNivel3)
 
+@Html.HiddenFor(m => Model.LugarNivel1)
+@Html.HiddenFor(m => Model.LugarNivel2)
+@Html.HiddenFor(m => Model.LugarNivel3)
 
 <script>
+
+    $(document).ready(function () {
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel1))
+        {
+            <text>$("#LugarNivel1").val('');</text>
+        }
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel2))
+        {
+            <text>$("#LugarNivel2").val('');</text>
+        }
+        $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel3))
+        {
+            <text>$("#LugarNivel3").val('');</text>
+        }
+    });
+
     $('#btnGrabarDireccion').hide();
     $('#btnCancelarEdicion').hide();
     $('#btnModificarDireccion').show();
@@ -168,8 +190,8 @@
     $('#btnModificarDireccion').click(function () {
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
-        //$('#btnCancelarEdicion').show();
-        //$('#btnActualizarSeccion').hide();
+        $('#btnCancelarEdicion').show();
+        $('#btnActualizarSeccion').hide();
         $('#btnEditarPosicion').addClass('HabInaButton');
         $('#btnGuardarPosicion').addClass('HabInaButton');
         $('#btnActualizarSeccion').addClass('HabInaButton');
@@ -180,16 +202,11 @@
     });
 
     $('#btnGrabarDireccion').click(function () {
-        if ($('#LugarNivel1').val() == '0')
-        { $('#LugarNivel1').val(''); }
-        if ($('#LugarNivel2').val() == '0')
-        { $('#LugarNivel2').val(''); }
-        if ($('#LugarNivel3').val() == '0')
-        { $('#LugarNivel3').val(''); }
+        
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
-            //$('#btnCancelarEdicion').hide();
+            $('#btnCancelarEdicion').hide();
             $('#btnActualizarSeccion').show();
             $('#btnEditarPosicion').removeClass('HabInaButton');
             $('#btnGuardarPosicion').removeClass('HabInaButton');
@@ -202,12 +219,16 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
         $('#btnModificarDireccion').show();
+        $('#btnGrabarDireccion').hide();
+        $('#btnCancelarEdicion').hide();
         $('#btnActualizarSeccion').show();
         $('#btnEditarPosicion').removeClass('HabInaButton');
         $('#btnGuardarPosicion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnEditarPosicion').attr('disabled', false);
+        $('#btnGuardarPosicion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
     });
 

@@ -130,14 +130,14 @@
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, new { @class = "paisColombia"})
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
     </div>
 </div>
 <div class="contenedor_camposUbigeo anchoDropdown">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2, new { @class = "paisColombia" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
     </div>
 </div>
@@ -146,7 +146,7 @@
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown">
         <label>Dirección:</label>
         <div class="contenedor_campoFormulario">
-            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3)
+            @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, new { @class = "paisColombia" })
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
         </div>
     </div>
@@ -194,7 +194,7 @@ else
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
         </div>
         <div class="contenedor_grupoBotones">
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
             <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
@@ -208,7 +208,7 @@ else
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
         </div>
         <div class="contenedor_grupoBotones">
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
             <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
         </div>
     </div>
@@ -224,10 +224,37 @@ else
 @Html.HiddenFor(m => Model.NombreLugarNivel5)
 @Html.HiddenFor(m => Model.ContaValorNivel3)
 
+@Html.HiddenFor(m => Model.LugarNivel1)
+@Html.HiddenFor(m => Model.LugarNivel2)
+@Html.HiddenFor(m => Model.LugarNivel3)
+
 
 <script>
 
-    var codigoPais = '@Model.CodigoPais'
+    var codigoPais = '@Model.CodigoPais';
+
+    $(document).ready(function () {
+
+        codigoPais = '@Model.CodigoPais';
+
+        $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel1))
+        {
+            <text>$("#LugarNivel1").val('');</text>
+        }
+        $("#LugarNivel2").prepend("<option value=''>--Seleccione--</option>");//.val('');
+        @if (string.IsNullOrEmpty(Model.LugarNivel2))
+        {
+            <text>$("#LugarNivel2").val('');</text>
+        }
+        if (codigoPais == 'CO') {
+            $("#LugarNivel3").prepend("<option value=''>--Seleccione--</option>");//.val('');
+            @if (string.IsNullOrEmpty(Model.LugarNivel3))
+            {
+                <text>$("#LugarNivel3").val('');</text>
+            }
+        }
+    });
 
     $('#btnGrabarDireccion').hide();
     $('#btnCancelarEdicion').hide();
@@ -244,6 +271,7 @@ else
             $("#Referencia").prop('readonly', false);
             if (codigoPais == 'CO') {
                 $("#LugarNivel3").prop('disabled', false);
+                $("#NombreDireccionEdicion").prop('readonly', false);
             } else {
                 $("#Numero").prop('readonly', false);
             }
@@ -255,6 +283,7 @@ else
             $("#Referencia").prop('readonly', true);
             if (codigoPais == 'CO') {
                 $("#LugarNivel3").prop('disabled', true);
+                $("#NombreDireccionEdicion").prop('readonly', true);
             } else {
                 $("#Numero").prop('readonly', true);
             }
@@ -264,8 +293,8 @@ else
     $('#btnModificarDireccion').click(function () {
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
-        //$('#btnCancelarEdicion').show();
-        //$('#btnActualizarSeccion').hide();
+        $('#btnCancelarEdicion').show();
+        $('#btnActualizarSeccion').hide();
         $('#btnEditarPosicion').addClass('HabInaButton');
         $('#btnGuardarPosicion').addClass('HabInaButton');
         $('#btnActualizarSeccion').addClass('HabInaButton');
@@ -276,17 +305,10 @@ else
     });
 
     $('#btnGrabarDireccion').click(function () {
-        if ($('#LugarNivel1').val() == '0')
-        { $('#LugarNivel1').val(''); }
-        if ($('#LugarNivel2').val() == '0')
-        { $('#LugarNivel2').val(''); }
-        if (codigoPais == 'CO') {
-            $('#LugarNivel3').val('');
-        }
         if ($('#form0').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
-            //$('#btnCancelarEdicion').hide();
+            $('#btnCancelarEdicion').hide();
             $('#btnActualizarSeccion').show();
             $('#btnEditarPosicion').removeClass('HabInaButton');
             $('#btnGuardarPosicion').removeClass('HabInaButton');
@@ -299,12 +321,16 @@ else
     });
 
     $('#btnCancelarEdicion').click(function () {
-        $('#btnGrabarDireccion').hide();
-        //$('#btnCancelarEdicion').hide();
         $('#btnModificarDireccion').show();
+        $('#btnGrabarDireccion').hide();
+        $('#btnCancelarEdicion').hide();
         $('#btnActualizarSeccion').show();
         $('#btnEditarPosicion').removeClass('HabInaButton');
         $('#btnGuardarPosicion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnEditarPosicion').attr('disabled', false);
+        $('#btnGuardarPosicion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
     });
 
