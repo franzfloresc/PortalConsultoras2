@@ -1,25 +1,37 @@
-﻿//dependencia con variable global 'imagen', paginador.js y MatrizComercialFileUpload.js
+﻿//dependencia con variable global 'imagen', paginador.js, Nemotecnico.js y MatrizComercialFileUpload.js
 var OfertaLiquidacion = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction,
         getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction,
+        getImagesByNemotecnico: config.getImagesByNemotecnico || '',
         paisID: config.paisID || 0,
         fileUploadElementId: config.fileUploadElementId || '',
         codigoSapElementId: config.codigoSapElementId || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
         imagenProductoElementId: config.imagenProductoElementId || '',
-        habilitarNemotecnico: false
+        habilitarNemotecnico: false,
+        expValidacionNemotecnico: config.expValidacionNemotecnico
     };
 
     var _paginadorClick = function (page) {
         var codigoSap = $('#' + _config.codigoSapElementId).val();
-        _obtenerImagenes(codigoSap, page).done(function () { closeWaitingDialog(); });
+
+        var valNemotecnico = $('#txtBusquedaNemotecnico').val();
+        var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenes;
+        fnObtenerImagenes(codigoSap, page, false).done(function () { closeWaitingDialog(); });
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
-    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
+    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+
+    var _limpiarFiltrosNemotecnico = function () {
+        $('#txtBusquedaNemotecnico').val('');
+        $('#chkTipoBusquedaNemotecnico').prop('checked', false);
+    };
+
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, nemotecnico: _nemotecnico });
 
     var _crearObjetoUpload = function (params) {
         params.elementId = _config.fileUploadElementId;
@@ -44,7 +56,8 @@ var OfertaLiquidacion = function (config) {
                     _matrizFileUploader.crearFileUpload(params);
                 }
                 $("#matriz-imagenes-paginacion").empty();
-                _obtenerImagenes(response.codigoSap, 1);
+                _limpiarFiltrosNemotecnico();
+                _obtenerImagenes(response.codigoSap, 1, true);
             } else {
                 alert(response.message)
             };
@@ -52,17 +65,35 @@ var OfertaLiquidacion = function (config) {
         closeWaitingDialog();
     };
 
-    var _obtenerImagenes = function (codigoSap, pagina) {
+    var _obtenerImagenes = function (codigoSap, pagina, recargarPaginacion) {
         var params = { paisID: _config.paisID, codigoSAP: codigoSap, pagina: pagina };
-        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesSuccess);
+        return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesSuccess(recargarPaginacion));
     };
 
-    var _obtenerImagenesSuccess = function (data) {
-        _mostrarPaginacion(data.totalRegistros);
-        _mostrarListaImagenes(data);
+    var _obtenerImagenesByNemotecnico = function (codigoSap, pagina, recargarPaginacion) {
+        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
+        var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var params = { paisID: _config.paisID, codigoSAP: codigoSap, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
+        return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(recargarPaginacion));
+    };
 
-        $('.chkImagenProducto[value*="' + $('#' + _config.imagenProductoElementId).val() + '"]').first().attr('checked', 'checked');
-        return data;
+    var _limpiarBusquedaNemotecnico = function () {
+        _limpiarFiltrosNemotecnico();
+        var codigoSap = $('#' + _config.codigoSapElementId).val();
+        _obtenerImagenes(codigoSap, 1, true);
+    };
+
+    var _obtenerImagenesSuccess = function (recargarPaginacion) {
+        return function (data, textStatus, jqXHR) {
+            if (recargarPaginacion) {
+                $("#matriz-imagenes-paginacion").empty();
+            }
+            _mostrarPaginacion(data.totalRegistros);
+            _mostrarListaImagenes(data);
+
+            $('.chkImagenProducto[value*="' + $('#' + _config.imagenProductoElementId).val() + '"]').first().attr('checked', 'checked');
+            return data;
+        }
     };
 
     var _mostrarPaginacion = function (numRegistros) {
@@ -74,6 +105,7 @@ var OfertaLiquidacion = function (config) {
 
     var _mostrarListaImagenes = function (data) {
         SetHandlebars('#matriz-comercial-listado-imagenes-template', data, '#matriz-comercial-lista-imagenes');
+        $(".qq-upload-list").css("display", "none");
     };
 
     var _actualizarPais = function (pais) {
@@ -85,12 +117,36 @@ var OfertaLiquidacion = function (config) {
         _matrizFileUploader.actualizarParNemotecnico(val);
     };
 
+    var _validarNemotecnico = function () {
+        var msj = '';
+        var val = $('#txtBusquedaNemotecnico').val();
+        if (!val) {
+            msj += ' - Debe ingresar un Nemotecnico .\n';
+        }
+
+        return msj;
+    };
+
+    var _buscarNemotecnico = function () {
+        var validacionMsj = _validarNemotecnico();
+
+        if (validacionMsj) {
+            alert(validacionMsj);
+            return false;
+        }
+        var codigoSap = $('#' + _config.codigoSapElementId).val();
+        _obtenerImagenesByNemotecnico(codigoSap, 1, true);
+    };
+
     return {
         crearObjetoUpload: _crearObjetoUpload,
         mostrarListaImagenes: _mostrarListaImagenes,
         mostrarPaginacion: _mostrarPaginacion,
         actualizarPais: _actualizarPais,
         obtenerImagenes: _obtenerImagenes,
-        actualizarParNemotecnico: _actualizarParNemotecnico
+        actualizarParNemotecnico: _actualizarParNemotecnico,
+        buscarNemotecnico: _buscarNemotecnico,
+        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
     }
 };
