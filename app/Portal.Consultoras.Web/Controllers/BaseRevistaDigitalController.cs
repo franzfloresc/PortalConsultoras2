@@ -18,25 +18,30 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             var listaProducto = ConsultarEstrategiasModel();
-            using (SACServiceClient svc = new SACServiceClient())
-            {
-                model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-            }
+            //using (SACServiceClient svc = new SACServiceClient())
+            //{
+            //    model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
+            //}
 
-            var listaMarca = listaProducto.GroupBy(p => p.DescripcionMarca).ToList();
-            model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            if (listaMarca.Any())
-            {
-                model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = "Todas" });
-                foreach (var marca in listaMarca)
-                {
-                    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key });
-                }
-            }
-
+            model.FiltersBySorting = new List<BETablaLogicaDatos>();
+            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
+            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
+            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
+            
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 
+            var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
+            model.FiltersByBrand = new List<BETablaLogicaDatos>();
+            if (listaMarca.Any())
+            {
+                model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = IsMobile() ? "MARCAS" : "FILTRAR POR MARCA" });
+                foreach (var marca in listaMarca)
+                {
+                    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
+                }
+            }
+            
             if (listadoNoLanzamiento.Any())
             {
                 model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);

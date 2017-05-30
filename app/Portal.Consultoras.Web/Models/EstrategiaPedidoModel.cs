@@ -1,8 +1,10 @@
 ﻿using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class EstrategiaPedidoModel
     {        
         public int MarcaID { get; set; }
@@ -67,6 +69,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneVariedad { get; set; }
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
+        public int IsMobile { get; set; }
 
         public string UrlCompartirFB { get; set; }
         public string CodigoEstrategia { get; set; }

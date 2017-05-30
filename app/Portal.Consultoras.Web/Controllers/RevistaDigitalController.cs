@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Ordenamiento != null)
                 {
                     model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio.ToLower())
+                    if (model.Ordenamiento.Tipo == "precio")
                     {
                         switch (model.Ordenamiento.Valor)
                         {
@@ -165,6 +165,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int cantidad = listaFinal.Count;
+
+                listaFinal.Update(p => {
+                    p.PuedeAgregar = IsMobile() ? 0 : 1;
+                    p.IsMobile = IsMobile() ? 1 : 0;
+                    p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
+                });
+
 
                 return Json(new
                 {
@@ -194,6 +201,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+
+                producto.PuedeAgregar = 1;
+                producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
 
                 return Json(new
                 {

@@ -21,7 +21,9 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
+                        {{#iff DescripcionMarca '!=' ''}}
                         <h6>{{DescripcionMarca}}</h6>
+                        {{/iff}}
                         {{#if_eq FlagNueva '1'}}
                         <p class="nombre_producto" style="text-decoration:underline; cursor:pointer;">
                             {{DescripcionCUVSplit}}
