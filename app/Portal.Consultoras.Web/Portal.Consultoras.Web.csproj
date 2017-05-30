@@ -3482,11 +3482,16 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService2.xsd">
+    <Content Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService21.xsd">
@@ -3523,6 +3528,21 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUnete\PortalService27.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
