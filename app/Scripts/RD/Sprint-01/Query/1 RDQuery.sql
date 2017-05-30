@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[RevistaDigitalSuscripcion]
 	[RevistaDigitalSuscripcionID] [int] IDENTITY(1,1) NOT NULL,
 	[CodigoConsultora] [varchar](20) not NULL,
 	[CampaniaID] [int] not null,
-	[FechaSuscripcion] [datetime] not null,
+	[FechaSuscripcion] [datetime] null,
 	[FechaDesuscripcion] [datetime] null,
 	[EstadoRegistro] [int] null,
 	[EstadoEnvio] [int] null,

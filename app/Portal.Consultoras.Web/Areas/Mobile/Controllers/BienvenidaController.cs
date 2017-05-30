@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     model.ActivacionAppCatalogoWhastUp = 0;
                 }
-
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NumeroCampania), 2);
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");

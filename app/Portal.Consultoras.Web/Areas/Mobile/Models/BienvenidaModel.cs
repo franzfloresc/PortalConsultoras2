@@ -43,5 +43,6 @@
         public string CodigoUsuario { get; set; }
         public int ShowRoomMostrarLista { get; set; }
         public bool RevistaDigitalPopUpMostrar { get; set; }
+        public int CampaniaMasDos { get; set; }
     }
 }
