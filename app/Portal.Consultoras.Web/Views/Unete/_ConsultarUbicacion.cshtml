@@ -1476,7 +1476,7 @@
         return makerMorado;
     }
     function MostrarTerritorio(lat, lnt) {
-
+        
         if (map) {
 
             map.panTo(new google.maps.LatLng(lat, lnt));
@@ -1490,7 +1490,9 @@
             }
             var markerMorado = GetMarkerMorado()
             markerMorado.setAnimation(google.maps.Animation.BOUNCE);
+            
 
+            clearPoligonos();
             // Consultar servicio para buscar territorio
 
             var data = {
@@ -1525,7 +1527,6 @@
                         fillOpacity: 0.35
                     });
                     
-                    clearPoligonos();
 
                     polygons.push(polygon);
                     polygon.setMap(map);
