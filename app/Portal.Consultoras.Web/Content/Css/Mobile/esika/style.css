@@ -8581,6 +8581,9 @@ span.title-app-b {
     line-height:19px;
 }
 
+.mensaje_horarioIngresoPedido a.CerrarBanner{
+    color: #000;
+}
 /*SHOWROOM*/
 .divShowRoom{
     /*margin-top: 63px;*/
@@ -9005,7 +9008,7 @@ span.icon-advertencia{
 .mensaje_horarioIngresoPedido a{
     display: block;
     margin-left: 2px;
-    color: #FFF;
+    color: #AAA;
     text-decoration:underline;
 }
 
