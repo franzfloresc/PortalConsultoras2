@@ -135,13 +135,13 @@
     <div class="contenedor_grupo_botones_campoDireccion">
         <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
         <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
-        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
+        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
         <button id="btnCancelarEdicion" type="button">Cancelar</button>
     </div>
 }
 else
 {
-    <div class="contenedor_camposUbigeo campoDireccionUbigeo">
+    <div class="contenedor_camposUbigeo campoDireccionUbigeo" style="margin-top:5px;">
         <label>Direcci&oacute;n:</label>
         <div class="contenedor_campoFormulario" style="width:99.85%;">
             @Html.TextBoxFor(m => Model.CalleOAvenida, new { @style = "width:99.85%;", @placeholder = "Ejm: Av. Castellana 100" })
@@ -150,8 +150,8 @@ else
         <div class="contenedor_grupo_botones_campoDireccion">
             <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
             <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar</button>
         </div>
     </div>
 }
