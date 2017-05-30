@@ -1757,16 +1757,6 @@
 
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-        <div id="" class="contenedorCupon">
-            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
-                Tienes un descuento exclusivo para ti,
-                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
-            </div>
-            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
-                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-            </div>
-            <hr class="clear" />
-        </div>
     <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{/iff}}">
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {

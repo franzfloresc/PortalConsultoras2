@@ -24,7 +24,7 @@
     #inputSearchBox {
         background-color: #fff;
         font-family: Roboto;
-        font-size: 15px;
+        font-size: 13px;
         font-weight: 300;
         margin-left: 12px;
         padding: 0 11px 0 13px;
@@ -371,6 +371,15 @@
         width: 171px;
     }
 
+    .contenedor_camposUbigeo select.paisColombia{
+        width:158px;
+    }
+
+    .contenedor_camposUbigeo select:disabled, .contenedor_camposUbigeo input:read-only{
+        background: #e2e2e2;
+        color: #888888;
+    }
+
     .contenedor_camposUbigeo.campoDireccionUbigeo.campo_dropDown{
         width: 175px;
         margin-right: 13px;
@@ -386,7 +395,7 @@
     }
 
     .contenedor_camposUbigeo.campoReferenciaUbigeo.campo_dropDownReferencia input{
-        width:100%;
+        width:100.3%;
     }
 
     .contenedor_camposUbigeo.anchoDropdown select{
@@ -398,7 +407,7 @@
     }
 
     .contenedor_camposUbigeo.campoBarrio input[type="text"]{
-        width:124px;
+        width:151px;
     }
 
     .contenedor_camposUbigeo.campoDireccionUbigeo, .contenedor_camposUbigeo.campoReferenciaUbigeo {
@@ -427,16 +436,17 @@
     }*/
 
     .contenedor_camposUbigeo.campoDireccionUbigeo input, .contenedor_camposUbigeo.campoReferenciaUbigeo input {
-        margin-right: 19px;
-        width: 438px;
+        margin-right: 13px;
+        width: 416px;
         height: 35px;
         border: none;
         padding-left: 11px;
+        padding-right:8px;
         box-sizing: border-box;
     }
 
     .ancho99{
-        width:99.5%!important;
+        width:99.8%!important;
     }
 
     .contenedor_camposUbigeo.campoReferenciaUbigeo input.ancho99{
@@ -471,7 +481,7 @@
     }
 
     .contenedor_camposUbigeo.campoDireccionUbigeo .direccionSecundaria{
-        width:286px;
+        width:292px;
         margin-right:0px;
     }
 
@@ -511,6 +521,7 @@
         font-family: 'Lato';
         font-size: 14px;
         background: #642f80;
+        padding:0px 5px;
     }
 
     .HabInaButton {
@@ -518,7 +529,7 @@
     }
 
     .contenedor_direccionReferencia button, .campos_regionZonaSeccion button, .contenedor_camposUbigeo.campoDireccionUbigeo button, .contenedor_camposUbigeo.campoReferenciaUbigeo button {
-        width: 192px;
+        width: 218px;
     }
 
     /*.contenedor_direccionReferencia:nth-child(2) button, .campos_regionZonaSeccion button, .contenedor_camposUbigeo.campoReferenciaUbigeo button{
@@ -580,6 +591,11 @@
         display: block;
     }
 
+    .contenedor_coordenadasYRegion.alineadoDerecha{
+        text-align: right;
+        padding-right: 29px;
+    }
+
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY, .campos_regionZonaSeccion {
         display: inline-block;
     }
@@ -587,16 +603,18 @@
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY label, .campos_regionZonaSeccion label {
         font-family: 'Lato';
         text-align: center;
-        font-size: 15px;
+        font-size: 13px;
         color: #000;
     }
 
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"] {
-        width: 113.5px;
+        width: 107px;
         height: 35px;
         margin-right: 4px;
         border: 1px solid #000;
         background: #FFF;
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
     .campos_regionZonaSeccion input[type="text"] {
@@ -607,11 +625,28 @@
         padding: 0px 7px;
     }
 
+    .anchoValidacionCampoPostal{
+        width:145px;
+    }
+
     /* FIN POPUP EDITAR DIRECCIÓN */
 </style>
 
+<!-- POPUP MENSAJE ERROR -->
 
+<div class="popup_infoError" style="display:none;">
+    <div class="info_error">
+        <span>No se encontraron los v&eacute;rtices.</span>
+    </div>
+    <div class="grupo_botones_acciones_mensajeError">
+        <button id="btnConfirmarGrabarPosicion" type="button">Aceptar</button>
+        <button id="btnCancelarGrabarPosicion" type="button">Cancelar</button>
+    </div>
+</div>
 
+<!-- FIN MENSAJE ERROR -->
+
+<div class="contenedor_popup_eliminarCliente" id="divTemplateMensaje" style="display:none;"></div>
 
 <div class="popup_eliminarCliente popup_ConsultaUbic">
 
@@ -644,7 +679,7 @@
                 <span>
                     Celular: <b>@Model.Celular</b>
                 </span>
-                <span class="texto-rojo">
+                <span id="spMalaZonificacion" class="texto-rojo">
                     Zona Rechaz&oacute;: <b>@Model.ZonaSeccionRechazo</b>
                 </span>
             </div>
@@ -662,14 +697,14 @@
                 }, new { @class = "formulario_editarDireccion"  }))
                 {
 
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
+                    @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.CodigoPais)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel1)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel2)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel3)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel4)
                     @Html.HiddenFor(m => Model.EditarDireccionModel.NombreLugarNivel5)
-                    @Html.HiddenFor(m => Model.EditarDireccionModel.ContaValorNivel3)
+                    @Html.HiddenFor(m => Model.EditarDireccionModel.ContaValorNivel3)*@
 
                     <div class="contenedor_datosEditarDireccion">
                         <div class="titulo_ubigeo">
@@ -700,16 +735,16 @@
                 <img src="@Url.Content("~/Content/Images/img-sinGeo.png")" alt="Sin Geo" />
             </div>
             <div class="contenedor_coordenadasYRegion">
-                <div class="campos_CoordenadasXY">
+                <div id ="divLatLng" class="campos_CoordenadasXY">
                     <label>X/Y</label>
                     <input type="text" id="coordenadasX" name="coordenadasX" value="@Model.Latitud" />
                     <input type="text" id="coordenadasY" name="coordenadasY" value="@Model.Longitud" />
                 </div>
                 <div class="campos_regionZonaSeccion">
-                    <label>Regi&oacute;n/Zona/Secci&oacute;n</label>
+                    <label id="spRegZonaSec">Regi&oacute;n/Zona/Secci&oacute;n</label>
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
-                    <button type="button" id="btnGrabarPosicion">Grabar Posici&oacute;n</button>
+                    <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
                 </div>
             </div>
         </div>
@@ -936,6 +971,9 @@
     user agent stylesheet input, textarea, keygen, select, button, meter, progress {
         -webkit-writing-mode: horizontal-tb;
     }
+
+    
+
 </style>
 
 
@@ -957,12 +995,21 @@
 
 <script>
 
-    var defaultOption = '<option value="" >SELECCIONE</option>';
+    var defaultOption = '<option value="" >--Seleccione--</option>';
 
 
     $(function () {
 
         $(document).ready(function () {
+            
+            var ZonaSeccionRechazo = "@Model.ZonaSeccionRechazo";
+            if (ZonaSeccionRechazo == null || ZonaSeccionRechazo == "") {
+                $('#spMalaZonificacion').hide();
+            }
+            else {
+                $('#spMalaZonificacion').show();
+            }
+
             $.validator.unobtrusive.parse('form');
             $.validator.unobtrusive.parse('form0');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
@@ -971,7 +1018,7 @@
 
             if ($(camposUbigeoDireccionLabel).html().length > 11) {
 
-                $(camposUbigeoDireccionLabel).css({ "top": "3px" });
+                //$(camposUbigeoDireccionLabel).css({ "top": "3px" });
 
                 if ($(camposUbigeo).length <= 5) {
                     $(camposUbigeo).find("label").css({ "display": "inline-block" });
@@ -1033,7 +1080,7 @@
                            })
                        .complete(function () {
                            nivel2.attr('disabled', false);
-                           if (nivel1.val() == '0') {
+                           if (nivel1.val() == '') {
                                nivel2.html(defaultOption);
                            }
                        });
@@ -1062,7 +1109,7 @@
                             })
                         .complete(function () {
                             nivel3.attr('disabled', false);
-                            if (nivel2.val() == '0') {
+                            if (nivel2.val() == '') {
                                 nivel3.html(defaultOption);
                             }
                         });
@@ -1079,13 +1126,20 @@
                     var div = $('#centroPoblado');
                     nivel4.attr('disabled', 'disabled');
 
+                    if (this.value == '')
+                    {
+                        $('#LugarNivel4').html(defaultOption);
+                        nivel4.attr('disabled', false);
+                        return;
+                    }
+
                     $.getJSON('@Url.Action("ObtenerNivelN")',
                             { id: this.value, codigoIso: "@Model.EditarDireccionModel.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
                             function (data) {
                                 nivel4.html(defaultOption);
                                 if (data.length == 0) {
                                     $('#ContaValorNivel3').val('0');
-                                    nivel4.val('0');
+                                    nivel4.val('');
                                     div.hide();
                                 }
                                 else {
@@ -1099,7 +1153,7 @@
                             })
                         .complete(function () {
                             nivel4.attr('disabled', false);
-                            if (nivel3.val() == '0') {
+                            if (nivel3.val() == '') {
                                 nivel4.html(defaultOption);
 
                             }
@@ -1128,7 +1182,7 @@
                         })
                     .complete(function () {
                         nivel5.attr('disabled', false);
-                        if (nivel3.val() == '0') {
+                        if (nivel3.val() == '') {
                             nivel5.html(defaultOption);
 
                         }
@@ -1150,13 +1204,12 @@
 
 
     function OnSuccess(html) {
-        alert('Se actualizó la direccion');
-        //modalOpcion.dialog('close');
-        //modal.dialog('close');
-        //$('#divEditarDireccion').hide();
-       // $('#divConsultarUbicacion').hide();
-       // document.getElementById('btnBuscar').click();
-        //$('#modal_content').html(html);
+        $('#divConsultarUbicacion').css({ "overflow-y": "hidden" });
+        $('#divTemplateMensaje').empty();
+        $('#divTemplateMensaje').html(html);
+        $('#divTemplateMensaje').show();
+        $('#divTemplateMensaje').css('z-index', '2000');
+     
     }
     //# sourceURL===_ConsultarUbicacion.cshtml
 </script>
@@ -1178,6 +1231,10 @@
         <text>$('#btnAceptar').hide();</text>
         <text>$('#DivSinGEO').show();</text>
         <text>$('#DivConGEO').hide();</text>
+        <text>$('#spRegZonaSec').hide();</text>
+        <text>$('#divLatLng').hide();</text>
+        <text>$('#regionXY').hide();</text>
+        <text>$('.contenedor_coordenadasYRegion').addClass('alineadoDerecha');</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
         if (Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.CostaRica || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Panama || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Salvador || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Guatemala)
@@ -1272,6 +1329,10 @@
     $('#btnEditarPosicion').click(function () {
         $('#DivSinGEO').hide();
         $('#DivConGEO').show();
+        $('#spRegZonaSec').show();
+        $('#divLatLng').show();
+        $('#regionXY').show();
+        $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
         $('#mapa').addClass('height_100');
         $('#btnEditarPosicion').hide();
         $('#btnGrabarPosicion').show();
@@ -1466,19 +1527,32 @@
 
                     //$('#regionXY').val('');
                     $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                    $('#Region').val(json.Region);
+                    $('#Zona').val(json.Zona);
+                    $('#Seccion').val(json.Seccion);
+                    $('#Territorio').val(json.Territorio);
 
                 } else {
                     if (json.Region != null && json.Zona != null && json.Seccion != null && json.Region != '' && json.Zona != '' && json.Seccion != '')
                     {
                         $('#regionXY').val(json.Region + '/' + json.Zona + '/' + json.Seccion);
+                        $('#Region').val(json.Region);
+                        $('#Zona').val(json.Zona);
+                        $('#Seccion').val(json.Seccion);
+                        $('#Territorio').val(json.Territorio);
                     }
                     else
                     {
                         $('#regionXY').val('');
+                        $('#Region').val('');
+                        $('#Zona').val('');
+                        $('#Seccion').val('');
+                        $('#Territorio').val('');
                     }
                     
                     //$('mensaje_territorio').show();
-                    alert('No se encontraron vertices');
+                    //alert('No se encontraron vertices');
+
                 }
 
                 //no quitar altura del mapa
@@ -1538,10 +1612,13 @@
 
                     marker.addListener('click', function () {
                         //Change the marker icon
-                        pintarRojo();
+                        //pintarRojo();
+                        //setMarkerOnMap(map, this);
+                        //this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                         setMarkerOnMap(map, this);
+                        clearMarkerMenosSeleccionado(this);
                         this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-                        
+                        MostrarTerritorio(this.position.lat(), this.position.lng());
                     });
 
                     map.setZoom(18);
@@ -1689,6 +1766,10 @@
 		        <text>
             $('#DivSinGEO').hide();
             $('#DivConGEO').show();
+            $('#spRegZonaSec').show();
+            $('#divLatLng').show();
+            $('#regionXY').show();
+            $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').show();
             map = new google.maps.Map(document.getElementById('mapa'), {
@@ -1924,6 +2005,7 @@
                             lng: markerMorado.position.lng()
                         };
                         //geocodePosition(pos);
+                        MostrarTerritorio(markerMorado.position.lat(), markerMorado.position.lng());
                     }
                 }
             });
@@ -1952,7 +2034,7 @@
 
     setTimeout(function () {
         $('.button_purple').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
-    }, 10);
+    }, 8);
 
 
     //# sourceURL===_CargarMapa.cshtml
