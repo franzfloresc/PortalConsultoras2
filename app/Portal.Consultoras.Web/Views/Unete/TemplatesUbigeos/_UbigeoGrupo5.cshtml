@@ -87,14 +87,14 @@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, new { @class = "paisEcuador" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
     </div>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2, new { @class = "paisEcuador" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
     </div>
 </div>
@@ -106,11 +106,12 @@
     </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
-    <label style="margin-bottom:0px;">@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
+    <label style="margin-bottom:0px; top:0px;">@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "direccionPrincipal", @placeholder = " Ejm: Av. Castellana 100" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
     </div>
+    <label style="margin-bottom:0px; top:0px; margin-right:9px;">@Dictionaries.LabelLugar5[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.LugarNivel4, new { @class = "direccionSecundaria", @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>
@@ -118,8 +119,8 @@
 </div>
 <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
     <label>Referencia:</label>
-    <div class="contenedor_campoFormulario" style="width:87.58%;">
-        @Html.TextBoxFor(m => Model.Referencia, new { @class = "ancho99", @placeholder = "Ej. entre calle 1 y calle 3" })
+    <div class="contenedor_campoFormulario" style="width:89.7%;">
+        @Html.TextBoxFor(m => Model.Referencia, new { @style = "width:100%;", @placeholder = "Ej. entre calle 1 y calle 3" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
     </div>
     <div class="contenedor_grupo_botones_campoDireccion">
