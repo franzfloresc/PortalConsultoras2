@@ -1,4 +1,4 @@
-﻿//dependencia con variable global 'imagen', paginador.js y MatrizComercialFileUpload.js
+﻿//dependencia con variable global 'imagen', paginador.js, Nemotecnico.js y MatrizComercialFileUpload.js
 var ProductoSugerido = function (config) {
 
     var _config = {
@@ -9,12 +9,16 @@ var ProductoSugerido = function (config) {
         fileUploadElementId: config.fileUploadElementId || '',
         matrizIdElementId: config.matrizIdElementId || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
-        habilitarNemotecnico: false
+        habilitarNemotecnico: false,
+        getImagesByNemotecnico: config.getImagesByNemotecnico,
+        expValidacionNemotecnico: config.expValidacionNemotecnico
     };
 
     var _paginadorClick = function (page) {
         var params = _obtenerParametrosGetImagenes();
-        _obtenerImagenes(params, page);
+        var valNemotecnico = $('#txtBusquedaNemotecnico').val();
+        var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenes;
+        fnObtenerImagenes(params, page, false).done(function () { closeWaitingDialog(); });
     };
 
     var _obtenerParametrosGetImagenes = function () {
@@ -23,7 +27,14 @@ var ProductoSugerido = function (config) {
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
-    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction });
+    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+
+    var _limpiarFiltrosNemotecnico = function () {
+        $('#txtBusquedaNemotecnico').val('');
+        $('#chkTipoBusquedaNemotecnico').prop('checked', false);
+    };
+
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, nemotecnico: _nemotecnico });
 
     var _crearObjetoUpload = function (params) {
         params.elementId = _config.fileUploadElementId;
@@ -68,6 +79,7 @@ var ProductoSugerido = function (config) {
                 }
                 var params = _obtenerParametrosGetImagenes();
                 $("#matriz-imagenes-paginacion").empty();
+                _limpiarFiltrosNemotecnico();
                 _obtenerImagenes(params, 1);
             } else {
                 alert(response.message)
@@ -76,17 +88,36 @@ var ProductoSugerido = function (config) {
         closeWaitingDialog();
     };
 
-    var _obtenerImagenes = function (data, pagina) {
+    var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
         var params = { paisID: _config.paisID, idMatrizComercial: data.idMatrizComercial, pagina: pagina };
-        return $.post(_config.getImagesByIdMatrizAction, params).done(_obtenerImagenesSuccess);
+        return $.post(_config.getImagesByIdMatrizAction, params).done(_obtenerImagenesSuccess(recargarPaginacion));
     };
 
-    var _obtenerImagenesSuccess = function (data) {
-        _mostrarPaginacion(data.totalRegistros);
-        _mostrarListaImagenes(data);
-        
-        $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
-        closeWaitingDialog();
+    var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
+        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
+        var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var params = { paisID: _config.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
+        return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(recargarPaginacion));
+    };
+
+    var _obtenerImagenesSuccess = function (recargarPaginacion) {
+        return function (data, textStatus, jqXHR) {
+            if (recargarPaginacion) {
+                $("#matriz-imagenes-paginacion").empty();
+            }
+            _mostrarPaginacion(data.totalRegistros);
+            _mostrarListaImagenes(data);
+
+            $('.chkImagenProducto[value="' + imagen + '"]').first().attr('checked', 'checked');
+            closeWaitingDialog();
+            return data;
+        }
+    };
+
+    var _limpiarBusquedaNemotecnico = function () {
+        _limpiarFiltrosNemotecnico();
+        var params = _obtenerParametrosGetImagenes();
+        _obtenerImagenes(params, 1, true);
     };
 
     var _mostrarPaginacion = function (numRegistros) {
@@ -98,6 +129,28 @@ var ProductoSugerido = function (config) {
 
     var _mostrarListaImagenes = function (data) {
         SetHandlebars('#matriz-comercial-listado-imagenes-template', data, '#matriz-comercial-lista-imagenes');
+        $(".qq-upload-list").css("display", "none");
+    };
+
+    var _validarNemotecnico = function () {
+        var msj = '';
+        var val = $('#txtBusquedaNemotecnico').val();
+        if (!val) {
+            msj += ' - Debe ingresar un Nemotecnico .\n';
+        }
+
+        return msj;
+    };
+
+    var _buscarNemotecnico = function () {
+        var validacionMsj = _validarNemotecnico();
+
+        if (validacionMsj) {
+            alert(validacionMsj);
+            return false;
+        }
+        var params = _obtenerParametrosGetImagenes();
+        _obtenerImagenesByNemotecnico(params, 1, true);
     };
 
     var _actualizarPais = function (pais) {
@@ -115,6 +168,9 @@ var ProductoSugerido = function (config) {
         mostrarListaImagenes: _mostrarListaImagenes,
         mostrarPaginacion: _mostrarPaginacion,
         actualizarPais: _actualizarPais,
-        actualizarParNemotecnico: _actualizarParNemotecnico
+        actualizarParNemotecnico: _actualizarParNemotecnico,
+        buscarNemotecnico: _buscarNemotecnico,
+        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
     }
 };

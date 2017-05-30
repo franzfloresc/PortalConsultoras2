@@ -241,6 +241,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-next-' + aux).remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
+    $('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
     var objOf = cumpleOferta.productosMostrar[0];
@@ -255,6 +256,46 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
    
+    debugger;
+    var msgRegaloPN = null;
+    if (consultoraRegaloPN) {
+        var oRegaloPN = GetRegaloProgramaNuevas();
+        if (oRegaloPN != null) {
+            console.log(oRegaloPN);
+            var n = oRegaloPN.CodigoNivel;
+            if (n == '01' || n == '02' || n == '03') {
+                if (objOf.TipoMeta == 'MM') {
+                    msgRegaloPN = '<b>LLEGA AL MONTO MINIMO Y GANA 1 ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + objOf.Simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
+                }
+                else {
+                    msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                }
+            }
+            else if (n == '04' || n == '05' || n == '06') {
+                if (objOf.TipoMeta == 'MM') {
+                    msgRegaloPN = '<b>AGREGA ' + objOf.Simbolo + ' ' + objOf.MetaMontoStr + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                }
+                else {
+                    if (oRegaloPN.TippingPoint > 0) {
+                        if (objOf.TotalPedido >= oRegaloPN.TippingPoint) {
+                            msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                        }
+                        else {
+                            var rtp = (oRegaloPN.TippingPoint - objOf.TotalPedido);
+                            msgRegaloPN = '<b>AGREGA ' + objOf.Simbolo + ' ' + rtp.toString() + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                        }
+                    }
+                    else {
+                        msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    }
+                }
+            }
+
+            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            $('#msg-regalo-pn').html(msgRegaloPN);
+            $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        }
+    }
 
     $("#divOfertaFinal").show();
 
@@ -607,4 +648,34 @@ function CargarVerDetalleOF(objInput, e) {
     SetHandlebars("#ofertaFinalVerDetalle-template", objEntidad, "#contenedor_popup_ofertaFinalVerDetalle");
 
     $('#contenedor_popup_ofertaFinalVerDetalle').show();
+}
+
+function GetRegaloProgramaNuevas() {
+    var obj = null;
+
+    jQuery.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/GetRegaloProgramaNuevas',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        async: false,
+        cache: false,
+        success: function (response) {
+            if (!checkTimeout(response))
+                return false;
+
+            if (response.success) {
+                console.log(response);
+                obj = response.data;
+            }
+            else {
+                console.log(response.message);
+            }
+        },
+        error: function (data, error) {
+            console.log(error);
+        }
+    });
+
+    return obj;
 }
