@@ -8,8 +8,10 @@
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/OfertaLiquidacion.js")" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <script type="text/javascript">
 
@@ -43,8 +45,10 @@
             paisID: paisID,
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
+            getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
-            imagenProductoElementId: 'ImagenProducto'
+            imagenProductoElementId: 'ImagenProducto',
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
         });
 
         IniDialogOfertas();
@@ -54,6 +58,9 @@
         IniDialogCantidadMaximaLiquidacion();
         IniForm();
         fnGrilla();
+
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnBuscarNemotecnico', ofertaLiquidacionObj.buscarNemotecnico);
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico', ofertaLiquidacionObj.limpiarBusquedaNemotecnico);
 
         $("#txtCUVTC").keyup(function () {
 
@@ -199,6 +206,12 @@
 
                         var ddlCampania = $('#ddlCampania');
                         var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+
+                        if(data.habilitarNemotecnico) {
+                            $("#matriz-busqueda-nemotecnico").show();
+                        }else{
+                            $("#matriz-busqueda-nemotecnico").hide();
+                        }
 
                         ofertaLiquidacionObj.actualizarParNemotecnico(data.habilitarNemotecnico);
 
@@ -631,7 +644,9 @@
             var imgSeleccionada = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src');
             $("#ImagenProducto").val(formatUrl(imgSeleccionada));
 
-            ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1).done(function (data) {
+            ofertaLiquidacionObj.limpiarFiltrosNemotecnico();
+
+            ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1, true).done(function (data) {
                 llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock);
 
                 var params = {

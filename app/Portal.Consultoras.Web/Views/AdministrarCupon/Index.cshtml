@@ -1,0 +1,39 @@
+﻿@model Portal.Consultoras.Web.Models.AdmCuponModel
+
+@{
+    ViewBag.Title = "Administrar Cupón";
+    Layout = "~/Views/Shared/_SACLayout.cshtml";
+}
+
+<input type="hidden" id="hdTipoConsulta" value="0" />
+
+<div class="wrap_cab">
+    <div class="filtros2">
+        <div class="elements" style="margin-left: 300px !important;">
+            <div class="div-2">
+                <h1><span>Administrar Cupón</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titA">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.ListaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titB">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="input_search">
+                    <input type="button" value="Crear" id="btnCrear" name="" style="float: right; margin-right: 250px;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/AdministrarCupon/Partials/crearCupon.cshtml")
+
+<div id="loadingScreen"></div>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponAdm.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponAdmModule.js"></script>

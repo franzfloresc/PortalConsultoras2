@@ -246,6 +246,7 @@
     <Compile Include="Controllers\AdministrarBelcorpNoticiasController.cs" />
     <Compile Include="Controllers\AdministrarBelcorpRespondeController.cs" />
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
+    <Compile Include="Controllers\AdministrarCuponController.cs" />
     <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />
     <Compile Include="Controllers\AdministrarFactoresGananciaController.cs" />
@@ -371,6 +372,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
+    <Compile Include="Models\AdmCuponModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
@@ -2990,6 +2992,8 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
+    <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
+    <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponModule.js" />
     <Content Include="Scripts\PortalConsultoras\Login\FormsSignIn.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
@@ -3997,6 +4001,8 @@
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
+    <Content Include="Views\AdministrarCupon\Index.cshtml" />
+    <Content Include="Views\AdministrarCupon\Partials\crearCupon.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
@@ -4422,6 +4428,9 @@
     <WCFMetadataStorage Include="Service References\ValidacionesUnete\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap2\" />
     <WCFMetadataStorage Include="Service References\WsFuncionesSoap\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
