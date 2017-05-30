@@ -1,4 +1,4 @@
-﻿namespace Portal.Consultoras.Web.Areas.Chatbot.Models
+﻿namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class CatalogoCompartirModel
     {
