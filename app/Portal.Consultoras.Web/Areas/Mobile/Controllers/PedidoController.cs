@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
         
-        public ActionResult Detalle()
+        public ActionResult Detalle(bool autoReservar = false)
         {
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
@@ -140,6 +140,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var model = new PedidoDetalleMobileModel();
+            model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = userData.CampaniaID.ToString();

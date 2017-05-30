@@ -7,12 +7,12 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.Service
 {
     public class PedidoService : IPedidoService
     {
-
         private BLPedidoWebDetalle BLPedidoWebDetalle;
         private BLPedidoWeb BLPedidoWeb;
         private BLPedidoReporteLider BLPedidoReporteLider;
@@ -32,6 +32,7 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
+        private BLEstrategia blEstrategia;
 
         public PedidoService()
         {
@@ -54,6 +55,7 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
+            blEstrategia = new BLEstrategia();
         }
 
         #region Reporte Lider
@@ -87,6 +89,11 @@ namespace Portal.Consultoras.Service
         public BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle)
         {
             return BLPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
+        }
+
+        public BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle)
+        {
+            return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
         public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
@@ -1166,8 +1173,9 @@ namespace Portal.Consultoras.Service
         }
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            return new BLEstrategia().GetEstrategiasPedido(entidad);
+            return blEstrategia.GetEstrategiasPedido(entidad);
         }
+
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1812,7 +1820,8 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
-        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID) {
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
+        {
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
 
@@ -1860,14 +1869,14 @@ namespace Portal.Consultoras.Service
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            return new BLEstrategia().GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
+            return blEstrategia.GetEstrategiaODD(paisID, codCampania, codConsultora, fechaInicioFact);
         }
 
         public int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas)
         {
             return new BLEstrategia().ActivarDesactivarEstrategias(PaisID, Usuario, EstrategiasActivas, EstrategiasDesactivas);
         }
-        
+
         public int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo)
         {
             return new BLShowRoomEvento().UpdEventoConsultoraPopup(paisID, entity, tipo);
@@ -1884,10 +1893,19 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
 
-
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
+        }
+
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        {
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
+        }
+
+        public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
+        {
+            return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
         }
 
         public int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity)
@@ -1900,6 +1918,18 @@ namespace Portal.Consultoras.Service
             return new BLShowRoomEvento().GetEventoConsultoraRecibido(paisID, CodigoConsultora, CampaniaID);
         }
 
+        public BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo)
+        {
+            return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
+        }
+        
+
+
+        public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EjecutarReservaProl(input);
+        }
+        
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().InsMatrizComercialImagen(entity);
@@ -1908,6 +1938,26 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
+	}
+
+        public bool EnviarCorreoReservaProl(BEInputReservaProl input)
+        {
+            return new BLReservaProl().EnviarCorreoReservaProl(input);
+        }
+
+        public int InsertarDesglose(BEInputReservaProl input)
+        {
+            return new BLReservaProl().InsertarDesglose(input);
+        }
+
+        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
+        {
+            return new BLReservaProl().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+        }
+
+        public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
+        {
+            return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
 
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)

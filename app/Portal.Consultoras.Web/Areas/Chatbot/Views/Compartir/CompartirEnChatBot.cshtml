@@ -1,0 +1,86 @@
+﻿@{
+    Layout = "~/Areas/Chatbot/Views/Shared/_Layout.cshtml";
+}
+@model Portal.Consultoras.Web.Areas.Chatbot.Models.CatalogoCompartirModel
+
+@section scripts{
+    <script>
+        var urlCat = "@Model.UrlCatalogo";
+        var idCat = "#divCatalogo";
+        var data = {
+            campania: "@Model.Campania",
+            tipoCatalogo: "@Model.TipoCatalogo",
+            comp: "@Model.TipoCatalogo",
+            descripcion: "", // descrCat[tipo],
+            estado: "0"
+        };
+
+        function CompartirFacebook(catalogo, campaniaCatalogo, btn) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Compartir FB',
+                'label': catalogo,
+                'value': 0
+            });
+
+            InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+            var popWwidth = 570;
+            var popHeight = 420;
+            var left = (screen.width / 2) - (popWwidth / 2);
+            var top = (screen.height / 2) - (popHeight / 2);
+            var url = "http://www.facebook.com/sharer/sharer.php?u=" + urlCat;
+            window.open(url,
+                'Facebook',
+                "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left +",top=" +top +"");
+        }
+        
+        function TagManagerWS(catalogo, campaniaCatalogo) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Compartir WhatsApp',
+                'label': catalogo,
+                'value': 0
+            });
+
+            InsertarLogCatalogoDynamo('Whatsapp', campaniaCatalogo, catalogo, 1);
+        }
+
+        function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
+            InsertarLogDymnamo(
+                'Catalogo-Compartir',
+                opcionAccion,
+                true,
+                [
+                    { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
+                    { 'key': 'Marca', 'value': marca },
+                    { 'key': 'Cantidad', 'value': cantidad }
+                ]
+            );
+        }
+
+        $(document).ready(function () {
+            var urlCatWs = urlCat;
+
+            urlCatWs = urlCatWs.ReplaceAll("/", "%2F");
+            urlCatWs = urlCatWs.ReplaceAll(":", "%3A");
+            urlCatWs = urlCatWs.ReplaceAll("?", "%3F");
+            urlCatWs = urlCatWs.ReplaceAll("=", "%3D");
+
+            $(idCat).find(".btn_ws").attr("href", "whatsapp://send?text=" + urlCatWs);
+        });
+
+    </script>
+}
+<div class="content_carrusel_catalogo" id="divCatalogo">
+    <div style="max-width:440px; margin:0 auto;">
+        <a class="btn_ws" onclick="TagManagerWS('@Model.TipoCatalogo', '@Model.Campania');">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" style="height: 100%;" />
+        </a>
+        <a class="btn_facebook" href="#" data-accion="face" onclick="CompartirFacebook('@Model.TipoCatalogo', '@Model.Campania', this);return false;">
+            <img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" />
+        </a>
+    </div>
+</div>

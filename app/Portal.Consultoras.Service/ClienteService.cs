@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Service
 {
@@ -91,6 +92,16 @@ namespace Portal.Consultoras.Service
         public IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID)
         {
             return BLCatalogo.GetCatalogoConfiguracion(paisID);
+        }
+
+        public IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
+        {
+            return BLCatalogo.GetListCatalogoRevistaPublicado(paisISO, codigoZona, campania, tamanioImagenIssu);
+        }
+
+        public IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania)
+        {
+            return BLCatalogo.GetListCatalogoRevistaPublicadoWithTitulo(paisISO, codigoZona, campania);
         }
 
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
