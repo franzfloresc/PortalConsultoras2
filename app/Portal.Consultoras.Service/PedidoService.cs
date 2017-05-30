@@ -1,15 +1,15 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.ShowRoom;
-using Portal.Consultoras.Entities.Cupon;
-using Portal.Consultoras.Entities.RevistaDigital;
-using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLCuponConsultora BLCuponConsultora;
+        private BLCupon BLCupon;
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
 
         public PedidoService()
@@ -61,6 +62,7 @@ namespace Portal.Consultoras.Service
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             BLCuponConsultora = new BLCuponConsultora();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLCupon = new BLCupon();
         }
 
         #region Reporte Lider
@@ -1967,6 +1969,22 @@ namespace Portal.Consultoras.Service
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
         {
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        public void CrearCupon(BECupon cupon)
+        {
+            BLCupon.CrearCupon(cupon);
+        }
+
+        public void ActualizarCupon(BECupon cupon)
+        {
+            BLCupon.ActualizarCupon(cupon);
+        }
+
+        public List<BECupon> ListarCupones()
+        {
+            var listaCupones = BLCupon.ListarCupones();
+            return listaCupones;
         }
 
         #endregion

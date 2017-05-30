@@ -2155,15 +2155,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void EnviarCorreoActivacionCupon()
         {
-            CuponModel cuponModel = ObtenerDatosCupon();
+            CuponConsultoraModel cuponModel = ObtenerDatosCupon();
             string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
             string correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
         }
 
-        private CuponModel ObtenerDatosCupon()
+        private CuponConsultoraModel ObtenerDatosCupon()
         {
-            CuponModel cuponModel;
+            CuponConsultoraModel cuponModel;
             BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
 
             if (cuponResult != null)
@@ -2188,11 +2188,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
+        private CuponConsultoraModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponModel(codigoISO)
+            return new CuponConsultoraModel(codigoISO)
             {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,

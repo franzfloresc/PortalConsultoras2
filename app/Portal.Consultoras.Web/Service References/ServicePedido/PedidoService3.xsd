@@ -17,4 +17,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BECuponConsultora" nillable="true" type="tns:BECuponConsultora" />
+  <xs:complexType name="BECupon">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaId" type="xs:int" />
+      <xs:element minOccurs="0" name="CuponId" type="xs:int" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BECupon" nillable="true" type="tns:BECupon" />
+  <xs:complexType name="ArrayOfBECupon">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BECupon" nillable="true" type="tns:BECupon" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBECupon" nillable="true" type="tns:ArrayOfBECupon" />
 </xs:schema>
