@@ -22,12 +22,12 @@
         <script type="text/javascript">
             var ViewBagEsMobile = 2;
             var productoModel = {
-                "CUV": '@Model.CUV',
-                "Cantidad": 1,
-                "DescripcionProd": '@Model.Descripcion',
-                "IndicadorMontoMinimo": '@Model.IndicadorMontoMinimo',
-                "MarcaID": @Model.MarcaID,
-                "PrecioUnidad": @Model.PrecioCatalogo
+                'CUV': '@Model.CUV',
+                'Cantidad': '1',
+                'DescripcionProd': '@Html.Raw(@Model.Descripcion)', //EPD-2598
+                'IndicadorMontoMinimo': '@Model.IndicadorMontoMinimo',
+                'MarcaID': '@Model.MarcaID',
+                'PrecioUnidad': '@Model.PrecioCatalogo'
             };
 
             var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
