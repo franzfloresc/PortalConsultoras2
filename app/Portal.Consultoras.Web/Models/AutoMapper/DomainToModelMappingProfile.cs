@@ -182,6 +182,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
+
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
+                .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
+                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+                .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
+                .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
+                .ForMember(t => t.CodigoSap, f => f.MapFrom(c => c.CodigoSap))
+                .ForMember(t => t.DescripcionRegalo, f => f.MapFrom(c => c.DescripcionRegalo))
+                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
+                .ForMember(t => t.UrlImagenRegalo, f => f.MapFrom(c => c.UrlImagenRegalo));
         }
     }
 }
