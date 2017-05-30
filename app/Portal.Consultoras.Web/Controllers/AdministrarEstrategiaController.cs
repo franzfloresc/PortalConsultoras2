@@ -1363,7 +1363,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
                                 using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb())
                                 {
-                                    productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), userData.CodigoConsultora, opt.CUV2, userData.PaisID.ToString()).ToList();
+                                    productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), String.Empty, opt.CUV2, userData.CodigoISO.ToString()).ToList();
                                 }
                                 nemoTecnico = "210080203#01&200083988#02";
 
