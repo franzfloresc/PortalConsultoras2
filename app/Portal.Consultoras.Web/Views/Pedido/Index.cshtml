@@ -2235,8 +2235,8 @@
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body=""> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="content_producto_alternativo">
-            <div class="content_imagen_alternativo"><img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png"></div>
-            <div class="content-texto-producto-alternativo">AGREGA S/. 30.00 PARA <b>GANARTE 1 MAGNAT Y ACCEDER A OFERTAS EXCLUSIVAS</b></div>
+            <div class="content_imagen_alternativo"><img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png"></div>
+            <div class="content-texto-producto-alternativo" id="msg-regalo-pn">AGREGA S/. 30.00 PARA <b>GANARTE 1 MAGNAT Y ACCEDER A OFERTAS EXCLUSIVAS</b></div>
         </div>
         <div class="btn_cerrar_ofertaFinal">
             <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal">
@@ -2491,6 +2491,8 @@
                 var viewBagAmbiente = '@ViewBag.Ambiente';
                 var correo = '@Model.EMail';
                 var celular = '@Model.Celular';
+
+                var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

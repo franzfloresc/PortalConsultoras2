@@ -23,7 +23,6 @@ var FlagEnviarCorreo = false; //EPD-23787
 $(document).ready(function () {
    // debugger;
     
- 
     ReservadoOEnHorarioRestringido(false);
 
     AnalyticsBannersInferioresImpression();
@@ -36,7 +35,6 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
 
     //EPD-1564
     $("body").click(function (e) {        
@@ -52,8 +50,6 @@ $(document).ready(function () {
         }
     })
     //FIn EPD-1564
-
-   
 
     $(document).on('change', '.seleccion_pagina select', function () {
         dataLayer.push({
