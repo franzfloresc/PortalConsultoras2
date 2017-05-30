@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
                 var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
                 listModel = new List<EstrategiaPedidoModel>();
-                if (listaLanz != default(EstrategiaPedidoModel))
+                if (listaLanz.EstrategiaID > 0)
                 {
                     top--;
                     listModel.Add(listaLanz);
