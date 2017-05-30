@@ -563,6 +563,11 @@ function IsValidUrl(value) {
         return false;
 }
 
+function isMobile() {
+    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+    return isUrlMobile;
+}
+
 function isInt(n) {
     var patron = /^[0-9]+$/;
     var isn = patron.test(n);

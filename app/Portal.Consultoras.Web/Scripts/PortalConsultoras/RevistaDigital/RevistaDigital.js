@@ -158,9 +158,6 @@ function OfertaArmarEstrategias(response) {
     }
 
     $("#divOfertaProductos").html("");
-    $.each(lista, function (ind, item) {
-        item.PuedeAgregar = '0';
-    });
 
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
