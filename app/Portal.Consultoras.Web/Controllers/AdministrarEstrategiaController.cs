@@ -1347,8 +1347,7 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
-                        string nemoTecnico = String.Empty;
-                        string nombreSet = String.Empty;
+                       
                         try
                         {
                             using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
@@ -1360,18 +1359,45 @@ namespace Portal.Consultoras.Web.Controllers
                             if (habilitarNemotecnico)
                             {
                                 List<RptProductoEstrategia> productoEstrategias = new List<RptProductoEstrategia>();
+                                string nemoTecnicoBusqueda = String.Empty;
                                 //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
                                 using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb())
                                 {
                                     productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), String.Empty, opt.CUV2, userData.CodigoISO.ToString()).ToList();
                                 }
-                                nemoTecnico = "210080203#01&200083988#02";
+
+                                List<string> nemotecnicosLista = new List<string>();
+                                int contadorNemotecnico = 0;
+                                string grupoPrevio = String.Empty;
+
+                                foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
+                                {
+                                    if(productoEstrategia.codigo_estrategia == "2003")
+                                        grupoPrevio = productoEstrategia.grupo;
+
+                                    if ((productoEstrategia.codigo_estrategia == "2001" || productoEstrategia.codigo_estrategia == "2002") ||
+                                        (productoEstrategia.codigo_estrategia == "2003" && (grupoPrevio!= productoEstrategia.grupo)))
+                                    {                  
+                                        string codigoSap = productoEstrategia.codigo_sap;
+                                        string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
+                                        nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
+                                    }
+                                
+                                }
+                                foreach (String nemoTecnico in nemotecnicosLista)
+                                {
+                                    if(contadorNemotecnico==0)
+                                        nemoTecnicoBusqueda += nemoTecnico;
+                                    else
+                                        nemoTecnicoBusqueda += "&" + nemoTecnico;
+                                    contadorNemotecnico++;
+                                }
 
                                 List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
                                 using (PedidoServiceClient ps = new PedidoServiceClient())
                                 {
-                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnico, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
-                                    opt.FotoProducto01 = lstImagenes!=null ? lstImagenes[0].Foto : String.Empty;
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
+                                    opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
                                 }
                             }
 
