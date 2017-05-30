@@ -48,12 +48,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
                 listModel = new List<EstrategiaPedidoModel>();
-                if (listaLanz == default(EstrategiaPedidoModel))
+                if (listaLanz.EstrategiaID == 0)
                 {
                     listaLanz = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new EstrategiaPedidoModel();
                 }
 
-                if (listaLanz != default(EstrategiaPedidoModel))
+                if (listaLanz.EstrategiaID > 0)
                     listModel.Add(listaLanz);
             }
             else
