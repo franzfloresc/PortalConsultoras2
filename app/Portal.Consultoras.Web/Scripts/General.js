@@ -1043,6 +1043,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        //google marca analytics        
+
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Facebook',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
 
@@ -1051,7 +1061,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
+        //google marca analytics        
 
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Whatsapp',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
         $("#HiddenRedesSocialesWA")[0].click();
         //document.getElementById('HiddenRedesSocialesWA').click();
