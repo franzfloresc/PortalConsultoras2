@@ -9862,14 +9862,14 @@ a{
     background: white;
     color: black;
     font-weight: 700;
-  
     height: 45px;
     border: 1px solid #ccc;
-    float:left;
-    width:38%;
+    float: left;
+    width: 49%;
     /* line-height: 32px; */
-
+    text-align-last: center;
     /* border-radius: 0; */
+    display: inline-block;
 }
 
 .select-ffc {

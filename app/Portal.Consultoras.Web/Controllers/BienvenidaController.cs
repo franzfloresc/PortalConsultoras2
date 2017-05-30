@@ -463,7 +463,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
-                model.CampaniaMasDos = AddCampaniaAndNumero(model.CampaniaActual, 2);
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NroCampana), 2);
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
