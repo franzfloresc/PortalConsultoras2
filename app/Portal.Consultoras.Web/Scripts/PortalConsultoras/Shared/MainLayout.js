@@ -1113,3 +1113,24 @@ function messageConfirmacion(title, message, fnAceptar) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
     }
 }
+         
+function closeOfertaDelDia() {    
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success)
+            {
+                $('#OfertaDelDia').hide();
+                LayoutHeader();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
