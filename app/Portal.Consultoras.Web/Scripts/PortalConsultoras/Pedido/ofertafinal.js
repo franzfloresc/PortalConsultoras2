@@ -241,9 +241,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $('.js-slick-next-' + aux).remove();
     $('#divCarruselOfertaFinal.slick-initialized').slick('unslick');
 
+    $('div.popup_ofertaFinal').removeClass('fondo_gris_OF');
     $('#divOfertaFinal').html('<div style="text-align: center;">Actualizando Productos de Oferta Final<br><img src="' + urlLoad + '" /></div>');
 
-    debugger;
     var objOf = cumpleOferta.productosMostrar[0];
     objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
     objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
@@ -256,7 +256,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
    
-
     debugger;
     var msgRegaloPN = null;
     if (consultoraRegaloPN) {
@@ -266,32 +265,35 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             var n = oRegaloPN.CodigoNivel;
             if (n == '01' || n == '02' || n == '03') {
                 if (objOf.TipoMeta == 'MM') {
-                    msgRegaloPN = 'LLEGA AL MONTO MINIMO y GANA 1 ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + objOf.Simbolo + ' ' + oRegaloPN.PrecioCatalogo;
+                    msgRegaloPN = '<b>LLEGA AL MONTO MINIMO Y GANA 1 ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + objOf.Simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
                 }
                 else {
-                    msgRegaloPN = '¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!';
+                    msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
                 }
             }
             else if (n == '04' || n == '05' || n == '06') {
                 if (objOf.TipoMeta == 'MM') {
-                    msgRegaloPN = 'AGREGA ' + objOf.Simbolo + ' ' + objOf.MetaMontoStr + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS';
+                    msgRegaloPN = '<b>AGREGA ' + objOf.Simbolo + ' ' + objOf.MetaMontoStr + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                 }
                 else {
                     if (oRegaloPN.TippingPoint > 0) {
-                        var s = (oRegaloPN.TippingPoint - objOf.TotalPedido);
-                        if (objOf.TotalPedido > oRegaloPN.TippingPoint) {
-                            msgRegaloPN = '¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!';
+                        if (objOf.TotalPedido >= oRegaloPN.TippingPoint) {
+                            msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
                         }
                         else {
-                            msgRegaloPN = 'AGREGA ' + objOf.Simbolo + ' ' + s.toString() + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS';
+                            var rtp = (oRegaloPN.TippingPoint - objOf.TotalPedido);
+                            msgRegaloPN = '<b>AGREGA ' + objOf.Simbolo + ' ' + rtp.toString() + ' PARA GANARTE 1 ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                         }
                     }
                     else {
-                        msgRegaloPN = '¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!';
+                        msgRegaloPN = '<b>¡GANASTE 1 ' + oRegaloPN.DescripcionRegalo + '!</b>';
                     }
                 }
             }
-            console.log(msgRegaloPN);
+
+            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            $('#msg-regalo-pn').html(msgRegaloPN);
+            $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
         }
     }
 
