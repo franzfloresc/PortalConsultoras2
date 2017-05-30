@@ -144,6 +144,15 @@
 
 <script>
 
+    var htmlLugarNivel2Ant = '';
+    var htmlLugarNivel3Ant = '';
+    var LugarNivel1Ant = '';
+    var LugarNivel2Ant = '';
+    var LugarNivel3Ant = '';
+    var NumeroAnt = '';
+    var CalleOAvenidaAnt = '';
+    var ReferenciaAnt = '';
+
     $(document).ready(function () {
         $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
         @if (string.IsNullOrEmpty(Model.LugarNivel1))
@@ -188,6 +197,16 @@
     }
 
     $('#btnModificarDireccion').click(function () {
+
+        htmlLugarNivel2Ant = $("#LugarNivel2").html();
+        htmlLugarNivel3Ant = $("#LugarNivel3").html();
+        LugarNivel1Ant = $("#LugarNivel1").val();
+        LugarNivel2Ant = $("#LugarNivel2").val();
+        LugarNivel3Ant = $("#LugarNivel3").val();
+        NumeroAnt = $("#Numero").val();
+        CalleOAvenidaAnt = $("#CalleOAvenida").val();
+        ReferenciaAnt = $("#Referencia").val();
+
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
         $('#btnCancelarEdicion').show();
@@ -219,6 +238,15 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#LugarNivel3").html(htmlLugarNivel3Ant);
+        $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#Numero").val(NumeroAnt);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        $("#Referencia").val(ReferenciaAnt);
+
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
         $('#btnCancelarEdicion').hide();
