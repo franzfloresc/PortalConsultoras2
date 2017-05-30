@@ -193,6 +193,9 @@
 
 <script>
 
+    var htmlLugarNivel2Ant = '';
+    var htmlLugarNivel3Ant = '';
+    var htmlLugarNivel4Ant = '';
     var LugarNivel1Ant = '';
     var LugarNivel2Ant = '';
     var LugarNivel3Ant = '';
@@ -250,6 +253,9 @@
     }
 
     $('#btnModificarDireccion').click(function () {
+        htmlLugarNivel2Ant = $("#LugarNivel2").html();
+        htmlLugarNivel3Ant = $("#LugarNivel3").html();
+        htmlLugarNivel4Ant = $("#LugarNivel4").html();
         LugarNivel1Ant = $("#LugarNivel1").val();
         LugarNivel2Ant = $("#LugarNivel2").val();
         LugarNivel3Ant = $("#LugarNivel3").val();
@@ -291,13 +297,16 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
-        //$("#LugarNivel1").val(LugarNivel1Ant);//.change();
-        ////$("LugarNivel1").trigger("change");
-        //$("#LugarNivel2").val(LugarNivel2Ant);//.change();
-        //$("#LugarNivel3").val(LugarNivel3Ant);//.change();
-        //$("#LugarNivel4").val(LugarNivel4Ant);//.change();
-        //$("#CalleOAvenida").val(CalleOAvenidaAnt);
-        //$("#Referencia").val(ReferenciaAnt);
+
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#LugarNivel3").html(htmlLugarNivel3Ant);
+        $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#LugarNivel4").html(htmlLugarNivel4Ant);
+        $("#LugarNivel4").val(LugarNivel4Ant);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        $("#Referencia").val(ReferenciaAnt);
 
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
