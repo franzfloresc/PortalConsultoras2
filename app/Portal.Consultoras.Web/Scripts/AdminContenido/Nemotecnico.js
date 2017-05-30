@@ -4,8 +4,6 @@
     };
 
     var _validarNemotecnico = function (valor) {
-        //var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
-        //var expr = /^((\d{9}#\d{2})?(&\d{9}#\d{2}?)*)$/g;
         var patt = new RegExp(_config.expresionValidacion);
         return patt.test(valor);
     };

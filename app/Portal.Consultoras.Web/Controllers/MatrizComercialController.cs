@@ -11,6 +11,8 @@ using AutoMapper;
 using Portal.Consultoras.Common;
 using System.IO;
 using Portal.Consultoras.Web.CustomHelpers;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -30,8 +32,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MatrizComercialModel()
             {
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
+
             return View(model);
         }
 
@@ -485,19 +489,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, 10).ToList();
             }
 
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            int totalRegistros = lst.Any()? lst[0].TotalRegistros: 0;
-            var data = lst.Select(p => new MatrizComercialImagen
-            {
-                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                Foto = urlS3 + p.Foto
-            }).ToList();
-
-            return Json(new { imagenes= data, totalRegistros=totalRegistros } );
+            return GetImagesCommonResult(lst, paisID);
         }
 
         public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
@@ -507,10 +499,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, 10).ToList();
             }
-
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             int totalRegistros = 0;
             int idMatrizComercial = 0;
@@ -522,26 +510,37 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
-                    data = lst.Select(p => new MatrizComercialImagen
-                    {
-                        IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                        FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                        Foto = urlS3 + p.Foto
-                    }).ToList();
+                    data = MapImages(lst, paisID);
                 }
             }
 
             return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
         }
 
-        public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int pagina)
+        public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int tipoBusqueda, int pagina)
         {
             List<BEMatrizComercialImagen> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetImagenByNemotecnico(paisID, idMatrizComercial, null, null, 0, 0, 0, nemoTecnico, 1, pagina, 10).ToList();
+                lst = sv.GetImagenByNemotecnico(paisID, idMatrizComercial, null, null, 0, 0, 0, nemoTecnico, tipoBusqueda, pagina, 10).ToList();
             }
 
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        public JsonResult GetImagesByNemotecnicoSAP(int paisID, string codigoSAP, string nemoTecnico, int tipoBusqueda, int pagina)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenByNemotecnico(paisID, 0, null, codigoSAP, 0, 0, 0, nemoTecnico, tipoBusqueda, pagina, 10).ToList();
+            }
+
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        {
             int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
             var data = MapImages(lst, paisID);
 

@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -458,7 +459,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(cronogramaModel);
         }
