@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Models
         public int PaisIDUser { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
-
+        public string ExpValidacionNemotecnico { get; set; }
         public int ProductoSugeridoID { get; set; }
         public string CUV { get; set; }
         public string CUVSugerido { get; set; }
