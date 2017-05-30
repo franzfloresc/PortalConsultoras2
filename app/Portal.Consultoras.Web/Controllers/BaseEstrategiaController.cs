@@ -346,6 +346,7 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategia.PuedeCambiarCantidad = 0;
                     }
                 }
+                estrategia.PuedeAgregar = 1;
             });
 
             return ListaProductoModel;

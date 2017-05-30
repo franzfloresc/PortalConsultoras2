@@ -76,14 +76,14 @@
     }
    
 </div>
-<div style="background:#F6F6F6; padding-top:30px; padding-bottom:30px;">
+<div style="background:#F6F6F6; padding:30px;">
     @*<div class="nombre_titulo_set_detalle">MI PACK KADIA SPORT</div>*@
     <div id="divOfertaProductos"></div>
     @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
     {
-        <div class="wrapper_resumen_mobile" style="padding-top:30px;" id="divDiveo">
+        <div class="" style="padding-top:30px;" id="divDiveo">
             <div class="video-responsive-bpt">
-                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
             </div>
         </div>
     }
@@ -94,6 +94,7 @@
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
     var tipoOrigenEstrategia = 272;
+    var estadoAccion = 0;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>

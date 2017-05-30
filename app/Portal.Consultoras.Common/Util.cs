@@ -2830,6 +2830,7 @@ namespace Portal.Consultoras.Common
         {
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
+            str = str == "..." ? "" : str;
             return str;
         }
 

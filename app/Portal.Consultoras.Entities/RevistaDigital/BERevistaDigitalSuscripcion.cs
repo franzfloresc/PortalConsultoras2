@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Entities.RevistaDigital
 
         public BERevistaDigitalSuscripcion(IDataRecord row)
         {
+            if (row.HasColumn("RevistaDigitalSuscripcionID")) RevistaDigitalSuscripcionID = Convert.ToInt32(row["RevistaDigitalSuscripcionID"]);
             if (row.HasColumn("CodigoConsultora")) CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
             if (row.HasColumn("FechaSuscripcion")) FechaSuscripcion = Convert.ToDateTime(row["FechaSuscripcion"]);
             if (row.HasColumn("FechaDesuscripcion")) FechaDesuscripcion = Convert.ToDateTime(row["FechaDesuscripcion"]);

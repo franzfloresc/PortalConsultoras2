@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Ordenamiento != null)
                 {
                     model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio.ToLower())
+                    if (model.Ordenamiento.Tipo == "precio")
                     {
                         switch (model.Ordenamiento.Valor)
                         {
@@ -165,6 +165,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 int cantidad = listaFinal.Count;
+
+                listaFinal.Update(p => {
+                    p.PuedeAgregar = IsMobile() ? 0 : 1;
+                    p.IsMobile = IsMobile() ? 1 : 0;
+                    p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
+                });
+
 
                 return Json(new
                 {
@@ -195,6 +202,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
 
+                producto.PuedeAgregar = 1;
+                producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
+
                 return Json(new
                 {
                     success = producto.EstrategiaID > 0,
@@ -222,7 +232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "USTED YA ESTÁ SUSCRITO, GRACIAS."
+                    message = "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias."
                 }, JsonRequestBehavior.AllowGet);
             }
 
@@ -232,16 +242,13 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CampaniaID = userData.CampaniaID;
             entidad.CodigoZona = userData.CodigoZona;
             entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo;
+            entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (sv.RDSuscripcion(entidad) > 0)
-                {
-                    entidad.CampaniaID = 0;
-                    entidad = sv.RDGetSuscripcion(entidad);
-                }
+                entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
             }
 
             if (entidad.RevistaDigitalSuscripcionID > 0)
@@ -261,6 +268,59 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpGet]
+        public JsonResult Desuscripcion()
+        {
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted no está inscrita a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted ya está desuscrito a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var entidad = new BERevistaDigitalSuscripcion();
+            entidad.PaisID = userData.PaisID;
+            entidad.CodigoConsultora = userData.CodigoConsultora;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.CodigoZona = userData.CodigoZona;
+            entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo;
+            entidad.EstadoEnvio = 0;
+            entidad.IsoPais = userData.CodigoISO;
+            entidad.EMail = userData.EMail;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            }
+
+            SetUserData(userData);
+            Session["TipoPopUpMostrar"] = null;
+
+            return Json(new
+            {
+                success = userData.RevistaDigital.EstadoSuscripcion > 0,
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Que pena, usted se desuscribio a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo."
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public JsonResult PopupNoVolverMostrar()
         {

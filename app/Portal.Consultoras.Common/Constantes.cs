@@ -228,7 +228,7 @@
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia
+            // 9: Oferta del dia            0: Revista Digital
             // 1: index
             // 2: OfertaParaTi Detalle
 
@@ -291,15 +291,8 @@
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
-
-
-
+            
             /* Revista Digital */
-            //public const int LanzamientoDesktopLandingCarrusel = 1622;
-            //public const int LanzamientoDesktopProductPage = 1631;
-            //public const int LanzamientoMobileLandingCarrusel = 2622;
-            //public const int LanzamientoMobileProductPage = 2631;
-
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
             public const int RevistaDigitalDesktopLandingPopUp = 1712;
@@ -309,6 +302,21 @@
             public const int RevistaDigitalMobileLandingPopUp = 2712;
             public const int RevistaDigitalMobileProductPage = 2731;
 
+            public const int RevistaDigitalDesktopHomeSeccion = 1101;
+            public const int RevistaDigitalDesktopHomePopUp = 1102;
+            public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
+
+            public const int RevistaDigitalMobileHomeSeccion = 2101;
+            public const int RevistaDigitalMobileHomePopUp = 2102;
+            public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            
+            public const int RevistaDigitalDesktopPedidoSeccion = 1201;
+            public const int RevistaDigitalDesktopPedidoPopUp = 1202;
+            public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
+
+            public const int RevistaDigitalMobilePedidoSeccion = 2201;
+            public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
             /* FIN Revista Digital */
         }
 
@@ -534,6 +542,7 @@
         public class ConfiguracionPais
         {
             public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
         }
 
