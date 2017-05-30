@@ -40,7 +40,7 @@ CREATE TABLE [dbo].[RevistaDigitalSuscripcion]
 	[RevistaDigitalSuscripcionID] [int] IDENTITY(1,1) NOT NULL,
 	[CodigoConsultora] [varchar](20) not NULL,
 	[CampaniaID] [int] not null,
-	[FechaSuscripcion] [datetime] not null,
+	[FechaSuscripcion] [datetime] null,
 	[FechaDesuscripcion] [datetime] null,
 	[EstadoRegistro] [int] null,
 	[EstadoEnvio] [int] null,
@@ -59,11 +59,18 @@ END
 
 GO
 
+IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDR' )
+BEGIN
+	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
+	VALUES('RDR', 0, 'Revista Digital Reducida', 0)
+END
+
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RD' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RD', 0, 'Revista Digital', 0)
+	VALUES('RD', 0, 'Revista Digital Completa', 0)
 END
+
 
 go
 
@@ -278,10 +285,9 @@ IF not EXISTS (SELECT * FROM PopupPais where CodigoPopup = 9)
 begin
 	UPDATE PopupPais SET Orden = Orden + 1 WHERE Orden > 4; 
 	INSERT INTO PopupPais (CodigoPopup, Descripcion, CodigoISO, Orden, Activo) 
-	VALUES (9, 'Suscripcion Revista Digital', 'PE', 5, 1)
+	VALUES (9, 'Suscripcion Revista Digital', (select CodigoISO from Pais where EstadoActivo = 1), 5, 1)
 end
 GO
-
 
 ----------------------------------------------------------------------------------------------
 -- INGRESO O ACUTALIZACION DE UN NUEVO REGISTRO DE SUSCRIPCION EN BASE AL CODIGO DE CONSULTORA

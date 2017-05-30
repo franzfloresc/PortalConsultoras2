@@ -13407,3 +13407,6 @@ label.checkpop {
         }
 /*EPD2031 -->*/
 
+.inforRdText {
+   position: relative; margin-top: -13px; font-size: 11px; 
+}
