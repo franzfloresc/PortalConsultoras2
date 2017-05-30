@@ -64,7 +64,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     if (reader.Read()) paises.Add(new BEPais(reader));
                 }                    
-                CacheManager<BEPais>.AddData(ECacheItem.Paises, paises);
+                CacheManager<BEPais>.AddData(paisID, ECacheItem.Paises, paises);
             }
             return paises.FirstOrDefault();
         }
