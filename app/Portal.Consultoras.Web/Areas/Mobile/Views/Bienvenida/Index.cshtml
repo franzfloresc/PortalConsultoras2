@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Common
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
 @model BienvenidaModel
@@ -658,7 +659,7 @@
 <!--POP UP REVISTA DIGITAL-->
 <div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" >
     <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript: CerrarPopup('#PopRDSuscripcion');" onclick="">
+        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript: RDPopupCerrar();" onclick="">
             <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
         </a>
         <div class="mpopup_rd_cabecera">
@@ -669,7 +670,7 @@
         </div>
 
         <div class="mpopup_rd_content">
-            <div class="mpopup_saludo">Milagros, <b>crece tus ganancias en más de 20%</b> reemplazando tu revista impresa por tu revista online, con ofertas únicas para ti.</div>
+            <div class="mpopup_saludo">@Model.NombreConsultora, <b>crece tus ganancias en más de 20%</b> reemplazando tu revista impresa por tu revista online, con ofertas únicas para ti.</div>
             <div class="mpopup_inscripcion">
                 <img src="/Content/Images/RevistaDigital/mpopup_inscripcion.png" width="100%">
             </div>
@@ -685,42 +686,6 @@
         </div>
     </div>
 </div>
-@*<div id="PopRDSuscripcion" class="CompartirCorreoPop contenedor_fondo_popup" style="display:none;" data-popup-main="" data-popup-function-hide="RDPopupCerrar">
-    <div class="contenedor_popup_revistaSuscripcion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="top:-12px; right:0px; position:absolute;" data-popup-close="" >
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
-        </a>
-        <div class="popup_revistaSuscripcion">
-            <div class="background_popupEsika"></div>
-            <div class="popup_revistaSuscripcion_logoMarca">
-                <img src="@Url.Content("~/Content/Images/esika-para-mi-img-blanco.svg")" alt="Ésika Para Mí" />
-            </div>
-            <div class="popup_revistaSuscripcion_contenido">
-                <span>
-                    LLEG&Oacute; TU NUEVA REVISTA ONLINE PERSONALIZADA CON OFERTAS HASTA <span class="porcentaje_descuento">65%</span> DE DSCTO
-                </span>
-                <span>
-                    Inscríbete y aprovecha los beneficios que te harán ganar más reemplazando tu guia de negocio por tu revista online
-                </span>
-            </div>
-            <div class="popup_revistaSuscripcion_grupoBotones">
-                <button type="button" id="btnRDSuscripcionSi" onclick="RDSuscripcion()">INSCRIBIRME EN &Eacute;SIKA PARA M&Iacute;</button>
-                <button type="button" id="btnRDSuscripcionNo" onclick="RDInformacion()" data-popup-close="">SABER M&Aacute;S DE &Eacute;SIKA PARA M&Iacute;</button>
-            </div>
-            <div class="popup_revistaSuscripcion_terminos">
-                Al inscribirte est&aacute;s aceptando los
-                <a href="javascript:;" title="Términos y Condiciones">T&eacute;rminos y Condiciones</a>
-                y recibirás tu Revista únicamente por vía online, a partir de la C10
-            </div>
-            <div class="img_modeloRevista">
-                <img src="@Url.Content("~/Content/Images/modelo-popup-revista.png")" alt="Modelo" />
-            </div>
-        </div>
-        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
-            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
-        </div>
-    </div>
-</div>*@
 <!-- FIN POPUP REVISTA DIGITAL -->
 
 <!-- POPUP INSCRITA A REVISTA DIGITAL -->
@@ -737,8 +702,8 @@
         </div>
 
         <div class="mpopup_rd_content">
-            <div class="mpopup_saludo"><b>¡FELICIDADES MILAGROS ESTÁS INSCRITA! ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</b></div>
-            <div class="mpopup_text">Ingresa a Ésika para mí la próxima campaña y a partir de la C-12, tu revista online reemplazará a tu revista impresa.</div>
+            <div class="mpopup_saludo"><b>¡FELICIDADES @Model.NombreConsultora.ToUpper() ESTÁS INSCRITA! ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</b></div>
+            <div class="mpopup_text">Ingresa a Ésika para mí la próxima campaña y a partir de la C-@Model.CampaniaMasDos, tu revista online reemplazará a tu revista impresa.</div>
             <div class="btn_bpt btn_transparent"><a href="javascript: RDSuscripcionRedireccionar();">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
             <div class="mpopup_textleg">Para cancelar tu inscripción <a href="javascript: RDRedireccionarDesuscripcion();">haz click aquí</a></div>
         </div>
@@ -1065,11 +1030,13 @@
                 var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
                 var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
                 var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
-                var urlTerminosCondicionesRD = '';
+                var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+                var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 
                 var tipoOrigenEstrategia = 2;
                 var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
                 var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
+
 
                 //EPD-1837
                 var vbFotoPerfil = '@ViewBag.FotoPerfil';
