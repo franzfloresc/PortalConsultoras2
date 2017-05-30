@@ -18,15 +18,16 @@
             {{/iff}}
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
-                {{#if_eq FlagNueva '1'}}
+                {{#iff DescripcionResumen '!=' ''}}
                 <p class="nombre_producto">
-                    <b>{{DescripcionCUVSplit}}</b>
+                    <b>{{DescripcionResumen}}</b>
                 </p>
-                {{else}}
+                {{/iff}}
+                {{#iff DescripcionCortada '!=' ''}}
                 <p class="nombre_producto">
-                    <b>{{DescripcionCUV2}}</b>
+                    <b>{{DescripcionCortada}}</b>
                 </p>
-                {{/if_eq}}
+                {{/iff}}
 
                 <div class="producto_precio">
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}

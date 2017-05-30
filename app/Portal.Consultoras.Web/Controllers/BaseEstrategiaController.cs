@@ -371,10 +371,11 @@ namespace Portal.Consultoras.Web.Controllers
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
                     estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    estrategia.DescripcionDetalle = listadescr.Length > 2 ? listadescr[2] : "";
+                    if (listadescr.Length > 2)
+                    {
+                        estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
+                    }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
-
-                    estrategia.DescripcionDetalle = estrategia.DescripcionDetalle.Replace("|", "<br />");
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
