@@ -1667,7 +1667,9 @@
                 }
             });
 
-
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function (event) {
+                if (this.getZoom() > 16) { this.setZoom(16); }
+            });
             map.addListener('bounds_changed', function () {
                 // searchBox.setBounds(map.getBounds());
                 //var markerMorado = GetMarkerMorado();
@@ -2019,8 +2021,12 @@
                 }
             });
 
-
+            google.maps.event.addListenerOnce(map, 'bounds_changed', function (event)
+            {
+                if (this.getZoom() > 16) { this.setZoom(16); }
+            });
             map.addListener('bounds_changed', function () {
+                
                 // searchBox.setBounds(map.getBounds());
                 //var markerMorado = GetMarkerMorado();
                 //if (markerMorado) {
