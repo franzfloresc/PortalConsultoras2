@@ -2047,6 +2047,8 @@
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
+    <Content Include="Content\Images\IncentivosSMS\201709\pack500x500.png" />
+    <Content Include="Content\Images\IncentivosSMS\201709\vajilla.png" />
     <Content Include="Content\Images\IncentivosSMS\producto1.png" />
     <Content Include="Content\Images\IncentivosSMS\reloj.png" />
     <Content Include="Content\Images\indicador.png" />
