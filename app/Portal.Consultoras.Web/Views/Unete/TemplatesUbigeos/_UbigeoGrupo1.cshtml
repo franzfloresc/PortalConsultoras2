@@ -188,7 +188,7 @@ else
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
-        <label>Referencia:</label>
+        <label>Dirección:</label>
         <div class="contenedor_campoFormulario">
             @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @placeholder = "Ejm: 97B 35 2" })
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
@@ -233,6 +233,9 @@ else
 
     var codigoPais = '@Model.CodigoPais';
 
+    var NombreLugarNivel1Ant = '';
+    var NombreLugarNivel2Ant = '';
+    var NombreLugarNivel3Ant = '';//CO
     var htmlLugarNivel2Ant = '';
     var htmlLugarNivel3Ant = '';//CO
     var LugarNivel1Ant = '';
@@ -307,11 +310,14 @@ else
         htmlLugarNivel2Ant = $("#LugarNivel2").html();
         LugarNivel1Ant = $("#LugarNivel1").val();
         LugarNivel2Ant = $("#LugarNivel2").val();
+        NombreLugarNivel1Ant = $("#NombreLugarNivel1").val();
+        NombreLugarNivel2Ant = $("#NombreLugarNivel2").val();
         CalleOAvenidaAnt = $("#CalleOAvenida").val();
         ReferenciaAnt = $("#Referencia").val();
         if (codigoPais == 'CO') {
             htmlLugarNivel3Ant = $("#LugarNivel3").html();
             LugarNivel3Ant = $("#LugarNivel3").val();
+            NombreLugarNivel3Ant = $("#NombreLugarNivel3").val();
             NombreDireccionEdicionAnt = $("#NombreDireccionEdicion").val();
         } else { NumeroAnt = $("#Numero").val(); }
 
@@ -348,11 +354,14 @@ else
         $("#LugarNivel1").val(LugarNivel1Ant);
         $("#LugarNivel2").html(htmlLugarNivel2Ant);
         $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#NombreLugarNivel1").val(NombreLugarNivel1Ant);
+        $("#NombreLugarNivel2").val(NombreLugarNivel2Ant);
         $("#CalleOAvenida").val(CalleOAvenidaAnt);
         $("#Referencia").val(ReferenciaAnt);
         if (codigoPais == 'CO') {
             $("#LugarNivel3").html(htmlLugarNivel3Ant);
             $("#LugarNivel3").val(LugarNivel3Ant);
+            $("#NombreLugarNivel3").val(NombreLugarNivel3Ant);
             $("#NombreDireccionEdicion").val(NombreDireccionEdicionAnt);
         } else { $("#Numero").val(NumeroAnt); }
 
@@ -367,6 +376,7 @@ else
         $('#btnGuardarPosicion').attr('disabled', false);
         $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
+        $(".field-validation-error span").empty();
     });
 
     $('#btnActualizarSeccion').click(function () {

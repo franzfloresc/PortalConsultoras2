@@ -143,7 +143,9 @@
 @Html.HiddenFor(m => Model.LugarNivel3)
 
 <script>
-
+    var NombreLugarNivel1Ant = '';
+    var NombreLugarNivel2Ant = '';
+    var NombreLugarNivel3Ant = '';
     var htmlLugarNivel2Ant = '';
     var htmlLugarNivel3Ant = '';
     var LugarNivel1Ant = '';
@@ -203,6 +205,9 @@
         LugarNivel1Ant = $("#LugarNivel1").val();
         LugarNivel2Ant = $("#LugarNivel2").val();
         LugarNivel3Ant = $("#LugarNivel3").val();
+        NombreLugarNivel1Ant = $("#NombreLugarNivel1").val();
+        NombreLugarNivel2Ant = $("#NombreLugarNivel2").val();
+        NombreLugarNivel3Ant = $("#NombreLugarNivel3").val();
         NumeroAnt = $("#Numero").val();
         CalleOAvenidaAnt = $("#CalleOAvenida").val();
         ReferenciaAnt = $("#Referencia").val();
@@ -243,6 +248,9 @@
         $("#LugarNivel2").val(LugarNivel2Ant);
         $("#LugarNivel3").html(htmlLugarNivel3Ant);
         $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#NombreLugarNivel1").val(NombreLugarNivel1Ant);
+        $("#NombreLugarNivel2").val(NombreLugarNivel2Ant);
+        $("#NombreLugarNivel3").val(NombreLugarNivel3Ant);
         $("#Numero").val(NumeroAnt);
         $("#CalleOAvenida").val(CalleOAvenidaAnt);
         $("#Referencia").val(ReferenciaAnt);
@@ -258,6 +266,7 @@
         $('#btnGuardarPosicion').attr('disabled', false);
         $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
+        $(".field-validation-error span").empty();
     });
 
     $('#btnActualizarSeccion').click(function () {

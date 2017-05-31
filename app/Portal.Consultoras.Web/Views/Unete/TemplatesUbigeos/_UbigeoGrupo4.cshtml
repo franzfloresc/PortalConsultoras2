@@ -174,6 +174,10 @@ else
 <script>
     var codigoPais = '@Model.CodigoPais';
 
+    var NombreLugarNivel1Ant = '';
+    var NombreLugarNivel2Ant = '';
+    var NombreLugarNivel3Ant = '';
+    var NombreLugarNivel4Ant = '';
     var htmlLugarNivel2Ant = '';
     var htmlLugarNivel3Ant = '';
     var htmlLugarNivel4Ant = '';
@@ -184,6 +188,7 @@ else
     var CalleOAvenidaAnt = '';
     var htmlLugarNivel5Ant = '';//GT
     var LugarNivel5Ant = '';//GT
+    var NombreLugarNivel5Ant = '';//GT
 
     $(document).ready(function () {
 
@@ -255,10 +260,15 @@ else
             LugarNivel2Ant = $("#LugarNivel2").val();
             LugarNivel3Ant = $("#LugarNivel3").val();
             LugarNivel4Ant = $("#LugarNivel4").val();
+            NombreLugarNivel1Ant = $("#NombreLugarNivel1").val();
+            NombreLugarNivel2Ant = $("#NombreLugarNivel2").val();
+            NombreLugarNivel3Ant = $("#NombreLugarNivel3").val();
+            NombreLugarNivel4Ant = $("#NombreLugarNivel4").val();
             CalleOAvenidaAnt = $("#CalleOAvenida").val();
             if (codigoPais == 'GT') {
                 htmlLugarNivel5Ant = $("#LugarNivel5").html();
                 LugarNivel5Ant = $("#LugarNivel5").val();
+                NombreLugarNivel5Ant = $("#NombreLugarNivel5").val();
             }
 
             $('#btnModificarDireccion').hide();
@@ -298,10 +308,15 @@ else
         $("#LugarNivel3").val(LugarNivel3Ant);
         $("#LugarNivel4").html(htmlLugarNivel4Ant);
         $("#LugarNivel4").val(LugarNivel4Ant);
+        $("#NombreLugarNivel1").val(NombreLugarNivel1Ant);
+        $("#NombreLugarNivel2").val(NombreLugarNivel2Ant);
+        $("#NombreLugarNivel3").val(NombreLugarNivel3Ant);
+        $("#NombreLugarNivel4").val(NombreLugarNivel4Ant);
         $("#CalleOAvenida").val(CalleOAvenidaAnt);
         if (codigoPais == 'GT') {
             $("#LugarNivel5").html(htmlLugarNivel5Ant);
             $("#LugarNivel5").val(LugarNivel5Ant);
+            $("#NombreLugarNivel5").val(NombreLugarNivel5Ant);
         }
 
         $('#btnModificarDireccion').show();
@@ -315,6 +330,7 @@ else
         $('#btnGuardarPosicion').attr('disabled', false);
         $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
+        $(".field-validation-error span").empty();
     });
 
     $('#btnActualizarSeccion').click(function () {
