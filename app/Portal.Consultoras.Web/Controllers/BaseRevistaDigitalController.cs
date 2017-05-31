@@ -11,6 +11,15 @@ namespace Portal.Consultoras.Web.Controllers
         public RevistaDigitalModel IndexModel()
         {
             var model = new RevistaDigitalModel();
+            model.EstadoAccion = -1;
+            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            {
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                {
+                    return model;
+                }
+            }
+            
             model = ListarTabs(model);
 
             if (model.EstadoAccion < 0)

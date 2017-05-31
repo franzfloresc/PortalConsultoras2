@@ -1,20 +1,20 @@
 ﻿@{
     // Asignar permisosList con los elementos solo de la cabecera
     var permisoList = (List<Portal.Consultoras.Web.Models.PermisoModel>)ViewBag.Permiso;
-    var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramasBelcorpMenu;
     permisoList = permisoList != null
         ? permisoList.Where(x => x.Posicion.ToLower().Equals("header") && x.Mostrar).OrderBy(p => p.OrdenItem).ToList()
         : new List<Portal.Consultoras.Web.Models.PermisoModel>();
     string urlProgramaNuevas = "";
+    var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramasBelcorpMenu;
     programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
-    foreach (var item in programasBelcorpMenu) 
+    foreach (var item in programasBelcorpMenu)
     {
         if (item.Descripcion.ToLower().Trim() == "programa nuevas")
         {
             urlProgramaNuevas = item.Url;
         }
     }
-    
+
     //var programasNuevas = programaNuevas != null ? permisoList.Where(p => p.Descripcion.ToLower().Equals("programa nuevas")).ToList()[0] : Portal.Consultoras.Web.Models.ServicioCampaniaModel;
     var claseSociaEmpresaria = (ViewBag.Lider == 1 && ViewBag.PortalLideres) ? "menu_socia_empresaria" : "";
 }
@@ -25,12 +25,12 @@
         <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->       
         @foreach (var menuPadre in permisoList)
         {
-            <li class="new_menu" style="margin-left: 5px;">
+            <li class="new_menu @menuPadre.ClaseMenuItem" style="margin-left: 5px;" data-codigo="@menuPadre.Codigo">
             @if (menuPadre.SubMenus.Count > 0)
             {
                 //Menu padre con hijos
                     <a href="javascript:;" class="new_menu_a" target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                        @menuPadre.Descripcion
+                        <span>@menuPadre.Descripcion</span>
                         <div class="flecha_menu"></div>
                         <div class="pestana_esika"></div>
                     </a>
@@ -172,7 +172,7 @@
                     if (menuPadre.UrlItem == "")
                     {
                         <a href="javascript:;" class="new_menu_a @menuPadre.ClaseMenu">
-                            @menuPadre.Descripcion
+                            <span>@menuPadre.Descripcion</span>
                         </a>
                     }
                     else
@@ -186,7 +186,7 @@
                             }
                             else
                             {
-                                @menuPadre.Descripcion
+                                <span>@menuPadre.Descripcion</span>
                             }
                         </a>
                     }
