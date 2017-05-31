@@ -172,7 +172,7 @@
     </div>
     <div class="contenedor_grupoBotones">
         <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
-        <button id="btnCancelarEdicion" type="button">Cancelar</button>
+        <button id="btnCancelarEdicion" type="button" formnovalidate>Cancelar</button>
     </div>
 </div>
 
@@ -192,7 +192,10 @@
 
 
 <script>
-
+    var NombreLugarNivel1Ant = '';
+    var NombreLugarNivel2Ant = '';
+    var NombreLugarNivel3Ant = '';
+    var NombreLugarNivel4Ant = '';
     var htmlLugarNivel2Ant = '';
     var htmlLugarNivel3Ant = '';
     var htmlLugarNivel4Ant = '';
@@ -256,6 +259,10 @@
         htmlLugarNivel2Ant = $("#LugarNivel2").html();
         htmlLugarNivel3Ant = $("#LugarNivel3").html();
         htmlLugarNivel4Ant = $("#LugarNivel4").html();
+        NombreLugarNivel1Ant = $("#NombreLugarNivel1").val();
+        NombreLugarNivel2Ant = $("#NombreLugarNivel2").val();
+        NombreLugarNivel3Ant = $("#NombreLugarNivel3").val();
+        NombreLugarNivel4Ant = $("#NombreLugarNivel4").val();
         LugarNivel1Ant = $("#LugarNivel1").val();
         LugarNivel2Ant = $("#LugarNivel2").val();
         LugarNivel3Ant = $("#LugarNivel3").val();
@@ -307,6 +314,10 @@
         $("#LugarNivel4").val(LugarNivel4Ant);
         $("#CalleOAvenida").val(CalleOAvenidaAnt);
         $("#Referencia").val(ReferenciaAnt);
+        $("#NombreLugarNivel1").val(NombreLugarNivel1Ant);
+        $("#NombreLugarNivel2").val(NombreLugarNivel2Ant);
+        $("#NombreLugarNivel3").val(NombreLugarNivel3Ant);
+        $("#NombreLugarNivel4").val(NombreLugarNivel4Ant);
 
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
@@ -319,6 +330,7 @@
         $('#btnGuardarPosicion').attr('disabled', false);
         $('#btnActualizarSeccion').attr('disabled', false);
         HabilitarDatosDireccion(0);
+        $(".field-validation-error span").empty();
     });
 
     $('#btnActualizarSeccion').click(function () {
