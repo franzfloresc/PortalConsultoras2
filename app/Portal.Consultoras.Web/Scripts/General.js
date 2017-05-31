@@ -873,14 +873,45 @@ function LayoutMenuFin() {
     var hok = true;
     do {
         $(".logo_esika").css("width", "");
+        $(".menu_esika_b").css("width", "");
+        //$(".menu_new_esika").css("width", "");
+
         hok = false;
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();
         var wr = $(".menu_esika_b").innerWidth();
+        $(".logo_esika").css("width", wl + "px");
+        $(".menu_esika_b").css("width", wr + "px");
+
         wt = wt - wl - wr;
         $(".menu_new_esika").css("width", wt + "px");
-        $(".logo_esika").css("width", wl + "px");
+
         var h = $(".wrapper_header").height();
+
+        if (h <= 61 && $("#ulNavPrincipal > li").length > 0) {
+            wr = 0;
+            $.each($("#ulNavPrincipal > li"), function (ind, menupadre) {
+                wr += $(menupadre).innerWidth();
+            });
+
+            if (wt <= wr) {
+                break;
+            }
+
+            wr = (wt - wr) / $("#ulNavPrincipal > li").length;
+
+            $.each($("#ulNavPrincipal > li"), function (ind, menupadre) {
+                if (ind > 0) {
+                    $(menupadre).css("margin-left", wr + "px");
+                }
+                else if (ind + 1 == $("#ulNavPrincipal > li").length) {
+                    $(menupadre).css("margin-right", wr + "px");
+                }
+            });
+
+            break;
+        }
+
         if (h > 61) {
             $("#ulNavPrincipal > li").css("margin-left", "20px");
             h = $(".wrapper_header").height();

@@ -25,20 +25,17 @@
         <!--AÑADIR CLASE "menu_socia_empresaria" SI LLEVA SOCIA EMPRESARIA -->       
         @foreach (var menuPadre in permisoList)
         {
-            var pageTarget = menuPadre.PaginaNueva ? "_blank" : "_self";
-            var claseSubMenu = menuPadre.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
-            if (menuPadre.SubMenus.Count > 0)
+            <li class="new_menu" style="margin-left: 5px;">
+            @if (menuPadre.SubMenus.Count > 0)
             {
                 //Menu padre con hijos
-                <li class="new_menu">
-
-                    <a href="javascript:;" class="new_menu_a" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                    <a href="javascript:;" class="new_menu_a" target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                         @menuPadre.Descripcion
                         <div class="flecha_menu"></div>
                         <div class="pestana_esika"></div>
                     </a>
                     
-                    <ul class="@(claseSubMenu)">
+                    <ul class="@(menuPadre.ClaseSubMenu)">
                         <li>
                             <div class="linea_menu"> </div>
                             @{
@@ -50,9 +47,7 @@
                                 var addImgen = false;
                                 var final = false;
                                 foreach (var menuHijo in menuPadre.SubMenus)
-                                {
-                                    var pageTargetHijo = menuHijo.PaginaNueva ? "_blank" : "_self";
-                                    
+                                {                                    
                                     //SI TIENE NIETOS
                                     if (menuHijo.SubMenus.Count > 0)
                                     {
@@ -66,9 +61,7 @@
 
                                                 foreach (var menuNieto in menuHijo.SubMenus)
                                                 {
-                                                    var pageTargetNieto = menuNieto.PaginaNueva ? "_blank" : "_self";
-
-                                                    if (string.IsNullOrEmpty(menuNieto.UrlItem))
+                                                    if (menuNieto.UrlItem == "")
                                                     {
                                                         <a href="javascript:;" class="menu_enlace">
                                                             @menuNieto.Descripcion
@@ -76,13 +69,17 @@
                                                     }
                                                     else if (menuNieto.EsDireccionExterior)
                                                     {
-                                                        <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                        <a href="javascript:;" class="menu_enlace" 
+                                                           onclick="RedirectMenu('@menuNieto.UrlItem', '', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " 
+                                                           target="@menuNieto.PageTarget" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
                                                             @menuNieto.Descripcion
                                                         </a>
                                                     }
                                                     else
                                                     {
-                                                        <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion') " target="@pageTargetNieto" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
+                                                        <a href="javascript:;" class="menu_enlace" 
+                                                           onclick="RedirectMenu('@menuNieto.UrlItem.Split('/')[1]', '@menuNieto.UrlItem.Split('/')[0]', @Convert.ToInt32(menuNieto.PaginaNueva), '@menuNieto.Descripcion')"
+                                                           target="@menuNieto.PageTarget" role="menu" region="Principal" parent="@menuHijo.Descripcion" title="@menuNieto.Descripcion" id="lnk-pri-@menuNieto.DescripcionFormateada">
                                                             @menuNieto.Descripcion
                                                         </a>
                                                     }
@@ -113,7 +110,7 @@
                                             </a>
                                             addIngPedido = true;
                                         }
-                                        if (string.IsNullOrEmpty(menuHijo.UrlItem))
+                                        if (menuHijo.UrlItem == "")
                                         {
                                             <a href="javascript:;" class="menu_enlace">
                                                 @menuHijo.Descripcion
@@ -121,13 +118,13 @@
                                         }
                                         else if (menuHijo.EsDireccionExterior)
                                         {
-                                            <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                            <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuHijo.UrlItem', '', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
                                                 @menuHijo.Descripcion
                                             </a>
                                         }
                                         else
                                         {
-                                            <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@pageTargetHijo" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
+                                            <a href="javascript:;" class="menu_enlace" onclick="RedirectMenu('@menuHijo.UrlItem.Split('/')[1]', '@menuHijo.UrlItem.Split('/')[0]', @Convert.ToInt32(menuHijo.PaginaNueva), '@menuHijo.Descripcion') " target="@menuHijo.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuHijo.Descripcion" id="lnk-pri-@menuHijo.DescripcionFormateada">
                                                 @menuHijo.Descripcion
                                             </a>
                                         }
@@ -168,75 +165,33 @@
                             }
                          </li>
                     </ul>
-                </li>
             }
             else
             {
                 //Menu padre sin hijos
-                switch (menuPadre.Descripcion.ToUpperInvariant())
-                {
-                    case "SOCIA EMPRESARIA":
-                        if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
-                        {
-                            <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a menu_socia_empresaria" onclick="RedirectMenu('@menuPadre.UrlItem', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @menuPadre.Descripcion
-                                </a>
-                            </li>
-                        }
-                        break;
-                    case "MI COMUNIDAD":
-                        if (ViewBag.EsUsuarioComunidad == 0)
-                        {
-                            <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="AbrirModalRegistroComunidad()" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @menuPadre.Descripcion
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]', '' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @menuPadre.Descripcion
-                                </a>
-                            </li>
-                        }
-                        break;                        
-                    default:
-                        if (string.IsNullOrEmpty(menuPadre.UrlItem))
-                        {
-                            <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a">
-                                    @menuPadre.Descripcion
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="new_menu">
-                                <a href="javascript:;" class="new_menu_a" onclick="RedirectMenu('@menuPadre.UrlItem.Split('/')[1]', '@menuPadre.UrlItem.Split('/')[0]' , @Convert.ToInt32(menuPadre.PaginaNueva) , '@menuPadre.Descripcion')" target="@pageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
-                                    @if (menuPadre.EsSoloImagen)
-                                    {
-                                        if ((menuPadre.UrlImagen ?? "") != "")
-                                        {
-                                            <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" />
-                                        }
-                                        else
-                                        {
-                                            @menuPadre.Descripcion
-                                        }
-                                    }
-                                    else
-                                    {
-                                        @menuPadre.Descripcion
-                                    }
-                                </a>
-                            </li>
-                        }
-                        break;
-                }
+                    if (menuPadre.UrlItem == "")
+                    {
+                        <a href="javascript:;" class="new_menu_a @menuPadre.ClaseMenu">
+                            @menuPadre.Descripcion
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="javascript:;" class="new_menu_a @menuPadre.ClaseMenu"
+                           onclick="@menuPadre.OnClickFunt"
+                           target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
+                            @if (menuPadre.UrlImagen != "")
+                            {
+                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" />
+                            }
+                            else
+                            {
+                                @menuPadre.Descripcion
+                            }
+                        </a>
+                    }
             }
+            </li>
         }
         <li class="clear"></li>
     </ul>

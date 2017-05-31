@@ -459,9 +459,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<PermisoModel> BuildMenu()
         {
             if (userData.Menu != null)
-            {
                 return userData.Menu;
-            }
 
             IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
             IList<ServiceSeguridad.BEPermiso> lst2 = new List<ServiceSeguridad.BEPermiso>();
@@ -482,10 +480,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             lst2 = lst;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-            {
                 lst2 = lst2.Where(x => x.PermisoID != 1019).ToList();
-            }
-
+            
             foreach (var permiso in lst2)
             {
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
@@ -517,6 +513,78 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
 
+                // por ahora esta en header, ponerlo para tambien para el Footer
+                // Objetivo que el Html este limpio, la logica no deberia estar en la vista
+                if (permiso.Posicion.ToLower() == "header")
+                {
+                    if (!permiso.Mostrar)
+                        continue;
+
+                    if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA" && permiso.IdPadre == 0)
+                    {
+                        if (!(ViewBag.Lider == 1 && ViewBag.PortalLideres))
+                        {
+                            continue;
+                        }
+                    }
+
+                    var perModel = new PermisoModel
+                    {
+                        PermisoID = permiso.PermisoID,
+                        RolId = permiso.RolId,
+                        Descripcion = permiso.Descripcion,
+                        IdPadre = permiso.IdPadre,
+                        OrdenItem = permiso.OrdenItem,
+                        UrlItem = Util.Trim(permiso.UrlItem),
+                        PaginaNueva = permiso.PaginaNueva,
+                        Mostrar = permiso.Mostrar,
+                        Posicion = permiso.Posicion,
+                        UrlImagen = permiso.UrlImagen,
+                        EsMenuEspecial = permiso.EsMenuEspecial,
+                        EsSoloImagen = permiso.EsSoloImagen,
+                        EsServicios = permiso.EsServicios,
+                        EsDireccionExterior = permiso.UrlItem.ToLower().StartsWith("http"),
+                        DescripcionFormateada = Util.RemoveDiacritics(permiso.Descripcion.ToLower()).Replace(" ", "-")
+                    };
+
+                    perModel.PageTarget = perModel.PaginaNueva ? "_blank" : "_self";
+                    perModel.ClaseSubMenu = perModel.Descripcion == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+
+                    if (permiso.IdPadre == 0)
+                    {
+                        var urlSplit = perModel.UrlItem.Split('/');
+                        perModel.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? perModel.UrlItem.Split('/')[1] : "" ) + "', '" + (urlSplit.Length > 0 ? perModel.UrlItem.Split('/')[0] : "") + "' , " + Convert.ToInt32(perModel.PaginaNueva).ToString() + ", '" + perModel.Descripcion + "')";
+
+                        if (permiso.Descripcion.ToUpperInvariant() == "MI COMUNIDAD")
+                        {
+                            if (ViewBag.EsUsuarioComunidad == 0)
+                            {
+                                perModel.OnClickFunt = "AbrirModalRegistroComunidad()";
+                            }
+                            else
+                            {
+                                perModel.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? perModel.UrlItem.Split('/')[1] : "") + "', '" + (urlSplit.Length > 0 ? perModel.UrlItem.Split('/')[0] : "") + "', '' , " + Convert.ToInt32(perModel.PaginaNueva).ToString() + " , '" + perModel.Descripcion + "')";
+                            }
+                        }
+
+                        if (permiso.Descripcion.ToUpperInvariant() == "SOCIA EMPRESARIA")
+                        {
+                            perModel.ClaseMenu = "menu_socia_empresaria";
+                            if (ViewBag.Lider == 1 && ViewBag.PortalLideres)
+                            {
+                                perModel.OnClickFunt = "RedirectMenu('" + perModel.UrlItem + "', '' , " + Convert.ToInt32(perModel.PaginaNueva).ToString() + " , '" + perModel.Descripcion + "')";
+                            }
+                        }
+
+                        perModel.UrlImagen = perModel.EsSoloImagen ? Util.Trim(perModel.UrlImagen) : "";
+                    }
+
+
+                    lstModel.Add(perModel);
+
+                    continue;
+                }
+
                 lstModel.Add(new PermisoModel
                 {
                     PermisoID = permiso.PermisoID,
@@ -524,7 +592,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Descripcion = permiso.Descripcion,
                     IdPadre = permiso.IdPadre,
                     OrdenItem = permiso.OrdenItem,
-                    UrlItem = permiso.UrlItem,
+                    UrlItem = Util.Trim(permiso.UrlItem),
                     PaginaNueva = permiso.PaginaNueva,
                     Mostrar = permiso.Mostrar,
                     Posicion = permiso.Posicion,
