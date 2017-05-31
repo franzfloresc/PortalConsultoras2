@@ -386,6 +386,7 @@
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
+    <Compile Include="Models\EstrategiaOutModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\FileNameFormat.cs" />

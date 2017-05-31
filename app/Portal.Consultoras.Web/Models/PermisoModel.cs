@@ -48,9 +48,11 @@ namespace Portal.Consultoras.Web.Models
         //RSA
         public string DescripcionFormateada { get; set; }
 
+        public string Codigo { get; set; }
         public string PageTarget { get; set; }
         public string ClaseSubMenu { get; set; }
         public string OnClickFunt { get; set; }
         public string ClaseMenu { get; set; }
+        public string ClaseMenuItem { get; set; }
     }
 }

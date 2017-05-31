@@ -15,14 +15,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                {
-                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                }
-
                 var model = IndexModel();
 
                 if (model.EstadoAccion < 0)
@@ -264,7 +256,8 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO.",
+                CodigoMenu = Constantes.MenuCodigo.RevistaDigital
             }, JsonRequestBehavior.AllowGet);
         }
 

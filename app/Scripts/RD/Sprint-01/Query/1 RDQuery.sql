@@ -51,6 +51,21 @@ CREATE TABLE [dbo].[RevistaDigitalSuscripcion]
 
 GO
 
+IF  EXISTS ( SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[SuscripcionHistorial]') AND (type = 'U') )
+	DROP TABLE SuscripcionHistorial
+GO
+
+CREATE TABLE [dbo].[SuscripcionHistorial]
+(
+	[SuscripcionHistorialID] [int] IDENTITY(1,1) NOT NULL,
+	[Codigo] [varchar](20) not NULL,
+	[CodigoConsultora] [varchar](20) not NULL,
+	[Accion] [varchar](20) not null,
+	[Fecha] [datetime] null
+)
+GO
+
+
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
@@ -354,6 +369,9 @@ BEGIN
 		WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID
 		SET @RetornoID = (SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora);
 	END 
+
+	INSERT INTO SuscripcionHistorial (Codigo, CodigoConsultora, Accion, Fecha)
+	VALUES ('RD', @CodigoConsultora, CASE @EstadoRegistro WHEN 1 THEN 'Inscripcion' WHEN 2 THEN 'Cancelar Inscripcion' ELSE 'No me interesa' END , dbo.fnObtenerFechaHoraPais());
 END
 
 GO

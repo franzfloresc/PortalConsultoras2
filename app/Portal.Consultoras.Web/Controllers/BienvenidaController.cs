@@ -436,9 +436,8 @@ namespace Portal.Consultoras.Web.Controllers
                             if (!userData.RevistaDigital.NoVolverMostrar)
                             {
                                 if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0 
-                                    || (
-                                        userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
-                                        && userData.RevistaDigital.SuscripcionModel.CampaniaID != userData.CampaniaID))
+                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
+                                        )
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
                                     break;
@@ -462,7 +461,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(model.NroCampana), 2);
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
             }
             catch (FaultException ex)
             {
