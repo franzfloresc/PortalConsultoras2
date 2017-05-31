@@ -195,7 +195,7 @@ else
         </div>
         <div class="contenedor_grupoBotones">
             <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
-            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar</button>
         </div>
     </div>
 }
@@ -209,7 +209,7 @@ else
         </div>
         <div class="contenedor_grupoBotones">
             <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
-            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar</button>
         </div>
     </div>
 }
@@ -232,6 +232,18 @@ else
 <script>
 
     var codigoPais = '@Model.CodigoPais';
+
+    var htmlLugarNivel2Ant = '';
+    var htmlLugarNivel3Ant = '';//CO
+    var LugarNivel1Ant = '';
+    var LugarNivel2Ant = '';
+    var LugarNivel3Ant = '';//CO
+    var CalleOAvenidaAnt = '';
+    var ReferenciaAnt = '';
+
+    var NombreDireccionEdicionAnt = '';//CO
+    var NumeroAnt = ''//CL
+
 
     $(document).ready(function () {
 
@@ -291,6 +303,18 @@ else
     }
 
     $('#btnModificarDireccion').click(function () {
+
+        htmlLugarNivel2Ant = $("#LugarNivel2").html();
+        LugarNivel1Ant = $("#LugarNivel1").val();
+        LugarNivel2Ant = $("#LugarNivel2").val();
+        CalleOAvenidaAnt = $("#CalleOAvenida").val();
+        ReferenciaAnt = $("#Referencia").val();
+        if (codigoPais == 'CO') {
+            htmlLugarNivel3Ant = $("#LugarNivel3").html();
+            LugarNivel3Ant = $("#LugarNivel3").val();
+            NombreDireccionEdicionAnt = $("#NombreDireccionEdicion").val();
+        } else { NumeroAnt = $("#Numero").val(); }
+
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
         $('#btnCancelarEdicion').show();
@@ -321,6 +345,17 @@ else
     });
 
     $('#btnCancelarEdicion').click(function () {
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        $("#Referencia").val(ReferenciaAnt);
+        if (codigoPais == 'CO') {
+            $("#LugarNivel3").html(htmlLugarNivel3Ant);
+            $("#LugarNivel3").val(LugarNivel3Ant);
+            $("#NombreDireccionEdicion").val(NombreDireccionEdicionAnt);
+        } else { $("#Numero").val(NumeroAnt); }
+
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
         $('#btnCancelarEdicion').hide();

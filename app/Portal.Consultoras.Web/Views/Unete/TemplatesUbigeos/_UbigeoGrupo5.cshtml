@@ -87,14 +87,14 @@
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
+        @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, new { @class = "paisEcuador" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel1)</span>
     </div>
 </div>
 <div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar2[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
-        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2)
+        @Html.DropDownListFor(m => Model.LugarNivel2, Model.LugaresNivel2, new { @class = "paisEcuador" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel2)</span>
     </div>
 </div>
@@ -106,11 +106,12 @@
     </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">
-    <label style="margin-bottom:0px;">@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
+    <label style="margin-bottom:0px; top:0px;">@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.CalleOAvenida, new { @class = "direccionPrincipal", @placeholder = " Ejm: Av. Castellana 100" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.CalleOAvenida)</span>
     </div>
+    <label style="margin-bottom:0px; top:0px; margin-right:9px;">@Dictionaries.LabelLugar5[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.TextBoxFor(m => Model.LugarNivel4, new { @class = "direccionSecundaria", @placeholder = Dictionaries.LabelLugar5[Model.CodigoPais] })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>
@@ -118,15 +119,15 @@
 </div>
 <div class="contenedor_camposUbigeo campoReferenciaUbigeo">
     <label>Referencia:</label>
-    <div class="contenedor_campoFormulario" style="width:87.58%;">
-        @Html.TextBoxFor(m => Model.Referencia, new { @class = "ancho99", @placeholder = "Ej. entre calle 1 y calle 3" })
+    <div class="contenedor_campoFormulario" style="width:89.7%;">
+        @Html.TextBoxFor(m => Model.Referencia, new { @style = "width:100%;", @placeholder = "Ej. entre calle 1 y calle 3" })
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.Referencia)</span>
     </div>
     <div class="contenedor_grupo_botones_campoDireccion">
         <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
         <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
         <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
-        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        <button id="btnCancelarEdicion" type="button">Cancelar</button>
     </div>
 </div>
 
@@ -143,6 +144,14 @@
 @Html.HiddenFor(m => Model.LugarNivel2)
 
 <script>
+
+    var htmlLugarNivel2Ant = '';
+    var LugarNivel1Ant = '';
+    var LugarNivel2Ant = '';
+    var LugarNivel3Ant = '';
+    var LugarNivel4Ant = '';
+    var CalleOAvenidaAnt = '';
+    var ReferenciaAnt = '';
 
     $(document).ready(function () {
         $("#LugarNivel1").prepend("<option value=''>--Seleccione--</option>");//.val('');
@@ -183,6 +192,14 @@
     }
 
     $('#btnModificarDireccion').click(function () {
+        htmlLugarNivel2Ant = $("#LugarNivel2").html();
+        LugarNivel1Ant = $("#LugarNivel1").val();
+        LugarNivel2Ant = $("#LugarNivel2").val();
+        LugarNivel3Ant = $("#LugarNivel3").val();
+        LugarNivel4Ant = $("#LugarNivel4").val();
+        CalleOAvenidaAnt = $("#CalleOAvenida").val();
+        ReferenciaAnt = $("#Referencia").val();
+
         $('#btnModificarDireccion').hide();
         $('#btnGrabarDireccion').show();
         $('#btnCancelarEdicion').show();
@@ -213,6 +230,15 @@
     });
 
     $('#btnCancelarEdicion').click(function () {
+
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#LugarNivel4").val(LugarNivel4Ant);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        $("#Referencia").val(ReferenciaAnt);
+
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
         $('#btnCancelarEdicion').hide();
