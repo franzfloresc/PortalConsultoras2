@@ -436,9 +436,8 @@ namespace Portal.Consultoras.Web.Controllers
                             if (!userData.RevistaDigital.NoVolverMostrar)
                             {
                                 if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0 
-                                    || (
-                                        userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
-                                        && userData.RevistaDigital.SuscripcionModel.CampaniaID != userData.CampaniaID))
+                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
+                                        )
                                 {
                                     TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
                                     break;

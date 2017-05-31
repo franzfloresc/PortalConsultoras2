@@ -20,16 +20,25 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpGet]
-        public JsonResult JsonConsultarEstrategias(string cuv)
+        public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "") 
         {
+            var model =  new EstrategiaOutModel();
+
             var listModel = ConsultarEstrategiasModel(cuv ?? "");
            
             if (GetCodigoEstrategia() == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             {
                 listModel = ConsultarEstrategiasSegunPantalla(listModel);
             }
-            
-            return Json(listModel, JsonRequestBehavior.AllowGet);
+            model.Lista = listModel;
+            model.CodigoEstrategia = GetCodigoEstrategia();
+            model.Consultora = userData.Sobrenombre;
+            model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+            model.TituloDescripcion = tipoOrigenEstrategia == "1" ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS" : 
+                (tipoOrigenEstrategia == "2" ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS" 
+                : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.");
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasSegunPantalla(List<EstrategiaPedidoModel> listModel)
