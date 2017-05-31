@@ -192,8 +192,8 @@ namespace Portal.Consultoras.BizLogic
 
             LogManager.SaveLog(new Exception("fechaHoraActual:" + fechaHoraActual.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
             LogManager.SaveLog(new Exception("usuario.FechaInicioFacturacion:" + usuario.FechaInicioFacturacion.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraInicioNoFacturable:" + usuario.HoraInicioNoFacturable.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraCierreNoFacturable:" + usuario.HoraCierreNoFacturable.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
+            LogManager.SaveLog(new Exception("usuario.HoraInicioNoFacturable:" + usuario.HoraInicioNoFacturable.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
+            LogManager.SaveLog(new Exception("usuario.HoraCierreNoFacturable:" + usuario.HoraCierreNoFacturable.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
             LogManager.SaveLog(new Exception("usuario.HoraInicio:" + usuario.HoraInicio.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
             LogManager.SaveLog(new Exception("usuario.HoraFin:" + usuario.HoraFin.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
 
