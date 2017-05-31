@@ -406,8 +406,9 @@ namespace Portal.Consultoras.Entities
         public string CodigoSap { get; set; }
         public int OfertaUltimoMinuto { get; set; }
         public int LimiteVenta { get; set; }
-
+        
         public string UsuarioCreacion { get; set; }
+        public string FotoProducto01 { get; set; }
     }
     // 1747 - Fin
 }

@@ -204,7 +204,21 @@
             </div>
             <!--IMAGENES-->
             <div id="divImagenEstrategiaContenido">
-                <div>
+                <div id="matriz-comercial-header">
+                    <div id="matriz-busqueda-nemotecnico">
+                        <div class="busqueda-exacta">
+                            <label for="chkTipoBusquedaNemotecnico">B.Exacta</label>
+                            <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                        </div>
+
+                        <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="Ingrese patrón de búsqueda" maxlength="100" type="text" />
+                        <a id="btnBuscarNemotecnico" class="search-button-field">
+                            <i class="material-icons">search</i>
+                        </a>
+                        <a id="btnLimpiarBusquedaNemotecnico" class="search-button-field">
+                            <i class="material-icons">undo</i>
+                        </a>
+                    </div>
                     <div id="matriz-imagenes-paginacion"></div>
                 </div>
                 <div class="actions">
@@ -265,7 +279,7 @@
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
         <div class="pdr_modal borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-preview">
+            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">

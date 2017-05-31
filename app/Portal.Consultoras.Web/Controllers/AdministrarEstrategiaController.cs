@@ -14,6 +14,7 @@ using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.CustomHelpers;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -38,7 +39,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
                 ListaEtiquetas = DropDowListEtiqueta(),
                 UrlS3 = urlS3,
-                habilitarNemotecnico = habilitarNemotecnico == "1"
+                habilitarNemotecnico = habilitarNemotecnico == "1",
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(EstrategiaModel);
         }
@@ -826,20 +828,32 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
             }
 
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            var data = MapImages(lst, paisID);
+
+            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+        }
+
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        {
             string paisISO = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                Foto = urlS3 + p.Foto
+                Foto = urlS3 + p.Foto,
+                NemoTecnico = p.NemoTecnico
             }).ToList();
 
-            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+            return data;
         }
 
         [HttpPost]

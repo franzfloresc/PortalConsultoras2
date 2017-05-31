@@ -298,8 +298,9 @@ namespace Portal.Consultoras.Data
                 LimiteVenta = item.LimiteVenta,
                 OfertaUltimoMinuto = item.OfertaUltimoMinuto,
                 PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario
+                PrecioTachado = item.Precio,             
+                UsuarioCreacion = codigoUsuario,
+                FotoProducto01 = item.FotoProducto01
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -359,7 +360,8 @@ namespace Portal.Consultoras.Data
                 OfertaUltimoMinuto = item.OfertaUltimoMinuto,
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario
+                UsuarioCreacion = codigoUsuario,
+                FotoProducto01 = item.FotoProducto01
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");

@@ -31,7 +31,7 @@ var OfertaLiquidacion = function (config) {
         $('#chkTipoBusquedaNemotecnico').prop('checked', false);
     };
 
-    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, nemotecnico: _nemotecnico });
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, habilitarNemotecnico: _config.habilitarNemotecnico, nemotecnico: _nemotecnico });
 
     var _crearObjetoUpload = function (params) {
         params.elementId = _config.fileUploadElementId;
