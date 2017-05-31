@@ -497,7 +497,7 @@ function AgregarProductoAlCarrito(padre) {
             return false;
         }
 
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
         if (carrito.length <= 0) {
             return false;
         }
@@ -510,8 +510,8 @@ function AgregarProductoAlCarrito(padre) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
