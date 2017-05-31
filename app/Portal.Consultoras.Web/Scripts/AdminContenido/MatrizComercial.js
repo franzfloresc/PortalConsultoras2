@@ -121,14 +121,16 @@ var MatrizComercial = function (config) {
     };
 
     var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
-        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
         var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var nemoTecnico = tipoBusqueda === 1 ? _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val()) : $('#txtBusquedaNemotecnico').val();
+
         var params = { paisID: data.paisID, idMatrizComercial: data.idMatrizComercial, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
         return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
+        waitingDialog({});
         _obtenerImagenes(_editData, 1 , true);
     };
 
@@ -182,7 +184,7 @@ var MatrizComercial = function (config) {
             alert(validacionMsj);
             return false;
         }
-
+        waitingDialog({});
         _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 

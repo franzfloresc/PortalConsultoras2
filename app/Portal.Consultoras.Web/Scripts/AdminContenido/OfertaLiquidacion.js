@@ -19,7 +19,7 @@ var OfertaLiquidacion = function (config) {
 
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
         var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenes;
-        fnObtenerImagenes(codigoSap, page, false).done(function () { closeWaitingDialog(); });
+        fnObtenerImagenes(codigoSap, page, false);
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
@@ -71,14 +71,15 @@ var OfertaLiquidacion = function (config) {
     };
 
     var _obtenerImagenesByNemotecnico = function (codigoSap, pagina, recargarPaginacion) {
-        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
         var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var nemoTecnico = tipoBusqueda === 1 ? _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val()) : $('#txtBusquedaNemotecnico').val();
         var params = { paisID: _config.paisID, codigoSAP: codigoSap, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
         return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(recargarPaginacion));
     };
 
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
+        waitingDialog({});
         var codigoSap = $('#' + _config.codigoSapElementId).val();
         _obtenerImagenes(codigoSap, 1, true);
     };
@@ -92,6 +93,7 @@ var OfertaLiquidacion = function (config) {
             _mostrarListaImagenes(data);
 
             $('.chkImagenProducto[value*="' + $('#' + _config.imagenProductoElementId).val() + '"]').first().attr('checked', 'checked');
+            closeWaitingDialog();
             return data;
         }
     };
@@ -134,6 +136,7 @@ var OfertaLiquidacion = function (config) {
             alert(validacionMsj);
             return false;
         }
+        waitingDialog({});
         var codigoSap = $('#' + _config.codigoSapElementId).val();
         _obtenerImagenesByNemotecnico(codigoSap, 1, true);
     };

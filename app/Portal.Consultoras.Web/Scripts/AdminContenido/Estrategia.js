@@ -273,8 +273,8 @@
     };
 
     var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
-        var nemoTecnico = _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val());
         var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var nemoTecnico = tipoBusqueda === 1 ? _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val()) : $('#txtBusquedaNemotecnico').val();
         var params = { paisID: data.paisID, codigoSAP: data.CodigoSAP, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
 
         return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
@@ -291,12 +291,14 @@
             _mostrarListaImagenes(_editData);
             marcarCheckRegistro(_editData.imagen);
 
+            closeWaitingDialog();
             return data;
         }
     };
 
     var _limpiarBusquedaNemotecnico = function () {
         _limpiarFiltrosNemotecnico();
+        waitingDialog({});
         _obtenerImagenesByCodigoSAP(_editData, 1, true);
     };
 
@@ -317,6 +319,7 @@
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
             marcarCheckRegistro(_editData.imagen);
+            closeWaitingDialog();
         };
     };
 
@@ -357,7 +360,7 @@
             alert(validacionMsj);
             return false;
         }
-
+        waitingDialog({});
         _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
@@ -497,6 +500,8 @@
                         _editData.imagenes = [];
                         _editData.imagen = null;
 
+                        _limpiarFiltrosNemotecnico();
+
                         _crearFileUploadAdd(_editData);
 
                         _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
@@ -508,7 +513,6 @@
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
                         $('#mensajeErrorCUV2').val("");
-                        closeWaitingDialog();
                     } else {
                         $('#mensajeErrorCUV2').val(data.message);
                         alert($('#mensajeErrorCUV2').val());
