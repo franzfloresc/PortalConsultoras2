@@ -341,6 +341,30 @@
             }
         });
 
+        $('#Nombre').focusout(function () {       
+
+            if ($('#Nombre').val())
+            {
+                var strNombre = $('#Nombre').val();
+                var splitString = strNombre.split(' ');
+
+                if (splitString)
+                {
+                    if ($(splitString).filter(function (a, b) { return b != ""; }).length > 3) {
+                        alert('Solo se permiten busquedas de nombres compuestas de 3 palabras');
+                        $('#Nombre').val('');
+                    }
+                    else {
+                        var strNombreSpaces =''
+                        $(splitString).filter(function (a, b) { return b != ""; }).each(function (c, d) {
+                            strNombreSpaces = strNombreSpaces + ' ' + d;
+                        });
+
+                        $('#Nombre').val(strNombreSpaces.trim());
+                    }
+                }
+            }
+        });
 
         fnGrilla(null, null, 2);
     });
