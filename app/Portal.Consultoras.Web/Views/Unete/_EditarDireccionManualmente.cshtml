@@ -383,8 +383,9 @@
     function OnSuccess() {
        
         $('#divEditarManualDireccion').hide();
-        //$('#divConsultarUbicacion').hide();
-        //document.getElementById('btnBuscar').click();
+        $('#divConsultarUbicacion').hide();
+        document.getElementById('btnBuscar').click();
+        $("body").css({ "overflow-y": "auto" });
     }
 </script>
 <style>

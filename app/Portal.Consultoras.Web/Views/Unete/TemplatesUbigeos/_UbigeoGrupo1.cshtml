@@ -158,7 +158,7 @@
 @if (Model.CodigoPais == "CO")
 {
     <div class="contenedor_camposUbigeo campoReferenciaUbigeo" style="width:auto; margin-top:0px;">
-        <label class="saltoLinea">Referencia:</label>
+        <label class="saltoLinea">Dirección:</label>
         <div class="contenedor_campoFormulario">
             @Html.TextBoxFor(m => Model.NombreDireccionEdicion, new { @style = "width:382px; margin-right:0px;", @placeholder = "Ejm: 97B 35 2" })
             <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.NombreDireccionEdicion)</span>
@@ -198,7 +198,6 @@ else
     </div>
 
     <div class="contenedor_camposUbigeo quitarMargenDerecho anchoDropdown" style="margin-top:15px;">
-        <label>Dirección:</label>
         <label>Dirección:</label>
         <div class="contenedor_campoFormulario">
             @Html.DropDownListFor(m => Model.LugarNivel3, Model.LugaresNivel3, new { @class = "paisColombia" })
