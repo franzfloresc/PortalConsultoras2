@@ -15,7 +15,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index(string t, bool webviewfallback, Enumeradores.TipoLogin tipo = Enumeradores.TipoLogin.Normal)
         {
-            switch (tipo) {
+            switch (tipo)
+            {
                 case Enumeradores.TipoLogin.Normal:
                     var normalModel = new LoginNormalChatbotModel
                     {
@@ -23,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
                         WebViewFallBack = webviewfallback,
                         PaisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "",
                         UrlBotmakerChat = ConfigurationManager.AppSettings["UrlChatbot"] ?? "",
-                        ListaPaises = DropDowListPaises().Where(p => p.CodigoISO != "BR").ToList()
+                        ListaPaises = DropDowListPaises()
                     };
                     return View("Normal", normalModel);
                 case Enumeradores.TipoLogin.Facebook:
@@ -33,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                         WebViewFallBack = webviewfallback,
                         PaisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "",
                         UrlBotmakerChat = ConfigurationManager.AppSettings["UrlChatbot"] ?? "",
-                        ListaPaises = DropDowListPaises().Where(p => p.CodigoISO != "BR").ToList(),
+                        ListaPaises = DropDowListPaises(),
                         AppFacebookId = ConfigurationManager.AppSettings.Get("FB_AppId") ?? ""
                     };
                     return View("Facebook", facebookModel);
@@ -43,6 +44,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IList<PaisModel> DropDowListPaises()
         {
+            string paisesInactivoskey = ConfigurationManager.AppSettings["PaisesInactivos"] ?? string.Empty;
+            var paisesInactivos = paisesInactivoskey.ToUpper().Split(';');
+
             try
             {
                 List<BEPais> lst;
@@ -50,7 +54,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.SelectPaises().ToList();
                 }
-                lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
+
+                if (paisesInactivos.Any())
+                    lst.RemoveAll(p => paisesInactivos.Contains(p.CodigoISO.ToUpper()));
 
                 Mapper.CreateMap<BEPais, PaisModel>();
                 return Mapper.Map<List<BEPais>, List<PaisModel>>(lst);
