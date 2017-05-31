@@ -135,13 +135,13 @@
     <div class="contenedor_grupo_botones_campoDireccion">
         <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
         <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
-        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-        <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+        <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
+        <button id="btnCancelarEdicion" type="button">Cancelar</button>
     </div>
 }
 else
 {
-    <div class="contenedor_camposUbigeo campoDireccionUbigeo">
+    <div class="contenedor_camposUbigeo campoDireccionUbigeo" style="margin-top:5px;">
         <label>Direcci&oacute;n:</label>
         <div class="contenedor_campoFormulario" style="width:99.85%;">
             @Html.TextBoxFor(m => Model.CalleOAvenida, new { @style = "width:99.85%;", @placeholder = "Ejm: Av. Castellana 100" })
@@ -150,8 +150,8 @@ else
         <div class="contenedor_grupo_botones_campoDireccion">
             <button id="btnModificarDireccion" type="button">Editar Direcci&oacute;n</button>
             <button id="btnGrabarDireccion" type="submit">Grabar direcci&oacute;n</button>
-            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n</button>
-            <button id="btnCancelarEdicion" type="button">Cancelar Direcci&oacute;n</button>
+            <button id="btnActualizarSeccion" type="button">Actualizar secci&oacute;n manualmente</button>
+            <button id="btnCancelarEdicion" type="button">Cancelar</button>
         </div>
     </div>
 }
@@ -173,6 +173,17 @@ else
 
 <script>
     var codigoPais = '@Model.CodigoPais';
+
+    var htmlLugarNivel2Ant = '';
+    var htmlLugarNivel3Ant = '';
+    var htmlLugarNivel4Ant = '';
+    var LugarNivel1Ant = '';
+    var LugarNivel2Ant = '';
+    var LugarNivel3Ant = '';
+    var LugarNivel4Ant = '';
+    var CalleOAvenidaAnt = '';
+    var htmlLugarNivel5Ant = '';//GT
+    var LugarNivel5Ant = '';//GT
 
     $(document).ready(function () {
 
@@ -237,6 +248,19 @@ else
     }
 
     $('#btnModificarDireccion').click(function () {
+            htmlLugarNivel2Ant = $("#LugarNivel2").html();
+            htmlLugarNivel3Ant = $("#LugarNivel3").html();
+            htmlLugarNivel4Ant = $("#LugarNivel4").html();
+            LugarNivel1Ant = $("#LugarNivel1").val();
+            LugarNivel2Ant = $("#LugarNivel2").val();
+            LugarNivel3Ant = $("#LugarNivel3").val();
+            LugarNivel4Ant = $("#LugarNivel4").val();
+            CalleOAvenidaAnt = $("#CalleOAvenida").val();
+            if (codigoPais == 'GT') {
+                htmlLugarNivel5Ant = $("#LugarNivel5").html();
+                LugarNivel5Ant = $("#LugarNivel5").val();
+            }
+
             $('#btnModificarDireccion').hide();
             $('#btnGrabarDireccion').show();
             $('#btnCancelarEdicion').show();
@@ -267,6 +291,19 @@ else
     });
 
     $('#btnCancelarEdicion').click(function () {
+        $("#LugarNivel1").val(LugarNivel1Ant);
+        $("#LugarNivel2").html(htmlLugarNivel2Ant);
+        $("#LugarNivel2").val(LugarNivel2Ant);
+        $("#LugarNivel3").html(htmlLugarNivel3Ant);
+        $("#LugarNivel3").val(LugarNivel3Ant);
+        $("#LugarNivel4").html(htmlLugarNivel4Ant);
+        $("#LugarNivel4").val(LugarNivel4Ant);
+        $("#CalleOAvenida").val(CalleOAvenidaAnt);
+        if (codigoPais == 'GT') {
+            $("#LugarNivel5").html(htmlLugarNivel5Ant);
+            $("#LugarNivel5").val(LugarNivel5Ant);
+        }
+
         $('#btnModificarDireccion').show();
         $('#btnGrabarDireccion').hide();
         $('#btnCancelarEdicion').hide();

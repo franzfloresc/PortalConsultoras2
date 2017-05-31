@@ -3817,7 +3817,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Territorio = solicitudPostulante.CodigoTerritorio;
             }
 
+            if (string.IsNullOrEmpty(model.Region) || string.IsNullOrEmpty(model.Zona) || string.IsNullOrEmpty(model.Seccion) || string.IsNullOrEmpty(model.Territorio))
+            {
+                MensajeModel mensajeModel = new MensajeModel();
+                mensajeModel.TextoMensaje = "No se detectó Region, Zona, Seccion y Territorio.";
+                return PartialView("_TemplateMensaje", mensajeModel);
+            }
+            else
+            {
             return PartialView("_ConfirmarPosicion", model);
+            }
         }
         public ActionResult EditarDireccion(int id)
         {
