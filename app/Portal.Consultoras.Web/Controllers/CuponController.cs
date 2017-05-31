@@ -14,11 +14,11 @@ namespace Portal.Consultoras.Web.Controllers
     public class CuponController : BaseController
     {
         [HttpPost]
-        public JsonResult ActualizarCupon()
+        public JsonResult ActivarCupon()
         {
             try
             {
-                ActivarCupon();
+                ActivacionCupon();
                 ValidarPopupDelGestorPopups();
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
@@ -213,7 +213,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
-        private void ActivarCupon()
+        private void ActivacionCupon()
         {
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
