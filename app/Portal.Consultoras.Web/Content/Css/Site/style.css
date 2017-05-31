@@ -13053,7 +13053,6 @@ label.checkpop {
 .matriz-comercial-list .item{
     display:inline-block;
     width:171px;
-    /*height:180px;*/
     float:left;
     padding:5px;
     margin:5px;
@@ -13132,7 +13131,7 @@ label.checkpop {
 }
 
 #matriz-busqueda-nemotecnico {
-    width:515px; 
+    width:530px; 
     margin:0; 
     display:inline-block;
 }
@@ -13144,6 +13143,7 @@ label.checkpop {
 #matriz-busqueda-nemotecnico .search-button-field { 
     text-decoration:none !important;
     cursor:pointer;
+    color: #00a1e7;
 }
 
 #matriz-busqueda-nemotecnico .search-button-field i {
@@ -13151,15 +13151,11 @@ label.checkpop {
 }
 
 #matriz-busqueda-nemotecnico .busqueda-exacta{
-    display:inline-block; margin-left: 11px;
+    display:inline-block; 
 }
 
 #matriz-busqueda-nemotecnico .busqueda-exacta input[type=checkbox]{
     display: inline-block !important; vertical-align: bottom; height: 13px !important;
-}
-
-#matriz-busqueda-nemotecnico .search-button-field i:hover{
-    background-color: #ddd;
 }
 
 #file-upload-add .qq-upload-list {
