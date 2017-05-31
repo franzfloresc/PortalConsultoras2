@@ -162,46 +162,20 @@ namespace Portal.Consultoras.BizLogic
 
         private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {
-            LogManager.SaveLog(new Exception("usuario.ZonaHoraria:" + usuario.ZonaHoraria.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
-            LogManager.SaveLog(new Exception("fechaHoraActual:" + fechaHoraActual.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
-
-            LogManager.SaveLog(new Exception("usuario.DiasAntes:" + usuario.DiasAntes.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.FechaFinFacturacion:" + usuario.FechaFinFacturacion.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
             usuario.DiaPROL = usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes) < fechaHoraActual
                 && fechaHoraActual < usuario.FechaFinFacturacion.AddDays(1);
-            LogManager.SaveLog(new Exception("usuario.DiaPROL:" + usuario.DiaPROL.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
             usuario.EsHoraReserva = EsHoraReserva(usuario, fechaHoraActual);
-            LogManager.SaveLog(new Exception("usuario.EsHoraReserva:" + usuario.EsHoraReserva.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
         }
 
         private bool EsHoraReserva(BEUsuario usuario, DateTime fechaHoraActual)
         {
             if (!usuario.DiaPROL) return false;
 
-            LogManager.SaveLog(new Exception("fechaHoraActual.Hour:" + fechaHoraActual.Hour.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("fechaHoraActual.Minute:" + fechaHoraActual.Minute.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
-            LogManager.SaveLog(new Exception("HoraNow:" + HoraNow.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
-
-            LogManager.SaveLog(new Exception("fechaHoraActual:" + fechaHoraActual.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.FechaInicioFacturacion:" + usuario.FechaInicioFacturacion.ToString("dd/MM/YYYY hh:mm")), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraInicioNoFacturable:" + usuario.HoraInicioNoFacturable.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraCierreNoFacturable:" + usuario.HoraCierreNoFacturable.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraInicio:" + usuario.HoraInicio.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-            LogManager.SaveLog(new Exception("usuario.HoraFin:" + usuario.HoraFin.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
+            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);            
             bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioFacturacion) ?
                 (HoraNow > usuario.HoraInicioNoFacturable && HoraNow < usuario.HoraCierreNoFacturable) :
                 (HoraNow > usuario.HoraInicio && HoraNow < usuario.HoraFin);
-            LogManager.SaveLog(new Exception("esHorarioReserva:" + esHorarioReserva.ToString()), usuario.CodigoUsuario, usuario.PaisID.ToString());
-
             if (!esHorarioReserva) return false;
 
             if (usuario.CodigoISO != Constantes.CodigosISOPais.Peru)
