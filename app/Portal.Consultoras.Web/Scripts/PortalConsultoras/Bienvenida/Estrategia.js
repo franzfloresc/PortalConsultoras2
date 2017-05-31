@@ -383,6 +383,7 @@ function EstrategiaVerDetalle(id, origen) {
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
+    debugger;
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
     }
