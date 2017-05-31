@@ -34182,11 +34182,12 @@ h1#penmostreo .campana {
 .content_ficha_producto {
     width: 300px;
     height: 300px;
+    text-align: center;
 }
 
-    .content_ficha_producto img {
-        width: 100%;
-   }
+.content_ficha_producto img {
+    max-height: 300px;
+}
 .content_right_ficha{
     float: RIGHT;
     width: 55%;

@@ -83,17 +83,14 @@ $(document).ready(function () {
 });
 
 function CargarCarouselEstrategias(cuv) {
-
-    // if tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21
-    //$('#divListadoEstrategia').html('<div style="text-align: center;">Cargando Productos Destacados<br><img src="' + urlLoad + '" /></div>');
-    // if tipoOrigenEstrategia == 1
-    //$('#divListadoEstrategia').html(
-    //    '<div class="precarga"><svg class="circular" viewBox="25 25 50 50"><circle class="path-' + (isEsika ? 'esika' : 'lbel') + '" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg></div><span class="texto_precarga">Dános unos segundos </br>Las mejores ofertas <b>PARA TI</b> están por aparecer</span>'
-    //);
-
+    debugger;
     $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias?cuv=' + cuv,
+        url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias',
+        data: {
+            cuv: cuv,
+            tipoOrigenEstrategia: tipoOrigenEstrategia
+        },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -111,29 +108,29 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-
-    if (data.length == 0) {
+    debugger;
+    if (data.Lista.length == 0) {
         return false;
     }
 
-    data = EstructurarDataCarousel(data);
-    arrayOfertasParaTi = data;
+    data.Lista = EstructurarDataCarousel(data.Lista);
+    arrayOfertasParaTi = data.Lista;
 
-    var obj = new Object();
-    obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    //obj.CodigoEstrategia = "101";
-    obj.Lista = data;
-    obj.Consultora = usuarioNombre.toUpperCase();
-    obj.Titulo = obj.Consultora + ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-    obj.TituloDescripcion = tipoOrigenEstrategia == 1
-        ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
-        : tipoOrigenEstrategia ==2  
-            ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
-            : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
+    //var obj = new Object();
+    //obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    ////obj.CodigoEstrategia = "101";
+    //obj.Lista = data;
+    //obj.Consultora = usuarioNombre.toUpperCase();
+    //obj.Titulo = obj.Consultora + ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+    //obj.TituloDescripcion = tipoOrigenEstrategia == 1
+    //    ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
+    //    : tipoOrigenEstrategia == 2  
+    //        ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
+    //        : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
-    SetHandlebars("#template-estrategia-header", obj, '#divListaEstrategias');
+    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     $('#divListaEstrategias').show();
-    SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
+    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
     
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
@@ -182,7 +179,7 @@ function ArmarCarouselEstrategias(data) {
         var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
-        cant = obj.CodigoEstrategia == "101" ? data.length : cant;
+        cant = data.CodigoEstrategia == "101" ? data.Lista.length : cant;
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,
@@ -199,7 +196,7 @@ function ArmarCarouselEstrategias(data) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);        
         });
 
-        if (data.length > cant) {
+        if (data.Lista.length > cant) {
             $('#cierreCarousel').show();
         }
         MostrarBarra();
@@ -265,7 +262,7 @@ function ArmarCarouselEstrategias(data) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
-    TagManagerCarruselInicio(data);
+    TagManagerCarruselInicio(data.Lista);
 
 };
 
@@ -383,6 +380,7 @@ function EstrategiaVerDetalle(id, origen) {
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
+    debugger;
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
     }

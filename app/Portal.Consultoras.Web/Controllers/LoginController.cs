@@ -890,7 +890,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         // Validacion de la fecha de cierre de campaña y  del idestadoactividad
                                         if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
                                             && DateTime.Now < model.FechaFinCampania.AddDays(-1)
-                                            && model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
+                                            //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                             )
                                         {
                                             //obtiene datos de Revista digital suscripcion.
