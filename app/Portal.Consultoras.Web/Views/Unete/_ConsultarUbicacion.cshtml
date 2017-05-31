@@ -253,9 +253,14 @@
         padding: 12px 28px;
     }
 
+    .contenedor_datosEditarDireccion.datos_postulante{
+        display:flex;
+        justify-content:space-between;
+    }
+
     .contenedor_datosEditarDireccion span {
         display: inline-block;
-        margin-right: 72px;
+        /*margin-right: 72px;*/
         font-family: 'Lato';
         font-size: 14px;
         font-weight: 300;
@@ -283,6 +288,10 @@
 
     .contenedor_datosEditarDireccion span b {
         font-weight: 700;
+    }
+
+    .contenedor_datosEditarDireccion.datos_postulante span b{
+        display:inline-block;
     }
 
     .contenedor_datosEditarDireccion span:last-child {
@@ -671,7 +680,7 @@
             <div class="titulo_popup_editarDireccion">
                 <h4>EDITAR <b>DIRECCI&Oacute;N</b></h4>
             </div>
-            <div class="contenedor_datosEditarDireccion">
+            <div class="contenedor_datosEditarDireccion datos_postulante">
                 <span>
                     Postulante: <b>@Model.NombreCompleto</b>
                 </span>
