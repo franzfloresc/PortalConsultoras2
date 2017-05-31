@@ -475,7 +475,7 @@
 
         waitingDialog({});
         var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
-
+        
         productoSugeridoObj.obtenerMatriz(params).done(function (data) {
             if (data) {
                 $(".divPanelImagen img").attr("src", imageUrlVacio);
@@ -487,6 +487,7 @@
                     return false;
                 }
 
+                productoSugeridoObj.limpiarFiltrosNemotecnico();
                 productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
 
                 CargarDatosMatrizComercial(data.matriz, imagen);
