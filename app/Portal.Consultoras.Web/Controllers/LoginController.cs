@@ -20,6 +20,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
@@ -827,19 +829,17 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion 
 
-                        #region TippingPoint
-                        //DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                        //var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+                        #region RegaloPN
+                        DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                        var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
 
-                        //if (esDiasFacturacion)
-                        //{
-                        //    using (PedidoServiceClient svc = new PedidoServiceClient())
-                        //    {
-                                
-                        //    }
-                        //}
+                        if (esDiasFacturacion) 
+                        {
+                            model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                        }
                         #endregion
 
+                        #region LoginFB
                         if (oBEUsuario.TieneLoginExterno)
                         {
                             model.TieneLoginExterno = true;
@@ -852,7 +852,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-                        
+                        #endregion
+
                         #region ConfiguracionPais
                         model.ConfiguracionPais = model.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
                         if (!model.ConfiguracionPais.Any())
@@ -1902,5 +1903,43 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
+        private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
+        {
+            ConsultoraRegaloProgramaNuevasModel model2 = null;
+
+            try
+            {
+                BEConsultoraRegaloProgramaNuevas beConsultoraRegaloPN;
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    beConsultoraRegaloPN = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                }
+
+                if (beConsultoraRegaloPN != null)
+                {
+                    var listaProductoCatalogo = new List<Producto>();
+                    using (ProductoServiceClient svc = new ProductoServiceClient())
+                    {
+                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, beConsultoraRegaloPN.CodigoSap, 3).ToList();
+                    }
+
+                    if (listaProductoCatalogo.Any())
+                    {
+                        var productoCatalogo = listaProductoCatalogo.First();
+                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.DescripcionComercial;
+                        beConsultoraRegaloPN.PrecioCatalogo = productoCatalogo.PrecioValorizado;
+                        beConsultoraRegaloPN.PrecioOferta = productoCatalogo.PrecioCatalogo;
+                        beConsultoraRegaloPN.UrlImagenRegalo = productoCatalogo.Imagen;
+
+                        model2 = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(beConsultoraRegaloPN);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return model2;
+        }
     }
 }

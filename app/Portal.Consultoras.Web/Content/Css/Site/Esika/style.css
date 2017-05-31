@@ -34804,10 +34804,11 @@ h1#penmostreo .campana {
     margin-top:5px;
 }
 .correo_showroon {
+    position:relative;
     width:100%;
     margin-top:20px;
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
-    padding-left: 12%;
+    padding-left: 11%;
 }
 .correo_showroon input {
     width: 100%;
@@ -34845,6 +34846,7 @@ h1#penmostreo .campana {
     width: 90%;
     color:#494949;
     text-align: left;
+    position:relative;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
     position: absolute;
@@ -36116,21 +36118,32 @@ h1#penmostreo .campana {
     float:left;
     width: 43%;
     padding-right: 3%;
-    padding-top:45px;
-    padding-left:60px;
+    padding-top:40px;
+    padding-left:54px;
     font-family:'Lato';
     /*letter-spacing:2px;
     font-weight:700;*/
 }
 .titulo_gana{
-    font-size: 35px;
+    font-size: 13.7px;
     color: white;
     height: 46px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing:0.5px;    
+    line-height:20px;
+    -moz-text-align-last: justify;    
+    text-align-last: justify;
+    text-align: justify;
+    padding-right: 10px;
+    margin-bottom: 5px;
+}
+.titulo_gana span{
+    font-size:20px;
+    letter-spacing: 1.1px;
 }
 .subtitulo_gana{
     font-family:'Lato';
+    font-weight:700;
     color:white;
     font-size:14px;
     /*font-weight:900;*/
@@ -36142,17 +36155,32 @@ h1#penmostreo .campana {
     padding-right: 10px;   
 }
 .monto_gana{
-    font-family:'Lato';
-    font-size:48px;
-    color:white;
-    font-weight:700;
-    margin-top: -8px;
+    font-family: 'Lato';
+    font-size: 103px;
+    color: white;
+    font-weight: 700;
+    margin-top: -36px;
+    float: left;
+    width: 124px;
+    height: 126px;
+    text-align: right;
 }
 .tipo_moneda{
     font-size:38px;    
 }
+.tipo_porcentaje{
+    color: white;
+    font-size: 73px;
+    float: right;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 63px;
+    text-align: right;
+    margin-right: 9px;
+}
 .legal_cupon{
-    margin-top: 30px;
+    margin-top: 19px;
     color: white;
     font-size: 11px;
     font-weight: 300;
@@ -36161,7 +36189,7 @@ h1#penmostreo .campana {
 .content_cupon_datos{
     float:left;
     width:56%;
-    padding:35px 60px 0 42px;
+    padding:25px 60px 0 42px;
     position:relative;
 }
 .btn_confirma_cupon{
@@ -36179,12 +36207,14 @@ h1#penmostreo .campana {
     font-weight: 700;
 }
 .texto_cupon_datos{
-    font-family:'LAto';
-    font-size:15px;
-    text-align:center;
-    margin-bottom:12px;
+   font-family: 'LAto';
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 12px;
     line-height: 19px;
     color: black;
+    font-weight: 300;
+    line-height: 24px;
 }
 .cupon2{
     text-align:center;
@@ -36273,6 +36303,28 @@ h1#penmostreo .campana {
 }
 .content_780_ODD .height_min{
     min-height:231px;
+}
+.mensaje_alerta_cupon1{
+    color: #e81c36;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid;
+    width: 88%;
+    padding-top: 2px;
+}
+.icono_alerta_cupon{
+     width:17px;
+     height:17px;
+     background:url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+     background-size:contain;
+     position:absolute;
+     right:0;
+     top:0;
+}
+.borde_seleccion_alerta:before{
+    border: 1px solid #e81c36;
 }
 /*SPRINT 13*/
 

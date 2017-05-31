@@ -904,7 +904,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CumpleRegaloTippingPoint">
+  <xs:element name="GetConsultoraRegaloProgramaNuevas">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
@@ -915,10 +915,10 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="CumpleRegaloTippingPointResponse">
+  <xs:element name="GetConsultoraRegaloProgramaNuevasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="CumpleRegaloTippingPointResult" nillable="true" type="q53:BECumpleTippingPOint" />
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConsultoraRegaloProgramaNuevasResult" nillable="true" type="q53:BEConsultoraRegaloProgramaNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

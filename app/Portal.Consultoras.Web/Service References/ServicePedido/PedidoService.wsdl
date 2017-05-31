@@ -366,11 +366,11 @@
   <wsdl:message name="IPedidoService_InsIndicadorPedidoAutentico_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsIndicadorPedidoAutenticoResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_CumpleRegaloTippingPoint_InputMessage">
-    <wsdl:part name="parameters" element="tns:CumpleRegaloTippingPoint" />
+  <wsdl:message name="IPedidoService_GetConsultoraRegaloProgramaNuevas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraRegaloProgramaNuevas" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_CumpleRegaloTippingPoint_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CumpleRegaloTippingPointResponse" />
+  <wsdl:message name="IPedidoService_GetConsultoraRegaloProgramaNuevas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConsultoraRegaloProgramaNuevasResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCuponConsultoraByCodigoConsultoraCampaniaId" />
@@ -2193,9 +2193,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" message="tns:IPedidoService_InsIndicadorPedidoAutentico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_InsIndicadorPedidoAutentico_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CumpleRegaloTippingPoint">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CumpleRegaloTippingPoint" message="tns:IPedidoService_CumpleRegaloTippingPoint_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CumpleRegaloTippingPointResponse" message="tns:IPedidoService_CumpleRegaloTippingPoint_OutputMessage" />
+    <wsdl:operation name="GetConsultoraRegaloProgramaNuevas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas" message="tns:IPedidoService_GetConsultoraRegaloProgramaNuevas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse" message="tns:IPedidoService_GetConsultoraRegaloProgramaNuevas_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCuponConsultoraByCodigoConsultoraCampaniaId">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaId" message="tns:IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage" />
@@ -3787,8 +3787,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CumpleRegaloTippingPoint">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/CumpleRegaloTippingPoint" style="document" />
+    <wsdl:operation name="GetConsultoraRegaloProgramaNuevas">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -60,7 +60,7 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
-    <Compile Include="BECumpleTippingPoint.cs" />
+    <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />

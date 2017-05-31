@@ -1934,9 +1934,9 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
         }
 
-        public BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
-            return new BLPedidoWeb().CumpleRegaloTippingPoint(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
+            return new BLPedidoWeb().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
         }
 
         #region Cupon
