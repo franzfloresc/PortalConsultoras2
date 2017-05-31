@@ -53,29 +53,29 @@ namespace Portal.Consultoras.Web.Controllers
             if (top <= 0)
                 return new List<EstrategiaPedidoModel>();
 
-            var listaPack = new EstrategiaPedidoModel();
-            if (top == 1)
+            var listaAux = new EstrategiaPedidoModel();
+            if (top == 1) // mobile
             {
-                listaPack = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new EstrategiaPedidoModel();
+                listaAux = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi) ?? new EstrategiaPedidoModel();
                 listModel = new List<EstrategiaPedidoModel>();
-                if (listaPack.EstrategiaID == 0)
+                if (listaAux.EstrategiaID == 0)
                 {
-                    listaPack = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new EstrategiaPedidoModel();
+                    listaAux = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new EstrategiaPedidoModel();
                 }
 
-                if (listaPack.EstrategiaID > 0)
-                    listModel.Add(listaPack);
+                if (listaAux.EstrategiaID > 0)
+                    listModel.Add(listaAux);
             }
-            else
+            else // Desktop
             {
-                listaPack = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new EstrategiaPedidoModel();
-                var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList() ?? new List<EstrategiaPedidoModel>();
+                listaAux = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new EstrategiaPedidoModel();
+                var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<EstrategiaPedidoModel>();
                 
                 listModel = new List<EstrategiaPedidoModel>();
-                if (listaPack.EstrategiaID > 0)
+                if (listaAux.EstrategiaID > 0)
                 {
                     top--;
-                    listModel.Add(listaPack);
+                    listModel.Add(listaAux);
                 }
                 if (listaDemas.Count() > top)
                 {

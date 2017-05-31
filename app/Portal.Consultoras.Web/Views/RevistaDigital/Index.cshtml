@@ -145,12 +145,12 @@
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                <b>A partir de C-11</b> recibirás unicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.
+                <b>A partir de C-@Model.CampaniaMasUno</b> recibirás unicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
 
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
+                <b>En C-@Model.CampaniaMasDos</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
             </div>
         </div>
         <hr class="clear" />

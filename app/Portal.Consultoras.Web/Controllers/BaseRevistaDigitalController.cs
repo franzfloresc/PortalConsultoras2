@@ -58,7 +58,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.IsMobile = IsMobile();
-
+            model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
+            model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
             return model;
         }
 

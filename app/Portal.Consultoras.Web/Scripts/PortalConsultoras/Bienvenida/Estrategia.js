@@ -83,7 +83,6 @@ $(document).ready(function () {
 });
 
 function CargarCarouselEstrategias(cuv) {
-    debugger;
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertasParaTi/JsonConsultarEstrategias',
@@ -108,7 +107,6 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    debugger;
     if (data.Lista.length == 0) {
         return false;
     }
@@ -380,7 +378,6 @@ function EstrategiaVerDetalle(id, origen) {
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
-    debugger;
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
     }
