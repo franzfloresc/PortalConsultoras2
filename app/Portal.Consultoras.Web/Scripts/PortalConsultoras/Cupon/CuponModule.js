@@ -152,7 +152,7 @@
         });
 
         $(document).on("keyup", elements.TxtCorreoIngresado, function () {
-            if ($(this).val().length <= 0) {
+            if ($(this).val().trim().length <= 0) {
                 mostrarMensajeErrorCorreo();
             } else {
                 ocultarMensajeErrorCorreo();
