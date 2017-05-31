@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using Portal.Consultoras.Web.Areas.Chatbot.Models;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Controllers;
 
-namespace Portal.Consultoras.Web.Areas.Chatbot.Controllers
+namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class CompartirController : BaseController
     {
@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Chatbot.Controllers
                 UrlCatalogo = url
             };
 
-            return View("~/Areas/Chatbot/Views/Compartir/CompartirEnChatBot.cshtml", model);
+            return View("~/Areas/Mobile/Views/Compartir/CompartirEnChatBot.cshtml", model);
         }
     }
 }
