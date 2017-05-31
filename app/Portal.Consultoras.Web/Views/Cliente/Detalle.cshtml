@@ -1,77 +1,102 @@
 ﻿@model Portal.Consultoras.Web.Models.ClienteModel
+<style>
+    .clienteMensajeEditar {
+        display: table;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .clienteMensajeEditar span {
+        vertical-align: middle;
+        display: table-cell;
+        padding-right: 5px;
+    }
+</style>
+
+<div class="btn_cerrar_agregarUnidades">
+    <a href="javascript:;" onclick="CerrarClienteDetalle();">
+        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+        <span class="texto_btn_cerrar">CERRAR</span>
+    </a>
+</div>
 @{
-    if(Model.ClienteID == 0)
+    if (Model.ClienteID == 0)
     {
         <h6>AGREGAR <b>CLIENTE</b></h6>
-    }   
+    }
     else
-    { 
+    {
         <h6>EDITAR <b>CLIENTE</b></h6>
+        <div class="clienteMensajeEditar">
+            <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+            <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+        </div>
+        <br />
     }
 }
-@Html.HiddenFor(model => model.ClienteID)
 <form action="" method="post">
-    @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre"})
-    <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-        <div class="noti_message red_texto_size">
-            <span class="icono_advertencia_notificacion"></span>
-            <span class="descripcion_mensaje">
-                Por favor ingresa un nombre válido.
-            </span>
-        </div>
-    </div>
+    <div id="divClienteDetalle">
+        @Html.HiddenFor(model => model.ClienteID)
+        @Html.HiddenFor(model => model.CodigoCliente)
 
-    @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
-    @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
-
-    @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
-    <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
-        <div class="noti_message red_texto_size">
-            <span class="icono_advertencia_notificacion"></span>
-            <span class="descripcion_mensaje">
-                El correo ingresado <b>no existe.</b> <br />
-                Por favor ingresa un correo válido.
-            </span>
+        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre" })
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
         </div>
+
+        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+
+        @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
+        <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b> <br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+        <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
+        <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
+        <br />
+        <br />
+        <br />
+        <div id="divValidationSummary"></div>
     </div>
-    <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
-    <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
-    <br />
-    <br />
-    <br />
-    <div id="divValidationSummary"></div>
 </form>
+
 <script>
-    $(".input-correo").keypress(
-        function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
-            if (charCode <= 13) {
-                return false;
-            }
-            else {
-                var keyChar = String.fromCharCode(charCode);
-                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
-                $('#divNotiCorreo').hide();
-                $('#divNotiCorreo2').hide();
-                return re.test(keyChar);
+    $(".input-correo").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) return;
 
-            }
-        });
+        var keyChar = String.fromCharCode(charCode);
+        var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
+        $('#divNotiCorreo').hide();
+        $('#divNotiCorreo2').hide();
+        return re.test(keyChar);
+    });
 
-    $(".input-nombre").keypress(
-        function (evt) {
-            var charCode = (evt.which) ? evt.which : window.event.keyCode;
-            if (charCode <= 13) {
-                return false;
-            }
-            else {
-                var keyChar = String.fromCharCode(charCode);
-                var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
-                $('#divNotiNombre').hide();
-                $('#divNotiNombre2').hide();
-                return re.test(keyChar);
-            }
-        });
+    $(".input-nombre").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) return;
+
+        var keyChar = String.fromCharCode(charCode);
+        var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.\/-]/;
+        $('#divNotiNombre').hide();
+        $('#divNotiNombre2').hide();
+        return re.test(keyChar);
+    });
+
+    $("#form1").submit(function (e) {
+        AbrirSplash();
+    });
 
     function MantenerClienteDetalle() {
         var div = $('#divAgregarCliente');
@@ -98,6 +123,7 @@
         if (vcont > 0) return false;
 
         var id = $(div).find('#ClienteID').val();
+        var codigo = $(div).find('#CodigoCliente').val();
         var nombre = $(div).find('#Nombre').val();
         var correo = $(div).find('#eMail').val();
         var telefono = $(div).find('#Telefono').val();
@@ -105,9 +131,9 @@
 
         var item = {
             ClienteID: id,
+            CodigoCliente: codigo,
             Nombre: nombre,
             eMail: correo,
-            //FlagValidate: opt,
             Telefono: telefono,
             Celular: celular
         };
@@ -129,9 +155,10 @@
 
                         $(div).hide();
 
-                        Limpiar();
-                        CargarListaCliente();
+                        item.CodigoCliente = data.extra.split("|")[0];
+                        item.ClienteID = data.extra.split("|")[1];
 
+                        if (ClienteDetalleOK != null) ClienteDetalleOK(item);
                     }
                     else {
                         alert(data.message);
@@ -152,5 +179,7 @@
         $('#divAgregarCliente').hide();
         $('#divNotiNombre').hide();
         $('#divNotiCorreo').hide();
+
+        return false;
     }
 </script>

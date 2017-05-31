@@ -14,12 +14,13 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public long ConsultoraClienteID { get; set; }
-        [DataMember]
         public long ConsultoraID { get; set; }
         [DataMember]
         public long ClienteID { get; set; }
+        [DataMember]
+        public int ClienteIDSB { get; set; }
 
+        [DataMember]
         public string Apellidos { get; set; }
         [DataMember]
         public string Nombres { get; set; }

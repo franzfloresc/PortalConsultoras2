@@ -101,21 +101,21 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
-        {
-            bool result = false;
+        //public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
+        //{
+        //    bool result = false;
 
-            string deleteRequestUri = string.Format("{0}/Delete/contactoCliente?ContactoClienteID={1}&ClienteID={2}&TipoContactoID={3}&Valor={4}", requestUri, contactoCliente.ContactoClienteID, contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
-            HttpResponseMessage response = httpClient.DeleteAsync(deleteRequestUri).GetAwaiter().GetResult();
+        //    string deleteRequestUri = string.Format("{0}/Delete/contactoCliente?ContactoClienteID={1}&ClienteID={2}&TipoContactoID={3}&Valor={4}", requestUri, contactoCliente.ContactoClienteID, contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+        //    HttpResponseMessage response = httpClient.DeleteAsync(deleteRequestUri).GetAwaiter().GetResult();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var strResult = response.Content.ReadAsStringAsync().Result;
-                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
-            }
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var strResult = response.Content.ReadAsStringAsync().Result;
+        //        beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
+        //        if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

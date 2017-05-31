@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Entities
         private bool mbActivo;
         private int miPaisID;
         private int mPagina;
-        private long mCodigoCliente;
+        private long miCodigoCliente;
         private short miFavorito;
         private short miTipoContactoFavorito;
 
@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Entities
             mseMail = string.Empty;
             msTelefono = string.Empty;
             msCelular = string.Empty;
-            mCodigoCliente = 0;
+            miCodigoCliente = 0;
             miFavorito = 0;
             miTipoContactoFavorito = 0;
         }
@@ -43,21 +43,23 @@ namespace Portal.Consultoras.Entities
             miConsultoraID = Convert.ToInt64(datarec["ConsultoraID"]);
             miClienteID = Convert.ToInt32(datarec["ClienteID"]);
             msNombre = datarec["Nombre"].ToString();
-            msTelefono = datarec["Telefono"].ToString();
             mseMail = datarec["eMail"].ToString();
             mbActivo = Convert.ToBoolean(datarec["Activo"]);
+
+            if (DataRecord.HasColumn(datarec, "Telefono") && datarec["Telefono"] != DBNull.Value)
+                msTelefono = datarec["Telefono"].ToString();
 
             if (DataRecord.HasColumn(datarec, "Celular") && datarec["Celular"] != DBNull.Value)
                 msCelular = datarec["Celular"].ToString();
 
             if (DataRecord.HasColumn(datarec, "CodigoCliente") && datarec["CodigoCliente"] != DBNull.Value)
-                mCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
+                miCodigoCliente = Convert.ToInt64(datarec["CodigoCliente"]);
 
             if (DataRecord.HasColumn(datarec, "Favorito") && datarec["Favorito"] != DBNull.Value)
-                mCodigoCliente = Convert.ToInt64(datarec["Favorito"]);
+                miFavorito = Convert.ToInt16(datarec["Favorito"]);
 
             if (DataRecord.HasColumn(datarec, "TipoContactoFavorito") && datarec["TipoContactoFavorito"] != DBNull.Value)
-                mCodigoCliente = Convert.ToInt64(datarec["TipoContactoFavorito"]);
+                miTipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
         }
 
         [DataMember]
@@ -143,8 +145,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public long CodigoCliente
         {
-            get { return mCodigoCliente; }
-            set { mCodigoCliente = value; }
+            get { return miCodigoCliente; }
+            set { miCodigoCliente = value; }
         }
 
         [DataMember]

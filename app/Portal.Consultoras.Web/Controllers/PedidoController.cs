@@ -1815,7 +1815,9 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente
                     });
                 }
 
@@ -1849,7 +1851,9 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente
                     });
                 }
 

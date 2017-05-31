@@ -52,8 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 contactos.Add(new BEClienteContactoDB()
                 {
-                    ClienteID = model.ClienteID,
-                    ContactoClienteID = 0,
+                    ClienteID = model.CodigoCliente,
                     Estado = (string.IsNullOrEmpty(model.Celular) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
                     TipoContactoID = Constantes.ClienteTipoContacto.Celular,
                     Valor = model.Celular
@@ -61,8 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 contactos.Add(new BEClienteContactoDB()
                 {
-                    ClienteID = model.ClienteID,
-                    ContactoClienteID = 0,
+                    ClienteID = model.CodigoCliente,
                     Estado = (string.IsNullOrEmpty(model.Telefono) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
                     TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
                     Valor = model.Telefono
@@ -70,8 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 contactos.Add(new BEClienteContactoDB()
                 {
-                    ClienteID = model.ClienteID,
-                    ContactoClienteID = 0,
+                    ClienteID = model.CodigoCliente,
                     Estado = (string.IsNullOrEmpty(model.eMail) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
                     TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                     Valor = model.eMail
@@ -79,14 +76,17 @@ namespace Portal.Consultoras.Web.Controllers
 
                 clientes.Add(new BEClienteDB()
                 {
-                    ClienteID = model.ClienteID,
+                    ClienteID = model.CodigoCliente,
+                    ClienteIDSB = model.ClienteID,
                     Nombres = model.Nombre,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Desktop,
+                    Estado = Constantes.ClienteEstado.Activo,
+                    TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
                     Contactos = contactos.ToArray()
                 });
 
-                using (ClienteServiceClient sv = new ClienteServiceClient())
+                using (var sv = new ClienteServiceClient())
                 {
                     response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
                 }
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = ""
+                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
                     });
                 }
                 else

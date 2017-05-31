@@ -1,7 +1,4 @@
-﻿
-
-$(document).ready(function () {
-
+﻿$(document).ready(function () {
     //$(".input-correo").keypress(
     //    function (evt) {
     //        var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -152,7 +149,9 @@ function ArmarListaClientePaginador(data) {
     return SetHandlebars("#paginador-template", data);
 }
 
-function showDivAgregar() {
+var ClienteDetalleOK = null;
+function showClienteDetalle(fila)
+{
     if (gTipoUsuario == '2') {
         var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
@@ -161,47 +160,25 @@ function showDivAgregar() {
         return false;
     }
 
-    //$('#divAgregarCliente').show();
-    var url = baseUrl + "Cliente/Detalle";
-    $.ajax({
-        type: 'GET',
-        dataType: 'html',
-        cache: false,
-        url: url,
-        success: function (data) {
-            $("#divDetalle").html(data);
-            $('#divAgregarCliente').show();
-        },
-        error: function (xhr, ajaxOptions, error) {
-            alert(xhr.status);
-            alert('Error: ' + xhr.responseText);
-        }
-    });
-}
-
-function ShowDivEditar(obj) {
-    var div = $(obj).parents('.content_listado_notificaciones');
-    var id = $(div).find('.cliente_id').html();
-    var codigo = $(div).find('.codigo_cliente').html();
-    var nombre = $(div).find('.nombre_cliente_sb').html();
-    var correo = $(div).find('.correo_clientes').html();
-    var telefono = $(div).find('.telefonofijo_cliente_sb').html();
-    var celular = $(div).find('.celular_cliente_sb').html();
-
-    //$('#divEditarCliente').find('#hdeClienteID').val(id);
-    //$('#divEditarCliente').find('#Nombres2').val(nombre);
-    //$('#divEditarCliente').find('#Correo2').val(correo);
-    //$('#divEditarCliente').find('#Telefono2').val(telefono);
-    //$('#divEditarCliente').find('#Celular2').val(celular);
-
-    //$('#divEditarCliente').show();
-
     var cliente = {};
-    cliente.ClienteID = codigo;
-    cliente.Nombre = nombre;
-    cliente.eMail = correo;
-    cliente.Telefono = telefono;
-    cliente.Celular = celular;
+    
+    if (fila != null)
+    {
+        var div = $(fila).parents('.content_listado_notificaciones');
+        var id = $(div).find('.cliente_id').html();
+        var codigo = $(div).find('.codigo_cliente').html();
+        var nombre = $(div).find('.nombre_cliente_sb').html();
+        var correo = $(div).find('.correo_clientes').html();
+        var telefono = $(div).find('.telefonofijo_cliente_sb').html();
+        var celular = $(div).find('.celular_cliente_sb').html();
+
+        cliente.ClienteID = id;
+        cliente.CodigoCliente = codigo;
+        cliente.Nombre = nombre;
+        cliente.eMail = correo;
+        cliente.Telefono = telefono;
+        cliente.Celular = celular;
+    }
 
     var url = baseUrl + "Cliente/Detalle";
     $.ajax({
@@ -211,20 +188,52 @@ function ShowDivEditar(obj) {
         url: url,
         data: cliente,
         success: function (data) {
-            $("#divDetalle").html(data);
+            $("#divDetalleCliente").html(data);
             $('#divAgregarCliente').show();
+
+            ClienteDetalleOK = function (cliente) {
+                //alert(JSON.stringify(cliente));
+                CargarListaCliente();
+            };
         },
         error: function (xhr, ajaxOptions, error) {
-            alert(xhr.status);
-            alert('Error: ' + xhr.responseText);
+            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
 
+//function showDivAgregar() {
+//    if (gTipoUsuario == '2') {
+//        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
+//        $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
+//        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+//        $('#dialog_MensajePostulante').show();
+//        return false;
+//    }
+
+//    $('#divAgregarCliente').show();
+//}
+
+//function ShowDivEditar(obj) {
+//    var div = $(obj).parents('.content_listado_notificaciones');
+//    var id = $(div).find('.cliente_id').html();
+//    var codigo = $(div).find('.codigo_cliente').html();
+//    var nombre = $(div).find('.nombre_cliente_sb').html();
+//    var correo = $(div).find('.correo_clientes').html();
+//    var telefono = $(div).find('.telefonofijo_cliente_sb').html();
+//    var celular = $(div).find('.celular_cliente_sb').html();
+
+//    $('#divEditarCliente').find('#hdeClienteID').val(id);
+//    $('#divEditarCliente').find('#Nombres2').val(nombre);
+//    $('#divEditarCliente').find('#Correo2').val(correo);
+//    $('#divEditarCliente').find('#Telefono2').val(telefono);
+//    $('#divEditarCliente').find('#Celular2').val(celular);
+
+//    $('#divEditarCliente').show();
+//}
+
 function ShowDivEliminar(id) {
-
     $('#divEliminarCliente').find('#hdeClienteID').val(id);
-
     $('#divEliminarCliente').show();
 }
 
@@ -388,36 +397,36 @@ function EliminarCliente() {
 
 function CerrarDiv(opt) {
     switch(opt) {
-        case 1:
-            $('#divAgregarCliente').hide();
-            break;
-        case 2:
-            $('#divEditarCliente').hide();
-            break;
+        //case 1:
+        //    $('#divAgregarCliente').hide();
+        //    break;
+        //case 2:
+        //    $('#divEditarCliente').hide();
+        //    break;
         case 3:
             $('#divEliminarCliente').hide();
             break;
     }
 
-    if (opt == 1) {
-        $('#divNotiNombre').hide();
-        $('#divNotiCorreo').hide();
-    }
-    else {
-        $('#divNotiNombre2').hide();
-        $('#divNotiCorreo2').hide();
-    }
+    //if (opt == 1) {
+    //    $('#divNotiNombre').hide();
+    //    $('#divNotiCorreo').hide();
+    //}
+    //else {
+    //    $('#divNotiNombre2').hide();
+    //    $('#divNotiCorreo2').hide();
+    //}
 
     Limpiar();
 }
 
 function Limpiar() {
     $('#hdeClienteID').val("0");
-    $('#Nombres').val("");
-    $('#Correo').val("");
-    $('#Telefono').val("");
-    $('#Celular').val("");
-    $('#divValidationSummary').html("");
+    //$('#Nombres').val("");
+    //$('#Correo').val("");
+    //$('#Telefono').val("");
+    //$('#Celular').val("");
+    //$('#divValidationSummary').html("");
 }
 
 function DownloadAttachExcelMC() {

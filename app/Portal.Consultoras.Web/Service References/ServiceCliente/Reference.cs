@@ -2328,10 +2328,13 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string AliasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ApellidosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ClienteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ConsultoraClienteIDField;
+        private int ClienteIDSBField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
@@ -2393,6 +2396,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Apellidos {
+            get {
+                return this.ApellidosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ApellidosField, value) != true)) {
+                    this.ApellidosField = value;
+                    this.RaisePropertyChanged("Apellidos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public long ClienteID {
             get {
                 return this.ClienteIDField;
@@ -2406,14 +2422,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ConsultoraClienteID {
+        public int ClienteIDSB {
             get {
-                return this.ConsultoraClienteIDField;
+                return this.ClienteIDSBField;
             }
             set {
-                if ((this.ConsultoraClienteIDField.Equals(value) != true)) {
-                    this.ConsultoraClienteIDField = value;
-                    this.RaisePropertyChanged("ConsultoraClienteID");
+                if ((this.ClienteIDSBField.Equals(value) != true)) {
+                    this.ClienteIDSBField = value;
+                    this.RaisePropertyChanged("ClienteIDSB");
                 }
             }
         }
@@ -2597,9 +2613,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private long ClienteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ContactoClienteIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2627,19 +2640,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ClienteIDField.Equals(value) != true)) {
                     this.ClienteIDField = value;
                     this.RaisePropertyChanged("ClienteID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ContactoClienteID {
-            get {
-                return this.ContactoClienteIDField;
-            }
-            set {
-                if ((this.ContactoClienteIDField.Equals(value) != true)) {
-                    this.ContactoClienteIDField = value;
-                    this.RaisePropertyChanged("ContactoClienteID");
                 }
             }
         }
@@ -2706,7 +2706,13 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private long ClienteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ClienteIDSBField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoRespuestaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private long ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeRespuestaField;
@@ -2735,6 +2741,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClienteIDSB {
+            get {
+                return this.ClienteIDSBField;
+            }
+            set {
+                if ((this.ClienteIDSBField.Equals(value) != true)) {
+                    this.ClienteIDSBField = value;
+                    this.RaisePropertyChanged("ClienteIDSB");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string CodigoRespuesta {
             get {
                 return this.CodigoRespuestaField;
@@ -2743,6 +2762,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CodigoRespuestaField, value) != true)) {
                     this.CodigoRespuestaField = value;
                     this.RaisePropertyChanged("CodigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public long ConsultoraID {
+            get {
+                return this.ConsultoraIDField;
+            }
+            set {
+                if ((this.ConsultoraIDField.Equals(value) != true)) {
+                    this.ConsultoraIDField = value;
+                    this.RaisePropertyChanged("ConsultoraID");
                 }
             }
         }

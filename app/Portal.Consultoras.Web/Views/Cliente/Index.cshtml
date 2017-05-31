@@ -37,7 +37,8 @@
     </div>
     <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" />
    
-    <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
+    @*<a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>*@
+    <a class="agregar_cliente_btn" onclick="showClienteDetalle(null);">AGREGAR CLIENTE</a>
     
     <hr class="clear" />
     <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px;" onclick="return validarExportarMC();" class="acciones_pagos"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
@@ -123,20 +124,15 @@
     </ul>
     -->
     <hr class="clear" />
-    <a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>
+    @*<a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>*@
+    <a class="agregar_cliente_btn" onclick="showClienteDetalle(null);">AGREGAR CLIENTE</a>
     <hr class="clear" />
 </div>
 
 <!-- POPUP DETAllE CLIENTE -->
 <div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
     <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:;" onclick="CerrarDiv(1);">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <div id="divDetalle"></div>
+        <div id="divDetalleCliente"></div>
     </div>
 </div>
 
@@ -384,7 +380,8 @@
         <div class="telefonofijo_cliente_sb">{{Telefono}}</div>
         <div class="celular_cliente_sb">{{Celular}}</div>
         <div class="correo_clientes">{{eMail}}</div>
-        <div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
+        @*<div class="editar_cliente"><a href="#" onclick="ShowDivEditar(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>*@
+        <div class="editar_cliente"><a href="#" onclick="showClienteDetalle(this);"><img src="/Content/Images/Esika/editar_clientes.png"></a></div>
         <div class="eliminar_cliente"><a href="#" onclick="ShowDivEliminar('{{ClienteID}}');"><img src="/Content/Images/Esika/tacho-copy.png"></a></div>
     </div>
     {{/each}}

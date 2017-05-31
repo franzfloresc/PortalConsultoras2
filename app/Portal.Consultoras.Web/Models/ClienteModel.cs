@@ -31,6 +31,8 @@ namespace Portal.Consultoras.Web.Models
 
         public string Telefono { get; set; }
 
-        public string Celular { get; set; } 
+        public string Celular { get; set; }
+        public long CodigoCliente { get; set; }
+        public short TieneTelefono { get; set; }
     }
 }
