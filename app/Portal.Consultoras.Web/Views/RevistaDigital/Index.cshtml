@@ -184,7 +184,9 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+    @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+</div>
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 <script id="lanzamiento-template" type="text/x-handlebars-template">
