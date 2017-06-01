@@ -376,7 +376,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -387,7 +387,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 

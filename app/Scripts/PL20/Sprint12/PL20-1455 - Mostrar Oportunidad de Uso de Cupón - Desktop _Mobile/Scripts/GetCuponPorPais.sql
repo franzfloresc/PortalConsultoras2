@@ -17,7 +17,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpCostaRica
@@ -39,7 +39,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpChile
@@ -61,7 +61,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpColombia
@@ -83,7 +83,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpDominicana
@@ -105,7 +105,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpEcuador
@@ -127,7 +127,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpGuatemala
@@ -149,7 +149,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpMexico
@@ -171,7 +171,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpPanama
@@ -193,7 +193,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpPeru
@@ -215,7 +215,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpPuertoRico
@@ -237,7 +237,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpSalvador
@@ -259,7 +259,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 USE BelcorpVenezuela
@@ -281,7 +281,7 @@ LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
 WHERE
 			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+			and u.CodigoConsultora = @CodigoConsultora
 GO
 
 
