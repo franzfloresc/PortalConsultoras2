@@ -366,6 +366,7 @@ $(document).ready(function () {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
+            ProcesarActualizacionMostrarContenedorCupon();
             $("#btnAgregar").removeAttr("disabled");
         } else {
             CerrarSplash();
@@ -801,6 +802,8 @@ function InsertarProducto(form) {
                 } else {
                 AbrirMensaje(response.message);
                 }
+
+
 
                 PedidoOnSuccess();
 
