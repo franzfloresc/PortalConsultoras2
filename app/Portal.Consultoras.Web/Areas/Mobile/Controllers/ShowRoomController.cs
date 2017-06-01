@@ -66,6 +66,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
+            Session["TieneSubCampania"] = showRoomEventoModel.TieneSubCampania;
 
             return showRoomEventoModel == null
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})

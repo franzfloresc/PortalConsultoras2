@@ -396,6 +396,7 @@
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\ConfirmarPosicionModel.cs" />
+    <Compile Include="Models\CuponUsuarioModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\CuponModel.cs" />
