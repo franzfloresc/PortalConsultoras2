@@ -722,6 +722,10 @@ function messageInfoMalo(message, fnAceptar) {
 }
 
 function messageInfoError(message, fnAceptar) {
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
     if ($.isFunction(fnAceptar)) {

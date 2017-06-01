@@ -9,11 +9,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                return RedirectToAction("Index", "Bienvenida");
-
             var model = IndexModel();
-            
+
+            if (model.EstadoAccion < 0)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
             return View(model);
         }
 
