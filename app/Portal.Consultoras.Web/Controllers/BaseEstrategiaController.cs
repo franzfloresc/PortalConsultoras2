@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -373,6 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
                     if (listadescr.Length > 2)
                     {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
                         estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
                     }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);

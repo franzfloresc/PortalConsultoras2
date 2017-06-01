@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -16,12 +17,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = IndexModel();
-
+                model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
                 if (model.EstadoAccion < 0)
                 {
                     return RedirectToAction("Index", "Bienvenida");
                 }
-
+                
                 return View(model);
             }
             catch (Exception ex)
@@ -260,7 +261,6 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoMenu = Constantes.MenuCodigo.RevistaDigital
             }, JsonRequestBehavior.AllowGet);
         }
-
 
         [HttpGet]
         public JsonResult Desuscripcion()
