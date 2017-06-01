@@ -19,6 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ActivacionCupon();
+                ActualizarCelularUsuario(model);
                 ValidarPopupDelGestorPopups();
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
@@ -323,6 +324,30 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioCreacion = cuponBE.UsuarioCreacion,
                 UsuarioModificacion = cuponBE.UsuarioModificacion
             };
+        }
+
+        private void ActualizarCelularUsuario(CuponUsuarioModel model)
+        {
+            var celularActual = userData.Celular;
+            if (!celularActual.Equals(model.Celular))
+            {
+                svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
+                entidad.CodigoUsuario = userData.CodigoUsuario;
+                entidad.EMail = userData.EMail;
+                entidad.Telefono = userData.Telefono;
+                entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
+                entidad.Celular = Util.Trim(model.Celular);
+                entidad.Sobrenombre = userData.Sobrenombre;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
+
+                ActualizarDatos(entidad, entidad.EMail);
+
+                userData.Celular = entidad.Celular;
+                SetUserData(userData);
+            }
         }
     }
 }

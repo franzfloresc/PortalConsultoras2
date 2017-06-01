@@ -144,8 +144,12 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
+                //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
+                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
+                Session["TieneSubCampania"] = showRoomEventoModel.TieneSubCampania;
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
@@ -2738,7 +2742,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 int cantidadTotal = listaProductos.Count;
 
-                listaFinal = listaProductos;
+                listaFinal = listaProductos.Where(x => x.EsSubCampania == false).ToList();
+                var cantSubCamp = cantidadTotal - listaFinal.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
@@ -2789,6 +2794,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int cantidad = listaFinal.Count;
 
+                /*
                 foreach (var producto in listaFinal)
                 {
                     if (producto.EsSubCampania)
@@ -2798,13 +2804,28 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     producto.UrlCompartir = GetUrlCompartirFB();
                 }
+                 * */
+
+                if (Session["TieneSubCampania"] != null && Convert.ToBoolean(Session["TieneSubCampania"]))
+                {
+                    var xlistaSubCampania = listaProductos.Where(x => x.EsSubCampania == true).ToList();
+                    foreach (var producto in xlistaSubCampania)
+                    {
+                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
+                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
+                        producto.UrlCompartir = GetUrlCompartirFB();
+                        listaFinal.Add(producto);
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
                     lista = listaFinal,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad
+                    cantidad = cantidad,
+                    cantSubCamp = cantSubCamp
                 });
             }
             catch (Exception ex)

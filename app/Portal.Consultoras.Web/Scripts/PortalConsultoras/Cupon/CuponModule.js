@@ -189,7 +189,10 @@
         confirmacionPromise.then(function (response) {
             if (response.success) {
                 mostrarPopupConfirmacion();
-                var cuponPromise = activarCuponPromise();
+                var model = {
+                    celular: $(elements.TxtCelular).val().trim()
+                };
+                var cuponPromise = activarCuponPromise(model);
 
                 cuponPromise.then(function (response) {
                     if (response.success) {
@@ -206,8 +209,10 @@
         mostrarPopupGanaste();
 
         if (!setting.Cupon.CorreoGanasteEnviado) {
-            
-            var cuponPromise = activarCuponPromise();
+            var model = {
+                celular: $(elements.TxtCelular).val().trim()
+            };
+            var cuponPromise = activarCuponPromise(model);
             var correoGanastePromise = enviarCorreoActivacionCuponPromise();
 
             $.when(cuponPromise, correoGanastePromise)
@@ -275,6 +280,7 @@
             url: setting.BaseUrl + setting.UrlActivarCupon,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(model),
             async: true
         });
 
