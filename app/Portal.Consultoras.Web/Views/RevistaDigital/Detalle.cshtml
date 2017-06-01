@@ -51,7 +51,13 @@
                     {
                         <div class="revista_separador">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
                         <div class="revista_list">
-                            @Html.Raw(Model.DescripcionDetalle)
+                            <ol class="ol_detalle">
+                                @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                                {
+                                    <li>@DescDetalle.Trim()</li>
+                                }
+                            </ol> 
+                           
                             @*<b>1</b> Es la primera fragancia femenina de la exitosa línea Kalos.
                             <br />
                             <b>2</b> Tiene un aroma floral frutal de alta duración.

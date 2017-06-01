@@ -33,6 +33,7 @@ namespace Portal.Consultoras.Web.Models
         public bool IsMobile { get; set; }
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
+        public string NumeroContacto { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
