@@ -1740,7 +1740,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("CompartirEnChatBot", "Compartir",
                             new
                             {
-                                //Area = "Chatbot",
+                                Area = "Mobile",
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo

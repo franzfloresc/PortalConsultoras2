@@ -36,7 +36,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ZonaHoraria = usuario.ZonaHoraria,
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true,
-                CodigoAgrupacion = ""
+                CodigoAgrupacion = "",
+                Simbolo = userData.Simbolo
             };
             
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
