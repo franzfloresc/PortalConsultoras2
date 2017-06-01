@@ -14,11 +14,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class CuponController : BaseController
     {
         [HttpPost]
-        public JsonResult ActualizarCupon()
+        public JsonResult ActualizarCupon(CuponUsuarioModel model)
         {
             try
             {
                 ActivarCupon();
+                ActualizarCelularUsuario(model);
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
@@ -98,8 +99,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
                 CuponModel cuponModel = ObtenerDatosCupon();
-                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
@@ -223,6 +225,30 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = cuponBE.UsuarioModificacion,
                 TipoCupon = cuponBE.TipoCupon
             };
+        }
+
+        private void ActualizarCelularUsuario(CuponUsuarioModel model)
+        {
+            var celularActual = userData.Celular;
+            if (!celularActual.Equals(model.Celular))
+            {
+                svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
+                entidad.CodigoUsuario = userData.CodigoUsuario;
+                entidad.EMail = userData.EMail;
+                entidad.Telefono = userData.Telefono;
+                entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
+                entidad.Celular = Util.Trim(model.Celular);
+                entidad.Sobrenombre = userData.Sobrenombre;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
+
+                ActualizarDatos(entidad, entidad.EMail);
+
+                userData.Celular = entidad.Celular;
+                SetUserData(userData);
+            }
         }
     }
 }

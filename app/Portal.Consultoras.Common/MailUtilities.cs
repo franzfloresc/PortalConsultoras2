@@ -201,10 +201,11 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta)
+        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta, string url)
         {
             string codigoCampania = campaniaActual.Substring(4, 2);
             var textoGanaste = (tipoOferta.Equals("MONTO") ? ("GANASTE TU DSCTO DE " + simbolo + " " + monto) : "GANASTE TU DSCTO DE " + Convert.ToInt32(monto) + "%");
+            url = url + "Bienvenida";
 
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.Append("<html>");
@@ -213,7 +214,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<body>");
             sBuilder.Append("<div style=\"width: 100%; table-layout: fixed; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;\">");
             sBuilder.Append("<div style=\"max-width: 600px; Margin: 0 auto;\">");
-            sBuilder.Append("<table width=\"600\" align=\"center\" border =\"0\" cellspacing =\"0\" cellpadding =\"0\" align =\"center\" style=\"background: #fff; max-width: 600px;\" class=\"main\">");
+            sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" cellpadding =\"0\" style=\"background: #fff; max-width: 600px;\" class=\"main\">");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; border-bottom: 1px solid #000; padding: 12px 0px; text-align: center; background: #fff;\">");
             sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
@@ -264,7 +265,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</div>");
             sBuilder.Append("</div>");
             sBuilder.Append("<div style=\"padding-top: 20px; background: #fff; padding-bottom: 20px;\" > ");
-            sBuilder.Append("<a href=\"https://www.somosbelcorp.com/Bienvenida\" style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
+            sBuilder.Append("<a href='" + url + "' style=\"display: inline-block; background:#e81c36; color: #fff;font-family: 'Arial'; height: 45px; width: 240px; line-height: 45px; font-size: 13px;letter-spacing: 1px; text-decoration: none;\">INGRESA A SOMOSBELCORP</a>");
             sBuilder.Append("</div>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
@@ -306,18 +307,15 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; background: #fff\">");
-            sBuilder.Append("<table align=\"center\" style=\"text-align:center; width: 220px;\">");
+            sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; background: #fff; width: 100%;\">");
+            sBuilder.Append("<table width=\"220\" align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"text-align:center; padding-top:4px; padding-bottom:5px;\">");
             sBuilder.Append("<tbody>");
-            sBuilder.Append("<tr><td colspan=\"2\" style=\"height: 6px;\"></td></tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"text-align:center; width: 49%; border-right:1px solid #000; padding-right: 13px;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
+            sBuilder.Append("<td align=\"center\" style=\"width:49%; text-align:center; border-right:1px solid #000;\">");
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a style=\"text-decoration: none;  color: #000;\" href=\"http://comunidad.somosbelcorp.com/\">¿Tienes dudas?</a></span>");
             sBuilder.Append("</td>");
-            sBuilder.Append("<td style=\"text-align:center; width: 49%;\">");
-            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:12px; color:#000;\">");
-            sBuilder.Append("<a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a>");
-            sBuilder.Append("</span>");
+            sBuilder.Append("<td align=\"center\" style=\"text-align:center;\">");
+            sBuilder.Append("<span style=\"font-family:'Calibri'; font-size:11.5px; color:#000;\"><a href=\"http://www.belcorpresponde.com/\" style=\"text-decoration: none; color: #000;\">Contáctanos</a></span>");           
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</tbody>");
