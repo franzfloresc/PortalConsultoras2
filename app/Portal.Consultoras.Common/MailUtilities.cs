@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Common
         public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta)
         {
             string codigoCampania = campaniaActual.Substring(4, 2);
-            var textoGanaste = (tipoOferta.Equals("MONTO") ? ("GANASTE TU DSCTO DE " + simbolo + " " + monto) : "GANASTE TU DSCTO DE " + Convert.ToInt32(monto) + "%");
+            var textoGanaste = "¡" + userName + " ACTIVASTE TU CUPÓN DE " + Convert.ToInt32(monto) + "% DE DSCTO!";
 
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.Append("<html>");
@@ -221,12 +221,11 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; font-family: 'Arial'; font-size: 22px; color: #000; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;padding-top: 20px;\">");
-            sBuilder.Append("<strong>¡" + userName + " " + textoGanaste + "!</strong>");
+            sBuilder.Append("<strong>" + textoGanaste + "</strong>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
             sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; font-family: 'Arial'; font-size: 15px; color: #000; padding-bottom: 15px; padding-left: 10px; padding-right: 10px;\">");
-            sBuilder.Append("Recuerda agregar alguna oferta web* en la campaña C" + codigoCampania);
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
@@ -248,7 +247,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/4APfP0beByYE5yN/group-6.png\"></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">*Agrega mínimo 1 oferta. No aplica para liquidación web.</td>");
+            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Debes agregar una oferta web (no aplica para liquidación web)</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
@@ -258,7 +257,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">El cupón se aplicará en tu facturación</td>");
+            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">Tu dscto lo verás reflejado en tu facturación<br>(dscto hasta S/. 00.00)</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
