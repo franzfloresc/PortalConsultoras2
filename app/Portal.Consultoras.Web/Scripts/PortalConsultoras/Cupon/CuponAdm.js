@@ -1,7 +1,16 @@
 ﻿$(document).ready(function () {
     "use strict"
 
-    var objInitializer = { };
+    var objInitializerCampania = {
+        urlListarCampanias: urlListarCampanias
+    };
+    campaniaModule.ini(objInitializerCampania);
 
-    cuponAdmModule.ini(objInitializer);
+    var objInitializerCupon = {
+        urlListarCampanias: urlListarCampanias,
+        urlCrearCupon: urlCrearCupon,
+        urlActualizarCupon: urlActualizarCupon
+    };
+    
+    cuponAdmModule.ini(objInitializerCupon);
 });

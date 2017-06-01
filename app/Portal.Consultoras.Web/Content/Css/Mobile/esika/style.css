@@ -10910,6 +10910,7 @@ a{
     margin-bottom:20px;
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
     padding-left:32px;
+    position:relative;
 }
 .correo_showroon input{ 
      width: 100%;
@@ -10955,6 +10956,7 @@ a{
     font-size:10.5px;
     width:248px;    
     text-align: left;
+    position:relative;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
@@ -11663,7 +11665,7 @@ a{
 .icono_celular {
     background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
     background-position: 4px 0px;
-    height: 24px;
+    /*height: 24px;*/
     padding-top: 3px;
 }
 .titulo_confirmacion {
@@ -12132,45 +12134,70 @@ a{
     font-family:'Lato';
 }
 .titulo_gana{
-    font-size: 35px;
+    font-size: 13px;
     color: white;
     height: 46px;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-top:28px;
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    -moz-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
+    /* padding-right: 10px; */
+    margin: 0 auto;
+    margin-bottom: 5px;
+    margin-top: 29px;
+    width: 196px;
+}
+.titulo_gana span {
+    font-size: 19px;
+    letter-spacing: 1.1px;
 }
 .subtitulo_gana{
-    font-family:'Lato';
-    color:white;
-    font-size:14px;
-    /*font-weight:900;*/
-    letter-spacing:1.2px;   
+    font-family: 'Lato';
+    color: white;
+    font-size: 14px;
+    /* font-weight: 900; */
+    letter-spacing: 1.2px;
+    width: 196px;
+    margin: 0 auto;
+    -moz-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
+    /* padding-right: 10px; */
 }
 .monto_gana{
-    font-family:'Lato';
-    font-size:48px;
-    color:white;
-    font-weight:700;
-    margin-top: -8px;
+    font-family: 'Lato';
+    font-size: 94px;
+    color: white;
+    font-weight: 700;
+    margin-top: -35px;
+    float: left;
+    padding-left: 23px;
+    height: 107px;
+    letter-spacing: 4px;
 }
 .tipo_moneda{
     font-size:38px;    
 }
 .texto_cupon_datos{
     font-family: 'LAto';
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     margin-bottom: 12px;
     line-height: 19px;
     color: black;
-    font-weight: 700;
+    /* font-weight: 400; */
     margin-top: 27px;
+}
+.texto_cupon_datos b{
+    font-size:16px;
 }
 .texto_legal_mobile_c{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:10px;
+    margin-top:16px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12236,15 +12263,15 @@ a{
     margin:0 auto;
     background:url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
     margin-bottom: 3px;
-    margin-top: 22px;
+    margin-top: 44px;
 }
 
 .info_recuerda_cupon{
-    float: left; */
+    float: left;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 17px;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */
     /* height: 72px; */
 }
@@ -12267,8 +12294,9 @@ a{
 }
 .titulo_cupon3{
     color:white;
-    font-size:20px;
+    /*font-size:20px;*/
     letter-spacing:1.5px;
+    margin-top:14px;
 }
 .texto_cupon3{
     font-family: 'lato';
@@ -12281,7 +12309,49 @@ a{
     margin-bottom: 30px;
     
 }
-
+.texto_recuerda_cupon{
+    font-family: 'LAto';
+    font-size: 14px;
+    margin-top: 53px;
+    text-align: left;
+    padding-left: 51px;
+}
+.tipo_porcentaje {
+        color: white;
+    font-size: 59px;
+    float: right;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 48px;
+    margin-right: 23px;
+    text-align: right;
+    margin-right: 39px;
+    box-sizing: border-box;
+}
+.mensaje_alerta_cupon1 {
+    color: #e81c36;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid;
+    width: 88%;
+    padding-top: 2px;
+    text-align:left;
+}
+.icono_alerta_cupon {
+    width: 15px;
+    height: 15px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.borde_seleccion_alerta:before {
+    border: 1px solid #e81c36;
+}
 /*SPRINT 13*/
 
 .content_producto_alternativo{   

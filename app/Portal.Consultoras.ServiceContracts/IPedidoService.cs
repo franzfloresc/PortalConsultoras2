@@ -1079,8 +1079,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
         [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void CrearCupon(BECupon cupon);
+
+        [OperationContract]
+        void ActualizarCupon(BECupon cupon);
+
+        [OperationContract]
+        List<BECupon> ListarCupones();
 
         #endregion
     }

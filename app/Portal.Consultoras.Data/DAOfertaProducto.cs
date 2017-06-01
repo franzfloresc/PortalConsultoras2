@@ -345,7 +345,8 @@ namespace Portal.Consultoras.Data
             }
             else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
             {
-                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnico));
+                //query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnico));
+                query.Append(String.Format(" AND Nemotecnico = '{0}' ", nemotecnico));
             }
 
             query.Append(" ) as T order by FechaRegistro desc");
