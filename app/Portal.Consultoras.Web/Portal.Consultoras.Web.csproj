@@ -3457,10 +3457,10 @@
     </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
-    <Content Include="Service References\ServicePedido\Reference.svcmap">
+    <None Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceSAC\SACService.disco" />
     <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
     <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
