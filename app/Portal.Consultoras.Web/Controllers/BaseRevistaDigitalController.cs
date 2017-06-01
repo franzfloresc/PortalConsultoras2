@@ -11,6 +11,15 @@ namespace Portal.Consultoras.Web.Controllers
         public RevistaDigitalModel IndexModel()
         {
             var model = new RevistaDigitalModel();
+            model.EstadoAccion = -1;
+            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+            {
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                {
+                    return model;
+                }
+            }
+            
             model = ListarTabs(model);
 
             if (model.EstadoAccion < 0)
@@ -49,7 +58,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.IsMobile = IsMobile();
-
+            model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
+            model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
             return model;
         }
 

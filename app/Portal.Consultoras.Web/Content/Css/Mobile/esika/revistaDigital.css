@@ -1346,7 +1346,7 @@ height: 100%;
 .mpopup_saludo {
     font-size: 15px;
     letter-spacing: 0.5px;
-    line-height: 18px;
+    line-height: 20px;
 }
 .mpopup_text {
     font-size: 14px;
@@ -1379,6 +1379,7 @@ height: 100%;
 .mpopup_textleg {
     text-align: center;
     font-size: 11px;
+    line-height: 16px;
 }
 .mpopup_textleg a {
     color: black;
@@ -1395,6 +1396,7 @@ height: 100%;
     font-size: 11px;
     color: #757575;
     letter-spacing: 0.5px;
+    text-decoration: underline;
 }
 
 
