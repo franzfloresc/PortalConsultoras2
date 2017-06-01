@@ -322,7 +322,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     item.SubMenu.Add(subItem);
                 }
             }
-            
+
+            if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
+            {
+                var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
+                if (menuNego.MenuMobileID > 0)
+                {
+                    lstModel.ForEach(m =>
+                    {
+                        m.OrdenItem = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                            ? menuNego.OrdenItem + 1
+                            : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
+                        m.UrlImagen = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                            ? ""
+                            : m.UrlImagen;
+                    });
+
+                    lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
+                }
+            }
+
             ViewBag.MenuMobile = lstModel;
 
         }

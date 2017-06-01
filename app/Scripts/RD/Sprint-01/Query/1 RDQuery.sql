@@ -86,18 +86,6 @@ BEGIN
 	VALUES('RD', 0, 'Revista Digital Completa', 0)
 END
 
-
-go
-
-declare @rds int = 0
-select @rds = ConfiguracionPaisID from ConfiguracionPais WHERE Codigo = 'RD'
-
-IF  @rds > 0
-BEGIN
-	INSERT INTO ConfiguracionPais(ConfiguracionPaisID,CodigoRegion,CodigoZona,CodigoSeccion,CodigoConsultora,Estado)
-	VALUES(@rds,'', '3032', '', '', 1)
-END
-
 GO
 
 ------------------------------------------------------------------------------------------------
@@ -118,9 +106,12 @@ if not exists(select 1 from Permiso where Codigo = 'RevistaDigital')
 begin
 
 	DECLARE @PermisoID INT = 0
-	DECLARE @OrdenItem INT = 6
+	DECLARE @OrdenItem INT, @factorAumento int = 1
 
-	SELECT @PermisoID=MAX(PermisoID) FROM Permiso
+	select @OrdenItem = OrdenItem + @factorAumento from Permiso where Descripcion = 'VENTA EXCLUSIVA WEB'
+	set @OrdenItem = isnull(@OrdenItem, 0)
+
+	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
   	INSERT INTO Permiso
@@ -130,7 +121,7 @@ begin
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
-	set OrdenItem = @OrdenItem + 1
+	set Codigo = 'ShowRoom'
 	where Descripcion = 'VENTA EXCLUSIVA WEB'
 
 	update Permiso
@@ -142,29 +133,11 @@ go
 -- menu mobile
 go
 
-if (select top 1 OrdenItem from MenuMobile where descripcion = 'VENTA EXCLUSIVA WEB') <> 1
-begin
-	update MenuMobile
-	set OrdenItem = 1
-	where Posicion = 'Menu'
-		and MenuPadreID = 0
-		and descripcion = 'VENTA EXCLUSIVA WEB'
-		and EsSB2=1
-
-	update MenuMobile
-	set OrdenItem = OrdenItem + 1
-	where Posicion = 'Menu'
-		and MenuPadreID = 0
-		and descripcion != 'VENTA EXCLUSIVA WEB'
-		and EsSB2=1
-end
-go
-
 if not exists(select 1 from MenuMobile where Codigo = 'RevistaDigital')
 begin
 
 	DECLARE @ID INT = 0
-	DECLARE @OrdenItem INT = 1
+	DECLARE @OrdenItem INT = 0
 
 	SELECT @ID=MAX(MenuMobileID) FROM MenuMobile
 	SET @ID = isnull(@ID, 0) + 1
@@ -184,9 +157,20 @@ begin
 	update MenuMobile
 	set Codigo = 'FDTC'
 	where UrlItem = 'Mobile/CatalogoPersonalizado/Index' or UrlItem = 'Mobile/CatalogoPersonalizado'
+
+	
+	update MenuMobile
+	set Codigo = 'ShowRoom'
+	where Descripcion = 'VENTA EXCLUSIVA WEB' and EsSB2=1
+
+
+	update MenuMobile
+	set Codigo = 'MiNegocio'
+	 where Upper(Descripcion) = Upper('Mi Negocio') and EsSB2=1
+
 end
 go
--- FIN 
+-- FIN
 
 go
 ALTER PROCEDURE [dbo].GetPermisosByRol_SB2

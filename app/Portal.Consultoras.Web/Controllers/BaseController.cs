@@ -554,7 +554,7 @@ namespace Portal.Consultoras.Web.Controllers
                         permiso.ClaseMenu = "";
                         permiso.ClaseMenuItem = "";
                         var urlSplit = permiso.UrlItem.Split('/');
-                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? permiso.UrlItem.Split('/')[1] : "" ) + "', '" + (urlSplit.Length > 0 ? permiso.UrlItem.Split('/')[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
+                        permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "" ) + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + ", '" + permiso.Descripcion + "')";
 
                         if (permiso.Descripcion.ToUpperInvariant() == "MI COMUNIDAD")
                         {
@@ -564,7 +564,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? permiso.UrlItem.Split('/')[1] : "") + "', '" + (urlSplit.Length > 0 ? permiso.UrlItem.Split('/')[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
                             }
                         }
 
@@ -610,6 +610,15 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 lstModel.Add(permiso);
+            }
+
+            if (lstModel.Any(m=>m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
+            {
+                lstModel.Update(m =>
+                m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                    ? m.UrlImagen
+                    : ""
+                );
             }
 
             // Separar los datos obtenidos y para generar el 
