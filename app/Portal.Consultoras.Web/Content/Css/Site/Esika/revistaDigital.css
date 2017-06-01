@@ -438,16 +438,19 @@
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a {
+    color: white;
     text-decoration: underline;
     transition:opacity 0.3s ease;
     -moz-transition:opacity 0.3s ease;
     -o-transition:opacity 0.3s ease;
     -ms-transition:opacity 0.3s ease;
     -webkit-transition:opacity 0.3s ease;
+    opacity: 0.4;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a:hover{
-    opacity:0.7;
+    opacity: 1;
+
 }
 
 
@@ -1418,15 +1421,31 @@
 	line-height: 45px;
 	transition: all 0.6s ease-in-out;
 }
-
+/*BTN STROKE BLACK*/
+.btn_stroke {
+    background: transparent;
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+    border: 1px solid black;
+    color: black;
+    font-size: 13px;
+}
+.btn_stroke:hover a {
+    color: white;
+    
+}
+.btn_stroke:after {
+    background: black;
+}
 /* POPUP REVISTA DIGITAL */
 .popup_rd {
-	height: 440px;
-	position: relative;
-	top: 50%;
-	margin: -220px auto;
-	letter-spacing: 1.2px;
-	font-size: 13px;
+    height: 440px;
+    position: relative;
+    top: 50%;
+    margin: -220px auto;
+    letter-spacing: 1.2px;
+    font-size: 13px;
 }
 .popup_rd .popup_rd_cabecera {
 	background-color: black;
@@ -1533,7 +1552,7 @@
 	width: 320px;
 	height: 200px;
 	position: absolute;
-	top: 80px;
+	top: 62px;
 	left: 30px;
 }
 .rd_confirmacion .popup_rd_content img {
@@ -1545,7 +1564,7 @@
 }
 .rd_confirmacion .btn_diagonal {
 	background: transparent;
-	border: 2px solid black;
+	border: 1px solid black;
 	width: 260px;
 	bottom: 0;
 }
@@ -1663,12 +1682,15 @@
     display:inline-block;
     vertical-align:middle;
 }
+
 .legal_gana_mas{
     font-family:'Lato';
     font-size:10px;
     font-weight:300;
-    margin-top:40px;
-
+    margin-top:135px;
+    margin-bottom: 50px;
+    text-align: center;
+    width: 100%;
 }
 .content_funciona_esika{
    background: #EEEEEE;
@@ -1735,24 +1757,28 @@
     text-transform:uppercase;
     text-align:center;
 }
-.texto_no_inscrita{
-    font-family:'Lato';
-    font-size:20px;
-    font-weight:300;
-    letter-spacing:1px;
-    margin-top:25px;
-    margin-bottom:25px;
-    line-height:25px;
-    text-transform:uppercase;
-    text-align:center;
+.texto_no_inscrita {
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 75%;
+    line-height: 25px;
+    text-transform: uppercase;
+    text-align: center;
 }
-.advertencia_no_inscrita{
-    font-family:'Lato';
-    font-size:14px;
-    line-height:18px;
-    margin-bottom:30px;
-    text-align:center;
-    letter-spacing:0.4px;
+.advertencia_no_inscrita {
+    font-family: 'Lato';
+    font-size: 14px;
+    margin: auto;
+    line-height: 18px;
+    margin-bottom: 30px;
+    width: 63%;
+    text-align: center;
+    letter-spacing: 0.4px;
 }
 .btn_cancelar_inscripcion{
     font-family:'Lato';
