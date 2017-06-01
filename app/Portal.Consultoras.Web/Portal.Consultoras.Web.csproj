@@ -192,7 +192,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Areas\Chatbot\Controllers\CompartirController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
@@ -221,7 +221,7 @@
     <Compile Include="Areas\Mobile\Helpers\StringsHelper.cs" />
     <Compile Include="Areas\Mobile\MobileAreaRegistration.cs" />
     <Compile Include="Areas\Mobile\Models\BienvenidaModel.cs" />
-    <Compile Include="Areas\Chatbot\Models\CatalogoCompartirModel.cs" />
+    <Compile Include="Areas\Mobile\Models\CatalogoCompartirModel.cs" />
     <Compile Include="Areas\Mobile\Models\ConsultoraOnlineHistorialMobileModel.cs" />
     <Compile Include="Areas\Mobile\Models\EstadoCuentaDetalleMobilModel.cs" />
     <Compile Include="Areas\Mobile\Models\MiAsesorBellezaModel.cs" />
@@ -1103,7 +1103,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Content Include="ChateaConAlma.html" />
+    <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
     <Content Include="Content\Banderas\BO.png" />
@@ -2979,8 +2979,8 @@
     <Content Include="Scripts\HojaInscripcion\loader.js" />
     <Content Include="Scripts\HojaInscripcion\utilsCommon.js" />
     <Content Include="Scripts\HojaInscripcion\validations.js" />
-    <Content Include="Areas\Chatbot\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Chatbot\Views\Compartir\CompartirEnChatBot.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
+    <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3302,7 +3302,6 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
-    <Content Include="Areas\Chatbot\Views\Web.config" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
@@ -3458,6 +3457,19 @@
     </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <Content Include="Service References\ServicePedido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\ServiceSAC\SACService.disco" />
+    <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
+    <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
+    <Content Include="Service References\ServiceSAC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <Content Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
     </None>

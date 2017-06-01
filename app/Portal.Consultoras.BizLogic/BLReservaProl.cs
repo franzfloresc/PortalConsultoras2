@@ -172,7 +172,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (!usuario.DiaPROL) return false;
 
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
+            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);            
             bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioFacturacion) ?
                 (HoraNow > usuario.HoraInicioNoFacturable && HoraNow < usuario.HoraCierreNoFacturable) :
                 (HoraNow > usuario.HoraInicio && HoraNow < usuario.HoraFin);
