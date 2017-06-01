@@ -44,10 +44,12 @@ $(document).ready(function () {
         $('.banner_especial_showroom').hide();
     else {
         var stilo = $('.banner_especial_showroom').attr("style");
-        var stilo = stilo.replace("display:none", "display:block");
-        $('.banner_especial_showroom').attr("style",stilo);
-        $('.banner_especial_showroom').show();
-    }        
+        if (stilo != null) {
+            var stilo = stilo.replace("display:none", "display:block");
+            $('.banner_especial_showroom').attr("style", stilo);
+            $('.banner_especial_showroom').show();
+        }
+    }
     
     $(".footer_e").css("margin-bottom", "73px");
 
