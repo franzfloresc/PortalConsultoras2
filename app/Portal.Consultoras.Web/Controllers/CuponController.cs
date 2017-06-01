@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class CuponController : BaseController
     {
         [HttpPost]
-        public JsonResult ActivarCupon()
+        public JsonResult ActivarCupon(CuponUsuarioModel model)
         {
             try
             {
