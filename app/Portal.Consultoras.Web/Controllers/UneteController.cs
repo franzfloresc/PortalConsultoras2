@@ -927,13 +927,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 model.EditarDireccionModel.Numero = DirNumero;
                                 break;
                             case 2://nunca debería entrar aqui
-                                DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
-                                DirNumero = DireccionConcatenada[1].ToString().Trim();
-                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = DirNumero;
+                                DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
+                                DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
 
-                                model.EditarDireccionModel.NombreLugarNivel3 = string.Empty;
-                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", "");
+                                model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
+                                lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
+                                model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
+                                model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+
+                                model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
+                                model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
+
                                 break;
                             case 1:
                                 DirCalleOAvenida = DireccionConcatenada[0].ToString().Trim();
@@ -3820,7 +3824,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(model.Region) || string.IsNullOrEmpty(model.Zona) || string.IsNullOrEmpty(model.Seccion) || string.IsNullOrEmpty(model.Territorio))
             {
                 MensajeModel mensajeModel = new MensajeModel();
-                mensajeModel.TextoMensaje = "No se detectó Region, Zona, Seccion y Territorio.";
+                mensajeModel.TextoMensaje = "No se encontró Region, Zona, Seccion y Territorio. Favor de asignar manualmente.";
                 return PartialView("_TemplateMensaje", mensajeModel);
             }
             else
