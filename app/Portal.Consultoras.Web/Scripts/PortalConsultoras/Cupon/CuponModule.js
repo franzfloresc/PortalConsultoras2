@@ -273,7 +273,7 @@
         });
     }
 
-    var activarCuponPromise = function () {
+    var activarCuponPromise = function (model) {
         var d = $.Deferred();
         var promise = $.ajax({
             type: 'POST',
