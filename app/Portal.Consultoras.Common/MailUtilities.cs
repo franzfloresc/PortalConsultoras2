@@ -216,12 +216,12 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<div style=\"max-width: 600px; Margin: 0 auto;\">");
             sBuilder.Append("<table width=\"100%\" align=\"center\" border =\"0\" cellspacing =\"0\" cellpadding =\"0\" style=\"background: #fff; max-width: 600px;\" class=\"main\">");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; border-bottom: 1px solid #000; padding: 12px 0px; text-align: center; background: #fff;\">");
+            sBuilder.Append("<td colspan=\"2\" style=\"width: 100%; height: 50px; padding: 12px 0px; text-align: center; background: #fff;\">");
             sBuilder.Append("<img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt =\"Logo Esika\"/>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; font-family: 'Arial'; font-size: 22px; color: #000; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;padding-top: 20px;\">");
+            sBuilder.Append("<td colspan=\"2\" style=\"text-align: center; font-family: 'Arial'; font-size: 22px; color: #000; padding-bottom: 5px; padding-left: 10px; padding-right: 10px;padding-top: 5px;\">");
             sBuilder.Append("<strong>" + textoGanaste + "</strong>");
             sBuilder.Append("</td>");
             sBuilder.Append("</tr>");
