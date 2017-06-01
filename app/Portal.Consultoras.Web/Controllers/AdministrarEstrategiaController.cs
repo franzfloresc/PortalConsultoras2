@@ -1386,12 +1386,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
                                 {
-                                    if(productoEstrategia.codigo_estrategia == "2003")
-                                        grupoPrevio = productoEstrategia.grupo;
-
                                     if ((productoEstrategia.codigo_estrategia == "2001" || productoEstrategia.codigo_estrategia == "2002") ||
                                         (productoEstrategia.codigo_estrategia == "2003" && (grupoPrevio!= productoEstrategia.grupo)))
-                                    {                  
+                                    {
+                                        grupoPrevio = productoEstrategia.grupo;
                                         string codigoSap = productoEstrategia.codigo_sap;
                                         string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
                                         nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
