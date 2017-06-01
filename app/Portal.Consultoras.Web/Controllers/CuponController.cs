@@ -14,11 +14,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class CuponController : BaseController
     {
         [HttpPost]
-        public JsonResult ActualizarCupon()
+        public JsonResult ActivarCupon(CuponUsuarioModel model)
         {
             try
             {
-                ActivarCupon();
+                ActivacionCupon();
+                ActualizarCelularUsuario(model);
                 ValidarPopupDelGestorPopups();
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
@@ -56,10 +57,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string correoAnterior = Util.Trim(userData.EMail);
                     string correoNuevo = entidad.EMail;
                     bool emailActivo = userData.EMailActivo;
-                    
+
                     ActualizarDatos(entidad, correoAnterior);
                     ActualizarDatosSesion(entidad, correoNuevo, correoAnterior);
-                    
+
                     var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
@@ -88,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                CuponModel cuponModel = ObtenerDatosCupon();
+                CuponConsultoraModel cuponModel = ObtenerDatosCupon();
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -99,12 +100,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                CuponModel cuponModel = ObtenerDatosCupon();
+                CuponConsultoraModel cuponModel = ObtenerDatosCupon();
                 string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
-                return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -120,13 +121,54 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
-        private CuponModel ObtenerDatosCupon()
+        [HttpPost]
+        public JsonResult CrearCupon(CuponModel model)
         {
-            CuponModel cuponModel;
+            try
+            {
+                var listaCupones = ListarCupones();
+                var existeCupon = listaCupones.Any(x => x.Tipo == model.Tipo && x.CampaniaId == model.CampaniaId);
+
+                if (!existeCupon)
+                {
+                    using (PedidoServiceClient svClient = new PedidoServiceClient())
+                    {
+                        var cuponBE = MapearCuponModelABECupon(model);
+                        svClient.CrearCupon(cuponBE);
+                    }
+                }
+                else {
+                    return Json(new { success = false, message = "El tipo de cupón a ingresar ya está registrado a la campaña."}, JsonRequestBehavior.AllowGet);
+                }
+                
+                return Json(new { success = true, message = "El cupón fue creado." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarCupon(CuponModel model)
+        {
+            try
+            {
+                using (PedidoServiceClient svClient = new PedidoServiceClient())
+                {
+                    var cuponBE = MapearCuponModelABECupon(model);
+                    svClient.ActualizarCupon(cuponBE);
+                }
+
+                return Json(new { success = true, message = "El cupón fue actualizado." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        private CuponConsultoraModel ObtenerDatosCupon()
+        {
+            CuponConsultoraModel cuponModel;
             BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
-            
+
             if (cuponResult != null)
-                cuponModel = MapearBECuponACuponModel(cuponResult);
+                cuponModel = MapearBECuponConsultoraACuponConsultoraModel(cuponResult);
             else
                 throw new Exception();
 
@@ -172,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
-        private void ActivarCupon()
+        private void ActivacionCupon()
         {
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
@@ -219,11 +261,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
+        private List<CuponModel> ListarCupones()
+        {
+            List<CuponModel> listaCupones = new List<CuponModel>();
+
+            using (PedidoServiceClient svClient = new PedidoServiceClient())
+            {
+                var listaCuponesBE = svClient.ListarCupones().ToList();
+                listaCupones = listaCuponesBE.Select(x => MapearBECuponACuponModel(x)).ToList();
+            }
+
+            return listaCupones;
+        }
+
+        private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponModel(codigoISO) {
+            return new CuponConsultoraModel(codigoISO) {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,
@@ -237,6 +292,62 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModificacion = cuponBE.UsuarioModificacion,
                 TipoCupon = cuponBE.TipoCupon
             };
+        }
+
+        private BECupon MapearCuponModelABECupon(CuponModel cuponModel)
+        {
+            return new BECupon()
+            {
+                CuponId = cuponModel.CuponId,
+                Tipo = cuponModel.Tipo,
+                Descripcion = cuponModel.Descripcion,
+                CampaniaId = cuponModel.CampaniaId,
+                Estado = cuponModel.Estado,
+                FechaCreacion = cuponModel.FechaCreacion,
+                FechaModificacion = cuponModel.FechaModificacion,
+                UsuarioCreacion = cuponModel.UsuarioCreacion,
+                UsuarioModificacion = cuponModel.UsuarioModificacion
+            };
+        }
+
+        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
+        {
+            return new CuponModel()
+            {
+                CuponId = cuponBE.CuponId,
+                Tipo = cuponBE.Tipo,
+                Descripcion = cuponBE.Descripcion,
+                CampaniaId = cuponBE.CampaniaId,
+                Estado = cuponBE.Estado,
+                FechaCreacion = cuponBE.FechaCreacion,
+                FechaModificacion = cuponBE.FechaModificacion,
+                UsuarioCreacion = cuponBE.UsuarioCreacion,
+                UsuarioModificacion = cuponBE.UsuarioModificacion
+            };
+        }
+
+        private void ActualizarCelularUsuario(CuponUsuarioModel model)
+        {
+            var celularActual = userData.Celular;
+            if (!celularActual.Equals(model.Celular))
+            {
+                svUsuario.BEUsuario entidad = new svUsuario.BEUsuario();
+                entidad.CodigoUsuario = userData.CodigoUsuario;
+                entidad.EMail = userData.EMail;
+                entidad.Telefono = userData.Telefono;
+                entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
+                entidad.Celular = Util.Trim(model.Celular);
+                entidad.Sobrenombre = userData.Sobrenombre;
+                entidad.ZonaID = userData.ZonaID;
+                entidad.RegionID = userData.RegionID;
+                entidad.ConsultoraID = userData.ConsultoraID;
+                entidad.PaisID = userData.PaisID;
+
+                ActualizarDatos(entidad, entidad.EMail);
+
+                userData.Celular = entidad.Celular;
+                SetUserData(userData);
+            }
         }
     }
 }

@@ -211,7 +211,7 @@
                 </div>
             </div>
         }
-        else if (ViewBag.MostrarODD == false)
+        else if (ViewBag.tieneOfertaDelDia == true)
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
@@ -883,9 +883,6 @@
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-
-        var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
-        var MostrarODD = '@ViewBag.MostrarODD';
         
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
          //EPD-2058

@@ -260,6 +260,7 @@
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
+    <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
@@ -390,7 +391,9 @@
     <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\CuponModel.cs" />
+    <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
+    <Compile Include="Models\CuponUsuarioModel.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
@@ -2989,6 +2992,7 @@
     <Content Include="Scripts\nieve.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
+    <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
@@ -4287,6 +4291,7 @@
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
+    <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
   </ItemGroup>
   <ItemGroup>
