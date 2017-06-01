@@ -35,7 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Zona = userData.ZonaID.ToString(),
                 ZonaHoraria = usuario.ZonaHoraria,
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
-                ValidarPeriodoFacturacion = true
+                ValidarPeriodoFacturacion = true,
+                Simbolo = userData.Simbolo
             };
 
             var listaTemporal = new List<BEEstrategia>();
