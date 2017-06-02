@@ -138,6 +138,22 @@ $(document).ready(function () {
         }
 
     });
+
+    $(document).ready(function () {
+        $('.tit_pregunta_ept').click(function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            if ($this.next().hasClass('show')) {
+                $this.next().removeClass('show');
+                $this.next().slideUp(350);
+            } else {
+                $this.parent().parent().find('.text_respuesta_ept').removeClass('show');
+                $this.parent().parent().find('.text_respuesta_ept').slideUp(350);
+                $this.next().toggleClass('show');
+                $this.next().slideToggle(350);
+            }
+        });
+    });
 });
 
 function GetArrowNamePrev() {

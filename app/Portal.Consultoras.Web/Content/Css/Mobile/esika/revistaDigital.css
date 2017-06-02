@@ -1528,7 +1528,48 @@ height: 100%;
     line-height: 12px;
 }
 
+.ept_preguntasRespuestas_accordion .box_pregunta_ept {
+    font-family: 'Lato';
+    font-size: 15px;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+.box_pregunta_ept:nth-child(2n){
+    margin-right:0;
 
+}
+.ept_preguntasRespuestas_accordion {
+    margin: 10px 0 30px;
+    overflow: hidden;
+    overflow: hidden;
+}
+.ept_preguntasRespuestas_accordion .text_respuesta_ept {
+	overflow: hidden;
+    display: none;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.box_pregunta_ept .tit_pregunta_ept {
+    cursor: pointer;
+    padding: 20px 20px 20px 0;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+}
+.box_pregunta_ept .tit_pregunta_ept:after {
+    content: "";
+    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    right: 0;
+    top: 20px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+}
+.descargarPreguntasRespuestas {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
 @media (min-width: 700px) {
     .texto_usuario_ept {
         padding-top: 42px;
