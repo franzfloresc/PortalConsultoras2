@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -90,6 +91,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
+                cuponModel.MontoLimiteFormateado = ObtenerMontoLimiteDelCupon();
+                
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -187,6 +190,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBE);
                 return cuponResult;
+            }
+        }
+
+        private string ObtenerMontoLimiteDelCupon()
+        {
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
+                list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 103).ToList();
+
+                var descripcion = list_segmentos.FirstOrDefault(x => x.Codigo == userData.CampaniaID.ToString()).Descripcion;
+                decimal montoLimite = (string.IsNullOrEmpty(descripcion) ? 0 : Convert.ToDecimal(descripcion));
+                string montoLimiteFormateado = String.Format("{0:0.00}", montoLimite);
+
+                return montoLimiteFormateado;
             }
         }
 
