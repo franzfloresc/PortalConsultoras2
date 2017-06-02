@@ -25,11 +25,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             Mapper.CreateMap<BECliente, ClienteMobileModel>()
                 .ForMember(t => t.Email, f => f.MapFrom(c => c.eMail))
                 .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
+                .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
+                .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+                .ForMember(t => t.TieneTelefono, f => f.MapFrom(c => c.TieneTelefono));
 
             var listaClienteModel = Mapper.Map<List<BECliente>, List<ClienteMobileModel>>(listaClientes);
 
             return View(listaClienteModel);
+        }
+
+        [HttpGet]
+        public PartialViewResult AgregarCliente(ClienteMobileModel model)
+        {
+            ModelState.Clear();
+
+            return PartialView(model);
         }
 
         [HttpPost]

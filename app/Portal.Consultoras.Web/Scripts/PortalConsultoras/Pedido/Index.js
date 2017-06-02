@@ -1126,7 +1126,10 @@ function ValidarClienteFocus() {
 }
 
 var ClienteDetalleOK = null;
-function showClienteDetalle(cliente, pClienteDetalleOK) {
+var ClienteDetalleCANCEL = null;
+var flagClienteDetalle = false;
+
+function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
     if (gTipoUsuario == '2') {
         var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
@@ -1153,7 +1156,29 @@ function showClienteDetalle(cliente, pClienteDetalleOK) {
             $("#divDetalleCliente").html(data);
             $('#divAgregarCliente').show();
 
-            ClienteDetalleOK = pClienteDetalleOK;
+            if($.isFunction(pClienteDetalleOK)) 
+            {
+                ClienteDetalleOK = pClienteDetalleOK;
+            }
+            else
+            {
+                ClienteDetalleOK = function (cliente) {
+                    $("#hdfClienteID").val(cliente.ClienteID);
+                    $("#hdnClienteID_").val(cliente.ClienteID);
+                    $("#txtClienteDescripcion").val(cliente.Nombre);
+                    $("#hdfClienteDescripcion").val(cliente.Nombre);
+                    //dataLayer.push({
+                    //    'event': 'virtualEvent',
+                    //    'category': 'Clientes',
+                    //    'action': 'Agregar',
+                    //    'label': 'Satisfactorio'
+                    //});
+                };
+            }
+
+            if ($.isFunction(pClienteDetalleCANCEL)) ClienteDetalleCANCEL = pClienteDetalleCANCEL;
+
+            flagClienteDetalle = true;
         },
         error: function (xhr, ajaxOptions, error) {
             alert('Error: ' + xhr.status + " - " + xhr.responseText);
@@ -1937,6 +1962,10 @@ function HorarioRestringido(mostrarAlerta) {
     return horarioRestringido;
 }
 
+var currentInputEdit = null;
+var currentInputClienteID = null;
+var currentInputClienteNombre = null;
+
 function CargarAutocomplete() {
     var array = $(".classClienteNombre");
     for (var i = 0; i < array.length; i++) {
@@ -1950,22 +1979,35 @@ function CargarAutocomplete() {
             select: function (event, ui) {
                 if (ui.item.ClienteID != 0) {
                     $(this).val(ui.item.Nombre);
+
                     var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
                     var hdfDes = this.id.replace('txtLPCli', 'hdfLPCliDes');
+
                     $('#' + hdf).val(ui.item.ClienteID);
                     $('#' + hdfDes).val(ui.item.Nombre);
 
-                    if (ui.item.TieneTelefono == 0) showClienteDetalle(ui.item, function (cliente) {
-                        $('#' + hdf).val(cliente.ClienteID);
-                        $('#' + hdfDes).val(cliente.Nombre);
+                    currentInputClienteID = $('#' + hdf);
+                    currentInputClienteNombre = $('#' + hdfDes);
+                    currentInputEdit = $(this);
 
-                        //dataLayer.push({
-                        //    'event': 'virtualEvent',
-                        //    'category': 'Clientes',
-                        //    'action': 'Agregar',
-                        //    'label': 'Satisfactorio'
-                        //});
-                    });
+                    if (ui.item.TieneTelefono == 0) {
+                        showClienteDetalle(ui.item, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
+
+                            currentInputEdit.blur();
+
+                            //dataLayer.push({
+                            //    'event': 'virtualEvent',
+                            //    'category': 'Clientes',
+                            //    'action': 'Agregar',
+                            //    'label': 'Satisfactorio'
+                            //});
+                        }, function () {
+                            if (currentInputEdit != null) currentInputEdit.focus();
+                        });
+                    }
                 }
 
                 isShown = false;
@@ -2887,6 +2929,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             }
             $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
+            $("#hdfLPCliIni" + PedidoDetalleID).val($('#hdfLPCli' + PedidoDetalleID).val());
+
             var nomCli = $("#ddlClientes option:selected").text();
             var simbolo = data.Simbolo;
             var monto = data.Total_Cliente;
@@ -3341,11 +3385,14 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 }
 
 function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+    if (flagClienteDetalle) return true;
+
     if (isShown)
         return true;
 
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
+ 
     if (cliAnt == cliNue) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;

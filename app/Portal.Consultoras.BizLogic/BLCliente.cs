@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
             bool deleted;
             var DACliente = new DACliente(paisID);
 
-            DACliente.DelCliente(consultoraID, clienteID, 0, out deleted);
+            DACliente.DelCliente(consultoraID, clienteID, out deleted);
             return deleted;
         }
 
@@ -245,7 +245,14 @@ namespace Portal.Consultoras.BizLogic
                     if (clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.Todos || clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
                     {
                         var deleted = false;
-                        daCliente.DelCliente(clienteDB.ConsultoraID, 0, clienteDB.ClienteID, out deleted);
+
+                        if (clienteDB.ClienteIDSB == 0)
+                        {
+                            var lstConsultoraCliente = this.SelectByConsultora(paisID, clienteDB.ConsultoraID).Where(x=>x.CodigoCliente == clienteDB.ClienteID);
+                            clienteDB.ClienteIDSB = (lstConsultoraCliente.Count() == 0 ? 0 : lstConsultoraCliente.First().ClienteID);
+                        }
+
+                        if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);
                     }
                 }
 

@@ -465,6 +465,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            
             if ($.isFunction(fnAceptar)) {
                 $('#popupInformacionValidado .btn_ok_mobile').off('click');
                 $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
@@ -474,6 +475,22 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');
+
+            if ($.isFunction(fnAceptar)) {
+                $('.ui-dialog .ui-button').off('click');
+                $('.ui-dialog .ui-button').on('click', function () {
+                    $('#alertDialogMensajes').dialog('close');
+                    fnAceptar();
+                });
+
+                $('.ui-dialog .ui-icon-closethick').off('click');
+                $('.ui-dialog .ui-icon-closethick').on('click', function () {
+                    $('#alertDialogMensajes').dialog('close');
+                    fnAceptar();
+                });
+            }
+
+            $('.ui-dialog .ui-button').focus();
         }
         CerrarLoad();
     } catch (e) {

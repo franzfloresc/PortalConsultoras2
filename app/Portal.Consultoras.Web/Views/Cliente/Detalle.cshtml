@@ -102,6 +102,9 @@
         var div = $('#divAgregarCliente');
         var vcont = 0;
 
+        $('#divNotiNombre').hide();
+        $('#divNotiCorreo').hide();
+
         if (jQuery.trim($(div).find('#Nombre').val()) == "") {
             vcont++;
             $('#divNotiNombre').show();
@@ -150,15 +153,18 @@
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data.success == true) {
-                        AbrirMensaje(data.message);
                         CerrarSplash();
-
-                        $(div).hide();
 
                         item.CodigoCliente = data.extra.split("|")[0];
                         item.ClienteID = data.extra.split("|")[1];
 
-                        if (ClienteDetalleOK != null) ClienteDetalleOK(item);
+                        AbrirMensaje(data.message, null, function () {
+                            flagClienteDetalle = false;
+
+                            if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
+                        });
+
+                        $('#divAgregarCliente').hide();
                     }
                     else {
                         alert(data.message);
@@ -168,7 +174,7 @@
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    $(div).hide();
+                    CerrarClienteDetalle();
                     alert(data.message);
                 }
             }
@@ -179,6 +185,10 @@
         $('#divAgregarCliente').hide();
         $('#divNotiNombre').hide();
         $('#divNotiCorreo').hide();
+
+        flagClienteDetalle = false;
+
+        if ($.isFunction(ClienteDetalleCANCEL)) ClienteDetalleCANCEL();
 
         return false;
     }

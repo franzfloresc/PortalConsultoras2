@@ -80,12 +80,11 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int DelCliente(long ConsultoraID, int ClienteID, long CodigoCliente, out bool Deleted)
+        public int DelCliente(long ConsultoraID, int ClienteID, out bool Deleted)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCliente");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
-            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, CodigoCliente);
             Context.Database.AddOutParameter(command, "@Deleted", DbType.Boolean, 1);
 
             int result = Context.ExecuteNonQuery(command);
