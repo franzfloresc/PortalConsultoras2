@@ -617,7 +617,7 @@
             <hr class="clear" />
             <div class="descripcion_producto_carrito">{{Split DescripcionProd '|' 0}}</div>
             <div class="marca_belcorp" style="font-size: 13px;">x{{Cantidad}}</div>
-            <div class="precio_carrito">{{../Simbolo}}{{ImporteTotal}}</div>
+            <div class="precio_carrito">{{{../Simbolo}}}{{ImporteTotal}}</div>
         </div>
         {{/each}}
         <!--FIN-->
@@ -793,9 +793,9 @@
                                     <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}
-                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{../Simbolo}} {{detalle.PrecioCatalogoFormat}}</span></div>
+                                    <div class="valorizado_carrusel_ODD">VALORIZADO EN <span>{{{../Simbolo}}} {{detalle.PrecioCatalogoFormat}}</span></div>
                                     {{/iff}}
-                                    <div class="precio_carrusel_ODD">{{../Simbolo}} {{detalle.PrecioOfertaFormat}}</div>
+                                    <div class="precio_carrusel_ODD">{{{../Simbolo}}} {{detalle.PrecioOfertaFormat}}</div>
                                 </div>
                                 <div style="text-align: center">
                                     <div class="liquidacion_rango_home js-no-popup">
