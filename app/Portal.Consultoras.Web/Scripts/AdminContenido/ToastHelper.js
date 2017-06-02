@@ -6,7 +6,6 @@ var ToastHelper = function () {
 
     var _error = function (message) {
         $.toast({
-            heading: 'Error',
             text: message,
             showHideTransition: 'fade',
             position: 'top-right',
@@ -19,7 +18,6 @@ var ToastHelper = function () {
 
     var _success = function (message) {
         $.toast({
-            heading: 'success',
             text: message,
             showHideTransition: 'fade',
             position: 'top-right',
