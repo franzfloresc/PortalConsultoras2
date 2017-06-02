@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public string UsuarioCreacion { get; set; }
         public string UsuarioModificacion { get; set; }
         public string TipoCupon { get; set; }
+        public string MontoLimiteFormateado { get; set; }
 
         public string CodigoISO { get; set; }
         public string FormatoValorAsociado

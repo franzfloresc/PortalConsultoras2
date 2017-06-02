@@ -46,6 +46,8 @@
         ContenedorMensajeErrorCelular: '#Cupon1 .seccion-celular .mensaje_alerta_cupon1',
         IconoMensajeErrorCelular: '#Cupon1 .seccion-celular .icono_alerta_cupon',
         ContenedorMensajeErrorTerminosCondiciones: '#Cupon1 .seccion-terminos-condiciones .mensaje_alerta_cupon1',
+        ContenedorMontoLimitePopupGana: '#Cupon1 .cupon-monto-limite',
+        ContenedorMontoLimitePopupGanaste: '#Cupon3 .cupon-monto-limite'
     };
 
     var setting = {
@@ -233,6 +235,13 @@
         $("div#chckTerminosCondiciones").addClass('check_intriga');
         $(elements.ContenedorTituloGana).empty();
         $(elements.ContenedorTituloGana).append(valor);
+        $(elements.ContenedorMontoLimitePopupGana).empty();
+        if ($(elements.ContenedorMontoLimitePopupGana).parents('.content_monto_cupon').length > 0) {
+            $(elements.ContenedorMontoLimitePopupGana).append('<center>Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '</center>*No aplica para productos en liquidación web.');
+        } else {
+            $(elements.ContenedorMontoLimitePopupGana).append('Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '<br/>*No aplica para productos en liquidación.');
+        }
+
         ocultarTodosLosMensajesError();
         mostrarPopupGana();
     }
@@ -425,6 +434,9 @@
         $(elements.ContenedorTexto02Ganaste).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).empty();
         $(elements.ContenedorTextoDetalleCuponCampania).append("Sólo válido en la campaña C" + campania);
+        $(elements.ContenedorMontoLimitePopupGanaste).empty();
+        $(elements.ContenedorMontoLimitePopupGanaste).append('Tu dscto lo verás reflejado en tu <br/>facturación (dscto hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + ')');
+        
         $(elements.PopupGanaste).show();
         $(elements.PopupCuponGana).hide();
         $(elements.PopupConfirmacion).hide();
