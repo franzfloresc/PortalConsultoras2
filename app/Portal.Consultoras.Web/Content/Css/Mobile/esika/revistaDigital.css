@@ -1554,6 +1554,7 @@ height: 100%;
     padding: 20px 20px 20px 0;
     font-size: 14px;
     line-height: 17px;
+    font-weight: 700;
 }
 .box_pregunta_ept .tit_pregunta_ept:after {
     content: "";

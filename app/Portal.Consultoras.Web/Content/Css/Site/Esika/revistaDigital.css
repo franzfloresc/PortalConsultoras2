@@ -1769,6 +1769,7 @@
     height: 75px;
     font-size: 14px;
     line-height: 17px;
+    font-weight: 700;
 }
 .box_pregunta_ept .tit_pregunta_ept:after {
     content: "";
