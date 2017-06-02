@@ -80,31 +80,12 @@
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
-                @{
-                    if (nroCampania == "")
-                    {
-                        <span>-</span>
-                    }
-                    else
-                    {
-                        <span>C@(nroCampania)</span>
-                    }
-                }
+                <span> @(nroCampania == "" ? "-" : ("C" + nroCampania))</span>
             </div>
-            @if (ViewBag.Dias == 0)
-            {
-                <div class="info_cam_belcorp2">
-                    EL CIERRE ES
-                    <span>Hoy</span>
-                </div>
-            }
-            else
-            {
-                <div class="info_cam_belcorp2">
-                    EL CIERRE ES EN
-                    <span>@ViewBag.Dias d&iacute;as</span>
-                </div>
-            }
+            <div class="info_cam_belcorp2">
+                EL CIERRE ES @(ViewBag.Dias == 0 ? "" : "EN")
+                <span>@(ViewBag.Dias == 0 ? "Hoy" : (ViewBag.Dias + "días"))</span>
+            </div>
         </div>
         <div class="pedido_resumen_home">
             <div class="mensaje_cierre_fechapromesa">
@@ -2430,7 +2411,7 @@
         </div>
         <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
             <div class="popup_rd_text">
-                <div class="popup_saludo">@Model.SobreNombre.ToUpper(), RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
+                <div class="popup_saludo">@Model.SobreNombre, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
                 <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
                 <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
                 <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>
@@ -2472,8 +2453,8 @@
         </div>
         <div class="popup_rd_content" style="background-color: #f2eeef">
             <div class="popup_rd_text">
-                <div class="popup_saludo">¡FELICIDADES @Model.SobreNombre.ToUpper() ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
-                <div class="rd_desc" style="top: 70px;">A partir de la C-@Model.CampaniaMasDos tu revista online reemplazará a tu revista impresa.</div>
+                <div class="popup_saludo" style="font-size: 15px;">¡FELICIDADES @Model.SobreNombre ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
+                <div class="rd_desc" style="top: 75px;">A partir de la C-@Model.CampaniaMasDos tu revista online reemplazará a tu revista impresa.</div>
                 <div class="btn_diagonal"><a href="javascript: RDSuscripcionRedireccionar()">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
                 <div class="rd_desc" style="top: 210px;">Para cancelar tu inscripción 
                     <a href="javascript: RDRedireccionarDesuscripcion()" style="display: inline-block; text-decoration: underline;">ingresa aquí.</a>

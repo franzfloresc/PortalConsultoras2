@@ -900,9 +900,9 @@ div#tab_revistasdigital_mobile {
 
 .logo_EPT_content{
     width: 35%;
-    height: 112px;
-    text-align:right;
-    padding-right:20px;
+    height: 100px;
+    text-align: center;
+    padding-right: 10px;
     float: left;
     position: relative;
     background: rgba(177,19,20,1);
@@ -926,8 +926,8 @@ div#tab_revistasdigital_mobile {
     float: left;
     width: 65%;
     background: black;
-    height: 112px;
-    font-size: 14px;
+    height: 100px;
+    font-size: 13px;
     padding-top: 25px;
     padding-left: 17px;
     padding-right: 14px;
@@ -944,7 +944,7 @@ div#tab_revistasdigital_mobile {
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 0 112px 20px;
+    border-width: 0 0 100px 20px;
     border-color: transparent transparent #000000 transparent;
 }
 .content_carrusel_landing{
@@ -1356,7 +1356,11 @@ height: 100%;
     color: #e81c36;
     font-weight: 700;
 }
+.mpopup_inscripcion {
+    text-align: center;
+}
 .mpopup_inscripcion img {
+    max-width: 320px;
     margin: 4% 0;
 }
 .btn_bpt {
@@ -1425,7 +1429,7 @@ height: 100%;
 .mob_rd_confirmacion .mpopup_text {
     letter-spacing: 0.5px;
     line-height: 17px;
-    margin: 30px 0;
+    margin: 30px 0 50px;
 }
 .mob_rd_confirmacion .mpopup_textleg {
     text-align: left;
@@ -1434,12 +1438,166 @@ height: 100%;
     position: absolute;
     bottom: 0;
     right: -30px;
-    width: 52%;
+    width: 58%;
 }
 
-@media (min-width: 460px){
-    .mpopup_text  div {
-        margin-bottom: 10px;
+/*EPT PREGUNTAS FRECUENTES*/
+.ept_content_preguntas {
+    font-family:'Lato';
+}
+.box_beneficios_ept {
+    position: relative;
+}
+.beneficios_ept {
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+.tit_preguntas {
+    font-weight: 900;
+    line-height: 17px;
+    margin: 20px 0;
+    letter-spacing: 1px;
+}
+.tit_beneficios_ept {
+    display: inline-block;
+    color: #e81c36;
+    font-size: 18px;
+    font-weight: 600;
+    width: 36%;
+    vertical-align: -webkit-baseline-middle;
+}
+.tit_beneficios_ept span {
+    font-size: 22px; 
+}
+.beneficios_ept_img {
+    position: relative;
+    bottom: -22px;
+    z-index: -1;
+    text-align: center;
+}
+.beneficios_ept_img img {
+    max-width: 400px;
+}
+.desc_beneficios_ept {
+    display: inline-block;
+    width: 60%;
+    line-height: 16px;
+    vertical-align: -webkit-baseline-middle;
+}
+.box_comofunciona_ept {
+    background-color: #EEEEEE;
+    padding: 40px 20px;
+}
+.box_comofunciona_ept img {
+    margin: 20px 0;
+}
+.tit_light_ept {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 22px;
+}
+.box_preguntas_ept {
+    margin: 60px 0 40px;
+}
+.box_cancelarInscripcion_ept {
+    background: #eeeeee;
+    text-align: center;
+    padding-bottom: 60px;
+}
+.box_cancelarInscripcion_ept p {
+    letter-spacing: 1px;
+    line-height: 17px;
+    margin: 30px 0;
+}
+.box_cancelarInscripcion_ept .tit_preguntas {
+    padding: 0 40px;
+    margin: 20px auto;
+}
+.btn_cancelarInscripcion_ept {
+    margin: 20px 0 70px;
+}
+.btn_cancelarInscripcion_ept a {
+    border: 1px solid black;
+    padding: 13px 36px;
+}
+.text_legal_ept {
+    width: 90%;
+    margin: auto;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 12px;
+}
+
+.ept_preguntasRespuestas_accordion .box_pregunta_ept {
+    font-family: 'Lato';
+    font-size: 15px;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+.box_pregunta_ept:nth-child(2n){
+    margin-right:0;
+
+}
+.ept_preguntasRespuestas_accordion {
+    margin: 10px 0 30px;
+    overflow: hidden;
+    overflow: hidden;
+}
+.ept_preguntasRespuestas_accordion .text_respuesta_ept {
+	overflow: hidden;
+    display: none;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.box_pregunta_ept .tit_pregunta_ept {
+    cursor: pointer;
+    padding: 20px 20px 20px 0;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+}
+.box_pregunta_ept .tit_pregunta_ept:after {
+    content: "";
+    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    right: 0;
+    top: 20px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+}
+.descargarPreguntasRespuestas {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+@media (min-width: 700px) {
+    .texto_usuario_ept {
+        padding-top: 42px;
+    }
+}
+@media (min-width: 397px) and (max-width: 767px) {
+    .texto_usuario_ept {
+        padding-top: 35px;
+    }
+}
+@media (min-width: 700px) {
+    .beneficios_ept_img {
+        position: absolute;
+        bottom: -15px;
+        right: 0;
+        text-align: right;
+    }
+    .beneficios_ept_img img {
+        max-width: 70%;
+    }
+    .box_comofunciona_ept {
+        margin-top: 40px;
+    }
+}
+
+@media (min-width: 460px) {
+    .mpopup_text div {
+        margin-bottom: 0px;
     }
     .mpopup_text .mtit {
         font-size: 18px;
@@ -1458,4 +1616,45 @@ height: 100%;
     .mpopup_rd {
         margin-top: -284px;
     }
+}
+
+
+.revistadigital-detalle-titulo {
+    height: 50px;
+}
+
+.revistadigital-detalle-titulo .logo_EPT_content{
+        background:black;
+        height: 50px;
+        padding-top:0;
+}
+.revistadigital-detalle-titulo .logo_EPT_content span{
+
+        font-size: 13px;
+        padding-left: 15%;
+}
+.revistadigital-detalle-titulo .texto_usuario_ept {
+    height: 50px;
+    padding-top: 0;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+}
+
+.revistadigital-detalle-titulo .logo_EPT_content:after {
+    content: '';
+    position: absolute;
+    right: -25px;
+    top: 0;
+    z-index: 102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 25px 13px 25px 13px;
+    border-color: black transparent transparent black;
 }

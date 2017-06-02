@@ -9,7 +9,7 @@
     var tipoUsuaio = ViewBag.TipoUsuario;
 }
 
-<div class="botones" id="ulNavPrincipal">
+<div class="botones" id="ulNavPrincipal" data-menu-count="@(itemsMenu.Count())">
     <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido"
        class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
 
@@ -19,7 +19,7 @@
     {
         <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
            class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
-           href="@item.UrlItem" @item.OnClickFunt
+           href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
            id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
             @if (item.UrlImagen != "")
             {

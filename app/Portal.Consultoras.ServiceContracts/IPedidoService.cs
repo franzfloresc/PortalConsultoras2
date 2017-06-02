@@ -1083,6 +1083,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
+        
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+        
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
             

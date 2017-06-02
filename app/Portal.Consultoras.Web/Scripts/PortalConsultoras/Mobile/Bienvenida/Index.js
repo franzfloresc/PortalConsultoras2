@@ -344,6 +344,7 @@ function CargarPopupsConsultora() {
     if (viewBagVioTutorial != '0' && noMostrarPopUpRevistaDig == 'False') {
         //$("#PopRDSuscripcion").show();
         AbrirPopupFade("#PopRDSuscripcion");
+        MostrarPopupRDAnalytics();
     }
 };
 

@@ -113,20 +113,9 @@ function ArmarCarouselEstrategias(data) {
     data.Lista = EstructurarDataCarousel(data.Lista);
     arrayOfertasParaTi = data.Lista;
 
-    //var obj = new Object();
-    //obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    ////obj.CodigoEstrategia = "101";
-    //obj.Lista = data;
-    //obj.Consultora = usuarioNombre.toUpperCase();
-    //obj.Titulo = obj.Consultora + ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-    //obj.TituloDescripcion = tipoOrigenEstrategia == 1
-    //    ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
-    //    : tipoOrigenEstrategia == 2  
-    //        ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
-    //        : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
-
     SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     $('#divListaEstrategias').show();
+    $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
 
     if (tipoOrigenEstrategia == 11) {
@@ -138,6 +127,10 @@ function ArmarCarouselEstrategias(data) {
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
     
+
+    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
+        return false;
+    }
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
@@ -200,7 +193,6 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 2) {
         $('#div-linea-OPT').show();
-        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
         
         $('#divListadoEstrategia').slick({
@@ -230,7 +222,6 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 21) {
-        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
         $('#divListadoEstrategia').slick({
             slidesToShow: 4,

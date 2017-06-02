@@ -849,9 +849,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         // model.FechaFinCampania; fecha de fin de  la campaña
                                         // model.ConsultoraNueva; referencia de la columna idestadoactividad 
                                         // Validacion de la fecha de cierre de campaña y  del idestadoactividad
+                                        // metodo GetDiasFaltantesFacturacion => model.FechaActualPais.Date >= model.FechaInicioCampania.Date
+                                        //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                         if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
-                                            && DateTime.Now < model.FechaFinCampania.AddDays(-1)
-                                            //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
+                                            && model.FechaActualPais.Date < model.FechaInicioCampania.Date 
                                             )
                                         {
                                             //obtiene datos de Revista digital suscripcion.

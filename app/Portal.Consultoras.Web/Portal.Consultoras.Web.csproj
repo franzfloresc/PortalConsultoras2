@@ -384,6 +384,7 @@
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
+    <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -3419,6 +3420,9 @@
     <None Include="Service References\ServicePedido\PedidoService6.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService7.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4072,8 +4076,8 @@
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
-    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
+    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
@@ -4289,6 +4293,7 @@
     <Content Include="Views\CrossSelling\AdministracionCrossSelling.cshtml" />
     <Content Include="Views\CrossSelling\AsociacionCrossSelling.cshtml" />
     <Content Include="Views\SolicitudCredito\DetalleCreditoAR.cshtml" />
+    <Content Include="Views\Pruebas\Index.cshtml" />
     <Content Include="Views\AdministrarLugaresPago\Index.cshtml" />
     <Content Include="Views\AdministrarIncentivos\Index.cshtml" />
     <Content Include="Views\AdministrarBelcorpNoticias\Index.cshtml" />

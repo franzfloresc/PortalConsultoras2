@@ -534,6 +534,8 @@
 
         public class MenuCodigo
         {
+            public const string RevistaShowRoom = "ShowRoom";
+            public const string MiNegocio = "MiNegocio";
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";

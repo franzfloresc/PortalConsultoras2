@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -36,13 +37,14 @@ namespace Portal.Consultoras.Web.Controllers
                 ZonaHoraria = usuario.ZonaHoraria,
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true,
-                CodigoAgrupacion = "",
-                Simbolo = userData.Simbolo
+                Simbolo = userData.Simbolo,
+                CodigoAgrupacion = ""
             };
             
-            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                 entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
+                
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -62,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (beEstrategia.Precio2 <= 0)
                         continue;
 
-                    if (beEstrategia.Precio >= beEstrategia.Precio2)
+                    if (beEstrategia.Precio <= beEstrategia.Precio2)
                         beEstrategia.Precio = Convert.ToDecimal(0.0);
                     beEstrategia.Simbolo = userData.Simbolo;
                     beEstrategia.TieneStockProl = true;
@@ -304,6 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
                     if (listadescr.Length > 2)
                     {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
                         estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
                     }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
