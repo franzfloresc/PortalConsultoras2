@@ -2107,7 +2107,7 @@ namespace Portal.Consultoras.BizLogic
                 if (validarGPR && configuracion.IndicadorGPRSB == 1) {
                     return new BEValidacionModificacionPedido {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", campania.Substring(4, 2))
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
                     };
                 }
                 if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
@@ -2121,7 +2121,7 @@ namespace Portal.Consultoras.BizLogic
             }
             if(validarHorario)
             {
-                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario);
+                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
                 if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
                 {
                     return new BEValidacionModificacionPedido
@@ -2134,7 +2134,7 @@ namespace Portal.Consultoras.BizLogic
             return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
         }
 
-        private string ValidarHorarioRestringido(BEUsuario usuario)
+        private string ValidarHorarioRestringido(BEUsuario usuario, int campania)
         {
             DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
             if (!usuario.HabilitarRestriccionHoraria) return null;
@@ -2149,7 +2149,7 @@ namespace Portal.Consultoras.BizLogic
             if (!enHorarioRestringido) return null;
 
             TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
-            return string.Format(" En este momento nos encontramos facturando tu pedido de C-XX. Todos los códigos ingresados hasta las {0} horas han sido registrados en el sistema. Gracias!", horaCierre.ToString(@"hh\:mm"));
+            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
         
         /*EPD-2248*/

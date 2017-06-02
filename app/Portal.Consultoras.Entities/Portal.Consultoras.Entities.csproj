@@ -62,6 +62,11 @@
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraCliente.cs" />
+    <Compile Include="DEPalabra.cs" />
+    <Compile Include="DEChatbotProactivaMensaje.cs" />
+    <Compile Include="BEEstrategiaDetalle.cs" />
+    <Compile Include="BEMatrizComercialImagen.cs" />
+    <Compile Include="DEChatbotProactivaResultado.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
     <Compile Include="BEConsultoraClienteResponse.cs" />
     <Compile Include="BEContactoCliente.cs" />

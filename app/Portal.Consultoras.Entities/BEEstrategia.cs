@@ -53,26 +53,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImagenURL { get; set; }
         [DataMember]
-        public string FotoProducto01 { get; set; }
-        [DataMember]
-        public string FotoProducto02 { get; set; }
-        [DataMember]
-        public string FotoProducto03 { get; set; }
-        [DataMember]
-        public string FotoProducto04 { get; set; }
-        [DataMember]
-        public string FotoProducto05 { get; set; }
-        [DataMember]
-        public string FotoProducto06 { get; set; }
-        [DataMember]
-        public string FotoProducto07 { get; set; }
-        [DataMember]
-        public string FotoProducto08 { get; set; }
-        [DataMember]
-        public string FotoProducto09 { get; set; }
-        [DataMember]
-        public string FotoProducto10 { get; set; }
-        [DataMember]
         public int EtiquetaID { get; set; }
         [DataMember]
         public int EtiquetaID2 { get; set; }
@@ -177,9 +157,63 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
         
+         [DataMember]
+        public int IdMatrizComercial { get; set; }
+        [DataMember]
+        public string FotoProducto01 { get; set; }
+        // Campos solo para la estrategia de lanzamiento...
+        [DataMember]
+        public string ImgFondoDesktop { get; set; }
+        [DataMember]
+        public string ImgPrevDesktop { get; set; }
+        [DataMember]
+        public string ImgFichaDesktop { get; set; }
+        [DataMember]
+        public string UrlVideoDesktop { get; set; }
+        [DataMember]
+        public string ImgFondoMobile { get; set; }
+        [DataMember]
+        public string ImgFichaMobile { get; set; }
+        [DataMember]
+        public string UrlVideoMobile { get; set; }
+        [DataMember]
+        public string ImgFichaFondoDesktop { get; set; }
+        [DataMember]
+        public string ImgFichaFondoMobile { get; set; }
+        [DataMember]
+        public string CodigoTipoEstrategia { get; set; }
+        
         public BEEstrategia()
         { }
 
+          
+        public BEEstrategia(IDataRecord row, bool partial)
+        {
+
+            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
+                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
+
+            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
+                DescripcionCUV2 = row["DescripcionCUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
+                CUV2 = row["CUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
+                Precio2 = Convert.ToDecimal(row["Precio2"]);
+
+            if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
+                ID = Convert.ToInt32(row["ID"]);
+
+            if (DataRecord.HasColumn(row, "OfertaUltimoMinuto") && row["OfertaUltimoMinuto"] != DBNull.Value)
+                FlagMostrarImg = Convert.ToInt32(row["OfertaUltimoMinuto"]);
+
+            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+                CodigoProducto = row["CodigoProducto"].ToString();
+
+        }
+
+        
         public BEEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
@@ -266,27 +300,6 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
 
-            if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
-                FotoProducto01 = row["FotoProducto01"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto02") && row["FotoProducto02"] != DBNull.Value)
-                FotoProducto02 = row["FotoProducto02"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto03") && row["FotoProducto03"] != DBNull.Value)
-                FotoProducto03 = row["FotoProducto03"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto04") && row["FotoProducto04"] != DBNull.Value)
-                FotoProducto04 = row["FotoProducto04"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto05") && row["FotoProducto05"] != DBNull.Value)
-                FotoProducto05 = row["FotoProducto05"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto06") && row["FotoProducto06"] != DBNull.Value)
-                FotoProducto06 = row["FotoProducto06"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto07") && row["FotoProducto07"] != DBNull.Value)
-                FotoProducto07 = row["FotoProducto07"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto08") && row["FotoProducto08"] != DBNull.Value)
-                FotoProducto08 = row["FotoProducto08"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto09") && row["FotoProducto09"] != DBNull.Value)
-                FotoProducto09 = row["FotoProducto09"].ToString();
-            if (DataRecord.HasColumn(row, "FotoProducto10") && row["FotoProducto10"] != DBNull.Value)
-                FotoProducto10 = row["FotoProducto10"].ToString();
-
             if (DataRecord.HasColumn(row, "ColorFondo") && row["ColorFondo"] != DBNull.Value)
                 ColorFondo = row["ColorFondo"].ToString();
 
@@ -352,6 +365,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
                 TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
+
+            if (DataRecord.HasColumn(row, "IdMatrizComercial") && row["IdMatrizComercial"] != DBNull.Value)
+                IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
+
+            if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
+                FotoProducto01 = row["FotoProducto01"].ToString();
         }
     }
     // 1747 - Inicio

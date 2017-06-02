@@ -7,7 +7,7 @@ function Init() {
     FB.getLoginStatus(function (response) {
         CloseLoading();
         if (response.status === 'connected') ValidarUsuarioFBAsociado(response);
-        else LoginFB();
+        //else LoginFB();
     });
 
     $('#btnLoginFB').on('click', LoginFB);

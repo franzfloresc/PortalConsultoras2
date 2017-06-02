@@ -54,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
 
             var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
+            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
             var model = listaShowRoomOfertaModel.FirstOrDefault();
             model.Simbolo = userData.Simbolo;
 
@@ -326,7 +327,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.OfertaEstrategia.ToString(),
                                 a.Estado.ToString(),
                                 a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString()
+                                a.TieneCompraXcompra.ToString(),
+                                a.TieneSubCampania.ToString()
                             }
                         }
                 };
@@ -787,6 +789,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     ent.Descripcion = values[6].Trim().Replace("\"", "");
                                     ent.CodigoCategoria = values[7].Trim().Replace("\"", "");
                                     ent.TipNegocio = values[8].Trim().Replace("\"", "");
+                                    ent.EsSubCampania = int.Parse(values[9].Trim().Replace("\"", "")) == 1;
 
                                     if (ent.Stock >= 0)
                                         lstStock.Add(ent);
@@ -863,26 +866,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             sv.DeleteInsertShowRoomCategoriaByEvento(userData.PaisID, hdCargaStockEventoID, listaCategoria.ToArray());
                         }
-
-                        /*
-                        List<BEShowRoomOferta> lstStock2 = new List<BEShowRoomOferta>();
-                        foreach(var item in lstStock) 
-                        {
-                            var a = new BEShowRoomOferta();
-                            a.ISOPais = item.ISOPais;
-                            a.TipoOfertaSisID = item.TipoOfertaSisID;
-                            a.CampaniaID = item.CampaniaID;
-                            a.CUV = item.CUV;
-                            a.Stock = item.Stock;
-                            a.PrecioOferta = item.PrecioOferta;
-                            a.UnidadesPermitidas = item.UnidadesPermitidas;
-                            a.Descripcion = item.Descripcion;
-                            a.CodigoCategoria = item.CodigoCategoria;
-                            a.TipNegocio = item.TipNegocio;
-                            //a.PrecioOferta2 = item.PrecioOferta2;
-                            lstStock2.Add(a);
-                        }
-                         * */
 
                         for (int i = 0; i < lstPaises.Count; i++)
                         {
@@ -1198,9 +1181,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "TipoOferta":
-                            items = lst.OrderBy(x => x.Descripcion);
-                            break;
                         case "CodigoProducto":
                             items = lst.OrderBy(x => x.CodigoProducto);
                             break;
@@ -1234,9 +1214,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     switch (sidx)
                     {
-                        case "TipoOferta":
-                            items = lst.OrderByDescending(x => x.Descripcion);
-                            break;
                         case "CodigoProducto":
                             items = lst.OrderByDescending(x => x.CodigoProducto);
                             break;
@@ -1289,9 +1266,8 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.NroOrden,
                                cell = new[] 
                                {
-                                   a.TipoOferta,
+                                   a.CodigoTipoOferta.Trim(),
                                    a.CodigoProducto,
-                                   a.CodigoCampania,
                                    a.CUV,
                                    a.Descripcion,
                                    a.PrecioValorizado.ToString("#0.00"),
@@ -1300,17 +1276,14 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Stock.ToString(),
                                    a.StockInicial.ToString(),
                                    a.UnidadesPermitidas.ToString(),
-                                   a.ImagenProducto,
-                                   a.ImagenMini,
-                                   a.CampaniaID.ToString() ,
-                                   a.Stock.ToString(),
-                                   a.UnidadesPermitidas.ToString(),
-                                   a.FlagHabilitarProducto.ToString(),
+                                   a.CampaniaID.ToString(),
                                    a.OfertaShowRoomID.ToString(),
-                                   a.CodigoTipoOferta.Trim(),
-                                   a.ISOPais,
+                                   a.FlagHabilitarProducto.ToString(),
                                    a.ConfiguracionOfertaID.ToString(),
-                                   a.CodigoProducto                                   
+                                   a.EsSubCampania.ToString(),
+                                   a.CodigoCampania,
+                                   a.ImagenProducto,
+                                   a.ImagenMini                                                          
                                 }
                            }
                 };
@@ -1322,6 +1295,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
+            List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -1329,21 +1303,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            lstFinal.Add(new BEMatrizComercial { IdMatrizComercial = lst[0].IdMatrizComercial,
+                CodigoSAP = lst[0].CodigoSAP, Descripcion = lst[0].Descripcion, PaisID = lst[0].PaisID});
 
             if (lst != null && lst.Count > 0)
             {
-                if (lst[0].FotoProducto01 != "")
-                    lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[0].FotoProducto != "")
+                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto02 != "")
-                    lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[1].FotoProducto != "")
+                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                if (lst[2].FotoProducto != "")
+                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
             }
             return Json(new
             {
-                lista = lst
+                lista = lstFinal
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -1461,7 +1437,8 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.ImagenMini, f => f.MapFrom(c => c.ImagenMini))
                     .ForMember(t => t.Incrementa, f => f.MapFrom(c => c.Incrementa))
                     .ForMember(t => t.CantidadIncrementa, f => f.MapFrom(c => c.CantidadIncrementa))
-                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado));
+                    .ForMember(t => t.FlagAgotado, f => f.MapFrom(c => c.Agotado))
+                    .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => c.EsSubCampania));           
 
                 BEShowRoomOferta entidad = Mapper.Map<ShowRoomOfertaModel, BEShowRoomOferta>(model);
 
@@ -2784,10 +2761,19 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Limite > 0)
                     listaFinal = listaFinal.Take(model.Limite).ToList();
 
-                listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+                //listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
 
                 int cantidad = listaFinal.Count;
 
+                foreach (var producto in listaFinal)
+                {
+                    if (producto.EsSubCampania)
+                    {
+                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
+                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
+                    }
+                    producto.UrlCompartir = GetUrlCompartirFB();
+                }
                 return Json(new
                 {
                     success = true,
@@ -2909,6 +2895,9 @@ namespace Portal.Consultoras.Web.Controllers
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
 
                     var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+
+                    if (model.EnviarParametrosUTMs)
+                        cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", CorreoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                 }

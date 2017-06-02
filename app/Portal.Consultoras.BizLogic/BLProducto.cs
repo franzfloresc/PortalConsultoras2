@@ -143,30 +143,46 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEProducto> SearchSmartListProductoByCampaniaRegionZonaDescripcion(string paisISO, int campaniaID,
             int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount)
         {
-            IList<BEProducto> productos = new List<BEProducto>();
+            IList<BEProducto> listProducto = new List<BEProducto>();
             var bLProductoPalabra = new BLProductoPalabra();            
             var listTextoCandidato = bLProductoPalabra.GetListCandidatoFromTexto(paisISO, campaniaID, textoBusqueda, 2, 1);
-            if (listTextoCandidato.Count == 0) return productos;
+            if (listTextoCandidato.Count == 0) return listProducto;
             
-            BEProducto producto = null;
-            var dAProducto = new DAProducto(Util.GetPaisID(paisISO));
+            var paisID = Util.GetPaisID(paisISO);
+            var dAProducto = new DAProducto(paisID);
             var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
-            var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]);
+            var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]).Select(p => p.ToLower()).ToList();
 
-            using (IDataReader reader = dAProducto.GetByCampaniaAndZonaAndPalabras(campaniaID, zonaID, codigoRegion, codigoZona, rowCount, listPalabra))
+            listProducto = CacheManager<BEProducto>.GetData(paisID, ECacheItem.Producto, campaniaID.ToString());
+            if (listProducto != null && listProducto.Count > 0)
             {
-                while (reader.Read())
+                listProducto = listProducto.Select(producto => new {
+                    Producto = producto,
+                    Repeticion = listPalabra.Count(palabra => producto.TextoBusqueda.ToLower().Contains(palabra))
+                })
+                    .Where(pp => pp.Repeticion > 0).OrderByDescending(pp => pp.Repeticion).ThenBy(pp => pp.Producto.CUV)
+                    .Select(pp => pp.Producto).Take(rowCount).ToList();
+
+                dAProducto.SetTieneStockByCampaniaAndZonaAndProductos(campaniaID, zonaID, codigoRegion, codigoZona, listProducto.ToList());
+            }
+            else
+            {
+                listProducto = new List<BEProducto>();
+                using (IDataReader reader = dAProducto.GetByCampaniaAndZonaAndPalabras(campaniaID, zonaID, codigoRegion, codigoZona, rowCount, listPalabra))
                 {
-                    producto = new BEProducto(reader);
-                    if ((producto.CUVRevista ?? "").Trim() != "")
-                    {
-                        producto.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
-                        producto.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
-                    }
-                    productos.Add(producto);
+                    while (reader.Read()) listProducto.Add(new BEProducto(reader));
                 }
             }
-            return productos;
+
+            listProducto.ToList().ForEach(p =>
+            {
+                if ((p.CUVRevista ?? "").Trim() != "")
+                {
+                    p.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
+                    p.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
+                }
+            });
+            return listProducto;
         }
 
         public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)

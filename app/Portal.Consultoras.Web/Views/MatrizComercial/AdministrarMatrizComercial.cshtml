@@ -1,32 +1,43 @@
 ﻿@model Portal.Consultoras.Web.Models.MatrizComercialModel
 @{
     ViewBag.Title = "Administración Matriz Comercial";
-    string imagenVacia = "prod_grilla_vacio.png";
-    int nroImagenes = 10;
-    string idControl;
 }
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercial.js")" type="text/javascript"></script>
+
 <script type="text/javascript">
     var paisNombre = "";
     var isoPAIS = "";
     var paisID = 11;
-    var nroImagenes = '@nroImagenes';
-    var imagenVacia = '@imagenVacia';
+    var matrizComercialObj;
+    var numeroImagenesPorPagina = 10;
 
     jQuery(document).ready(function () {
+
+        matrizComercialObj = MatrizComercial({
+            actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+            getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina
+        });
+
         fnGrilla();
         IniDialogMatriz();
         IniDialogDescProducto();
         IniForm();
         $("#btnBuscar").click(function () {
             var msjex = "";
+
+            if ($("#txtCodigoSAP").val() === "")
+                msjex += " - Debe ingresar un Código SAP .\n";
+            if (isNaN($("#txtCodigoSAP").val()))
+                msjex += " - Debe ingresar un Código SAP válido.\n";
             if ($("#ddlPais").val() == "")
                 msjex += " - Debe seleccionar un País .\n";
-            //if ($("#txtCodigoSAP").val() == "")
-            //    msjex += " - Debe ingresar el Código de SAP .\n";
-
             if (msjex == "") {
                 paisNombre = $("#ddlPais option:selected").text();
                 paisID = $("#ddlPais").val();
@@ -55,6 +66,10 @@
             showDialog("DialogCargarDescProducto");
             LimpiarCargaDescProd();
             return false;
+        });
+
+        $.jgrid.extend({
+            Editar: matrizComercialObj.editar
         });
     });
 
@@ -129,22 +144,12 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['', 'Código SAP', 'Descripción Original', 'Descripción', 'Foto 01', 'Foto 02', 'Foto 03', 'Foto 04', 'Foto 05', 'Foto 06', 'Foto 07', 'Foto 08', 'Foto 09', 'Foto 10', ''],
+            colNames: ['', 'Código SAP', 'Descripción Original', 'Descripción', ''],
             colModel: [
                 { name: 'IdMatrizComercial', index: 'IdMatrizComercial', width: 20, editable: true, resizable: false, hidden: true },
                 { name: 'CodigoSAP', index: 'CodigoSAP', width: 50, editable: true, resizable: false },
                 { name: 'DescripcionOriginal', index: 'DescripcionOriginal', width: 210, editable: true, resizable: false },
-                { name: 'Descripcion', index: 'Descripcion', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'FotoProducto01', index: 'FotoProducto01', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto02', index: 'FotoProducto02', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto03', index: 'FotoProducto03', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage }, //1644
-                { name: 'FotoProducto04', index: 'FotoProducto04', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto05', index: 'FotoProducto05', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto06', index: 'FotoProducto06', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto07', index: 'FotoProducto07', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto08', index: 'FotoProducto08', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto09', index: 'FotoProducto09', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
-                { name: 'FotoProducto10', index: 'FotoProducto10', width: 51, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
+                { name: 'Descripcion', index: 'Descripcion', width: 0, editable: true, resizable: false, hidden: true }, //1644
                 { name: 'Options', index: 'Options', width: 40, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:
@@ -183,161 +188,27 @@
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
         function ShowActions(cellvalue, options, rowObject) {
-            //var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[8] + "','" + rowObject[12] + "','" + rowObject[13] + "','" + rowObject[14] + "','" + rowObject[11] + "','" + rowObject[15] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta Web' title='Editar Oferta Web' border='0' /></a>";
             var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + options.rowId + "','" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Oferta Web' title='Editar Oferta Web' border='0' /></a>";
-            //var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + options.rowId + "','" + rowObject[2] + "','" + rowObject[8] + "','" + rowObject[12] + "','" + rowObject[13] + "','" + rowObject[14] + "','" + rowObject[11] + "','" + rowObject[15] + "');\" >" + "<img src='@Url.Content("~/Content/Images/NotAllowed.png")' alt='Deshabilitar Oferta Web' title='Deshabilitar Oferta Web' border='0' /></a>";
             return Edit;
-        };
-
-        function ShowImage(cellvalue, options, rowObject) {
-            var image = "";
-            if (cellvalue != "") {
-                // image = '<img src="' + '@Url.Content("~/Content/Matriz/")' + isoPAIS + "/" + cellvalue + '" alt="" width="70px" height="60px" title="" border="0" />';
-                image = '<img src="' + cellvalue + '" alt="" width="70px" height="60px" title="" border="0" />';
-            } else {
-                image = '<img src="@Url.Content("~/Content/Images/" + imagenVacia)" alt="" width="60px" height="60px" title="" border="0" />';
-            }
-            return image;
         };
     }
 
-    $.jgrid.extend({
-        Editar: function (ID, FlagTransaccion) {
-            if (ID) {
-                LimpiarDatos();
-
-                if (FlagTransaccion == "0")
-                    $("#hdFlagTransaccion").val("0");
-                else
-                    $("#hdFlagTransaccion").val("1");
-
-                $("#txtPaisModal").val(paisNombre);
-                $('#txtCodigoSAPModal').val(jQuery("#list").jqGrid('getCell', ID, 'CodigoSAP'));
-                $('#txtDescripcionOriginalModal').val(jQuery("#list").jqGrid('getCell', ID, 'DescripcionOriginal'));
-                $('#txtDescripcionModal').val(jQuery("#list").jqGrid('getCell', ID, 'Descripcion'));
-
-                var objImg, objImgProd, objImgProdAnterior;
-                var cellImagenSrc, cellImagenSrcFormat, idImagen, valorImagen;
-                for (var i = 1; i <= nroImagenes; i++)
-                {
-                    idImagen = ('0' + i).substr(-2);
-                    objImg = $('#img' + idImagen);
-                    objImgProd = $('#imagenProducto' + idImagen);
-                    objImgProdAnterior = $('#imagenProductoAnterior' + idImagen);
-                    cellImagenSrc = $($("#list").jqGrid('getCell', ID, 'FotoProducto' + idImagen)).attr('src');
-                    cellImagenSrcFormat = cellImagenSrc.replace(/^.*[\\\/]/, '');
-
-                    objImgProd.val(cellImagenSrcFormat);
-                    objImgProdAnterior.val(cellImagenSrcFormat);
-
-                    valorImagen = cellImagenSrcFormat;
-                    if (valorImagen.lastIndexOf("?") >= 0) {
-                        valorImagen = valorImagen.substring(0, valorImagen.lastIndexOf("?"));
-                        objImgProd.val(valorImagen);
-                        objImgProdAnterior.val(valorImagen);
-                    }
-
-                    if ($.trim(valorImagen) != imagenVacia) objImg.attr('src', cellImagenSrc);
-                    else objImg.attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
-                }
-                
-                showDialog("DialogMatrizComercial");
-            }
-            else alert("Debe seleccionar un Producto, verifique");
-
-            return false;
-        }
-    });
-
-    function LimpiarDatos() {
-        $("#txtPaisModal").val("");
-        $("#txtCodigoSAPModal").val("");
-        $("#hdFlagTransaccion").val("0");
-        $('.input-imagen-producto-anterior').val("");
-        $('.img-matriz-comercial').attr('src', '@Url.Content("~/Content/Images/" + imagenVacia)');
+    function getCell(id, campo) {
+        return jQuery("#list").jqGrid('getCell', id, campo);
     }
 
     function IniDialogMatriz() {
-        $('#DialogMatrizComercial').dialog({
+        $('#matriz-comercial-dialog').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 900,
+            width: 1020,
             draggable: true,
             title: "Actualización de Matriz",
             buttons:
             {
-                "Guardar": function () {
-                    var vMessage = "", valImgProd, idImagen;
-
-                    var ingresoAlgo = ($.trim($('#txtDescripcionModal').val()) != "");
-                    for (var i = 1; i <= nroImagenes; i++) {
-                        if (ingresoAlgo) break;
-
-                        idImagen = ('0' + i).substr(-2);
-                        valImgProd = $.trim($('#imagenProducto' + idImagen).val());
-                        ingresoAlgo = (valImgProd != "" && valImgProd != imagenVacia);
-                    }
-                    if (!ingresoAlgo) vMessage += "- Debe ingresar una nueva descripción al producto o adjuntar por lo menos una imagen.\n";
-
-                    if (vMessage != "") {
-                        alert(vMessage);
-                        return false;
-                    }
-                    else RegistrarMatrizComercial();
-                },
-                "Cancelar": function () { $(this).dialog('close'); }
-            }
-        });
-    }
-    
-    function RegistrarMatrizComercial() {
-        var objImgProd, objImgProdAnterior, idImagen;
-
-        var item = {
-            CodigoSAP: $.trim($('#txtCodigoSAPModal').val()),
-            DescripcionOriginal: $.trim($('#txtDescripcionOriginalModal').val()),
-            Descripcion: $.trim($("#txtDescripcionModal").val()),
-            PaisID: paisID
-        };
-        for (var i = 1; i <= nroImagenes; i++) {
-            idImagen = ('0' + i).substr(-2);
-            objImgProd = $('#imagenProducto' + idImagen);
-            objImgProdAnterior = $('#imagenProductoAnterior' + idImagen);
-            item['FotoProducto' + idImagen] = objImgProd.val();
-            item['FotoProductoAnterior' + idImagen] = objImgProdAnterior.val();
-        }
-
-        waitingDialog({ title: "Procesando" });
-        var accion = ($("#hdFlagTransaccion").val() == "1") ? "UpdateMatrizComercial" : "InsertMatrizComercial";
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'MatrizComercial/' + accion,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    if (data.success == true) {
-                        alert(data.message);
-                        HideDialog("DialogMatrizComercial");
-                        LimpiarDatos();
-                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                    }
-                    else {
-                        alert(data.message);
-                    }
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert(data.message);
-                    HideDialog("DialogMatrizComercial");
-                }
+                "Cerrar": function () { $(this).dialog('close'); }
             }
         });
     }
@@ -355,7 +226,7 @@
                 </div>
                 <div class="titG">Código SAP:</div>
                 <div class="selectA borde_redondeado">
-                    <input type="text" id="txtCodigoSAP" />
+                    <input type="text" id="txtCodigoSAP"/>
                 </div>
                 <div class="input_search">
                     <a href="#" id="lnkAdmDescripcion">
@@ -382,76 +253,8 @@
     </div>
 </div>
 
-<div id="DialogMatrizComercial" style="display: none;">
-    <input id="hdFlagTransaccion" type="hidden" value="0" />
-    <div class="Content_modal">
-        <div class="div-3">
-            <div class="titF">País:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtPaisModal" readonly="readonly" />
-            </div>
-            <div class="titG" style="width: 180px;">Código SAP:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCodigoSAPModal" readonly="readonly" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titF">Descripción Original:</div>
-            <div class="selectP2 borde_redondeado" style="width: 570px;">
-                <input type="text" id="txtDescripcionOriginalModal" readonly="readonly" style="width: 570px;" />
-            </div>
-            <div class="titG" style="width: 180px; display: none">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="display: none">
-                <input type="text" id="txtDescripcionModal" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titF">Imagen:</div>
-            <div class="div-list-img-matriz-comercial">
-                @for (int i = 1; i <= nroImagenes; i++)
-                {
-                    idControl = "0" + i;
-                    idControl = idControl.Substring(idControl.Length - 2);
-
-                    <div class="titG">
-                        <div class="selectP2 borde_redondeado aligncenter">
-                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="img@(idControl)" class="img-matriz-comercial">
-                        </div>
-
-                        <div class="input_search">
-                            <input type="hidden" id="imagenProducto@(idControl)" class="input-imagen-producto" />
-                            <input type="hidden" id="imagenProductoAnterior@(idControl)" class="input-imagen-producto-anterior" />
-                            <div id="fpUpload@(idControl)">
-                                <script type="text/javascript">
-                                    $.ajaxSetup({ cache: false });
-                                    var uploader = new qq.FileUploader({
-                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                        element: document.getElementById('fpUpload@(idControl)'),
-                                        action: '@Url.Action("ImageMatrizUpload", "FileUpload")',
-                                        onComplete: function (id, fileName, responseJSON) {
-                                            if (checkTimeout(responseJSON)) {
-                                                $(".qq-upload-list").css("display", "none");
-                                                if (responseJSON.success) {
-                                                    $("#imagenProducto@(idControl)").val(responseJSON.name);
-                                                    // req. 1664
-                                                    $('#img@(idControl)').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                                }
-                                                else alert(responseJSON.message);
-                                            }
-                                        },
-                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                    });
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
-</div>
+@Html.Partial("MatrizComercialDialog")
+<div id="matriz-comercial-dialog" style="display: none;"></div>
 
 <div id="DialogCargarDescProducto" style="display: none;">
     @using (Html.BeginForm("UpdDescripcionProductoMasivo", "MatrizComercial", FormMethod.Post, new { id = "frmCargarDescripcion", enctype = "multipart/form-data" }))

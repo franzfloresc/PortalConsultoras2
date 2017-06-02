@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServicePedidoRechazado;
-using Portal.Consultoras.Web.ServiceUsuario;
-using System.Collections.Generic;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -51,8 +48,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             .ForMember(t => t.ImagenPreventaDigital, f => f.MapFrom(c => c.ImagenPreventaDigital))
             .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
             .ForMember(t => t.TieneCategoria, f => f.MapFrom(c => c.TieneCategoria))
-            .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra));
-            
+            .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
+            .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
+
             Mapper.CreateMap<MisDatosModel, ServiceUsuario.BEUsuario>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                 .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
@@ -70,6 +68,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
+            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+
         }
     }
 }

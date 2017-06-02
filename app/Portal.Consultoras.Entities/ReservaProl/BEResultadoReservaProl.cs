@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities.ReservaProl
 {
@@ -23,9 +25,15 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public decimal MontoAhorroRevista { get; set; }
         [DataMember]
+        public decimal MontoGanancia { get; set; }
+        [DataMember]
         public decimal MontoDescuento { get; set; }
         [DataMember]
         public decimal MontoEscala { get; set; }
+        [DataMember]
+        public decimal MontoTotal { get; set; }
+        [DataMember]
+        public int UnidadesAgregadas { get; set; }
         [DataMember]
         public bool EnviarCorreo { get; set; }
         [DataMember]
@@ -33,7 +41,22 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
+        public Enumeradores.ResultadoReserva ResultadoReservaEnum { get; set; }
+        [DataMember]
         public List<BEPedidoObservacion> ListPedidoObservacion { get; set; }
+
+        #region Atributos Cargar Session
+        [DataMember]
+        public string Simbolo { get; set; }
+        [DataMember]
+        public decimal MontoMinimo { get; set; }
+        [DataMember]
+        public decimal MontoMaximo { get; set; }
+        [DataMember]
+        public DateTime FechaFacturacion { get; set; }
+        [DataMember]
+        public bool FacturaHoy { get; set; }
+        #endregion
 
         public BEResultadoReservaProl()
         {
