@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!add)
                         continue;
 
-                    if (beEstrategia.Precio >= beEstrategia.Precio2)
+                    if (beEstrategia.Precio <= beEstrategia.Precio2)
                         beEstrategia.Precio = Convert.ToDecimal(0.0);
 
                     beEstrategia.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, beEstrategia.FotoProducto01, carpetapais);
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (x.Precio2 <= 0)
                         continue;
 
-                    if (x.Precio >= x.Precio2)
+                    if (x.Precio <= x.Precio2)
                         x.Precio = Convert.ToDecimal(0.0);
 
                     x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais);
