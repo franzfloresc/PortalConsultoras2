@@ -5,10 +5,12 @@ var MatrizComercial = function (config) {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction || '',
         getImagesByNemotecnico: config.getImagesByNemotecnico || '',
+        actualizarNemotecnicoAction: config.actualizarNemotecnicoAction || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,      
         habilitarNemotecnico: false,
         expValidacionNemotecnico: config.expValidacionNemotecnico
     };
+
     var _editData = {};
 
     var _paginadorClick = function (page) {
@@ -19,7 +21,7 @@ var MatrizComercial = function (config) {
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
 
-    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico, prefixControlNemotecnico: 'label-nemotecnico-', actualizarNemotecnicoAction: _config.actualizarNemotecnicoAction });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -112,6 +114,8 @@ var MatrizComercial = function (config) {
             showDialog("matriz-comercial-dialog");
         });
 
+        _nemotecnico.actualizarPais(editData.paisID);
+
         return false;
     };
 
@@ -188,10 +192,15 @@ var MatrizComercial = function (config) {
         _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
+    var _editarNemotecnico = function (idImagen) {
+        _nemotecnico.editarNemotecnico(idImagen);
+    };
+
     return {
         editar: _editar,
         actualizarParNemotecnico: _actualizarParNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,
-        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico
+        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
+        editarNemotecnico: _editarNemotecnico
     }
 };

@@ -59,8 +59,8 @@
         </div>
         <div class="actions" style="text-align:center">
             {{#if ../habilitarNemotecnico}}
-            <div class="nemotecnico-wrapper">
-                <a title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+            <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
+                <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
             </div>
             {{/if}}
             <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
