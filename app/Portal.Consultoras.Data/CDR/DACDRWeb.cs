@@ -74,6 +74,7 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, entity.ZonaID);
             Context.Database.AddInParameter(command, "@ConsultoraCodigo", DbType.String, entity.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoCDR", DbType.Int32, entity.Estado);
+            Context.Database.AddInParameter(command, "@TipoConsultora", DbType.Int32, entity.TipoConsultora);
 
             return Context.ExecuteReader(command);
         }

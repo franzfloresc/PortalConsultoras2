@@ -46,6 +46,12 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
 
+
+        //EPD-2582 INICIO         
+        [DataMember]
+        public int? TipoConsultora { get; set; }
+        //EPD-2582 FIN
+
         public BECDRWeb()
         { }
 
@@ -63,7 +69,13 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
             if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
             if (row.HasColumn("ConsultoraSaldo")) ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
+
+           //EPD-2582 INICIO
+            if (row.HasColumn("TipoConsultora")) TipoConsultora= Convert.ToInt32(row["TipoConsultora"] ??0);
+            //EPD-2582 FIN
+
             CDRWebDetalle = new List<BECDRWebDetalle>();
+
         }
     }
 }
