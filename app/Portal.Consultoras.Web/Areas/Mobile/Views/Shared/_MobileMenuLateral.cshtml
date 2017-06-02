@@ -9,7 +9,7 @@
     var tipoUsuaio = ViewBag.TipoUsuario;
 }
 
-<div class="botones" id="ulNavPrincipal">
+<div class="botones" id="ulNavPrincipal" data-menu-count="@(itemsMenu.Count())">
     <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido"
        class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
 

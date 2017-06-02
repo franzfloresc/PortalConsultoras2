@@ -10,10 +10,15 @@ $(document).ready(function () {
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
-            if (tag == 0) {
+            if (tag == 0 && !isMobile()) {
                 $(objTag).css('padding-top', '105px');
             }
         });        
+
+        var funt = $.trim($(this).attr("data-tag-funt"));
+        if (funt != "") {
+            setTimeout(funt, 100);
+        }
 
         //mantener seleccionado
         $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
@@ -41,53 +46,7 @@ $(document).ready(function () {
         $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
     }
     
-
-    $('#divCarruselLan').slick({
-        vertical: false,
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() +'" alt="" /></a></div>'
-    }).on('afterChange', function (event, slick, currentSlide) {
-
-        var slides = (slick || new Object()).$slides || new Array();
-        if (slides.length == 0) {
-            return false;
-        }
-        
-        var prev = -1, next = slides.length;
-        $.each(slides, function (ind, item) {
-            var itemSel = $(item);
-            if ($(itemSel).hasClass("slick-active")) {
-                prev = prev < 0 ? ind : prev;
-                next = prev < 0 ? next : ind;
-            }
-        });
-
-        prev = prev == 0 ? slides.length - 1 : (prev - 1);
-        next = next == slides.length - 1 ? 0 : (next + 1);
-
-        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
-        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$prevArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$prevArrow.find("img[data-prev]").show();
-        }
-        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
-        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
-        if (imgPrevia == "") {
-            slick.$nextArrow.find("img[data-prev]").hide();
-        }
-        else {
-            slick.$nextArrow.find("img[data-prev]").show();
-        }
-    });
+    RenderCarrusel();
 
     // para renderizar las vistas previas
     $('#divCarruselLan').slick('slickGoTo', 0);
@@ -243,6 +202,56 @@ function RDDetalleObtener() {
                 CerrarLoad();
                 console.log(response);
             }
+        }
+    });
+}
+
+function RenderCarrusel() {
+    $('#divCarruselLan.slick-initialized').slick('unslick');
+    $('#divCarruselLan').not('.slick-initialized').slick({
+        vertical: false,
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
+    }).on('afterChange', function (event, slick, currentSlide) {
+
+        var slides = (slick || new Object()).$slides || new Array();
+        if (slides.length == 0) {
+            return false;
+        }
+
+        var prev = -1, next = slides.length;
+        $.each(slides, function (ind, item) {
+            var itemSel = $(item);
+            if ($(itemSel).hasClass("slick-active")) {
+                prev = prev < 0 ? ind : prev;
+                next = prev < 0 ? next : ind;
+            }
+        });
+
+        prev = prev == 0 ? slides.length - 1 : (prev - 1);
+        next = next == slides.length - 1 ? 0 : (next + 1);
+
+        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
+        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$prevArrow.find("img[data-prev]").hide();
+        }
+        else {
+            slick.$prevArrow.find("img[data-prev]").show();
+        }
+        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
+        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$nextArrow.find("img[data-prev]").hide();
+        }
+        else {
+            slick.$nextArrow.find("img[data-prev]").show();
         }
     });
 }

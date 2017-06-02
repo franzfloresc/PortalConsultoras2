@@ -6262,7 +6262,7 @@ body {
 .titulo_mobile {
     position: relative;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     background: black;
     color: white;
     /*font-weight: 700;*/
@@ -6272,6 +6272,7 @@ body {
     letter-spacing: 0.25px;
     font-family: 'Lato';
     /*margin-top: -6px;*/
+        overflow: hidden;
 }
 
 .fondo_f2f2f2 {
