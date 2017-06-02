@@ -1094,9 +1094,6 @@ namespace Portal.Consultoras.ServiceContracts
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
         
         [OperationContract]
-        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
-
-        [OperationContract]
         int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]

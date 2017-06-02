@@ -495,6 +495,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEValidacionModificacionPedido" nillable="true" type="tns:BEValidacionModificacionPedido" />
+  <xs:complexType name="BaseEntidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="AceptacionConsultoraDA" type="xs:int" />
@@ -654,12 +660,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuario" nillable="true" type="tns:BEUsuario" />
-  <xs:complexType name="BaseEntidad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEEtiqueta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />

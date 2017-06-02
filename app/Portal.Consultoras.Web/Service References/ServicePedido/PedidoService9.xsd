@@ -1039,6 +1039,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RDSuscripcion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q62:BERevistaDigitalSuscripcion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RDSuscripcionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RDSuscripcionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CargarSesionAndDeshacerPedidoValidado">
     <xs:complexType>
       <xs:sequence>
@@ -1061,7 +1075,7 @@
   <xs:element name="DeshacerPedidoValidado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="usuario" nillable="true" type="q62:BEUsuario" />
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="usuario" nillable="true" type="q63:BEUsuario" />
         <xs:element minOccurs="0" name="tipo" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -1070,20 +1084,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="DeshacerPedidoValidadoResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDSuscripcion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q63:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDSuscripcionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RDSuscripcionResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
