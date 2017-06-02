@@ -101,6 +101,9 @@
 
         $(document).off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
+            if ($(this).hasClass('borde_seleccion_alerta')) {
+                ocultarMensajeTerminosCondiciones();
+            }
         });
 
         $(document).keyup(function (e) {
@@ -239,7 +242,7 @@
         if ($(elements.ContenedorMontoLimitePopupGana).parents('.content_monto_cupon').length > 0) {
             $(elements.ContenedorMontoLimitePopupGana).append('<center>Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '</center>*No aplica para productos en liquidación web.');
         } else {
-            $(elements.ContenedorMontoLimitePopupGana).append('Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '<br/>*No aplica para productos en liquidación.');
+            $(elements.ContenedorMontoLimitePopupGana).append('Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '<br/>*No aplica para productos en liquidación web.');
         }
 
         ocultarTodosLosMensajesError();

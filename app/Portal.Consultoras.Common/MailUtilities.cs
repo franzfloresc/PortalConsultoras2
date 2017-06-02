@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta, string url)
+        public static string CuerpoCorreoActivacionCupon(string userName, string campaniaActual, string simbolo, decimal monto, string tipoOferta, string url, string montoLimite)
         {
             string codigoCampania = campaniaActual.Substring(4, 2);
             var textoGanaste = "¡" + userName + " ACTIVASTE TU CUPÓN DE " + Convert.ToInt32(monto) + "% DE DSCTO!";
@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/zpKTgmlpMBbOCFr/group-13.png\" ></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">Tu dscto lo verás reflejado en tu facturación<br>(dscto hasta S/. 00.00)</td>");
+            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial';  padding-top: 10px;\">Tu dscto lo verás reflejado en tu facturación<br>(dscto hasta " + simbolo + " " + montoLimite + ")</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");
