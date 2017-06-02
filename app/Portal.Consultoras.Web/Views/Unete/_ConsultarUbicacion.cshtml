@@ -1232,6 +1232,7 @@
 
 
     function OnSuccess(html) {
+        document.getElementById('btnBuscar').click();
         $('#divConsultarUbicacion').css({ "overflow-y": "hidden" });
         $('#divTemplateMensaje').empty();
         $('#divTemplateMensaje').html(html);
