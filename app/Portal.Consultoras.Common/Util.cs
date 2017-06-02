@@ -30,6 +30,7 @@ using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
 using System.ServiceModel;
 using System.ServiceModel.Security;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Common
 {
@@ -1906,7 +1907,7 @@ namespace Portal.Consultoras.Common
         public static string EncriptarQueryString(params string[] Parametros)
         {
             TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
-            QueryString = new TSHAK.Components.SecureQueryString( new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });      
+            QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
             for (int i = 0; i < Parametros.Length; i++)
             {
                 QueryString[i.ToString()] = Parametros[i].Trim();
@@ -1918,7 +1919,7 @@ namespace Portal.Consultoras.Common
         public static string DesencriptarQueryString(string ParametroQueryString)
         {
             StringBuilder oStringBuilder = new StringBuilder();
-            
+
             TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
             QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString.Replace(" ", "+"));
             for (int i = 0; i < QueryString.Count; i++)
@@ -2421,68 +2422,56 @@ namespace Portal.Consultoras.Common
 
         public static int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            ISO = ISO.ToUpper();
+
+            var listaPaises = new Dictionary<string, int>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {"AR", 1},
+                {"BO", 2},
+                {"CL", 3},
+                {"CO", 4},
+                {"CR", 5},
+                {"EC", 6},
+                {"SV", 7},
+                {"GT", 8},
+                {"MX", 9},
+                {"PA", 10},
+                {"PE", 11},
+                {"PR", 12},
+                {"DO", 13},
+                {"VE", 14},
             };
-            string paisID = "0";
-            try
-            {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return int.Parse((paisID ?? "0"));
+
+            if (!listaPaises.ContainsKey(ISO))
+                return 0;
+
+            return listaPaises[ISO];
         }
 
         public static string GetPaisISO(int paisID)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            var listaPaises = new Dictionary<int, string>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {1, "AR" },
+                {2, "BO"},
+                {3, "CL"},
+                {4, "CO"},
+                {5, "CR"},
+                {6, "EC"},
+                {7, "SV"},
+                {8, "GT"},
+                {9, "MX"},
+                {10, "PA" },
+                {11, "PE"},
+                {12, "PR"},
+                {13, "DO"},
+                {14, "VE"}
             };
-            string ISO = string.Empty;
-            try
-            {
-                ISO = (from c in listaPaises
-                       where c.Key == paisID.ToString()
-                       select c.Value).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return (ISO == null ? string.Empty : ISO);
+
+            if (!listaPaises.ContainsKey(paisID))
+                return string.Empty;
+
+            return listaPaises[paisID];
         }
 
         public static string GetPaisNombre(int paisID)
@@ -3001,6 +2990,51 @@ namespace Portal.Consultoras.Common
 
             return resultado;
         }
+
+        public static RouteValueDictionary QueryStringToRouteValueDictionary(string queryString)
+        {
+            var parsed = HttpUtility.ParseQueryString(queryString);
+            var queryStringDic = parsed.AllKeys.ToDictionary(k => k, k => (object)parsed[k]);
+            return new RouteValueDictionary(queryStringDic);
+        }
+
+        public static Uri GetUrlRecuperarContrasenia(string urlportal, int paisId, string correo, string paisiso, string codigousuario, string fechasolicitud, string nombre)
+        {
+            string url_paisId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisId.ToString().Trim()));
+            string url_correo = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(correo.Trim()));
+            string url_paisiso = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisiso.Trim()));
+            string url_codigousuario = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(codigousuario.Trim()));
+            string url_fechasolicitud = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(fechasolicitud.Trim()));
+            string url_nombre = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(nombre.Trim()));
+
+            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var qs = HttpUtility.ParseQueryString(uri.Query);
+            qs.Set("xyzab", url_paisId);
+            qs.Set("abxyz", url_correo);
+            qs.Set("yzabx", url_paisiso);
+            qs.Set("bxyza", url_codigousuario);
+            qs.Set("zabxy", url_fechasolicitud);
+            qs.Set("xbaby", url_nombre);
+
+            var uriBuilder = new UriBuilder(uri)
+            {
+                Query = qs.ToString()
+            };
+
+            return uriBuilder.Uri;
+        }
+
+        public static String GetUrlCompartirFB(string codigoISO, int id = 0)
+        {
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CONTEXTO_BASE"]))
+            {
+                throw new NullReferenceException("Key no encontrada: CONTEXTO_BASE");
+            }
+
+            var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
+
+            return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
+        }
     }
 
 
@@ -3060,6 +3094,7 @@ namespace Portal.Consultoras.Common
 
     public static class LinqExtensions
     {
+        [Obsolete("Use ForEach from Linq")]
         public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
         {
             foreach (var item in outer)

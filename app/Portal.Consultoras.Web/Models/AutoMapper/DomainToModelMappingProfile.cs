@@ -180,6 +180,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
+            Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
             Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
         }
