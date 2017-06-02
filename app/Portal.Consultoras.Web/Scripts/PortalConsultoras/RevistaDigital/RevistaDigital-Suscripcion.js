@@ -39,6 +39,7 @@ function RDSuscripcion() {
                 $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
                 AbrirPopupFade("#PopRDInscrita");
                 MostrarMenu(data.CodigoMenu);
+                CargarBanners();
             }
         },
         error: function (data, error) {

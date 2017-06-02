@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
@@ -191,6 +192,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEMenuMobile, MenuMobileModel>()
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
+
+            Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
         }
     }
 }
