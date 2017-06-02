@@ -11,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Transactions;
-
 using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.BizLogic
@@ -2024,6 +2023,70 @@ namespace Portal.Consultoras.BizLogic
             return PedidoDescarga;
         }
 
+        public BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR = true, bool validarReservado = true, bool validarHorario = true)
+        {
+            BEUsuario usuario = null;
+            using (IDataReader reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+
+            BEConfiguracionCampania configuracion = null;
+            using (IDataReader reader = new DAPedidoWeb(paisID).GetEstadoPedido(campania, usuarioPrueba ? usuario.ConsultoraAsociadaID : usuario.ConsultoraID))
+            {
+                if (reader.Read()) configuracion = new BEConfiguracionCampania(reader);
+            }
+
+            if (configuracion != null)
+            {
+                if (validarGPR && configuracion.IndicadorGPRSB == 1) {
+                    return new BEValidacionModificacionPedido {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, inténtalo más tarde", campania.Substring(4, 2))
+                    };
+                }
+                if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
+                        Mensaje = "Ya tienes un pedido reservado para esta campaña."
+                    };
+                }
+            }
+            if(validarHorario)
+            {
+                string mensajeHorarioRestringido = this.ValidarHorarioRestringido(usuario, campania);
+                if(!string.IsNullOrEmpty(mensajeHorarioRestringido))
+                {
+                    return new BEValidacionModificacionPedido
+                    {
+                        MotivoPedidoLock = Enumeradores.MotivoPedidoLock.HorarioRestringido,
+                        Mensaje = mensajeHorarioRestringido
+                    };
+                }
+            }
+            return new BEValidacionModificacionPedido { MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Ninguno };
+        }
+
+        private string ValidarHorarioRestringido(BEUsuario usuario, int campania)
+        {
+            DateTime FechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
+            if (!usuario.HabilitarRestriccionHoraria) return null;
+            if (FechaHoraActual <= usuario.FechaInicioFacturacion || usuario.FechaFinFacturacion.AddDays(1) <= FechaHoraActual) return null;
+            
+            TimeSpan horaActual = new TimeSpan(FechaHoraActual.Hour, FechaHoraActual.Minute, 0);
+            TimeSpan horaAdicional = TimeSpan.Parse(usuario.HorasDuracionRestriccion.ToString() + ":00");
+
+            bool enHorarioRestringido = false;
+            if (usuario.EsZonaDemAnti != 0) enHorarioRestringido = (horaActual > usuario.HoraCierreZonaDemAnti);
+            else enHorarioRestringido = (usuario.HoraCierreZonaNormal < horaActual && horaActual < usuario.HoraCierreZonaNormal + horaAdicional);
+            if (!enHorarioRestringido) return null;
+
+            TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
+            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los códigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
+        }
+        
         /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {

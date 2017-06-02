@@ -17,6 +17,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv)
         {
+            var usuario = ObtenerUsuarioConfiguracion();
+
             List<BEEstrategia> lst = new List<BEEstrategia>();
 
             if (Session["ListadoEstrategiaPedido"] != null)
@@ -25,17 +27,26 @@ namespace Portal.Consultoras.Web.Controllers
                 return lst;
             }
             
-            var entidad = new BEEstrategia();
-            entidad.PaisID = userData.PaisID;
-            entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID.ToString() : userData.ConsultoraID.ToString();
-            entidad.CUV2 = cuv ?? "";
-            entidad.Zona = userData.ZonaID.ToString();
-            entidad.CodigoAgrupacion = "";
-
-            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+            var entidad = new BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = userData.UsuarioPrueba == 1
+                    ? userData.ConsultoraAsociadaID.ToString()
+                    : userData.ConsultoraID.ToString(),
+                CUV2 = cuv ?? "",
+                Zona = userData.ZonaID.ToString(),
+                ZonaHoraria = usuario.ZonaHoraria,
+                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                ValidarPeriodoFacturacion = true,
+                Simbolo = userData.Simbolo,
+                CodigoAgrupacion = "";
+            };
             
+             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+
+                
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -115,7 +126,6 @@ namespace Portal.Consultoras.Web.Controllers
                     beEstrategia.PrecioTachado = Util.DecimalToStringFormat(beEstrategia.Precio, userData.CodigoISO);
                     beEstrategia.CodigoEstrategia = Util.Trim(beEstrategia.CodigoEstrategia);
                     lst.Add(beEstrategia);
-
                 }
             }
             else

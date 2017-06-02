@@ -145,31 +145,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult EnHorarioRestringido()
-        {
-            try
-            {
-                string mensaje = string.Empty;
-                bool estado = ValidarHorarioRestringido(out mensaje);
-                return Json(new
-                {
-                    success = estado,
-                    message = mensaje,
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un error al calcular el horario restringido",
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         #region CRUD
 
         [HttpPost]
@@ -303,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string mensaje = string.Empty;
             // se valida si esta en horario restringido
-            if (ValidarHorarioRestringido(out mensaje))
+            if (ReservadoEnHorarioRestringido(out mensaje))
             {
                 return Json(new
                 {

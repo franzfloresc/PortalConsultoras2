@@ -38,6 +38,18 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetConfiguracionByUsuarioAndCampania(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionByUsuarioAndCampania");
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, consultoraID);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@UsuarioPrueba", DbType.Boolean, usuarioPrueba);
+            Context.Database.AddInParameter(command, "@AceptacionConsultoraDA", DbType.Int32, aceptacionConsultoraDA);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetConfiguracionCampaniaZona(int PaisID, int ZonaID, int RegionID, long ConsultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionCampaniaZona");

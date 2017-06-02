@@ -2478,7 +2478,7 @@ function TagManagerCarruselInicio(arrayItems) {
     }
 }
 
-function TagManagerClickAgregarProducto() {
+function TagManagerClickAgregarProducto() {  
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
@@ -2597,6 +2597,30 @@ function TagManagerCarruselLiquidacionesInicio(arrayItems) {
         });
     }
 }
+
+function TagManagerClickAgregarProductoOfertaParaTI(item) {
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'products': [
+                    {
+                        'name': item.DescripcionCUV2,
+                        'price': item.Precio2,
+                        'brand': item.DescripcionMarca,
+                        'id': item.CUV2,
+                        'category': 'NO DISPONIBLE',
+                        'variant': item.DescripcionEstrategia,
+                        'quantity': parseInt(item.Cantidad),
+                        'position': parseInt(item.posicionItem)
+                    }
+                ]
+            }
+        }
+    });
+}
+
 function TagManagerClickAgregarProductoLiquidacion(item) {
     dataLayer.push({
         'event': 'addToCart',

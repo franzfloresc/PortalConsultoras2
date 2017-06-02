@@ -13,6 +13,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.CustomHelpers;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -348,9 +349,9 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.ID,
-                               cell = new string[] 
+                               cell = new string[]
                                {
-                                   a.ID.ToString(),                                   
+                                   a.ID.ToString(),
                                    a.CUV.ToString(),
                                    a.DescripcionCUV.ToString(),
                                    a.PrecioUnitario.ToString(),
@@ -572,6 +573,16 @@ namespace Portal.Consultoras.Web.Controllers
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
+                    //imagen1 = lst[0].FotoProducto01; // ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen5 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto05, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen6 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto06, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen7 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto07, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen8 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto08, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen9 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto09, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                    //imagen10 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto10, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                 }
 
                 return Json(new
@@ -822,11 +833,14 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
-            Mapper.CreateMap<BEMatrizComercialImagen, MatrizComercialImagen>()
-                .ForMember(t => t.Foto, f => f.MapFrom(c => urlS3 + c.Foto));
-
             int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
-            var data = Mapper.Map<List<BEMatrizComercialImagen>, List<MatrizComercialImagen>>(lst);
+
+            var data = lst.Select(p => new MatrizComercialImagen
+            {
+                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                Foto = urlS3 + p.Foto
+            }).ToList();
 
             return Json(new { imagenes = data, totalRegistros = totalRegistros });
         }
@@ -850,7 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
+                lst.Update(x => x.FotoProducto01 = x.FotoProducto01); //ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
                 lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
                 lst.Update(x => x.Simbolo = UserData().Simbolo);
             }
@@ -989,13 +1003,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             switch (MarcaID)
             {
-                case 1: result = "L'Bel";
+                case 1:
+                    result = "L'Bel";
                     break;
-                case 2: result = "Ésika";
+                case 2:
+                    result = "Ésika";
                     break;
-                case 3: result = "Cyzone";
+                case 3:
+                    result = "Cyzone";
                     break;
-                case 6: result = "Finart";
+                case 6:
+                    result = "Finart";
                     break;
             }
 
@@ -1005,26 +1023,29 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public List<BEEstrategia> ConsultarEstrategias()
         {
+            var usuario = ObtenerUsuarioConfiguracion();
+
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            entidad.CampaniaID = UserData().CampaniaID;
-            entidad.ConsultoraID = UserData().ConsultoraID.ToString();
+            entidad.PaisID = userData.PaisID;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.CUV2 = "";
-            entidad.Zona = UserData().ZonaID.ToString();
+            entidad.Zona = userData.ZonaID.ToString();
+            entidad.ZonaHoraria = usuario.ZonaHoraria;
+            entidad.FechaInicioFacturacion = usuario.FechaInicioFacturacion;
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            using (var sv = new PedidoServiceClient())
             {
                 lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
 
-            string carpetapais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             if (lst != null && lst.Count > 0)
             {
-                lst.Update(x => x.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetapais, x.FotoProducto01, carpetapais));
-                lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
+                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
             }
 
             return lst;

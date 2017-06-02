@@ -117,6 +117,10 @@ namespace Portal.Consultoras.Entities
             set { msCUVRevista = value; }
         }
         [DataMember]
+        public string MensajeEstaEnRevista1 { get; set; }
+        [DataMember]
+        public string MensajeEstaEnRevista2 { get; set; }
+        [DataMember]
         public string CUVComplemento
         {
             get { return msCUVComplemento; }
@@ -137,19 +141,36 @@ namespace Portal.Consultoras.Entities
         public string TipoEstrategiaID { get; set; }
         /* CGI (AHAA) - BUG 2015000858 - Fin */
         [DataMember]
-        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
-        //[DataMember]
-        //public string Indicador
-        //{
-        //    get { return msIndicador; }
-        //    set { msIndicador = value; }
-        //}
-        //[DataMember]
-        //public byte PaisID
-        //{
-        //    get { return miPaisID; }
-        //    set { miPaisID = value; }
-        //}
+        public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
+                                                     //[DataMember]
+                                                     //public string Indicador
+                                                     //{
+                                                     //    get { return msIndicador; }
+                                                     //    set { msIndicador = value; }
+                                                     //}
+                                                     //[DataMember]
+                                                     //public byte PaisID
+                                                     //{
+                                                     //    get { return miPaisID; }
+                                                     //    set { miPaisID = value; }
+                                                     //}
+
+        [DataMember]
+        public string Nombre { get; set; }
+        [DataMember]
+        public string Volumen { get; set; }
+        [DataMember]
+        public string Tono { get; set; }
+        [DataMember]
+        public string ImagenOferta { get; set; }
+        [DataMember]
+        public string ImagenProducto { get; set; }
+        [DataMember]
+        public string ImagenURL { get; set; }
+        [DataMember]
+        public string DescripcionOferta { get; set; }
+        [DataMember]
+        public string DescripcionProducto { get; set; }
 
         [DataMember]
         public string ImagenProductoSugerido { get; set; }
@@ -171,14 +192,19 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string TipoOfertaRevista { get; set; }
-        
+
+        [DataMember]
+        public string CatalogoDescripcion { get; set; }
+
+        [DataMember]
+        public string TextoBusqueda { get; set; }
+
         public BEProducto(IDataRecord datarec)
         {
             //miCampaniaID = Convert.ToInt32(datarec["CampaniaID"]);
             msCUV = (datarec["CUV"] ?? "").ToString();
             if (DataRecord.HasColumn(datarec, "CodigoSAP") && datarec["CodigoSAP"] != DBNull.Value)
                 CodigoSAP = DbConvert.ToString(datarec["CodigoSAP"]);
-            msDescripcion = (datarec["Descripcion"] ?? "").ToString();
             if (DataRecord.HasColumn(datarec, "PrecioCatalogo") && datarec["PrecioCatalogo"] != DBNull.Value)
                 mdPrecioCatalogo = DbConvert.ToDecimal(datarec["PrecioCatalogo"]);
             //mdPrecioValorizado = Convert.ToDecimal(datarec["PrecioValorizado"]);
@@ -244,14 +270,55 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TieneLanzamientoCatalogoPersonalizado") && datarec["TieneLanzamientoCatalogoPersonalizado"] != DBNull.Value)
                 TieneLanzamientoCatalogoPersonalizado = Convert.ToBoolean(datarec["TieneLanzamientoCatalogoPersonalizado"]);
-            
+
             if (DataRecord.HasColumn(datarec, "TipoOfertaRevista") && datarec["TipoOfertaRevista"] != DBNull.Value)
-                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();    
+                TipoOfertaRevista = Convert.ToString(datarec["TipoOfertaRevista"]).Trim();
+
+            if (DataRecord.HasColumn(datarec, "CatalogoDescripcion") && datarec["CatalogoDescripcion"] != DBNull.Value)
+                CatalogoDescripcion = datarec["CatalogoDescripcion"].ToString();
+
+            if (DataRecord.HasColumn(datarec, "ImagenURL") && datarec["ImagenURL"] != DBNull.Value)
+                ImagenURL = Convert.ToString(datarec["ImagenURL"]);
+
+            if (DataRecord.HasColumn(datarec, "Nombre") && datarec["Nombre"] != DBNull.Value)
+                Nombre = Convert.ToString(datarec["Nombre"]);
+            if (DataRecord.HasColumn(datarec, "Descripcion") && datarec["Descripcion"] != DBNull.Value)
+                msDescripcion = Convert.ToString(datarec["Descripcion"]);
+            if (DataRecord.HasColumn(datarec, "Volumen") && datarec["Volumen"] != DBNull.Value)
+                Volumen = Convert.ToString(datarec["Volumen"]);
+            if (DataRecord.HasColumn(datarec, "Tono") && datarec["Tono"] != DBNull.Value)
+                Tono = Convert.ToString(datarec["Tono"]);
+            if (DataRecord.HasColumn(datarec, "ImagenProducto") && datarec["ImagenProducto"] != DBNull.Value)
+                ImagenProducto = Convert.ToString(datarec["ImagenProducto"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionOferta") && datarec["DescripcionOferta"] != DBNull.Value)
+                DescripcionOferta = Convert.ToString(datarec["DescripcionOferta"]);
+            if (DataRecord.HasColumn(datarec, "DescripcionProducto") && datarec["DescripcionProducto"] != DBNull.Value)
+                DescripcionProducto = Convert.ToString(datarec["DescripcionProducto"]);
         }
 
+        //Refactor Inheritance
         public BEProducto()
         {
 
         }
+
+        /// <summary>
+        /// Retorna el origen del producto en base a la funcion delegate definida
+        /// </summary>
+        /// <param name="func">Function, se aplica sobre esta instancia</param>
+        /// <returns>Origin del producto</returns>
+        public ProductoOrigenEnum GetOrigen(Func<BEProducto, ProductoOrigenEnum> func)
+        {
+            return func(this);
+        }
+    }
+
+    public enum ProductoOrigenEnum
+    {
+        Catalogo,
+        Revista,
+        ExpoOfertas,
+        Liquidaciones,
+        Otros
     }
 }

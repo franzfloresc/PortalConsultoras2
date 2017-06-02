@@ -46,8 +46,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     if (userData.CloseBannerPL20) mostrarBanner = false;
                     else
                     {
-                        string message = string.Empty;
-                        if (ValidarPedidoReservado(out message)) mostrarBanner = false;
+                        using (var sv = new PedidoServiceClient())
+                        {
+                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
+                            if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
+                        }
                     }
                 }
 

@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Models
         public long ConsultoraAsociadaID { get; set; }
 
         public string Direccion { get; set; }
-        public string IPUsuario { get; set; }       
+        public string IPUsuario { get; set; }
         public bool MostrarBotonValidar { get; set; }
         public bool HabilitarRestriccionHoraria { get; set; }
 
@@ -280,14 +280,14 @@ namespace Portal.Consultoras.Web.Models
         public bool CargoEntidadesShowRoom { get; set; } // GR-1776
         public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; } // GR-1776
         public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776    
-        
+
         public List<BEShowRoomNivel> ListaShowRoomNivel { get; set; }
 
         public List<BEShowRoomPersonalizacion> ListaShowRoomPersonalizacion { get; set; }
 
-        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; } 
+        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; }
 
-        public int ShowRoomNivelId { get; set; }        
+        public int ShowRoomNivelId { get; set; }
 
         public int OfertaFinal { get; set; }
 
@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
         public bool MostrarBannerPostulante { get; set; }
-        
+
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
@@ -327,10 +327,10 @@ namespace Portal.Consultoras.Web.Models
         public string MontoMinimoFlexipago { get; set; }
 
         public IEnumerable<PaisModel> listaPaises { get; set; }
-        
+
         public List<PermisoModel> Menu { get; internal set; }
         public List<ServicioCampaniaModel> MenuService { get; internal set; }
-        
+
         /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
@@ -345,13 +345,14 @@ namespace Portal.Consultoras.Web.Models
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
         public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
-        
+
         public bool CloseBannerCompraPorCompra { get; set; }
 
         public RevistaDigitalModel RevistaDigital { get; set; }
         public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
         
         public bool EsLebel { get; set; }
+        public int AceptacionConsultoraDA { get; set; }
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
