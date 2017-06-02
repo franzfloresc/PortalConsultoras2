@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true,
                 Simbolo = userData.Simbolo,
-                CodigoAgrupacion = "";
+                CodigoAgrupacion = ""
             };
             
              if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
