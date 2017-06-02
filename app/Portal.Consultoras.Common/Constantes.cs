@@ -526,7 +526,7 @@
         {
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
-            public const string CatalogoPersonalizado = "FDTC"
+            public const string CatalogoPersonalizado = "FDTC";
         }
 
 
