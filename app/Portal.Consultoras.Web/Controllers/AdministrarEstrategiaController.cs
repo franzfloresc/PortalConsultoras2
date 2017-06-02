@@ -1408,7 +1408,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
                                 using (PedidoServiceClient ps = new PedidoServiceClient())
                                 {
-                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
                                     opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
                                 }
                             }
