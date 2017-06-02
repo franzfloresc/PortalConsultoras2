@@ -1386,12 +1386,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
                                 {
-                                    if(productoEstrategia.codigo_estrategia == "2003")
-                                        grupoPrevio = productoEstrategia.grupo;
-
                                     if ((productoEstrategia.codigo_estrategia == "2001" || productoEstrategia.codigo_estrategia == "2002") ||
                                         (productoEstrategia.codigo_estrategia == "2003" && (grupoPrevio!= productoEstrategia.grupo)))
-                                    {                  
+                                    {
+                                        grupoPrevio = productoEstrategia.grupo;
                                         string codigoSap = productoEstrategia.codigo_sap;
                                         string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
                                         nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
@@ -1410,7 +1408,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
                                 using (PedidoServiceClient ps = new PedidoServiceClient())
                                 {
-                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Aproximacion, 1, 1).ToList();
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
                                     opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
                                 }
                             }
