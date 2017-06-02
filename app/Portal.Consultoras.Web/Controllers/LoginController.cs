@@ -1926,7 +1926,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (listaProductoCatalogo.Any())
                     {
                         var productoCatalogo = listaProductoCatalogo.First();
-                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.DescripcionComercial;
+                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.NombreComercial;
                         beConsultoraRegaloPN.PrecioCatalogo = productoCatalogo.PrecioValorizado;
                         beConsultoraRegaloPN.PrecioOferta = productoCatalogo.PrecioCatalogo;
                         beConsultoraRegaloPN.UrlImagenRegalo = productoCatalogo.Imagen;
