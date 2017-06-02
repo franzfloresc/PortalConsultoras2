@@ -80,31 +80,12 @@
             <hr class="clear" />
             <div class="info_cam_belcorp">
                 EST&Aacute;S EN
-                @{
-                    if (nroCampania == "")
-                    {
-                        <span>-</span>
-                    }
-                    else
-                    {
-                        <span>C@(nroCampania)</span>
-                    }
-                }
+                <span> @(nroCampania == "" ? "-" : ("C" + nroCampania))</span>
             </div>
-            @if (ViewBag.Dias == 0)
-            {
-                <div class="info_cam_belcorp2">
-                    EL CIERRE ES
-                    <span>Hoy</span>
-                </div>
-            }
-            else
-            {
-                <div class="info_cam_belcorp2">
-                    EL CIERRE ES EN
-                    <span>@ViewBag.Dias d&iacute;as</span>
-                </div>
-            }
+            <div class="info_cam_belcorp2">
+                EL CIERRE ES @(ViewBag.Dias == 0 ? "" : "EN")
+                <span>@(ViewBag.Dias == 0 ? "Hoy" : (ViewBag.Dias + "días"))</span>
+            </div>
         </div>
         <div class="pedido_resumen_home">
             <div class="mensaje_cierre_fechapromesa">
@@ -2371,7 +2352,7 @@
         </div>
         <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
             <div class="popup_rd_text">
-                <div class="popup_saludo">@Model.SobreNombre.ToUpper(), RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
+                <div class="popup_saludo">@Model.SobreNombre, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
                 <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
                 <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
                 <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>

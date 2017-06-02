@@ -1333,6 +1333,21 @@
     display: inline-block;
 }
 
+.lanzamiento-view-detalle{
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+}
+
+.lanzamiento-view-detalle .revistadigital-landing {
+    width: 100%;
+}
+.lanzamiento-view-detalle .content_item_carrusel{
+    height: auto;
+}
+.lanzamiento-view-detalle .nombre_producto{
+    max-width: 100%;
+}
 
 /*QUERIES*/
 @media (max-width: 1189px) {
@@ -1834,6 +1849,31 @@
     top: 35%;
 }
 
+.ol_detalle {
+    margin:0 0 1.5em;
+    padding:0;
+    counter-reset:item;
+    width: 100% !important;
+}
+ 
+.ol_detalle > li {
+    margin:0;
+    padding:0 0 0 2em;
+    text-indent:-2em;
+    list-style-type:none;
+    counter-increment:item;
+    display:inline-block;
+    width: 100% !important;
+}
+ 
+.ol_detalle > li:before {
+    display:inline-block;
+    width:1.5em;
+    padding-right:0.5em;
+    font-weight:bold;
+    text-align:right;
+    content:counter(item) ".";
+}
 
 /*TRANSITIONS*/
 @keyframes bounceLeft {

@@ -259,10 +259,11 @@ $(document).ready(function () {
         window.open(url, '_blank');
     });
 
-    $("body").on('click', '.belcorpChat', function () {
+    $("body").on('click', '.belcorpChat', function (e) {
+        e.preventDefault();
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
-        if(typeof PopUpChatOpened == 'undefined' ||
+        if (typeof PopUpChatOpened == 'undefined' ||
             PopUpChatOpened == null ||
             PopUpChatOpened == 'false') {
             localStorage.setItem('PopUpChatOpened', 'true');
@@ -279,11 +280,14 @@ $(document).ready(function () {
         }
         //cerrar Popup
         $(".ui-button-text").trigger("click");
+        return false;
     });
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
+
 });
+
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);  

@@ -139,7 +139,9 @@
 
 
 @* Template producto *@
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
+    @Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+</div>
 
 @section scripts{
     <script type="text/javascript">
