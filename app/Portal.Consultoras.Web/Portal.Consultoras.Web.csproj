@@ -1147,6 +1147,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
@@ -2929,6 +2930,7 @@
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
     <Content Include="Scripts\AdminContenido\Estrategia.js" />
@@ -2970,6 +2972,7 @@
     <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.toast.min.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />

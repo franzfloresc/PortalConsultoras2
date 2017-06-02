@@ -13074,11 +13074,18 @@ label.checkpop {
   display:inline-block; 
   font-size:0.9em;
   color:gray !important;
-  padding-top:2px; 
+  padding-top:2px;
+  padding-bottom:2px; 
   overflow: hidden; 
   white-space: nowrap; 
   text-overflow: ellipsis;
   height:20px;
+}
+
+.matriz-comercial-list .item .actions .nemotecnico-wrapper:hover {
+    /*border: 1px solid;*/
+    background-color:#eeeeee;
+    cursor:pointer;
 }
 
 .matriz-comercial-list .item .actions .nemotecnico-wrapper a {

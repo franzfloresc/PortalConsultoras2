@@ -252,6 +252,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialNemotecnico");
+            Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+
+            return Context.ExecuteNonQuery(command);
+        }
 
         public IDataReader GetMatrizComercialByCodigoSAP(string codigoSAP)
         {
@@ -314,7 +323,7 @@ namespace Portal.Consultoras.Data
                 query.Append("INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID ");
                 query.Append("INNER JOIN MatrizComercialImagen mci on mci.IdMatrizComercial = mc.IdMatrizComercial ");
                 query.Append(String.Format(" WHERE (({0} = 0) OR (e.EstrategiaID = {0} )) ", estrategiaID));
-                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
+                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
                 query.Append(String.Format(" AND (({0} = 0) OR (e.CampaniaID = {0})) ", campaniaID));
                 query.Append(String.Format(" AND (({0} = 0) OR (e.TipoEstrategiaID = {0})) ", tipoEstrategiaID));
 
@@ -324,8 +333,8 @@ namespace Portal.Consultoras.Data
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
                 query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
                 query.Append("left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
-                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
-                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
+                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
+                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
             }
             else
             {

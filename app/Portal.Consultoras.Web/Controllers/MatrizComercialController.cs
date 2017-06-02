@@ -369,6 +369,30 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult ActualizarNemotecnicoMatrizComercial(MatrizComercialModel model)
+        {
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercialImagen = model.IdMatrizComercialImagen,
+                PaisID = model.PaisID,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = model.Nemotecnico
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                sv.UpdMatrizComercialNemotecnico(entity);
+            }
+
+            return Json(new
+            {
+                entity = model,
+                success = true,
+                message = "Se actualizó el nemotécnico satisfactoriamente."
+            });
+        }
+
+        [HttpPost]
         public string UpdDescripcionProductoMasivo(HttpPostedFileBase flDescProd)
         {
             string message = string.Empty;
