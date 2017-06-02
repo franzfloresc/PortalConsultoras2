@@ -1333,6 +1333,21 @@
     display: inline-block;
 }
 
+.lanzamiento-view-detalle{
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+}
+
+.lanzamiento-view-detalle .revistadigital-landing {
+    width: 100%;
+}
+.lanzamiento-view-detalle .content_item_carrusel{
+    height: auto;
+}
+.lanzamiento-view-detalle .nombre_producto{
+    max-width: 100%;
+}
 
 /*QUERIES*/
 @media (max-width: 1189px) {
