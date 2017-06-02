@@ -139,21 +139,38 @@ $(document).ready(function () {
 
     });
 
-    $(document).ready(function () {
-        $('.tit_pregunta_ept').click(function (e) {
-            e.preventDefault();
-            var $this = $(this);
-            if ($this.next().hasClass('show')) {
-                $this.next().removeClass('show');
-                $this.next().slideUp(350);
-            } else {
-                $this.parent().parent().find('.text_respuesta_ept').removeClass('show');
-                $this.parent().parent().find('.text_respuesta_ept').slideUp(350);
-                $this.next().toggleClass('show');
-                $this.next().slideToggle(350);
-            }
-        });
+   
+    $('.tit_pregunta_ept').click(function (e) {
+        e.preventDefault();
+        //debugger;
+        var $this = $(this);
+        if ($this.next().hasClass('show1')) {
+            $this.next().removeClass('show1');
+            $this.next().slideUp(350);
+        } else {
+            $this.parent().parent().find('.text_respuesta_ept').removeClass('show1');
+            $this.parent().parent().find('.text_respuesta_ept').slideUp(350);
+            $this.next().toggleClass('show1');
+            $this.next().slideToggle(350);
+        }
+        return false;
     });
+
+    $('.tit_pregunta_ept2').click(function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        if ($this.next().hasClass('show')) {
+            $this.next().removeClass('show');
+            $this.next().slideUp(350);
+        } else {
+            $this.parent().parent().find('.text_respuesta_ept2').removeClass('show');
+            $this.parent().parent().find('.text_respuesta_ept2').slideUp(350);
+            $this.next().toggleClass('show');
+            $this.next().slideToggle(350);
+        }
+        return false;
+    });
+   
 });
 
 function GetArrowNamePrev() {
@@ -229,3 +246,4 @@ function RDDetalleObtener() {
         }
     });
 }
+

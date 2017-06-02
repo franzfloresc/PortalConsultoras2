@@ -1,4 +1,5 @@
 ﻿
+@using System.Configuration
 @using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
@@ -169,21 +170,24 @@
                 <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
                 <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
             </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">A mi amiga “Jimena” le sale el producto “Kadia” a S./ 00.00 y a mí sale más caro a S./00.00 ¿Por qué?</div>
-                <div class="text_respuesta_ept">“Ésika para mí” ofrece ofertas personalizadas en función a tu historial de compra y preparará para ti las mejores ofertas en función a esto. De esta manera, las ofertas que figuren en tu “Ésika para mí” tendrán mayor probabilidad de venta, porque ya tienes clientes que seguramente estén interesados en estos.</div>
+        </div>
+        <div class="ept_preguntasRespuestas_accordion2">
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">A mi amiga “Jimena” le sale el producto “Kadia” a S./ 00.00 y a mí sale más caro a S./00.00 ¿Por qué?</div>
+                <div class="text_respuesta_ept2">“Ésika para mí” ofrece ofertas personalizadas en función a tu historial de compra y preparará para ti las mejores ofertas en función a esto. De esta manera, las ofertas que figuren en tu “Ésika para mí” tendrán mayor probabilidad de venta, porque ya tienes clientes que seguramente estén interesados en estos.</div>
             </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Cuál es mi ganancia por la venta de los productos de “Ésika para mí”?</div>
-                <div class="text_respuesta_ept">Todos los precios son no comisionables (funciona como revista). La ganancia es el precio de catálogo del producto menos el precio de la revista online.</div>
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">¿Cuál es mi ganancia por la venta de los productos de “Ésika para mí”?</div>
+                <div class="text_respuesta_ept2">Todos los precios son no comisionables (funciona como revista). La ganancia es el precio de catálogo del producto menos el precio de la revista online.</div>
             </div>
-            <div class="box_pregunta_ept">
-                <div class="tit_pregunta_ept">¿Por qué cancelaron mi revista impresa?</div>
-                <div class="text_respuesta_ept">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">¿Por qué cancelaron mi revista impresa?</div>
+                <div class="text_respuesta_ept2">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
             </div>
-         </div>
+        </div>
+        <hr class="clear"/>
         <div class="descargarPreguntasRespuestas">
-            <a href="#">+ MÁS PREGUNTAS FRECUENTES</a>
+            <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
         </div>
         <div class="titulo_no_inscrita" id="divAnularSuscripcion">
             ¿ya no quieres estar inscrita a ésika para mí?

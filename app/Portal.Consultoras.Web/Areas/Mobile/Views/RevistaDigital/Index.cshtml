@@ -1,4 +1,5 @@
 ﻿
+@using System.Configuration
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
@@ -108,11 +109,11 @@
                </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" />
-                    <p><b>A partir de C-11</b> recibirás únicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.</p>
+                    <p><b>A partir de C-@Model.CampaniaMasUno</b> recibirás únicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" />
-                    <p><b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.</p>
+                    <p><b>En C-@Model.CampaniaMasDos</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.</p>
                 </div>
             </div>
         </div>
@@ -137,7 +138,7 @@
                 </div>
             </div>
             <div class="descargarPreguntasRespuestas">
-                <a href="#">+ DESCARGA AQUÍ TODAS LAS PREGUNTAS FRECUENTES</a>
+                <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ DESCARGA AQUÍ TODAS LAS PREGUNTAS FRECUENTES</a>
             </div>
         </div>
     </div>
@@ -146,7 +147,9 @@
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
             <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al anular tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
-            <p>Cualquier duda llama a 0800-357 o haz click <a href="#" style="display:inline-block; text-decoration:underline;">aquí</a></p>
+            <p>Cualquier duda llama a @Model.NumeroContacto o haz click 
+                <a href="@Url.Action("ChatBelcorp", "Bienvenida", new {area = "Mobile"})" target="_blank"
+                   style="display:inline-block; text-decoration:underline;" >aquí</a></p>
         </div>
         <div class="btn_cancelarInscripcion_ept">
             <a href="#">CANCELAR MI INSCRIPCIÓN</a>

@@ -227,6 +227,7 @@ $(document).ready(function () {
 
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
+            MostrarPopupRDAnalytics();
             break;
     }
 
@@ -438,6 +439,7 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
+
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
