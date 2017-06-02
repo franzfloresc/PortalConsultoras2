@@ -334,19 +334,16 @@ namespace Portal.Consultoras.Data
                 query.Append(String.Format(" WHERE (({0} = 0) OR idMatrizComercial = {0}) ", idMatrizImagen));
             }
 
-            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Aproximacion))
-            {
-                String[] nemotecnicoItems = nemotecnico.Split('&');
+            String[] nemotecnicoItems = nemotecnico.Split('&');
 
-                foreach (String nemotecnicoItem in nemotecnicoItems)
-                {
-                    query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
-                }
-            }
-            else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
+            foreach (String nemotecnicoItem in nemotecnicoItems)
             {
-                //query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnico));
-                query.Append(String.Format(" AND Nemotecnico = '{0}' ", nemotecnico));
+                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
+            }
+
+            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
+            {
+                query.Append(String.Format("AND LEN(Nemotecnico) ={0}", nemotecnico.Length));
             }
 
             query.Append(" ) as T order by FechaRegistro desc");
