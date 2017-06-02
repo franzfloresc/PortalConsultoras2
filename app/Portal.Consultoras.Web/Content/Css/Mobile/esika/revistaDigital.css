@@ -1617,3 +1617,44 @@ height: 100%;
         margin-top: -284px;
     }
 }
+
+
+.revistadigital-detalle-titulo {
+    height: 50px;
+}
+
+.revistadigital-detalle-titulo .logo_EPT_content{
+        background:black;
+        height: 50px;
+        padding-top:0;
+}
+.revistadigital-detalle-titulo .logo_EPT_content span{
+
+        font-size: 13px;
+        padding-left: 15%;
+}
+.revistadigital-detalle-titulo .texto_usuario_ept {
+    height: 50px;
+    padding-top: 0;
+    background: rgba(177,19,20,1);
+    background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(177,19,20,1)), color-stop(18%, rgba(197,31,28,1)), color-stop(100%, rgba(223,41,34,1)));
+    background: -webkit-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -o-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: -ms-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    background: linear-gradient(to bottom, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
+}
+
+.revistadigital-detalle-titulo .logo_EPT_content:after {
+    content: '';
+    position: absolute;
+    right: -25px;
+    top: 0;
+    z-index: 102;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 25px 13px 25px 13px;
+    border-color: black transparent transparent black;
+}
