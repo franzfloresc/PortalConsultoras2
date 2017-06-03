@@ -133,11 +133,11 @@
                </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" />
-                    <p><b>A partir de C-@Model.CampaniaMasUno</b> recibirás únicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasUno e ir planificando el pedido de la próxima campaña.</p>
+                    <p><b>A partir de C-@Model.CampaniaMasUno</b> recibirás únicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" />
-                    <p><b>En C-@Model.CampaniaMasUno</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.</p>
+                    <p><b>En C-@Model.CampaniaMasDos</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.</p>
                 </div>
             </div>
         </div>
@@ -167,7 +167,7 @@
         </div>
     </div>
 
-    <div class="box_cancelarInscripcion_ept">
+    <div class="box_cancelarInscripcion_ept" id="divAnularSuscripcion">
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
             <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al anular tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
@@ -176,7 +176,7 @@
                    style="display:inline-block; text-decoration:underline;" >aquí</a></p>
         </div>
         <div class="btn_cancelarInscripcion_ept">
-            <a href="#">CANCELAR MI INSCRIPCIÓN</a>
+            <a href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a>
         </div>
         <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
@@ -208,4 +208,5 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }
