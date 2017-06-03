@@ -4,9 +4,16 @@ $(document).ready(function () {
     $("[data-campania2]").html(campaniaNro + 2);
 });
 
-function RDPopupCerrar() {
+function RDPopupCerrar(tipo) {
     AbrirLoad();
+    if (tipo == 1) {
+        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        location.href = "/";
+        return false;
+    }
+
     CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
+    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'RevistaDigital/PopupCerrar',
@@ -42,7 +49,10 @@ function RDSuscripcion() {
                 AbrirPopupFade("#PopRDInscrita");
                 SuscripcionExistosaRDAnalytics();
                 MostrarMenu(data.CodigoMenu);
-                CargarBanners();
+                if (!isMobile()) {
+                    CargarBanners();
+                }
+               
             }
         },
         error: function (data, error) {
@@ -172,7 +182,8 @@ function SaberMasRDAnalytics() {
         'category': 'Revista Online',
         'action': 'Click Botón',
         'label': 'Saber más de Ésika para mí'
-    });}
+    });
+}
 
 function CerrarPopUpRDAnalytics(tipoBanner) {
     dataLayer.push({
@@ -180,7 +191,8 @@ function CerrarPopUpRDAnalytics(tipoBanner) {
         'category': 'Revista Online',
         'action': 'Cerrar popup',
         'label': tipoBanner
-    });}
+    });
+}
 
 function IrCancelarSuscripcionRDAnalytics() {
     dataLayer.push({

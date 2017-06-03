@@ -2336,7 +2336,7 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
-<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar">
+<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
     <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="" >
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
@@ -2378,9 +2378,9 @@
 </div>
 <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
 <!-- POPUP INSCRITA A REVISTA DIGITAL -->
-<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important">
+<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(1)">
     <div class="popup_rd rd_confirmacion" style="width: 620px;" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" href="javascript: CerrarPopup('#PopRDInscrita');" onclick="">
+        <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" data-popup-close="">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
         </a>
         <div class="popup_rd_cabecera">

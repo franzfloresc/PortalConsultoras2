@@ -25,24 +25,27 @@
 </div>
 <hr class="clear" />
 
-<div class="fondo_f2f2f2">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-    <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
-        @foreach (var tabs in Model.ListaTabs)
-        {
-            <li>
-                <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id" data-tag-funt="RenderCarrusel()">
-                    <div class="texto_tab_pagos">@tabs.Descripcion</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>
-        }
-        <hr id="barCursor">
-    </ul>
-    <hr class="clear" />
-</div>
+@if (Model.ListaTabs.Count() > 0)
+{
+    <div class="fondo_f2f2f2">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
+            @foreach (var tabs in Model.ListaTabs)
+            {
+                <li>
+                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id" data-tag-funt="RenderCarrusel()">
+                        <div class="texto_tab_pagos">@tabs.Descripcion</div>
+                        <div class="marcador_tab oculto"></div>
+                    </a>
+                </li>
+            }
+            <hr id="barCursor">
+        </ul>
+        <hr class="clear" />
+    </div>
 
+}
 @* Lanzamientos con etiqueta NUEVO *@
 <!-- Inicio Seccion de Landing-->
 <div data-tag-html="1" style="display:none">

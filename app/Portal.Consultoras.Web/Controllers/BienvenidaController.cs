@@ -1695,7 +1695,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.NoVolverMostrar)
                 {
                     return Json(new
                     {

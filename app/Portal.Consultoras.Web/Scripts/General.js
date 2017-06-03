@@ -1398,3 +1398,13 @@ function MostrarMenu(codigo, accion) {
     LayoutMenu();
     
 }
+
+function FunccionEjecutar(functionHide) {
+    functionHide = $.trim(functionHide);
+    if (functionHide != "") {
+        if (functionHide[functionHide.length - 1] != ")") {
+            functionHide = functionHide + "()";
+        }
+        setTimeout(functionHide + "()", 100);
+    }
+}

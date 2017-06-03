@@ -334,6 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         userData.RevistaDigital.NoVolverMostrar = true;
                         userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                        userData.RevistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                     }
                 }
                 SetUserData(userData);
