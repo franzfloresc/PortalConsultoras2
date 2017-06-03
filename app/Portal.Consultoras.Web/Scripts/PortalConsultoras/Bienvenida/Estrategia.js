@@ -118,8 +118,9 @@ function ArmarCarouselEstrategias(data) {
     $('#divListaEstrategias').show();
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+    //ResizeBoxContnet();
 
-    if (tipoOrigenEstrategia == 11) {
+    if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
@@ -254,6 +255,8 @@ function ArmarCarouselEstrategias(data) {
     TagManagerCarruselInicio(data.Lista);
 
 };
+
+
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :

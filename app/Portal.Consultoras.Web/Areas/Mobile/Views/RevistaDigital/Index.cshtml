@@ -164,7 +164,7 @@
         </div>
     </div>
 
-    <div class="box_cancelarInscripcion_ept">
+    <div class="box_cancelarInscripcion_ept" id="divAnularSuscripcion">
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
             <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al anular tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
@@ -173,7 +173,7 @@
                    style="display:inline-block; text-decoration:underline;" >aquí</a></p>
         </div>
         <div class="btn_cancelarInscripcion_ept">
-            <a href="#">CANCELAR MI INSCRIPCIÓN</a>
+            <a href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a>
         </div>
         <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
@@ -205,4 +205,5 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }
