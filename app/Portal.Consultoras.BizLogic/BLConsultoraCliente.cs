@@ -40,8 +40,9 @@ namespace Portal.Consultoras.BizLogic
 
                 //OBTENER CELULAR O FIJO
                 var lstContactoTelefono = (from tbl in clienteItem.Contactos
-                                    where tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular
-                                    || tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Fijo
+                                    where (tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Celular
+                                    || tbl.TipoContactoID == Constantes.ConsultoraClienteTipoContacto.Fijo)
+                                    && tbl.Estado == Constantes.ConsultoraClienteEstado.Activo
                                     select tbl).OrderBy(x => x.TipoContactoID);
 
                 foreach(var telefonoCliente in lstContactoTelefono)
@@ -143,8 +144,8 @@ namespace Portal.Consultoras.BizLogic
                         if (clienteItem.TipoRegistro != Constantes.ConsultoraClienteTipoRegistro.Anotaciones)
                         {
                             //ACTUALIZA CLIENTES Y CONTACTOS (Insert,Update)
-                            var lstContactos = clienteItem.Contactos;
-                            clienteItem.Contactos = lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Activo).ToList();
+                            //var lstContactos = clienteItem.Contactos;
+                            //clienteItem.Contactos = lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Activo).ToList();
                             var resUpdateCliente = daConsultoraCliente.UpdateCliente(clienteItem);
 
                             if (!resUpdateCliente)
@@ -158,14 +159,14 @@ namespace Portal.Consultoras.BizLogic
                                 continue;
                             }
 
-                            if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.TipoContacto)
-                            {
-                                //ACTUALIZA CONTACTOS (Delete)
-                                foreach (var contactoItemDelete in lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Inactivo))
-                                {
-                                    var resultDeleteContactoCliente = daConsultoraCliente.DeleteContactoCliente(contactoItemDelete);
-                                }
-                            }
+                            //if (clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.Todos || clienteItem.TipoRegistro == Constantes.ConsultoraClienteTipoRegistro.TipoContacto)
+                            //{
+                            //    //ACTUALIZA CONTACTOS (Delete)
+                            //    foreach (var contactoItemDelete in lstContactos.Where(x => x.Estado == Constantes.ConsultoraClienteEstado.Inactivo))
+                            //    {
+                            //        var resultDeleteContactoCliente = daConsultoraCliente.DeleteContactoCliente(contactoItemDelete);
+                            //    }
+                            //}
                         }
                     }
 
@@ -331,7 +332,7 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
 
-            var validacionTipoContacto = cliente.Contactos.Where(x => string.IsNullOrEmpty(x.Valor)).FirstOrDefault();
+            var validacionTipoContacto = cliente.Contactos.Where(x => string.IsNullOrEmpty(x.Valor) && x.Estado == Constantes.ConsultoraClienteEstado.Activo).FirstOrDefault();
 
             if (validacionTipoContacto != null)
             {
