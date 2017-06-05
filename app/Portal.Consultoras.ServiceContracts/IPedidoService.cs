@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1072,6 +1073,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
+   
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
