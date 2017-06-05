@@ -300,6 +300,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
+            
+            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+                && (beConfiguracionCampania.ModificaPedidoReservado
+                || beConfiguracionCampania.ValidacionAbierta))
+            {
+                return RedirectToAction("Index", new { area = "Mobile" });
+            }
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;
             using (var sv = new PedidoServiceClient())
@@ -308,6 +315,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
+
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
