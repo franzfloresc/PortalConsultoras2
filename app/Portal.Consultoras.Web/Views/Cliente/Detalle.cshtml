@@ -35,40 +35,38 @@
     }
 }
 <form action="" method="post">
-    <div id="divClienteDetalle">
-        @Html.HiddenFor(model => model.ClienteID)
-        @Html.HiddenFor(model => model.CodigoCliente)
+    @Html.HiddenFor(model => model.ClienteID)
+    @Html.HiddenFor(model => model.CodigoCliente)
 
-        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre" })
-        <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-            <div class="noti_message red_texto_size">
-                <span class="icono_advertencia_notificacion"></span>
-                <span class="descripcion_mensaje">
-                    Por favor ingresa un nombre válido.
-                </span>
-            </div>
+    @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre" })
+    <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+        <div class="noti_message red_texto_size">
+            <span class="icono_advertencia_notificacion"></span>
+            <span class="descripcion_mensaje">
+                Por favor ingresa un nombre válido.
+            </span>
         </div>
-
-        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
-        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
-
-        @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
-        <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
-            <div class="noti_message red_texto_size">
-                <span class="icono_advertencia_notificacion"></span>
-                <span class="descripcion_mensaje">
-                    El correo ingresado <b>no existe.</b> <br />
-                    Por favor ingresa un correo válido.
-                </span>
-            </div>
-        </div>
-        <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
-        <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
-        <br />
-        <br />
-        <br />
-        <div id="divValidationSummary"></div>
     </div>
+
+    @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+    @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+
+    @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico (Opcional)", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
+    <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
+        <div class="noti_message red_texto_size">
+            <span class="icono_advertencia_notificacion"></span>
+            <span class="descripcion_mensaje">
+                El correo ingresado <b>no existe.</b> <br />
+                Por favor ingresa un correo válido.
+            </span>
+        </div>
+    </div>
+    <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
+    <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
+    <br />
+    <br />
+    <br />
+    <div id="divValidationSummary"></div>
 </form>
 
 <script>

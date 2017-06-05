@@ -7625,7 +7625,8 @@ input[type="checkbox"]:checked + span:after {
     margin: 0 auto;
     background: #FFF;
     width: 90%;
-    max-width: 400px;
+    /*max-width: 400px;*/
+    width:520px;
     height: auto;
     padding: 30px 20px 30px 20px;
     box-sizing: border-box;

@@ -705,6 +705,9 @@ function messageInfo(message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#popupInformacion .btn-aceptar').off('click');
         $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
+
+        $('#popupInformacion .cerrar_popMobile').off('click');
+        $('#popupInformacion .cerrar_popMobile').on('click', fnAceptar);
     }
 }
 

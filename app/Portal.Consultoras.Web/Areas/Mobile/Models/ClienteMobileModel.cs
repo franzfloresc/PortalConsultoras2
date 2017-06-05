@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Email { get; set; }
 
         [Display(Name = "Teléfono Fijo")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
+        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
         public string Telefono { get; set; }
 
         public string CampaniaAnterior { get; set; }
@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CodigoZona { get; set; } //R20160204        
 
         [Display(Name = "Celular")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
+        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
         public string Celular { get; set; }
 
         public long CodigoCliente { get; set; }

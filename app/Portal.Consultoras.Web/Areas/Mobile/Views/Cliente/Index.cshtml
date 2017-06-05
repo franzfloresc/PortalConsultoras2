@@ -84,6 +84,7 @@
                                             <div class="mt-10">Celular: <span class="clienteCelular">@cliente.Celular</span></div>
                                             <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
                                             <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
+                                            <input type="hidden" class="clienteCodigo" value="@cliente.CodigoCliente" />
                                         </div>
                                         <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
                                         <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>
@@ -128,13 +129,46 @@
     </div>
     <!-- end modal -->
 
-    <div id="agregarCliente" class="modal fade">
+    @*<div id="agregarCliente" class="modal fade">
         <div class="modal-dialog modal-alert ">
             <div class="modal-content">
-                <div class="modal-body" id="divDetalleCliente">
-                    @*@Html.Partial("AgregarCliente", new ClienteMobileModel())*@
+                <div class="modal-body">
+                    @Html.Partial("AgregarCliente", new ClienteMobileModel())
                 </div>
             </div>
+        </div>
+    </div>*@
+
+    <div class="contenedor_popup_clientes" id="divAgregarCliente">
+        <div class="popup_agregarCliente">
+            <div id="divDetalleCliente"></div>
+            @*<div class="btn_cerrar_agregarUnidades">
+                <a href="javascript:;" onclick="CerrarMantenerCliente();">
+                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                    <span class="texto_btn_cerrar">CERRAR</span>
+                </a>
+            </div>
+            <h6>AGREGAR <b>CLIENTE</b></h6>
+            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" class="ValidaAlfabeto" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        Por favor ingresa un nombre válido.
+                    </span>
+                </div>
+            </div>
+            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
+            <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
+                <div class="noti_message red_texto_size">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span class="descripcion_mensaje">
+                        El correo ingresado <b>no existe.</b><br />
+                        Por favor ingresa un correo válido.
+                    </span>
+                </div>
+            </div>
+            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />*@
         </div>
     </div>
 
@@ -147,6 +181,8 @@
     var urlEliminarCliente = '@Url.Action("Eliminar", "Cliente", new {area = "Mobile"})';
 
             $(document).ready(function () {
+                $("#divAgregarCliente").hide();
+
                 $("body").on("click", ".agregarCliente", function (event) {
                     if (gTipoUsuario == '2') {
                         var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -155,7 +191,7 @@
                         return false;
                     }
                     else {
-                        //esAgregarCliente = true;
+                        esAgregarCliente = true;
                         //$('#Nombre').val("");
                         //$('#Email').val("");
                         //$('#Telefono').val("");
@@ -168,7 +204,7 @@
                         //ShowAgregarCliente();
                         //$("#liOpcionCliente").html("Agregar Cliente");
 
-                        showClienteDetalle();
+                        showClienteDetalle(null);
                     }
                 });
 
@@ -179,30 +215,51 @@
                         $('#popupInformacionSB2Error').show();
                         return false;
                     }
-                    else{
+                    else {
                         esAgregarCliente = false;
                         var divPadre = $(this).parent("div");
-                        var divInfo = $(divPadre).find(".table-width");
+                        //var divInfo = $(divPadre).find(".table-width");
 
-                        var clienteId = $(divInfo).find(".clienteId").val();
-                        var clienteNombre = $(divInfo).find(".clienteNombre").html();
-                        var clienteEmail = $(divInfo).find(".clienteEmail").html();
+                        //var clienteId = $(divInfo).find(".clienteId").val();
+                        //var clienteNombre = $(divInfo).find(".clienteNombre").html();
+                        //var clienteEmail = $(divInfo).find(".clienteEmail").html();
 
-                        posicionClienteActual = parseInt(clienteId);
-                        $("#ClienteID").val(clienteId);
-                        $("#Nombre").val(clienteNombre);
-                        $("#Email").val(clienteEmail);
-                        $("#hdNombreClienteAnterior").val(clienteNombre);
-                        ShowAgregarCliente();
-                        $("#liOpcionCliente").html("Modificar Cliente");
+                        //posicionClienteActual = parseInt(clienteId);
+                        //$("#ClienteID").val(clienteId);
+                        //$("#Nombre").val(clienteNombre);
+                        //$("#Email").val(clienteEmail);
+                        //$("#hdNombreClienteAnterior").val(clienteNombre);
+                        //ShowAgregarCliente();
+                        //$("#liOpcionCliente").html("Modificar Cliente");
+
+                        showClienteDetalle(divPadre);
                     }
                 });
             });
 
-            function showClienteDetalle() {
+            var ClienteDetalleOK = null;
+            function showClienteDetalle(divPadre) {
                 var url = '@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })';
 
                 var cliente = {};
+
+                if (divPadre != null) {
+                    var divInfo = $(divPadre).find(".table-width");
+
+                    var id = $(divInfo).find(".clienteId").val();
+                    var codigo = $(divInfo).find(".clienteCodigo").val();
+                    var nombre = $(divInfo).find(".clienteNombre").html();
+                    var correo = $(divInfo).find(".clienteEmail").html();
+                    var telefono = $(divInfo).find(".clienteTelefono").html();
+                    var celular = $(divInfo).find(".clienteCelular").html();
+                    
+                    cliente.ClienteID = id;
+                    cliente.CodigoCliente = codigo;
+                    cliente.Nombre = nombre;
+                    cliente.eMail = correo;
+                    cliente.Telefono = telefono;
+                    cliente.Celular = celular;
+                }
 
                 $.ajax({
                     type: 'GET',
@@ -212,7 +269,11 @@
                     data: cliente,
                     success: function (data) {
                         $("#divDetalleCliente").html(data);
-                        ShowAgregarCliente();
+                        //ShowAgregarCliente();
+                        $("#divAgregarCliente").show();
+
+                        ClienteDetalleOK = null;
+                        ClienteDetalleOK = RealizarLuegoGuardarCliente;
 
                         //ClienteDetalleOK = function (cliente) {
                         //    //alert(JSON.stringify(cliente));
@@ -228,20 +289,47 @@
             function RealizarLuegoGuardarCliente(data) {
                 if (esAgregarCliente) {
                     var clienteNombre = data.Nombre == "" || data.Nombre == null ? "" : data.Nombre;
-                    var clienteEmail = data.eMail == "" || data.eMail == null ? "" : data.eMail;
+                    var clienteEmail = data.Email == "" || data.Email == null ? "" : data.Email;
                     var clienteId = data.ClienteID == "" || data.ClienteID == null ? "" : data.ClienteID;
+                    var clienteCodigo = data.CodigoCliente == "" || data.CodigoCliente == null ? "" : data.CodigoCliente;
+                    var clienteTelefono = data.Telefono == "" || data.Telefono == null ? "" : data.Telefono;
+                    var clienteCelular = data.Celular == "" || data.Celular == null ? "" : data.Celular;
 
-                    var htmlInsertar = '<li>';
+                    //var htmlInsertar = '<li>';
+                    //htmlInsertar += '<div class="posr">';
+                    //htmlInsertar += '<div class="table-width">';
+                    //htmlInsertar += '<div>';
+                    //htmlInsertar += '<strong class="upper clienteNombre">' + clienteNombre + '</strong>';
+                    //htmlInsertar += '</div>';
+                    //htmlInsertar += '<div class="mt-10">Correo: <span class="clienteEmail">' + clienteEmail + '</span></div>';
+                    //htmlInsertar += '<input type="hidden" class="clienteId" value="' + clienteId + '"/>';
+                    //htmlInsertar += '</div>';
+                    //htmlInsertar += '<a href="javascript:;" class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>';
+                    //htmlInsertar += '<a href="javascript:;" class="cli-ac-delete text-primary" onclick="return EliminarCliente(' + clienteId + ');"><i class="icon-delete icon-lg"></i></a>';
+                    //htmlInsertar += '</div>';
+                    //htmlInsertar += '</li>';
+
+                    var htmlInsertar = '';
+                    htmlInsertar += '<li>';
                     htmlInsertar += '<div class="posr">';
+                    htmlInsertar += '<div class="divTabla">';
+                    htmlInsertar += '<div class="divIcono">';
+                    htmlInsertar += '</div>';
+                    htmlInsertar += '<div class="divCelda">';
                     htmlInsertar += '<div class="table-width">';
                     htmlInsertar += '<div>';
                     htmlInsertar += '<strong class="upper clienteNombre">' + clienteNombre + '</strong>';
                     htmlInsertar += '</div>';
+                    htmlInsertar += '<div class="mt-10">Teléfono Fijo: <span class="clienteTelefono">' + clienteTelefono + '</span></div>';
+                    htmlInsertar += '<div class="mt-10">Celular: <span class="clienteCelular">' + clienteCelular + '</span></div>';
                     htmlInsertar += '<div class="mt-10">Correo: <span class="clienteEmail">' + clienteEmail + '</span></div>';
-                    htmlInsertar += '<input type="hidden" class="clienteId" value="' + clienteId + '"/>';
+                    htmlInsertar += '<input type="hidden" class="clienteId" value="' + clienteId + '" />';
+                    htmlInsertar += '<input type="hidden" class="clienteCodigo" value="' + clienteCodigo + '" />';
                     htmlInsertar += '</div>';
                     htmlInsertar += '<a href="javascript:;" class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>';
                     htmlInsertar += '<a href="javascript:;" class="cli-ac-delete text-primary" onclick="return EliminarCliente(' + clienteId + ');"><i class="icon-delete icon-lg"></i></a>';
+                    htmlInsertar += '</div>';
+                    htmlInsertar += '</div>';
                     htmlInsertar += '</div>';
                     htmlInsertar += '</li>';
 
@@ -258,9 +346,15 @@
                     var divPadre = $(inputClienteId).parent(".table-width");
                     var clienteNombreActualizar = $(divPadre).find(".clienteNombre");
                     var clienteEmailActualizar = $(divPadre).find(".clienteEmail");
+                    var clienteTelefonoActualizar = $(divPadre).find(".clienteTelefono");
+                    var clienteCelularActualizar = $(divPadre).find(".clienteCelular");
+                    var clienteCodigoActualizar = $(divPadre).find(".clienteCodigo");
 
-                    $(clienteNombreActualizar).html(data.Nombre);
-                    $(clienteEmailActualizar).html(data.eMail);
+                    clienteNombreActualizar.html(data.Nombre);
+                    clienteEmailActualizar.html(data.Email);
+                    clienteTelefonoActualizar.html(data.Telefono);
+                    clienteCelularActualizar.html(data.Celular);
+                    clienteCodigoActualizar.html(data.CodigoCliente);
 
                     dataLayer.push({
                         'event': 'virtualEvent',
@@ -323,12 +417,12 @@
                 }
             }
 
-            function ShowAgregarCliente() {
-                $("#agregarCliente").modal("show");
-            }
+            //function ShowAgregarCliente() {
+            //    $("#agregarCliente").modal("show");
+            //}
 
-            function CloseAgregarCliente() {
-                $("#agregarCliente").modal("hide");
-            }
+            //function CloseAgregarCliente() {
+            //    $("#agregarCliente").modal("hide");
+            //}
         </script>
     }
