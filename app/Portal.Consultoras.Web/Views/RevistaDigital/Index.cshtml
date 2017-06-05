@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+    var campania2 = Model.CampaniaMasDos;
 }
 
 @section styles{
@@ -145,12 +147,12 @@
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                <b>A partir de C-@Model.CampaniaMasDos </b>recibirás unicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
+                <b>A partir de C-@campania2 </b>recibirás unicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@campania2 e ir planificando el pedido de la próxima campaña.
 
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
+                <b>En C-@campania2 </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
             </div>
         </div>
         <hr class="clear" />
