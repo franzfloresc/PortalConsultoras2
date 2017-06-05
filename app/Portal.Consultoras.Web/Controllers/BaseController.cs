@@ -2357,7 +2357,7 @@ namespace Portal.Consultoras.Web.Controllers
                         accion = "Intriga";
 
                 }
-                return (IsMobile() ? "Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+                return "/" + (IsMobile() ? "Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
 
             }
             catch (Exception)
