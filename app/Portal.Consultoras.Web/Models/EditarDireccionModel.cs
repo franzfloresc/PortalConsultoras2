@@ -64,6 +64,10 @@ namespace Portal.Consultoras.Web.Models
 
         public SelectList LugaresNivel1 { get; set; }
         public SelectList LugaresNivel3 { get; set; }
+
+        public SelectList LugaresNivel2 { get; set; }
+        public SelectList LugaresNivel4 { get; set; }
+        public SelectList LugaresNivel5 { get; set; }
         public int ContaValorNivel3 { get; set; }
 
        

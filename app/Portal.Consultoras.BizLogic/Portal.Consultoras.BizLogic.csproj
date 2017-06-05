@@ -88,6 +88,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,6 +248,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Template\mailing_proceso_descarga_excepcion.html">
+    </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

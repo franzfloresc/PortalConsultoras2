@@ -1,0 +1,35 @@
+﻿<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '101'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;">
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '101'}}revistadigital-content{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '101'}}
+                <div class="revistadigital-title">
+                    <p class="marca">ÉSIKA</p>
+                    <div class="giftext">
+                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
+                    </div>
+                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>
+                </div>
+                {{else}}
+                <div class="titulo_ofertas_home">
+                    OFERTAS <b>PARA TI {{Consultora}}</b>
+                    <div class="texto_exclusivo">
+                        EXCLUSIVO SÓLO POR WEB
+                    </div>
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+            </div>
+            {{#iff (Trim CodigoEstrategia) '==' '101'}}
+            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'" >
+                <p>MÁS<br>OFERTAS<br>PARA TI</p>
+                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
