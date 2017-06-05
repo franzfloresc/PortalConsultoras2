@@ -4,8 +4,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -15,11 +15,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -30,8 +27,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -41,11 +38,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -56,8 +50,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -67,11 +61,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -82,8 +73,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -93,11 +84,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -108,8 +96,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -119,11 +107,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -134,8 +119,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -145,11 +130,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -160,8 +142,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -171,11 +153,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -186,8 +165,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -197,11 +176,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -212,8 +188,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -223,11 +199,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -238,8 +211,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -249,11 +222,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -264,8 +234,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -275,11 +245,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -290,8 +257,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -301,11 +268,8 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO
 /*end*/
@@ -316,8 +280,8 @@ GO
 ALTER PROCEDURE [dbo].[GetMenuMobile_SB2]
 AS
 BEGIN
-SET NOCOUNT ON;
-	SELECT 
+	SET NOCOUNT ON;
+	SELECT
 		MenuMobileID
 		,Descripcion
 		,MenuPadreID
@@ -327,10 +291,7 @@ SET NOCOUNT ON;
 		,PaginaNueva
 		,Posicion
 		,[Version]
-		,EsSB2
-		,Codigo
 	FROM dbo.MenuMobile
 	WHERE EsSB2=1
-	order by Posicion, MenuPadreID, ordenItem
 END
 GO

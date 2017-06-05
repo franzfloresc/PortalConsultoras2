@@ -594,5 +594,3 @@ BEGIN
 	
 END
 GO
-/*end*/
-

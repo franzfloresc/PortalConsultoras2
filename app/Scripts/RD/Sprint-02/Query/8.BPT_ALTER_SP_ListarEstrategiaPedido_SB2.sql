@@ -5598,5 +5598,3 @@ WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	SET NOCOUNT OFF
 END
 GO
-/*end*/
-

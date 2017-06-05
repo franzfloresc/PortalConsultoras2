@@ -2765,5 +2765,3 @@ begin
 	VALUES (9, 'Suscripcion Revista Digital', (select CodigoISO from Pais where EstadoActivo = 1), 5, 1)
 end
 GO
-/*end*/
-
