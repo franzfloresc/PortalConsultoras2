@@ -76,9 +76,9 @@
                     }
                 </select>
                 <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
-                    @foreach (var item in Model.FiltersBySorting)
+                    @foreach (var item1 in Model.FiltersBySorting)
                     {
-                        <option value="@item.Codigo">@item.Descripcion</option>
+                        <option value="@item1.Codigo">@item1.Descripcion</option>
                     }
                 </select>
             </div>
@@ -133,7 +133,7 @@
                </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" />
-                    <p><b>A partir de C-@Model.CampaniaMasUno</b> recibirás únicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.</p>
+                    <p><b>A partir de C-@Model.CampaniaMasDos</b> recibirás únicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.</p>
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" />
