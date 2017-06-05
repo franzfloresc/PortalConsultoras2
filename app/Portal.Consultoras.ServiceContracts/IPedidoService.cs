@@ -1079,16 +1079,27 @@ namespace Portal.Consultoras.ServiceContracts
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
 
         [OperationContract]
-        bool EnviarCorreoReservaProl(BEInputReservaProl input);
-
-        [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
+
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        bool EnviarCorreoReservaProl(BEInputReservaProl input);
+       
+        #region Cupon
         
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
+
         [OperationContract]
         int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
 
@@ -1096,20 +1107,9 @@ namespace Portal.Consultoras.ServiceContracts
         int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]
-        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
-        
-        #region Cupon
-
-        [OperationContract]
-        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
-
-        [OperationContract]
-        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
-
-        [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
-        #endregion
-
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
     }
 }

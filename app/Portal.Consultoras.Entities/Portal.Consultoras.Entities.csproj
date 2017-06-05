@@ -62,12 +62,12 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
+    <Compile Include="BEConfiguracionPais.cs" />
+    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />
     <Compile Include="BEMisPedidosAppCatalogo.cs" />
-    <Compile Include="BEConfiguracionPais.cs" />
-    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
     <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />

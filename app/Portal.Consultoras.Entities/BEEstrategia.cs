@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Entities
         /// [Filtro] del usuario
         /// </summary>
         
-         [DataMember]
+        [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }

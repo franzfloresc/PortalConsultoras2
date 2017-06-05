@@ -2014,8 +2014,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
-        
-        
+
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);

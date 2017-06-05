@@ -127,7 +127,7 @@ function ArmarCarouselEstrategias(data) {
 
     SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     $('#divListaEstrategias').show();
-    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+    SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
 
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
@@ -876,7 +876,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         try {
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             TagManagerClickAgregarProductoOfertaParaTI(datosEst);
-                            TagManagerClickAgregarProducto();
                         } catch (e) {
 
                         }

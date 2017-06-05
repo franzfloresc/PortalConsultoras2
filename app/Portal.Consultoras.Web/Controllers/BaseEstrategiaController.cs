@@ -36,13 +36,14 @@ namespace Portal.Consultoras.Web.Controllers
                 ZonaHoraria = usuario.ZonaHoraria,
                 FechaInicioFacturacion = usuario.FechaInicioFacturacion,
                 ValidarPeriodoFacturacion = true,
-                CodigoAgrupacion = "",
-                Simbolo = userData.Simbolo
+                Simbolo = userData.Simbolo,
+                CodigoAgrupacion = ""
             };
             
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                 entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
+            
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -56,20 +57,6 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ListadoEstrategiaPedido"] = lst;
                 return lst;
             }
-                foreach (var beEstrategia in listaTemporal)
-                {
-
-                    if (beEstrategia.Precio2 <= 0)
-                        continue;
-
-                    if (beEstrategia.Precio >= beEstrategia.Precio2)
-                        beEstrategia.Precio = Convert.ToDecimal(0.0);
-                    beEstrategia.Simbolo = userData.Simbolo;
-                    beEstrategia.TieneStockProl = true;
-                    beEstrategia.CodigoEstrategia = Util.Trim(beEstrategia.CodigoEstrategia);
-                    lst.Add(beEstrategia);
-                }
-
             Session["ListadoEstrategiaPedido"] = lst;
 
 

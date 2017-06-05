@@ -241,17 +241,23 @@ namespace Portal.Consultoras.BizLogic
 
                 estrategias.ForEach(estrategia =>
                 {
-                    var add = true;
-                    if (estrategia.TipoEstrategiaImagenMostrar ==
-                        Constantes.TipoEstrategia.OfertaParaTi)
+                    if (estrategia.Precio2 > 0)
                     {
-                        add = listaTieneStock.Any(
-                            p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+                        var add = true;
+                        if (estrategia.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            add = listaTieneStock.Any(
+                                p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+                        }
+
+                        if (!add) return;
+
+                        if (estrategia.Precio >= estrategia.Precio2)
+                            estrategia.Precio = Convert.ToDecimal(0.0);
+
+                        estrategiasResult.Add(estrategia);
                     }
-
-                    if (!add) return;
-
-                    estrategiasResult.Add(estrategia);
                 });
             }
             else
@@ -266,7 +272,7 @@ namespace Portal.Consultoras.BizLogic
                 estrategia.TieneStockProl = true;
                 estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
                 estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
-
+                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
                 estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
                 estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
             });

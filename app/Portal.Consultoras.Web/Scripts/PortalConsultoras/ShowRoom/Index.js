@@ -42,6 +42,14 @@ $(document).ready(function () {
     });
     if (localStorage["cerrar_banner_sub_campanias"])
         $('.banner_especial_showroom').hide();
+    else {
+        var stilo = $('.banner_especial_showroom').attr("style");
+        if (stilo != null) {
+            var stilo = stilo.replace("display:none", "display:block");
+            $('.banner_especial_showroom').attr("style", stilo);
+            $('.banner_especial_showroom').show();
+        }
+    }
     
     $(".footer_e").css("margin-bottom", "73px");
 
@@ -210,21 +218,21 @@ function ObtenerProductosShowRoom() {
 }
 
 function CargarFiltroRangoPrecio() {
-    var precioMinFormat = DecimalToStringFormat(precioMin);
-    var precioMaxFormat = DecimalToStringFormat(precioMax);
-
-    precioMin = parseFloat(precioMin);
-    precioMax = parseFloat(precioMax);
+    var min = Math.floor(precioMin);
+    var max = Math.ceil(precioMax);
+    var precioMinFormat = DecimalToStringFormat(min);
+    var precioMaxFormat = DecimalToStringFormat(max);
 
     var myformat = simbolo + '%s';
     var scala1 = simbolo + precioMinFormat;
     var scala2 = simbolo + precioMaxFormat;
-    $('.range-slider').val(precioMin + ',' + precioMax);
+
+    $('.range-slider').val(min + ',' + max);
 
     $('.range-slider').show();
     $('.range-slider').jRange({
-        from: precioMin,
-        to: precioMax,
+        from: min,
+        to: max,
         step: 1,
         scale: [scala1, scala2],
         format: myformat,

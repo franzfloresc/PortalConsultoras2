@@ -15,7 +15,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
-
+    
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -177,7 +177,7 @@ $(document).ready(function () {
     if (showRoomMostrarLista == 1) {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
-
+    
     switch (TipoPopUpMostrar) {
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
@@ -377,7 +377,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -388,7 +388,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -582,7 +582,7 @@ function agregarProductoAlCarrito(o) {
     var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
 
         $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -592,8 +592,8 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -2822,6 +2822,7 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
+                
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
