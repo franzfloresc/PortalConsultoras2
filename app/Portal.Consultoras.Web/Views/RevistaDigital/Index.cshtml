@@ -50,6 +50,7 @@
 }
 <hr class="clear" />
 <div style="display: none;" data-tag-html="1">
+    @*
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
             <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
@@ -76,10 +77,10 @@
                         }
                     </select>
                 </div>
-                @*<div class="content_buscador_landing">
+                @<div class="content_buscador_landing">
                         <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
                         <a class="buscar_landing_ept">BUSCAR</a>
-                    </div>*@
+                    </div>@
                 <hr class="clear" />
                 <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
                     <div style="display:inline-block;">
@@ -114,6 +115,7 @@
             </div>
         </div>
     </div>
+    *@
 </div>
 <hr class="clear" />
 <div class="Vista3" style="display: none;" data-tag-html="0">
