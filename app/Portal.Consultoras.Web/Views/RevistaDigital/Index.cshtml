@@ -70,9 +70,9 @@
                         }
                     </select>
                     <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                        @foreach (var item in Model.FiltersBySorting)
+                        @foreach (var item1 in Model.FiltersBySorting)
                         {
-                            <option value="@item.Codigo">@item.Descripcion</option>
+                            <option value="@item1.Codigo">@item1.Descripcion</option>
                         }
                     </select>
                 </div>

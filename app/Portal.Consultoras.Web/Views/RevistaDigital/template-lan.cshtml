@@ -6,9 +6,9 @@
 @if (Model.ListaProducto != null)
 {
 
-@foreach (var lan in Model.ListaProducto)
+foreach (var lan in Model.ListaProducto)
 {
-    lan.EstrategiaDetalle = lan.EstrategiaDetalle ?? new TipoEstrategiaModelo();
+    lan.EstrategiaDetalle = lan.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
 
     <div class="content_item_ept" data-item="" data-ImgPrevia="@lan.EstrategiaDetalle.ImgPrevDesktop" data-estrategia="@Json.Encode(lan)">
         <div style="display:none;"></div>
