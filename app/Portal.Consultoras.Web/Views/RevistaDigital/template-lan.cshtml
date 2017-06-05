@@ -1,7 +1,15 @@
-﻿@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+﻿
+@using Portal.Consultoras.Web.Models
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
+@if (Model.ListaProducto != null)
+{
 
 @foreach (var lan in Model.ListaProducto)
 {
+    lan.EstrategiaDetalle = lan.EstrategiaDetalle ?? new TipoEstrategiaModelo();
+
     <div class="content_item_ept" data-item="" data-ImgPrevia="@lan.EstrategiaDetalle.ImgPrevDesktop" data-estrategia="@Json.Encode(lan)">
         <div style="display:none;"></div>
         <div>
@@ -75,4 +83,6 @@
             </div>
         }
     </div>
+}
+
 }

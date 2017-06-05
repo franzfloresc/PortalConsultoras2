@@ -1,6 +1,8 @@
 ﻿
+@using Portal.Consultoras.Web.Models
 @using System.Configuration
 @using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
@@ -19,7 +21,7 @@
         <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     </div>
     <div class="texto_usuario_ept">
-        @Html.Raw(Model.Titulo)
+        @Html.Raw(Util.Trim(Model.Titulo))
         <span class="texto_light">@Model.TituloDescripcion</span>
     </div>
 </div>
@@ -48,7 +50,7 @@
 <div style="display: none;" data-tag-html="1">
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
-            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
                 @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
             </div>
         </div>
