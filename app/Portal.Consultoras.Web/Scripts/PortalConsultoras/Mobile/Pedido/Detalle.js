@@ -55,6 +55,7 @@ function CargarPedido(firstLoad) {
         clienteId: -1,
         mobil: true
     };
+    ShowLoading();
 
     jQuery.ajax({
         type: 'POST',
@@ -84,6 +85,8 @@ function CargarPedido(firstLoad) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
+    }).always(function () {
+        CloseLoading();
     });
 }
 
@@ -623,7 +626,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     if (data.pedidoReservado) {
                         var fnRedireccionar = function () {
                             ShowLoading();
-                            location.href = urlPedidoValidado;
+                            document.location = urlPedidoValidado;
                         }
                         if (mostrarAlerta == true) 
                             AbrirMensaje(data.message, '', fnRedireccionar);
@@ -850,7 +853,7 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-    debugger
+    //debugger
     cuvOfertaProl = cuvOfertaProl || "";
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -905,6 +908,9 @@ function EjecutarServicioPROL() {
                 console.error(data);
             }
         }
+    })
+    .always(function () {
+        CloseLoading();
     });
 }
 
@@ -921,9 +927,15 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 debugger
-                if (response.flagCorreo == "1")
-                    EnviarCorreoPedidoReservado(); //EPD-2378
-                RespuestaEjecutarServicioPROL(response, false);
+                if (response.flagCorreo == "1") {
+                    EnviarCorreoPedidoReservado().done(function () {
+                        RespuestaEjecutarServicioPROL(response, false);
+                    }).always(function () {
+                        CloseLoading();
+                    }); //EPD-2378
+                } else {
+                    RespuestaEjecutarServicioPROL(response, false);
+                }                 
             }
         },
         error: function (data, error) {
@@ -947,7 +959,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
 
-    CloseLoading();
+    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -1012,7 +1024,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);
                 setTimeout(function () {
-                    location.href = urlPedidoValidado;
+                    ShowLoading();
+                    document.location = urlPedidoValidado;
                 }, 2000);
 
             }
@@ -1160,7 +1173,7 @@ function AceptarObsInformativas() {
                         messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                     } else
-                        location.href = urlPedidoValidado;
+                        document.location = urlPedidoValidado;
                 } else {
                     messageInfoMalo(data.message);
                 }
@@ -1363,7 +1376,7 @@ function MostrarMensajeProl(data) {
 
             messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
             setTimeout(function () {
-                location.href = urlPedidoValidado;
+                document.location = urlPedidoValidado;
             }, 2000);
             return true;
         }
