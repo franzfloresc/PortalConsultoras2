@@ -894,9 +894,8 @@ function LayoutMenuFin() {
         $(".logo_esika").css("width", "");
         $(".menu_esika_b").css("width", "");
         $(idMenus).css("margin-left", "5px");
-        //$(".menu_new_esika").css("width", "");
+        $(".menu_new_esika").css("width", "");
 
-        hok = false;
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();
         var wr = $(".menu_esika_b").innerWidth();
@@ -905,6 +904,8 @@ function LayoutMenuFin() {
 
         wt = wt - wl - wr;
         $(".menu_new_esika").css("width", wt + "px");
+
+        hok = false;
 
         var h = $(".wrapper_header").height();
 
@@ -1431,3 +1432,13 @@ function EnviarCorreoPedidoReservado() {
     });
 }
 /*** Fin EPD-2378 ***/
+
+function FunccionEjecutar(functionHide) {
+    functionHide = $.trim(functionHide);
+    if (functionHide != "") {
+        if (functionHide[functionHide.length - 1] != ")") {
+            functionHide = functionHide + "()";
+        }
+        setTimeout(functionHide + "()", 100);
+    }
+}

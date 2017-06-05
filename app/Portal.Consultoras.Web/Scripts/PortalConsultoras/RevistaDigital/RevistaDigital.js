@@ -160,11 +160,26 @@ function OfertaArmarEstrategias(response) {
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
     //$('#divOfertaProductos').append(htmlDiv);
-
+    ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
 }
-
+function ResizeBoxContnet() {
+    try {
+        //debugger;
+        var image = $('.flex-container').find('img');
+        image.each(function () {
+            var that = $(this);
+            if (that.width() < 200) {
+                console.log(that.attr('src'));
+                that.closest('.content_item_home').find('.nombre_producto').css("maxWidth", "175px");
+                that.closest('.content_item_home').find('.producto_precio').css("minWidth", "175px");
+            }
+        });
+    } catch (e) {
+        console.log(e);
+    }
+}
 function RDDetalleObtener() {
     $.ajaxSetup({
         cache: false

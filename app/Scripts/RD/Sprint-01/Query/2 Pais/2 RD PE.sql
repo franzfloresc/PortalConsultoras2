@@ -11,7 +11,7 @@ ALTER PROCEDURE [dbo].[ListarEstrategiasPedido_SB2]
 	@CodigoAgrupacion VARCHAR(10) = ''
 AS
 /*
-dbo.ListarEstrategiasPedido_SB2 201708,'1107','','2329', '101'
+dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
@@ -92,6 +92,7 @@ BEGIN
 
 	-- Obtener estrategias de Pack Nuevas.
 	SELECT
+		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -171,13 +172,12 @@ BEGIN
 		and (rtrim(fa.CodigoRegion) = @CodigoRegion or fa.CodigoRegion IS NULL)
 		and (rtrim(fa.CodigoZona) = @CodigoZona or fa.CodigoZona IS NULL)
 
-	/*SB20-1080 - INICIO */
 	DECLARE @cont1 INT, @cont2 INT, @codConsultoraDefault VARCHAR(9)
-	SET @cont1 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
-	/*SB20-1080 - FIN */
+	SELECT @cont1 = COUNT(EstrategiaID) FROM #TEMPORAL
 	
 	INSERT INTO #TEMPORAL
 	SELECT
+		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -209,15 +209,15 @@ BEGIN
 		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
 	FROM Estrategia E
 	INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-		AND (
-			(TE.Codigo IN ('001') AND @CodigoAgrupacion = '')
-			OR (TE.Codigo in ('005', '007', '008') and @CodigoAgrupacion = '101')
-		)
+		--AND (
+		--	(TE.Codigo IN ('001') AND @CodigoAgrupacion = '')
+		--	OR (TE.Codigo in ('005', '007', '008') and @CodigoAgrupacion = '101')
+		--)
 	INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
 	INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo 
 		and (
-			@CodigoAgrupacion != ''
-			OR (op.TipoPersonalizacion = 'OPT' and @CodigoAgrupacion = '' )
+			( @CodigoAgrupacion = '101' and op.TipoPersonalizacion in ('LAN', 'OPM', 'PAD'))
+			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
@@ -259,10 +259,9 @@ BEGIN
 			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10207) as UrlVideoMobile
 			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10209) as ImgFichaFondoMobile			
 		FROM #TEMPORAL as T
+		GROUP BY EstrategiaID
 
-	END
-	ELSE -- Valor por defecto como version original
-	BEGIN
+	END -- @CodigoAgrupacion = '101'
 
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
@@ -274,6 +273,7 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
+			newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -305,8 +305,16 @@ BEGIN
 			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
 		FROM Estrategia E
 		INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+			--AND (
+			--	(TE.Codigo IN ('001') AND @CodigoAgrupacion = '')
+			--	OR (TE.Codigo in ('005', '007', '008') and @CodigoAgrupacion = '101')
+			--)
 		INNER JOIN ods.Campania ca ON CA.Codigo = e.campaniaid
-		INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo and op.TipoPersonalizacion = 'OPT'
+		INNER JOIN ods.OfertasPersonalizadas op ON E.CUV2 = op.CUV and op.AnioCampanaVenta = CA.Codigo 
+			and (
+				( @CodigoAgrupacion = '101' and op.TipoPersonalizacion in ('LAN', 'OPM', 'PAD'))
+				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
+			)
 		--INNER JOIN ods.Consultora c ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		WHERE
@@ -318,16 +326,18 @@ BEGIN
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-			AND TE.Codigo = '001'
 		ORDER BY CASE 
 		WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 	END
 
 	/*SB20-1080 - FIN */
 	
+	IF @CodigoAgrupacion = ''
+	BEGIN
 	--  Oferta Web y Lanzamiento
 	INSERT INTO #TEMPORAL
 	SELECT
+		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -373,7 +383,26 @@ BEGIN
 		te.Orden ASC,
 		e.Orden ASC
 
-	END -- @CodigoAgrupacion = ''
+	END -- @CodigoAgrupacion = '101'
+
+	
+	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
+
+
+	insert into @tablaCuvUnicos
+	select CUV2, NULL from #TEMPORAL
+	group by CUV2 -- having count(CUV2) > 1
+
+	update @tablaCuvUnicos
+	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
+	FROM @tablaCuvUnicos A
+
+	DELETE B 
+	--SELECT *
+	FROM #TEMPORAL B
+	LEFT JOIN @tablaCuvUnicos A
+		ON B.CUV2 = A.CUV AND B.ColId = A.Id
+	 WHERE A.CUV IS NULL	 
 
 	SELECT
 		T.EstrategiaID,
@@ -383,7 +412,7 @@ BEGIN
 		T.Precio,
 		T.EtiquetaDescripcion2,
 		T.Precio2,
-		T.TextoLibre,
+		isnull(T.TextoLibre,'') as TextoLibre,
 		T.FlagEstrella,
 		T.ColorFondo,
 		T.TipoEstrategiaID,

@@ -586,10 +586,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lstModel.Any(m=>m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
-                lstModel.Update(m =>
+                var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
+                lstModel.ForEach(m =>
                 m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower()
                     ? m.UrlImagen
-                    : ""
+                    : menuRd.ClaseMenuItem == "oculto"
+                        ? m.UrlImagen : ""
                 );
             }
 
@@ -778,20 +780,24 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
-                var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
-                if (menuNego.MenuMobileID > 0)
+                var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
+                if (menuRd.ClaseMenuItem != "oculto")
                 {
-                    lstModel.ForEach(m =>
+                    var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
+                    if (menuNego.MenuMobileID > 0)
                     {
-                        m.OrdenItem = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                            ? menuNego.OrdenItem + 1
-                            : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
-                        m.UrlImagen = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                            ? ""
-                            : m.UrlImagen;
-                    });
+                        lstModel.ForEach(m =>
+                        {
+                            m.OrdenItem = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                                ? menuNego.OrdenItem + 1
+                                : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
+                            m.UrlImagen = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                                ? ""
+                                : m.UrlImagen;
+                        });
 
-                    lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
+                        lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
+                    }
                 }
             }
 

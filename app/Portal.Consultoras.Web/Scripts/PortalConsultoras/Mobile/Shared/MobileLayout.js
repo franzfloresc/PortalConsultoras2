@@ -99,9 +99,7 @@ $(function () {
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).is(':visible')) {
                 var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
+                FunccionEjecutar(functionHide);
                 $(e.target).hide();
                 $('body').css({ 'overflow-y': 'scroll' });
             }
@@ -113,9 +111,7 @@ $(function () {
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        if (functionHide != "") {
-            setTimeout(functionHide + "()", 100);
-        }
+        FunccionEjecutar(functionHide);
         $(popupClose).hide();
         $('body').css({ 'overflow-y': 'scroll' });
     });
