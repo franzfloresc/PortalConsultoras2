@@ -371,7 +371,7 @@ namespace Portal.Consultoras.BizLogic
             var bannersByConsultora = new List<BEBannerInfo>();
             BEGrupoBanner grupo = null; BEGrupoConsultora consultora = null;
 
-            banners = banners.Where(b => b.PaisesSegZona.Any(p => p.PaisId == paisID)).ToList();
+            //banners = banners.Where(b => b.PaisesSegZona.Any(p => p.PaisId == paisID)).ToList();
             //grupos = grupos.Where(b => b.Consultoras.Any(y => y.ConsultoraCodigo == codigoConsultora && y.PaisID == paisID)).ToList();
 
             foreach (BEBanner banner in banners)
