@@ -157,7 +157,7 @@ function InscripcionRDAnalytics() {
             'promoView': {
                 'promotions': [
                     {
-                        'id': '2',
+                        'id': '1',
                         'name': 'Revista Online - Inscribirme a Ésika para mí',
                         'position': 'Home pop-up - 1',
                         'creative': 'Banner'
