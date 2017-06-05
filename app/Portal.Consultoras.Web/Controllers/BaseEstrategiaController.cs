@@ -57,8 +57,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ListadoEstrategiaPedido"] = lst;
                 return lst;
             }
-            Session["ListadoEstrategiaPedido"] = lst;
 
+            lst.AddRange(listaTemporal);
+            Session["ListadoEstrategiaPedido"] = lst;
 
             return lst;
         }

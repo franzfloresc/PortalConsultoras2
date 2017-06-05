@@ -6,6 +6,7 @@ var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
+var tieneOPT = false;
 var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
@@ -101,7 +102,6 @@ function CargarCarouselEstrategias(cuv) {
 };
 
 function ArmarCarouselEstrategias(data) {
-
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
@@ -110,6 +110,7 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
+    tieneOPT = true;
     data.Lista = EstructurarDataCarousel(data.Lista);
     arrayOfertasParaTi = data.Lista;
 
@@ -125,9 +126,9 @@ function ArmarCarouselEstrategias(data) {
     //        ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
     //        : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
-    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
+    //SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     $('#divListaEstrategias').show();
-    SetHandlebars("#estrategia-template", obj, '#divListadoEstrategia');
+    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
 
     if (tipoOrigenEstrategia == 11) {
         $('#cierreCarousel').hide();
