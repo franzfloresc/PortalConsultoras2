@@ -64,13 +64,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    if (IsMobile())
+                    if (ViewBag.MenuMobile == null)
                     {
-                        if (ViewBag.MenuMobile == null)
-                        {
-                            BuildMenuMobile(userData);
-                        }
-
+                        BuildMenuMobile(userData);
                     }
 
                     ViewBag.Permiso = BuildMenu();
@@ -431,12 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
         private List<PermisoModel> BuildMenu()
         {
             List<PermisoModel> lista1 = new List<PermisoModel>();
-
-            if (IsMobile())
-            {
-                return lista1;
-            }
-
+            
             if (userData.Menu != null)
             {
                 //return userData.Menu;
@@ -611,7 +602,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return;
             }
 
-            if (userData.RolID != Constantes.Rol.Consultora || !IsMobile())
+            if (userData.RolID != Constantes.Rol.Consultora)
             {
                 ViewBag.MenuMobile = lstModel;
                 return;
