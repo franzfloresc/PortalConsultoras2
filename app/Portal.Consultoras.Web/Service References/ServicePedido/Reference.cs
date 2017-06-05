@@ -8534,6 +8534,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SobrenombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidacionAbiertaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8824,6 +8827,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.SimboloField, value) != true)) {
                     this.SimboloField = value;
                     this.RaisePropertyChanged("Simbolo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Sobrenombre {
+            get {
+                return this.SobrenombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SobrenombreField, value) != true)) {
+                    this.SobrenombreField = value;
+                    this.RaisePropertyChanged("Sobrenombre");
                 }
             }
         }
