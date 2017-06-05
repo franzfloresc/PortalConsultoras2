@@ -142,9 +142,9 @@ namespace Portal.Consultoras.Service
             return new BLConsultoraCliente(paisID).SincronizacionBajada(consultoraID);
         }
 
-        public BEConsultoraClienteResponse ValidaTelefono(int paisID, BEContactoCliente contactoCliente)
+        public BEConsultoraClienteResponse ValidaTelefono(int paisID, long consultoraID, BEContactoCliente contactoCliente)
         {
-            return new BLConsultoraCliente(paisID).ValidaTelefono(contactoCliente);
+            return new BLConsultoraCliente(paisID).ValidaTelefono(consultoraID, contactoCliente);
         }
         #endregion
     }

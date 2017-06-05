@@ -174,6 +174,12 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
+            public const string PackNuevas = "002";
+            public const string Lanzamiento = "005";
+            public const string OfertasParaMi = "007";
+            public const string PackAltoDesembolso = "008";
+            public const string RevistaDigital = "101"; // No tiene referecia con BD
+
         }
 
         public class ConstSession
@@ -513,6 +519,7 @@ namespace Portal.Consultoras.Common
             public const string PedidoDetalle = "PEDIDODETALLE";
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
             public const string Pedido = "PEDIDO";
+            public const string CompartirCatalogo = "COMPARTIRCATALOGO";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -599,6 +606,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
                 public const string ERROR_FORMATOTELCELULAR = "10";
                 public const string ERROR_FORMATOTELFIJO = "11";
+                public const string ERROR_CONSULTORATELEFONOEXISTE = "12";
             }
 
             public static Dictionary<string, string> Message
@@ -611,7 +619,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente no tiene un número de teléfono."},
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya existe."},
+                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
                         {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
                         {Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},
                         {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
@@ -619,6 +627,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
                         {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
                         {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
                     });
                 }
             }

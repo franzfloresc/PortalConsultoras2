@@ -402,7 +402,7 @@ $(document).ready(function () {
     });
 
     CrearDialogs();
-    CargarDetallePedido();
+    CargarDetallePedido(); 
     CargarCarouselEstrategias("");
     CargarAutocomplete();
     MostrarBarra();
@@ -852,7 +852,7 @@ function AgregarProductoZonaEstrategia(tipoEstrategiaImagen) {
             
             $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
-            cierreCarouselEstrategias();
+            cierreCarouselEstrategias(); 
             CargarCarouselEstrategias(param2.CUV);
             HideDialog("divVistaPrevia");
             PedidoOnSuccess();
@@ -1217,7 +1217,7 @@ function PedidoOnSuccess() {
 
 function TagManagerCarruselInicio(arrayItems) {
     var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
-
+   
     var arrayEstrategia = [];
     for (var i = 0; i < cantidadRecomendados; i++) {
         var recomendado = arrayItems[i];
@@ -1256,6 +1256,30 @@ function TagManagerCarruselInicio(arrayItems) {
         }
     }
 }
+
+function TagManagerClickAgregarProductoOfertaParaTI(item) {
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Ofertas para ti – Home' },
+                'products': [
+                    {
+                        'name': item.DescripcionCUV2,
+                        'price': item.Precio2,
+                        'brand': item.DescripcionMarca,
+                        'id': item.CUV2,
+                        'category': 'NO DISPONIBLE',
+                        'variant': item.DescripcionEstrategia,
+                        'quantity': parseInt(item.Cantidad),
+                        'position': parseInt(item.posicionItem)
+                    }
+                ]
+            }
+        }
+    });
+}
+
 function TagManagerClickAgregarProducto() {
     dataLayer.push({
         'event': 'addToCart',
@@ -1284,8 +1308,7 @@ function TagManagerCarruselPrevia() {
     var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
     var recomendado = arrayOfertasParaTi[posicionEstrategia];
     var arrayEstrategia = new Array();
-
-
+   
     var impresionRecomendado = {
         'name': recomendado.DescripcionCompleta,
         'id': recomendado.CUV2,
@@ -1613,7 +1636,6 @@ function ObtenerProductosSugeridos(CUV) {
 
             $('#divCarruselSugerido').prepend($(".js-slick-prev-h"));
             $('#divCarruselSugerido').prepend($(".js-slick-next-h"));
-
             TagManagerCarruselSugeridosInicio(data);
 
         },
@@ -2147,7 +2169,7 @@ function EjecutarServicioPROL() {
                                     showDialog("divReservaSatisfactoria3");
                                     CargarDetallePedido();
                                 } else {
-                                    showDialog("divReservaSatisfactoria");
+                                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                                     AnalyticsGuardarValidar(response);
                                     AnalyticsPedidoValidado(response);
                                     setTimeout(function () {
@@ -2404,7 +2426,7 @@ function MostrarMensajeProl(response) {
                     showDialog("divReservaSatisfactoria3");
                     CargarDetallePedido();
                 } else {
-                    showDialog("divReservaSatisfactoria");
+                    $('#dialog_divReservaSatisfactoria').show(); //EPD-2278
                     AnalyticsPedidoValidado(response);
                     setTimeout(function () {
                         location.href = baseUrl + 'Pedido/PedidoValidado';
@@ -3674,20 +3696,4 @@ function ConfirmarModificar() {
     });
     return false;
 }
-/*** EPD-2378 ***/
-function EnviarCorreoPedidoReservado() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) { },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
-    });
-}
-/*** Fin EPD-2378 ***/
 

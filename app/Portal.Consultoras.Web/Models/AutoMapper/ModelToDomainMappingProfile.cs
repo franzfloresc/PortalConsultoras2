@@ -68,6 +68,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
 
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
+            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+
         }
     }
 }

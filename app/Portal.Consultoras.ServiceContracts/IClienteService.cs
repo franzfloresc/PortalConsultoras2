@@ -78,7 +78,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConsultoraCliente> SincronizacionBajada(int PaisID, long ConsultoraID);
 
         [OperationContract]
-        BEConsultoraClienteResponse ValidaTelefono(int paisID, BEContactoCliente contactoCliente);
+        BEConsultoraClienteResponse ValidaTelefono(int paisID, long consultoraID, BEContactoCliente contactoCliente);
         #endregion
     }
 }
