@@ -15,22 +15,27 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        public List<BEEstrategia> ConsultarEstrategias(string cuv)
+        public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaID = 0)
         {
             var usuario = ObtenerUsuarioConfiguracion();
 
             List<BEEstrategia> lst = new List<BEEstrategia>();
 
-            if (Session["ListadoEstrategiaPedido"] != null)
+            if (Session["ListadoEstrategiaPedido"] != null && campaniaID == 0)
             {
                 lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+                return lst;
+            }
+            else if (campaniaID > 0 && Session["ListadoEstrategiaPedido" + campaniaID.ToString()] != null)
+            {
+                lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido" + campaniaID.ToString()];
                 return lst;
             }
             
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
-                CampaniaID = userData.CampaniaID,
+                CampaniaID = campaniaID > 0 ? campaniaID : userData.CampaniaID,
                 ConsultoraID = userData.UsuarioPrueba == 1
                     ? userData.ConsultoraAsociadaID.ToString()
                     : userData.ConsultoraID.ToString(),
@@ -149,9 +154,15 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
             }
-
-            Session["ListadoEstrategiaPedido"] = lst;
-
+            
+            if (campaniaID > 0)
+            {
+                Session["ListadoEstrategiaPedido" + campaniaID.ToString()] = lst;
+            }
+            else
+            {
+                Session["ListadoEstrategiaPedido"] = lst;
+            }
 
             return lst;
         }
