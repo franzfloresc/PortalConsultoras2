@@ -23,7 +23,7 @@
            id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
             @if (item.UrlImagen != "")
             {
-                <img src="@item.UrlImagen" alt="@item.Descripcion" />
+                <img src="@item.UrlImagen.Replace("~", "")" alt="@item.Descripcion" height="30" width="30" style="margin-left: -8px;" /> @item.Descripcion
             }
             else
             {
