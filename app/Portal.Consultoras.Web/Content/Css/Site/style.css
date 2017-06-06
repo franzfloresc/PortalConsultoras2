@@ -13334,3 +13334,7 @@ label.checkpop {
     color: #702789;
     font-size: 14px;
 }
+
+.inforRdText {
+   position: relative; margin-top: -16px; font-size: 11px; 
+}

@@ -1,0 +1,102 @@
+﻿
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var urlDomain = Util.GetUrlHost(Request);
+
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+<div class="content_detalle_set_bpt_general" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
+    <div data-compartir-campos="" style="display:none;">
+        <input type="hidden" class="CUV" value="@Model.CUV2" />
+        <input type="hidden" class="rsFBMensaje" value="" />
+        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsWAMensaje" value="" />
+        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
+        <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
+        <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
+        <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
+        <input type="hidden" class="Nombre" value="@Model.DescripcionResumen" />
+        <input type="hidden" class="ProductoDescripcion" value="@Model.DescripcionDetalle" />
+        <input type="hidden" class="Volumen" value="" />
+        <input type="hidden" class="Palanca" value="LAN" />
+    </div>
+    <div class="content_detalle_set_bpt">
+        <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
+        @if (Model.EstrategiaDetalle.ImgFichaFondoDesktop != "")
+        {
+            <img src="@Model.EstrategiaDetalle.ImgFichaFondoDesktop" alt="" style="height: 280px;"/>
+        }        
+    </div>
+    
+    <div class="wrapper_resumen_mobile">
+        @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
+        {
+            <div class="etiqueta_nuevo_bpt">
+                <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
+            </div>
+        }
+        
+        <div class="nombre_producto_bpt">@Model.DescripcionResumen</div>
+        @if (Model.DescripcionDetalle != "")
+        {
+            <div class="info-set_bpt">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
+            <div class="content_descripcion_bpt">
+                <ol class="ol_detalle">
+                    @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                    {
+                        <li>@DescDetalle.Trim()</li>
+                    }
+                </ol> 
+            </div>
+        }
+    </div>
+    <div class="share_social_nertwoks" data-posicion="0" data-item="165">       
+        <div class="title-compartir">Comparte este set con tus clientes</div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+            </a>
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                <img src="/Content/Images/Mobile/Esika/facebook.png">
+            </a>
+        </div>
+    </div>
+    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+    {
+        <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
+    }
+   
+</div>
+<div style="background:#F6F6F6; padding:30px;">
+    @*<div class="nombre_titulo_set_detalle">MI PACK KADIA SPORT</div>*@
+    <div id="divOfertaProductos"></div>
+    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+    {
+        <div class="" style="padding-top:30px;" id="divDiveo">
+            <div class="video-responsive-bpt">
+                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+            </div>
+        </div>
+    }
+</div>
+
+@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@section scripts{
+<script type="text/javascript">
+    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
+    var tipoOrigenEstrategia = 272;
+    var estadoAccion = 0;
+</script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+}

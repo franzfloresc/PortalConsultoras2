@@ -1293,6 +1293,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["ListadoEstrategiaPedido"] = null;
             return Insert(pedidoModel);
         }
+
         #endregion
 
         #region Eliminar Detalle Pack Nueva
@@ -3594,7 +3595,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-
                     pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                     estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
@@ -4375,6 +4375,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public JsonResult CloseBannerPL20()
         {
             try
@@ -4421,10 +4422,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-        /*PL20-1226*/
-
-        //PL20-1265
         public JsonResult GetProductoFichaOPT(string pCuv)
         {
             try

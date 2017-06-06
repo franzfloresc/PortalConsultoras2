@@ -603,47 +603,6 @@ function PedidoDetalleEliminarTodo() {
     });
 }
 
-function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-    var restringido = true;
-
-    $.ajaxSetup({ cache: false });
-    jQuery.ajax({
-        type: 'GET',
-        url: urlReservadoOEnHorarioRestringido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-
-            if (checkTimeout(data)) {
-                if (data.success == false)
-                    restringido = false;
-                else {
-                    if (data.pedidoReservado) {
-                        var fnRedireccionar = function () {
-                            ShowLoading();
-                            location.href = urlPedidoValidado;
-                        }
-                        if (mostrarAlerta == true) 
-                            AbrirMensaje(data.message, '', fnRedireccionar);
-
-                        else fnRedireccionar();
-
-                    }
-                    else if (mostrarAlerta == true) AbrirMensaje(data.message);
-                }
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {                
-                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
-        }
-    });
-    return restringido;
-}
-
 function HorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
 
@@ -850,7 +809,6 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-    debugger
     cuvOfertaProl = cuvOfertaProl || "";
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -920,7 +878,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                debugger
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);

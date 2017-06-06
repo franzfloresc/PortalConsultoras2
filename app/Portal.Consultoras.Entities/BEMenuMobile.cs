@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -34,6 +35,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Version { get; set; }
 
+        [DataMember]
+        public string Codigo { get; set; }
+
         public BEMenuMobile() { }
         public BEMenuMobile(IDataRecord row)
         {
@@ -48,6 +52,8 @@ namespace Portal.Consultoras.Entities
             PaginaNueva = Convert.ToBoolean(row["PaginaNueva"]);
             Posicion = Convert.ToString(row["Posicion"]);
             Version = Convert.ToString(row["Version"]);
+
+            if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
         }
     }
 }

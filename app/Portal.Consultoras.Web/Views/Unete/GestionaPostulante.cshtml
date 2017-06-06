@@ -8,7 +8,9 @@
 
     var estadoPostulantes = ViewBag.EstadoPostulantes as SelectList;
 }
-<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>
+@*<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp"></script>*@
+<script async defer type="text/javascript" src="https://maps-api-ssl.google.com/maps/api/js?v3.exp&key=AIzaSyDlzZQgypPc7OctIyO8oxrhcptOmltoKrg&amp;libraries=places"></script>
+
 <script src="~/Scripts/handlebars.js"></script>
 <script src="~/Scripts/General.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700italic,300,700,900" rel="stylesheet" type="text/css" />
@@ -275,7 +277,7 @@
         <div class="cellGrid " data-colname="CodigoConsultora">{{CodigoConsultora}}</div>
         <div class="cellGrid " data-colname="FechaIngreso">{{FechaIngreso}}</div>
         <div class="cellGrid " data-colname="CampanaIngreso">{{CampanaIngreso}}</div>
-        <div class="cellGrid alignCenter" data-colname="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}');" /></a></div>
+        <div class="cellGrid alignCenter" data-colname="Ubicacion"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconUbicacion}}" onclick="consultarUbicacion('{{SolicitudPostulanteID}}', '{{NombreCompleto}}', '{{TelefonoCelular}}', '{{PintarMalaZonificacion}}');" /></a></div>
         <div class="cellGrid alignCenter" data-colname="EvaluacionCrediticia"><a href="javascript:void(0);"><img style="height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionCrediticia}}" onclick="consultarEvaluacionCrediticia('{{SolicitudPostulanteID}}');" /></a></div>
         <div class="cellGrid alignCenter" data-colname="EvaluacionTelefonica"> <img style="visibility:{{ShowEvaliuacionTelefonica}}; height: 18px;" src="{{UrlContentImage}}{{IconEvaluacionTelefonica}}" /></div>
         <div class="cellGrid " data-colname="Estado">{{Estado}}</div>
@@ -1052,6 +1054,10 @@
 
 <div class="contenedor_popup_eliminarCliente" id="divConsultarUbicacion">
 </div>
+<div class="contenedor_popup_eliminarCliente" id="divConfirmarPosicion">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divMensajes">
+</div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarManualDireccion">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarDireccion">
@@ -1212,6 +1218,7 @@
                 break;
             case 4:
                 $('#divConsultarUbicacion').hide();
+                $("body").css({ "overflow-y": "auto" });
                 break;
             case 5:
                 $('#divEditarDireccion').hide();
@@ -1553,7 +1560,7 @@
         document.body.appendChild(iframe_);
     }
 
-    function consultarUbicacion(solicitudPostulanteID) {
+    function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
 
         limpiarPopUps();
 
@@ -1563,7 +1570,10 @@
         LoadSpinner('divConsultarUbicacion');
         $('#divConsultarUbicacion').show();
 
-        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID }, function (html) {
+        $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
+        $("body").css({ "overflow-y": "hidden" });
+
+        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
 
             $('#divConsultarUbicacion').html(html);
             loadExtraData(solicitudPostulanteID);
@@ -1574,10 +1584,7 @@
         }).done(function () {
 
         });
-
-
     }
-
 
     function generalLoading() {
 
@@ -1646,27 +1653,27 @@
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
     function buildDocsSV(solicitudPostulanteID) {
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO Y DECLARACIÓN JURADA'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DUI (FRENTE)'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DUI (REVERSO)'));//ImagenCDD
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'CONTRATO COMPRA VENTA Y PAGARE'));//ImagenReciboPagoAval
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO Y DECLARACIÓN JURADA'));//ImagenPagare
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));//ImagenContrato
 
 
     }
     function buildDocsGT(solicitudPostulanteID) {
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'ACUERDO DE COMPRA Y PAGARE'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));//ImagenCDD
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'ACUERDO DE COMPRA Y PAGARE'));//ImagenReciboPagoAval
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'AUTORIZACIÓN DE BURO'));//ImagenPagare
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));//ImagenContrato
     }
     function buildDocsPA(solicitudPostulanteID) {
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'CONTRATO COMPRA VENTA Y PAGARE'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'RECIBO DE PAGO DE SERVICIOS'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'CEDULA'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'CONTRATO COMPRA VENTA Y PAGARE'));//ImagenReciboPagoAval
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'CERTIFICACIÓN'));//ImagenPagare
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'RECIBO DE PAGO DE SERVICIOS'));//ImagenContrato
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'CARTA DE DESCARGO'));//ImagenConstanciaLaboralAval
     }
 
 
@@ -1715,18 +1722,18 @@
         //Documentos Fiador
         if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA') {
             if (codigoIso == 'SV') {
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN Y DECLARACIÓN JURADA'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DUI  FIADOR (FRENTE)'));//ImagenDniAval
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DUI FIADOR (REVERSO)'));//ImagenReciboOtraMarca
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN Y DECLARACIÓN JURADA'));//ImagenCreditoAval
             }
             else if (codigoIso == 'GT') {
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DPI FIADOR (FRENTE)'));//ImagenDniAval
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'DPI FIADOR(REVERSO)'));//ImagenReciboOtraMarca
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'AUTORIZACIÓN'));//ImagenCreditoAval
             }
             else if (codigoIso == 'PA') {
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));
-                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, ' CEDULA FIADOR'));//ImagenDniAval
+                $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));//ImagenCreditoAval
             }
         }
         else {
@@ -2017,6 +2024,8 @@
     function limpiarPopUps()
     {
         $('#divConsultarUbicacion').empty();
+        $('#divConfirmarPosicion').empty();
+        $('#divMensajes').empty();
         $('#divEditarManualDireccion').empty();
         $('#divEditarDireccion').empty();
         $('#divEvaluacionCrediticia').empty();
@@ -2618,7 +2627,13 @@
         #divConsultarUbicacion {
         display: none;
     }
-
+        #divConfirmarPosicion {
+        display: none;
+    }
+        #divMensajes {
+        display: none;
+    }
+        
     .contenedor_popup_eliminarCliente {
         display: block;
         position: fixed;
