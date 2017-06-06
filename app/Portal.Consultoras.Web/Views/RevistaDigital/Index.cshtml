@@ -50,58 +50,66 @@
 }
 <hr class="clear" />
 <div style="display: none;" data-tag-html="1">
-    @*
-    <div class="catalogoPersonalizadoBloque">
-        <div class="content_belcorp">
-            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
-                @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
-            </div>
-        </div>
-    </div>
-    <hr class="clear" />
-    <div class="BloqueLandingRD">
-        <div class="content_belcorp">
-            <div>
-                <div class="titulo_pagina">MIS OFERTAS</div>
-                <div id="divFiltros">
-                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                        @foreach (var item in Model.FiltersByBrand)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
-                    </select>
-                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                        @foreach (var item1 in Model.FiltersBySorting)
-                        {
-                            <option value="@item1.Codigo">@item1.Descripcion</option>
-                        }
-                    </select>
+    @try
+    {
+        <div class="catalogoPersonalizadoBloque">
+            <div class="content_belcorp">
+                <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
+                    @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
                 </div>
-                @<div class="content_buscador_landing">
-                        <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-                        <a class="buscar_landing_ept">BUSCAR</a>
-                    </div>@
-                <hr class="clear" />
-                <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
-                    <div style="display:inline-block;">
-                        Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                    </div>
-                    <div style="display:inline-block; margin: 0 0 0 15px;">
-                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="">
-                <hr class="clear" />
-                <div id="divOfertaProductos" style="text-align: center;"></div>
-                <hr class="clear" />
             </div>
         </div>
         <hr class="clear" />
-    </div>
+        <div class="BloqueLandingRD">
+            <div class="content_belcorp">
+                <div>
+                    <div class="titulo_pagina">MIS OFERTAS</div>
+                    <div id="divFiltros">
+                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                            @foreach (var item in Model.FiltersByBrand)
+                            {
+                                <option value="@item.Codigo">@item.Descripcion</option>
+                            }
+                        </select>
+                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                            @foreach (var item1 in Model.FiltersBySorting)
+                            {
+                                <option value="@item1.Codigo">@item1.Descripcion</option>
+                            }
+                        </select>
+                    </div>
+                    @*<div class="content_buscador_landing">
+                        <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
+                        <a class="buscar_landing_ept">BUSCAR</a>
+                </div>*@
+                    <hr class="clear" />
+                    <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
+                        <div style="display:inline-block;">
+                            Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
+                        </div>
+                        <div style="display:inline-block; margin: 0 0 0 15px;">
+                            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="">
+                    <hr class="clear" />
+                    <div id="divOfertaProductos" style="text-align: center;"></div>
+                    <hr class="clear" />
+                </div>
+            </div>
+            <hr class="clear" />
+        </div>
+    }
+    catch(Exception e)
+    {
+        Console.WriteLine(e);
+        <p style="color: red;"> Error del html @e.StackTrace</p>
+    }
+    
     <!--FIN-->
 
     <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
@@ -115,7 +123,7 @@
             </div>
         </div>
     </div>
-    *@
+
 </div>
 <hr class="clear" />
 <div class="Vista3" style="display: none;" data-tag-html="0">
