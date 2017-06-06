@@ -57,6 +57,20 @@ namespace Portal.Consultoras.BizLogic
             return clientes;
         }
 
+        private BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        {
+            var cliente = new BECliente();
+            var DACliente = new DACliente(paisID);
+
+            using (IDataReader reader = DACliente.GetClienteByCodigo(consultoraID, ClienteID, codigoCliente))
+                if (reader.Read())
+                {
+                    cliente = new BECliente(reader);
+                    cliente.PaisID = paisID;
+                }
+            return cliente;
+        }
+
         public BECliente SelectById(int paisID, long consultoraID, int clienteID)
         {
             var cliente = new BECliente();
@@ -248,8 +262,8 @@ namespace Portal.Consultoras.BizLogic
 
                         if (clienteDB.ClienteIDSB == 0)
                         {
-                            var lstConsultoraCliente = this.SelectByConsultora(paisID, clienteDB.ConsultoraID).Where(x=>x.CodigoCliente == clienteDB.ClienteID);
-                            clienteDB.ClienteIDSB = (lstConsultoraCliente.Count() == 0 ? 0 : lstConsultoraCliente.First().ClienteID);
+                            var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
+                            clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
                         }
 
                         if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);

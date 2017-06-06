@@ -1146,6 +1146,8 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         if (NombreCliente.length > 0) cliente.Nombre = NombreCliente;
     }
 
+    AbrirSplash();
+
     $.ajax({
         type: 'GET',
         dataType: 'html',
@@ -1153,6 +1155,8 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         url: url,
         data: cliente,
         success: function (data) {
+            CerrarSplash();
+
             $("#divDetalleCliente").html(data);
             $('#divAgregarCliente').show();
 
@@ -1181,6 +1185,7 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
             flagClienteDetalle = true;
         },
         error: function (xhr, ajaxOptions, error) {
+            CerrarSplash();
             alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });

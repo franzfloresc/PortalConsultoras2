@@ -181,6 +181,9 @@ function showClienteDetalle(fila)
     }
 
     var url = baseUrl + "Cliente/Detalle";
+
+    AbrirSplash();
+
     $.ajax({
         type: 'GET',
         dataType: 'html',
@@ -188,6 +191,8 @@ function showClienteDetalle(fila)
         url: url,
         data: cliente,
         success: function (data) {
+            CerrarSplash();
+
             $("#divDetalleCliente").html(data);
             $('#divAgregarCliente').show();
 
@@ -197,6 +202,7 @@ function showClienteDetalle(fila)
             };
         },
         error: function (xhr, ajaxOptions, error) {
+            CerrarSplash();
             alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });

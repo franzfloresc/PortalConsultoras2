@@ -37,6 +37,9 @@
             display: table-cell;
             padding-right:5px
         }
+        #divAgregarCliente {
+            display:none
+        }
     </style>
 }
 <div class="titulo_mobile">
@@ -142,37 +145,10 @@
     <div class="contenedor_popup_clientes" id="divAgregarCliente">
         <div class="popup_agregarCliente">
             <div id="divDetalleCliente"></div>
-            @*<div class="btn_cerrar_agregarUnidades">
-                <a href="javascript:;" onclick="CerrarMantenerCliente();">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
-            <h6>AGREGAR <b>CLIENTE</b></h6>
-            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingresa su nombre" maxlength="50" class="ValidaAlfabeto" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        Por favor ingresa un nombre válido.
-                    </span>
-                </div>
-            </div>
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (Opcional)" maxlength="80" id="Correo" />
-            <div class="noti mensaje_producto_noExiste" id="divNotiEmail">
-                <div class="noti_message red_texto_size">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span class="descripcion_mensaje">
-                        El correo ingresado <b>no existe.</b><br />
-                        Por favor ingresa un correo válido.
-                    </span>
-                </div>
-            </div>
-            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />*@
         </div>
     </div>
 
-    @section scripts
+@section scripts
 {
         <script type="text/javascript">
     var esAgregarCliente = true;
@@ -181,8 +157,6 @@
     var urlEliminarCliente = '@Url.Action("Eliminar", "Cliente", new {area = "Mobile"})';
 
             $(document).ready(function () {
-                $("#divAgregarCliente").hide();
-
                 $("body").on("click", ".agregarCliente", function (event) {
                     if (gTipoUsuario == '2') {
                         var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -261,6 +235,8 @@
                     cliente.Celular = celular;
                 }
 
+                ShowLoading();
+
                 $.ajax({
                     type: 'GET',
                     dataType: 'html',
@@ -268,19 +244,15 @@
                     url: url,
                     data: cliente,
                     success: function (data) {
+                        CloseLoading();
+
                         $("#divDetalleCliente").html(data);
-                        //ShowAgregarCliente();
                         $("#divAgregarCliente").show();
 
-                        ClienteDetalleOK = null;
                         ClienteDetalleOK = RealizarLuegoGuardarCliente;
-
-                        //ClienteDetalleOK = function (cliente) {
-                        //    //alert(JSON.stringify(cliente));
-                        //    CargarListaCliente();
-                        //};
                     },
                     error: function (xhr, ajaxOptions, error) {
+                        CloseLoading();
                         alert('Error: ' + xhr.status + " - " + xhr.responseText);
                     }
                 });

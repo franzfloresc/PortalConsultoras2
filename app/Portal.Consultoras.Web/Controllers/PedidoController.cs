@@ -1817,7 +1817,10 @@ namespace Portal.Consultoras.Web.Controllers
                         ClienteID = item.ClienteID,
                         Nombre = item.Nombre,
                         TieneTelefono = item.TieneTelefono,
-                        CodigoCliente = item.CodigoCliente
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 
@@ -1853,7 +1856,10 @@ namespace Portal.Consultoras.Web.Controllers
                         ClienteID = item.ClienteID,
                         Nombre = item.Nombre,
                         TieneTelefono = item.TieneTelefono,
-                        CodigoCliente = item.CodigoCliente
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 

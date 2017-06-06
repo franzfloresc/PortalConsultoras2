@@ -27,6 +27,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetClienteByCodigo(long ConsultoraID, int ClienteID, long CodigoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByCodigo");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, CodigoCliente);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetClienteByNombre(long ConsultoraID, string Nombre)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByNombre");

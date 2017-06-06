@@ -2,6 +2,17 @@
 var arrayOfertasParaTi = [];
 
 $(document).ready(function () {
+    $("#ddlClientes").change(function () {
+        if($(this).val() == 0) return;
+
+        $.each(lstClientes, function (key, cliente) {
+            if (cliente.ClienteID == $("#ddlClientes").val() && cliente.TieneTelefono == 0) {
+                showClienteDetalle(cliente);
+                return false;
+            }
+        });
+    });
+
     ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
@@ -134,9 +145,9 @@ $(document).ready(function () {
             $('#popupInformacionSB2Error').show();
             return false;
         }
-
-        CerrarMantenerCliente();
-        $("#divAgregarClientePedido").show();
+        showClienteDetalle(null);
+        //CerrarMantenerCliente();
+        //$("#divAgregarClientePedido").show();
     });
 
     CargarCarouselEstrategias("");
@@ -150,6 +161,44 @@ $(document).ready(function () {
     CargarDialogMesajePostulantePedido();
 });
 
+var ClienteDetalleOK = null;
+function showClienteDetalle(pcliente) {
+    var url = urlClienteDetalle;
+
+    var cliente = pcliente || {};
+
+    ShowLoading();
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        cache: false,
+        url: url,
+        data: cliente,
+        success: function (data) {
+            CloseLoading();
+
+            $("#divDetalleCliente").html(data);
+            $("#divAgregarCliente").show();
+
+            ClienteDetalleOK = function (cliente) {
+                if (pcliente == null) {
+                    $("#ddlClientes").append(new Option(cliente.Nombre, cliente.ClienteID));
+                    $("#ddlClientes").val(cliente.ClienteID);
+                }
+                else {
+                    $.each($("#ddlClientes option"), function (ind, cli) {
+                        if ($(cli).val() == cliente.ClienteID) $(cli).text(cliente.Nombre);
+                    });
+                }
+            };
+        },
+        error: function (xhr, ajaxOptions, error) {
+            CloseLoading();
+            alert('Error: ' + xhr.status + " - " + xhr.responseText);
+        }
+    });
+}
 
 function CargarDialogMesajePostulantePedido() {
     if (gTipoUsuario == '2' && MensajePedidoMobile == '0') {
@@ -1048,115 +1097,116 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function CerrarMantenerCliente() {
-    $("#divAgregarClientePedido input[type='text']").val("");
-    $("#divAgregarClientePedido input[type='email']").val("");
-    $("#divAgregarClientePedido").hide();
-}
-function AgregarMantenerCliente() {
-    var entidad = ValidarMantenerCliente();
-    if (entidad.Error) return false;
+//function CerrarMantenerCliente() {
+//    $("#divAgregarClientePedido input[type='text']").val("");
+//    $("#divAgregarClientePedido input[type='email']").val("");
+//    $("#divAgregarClientePedido").hide();
+//}
 
-    var item = {
-        ClienteID: 0,
-        Nombre: entidad.nombre,
-        eMail: entidad.correo,
-        FlagValidate: 1
-    };
+//function AgregarMantenerCliente() {
+//    var entidad = ValidarMantenerCliente();
+//    if (entidad.Error) return false;
 
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Cliente/Mantener',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == false) {
-                    AbrirMensaje(data.message);
-                    CloseLoading();
-                    return false;
-                }
+//    var item = {
+//        ClienteID: 0,
+//        Nombre: entidad.nombre,
+//        eMail: entidad.correo,
+//        FlagValidate: 1
+//    };
 
-                CargarListaCliente();
+//    ShowLoading();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Cliente/Mantener',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                if (data.success == false) {
+//                    AbrirMensaje(data.message);
+//                    CloseLoading();
+//                    return false;
+//                }
 
-                $.each($("#ddlClientes option"), function (ind, cli) {
-                    if ($(cli).text() == entidad.nombre) {
-                        $(cli).attr("selected", "selected");
-                    }
-                });
-                CerrarMantenerCliente();
+//                CargarListaCliente();
 
-                $("#popupClienteIngresado").show();
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Clientes',
-                    'action': 'Agregar',
-                    'label': 'Satisfactorio'
-                });
-            }
-            CloseLoading();
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (checkTimeout(data)) {
-                alert(data.message);
-            }
-        }
-    });
-}
+//                $.each($("#ddlClientes option"), function (ind, cli) {
+//                    if ($(cli).text() == entidad.nombre) {
+//                        $(cli).attr("selected", "selected");
+//                    }
+//                });
+//                CerrarMantenerCliente();
 
-function ValidarMantenerCliente() {
-    var nombre = $.trim($('#Nombres').val());
-    var correo = $.trim($('#Correo').val());
-    var entidad = new Object();
-    entidad.Error = false;
+//                $("#popupClienteIngresado").show();
+//                dataLayer.push({
+//                    'event': 'virtualEvent',
+//                    'category': 'Clientes',
+//                    'action': 'Agregar',
+//                    'label': 'Satisfactorio'
+//                });
+//            }
+//            CloseLoading();
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//            if (checkTimeout(data)) {
+//                alert(data.message);
+//            }
+//        }
+//    });
+//}
 
-    $('#divNotiNombre, #divNotiEmail').hide();
-    if (nombre == "") {
-        $('#divNotiNombre').show();
-        entidad.Error = true;
-    }
-    if (correo != "") {
-        if (!validateEmail(correo)) {
-            $('#divNotiEmail').show();
-            entidad.Error = true;
-        }
-    }
-    entidad.nombre = nombre;
-    entidad.correo = correo;
-    return entidad;
-}
+//function ValidarMantenerCliente() {
+//    var nombre = $.trim($('#Nombres').val());
+//    var correo = $.trim($('#Correo').val());
+//    var entidad = new Object();
+//    entidad.Error = false;
 
-function CargarListaCliente() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Cliente/ObtenerTodosClientes',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                $("#ddlClientes option[value!='0']").remove();
+//    $('#divNotiNombre, #divNotiEmail').hide();
+//    if (nombre == "") {
+//        $('#divNotiNombre').show();
+//        entidad.Error = true;
+//    }
+//    if (correo != "") {
+//        if (!validateEmail(correo)) {
+//            $('#divNotiEmail').show();
+//            entidad.Error = true;
+//        }
+//    }
+//    entidad.nombre = nombre;
+//    entidad.correo = correo;
+//    return entidad;
+//}
 
-                if (data.success == false) {
-                    return false;
-                }
-                data.lista = data.lista || new Array();
-                $.each(data.lista, function (ind, cli) {
-                    $("#ddlClientes").append(new Option(cli.Nombre, cli.ClienteID));
-                });
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(data.message);
-            }
-        }
-    });
-}
+//function CargarListaCliente() {
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Cliente/ObtenerTodosClientes',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        async: false,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                $("#ddlClientes option[value!='0']").remove();
+
+//                if (data.success == false) {
+//                    return false;
+//                }
+//                data.lista = data.lista || new Array();
+//                $.each(data.lista, function (ind, cli) {
+//                    $("#ddlClientes").append(new Option(cli.Nombre, cli.ClienteID));
+//                });
+//            }
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                alert(data.message);
+//            }
+//        }
+//    });
+//}
 
 function TagManagerCarruselInicio(arrayItems) {
     var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;

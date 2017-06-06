@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ClienteIDSB = model.ClienteID,
                     Nombres = model.Nombre,
                     ConsultoraID = userData.ConsultoraID,
-                    Origen = Constantes.ClienteOrigen.Desktop,
+                    Origen = Constantes.ClienteOrigen.Mobile,
                     Estado = Constantes.ClienteEstado.Activo,
                     TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
                     Contactos = contactos.ToArray()
