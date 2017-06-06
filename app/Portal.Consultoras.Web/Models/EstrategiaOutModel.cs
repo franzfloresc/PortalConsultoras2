@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -12,6 +10,7 @@ namespace Portal.Consultoras.Web.Models
         public string TituloDescripcion { get; set; }
         public string CodigoEstrategia { get; set; }
         public string Consultora { get; set; }
+        public int OrigenPedidoWeb { get; set; }
 
         public List<EstrategiaPedidoModel> Lista { get; set; }
     }

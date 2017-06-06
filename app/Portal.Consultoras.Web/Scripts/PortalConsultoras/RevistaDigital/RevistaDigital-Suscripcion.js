@@ -4,8 +4,16 @@ $(document).ready(function () {
     $("[data-campania2]").html(campaniaNro + 2);
 });
 
-function RDPopupCerrar() {
+function RDPopupCerrar(tipo) {
     AbrirLoad();
+    if (tipo == 1) {
+        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        location.href = "/";
+        return false;
+    }
+
+    CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
+    
     $.ajax({
         type: 'GET',
         url: baseUrl + 'RevistaDigital/PopupCerrar',
@@ -24,6 +32,7 @@ function RDPopupCerrar() {
 
 function RDSuscripcion() {
     AbrirLoad();
+    InscripcionRDAnalytics();
     $.ajax({
         type: 'GET',
         url: baseUrl + 'RevistaDigital/Suscripcion',
@@ -38,7 +47,12 @@ function RDSuscripcion() {
                 CerrarPopup("#PopRDSuscripcion");
                 $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
                 AbrirPopupFade("#PopRDInscrita");
+                SuscripcionExistosaRDAnalytics();
                 MostrarMenu(data.CodigoMenu);
+                if (!isMobile()) {
+                    CargarBanners();
+                }
+               
             }
         },
         error: function (data, error) {
@@ -50,6 +64,7 @@ function RDSuscripcion() {
 
 function RDDesuscripcion() {
     AbrirLoad();
+    CancelarSuscripcionRDAnalytics();
     $.ajax({
         type: 'GET',
         url: baseUrl + 'RevistaDigital/Desuscripcion',
@@ -72,6 +87,7 @@ function RDDesuscripcion() {
 }
 
 function RDPopupNoVolverMostrar() {
+    CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
     CerrarPopup("#PopRDSuscripcion");
     AbrirLoad();
     $.ajax({
@@ -93,11 +109,13 @@ function RDInformacion() {
 }
 
 function RDSuscripcionRedireccionar() {
+    SaberMasRDAnalytics();
     var url = urlRevistaDigital;
     window.location = url;
     //CerrarPopup("#PopRDInscrita");
 }
 function RDRedireccionarDesuscripcion() {
+    IrCancelarSuscripcionRDAnalytics();
     var url = urlRevistaDigital;
     var divPosition = '#divAnularSuscripcion';
     window.location = url + divPosition;
@@ -114,3 +132,83 @@ function MostrarTerminos() {
         console.log("Habilitar mostrar popup");
     }
 }
+
+function MostrarPopupRDAnalytics() {
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': '1',
+                        'name': 'Revista Online - Inscribirme a Ésika para mí',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+            }
+        }
+    });
+}
+
+function InscripcionRDAnalytics() {
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': '1',
+                        'name': 'Revista Online - Inscribirme a Ésika para mí',
+                        'position': 'Home pop-up - 1',
+                        'creative': 'Banner'
+                    }]
+            }
+        }
+    });
+}
+
+function SuscripcionExistosaRDAnalytics() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Revista Online',
+        'action': 'Suscripción Exitosa',
+        'label': '(not available)'
+    });
+}
+
+function SaberMasRDAnalytics() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Revista Online',
+        'action': 'Click Botón',
+        'label': 'Saber más de Ésika para mí'
+    });
+}
+
+function CerrarPopUpRDAnalytics(tipoBanner) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Revista Online',
+        'action': 'Cerrar popup',
+        'label': tipoBanner
+    });
+}
+
+function IrCancelarSuscripcionRDAnalytics() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Revista Online',
+        'action': 'Click Link Cancelar Suscripción',
+        'label': 'Banner'
+    });
+}
+
+function CancelarSuscripcionRDAnalytics() {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Revista Online',
+        'action': 'Cancelar inscripción',
+        'label': '(not available)'
+    });
+}
+

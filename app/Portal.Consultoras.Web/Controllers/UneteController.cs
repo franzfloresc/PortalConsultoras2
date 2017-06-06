@@ -322,7 +322,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
                                                   eventoMZ.Observacion.Split(':')[1].ToString()
-                                               : string.Empty);
+                                               : (eventoMZ.Observacion.Split('|').Length > 1 ?
+                                                  eventoMZ.Observacion.Substring(eventoMZ.Observacion.Split('|')[0].Length + 1).ToString()
+                                                  : string.Empty));
+                                               
                     model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo)? string.Empty :  model.ZonaSeccionRechazo.Replace('|', '/');
                 }
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);

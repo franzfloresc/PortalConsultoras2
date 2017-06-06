@@ -136,6 +136,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorContrato = userData.IndicadorContrato;
                 model.CambioClave = userData.CambioClave;
                 model.SobreNombre = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
+                model.SobreNombre = Util.Trim(model.SobreNombre).ToUpper();
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.CampaniaActual = userData.CampaniaID;
                 model.PrefijoPais = userData.CodigoISO;
@@ -1701,7 +1702,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.NoVolverMostrar)
                 {
                     return Json(new
                     {

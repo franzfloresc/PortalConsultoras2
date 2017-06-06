@@ -894,9 +894,8 @@ function LayoutMenuFin() {
         $(".logo_esika").css("width", "");
         $(".menu_esika_b").css("width", "");
         $(idMenus).css("margin-left", "5px");
-        //$(".menu_new_esika").css("width", "");
+        $(".menu_new_esika").css("width", "");
 
-        hok = false;
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();
         var wr = $(".menu_esika_b").innerWidth();
@@ -905,6 +904,8 @@ function LayoutMenuFin() {
 
         wt = wt - wl - wr;
         $(".menu_new_esika").css("width", wt + "px");
+
+        hok = false;
 
         var h = $(".wrapper_header").height();
 
@@ -1199,19 +1200,6 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow': 'auto' });
 }
 
-function AbrirPopupFade(ident) {
-    $(ident).fadeIn();
-    $('body').css({ 'overflow-x': 'hidden' });
-    $('body').css({ 'overflow-y': 'hidden' });
-}
-
-function CerrarPopupFade(ident) {
-    $(ident).fadeOut();
-    $('body').css({ 'overflow-y': 'auto' });
-    $('body').css({ 'overflow-x': 'auto' });
-    $('body').css({ 'overflow': 'auto' });
-}
-
 function ModificarPedido2(pTipo) {
     if (pTipo == '2') {
         if (_ModificacionPedidoProl == "0") ConfirmarModificarPedido();
@@ -1339,6 +1327,15 @@ function MostrarMenu(codigo, accion) {
     
 }
 
+function FunccionEjecutar(functionHide) {
+    functionHide = $.trim(functionHide);
+    if (functionHide != "") {
+        if (functionHide[functionHide.length - 1] != ")") {
+            functionHide = functionHide + "()";
+        }
+        setTimeout(functionHide + "()", 100);
+    }
+}
 function GuardarIndicadorPedidoAutentico() {
     if (fingerprintOk == 0) {
         new Fingerprint2().get(function (result, components) {

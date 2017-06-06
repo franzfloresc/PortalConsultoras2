@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
-                //Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String , entidad.CodigoAgrupacion );
+                //Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String, entidad.CodigoAgrupacion);
                 return Context.ExecuteReader(command);
             }
         }

@@ -106,31 +106,34 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
+
     if (data.Lista.length == 0) {
         return false;
     }
 
-    tieneOPT = true;
     data.Lista = EstructurarDataCarousel(data.Lista);
+    tieneOPT = true;
     arrayOfertasParaTi = data.Lista;
 
-    //var obj = new Object();
-    //obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
-    ////obj.CodigoEstrategia = "101";
-    //obj.Lista = data;
-    //obj.Consultora = usuarioNombre.toUpperCase();
-    //obj.Titulo = obj.Consultora + ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
-    //obj.TituloDescripcion = tipoOrigenEstrategia == 1
-    //    ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
-    //    : tipoOrigenEstrategia == 2  
-    //        ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
-    //        : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
+    var obj = new Object();
+    obj.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
+    //obj.CodigoEstrategia = "101";
+    obj.Lista = data;
+    obj.Consultora = usuarioNombre.toUpperCase();
+    obj.Titulo = obj.Consultora + ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+    obj.TituloDescripcion = tipoOrigenEstrategia == 1
+        ? "ENCUENTRA MÁS OFERTAS, MÁS BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS Y AUMENTA TUS GANANCIAS"
+        : tipoOrigenEstrategia ==2  
+            ? "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS"
+            : "ENCUENTRA LOS PRODUCTOS QUE TUS CLIENTES BUSCAN HASTA 65% DE DSCTO.";
 
-    //SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
+    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     $('#divListaEstrategias').show();
+    $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
-
-    if (tipoOrigenEstrategia == 11) {
+    //ResizeBoxContnet();
+    
+    if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
@@ -138,7 +141,11 @@ function ArmarCarouselEstrategias(data) {
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
-    
+
+    if ($.trim($('#divListadoEstrategia').html()).length == 0) {
+        return false;
+    }
+
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
@@ -190,7 +197,7 @@ function ArmarCarouselEstrategias(data) {
             pantallaPedido: false,
             prevArrow: '<button type="button" data-role="none" class="slick-next"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev"></button>'
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {          
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
 
@@ -201,9 +208,8 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 2) {
         $('#div-linea-OPT').show();
-        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
-        
+
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: false,
@@ -231,7 +237,6 @@ function ArmarCarouselEstrategias(data) {
         });
     }
     else if (tipoOrigenEstrategia == 21) {
-        $("#divListaEstrategias").attr("data-OrigenPedidoWeb", origenPedidoWebEstrategia);
         $("#divListaEstrategias").show();
         $('#divListadoEstrategia').slick({
             slidesToShow: 4,
@@ -256,93 +261,13 @@ function ArmarCarouselEstrategias(data) {
                     settings: { slidesToShow: 1, slidesToScroll: 1 }
                 }
             ]
-        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {           
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
         });
     }
+
     TagManagerCarruselInicio(data.Lista);
 
-};
-
-function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
-    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
-        tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
-    var accion;
-    if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
-        accion = 'next';
-    } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
-        accion = 'prev';
-    } else if (nextSlide > currentSlide) {
-        accion = 'next';
-    } else {
-        accion = 'prev';
-    };
-
-    if (accion == 'prev') {
-        //TagManager
-        var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-        var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-        var recomendado = arrayOfertasParaTi[posicionEstrategia];
-        var arrayEstrategia = new Array();
-     
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
-            'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
-            'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
-
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': origen,
-            'action': 'Ofertas para ti',
-            'label': 'Ver anterior'
-        });
-    } else if (accion == 'next') {
-        //TagManager
-        var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-        var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-        var recomendado = arrayOfertasParaTi[posicionEstrategia];
-        var arrayEstrategia = new Array();
-  
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
-            'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti – ' + origen,
-            'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
-
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': origen,
-            'action': 'Ofertas para ti',
-            'label': 'Ver siguiente'
-        });
-    }
 }
 
 function EstructurarDataCarousel(array) {
@@ -472,6 +397,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     CerrarLoad();
     return true;
 };
+
 function EstrategiaMostrarMasTonos(menos) {
     if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
         if (menos) {
@@ -496,6 +422,7 @@ function EstrategiaMostrarMasTonos(menos) {
 
     }
 }
+
 function CargarEstrategiaSet(cuv) {
     AbrirLoad();
     var detalle = new Array();

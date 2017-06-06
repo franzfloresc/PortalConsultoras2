@@ -533,13 +533,13 @@
         }
         public class MenuCodigo
         {
+            public const string RevistaShowRoom = "ShowRoom";
+            public const string MiNegocio = "MiNegocio";
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
         }
 
-            public const string RevistaDigitalReducida = "RDR";
-            public const int SinRegistroDB = 0;
         public class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";

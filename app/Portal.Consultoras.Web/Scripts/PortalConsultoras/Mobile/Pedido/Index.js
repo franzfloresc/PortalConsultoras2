@@ -170,7 +170,6 @@ function CerrarDialogMesajePostulantePedido() {
     UpdateUsuarioTutoriales();
 }
 
-
 function UpdateUsuarioTutoriales() {
     var item = {
         tipo: '2' // Para mOBILE

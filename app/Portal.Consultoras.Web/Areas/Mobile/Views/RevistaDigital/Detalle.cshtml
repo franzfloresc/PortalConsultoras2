@@ -14,7 +14,7 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" data-item="">
+<div class="content_detalle_set_bpt_general" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -51,11 +51,12 @@
         {
             <div class="info-set_bpt">CONOCE POR QUÉ @Model.DescripcionResumen SERÁ GANADORA</div>
             <div class="content_descripcion_bpt">
-                @Html.Raw(Model.DescripcionDetalle)
-                @*<b>1</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
-                <b>2</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
-                <b>3</b> Es la primera fragancia femenida de la exitosa línea kalos<br />
-                <b>4</b> Es la primera fragancia femenida de la exitosa línea kalos<br />*@
+                <ol class="ol_detalle">
+                    @foreach (var DescDetalle in Model.ListaDescripcionDetalle)
+                    {
+                        <li>@DescDetalle.Trim()</li>
+                    }
+                </ol> 
             </div>
         }
     </div>

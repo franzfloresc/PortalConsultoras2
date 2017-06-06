@@ -18,6 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return model;
                 }
+
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    return model;
+                }
             }
             
             model = ListarTabs(model);
