@@ -10,14 +10,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            var model = IndexModel();
-            model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
-            if (model.EstadoAccion < 0)
+            try
             {
-                return RedirectToAction("Index", "Bienvenida");
+
+                var model = IndexModel();
+                if (model.EstadoAccion < 0)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public ActionResult Detalle(int id)

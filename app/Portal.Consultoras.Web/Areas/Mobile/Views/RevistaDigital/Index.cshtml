@@ -49,7 +49,7 @@
 @* Lanzamientos con etiqueta NUEVO *@
 <!-- Inicio Seccion de Landing-->
 <div data-tag-html="1" style="display:none">
-    @*
+
     <div style="background:#F6F6F6">
         <div class="content_carrusel_landing">
             <div id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
@@ -64,8 +64,8 @@
     <div class="wrapper_resumen_mobile">
         <div id="orderby-filter" style="display: block;">
             <div id="content-orderby" style="margin: 15px 0; text-align: center;">
-                @<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
-                <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">@
+                @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
+                <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
                 <div id="divFiltros">
                     <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
                         @foreach (var item in Model.FiltersByBrand)
@@ -102,7 +102,6 @@
     <!--Fin seccion landing-->
     <hr class="clear" />
 
-    *@
 </div>
 
 <!--Inicio de sección preguntas-->

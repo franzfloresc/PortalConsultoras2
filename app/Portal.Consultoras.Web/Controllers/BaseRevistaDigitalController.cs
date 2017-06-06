@@ -2,6 +2,7 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -65,6 +66,9 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = IsMobile();
             model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
             model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+
+            model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
+
             return model;
         }
 
