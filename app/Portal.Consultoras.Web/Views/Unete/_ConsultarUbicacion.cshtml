@@ -755,7 +755,7 @@
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
                     <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
-                    <button type="button" id="btnCancelarPosicion" >Cancelar</button>
+                    <button type="button" id="btnCancelarGrabadoPosicion" >Cancelar</button>
                 </div>
             </div>
         </div>
@@ -1067,6 +1067,8 @@
             $('#coordenadasX').prop('readonly', true);
             $('#coordenadasY').prop('readonly', true);
             $('#regionXY').prop('readonly', true);
+            $('#btnCancelarGrabadoPosicion').attr('disabled', true);
+            $('#btnCancelarGrabadoPosicion').addClass('HabInaButton');
 
             $.validator.unobtrusive.parse('form');
 
@@ -1383,8 +1385,25 @@
         $('#btnModificarDireccion').attr('disabled', true);
         $('#btnGrabarDireccion').attr('disabled', true);
         $('#btnActualizarSeccion').attr('disabled', true);
+        $('#btnCancelarGrabadoPosicion').attr('disabled', false);
+        $('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
         EditMapa();
     });
+
+    $('#btnCancelarGrabadoPosicion').click(function () {
+        $('#btnGrabarPosicion').attr('disabled', false);
+        $('#btnModificarDireccion').removeClass('HabInaButton');
+        $('#btnGrabarDireccion').removeClass('HabInaButton');
+        $('#btnActualizarSeccion').removeClass('HabInaButton');
+        $('#btnModificarDireccion').attr('disabled', false);
+        $('#btnGrabarDireccion').attr('disabled', false);
+        $('#btnActualizarSeccion').attr('disabled', false);
+        $('#btnEditarPosicion').show();
+        $('#btnGrabarPosicion').hide();
+        $('#btnCancelarGrabadoPosicion').attr('disabled', true);
+        $('#btnCancelarGrabadoPosicion').addClass('HabInaButton');
+    });
+    
 
     $('#btnGrabarPosicion').click(function () {
 
