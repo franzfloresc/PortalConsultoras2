@@ -1,7 +1,15 @@
-﻿@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+﻿
+@using Portal.Consultoras.Web.Models
 
-@foreach (var lan in Model.ListaProducto)
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
+@if (Model.ListaProducto != null)
 {
+
+foreach (var lan in Model.ListaProducto)
+{
+    lan.EstrategiaDetalle = lan.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
+
     <div class="content_item_ept" data-item="" data-ImgPrevia="@lan.EstrategiaDetalle.ImgPrevDesktop" data-estrategia="@Json.Encode(lan)">
         <div style="display:none;"></div>
         <div>
@@ -62,7 +70,9 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn_mas_info_set" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new { area = Model.IsMobile ? "Mobile" : "" })/@lan.EstrategiaID';"> ver más</a>
+                <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new { area = Model.IsMobile ? "Mobile" : "" })/@lan.EstrategiaID';">ver más de este producto
+                    
+                </a>
             </div>
         </div>
 
@@ -73,4 +83,6 @@
             </div>
         }
     </div>
+}
+
 }

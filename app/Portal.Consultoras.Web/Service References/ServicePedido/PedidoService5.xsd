@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
-  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
+  <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:element name="RDDesuscripcion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q1:BERevistaDigitalSuscripcion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RDDesuscripcionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="RDDesuscripcionResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RDGetSuscripcion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q2:BERevistaDigitalSuscripcion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RDGetSuscripcionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="RDGetSuscripcionResult" nillable="true" type="q3:BERevistaDigitalSuscripcion" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarDesglose">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="input" nillable="true" type="q4:BEInputReservaProl" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarDesgloseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarDesgloseResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CargarSesionAndDeshacerPedidoValidado">
     <xs:complexType>
       <xs:sequence>
@@ -28,7 +70,7 @@
   <xs:element name="DeshacerPedidoValidado">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="usuario" nillable="true" type="q1:BEUsuario" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="usuario" nillable="true" type="q5:BEUsuario" />
         <xs:element minOccurs="0" name="tipo" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -44,14 +86,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q2:BECuponConsultora" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q6:BECuponConsultora" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetCuponConsultoraByCodigoConsultoraCampaniaIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="GetCuponConsultoraByCodigoConsultoraCampaniaIdResult" nillable="true" type="q3:BECuponConsultora" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="GetCuponConsultoraByCodigoConsultoraCampaniaIdResult" nillable="true" type="q7:BECuponConsultora" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -59,55 +101,13 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q4:BECuponConsultora" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q8:BECuponConsultora" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateCuponConsultoraEstadoCuponResponse">
     <xs:complexType>
       <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDSuscripcion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q5:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDSuscripcionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RDSuscripcionResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDDesuscripcion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q6:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDDesuscripcionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="RDDesuscripcionResult" type="xs:int" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDGetSuscripcion">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q7:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RDGetSuscripcionResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="RDGetSuscripcionResult" nillable="true" type="q8:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateCuponConsultoraEnvioCorreo">
@@ -1094,17 +1094,17 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="InsertarDesglose">
+  <xs:element name="RDSuscripcion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="input" nillable="true" type="q67:BEInputReservaProl" />
+        <xs:element xmlns:q67="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q67:BERevistaDigitalSuscripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="InsertarDesgloseResponse">
+  <xs:element name="RDSuscripcionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="InsertarDesgloseResult" type="xs:int" />
+        <xs:element minOccurs="0" name="RDSuscripcionResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

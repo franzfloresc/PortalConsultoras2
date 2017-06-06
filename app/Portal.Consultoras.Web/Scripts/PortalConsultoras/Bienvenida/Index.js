@@ -23,6 +23,7 @@ $(document).ready(function () {
     });
 
     $('#salvavidaTutorial').show();
+    LayoutMenu();
 
     $("#salvavidaTutorial").click(function () {
         abrir_popup_tutorial(true);
@@ -226,6 +227,7 @@ $(document).ready(function () {
 
         case popupRevistaDigitalSuscripcion:
             PopupMostrar('PopRDSuscripcion');
+            MostrarPopupRDAnalytics();
             break;
     }
 
@@ -437,6 +439,7 @@ $(document).ready(function () {
 
     MostrarBarra(null, '1');
 });
+
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
@@ -1148,6 +1151,9 @@ function CargarProductoLiquidacionPopup(objProducto, objHidden) {
 };
 
 function CargarBanners() {
+    $('.flexslider').html('<ul class="slides"></ul>');
+    $('.flexslider').removeData("flexslider");
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Banner/ObtenerBannerPaginaPrincipal',
@@ -1155,124 +1161,129 @@ function CargarBanners() {
         dataType: 'Json',
         success: function (dataResult) {
             if (checkTimeout(dataResult)) {
-                if (dataResult.success) {
-                    var delayPrincipal = 0, delaySBaja1 = 0;
-                    var count = 0;
-                    var Titulo = "";
-                    var Posicion = "";
-                    var Id = 0;
-                    var TipoAccion = 0;
-                    var Creative = "";
-                    var fileName = "";
-                    var countBajos = 1;
-                    var promotionsBajos = [];
+                if (!dataResult.success) {
+                    alert('Error al cargar el Banner.');
+                    return false;
+                }
 
-                    $('#bannerBajos').empty();
-                    $('#sliderHomeLoading').empty();
+                var delayPrincipal = 0, delaySBaja1 = 0;
+                var count = 0;
+                var Titulo = "";
+                var Posicion = "";
+                var Id = 0;
+                var TipoAccion = 0;
+                var Creative = "";
+                var fileName = "";
+                var countBajos = 1;
+                var promotionsBajos = [];
 
-                    while (dataResult.data.length > count) {
-                        Titulo = dataResult.data[count].Titulo;
-                        Id = dataResult.data[count].BannerID.toString();
-                        fileName = dataResult.data[count].Archivo;
-                        TipoAccion = dataResult.data[count].TipoAccion;
+                $('#bannerBajos').empty();
+                $('#sliderHomeLoading').empty();
 
-                        if (dataResult.data[count].GrupoBannerID.toString() == '150') {
-                            Posicion = 'Home Slider – ' + dataResult.data[count].Orden;
-                        }
+                while (dataResult.data.length > count) {
+                    Titulo = dataResult.data[count].Titulo;
+                    Id = dataResult.data[count].BannerID.toString();
+                    fileName = dataResult.data[count].Archivo;
+                    TipoAccion = dataResult.data[count].TipoAccion;
 
-                        switch (dataResult.data[count].GrupoBannerID) {
-                            case 150: // Seccion Principal SB2.0
-                                var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
-                                var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
-
-                                $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
-                                delayPrincipal = dataResult.data[count].TiempoRotacion;
-                                break;
-                            case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
-                                var trackingText = dataResult.data[count].TituloComentario;
-                                var trackingDesc = dataResult.data[count].TextoComentario;
-                                var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
-
-                                $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
-                                delaySBaja1 = dataResult.data[count].TiempoRotacion;
-                                promotionsBajos.push({
-                                    id: dataResult.data[count].BannerID,
-                                    name: dataResult.data[count].Titulo,
-                                    position: 'home-inferior-' + countBajos
-                                });
-                                countBajos++;
-                                break;
-                        }
-                        count++;
-
-                        if (TipoAccion == 0) {
-                            Creative = "Banner";
-                        }
-                        else if (TipoAccion == 1) {
-                            Creative = "Producto";
-                        }
-
-                        vpromotions.push({
-                            'name': Titulo,
-                            'id': Id,
-                            'position': Posicion,
-                            'creative': Creative
-                        });
+                    if (dataResult.data[count].GrupoBannerID.toString() == '150') {
+                        Posicion = 'Home Slider – ' + dataResult.data[count].Orden;
                     }
 
-                    if (promotionsBajos.length > 0) {
+                    switch (dataResult.data[count].GrupoBannerID) {
+                        case 150: // Seccion Principal SB2.0
+                            var iniHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? "<a id='bannerMicroefecto" + dataResult.data[count].BannerID + "' href='javascript:;' onclick=\"return EnlaceBanner('" + dataResult.data[count].URL + "','" + dataResult.data[count].Titulo + "','" + dataResult.data[count].TipoAccion + "','" + dataResult.data[count].CuvPedido + "','" + dataResult.data[count].CantCuvPedido + "','" + dataResult.data[count].BannerID + "','" + Posicion + "','" + dataResult.data[count].Titulo + "', this);\" rel='marquesina' >" : "";
+                            var finHtmlLink = ((dataResult.data[count].URL.length > 0 && dataResult.data[count].TipoAccion == 0) || dataResult.data[count].TipoAccion == 1 || dataResult.data[count].TipoAccion == 2) ? '</a>' : '';
+
+                            $('.flexslider ul.slides').append('<li><div><div>' + iniHtmlLink + '<img class="imagen_producto" src="' + fileName + '"data-object-fit="none">' + finHtmlLink + '</div></div></li>');
+                            delayPrincipal = dataResult.data[count].TiempoRotacion;
+                            break;
+                        case -5: case -6: case -7: // Seccion Baja 1 SB2.0 
+                            var trackingText = dataResult.data[count].TituloComentario;
+                            var trackingDesc = dataResult.data[count].TextoComentario;
+                            var htmlLink = dataResult.data[count].URL.length > 0 ? "onclick=\"return SetGoogleAnalyticsBannerInferiores('" + dataResult.data[count].URL + "','" + trackingText + "','0','" + dataResult.data[count].BannerID + "','" + countBajos + "','" + dataResult.data[count].Titulo + "');\" target='_blank' rel='banner-inferior' " : "";
+
+                            $('#bannerBajos').append("<a class='enlaces_home' href='javascript:void();' " + htmlLink + "><div class='div-img hidden' style='margin-bottom: 10px;'><img class='banner-img' src='" + fileName + "' /></div><div class='btn_enlaces'>" + trackingText + "</div></a>");
+                            delaySBaja1 = dataResult.data[count].TiempoRotacion;
+                            promotionsBajos.push({
+                                id: dataResult.data[count].BannerID,
+                                name: dataResult.data[count].Titulo,
+                                position: 'home-inferior-' + countBajos
+                            });
+                            countBajos++;
+                            break;
+                    }
+                    count++;
+
+                    if (TipoAccion == 0) {
+                        Creative = "Banner";
+                    }
+                    else if (TipoAccion == 1) {
+                        Creative = "Producto";
+                    }
+
+                    vpromotions.push({
+                        'name': Titulo,
+                        'id': Id,
+                        'position': Posicion,
+                        'creative': Creative
+                    });
+                }
+
+                if (promotionsBajos.length > 0) {
+                    dataLayer.push({
+                        'event': 'promotionView',
+                        'ecommerce': {
+                            'promoView': {
+                                'promotions': promotionsBajos
+                            }
+                        }
+                    });
+
+                }
+
+                $('#bannerBajos').find("a.enlaces_home:last-child").addClass("no_margin_right");
+
+                if (count <= 0) {
+                    return false;
+                }
+
+
+                $('.flexslider').flexslider({
+                    animation: "fade",
+                    slideshowSpeed: (delayPrincipal * 1000),
+                    after: function (slider) {
+                        if (FuncionesGenerales.containsObject(vpromotions[slider.currentSlide], vpromotionsTagged) == false) {
+                            var arrProm = [];
+                            arrProm.push(vpromotions[slider.currentSlide]);
+                            dataLayer.push({
+                                'event': 'promotionView',
+                                'ecommerce': {
+                                    'promoView': {
+                                        'promotions': arrProm
+                                    }
+                                }
+                            });
+                            vpromotionsTagged.push(vpromotions[slider.currentSlide]);
+                        }
+                    },
+                    start: function (slider) {
+                        $('body').removeClass('loading');
+                        var arrProm = [];
+                        arrProm.push(vpromotions[slider.currentSlide]);
                         dataLayer.push({
                             'event': 'promotionView',
                             'ecommerce': {
                                 'promoView': {
-                                    'promotions': promotionsBajos
+                                    'promotions': arrProm
                                 }
                             }
                         });
-
+                        vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                     }
+                });
+                
 
-                    $('#bannerBajos').find("a.enlaces_home:last-child").addClass("no_margin_right");
-
-                    if (count > 0) {
-                        $('.flexslider').flexslider({
-                            animation: "fade",
-                            slideshowSpeed: (delayPrincipal * 1000),
-                            after: function (slider) {
-                                if (FuncionesGenerales.containsObject(vpromotions[slider.currentSlide], vpromotionsTagged) == false) {
-                                    var arrProm = [];
-                                    arrProm.push(vpromotions[slider.currentSlide]);
-                                    dataLayer.push({
-                                        'event': 'promotionView',
-                                        'ecommerce': {
-                                            'promoView': {
-                                                'promotions': arrProm
-                                            }
-                                        }
-                                    });
-                                    vpromotionsTagged.push(vpromotions[slider.currentSlide]);
-                                }
-                            },
-                            start: function (slider) {
-                                $('body').removeClass('loading');
-                                var arrProm = [];
-                                arrProm.push(vpromotions[slider.currentSlide]);
-                                dataLayer.push({
-                                    'event': 'promotionView',
-                                    'ecommerce': {
-                                        'promoView': {
-                                            'promotions': arrProm
-                                        }
-                                    }
-                                });
-                                vpromotionsTagged.push(vpromotions[slider.currentSlide]);
-                            }
-                        });
-                    }
-                }
-                else {
-                    alert('Error al cargar el Banner.');
-                }
             }
         }
     });
@@ -2823,7 +2834,6 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
-                
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;

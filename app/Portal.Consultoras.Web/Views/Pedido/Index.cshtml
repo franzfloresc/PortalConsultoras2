@@ -1034,9 +1034,9 @@
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1775,13 +1775,8 @@
                         </div>
                     </div>
                     <div class="texto_ofertas_bonificaciones">
-                        {{TituloDescripcion}}
+                        {{TituloDescripcion}} 
                     </div>
-                    @*<p class="marca">ÉSIKA</p>
-                    <div class="giftext">
-                        <img src="http://d33wubrfki0l68.cloudfront.net/f454d48b68bb40aa04caf40001d5fe2ec6b5339a/7cfe5/img/letra.gif">
-                    </div>
-                    <p class="revistadigital-desc"><span>ES TU GUÍA DE NEGOCIO PERSONALIZADA ONLINE,</span> AQUÍ ENCONTRARÁS TUS OFERTAS, PACKS, TIPS DE VENTA… Y MÁS, SOLO PARA TI</p>*@
                 </div>
                 {{else}}
                 <h1>

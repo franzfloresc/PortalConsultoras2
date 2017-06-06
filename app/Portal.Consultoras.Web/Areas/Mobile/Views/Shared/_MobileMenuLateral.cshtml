@@ -9,7 +9,7 @@
     var tipoUsuaio = ViewBag.TipoUsuario;
 }
 
-<div class="botones">
+<div class="botones" id="ulNavPrincipal" data-menu-count="@(itemsMenu.Count())">
     <a role="menu" region="Menú Lateral" parent="Ingresa tu Pedido" title="Ingresa tu Pedido"
        class="menu_mobile_belcorp indicador_bel" href="@Url.Action("Index", "Pedido", new {area = "Mobile"})" id="lnk-lat-ingresa-tu-pedido">INGRESA<b>TU PEDIDO</b></a>
 
@@ -17,83 +17,38 @@
 {
     if (item.SubMenu.Count == 0)
     {
-        if (item.Descripcion.Trim() == "VENTA EXCLUSIVA WEB")
-        {
-            if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+        <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
+           class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
+           href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
+           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
+            @if (item.UrlImagen != "")
             {
-                if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                {
-                    <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
-                           class="menu_mobile_belcorp etiqueta_showroom wsventa" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
-                }
-                else
-                {
-                    <a role="menu" region="Menú Lateral" parent=@item.Descripcion.Trim() title=@item.Descripcion.Trim()
-                           class="menu_mobile_belcorp etiqueta_showroom wsintriga" href="@Url.Action("Intriga", "ShowRoom", new { area = "Mobile" })" id="lnk-lat-ingresa-tu-pedido"><b>@item.Descripcion.Trim() </b></a>
-                }
+                <img src="@item.UrlImagen" alt="@item.Descripcion" />
             }
-        }
-        else if (item.Descripcion.Trim() == "¿Necesitas ayuda?")
-        {
-            var target = item.PaginaNueva ? "_blank" : "_self";
-            var url = item.Version == "Completa"
-                ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
-                : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
-            var onclickF = "";
-                     <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
-                       class="etiqueta_chat menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                        @item.Descripcion
-                    </a>
-    
-        }
-        else if (item.SubMenu.Count == 0)
-        {
-            var target = item.PaginaNueva ? "_blank" : "_self";
-            var url = item.Version == "Completa"
-                ? item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, item.UrlItem)
-                : item.UrlItem.StartsWith("http") ? item.UrlItem : string.Format("{0}{1}", urlDomain, item.UrlItem);
-            url = tipoUsuaio == 2 && item.Descripcion.ToLower().Trim() == "mi academia" ? "javascript:;" : url;
-            var onclickF = tipoUsuaio == 2 && item.Descripcion.ToLower().Trim() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
-
-            <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
-                class="menu_mobile_belcorp" href="@url" @onclickF id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                @if (item.UrlImagen != "")
-                {
-                    <img src="@item.UrlImagen" alt="@item.Descripcion" />
-                }
-                else
-                {
-                    @item.Descripcion
-                }
-            </a>
-        }
+            else
+            {
+                @item.Descripcion
+            }
+        </a>
     }
     else
     {
-        <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion"
-           class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
+         <a role="menu" region="Menú Lateral" parent="@item.Descripcion" title="@item.Descripcion"
+           class="menu_mobile_belcorp indicador_submenu" data-toggle="collapse" data-parent="#accordion" 
+           href="#SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">@item.Descripcion</a>
+
             <div class="panel-collapse collapse submenu_1" id="SubMenu_@item.Descripcion.GenerateLinkForGoogleTagManager()">
                 @foreach (var subItem in item.SubMenu)
                 {
-                    var target = subItem.PaginaNueva ? "_blank" : "_self";
-                    var url = subItem.Version == "Completa"
-                        ? subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", urlDomain, subItem.UrlItem)
-                        : subItem.UrlItem.StartsWith("http") ? subItem.UrlItem : string.Format("{0}{1}", urlDomain, subItem.UrlItem);
-
-                    if (tipoUsuaio == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
-                    {
-                        <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion"
-                           class="menu_subHeader" href="#" onclick="return messageInfoPostulante();">
-                            @subItem.Descripcion
+                    <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion"
+                       class="menu_subHeader" href="@subItem.UrlItem" @subItem.OnClickFunt target="@subItem.PageTarget"
+                       id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()">
+                        @subItem.Descripcion
+                        @if (tipoUsuaio == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
+                        {
                             <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
-                        </a>
-                    }
-                    else
-                    {
-                        <a role="menu" region="Menú Lateral" parent="@subItem.MenuPadreDescripcion" title="@subItem.Descripcion"
-                           class="menu_subHeader" href="@url" id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()" target="@target">
-                            @subItem.Descripcion
-                        @if (ViewBag.TipoMenuConsultoraOnline == 1)
+                        }
+                        else if (ViewBag.TipoMenuConsultoraOnline == 1)
                         {
                             if (subItem.MenuMobileID == ViewBag.MenuHijoIDConsultoraOnline)
                             {
@@ -110,8 +65,7 @@
                                 }
                             }
                         }
-                    </a>
-                    }
+                    </a>                    
                 }
             </div>
         }

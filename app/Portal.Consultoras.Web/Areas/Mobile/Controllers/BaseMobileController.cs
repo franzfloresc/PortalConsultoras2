@@ -11,6 +11,7 @@ using System.Configuration;
 
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -146,132 +147,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-        public void BuildMenuMobile(UsuarioModel userData)
-        {
-            var lstModel = new List<MenuMobileModel>();
-
-            if (Session["UserData"] == null)
-            {
-                ViewBag.MenuMobile = lstModel;
-                return;
-            }
-
-            if (userData.RolID != Constantes.Rol.Consultora)
-            {
-                ViewBag.MenuMobile = lstModel;
-                return;
-            }
-
-            IList<BEMenuMobile> lst;
-            using (var sv = new SeguridadServiceClient())
-            {
-                lst = sv.GetItemsMenuMobile(userData.PaisID).ToList();
-            }
-
-            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
-
-            var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
-            var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
-            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-
-            if (!mostrarClienteOnline)
-            {
-                lst.Remove(menuConsultoraOnlinePadre);
-                lst.Remove(menuConsultoraOnlineHijo);
-                ViewBag.TipoMenuConsultoraOnline = 0;
-            }
-            else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
-            {
-                int esConsultoraOnline = -1;
-                using (var svc = new UsuarioServiceClient())
-                {
-                    esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                    if (esConsultoraOnline >= 0)
-                    {
-                        ViewBag.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                        ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                    }
-                }
-
-                if (esConsultoraOnline == -1)
-                {
-                    ViewBag.TipoMenuConsultoraOnline = 1;
-                    ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
-                    lst.Remove(menuConsultoraOnlinePadre);
-                }
-                else
-                {
-                    ViewBag.TipoMenuConsultoraOnline = 2;
-                    ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
-                }
-
-                if (menuConsultoraOnlineHijo != null)
-                {
-                    string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
-                    menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
-                }
-            }
-
-            //Agregamos los menú Padre
-            foreach (var item in lst.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
-            {
-                item.Codigo = Util.Trim(item.Codigo).ToLower();
-                if (item.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
-                {
-                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                        continue;
-                }
-
-                lstModel.Add(new MenuMobileModel
-                {
-                    MenuMobileID = item.MenuMobileID,
-                    Descripcion = item.Descripcion,
-                    MenuPadreID = item.MenuPadreID,
-                    MenuPadreDescripcion = item.Descripcion,
-                    OrdenItem = item.OrdenItem,
-                    UrlItem = item.UrlItem,
-                    PaginaNueva = item.PaginaNueva,
-                    Posicion = item.Posicion,
-                    UrlImagen = item.UrlImagen,
-                    Version = item.Version
-                });
-            }
-
-            //Agregamos los items para cada menú Padre
-            foreach (var item in lstModel)
-            {
-                var subItems = lst.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
-                foreach (var subItem in subItems)
-                {
-                    subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
-                    if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
-                    {
-                        if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                            continue;
-                    }
-
-                    item.SubMenu.Add(new MenuMobileModel
-                    {
-                        MenuMobileID = subItem.MenuMobileID,
-                        Descripcion = subItem.Descripcion,
-                        MenuPadreID = subItem.MenuPadreID,
-                        MenuPadreDescripcion = item.Descripcion,
-                        OrdenItem = subItem.OrdenItem,
-                        UrlItem = subItem.UrlItem,
-                        PaginaNueva = subItem.PaginaNueva,
-                        Posicion = subItem.Posicion,
-                        UrlImagen = subItem.UrlImagen,
-                        Version = subItem.Version
-                    });
-                }
-            }
-            
-            ViewBag.MenuMobile = lstModel;
-
         }
 
         private void CargarValoresGenerales(UsuarioModel userData)

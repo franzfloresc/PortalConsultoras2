@@ -1068,12 +1068,19 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
-
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
-
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
+   
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]
         int InsertarDesglose(BEInputReservaProl input);
@@ -1083,7 +1090,7 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
-                
+
         #region Cupon
 
         [OperationContract]
@@ -1092,16 +1099,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
 
-
-        [OperationContract]
-        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
-
-        [OperationContract]
-        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
-
-        [OperationContract]
-        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
-        
         [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 

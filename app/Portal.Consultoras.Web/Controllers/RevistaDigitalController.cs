@@ -1,13 +1,12 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Collections.Generic;
-using System.Linq;
-using System.Configuration;
-using System;
 using Portal.Consultoras.Web.ServicePedido;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -17,21 +16,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                {
-                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
-                    {
-                        return RedirectToAction("Index", "Bienvenida");
-                    }
-                }
-
                 var model = IndexModel();
-
+                model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
                 if (model.EstadoAccion < 0)
                 {
                     return RedirectToAction("Index", "Bienvenida");
                 }
-
+                
                 return View(model);
             }
             catch (Exception ex)
@@ -64,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
         {
@@ -81,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-                
+
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var listModel = ConsultarEstrategiasModel("");
@@ -148,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.Ordenamiento != null)
                 {
                     model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                    if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio.ToLower())
+                    if (model.Ordenamiento.Tipo == "precio")
                     {
                         switch (model.Ordenamiento.Valor)
                         {
@@ -165,8 +156,15 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                
+
                 int cantidad = listaFinal.Count;
+
+                listaFinal.Update(p => {
+                    p.PuedeAgregar = IsMobile() ? 0 : 1;
+                    p.IsMobile = IsMobile() ? 1 : 0;
+                    p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
+                });
+
 
                 return Json(new
                 {
@@ -188,7 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         [HttpPost]
         public JsonResult GetProductoDetalle(int id)
         {
@@ -196,7 +194,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
-                
+
+                producto.PuedeAgregar = 1;
+                producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
+
                 return Json(new
                 {
                     success = producto.EstrategiaID > 0,
@@ -224,28 +225,30 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "USTED YA ESTÁ SUSCRITO, GRACIAS."
+                    message = "Usted ya está suscrito a ÉSIKA PARA MÍ, gracias."
                 }, JsonRequestBehavior.AllowGet);
             }
-            
+
             var entidad = new BERevistaDigitalSuscripcion();
             entidad.PaisID = userData.PaisID;
             entidad.CodigoConsultora = userData.CodigoConsultora;
             entidad.CampaniaID = userData.CampaniaID;
             entidad.CodigoZona = userData.CodigoZona;
             entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Activo;
+            entidad.EstadoEnvio = 0;
             entidad.IsoPais = userData.CodigoISO;
             entidad.EMail = userData.EMail;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                if (sv.RDSuscripcion(entidad) > 0)
-                {
-                    var rds = sv.RDGetSuscripcion(entidad);
-                    userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(rds);
-                    userData.RevistaDigital.NoVolverMostrar = true;
-                    userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                }
+                entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             }
 
             SetUserData(userData);
@@ -254,10 +257,63 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(new
             {
                 success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO."
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "OCURRIÓ UN ERROR, VUELVA A INTENTARLO.",
+                CodigoMenu = Constantes.MenuCodigo.RevistaDigital
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public JsonResult Desuscripcion()
+        {
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted no está inscrita a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Usted ya está desuscrito a ÉSIKA PARA MÍ."
+                }, JsonRequestBehavior.AllowGet);
+            }
+
+            var entidad = new BERevistaDigitalSuscripcion();
+            entidad.PaisID = userData.PaisID;
+            entidad.CodigoConsultora = userData.CodigoConsultora;
+            entidad.CampaniaID = userData.CampaniaID;
+            entidad.CodigoZona = userData.CodigoZona;
+            entidad.EstadoRegistro = Constantes.EstadoRDSuscripcion.Desactivo;
+            entidad.EstadoEnvio = 0;
+            entidad.IsoPais = userData.CodigoISO;
+            entidad.EMail = userData.EMail;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                entidad.RevistaDigitalSuscripcionID = sv.RDDesuscripcion(entidad);
+            }
+
+            if (entidad.RevistaDigitalSuscripcionID > 0)
+            {
+                userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            }
+
+            SetUserData(userData);
+            Session["TipoPopUpMostrar"] = null;
+
+            return Json(new
+            {
+                success = userData.RevistaDigital.EstadoSuscripcion > 0,
+                message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Que pena, usted se desuscribio a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo."
+            }, JsonRequestBehavior.AllowGet);
+        }
         [HttpGet]
         public JsonResult PopupNoVolverMostrar()
         {
@@ -278,8 +334,34 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         userData.RevistaDigital.NoVolverMostrar = true;
                         userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                        userData.RevistaDigital.SuscripcionModel.EstadoRegistro = Constantes.EstadoRDSuscripcion.NoPopUp;
                     }
                 }
+                SetUserData(userData);
+                Session["TipoPopUpMostrar"] = null;
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Exception)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult PopupCerrar()
+        {
+            try
+            {
+                userData.RevistaDigital.NoVolverMostrar = true;
+                userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 SetUserData(userData);
                 Session["TipoPopUpMostrar"] = null;
 

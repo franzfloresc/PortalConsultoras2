@@ -4,9 +4,12 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -40,10 +43,10 @@ namespace Portal.Consultoras.Web.Controllers
                 CodigoAgrupacion = ""
             };
             
-            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                 entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
-            
+                
             var listaTemporal = new List<BEEstrategia>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -57,10 +60,9 @@ namespace Portal.Consultoras.Web.Controllers
                 Session["ListadoEstrategiaPedido"] = lst;
                 return lst;
             }
+
             lst.AddRange(listaTemporal);
             Session["ListadoEstrategiaPedido"] = lst;
-
-
             return lst;
         }
 
@@ -290,10 +292,12 @@ namespace Portal.Consultoras.Web.Controllers
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
                     estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    estrategia.DescripcionDetalle = listadescr.Length > 2 ? listadescr[2] : "";
+                    if (listadescr.Length > 2)
+                    {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
+                        estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
+                    }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
-
-                    estrategia.DescripcionDetalle = estrategia.DescripcionDetalle.Replace("|", "<br />");
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
@@ -335,6 +339,7 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategia.PuedeCambiarCantidad = 0;
                     }
                 }
+                estrategia.PuedeAgregar = 1;
             });
 
             return ListaProductoModel;

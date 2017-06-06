@@ -383,6 +383,7 @@
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
+    <Compile Include="Models\BannerInfoModel.cs" />
     <Compile Include="Models\BarraConsultoraEscalaDescuentoModel.cs" />
     <Compile Include="Models\BaseVM.cs" />
     <Compile Include="Models\BusquedaProductoModel.cs" />
@@ -393,11 +394,13 @@
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
+    <Compile Include="Models\ConfirmarPosicionModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\CuponModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\CuponUsuarioModel.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
+    <Compile Include="Models\EstrategiaOutModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\FileNameFormat.cs" />
@@ -411,6 +414,7 @@
     <Compile Include="Models\FichaProductoFAVModel.cs" />
     <Compile Include="Models\FiltroResultadoModel.cs" />
     <Compile Include="Models\GestionParametroPageModel.cs" />
+    <Compile Include="Models\MensajeModel.cs" />
     <Compile Include="Models\MisPagosModel.cs" />
     <Compile Include="Models\ActualizarDatosModel.cs" />
     <Compile Include="Models\AdministracionOfertaProductoModel.cs" />
@@ -2037,6 +2041,8 @@
     <Content Include="Content\Images\group.svg" />
     <Content Include="Content\Images\icono-campanias.png" />
     <Content Include="Content\Images\icono-excel.png" />
+    <Content Include="Content\Images\icono-maps-esika.png" />
+    <Content Include="Content\Images\icono-maps-lbel.png" />
     <Content Include="Content\Images\icono-pack-documentario.png" />
     <Content Include="Content\Images\icono-percepcion-color.png" />
     <Content Include="Content\Images\icono-percepcion.png" />
@@ -2051,6 +2057,7 @@
     <Content Include="Content\Images\Esika\icono_acordion_desplegado.png" />
     <Content Include="Content\Images\Esika\icono_acordion_sin_desplegar.png" />
     <Content Include="Content\Images\iconos_acordion_despliegues.png" />
+    <Content Include="Content\Images\icono_advertencia_notificacion-blanco.svg" />
     <Content Include="Content\Images\icono_check.png" />
     <Content Include="Content\Images\icono_check.svg" />
     <Content Include="Content\Images\icono_exclamacion_estado_pedido.png" />
@@ -2080,6 +2087,7 @@
     <Content Include="Content\Images\image.png" />
     <Content Include="Content\Images\img-carrusel1.png" />
     <Content Include="Content\Images\img-historialPostulante.svg" />
+    <Content Include="Content\Images\img-sinGeo.png" />
     <Content Include="Content\Images\img-carrusel2.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
@@ -2781,16 +2789,21 @@
     <Content Include="Content\Images\RevistaDigital\fondo_srd2.svg" />
     <Content Include="Content\Images\RevistaDigital\Kadiavisual2.png" />
     <Content Include="Content\Images\RevistaDigital\logo_EPT.png" />
+    <Content Include="Content\Images\RevistaDigital\mob_rd_consultora.png" />
+    <Content Include="Content\Images\RevistaDigital\mpopup_inscripcion.png" />
     <Content Include="Content\Images\RevistaDigital\next.png" />
+    <Content Include="Content\Images\RevistaDigital\next_mob.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
     <Content Include="Content\Images\RevistaDigital\Polygon.png" />
     <Content Include="Content\Images\RevistaDigital\previous.png" />
+    <Content Include="Content\Images\RevistaDigital\previous_mob.png" />
     <Content Include="Content\Images\RevistaDigital\previous_volver.png" />
     <Content Include="Content\Images\RevistaDigital\prod1.png" />
     <Content Include="Content\Images\RevistaDigital\prod2.png" />
     <Content Include="Content\Images\RevistaDigital\prod3.png" />
     <Content Include="Content\Images\RevistaDigital\prod0.png" />
     <Content Include="Content\Images\RevistaDigital\prod4.png" />
+    <Content Include="Content\Images\RevistaDigital\rd_arrowright.png" />
     <Content Include="Content\Images\RevistaDigital\rd_cons.png" />
     <Content Include="Content\Images\RevistaDigital\producto_kadia.png" />
     <Content Include="Content\Images\RevistaDigital\revista_izquierda.png" />
@@ -3401,7 +3414,16 @@
     <None Include="Service References\ServicePedido\PedidoService6.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServicePedido\PedidoService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService71.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService72.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService8.xsd">
@@ -3471,32 +3493,32 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ServiceUnete\PortalService1.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+    <None Include="Service References\ServiceUnete\PortalService21.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+    <None Include="Service References\ServiceUnete\PortalService22.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+    <None Include="Service References\ServiceUnete\PortalService23.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+    <None Include="Service References\ServiceUnete\PortalService24.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService7.xsd">
+    <None Include="Service References\ServiceUnete\PortalService25.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService8.xsd">
+    <None Include="Service References\ServiceUnete\PortalService26.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService27.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService28.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -4017,8 +4039,10 @@
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
-    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
+    <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
+    <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
+    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
@@ -4301,6 +4325,7 @@
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
+    <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Cupon\" />
   </ItemGroup>
   <ItemGroup>

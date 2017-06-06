@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.ServiceCDR;
+using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 
@@ -183,6 +186,15 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
             Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
+
+            Mapper.CreateMap<BEPermiso, PermisoModel>()
+                .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
+                .ForMember(t => t.DescripcionFormateada, f => f.MapFrom(c => c.Descripcion.ToLower()));
+
+            Mapper.CreateMap<BEMenuMobile, MenuMobileModel>()
+                .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
+
+            Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
         }
     }
 }

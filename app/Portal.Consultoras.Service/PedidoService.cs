@@ -36,8 +36,9 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLEstrategia blEstrategia;
-        private BLCuponConsultora BLCuponConsultora;
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private BLCuponConsultora BLCuponConsultora;
+
 
         public PedidoService()
         {
@@ -61,8 +62,8 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
-            BLCuponConsultora = new BLCuponConsultora();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
