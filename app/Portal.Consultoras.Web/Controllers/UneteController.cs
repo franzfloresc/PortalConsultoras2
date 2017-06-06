@@ -871,7 +871,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
                                 model.EditarDireccionModel.Numero = DirNumero;
                                 break;
-                            case 2://nunca debería entrar aqui
+                            case 2:
                                 DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
                                 DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
 
@@ -881,7 +881,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
 
                                 model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                                model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
+                                model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal.Trim();
 
                                 break;
                             case 1:
