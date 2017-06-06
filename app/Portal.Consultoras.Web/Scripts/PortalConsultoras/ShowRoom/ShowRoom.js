@@ -54,6 +54,37 @@ $(document).ready(function () {
             prevArrow: '<button type="button" data-role="none" class="slick-next next_compraxcompra"></button>',
             nextArrow: '<button type="button" data-role="none" class="slick-prev previous_compraxcompra"></button>'
         });
+        //marca google analytics*******************************
+        var divs = $(".content_ficha_compra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
+        //***************************************
     }
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
         $(".verDetalleCompraPorCompra").click(function () {
@@ -129,7 +160,38 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -13%; top:30%;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_left.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -13%; top:30%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/flecha_compra_right.png")" alt="" /></a>'
-        });       
+        });
+        //marca google analytics*******************************
+        var divs = $(".content_pop_compra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
+        //***************************************
     }
     else if (tipoOrigenPantalla == 2) {
         CargarShowroomMobile(null);
@@ -434,7 +496,7 @@ function AgregarProductoAlCarrito(padre) {
             return false;
         }
 
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
         if (carrito.length <= 0) {
             return false;
         }
@@ -447,8 +509,8 @@ function AgregarProductoAlCarrito(padre) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -507,10 +569,10 @@ function recortarPalabra(palabra, tamanio) {
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     if (response.success) {
-        
-        if (aplicarFiltrosSubCampanias) {
-            var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
 
+        if (aplicarFiltrosSubCampanias) {
+
+            var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
             $.each(listaProdShowRoomSubCampanias, function (i, v) {
                 v.Descripcion = recortarPalabra(v.Descripcion, 35);
             });
@@ -530,11 +592,11 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
-
         }
 
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
-        var cantidadSubCampanias = (listaProdShowRoomSubCampanias ? listaProdShowRoomSubCampanias.length : 0);
+        //var cantidadSubCampanias = (listaProdShowRoomSubCampanias ? listaProdShowRoomSubCampanias.length : 0);
+        var cantidadSubCampanias = response.cantSubCamp;
 
         $.each(listaProdShowRoomNoSubCampanias, function (index, value) {
             var descripcion = "";

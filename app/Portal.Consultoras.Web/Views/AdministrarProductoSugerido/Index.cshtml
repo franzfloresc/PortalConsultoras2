@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
+﻿@using Mensajes = Portal.Consultoras.Common.Constantes.MatrizNemotecnicoMensajes
+@model Portal.Consultoras.Web.Models.AdministrarProductoSugeridoModel
 @{
     ViewBag.Title = "Administración de Producto Sugerido";
 }
@@ -8,9 +9,13 @@
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/ToastHelper.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/ProductoSugerido.js")" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
 
 <div class="wrap_cab">
     <div class="filtros">
@@ -136,7 +141,24 @@
         </div>
         <div class="div-3 divPanelImagen" style="padding-bottom:0px; margin-bottom:0px">
             @Html.Partial("ListadoImagenesMatriz")
-            <div>
+            <div id="matriz-comercial-header">
+                <div id="matriz-busqueda-nemotecnico">
+                    <a title="@HttpUtility.HtmlDecode(Mensajes.TooltipInformacionFormatoBusqueda)" class="search-button-field">
+                        <i class="material-icons">info</i>
+                    </a>
+                    <div class="busqueda-exacta">
+                        <label for="chkTipoBusquedaNemotecnico">@Mensajes.TextoBusquedaExacta</label>
+                        <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                    </div>
+
+                    <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="@Mensajes.PlaceHolderTextoNemotecnico" maxlength="100" type="text" />
+                    <a id="btnBuscarNemotecnico" title="@Mensajes.TextoBotonBuscar" class="search-button-field">
+                        <i class="material-icons">search</i>
+                    </a>
+                    <a id="btnLimpiarBusquedaNemotecnico" title="@Mensajes.TextoBotonLimpiar" class="search-button-field">
+                        <i class="material-icons">undo</i>
+                    </a>
+                </div>
                 <div id="matriz-imagenes-paginacion"></div>
             </div>
             <div class="titG">
@@ -174,7 +196,9 @@
             obtenerMatrizAction: '@Url.Action("ObtenerMatriz", "AdministrarProductoSugerido")',
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
-            numeroImagenesPorPagina: numeroImagenesPorPagina
+            getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina,
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
         });
         CargarDialog();
         CargarEventos();
@@ -182,6 +206,9 @@
 </script>
 <script type="text/javascript" id="js-FuctReady">
     function CargarEventos() {
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnBuscarNemotecnico', productoSugeridoObj.buscarNemotecnico);
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico', productoSugeridoObj.limpiarBusquedaNemotecnico);
+
         $('#ddlPais').change(function () {
             var Id = $(this).val() || "";
             if (Id == "") {
@@ -410,6 +437,12 @@
             
             productoSugeridoObj.actualizarParNemotecnico(data.habilitarNemotecnico);
 
+            if(data.habilitarNemotecnico) {
+                $("#matriz-busqueda-nemotecnico").show();
+            }else{
+                $("#matriz-busqueda-nemotecnico").hide();
+            }
+
             $.each(listaCombo, function (index, combo) {
                 var ddlCampania = $('#' + $.trim(combo));
                 ddlCampania.empty();
@@ -444,7 +477,7 @@
 
         waitingDialog({});
         var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
-
+        
         productoSugeridoObj.obtenerMatriz(params).done(function (data) {
             if (data) {
                 $(".divPanelImagen img").attr("src", imageUrlVacio);
@@ -456,6 +489,7 @@
                     return false;
                 }
 
+                productoSugeridoObj.limpiarFiltrosNemotecnico();
                 productoSugeridoObj.mostrarPaginacion(data.totalImagenes);
 
                 CargarDatosMatrizComercial(data.matriz, imagen);
@@ -604,6 +638,8 @@
             $.ajaxSetup({ cache: false });
 
             var params = { paisID: paisID, campaniaID: campaniaID, cuv: cuv };
+            productoSugeridoObj.limpiarFiltrosNemotecnico();
+
             productoSugeridoObj.obtenerMatriz(params).done(function (data) {
                 if (data) {
                     $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));

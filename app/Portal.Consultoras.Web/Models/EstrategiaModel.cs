@@ -19,5 +19,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PedidoAsociadoModel> PedidosAsociados { get; set; }
         public string UrlS3 { get; set; }
         public bool habilitarNemotecnico { get; set; }
+        public string ExpValidacionNemotecnico { get; set; }
     }
 }

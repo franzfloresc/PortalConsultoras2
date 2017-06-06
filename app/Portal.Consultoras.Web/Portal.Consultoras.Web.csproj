@@ -260,6 +260,7 @@
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
+    <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
     <Compile Include="Controllers\CatalogoPersonalizadoController.cs" />
@@ -387,9 +388,12 @@
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
+    <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
     <Compile Include="Models\CuponEnviarCorreoConfirmacion.cs" />
     <Compile Include="Models\CuponModel.cs" />
+    <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
+    <Compile Include="Models\CuponUsuarioModel.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
@@ -1143,6 +1147,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
     <Content Include="Content\Css\Site\flexslider.css" />
@@ -2925,6 +2930,7 @@
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
     <Content Include="Scripts\AdminContenido\Estrategia.js" />
@@ -2966,6 +2972,7 @@
     <Content Include="Scripts\jquery.paging.min.js" />
     <Content Include="Scripts\jquery.range.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.toast.min.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
@@ -2988,6 +2995,7 @@
     <Content Include="Scripts\nieve.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
+    <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
@@ -4286,6 +4294,7 @@
     <Folder Include="Content\Css\Site\Login\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
+    <Folder Include="Views\Campania\" />
     <Folder Include="Views\Cupon\" />
   </ItemGroup>
   <ItemGroup>

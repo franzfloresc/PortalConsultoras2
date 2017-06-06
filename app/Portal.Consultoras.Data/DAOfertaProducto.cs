@@ -252,6 +252,15 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialNemotecnico");
+            Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+
+            return Context.ExecuteNonQuery(command);
+        }
 
         public IDataReader GetMatrizComercialByCodigoSAP(string codigoSAP)
         {
@@ -314,7 +323,7 @@ namespace Portal.Consultoras.Data
                 query.Append("INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID ");
                 query.Append("INNER JOIN MatrizComercialImagen mci on mci.IdMatrizComercial = mc.IdMatrizComercial ");
                 query.Append(String.Format(" WHERE (({0} = 0) OR (e.EstrategiaID = {0} )) ", estrategiaID));
-                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
+                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
                 query.Append(String.Format(" AND (({0} = 0) OR (e.CampaniaID = {0})) ", campaniaID));
                 query.Append(String.Format(" AND (({0} = 0) OR (e.TipoEstrategiaID = {0})) ", tipoEstrategiaID));
 
@@ -324,8 +333,8 @@ namespace Portal.Consultoras.Data
                 query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
                 query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
                 query.Append("left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
-                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
-                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
+                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
+                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
             }
             else
             {
@@ -334,18 +343,16 @@ namespace Portal.Consultoras.Data
                 query.Append(String.Format(" WHERE (({0} = 0) OR idMatrizComercial = {0}) ", idMatrizImagen));
             }
 
-            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Aproximacion))
-            {
-                String[] nemotecnicoItems = nemotecnico.Split('&');
+            String[] nemotecnicoItems = nemotecnico.Split('&');
 
-                foreach (String nemotecnicoItem in nemotecnicoItems)
-                {
-                    query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
-                }
-            }
-            else if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
+            foreach (String nemotecnicoItem in nemotecnicoItems)
             {
-                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnico));
+                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
+            }
+
+            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
+            {
+                query.Append(String.Format("AND LEN(Nemotecnico) ={0}", nemotecnico.Length));
             }
 
             query.Append(" ) as T order by FechaRegistro desc");

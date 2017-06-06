@@ -880,6 +880,15 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TipoUsuario = model.TipoUsuario;
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
                 ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+
+                #region RegaloPN
+                ViewBag.ConsultoraTieneRegaloPN = false;
+                if (model.ConsultoraRegaloProgramaNuevas != null)
+                {
+                    ViewBag.ConsultoraTieneRegaloPN = true;
+                }
+                #endregion
+
                 return model;
 
                 #endregion
@@ -2126,5 +2135,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
+
     }
 }

@@ -524,6 +524,15 @@
             }
         }
 
+        public class MatrizNemotecnicoMensajes
+        {
+            public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
+            public const string PlaceHolderTextoNemotecnico = "Ingrese patrón de búsqueda";
+            public const string TextoBotonBuscar = "Buscar por nemotécnico";
+            public const string TextoBotonLimpiar = "Limpiar filtros nemotécnico";
+            public const string TextoBusquedaExacta = "B.Exacta";
+        }
+
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";

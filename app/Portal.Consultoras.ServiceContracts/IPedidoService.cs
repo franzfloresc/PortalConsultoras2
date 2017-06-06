@@ -199,6 +199,9 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdMatrizComercialImagen(BEMatrizComercialImagen entity);
 
         [OperationContract]
+        int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity);
+
+        [OperationContract]
         IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
@@ -1060,7 +1063,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
 
         [OperationContract]
-        BECumpleTippingPOint CumpleRegaloTippingPoint(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
         #region Cupon
 
@@ -1079,8 +1082,18 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
         [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void CrearCupon(BECupon cupon);
+
+        [OperationContract]
+        void ActualizarCupon(BECupon cupon);
+
+        [OperationContract]
+        List<BECupon> ListarCupones();
 
         #endregion
     }

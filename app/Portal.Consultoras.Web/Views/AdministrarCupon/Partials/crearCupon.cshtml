@@ -3,15 +3,19 @@
     <input type="hidden" id="hdEtiquetaID" value="" />
     <div class="Content_modal">
         <div class="div-3">
-            <div class="titB">Pais:</div>
+            <div class="titB">Tipo:</div>
             <div class="selectA borde_redondeado">
-                <span id="spanPais"></span>
+                <select id="ddlTipoCupon">
+                    <option value="">-- Seleccionar --</option>
+                    <option value="1">Monto</option>
+                    <option value="2">Porcentaje</option>
+                </select>
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Etiqueta:</div>
+            <div class="titB">Descripción:</div>
             <div class="selectA borde_redondeado">
-                <input id="txtEtiqueta" type="text" value="" maxlength="100" />
+                <input id="txtDescripcion" type="text" value="" maxlength="100" />
             </div>
         </div>
     </div>

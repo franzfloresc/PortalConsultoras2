@@ -38,8 +38,18 @@ $(document).ready(function () {
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
+        localStorage["cerrar_banner_sub_campanias"] = true;
     });
-    
+    if (localStorage["cerrar_banner_sub_campanias"])
+        $('.banner_especial_showroom').hide();
+    else {
+        var stilo = $('.banner_especial_showroom').attr("style");
+        if (stilo != null) {
+            var stilo = stilo.replace("display:none", "display:block");
+            $('.banner_especial_showroom').attr("style", stilo);
+            $('.banner_especial_showroom').show();
+        }
+    }
     
     $(".footer_e").css("margin-bottom", "73px");
 
@@ -107,7 +117,37 @@ $(document).ready(function () {
             slidesToScroll: 1,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -13%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -13%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
-        });        
+        });
+
+        var divs = $("#PopDetalleCompra").find("[data-campos]");
+        var array_impresions_tactica_desktop = new Array();
+
+        $(divs).each(function (index, value) {
+            var existe = false;
+            var id = $(value).find(".valorCuv").val();
+            $(array_impresions_tactica_desktop).each(function (ind, val) {
+                if (val.id == id)
+                    existe = true;
+            })
+
+            if (!existe) {
+                array_impresions_tactica_desktop.push({
+                    name: $(value).find(".DescripcionProd").val(),
+                    id: id,
+                    price: $(value).find(".clasePrecioUnidad").val(),
+                    category: 'NO DISPONIBLE',
+                    brand: $(value).find(".DescripcionMarca").val(),
+                    position: $(value).find(".posicionEstrategia").val(),
+                    list: 'Ofertas Showroom'
+                });
+            }
+        });
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': array_impresions_tactica_desktop
+            }
+        });
     });
 
     $("#filter-sorting").change(function() {
@@ -178,21 +218,21 @@ function ObtenerProductosShowRoom() {
 }
 
 function CargarFiltroRangoPrecio() {
-    var precioMinFormat = DecimalToStringFormat(precioMin);
-    var precioMaxFormat = DecimalToStringFormat(precioMax);
-
-    precioMin = parseFloat(precioMin);
-    precioMax = parseFloat(precioMax);
+    var min = Math.floor(precioMin);
+    var max = Math.ceil(precioMax);
+    var precioMinFormat = DecimalToStringFormat(min);
+    var precioMaxFormat = DecimalToStringFormat(max);
 
     var myformat = simbolo + '%s';
     var scala1 = simbolo + precioMinFormat;
     var scala2 = simbolo + precioMaxFormat;
-    $('.range-slider').val(precioMin + ',' + precioMax);
+
+    $('.range-slider').val(min + ',' + max);
 
     $('.range-slider').show();
     $('.range-slider').jRange({
-        from: precioMin,
-        to: precioMax,
+        from: min,
+        to: max,
         step: 1,
         scale: [scala1, scala2],
         format: myformat,
