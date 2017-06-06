@@ -55,29 +55,6 @@ $(document).ready(function () {
         RDDetalleObtener();
     }
 
-    $(window).scroll(function () {
-
-        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-
-            $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
-
-
-        } else {
-
-            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
-        }
-
-    });
-
     $(".flecha_scroll").on('click', function (e) {
 
         e.preventDefault();
@@ -149,17 +126,17 @@ function OfertaArmarEstrategias(response) {
         lista.push(objDetalle);
     }
 
-    $("#divOfertaProductos").html("");
+    //$("#divOfertaProductos").html("");
 
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";    
+    response.CodigoEstrategia = "101";
 
     // Listado de producto
-    var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
-    //$('#divOfertaProductos').append(htmlDiv);
+    var htmlDiv = SetHandlebars("#estrategia-template", response);
+    $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);

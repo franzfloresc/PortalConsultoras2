@@ -63,9 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                
                 var listModel = ConsultarEstrategiasModel("");
 
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
@@ -77,49 +75,38 @@ namespace Portal.Consultoras.Web.Controllers
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
                     listaFinal = new List<EstrategiaPedidoModel>();
-                    var universo = listModel;
-                    model.ListaFiltro.ForEach(f => f.Valores = f.Valores ?? new List<string>());
+                    var universo = new List<EstrategiaPedidoModel>();
                     int cont = 0, contVal = 0;
                     foreach (var filtro in model.ListaFiltro)
                     {
+                        filtro.Valores = filtro.Valores ?? new List<string>();
+                        if (!filtro.Valores.Any()) continue;
+
                         universo = cont == 0 ? listModel : listaFinal;
                         filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
                         contVal = 0;
                         foreach (var valor in filtro.Valores)
                         {
-                            var val = Util.Trim(valor);
+                            var val = Util.Trim(valor).ToLower();
                             if (val == "" || val == "-")
                             {
-                                listaFinal = universo;
-                                break;
+                                listaFinal = contVal == 0 ? universo : listaFinal;
+                                continue;
                             }
 
                             if (filtro.Tipo == "marca")
                             {
-                                if (contVal > 0)
-                                {
-                                    listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == valor.ToLower()));
-                                }
-                                else
-                                {
-                                    listaFinal = universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == valor.ToLower()).ToList();
-                                }
+                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
+                                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
                             }
                             else if (filtro.Tipo == "precio")
                             {
-                                var listaValDet = valor.Split(',');
+                                var listaValDet = val.Split(',');
                                 var valorDesde = Convert.ToDecimal(listaValDet[0]);
                                 var valorHasta = Convert.ToDecimal(listaValDet[1]);
 
-                                if (contVal > 0)
-                                {
-                                    listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
-                                }
-                                else
-                                {
-                                    listaFinal = universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta).ToList();
-                                }
-
+                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
+                                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
                             }
                             contVal++;
                         }
@@ -145,11 +132,13 @@ namespace Portal.Consultoras.Web.Controllers
                                 break;
                         }
                     }
-
                 }
 
                 int cantidad = listaFinal.Count;
 
+                var cantMostrar = 10;
+                listaFinal = listaFinal.Skip(model.Limite).Take(cantMostrar).ToList();
+                
                 listaFinal.ForEach(p => {
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
