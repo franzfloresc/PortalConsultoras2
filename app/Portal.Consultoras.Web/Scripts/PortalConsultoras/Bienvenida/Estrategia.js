@@ -7,6 +7,7 @@ var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
+var tieneOPT = false;
 var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
@@ -116,6 +117,7 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
+    tieneOPT = true;
     data = EstructurarDataCarousel(data);
     arrayOfertasParaTi = data;
 
