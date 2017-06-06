@@ -173,7 +173,7 @@ function ResizeBoxContnet() {
             if (that.width() < 200) {
                 console.log(that.attr('src'));
                 that.closest('.content_item_home').find('.nombre_producto').css("maxWidth", "175px");
-                that.closest('.content_item_home').find('.producto_precio').css("minWidth", "175px");
+                that.closest('.content_item_home').find('.producto_precio').css("minWidth", "125px");
             }
         });
     } catch (e) {
