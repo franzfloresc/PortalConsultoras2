@@ -438,5 +438,3 @@ BEGIN
 	order by Posicion, idpadre, ordenItem
 END
 GO
-/*end*/
-

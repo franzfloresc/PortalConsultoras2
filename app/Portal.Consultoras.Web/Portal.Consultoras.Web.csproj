@@ -3306,7 +3306,6 @@
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
@@ -4074,9 +4073,7 @@
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
     <Content Include="Views\LoginChatbot\_Main.cshtml" />
-    <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
     <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
-    <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
@@ -4087,9 +4084,10 @@
     <Content Include="Views\Shared\Cupon\popupCuponGanasteMobile.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanaMobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
-    <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
+    <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
+    <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
