@@ -1095,7 +1095,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
                     }
                 }
-                else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador)
+                else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador || CodigoISO == Pais.Dominicana|| CodigoISO== Pais.PuertoRico)
                 {
                     ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
                     ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
@@ -1491,7 +1491,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model = new ConsultarEstadoCrediticiaModel();
             var IdEstadosEvalCreditoParaCAM = new List<int>() { 30, 3, 32, 31, 2 };
-            var PaisesCAM = new List<string>() { Pais.CostaRica, Pais.Panama, Pais.Salvador, Pais.Guatemala };
+            var PaisesCAM = new List<string>() { Pais.CostaRica, Pais.Panama, Pais.Salvador, Pais.Guatemala, Pais.PuertoRico, Pais.Dominicana };
             var portalSV = new PortalServiceClient();
 
             var solicitudPostulante = portalSV.ObtenerSolicitudPostulante(CodigoISO, id);
@@ -3626,7 +3626,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     // Activacion de la geolocalización para CAM 
-                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador)
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador || CodigoISO== Pais.PuertoRico || CodigoISO == Pais.Dominicana)
                     {
                         BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
                         var codigoLugarNivel = CodigoISO == Pais.Guatemala ? model.LugarNivel5.ToInt() : model.LugarNivel4.ToInt();
@@ -3854,7 +3854,11 @@ namespace Portal.Consultoras.Web.Controllers
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
                             : model.CodigoPais == Pais.Salvador
                             ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
-                            :model.CodigoPais == Pais.Ecuador
+                                          : model.CodigoPais == Pais.Dominicana
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                                          : model.CodigoPais == Pais.PuertoRico
+                            ? model.NombreLugarNivel3 + "|" + model.NombreLugarNivel4 + "|" + model.CalleOAvenida
+                            : model.CodigoPais == Pais.Ecuador
                             ? model.LugarNivel3 + "|" +  model.CalleOAvenida + "|" + model.LugarNivel4
                             : model.CalleOAvenida + "|" + model.Numero,
 
@@ -4057,7 +4061,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                     // Activacion de la geolocalización para CAM 
-                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO==Pais.Panama || CodigoISO==Pais.Salvador )
+                    if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Guatemala || CodigoISO==Pais.Panama || CodigoISO==Pais.Salvador || CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Dominicana )
                     {
                         BelcorpPaisServiceClient svPaises = new BelcorpPaisServiceClient();
                         var codigoLugarNivel = CodigoISO == Pais.Guatemala? model.LugarNivel5.ToInt(): model.LugarNivel4.ToInt();
@@ -4426,7 +4430,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
                    {"Correo", "CorreoElectronico"},
-                
+
 
 
             };
