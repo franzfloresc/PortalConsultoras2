@@ -618,6 +618,7 @@
 
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY, .campos_regionZonaSeccion {
         display: inline-block;
+        margin-bottom:10px;
     }
 
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"], .campos_CoordenadasXY label, .campos_regionZonaSeccion label {
@@ -628,7 +629,7 @@
     }
 
     .campos_CoordenadasXY input[type="text"], .campos_regionZonaSeccion input[type="text"] {
-        width: 107px;
+        width: 184px;
         height: 31px;
         margin-right: 4px;
         border: 1px solid #000;
@@ -643,6 +644,28 @@
 
     .campos_CoordenadasXY label, .campos_regionZonaSeccion label {
         padding: 0px 7px;
+    }
+
+    .contenedor_coordenadasYRegion .contenedor_grupoBotonesPosicion{
+        display:block;
+        text-align:center;
+    }
+
+    .contenedor_coordenadasYRegion .contenedor_grupoBotonesPosicion button{
+        text-align: center;
+        border: 0px;
+        color: #FFF;
+        background: #642f80;
+        width: 190px;
+        height: 35px;
+        margin-right: 10px;
+        font-family: 'Lato';
+        font-size: 14px;
+        letter-spacing: 0.1px;
+    }
+
+    .contenedor_coordenadasYRegion .contenedor_grupoBotonesPosicion button:last-child{
+        margin-right:0px;
     }
 
     .anchoValidacionCampoPostal{
@@ -753,9 +776,11 @@
                 <div class="campos_regionZonaSeccion">
                     <label id="spRegZonaSec">Regi&oacute;n/Zona/Secci&oacute;n</label>
                     <input type="text" id="regionXY" name="region" value="" />
+                </div>
+                <div class="contenedor_grupoBotonesPosicion">
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
                     <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
-                    <button type="button" id="btnCancelarGrabadoPosicion" >Cancelar</button>
+                    <button type="button" id="btnCancelarGrabadoPosicion">Cancelar</button>
                 </div>
             </div>
         </div>
