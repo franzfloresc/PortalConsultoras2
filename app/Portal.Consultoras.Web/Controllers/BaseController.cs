@@ -1417,7 +1417,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (usuario == null)
-                throw new NullReferenceException("No se encontro configuracion del usuario");
+                throw new NullReferenceException("No se encontro configuracion del usuario, PaisID: " + userData.PaisID + " ConsultoraId: " + userData.ConsultoraID);
 
             return usuario;
         }
