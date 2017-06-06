@@ -8,6 +8,8 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
@@ -33,6 +35,7 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLEstrategia blEstrategia;
+        private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
 
         public PedidoService()
         {
@@ -56,6 +59,7 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
+            BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
         }
 
         #region Reporte Lider
@@ -1968,6 +1972,21 @@ namespace Portal.Consultoras.Service
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
+
+        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+
+        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
+        }
+
+        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Single(entidad);
         }
     }
 }

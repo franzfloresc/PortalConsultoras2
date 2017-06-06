@@ -161,6 +161,10 @@ namespace Portal.Consultoras.Entities
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
+
+        [DataMember]
+        public string CodigoAgrupacion { get; set; }
+
         // Campos solo para la estrategia de lanzamiento...
         [DataMember]
         public string ImgFondoDesktop { get; set; }
@@ -183,10 +187,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoTipoEstrategia { get; set; }
         
+        [DataMember]
+        public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
+
+        [DataMember]
+        public BETipoEstrategia TipoEstrategia { get; set; }
         public BEEstrategia()
         { }
 
-          
         public BEEstrategia(IDataRecord row, bool partial)
         {
 
@@ -371,6 +379,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = row["FotoProducto01"].ToString();
+
+            EstrategiaDetalle = new BEEstrategiaDetalle(row);
+            TipoEstrategia = new BETipoEstrategia(row);
         }
     }
     // 1747 - Inicio

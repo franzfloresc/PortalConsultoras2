@@ -97,13 +97,9 @@ $(function () {
 
     $("body").on("click", "[data-popup-main]", function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-
             if ($(e.target).is(':visible')) {
-
-                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                FunccionEjecutar(functionHide);
                 $(e.target).hide();
                 $('body').css({ 'overflow-y': 'scroll' });
             }
@@ -111,12 +107,11 @@ $(function () {
     });
 
     $("body").on("click", "[data-popup-close]", function (e) {
-        var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
+        var popupClose = $("#" + $(this).attr("data-popup-close")); // || $(this).parent("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        if (functionHide != "") {
-            setTimeout(functionHide + "()", 100);
-        }
+        FunccionEjecutar(functionHide);
         $(popupClose).hide();
         $('body').css({ 'overflow-y': 'scroll' });
     });
@@ -176,8 +171,6 @@ $(function () {
             $("#contentmobile").css({ 'margin-top': '63px' });
         }
     }
-
-    //setTimeout(LayoutHeader, 300);
 
     $(".bannersi").on("click", function () {
 
@@ -271,9 +264,7 @@ $(function () {
         });
 
     });
-
-    LayoutHeader();
-
+    
 });
 
 function loadBannerLP20() {
@@ -334,17 +325,17 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     CloseLoading();
-                    messageInfo(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                messageInfo(data.message);
+                AbrirMensaje(data.message);
             }
         },
         error: function (error) {
             console.log(error);
-            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
 
@@ -727,6 +718,10 @@ function messageInfoMalo(message, fnAceptar) {
 }
 
 function messageInfoError(message, fnAceptar) {
+    message = $.trim(message);
+    if (message == "") {
+        return false;
+    }
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
     if ($.isFunction(fnAceptar)) {

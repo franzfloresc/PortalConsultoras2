@@ -9,6 +9,7 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
@@ -383,10 +384,13 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-<script id="estrategia-template" type="text/x-handlebars-template">
+@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+
+<script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-         {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
+            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home">
             <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}}, @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi);" {{/iff}}>
@@ -688,7 +692,6 @@
     var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
     var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
     var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-    var urlCargarListaEstrategia = '@Url.Action("JsonConsultarEstrategias", "OfertasParaTi", new { area = "" })';
 
     var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
     var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
@@ -700,7 +703,6 @@
     var paisIDSesion = '@Model.PaisId';
 
     var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-    var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
     var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
     var simbolo = '@Model.Simbolo';
