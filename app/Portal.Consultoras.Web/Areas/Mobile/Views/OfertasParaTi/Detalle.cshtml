@@ -16,7 +16,7 @@
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="titulo_mobile">
+<div class="titulo_mobile" style="">
     <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
     @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
     {
@@ -47,12 +47,27 @@
             <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
         </div>
         <div class="marca_oferta048">@Model.DescripcionMarca</div>
-        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
-        @if (Model.Precio > 0)
+    <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        
+        @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
         {
-            <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
-        }        
-        <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+               
+            <div class="precio_bpt">
+                @if (Model.Precio > 0)
+                {
+                <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
+                }     
+                <b>@Model.Simbolo @Model.PrecioString</b>
+            </div>
+        }
+        else
+        {
+            if (Model.Precio > 0)
+             {
+                 <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
+             }        
+            <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+        }
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="@Model.CUV2" />
             <input type="hidden" class="rsFBMensaje" value="" />

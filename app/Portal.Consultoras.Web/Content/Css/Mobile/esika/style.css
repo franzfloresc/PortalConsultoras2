@@ -6262,7 +6262,7 @@ body {
 .titulo_mobile {
     position: relative;
     width: 100%;
-    min-height: 50px;
+    min-height: 48px;
     background: black;
     color: white;
     /*font-weight: 700;*/
@@ -10110,17 +10110,18 @@ a{
 
 /*FICHA PRODCUTO*/
 
-.content_imagen_ficha{
-
-    width:230px;
-    height:230px;
-    margin:0 auto;
-    margin-top:20px;
-    margin-bottom:10px;
+.content_imagen_ficha {
+    width: auto;
+    max-height: 230px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .content_imagen_ficha img{
-    width:100%;
+    width: auto;
+    max-height: 230px;
 }
 
 .titulo_ficha_producto{
@@ -10132,7 +10133,7 @@ a{
     letter-spacing: 0.3px;
     line-height: 20px;
     text-transform: uppercase;
-
+    margin-bottom: 6px;
 }
 
 .peso_ficha_producto{
@@ -10614,10 +10615,11 @@ a{
 .content_imagen_048 img{
     width:100%;
 }
-.marca_oferta048{    
-    font-size:11px;
-    color:#5b5b5b;    
-    text-transform:uppercase;
+.marca_oferta048 {
+    font-size: 11px;
+    color: #5b5b5b;
+    text-transform: uppercase;
+    margin-bottom: 6px;
 }
 .nombre_producto_048{
     font-weight:700;
@@ -11785,6 +11787,7 @@ a{
     margin-top: 17px;
     text-align: center;
     margin-bottom: 4px;
+    text-transform: uppercase;
 }
 .alerta_notificacion{
      font-family: 'Lato';

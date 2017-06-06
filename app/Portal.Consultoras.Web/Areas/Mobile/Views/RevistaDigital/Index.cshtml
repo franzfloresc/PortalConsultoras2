@@ -20,7 +20,7 @@
 <div>
     <div class="logo_EPT_content"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     <div class="texto_usuario_ept">
-        @(ViewBag.UsuarioNombre.ToUpper()), ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA
+        @Html.Raw(Util.Trim(Model.Titulo))
     </div>
 </div>
 <hr class="clear" />
@@ -105,7 +105,7 @@
 </div>
 
 <!--Inicio de sección preguntas-->
-<div class="ept_content_preguntas" data-tag-html="0">
+<div class="ept_content_preguntas" data-tag-html="0" style="display: none;">
     <div class="content_320 ingresoPedidom">
         <div class="box_beneficios_ept">
             <div class="tit_preguntas">INGRESA A ÉSIKA PARA MÍ EN LA PRÓXIMA CAMPAÑA Y CRECE EN MÁS DE 20%* TUS GANANCIAS:</div>
