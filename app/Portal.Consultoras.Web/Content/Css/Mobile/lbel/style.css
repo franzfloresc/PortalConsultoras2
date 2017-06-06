@@ -10197,7 +10197,7 @@ span.icon-advertencia{
     margin-top:20px;
     font-family:'Lato';
     font-size:10.5px;
-    width:248px;    
+    max-width:260px;    
    text-align: left;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
