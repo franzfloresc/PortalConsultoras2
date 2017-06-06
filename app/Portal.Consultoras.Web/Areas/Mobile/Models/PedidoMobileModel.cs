@@ -5,11 +5,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoMobileModel
     {
-        public PedidoMobileModel()
-        {
-            MobileAppConfiguracion = new MobileAppConfiguracionModel();
-        }
-
         public List<BEEstrategia> ListaEstrategias { get; set; }
 
         public int PaisId { get; set; }
@@ -62,8 +57,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string FormatoMontoAhorroRevista { get; set; }
 
-        public string NombreConsultora { get; set; }
-        
-        public MobileAppConfiguracionModel MobileAppConfiguracion { get; set; }
+        public string NombreConsultora { get; set; }        
     }
 }
