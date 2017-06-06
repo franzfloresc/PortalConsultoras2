@@ -461,6 +461,7 @@
     <Compile Include="Models\ClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\MisReclamosModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MobileAppConfiguracionModel.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
     <Compile Include="Models\DescargarPedidoModel.cs" />
