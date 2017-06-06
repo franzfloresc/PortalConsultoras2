@@ -1955,6 +1955,29 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
+        
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        public void CrearCupon(BECupon cupon)
+        {
+            BLCupon.CrearCupon(cupon);
+        }
+
+        public void ActualizarCupon(BECupon cupon)
+        {
+            BLCupon.ActualizarCupon(cupon);
+        }
+
+        public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
+        {
+            var listaCupones = BLCupon.ListarCuponesPorCampania(paisId, campaniaId);
+            return listaCupones;
+        }
+
+        #endregion
 
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
@@ -1971,27 +1994,5 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
-        {
-            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
-        }
-
-        public void CrearCupon(BECupon cupon)
-        {
-            BLCupon.CrearCupon(cupon);
-        }
-
-        public void ActualizarCupon(BECupon cupon)
-        {
-            BLCupon.ActualizarCupon(cupon);
-        }
-
-        public List<BECupon> ListarCupones()
-        {
-            var listaCupones = BLCupon.ListarCupones();
-            return listaCupones;
-        }
-
-        #endregion
     }
 }

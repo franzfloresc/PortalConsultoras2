@@ -390,24 +390,6 @@
   <wsdl:message name="IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEstadoCuponResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_RDSuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDSuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDSuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDSuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDDesuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDDesuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDDesuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDDesuscripcionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreo" />
   </wsdl:message>
@@ -426,11 +408,29 @@
   <wsdl:message name="IPedidoService_ActualizarCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarCuponResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ListarCupones_InputMessage">
-    <wsdl:part name="parameters" element="tns:ListarCupones" />
+  <wsdl:message name="IPedidoService_ListarCuponesPorCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCuponesPorCampania" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ListarCupones_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ListarCuponesResponse" />
+  <wsdl:message name="IPedidoService_ListarCuponesPorCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarCuponesPorCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDSuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDDesuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDDesuscripcionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_InputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_RDGetSuscripcion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RDGetSuscripcionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetNovedadPostVenta_InputMessage">
     <wsdl:part name="parameters" element="tns:GetNovedadPostVenta" />
@@ -2215,18 +2215,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCupon" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEstadoCuponResponse" message="tns:IPedidoService_UpdateCuponConsultoraEstadoCupon_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RDSuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcion" message="tns:IPedidoService_RDSuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcionResponse" message="tns:IPedidoService_RDSuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDDesuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcion" message="tns:IPedidoService_RDDesuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcionResponse" message="tns:IPedidoService_RDDesuscripcion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage" />
@@ -2239,9 +2227,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCupon" message="tns:IPedidoService_ActualizarCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCuponResponse" message="tns:IPedidoService_ActualizarCupon_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ListarCupones">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarCupones" message="tns:IPedidoService_ListarCupones_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponesResponse" message="tns:IPedidoService_ListarCupones_OutputMessage" />
+    <wsdl:operation name="ListarCuponesPorCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania" message="tns:IPedidoService_ListarCuponesPorCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse" message="tns:IPedidoService_ListarCuponesPorCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcion" message="tns:IPedidoService_RDSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDSuscripcionResponse" message="tns:IPedidoService_RDSuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcion" message="tns:IPedidoService_RDDesuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDDesuscripcionResponse" message="tns:IPedidoService_RDDesuscripcion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcion" message="tns:IPedidoService_RDGetSuscripcion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse" message="tns:IPedidoService_RDGetSuscripcion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetNovedadPostVenta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetNovedadPostVenta" message="tns:IPedidoService_GetNovedadPostVenta_InputMessage" />
@@ -3833,33 +3833,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="RDSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDDesuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RDGetSuscripcion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
       <wsdl:input>
@@ -3887,8 +3860,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListarCupones">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarCupones" style="document" />
+    <wsdl:operation name="ListarCuponesPorCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDSuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDDesuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDDesuscripcion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RDGetSuscripcion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/RDGetSuscripcion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

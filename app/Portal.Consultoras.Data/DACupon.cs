@@ -28,12 +28,15 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader ListarCupones()
+        public IDataReader ListarCuponesPorCampania(int paisId, int campaniaId)
         {
             try
             {
-                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCupones"))
+                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarCuponesPorCampania"))
                 {
+                    Context.Database.AddInParameter(command, "@PaisId", DbType.Int32, paisId);
+                    Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+
                     return Context.ExecuteReader(command);
                 }
             }

@@ -965,10 +965,62 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdateCuponConsultoraEnvioCorreo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q58:BECuponConsultora" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCuponConsultoraEnvioCorreoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CrearCupon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cupon" nillable="true" type="q59:BECupon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CrearCuponResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarCupon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cupon" nillable="true" type="q60:BECupon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarCuponResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarCuponesPorCampania">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisId" type="xs:int" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListarCuponesPorCampaniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="ListarCuponesPorCampaniaResult" nillable="true" type="q61:ArrayOfBECupon" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RDSuscripcion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q58="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q58:BERevistaDigitalSuscripcion" />
+        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q62:BERevistaDigitalSuscripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -982,7 +1034,7 @@
   <xs:element name="RDDesuscripcion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q59="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q59:BERevistaDigitalSuscripcion" />
+        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q63:BERevistaDigitalSuscripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -996,63 +1048,14 @@
   <xs:element name="RDGetSuscripcion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q60="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q60:BERevistaDigitalSuscripcion" />
+        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="entidad" nillable="true" type="q64:BERevistaDigitalSuscripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="RDGetSuscripcionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q61="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="RDGetSuscripcionResult" nillable="true" type="q61:BERevistaDigitalSuscripcion" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateCuponConsultoraEnvioCorreo">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="paisId" type="xs:int" />
-        <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cuponConsultora" nillable="true" type="q62:BECuponConsultora" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateCuponConsultoraEnvioCorreoResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CrearCupon">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cupon" nillable="true" type="q63:BECupon" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CrearCuponResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ActualizarCupon">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q64="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="cupon" nillable="true" type="q64:BECupon" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ActualizarCuponResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ListarCupones">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ListarCuponesResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" minOccurs="0" name="ListarCuponesResult" nillable="true" type="q65:ArrayOfBECupon" />
+        <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" minOccurs="0" name="RDGetSuscripcionResult" nillable="true" type="q65:BERevistaDigitalSuscripcion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
