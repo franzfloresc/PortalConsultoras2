@@ -32,6 +32,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
 
+            if (TempData["MobileAppConfiguracion"] != null)
+            {
+                model.MobileAppConfiguracion = (MobileAppConfiguracionModel)TempData["MobileAppConfiguracion"];
+            }
+
             if (beConfiguracionCampania == null)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 

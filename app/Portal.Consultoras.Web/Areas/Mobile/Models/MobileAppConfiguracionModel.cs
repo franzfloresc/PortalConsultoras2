@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable]
     public class MobileAppConfiguracionModel
     {
         /// <summary>
         /// Establece si se mostrara o no el boton atras en las vistas
         /// </summary>
-        public bool MostrarBotonAtras { get; set; }
+        public bool EsconderBotonAtras { get; set; }
     }
 }
