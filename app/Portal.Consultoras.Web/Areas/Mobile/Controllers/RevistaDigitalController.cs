@@ -12,7 +12,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-
                 var model = IndexModel();
                 if (model.EstadoAccion < 0)
                 {
@@ -44,13 +43,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
-        public ActionResult Inscripcion()
-        {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
-                return RedirectToAction("Index", "Bienvenida");
-
-            return View();
-        }
+        
     }
 }
