@@ -74,15 +74,22 @@
     </div>
 
 <script>
-
+    var DatoRegionZonaSeccion = "@Model.DataRegZonaSeccion";
+    var DatoLatitud = "@Model.Latitud";
+    var DatoLongitud = "@Model.Longitud";
+    var DatoResetearBotones = "@Model.ResetearBotones";
     var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
     $(".popup_infoError").css({ "top": centrarPopupInfoError });
 
     $('#btnAceptarMensajeTemplate').click(function () {
         //modal.dialog('close');
+        $('#regionXY').val(DatoRegionZonaSeccion);
+        $('#coordenadasX').val(DatoLatitud);
+        $('#coordenadasY').val(DatoLongitud);
         $('#divTemplateMensaje').hide();
         $('#divConfirmarPosicion').hide();
         $('#divConsultarUbicacion').css({ "overflow-y": "auto" });
+
     })
 
     //# sourceURL===_ConfirmarPosicion.cshtml

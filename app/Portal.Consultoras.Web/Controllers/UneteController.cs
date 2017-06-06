@@ -353,9 +353,11 @@ namespace Portal.Consultoras.Web.Controllers
                             case 1:
                                 model.DireccionCadena = direccion[0]; break;
                             case 2:
-                                model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+                                //model.DireccionCadena = direccion[1] + " " + " " + direccion[0]; break;
+                                model.DireccionCadena = direccion[2]; break;
                             case 3:
-                                model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+                                //model.DireccionCadena = direccion[1] + " " + direccion[2] + " " + direccion[0]; break;
+                                model.DireccionCadena = direccion[1] + " " + direccion[2]; break;
                             default:
                                 model.DireccionCadena = ""; break;
                         }
@@ -494,8 +496,8 @@ namespace Portal.Consultoras.Web.Controllers
                             //    zonaEncontrada = resultadoGeo.zona;
                             //    //model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
                             //}
-
-                            var parametro = new { address = model.DireccionCadena, city = model.NombreComuna, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
+                            var cityCadena = model.NombreComuna + " (" + model.NombreRegion + ")";
+                            var parametro = new { address = model.DireccionCadena, city = cityCadena, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
                             var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
                                 parametro, urlServicioLocalColombia);
                             if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
@@ -3366,6 +3368,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
         {
             MensajeModel modelMensaje = new MensajeModel();
+            modelMensaje.DataRegZonaSeccion = string.Empty;
+            modelMensaje.Latitud = string.Empty;
+            modelMensaje.Longitud = string.Empty;
             string direccion = null;
 
             if (CodigoISO == Pais.Chile)
@@ -3375,8 +3380,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (CodigoISO == Pais.Colombia)
             {
-                direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreDireccionEdicion,
-                    model.CalleOAvenida);
+                //direccion = string.Format("{0} {1} {2}", model.NombreLugarNivel3, model.NombreDireccionEdicion,
+                //    model.CalleOAvenida);
+                direccion = string.Format("{0} {1}", model.NombreLugarNivel3, model.NombreDireccionEdicion);
             }
 
             else if (CodigoISO == Pais.Mexico)
@@ -3544,6 +3550,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
 
                     var zonaEncontrada = default(string);
+                    var latitudCol = default(string);
+                    var longitudCol = default(string);
                     //var listaPuntos = new List<Tuple<decimal, decimal, string>>();
 
                     try
@@ -3551,13 +3559,15 @@ namespace Portal.Consultoras.Web.Controllers
                         var urlServicioLocalColombia = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
 
 
-
-                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
+                        var cityCadena = model.NombreLugarNivel2 + " (" + model.NombreLugarNivel1 + ")";
+                        var parametro = new { address = direccion, city = cityCadena, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
                         var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
                             parametro, urlServicioLocalColombia);
                         if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
                         {
                             zonaEncontrada = resultadoGeo.data.zona1;
+                            latitudCol = resultadoGeo.data.latitude;
+                            longitudCol = resultadoGeo.data.longitude;
                             if (!string.IsNullOrWhiteSpace(zonaEncontrada))
                             {
                                 consultarUbicacionModel.Puntos.Add(
@@ -3583,6 +3593,10 @@ namespace Portal.Consultoras.Web.Controllers
                         consultarUbicacionModel.Zona = zonaEncontrada.Substring(2, 4);
                         consultarUbicacionModel.Seccion = zonaEncontrada.Substring(6, 1);
                         consultarUbicacionModel.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
+
+                        modelMensaje.DataRegZonaSeccion = consultarUbicacionModel.Region + "/" + consultarUbicacionModel.Zona + "/" + consultarUbicacionModel.Seccion;
+                        modelMensaje.Latitud = latitudCol;
+                        modelMensaje.Longitud = longitudCol;
 
                         // 2. Buscamos los vertices por territorio
                         var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
@@ -3766,6 +3780,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (string.IsNullOrEmpty(model.Region) || string.IsNullOrEmpty(model.Zona) || string.IsNullOrEmpty(model.Seccion) || string.IsNullOrEmpty(model.Territorio))
             {
                 MensajeModel mensajeModel = new MensajeModel();
+                mensajeModel.ResetearBotones = "R";
                 mensajeModel.TextoMensaje = "No se encontró Region, Zona, Seccion y Territorio. Favor de asignar manualmente.";
                 return PartialView("_TemplateMensaje", mensajeModel);
             }

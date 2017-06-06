@@ -755,6 +755,7 @@
                     <input type="text" id="regionXY" name="region" value="" />
                     <button type="button" id="btnEditarPosicion">Editar Posici&oacute;n</button>
                     <button type="button" id="btnGrabarPosicion" data-direccion-correcta="si">Grabar Posici&oacute;n</button>
+                    <button type="button" id="btnCancelarPosicion" >Cancelar</button>
                 </div>
             </div>
         </div>
@@ -1238,7 +1239,7 @@
         $('#divTemplateMensaje').html(html);
         $('#divTemplateMensaje').show();
         $('#divTemplateMensaje').css('z-index', '2000');
-     
+        HabilitarDatosDireccion(0);
     }
     //# sourceURL===_ConsultarUbicacion.cshtml
 </script>
@@ -1263,7 +1264,6 @@
         <text>$('#spRegZonaSec').hide();</text>
         <text>$('#divLatLng').hide();</text>
         <text>$('#regionXY').hide();</text>
-        <text>$('.contenedor_coordenadasYRegion').addClass('alineadoDerecha');</text>
         <text>$('#btnEditarPosicion').show();</text>
         <text> $('#btnGrabarPosicion').hide();</text>
         if (Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.CostaRica || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Panama || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Salvador || Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Guatemala)
@@ -1271,6 +1271,18 @@
             <text>$('.contenedor_coordenadasYRegion').hide();</text>
             <text>$('.popup_editarDireccion').css({ "padding-bottom": "0px" });</text>
         }
+    }
+    
+    @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+    { 
+        <text>$('#DivSinGEO').show();</text>
+        <text>$('#DivConGEO').hide();</text>
+        <text>$('#spRegZonaSec').show();</text>
+        <text>$('#divLatLng').show();</text>
+        <text>$('#regionXY').show();</text>
+        <text>$('#btnEditarPosicion').hide();</text>
+        <text>$('#btnGrabarPosicion').html('Aceptar');</text>
+        <text>$('#btnGrabarPosicion').show();</text>
     }
 
     $(function () {
@@ -1377,6 +1389,7 @@
     $('#btnGrabarPosicion').click(function () {
 
         if ($('#regionXY').val() == '' || $('#regionXY').val() == null) {
+            //return;
         }
 
         var data = {
@@ -1729,7 +1742,7 @@
                 } else {
                     bounds.extend(place.geometry.location);
                 }
-                MostrarTerritorio(newMarker.position.lat(), newMarker.position.lng());
+                MostrarTerritorio(parseFloat(newMarker.position.lat()).toFixed(7), parseFloat(newMarker.position.lng()).toFixed(7));
                 $('#coordenadasX').val(parseFloat(newMarker.position.lat()).toFixed(7));
                 $('#coordenadasY').val(parseFloat(newMarker.position.lng()).toFixed(7));
                 map.fitBounds(bounds);
@@ -1786,6 +1799,7 @@
 
                @*<text> $('#mapa').addClass('height_100'); </text>*@
 		        <text>
+
             $('#DivSinGEO').hide();
             $('#DivConGEO').show();
             $('#spRegZonaSec').show();
@@ -1794,6 +1808,20 @@
             $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').show();
+
+            //Nuevo requerimiento Colombia
+            @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+            { 
+                <text>$('#DivSinGEO').show();</text>
+                <text>$('#DivConGEO').hide();</text>
+                <text>$('#spRegZonaSec').show();</text>
+                <text>$('#divLatLng').show();</text>
+                <text>$('#regionXY').show();</text>
+                <text>$('#btnEditarPosicion').hide();</text>
+                <text>$('#btnGrabarPosicion').html('Aceptar');</text>
+                <text>$('#btnGrabarPosicion').show();</text>
+            }
+
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
             });
@@ -1834,8 +1862,10 @@
                 setMarkerOnMap(map, this);
                 clearMarkerMenosSeleccionado(this)
                 this.setIcon(urlContentImages + 'icono-maps-lbel.png');
-                MostrarTerritorio(this.position.lat(), this.position.lng());
-
+                $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
+                $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
+                
             });
             @*@if(!string.IsNullOrEmpty(punto.Item3))
             {
@@ -1940,9 +1970,9 @@
                 } else {
                     bounds.extend(place.geometry.location);
                 }
-                MostrarTerritorio(marker.position.lat(), marker.position.lng());
                 $('#coordenadasX').val(parseFloat(marker.position.lat()).toFixed(7));
                 $('#coordenadasY').val(parseFloat(marker.position.lng()).toFixed(7));
+                MostrarTerritorio(parseFloat(marker.position.lat()).toFixed(7), parseFloat(marker.position.lng()).toFixed(7));
                 map.fitBounds(bounds);
                 //map.fitBounds(markerBounds);
                 map.setZoom(16);
