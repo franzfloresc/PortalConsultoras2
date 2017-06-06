@@ -17,7 +17,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = IndexModel();
-                model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
                 if (model.EstadoAccion < 0)
                 {
                     return RedirectToAction("Index", "Bienvenida");
