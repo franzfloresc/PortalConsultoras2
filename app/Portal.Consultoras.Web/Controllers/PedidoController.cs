@@ -25,6 +25,7 @@ using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 using Portal.Consultoras.PublicService.Cryptography;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -2008,14 +2009,14 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EnviarCorreoPedidoReservado()
+        public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
             {
                 bool envioCorreo = false;
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
-                if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
+                using (var sv = new PedidoServiceClient()) { envioCorreo = await sv.EnviarCorreoReservaProlAsync(input); }
+                if (envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
             catch (Exception ex)
             {
@@ -3083,7 +3084,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.PaisID == 4)
                 {
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-left: 10px;' > TOTAL SIN DSCTO.</td>");
-                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", String.Format("{0:#,##0}", _totalSinDescuento).Replace(',', '.') , simbolo);
+                    mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top: 15px; padding-right: 10px; font-weight: 700;' > {1}{0} </td></tr> ", String.Format("{0:#,##0}", _totalSinDescuento).Replace(',', '.'), simbolo);
 
                     mailBody.Append("<tr><td style = 'text-align: left; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-left: 10px; border-bottom: 1px solid #000; padding-bottom: 13px;' > DSCTO.OFERTAS POR NIVELES</td>");
                     mailBody.AppendFormat("<td style = 'text-align: right; color: #000; font-family: Arial; font-size: 13px; padding-top:3px; padding-right: 10px; font-weight: 700; padding-bottom: 13px; border-bottom: 1px solid #000;' > {1}{0}</td></tr>", String.Format("{0:#,##0}", _descuento).Replace(',', '.'), simbolo);
@@ -3228,7 +3229,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        
+
         #endregion
 
         public ServicePROL.TransferirDatos Devolver()
@@ -4535,7 +4536,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (PedidoServiceClient svc = new PedidoServiceClient())
                         {
-                            var tpa  = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                            var tpa = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
                             codigo = AESAlgorithm.Encrypt(tpa);
                         }
                         if (!string.IsNullOrEmpty(codigo))

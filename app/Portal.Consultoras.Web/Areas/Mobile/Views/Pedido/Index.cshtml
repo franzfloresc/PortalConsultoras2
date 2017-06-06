@@ -15,8 +15,13 @@
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
-        <div class="content_320 ingresoPedido">
-            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar"></a>
+        <div class="content_320 ingresoPedido">            
+            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                if (!mobileConfiguracion.EsconderBotonAtras)
+                {
+                    <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" style="display:normal" title="Regresar"></a>
+                }
+            }
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
                 <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />

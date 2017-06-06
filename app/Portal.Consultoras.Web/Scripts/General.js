@@ -1041,7 +1041,7 @@ function CerrarPopup(ident) {
 
 /*** EPD-2378 ***/
 function EnviarCorreoPedidoReservado() {
-    jQuery.ajax({
+    return jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
         dataType: 'json',
