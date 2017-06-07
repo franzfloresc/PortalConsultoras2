@@ -99,7 +99,6 @@
     <Compile Include="DAConfiguracionTipoProcesoCargaPedidos.cs" />
     <Compile Include="DAConfiguracionValidacionNuevoPROL.cs" />
     <Compile Include="DAConfiguracionPortal.cs" />
-    <Compile Include="DAConsultoraCliente.cs" />
     <Compile Include="DAConsultoraDigitales.cs" />
     <Compile Include="DAConsultoraCatalogo.cs" />
     <Compile Include="DAConsultoraLider.cs" />
