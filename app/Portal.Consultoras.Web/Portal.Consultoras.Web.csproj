@@ -2043,6 +2043,7 @@
     <Content Include="Content\Images\icons\favicon_esika.ico" />
     <Content Include="Content\Images\icons\favicon_lbel.ico" />
     <Content Include="Content\Images\icons\icono_nuevo_correo.png" />
+    <Content Include="Content\Images\icons\icoWarning.png" />
     <Content Include="Content\Images\icons\warning.png" />
     <Content Include="Content\Images\icons\sign-check.png" />
     <Content Include="Content\Images\icons\sign-error.png" />
@@ -3928,6 +3929,7 @@
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
+    <Content Include="Views\Cliente\Detalle.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

@@ -11,6 +11,11 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <style>
+        #divAgregarCliente {
+            display:none
+        }
+    </style>
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
@@ -342,7 +347,12 @@
 <!--SB20-483 - FIN -->
 
 <!-- POPUP AGREGAR CLIENTE -->
-<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+<div class="contenedor_popup_clientes" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
+</div>
+@*<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarMantenerCliente();">
@@ -372,7 +382,7 @@
         </div>
         <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
     </div>
-</div>
+</div>*@
 <!-- FIN POPUP AGREGAR CLIENTE -->
 
 <!-- POPUP CLIENTE AGREGADO -->
@@ -715,9 +725,12 @@
     var vbSimbolo = simbolo;
     var productoSugerido = false
     var productoAgotado = false;
-        
+
     var tipoOrigenEstrategia = 21;
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+
+    var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
     </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>

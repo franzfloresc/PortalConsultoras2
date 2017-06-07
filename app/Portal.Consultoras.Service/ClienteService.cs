@@ -147,5 +147,15 @@ namespace Portal.Consultoras.Service
             return new BLConsultoraCliente(paisID).ValidaTelefono(consultoraID, contactoCliente);
         }
         #endregion
+
+        public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
+        {
+            return BLCliente.SaveDB(paisID, clientes);
+        }
+
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        {
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+        }
     }
 }

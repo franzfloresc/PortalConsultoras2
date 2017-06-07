@@ -66,6 +66,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -91,6 +92,7 @@
     <Compile Include="DABotmakerApiLog.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
     <Compile Include="DAProductoPalabra.cs" />
+    <Compile Include="DAClienteDB.cs" />
     <Compile Include="DAComunicado.cs" />
     <Compile Include="DAConfiguracionParametroCarga.cs" />
     <Compile Include="DAConfiguracionProgramaNuevas.cs" />
@@ -345,6 +347,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

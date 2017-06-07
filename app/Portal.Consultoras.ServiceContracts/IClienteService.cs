@@ -80,5 +80,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConsultoraClienteResponse ValidaTelefono(int paisID, long consultoraID, BEContactoCliente contactoCliente);
         #endregion
+        [OperationContract]
+        List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
+
+        [OperationContract]
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID);
     }
 }

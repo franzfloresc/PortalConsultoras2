@@ -75,20 +75,59 @@ $(document).ready(function () {
                 $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
                 $('#dialog_MensajePostulante').show();
                 return false;
-            } else {
-                if (ui.item.ClienteID == 0) {
-                    return false;
-                }
-                if (ui.item.ClienteID != -1) {
-                    $("#hdfClienteID").val(ui.item.ClienteID);
-                    $("#hdnClienteID_").val(ui.item.ClienteID);
-                    $("#txtClienteDescripcion").val(ui.item.Nombre);
-                    $("#hdfClienteDescripcion").val(ui.item.Nombre);
-                } else {
-                    $('#Nombres').val($("#txtClienteDescripcion").val());
-                    $("#divClientes").show();
-                }
             }
+            //else {
+            //    if (ui.item.ClienteID == 0) {
+            //        return false;
+            //    }
+            //    if (ui.item.ClienteID != -1) {
+            //        $("#hdfClienteID").val(ui.item.ClienteID);
+            //        $("#hdnClienteID_").val(ui.item.ClienteID);
+            //        $("#txtClienteDescripcion").val(ui.item.Nombre);
+            //        $("#hdfClienteDescripcion").val(ui.item.Nombre);
+            //    } else {
+            //        $('#Nombres').val($("#txtClienteDescripcion").val());
+            //        $("#divClientes").show();
+            //    }
+            //}
+
+            if (ui.item.ClienteID == 0) {
+                return false;
+            }
+            else if (ui.item.ClienteID == -1) {
+                showClienteDetalle(null, function (cliente) {
+                    $("#hdfClienteID").val(cliente.ClienteID);
+                    $("#hdnClienteID_").val(cliente.ClienteID);
+                    $("#txtClienteDescripcion").val(cliente.Nombre);
+                    $("#hdfClienteDescripcion").val(cliente.Nombre);
+                    //dataLayer.push({
+                    //    'event': 'virtualEvent',
+                    //    'category': 'Clientes',
+                    //    'action': 'Agregar',
+                    //    'label': 'Satisfactorio'
+                    //});
+                });
+            }
+            else {
+                $("#hdfClienteID").val(ui.item.ClienteID);
+                $("#hdnClienteID_").val(ui.item.ClienteID);
+                $("#txtClienteDescripcion").val(ui.item.Nombre);
+                $("#hdfClienteDescripcion").val(ui.item.Nombre);
+
+                if (ui.item.TieneTelefono == 0) showClienteDetalle(ui.item, function (cliente) {
+                    $("#hdfClienteID").val(cliente.ClienteID);
+                    $("#hdnClienteID_").val(cliente.ClienteID);
+                    $("#txtClienteDescripcion").val(cliente.Nombre);
+                    $("#hdfClienteDescripcion").val(cliente.Nombre);
+                    //dataLayer.push({
+                    //    'event': 'virtualEvent',
+                    //    'category': 'Clientes',
+                    //    'action': 'Agregar',
+                    //    'label': 'Satisfactorio'
+                    //});
+                });
+            }
+
             event.preventDefault();
         }
     }).data("autocomplete")._renderItem = function (ul, item) {
@@ -1086,16 +1125,11 @@ function ValidarClienteFocus() {
     }
 }
 
-function AbrirModalCliente() {
-    /*
-    if (typeof gTipoUsuario !== 'undefined') {
-        if (gTipoUsuario == '2') {
-            alert('Acceso restringido, aun no puede agregar pedidos');
-            return false;
-        }
-    }
-    */
+var ClienteDetalleOK = null;
+var ClienteDetalleCANCEL = null;
+var flagClienteDetalle = false;
 
+function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
     if (gTipoUsuario == '2') {
         var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
@@ -1104,70 +1138,156 @@ function AbrirModalCliente() {
         return false;
     }
 
-    $('#Nombres').val($('#txtClienteDescripcion').val());
-    $("#divClientes").show();
-}
+    var url = baseUrl + "Cliente/Detalle";
 
-function ValidarRegistroCliente() {
-    var vMessage = "";
-
-    if (jQuery.trim($('#Nombres').val()) == "") {
-        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+    if (cliente == null) {
+        cliente = {};
+        var NombreCliente = jQuery.trim($('#txtClienteDescripcion').val());
+        if (NombreCliente.length > 0) cliente.Nombre = NombreCliente;
     }
 
-    if (jQuery.trim($('#Correo').val()) != "") {
-        if (!validateEmail($('#Correo').val())) {
-            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
-        }
-    }
+    AbrirSplash();
 
-    if (vMessage != "") {
-        AbrirMensaje(vMessage);
-        $('#Nombres').focus();
-        return false;
-    }
-
-    GuardarCliente();
-}
-function GuardarCliente() {
-    var item = {
-        Nombre: $('#Nombres').val(),
-        eMail: $('#Correo').val()
-    };
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/RegistrarCliente',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        cache: false,
+        url: url,
+        data: cliente,
         success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == true) {
-                    $("#hdfClienteID").val(data.extra);
-                    $("#txtClienteDescripcion").val($('#Nombres').val());
-                    $("#hdfClienteDescripcion").val($('#Nombres').val());
-                    $('#Nombres').val("");
-                    $('#Correo').val("");
-                    dataLayer.push({
-                        'event': 'virtualEvent',
-                        'category': 'Clientes',
-                        'action': 'Agregar',
-                        'label': 'Satisfactorio'
-                    });
-                    $("#divClientes").hide();
-                }
-                AbrirMensaje(data.message);
+            CerrarSplash();
+
+            $("#divDetalleCliente").html(data);
+            $('#divAgregarCliente').show();
+
+            if($.isFunction(pClienteDetalleOK)) 
+            {
+                ClienteDetalleOK = pClienteDetalleOK;
             }
+            else
+            {
+                ClienteDetalleOK = function (cliente) {
+                    $("#hdfClienteID").val(cliente.ClienteID);
+                    $("#hdnClienteID_").val(cliente.ClienteID);
+                    $("#txtClienteDescripcion").val(cliente.Nombre);
+                    $("#hdfClienteDescripcion").val(cliente.Nombre);
+                    //dataLayer.push({
+                    //    'event': 'virtualEvent',
+                    //    'category': 'Clientes',
+                    //    'action': 'Agregar',
+                    //    'label': 'Satisfactorio'
+                    //});
+                };
+            }
+
+            if ($.isFunction(pClienteDetalleCANCEL)) ClienteDetalleCANCEL = pClienteDetalleCANCEL;
+
+            flagClienteDetalle = true;
         },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                AbrirMensaje(data.message);
-                $("#divClientes").hide();
-            }
+        error: function (xhr, ajaxOptions, error) {
+            CerrarSplash();
+            alert('Error: ' + xhr.status + " - " + xhr.responseText);
         }
     });
 }
+
+//function ClienteDetalleOK(cliente) {
+//    $("#hdfClienteID").val(cliente.ClienteID);
+//    $("#hdnClienteID_").val(cliente.ClienteID);
+//    $("#txtClienteDescripcion").val(cliente.Nombre);
+//    $("#hdfClienteDescripcion").val(cliente.Nombre);
+//    //dataLayer.push({
+//    //    'event': 'virtualEvent',
+//    //    'category': 'Clientes',
+//    //    'action': 'Agregar',
+//    //    'label': 'Satisfactorio'
+//    //});
+//}
+
+
+//function AbrirModalCliente() {
+//    /*
+//    if (typeof gTipoUsuario !== 'undefined') {
+//        if (gTipoUsuario == '2') {
+//            alert('Acceso restringido, aun no puede agregar pedidos');
+//            return false;
+//        }
+//    }
+//    */
+
+//    if (gTipoUsuario == '2') {
+//        var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
+//        $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
+//        $('#dialog_MensajePostulante #mensajePostulante').text(mesg);
+//        $('#dialog_MensajePostulante').show();
+//        return false;
+//    }
+
+//    $('#Nombres').val($('#txtClienteDescripcion').val());
+//    $("#divClientes").show();
+//}
+
+//function ValidarRegistroCliente() {
+//    var vMessage = "";
+
+//    if (jQuery.trim($('#Nombres').val()) == "") {
+//        vMessage += "- Debe ingresar el Nombre del Cliente.\n";
+//    }
+
+//    if (jQuery.trim($('#Correo').val()) != "") {
+//        if (!validateEmail($('#Correo').val())) {
+//            vMessage += "- Debe ingresar un correo con la estructura válida.\n";
+//        }
+//    }
+
+//    if (vMessage != "") {
+//        AbrirMensaje(vMessage);
+//        $('#Nombres').focus();
+//        return false;
+//    }
+
+//    GuardarCliente();
+//}
+
+//function GuardarCliente() {
+//    var item = {
+//        Nombre: $('#Nombres').val(),
+//        eMail: $('#Correo').val()
+//    };
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Pedido/RegistrarCliente',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                if (data.success == true) {
+//                    $("#hdfClienteID").val(data.extra);
+//                    $("#txtClienteDescripcion").val($('#Nombres').val());
+//                    $("#hdfClienteDescripcion").val($('#Nombres').val());
+//                    $('#Nombres').val("");
+//                    $('#Correo').val("");
+//                    dataLayer.push({
+//                        'event': 'virtualEvent',
+//                        'category': 'Clientes',
+//                        'action': 'Agregar',
+//                        'label': 'Satisfactorio'
+//                    });
+//                    $("#divClientes").hide();
+//                }
+//                AbrirMensaje(data.message);
+//            }
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                AbrirMensaje(data.message);
+//                $("#divClientes").hide();
+//            }
+//        }
+//    });
+//}
 
 function Tabular() {
     if (event.keyCode == 9) {
@@ -1869,6 +1989,10 @@ function HorarioRestringido(mostrarAlerta) {
     return horarioRestringido;
 }
 
+var currentInputEdit = null;
+var currentInputClienteID = null;
+var currentInputClienteNombre = null;
+
 function CargarAutocomplete() {
     var array = $(".classClienteNombre");
     for (var i = 0; i < array.length; i++) {
@@ -1882,10 +2006,35 @@ function CargarAutocomplete() {
             select: function (event, ui) {
                 if (ui.item.ClienteID != 0) {
                     $(this).val(ui.item.Nombre);
+
                     var hdf = this.id.replace('txtLPCli', 'hdfLPCli');
                     var hdfDes = this.id.replace('txtLPCli', 'hdfLPCliDes');
+
                     $('#' + hdf).val(ui.item.ClienteID);
                     $('#' + hdfDes).val(ui.item.Nombre);
+
+                    currentInputClienteID = $('#' + hdf);
+                    currentInputClienteNombre = $('#' + hdfDes);
+                    currentInputEdit = $(this);
+
+                    if (ui.item.TieneTelefono == 0) {
+                        showClienteDetalle(ui.item, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
+
+                            currentInputEdit.blur();
+
+                            //dataLayer.push({
+                            //    'event': 'virtualEvent',
+                            //    'category': 'Clientes',
+                            //    'action': 'Agregar',
+                            //    'label': 'Satisfactorio'
+                            //});
+                        }, function () {
+                            if (currentInputEdit != null) currentInputEdit.focus();
+                        });
+                    }
                 }
 
                 isShown = false;
@@ -2806,6 +2955,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             }
             $('#txtLPTempCant' + PedidoDetalleID).val($('#txtLPCant' + PedidoDetalleID).val());
 
+            $("#hdfLPCliIni" + PedidoDetalleID).val($('#hdfLPCli' + PedidoDetalleID).val());
+
             var nomCli = $("#ddlClientes option:selected").text();
             var simbolo = data.Simbolo;
             var monto = data.Total_Cliente;
@@ -3260,11 +3411,14 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 }
 
 function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
+    if (flagClienteDetalle) return true;
+
     if (isShown)
         return true;
 
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
+ 
     if (cliAnt == cliNue) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;

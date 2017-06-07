@@ -103,7 +103,8 @@
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus();"
                        maxlength="50" class="ValidaAlfanumerico" placeholder="Cliente (Opcional)" />
                 <span class="pedido_ingreso_datos_icono_mas">+</span>
-                <a class="pedidos_cliente" onclick="AbrirModalCliente();">
+                @*<a class="pedidos_cliente" onclick="AbrirModalCliente();">*@
+                <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
                 </a>
             </div>
@@ -552,7 +553,14 @@
     <hr class="clear" />
 </div>
 
-<div class="contenedor_popup_agregarCliente" id="divClientes">
+<!-- POPUP DETAllE CLIENTE -->
+<div class="contenedor_popup_agregarCliente mis_clientes" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
+</div>
+
+@*<div class="contenedor_popup_agregarCliente" id="divClientes">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:void(0);" onclick="$('#divClientes').hide();">
@@ -568,7 +576,7 @@
             <input type="button" class="btnCliente_agregar" name="agregarCliente" value="AGREGAR" onclick="javascript: ValidarRegistroCliente();" />
         </form>
     </div>
-</div>
+</div>*@
 
 <!-- POPUP MIS GANANCIAS -->
 <div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
