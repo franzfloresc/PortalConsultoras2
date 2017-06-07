@@ -260,6 +260,88 @@ function ArmarCarouselEstrategias(data) {
 
 }
 
+function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
+    var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
+        tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
+    var accion;
+    if (nextSlide == 0 && currentSlide + 1 == arrayOfertasParaTi.length) {
+        accion = 'next';
+    } else if (currentSlide == 0 && nextSlide + 1 == arrayOfertasParaTi.length) {
+        accion = 'prev';
+    } else if (nextSlide > currentSlide) {
+        accion = 'next';
+    } else {
+        accion = 'prev';
+    };
+
+    if (accion == 'prev') {
+        //TagManager
+        var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
+        var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
+        var recomendado = arrayOfertasParaTi[posicionEstrategia];
+        var arrayEstrategia = new Array();
+
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV2,
+            'price': recomendado.Precio2.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': recomendado.DescripcionEstrategia,
+            'list': 'Ofertas para ti – ' + origen,
+            'position': recomendado.Posicion
+        };
+
+        arrayEstrategia.push(impresionRecomendado);
+
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': origen,
+            'action': 'Ofertas para ti',
+            'label': 'Ver anterior'
+        });
+    } else if (accion == 'next') {
+        //TagManager
+        var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
+        var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
+        var recomendado = arrayOfertasParaTi[posicionEstrategia];
+        var arrayEstrategia = new Array();
+
+        var impresionRecomendado = {
+            'name': recomendado.DescripcionCompleta,
+            'id': recomendado.CUV2,
+            'price': recomendado.Precio2.toString(),
+            'brand': recomendado.DescripcionMarca,
+            'category': 'NO DISPONIBLE',
+            'variant': recomendado.DescripcionEstrategia,
+            'list': 'Ofertas para ti – ' + origen,
+            'position': recomendado.Posicion
+        };
+
+        arrayEstrategia.push(impresionRecomendado);
+
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': origen,
+            'action': 'Ofertas para ti',
+            'label': 'Ver siguiente'
+        });
+    }
+}
+
+
 function EstructurarDataCarousel(array) {
     var isList = array.DescripcionCUV2 == undefined;
     var lista = isList ? array : new Array();
