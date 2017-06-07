@@ -135,6 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorContrato = userData.IndicadorContrato;
                 model.CambioClave = userData.CambioClave;
                 model.SobreNombre = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
+                model.SobreNombre = Util.Trim(model.SobreNombre).ToUpper();
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.CampaniaActual = userData.CampaniaID;
                 model.PrefijoPais = userData.CodigoISO;
@@ -496,6 +497,21 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                {
+                    if (!userData.RevistaDigital.NoVolverMostrar)
+                    {
+                        if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0 
+                            || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
+                                )
+                        {
+                            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                            break;
+                        }
+                    }
+                    continue;
+                }
+
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
                     var cupon = ObtenerCuponDesdeServicio();
@@ -512,6 +528,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
                     if (!userData.RevistaDigital.NoVolverMostrar)
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                     {
                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
                         {
@@ -844,7 +861,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONGetMisDatos()
         {
-            BEUsuario beusuario = new BEUsuario();
+            var beusuario = new ServiceUsuario.BEUsuario();
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -1739,7 +1756,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.NoVolverMostrar)
                 {
                     return Json(new
                     {

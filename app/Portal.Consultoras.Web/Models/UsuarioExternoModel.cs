@@ -22,5 +22,6 @@ namespace Portal.Consultoras.Web.Models
         public string FotoPerfil { get; set; }
         public DateTime FechaRegistro { get; set; }
         public int Estado { get; set; }
+        public bool Redireccionar { get; set; }
     }
 }

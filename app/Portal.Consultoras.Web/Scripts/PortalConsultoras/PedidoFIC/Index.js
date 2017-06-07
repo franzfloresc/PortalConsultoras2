@@ -649,7 +649,7 @@ function HorarioRestringido(mostrarAlerta) {
     });
     jQuery.ajax({
         type: 'GET',
-        url: baseUrl + 'PedidoFIC/EnHorarioRestringido',
+        url: baseUrl + 'Pedido/EnHorarioRestringido',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,

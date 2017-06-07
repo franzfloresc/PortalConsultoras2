@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using System;
+using System.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
@@ -9,11 +10,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                return RedirectToAction("Index", "Bienvenida");
-
             var model = IndexModel();
-            
+            model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
+            if (model.EstadoAccion < 0)
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
             return View(model);
         }
 

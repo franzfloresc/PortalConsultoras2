@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         #region Acciones
 
-        public ActionResult Index()
+        public ActionResult Index(int campania = 0, string numeroPedido = "")
         {
             var userData = UserData();
             var model = new SeguimientoMobileModel { ListaEstadoSeguimiento = new List<SeguimientoMobileModel>() };
@@ -29,25 +29,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (listaPedidos.Length > 0)
                 {
-                    
-                    /* EPD-758 - INICIO */
-                    //var ultimoPedido = listaPedidos[0];
-                    BETracking ultimoPedido = null;
-
-                    foreach (var pd in listaPedidos)
-                    {
-                        if (!string.IsNullOrEmpty(pd.NumeroPedido))
-                        {
-                            ultimoPedido = pd;
-                            break;
-                        }
-                    }
-
-                    if (ultimoPedido == null)
-                    {
-                        ultimoPedido = listaPedidos[0];
-                    }
-                    /* EPD-758 - FIN */
+                    BETracking ultimoPedido = listaPedidos.FirstOrDefault(pedido => pedido.Campana == campania && pedido.NumeroPedido == numeroPedido);
+                    if (ultimoPedido == null) ultimoPedido = listaPedidos.FirstOrDefault(pedido => !string.IsNullOrEmpty(pedido.NumeroPedido));
+                    if (ultimoPedido == null) ultimoPedido = listaPedidos[0];
 
                     model.PaisId = ultimoPedido.PaisID;
                     model.CodigoConsultora = ultimoPedido.CodigoConsultora;

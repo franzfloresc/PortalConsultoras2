@@ -39,9 +39,7 @@ $(document).ready(function () {
 
             if ($('[data-popup-main]').is(':visible')) {
                 var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
+                FunccionEjecutar(functionHide);
                 CerrarPopup('[data-popup-main]');
             }
 
@@ -75,8 +73,9 @@ $(document).ready(function () {
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-
             if ($(e.target).is(':visible')) {
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                FunccionEjecutar(functionHide);
                 CerrarPopup(e.target);
             }
         }
@@ -87,10 +86,8 @@ $(document).ready(function () {
 
             if ($(e.target).is(':visible')) {
 
-                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                FunccionEjecutar(functionHide);
 
                 CerrarPopup(e.target);
             }
@@ -102,9 +99,7 @@ $(document).ready(function () {
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        if (functionHide != "") {
-            setTimeout(functionHide + "()", 100);
-        }
+        FunccionEjecutar(functionHide);
 
         CerrarPopup(popupClose);
     });
@@ -256,10 +251,11 @@ $(document).ready(function () {
         window.open(url, '_blank');
     });
 
-    $("body").on('click', '.belcorpChat', function () {
+    $("body").on('click', '.belcorpChat', function (e) {
+        e.preventDefault();
         var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
         var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
-        if(typeof PopUpChatOpened == 'undefined' ||
+        if (typeof PopUpChatOpened == 'undefined' ||
             PopUpChatOpened == null ||
             PopUpChatOpened == 'false') {
             localStorage.setItem('PopUpChatOpened', 'true');
@@ -276,11 +272,14 @@ $(document).ready(function () {
         }
         //cerrar Popup
         $(".ui-button-text").trigger("click");
+        return false;
     });
 
     Scrolling();
     setInterval(animacionFlechaScroll, 1000);
+
 });
+
 
 function AbrirVentanaBelcorpChat(url) {
     var res = encodeURI(url);  
