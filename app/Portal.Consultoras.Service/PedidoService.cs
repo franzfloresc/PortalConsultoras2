@@ -1990,6 +1990,13 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
 
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
+
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
@@ -2005,11 +2012,6 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
-        {
-            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
-        }
-
-        #endregion
+        
     }
 }
