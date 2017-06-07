@@ -671,6 +671,11 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
 
+                if (menu.MenuMobileID == 1039)
+                {
+                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~","") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+                }
+
                 if (menu.Posicion.ToLower() != "menu")
                 {
                     listadoMenuFinal.Add(menu);

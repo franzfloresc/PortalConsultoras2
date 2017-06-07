@@ -20,15 +20,8 @@
         <a role="menu" region="Menú Lateral" parent="@item.MenuPadreDescripcion" title="@item.Descripcion"
            class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
            href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
-           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
-            @if (item.UrlImagen != "")
-            {
-                <img src="@item.UrlImagen.Replace("~", "")" alt="@item.Descripcion" height="30" width="30" style="margin-left: -8px;" /> @item.Descripcion
-            }
-            else
-            {
+           id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo" style="@item.EstiloMenu">
                 @item.Descripcion
-            }
         </a>
     }
     else

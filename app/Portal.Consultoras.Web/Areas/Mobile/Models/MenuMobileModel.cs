@@ -38,5 +38,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string OnClickFunt { get; set; }
         public string ClaseMenu { get; set; }
         public string ClaseMenuItem { get; set; }
+        public string EstiloMenu { get; set; }
     }
 }
