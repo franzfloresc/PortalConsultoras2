@@ -1400,12 +1400,12 @@ function MostrarMenu(codigo, accion) {
     
 }
 
-function FunccionEjecutar(functionHide) {
+function FuncionEjecutar(functionHide) {
     functionHide = $.trim(functionHide);
     if (functionHide != "") {
         if (functionHide[functionHide.length - 1] != ")") {
             functionHide = functionHide + "()";
         }
-        setTimeout(functionHide + "()", 100);
+        setTimeout(functionHide, 100);
     }
 }
