@@ -597,10 +597,6 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NUMEROTELEFONOEXISTE = "10";
                 public const string ERROR_CLIENTENOREGISTRADO = "11";
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
-
-                //public const string ERROR_ORIGENNOENVIADO = "6";
-                //public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
-                
             }
 
             public static Dictionary<string, string> Message
@@ -622,9 +618,6 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-
-                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},                        
-                        //{Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
                     });
                 }
             }
@@ -724,130 +717,6 @@ namespace Portal.Consultoras.Common
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
-        }
-
-        public class ConsultoraClienteValidacion
-        {
-            private static Dictionary<string, string> _Message;
-
-            public class Code
-            {
-                public const string SUCCESS = "0";
-                public const string ERROR_NUMEROTELEFONONOENVIADO = "1";
-                public const string ERROR_CLIENTENOREGISTRADO = "2";
-                public const string ERROR_CLIENTENOACTUALIZADO = "3";
-                public const string ERROR_NUMEROTELEFONOEXISTE = "4";
-                public const string ERROR_NOMBRENOENVIADO = "5";
-                public const string ERROR_ORIGENNOENVIADO = "6";
-                public const string ERROR_CONTACTOSNOENVIADO = "7";
-                public const string ERROR_TIPOCONTACTONOENVIADO = "8";
-                public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
-                public const string ERROR_FORMATOTELCELULAR = "10";
-                public const string ERROR_FORMATOTELFIJO = "11";
-                public const string ERROR_CONSULTORATELEFONOEXISTE = "12";
-            }
-
-            public static Dictionary<string, string> Message
-            {
-                get
-                {
-                    return _Message ?? (_Message = new Dictionary<string, string>
-                    {
-                        {Code.SUCCESS, "OK"},
-                        {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente no tiene un número de teléfono."},
-                        {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
-                        {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
-                        {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
-                        {Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},
-                        {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
-                        {Code.ERROR_TIPOCONTACTONOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
-                        {Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
-                        {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
-                        {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
-                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
-                    });
-                }
-            }
-        }
-
-        public class ConsultoraClienteTipoContacto
-        {
-            public const short Celular = 1;
-            public const short Fijo = 2;
-            public const short Correo = 3;
-            public const short Direccion = 4;
-            public const short Referencia = 5;
-        }
-
-        public class ConsultoraClienteEstado
-        {
-            public const short Activo = 1;
-            public const short Inactivo = 0;
-        }
-
-        public class ConsultoraClienteTipoRegistro
-        {
-            public const short Todos = 0;
-            public const short DatosGenerales = 1;
-            public const short TipoContacto = 2;
-            public const short Anotaciones = 3;
-        }
-
-        public class CelularValidacion
-        {
-            private static Dictionary<string, string> _RegExp;
-
-            public static Dictionary<string, string> RegExp
-            {
-                get
-                {
-                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
-                    {
-                        {"BO", ""},
-                        {"CL", @"^(?:(9)[0-9]{8}|)$"},
-                        {"CO", @"^(?:(3)[0-9]{9}|)$"},
-                        {"CR", @"^[0-9]{8}$"},
-                        {"DO", ""},
-                        {"EC", @"^(?:[0-9]{9,10}|)$"},
-                        {"GT", @"^[0-9]{8}$"},
-                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{10}$.*$"},
-                        {"PA", @"^[0-9]{8}$"},
-                        {"PE", @"^(?:(9)[0-9]{8}|)$"},
-                        {"PR", ""},
-                        {"SV", @"^[0-9]{8}$"},
-                        {"VE", ""},
-                    });
-                }
-            }
-        }
-
-        public class TelefonoValidacion
-        {
-            private static Dictionary<string, string> _RegExp;
-
-            public static Dictionary<string, string> RegExp
-            {
-                get
-                {
-                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
-                    {
-                        {"BO", ""},
-                        {"CL", ""},
-                        {"CO", @"^(?:[0-9]{7}|)$"},
-                        {"CR", @"^(?:[0-9]{8}|)$"},
-                        {"DO", ""},
-                        {"EC", @"^(?:[0-9]{9,10}|)$"},
-                        {"GT", @"^(?:[0-9]{8}|)$"},
-                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{8,12}$.*$"},
-                        {"PA", @"^(?:[0-9]{8}|)$"},
-                        {"PE", @"^(?:[0-9]{7,9}|)$"},
-                        {"PR", ""},
-                        {"SV", @"^(?:[0-9]{8}|)$"},
-                        {"VE", ""},
-                    });
-                }
-            }
         }
     }
 }

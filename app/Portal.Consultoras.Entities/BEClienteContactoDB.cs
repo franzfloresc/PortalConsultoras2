@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        public long ContactoClienteID { get; set; }
+        [DataMember]
         public long ClienteID { get; set; }
         [DataMember]
         public short TipoContactoID { get; set; }

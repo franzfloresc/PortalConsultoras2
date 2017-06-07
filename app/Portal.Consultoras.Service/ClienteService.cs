@@ -131,23 +131,6 @@ namespace Portal.Consultoras.Service
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
 
-        #region ConsultoraCliente
-        public List<BEConsultoraClienteResponse> SincronizacionSubida(int paisID, long consultoraID, List<BEConsultoraCliente> clientes)
-        {
-            return new BLConsultoraCliente(paisID).SincronizacionSubida(consultoraID, clientes);
-        }
-
-        public List<BEConsultoraCliente> SincronizacionBajada(int paisID, long consultoraID)
-        {
-            return new BLConsultoraCliente(paisID).SincronizacionBajada(consultoraID);
-        }
-
-        public BEConsultoraClienteResponse ValidaTelefono(int paisID, long consultoraID, BEContactoCliente contactoCliente)
-        {
-            return new BLConsultoraCliente(paisID).ValidaTelefono(consultoraID, contactoCliente);
-        }
-        #endregion
-
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             return BLCliente.SaveDB(paisID, clientes);
@@ -156,6 +139,11 @@ namespace Portal.Consultoras.Service
         public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
         {
             return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+        }
+
+        public BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente)
+        {
+            return BLCliente.ValidateTelefonoByConsultoraDB(paisID, consultoraID, contactoCliente);
         }
     }
 }

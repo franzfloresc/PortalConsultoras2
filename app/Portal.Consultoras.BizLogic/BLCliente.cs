@@ -317,6 +317,69 @@ namespace Portal.Consultoras.BizLogic
 
             return clientes;
         }
+
+        public BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente)
+        {
+            BEClienteResponse clienteResponse = null;
+            var daClienteDB = new DAClienteDB();
+
+            if (!this.ValidateTelefono(paisID, contactoCliente.TipoContactoID, contactoCliente.Valor))
+            {
+                clienteResponse = new BEClienteResponse()
+                {
+                    ClienteID = contactoCliente.ClienteID,
+                    CodigoRespuesta = (contactoCliente.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? Constantes.ClienteValidacion.Code.ERROR_FORMATOTELCELULAR : Constantes.ClienteValidacion.Code.ERROR_FORMATOTELFIJO),
+                    MensajeRespuesta = (contactoCliente.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_FORMATOTELCELULAR] : Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_FORMATOTELFIJO])
+                };
+            }
+
+            if (clienteResponse == null)
+            {
+                var clienteDB = new BEClienteDB()
+                {
+                    ConsultoraID = consultoraID,
+                    ClienteID = contactoCliente.ClienteID,
+                    Nombres = string.Empty
+                };
+
+                var valConsultora = this.ValidateConsultora(paisID, clienteDB, contactoCliente);
+                if (valConsultora != Constantes.ClienteValidacion.Code.SUCCESS)
+                {
+                    clienteResponse = new BEClienteResponse()
+                    {
+                        ClienteID = contactoCliente.ClienteID,
+                        CodigoRespuesta = valConsultora,
+                        MensajeRespuesta = Constantes.ClienteValidacion.Message[valConsultora]
+                    };
+                }
+                else if (contactoCliente.ClienteID > 0)
+                {
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+
+                    if (lstCliente.Count > 0)
+                    {
+                        clienteResponse = new BEClienteResponse()
+                        {
+                            ClienteID = contactoCliente.ClienteID,
+                            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE,
+                            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE]
+                        };
+                    }
+                }
+            }
+
+            if (clienteResponse == null)
+            {
+                clienteResponse = new BEClienteResponse()
+                {
+                    ClienteID = contactoCliente.ClienteID,
+                    CodigoRespuesta = Constantes.ClienteValidacion.Code.SUCCESS,
+                    MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS]
+                };
+            }
+
+            return clienteResponse;
+        }
         #endregion
 
         #region Metodos Privados
