@@ -433,6 +433,11 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
                             {
                                 GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+                                if (model.Puntos.Count == 1)
+                                {
+                                    model.Latitud = model.Puntos[0].Item1;
+                                    model.Longitud = model.Puntos[0].Item2;
+                                }
 
                             }
                             else
