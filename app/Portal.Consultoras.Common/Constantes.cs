@@ -569,6 +569,18 @@
             public const int Activo = 2;
         }
 
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }
+
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+
         public class TipoOfertasPlan20
         {
             public const int OfertaFinal = 35;

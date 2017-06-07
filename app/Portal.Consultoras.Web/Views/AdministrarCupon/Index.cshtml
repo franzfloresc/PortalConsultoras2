@@ -41,7 +41,7 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/AdministrarCupon/Partials/crearCupon.cshtml")
+@Html.Partial("~/Views/AdministrarCupon/Partials/mantenimientoCupon.cshtml")
 
 <div id="loadingScreen"></div>
 <script type="text/javascript">
@@ -49,7 +49,7 @@
     var urlCrearCupon = '@Url.Action("CrearCupon", "AdministrarCupon")';
     var urlActualizarCupon = '@Url.Action("ActualizarCupon", "AdministrarCupon")';
     var urlListarCuponesPorCampania = '@Url.Action("ListarCuponesPorCampania", "AdministrarCupon")';
-    // var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var urlImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
 </script>
 <script src="~/Scripts/PortalConsultoras/Campania/CampaniaModule.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cupon/CuponAdm.js"></script>

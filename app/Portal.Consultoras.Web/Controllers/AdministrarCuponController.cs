@@ -63,10 +63,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                using (PedidoServiceClient svClient = new PedidoServiceClient())
+                var listaCupones = ListarCuponesPorCampania(userData.PaisID, model.CampaniaId);
+                var existeCupon = listaCupones.Any(x => x.Tipo == model.Tipo && x.CampaniaId == model.CampaniaId && x.CuponId != model.CuponId);
+
+                if (!existeCupon)
                 {
-                    var cuponBE = MapearCuponModelABECupon(model);
-                    svClient.ActualizarCupon(cuponBE);
+                    using (PedidoServiceClient svClient = new PedidoServiceClient())
+                    {
+                        var cuponBE = MapearCuponModelABECupon(model);
+                        svClient.ActualizarCupon(cuponBE);
+                    }
+                }
+                else {
+                    return Json(new { success = false, message = "El tipo de cupón a actualizar ya está registrado a la campaña." }, JsonRequestBehavior.AllowGet);
                 }
 
                 return Json(new { success = true, message = "El cupón fue actualizado." }, JsonRequestBehavior.AllowGet);
@@ -119,13 +128,14 @@ namespace Portal.Consultoras.Web.Controllers
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    rows = from a in items
+                    rows = from row in items
                            select new
                            {
-                               id = a.CuponId,
-                               Tipo = a.Tipo,
-                               Descripcion = a.Descripcion,
-                               FechaCreacion = a.FechaCreacion.ToString("dd/MM/yyyy")
+                               id = row.CuponId,
+                               Tipo = (row.Tipo == Constantes.CodigoTipoCupon.Monto.ToString() ? Constantes.NombreTipoCupon.Monto : Constantes.NombreTipoCupon.Porcentaje),
+                               Descripcion = row.Descripcion,
+                               FechaCreacion = row.FechaCreacion.ToString("dd/MM/yyyy HH:mm"),
+                               Estado = row.Estado
                            }
                 };
 
