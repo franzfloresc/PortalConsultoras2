@@ -108,6 +108,7 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
+
     if (data.Lista.length == 0) {
         return false;
     }
@@ -141,11 +142,11 @@ function ArmarCarouselEstrategias(data) {
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
-    
 
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         return false;
     }
+
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
