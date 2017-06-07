@@ -1410,10 +1410,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 solicitudPostulante.Latitud = latitud;
                 solicitudPostulante.Longitud = longitud;
-                //solicitudPostulante.Direccion = direccion.ToUpper(); // (comuna + " " + direccion).ToUpper();
-                solicitudPostulante.Direccion = solicitudPostulante.Direccion;
-                solicitudPostulante.LugarPadre = region;
-                solicitudPostulante.LugarHijo = comuna;
 
                 if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
                 {
