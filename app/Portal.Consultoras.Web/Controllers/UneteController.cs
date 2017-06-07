@@ -432,6 +432,11 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) != null && model.Longitud == null && model.Latitud == null)
                             {
                                 GetLocationInfoByAddress(ref model, ref solicitudPostulante, direccion);
+                                if (model.Puntos.Count == 1)
+                                {
+                                    model.Latitud = model.Puntos[0].Item1;
+                                    model.Longitud = model.Puntos[0].Item2;
+                                }
 
                             }
                             else
@@ -4006,10 +4011,10 @@ namespace Portal.Consultoras.Web.Controllers
                     try
                     {
                         var urlServicioLocalColombia = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
-              
 
 
-                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
+
+                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
                         var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
                             parametro, urlServicioLocalColombia);
                         if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
