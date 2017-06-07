@@ -2759,6 +2759,7 @@
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
+    <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
@@ -2786,6 +2787,7 @@
     <Content Include="Content\Images\RevistaDigital\prod3.png" />
     <Content Include="Content\Images\RevistaDigital\prod0.png" />
     <Content Include="Content\Images\RevistaDigital\prod4.png" />
+    <Content Include="Content\Images\RevistaDigital\rd_arrowdown.svg" />
     <Content Include="Content\Images\RevistaDigital\rd_arrowright.png" />
     <Content Include="Content\Images\RevistaDigital\rd_cons.png" />
     <Content Include="Content\Images\RevistaDigital\producto_kadia.png" />

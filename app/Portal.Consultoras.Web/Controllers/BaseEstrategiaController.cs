@@ -354,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             var isMobile = IsMobile();
-            ListaProductoModel.Update(estrategia =>
+            ListaProductoModel.ForEach(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 estrategia.UrlCompartirFB = GetUrlCompartirFB();

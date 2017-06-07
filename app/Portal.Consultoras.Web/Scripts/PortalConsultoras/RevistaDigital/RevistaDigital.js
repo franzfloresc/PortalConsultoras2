@@ -98,6 +98,13 @@ $(document).ready(function () {
 
     });
 
+    $(".flecha_scroll_mob").on('click', function (e) {
+
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#divTopFiltros').position().top - 60
+        }, 1000, 'swing');
+    });
    
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
@@ -170,10 +177,20 @@ function ResizeBoxContnet() {
         var image = $('.flex-container').find('img');
         image.each(function () {
             var that = $(this);
-            if (that.width() < 200) {
+            if (that.width() < 115) {
                 console.log(that.attr('src'));
-                that.closest('.content_item_home').find('.nombre_producto').css("maxWidth", "175px");
-                that.closest('.content_item_home').find('.producto_precio').css("minWidth", "125px");
+                that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
+                that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "105px");
+            }
+            else if (that.width() < 150) {
+                console.log(that.attr('src'));
+                that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "140px");
+                that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "140px");
+            }
+            else if (that.width() < 200) {
+                console.log(that.attr('src'));
+                that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "190px");
+                that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "190px");
             }
         });
     } catch (e) {
