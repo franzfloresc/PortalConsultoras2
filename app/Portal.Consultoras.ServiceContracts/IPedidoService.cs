@@ -1040,13 +1040,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
-
-        [OperationContract]
-        BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania);
-
-        [OperationContract]
-        BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID);
-        
+ 
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
 
@@ -1094,9 +1088,6 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
-
-        [OperationContract]
-        bool EnviarCorreoReservaProl(BEInputReservaProl input);
        
         #region Cupon
         

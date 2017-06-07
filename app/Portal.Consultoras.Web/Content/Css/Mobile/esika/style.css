@@ -10956,14 +10956,14 @@ a{
     text-align:center;
     margin-top:15px;
 }
-.termino_condiciones_intriga {
+.termino_condiciones_intriga, .termino_condiciones_cupon {
     position:relative;
     padding-left:18px;
     margin:0 auto;
     margin-top:20px;
     font-family:'Lato';
     font-size:10.5px;
-    width:248px;    
+    max-width:260px;    
     text-align: left;
 }
 .termino_condiciones_cupon {

@@ -1901,44 +1901,6 @@ namespace Portal.Consultoras.Service
             return new BLEstrategiaProducto().GetEstrategiaProducto(entidad);
         }
 
-        #region AppCatalogo
-
-        /*      EPD-2035        */
-        public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania )
-        {
-            Boolean error = true;
-            try
-            {
-                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código ISO de País.");
-                if (prefijoISO.Length > 2) return new BEResultadoMisPedidosAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
-                if (tipoUsuario == 1 && (dispositivoID == null || dispositivoID == string.Empty)) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código del dispositivo.");
-                if (tipoUsuario == 2 && consultoraID == 0) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código de consultora.");
-
-                int paisID = GetPaisID(prefijoISO);
-                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
-                return blSolicitudCliente.GetPedidosAppCatalogo(paisID, consultoraID, dispositivoID, tipoUsuario, campania);
-            }
-            catch (Exception ex) { return new BEResultadoMisPedidosAppCatalogo(error, ex.Message); }
-        }
-
-        public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID)
-        {
-            Boolean error = true;
-            try
-            {
-                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código ISO de País.");
-                if (prefijoISO.Length > 2) return new BEResultadoPedidoDetalleAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
-                if ( pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
-
-                int paisID = GetPaisID(prefijoISO);
-                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
-                return blSolicitudCliente.GetPedidoDetalle(paisID, pedidoID);
-            }
-            catch (Exception ex) { return new BEResultadoPedidoDetalleAppCatalogo(error, ex.Message); }
-        }
-
-        /*      FIN EPD-2035        */
-        #endregion
         public int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity)
         {
             return new BLShowRoomEvento().ShowRoomProgramarAviso(paisID, entity);
@@ -2016,21 +1978,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
 
-        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
-        {
-            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
-        }
-
-        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
-        {
-            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
-        }
-
-        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
-        {
-            return BLRevistaDigitalSuscripcion.Single(entidad);
-        }
-        
         #region Cupon
 
         public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
@@ -2049,5 +1996,21 @@ namespace Portal.Consultoras.Service
         }
 
         #endregion
+
+        public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+
+        public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Desuscripcion(entidad);
+        }
+
+        public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
+        {
+            return BLRevistaDigitalSuscripcion.Single(entidad);
+        }
+
     }
 }
