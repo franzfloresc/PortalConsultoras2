@@ -4,12 +4,9 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -47,8 +44,9 @@ namespace Portal.Consultoras.Web.Controllers
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
-            
-            Session["ListadoEstrategiaPedido"] = listEstrategia;
+
+            Session["ListadoEstrategiaPedido" + (campaniaID > 0 ? campaniaID.ToString() : "")] = listEstrategia;
+            //Session["ListadoEstrategiaPedido"] = listEstrategia;
             return listEstrategia;
         }
 
