@@ -62,6 +62,9 @@ namespace Portal.Consultoras.Entities
         public bool EsServicios { get; set; }
         /*Fin Cambios_Landing_Comunidad*/
 
+        [DataMember]
+        public string Codigo { get; set; }
+
         public BEPermiso() { }
         public BEPermiso(IDataRecord row)
         {
@@ -111,6 +114,8 @@ namespace Portal.Consultoras.Entities
                 EsServicios = Convert.ToBoolean(row["EsServicios"]);
             }
             /*Fin Cambios_Landing_Comunidad*/
+
+            if (row.HasColumn("Codigo")) Codigo = Convert.ToString(row["Codigo"]);
 
         }
     }

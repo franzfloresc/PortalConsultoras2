@@ -13,16 +13,30 @@
          display: none;
     }
     </style>
+<link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
+    @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
+    {
+        <div class="revistadigital-detalle-titulo">
+            <div class="logo_EPT_content"><span>VOLVER</span></div>
+            <div class="texto_usuario_ept">ÉSIKA PARA MÍ</div>
+        </div>
+    }
+    else
+    {
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
+    }    
 </div>
-<div class="" style="border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->   
-</div>
+@if (Model.Codigo != Constantes.MenuCodigo.RevistaDigital)
+{
+    <div class="" style="border-bottom:0">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    </div>
+}
 @{ 
     var btnDesabled = 0;
     var btnDesabledClass = "";
@@ -364,13 +378,7 @@
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
-        var origenRetorno = '';
-        if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'
-        }
-        else if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Pedido", new { area = "Mobile" })'
-        }
+        var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>

@@ -21664,7 +21664,7 @@ label.checkpop.c_on {
 
 .content_carrusel_ofertas {
     /* float: left; */
-    width: 90%;
+    width: 92%;
     margin: 0 auto;
     height: auto;
     /* margin-left: 2%; */
@@ -22862,6 +22862,7 @@ body {
     display: inline-block;
     /*margin-right:80px;*/
     margin-bottom: 70px;
+    overflow:hidden;
 }
 
 .arrow_revista {
@@ -32030,20 +32031,6 @@ h1#penmostreo .campana {
     .sinOfertasParaTi .info_tiempo_oportunidad.inicial {
         margin-left: 15%;
     }
-}
-
-#divCatalogoPersonalizado .nombre_producto {
-    padding: 0;
-    font-size: 13px;
-    margin: 0 auto;
-    width: 100%;
-    max-width: 177px;
-    overflow: hidden;
-    height: 76px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
 }
 
 .oscurecer_animacion {
