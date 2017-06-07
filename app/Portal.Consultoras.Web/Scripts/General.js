@@ -875,6 +875,7 @@ function LayoutMenuFin() {
     do {
         $(".wrapper_header").css("max-width", "");
         $(".wrapper_header").css("width", "");
+
         $(".logo_esika").css("width", "");
         $(".menu_esika_b").css("width", "");
         $(idMenus).css("margin-left", "5px");
@@ -885,6 +886,7 @@ function LayoutMenuFin() {
         var wr = $(".menu_esika_b").innerWidth();
         $(".wrapper_header").css("max-width", wt + "px");
         $(".wrapper_header").css("width", wt + "px");
+
         $(".logo_esika").css("width", wl + "px");
         $(".menu_esika_b").css("width", wr + "px");
 

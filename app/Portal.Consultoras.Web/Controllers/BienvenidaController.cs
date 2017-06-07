@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (Request.Browser.IsMobileDevice)
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
             var model = new BienvenidaHomeModel();
 
             try
@@ -528,7 +531,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
                     if (!userData.RevistaDigital.NoVolverMostrar)
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                     {
                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0)
                         {

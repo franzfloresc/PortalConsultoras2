@@ -243,14 +243,21 @@ namespace Portal.Consultoras.BizLogic
 
                 estrategias.ForEach(estrategia =>
                 {
-                    var add = true;
-                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    if (estrategia.Precio2 > 0)
                     {
+                        var add = true;
+                        if (estrategia.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
                         add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-                    }
-                    if (!add) return;
+                        }
+                        if (!add) return;
 
-                    estrategiasResult.Add(estrategia);
+                        if (estrategia.Precio >= estrategia.Precio2)
+                            estrategia.Precio = Convert.ToDecimal(0.0);
+
+                        estrategiasResult.Add(estrategia);
+                    }
                 });
             }
             else estrategiasResult.AddRange(estrategias);

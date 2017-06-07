@@ -61,10 +61,10 @@
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
-    <Compile Include="BEConfiguracionPais.cs" />
-    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
+    <Compile Include="BEConfiguracionPais.cs" />
+    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />

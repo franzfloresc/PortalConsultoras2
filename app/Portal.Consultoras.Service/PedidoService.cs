@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.Service
 {
@@ -35,10 +36,11 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
-        private BLCuponConsultora BLCuponConsultora;
         private BLCupon BLCupon;
         private BLEstrategia blEstrategia;        
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private BLCuponConsultora BLCuponConsultora;
+
 
         public PedidoService()
         {
@@ -61,10 +63,10 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
-            BLCuponConsultora = new BLCuponConsultora();
             BLCupon = new BLCupon();
             blEstrategia = new BLEstrategia();            
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -1941,17 +1943,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().EjecutarReservaProl(input);
         }
-        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
-        {
-            return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
-        }
 
-        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
-        {
-            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
-        }
-        
-        
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().InsMatrizComercialImagen(entity);
@@ -1980,6 +1972,16 @@ namespace Portal.Consultoras.Service
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
             return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
+        }
+        
+        public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
+        {
+            return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
+        }
+
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
 
         public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)

@@ -545,7 +545,6 @@
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
-
         public class MenuCodigo
         {
             public const string RevistaShowRoom = "ShowRoom";
@@ -555,26 +554,10 @@
             public const string CatalogoPersonalizado = "FDTC";
         }
 
-        public class ConfiguracionPais
-        {
-            public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
-            public const string RevistaDigitalSuscripcion = "RDS";
-        }
 
-        public class EstadoRDSuscripcion
-        {
             public const int SinRegistroDB = 0;
-            public const int Activo = 1;
-            public const int Desactivo = 2;
-            public const int NoPopUp = 3;
-        }
 
-        public struct TablaLogica
-        {
-            public const int Plan20 = 98;
-        }
-        
         public class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -626,7 +609,13 @@
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
         }
-
+        
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
+            public const string RevistaDigitalSuscripcion = "RDS";
+        }
 
         public class TooltipLoginUsuario
         {
@@ -669,6 +658,19 @@
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int SinRegistroDB = 0;
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
+
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
         }
 
     }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -1073,16 +1074,6 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
         #region Cupon
-
-        [OperationContract]
-        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
-
-        [OperationContract]
-        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
-        
-        [OperationContract]
-        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
-
         [OperationContract]
         void CrearCupon(BECupon cupon);
 
@@ -1096,10 +1087,10 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
-
+        
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
-
+        
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
    
@@ -1120,5 +1111,18 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        #region Cupon
+
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
     }
 }
