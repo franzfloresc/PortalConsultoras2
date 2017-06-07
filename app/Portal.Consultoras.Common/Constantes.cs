@@ -649,8 +649,6 @@ namespace Portal.Consultoras.Common
             public const string Mobile = "SOMOS_BELCORP_MOBILE";
         }
         #endregion
-    }
-}
 
         public class IngresoExternoPagina
         {
