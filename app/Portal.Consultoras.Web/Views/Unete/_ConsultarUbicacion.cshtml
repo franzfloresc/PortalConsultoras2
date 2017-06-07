@@ -1433,8 +1433,13 @@
     $('#btnGrabarPosicion').click(function () {
 
         if ($('#regionXY').val() == '' || $('#regionXY').val() == null) {
+            $('#coordenadasX').val(0);
+            $('#coordenadasY').val(0);
+            //
             //return;
         }
+
+        
 
         var data = {
             id: $('#SolicitudPostulanteID').val(),
@@ -1780,6 +1785,17 @@
                     position: place.geometry.location,
                     icon: urlContentImages + 'icono-maps-lbel.png'
                 });
+                newMarker.addListener('click', function () {
+                    //Change the marker icon
+                    //pintarRojo();
+                    setMarkerOnMap(map, this);
+                    clearMarkerMenosSeleccionado(this)
+                    this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                    $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
+                    $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                    MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
+
+                });
                 markers.push(newMarker);
                 if (place.geometry.viewport) {
                     bounds.union(place.geometry.viewport);
@@ -1852,6 +1868,8 @@
             $('.contenedor_coordenadasYRegion').removeClass('alineadoDerecha');
             $('#btnEditarPosicion').hide();
             $('#btnGrabarPosicion').show();
+            //$('#btnCancelarGrabadoPosicion').attr('disabled', false);
+            //$('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
 
             //Nuevo requerimiento Colombia
             @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
@@ -2008,6 +2026,19 @@
                     position: place.geometry.location,
                     icon: urlContentImages + 'icono-maps-lbel.png'
                 });
+
+                marker.addListener('click', function () {
+                    //Change the marker icon
+                    //pintarRojo();
+                    setMarkerOnMap(map, this);
+                    clearMarkerMenosSeleccionado(this)
+                    this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                    $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
+                    $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                    MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
+
+                });
+
                 markers.push(marker);
                 if (place.geometry.viewport) {
                     bounds.union(place.geometry.viewport);

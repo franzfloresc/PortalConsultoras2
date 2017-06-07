@@ -74,10 +74,23 @@
     </div>
 
 <script>
-    var DatoRegionZonaSeccion = "@Model.DataRegZonaSeccion";
-    var DatoLatitud = "@Model.Latitud";
-    var DatoLongitud = "@Model.Longitud";
+    var DatoRegionZonaSeccion = '';
+    var DatoLatitud = '';
+    var DatoLongitud = '';
     var DatoResetearBotones = "@Model.ResetearBotones";
+    @if (Model.Latitud != null)
+    {
+        <text>DatoLatitud = "@Model.Latitud";</text>
+    }
+    @if (Model.Longitud != null)
+    {
+        <text>DatoLongitud = "@Model.Longitud";</text>
+    }
+    @if (!string.IsNullOrEmpty(Model.DataRegZonaSeccion))
+    {
+        <text>DatoRegionZonaSeccion = "@Model.DataRegZonaSeccion";</text>
+    }
+
     var centrarPopupInfoError = ($(window).height() - $(".popup_infoError").outerHeight()) / 2;
     $(".popup_infoError").css({ "top": centrarPopupInfoError });
 
@@ -86,6 +99,11 @@
         $('#regionXY').val(DatoRegionZonaSeccion);
         $('#coordenadasX').val(DatoLatitud);
         $('#coordenadasY').val(DatoLongitud);
+        $('#Region').val("@Model.Region");
+        $('#Zona').val("@Model.Zona");
+        $('#Seccion').val("@Model.Seccion");
+        $('#Territorio').val("@Model.Territorio");
+
         $('#divTemplateMensaje').hide();
         $('#divConfirmarPosicion').hide();
         $('#divConsultarUbicacion').css({ "overflow-y": "auto" });
