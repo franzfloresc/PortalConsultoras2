@@ -2,10 +2,10 @@
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
 @model PedidoMobileModel
-
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
+
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
@@ -678,9 +678,9 @@
     </div>
 </script>
 
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
 @section scripts
 {
@@ -689,8 +689,8 @@
 
     var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
     var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
-    if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.EsikaMobile';
-    else var mensajeCUVOfertaEspecial = '@Constantes.OfertaEspecialMensajes.LbelMobile';
+    if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaMobile';
+    else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelMobile';
     var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
     var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 

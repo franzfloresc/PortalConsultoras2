@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 		public ActionResult Index()
 		{
-			var mostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
+			var mostrarRevistaDigital = ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida);
 			var clienteModel = new MisCatalogosRevistasModel();
 			clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
 			clienteModel.CampaniaActual = userData.CampaniaID.ToString();

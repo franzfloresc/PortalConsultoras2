@@ -19,7 +19,9 @@ $(document).ready(function () {
         $('#PopSugerido').hide();
 
         if (codigo == "") {
-            VisibleEstrategias(true);
+            if (typeof tieneOPT !== 'undefined' && tieneOPT) {
+                VisibleEstrategias(true);
+            }
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });

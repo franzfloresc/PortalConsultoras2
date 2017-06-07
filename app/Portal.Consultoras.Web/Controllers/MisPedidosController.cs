@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Simbolo = userData.Simbolo;
                 model.UserIso = userData.CodigoISO;
 
-                BEUsuario usuario;
+                ServiceUsuario.BEUsuario usuario;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     usuario = sv.Select(UserData().PaisID, UserData().CodigoUsuario);

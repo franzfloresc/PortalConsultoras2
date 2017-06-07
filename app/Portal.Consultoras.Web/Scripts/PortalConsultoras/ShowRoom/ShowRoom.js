@@ -652,8 +652,10 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
     if (response.success) {
         var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
         if (listaProdShowRoomSubCampanias.length < 1) {
-            OcultarDivOfertaShowroomMobile();
-            return false;
+            if (tieneCompraXCompra == 'False') {
+                OcultarDivOfertaShowroomMobile();
+                return false;
+            }
         }
 
         var data = new Object();

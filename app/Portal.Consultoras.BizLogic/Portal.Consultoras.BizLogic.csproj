@@ -77,8 +77,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -89,6 +91,10 @@
     <Compile Include="BLCuponConsultora.cs" />
     <Compile Include="BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
+    <Compile Include="BLPalabraInvalida.cs" />
+    <Compile Include="BLProductoPalabra.cs" />
+    <Compile Include="BLProactivaChatbot.cs" />
+    <Compile Include="BLReservaProl.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />
     <Compile Include="BizLogicException.cs" />
     <Compile Include="BLAfiliaClienteConsultora.cs" />
@@ -140,6 +146,7 @@
     <Compile Include="BLMailing.cs" />
     <Compile Include="BLMensajeCUV.cs" />
     <Compile Include="BLMensajeMetaConsultora.cs" />
+    <Compile Include="BLMenuApp.cs" />
     <Compile Include="BLMenuMobile.cs" />
     <Compile Include="BLMiAcademia.cs" />
     <Compile Include="BLConsultoraOnline.cs" />
@@ -163,6 +170,7 @@
     <Compile Include="BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
     <Compile Include="BLPedidoWebDetalle.cs" />
+    <Compile Include="BLPedidoWebDetalleManager.cs" />
     <Compile Include="BLPermiso.cs" />
     <Compile Include="BLPopupPais.cs" />
     <Compile Include="BLProcesoPedidoRechazado.cs" />
@@ -205,6 +213,11 @@
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
+    <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PedidoInsertMessages.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
@@ -237,8 +250,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Template\mailing_proceso_descarga_excepcion.html">
+    </Content>
+    <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_proceso_descarga_excepcion.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

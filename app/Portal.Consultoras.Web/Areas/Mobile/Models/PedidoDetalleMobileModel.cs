@@ -127,6 +127,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         /* SB20-565 - FINAL */
         public int TieneCupon { get; set; }
         public bool EmailActivo { get; set; }
+
+        public bool AutoReservar { get; set; }
         public string EMail { get; set; }
         public string Celular { get; set; }
     }
