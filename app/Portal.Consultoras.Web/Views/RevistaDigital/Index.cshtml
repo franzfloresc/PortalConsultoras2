@@ -47,9 +47,9 @@
     </div>
 }
 <hr class="clear" />
+
 <div style="display: none;" data-tag-html="1">
-    @try
-    {
+
         <div class="catalogoPersonalizadoBloque">
             <div class="content_belcorp">
                 <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="">
+                <div data-listado-campania="">
                     <hr class="clear" />
                     <div id="divOfertaProductos" style="text-align: center;"></div>
                     <hr class="clear" />
@@ -103,28 +103,20 @@
             </div>
             <hr class="clear" />
         </div>
-    }
-    catch(Exception e)
-    {
-        Console.WriteLine(e);
-        <p style="color: red;"> Error del html @e.StackTrace</p>
-    }
     
-    <!--FIN-->
-
-    <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-        <div class="titulo_producto_agregado">
-            ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
-        </div>
-        <div class="div_bonotes_producto">
-            <div class="child_center_botones">
-                <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-                <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
-            </div>
+</div>
+<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
+    <div class="titulo_producto_agregado">
+        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
+    </div>
+    <div class="div_bonotes_producto">
+        <div class="child_center_botones">
+            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
+            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
         </div>
     </div>
-
 </div>
+
 <hr class="clear" />
 <div class="Vista3" style="display: none;" data-tag-html="0">
     <div class="content_gana_mas">

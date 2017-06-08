@@ -31,18 +31,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (model.EstadoAccion < 0)
                 return model;
 
-            model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-            var listaProducto = ConsultarEstrategiasModel();
-            //using (SACServiceClient svc = new SACServiceClient())
-            //{
-            //    model.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
-            //}
-
             model.FiltersBySorting = new List<BETablaLogicaDatos>();
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
-            
+
+            model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            var listaProducto = ConsultarEstrategiasModel();
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 

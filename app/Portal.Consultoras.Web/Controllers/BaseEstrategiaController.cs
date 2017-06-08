@@ -12,15 +12,16 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaID = 0)
+        public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId = 0)
         {
-            if (Session["ListadoEstrategiaPedido"] != null) return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+            string varSession = "ListadoEstrategiaPedido" + (campaniaId > 0 ? campaniaId.ToString() : "");
+            if (Session[varSession] != null) return (List<BEEstrategia>)Session[varSession];
 
             //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
-                CampaniaID = campaniaID > 0 ? campaniaID : userData.CampaniaID,
+                CampaniaID = campaniaId > 0 ? campaniaId : userData.CampaniaID,
                 ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
                 CUV2 = cuv ?? "",
                 Zona = userData.ZonaID.ToString(),
@@ -45,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
 
-            Session["ListadoEstrategiaPedido" + (campaniaID > 0 ? campaniaID.ToString() : "")] = listEstrategia;
+            Session[varSession] = listEstrategia;
             //Session["ListadoEstrategiaPedido"] = listEstrategia;
             return listEstrategia;
         }
@@ -239,9 +240,9 @@ namespace Portal.Consultoras.Web.Controllers
             return estrategia;
         }
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "", int campaniaId = 0)
         {
-            var listaProducto = ConsultarEstrategias(cuv);
+            var listaProducto = ConsultarEstrategias(cuv, campaniaId);
             var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
 
             var listaPedido = ObtenerPedidoWebDetalle();
