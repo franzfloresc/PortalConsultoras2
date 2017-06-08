@@ -16,15 +16,28 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 <!--MAQUETADO NUEVO-->
-<div class="content_belcorp">
-    <div class="logo_EPT_content">
+
+    @*<div class="logo_EPT_content">
         <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     </div>
     <div class="texto_usuario_ept">
         @Html.Raw(Util.Trim(Model.Titulo))
         <span class="texto_light">@Model.TituloDescripcion</span>
+    </div>*@
+    
+    <div class="home_block_rd" style="margin-top: 61px;">
+        <div class="hblock"></div>
+        <div class="content_belcorp" style="background-color: black; padding: 0 !important">
+            <div class="rd_logo">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
+            </div>
+            <div class="hblock_text">
+                <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
+                <div style="width: 85%">@Model.TituloDescripcion</div>
+            </div>
+        </div>
     </div>
-</div>
+
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
 @if (Model.ListaTabs.Any())
@@ -203,19 +216,35 @@
             </div>
         </div>
         <hr class="clear"/>
+        
         <div class="descargarPreguntasRespuestas">
             <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
         </div>
-        <div class="titulo_no_inscrita" id="divAnularSuscripcion">
-            ¿ya no quieres estar inscrita a ésika para mí?
+       
+        <div id="divAnularSuscripcion">
+            <div class="titulo_no_inscrita">
+                ¿ya no quieres estar inscrita a ésika para mí?
+            </div>
+            <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
+            <div class="advertencia_no_inscrita">
+                Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas.
+                Cualquier duda llama a @Model.NumeroContacto o haz click
+                <a href="#" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a>
+            </div>
+            <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a> </div>
+            <hr class="clear" />
+            <div class="legal_gana_mas">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br />Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
         </div>
-        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
-        <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas. 
-            Cualquier duda llama a @Model.NumeroContacto o haz click 
-            <a href="#" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a></div>
-        <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a> </div>
-        <hr class="clear"/>
-        <div class="legal_gana_mas" >*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br/>Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+        <div id="divMensajeAnularSuscripcion" style="display: none">
+            <div class="titulo_no_inscrita">
+                haz anulado tu inscripción con éxito
+            </div>
+            <div class="texto_no_inscrita">
+                al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
+            </div>
+            <hr class="clear" />
+            <div class="legal_gana_mas"></div>
+        </div>
     </div>
 </div>
 

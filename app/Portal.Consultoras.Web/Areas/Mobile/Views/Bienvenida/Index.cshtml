@@ -626,7 +626,6 @@
         </div>
     </div>
     <!-- FIN POPUP DEMANDA ANTICIPADA -->
-
     <div class="btn_agregarPedido">
         <form>
             <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
@@ -1060,7 +1059,7 @@
         var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
         var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-        var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
+                var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
                 var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
                 var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 

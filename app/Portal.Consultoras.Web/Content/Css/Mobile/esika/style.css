@@ -5014,6 +5014,17 @@ table > thead > tr > th {
     color: black;
 }
 
+.producto_nombre_descripcion2 {
+    width: 100%;
+    padding-left: 8%;
+    padding-right: 8%;
+    margin-bottom: 16px;
+    height: auto;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    text-align: center;
+    color: black;
+}
     .producto_nombre_descripcion h6 {
         margin: 0;
         padding: 0;
@@ -5040,8 +5051,8 @@ table > thead > tr > th {
 
 .producto_precio {
     width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-family: 'Lato';
     letter-spacing: .2px;
     color: #000;
@@ -10139,7 +10150,7 @@ a{
 }
 
 .content_imagen_ficha img{
-    width: auto;
+    max-width: 100%;
     max-height: 230px;
 }
 
