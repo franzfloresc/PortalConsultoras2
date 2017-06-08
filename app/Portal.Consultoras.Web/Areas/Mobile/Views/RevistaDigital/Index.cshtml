@@ -179,7 +179,7 @@
         <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
     
-    <div id="divMensajeAnularSuscripcion" style="display: none">
+    <div class="box_cancelarInscripcion_ept" id="divMensajeAnularSuscripcion" style="display: none">
         <div class="content_320 ingresoPedidom">
             <div class="tit_preguntas">
                 haz anulado tu inscripción con éxito
@@ -230,7 +230,7 @@
                                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
                                 {{#if_eq EtiquetaID '1'}}
                                 {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal_bpt" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span><br />
+                                <span class="producto_precio_normal_bpt" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
                                 {{/iff}}
                                 {{/if_eq}}
                                 {{/iff}}

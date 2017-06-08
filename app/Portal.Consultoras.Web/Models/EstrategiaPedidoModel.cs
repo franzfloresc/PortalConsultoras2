@@ -81,6 +81,9 @@ namespace Portal.Consultoras.Web.Models
         public string OrigenUrl { get; set; }
         public string Codigo { get; set; }
 
+        public bool PuedeVerDetalle { get; set; }
+        public bool PuedeVerDetalleMob { get; set; }
+
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
     }

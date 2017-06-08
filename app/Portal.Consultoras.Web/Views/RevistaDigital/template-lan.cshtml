@@ -79,9 +79,14 @@ foreach (var lan in Model.ListaProducto)
                         </div>
                     </div>
                 </div>
-                <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new {area = Model.IsMobile ? "Mobile" : ""})/@lan.EstrategiaID';">ver más de este producto
-
-                </a>
+                @if (Model.IsMobile && lan.PuedeVerDetalleMob)
+                {
+                    <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new {area = "Mobile" })/@lan.EstrategiaID';">ver más de este producto
+                    </a>
+                }else if(lan.PuedeVerDetalle){
+                    <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital")/@lan.EstrategiaID';">ver más de este producto
+                    </a>
+                }
             </div>
         </div>
 
