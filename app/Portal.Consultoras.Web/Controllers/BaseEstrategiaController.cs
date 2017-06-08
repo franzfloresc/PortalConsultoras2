@@ -16,7 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["ListadoEstrategiaPedido"] != null) return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
 
-            var usuario = ObtenerUsuarioConfiguracion();            
+            //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -24,8 +24,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
                 CUV2 = cuv ?? "",
                 Zona = userData.ZonaID.ToString(),
-                ZonaHoraria = usuario.ZonaHoraria,
-                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                ZonaHoraria = userData.ZonaHoraria,
+                FechaInicioFacturacion = userData.FechaFinCampania,
                 ValidarPeriodoFacturacion = true,
                 Simbolo = userData.Simbolo,
                 CodigoAgrupacion = ""
