@@ -43,6 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             else if (origenPantalla == "7") // RevistaDigital
             {
+                modelo.Codigo = Constantes.MenuCodigo.RevistaDigital;
                 modelo.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
             return View(modelo);

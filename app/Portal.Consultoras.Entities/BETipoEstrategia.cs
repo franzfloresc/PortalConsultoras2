@@ -77,8 +77,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
                 Orden = Convert.ToInt32(row["Orden"]);
 
-            if (DataRecord.HasColumn(row, "FlagActivo") && row["FlagActivo"] != DBNull.Value)
-                FlagActivo = Convert.ToInt32(row["FlagActivo"]);
+            if (DataRecord.HasColumn(row, "FlagActivo")) FlagActivo = Convert.ToInt32(row["FlagActivo"]);
 
             if (DataRecord.HasColumn(row, "OfertaID") && row["OfertaID"] != DBNull.Value)
                 OfertaID = row["OfertaID"].ToString();

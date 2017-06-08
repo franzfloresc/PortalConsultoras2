@@ -152,8 +152,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 string CorreoAnterior = model.CorreoAnterior;
-                string cadena = "";
-                string resultado = "";
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
@@ -161,97 +159,25 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
                 entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                 entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;             /*20150907*/
-                entidad.RegionID = UserData().RegionID;         /*20150907*/
-                entidad.ConsultoraID = UserData().ConsultoraID; /*20150907*/
+                entidad.ZonaID = UserData().ZonaID;           
+                entidad.RegionID = UserData().RegionID;       
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
 
-                if (entidad.EMail != string.Empty)
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    int cantidad = 0;
-                    using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+                    string[] lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
                     {
-                        cantidad = svr.ValidarEmailConsultora(userData.PaisID, entidad.EMail, userData.CodigoUsuario);
-
-                        if (cantidad > 0)
-                        {
-                            return Json(new
-                            {
-                                Cantidad = cantidad,
-                                success = false,
-                                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                extra = ""
-                            });
-                        }
-                    }
-                }
-
-                //try
-                //{
-                //    using (UsuarioServiceClient svr = new UsuarioServiceClient())
-                //    {
-                //        resultado = Convert.ToString(svr.UpdActualizarDatos(UserData().PaisID, UserData().CodigoConsultora, entidad.EMail, entidad.Celular, entidad.Telefono));
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //    resultado = "0";
-                //}
-                resultado = "1";
-
-                if (resultado == "1")
-                {
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        entidad.PaisID = UserData().PaisID;
-                        sv.UpdateDatos(entidad, CorreoAnterior);
-                    }
-
-                    UsuarioModel UsuarioModelSession = userData;
-                    UsuarioModelSession.Celular = entidad.Celular;
-                    UsuarioModelSession.Telefono = entidad.Telefono;
-                    UsuarioModelSession.TelefonoTrabajo = entidad.TelefonoTrabajo;
-                    if (!string.IsNullOrEmpty(entidad.Sobrenombre)) UsuarioModelSession.Sobrenombre = entidad.Sobrenombre.ToUpper();
-                    else UsuarioModelSession.Sobrenombre = UsuarioModelSession.SobrenombreOriginal;
-                    SetUserData(UsuarioModelSession);
-
-                    /*R20150907*/
-                    string[] parametros = new string[] { entidad.CodigoUsuario, entidad.PaisID.ToString(), userData.CodigoISO, entidad.EMail };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(UserData().CodigoISO);
-                    HttpRequestBase request = this.HttpContext.Request;
-
-                    if (model.CorreoAnterior == null) model.CorreoAnterior = "";
-
-                    if (entidad.EMail.Trim() != model.CorreoAnterior.Trim())
-                    {
-
-                        UsuarioModelSession.EMail = entidad.EMail;
-                        SetUserData(UsuarioModelSession);
-
-                        //1774
-                        bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-                        string nomconsultora = string.Empty;
-
-                        if (String.IsNullOrEmpty(entidad.Sobrenombre))
-                        {
-                            nomconsultora = userData.PrimerNombre;
-                        }
-                        else
-                        {
-                            nomconsultora = entidad.Sobrenombre;
-                        }
-                        cadena =MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), nomconsultora, param_querystring, tipopais);
-                        
-                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "Confirmación de Correo", cadena, true, entidad.Nombre);
-                        //Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
-
                         return Json(new
                         {
-                            Cantidad = 0,
-                            success = true,
-                            message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                            Cantidad = lst[3],
+                            success = false,
+                            message = lst[2],
                             extra = ""
                         });
                     }
@@ -261,22 +187,11 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Cantidad = 0,
                             success = true,
-                            message = "- Sus datos se actualizaron correctamente.",
+                            message = lst[2],
                             extra = ""
                         });
                     }
                 }
-                else
-                {
-                    return Json(new
-                    {
-                        Cantidad = 0,
-                        success = true,
-                        message = "- El servicio de actualización de datos no se encuentra disponible en estos momentos. Por favor, inténtelo más tarde.",
-                        extra = ""
-                    });
-                }
-
             }
             catch (FaultException ex)
             {

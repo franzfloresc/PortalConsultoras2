@@ -1,9 +1,14 @@
 ﻿
+@using Portal.Consultoras.Web.Models
+@using System.Configuration
 @using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+    var campania2 = Model.CampaniaMasDos;
 }
 
 @section styles{
@@ -18,62 +23,37 @@
         <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
     </div>
     <div class="texto_usuario_ept">
-        @Html.Raw(Model.Titulo)
+        @Html.Raw(Util.Trim(Model.Titulo))
         <span class="texto_light">@Model.TituloDescripcion</span>
     </div>
 </div>
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
-@if (Model.EstadoAccion > 0)
+@if (Model.ListaTabs.Any())
 {
     <div class="content_tabs_landing">
         <div class="content_tabs_bpt">
-            <ul class="tabs_pagos">
+            <ul class="tabs_pagos" data-tab="tab">
                 @foreach (var tabs in Model.ListaTabs)
                 {
-                    <li class="one">
-                        <a href="javascript:;" id="@tabs.Id">
+                    <li>
+                        <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
                             <div class="texto_tab_pagos">@tabs.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
                 }
-                <hr id="barCursor" style="opacity: 1;">
+                <hr id="barCursor">
             </ul>
         </div>
     </div>
 }
-<div class="content_tabs_landing" style="display:none;">
-    <div class="content_tabs_bpt">
-        <ul class="tabs_pagos">
-            <li class="one">
-                <a href="javascript:;" id="VerVista1">
-                    <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
-                    <div class="marcador_tab"></div>
-                </a>
-            </li>
-            <li class="two">
-                <a href="javascript:;" id="VerVista2">                   
-                    <div class="texto_tab_pagos">VER CAMPAÑA 13</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>
-            <li class="three">
-                <a href="javascript:;" id="VerVista3">
-                    <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>            
-            <hr id="barCursor" style="opacity: 1;">
-        </ul>
-    </div>
-    <hr class="clear" />
-</div>
 <hr class="clear" />
-<div id="Vista1" style="display: none;">
+<div style="display: none;" data-tag-html="1">
+    @*
     <div class="catalogoPersonalizadoBloque">
         <div class="content_belcorp">
-            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
                 @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
             </div>
         </div>
@@ -91,16 +71,16 @@
                         }
                     </select>
                     <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                        @foreach (var item in Model.FiltersBySorting)
+                        @foreach (var item1 in Model.FiltersBySorting)
                         {
-                            <option value="@item.Codigo">@item.Descripcion</option>
+                            <option value="@item1.Codigo">@item1.Descripcion</option>
                         }
                     </select>
                 </div>
-                @*<div class="content_buscador_landing">
+                @<div class="content_buscador_landing">
                         <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
                         <a class="buscar_landing_ept">BUSCAR</a>
-                    </div>*@
+                    </div>@
                 <hr class="clear" />
                 <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
                     <div style="display:inline-block;">
@@ -135,9 +115,10 @@
             </div>
         </div>
     </div>
+    *@
 </div>
 <hr class="clear" />
-<div id="Vista3" class="Vista3" style="display: none;">
+<div class="Vista3" style="display: none;" data-tag-html="0">
     <div class="content_gana_mas">
         <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
         
@@ -156,7 +137,6 @@
                     <div class="texto_resaltante_gana">PUNTOS+</div>
                     <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
                 </div>
-                <div class="legal_gana_mas">Comparación VS. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
             </div>           
         </div>
         <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
@@ -167,42 +147,65 @@
             <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
-                <b>En esta campaña</b> te inscribes Ésika para mí, tu nueva revista online personalizada.
+                <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                <b>A partir de C-11</b> recibirás unicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.
+                <b>A partir de C-@campania2 </b>recibirás unicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@campania2 e ir planificando el pedido de la próxima campaña.
 
             </div>
             <div class="bloque_respuesta">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
+                <b>En C-@campania2 </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
             </div>
         </div>
         <hr class="clear" />
     </div>
     <div class="content_belcorp">
         <div class="titulo_funciona">preguntas frecuentes</div>
-        <div class="seccion_preguntas">
-            <div class="content_preguntas"><span>¿Qué es “Esika para mi”?</span></div>
-            <div class="content_preguntas"><span>¿Cómo hago para cancelar la inscripción?</span></div>
-            <div class="content_preguntas"><span>¿Cómo me inscribo en "Ésika para mi”?</span></div>
-            <div class="content_preguntas"><span>¿Cuál es el tiempo  mínimo de permanencia?</span></div>
-            <div class="content_preguntas"><span>¿Los productos que pido en Esika para mí, suman a mi pedido mínimo y para mis bonificaciones vigentes de la campaña?</span></div>
-            <div class="content_preguntas"><span>No encuentro las ofertas que tenía en la Guía de Negocio en “Ésika para mí”. ¿Dónde están?</span></div>
-            <div class="content_preguntas"><span>¿Ya me registre en “Ésika para mí” pero también quiero la revista impresa ¿Se puede?</span></div>
-            <div class="content_preguntas"><span>Por equivocación he dado click a la inscripción de “Ésika para mí” en el portal Somos Belcorp ¿Cómo la cancelo?</span></div>
-            <div class="content_preguntas"><span>¿Desde cuál campaña no recibiré mi Revista Impresa ¿Por qué?</span></div>
-            <div class="content_preguntas"><span>¿Por qué cancelaron mi revista impresa?</span></div>
-         </div>
-        <div class="titulo_no_inscrita">
+        <div class="ept_preguntasRespuestas_accordion">
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Qué es “Ésika para mí”? </div>
+                <div class="text_respuesta_ept">Es tu revista online personalizada, con las mejores y exclusivas ofertas que se acomodan a tus preferencias y de tu negocio. Son las ofertas que sí o sí tus clientes te pedirán.</div>
+            </div>
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” tienen algún descuento adicional? ¿O es su precio final lo que sale en el momento de la compra?</div>
+                <div class="text_respuesta_ept">El precio que ves en “Ésika para mí” es el precio neto consultora, es el precio que deberás pagar una vez facturado tu pedido.</div>
+            </div>
+            <div class="box_pregunta_ept">
+                <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
+                <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
+            </div>
+        </div>
+        <div class="ept_preguntasRespuestas_accordion2">
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">Mi amiga y yo tenemos el mismo producto, pero los precios son distintos. ¿Por qué?</div>
+                <div class="text_respuesta_ept2">“Ésika para mí” ofrece ofertas personalizadas en función a tu historial de compra y preparará para ti las mejores ofertas en función a esto. De esta manera, las ofertas que figuren en tu “Ésika para mí” tendrán mayor probabilidad de venta, porque ya tienes clientes que seguramente estén interesados en estos.</div>
+            </div>
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">¿Cuál es mi ganancia por la venta de los productos de “Ésika para mí”?</div>
+                <div class="text_respuesta_ept2">Todos los precios son no comisionables (funciona como revista). La ganancia es el precio de catálogo del producto menos el precio de la revista online.</div>
+            </div>
+            <div class="box_pregunta_ept2">
+                <div class="tit_pregunta_ept2">¿Por qué cancelaron mi revista impresa?</div>
+                <div class="text_respuesta_ept2">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
+            </div>
+        </div>
+        <hr class="clear"/>
+        <div class="descargarPreguntasRespuestas">
+            <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
+        </div>
+        <div class="titulo_no_inscrita" id="divAnularSuscripcion">
             ¿ya no quieres estar inscrita a ésika para mí?
         </div>
-        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online ésika<br/> para mí Y volverás a recibir tu revista impresa en 2 campañas.</div>
-        <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa<br/> dentro de dos campañas. Cualquier duda entrar en contacto con el servicio de atención al cliente de tu país.</div>
-        <a class="btn_cancelar_inscripcion">CANCELAR MI INSCRIPCIÓN</a>
+        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
+        <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas. 
+            Cualquier duda llama a @Model.NumeroContacto o haz click 
+            <a href="#" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a></div>
+        <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a> </div>
+        <hr class="clear"/>
+        <div class="legal_gana_mas" >*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br/>Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
     </div>
-    
 </div>
 
 <div id="DialogMensajesBanner" style="display: none;">
@@ -211,7 +214,9 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+    @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+</div>
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 <script id="lanzamiento-template" type="text/x-handlebars-template">
@@ -245,7 +250,7 @@
                 {{/if_eq}}
                 {{/if_eq}}
                 <div class="content_ficha_producto">
-                    <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                    <img id="fav_imagen_prod" src="{{FotoProducto01}}" style="max-width: 300px !important;">
                 </div>
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
@@ -439,20 +444,12 @@
     </div>
 </script>
 
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
+    </a>
+</div>
+
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#VerVista1").on("click", function () {
-                $('#Vista1').show();
-                $('#Vista3').hide();
-            });
-            $("#VerVista3").on("click", function () {
-                $('#Vista1').hide();
-                $('#Vista3').show();
-                $('.Vista3').css('padding-top', '105px');
-            });
-        });
-    </script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
@@ -463,11 +460,18 @@
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
         var tipoOrigenEstrategia = 17;
         var estadoAccion = '@Model.EstadoAccion';
+        var dosCam = 0;
+        try {
+            dosCam = '@Model.CampaniaMasDos';
+        } catch (e) {
+           console.log(e);
+        }
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

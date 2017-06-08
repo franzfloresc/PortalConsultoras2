@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -33,6 +35,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle);
 
         [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
@@ -1047,6 +1052,12 @@ namespace Portal.Consultoras.ServiceContracts
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
+
+        [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
+
+        [OperationContract]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
@@ -1063,16 +1074,6 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
         #region Cupon
-
-        [OperationContract]
-        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
-
-        [OperationContract]
-        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
-        
-        [OperationContract]
-        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
-
         [OperationContract]
         void CrearCupon(BECupon cupon);
 
@@ -1083,7 +1084,16 @@ namespace Portal.Consultoras.ServiceContracts
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
 
         #endregion
-
+        
+        [OperationContract]
+        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        
+        [OperationContract]
+        bool EnviarCorreoReservaProl(BEInputReservaProl input);
+   
         [OperationContract]
         int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
 
@@ -1092,5 +1102,27 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int InsertarDesglose(BEInputReservaProl input);
+
+        [OperationContract]
+        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+            
+        [OperationContract]
+        string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        #region Cupon
+
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
     }
 }

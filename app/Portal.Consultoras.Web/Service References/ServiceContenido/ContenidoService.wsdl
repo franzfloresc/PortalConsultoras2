@@ -111,6 +111,12 @@
   <wsdl:message name="IContenidoService_GetPedidoWebAcumulado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidoWebAcumuladoResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GetMontoDeuda_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMontoDeuda" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetMontoDeuda_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMontoDeudaResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetSaldoPendiente_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSaldoPendiente" />
   </wsdl:message>
@@ -492,6 +498,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetPedidoWebAcumulado" message="tns:IContenidoService_GetPedidoWebAcumulado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetPedidoWebAcumuladoResponse" message="tns:IContenidoService_GetPedidoWebAcumulado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMontoDeuda">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetMontoDeuda" message="tns:IContenidoService_GetMontoDeuda_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetMontoDeudaResponse" message="tns:IContenidoService_GetMontoDeuda_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSaldoPendiente">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetSaldoPendiente" message="tns:IContenidoService_GetSaldoPendiente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetSaldoPendienteResponse" message="tns:IContenidoService_GetSaldoPendiente_OutputMessage" />
@@ -849,6 +859,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetPedidoWebAcumulado">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetPedidoWebAcumulado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMontoDeuda">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetMontoDeuda" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

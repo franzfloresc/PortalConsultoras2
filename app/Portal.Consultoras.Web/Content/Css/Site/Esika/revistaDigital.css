@@ -157,7 +157,7 @@
 
 .revistadigital .boxoffer .fondo_boton {
     width: 100%;
-    height: 84px;
+    height: 80px;
     background: #e81c36;
     transform: skewX(-14deg);
     position: absolute;
@@ -179,11 +179,11 @@
     font-family: 'Lato';
     font-size: 13px;
     color: #FFF;
-    top: 18px;
-    left: 23px;
+    top: 17px;
+    left: 20px;
     text-align: left;
     width: 90px;
-    line-height: 17px;
+    line-height: 16px;
 }
 
 .revistadigital .boxoffer .texto_boton:after{
@@ -192,7 +192,7 @@
     position: absolute;
     content: "";
     top: 0px;
-    right: 0px;
+    right: -6px;
     background: url(../../../Images/flecha-right.svg) no-repeat center center;
     background-size: 100%;
     z-index: 100;
@@ -256,7 +256,7 @@
 }
 
 .revistadigital-title .titulo_nuevaRevista {
-    width: 653px;
+    width: 60%;
     text-align: left;
     padding-top:12px;
 }
@@ -267,18 +267,22 @@
 
 .revistadigital-title .mensajeConsultora_nuevaRevista.texto_nuevaRevista{
     font-family: 'Lato';
-    font-size: 20px;
+    font-size: 15px;
     font-weight: 900;
 }
 
-.revistadigital-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas{
-    font-family: 'Lato Light';
+.revistadigital-title .mensajeConsultora_nuevaRevista.texto_encuentraOfertas {
+    font-family: 'Lato';
     font-size: 20px;
+    font-weight: 300;
+    line-height: 24px;
+    margin-top: 5px;
 }
 
 .background-revistaSeccion{
     display: block;
-    width: 415px;
+    /*width: 415px;*/
+    width: 100%;
     height: 100vh;
     top: 0px;
     position: absolute;
@@ -434,23 +438,26 @@
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a {
+    color: white;
     text-decoration: underline;
     transition:opacity 0.3s ease;
     -moz-transition:opacity 0.3s ease;
     -o-transition:opacity 0.3s ease;
     -ms-transition:opacity 0.3s ease;
     -webkit-transition:opacity 0.3s ease;
+    opacity: 0.4;
 }
 
 .popup_revistaSuscripcion_noAMostrarMensaje a:hover{
-    opacity:0.7;
+    opacity: 1;
+
 }
 
 
 .logo_EPT_content{
     width:20%;
-    height:175px;
-   
+    height:120px;
+ 
     float:left;  
     position:relative;
     background: rgba(177,19,20,1);
@@ -463,8 +470,8 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b11314', endColorstr='#df2922', GradientType=0 );
 }
 .logo_EPT{
-    width:175px;
-    margin-top: 28px;
+    width:160px;
+    margin-top: 12px;
 }
 
 .logo_EPT img{
@@ -476,7 +483,7 @@
     position: absolute;
     width: 300%;
     left: -300%;
-    height: 175px;    
+    height: 120px;    
     z-index: 100;
     background: rgba(177,19,20,1);
     background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
@@ -494,9 +501,9 @@
     float:left;
     width:73%;
     background:black;
-    height:175px;
-    font-size:18px;
-    padding-top:45px;
+    height:120px;
+    font-size:15px;
+    padding-top:24px;
     padding-left:60px;
     padding-right:60px;
     text-transform:uppercase;
@@ -506,17 +513,18 @@
 .texto_light{
     font-weight:300;
     font-size:20px;
+    line-height: 26px;
 }
-.texto_usuario_ept:before{
-    content:'';
-    position:absolute;
-    left:-70px;
-    top:0;
-    z-index:102;
+.texto_usuario_ept:before {
+    content: '';
+    position: absolute;
+    left: -35px;
+    top: 0;
+    z-index: 102;
     width: 0;
     height: 0;
     border-style: solid;
-    border-width: 0 0 175px 70px;
+    border-width: 0 0 120px 35px;
     border-color: transparent transparent #000000 transparent;
 }
 .texto_usuario_ept:after{
@@ -526,18 +534,19 @@
     top:0;
     z-index:102;
     width: 300%;
-    height: 175px;
+    height: 120px;
     background:black;
     z-index:103;
 }
 .content_slider_ept{
-    max-width:1000px;    
+    max-width:929px;    
     margin:0 auto;
     padding-top:50px;
     position:relative;
 }
 .imagen_fondo{
     min-height: 532px;
+    max-width: 929px;
 }
 .imagen_fondo img{
     width:100%
@@ -604,8 +613,8 @@
     width:100%;
 }
 .btn-set-previous{
-    width: 140px;
-    height: 140px;
+    width: 130px;
+    height: 130px;
     background: black;
     display: block;
     position: absolute;
@@ -613,6 +622,7 @@
     /*left: -14%;*/
     top: 34%;
     overflow:hidden;
+    border: none !important;
 }
 .btn-set-previous img{
     width:100%;
@@ -776,25 +786,26 @@
     height:auto;
 }
 
-.cabecera_texto{
-    width:193px;
+.cabecera_texto {
+    width: 193px;
     font-family: 'Lato';
     font-size: 14px;
     text-align: left;
     color: #000;
     letter-spacing: 1px;
-    font-weight:900;
+    font-weight: 900;
+    line-height: 18px;
 }
 
 .texto_ofertas_bonificaciones {
-    font-family: 'Lato Light';
-    font-size: 14px;
-    letter-spacing: 0.3px;
+    font-family: 'Lato';
+    font-size: 15px;
     text-transform: uppercase;
     width: 100%;
     margin-top: 34px;
     margin-bottom: 0px;
     padding: 0 19px;
+    font-weight: 300;
 }
 
 .revistadigital .boxoffer.boxOfferPedido{
@@ -906,7 +917,8 @@
 }
 
 .cabecera_content span:nth-child(2), .cabecera_boton_inscribeteAEsikaParaMi span{
-    font-family: 'Lato Light';
+    font-family: 'Lato';
+    font-weight: 300;
 }
 
 .cabecera_boton_inscribeteAEsikaParaMi span a{
@@ -1011,10 +1023,11 @@
 }
 
 .contenido_pasos_comoFunciona span:first-child{
-    font-family:'Lato Light';
+    font-family:'Lato';
     color:#FF1534;
     font-size:50px;
     margin-right:11px;
+    font-weight: 300;
 }
 
 .contenido_pasos_comoFunciona span:nth-child(2){
@@ -1129,12 +1142,13 @@
 }
 
 .contenido_fondoDesenfocado span:last-child {
-    font-family: 'Lato Light';
+    font-family: 'Lato';
     font-size: 14px;
     letter-spacing: 0.4px;
     line-height: 18px;
     width:507px;
     margin:0 auto;
+    font-weight: 300;
 }
 
 .contenido_fondoDesenfocado span:last-child a{
@@ -1319,6 +1333,21 @@
     display: inline-block;
 }
 
+.lanzamiento-view-detalle{
+    width: 35%;
+    display: inline-block;
+    text-align: center;
+}
+
+.lanzamiento-view-detalle .revistadigital-landing {
+    width: 100%;
+}
+.lanzamiento-view-detalle .content_item_carrusel{
+    height: auto;
+}
+.lanzamiento-view-detalle .nombre_producto{
+    max-width: 100%;
+}
 
 /*QUERIES*/
 @media (max-width: 1189px) {
@@ -1335,23 +1364,7 @@
     }
 }
 
-/*TRANSITIONS*/
-@keyframes bounceLeft {
-    0%, 20%, 60%, 100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-    }
 
-    40% {
-        -webkit-transform: translateX(-8px);
-        transform: translateX(-8px);
-    }
-
-    80% {
-        -webkit-transform: translateX(-4px);
-        transform: translateX(-4px);
-    }
-}
 
 .rd_logo {
 	background: rgba(233,27,55,1);
@@ -1423,15 +1436,31 @@
 	line-height: 45px;
 	transition: all 0.6s ease-in-out;
 }
-
+/*BTN STROKE BLACK*/
+.btn_stroke {
+    background: transparent;
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+    border: 1px solid black;
+    color: black;
+    font-size: 13px;
+}
+.btn_stroke:hover a {
+    color: white;
+    
+}
+.btn_stroke:after {
+    background: black;
+}
 /* POPUP REVISTA DIGITAL */
 .popup_rd {
-	height: 440px;
-	position: relative;
-	top: 50%;
-	margin: -220px auto;
-	letter-spacing: 1.2px;
-	font-size: 13px;
+    height: 440px;
+    position: relative;
+    top: 50%;
+    margin: -220px auto;
+    letter-spacing: 1.2px;
+    font-size: 13px;
 }
 .popup_rd .popup_rd_cabecera {
 	background-color: black;
@@ -1441,21 +1470,23 @@
 	z-index: 1;
 }
 .popup_rd .popup_rd_cabecera .rd_logo {
-	width: 200px;
-	height: 100%;
-	padding-top: 15px;
+    width: 200px;
+    height: 100%;
+    padding-top: 15px;
+    z-index: 2;
 }
+
 .popup_rd .popup_rd_cabecera .rd_logo:after {
-	border-left: 22px solid transparent;
-	border-right: 0px solid transparent;
-	border-bottom: 80px solid #000;
+    border-left: 22px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 80px solid #000;
 }
 .popup_rd .popup_rd_cabecera .popup_cabecera_text {
 	color: white;
 	font-weight: 300;
 	position: absolute;
 	letter-spacing: 0.5px;
-	left: 250px;
+	left: 230px;
 	width: 430px;
 	line-height: 18px;
 }
@@ -1480,10 +1511,11 @@
 }
 .popup_rd .popup_rd_content .popup-textleg {
 	position: relative;
-	top: 330px;
-	font-size: 12px;
-	text-align: center;
-	letter-spacing: 0.5px;
+    top: 320px;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    line-height: 15px;
 }
 .popup_rd .popup_rd_content .popup-textleg a {
 	color: black;
@@ -1535,7 +1567,7 @@
 	width: 320px;
 	height: 200px;
 	position: absolute;
-	top: 80px;
+	top: 62px;
 	left: 30px;
 }
 .rd_confirmacion .popup_rd_content img {
@@ -1547,7 +1579,7 @@
 }
 .rd_confirmacion .btn_diagonal {
 	background: transparent;
-	border: 2px solid black;
+	border: 1px solid black;
 	width: 260px;
 	bottom: 0;
 }
@@ -1665,12 +1697,15 @@
     display:inline-block;
     vertical-align:middle;
 }
+
 .legal_gana_mas{
     font-family:'Lato';
     font-size:10px;
     font-weight:300;
-    margin-top:40px;
-
+    margin-top:135px;
+    margin-bottom: 50px;
+    text-align: center;
+    width: 100%;
 }
 .content_funciona_esika{
    background: #EEEEEE;
@@ -1705,28 +1740,101 @@
 .bloque_respuesta img{
     margin-bottom:12px;
 }
-.content_preguntas{
-    font-family:'Lato';
-    font-size:15px;
-    width:48%;
-    margin-right:4%;
-    border-bottom:1px solid black;
-    padding-top:15px;
-    padding-bottom:15px;
-    padding-right:10%;
-    float:left;
-    /*margin-top:10px;*/
-    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+
+.ept_preguntasRespuestas_accordion .box_pregunta_ept {
+    font-family: 'Lato';
+    font-size: 15px;
+    width: 100%;
+    margin-right: 4%;
+    border-bottom: 1px solid black;
+    float: left;
+    position: relative;
 }
-.content_preguntas:nth-child(2n){
+.box_pregunta_ept:nth-child(2n){
     margin-right:0;
 
 }
-.seccion_preguntas{
-    padding-bottom: 70px;
-    margin-bottom: 50px;
-    border-bottom: 2px solid black;
+.ept_preguntasRespuestas_accordion {
+    margin-bottom: 30px;
     overflow: hidden;
+    width: 49%;
+    float: left;
+}
+.ept_preguntasRespuestas_accordion .text_respuesta_ept {
+	overflow: hidden;
+    display: none;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.box_pregunta_ept .tit_pregunta_ept {
+    cursor: pointer;
+    padding: 20px 10px 0 0;
+    height: 75px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+}
+
+.ept_preguntasRespuestas_accordion2 .box_pregunta_ept2 {
+    font-family: 'Lato';
+    font-size: 15px;
+    width: 100%;
+    margin-right: 4%;
+    border-bottom: 1px solid black;
+    float: left;
+    position: relative;
+}
+.box_pregunta_ept2:nth-child(2n){
+    margin-right:0;
+
+}
+.ept_preguntasRespuestas_accordion2 {
+    margin-bottom: 30px;
+    overflow: hidden;
+    width: 49%;
+    float: left;
+    margin-left: 2%;
+}
+.ept_preguntasRespuestas_accordion2 .text_respuesta_ept2 {
+    overflow: hidden;
+    display: none;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+.box_pregunta_ept2 .tit_pregunta_ept2 {
+    cursor: pointer;
+    padding: 20px 10px 0 0;
+    height: 75px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+}
+
+.box_pregunta_ept .tit_pregunta_ept:after {
+    content: "";
+    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    right: 0;
+    top: 20px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+}
+
+.box_pregunta_ept2 .tit_pregunta_ept2:after {
+    content: "";
+    background: url(../../../Images/RevistaDigital/Polygon.png) no-repeat right center;
+    right: 0;
+    top: 20px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+}
+.descargarPreguntasRespuestas {
+    border-bottom: 2px solid black;
+    padding-bottom: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 50px;
 }
 .titulo_no_inscrita{
     font-family:'Lato';
@@ -1737,24 +1845,28 @@
     text-transform:uppercase;
     text-align:center;
 }
-.texto_no_inscrita{
-    font-family:'Lato';
-    font-size:20px;
-    font-weight:300;
-    letter-spacing:1px;
-    margin-top:25px;
-    margin-bottom:25px;
-    line-height:25px;
-    text-transform:uppercase;
-    text-align:center;
+.texto_no_inscrita {
+    font-family: 'Lato';
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 75%;
+    line-height: 25px;
+    text-transform: uppercase;
+    text-align: center;
 }
-.advertencia_no_inscrita{
-    font-family:'Lato';
-    font-size:14px;
-    line-height:18px;
-    margin-bottom:30px;
-    text-align:center;
-    letter-spacing:0.4px;
+.advertencia_no_inscrita {
+    font-family: 'Lato';
+    font-size: 14px;
+    margin: auto;
+    line-height: 18px;
+    margin-bottom: 30px;
+    width: 63%;
+    text-align: center;
+    letter-spacing: 0.4px;
 }
 .btn_cancelar_inscripcion{
     font-family:'Lato';
@@ -1767,4 +1879,125 @@
     text-align:center;
     display:block;
     margin-bottom:40px;
+}
+
+
+
+.rd_ver_mas:hover {
+    transition: all 0.2s ease-in-out;
+}
+
+.rd_ver_mas:after {
+    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-repeat: no-repeat;
+    background-size: 6px 10px;
+    display: inline-block;
+    width: 6px;
+    position: absolute;
+    height: 10px;
+    content: "";
+    margin-left: 8px;
+    margin-top: 4px;
+}
+
+.rd_ver_mas:hover:after {
+    animation: bounceRight 1.2s infinite;
+}
+
+.div-carousel-rd-prev {
+    left: -14%;
+    top: 35%;
+    text-align: right;
+}
+
+.div-carousel-rd-next {
+    right: -14%;
+    top: 35%;
+}
+
+.ol_detalle {
+    margin:0 0 1.5em;
+    padding:0;
+    counter-reset:item;
+    width: 100% !important;
+}
+ 
+.ol_detalle > li {
+    margin:0;
+    padding:0 0 0 2em;
+    text-indent:-2em;
+    list-style-type:none;
+    counter-increment:item;
+    display:inline-block;
+    width: 100% !important;
+}
+ 
+.ol_detalle > li:before {
+    display:inline-block;
+    width:1.5em;
+    padding-right:0.5em;
+    font-weight:bold;
+    text-align:right;
+    content:counter(item) ".";
+}
+
+/*TRANSITIONS*/
+@keyframes bounceLeft {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(-4px);
+        transform: translateX(-4px);
+    }
+}
+
+@keyframes bounceRight {
+    0%, 20%, 60%, 100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+
+    40% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+
+    80% {
+        -webkit-transform: translateX(4px);
+        transform: translateX(4px);
+    }
+}
+
+
+.flex-container {
+    flex-wrap: wrap;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+.row {
+    width: auto;
+    border: 1px solid blue;
+}
+
+.flex-item {
+    background-color: tomato;
+    padding: 5px;
+    width: 50px;
+    height: 20px;
+    margin: 10px;
+    line-height: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
 }

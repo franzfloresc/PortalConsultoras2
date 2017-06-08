@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
     public class RevistaDigitalSuscripcionModel
     {
+        public int RevistaDigitalSuscripcionID { get; set; }
         public string CodigoConsultora { get; set; }
         public int CampaniaID { get; set; }
         public DateTime FechaSuscripcion { get; set; }
