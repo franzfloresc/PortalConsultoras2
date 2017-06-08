@@ -56,6 +56,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public bool ValidacionInteractiva { get; set; }
         [DataMember]
         public bool EnviarCorreo { get; set; }
+        [DataMember]
+        public string Sobrenombre { get; set; }
 
         public bool ZonaProlActiva { get { return ZonaValida && ValidacionInteractiva; } }
         public int PedidoID { get; set; }
