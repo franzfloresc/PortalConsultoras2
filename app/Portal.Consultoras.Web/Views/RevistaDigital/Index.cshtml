@@ -50,28 +50,11 @@
 }
 <hr class="clear" />
 <div style="display: none;" data-tag-html="1">
-        @Html.Partial("~/Views/RevistaDigital/template-landing.cshtml", Model)
+    @Html.Partial("~/Views/RevistaDigital/template-landing.cshtml", Model)
 </div>
 <hr class="clear" />
 <div class="Vista3" style="display: none;" data-tag-html="0">
     @Html.Partial("~/Views/RevistaDigital/template-informativa.cshtml", Model)
-</div>
-
-<div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-    <div class="titulo_producto_agregado">
-        ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
-    </div>
-    <div class="div_bonotes_producto">
-        <div class="child_center_botones">
-            <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-            <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
-        </div>
-    </div>
-</div>
-<div id="DialogMensajesBanner" style="display: none;">
-    <div class="message_text">
-        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
-    </div>
 </div>
 
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
