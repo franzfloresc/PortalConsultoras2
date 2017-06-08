@@ -12,6 +12,7 @@
         urlCrearCupon: urlCrearCupon,
         urlActualizarCupon: urlActualizarCupon,
         urlListarCuponesPorCampania: urlListarCuponesPorCampania,
+        urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
         urlImagenEdit: urlImagenEdit
     };
     
