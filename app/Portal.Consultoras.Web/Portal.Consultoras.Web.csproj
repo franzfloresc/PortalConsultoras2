@@ -4061,7 +4061,7 @@
     <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\AdministrarCupon\Index.cshtml" />
-    <Content Include="Views\AdministrarCupon\Partials\crearCupon.cshtml" />
+    <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

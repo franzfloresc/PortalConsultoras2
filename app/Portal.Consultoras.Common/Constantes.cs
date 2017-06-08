@@ -631,7 +631,18 @@
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-        
+
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }        
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+
         public class TipoOfertasPlan20
         {
             public const int OfertaFinal = 35;
