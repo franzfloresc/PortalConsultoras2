@@ -902,9 +902,9 @@ function LayoutMenuFin() {
         var wt = $(".wrapper_header").width();
         var wl = $(".logo_esika").innerWidth();
         var wr = $(".menu_esika_b").innerWidth();
-
         $(".wrapper_header").css("max-width", wt + "px");
         $(".wrapper_header").css("width", wt + "px");
+
 
         $(".logo_esika").css("width", wl + "px");
         $(".menu_esika_b").css("width", wr + "px");
@@ -1340,7 +1340,7 @@ function FunccionEjecutar(functionHide) {
         if (functionHide[functionHide.length - 1] != ")") {
             functionHide = functionHide + "()";
         }
-        setTimeout(functionHide + "()", 100);
+        setTimeout(functionHide, 100);
     }
 }
 function GuardarIndicadorPedidoAutentico() {

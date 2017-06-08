@@ -20,7 +20,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
             
-            Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>();
+            Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>()
+                .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
+                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
+
+            Mapper.CreateMap<EstrategiaDetalleModelo, BEEstrategiaDetalle>();
+
+            Mapper.CreateMap<TipoEstrategiaModelo, BETipoEstrategia>()
+                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo ? 1 : 0));
 
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))

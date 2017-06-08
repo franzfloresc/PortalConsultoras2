@@ -408,6 +408,8 @@
             public const int Flexipago = 7;
             public const int Comunicado = 8;
             public const int RevistaDigitalSuscripcion = 9;
+            public const int Cupon = 10;
+            public const int CuponForzado = 11;
         }
 
         // Constantes de los motivos de GPR.

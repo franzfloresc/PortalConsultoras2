@@ -2012,5 +2012,6 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
+        
     }
 }

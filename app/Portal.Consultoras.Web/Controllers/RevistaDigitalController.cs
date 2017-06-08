@@ -249,6 +249,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                userData.MenuMobile = null;
             }
 
             SetUserData(userData);
@@ -303,6 +304,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                userData.MenuMobile = null;
             }
 
             SetUserData(userData);
