@@ -48,6 +48,25 @@
 }
 <hr class="clear" />
 
+@if (Model.EstadoAccion == 1)
+{
+    // Productos Misma campaña
+}
+else if (Model.EstadoAccion == 2)
+{
+    // Productos Diferente campaña
+}
+else if (Model.EstadoAccion == 3)
+{
+    // tabs => Misma Campaña - Diferente campaña
+}
+
+@if (Model.EstadoInformativa == 1)
+{
+    // Mostrar pagina informativa
+}
+
+
 <div style="display: none;" data-tag-html="1">
 
         <div class="catalogoPersonalizadoBloque">

@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Web.Models
         public int Activo { get; set; }
         public int EstadoSuscripcion { get; set; }
         public int EstadoAccion { get; set; }
+        public int EstadoInformativa { get; set; }
         public List<ComunModel> ListaTabs { get; set; }
         public bool NoVolverMostrar { get; set; }
         public decimal PrecioMin { get; set; }
