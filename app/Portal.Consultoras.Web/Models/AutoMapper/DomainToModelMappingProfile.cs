@@ -83,7 +83,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEEstrategiaDetalle, EstrategiaDetalleModelo>();
 
-            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModelo>();
+            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModelo>()
+                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo == 1));
 
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 

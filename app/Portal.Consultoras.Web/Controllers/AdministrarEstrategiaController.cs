@@ -1017,8 +1017,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public List<BEEstrategia> ConsultarEstrategias()
         {
-            var usuario = ObtenerUsuarioConfiguracion();
-
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
@@ -1027,8 +1025,8 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.CUV2 = "";
             entidad.Zona = userData.ZonaID.ToString();
-            entidad.ZonaHoraria = usuario.ZonaHoraria;
-            entidad.FechaInicioFacturacion = usuario.FechaInicioFacturacion;
+            entidad.ZonaHoraria = userData.ZonaHoraria;
+            entidad.FechaInicioFacturacion = userData.FechaFinCampania;
 
             using (var sv = new PedidoServiceClient())
             {
