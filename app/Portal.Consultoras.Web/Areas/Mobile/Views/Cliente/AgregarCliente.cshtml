@@ -61,17 +61,17 @@ else
     @Html.HiddenFor(model => model.CodigoCliente)
 
     <div class="form-group">
-        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "ValidaAlfabeto" })
+        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "" })
         @Html.ValidationMessageFor(model => model.Nombre)
     </div>
 
     <div class="form-group">
-        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20" })
+        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input-number" })
         @Html.ValidationMessageFor(model => model.Telefono)
     </div>
 
     <div class="form-group">
-        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20" })
+        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input-number" })
         @Html.ValidationMessageFor(model => model.Celular)
     </div>
 
@@ -127,6 +127,11 @@ else
         {*@
     <script type="text/javascript">
         $.validator.unobtrusive.parse("#frmAgregarCliente");
+
+        $(".input-number").keypress(function (e) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) event.preventDefault();
+        });
 
         //$(document).ready(function () {
             $("#btnGuardar").on("click", function (e) {

@@ -38,7 +38,7 @@
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
 
-    @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input_search_form ValidaAlfabeto input-nombre" })
+    @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "input-nombre" })
     <div class="noti mensaje_producto_noExiste" id="divNotiNombre">
         <div class="noti_message red_texto_size">
             <span class="icono_advertencia_notificacion"></span>
@@ -48,10 +48,10 @@
         </div>
     </div>
 
-    @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
-    @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input_search_form ValidaAlfabeto" })
+    @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input-number" })
+    @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input-number" })
 
-    @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico (Opcional)", maxlength = "80", @class = "input_search_form ValidaAlfabeto input-correo" })
+    @Html.TextBoxFor(model => model.eMail, new { placeholder = "Correo Electrónico (Opcional)", maxlength = "80", @class = "input-correo" })
     <div class="noti mensaje_producto_noExiste" id="divNotiCorreo">
         <div class="noti_message red_texto_size">
             <span class="icono_advertencia_notificacion"></span>
@@ -79,6 +79,11 @@
         $('#divNotiCorreo').hide();
         $('#divNotiCorreo2').hide();
         return re.test(keyChar);
+    });
+
+    $(".input-number").keypress(function (e) {
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) event.preventDefault();
     });
 
     $(".input-nombre").keypress(function (evt) {

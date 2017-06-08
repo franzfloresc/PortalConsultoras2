@@ -1,4 +1,6 @@
 ﻿@using Portal.Consultoras.Common
+@using System.Globalization
+
 @model Portal.Consultoras.Web.Models.ClienteSb2Model
 
 @{
@@ -30,11 +32,20 @@
 <div class="content_belcorp">
     <div class="pestana_lbel"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
     <hr class="clear" />
-    <br />
-    <div class="clienteMensaje">
-        <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span> 
-        <span>Tienes hasta el @System.Configuration.ConfigurationManager.AppSettings["FechaCliente"] para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-    </div>
+    @{
+        String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
+        DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
+
+        if (DateTime.Now.Date <= FechaCliente)
+        {
+            <br />
+            <div class="clienteMensaje">
+                <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+                <span>Tienes hasta el @FechaClienteSalida para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+            </div>
+        }
+    }
     <input placeholder="Buscar" type="text" class="buscador_clientes" id="txtBusqueda" />
    
     @*<a class="agregar_cliente_btn" onclick="showDivAgregar();">AGREGAR CLIENTE</a>*@
