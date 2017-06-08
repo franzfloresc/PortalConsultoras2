@@ -76,7 +76,12 @@ function RDDesuscripcion() {
                 return false;
 
             if (data.success == true) {
-                location.href = "/";
+                //location.href = "/";
+                $('#divAnularSuscripcion').hide();
+                $('#divMensajeAnularSuscripcion').show();
+                $('html, body').animate({
+                    scrollTop: $(window).scrollTop() - 200
+                }, 1000, 'swing');
             }
         },
         error: function (data, error) {

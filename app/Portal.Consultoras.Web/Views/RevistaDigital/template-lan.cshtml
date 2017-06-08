@@ -20,9 +20,18 @@ foreach (var lan in Model.ListaProducto)
                 </div>
             }
             <div class="detalle_set_banner">
-                <div class="content_set_imagen_banner">
-                    <img src="@lan.FotoProducto01" alt="" />
-                </div>
+                @if (Model.IsMobile)
+                {
+                    <div class="content_set_imagen_banner" onclick="javascript:EstrategiaVerDetalle(@lan.EstrategiaID);">
+                        <img src="@lan.FotoProducto01" alt=""/>
+                    </div>
+                }
+                else
+                {
+                    <div class="content_set_imagen_banner">
+                        <img src="@lan.FotoProducto01" alt="" />
+                    </div>
+                }
                 @if (lan.DescripcionResumen != "")
                 {
                     <div class="titulo_set_banner_ept">@lan.DescripcionResumen</div>
@@ -59,20 +68,25 @@ foreach (var lan in Model.ListaProducto)
                             </div>
                         </div>
                     }
-                    <a class="boton_Agregalo_home" href="javascript:;" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@lan.EstrategiaID' , TipoEstrategiaID: '@lan.TipoEstrategiaID' , Posicion: @lan.Orden , FlagNueva: '@lan.FlagNueva' }, this); ">
+                    <a class="boton_Agregalo_home" href="javascript:;" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@lan.EstrategiaID', TipoEstrategiaID: '@lan.TipoEstrategiaID', Posicion: @lan.Orden, FlagNueva: '@lan.FlagNueva' }, this); ">
                         AGRÉGALO
                     </a>
                     <div class="clear"></div>
-                    <div style="padding-top:9px; height: 15px;">
-                        <div class="agregado product-add" style="text-align:right;display:@(lan.IsAgregado ? "block" : "none");" >
+                    <div style="padding-top: 9px; height: 15px;">
+                        <div class="agregado product-add" style="text-align: right; display: @(lan.IsAgregado ? "block" : "none");">
                             AGREGADO
                             <div class="icono"></div>
                         </div>
                     </div>
                 </div>
-                <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new { area = Model.IsMobile ? "Mobile" : "" })/@lan.EstrategiaID';">ver más de este producto
-                    
-                </a>
+                @if (Model.IsMobile && lan.PuedeVerDetalleMob)
+                {
+                    <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new {area = "Mobile" })/@lan.EstrategiaID';">ver más de este producto
+                    </a>
+                }else if(lan.PuedeVerDetalle){
+                    <a class="btn_mas_info_set rd_ver_mas" href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital")/@lan.EstrategiaID';">ver más de este producto
+                    </a>
+                }
             </div>
         </div>
 
