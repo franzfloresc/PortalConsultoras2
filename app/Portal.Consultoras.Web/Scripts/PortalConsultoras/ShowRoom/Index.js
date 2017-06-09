@@ -374,6 +374,7 @@ function closeCompraPorCompra() {
         async: true,
         success: function (response) {            
             if (response.success == true) {
+                $(".footer_e").css("margin-bottom", "0px");
                 $("#divBannerCompraPorCompra").hide();
             } else messageInfoError(response.message);
         },
