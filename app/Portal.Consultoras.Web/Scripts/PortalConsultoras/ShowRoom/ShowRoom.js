@@ -254,10 +254,7 @@ $(document).ready(function () {
 });
 
 function CargarProductosShowRoom(busquedaModel) {
-
-    $.ajaxSetup({
-        cache: false
-    });
+    $.ajaxSetup({ cache: false });
 
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
     $("#divProductosShowRoom").show();
@@ -565,7 +562,7 @@ function recortarPalabra(palabra, tamanio) {
 }
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
-    if (response.success) {
+    if (response.success) {        
 
         if (aplicarFiltrosSubCampanias) {
 

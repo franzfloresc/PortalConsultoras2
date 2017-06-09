@@ -21162,10 +21162,10 @@ label.checkpop.c_on {
     text-align: center;
     border: 2px solid #000;
     font-size: 13px; 
-    width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);
-    width:-webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');  
+    width:-moz-calc(100%-80px);
+    width:calc(100%-80px);
+    width:-webkit-calc(100%-80px);
+    /*width: -webkit-calc(~'100% - 80px');*/  
 }
 
 
@@ -21527,9 +21527,9 @@ label.checkpop.c_on {
     }
 
     .enlaces_home:hover {
-    /*opacity: 0.5;
-    filter: alpha(opacity=50); /* For IE8 and earlier */*/
-}
+        /*opacity: 0.5;
+        filter: alpha(opacity=50); /* For IE8 and earlier */
+    }
 .enlaces_home img {
     width: 100%;
     display: block;
@@ -33794,10 +33794,10 @@ h1#penmostreo .campana {
         /* text-align: right; */
         background: black;
         color: white;
-    width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);
-    width:-webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');
+    width:-moz-calc(100%-80px);
+    width:calc(100%-80px);
+    width:-webkit-calc(100%-80px);
+    /*width: -webkit-calc(~'100%-80px');*/
 }
 
 .titulo_carrusel_showroom{
@@ -34571,10 +34571,10 @@ h1#penmostreo .campana {
     margin-bottom:14px;
 }
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta{
-    width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);    
-    width:-webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');
+    width:-moz-calc(100%-80px);
+    width:calc(100%-80px);    
+    width:-webkit-calc(100%-80px);
+    /*width: -webkit-calc(~'100%-80px');*/
 }
 /*#divOddCarrusel .content_item_carrusel_ODD:last-child{
     float:right;

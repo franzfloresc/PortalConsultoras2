@@ -2098,8 +2098,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
+                    SetUserData(userData);
                     controlador = "ShowRoom";
-                    accion = AccionControlador("sr");
+                    accion = AccionControlador("sr", true);
                 }
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
@@ -2107,12 +2108,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 userData.EMailActivo = true;
-                SetUserData(userData);
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
+
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
