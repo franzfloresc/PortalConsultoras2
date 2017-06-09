@@ -4,6 +4,9 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
+@if (Model.Success)
+{
+
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
         <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
@@ -57,3 +60,5 @@
     </div>
     <hr class="clear" />
 </div>
+
+}

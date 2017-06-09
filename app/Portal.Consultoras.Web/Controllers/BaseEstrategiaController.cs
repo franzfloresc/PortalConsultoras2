@@ -248,7 +248,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            var isMobile = IsMobile();
+            bool isMobile = ViewBag.EsMobile == 2; // IsMobile();
             ListaProductoModel.ForEach(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());

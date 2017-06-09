@@ -29,16 +29,16 @@
 
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
-@if (Model.ListaTabs.Any())
+@if (Model.ListaTabs.Count() > 1)
 {
     <div class="content_tabs_landing">
         <div class="content_tabs_bpt">
             <ul class="tabs_pagos" data-tab="tab">
-                @foreach (var tabs in Model.ListaTabs)
+                @foreach (var tab in Model.ListaTabs)
                 {
                     <li>
-                        <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
-                            <div class="texto_tab_pagos">@tabs.Descripcion</div>
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id">
+                            <div class="texto_tab_pagos">@tab.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
@@ -48,15 +48,35 @@
         </div>
     </div>
 }
+
+@foreach (var tab in Model.ListaTabs)
+{
+    <hr class="clear" />
+    <div style="display: none;" data-tag-html="@tab.Id">
+        @if (tab.Id > 0)
+        {
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
+        }
+        else
+        {
+            @Html.Partial("~/Views/RevistaDigital/template-informativa.cshtml", Model)
+        }
+    </div>
+}
+
+@*
 <hr class="clear" />
 <div style="display: none;" data-tag-html="1">
     @Html.Partial("~/Views/RevistaDigital/template-landing.cshtml", Model)
 </div>
+
 <hr class="clear" />
 <div class="Vista3" style="display: none;" data-tag-html="0">
     @Html.Partial("~/Views/RevistaDigital/template-informativa.cshtml", Model)
 </div>
+*@
 
+<hr class="clear" />
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
     @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 </div>
@@ -288,8 +308,7 @@
 </script>
 
 <div class="flecha_scroll">
-    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
-    </a>
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
 
 @section scripts{
