@@ -582,6 +582,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
+            ViewBag.CantPedidosPendientes = 0;
+
             var lstModel = new List<MenuMobileModel>();
 
             if (userData.RolID != Constantes.Rol.Consultora)
@@ -702,7 +704,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             menu.UrlImagen = "";
-                            menu.UrlItem = AccionControlador("sr", 1);
+                            menu.UrlItem = AccionControlador("sr", 1, true);
                         }
                         else
                         {
@@ -2320,7 +2322,7 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        public string AccionControlador(string tipo, int isControlador = 0)
+        public string AccionControlador(string tipo, int isControlador = 0, bool mobile = false)
         {
             var accion = "";
             var controlador = "";
@@ -2336,11 +2338,12 @@ namespace Portal.Consultoras.Web.Controllers
                         accion = "Intriga";
 
                 }
-                return "/" + (IsMobile() ? "Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return accion;
             }
         }
