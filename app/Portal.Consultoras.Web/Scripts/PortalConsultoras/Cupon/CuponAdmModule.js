@@ -4,8 +4,14 @@
     var CONTANSTES_CUPON = {
         CODIGO_TIPO_MONTO: 1,
         CODIGO_TIPO_PORCENTAJE: 2,
-        NOMBRE_TIPO_MONTO: 'MONTO',
-        NOMBRE_TIPO_PORCENTAJE: 'PORCENTAJE'
+        NOMBRE_TIPO_MONTO: 'Monto',
+        NOMBRE_TIPO_PORCENTAJE: 'Porcentaje',
+        ESTADO_CUPON_REGISTRADO: 1,
+        ESTADO_CUPON_ACTIVADO: 2,
+        ESTADO_CUPON_UTILIZADO: 3,
+        NOMBRE_CUPON_REGISTRADO: 'Registrado',
+        NOMBRE_CUPON_ACTIVADO: 'Activado',
+        NOMBRE_CUPON_UTILIZADO: 'Utilizado'
     };
 
     var elements = {
@@ -278,75 +284,58 @@
     }
 
     var _listarCuponesPorCampania = function () {
-        var paisId = $(elements.ddlPais + " option:selected").val();
-        var campaniaId = $(elements.ddlCampania + " option:selected").val();
-
-        paisId = (typeof paisId == 'undefined' ? '' : paisId);
-        campaniaId = (typeof campaniaId == 'undefined' ? '' : campaniaId);
-
-        if (_esValidoListar(paisId, campaniaId)) {
-            jQuery(elements.tablaCupones).jqGrid({
-                url: setting.UrlListarCuponesPorCampania,
-                hidegrid: false,
-                datatype: 'json',
-                postData: ({
-                    PaisID: function () { return $(elements.ddlPais).val() },
-                    CampaniaID: function () { return ($(elements.ddlCampania).val() == "" ? "0" : $(elements.ddlCampania).val()); }
-                }),
-                mtype: 'GET',
-                contentType: "application/json; charset=utf-8",
-                colNames: ['Tipo', 'Descripción', 'Creación', ''],
-                colModel: [
-                    { name: 'Tipo', width: 50, editable: true, resizable: false },
-                    { name: 'Descripcion', width: 80, editable: true, resizable: false },
-                    { name: 'FechaCreacion', width: 80, editable: true, resizable: false },
-                    { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEvento }
-                ],
-                jsonReader:
-                {
-                    root: "rows",
-                    page: "page",
-                    total: "total",
-                    records: "records",
-                    repeatitems: false,
-                    cell: "",
-                    id: "id"
-                },
-                pager: jQuery('#pagerEvento'),
-                loadtext: 'Cargando datos...',
-                recordtext: "{0} - {1} de {2} Registros",
-                emptyrecords: 'No hay resultados',
-                rowNum: 10,
-                scrollOffset: 0,
-                rowList: [10, 20, 30, 40, 50],
-                sortname: '',
-                sortorder: 'asc',
-                viewrecords: true,
-                multiselect: false,
-                height: 'auto',
-                width: 930,
-                pgtext: 'Pág: {0} de {1}',
-                altRows: true,
-                altclass: 'jQGridAltRowClass',
-                loadComplete: function () { },
-                gridComplete: function () {
-                    var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
-                    if (cantidadRegistros > 0) {
-                        $(elements.contenedorGrillaCupones).show();
-                    } else {
-                        $(elements.contenedorGrillaCupones).hide();
-                    }
-
-                    closeWaitingDialog();
-                }
-            });
-            jQuery(elements.tablaCupones).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-            jQuery(elements.tablaCupones).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-            _atacharEventosDeExtension();
-        } else {
-            closeWaitingDialog();
-            $(elements.contenedorGrillaCupones).hide();
-        }
+        jQuery(elements.tablaCupones).jqGrid({
+            url: setting.UrlListarCuponesPorCampania,
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
+                CampaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Tipo', 'Descripción', 'Creación', ''],
+            colModel: [
+                { name: 'Tipo', width: 50, editable: true, resizable: false },
+                { name: 'Descripcion', width: 80, editable: true, resizable: false },
+                { name: 'FechaCreacion', width: 80, editable: true, resizable: false },
+                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEvento }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false,
+                cell: "",
+                id: "id"
+            },
+            pager: jQuery('#pagerEvento'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: '',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 930,
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
+                closeWaitingDialog();
+            }
+        });
+        jQuery(elements.tablaCupones).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery(elements.tablaCupones).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        _atacharEventosDeExtension();
     };
 
     var _atacharEventosDeExtension = function () {
@@ -416,7 +405,7 @@
             VerDetalle: function (cuponId, tipo, descripcion) {
                 waitingDialog({});
                 var anioCampania = $(elements.ddlCampania + " option:selected").val();
-
+                $(elements.contenedorGrillaCuponConsultoras).hide();
                 $(elements.spnCampania).html(anioCampania);
                 $(elements.spnTipo).html(tipo);
                 $(elements.spnDescripcion).html(descripcion);
@@ -467,10 +456,10 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo', 'Descripción', 'Creación', ''],
+            colNames: ['Consultora', 'Valor Asociado', 'Estado', ''],
             colModel: [
                 { name: 'Consultora', width: 50, editable: true, resizable: false },
-                { name: 'Valor Asociado', width: 80, editable: true, resizable: false },
+                { name: 'ValorAsociado', width: 80, editable: true, resizable: false },
                 { name: 'Estado', width: 80, editable: true, resizable: false },
                 { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEvento }
             ],
@@ -503,18 +492,13 @@
             loadComplete: function () { },
             gridComplete: function () {
                 var cantidadRegistros = jQuery(elements.tablaCuponConsultoras).jqGrid('getGridParam', 'reccount');
-                if (cantidadRegistros > 0) {
-                    $(elements.contenedorGrillaCuponConsultoras).show();
-                } else {
-                    $(elements.contenedorGrillaCuponConsultoras).hide();
-                }
-
+                $(elements.contenedorGrillaCuponConsultoras).show();
                 closeWaitingDialog();
             }
         });
         jQuery(elements.tablaCuponConsultoras).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery(elements.tablaCuponConsultoras).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        // _atacharEventosDeExtension();
+        //_atacharEventosDeExtension();
     };
 
     var _listarCampaniasPromise = function (paisId) {
@@ -588,6 +572,7 @@
 
         _bindEvents();
         _inicializarDialogs();
+        _listarCuponesPorCampania();
     };
 
     return {

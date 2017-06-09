@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                                id = row.CuponConsultoraId,
                                Consultora = row.CodigoConsultora,
                                ValorAsociado = (row.ValorAsociado),
-                               Estado = row.EstadoCupon
+                               Estado = (row.EstadoCupon == Constantes.EstadoCupon.Reservado ? Constantes.NombreEstadoCupon.Reservado : row.EstadoCupon == Constantes.EstadoCupon.Activo ? Constantes.NombreEstadoCupon.Activo : Constantes.NombreEstadoCupon.Utilizado)
                            }
                 };
 

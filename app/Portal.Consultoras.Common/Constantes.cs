@@ -603,6 +603,14 @@
         {
             public const int Reservado = 1;
             public const int Activo = 2;
+            public const int Utilizado = 3;
+        }
+
+        public class NombreEstadoCupon
+        {
+            public const string Reservado = "Registrado";
+            public const string Activo = "Activado";
+            public const string Utilizado = "Utilizado";
         }
 
         public class MensajesError
