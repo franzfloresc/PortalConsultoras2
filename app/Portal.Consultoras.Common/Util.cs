@@ -2830,6 +2830,7 @@ namespace Portal.Consultoras.Common
         {
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
+            str = str == "..." ? "" : str;
             return str;
         }
 
@@ -3028,11 +3029,11 @@ namespace Portal.Consultoras.Common
         {
             if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CONTEXTO_BASE"]))
             {
-                throw new NullReferenceException("Key no encontrada: CONTEXTO_BASE");
+                LogManager.SaveLog(new Exception("Key no encontrada: CONTEXTO_BASE"), "", codigoISO);
+                return string.Empty;
             }
 
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
-
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
     }

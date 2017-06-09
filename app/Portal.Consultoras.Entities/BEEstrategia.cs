@@ -192,7 +192,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; } 
-               
         public BEEstrategia()
         { }
 

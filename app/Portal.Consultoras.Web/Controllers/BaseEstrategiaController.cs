@@ -4,9 +4,12 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -14,54 +17,39 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv)
         {
-            var usuario = ObtenerUsuarioConfiguracion();
+            if (Session["ListadoEstrategiaPedido"] != null) return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
 
-            List<BEEstrategia> lst = new List<BEEstrategia>();
-
-            if (Session["ListadoEstrategiaPedido"] != null)
-            {
-                lst = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
-                return lst;
-            }
-            
+            //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
                 CampaniaID = userData.CampaniaID,
-                ConsultoraID = userData.UsuarioPrueba == 1
-                    ? userData.ConsultoraAsociadaID.ToString()
-                    : userData.ConsultoraID.ToString(),
+                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
                 CUV2 = cuv ?? "",
                 Zona = userData.ZonaID.ToString(),
-                ZonaHoraria = usuario.ZonaHoraria,
-                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                ZonaHoraria = userData.ZonaHoraria,
+                FechaInicioFacturacion = userData.FechaFinCampania,
                 ValidarPeriodoFacturacion = true,
                 Simbolo = userData.Simbolo,
                 CodigoAgrupacion = ""
-            };
-            
-            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+            };            
+            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital)) entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
-            
-            var listaTemporal = new List<BEEstrategia>();
-
+            var listEstrategia = new List<BEEstrategia>();
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaTemporal = sv.GetEstrategiasPedido(entidad).ToList();
+                listEstrategia = sv.GetEstrategiasPedido(entidad).ToList();
             }
-            listaTemporal = listaTemporal ?? new List<BEEstrategia>();
-
-            if (listaTemporal.Count == 0)
-            {
-                Session["ListadoEstrategiaPedido"] = lst;
-                return lst;
-            }
-            lst.AddRange(listaTemporal);
-            Session["ListadoEstrategiaPedido"] = lst;
-
-
-            return lst;
+            listEstrategia = listEstrategia ?? new List<BEEstrategia>();
+            
+            listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
+            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e => {
+                e.Precio = 0;
+                e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
+            });
+            
+            Session["ListadoEstrategiaPedido"] = listEstrategia;
+            return listEstrategia;
         }
 
         public EstrategiaPedidoModel EstrategiaGetDetalle(int id)
@@ -262,10 +250,9 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
             var isMobile = IsMobile();
-            ListaProductoModel.Update(estrategia =>
+            ListaProductoModel.ForEach(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
-                estrategia.UrlCompartirFB = GetUrlCompartirFB();
                 estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
                 estrategia.EstrategiaDetalle.ImgFondoDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
                 estrategia.EstrategiaDetalle.ImgPrevDesktop =   ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
@@ -290,10 +277,12 @@ namespace Portal.Consultoras.Web.Controllers
                     var listadescr = estrategia.DescripcionCUV2.Split('|');
                     estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
                     estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
-                    estrategia.DescripcionDetalle = listadescr.Length > 2 ? listadescr[2] : "";
+                    if (listadescr.Length > 2)
+                    {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
+                        estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
+                    }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
-
-                    estrategia.DescripcionDetalle = estrategia.DescripcionDetalle.Replace("|", "<br />");
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
@@ -335,6 +324,7 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategia.PuedeCambiarCantidad = 0;
                     }
                 }
+                estrategia.PuedeAgregar = 1;
             });
 
             return ListaProductoModel;

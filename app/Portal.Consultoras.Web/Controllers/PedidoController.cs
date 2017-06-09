@@ -4385,6 +4385,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
         public JsonResult CloseBannerPL20()
         {
             try
@@ -4431,10 +4432,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
-        /*PL20-1226*/
-
-        //PL20-1265
         public JsonResult GetProductoFichaOPT(string pCuv)
         {
             try
