@@ -449,6 +449,14 @@
     };
 
     var _listarCuponConsultoras = function (cuponId) {
+        
+        var existeJGridTablaCuponConsultoras = jQuery(elements.tablaCuponConsultoras).jqGrid("getGridParam", "postData") != undefined;
+        if (existeJGridTablaCuponConsultoras) {
+            var parametros = jQuery(elements.tablaCuponConsultoras).jqGrid("getGridParam", "postData");
+            parametros.PaisID = function () { return $(elements.ddlPais).val() },
+            parametros.CuponID = function () { return cuponId; }
+        }
+        
         jQuery(elements.tablaCuponConsultoras).jqGrid({
             url: setting.UrlListarCuponConsultorasPorCupon,
             hidegrid: false,
