@@ -590,6 +590,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
+            ViewBag.CantPedidosPendientes = 0;
+
             var lstModel = new List<MenuMobileModel>();
 
             if (userData.RolID != Constantes.Rol.Consultora)
