@@ -102,6 +102,30 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
+function CargarCarouselMasVendidos(cuv) {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'OfertasMasVendidos/ObtenerOfertas',
+        //data: {
+        //    cuv: cuv,
+        //    tipoOrigenEstrategia: tipoOrigenEstrategia
+        //},
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            ArmarCarouselMasVendidos(data);
+        },
+        error: function (error) {
+            $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
+        }
+    });
+};
+
+function ArmarCarouselMasVendidos(data) {
+    data.Lista = EstructurarDataCarousel(data.Lista);
+    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+}
+
 function ArmarCarouselEstrategias(data) {
 
     $('#divListaEstrategias').hide();

@@ -666,6 +666,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
 
         [OperationContract]
+        List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]

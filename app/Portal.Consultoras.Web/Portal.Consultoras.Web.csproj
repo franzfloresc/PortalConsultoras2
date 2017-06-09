@@ -330,6 +330,7 @@
     <Compile Include="Controllers\OfertaFICController.cs" />
     <Compile Include="Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Controllers\OfertaNuevaController.cs" />
+    <Compile Include="Controllers\OfertasMasVendidosController.cs" />
     <Compile Include="Controllers\OfertasParaTiController.cs" />
     <Compile Include="Controllers\OfertaWebController.cs" />
     <Compile Include="Controllers\PaqueteDocumentarioController.cs" />
@@ -4062,6 +4063,8 @@
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\AdministrarCupon\Index.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\crearCupon.cshtml" />
+    <Content Include="Views\Bienvenida\MasVendidos.cshtml" />
+    <Content Include="Views\Bienvenida\template-mas-vendidos.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
