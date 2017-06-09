@@ -145,5 +145,15 @@ namespace Portal.Consultoras.Service
         {
             return BLCliente.ValidateTelefonoByConsultoraDB(paisID, consultoraID, contactoCliente);
         }
+
+        public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        {
+            return BLCliente.MovimientoInsertar(paisId, movimiento);
+        }
+
+        public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId)
+        {
+            return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
+        }
     }
 }
