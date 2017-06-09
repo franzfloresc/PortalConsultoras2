@@ -8323,6 +8323,10 @@ a{
     text-decoration:underline;
 }
 
+.mensaje_horarioIngresoPedido a.CerrarBanner{
+    color: #000;
+}
+
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*SHOWROOM*/
