@@ -6426,6 +6426,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .boton_cerrar_s {
     overflow: hidden;
+    float: left;
 }
 
 /****************************************************************

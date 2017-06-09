@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Models
             NombreRevista = "QUÉ ES ESIKA PARA MÍ";
         }
 
+        public bool Success { get; set; }
         public int Activo { get; set; }
         public int EstadoSuscripcion { get; set; }
         public int EstadoAccion { get; set; }
@@ -35,7 +36,6 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaMasDos { get; set; }
         public string NumeroContacto { get; set; }
         
-
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }

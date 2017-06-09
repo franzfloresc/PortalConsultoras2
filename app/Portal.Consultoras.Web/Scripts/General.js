@@ -1437,7 +1437,7 @@ function EnviarCorreoPedidoReservado() {
 }
 /*** Fin EPD-2378 ***/
 
-function FunccionEjecutar(functionHide) {
+function FuncionEjecutar(functionHide) {
     functionHide = $.trim(functionHide);
     if (functionHide != "") {
         if (functionHide[functionHide.length - 1] != ")") {

@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.Models;
 using System;
 using System.Configuration;
 using System.Web.Mvc;
@@ -12,6 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                ViewBag.EsMobile = 2;
                 var model = IndexModel();
                 if (model.EstadoAccion < 0)
                 {
@@ -19,7 +21,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 return View(model);
-
             }
             catch (Exception ex)
             {

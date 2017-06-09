@@ -6,7 +6,6 @@ $(document).ready(function () {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
-        tag = tag != "" && tag != "0" ? "1" : tag;
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
@@ -34,17 +33,24 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    if ($('ul[data-tab="tab"] li a').length == 0) {
-        if (estadoAccion == 0) {
-            $('[data-tag-html="0"]').show();
-        }
-        else {
-            $('[data-tag-html="1"]').show();
-        }
+    if ($('[data-tag-html]').length == 1) {
+        $('[data-tag-html]').show();
     }
     else {
-        $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+        $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     }
+
+    //if ($('ul[data-tab="tab"] li a').length == 0) {
+    //    if (estadoAccion == 0) {
+    //        $('[data-tag-html="0"]').show();
+    //    }
+    //    else {
+    //        $('[data-tag-html="1"]').show();
+    //    }
+    //}
+    //else {
+    //    $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+    //}
     
     RenderCarrusel();
 
@@ -54,29 +60,6 @@ $(document).ready(function () {
     if (location.href.toLowerCase().indexOf("/detalle/") > 0) {
         RDDetalleObtener();
     }
-
-    $(window).scroll(function () {
-
-        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-
-            $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
-
-
-        } else {
-
-            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
-        }
-
-    });
 
     $(".flecha_scroll").on('click', function (e) {
 
@@ -156,17 +139,17 @@ function OfertaArmarEstrategias(response) {
         lista.push(objDetalle);
     }
 
-    $("#divOfertaProductos").html("");
+    //$("#divOfertaProductos").html("");
 
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";    
+    response.CodigoEstrategia = "101";
 
     // Listado de producto
-    var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
-    //$('#divOfertaProductos').append(htmlDiv);
+    var htmlDiv = SetHandlebars("#estrategia-template", response);
+    $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
