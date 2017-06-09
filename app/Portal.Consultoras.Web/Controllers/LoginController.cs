@@ -850,9 +850,6 @@ namespace Portal.Consultoras.Web.Controllers
                                         using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                         {
                                             model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-
-                                            rds.CampaniaID = model.CampaniaID;
-                                            model.RevistaDigital.SuscripcionAnteriorModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                         }
                                     }
 
@@ -866,6 +863,15 @@ namespace Portal.Consultoras.Web.Controllers
                                         )
                                     {
                                         //obtiene datos de Revista digital suscripcion.
+                                        var rds = new BERevistaDigitalSuscripcion
+                                        {
+                                            PaisID = model.PaisID,
+                                            CodigoConsultora = model.CodigoConsultora
+                                        };
+                                        using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                        {
+                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                        }
 
                                         model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
 
