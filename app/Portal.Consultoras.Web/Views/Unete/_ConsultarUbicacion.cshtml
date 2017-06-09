@@ -1371,7 +1371,7 @@
         $('#btnModificarDireccion').attr('disabled', true);
         $('#btnGrabarDireccion').attr('disabled', true);
         $('#btnActualizarSeccion').attr('disabled', true);
-        EditMapa();
+        setTimeout(EditMapa, 1000);
     });
 
     $('#btnGrabarPosicion').click(function () {
