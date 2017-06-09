@@ -146,7 +146,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstadoAccion = -1;
             model.ListaTabs = new List<ComunModel>();
 
-            if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
+            if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
             {
                 return model;
             }
