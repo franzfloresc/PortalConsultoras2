@@ -175,6 +175,9 @@ function OfertaFilter(filtro) {
         return listaFiltros;
     }
 
+    var campania = $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
+    listaFiltros.CampaniaID = parseInt(campania) || 0;
+
     var variante = $(filtro).attr("data-filtro-tipo") || "";
     var campo = $(filtro).attr("data-filtro-campo") || "";
     var accion = $(filtro).attr("data-filtro-accion") || "";
