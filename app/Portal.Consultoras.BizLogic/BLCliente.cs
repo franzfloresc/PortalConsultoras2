@@ -381,7 +381,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else if (contactoCliente.ClienteID > 0)
                 {
-                    var lstCliente = daClienteDB.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
 
                     if (lstCliente.Count > 0)
                     {
