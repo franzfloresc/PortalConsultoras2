@@ -48,11 +48,11 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public List<BEClienteDB> GetCliente(long ClienteID, short TipoContactoID, string Valor)
+        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
         {
             List<BEClienteDB> result = new List<BEClienteDB>();
 
-            string getRequestUri = string.Format("{0}?ClienteID={1}&TipoContactoID={2}&Valor={3}", requestUri, ClienteID, TipoContactoID, Valor);
+            string getRequestUri = string.Format("{0}?TipoContactoID={2}&Valor={3}", requestUri, TipoContactoID, Valor);
             HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
 
             if (response.IsSuccessStatusCode)
