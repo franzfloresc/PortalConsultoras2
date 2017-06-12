@@ -1126,6 +1126,7 @@
     <Content Include="Content\Css\jstree\apple\dot_for_ie.gif" />
     <Content Include="Content\Css\jstree\apple\stylejstree.css" />
     <Content Include="Content\Css\jstree\apple\throbber.gif" />
+    <Content Include="Content\Css\Mobile\calc.css" />
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
@@ -1154,6 +1155,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
