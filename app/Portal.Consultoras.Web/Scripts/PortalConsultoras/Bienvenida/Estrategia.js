@@ -102,6 +102,58 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
+function CargarCarouselMasVendidos(cuv) {
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'OfertasMasVendidos/ObtenerOfertas',
+        //data: {
+        //    cuv: cuv,
+        //    tipoOrigenEstrategia: tipoOrigenEstrategia
+        //},
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            ArmarCarouselMasVendidos(data);
+            inicializarDivMasVendidos();
+        },
+        error: function (error) {
+            $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
+        }
+    });
+};
+
+function inicializarDivMasVendidos() {
+    $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+    $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
+        infinite: true,
+        vertical: false,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: false,
+        arrows: true,
+        speed: 260,
+        prevArrow: '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+    });
+
+    var rating = 1.6;
+    $(".rateyo-readonly-widg").rateYo({
+        rating: rating,
+        numStars: 5,
+        precision: 2,
+        minValue: 1,
+        maxValue: 5,
+        starWidth: "17px"
+    }).on("rateyo.change", function (e, data) {
+        //console.log(data.rating);
+    });
+}
+
+function ArmarCarouselMasVendidos(data) {
+    data.Lista = EstructurarDataCarousel(data.Lista);
+    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+}
+
 function ArmarCarouselEstrategias(data) {
 
     $('#divListaEstrategias').hide();

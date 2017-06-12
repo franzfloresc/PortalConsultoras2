@@ -52,6 +52,39 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
+        public List<BEEstrategia> ConsultarMasVendidos()
+        {
+            if (Session["ListadoMasVendidos"] != null) return (List<BEEstrategia>)Session["ListadoMasVendidos"];
+          
+            var entidad = new BEEstrategia
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = userData.CampaniaID,
+                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                Zona = userData.ZonaID.ToString(),
+                ZonaHoraria = userData.ZonaHoraria,
+                FechaInicioFacturacion = userData.FechaFinCampania,
+                ValidarPeriodoFacturacion = true,
+                Simbolo = userData.Simbolo,
+            };
+
+            var listEstrategia = new List<BEEstrategia>();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listEstrategia = sv.GetMasVendidos(entidad).ToList();
+            }
+            listEstrategia = listEstrategia ?? new List<BEEstrategia>();
+
+            listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
+            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e => {
+                e.Precio = 0;
+                e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
+            });
+
+            Session["ListadoMasVendidos"] = listEstrategia;
+            return listEstrategia;
+        }
+
         public EstrategiaPedidoModel EstrategiaGetDetalle(int id)
         {
             var estrategia = new EstrategiaPedidoModel();
@@ -258,6 +291,95 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.EstrategiaDetalle.ImgPrevDesktop =   ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
                 estrategia.EstrategiaDetalle.ImgFichaDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
                 estrategia.EstrategiaDetalle.ImgFichaFondoDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
+                estrategia.EstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
+                estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
+                estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
+                estrategia.EstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
+                estrategia.EstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
+
+                estrategia.EstrategiaDetalle.ImgFondoDesktop = isMobile ? "" : estrategia.EstrategiaDetalle.ImgFondoDesktop;
+                estrategia.EstrategiaDetalle.ImgPrevDesktop = isMobile ? "" : estrategia.EstrategiaDetalle.ImgPrevDesktop;
+                estrategia.EstrategiaDetalle.ImgFichaDesktop = isMobile ? estrategia.EstrategiaDetalle.ImgFichaMobile : estrategia.EstrategiaDetalle.ImgFichaDesktop;
+                estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = isMobile ? estrategia.EstrategiaDetalle.ImgFichaFondoMobile : estrategia.EstrategiaDetalle.ImgFichaFondoDesktop;
+                estrategia.EstrategiaDetalle.UrlVideoDesktop = isMobile ? estrategia.EstrategiaDetalle.UrlVideoMobile : estrategia.EstrategiaDetalle.UrlVideoDesktop;
+
+                estrategia.DescripcionResumen = "";
+                estrategia.DescripcionDetalle = "";
+                if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
+                {
+                    var listadescr = estrategia.DescripcionCUV2.Split('|');
+                    estrategia.DescripcionResumen = listadescr.Length > 0 ? listadescr[0] : "";
+                    estrategia.DescripcionCortada = listadescr.Length > 1 ? listadescr[1] : "";
+                    if (listadescr.Length > 2)
+                    {
+                        estrategia.ListaDescripcionDetalle = new List<string>(listadescr.Skip(2));
+                        estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
+                    }
+                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
+                }
+                else if (estrategia.FlagNueva == 1)
+                {
+                    estrategia.DescripcionResumen = estrategia.DescripcionCUV2.Split('|')[0];
+                    estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
+                    estrategia.DescripcionCortada = estrategia.DescripcionResumen;
+                }
+                else
+                {
+                    estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCUV2, 40);
+                };
+
+                estrategia.ID = estrategia.EstrategiaID;
+                if (estrategia.FlagMostrarImg == 1)
+                {
+                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    {
+                        if (estrategia.FlagEstrella == 1)
+                        {
+                            estrategia.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";
+                        }
+                    }
+                    else if (!(estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas
+                        || estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.Lanzamiento))
+                    {
+                        estrategia.ImagenURL = "";
+                    }
+                }
+                else
+                {
+                    estrategia.ImagenURL = "";
+                }
+
+                estrategia.PuedeCambiarCantidad = 1;
+                if (estrategia.TieneVariedad == 0)
+                {
+                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.PackNuevas)
+                    {
+                        estrategia.PuedeCambiarCantidad = 0;
+                    }
+                }
+                estrategia.PuedeAgregar = 1;
+            });
+
+            return ListaProductoModel;
+        }
+
+        public List<EstrategiaPedidoModel> ConsultarMasVendidosModel()
+        {
+            var listaProducto = ConsultarMasVendidos();
+            var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            var isMobile = IsMobile();
+            ListaProductoModel.ForEach(estrategia =>
+            {
+                estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
+                estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
+                estrategia.EstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
+                estrategia.EstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
+                estrategia.EstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
+                estrategia.EstrategiaDetalle.ImgFichaFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoDesktop);
                 estrategia.EstrategiaDetalle.UrlVideoDesktop = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoDesktop);
                 estrategia.EstrategiaDetalle.ImgFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoMobile);
                 estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);

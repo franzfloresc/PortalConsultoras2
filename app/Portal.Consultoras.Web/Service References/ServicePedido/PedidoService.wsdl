@@ -14,6 +14,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsOfertaShowRoomDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsOfertaShowRoomDetalle" />
   </wsdl:message>
@@ -638,6 +644,12 @@
   <wsdl:message name="IPedidoService_GetEstrategiasPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategiasPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMasVendidos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMasVendidos" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetMasVendidos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMasVendidosResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_FiltrarEstrategiaPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:FiltrarEstrategiaPedido" />
   </wsdl:message>
@@ -1009,12 +1021,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GuardarImagenShowRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarImagenShowRoomResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalle" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelPedidoWebDetallePackNueva_InputMessage">
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetallePackNueva" />
@@ -2037,6 +2043,10 @@
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivoResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetProductosShowRoomDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" message="tns:IPedidoService_GetProductosShowRoomDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse" message="tns:IPedidoService_GetProductosShowRoomDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsOfertaShowRoomDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle" message="tns:IPedidoService_InsOfertaShowRoomDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalleResponse" message="tns:IPedidoService_InsOfertaShowRoomDetalle_OutputMessage" />
@@ -2453,6 +2463,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasPedido" message="tns:IPedidoService_GetEstrategiasPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasPedidoResponse" message="tns:IPedidoService_GetEstrategiasPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetMasVendidos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMasVendidos" message="tns:IPedidoService_GetMasVendidos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMasVendidosResponse" message="tns:IPedidoService_GetMasVendidos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="FiltrarEstrategiaPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedido" message="tns:IPedidoService_FiltrarEstrategiaPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedidoResponse" message="tns:IPedidoService_FiltrarEstrategiaPedido_OutputMessage" />
@@ -2700,10 +2714,6 @@
     <wsdl:operation name="GuardarImagenShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoom" message="tns:IPedidoService_GuardarImagenShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GuardarImagenShowRoomResponse" message="tns:IPedidoService_GuardarImagenShowRoom_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosShowRoomDetalle">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" message="tns:IPedidoService_GetProductosShowRoomDetalle_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse" message="tns:IPedidoService_GetProductosShowRoomDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DelPedidoWebDetallePackNueva">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetallePackNueva" message="tns:IPedidoService_DelPedidoWebDetallePackNueva_InputMessage" />
@@ -3388,6 +3398,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetProductosShowRoomDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsOfertaShowRoomDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle" style="document" />
       <wsdl:input>
@@ -4324,6 +4343,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMasVendidos">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMasVendidos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="FiltrarEstrategiaPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/FiltrarEstrategiaPedido" style="document" />
       <wsdl:input>
@@ -4875,15 +4903,6 @@
     </wsdl:operation>
     <wsdl:operation name="GuardarImagenShowRoom">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GuardarImagenShowRoom" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetProductosShowRoomDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
