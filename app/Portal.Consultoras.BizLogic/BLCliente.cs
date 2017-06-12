@@ -51,7 +51,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var cliente = new BECliente(reader);
                     cliente.PaisID = paisID;
-                    cliente.Notificacion = new BEClienteNotificacion(reader);
                     clientes.Add(cliente);
                 }
 
@@ -141,6 +140,27 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return movimientos;
+        }
+
+        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.InsertarRecordatorio(recordatorio);
+        }
+
+        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long clienteId, long consultoraId)
+        {
+            var recordatorios = new List<BEClienteRecordatorio>();
+            var daCliente = new DACliente(paisId);
+
+            using (IDataReader reader = daCliente.ObtenerRecordatorio(clienteId, consultoraId))
+                while (reader.Read())
+                {
+                    var recordatorio = new BEClienteRecordatorio(reader);
+                    recordatorios.Add(recordatorio);
+                }
+
+            return recordatorios;
         }
 
         #region ClienteDB
@@ -317,6 +337,9 @@ namespace Portal.Consultoras.BizLogic
 
             //1. OBTENER CLIENTE CONSULTORA
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
+            lstConsultoraCliente.ToList()
+                .ForEach(c =>
+                    c.Recordatorios = RecordatorioListar(paisID, c.CodigoCliente, consultoraID));
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
@@ -339,7 +362,8 @@ namespace Portal.Consultoras.BizLogic
                             Origen = tblCliente.Origen,
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                            Contactos = tblCliente.Contactos
+                            Contactos = tblCliente.Contactos,
+                            Recordatorios = tblConsultoraCliente.Recordatorios
                         }).OrderBy(x => x.Nombres).ToList();
 
             return clientes;
