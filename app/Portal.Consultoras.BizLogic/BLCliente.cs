@@ -167,6 +167,7 @@ namespace Portal.Consultoras.BizLogic
                     continue;
                 }
 
+
                 //OBTENER CLIENTE TELEFONO
                 var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
                 resGetCliente = resGetCliente.Where(x=>x.ClienteID != clienteDB.ClienteID).ToList();
