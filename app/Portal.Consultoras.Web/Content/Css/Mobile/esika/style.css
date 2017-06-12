@@ -10937,18 +10937,19 @@ a{
     margin-top:15px;
 }
 .termino_condiciones_intriga, .termino_condiciones_cupon {
-    position:relative;
-    padding-left:18px;
-    margin:0 auto;
-    margin-top:20px;
-    font-family:'Lato';
-    font-size:10.5px;
-    max-width:260px;    
+    position: relative;
+    padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    max-width: 260px;    
     text-align: left;
 }
 .termino_condiciones_cupon {
     position: relative;
     padding-left: 18px;
+    margin-top:0;
 }
 .contenedor_termino_condiciones_cupon {
     margin:0 auto;
@@ -12134,40 +12135,39 @@ a{
     text-align:center;
     font-family:'Lato';
 }
-.titulo_gana{
+.titulo_gana {
     font-size: 13px;
     color: white;
     height: 46px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1.5px;
     line-height: 20px;
     -moz-text-align-last: justify;
     text-align-last: justify;
     text-align: justify;
-    /* padding-right: 10px; */
     margin: 0 auto;
-    margin-bottom: 5px;
-    margin-top: 29px;
+    margin-top: 20px;
+    margin-bottom: 10px;
     width: 196px;
+    line-height: 15px;
 }
 .titulo_gana span {
     font-size: 19px;
     letter-spacing: 1.1px;
+    font-weight: 700;
 }
-.subtitulo_gana{
+.subtitulo_gana {
     font-family: 'Lato';
     color: white;
     font-size: 14px;
-    /* font-weight: 900; */
     letter-spacing: 1.2px;
     width: 196px;
     margin: 0 auto;
+    margin-bottom: -5px;
     -moz-text-align-last: justify;
     text-align-last: justify;
     text-align: justify;
-    /* padding-right: 10px; */
 }
-.monto_gana{
+.monto_gana {
     font-family: 'Lato';
     font-size: 94px;
     color: white;
