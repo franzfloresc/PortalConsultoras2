@@ -60,8 +60,10 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
+    <Compile Include="BEClienteRecordatorio.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
+    <Compile Include="BEMovimiento.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />

@@ -78,5 +78,17 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
+
+        [OperationContract]
+        bool MovimientoInsertar(int paisId, BEMovimiento movimiento);
+
+        [OperationContract]
+        IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId);
+
+        [OperationContract]
+        bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        BEClienteRecordatorio ObtenerRecordatorioPorCliente(int paisId, int clienteId, long consultoraId);
     }
 }
