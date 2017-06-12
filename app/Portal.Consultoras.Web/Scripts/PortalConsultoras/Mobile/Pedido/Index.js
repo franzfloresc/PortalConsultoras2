@@ -644,7 +644,7 @@ function InsertarProducto() {
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
 
             $("#hdCuvEnSession").val("");
-
+            ProcesarActualizacionMostrarContenedorCupon();
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({
                 'event': 'addToCart',
@@ -664,7 +664,6 @@ function InsertarProducto() {
                     }
                 }
             });
-
         },
         error: function (data, error) {
             CloseLoading();
@@ -1224,4 +1223,12 @@ function TagManagerCarruselSiguiente() {
 function maxLengthCheck(object, cantidadMaxima) {
     if (object.value.length > cantidadMaxima)
         object.value = object.value.slice(0, cantidadMaxima);
+}
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
 }

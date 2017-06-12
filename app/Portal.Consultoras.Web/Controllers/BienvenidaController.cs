@@ -268,8 +268,7 @@ namespace Portal.Consultoras.Web.Controllers
                     popupForzado.Mostrar = true;
                     popupForzado.TipoPopup = Convert.ToInt32(TempData["TipoPopup"]);
                 }
-                else
-                {
+                else {
                     popupForzado.Mostrar = false;
                     popupForzado.TipoPopup = 0;
                 }
@@ -282,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
-
+                
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -517,7 +516,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     continue;
                 }
-
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
                     var cupon = ObtenerCuponDesdeServicio();
