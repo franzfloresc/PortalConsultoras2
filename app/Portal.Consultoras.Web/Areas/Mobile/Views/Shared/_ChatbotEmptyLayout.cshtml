@@ -169,7 +169,7 @@
                     if ($(e.target).is(':visible')) {
 
                         var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                        FunccionEjecutar(functionHide);
+                        FuncionEjecutar(functionHide);
                         $(e.target).hide();
                         $('body').css({ 'overflow-y': 'scroll' });
                     }
@@ -180,7 +180,7 @@
                 var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
                 var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
                 $(popupClose).hide();
                 $('body').css({ 'overflow-y': 'scroll' });
             });
