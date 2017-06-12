@@ -51,6 +51,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var cliente = new BECliente(reader);
                     cliente.PaisID = paisID;
+                    cliente.Notificacion = new BEClienteNotificacion(reader);
                     clientes.Add(cliente);
                 }
 
@@ -120,6 +121,28 @@ namespace Portal.Consultoras.BizLogic
             DACliente.InsCatalogoCampania(CodigoConsultora, CampaniaID);
         }
 
+
+        public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.InsertarMovimiento(movimiento);
+        }
+
+        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, int clienteId, long consultoraId)
+        {
+            var movimientos = new List<BEMovimiento>();
+            var daCliente = new DACliente(paisId);
+
+            using (IDataReader reader = daCliente.ListarMovimientos(clienteId, consultoraId))
+                while (reader.Read())
+                {
+                    var movimiento = new BEMovimiento(reader);
+                    movimientos.Add(movimiento);
+                }
+
+            return movimientos;
+        }
+
         #region ClienteDB
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
@@ -128,7 +151,7 @@ namespace Portal.Consultoras.BizLogic
             var daClienteDB = new DAClienteDB();
             var clienteSB = new BECliente();
 
-            foreach(var clienteDB in clientes)
+            foreach (var clienteDB in clientes)
             {
                 //VALIDAR CLIENTE
                 var validacion = this.ValidateAttribute(paisID, clienteDB);
@@ -147,10 +170,10 @@ namespace Portal.Consultoras.BizLogic
 
                 //OBTENER TELEFONO PRINCIPAL
                 var contactoPrincipal = (from tbl in clienteDB.Contactos
-                                           where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
-                                           || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
-                                           && tbl.Estado == Constantes.ClienteEstado.Activo
-                                           select tbl).OrderBy(x => x.TipoContactoID).FirstOrDefault();
+                                         where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
+                                         || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
+                                         && tbl.Estado == Constantes.ClienteEstado.Activo
+                                         select tbl).OrderBy(x => x.TipoContactoID).FirstOrDefault();
 
                 //VALIDAR CLIENTE CONSULTORA
                 validacion = this.ValidateConsultora(paisID, clienteDB, contactoPrincipal);
@@ -192,13 +215,13 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //GRABAR CLIENTE
-                if(clienteDB.Estado == Constantes.ClienteEstado.Activo)
+                if (clienteDB.Estado == Constantes.ClienteEstado.Activo)
                 {
-                    var oCorreo = clienteDB.Contactos.Where(x=>x.TipoContactoID == Constantes.ClienteTipoContacto.Correo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
+                    var oCorreo = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
                     var correo = (oCorreo == null ? string.Empty : oCorreo.Valor);
-                    var oTelefonoFijo = clienteDB.Contactos.Where(x=>x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
+                    var oTelefonoFijo = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
                     var telefonoFijo = (oTelefonoFijo == null ? string.Empty : oTelefonoFijo.Valor);
-                    var oCelular = clienteDB.Contactos.Where(x=>x.TipoContactoID == Constantes.ClienteTipoContacto.Celular && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
+                    var oCelular = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
                     var celular = (oCelular == null ? string.Empty : oCelular.Valor);
 
                     if (clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
@@ -241,16 +264,16 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     clienteSB = new BECliente()
-                        {
-                            ConsultoraID = clienteDB.ConsultoraID,
-                            ClienteID = clienteDB.ClienteIDSB,
-                            Nombre = clienteDB.Nombres,
-                            eMail = correo,
-                            Activo = true,
-                            Telefono = telefonoFijo,
-                            Celular = celular,
-                            CodigoCliente = clienteDB.ClienteID
-                        };
+                    {
+                        ConsultoraID = clienteDB.ConsultoraID,
+                        ClienteID = clienteDB.ClienteIDSB,
+                        Nombre = clienteDB.Nombres,
+                        eMail = correo,
+                        Activo = true,
+                        Telefono = telefonoFijo,
+                        Celular = celular,
+                        CodigoCliente = clienteDB.ClienteID
+                    };
 
                     var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
                     clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
@@ -301,23 +324,23 @@ namespace Portal.Consultoras.BizLogic
 
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
-                         join tblCliente in lstCliente
-                          on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
+                        join tblCliente in lstCliente
+                         on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
                         select new BEClienteDB
-                         {
-                             ClienteID = tblCliente.ClienteID,
-                             Apellidos = tblCliente.Apellidos,
-                             Nombres = tblCliente.Nombres,
-                             Alias = tblCliente.Alias,
-                             Foto = tblCliente.Foto,
-                             FechaNacimiento = tblCliente.FechaNacimiento,
-                             Sexo = tblCliente.Sexo,
-                             Documento = tblCliente.Documento,
-                             Origen = tblCliente.Origen,
-                             Favorito = tblConsultoraCliente.Favorito,
-                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                             Contactos = tblCliente.Contactos
-                         }).OrderBy(x => x.Nombres).ToList();
+                        {
+                            ClienteID = tblCliente.ClienteID,
+                            Apellidos = tblCliente.Apellidos,
+                            Nombres = tblCliente.Nombres,
+                            Alias = tblCliente.Alias,
+                            Foto = tblCliente.Foto,
+                            FechaNacimiento = tblCliente.FechaNacimiento,
+                            Sexo = tblCliente.Sexo,
+                            Documento = tblCliente.Documento,
+                            Origen = tblCliente.Origen,
+                            Favorito = tblConsultoraCliente.Favorito,
+                            TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
+                            Contactos = tblCliente.Contactos
+                        }).OrderBy(x => x.Nombres).ToList();
 
             return clientes;
         }
@@ -358,7 +381,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else if (contactoCliente.ClienteID > 0)
                 {
-                    var lstCliente = daClienteDB.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
 
                     if (lstCliente.Count > 0)
                     {
@@ -421,14 +444,14 @@ namespace Portal.Consultoras.BizLogic
                 return Constantes.ClienteValidacion.Code.ERROR_NOMBRENOENVIADO;
             if (cliente.Contactos == null)
                 return Constantes.ClienteValidacion.Code.ERROR_CONTACTOSNOENVIADO;
-            if(cliente.Contactos.Count == 0)
+            if (cliente.Contactos.Count == 0)
                 return Constantes.ClienteValidacion.Code.ERROR_CONTACTOSNOENVIADO;
 
             var validacionTipoContacto = cliente.Contactos.Where(x => string.IsNullOrEmpty(x.Valor) && x.Estado == Constantes.ClienteEstado.Activo).Count();
             if (validacionTipoContacto > 0)
                 return Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOVALORNOENVIADO;
 
-            var contactos = cliente.Contactos.Where(x => (x.TipoContactoID == Constantes.ClienteTipoContacto.Celular || x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo) && x.Estado == Constantes.ClienteEstado.Activo).OrderBy(x=>x.TipoContactoID).ToList();
+            var contactos = cliente.Contactos.Where(x => (x.TipoContactoID == Constantes.ClienteTipoContacto.Celular || x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo) && x.Estado == Constantes.ClienteEstado.Activo).OrderBy(x => x.TipoContactoID).ToList();
             if (contactos.Count == 0)
                 return Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONONOENVIADO;
 
@@ -464,7 +487,7 @@ namespace Portal.Consultoras.BizLogic
             var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.Nombres.ToUpper()).Count();
             if (nombreExiste > 0) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORANOMBREEXISTE;
 
-            if(contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular)
+            if (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular)
             {
                 var telefonoExiste = lstCliente.Where(x => x.Celular == contactoPrincipal.Valor).Count();
                 if (telefonoExiste > 0) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORATELEFONOEXISTE;
