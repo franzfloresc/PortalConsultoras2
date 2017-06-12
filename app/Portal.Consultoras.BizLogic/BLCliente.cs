@@ -252,6 +252,9 @@ namespace Portal.Consultoras.BizLogic
                             CodigoCliente = clienteDB.ClienteID
                         };
 
+                    var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
+                    clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
+
                     if (clienteDB.ClienteIDSB == 0) clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
                     else daCliente.UpdCliente(clienteSB);
                 }
