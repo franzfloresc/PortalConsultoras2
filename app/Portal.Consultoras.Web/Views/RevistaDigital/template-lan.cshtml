@@ -68,7 +68,8 @@ foreach (var lan in Model.ListaProducto)
                             </div>
                         </div>
                     }
-                    <a class="boton_Agregalo_home" href="javascript:;" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@lan.EstrategiaID', TipoEstrategiaID: '@lan.TipoEstrategiaID', Posicion: @lan.Orden, FlagNueva: '@lan.FlagNueva' }, this); ">
+                    <a class="boton_Agregalo_home" href="javascript:;" data-campaniaid="@lan.CampaniaID"
+                       onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@lan.EstrategiaID', TipoEstrategiaID: '@lan.TipoEstrategiaID', Posicion: @lan.Orden, FlagNueva: '@lan.FlagNueva' }, this); ">
                         AGRÉGALO
                     </a>
                     <div class="clear"></div>
