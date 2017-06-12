@@ -516,7 +516,7 @@
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
-            if (aux1 == "4" || aux1 == "7" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
+            if (aux1 == "4" || aux1 == "7" || aux1 == "8" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
             }
@@ -818,7 +818,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4  && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
+                if (estrategiaId !== 4  && estrategiaId !== 8 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
                     alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
@@ -1439,7 +1439,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '8' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1766,34 +1766,6 @@
                         }
                     }
 
-                    //var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
-                    //if (auxOD == "7") {
-                    //    var desc1 = $("#txtDescripcion").val();
-                    //    if ($.trim(desc1) == "") {
-                    //        alert("Ingrese una descripción.");
-                    //        return false;
-                    //    }
-                    //    else {
-                    //        if (desc1.indexOf('|') < 0) {
-                    //            alert("La descripcion debe contener dos pipes (|) como minimo.");
-                    //            return false;
-                    //        }
-                    //        else {
-                    //            var arr1 = desc1.split('|');
-                    //            if (arr1.length <= 2) {
-                    //                alert("La descripcion debe contener dos pipes (|) como minimo.");
-                    //                return false;
-                    //            }
-                    //            for (var i = 0; i < arr1.length; i++) {
-                    //                if ($.trim(arr1[i]) == "") {
-                    //                    alert("La descripcion despues de un pipe (|) no puede ser vacia.");
-                    //                    return false;
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //}
-
                     var valor = $("#txtDescripcion").val();
                     if ($.trim(valor) == "") {
                         alert("Ingrese el valor del CUV2 para obtener la descripción o ingrese una.");
@@ -1841,7 +1813,7 @@
                     }
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
                     var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
+                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 8 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
@@ -1866,40 +1838,40 @@
                     }
                     var imagenEstrategiaProducto = $("#imgSeleccionada").attr("src");
 
-                    //if (aux3 == '005') {
-                    //    if ($("#nombre-img-fondo-desktop").val() == "") {
-                    //        alert("Seleccione una imagen de fondo para Desktop. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#nombre-img-prev-desktop").val() == "") {
-                    //        alert("Seleccione una imagen de previsualización para Desktop. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#nombre-img-ficha-desktop").val() == "") {
-                    //        alert("Seleccione una imagen para el sello de ficha para Desktop. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
-                    //        alert("Seleccione una imagen de fondo de ficha para Desktop. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#url-video-desktop").val() == "") {
-                    //        alert("Ingrese la url para el video para desktop. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#nombre-img-ficha-mobile").val() == "") {
-                    //        alert("Seleccione una imagen para el sello de ficha para Mobile. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
-                    //        alert("Seleccione una imagen de fondo de ficha para Mobile. ");
-                    //        return false;
-                    //    }
-                    //    if ($("#url-video-mobile").val() == "") {
-                    //        alert("Ingrese la url para el video para Mobile. ");
-                    //        return false;
-                    //    }
-                    //}
+                    if (aux3 == '005') {
+                        if ($("#nombre-img-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-prev-desktop").val() == "") {
+                            alert("Seleccione una imagen de previsualización para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-desktop").val() == "") {
+                            alert("Seleccione una imagen para el sello de ficha para Desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo de ficha para Desktop. ");
+                            return false;
+                        }
+                        if ($("#url-video-desktop").val() == "") {
+                            alert("Ingrese la url para el video para desktop. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-mobile").val() == "") {
+                            alert("Seleccione una imagen para el sello de ficha para Mobile. ");
+                            return false;
+                        }
+                        if ($("#nombre-img-ficha-fondo-desktop").val() == "") {
+                            alert("Seleccione una imagen de fondo de ficha para Mobile. ");
+                            return false;
+                        }
+                        if ($("#url-video-mobile").val() == "") {
+                            alert("Ingrese la url para el video para Mobile. ");
+                            return false;
+                        }
+                    }
 
                     var EstrategiaID = 0;
                     if(!isNuevo)
