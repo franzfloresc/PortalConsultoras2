@@ -39,4 +39,17 @@
   <xs:attribute name="FactoryType" type="xs:QName" />
   <xs:attribute name="Id" type="xs:ID" />
   <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCacheListaOfertaFinal">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCacheListaOfertaFinalResponse">
+    <xs:complexType>
+      <xs:sequence />
 </xs:schema>

@@ -29,6 +29,7 @@
     <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="bb74c8b8-b096-4c4b-b14c-84cef39de994" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
     <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="a0610b2b-9d83-40ab-a51e-e988ae7ea6e0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
     <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="ca56693c-f533-41c2-bcb1-d778844d895a" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SACService5.xsd" MetadataType="Schema" ID="2b844f63-2fd2-42f0-9f6c-78a038715fb8" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd5" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

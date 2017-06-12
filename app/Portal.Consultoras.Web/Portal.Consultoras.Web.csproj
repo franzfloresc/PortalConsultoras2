@@ -3440,17 +3440,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.wsdl" />
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService11.wsdl" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService3.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3469,15 +3460,27 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceSAC\SACService.disco" />
-    <Content Include="Service References\ServiceSAC\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceSAC\configuration.svcinfo" />
-    <Content Include="Service References\ServiceSAC\Reference.svcmap">
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService33.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService34.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService35.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService.disco" />
+    <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
+    <None Include="Service References\ServiceSAC\configuration.svcinfo" />
+    <None Include="Service References\ServiceSAC\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
-    <Content Include="Service References\ServiceSAC\SACService.wsdl" />
+    <None Include="Service References\ServiceSAC\SACService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
     </None>
