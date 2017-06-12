@@ -3091,6 +3091,23 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /// <summary>
+        /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
+        /// </summary>
+        /// <typeparam name="T">Data Row</typeparam>
+        /// <param name="row">Fila</param>
+        /// <param name="name">Nombre de la columna</param>
+        /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
+        /// <returns>Valor convertido</returns>
+        public static T GetValue<T>(this IDataRecord row, string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentNullException("Parametro enviado es nulo o vacio");
+            }
+
+            return (T)row.GetValue(row.GetOrdinal(name));
+        }
     }
 
     public static class LinqExtensions

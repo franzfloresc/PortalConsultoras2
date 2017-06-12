@@ -25,8 +25,7 @@ namespace Portal.Consultoras.Entities
         private long miCodigoCliente;
         private short miFavorito;
         private short miTipoContactoFavorito;
-
-
+        
         public BECliente()
         {
             msNombre = string.Empty;
@@ -163,5 +162,8 @@ namespace Portal.Consultoras.Entities
             get { return miTipoContactoFavorito; }
             set { miTipoContactoFavorito = value; }
         }
+
+        [DataMember]
+        public BEClienteNotificacion Notificacion { get; set; }
     }
 }
