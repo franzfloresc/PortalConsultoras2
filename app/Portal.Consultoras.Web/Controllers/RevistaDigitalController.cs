@@ -52,6 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new RevistaDigitalModel();
             if (id <= 0) return PartialView("template-Landing", model);
 
+            model.CampaniaID = id;
             model.Success = true;
             model.IsMobile = ViewBag.EsMobile == 2;
 
