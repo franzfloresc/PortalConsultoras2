@@ -18,12 +18,11 @@ var listaFiltros = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
 
-
     $("a[data-filtro-tipo]").click(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
     
     $('#DialogMensajesBanner').dialog({
@@ -163,9 +162,9 @@ function CargarFiltroRangoPrecio() {
     $('.slider-container').css('width', '');
 }
 
-function OfertaObtenerProductos(filtro) {
+function OfertaObtenerProductos(filtro, clear) {
     var busquedaModel = OfertaFilter(filtro);
-    OfertaCargarProductos(busquedaModel);
+    OfertaCargarProductos(busquedaModel, clear);
 }
 
 function OfertaFilter(filtro) {
@@ -242,7 +241,7 @@ function OfertaFilter(filtro) {
     return listaFiltros;
 }
 
-function OfertaCargarProductos(busquedaModel) {
+function OfertaCargarProductos(busquedaModel, clear) {
     if (urlOfertaCargarProductos == '') {
         $("#divOfertaProductos").hide();
         return false;
@@ -277,6 +276,7 @@ function OfertaCargarProductos(busquedaModel) {
             if (response.success == true) {
                 cantMostrados += response.lista.length;
                 cantTotal = response.cantidad;
+                isClear = clear || false;
                 OfertaArmarEstrategias(response);
                 return true;
             }
