@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Data
         {
             List<BEClienteDB> result = new List<BEClienteDB>();
 
-            string getRequestUri = string.Format("{0}?TipoContactoID={2}&Valor={3}", requestUri, TipoContactoID, Valor);
+            string getRequestUri = string.Format("{0}?TipoContactoID={1}&Valor={2}", requestUri, TipoContactoID, Valor);
             HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
 
             if (response.IsSuccessStatusCode)
