@@ -4,24 +4,31 @@
     var CONTANSTES_CUPON = {
         CODIGO_TIPO_MONTO: 1,
         CODIGO_TIPO_PORCENTAJE: 2,
-        NOMBRE_TIPO_MONTO: 'Monto',
-        NOMBRE_TIPO_PORCENTAJE: 'Porcentaje',
+        NOMBRE_TIPO_MONTO: 'MONTO',
+        NOMBRE_TIPO_PORCENTAJE: 'PORCENTAJE',
         ESTADO_CUPON_REGISTRADO: 1,
         ESTADO_CUPON_ACTIVADO: 2,
         ESTADO_CUPON_UTILIZADO: 3,
-        NOMBRE_CUPON_REGISTRADO: 'Registrado',
-        NOMBRE_CUPON_ACTIVADO: 'Activado',
-        NOMBRE_CUPON_UTILIZADO: 'Utilizado'
+        NOMBRE_CUPON_REGISTRADO: 'REGISTRADO',
+        NOMBRE_CUPON_ACTIVADO: 'ACTIVADO',
+        NOMBRE_CUPON_UTILIZADO: 'UTILIZADO'
     };
 
     var elements = {
-        btnCrear: '#btnCrear',
+        btnMostrarPopupMantCupon: '#btnMostrarPopupMantCupon',
+        btnRegresar: '#btnRegresar',
+        btnMostrarPopupMantCuponConsultora: '#btnMostrarPopupMantCuponConsultora',
         ddlPais: '#ddlPais',
         ddlCampania: '#ddlCampania',
         ddlTipoCupon: '#ddlTipoCupon',
-        popupMantenimientoCupon: '#popup-mantenimiento-Cupon',
+        popupMantenimientoCupon: '#popup-mantenimiento-cupon',
+        popupMantenimientoCuponConsultora: '#popup-mantenimiento-cupon-consultora',
         txtDescripcion: '#txtDescripcion',
+        txtConsultora: '#txtConsultora',
+        txtValorAsociado: '#txtValorAsociado',
         hdCuponId: '#hdCuponId',
+        hdCuponConsultoraId: '#hdCuponConsultoraId',
+        hdCuponIdCuponConsultora: '#hdCuponId-cupon-consultora',
         contenedorGrillaCupones: '#contenedor-grilla-cupones',
         contenedorGrillaCuponConsultoras: '#contenedor-grilla-cupon-consultoras',
         tablaCupones: '#tabla-cupones',
@@ -30,7 +37,6 @@
         contenedorCheckActivo: '#contenedor-check-activo',
         contenedorCuponConsultora: '#contenedor-cupon-consultora',
         contenedorCupon: '#contenedor-cupon',
-        btnRegresar: '#btnRegresar',
         spnCampania: '#spnCampania',
         spnTipo: '#spnTipo',
         spnDescripcion: '#spnDescripcion'
@@ -40,23 +46,32 @@
         UrlListarCampanias: '',
         UrlCrearCupon: '',
         UrlActualizarCupon: '',
+        UrlCrearCuponConsultora: '',
+        UrlActualizarCuponConsultora: '',
         UrlListarCuponesPorCampania: '',
         UrlListarCuponConsultorasPorCupon: '',
-        popupMantenimientoCupon: 'popup-mantenimiento-Cupon',
+        popupMantenimientoCupon: 'popup-mantenimiento-cupon',
+        popupMantenimientoCuponConsultora: 'popup-mantenimiento-cupon-consultora'
     };
 
     var listaCampanias = [];
 
     var _bindEvents = function () {
-        $(document).on("click", elements.btnCrear, function () {
+        $(document).on("click", elements.btnMostrarPopupMantCupon, function () {
             if (_esValidoCrearCupon()) {
                 _resetearValoresPopupMantenimientoCupon();
                 showDialog(setting.popupMantenimientoCupon);
             }
         });
 
+        $(document).on("click", elements.btnMostrarPopupMantCuponConsultora, function () {
+            _resetearValoresPopupMantenimientoCuponConsultora();
+            showDialog(setting.popupMantenimientoCuponConsultora);
+        });
+
         $(document).on("click", elements.btnRegresar, function () {
             _mostrarContenedorCupon();
+            $(elements.hdCuponIdCuponConsultora).val("");
         });
 
         $(document).on("change", elements.ddlPais, function () {
@@ -136,6 +151,7 @@
 
     var _inicializarDialogs = function () {
         _iniDialogMantenimientoCupon();
+        _iniDialogMantenimientoCuponConsultora();
     };
 
     var _iniDialogMantenimientoCupon = function () {
@@ -146,12 +162,12 @@
             closeOnEscape: true,
             width: 500,
             draggable: true,
-            title: "Nuevo Cupón",
+            title: "Cupón",
             buttons:
             {
                 "Guardar": function () {
                     if ($(elements.hdCuponId).val() == "") {
-                        _guardarCuponNuevo(mantCuponDialog);
+                        _guardarCupon(mantCuponDialog);
                     } else {
                         _actualizarCupon(mantCuponDialog);
                     }
@@ -163,7 +179,32 @@
         });
     };
 
-    var _guardarCuponNuevo = function (mantCuponDialog) {
+    var _iniDialogMantenimientoCuponConsultora = function () {
+        var mantCuponConsultoraDialog = $(elements.popupMantenimientoCuponConsultora).dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: true,
+            title: "Consultora",
+            buttons:
+            {
+                "Guardar": function () {
+                    if ($(elements.hdCuponConsultoraId).val() == "") {
+                        _guardarCuponConsultora(mantCuponConsultoraDialog);
+                    } else {
+                        _actualizarCuponConsultora(mantCuponConsultoraDialog);
+                    }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    };
+
+    var _guardarCupon = function (mantCuponDialog) {
         if (!_esValidoGuardarCupon()) {
             return;
         }
@@ -225,11 +266,80 @@
 
     };
 
+    var _guardarCuponConsultora = function (mantCuponConsultoraDialog) {
+        if (!_esValidoGuardarCuponConsultora()) {
+            return;
+        }
+
+        waitingDialog({});
+
+        var cuponConsultoraModel = {
+            campaniaId: $(elements.ddlCampania + " option:selected").val(),
+            cuponId: $(elements.hdCuponIdCuponConsultora).val().trim(),
+            codigoConsultora: $(elements.txtConsultora).val().trim(),
+            valorAsociado: $(elements.txtValorAsociado).val().trim()
+        };
+        var crearCuponConsultoraPromise = _crearCuponConsultoraPromise(cuponConsultoraModel);
+
+        $.when(crearCuponConsultoraPromise).then(function (crearCuponConsultoraResponse) {
+            if (checkTimeout(crearCuponConsultoraResponse)) {
+                if (crearCuponConsultoraResponse.success) {
+                    alert(crearCuponConsultoraResponse.message);
+                    _listarCuponConsultoras(cuponConsultoraModel.cuponId);
+                    $(mantCuponConsultoraDialog).dialog('close');
+                } else {
+                    alert(crearCuponConsultoraResponse.message);
+                }
+            }
+        });
+
+        closeWaitingDialog();
+
+    };
+
+    var _actualizarCuponConsultora = function (mantCuponConsultoraDialog) {
+        if (!_esValidoGuardarCuponConsultora()) {
+            return;
+        }
+
+        waitingDialog({});
+
+        var cuponConsultoraModel = {
+            cuponConsultoraId: $(elements.hdCuponConsultoraId).val().trim(),
+            campaniaId: $(elements.ddlCampania + " option:selected").val(),
+            cuponId: $(elements.hdCuponIdCuponConsultora).val().trim(),
+            codigoConsultora: $(elements.txtConsultora).val().trim(),
+            valorAsociado: $(elements.txtValorAsociado).val().trim()
+        };
+        var actualizarCuponConsultoraPromise = _actualizarCuponConsultoraPromise(cuponConsultoraModel);
+
+        $.when(actualizarCuponConsultoraPromise).then(function (actualizarCuponConsultoraResponse) {
+            if (checkTimeout(actualizarCuponConsultoraResponse)) {
+                if (actualizarCuponConsultoraResponse.success) {
+                    alert(actualizarCuponConsultoraResponse.message);
+                    _listarCuponConsultoras(cuponConsultoraModel.cuponId);
+                    $(mantCuponConsultoraDialog).dialog('close');
+                } else {
+                    alert(actualizarCuponConsultoraResponse.message);
+                }
+            }
+        });
+
+        closeWaitingDialog();
+
+    };
+
     var _resetearValoresPopupMantenimientoCupon = function () {
         $(elements.hdCuponId).val("");
         $(elements.txtDescripcion).val("");
         $(elements.ddlTipoCupon + " option:first").attr('selected', 'selected');
         $(elements.contenedorCheckActivo).hide();
+    };
+
+    var _resetearValoresPopupMantenimientoCuponConsultora = function () {
+        $(elements.hdCuponConsultoraId).val("");
+        $(elements.txtConsultora).val("");
+        $(elements.txtValorAsociado).val("");
     };
 
     var _esValidoGuardarCupon = function () {
@@ -251,6 +361,30 @@
         return true;
     };
 
+    var _esValidoGuardarCuponConsultora = function () {
+        if ($(elements.ddlCampania).val().trim() == "") {
+            alert('Debe seleccionar una campaña');
+            return false;
+        }
+
+        if ($(elements.hdCuponIdCuponConsultora).val().trim() == "") {
+            alert('Debe seleccionar un cupón');
+            return false;
+        }
+
+        if ($(elements.txtConsultora).val().trim() == "") {
+            alert('Debe ingresar la consultora');
+            return false;
+        }
+
+        if ($(elements.txtValorAsociado).val().trim() == "") {
+            alert('Debe ingresar el valor asociado');
+            return false;
+        }
+
+        return true;
+    };
+
     var _esValidoListar = function (paisId, campaniaId) {
         var messsage = '';
 
@@ -264,7 +398,7 @@
         return (messsage.length <= 0);
     }
 
-    var _showActionsEvento = function (cellvalue, options, rowObject) {
+    var _showActionsEventoCupon = function (cellvalue, options, rowObject) {
 
         var activar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Activar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Activar Cupón' title='Activar Cupón' border='0' /></a>";
         var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Desactivar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Desactivar Cupón' title='Desactivar Cupón' border='0' /></a>";
@@ -279,6 +413,27 @@
         } else {
             resultado += activar;
         }
+
+        return resultado;
+    }
+
+    var _showActionsEventoCuponConsultora = function (cellvalue, options, rowObject) {
+
+        var activar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCuponConsultoras + "').Activar(" + options.rowId + ", " + rowObject.CampaniaId + ", " + rowObject.CuponId + ", '" + rowObject.Consultora + "', '" + rowObject.ValorAsociado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Activar' title='Activar' border='0' /></a>";
+        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCuponConsultoras + "').Desactivar(" + options.rowId + ", " + rowObject.CampaniaId + ", " + rowObject.CuponId + ", '" + rowObject.Consultora + "', '" + rowObject.ValorAsociado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Desactivar' title='Desactivar' border='0' /></a>";
+        var editar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCuponConsultoras + "').Editar(" + options.rowId + ", " + rowObject.CampaniaId + ", " + rowObject.CuponId + ", '" + rowObject.Consultora + "', '" + rowObject.ValorAsociado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+        var resultado = "";
+
+        //if (rowObject.Estado) {
+        //    resultado += editar;
+        //    resultado += desactivar;
+        //} else {
+        //    resultado += activar;
+        //}
+
+        resultado += activar;
+        resultado += desactivar;
+        resultado += editar;
 
         return resultado;
     }
@@ -299,7 +454,7 @@
                 { name: 'Tipo', width: 50, editable: true, resizable: false },
                 { name: 'Descripcion', width: 80, editable: true, resizable: false },
                 { name: 'FechaCreacion', width: 80, editable: true, resizable: false },
-                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEvento }
+                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEventoCupon }
             ],
             jsonReader:
             {
@@ -335,10 +490,10 @@
         });
         jQuery(elements.tablaCupones).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery(elements.tablaCupones).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        _atacharEventosDeExtension();
+        _atacharEventosDeExtensionCupon();
     };
 
-    var _atacharEventosDeExtension = function () {
+    var _atacharEventosDeExtensionCupon = function () {
         $.jgrid.extend({
             Activar: function (cuponId, tipo, descripcion, estado) {
                 waitingDialog({});
@@ -409,10 +564,78 @@
                 $(elements.spnCampania).html(anioCampania);
                 $(elements.spnTipo).html(tipo);
                 $(elements.spnDescripcion).html(descripcion);
+                $(elements.hdCuponIdCuponConsultora).val(cuponId);
                 _listarCuponConsultoras(cuponId);
                 _mostrarContenedorCuponConsultora();
                 return false;
             }
+        });
+    };
+
+    var _atacharEventosDeExtensionCuponConsultora = function () {
+        $.jgrid.extend({
+            Activar: function (cuponConsultoraId, campaniaId, cuponId, consultora, valorAsociado) {
+                //waitingDialog({});
+
+                //var idTipo = (tipo.toUpperCase() == CONTANSTES_CUPON.NOMBRE_TIPO_MONTO ? CONTANSTES_CUPON.CODIGO_TIPO_MONTO : CONTANSTES_CUPON.CODIGO_TIPO_PORCENTAJE);
+                //var cuponModel = {
+                //    cuponId: cuponId,
+                //    tipo: idTipo,
+                //    descripcion: descripcion,
+                //    campaniaId: $(elements.ddlCampania + " option:selected").val(),
+                //    estado: true
+                //};
+                //var actualizarCuponPromise = _actualizarCuponPromise(cuponModel);
+
+                //$.when(actualizarCuponPromise).then(function (actualizarCuponResponse) {
+                //    if (checkTimeout(actualizarCuponResponse)) {
+                //        if (actualizarCuponResponse.success) {
+                //            alert('El cupón fue activado.');
+                //            _listarCuponesPorCampania();
+                //        } else {
+                //            alert(actualizarCuponResponse.message);
+                //        }
+
+                //        closeWaitingDialog();
+                //    }
+                //});
+
+                return false;
+            },
+            Desactivar: function (cuponConsultoraId, campaniaId, cuponId, consultora, valorAsociado) {
+                //waitingDialog({});
+
+                //var idTipo = (tipo.toUpperCase() == CONTANSTES_CUPON.NOMBRE_TIPO_MONTO ? CONTANSTES_CUPON.CODIGO_TIPO_MONTO : CONTANSTES_CUPON.CODIGO_TIPO_PORCENTAJE);
+                //var cuponModel = {
+                //    cuponId: cuponId,
+                //    tipo: idTipo,
+                //    descripcion: descripcion,
+                //    campaniaId: $(elements.ddlCampania + " option:selected").val(),
+                //    estado: false
+                //};
+                //var actualizarCuponPromise = _actualizarCuponPromise(cuponModel);
+
+                //$.when(actualizarCuponPromise).then(function (actualizarCuponResponse) {
+                //    if (checkTimeout(actualizarCuponResponse)) {
+                //        if (actualizarCuponResponse.success) {
+                //            alert('El cupón fue desactivado.');
+                //            _listarCuponesPorCampania();
+                //        } else {
+                //            alert(actualizarCuponResponse.message);
+                //        }
+
+                //        closeWaitingDialog();
+                //    }
+                //});
+
+                return false;
+            },
+            Editar: function (cuponConsultoraId, campaniaId, cuponId, consultora, valorAsociado) {
+                _resetearValoresPopupMantenimientoCuponConsultora();
+                _setearValoresEditarCuponConsultora(cuponConsultoraId, campaniaId, cuponId, consultora, valorAsociado);
+                showDialog(setting.popupMantenimientoCuponConsultora);
+                return false;
+            },
         });
     };
 
@@ -435,6 +658,12 @@
         $(elements.txtDescripcion).val(descripcion);
         $(elements.chckActivo).prop("checked", activo);
         $(elements.contenedorCheckActivo).show();
+    };
+
+    var _setearValoresEditarCuponConsultora = function (cuponConsultoraId, campaniaId, cuponId, consultora, valorAsociado) {
+        $(elements.hdCuponConsultoraId).val(cuponConsultoraId);
+        $(elements.txtConsultora).val(consultora);
+        $(elements.txtValorAsociado).val(valorAsociado);
     };
 
     var _listarCuponConsultoras = function (cuponId) {
@@ -461,7 +690,7 @@
                 { name: 'Consultora', width: 50, editable: true, resizable: false },
                 { name: 'ValorAsociado', width: 80, editable: true, resizable: false },
                 { name: 'Estado', width: 80, editable: true, resizable: false },
-                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEvento }
+                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEventoCuponConsultora }
             ],
             jsonReader:
             {
@@ -498,7 +727,7 @@
         });
         jQuery(elements.tablaCuponConsultoras).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery(elements.tablaCuponConsultoras).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        //_atacharEventosDeExtension();
+        _atacharEventosDeExtensionCuponConsultora();
     };
 
     var _listarCampaniasPromise = function (paisId) {
@@ -561,11 +790,53 @@
         return d.promise();
     };
 
+    var _crearCuponConsultoraPromise = function (cuponConsultoraModel) {
+        var d = $.Deferred();
+
+        var promise = $.ajax({
+            type: 'POST',
+            url: (setting.UrlCrearCuponConsultora),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(cuponConsultoraModel),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    };
+
+    var _actualizarCuponConsultoraPromise = function (cuponConsultoraModel) {
+        var d = $.Deferred();
+
+        var promise = $.ajax({
+            type: 'POST',
+            url: (setting.UrlActualizarCuponConsultora),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(cuponConsultoraModel),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    };
+
     var initializer = function (parameters) {
         setting.BaseUrl = parameters.baseUrl;
         setting.UrlListarCampanias = parameters.urlListarCampanias;
         setting.UrlCrearCupon = parameters.urlCrearCupon;
         setting.UrlActualizarCupon = parameters.urlActualizarCupon;
+        setting.UrlCrearCuponConsultora = parameters.urlCrearCuponConsultora;
+        setting.UrlActualizarCuponConsultora = parameters.urlActualizarCuponConsultora;
         setting.UrlListarCuponesPorCampania = parameters.urlListarCuponesPorCampania;
         setting.UrlListarCuponConsultorasPorCupon = parameters.urlListarCuponConsultorasPorCupon;
         setting.UrlImagenEdit = parameters.urlImagenEdit;

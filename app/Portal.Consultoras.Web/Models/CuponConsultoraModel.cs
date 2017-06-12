@@ -10,6 +10,10 @@ namespace Portal.Consultoras.Web.Models
             CodigoISO = codigoISO;
         }
 
+        public CuponConsultoraModel()
+        {
+        }
+
         public int CuponConsultoraId { get; set; }
         public string CodigoConsultora { get; set; }
         public int CampaniaId { get; set; }

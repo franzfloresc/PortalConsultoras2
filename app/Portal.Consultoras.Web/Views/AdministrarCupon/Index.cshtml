@@ -26,7 +26,7 @@
                 </div>
                 <div class="div-3">
                     <div class="input_search">
-                        <input type="button" value="Crear" id="btnCrear" name="" style="float: right; margin-right: 250px;">
+                        <input type="button" value="Crear" id="btnMostrarPopupMantCupon" name="" style="float: right; margin-right: 250px;">
                     </div>
                 </div>
             </div>
@@ -66,6 +66,12 @@
                     <div class="selectA borde_redondeado" style="border: none !important; width: 100px !important;">
                         <span id="spnDescripcion"></span>
                     </div>
+                    <input type="hidden" id="hdCuponId-cupon-consultora" value="" />
+                </div>
+                <div class="div-3">
+                    <div class="input_search">
+                        <input type="button" value="Agregar" id="btnMostrarPopupMantCuponConsultora" name="" style="float: right; margin-right: 250px;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -81,12 +87,15 @@
 </div>
 
 @Html.Partial("~/Views/AdministrarCupon/Partials/mantenimientoCupon.cshtml")
+@Html.Partial("~/Views/AdministrarCupon/Partials/mantenimientoCuponConsultora.cshtml")
 
 <div id="loadingScreen"></div>
 <script type="text/javascript">
     var urlListarCampanias = '@Url.Action("ListarCampanias", "Campania")';
     var urlCrearCupon = '@Url.Action("CrearCupon", "AdministrarCupon")';
     var urlActualizarCupon = '@Url.Action("ActualizarCupon", "AdministrarCupon")';
+    var urlCrearCuponConsultora = '@Url.Action("CrearCuponConsultora", "AdministrarCupon")';
+    var urlActualizarCuponConsultora = '@Url.Action("ActualizarCuponConsultora", "AdministrarCupon")';
     var urlListarCuponesPorCampania = '@Url.Action("ListarCuponesPorCampania", "AdministrarCupon")';
     var urlListarCuponConsultorasPorCupon = '@Url.Action("ListarCuponConsultorasPorCupon", "AdministrarCupon")';
     var urlImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';

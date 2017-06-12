@@ -11,6 +11,8 @@
         urlListarCampanias: urlListarCampanias,
         urlCrearCupon: urlCrearCupon,
         urlActualizarCupon: urlActualizarCupon,
+        urlCrearCuponConsultora: urlCrearCuponConsultora,
+        urlActualizarCuponConsultora: urlActualizarCuponConsultora,
         urlListarCuponesPorCampania: urlListarCuponesPorCampania,
         urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
         urlImagenEdit: urlImagenEdit

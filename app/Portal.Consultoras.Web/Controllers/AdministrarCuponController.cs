@@ -138,7 +138,6 @@ namespace Portal.Consultoras.Web.Controllers
                            }
                 };
 
-                //return Json(new { success = true, data = listaCupones }, JsonRequestBehavior.AllowGet);
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -166,6 +165,32 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 return Json(new { success = true, message = "El consultora fue creada." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarCuponConsultora(CuponConsultoraModel model)
+        {
+            try
+            {
+                var listaCuponConsultoras = ListarCuponConsultorasPorCupon(userData.PaisID, model.CuponId);
+                var existeCuponConsultora = listaCuponConsultoras.Any(x => x.CodigoConsultora == model.CodigoConsultora && x.CampaniaId == model.CampaniaId && x.CuponId == model.CuponId && x.CuponConsultoraId != model.CuponConsultoraId);
+                
+                if (!existeCuponConsultora)
+                {
+                    using (PedidoServiceClient svClient = new PedidoServiceClient())
+                    {
+                        var cuponConsultoraBE = MapearCuponConsultoraModelABECuponConsultora(model);
+                        svClient.ActualizarCuponConsultora(userData.PaisID, cuponConsultoraBE);
+                    }
+                }
+                else
+                {
+                    return Json(new { success = false, message = "La consultora a actualizar ya está registrada." }, JsonRequestBehavior.AllowGet);
+                }
+
+                return Json(new { success = true, message = "El consultora fue actualizada." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -225,7 +250,9 @@ namespace Portal.Consultoras.Web.Controllers
                                id = row.CuponConsultoraId,
                                Consultora = row.CodigoConsultora,
                                ValorAsociado = (row.ValorAsociado),
-                               Estado = (row.EstadoCupon == Constantes.EstadoCupon.Reservado ? Constantes.NombreEstadoCupon.Reservado : row.EstadoCupon == Constantes.EstadoCupon.Activo ? Constantes.NombreEstadoCupon.Activo : Constantes.NombreEstadoCupon.Utilizado)
+                               Estado = (row.EstadoCupon == Constantes.EstadoCupon.Reservado ? Constantes.NombreEstadoCupon.Reservado : row.EstadoCupon == Constantes.EstadoCupon.Activo ? Constantes.NombreEstadoCupon.Activo : Constantes.NombreEstadoCupon.Utilizado),
+                               CampaniaId = row.CampaniaId,
+                               CuponId = row.CuponId
                            }
                 };
 

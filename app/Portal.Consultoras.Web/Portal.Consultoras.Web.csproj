@@ -4062,6 +4062,7 @@
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\AdministrarCupon\Index.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
+    <Content Include="Views\AdministrarCupon\Partials\mantenimientoCuponConsultora.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
