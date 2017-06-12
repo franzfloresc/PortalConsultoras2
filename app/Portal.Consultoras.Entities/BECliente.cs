@@ -164,6 +164,6 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public BEClienteRecordatorio Recordatorio { get; set; }
+        public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
     }
 }

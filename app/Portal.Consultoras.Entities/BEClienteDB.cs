@@ -63,6 +63,6 @@ namespace Portal.Consultoras.Entities
         public List<BEClienteContactoDB> Contactos { get; set; }
 
         [DataMember]
-        public BEClienteRecordatorio Recordatorio { get; set; }
+        public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
     }
 }

@@ -89,6 +89,6 @@ namespace Portal.Consultoras.ServiceContracts
         bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
-        BEClienteRecordatorio ObtenerRecordatorioPorCliente(int paisId, int clienteId, long consultoraId);
+        IEnumerable<BEClienteRecordatorio> ObtenerRecordatoriosPorCliente(int paisId, int clienteId, long consultoraId);
     }
 }
