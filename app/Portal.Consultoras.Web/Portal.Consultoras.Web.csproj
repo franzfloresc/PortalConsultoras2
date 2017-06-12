@@ -3319,6 +3319,7 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\MasVendidos.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4067,6 +4068,7 @@
     <Content Include="Views\Bienvenida\template-mas-vendidos.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCuponConsultora.cshtml" />
+    <Content Include="Views\Bienvenida\template-mas-vendidos-mobile.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
