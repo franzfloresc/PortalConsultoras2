@@ -1,4 +1,6 @@
 ﻿
+var isClear = false;
+
 $(document).ready(function () {
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
@@ -153,6 +155,9 @@ function OfertaArmarEstrategias(response) {
 
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response);
+    if (isClear) {
+        $('#divOfertaProductos').html("");
+    }
     $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
