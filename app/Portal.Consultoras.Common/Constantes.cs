@@ -589,8 +589,7 @@
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
-            public const string ShowRoom = "Error al cargar los productos.";
-            public const string SinIngresoShowRoom = "Actualmente no cuenta con no cuenta con eventos ShowRoom.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
         }
         
         public class ConfiguracionPais

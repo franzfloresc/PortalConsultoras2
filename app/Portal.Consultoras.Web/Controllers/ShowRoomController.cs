@@ -2721,7 +2721,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(false)) return ErrorJson(Constantes.MensajesError.SinIngresoShowRoom);
+                if (!ValidarIngresoShowRoom(false)) return ErrorJson("");
                 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
@@ -2782,15 +2782,13 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Ok",
                     listaNoSubCampania = listaNoSubCampania,
                     totalNoSubCampania = totalNoSubCampania,
-                    cantNoSubCampania = listaNoSubCampania.Count,
-                    listaSubCampania = listaSubCampania,
-                    cantSubCampania = listaSubCampania.Count
+                    listaSubCampania = listaSubCampania
                 });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson(Constantes.MensajesError.ShowRoom);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }            
         }
 
