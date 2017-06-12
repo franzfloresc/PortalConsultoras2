@@ -191,7 +191,8 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //OBTENER CLIENTE TELEFONO
-                var resGetCliente = daClienteDB.GetCliente(clienteDB.ClienteID, contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
+                var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
+                resGetCliente = resGetCliente.Where(x=>x.ClienteID != clienteDB.ClienteID).ToList();
 
                 if (resGetCliente.Count > 0)
                 {
@@ -273,6 +274,9 @@ namespace Portal.Consultoras.BizLogic
                         Celular = celular,
                         CodigoCliente = clienteDB.ClienteID
                     };
+
+                    var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
+                    clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
 
                     if (clienteDB.ClienteIDSB == 0) clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
                     else daCliente.UpdCliente(clienteSB);
