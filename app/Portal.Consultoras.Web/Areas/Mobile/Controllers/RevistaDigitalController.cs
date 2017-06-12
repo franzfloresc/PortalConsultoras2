@@ -49,6 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                ViewBag.EsMobile = 2;
                 return ViewLanding(id);
             }
             catch (Exception ex)
