@@ -254,6 +254,15 @@ namespace Portal.Consultoras.Data
         }
 		// 1747 - Fin
 
+        public string GetCodeEstrategiaByCUV(string cuv, int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodeEstrategiaByCUV");
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+
+            return Context.ExecuteReader(command).ToString();
+        }
+
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenOfertaPersonalizadaOF_SB2");
