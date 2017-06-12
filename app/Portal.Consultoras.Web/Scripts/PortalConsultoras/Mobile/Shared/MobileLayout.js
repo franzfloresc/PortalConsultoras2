@@ -264,8 +264,30 @@ $(function () {
         });
 
     });
-    
+    odd_mobile_google_analytics_promotion_impresion();
 });
+
+function odd_mobile_google_analytics_promotion_impresion() {
+    //debugger;
+    if ($('#BloqueMobileOfertaDia').length > 0) {
+        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+					{
+					    'id': id,
+					    'name': name,
+					    'position': 'Banner Superior Home - 1',
+					    'creative': creative
+					}]
+                }
+            }
+        });
+    }
 
 function loadBannerLP20() {
     if (typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
