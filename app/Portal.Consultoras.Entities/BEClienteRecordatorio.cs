@@ -10,26 +10,26 @@ using System.Threading.Tasks;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEClienteNotificacion
+    public class BEClienteRecordatorio
     {
-        private int clienteNotificacionId;
-        private int clienteId;
+        private int clienteRecordatorioId;
+        private long codigoCliente;
         private string descripcion;
         private DateTime fecha;
         private long consultoraId;
 
         [DataMember]
-        public int ClienteNotificacionId
+        public int ClienteRecordatorioId
         {
-            get { return clienteNotificacionId; }
-            set { clienteNotificacionId = value; }
+            get { return clienteRecordatorioId; }
+            set { clienteRecordatorioId = value; }
         }
-                
+
         [DataMember]
-        public int ClienteId
+        public long CodigoCliente
         {
-            get { return clienteId; }
-            set { clienteId = value; }
+            get { return codigoCliente; }
+            set { codigoCliente = value; }
         }
 
         [DataMember]
@@ -53,13 +53,20 @@ namespace Portal.Consultoras.Entities
             set { consultoraId = value; }
         }
 
-        public BEClienteNotificacion(IDataRecord datarec)
-        {
-            if (datarec.HasColumn("ClienteNotificacionId"))
-                clienteNotificacionId = datarec.GetValue<int>("ClienteNotificacionId");
+        public BEClienteRecordatorio()
+        { }
 
-            if (datarec.HasColumn("ClienteId"))
-                clienteId = datarec.GetValue<int>("ClienteId");
+        /// <summary>
+        /// Inicializa el objeto a partir del DataRecord
+        /// </summary>
+        /// <param name="datarec"></param>
+        public BEClienteRecordatorio(IDataRecord datarec)
+        {
+            if (datarec.HasColumn("ClienteRecordatorioId"))
+                clienteRecordatorioId = datarec.GetValue<int>("ClienteRecordatorioId");
+
+            if (datarec.HasColumn("CodigoCliente"))
+                codigoCliente = datarec.GetValue<long>("CodigoCliente");
 
             if (datarec.HasColumn("Descripcion"))
                 descripcion = datarec.GetValue<string>("Descripcion");
