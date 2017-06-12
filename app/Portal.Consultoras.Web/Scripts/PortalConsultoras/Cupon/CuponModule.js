@@ -274,11 +274,17 @@
     var obtenerCupon = function () {
         var cuponPromise = obtenerCuponPromise();
         cuponPromise.then(function (response) {
-            setting.Cupon = response.data;
-            if (setting.Cupon) {
-                setting.MostrarContenedorPadreCupon = setting.TieneCupon;
-                setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
-                mostrarContenedorCuponPorPagina();
+            if (response.success) {
+                if (response.data) {
+                    setting.Cupon = response.data;
+                    if (setting.Cupon) {
+                        setting.MostrarContenedorPadreCupon = setting.TieneCupon;
+                        setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
+                        mostrarContenedorCuponPorPagina();
+                    }
+                }
+            } else {
+                console.log('CuponModule.js - method name: obtenerCupon - ' + response.message);
             }
         }, function (xhr, status, error) {
             console.log(xhr.responseText);
@@ -482,9 +488,9 @@
                 }
                 else {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b>";
+                        mensaje = "Agrega alguna oferta exclusiva web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b>";
                     } else {
-                        mensaje = "Agrega alguna oferta web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b>";
+                        mensaje = "Agrega alguna oferta exclusiva web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b>";
                     }
                 }
 
