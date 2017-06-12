@@ -15,10 +15,10 @@ $(document).ready(function () {
             }
         });        
 
-        //var funt = $.trim($(this).attr("data-tag-funt"));
-        //if (funt != "") {
-        //    setTimeout(funt, 100);
-        //}
+        var funt = $.trim($(this).attr("data-tag-funt"));
+        if (funt != "") {
+            setTimeout(funt, 100);
+        }
 
         //mantener seleccionado
         $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
@@ -36,6 +36,9 @@ $(document).ready(function () {
 
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
+        if ($('[data-tag-html]').attr("data-tag-html") == '0') {
+            isLoad = true;
+        }        
     }
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();
