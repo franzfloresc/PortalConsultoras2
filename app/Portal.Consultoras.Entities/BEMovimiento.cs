@@ -30,7 +30,7 @@ namespace Portal.Consultoras.Entities
         public long ConsultoraId { get; set; }
 
         [DataMember]
-        public int ClienteId { get; set; }
+        public short ClienteId { get; set; }
 
         public BEMovimiento(IDataReader row)
         {
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Entities
                 ConsultoraId = row.GetValue<long>("ConsultoraId");
 
             if (row.HasColumn("ClienteId"))
-                ClienteId = row.GetValue<int>("ClienteId");
+                ClienteId = row.GetValue<short>("ClienteId");
 
             if (row.HasColumn("Monto"))
                 Monto = row.GetValue<decimal>("Monto");

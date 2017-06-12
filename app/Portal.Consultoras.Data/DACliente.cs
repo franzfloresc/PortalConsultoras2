@@ -152,18 +152,14 @@ namespace Portal.Consultoras.Data
 
         public IDataReader ListarMovimientos(int clienteId, long consultoraId)
         {
-            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar"))
-            {
-                command.CommandType = CommandType.StoredProcedure;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");
+            
+            command.CommandType = CommandType.StoredProcedure;
 
-                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
+            Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
 
-                using (var reader = Context.ExecuteReader(command))
-                {
-                    return reader;
-                }
-            }
+            return Context.ExecuteReader(command);
         }
     }
 }
