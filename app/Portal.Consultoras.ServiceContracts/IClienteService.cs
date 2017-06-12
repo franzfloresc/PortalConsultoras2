@@ -84,5 +84,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId);
+
+        [OperationContract]
+        bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        BEClienteRecordatorio ObtenerRecordatorioPorCliente(int paisId, int clienteId, long consultoraId);
     }
 }

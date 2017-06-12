@@ -155,5 +155,15 @@ namespace Portal.Consultoras.Service
         {
             return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
         }
+
+        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioInsertar(paisId, recordatorio);
+        }
+
+        public BEClienteRecordatorio ObtenerRecordatorioPorCliente(int paisId, int clienteId, long consultoraId)
+        {
+            return BLCliente.RecordatorioObtener(paisId, clienteId, consultoraId);
+        }
     }
 }
