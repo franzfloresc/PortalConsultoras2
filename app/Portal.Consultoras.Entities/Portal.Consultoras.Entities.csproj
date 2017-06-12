@@ -62,6 +62,7 @@
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
+    <Compile Include="BEConsultoraConcurso.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />

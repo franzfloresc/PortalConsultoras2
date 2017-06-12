@@ -310,6 +310,29 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="wsValidacionMasiva">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListProductos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ListCantidades" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Listrecuperacion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codigoconsultora" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="montoMin" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="Zona" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campa" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="estadoconsultora" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="MontoMax" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="wsValidacionMasivaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wsValidacionMasivaResult" type="tns:RespuestaProl" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="wsValidarEstrategiaSoapIn">
@@ -384,6 +407,12 @@
   <wsdl:message name="wsValidacionEstrategiaSoapOut">
     <wsdl:part name="parameters" element="tns:wsValidacionEstrategiaResponse" />
   </wsdl:message>
+  <wsdl:message name="wsValidacionMasivaSoapIn">
+    <wsdl:part name="parameters" element="tns:wsValidacionMasiva" />
+  </wsdl:message>
+  <wsdl:message name="wsValidacionMasivaSoapOut">
+    <wsdl:part name="parameters" element="tns:wsValidacionMasivaResponse" />
+  </wsdl:message>
   <wsdl:portType name="ServiceStockSsicSoap">
     <wsdl:operation name="wsValidarEstrategia">
       <wsdl:input message="tns:wsValidarEstrategiaSoapIn" />
@@ -432,6 +461,10 @@
     <wsdl:operation name="wsValidacionEstrategia">
       <wsdl:input message="tns:wsValidacionEstrategiaSoapIn" />
       <wsdl:output message="tns:wsValidacionEstrategiaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="wsValidacionMasiva">
+      <wsdl:input message="tns:wsValidacionMasivaSoapIn" />
+      <wsdl:output message="tns:wsValidacionMasivaSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ServiceStockSsicSoap" type="tns:ServiceStockSsicSoap">
@@ -544,6 +577,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="wsValidacionMasiva">
+      <soap:operation soapAction="http://tempuri.org/wsValidacionMasiva" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ServiceStockSsicSoap12" type="tns:ServiceStockSsicSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -648,6 +690,15 @@
     </wsdl:operation>
     <wsdl:operation name="wsValidacionEstrategia">
       <soap12:operation soapAction="http://tempuri.org/wsValidacionEstrategia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="wsValidacionMasiva">
+      <soap12:operation soapAction="http://tempuri.org/wsValidacionMasiva" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

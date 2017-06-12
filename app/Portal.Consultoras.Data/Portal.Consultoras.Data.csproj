@@ -90,6 +90,7 @@
     <Compile Include="DABelcorpResponde.cs" />
     <Compile Include="DACalculoPROL.cs" />
     <Compile Include="DABotmakerApiLog.cs" />
+    <Compile Include="DAConcurso.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
     <Compile Include="DAProductoPalabra.cs" />
     <Compile Include="DAClienteDB.cs" />
