@@ -84,6 +84,14 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    String.prototype.SubStrToMax = function (max, removeStrFinLength, strFin) {
+        if (this.length <= max) return this;
+
+        strFin = IfNull(strFin, '') == '' ? '...' : strFin;
+        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        return this.substr(0, max - removeLength) + strFin;
+    };
+
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
         var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
@@ -1433,4 +1441,8 @@ function FunccionEjecutar(functionHide) {
         }
         setTimeout(functionHide, 100);
     }
+}
+
+function IfNull(input, replaceNull) {
+    return input == null ? replaceNull : input;
 }
