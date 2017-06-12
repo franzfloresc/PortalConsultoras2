@@ -11,7 +11,9 @@
         urlListarCampanias: urlListarCampanias,
         urlCrearCupon: urlCrearCupon,
         urlActualizarCupon: urlActualizarCupon,
-        urlListarCuponesPorCampania: urlListarCuponesPorCampania
+        urlListarCuponesPorCampania: urlListarCuponesPorCampania,
+        urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
+        urlImagenEdit: urlImagenEdit
     };
     
     cuponAdmModule.ini(objInitializerCupon);

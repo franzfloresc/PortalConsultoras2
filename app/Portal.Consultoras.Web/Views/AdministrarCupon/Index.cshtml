@@ -7,41 +7,80 @@
 
 <input type="hidden" id="hdTipoConsulta" value="0" />
 
-<div class="wrap_cab">
-    <div class="filtros2">
-        <div class="elements" style="margin-left: 300px !important;">
-            <div class="div-2">
-                <h1><span>Administrar Cupón</span></h1>
+<div id="contenedor-cupon">
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <div class="elements" style="margin-left: 300px !important;">
+                <div class="div-2">
+                    <h1><span>Administrar Cupón</span></h1>
+                </div>
+                <div class="div-3">
+                    <div class="titA">País:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.ListaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                    </div>
+                    <div class="titB">Campaña:</div>
+                    <div class="selectA borde_redondeado">
+                        @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                    </div>
+                </div>
+                <div class="div-3">
+                    <div class="input_search">
+                        <input type="button" value="Crear" id="btnCrear" name="" style="float: right; margin-right: 250px;">
+                    </div>
+                </div>
             </div>
-            <div class="div-3">
-                <div class="titA">País:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.ListaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
-                </div>
-                <div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="input_search">
-                    <input type="button" value="Crear" id="btnCrear" name="" style="float: right; margin-right: 250px;">
-                </div>
+        </div>
+    </div>
+    <div class="wrap" id="contenedor-grilla-cupones" style="display: block;">
+        <div class="container clearfix">
+            <div class="border-wrapper">
+                <table id="tabla-cupones"></table>
+                <div id="pagerEvento"></div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="wrap" id="contenedor-grilla-cupones" style="display: none;">
-    <div class="container clearfix">
-        <div class="border-wrapper">
-            <table id="tabla-cupones"></table>
-            <div id="pagerEvento"></div>
+<div id="contenedor-cupon-consultora" style="display: none;">
+    <div class="wrap_cab">
+        <div class="filtros2">
+            <div class="elements" style="margin-left: 300px !important;">
+                <div class="div-2">
+                    <h1><span>Administrar Cupón</span></h1>
+                </div>
+                <div class="" style="width: 75% !important;">
+                    @*&gt;*@
+                    <div class="titB" style="float: right; cursor: pointer;"><strong><a id="btnRegresar">&lt;&lt;Regresar</a></strong></div>
+                </div>
+                <div class="div-3" style="border: 1px solid #cfcfcf !important; width: 75% !important;">
+                    <div class="titB"><strong>Campaña:</strong></div>
+                    <div class="selectA borde_redondeado" style="border: none !important; width: 100px !important;">
+                        <span id="spnCampania"></span>
+                    </div>
+                    <div class="titB"><strong>Tipo:</strong></div>
+                    <div class="selectA borde_redondeado" style="border: none !important; width: 100px !important;">
+                        <span id="spnTipo"></span>
+                    </div>
+                    <div class="titB" style="width: 80px !important;"><strong>Descripción:</strong></div>
+                    <div class="selectA borde_redondeado" style="border: none !important; width: 100px !important;">
+                        <span id="spnDescripcion"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap" id="contenedor-grilla-cupon-consultoras" style="display: none;">
+        <div class="container clearfix">
+            <div class="border-wrapper">
+                <table id="tabla-cupon-consultoras"></table>
+                <div id="pagerEvento"></div>
+            </div>
         </div>
     </div>
 </div>
 
-@Html.Partial("~/Views/AdministrarCupon/Partials/crearCupon.cshtml")
+@Html.Partial("~/Views/AdministrarCupon/Partials/mantenimientoCupon.cshtml")
 
 <div id="loadingScreen"></div>
 <script type="text/javascript">
@@ -49,7 +88,8 @@
     var urlCrearCupon = '@Url.Action("CrearCupon", "AdministrarCupon")';
     var urlActualizarCupon = '@Url.Action("ActualizarCupon", "AdministrarCupon")';
     var urlListarCuponesPorCampania = '@Url.Action("ListarCuponesPorCampania", "AdministrarCupon")';
-    // var rutaImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
+    var urlListarCuponConsultorasPorCupon = '@Url.Action("ListarCuponConsultorasPorCupon", "AdministrarCupon")';
+    var urlImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
 </script>
 <script src="~/Scripts/PortalConsultoras/Campania/CampaniaModule.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cupon/CuponAdm.js"></script>

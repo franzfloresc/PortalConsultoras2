@@ -11564,3 +11564,37 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .fondo_gris_OF{
     background: #f5f5f5;
 }
+/*SPRINT 14*/
+.content_mas_vendidos{
+    background:white;
+   padding:30px 14px 30px 14px;
+   font-family:'Lato';
+}
+.titulo_mas_vendido{
+    color:black;
+    font-size:19px;
+    letter-spacing:1.7px;
+    text-align:center;
+    font-weight:700;
+    margin-bottom:20px;
+}
+.content_carrusel_mas_vendidos{
+    width:80%;
+    margin: 0 auto;
+}
+.content_puntuacion{
+    padding-left: 8%;
+    padding-right: 8%;
+    text-align:center;
+}
+.cantidad_puntuacion{
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:10px;
+}
+.content_carrusel_mas_vendidos .producto_nombre_descripcion{
+    margin-bottom:0px;
+}
+.content_carrusel_mas_vendidos .producto_precio{
+    margin-bottom:5px;
+}

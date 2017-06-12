@@ -7406,179 +7406,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BECupon", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon")]
-    [System.SerializableAttribute()]
-    public partial class BECupon : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CuponIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool EstadoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaCreacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime FechaModificacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsuarioCreacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UsuarioModificacionField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaId {
-            get {
-                return this.CampaniaIdField;
-            }
-            set {
-                if ((this.CampaniaIdField.Equals(value) != true)) {
-                    this.CampaniaIdField = value;
-                    this.RaisePropertyChanged("CampaniaId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CuponId {
-            get {
-                return this.CuponIdField;
-            }
-            set {
-                if ((this.CuponIdField.Equals(value) != true)) {
-                    this.CuponIdField = value;
-                    this.RaisePropertyChanged("CuponId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Estado {
-            get {
-                return this.EstadoField;
-            }
-            set {
-                if ((this.EstadoField.Equals(value) != true)) {
-                    this.EstadoField = value;
-                    this.RaisePropertyChanged("Estado");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaCreacion {
-            get {
-                return this.FechaCreacionField;
-            }
-            set {
-                if ((this.FechaCreacionField.Equals(value) != true)) {
-                    this.FechaCreacionField = value;
-                    this.RaisePropertyChanged("FechaCreacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime FechaModificacion {
-            get {
-                return this.FechaModificacionField;
-            }
-            set {
-                if ((this.FechaModificacionField.Equals(value) != true)) {
-                    this.FechaModificacionField = value;
-                    this.RaisePropertyChanged("FechaModificacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Tipo {
-            get {
-                return this.TipoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoField, value) != true)) {
-                    this.TipoField = value;
-                    this.RaisePropertyChanged("Tipo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UsuarioCreacion {
-            get {
-                return this.UsuarioCreacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
-                    this.UsuarioCreacionField = value;
-                    this.RaisePropertyChanged("UsuarioCreacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UsuarioModificacion {
-            get {
-                return this.UsuarioModificacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
-                    this.UsuarioModificacionField = value;
-                    this.RaisePropertyChanged("UsuarioModificacion");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEResultadoReservaProl", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl")]
     [System.SerializableAttribute()]
     public partial class BEResultadoReservaProl : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -11426,6 +11253,179 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ValorAsociadoField.Equals(value) != true)) {
                     this.ValorAsociadoField = value;
                     this.RaisePropertyChanged("ValorAsociado");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECupon", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon")]
+    [System.SerializableAttribute()]
+    public partial class BECupon : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CuponIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaModificacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioCreacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsuarioModificacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((this.CampaniaIdField.Equals(value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CuponId {
+            get {
+                return this.CuponIdField;
+            }
+            set {
+                if ((this.CuponIdField.Equals(value) != true)) {
+                    this.CuponIdField = value;
+                    this.RaisePropertyChanged("CuponId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaCreacion {
+            get {
+                return this.FechaCreacionField;
+            }
+            set {
+                if ((this.FechaCreacionField.Equals(value) != true)) {
+                    this.FechaCreacionField = value;
+                    this.RaisePropertyChanged("FechaCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaModificacion {
+            get {
+                return this.FechaModificacionField;
+            }
+            set {
+                if ((this.FechaModificacionField.Equals(value) != true)) {
+                    this.FechaModificacionField = value;
+                    this.RaisePropertyChanged("FechaModificacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Tipo {
+            get {
+                return this.TipoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoField, value) != true)) {
+                    this.TipoField = value;
+                    this.RaisePropertyChanged("Tipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioCreacion {
+            get {
+                return this.UsuarioCreacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioCreacionField, value) != true)) {
+                    this.UsuarioCreacionField = value;
+                    this.RaisePropertyChanged("UsuarioCreacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioModificacion {
+            get {
+                return this.UsuarioModificacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsuarioModificacionField, value) != true)) {
+                    this.UsuarioModificacionField = value;
+                    this.RaisePropertyChanged("UsuarioModificacion");
                 }
             }
         }
@@ -24547,24 +24547,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultoraRegaloProgramaNuevasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraRegaloProgramaNuevas> GetConsultoraRegaloProgramaNuevasAsync(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCupon", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponResponse")]
-        void CrearCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCupon", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponResponse")]
-        System.Threading.Tasks.Task CrearCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCupon", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponResponse")]
-        void ActualizarCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCupon", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponResponse")]
-        System.Threading.Tasks.Task ActualizarCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse")]
-        Portal.Consultoras.Web.ServicePedido.BECupon[] ListarCuponesPorCampania(int paisId, int campaniaId);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECupon[]> ListarCuponesPorCampaniaAsync(int paisId, int campaniaId);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProl", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndEjecutarReservaProlResponse")]
         Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
         
@@ -24638,6 +24620,42 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo", ReplyAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse")]
         System.Threading.Tasks.Task UpdateCuponConsultoraEnvioCorreoAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCupon", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponResponse")]
+        void CrearCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCupon", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponResponse")]
+        System.Threading.Tasks.Task CrearCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCupon", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponResponse")]
+        void ActualizarCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCupon", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponResponse")]
+        System.Threading.Tasks.Task ActualizarCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse")]
+        Portal.Consultoras.Web.ServicePedido.BECupon[] ListarCuponesPorCampania(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECupon[]> ListarCuponesPorCampaniaAsync(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCuponConsultora", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponConsultoraResponse")]
+        void CrearCuponConsultora(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CrearCuponConsultora", ReplyAction="http://tempuri.org/IPedidoService/CrearCuponConsultoraResponse")]
+        System.Threading.Tasks.Task CrearCuponConsultoraAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCuponConsultora", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponConsultoraResponse")]
+        void ActualizarCuponConsultora(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarCuponConsultora", ReplyAction="http://tempuri.org/IPedidoService/ActualizarCuponConsultoraResponse")]
+        System.Threading.Tasks.Task ActualizarCuponConsultoraAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCuponResponse")]
+        Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] ListarCuponConsultorasPorCupon(int paisId, int cuponId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCuponResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECuponConsultora[]> ListarCuponConsultorasPorCuponAsync(int paisId, int cuponId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetSeguimientoPostVenta", ReplyAction="http://tempuri.org/IPedidoService/GetSeguimientoPostVentaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPostVenta[] GetSeguimientoPostVenta(int paisID, string numeroRecojo, int estadoId);
@@ -26737,30 +26755,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetConsultoraRegaloProgramaNuevasAsync(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
         }
         
-        public void CrearCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
-            base.Channel.CrearCupon(cupon);
-        }
-        
-        public System.Threading.Tasks.Task CrearCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
-            return base.Channel.CrearCuponAsync(cupon);
-        }
-        
-        public void ActualizarCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
-            base.Channel.ActualizarCupon(cupon);
-        }
-        
-        public System.Threading.Tasks.Task ActualizarCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
-            return base.Channel.ActualizarCuponAsync(cupon);
-        }
-        
-        public Portal.Consultoras.Web.ServicePedido.BECupon[] ListarCuponesPorCampania(int paisId, int campaniaId) {
-            return base.Channel.ListarCuponesPorCampania(paisId, campaniaId);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECupon[]> ListarCuponesPorCampaniaAsync(int paisId, int campaniaId) {
-            return base.Channel.ListarCuponesPorCampaniaAsync(paisId, campaniaId);
-        }
-        
         public Portal.Consultoras.Web.ServicePedido.BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo) {
             return base.Channel.CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
@@ -26855,6 +26849,54 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task UpdateCuponConsultoraEnvioCorreoAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
             return base.Channel.UpdateCuponConsultoraEnvioCorreoAsync(paisId, cuponConsultora);
+        }
+        
+        public void CrearCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
+            base.Channel.CrearCupon(cupon);
+        }
+        
+        public System.Threading.Tasks.Task CrearCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
+            return base.Channel.CrearCuponAsync(cupon);
+        }
+        
+        public void ActualizarCupon(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
+            base.Channel.ActualizarCupon(cupon);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarCuponAsync(Portal.Consultoras.Web.ServicePedido.BECupon cupon) {
+            return base.Channel.ActualizarCuponAsync(cupon);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BECupon[] ListarCuponesPorCampania(int paisId, int campaniaId) {
+            return base.Channel.ListarCuponesPorCampania(paisId, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECupon[]> ListarCuponesPorCampaniaAsync(int paisId, int campaniaId) {
+            return base.Channel.ListarCuponesPorCampaniaAsync(paisId, campaniaId);
+        }
+        
+        public void CrearCuponConsultora(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
+            base.Channel.CrearCuponConsultora(paisId, cuponConsultora);
+        }
+        
+        public System.Threading.Tasks.Task CrearCuponConsultoraAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
+            return base.Channel.CrearCuponConsultoraAsync(paisId, cuponConsultora);
+        }
+        
+        public void ActualizarCuponConsultora(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
+            base.Channel.ActualizarCuponConsultora(paisId, cuponConsultora);
+        }
+        
+        public System.Threading.Tasks.Task ActualizarCuponConsultoraAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
+            return base.Channel.ActualizarCuponConsultoraAsync(paisId, cuponConsultora);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] ListarCuponConsultorasPorCupon(int paisId, int cuponId) {
+            return base.Channel.ListarCuponConsultorasPorCupon(paisId, cuponId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECuponConsultora[]> ListarCuponConsultorasPorCuponAsync(int paisId, int cuponId) {
+            return base.Channel.ListarCuponConsultorasPorCuponAsync(paisId, cuponId);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPostVenta[] GetSeguimientoPostVenta(int paisID, string numeroRecojo, int estadoId) {
