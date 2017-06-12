@@ -36012,12 +36012,24 @@ h1#penmostreo .campana {
     /*letter-spacing:2px;
     font-weight:700;*/
 }
-.titulo_gana{
-        font-size: 35px;
+.titulo_gana {
+    font-size: 13.7px;
     color: white;
     height: 46px;
+    width: 90%;
+    letter-spacing: 0.5px;    
+    line-height: 20px;
+    -moz-text-align-last: justify;    
+    text-align-last: justify;
+    text-align: justify;
+    padding-left: 15px;
+    margin-top: -15px;
+    margin-bottom: 25px;
+}
+.titulo_gana span {
+    font-size: 20px;
+    letter-spacing: 1.1px;
     font-weight: 700;
-    letter-spacing: 2px;
 }
 .subtitulo_gana{
     font-family:'Lato';
