@@ -175,6 +175,9 @@ function OfertaFilter(filtro) {
         return listaFiltros;
     }
 
+    var campania = $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
+    listaFiltros.CampaniaID = parseInt(campania) || 0;
+
     var variante = $(filtro).attr("data-filtro-tipo") || "";
     var campo = $(filtro).attr("data-filtro-campo") || "";
     var accion = $(filtro).attr("data-filtro-accion") || "";
@@ -424,6 +427,7 @@ function OfertaCargarScroll() {
     var footerH = $("footer").innerHeight() + 500;
     if ($(window).scrollTop() + footerH > $(document).height()) {
         if (cantMostrados < cantTotal && !isLoad) {
+            console.log('OfertaCargarScroll', isLoad);
             document.body.scrollTop = $(document).height() - footerH;
             OfertaObtenerProductos();
         }

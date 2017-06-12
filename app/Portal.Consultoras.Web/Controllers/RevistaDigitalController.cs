@@ -49,39 +49,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult _Landing(int id)
         {
-            var model = new RevistaDigitalModel();
-            if (id <= 0) return PartialView("template-Landing", model);
-
-            model.Success = true;
-            model.IsMobile = ViewBag.EsMobile == 2;
-
-            model.FiltersBySorting = new List<BETablaLogicaDatos>();
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
-
-            var listaProducto = ConsultarEstrategiasModel("", id == userData.CampaniaID ? 0 : id);
-            model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-
-            var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
-            model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            if (listaMarca.Any())
+            try
             {
-                model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
-                foreach (var marca in listaMarca)
-                {
-                    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
-                }
+                return ViewLanding(id);
             }
-
-            if (listadoNoLanzamiento.Any())
+            catch (Exception ex)
             {
-                model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
-                model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return PartialView("template-Landing", new RevistaDigitalModel());
             }
-
-            return PartialView("template-Landing", model);
         }
 
         [HttpPost]
@@ -361,7 +337,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        [HttpGet]
+
+        [HttpPost]
         public JsonResult PopupNoVolverMostrar()
         {
             try
@@ -402,7 +379,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult PopupCerrar()
         {
             try

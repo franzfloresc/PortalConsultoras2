@@ -6,6 +6,7 @@ $(document).ready(function () {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
+        listaFiltros.CampaniaID = parseInt(tag) || 0;
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
@@ -35,6 +36,9 @@ $(document).ready(function () {
 
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
+        if ($('[data-tag-html]').attr("data-tag-html") == '0') {
+            isLoad = true;
+        }        
     }
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();

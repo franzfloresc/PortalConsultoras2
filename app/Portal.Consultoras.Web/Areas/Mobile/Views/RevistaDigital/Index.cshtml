@@ -23,7 +23,7 @@
 </div>
 <hr class="clear" />
 
-@if (Model.ListaTabs.Any())
+@if (Model.ListaTabs.Count() > 1)
 {
     <div class="fondo_f2f2f2">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -43,17 +43,21 @@
         <hr class="clear" />
     </div>
 }
-@* Lanzamientos con etiqueta NUEVO *@
-<!-- Inicio Seccion de Landing -->
-<div data-tag-html="1" style="display:none">
-    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-landing.cshtml", Model)
-</div>
-<!-- Fin seccion de landing -->
-<!--Inicio de sección preguntas-->
-<div class="ept_content_preguntas" data-tag-html="0" style="display: none;">
-    @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-informativa.cshtml", Model)
-</div>
-<!--Fin de seccion preguntas-->
+
+@foreach (var tab in Model.ListaTabs)
+{
+    <hr class="clear" />
+    <div style="display: none;" data-tag-html="@tab.Id">
+        @if (tab.Id > 0)
+        {
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
+        }
+        else
+        {
+            @Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-informativa.cshtml", Model)
+        }
+    </div>
+}
 
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <script id="estrategia-template" type="text/x-handlebars-template">
