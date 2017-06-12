@@ -18,6 +18,8 @@
         public int TipoAccion { get; set; }
         public string CuvPedido { get; set; }
         public int CantCuvPedido { get; set; }
+        public int Segmento { get; set; }
+        public string ConfiguracionZona { get; set; }
 
         public string Clase { get; set; }
         public string Codigo { get; set; }
