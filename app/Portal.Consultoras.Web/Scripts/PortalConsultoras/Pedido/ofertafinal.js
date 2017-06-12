@@ -417,7 +417,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo) {
-    debugger;
+    //debugger;
     if (oRegaloPN == null) oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
