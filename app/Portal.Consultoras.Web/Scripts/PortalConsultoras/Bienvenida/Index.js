@@ -170,9 +170,10 @@ $(document).ready(function () {
         }
 
     });
-    
+
     CrearDialogs();
     CargarCarouselEstrategias("");
+    CargarCarouselMasVendidos('desktop');
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();

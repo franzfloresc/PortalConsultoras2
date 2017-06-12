@@ -41,6 +41,7 @@ $(document).ready(function () {
 
 
     CargarCarouselEstrategias("");
+    CargarCarouselMasVendidos('mobile');
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
