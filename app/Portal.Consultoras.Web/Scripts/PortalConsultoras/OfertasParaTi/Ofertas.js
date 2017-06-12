@@ -427,6 +427,7 @@ function OfertaCargarScroll() {
     var footerH = $("footer").innerHeight() + 500;
     if ($(window).scrollTop() + footerH > $(document).height()) {
         if (cantMostrados < cantTotal && !isLoad) {
+            console.log('OfertaCargarScroll', isLoad);
             document.body.scrollTop = $(document).height() - footerH;
             OfertaObtenerProductos();
         }
