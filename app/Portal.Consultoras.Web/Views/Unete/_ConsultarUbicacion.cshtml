@@ -727,7 +727,7 @@
                     OnSuccess = "OnSuccess",
                     OnBegin = "generalLoading();",
                     OnComplete = "generalCloseLoading();"
-                }, new { @class = "formulario_editarDireccion"  }))
+                }, new { @class = "formulario_editarDireccion", @id = "formTemplate" }))
                 {
 
                     @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
@@ -1046,8 +1046,7 @@
                 $('#spMalaZonificacion').show();
             }
 
-            $.validator.unobtrusive.parse('form');
-            $.validator.unobtrusive.parse('form0');
+            $.validator.unobtrusive.parse('formTemplate');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
             var camposUbigeoReferenciaLabel = $(".campoReferenciaUbigeo label");
             var camposUbigeo = $(".contenedor_camposUbigeo");
