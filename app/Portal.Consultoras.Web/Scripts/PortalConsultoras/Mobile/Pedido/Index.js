@@ -179,7 +179,8 @@ function showClienteDetalle(pcliente) {
             CloseLoading();
 
             $("#divDetalleCliente").html(data);
-            $("#divAgregarCliente").show();
+            $("#divAgregarCliente").modal("show");
+            //$("#divAgregarCliente").show();
 
             ClienteDetalleOK = function (cliente) {
                 if (pcliente == null) {

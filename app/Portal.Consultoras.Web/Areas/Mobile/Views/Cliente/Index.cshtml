@@ -152,7 +152,7 @@
         </div>
     </div>*@
 
-    <div class="contenedor_popup_clientes" id="divAgregarCliente">
+    <div class="contenedor_popup_clientes modal" id="divAgregarCliente">
         <div class="popup_agregarCliente">
             <div id="divDetalleCliente"></div>
         </div>
@@ -257,7 +257,8 @@
                         CloseLoading();
 
                         $("#divDetalleCliente").html(data);
-                        $("#divAgregarCliente").show();
+                        $("#divAgregarCliente").modal("show");
+                        //$("#divAgregarCliente").show();
 
                         ClienteDetalleOK = RealizarLuegoGuardarCliente;
                     },
