@@ -4309,6 +4309,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var oddModel = this.GetOfertaDelDiaModel();
+                oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
+                foreach (var item in oddModel.ListaOfertas)
+                {
+                    item.TipoEstrategiaDescripcion = string.Empty;
+                    var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
+                    if (tipo_estrategia != null)
+                        item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
+                }
                 return Json(new
                 {
                     success = oddModel != null,

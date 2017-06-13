@@ -681,6 +681,8 @@
                     <input type="hidden" Class="teimagenmostrar-odd" value="{{TipoEstrategiaImagenMostrar}}" />
                     <input type="hidden" Class="imagen-odd" value="{{ImagenBanner}}" />
                     <input type="hidden" class="origenPedidoWeb-odd" value="2" />
+                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                 </div>
                 <div class="solo_hoy">
                     <div style="height:42px; overflow:hidden"><img src="{{ImagenSoloHoy}}" id="img-solohoy-odd" alt="" /></div>
@@ -696,9 +698,9 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);" onclick="odd_desktop_google_analytics_addtocart('b');">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" >
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click();">
                     <div class="circulo_hoy"><span>+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
@@ -729,6 +731,8 @@
                                 <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
                                 <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
                                 <input type="hidden" class="origenPedidoWeb-odd" value="4" />
+                                <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                                <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
                             <div data-compartir-campos="" style="display:none;">
                                 <input type="hidden" class="CUV" value="{{detalle.CUV2}}" />
@@ -744,6 +748,8 @@
                                 <input type="hidden" class="ProductoDescripcion" value="{{detalle.DescripcionOferta}}" />
                                 <input type="hidden" class="Volumen" value="{{detalle.Volumen}}" />
                                 <input type="hidden" class="Palanca" value="ODD" />
+                                <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                                <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
                             <div class="content_set_pop_hoy">
                                 <div class="imagen_set_Oferta_pop">
@@ -775,7 +781,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
+                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('d')">AGRÉGALO</a>
                                     </div>
                                 </div>
                             </div>
@@ -805,6 +811,8 @@
                                     <input type="hidden" class="teimagenmostrar-odd" value="{{detalle.TipoEstrategiaImagenMostrar}}" />
                                     <input type="hidden" Class="imagen-odd" value="{{detalle.ImagenDisplay}}" />
                                     <input type="hidden" class="origenPedidoWeb-odd" value="3" />
+                                    <input type="hidden" Class="marca-descripcion-odd" value="{{DescripcionMarca}}" />
+                                    <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
                                     <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
@@ -827,7 +835,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar">AGRÉGALO</a>
+                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('d')">AGRÉGALO</a>
                                 </div>
                                 <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
