@@ -12,34 +12,36 @@ foreach (var lan in Model.ListaProducto)
 
     <div class="content_item_ept" data-item="" data-ImgPrevia="@lan.EstrategiaDetalle.ImgPrevDesktop" data-estrategia="@Json.Encode(lan)">
         <div style="display:none;"></div>
-        <div>
+        <div data-item-tag="body" class="lan_content_body">
             @if (lan.EstrategiaDetalle.ImgFichaDesktop != "")
             {
                 <div class="etiqueta_nuevo_ept">
                     <img src="@lan.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
                 </div>
             }
-            <div class="detalle_set_banner">
+            <div class="detalle_set_banner" data-item-tag="contenido">
                 @if (Model.IsMobile)
                 {
-                    <div class="content_set_imagen_banner" onclick="javascript:EstrategiaVerDetalle(@lan.EstrategiaID);">
+                    <div class="content_set_imagen_banner" data-item-tag="foto" onclick="javascript:EstrategiaVerDetalle(@lan.EstrategiaID);">
                         <img src="@lan.FotoProducto01" alt=""/>
                     </div>
                 }
                 else
                 {
-                    <div class="content_set_imagen_banner">
+                    <div class="content_set_imagen_banner" data-item-tag="foto">
                         <img src="@lan.FotoProducto01" alt="" />
                     </div>
                 }
-                @if (lan.DescripcionResumen != "")
-                {
-                    <div class="titulo_set_banner_ept">@lan.DescripcionResumen</div>
-                }
-                <div class="detalle_set_banner_ept">
-                    @lan.DescripcionCortada
+                <div data-item-tag="descripcion">
+                    @if (lan.DescripcionResumen != "")
+                    {
+                        <div class="titulo_set_banner_ept">@lan.DescripcionResumen</div>
+                    }
+                    <div class="detalle_set_banner_ept">
+                        @lan.DescripcionCortada
+                    </div>
                 </div>
-                <div class="producto_nombre_descripcion">
+                <div class="producto_nombre_descripcion" data-item-tag="precio">
                     <div class="producto_precio" style="margin-bottom: 3px;">
                         @if (lan.Precio > 0)
                         {
@@ -48,7 +50,7 @@ foreach (var lan in Model.ListaProducto)
                         <span class="precio-oferta-venta"><b>@lan.Simbolo @lan.PrecioString</b></span>
                     </div>
                 </div>
-                <div class="producto_nombre_descripcion">
+                <div class="producto_nombre_descripcion" data-item-tag="agregar">
                     @if (Model.IsMobile)
                     {
                         <div class="liquidacion_rango_home">
@@ -68,7 +70,7 @@ foreach (var lan in Model.ListaProducto)
                             </div>
                         </div>
                     }
-                    <a class="boton_Agregalo_home" href="javascript:;" data-campaniaid="@lan.CampaniaID"
+                    <a class="boton_Agregalo_home @lan.ClaseBloqueada" data-bloqueada="@lan.ClaseBloqueada" href="javascript:;" data-campaniaid="@lan.CampaniaID"
                        onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@lan.EstrategiaID', TipoEstrategiaID: '@lan.TipoEstrategiaID', Posicion: @lan.Orden, FlagNueva: '@lan.FlagNueva' }, this); ">
                         AGRÉGALO
                     </a>
@@ -80,26 +82,16 @@ foreach (var lan in Model.ListaProducto)
                         </div>
                     </div>
                 </div>
-                @if (Model.IsMobile && lan.PuedeVerDetalleMob)
-                {
-                    <a class="btn_mas_info_set rd_ver_mas" 
-                       href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new {area = "Mobile" })/@lan.EstrategiaID';">
-                        ver más de este producto
-                    </a>
-                }
-                else if(lan.PuedeVerDetalle)
-                {
-                    <a class="btn_mas_info_set rd_ver_mas" 
-                       href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital")/@lan.EstrategiaID';">
-                        ver más de este producto
-                    </a>
-                }
+                <a class="btn_mas_info_set rd_ver_mas" data-item-tag="verdetalle"
+                    href="javascript: window.location = '@Url.Action("Detalle", "RevistaDigital", new {area =  (Model.IsMobile && lan.PuedeVerDetalleMob ? "Mobile" : "")})/@lan.EstrategiaID';">
+                    ver más de este producto
+                </a>
             </div>
         </div>
 
         @if (lan.EstrategiaDetalle.ImgFondoDesktop != "")
         {
-            <div class="imagen_fondo">
+            <div class="imagen_fondo" data-item-tag="fotofondo">
                 <img src="@lan.EstrategiaDetalle.ImgFondoDesktop" alt="" />
             </div>
         }

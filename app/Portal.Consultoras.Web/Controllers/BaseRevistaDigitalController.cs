@@ -34,30 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return model;
 
             model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-
-            //model.FiltersBySorting = new List<BETablaLogicaDatos>();
-            //model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = IsMobile() ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
-            //model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = IsMobile() ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
-            //model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = IsMobile() ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
-            //var listaProducto = ConsultarEstrategiasModel();
-            //model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            //var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            //var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
-            //model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            //if (listaMarca.Any())
-            //{
-            //    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = IsMobile() ? "MARCAS" : "FILTRAR POR MARCA" });
-            //    foreach (var marca in listaMarca)
-            //    {
-            //        model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
-            //    }
-            //}
-            //if (listadoNoLanzamiento.Any())
-            //{
-            //    model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
-            //    model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
-            //}
-            
             model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
             model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
 

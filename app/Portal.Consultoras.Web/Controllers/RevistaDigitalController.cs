@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listModel = ConsultarEstrategiasModel("");
+                var listModel = ConsultarEstrategiasModel("", model.CampaniaID);
 
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
