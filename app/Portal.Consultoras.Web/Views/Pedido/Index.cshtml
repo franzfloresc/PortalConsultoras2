@@ -527,6 +527,38 @@
     </div>
     <!--14092016 - FIN -->
 
+    <!-- PASE PEDIDO INSCRITAS C-11 -->
+    <div class="banner_pedido_rd">
+        <div class="cabecera_pedido_rd">
+            <div class="rd_logo">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+            </div>
+            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+        </div>
+        <div class="banner_pedido_masofertas">
+            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
+
+            <div class="btn_diagonal btn_stroke"><a href="#">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+        </div>
+    </div>
+    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+
+    <!-- PASE PEDIDO NO INSCRITAS C-11 -->
+    <div class="banner_pedido_rd">
+        <div class="cabecera_pedido_rd">
+            <div class="rd_logo">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+            </div>
+            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+        </div>
+        <div class="banner_pedido_masofertas">
+            <div class="banner_pedido_text">YULIANA, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
+
+            <div class="btn_diagonal btn_stroke"><a href="#">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+        </div>
+    </div>
+    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -2395,6 +2427,17 @@
         <hr class="clear" />
     </div>
 </script>
+<!--
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".home_block_rd .btn_diagonal, .banner_pedido_rd .btn_diagonal").mouseover(function () {
+            $(".rd_arrowright").attr("src", "@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")";
+        }).mouseout(function () {
+            $(".rd_arrowright").attr("src","@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")";
+        });
+    });
+</script>
+-->
         @section scripts{
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">

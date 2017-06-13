@@ -1775,3 +1775,118 @@ height: 100%;
     color: #000;
     margin-bottom: 12px;
 }
+
+.rd_logo {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
+    text-align: center;
+    position: relative;
+}
+
+.rd_logo:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        clear: both;
+}
+
+/* BANNER VER MÁS OFERTAS */
+.banner_pedido_rd {
+    height: auto;
+    width: 100%;
+    position: relative;
+    background-color: #F6F6F6;
+    height: auto;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    font-family: 'Lato';
+}
+
+.cabecera_pedido_rd {
+    background-color: black;
+}
+
+.cabecera_pedido_rd .rd_logo {
+        width: 120px;
+        height: 85px;
+        padding-top: 20px;
+}
+
+.cabecera_pedido_rd .rd_logo:after {
+            border-left: 20px solid transparent;
+            border-right: 0px solid transparent;
+            border-bottom: 85px solid #000;
+}
+
+.cabecera_pedido_text {
+    color: white;
+    position: absolute;
+    top: 18px;
+    left: 130px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.banner_pedido_masofertas {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.banner_pedido_text {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.btn_red {
+    margin: 30px 0;
+}
+
+.btn_red a {
+        color: #e81c36;
+        text-decoration: none;
+        padding: 15px 25px;
+        border: 1px solid #e81c36;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+}
+
+.btn_red .rd_arrowright {
+        position: relative;
+        height: 14px;
+        padding-left: 6px;
+}
+
+.rd_producto_bloqueado {
+    height: 75px;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    padding-top: 13px;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
+}
+.rd_producto_bloqueado a {
+    color: white;
+    padding: 10px 0;
+    font-size: 12px;
+}
+.rd_producto_bloqueado_tit {
+    margin-bottom: 4px;
+}
