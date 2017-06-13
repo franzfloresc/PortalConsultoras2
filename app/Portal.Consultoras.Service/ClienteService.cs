@@ -161,9 +161,19 @@ namespace Portal.Consultoras.Service
             return BLCliente.RecordatorioInsertar(paisId, recordatorio);
         }
 
-        public IEnumerable<BEClienteRecordatorio> ObtenerRecordatoriosPorCliente(int paisId, int clienteId, long consultoraId)
+        public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, int clienteId, long consultoraId)
         {
             return BLCliente.RecordatorioListar(paisId, clienteId, consultoraId);
+        }
+
+        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioActualizar(paisId, recordatorio);
+        }
+
+        public bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId)
+        {
+            return BLCliente.RecordatorioEliminar(paisId, codigoCliente, consultoraId, recordatorioId);
         }
     }
 }

@@ -112,6 +112,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+
         public int UndoCliente(long ConsultoraID, int ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UndoChangesCliente");
@@ -130,7 +131,7 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public bool InsertarMovimiento(BEMovimiento movimiento)
+        public bool MovimientoInsertar(BEMovimiento movimiento)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Insertar"))
             {
@@ -150,10 +151,10 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader ListarMovimientos(int codigoCliente, long consultoraId)
+        public IDataReader MovimientosListar(int codigoCliente, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");
-            
+
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
@@ -163,16 +164,16 @@ namespace Portal.Consultoras.Data
         }
 
 
-        public bool InsertarRecordatorio(BEClienteRecordatorio movimiento)
+        public bool RecordatorioInsertar(BEClienteRecordatorio recordatorio)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Insertar"))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
-                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, movimiento.ConsultoraId);
-                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, movimiento.CodigoCliente);
-                Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, movimiento.Fecha);
-                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, movimiento.Descripcion);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, recordatorio.ConsultoraId);
+                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, recordatorio.CodigoCliente);
+                Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, recordatorio.Fecha);
+                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, recordatorio.Descripcion);
 
                 using (var reader = Context.ExecuteReader(command))
                 {
@@ -181,7 +182,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader ObtenerRecordatorio(long codigoCliente, long consultoraId)
+        public IDataReader RecordatorioObtener(long codigoCliente, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Listar");
 
@@ -192,6 +193,44 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+
+        public bool RecordatorioActualizar(BEClienteRecordatorio recordatorio)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Actualizar"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, recordatorio.ConsultoraId);
+                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, recordatorio.CodigoCliente);
+                Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, recordatorio.Fecha);
+                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, recordatorio.Descripcion);
+
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader.RecordsAffected == 1;
+                }
+            }
+        }
+
+
+        public bool RecordatorioEliminar(long codigoCliente, long consultoraId, int recordatorioId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Eliminar"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, codigoCliente);
+                Context.Database.AddInParameter(command, "@ClienteRecordatorioId", DbType.Int16, recordatorioId);
+
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader.RecordsAffected == 1;
+                }
+            }
+        }
+
     }
 }
 
