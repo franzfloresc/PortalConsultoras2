@@ -1562,10 +1562,10 @@
 
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
 
-        limpiarPopUps();
+        //limpiarPopUps();
 
-        $('#divConsultarUbicacion').empty();
-        $('#divConsultarUbicacion').show();
+        //$('#divConsultarUbicacion').empty();
+        //$('#divConsultarUbicacion').show();
 
         LoadSpinner('divConsultarUbicacion');
         $('#divConsultarUbicacion').show();
@@ -1576,7 +1576,7 @@
         $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
 
             $('#divConsultarUbicacion').html(html);
-            loadExtraData(solicitudPostulanteID);
+            //loadExtraData(solicitudPostulanteID);
 
         }).always(function () {
 
