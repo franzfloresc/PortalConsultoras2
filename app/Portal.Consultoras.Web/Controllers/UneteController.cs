@@ -304,8 +304,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new ConsultarUbicacionModel();
             model.NombreCompleto = nombreCompleto;
             model.Celular = celular;
-            using (var sv = new PortalServiceClient())
-            {
+            var solicitudPostulante = new SolicitudPostulante();
+            var sv = new PortalServiceClient();
+            //using (var sv = new PortalServiceClient())
+            //{
                 if (!string.IsNullOrEmpty(pintarMalaZonificacion))
                 {
                     var eventos = new EventoSolicitudPostulanteCollection();
@@ -327,7 +329,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                
                     model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo)? string.Empty :  model.ZonaSeccionRechazo.Replace('|', '/');
                 }
-                var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
 
                 if (solicitudPostulante != null)
                 {
@@ -1211,7 +1213,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EditarDireccionModel.SolicitudPostulanteID = id;
                 model.EditarDireccionModel.CodigoPais = CodigoISO;
                 #endregion
-            }
+            //}
 
             return PartialView("_ConsultarUbicacion", model);
         }

@@ -1313,7 +1313,7 @@
     }
 
     $(function () {
-        setTimeout(cargarMapa, 1000);
+        setTimeout(cargarMapa, 50);
     });
 
     $('#imgCerrar').click(function () {
@@ -1412,7 +1412,7 @@
         $('#btnCancelarGrabadoPosicion').attr('disabled', false);
         $('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
         if ($('#DivConGEO').css('display') == 'none') {
-            EditMapa();
+            setTimeout(EditMapa, 50);
         }
         $('#DivSinGEO').hide();
         $('#DivConGEO').show();
