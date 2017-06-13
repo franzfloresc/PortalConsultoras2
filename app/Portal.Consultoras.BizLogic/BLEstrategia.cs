@@ -308,7 +308,11 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        // 1747 - Fin
+
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
+        {
+            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
+        }
 
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {

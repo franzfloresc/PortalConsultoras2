@@ -4,6 +4,9 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
+@if (Model.Success)
+{
+
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
         <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" data-lista-producto-cantidad="@((Model.ListaProducto ?? new List<EstrategiaPedidoModel>()).Count())">
@@ -12,7 +15,7 @@
     </div>
 </div>
 <hr class="clear" />
-<div class="BloqueLandingRD">
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
     <div class="content_belcorp">
         <div>
             <div class="titulo_pagina">MIS OFERTAS</div>
@@ -47,7 +50,7 @@
             </div>
         </div>
         <hr class="clear" />
-        <div data-listado-campania="">
+        <div>
             <hr class="clear" />
             <div id="divOfertaProductos" style="text-align: center;"></div>
             <hr class="clear" />
@@ -57,3 +60,5 @@
     </div>
     <hr class="clear" />
 </div>
+
+}

@@ -2,6 +2,7 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return RedirectToAction("Index", "Bienvenida");
                 }
-                
+
                 return View(model);
             }
             catch (Exception ex)
@@ -45,7 +46,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
+
+        public ActionResult _Landing(int id)
+        {
+            try
+            {
+                return ViewLanding(id);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return PartialView("template-Landing", new RevistaDigitalModel());
+            }
+        }
+
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
         {
@@ -62,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-                
+
                 var listModel = ConsultarEstrategiasModel("");
 
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
@@ -137,13 +151,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cantMostrar = 10;
                 listaFinal = listaFinal.Skip(model.Limite).Take(cantMostrar).ToList();
-                
-                listaFinal.ForEach(p => {
+
+                listaFinal.ForEach(p =>
+                {
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
                     p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
                 });
-                
+
                 return Json(new
                 {
                     success = true,
@@ -195,11 +210,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult Suscripcion()
         {
             try
             {
+                if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 if (userData.RevistaDigital.EstadoSuscripcion == 1)
                 {
                     return Json(new
@@ -229,7 +253,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                userData.MenuMobile = null;
+                    userData.MenuMobile = null;
                 }
 
                 SetUserData(userData);
@@ -246,7 +270,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                
+
                 return Json(new
                 {
                     success = false,
@@ -255,26 +279,17 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult Desuscripcion()
         {
             try
             {
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
                 {
                     return Json(new
                     {
                         success = false,
-                        message = "Usted no está inscrita a ÉSIKA PARA MÍ."
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Usted ya está desuscrito a ÉSIKA PARA MÍ."
+                        message = "Lo sentimos no se puede ejecutar la acción, gracias."
                     }, JsonRequestBehavior.AllowGet);
                 }
 
@@ -298,7 +313,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                userData.MenuMobile = null;
+                    userData.MenuMobile = null;
                 }
 
                 SetUserData(userData);
@@ -322,7 +337,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        [HttpGet]
+
+        [HttpPost]
         public JsonResult PopupNoVolverMostrar()
         {
             try
@@ -363,7 +379,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult PopupCerrar()
         {
             try

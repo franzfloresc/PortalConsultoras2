@@ -1,4 +1,6 @@
 ﻿
+var isClear = false;
+
 $(document).ready(function () {
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
@@ -6,7 +8,7 @@ $(document).ready(function () {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
-        tag = tag != "" && tag != "0" ? "1" : tag;
+        listaFiltros.CampaniaID = parseInt(tag) || 0;
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
@@ -34,17 +36,27 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    if ($('ul[data-tab="tab"] li a').length == 0) {
-        if (estadoAccion == 0) {
-            $('[data-tag-html="0"]').show();
-        }
-        else {
-            $('[data-tag-html="1"]').show();
-        }
+    if ($('[data-tag-html]').length == 1) {
+        $('[data-tag-html]').show();
+        if ($('[data-tag-html]').attr("data-tag-html") == '0') {
+            isLoad = true;
+        }        
     }
     else {
-        $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+        $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     }
+
+    //if ($('ul[data-tab="tab"] li a').length == 0) {
+    //    if (estadoAccion == 0) {
+    //        $('[data-tag-html="0"]').show();
+    //    }
+    //    else {
+    //        $('[data-tag-html="1"]').show();
+    //    }
+    //}
+    //else {
+    //    $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+    //}
     
     RenderCarrusel();
 
@@ -143,6 +155,9 @@ function OfertaArmarEstrategias(response) {
 
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response);
+    if (isClear) {
+        $('#divOfertaProductos').html("");
+    }
     $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);

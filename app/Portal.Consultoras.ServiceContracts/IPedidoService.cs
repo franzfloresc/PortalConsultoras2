@@ -623,6 +623,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
 
+        [OperationContract]
+        string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID);
+
         // Req. 1747 - Estrategia
         [OperationContract]
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);

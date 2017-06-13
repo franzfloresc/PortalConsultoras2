@@ -18,12 +18,11 @@ var listaFiltros = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
 
-
     $("a[data-filtro-tipo]").click(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
     
     $('#DialogMensajesBanner').dialog({
@@ -163,9 +162,9 @@ function CargarFiltroRangoPrecio() {
     $('.slider-container').css('width', '');
 }
 
-function OfertaObtenerProductos(filtro) {
+function OfertaObtenerProductos(filtro, clear) {
     var busquedaModel = OfertaFilter(filtro);
-    OfertaCargarProductos(busquedaModel);
+    OfertaCargarProductos(busquedaModel, clear);
 }
 
 function OfertaFilter(filtro) {
@@ -174,6 +173,9 @@ function OfertaFilter(filtro) {
         listaFiltros.Limite = cantMostrados;
         return listaFiltros;
     }
+
+    var campania = $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
+    listaFiltros.CampaniaID = parseInt(campania) || 0;
 
     var variante = $(filtro).attr("data-filtro-tipo") || "";
     var campo = $(filtro).attr("data-filtro-campo") || "";
@@ -239,7 +241,7 @@ function OfertaFilter(filtro) {
     return listaFiltros;
 }
 
-function OfertaCargarProductos(busquedaModel) {
+function OfertaCargarProductos(busquedaModel, clear) {
     if (urlOfertaCargarProductos == '') {
         $("#divOfertaProductos").hide();
         return false;
@@ -274,6 +276,7 @@ function OfertaCargarProductos(busquedaModel) {
             if (response.success == true) {
                 cantMostrados += response.lista.length;
                 cantTotal = response.cantidad;
+                isClear = clear || false;
                 OfertaArmarEstrategias(response);
                 return true;
             }
@@ -424,6 +427,7 @@ function OfertaCargarScroll() {
     var footerH = $("footer").innerHeight() + 500;
     if ($(window).scrollTop() + footerH > $(document).height()) {
         if (cantMostrados < cantTotal && !isLoad) {
+            console.log('OfertaCargarScroll', isLoad);
             document.body.scrollTop = $(document).height() - footerH;
             OfertaObtenerProductos();
         }
