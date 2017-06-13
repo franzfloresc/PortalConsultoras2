@@ -148,18 +148,19 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.InsertarRecordatorio(recordatorio);
         }
 
-        public BEClienteRecordatorio RecordatorioObtener(int paisId, long clienteId, long consultoraId)
+        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long clienteId, long consultoraId)
         {
-            var recordatorio = new BEClienteRecordatorio();
+            var recordatorios = new List<BEClienteRecordatorio>();
             var daCliente = new DACliente(paisId);
 
             using (IDataReader reader = daCliente.ObtenerRecordatorio(clienteId, consultoraId))
                 while (reader.Read())
                 {
-                    recordatorio = new BEClienteRecordatorio(reader);
+                    var recordatorio = new BEClienteRecordatorio(reader);
+                    recordatorios.Add(recordatorio);
                 }
 
-            return recordatorio;
+            return recordatorios;
         }
 
         #region ClienteDB
@@ -338,7 +339,7 @@ namespace Portal.Consultoras.BizLogic
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
             lstConsultoraCliente.ToList()
                 .ForEach(c =>
-                    c.Recordatorio = RecordatorioObtener(paisID, c.CodigoCliente, consultoraID));
+                    c.Recordatorios = RecordatorioListar(paisID, c.CodigoCliente, consultoraID));
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
@@ -362,7 +363,7 @@ namespace Portal.Consultoras.BizLogic
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
                             Contactos = tblCliente.Contactos,
-                            Recordatorio = tblConsultoraCliente.Recordatorio
+                            Recordatorios = tblConsultoraCliente.Recordatorios
                         }).OrderBy(x => x.Nombres).ToList();
 
             return clientes;
