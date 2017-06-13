@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
 
     LayoutHeader();
 
@@ -288,6 +287,7 @@ function odd_mobile_google_analytics_promotion_impresion() {
             }
         });
     }
+}
 
 function loadBannerLP20() {
     if (typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
