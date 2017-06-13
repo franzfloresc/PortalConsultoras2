@@ -11568,9 +11568,9 @@ a{
 .content_descripcion_set{
     float: right;
     /* width: auto; */
-    width:-moz-calc(100%-60px);
-    width:calc(100%-60px);
-    width:-webkit-calc(100%-60px);
+    /*width: -moz-calc(100% - 60px);
+    width: calc(100% - 60px);
+    width: -webkit-calc(100% - 60px);*/
 }
 .content_imagen_individual{
     float:left;
