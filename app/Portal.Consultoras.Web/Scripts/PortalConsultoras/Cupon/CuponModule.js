@@ -240,9 +240,9 @@
         $(elements.ContenedorTituloGana).append(valor);
         $(elements.ContenedorMontoLimitePopupGana).empty();
         if ($(elements.ContenedorMontoLimitePopupGana).parents('.content_monto_cupon').length > 0) {
-            $(elements.ContenedorMontoLimitePopupGana).append('<center>Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '</center>*No aplica para productos en liquidación web.');
+            $(elements.ContenedorMontoLimitePopupGana).append('<center>Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '</center>');
         } else {
-            $(elements.ContenedorMontoLimitePopupGana).append('Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado + '<br/>*No aplica para productos en liquidación web.');
+            $(elements.ContenedorMontoLimitePopupGana).append('Descuento de hasta ' + setting.SimboloMoneda + ' ' + setting.Cupon.MontoLimiteFormateado);
         }
 
         ocultarTodosLosMensajesError();
