@@ -476,14 +476,15 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');
 
+            $('.ui-dialog .ui-button').off('click');
+            $('.ui-dialog .ui-icon-closethick').off('click');
+
             if ($.isFunction(fnAceptar)) {
-                $('.ui-dialog .ui-button').off('click');
                 $('.ui-dialog .ui-button').on('click', function () {
                     $('#alertDialogMensajes').dialog('close');
                     fnAceptar();
                 });
 
-                $('.ui-dialog .ui-icon-closethick').off('click');
                 $('.ui-dialog .ui-icon-closethick').on('click', function () {
                     $('#alertDialogMensajes').dialog('close');
                     fnAceptar();
