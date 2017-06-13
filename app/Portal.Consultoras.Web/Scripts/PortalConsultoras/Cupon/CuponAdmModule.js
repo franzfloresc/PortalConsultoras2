@@ -44,7 +44,9 @@
         contenedorCupon: '#contenedor-cupon',
         spnCampania: '#spnCampania',
         spnTipo: '#spnTipo',
-        spnDescripcion: '#spnDescripcion'
+        spnDescripcion: '#spnDescripcion',
+        frmCargarConsultora: '#frmCargarConsultora',
+        flCuponConsultora: '#flCuponConsultora'
     };
 
     var setting = {
@@ -231,17 +233,22 @@
             buttons:
             {
                 "Guardar": function () {
-                    //if ($(elements.hdCuponId).val() == "") {
-                    //    _guardarCupon(mantCuponDialog);
-                    //} else {
-                    //    _actualizarCupon(mantCuponDialog);
-                    //}
+                    _procesarCargaMasivaCuponConsultora();
                 },
                 "Cancelar": function () {
                     $(this).dialog('close');
                 }
             }
         });
+    };
+
+    var _procesarCargaMasivaCuponConsultora = function () {
+        if ($(elements.flCuponConsultora).val() == '') {
+            alert('Debe seleccionar un archivo');
+            return false;
+        }
+
+        $(elements.frmCargarConsultora).submit();
     };
 
     var _guardarCupon = function (mantCuponDialog) {
