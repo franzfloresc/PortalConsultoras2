@@ -1222,7 +1222,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void GetLocationInfoByAddress(ref ConsultarUbicacionModel model, ref SolicitudPostulante solicitudPostulante, string[] direccion)
         {
-            var resultadoGEO = ConsultarServicio(new
+            var resultadoGEO = BaseUtilities.ConsumirServicio("/ObtenerPuntosPorDireccion",new
             {
                 direccion = model.DireccionCadena,
                 pais = CodigoISO,
@@ -1232,7 +1232,19 @@ namespace Portal.Consultoras.Web.Controllers
                                                      ? direccion[0]
                                                        : solicitudPostulante.LugarHijo,
                 aplicacion = 1
-            }, "ObtenerPuntosPorDireccion");
+            });
+
+            //var resultadoGEO = ConsultarServicio(new
+            //{
+            //    direccion = model.DireccionCadena,
+            //    pais = CodigoISO,
+            //    ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
+            //    area = CodigoISO == Pais.Peru ? direccion[0]
+            //                                         : CodigoISO == Pais.Ecuador
+            //                                         ? direccion[0]
+            //                                           : solicitudPostulante.LugarHijo,
+            //    aplicacion = 1
+            //}, "ObtenerPuntosPorDireccion");
 
             var obtenerPuntosPorDireccionResult =
                 resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
@@ -1286,7 +1298,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var punto = model.Puntos.First();
             //1. buscar el territorio por el punto
-            var obtenerTerritorioPorPuntoResult = ConsultarServicio(new
+            var obtenerTerritorioPorPuntoResult = BaseUtilities.ConsumirServicio("/ObtenerTerritorioPorPunto",new
             {
                 punto = new
                 {
@@ -1295,8 +1307,19 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 pais = CodigoISO,
                 aplicacion = 1
-            }, "ObtenerTerritorioPorPunto")
-                .SelectToken("ObtenerTerritorioPorPuntoResult");
+            }).SelectToken("ObtenerTerritorioPorPuntoResult");
+
+            //var obtenerTerritorioPorPuntoResult = ConsultarServicio(new
+            //{
+            //    punto = new
+            //    {
+            //        Latitud = punto.Item1,
+            //        Longitud = punto.Item2
+            //    },
+            //    pais = CodigoISO,
+            //    aplicacion = 1
+            //}, "ObtenerTerritorioPorPunto")
+            //    .SelectToken("ObtenerTerritorioPorPuntoResult");
 
             if (obtenerTerritorioPorPuntoResult.HasValues &&
                 obtenerTerritorioPorPuntoResult.SelectToken("MensajeRespuesta")
