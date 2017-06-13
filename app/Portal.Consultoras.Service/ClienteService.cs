@@ -156,6 +156,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
         }
 
+        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        {
+            return BLCliente.MovimientoActualizar(paisId, movimiento);
+        }
+
         public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             return BLCliente.RecordatorioInsertar(paisId, recordatorio);
