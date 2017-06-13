@@ -1,7 +1,9 @@
 Use BelcorpBolivia
 go
 
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
+
 @CampaniaID INT,
 @RegionID INT,
 @ZonaID INT,
@@ -38,21 +40,20 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 
-	--EPD-2582 01/06/2017 INICIO
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
 	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -86,17 +87,18 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
 
+ORDER BY a.CDRWebID ASC
 
-ORDER BY a.CDRWebID ASC	
+
 
 GO
+
 
 Use BelcorpChile
 go
@@ -120,7 +122,7 @@ ISNULL(CONVERT(VARCHAR(20),a.FechaAtencion,103) + ' ' + CONVERT(VARCHAR(20),a.Fe
 								WHEN a.Estado = 2 THEN 'EN EVALUACIÓN'
 								WHEN a.Estado = 3 THEN 'APROBADO'
 								WHEN a.Estado = 4 THEN 'CON OBSERVACIONES' END,
-b.CUV, 
+b.CUV,
 d.Cantidad as UnidadesFacturadas,
 --d.MontoPagar as MontoFacturado,
 'MontoFacturado' = CASE WHEN b.CodigoOperacion = LTRIM(RTRIM('T'))  THEN CONVERT(DECIMAL(18,2), pd.ImporteTotal) ELSE CONVERT(DECIMAL(18,2),d.MontoPagar) END,
@@ -138,21 +140,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
-	--EPD-2582 01/06/2017 INICIO
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -186,20 +185,21 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpColombia
 go
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -237,12 +237,11 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
@@ -250,7 +249,6 @@ r.RegionID
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
 	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
 			
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
@@ -285,20 +283,22 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
 
+ORDER BY a.CDRWebID ASC
 
-ORDER BY a.CDRWebID ASC	
+
 
 GO
+
 
 Use BelcorpCostaRica
 go
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -336,21 +336,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -384,20 +381,20 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpDominicana
 go
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -435,21 +432,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
-r.RegionID	
-
-	--EPD-2582 01/06/2017 INICIO
+r.RegionID		
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago	
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -483,20 +477,20 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpEcuador
 go
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -534,21 +528,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -582,21 +573,23 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
 
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpGuatemala
 go
-ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
+
+
+ALTEr PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
 @ZonaID INT,
@@ -633,20 +626,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
-	--EPD-2582 01/06/2017 INICIO
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
 	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
 			
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
@@ -681,20 +672,22 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
 
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpMexico
 go
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -732,21 +725,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
-	--EPD-2582 01/06/2017 INICIO
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -780,20 +770,20 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpPanama
 go
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -831,21 +821,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
-						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
-r.RegionID	
-
+						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  AS 'MotivoRechazo',
+r.RegionID		
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago	
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -879,20 +866,21 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
 Use BelcorpPeru
 go
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -935,16 +923,13 @@ b.Cantidad2 as UnidadesEnviar,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
-
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago		
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -978,20 +963,23 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
 
-
 ORDER BY a.CDRWebID ASC	
 
+
+
 GO
+
 
 Use BelcorpPuertoRico
 go
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -1029,21 +1017,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
-r.RegionID	
-
-	--EPD-2582 01/06/2017 INICIO
+r.RegionID
+--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago			
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -1077,20 +1062,22 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
 
-Use BelcorpSalvador
+
+use BelcorpSalvador
 go
+
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -1128,21 +1115,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
-r.RegionID	
-
+r.RegionID
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago			
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -1176,20 +1160,21 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
-
-ORDER BY a.CDRWebID ASC	
 
 GO
 
-Use BelcorpVenezuela
+
+use BelcorpVenezuela
 go
+
+
 ALTER PROCEDURE [dbo].[GetCDRWebDetalleReporte]
 @CampaniaID INT,
 @RegionID INT,
@@ -1227,21 +1212,18 @@ b.Cantidad2 as UnidadesEnviar,
 'EstadoDetalle' = CASE WHEN b.Estado = 1 THEN 'PENDIENTE'
 					WHEN b.Estado = 2 THEN 'EN EVALUACIÓN'
 					WHEN b.Estado = 3 THEN 'APROBADO'
-					WHEN b.Estado = 4 THEN 'RECHAZADO'--'OBSERVADO'
+					WHEN b.Estado = 4 THEN 'RECHAZADO'
 					END,
 CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo) = NULL then ISNULL(b.Observacion, '') 
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
-r.RegionID	
-
+r.RegionID		
 	--EPD-2582 01/06/2017 INICIO
 	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
 	--,a.FleteDespacho FleteDespacho 
-	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago
-	
-			
+	--EPD-2582 01/06/2017 FIN --select * from pais select * from lugarpago	
 FROM CDRWeb	a
 INNER JOIN CDRWebDetalle b ON
 a.CDRWebID = b.CDRWebID
@@ -1275,15 +1257,15 @@ a.CampaniaID = @CampaniaID AND
 (c.ZonaID = @ZonaID OR 0 = @ZonaID) AND
 (LTRIM(RTRIM(c.Codigo)) = LTRIM(RTRIM(@ConsultoraCodigo)) OR '' = @ConsultoraCodigo) AND
 (b.Estado = @EstadoCDR OR 0 = @EstadoCDR)
-
 AND (
          (c.IdEstadoActividad = @TipoConsultora)
 	  or (isnull(@TipoConsultora,0) = 0)
 	  or (@TipoConsultora = 1 and c.IdEstadoActividad not in (2)) 	  
 	) --EPD-2582
+ORDER BY a.CDRWebID ASC
 
 
-ORDER BY a.CDRWebID ASC	
 
 GO
+
 
