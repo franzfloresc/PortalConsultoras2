@@ -586,6 +586,7 @@
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
         }
         
         public class ConfiguracionPais
