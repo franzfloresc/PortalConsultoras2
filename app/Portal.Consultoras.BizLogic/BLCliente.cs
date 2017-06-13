@@ -403,9 +403,10 @@ namespace Portal.Consultoras.BizLogic
                         MensajeRespuesta = Constantes.ClienteValidacion.Message[valConsultora]
                     };
                 }
-                else if (contactoCliente.ClienteID > 0)
+                else
                 {
-                    var lstCliente = daClienteDB.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    lstCliente = lstCliente.Where(x=>x.ClienteID != contactoCliente.ClienteID).ToList();
 
                     if (lstCliente.Count > 0)
                     {
