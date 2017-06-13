@@ -1596,29 +1596,51 @@
     }
 
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
+        var cISO = "@Model.CodigoIso";
+        $('#divConsultarUbicacion').empty();
+        if (cISO == 'CL' || cISO == 'MX')
+        {
+            LoadSpinner('divConsultarUbicacion');
+            $('#divConsultarUbicacion').show();
+
+            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID}, function (html) {
+
+                $('#divConsultarUbicacion').html(html);
+                loadExtraData(solicitudPostulanteID);
+
+            }).always(function () {
+
+
+            }).done(function () {
+
+            });
+        }
+        else {
+            LoadSpinner('divConsultarUbicacion');
+            $('#divConsultarUbicacion').show();
+
+            $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
+            $("body").css({ "overflow-y": "hidden" });
+
+            $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
+
+                $('#divConsultarUbicacion').html(html);
+                //loadExtraData(solicitudPostulanteID);
+
+            }).always(function () {
+
+
+            }).done(function () {
+
+            });
+        }
 
         //limpiarPopUps();
 
         //$('#divConsultarUbicacion').empty();
         //$('#divConsultarUbicacion').show();
 
-        LoadSpinner('divConsultarUbicacion');
-        $('#divConsultarUbicacion').show();
-
-        $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
-        $("body").css({ "overflow-y": "hidden" });
-
-        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
-
-            $('#divConsultarUbicacion').html(html);
-            //loadExtraData(solicitudPostulanteID);
-
-        }).always(function () {
-
-
-        }).done(function () {
-
-        });
+        
     }
 
     function generalLoading() {
