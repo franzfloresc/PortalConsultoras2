@@ -124,7 +124,7 @@ namespace Portal.Consultoras.BizLogic
         public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
             var daCliente = new DACliente(paisId);
-            return daCliente.InsertarMovimiento(movimiento);
+            return daCliente.MovimientoInsertar(movimiento);
         }
 
         public IEnumerable<BEMovimiento> MovimientoListar(int paisId, int clienteId, long consultoraId)
@@ -132,7 +132,7 @@ namespace Portal.Consultoras.BizLogic
             var movimientos = new List<BEMovimiento>();
             var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.ListarMovimientos(clienteId, consultoraId))
+            using (IDataReader reader = daCliente.MovimientosListar(clienteId, consultoraId))
                 while (reader.Read())
                 {
                     var movimiento = new BEMovimiento(reader);
@@ -141,11 +141,11 @@ namespace Portal.Consultoras.BizLogic
 
             return movimientos;
         }
-
+        #region Recordatorio
         public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             var daCliente = new DACliente(paisId);
-            return daCliente.InsertarRecordatorio(recordatorio);
+            return daCliente.RecordatorioInsertar(recordatorio);
         }
 
         public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long clienteId, long consultoraId)
@@ -153,7 +153,7 @@ namespace Portal.Consultoras.BizLogic
             var recordatorios = new List<BEClienteRecordatorio>();
             var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.ObtenerRecordatorio(clienteId, consultoraId))
+            using (IDataReader reader = daCliente.RecordatorioObtener(clienteId, consultoraId))
                 while (reader.Read())
                 {
                     var recordatorio = new BEClienteRecordatorio(reader);
@@ -162,6 +162,19 @@ namespace Portal.Consultoras.BizLogic
 
             return recordatorios;
         }
+
+        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.RecordatorioActualizar(recordatorio);
+        }
+
+        public bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.RecordatorioEliminar(codigoCliente, consultoraId, recordatorioId);
+        }
+        #endregion
 
         #region ClienteDB
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
