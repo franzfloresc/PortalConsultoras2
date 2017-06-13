@@ -727,7 +727,7 @@
                     OnSuccess = "OnSuccess",
                     OnBegin = "generalLoading();",
                     OnComplete = "generalCloseLoading();"
-                }, new { @class = "formulario_editarDireccion"  }))
+                }, new { @class = "formulario_editarDireccion", @id = "formTemplate" }))
                 {
 
                     @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
@@ -786,107 +786,6 @@
         </div>
 
 
-
-        <div style="width: 90%; padding-left: 5%; display:none;">
-
-
-
-            @if (Model.ZonaPreferencial)
-            {
-                <div class="div-3 caja borde_redondeado" style="padding-left: 5% !important;width: 90%;text-align:left;">
-                    <span class="elementsFont">Lamentablemente la consultora no puede ser registrada ya que en esa zona no tenemos cobertura</span><br />
-                </div>
-            }
-            else if (Model.Puntos.Count == 0)
-            {
-
-
-                <div class="div-3 caja borde_redondeado" style="padding-left: 5% !important;width: 90%;text-align:left;">
-                    <span class="elementsFont">
-                        La direcci&oacute;n <b>@string.Format("{0} {1} {2}", DireccionCadena, NombreComuna, Model.NombreRegion)</b> no se pudo localizar.
-                        <br /> <br />
-                        Verifica que sea la direcci&oacute;n correcta o en todo caso podr&aacute;s georeferenciar m&aacute;s adelante.
-                    </span><br />
-                </div>
-            }
-            else
-            {
-                <div class="modal-lado-izq">
-                    @foreach (var item in Model.Puntos)
-                    {
-                        <div class="fila-direccion" data-latitud="@item.Item1" data-longitud="@item.Item2" data-nro="@nro">
-                            <table cellpadding="0" cellspacing="0">
-                                <tr style="font-size:12px;">
-                                    <td style="padding: 0 10px 0 5px;"><span>@(nro + 1).</span></td>
-                                    <td>@item.Item3</td>
-                                </tr>
-                            </table>
-                        </div>
-                        nro++;
-                    }
-
-                    @if (Model.Latitud != null)
-                    {
-
-                        <div style="font-size:13px;  font-family: 'Lato' !Important; color: #000 !Important;   text-align: left!Important;  font-weight: normal !Important; line-height: 1.25 !Important;">
-                            <span style="font-weight:bold">Latitud</span>
-                            <span>@Model.Latitud</span>
-                        </div>
-                    }
-                    @if (Model.Longitud != null)
-                    {
-                        <div style="font-size:13px;  font-family: 'Lato' !Important; color: #000 !Important;   text-align: left!Important;  font-weight: normal !Important; line-height: 1.25 !Important;">
-                            <span style="font-weight:bold">Longitud</span>
-                            <span>@Model.Longitud</span>
-                        </div>
-                    }
-
-                    <div id="extraZonaOrigenDiv" style="display:none;font-size:13px;   font-family: 'Lato' !Important; color: #000 !Important;   text-align: left!Important;  font-weight: normal !Important; line-height: 1.25 !Important;">
-                        <span style="font-weight:bold">Zona Origen</span>
-                        <span id="extraZonaOrigen"></span>
-                    </div>
-
-                    <div id="extraSeccionOrigenDiv" style="display:none;font-size:13px;   font-family: 'Lato' !Important; color: #000 !Important;   text-align: left!Important;  font-weight: normal !Important; line-height: 1.25 !Important;">
-                        <span style="font-weight:bold">Seccion Origen</span>
-                        <span id="extraSeccionOrigen"></span>
-                    </div>
-
-
-
-                </div>
-
-                <div class="modal-lado-der">
-                    <div id="mapa" class="mapa @(Model.Puntos.Count == 0 ? "" : "height_100")"></div>
-                    <div class="territorio" id="datos_territorio" style="display:none;  font-family: 'Lato' !Important;    font-weight: normal !Important; line-height: 1.25 !Important;">
-                        <div class="field_3">
-                            <h6>Regi&oacute;n</h6>
-                            <span id="spanRegion" style="font-family: 'Lato' !Important; font-weight: normal !Important; line-height: 1.25 !Important; font-size:20px; color:black">@Model.Region</span>
-                        </div>
-                        <div class="field_3">
-                            <h6>Zona</h6>
-                            <span id="spanZona" style="font-family: 'Lato' !Important; font-weight: normal !Important; line-height: 1.25 !Important; font-size:20px; color:black">@Model.Zona</span>
-                        </div>
-                        <div class="field_3">
-                            <h6>Secci&oacute;n</h6>
-                            <span id="spanSeccion" style="font-family: 'Lato' !Important; font-weight: normal !Important; line-height: 1.25 !Important; font-size:20px; color:black">@Model.Seccion</span>
-                        </div>
-                        <div class="field_3">
-                            <h6>Territorio</h6>
-                            <span id="spanTerritorio" style="font-family: 'Lato' !Important; font-weight: normal !Important; line-height: 1.25 !Important; font-size:20px; color:black">@Model.Territorio</span>
-                        </div>
-
-                    </div>
-                    <div class="territorio" id="mensaje_territorio" style="display:none; border-style:none;">
-                        <span style="font-weight:bold !important;    font-family: 'Lato' !Important;
-    color: #000 !Important;
-    text-align: left!Important;
-    font-weight: normal !Important;
-    line-height: 1.25 !Important; font-size:13px !important;  ">No se encontro territorio del sistema comercial con respecto a la ubicaci&oacute;n, proceda cambiando la dirección o asigne manualmente el territorio</span>
-                    </div>
-                </div>
-            }
-
-        </div>
 
 
         <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:none; margin-top:10px;">
@@ -1046,8 +945,7 @@
                 $('#spMalaZonificacion').show();
             }
 
-            $.validator.unobtrusive.parse('form');
-            $.validator.unobtrusive.parse('form0');
+            $.validator.unobtrusive.parse('formTemplate');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
             var camposUbigeoReferenciaLabel = $(".campoReferenciaUbigeo label");
             var camposUbigeo = $(".contenedor_camposUbigeo");
@@ -1268,20 +1166,13 @@
         $('#divTemplateMensaje').css('z-index', '2000');
         HabilitarDatosDireccion(0);
     }
-    //# sourceURL===_ConsultarUbicacion.cshtml
+    
 </script>
 
 
 <script>
     var map, marker, markers = [], markersSeleccionados = [], polygon, currentMaker, polygons = [];
     var urlContentImages = '@Url.Content("~/Content/Images/")';
-    @{
-        var titulo = Model.Puntos.Count > 1 ? "Elige la dirección correcta" : (Model.Puntos.Count > 0 ? "Confirma si es la dirección correcta" : "No se ha encontrado tu ubicación en el mapa");
-    }
-
-    $('#modal_title').html('@Html.Raw(titulo)');
-
-    $('#btnNingunaDireccion').html('@Html.Raw(textoNingunaDireccion)');
 
     @if (Model.Puntos.Count == 0)
     {
@@ -1313,7 +1204,7 @@
     }
 
     $(function () {
-        setTimeout(cargarMapa, 1000);
+        setTimeout(cargarMapa, 50);
     });
 
     $('#imgCerrar').click(function () {
@@ -1412,7 +1303,7 @@
         $('#btnCancelarGrabadoPosicion').attr('disabled', false);
         $('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
         if ($('#DivConGEO').css('display') == 'none') {
-            EditMapa();
+            setTimeout(EditMapa, 50);
         }
         $('#DivSinGEO').hide();
         $('#DivConGEO').show();
@@ -1474,87 +1365,7 @@
 
 
 
-    $('.fila-direccion').click(function () {
-        $('#btnAceptar').attr('disabled', false);
-        $('#btnNingunaDireccion').attr('disabled', true);
-        $('.fila-direccion').removeClass('selected');
-        $(this).addClass('selected');
 
-        if (map) {
-
-            var lat = parseFloat($(this).attr('data-latitud').replace(',', '.'));
-            var lnt = parseFloat($(this).attr('data-longitud').replace(',', '.'));
-
-            map.panTo(new google.maps.LatLng(lat, lnt));
-            for (var i in markers) {
-                var marker = markers[i];
-                if (marker.setAnimation) {
-                    marker.setAnimation(null);
-                }
-            }
-            markers[$(this).attr('data-nro')].setAnimation(google.maps.Animation.BOUNCE);
-
-            // Consultar servicio para buscar territorio
-
-            var data = {
-                latitud: lat,
-                longitud: lnt
-            }
-
-            //  waitingDialog({});
-            generalLoading();
-
-            $.post('@Url.Action("ConsultarTerritorios", "Unete")', data, function (json) {
-
-                if (polygon != null) {
-                    polygon.setMap(null);
-                }
-
-                var coords = JSON.parse(json.Vertices);
-
-                if (coords != null && coords.length > 0) {
-                    var bounds = new google.maps.LatLngBounds();
-
-                    $.each(coords, function (i, coord) {
-                        bounds.extend(new google.maps.LatLng(coord.lat, coord.lng));
-                    })
-
-                    polygon = new google.maps.Polygon({
-                        paths: coords,
-                        strokeColor: '#FF0000',
-                        strokeOpacity: 0.8,
-                        strokeWeight: 2,
-                        fillColor: '#FF0000',
-                        fillOpacity: 0.35
-                    });
-
-                    polygon.setMap(map);
-
-                    map.fitBounds(bounds);
-
-                    $('#datos_territorio').show();
-                    $('mensaje_territorio').hide();
-                    $('#spanRegion').html(json.Region);
-                    $('#spanZona').html(json.Zona);
-                    $('#spanSeccion').html(json.Seccion);
-                    $('#spanTerritorio').html(json.Territorio);
-
-                    $('#btnAceptar').attr('disabled', false);
-                } else {
-                    $('datos_territorio').hide();
-                    $('mensaje_territorio').show();
-                }
-
-                //no quitar altura del mapa
-                //$('#mapa').removeClass('height_100');
-
-            }).complete(function () {
-                // closeWaitingDialog({});
-                generalCloseLoading();
-            });
-
-        }
-    });
     function GetMarkerMorado() {
         var makerMorado = null;
         for (var i = 0; i < markers.length; i++) {
@@ -2002,7 +1813,7 @@
                     }
 
                     <text>
-            $('.fila-direccion').addClass('selected');
+            //$('.fila-direccion').addClass('selected');
             $('#btnAceptar').attr('disabled', false);
             markers[0].setAnimation(google.maps.Animation.BOUNCE);
             </text>
@@ -2152,7 +1963,7 @@
     }, 10);
 
 
-    //# sourceURL===_CargarMapa.cshtml
+    
 </script>
 
 
