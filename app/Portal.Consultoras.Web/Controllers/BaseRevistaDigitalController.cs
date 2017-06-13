@@ -84,7 +84,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listaProducto = ConsultarEstrategiasModel();
             var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
-            
+            model.EstrategiaDetalle = model.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
             return model;
         }
 

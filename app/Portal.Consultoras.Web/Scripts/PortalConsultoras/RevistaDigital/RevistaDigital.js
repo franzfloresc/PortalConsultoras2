@@ -41,7 +41,9 @@ $(document).ready(function () {
         $('[data-tag-html]').show();
         if ($('[data-tag-html]').attr("data-tag-html") == '0') {
             isLoad = true;
-        }        
+        }
+
+        listaFiltros.CampaniaID = $('[data-tag-html]').attr("data-tag-html") || 0;
     }
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();

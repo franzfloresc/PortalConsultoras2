@@ -35,7 +35,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var model = DetalleModel(id);
-                return View(model);
+                if (model.EstrategiaID > 0)
+                {
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
