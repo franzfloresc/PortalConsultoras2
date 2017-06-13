@@ -17,12 +17,14 @@
     var elements = {
         btnMostrarPopupMantCupon: '#btnMostrarPopupMantCupon',
         btnRegresar: '#btnRegresar',
+        btnCargarConsultoras: '#btnCargarConsultoras',
         btnMostrarPopupMantCuponConsultora: '#btnMostrarPopupMantCuponConsultora',
         ddlPais: '#ddlPais',
         ddlCampania: '#ddlCampania',
         ddlTipoCupon: '#ddlTipoCupon',
         popupMantenimientoCupon: '#popup-mantenimiento-cupon',
         popupMantenimientoCuponConsultora: '#popup-mantenimiento-cupon-consultora',
+        popupMantenimientoCargaCuponConsultora: '#popup-mantenimiento-carga-cupon-consultora',
         txtDescripcion: '#txtDescripcion',
         txtConsultora: '#txtConsultora',
         txtValorAsociado: '#txtValorAsociado',
@@ -57,7 +59,8 @@
         UrlImagenDelete: '',
         UrlImagenDetail: '',
         popupMantenimientoCupon: 'popup-mantenimiento-cupon',
-        popupMantenimientoCuponConsultora: 'popup-mantenimiento-cupon-consultora'
+        popupMantenimientoCuponConsultora: 'popup-mantenimiento-cupon-consultora',
+        popupMantenimientoCargaCuponConsultora: 'popup-mantenimiento-carga-cupon-consultora',
     };
 
     var listaCampanias = [];
@@ -103,6 +106,10 @@
             waitingDialog({});
 
             _listarCuponesPorCampania();
+        });
+
+        $(document).on("click", elements.btnCargarConsultoras, function () {
+            showDialog(setting.popupMantenimientoCargaCuponConsultora);
         });
     }
 
@@ -159,6 +166,7 @@
     var _inicializarDialogs = function () {
         _iniDialogMantenimientoCupon();
         _iniDialogMantenimientoCuponConsultora();
+        _iniDialogMantenimientoCargaCuponConsultora();
     };
 
     var _iniDialogMantenimientoCupon = function () {
@@ -203,6 +211,31 @@
                     } else {
                         _actualizarCuponConsultora(mantCuponConsultoraDialog);
                     }
+                },
+                "Cancelar": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    };
+
+    var _iniDialogMantenimientoCargaCuponConsultora = function () {
+        var mantCargaCuponConsultoraDialog = $(elements.popupMantenimientoCargaCuponConsultora).dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: true,
+            title: "Carga",
+            buttons:
+            {
+                "Guardar": function () {
+                    //if ($(elements.hdCuponId).val() == "") {
+                    //    _guardarCupon(mantCuponDialog);
+                    //} else {
+                    //    _actualizarCupon(mantCuponDialog);
+                    //}
                 },
                 "Cancelar": function () {
                     $(this).dialog('close');

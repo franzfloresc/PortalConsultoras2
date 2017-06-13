@@ -4069,6 +4069,7 @@
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCuponConsultora.cshtml" />
     <Content Include="Views\Bienvenida\template-mas-vendidos-mobile.cshtml" />
+    <Content Include="Views\AdministrarCupon\Partials\mantenimientoCargaCuponConsultora.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
