@@ -727,7 +727,7 @@
                     OnSuccess = "OnSuccess",
                     OnBegin = "generalLoading();",
                     OnComplete = "generalCloseLoading();"
-                }, new { @class = "formulario_editarDireccion"  }))
+                }, new { @class = "formulario_editarDireccion", @id = "formTemplate" }))
                 {
 
                     @*@Html.HiddenFor(m => Model.EditarDireccionModel.SolicitudPostulanteID)
@@ -1046,8 +1046,7 @@
                 $('#spMalaZonificacion').show();
             }
 
-            $.validator.unobtrusive.parse('form');
-            $.validator.unobtrusive.parse('form0');
+            $.validator.unobtrusive.parse('formTemplate');
             var camposUbigeoDireccionLabel = $(".campoDireccionUbigeo label");
             var camposUbigeoReferenciaLabel = $(".campoReferenciaUbigeo label");
             var camposUbigeo = $(".contenedor_camposUbigeo");
@@ -1268,7 +1267,7 @@
         $('#divTemplateMensaje').css('z-index', '2000');
         HabilitarDatosDireccion(0);
     }
-    //# sourceURL===_ConsultarUbicacion.cshtml
+    
 </script>
 
 
@@ -1313,7 +1312,7 @@
     }
 
     $(function () {
-        setTimeout(cargarMapa, 1000);
+        setTimeout(cargarMapa, 50);
     });
 
     $('#imgCerrar').click(function () {
@@ -1412,7 +1411,7 @@
         $('#btnCancelarGrabadoPosicion').attr('disabled', false);
         $('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
         if ($('#DivConGEO').css('display') == 'none') {
-            EditMapa();
+            setTimeout(EditMapa, 50);
         }
         $('#DivSinGEO').hide();
         $('#DivConGEO').show();
@@ -2152,7 +2151,7 @@
     }, 10);
 
 
-    //# sourceURL===_CargarMapa.cshtml
+    
 </script>
 
 
