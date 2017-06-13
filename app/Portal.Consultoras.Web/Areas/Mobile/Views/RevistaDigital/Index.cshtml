@@ -115,7 +115,7 @@
                         {{/iff}}
                     </div>
                     <div class="clear"></div>
-                    <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGR&Eacute;GALO
                     </a>
                     {{/iff}}

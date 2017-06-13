@@ -251,6 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool isMobile = ViewBag.EsMobile == 2; // IsMobile();
             ListaProductoModel.ForEach(estrategia =>
             {
+                estrategia.ClaseBloqueada = campaniaId > 0 && campaniaId != userData.CampaniaID ? "" : "btn_desactivado_general";
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 estrategia.EstrategiaDetalle = estrategia.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
                 estrategia.EstrategiaDetalle.ImgFondoDesktop =  ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);

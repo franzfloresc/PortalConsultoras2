@@ -30,11 +30,11 @@ $(document).ready(function () {
             }
 
             if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+                CerrarPopup('#PopFichaProductoNueva');
             }
 
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+                CerrarPopup('#popupDetalleCarousel_lanzamiento');
             }
 
             if ($('[data-popup-main]').is(':visible')) {
@@ -73,10 +73,12 @@ $(document).ready(function () {
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-            if ($(e.target).is(':visible')) {
-                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FuncionEjecutar(functionHide);
-                CerrarPopup(e.target);
+            if ($(e.target).parent().attr("id") == "contentmain") {
+                if ($(e.target).is(':visible')) {
+                    var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                    FuncionEjecutar(functionHide);
+                    CerrarPopup(e.target);
+                }
             }
         }
     });

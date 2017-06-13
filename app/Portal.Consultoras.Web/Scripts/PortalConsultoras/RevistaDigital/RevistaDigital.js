@@ -1,5 +1,6 @@
 ﻿
 var isClear = false;
+var conCampania = conCampania || false;
 
 $(document).ready(function () {
 
@@ -40,23 +41,13 @@ $(document).ready(function () {
         $('[data-tag-html]').show();
         if ($('[data-tag-html]').attr("data-tag-html") == '0') {
             isLoad = true;
-        }        
+        }
+
+        listaFiltros.CampaniaID = $('[data-tag-html]').attr("data-tag-html") || 0;
     }
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     }
-
-    //if ($('ul[data-tab="tab"] li a').length == 0) {
-    //    if (estadoAccion == 0) {
-    //        $('[data-tag-html="0"]').show();
-    //    }
-    //    else {
-    //        $('[data-tag-html="1"]').show();
-    //    }
-    //}
-    //else {
-    //    $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
-    //}
     
     RenderCarrusel();
 
@@ -241,7 +232,7 @@ function RenderCarrusel() {
         infinite: true,
         speed: 300,
         slidesToShow: 1,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000,
         prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
         nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
@@ -283,3 +274,10 @@ function RenderCarrusel() {
     });
 }
 
+function RDPageInformativa() {
+    $('#popupDetalleCarousel_packNuevas').hide();
+    $('#popupDetalleCarousel_lanzamiento').hide();
+    $("#divMensajeBloqueada").hide();
+    $(window).scrollTop(0);
+    $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+}

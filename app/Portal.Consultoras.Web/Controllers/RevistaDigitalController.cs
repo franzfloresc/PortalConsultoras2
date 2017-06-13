@@ -37,7 +37,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var model = DetalleModel(id);
-                return View(model);
+                if (model.EstrategiaID > 0)
+                {
+                    return View(model);
+                }
             }
             catch (Exception ex)
             {
@@ -77,7 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listModel = ConsultarEstrategiasModel("");
+                var listModel = ConsultarEstrategiasModel("", model.CampaniaID);
 
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
