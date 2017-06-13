@@ -2157,7 +2157,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tipo == "sr")
                 {
                     controlador = "ShowRoom";
-                    accion = AccionControlador("sr");
+                    accion = AccionControlador("sr", true);
                 }
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
