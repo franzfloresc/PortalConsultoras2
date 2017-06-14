@@ -61,6 +61,7 @@ namespace Portal.Consultoras.Service
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLConsultoraConcurso = new BLConsultoraConcurso();
         }
 
         #region Reporte Lider
@@ -2000,9 +2001,9 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
         }
 
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, int Puntos)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos)
         {
-            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, Puntos);
+            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
         }
 
         public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoConcurso)

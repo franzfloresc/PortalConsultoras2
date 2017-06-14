@@ -36,6 +36,8 @@ namespace Portal.Consultoras.Entities
         public int PuntajeTotal { get; set; }
         [DataMember]
         public string TipoConcurso { get; set; }
+        [DataMember]
+        public DateTime FechaVentaRetail { get; set; }
 
         public BEConsultoraConcurso(IDataRecord row)
         {
@@ -74,6 +76,8 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TIP_CONC"))
                 TipoConcurso = Convert.ToString(row["TIP_CONC"]);
+            if (DataRecord.HasColumn(row, "FEC_VIGE_RETA"))
+                FechaVentaRetail = Convert.ToDateTime(row["FEC_VIGE_RETA"]);
         }
     }
 }

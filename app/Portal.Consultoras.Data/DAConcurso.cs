@@ -28,13 +28,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void ActualizarInsertarPuntosConcurso(string CodigoConsultora, string CodigoCampania, int Puntos)
+        public void ActualizarInsertarPuntosConcurso(string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
-            Context.Database.AddInParameter(command, "@Puntos", DbType.Int32, Puntos);
-
+            Context.Database.AddInParameter(command, "@CodigoConcursos", DbType.String, CodigoConcursos);
+            Context.Database.AddInParameter(command, "@PuntosConcurso", DbType.String, PuntosConcurso);
             Context.ExecuteNonQuery(command);
         }
 

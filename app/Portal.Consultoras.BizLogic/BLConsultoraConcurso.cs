@@ -39,10 +39,10 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <param name="Puntos"></param>
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, int Puntos)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso)
         {
             DAConcurso DAConcurso = new DAConcurso(PaisID);
-            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, Puntos);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso);
         }
         /// <summary>
         /// Obtener el puntaje del concurso que participa la consultora.
