@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -22,6 +23,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECliente> SelectByConsultora(int paisID, long consultoraID);
+
+        [OperationContract]
+        BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente);
 
         [OperationContract]
         BECliente SelectById(int paisID, long consultoraID, int clienteID);
@@ -84,5 +88,20 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId);
+
+        [OperationContract]
+        Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
+
+        [OperationContract]
+        bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, int clienteId, long consultoraId);
+
+        [OperationContract]
+        bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId);
     }
 }

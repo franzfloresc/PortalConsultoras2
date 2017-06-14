@@ -51,14 +51,13 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var cliente = new BECliente(reader);
                     cliente.PaisID = paisID;
-                    cliente.Notificacion = new BEClienteNotificacion(reader);
                     clientes.Add(cliente);
                 }
 
             return clientes;
         }
 
-        private BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
         {
             var cliente = new BECliente();
             var DACliente = new DACliente(paisID);
@@ -121,11 +120,11 @@ namespace Portal.Consultoras.BizLogic
             DACliente.InsCatalogoCampania(CodigoConsultora, CampaniaID);
         }
 
-
+        #region Movimiento
         public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
             var daCliente = new DACliente(paisId);
-            return daCliente.InsertarMovimiento(movimiento);
+            return daCliente.MovimientoInsertar(movimiento);
         }
 
         public IEnumerable<BEMovimiento> MovimientoListar(int paisId, int clienteId, long consultoraId)
@@ -133,7 +132,7 @@ namespace Portal.Consultoras.BizLogic
             var movimientos = new List<BEMovimiento>();
             var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.ListarMovimientos(clienteId, consultoraId))
+            using (IDataReader reader = daCliente.MovimientosListar(clienteId, consultoraId))
                 while (reader.Read())
                 {
                     var movimiento = new BEMovimiento(reader);
@@ -142,6 +141,57 @@ namespace Portal.Consultoras.BizLogic
 
             return movimientos;
         }
+
+
+        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        {
+            if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
+            {
+                return new Tuple<bool, string>(false, "Tipo de movimiento no permitido, Solo A, C, CB"); //todo: a recursos
+            }
+
+            var daCliente = new DACliente(paisId);
+            var result = daCliente.MovimientoActualizar(movimiento);
+
+            return new Tuple<bool, string>(result, string.Empty);
+        }
+        #endregion
+
+        #region Recordatorio
+        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.RecordatorioInsertar(recordatorio);
+        }
+
+        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long clienteId, long consultoraId)
+        {
+            var recordatorios = new List<BEClienteRecordatorio>();
+            var daCliente = new DACliente(paisId);
+
+            using (IDataReader reader = daCliente.RecordatorioObtener(clienteId, consultoraId))
+                while (reader.Read())
+                {
+                    var recordatorio = new BEClienteRecordatorio(reader);
+                    recordatorios.Add(recordatorio);
+                }
+
+            return recordatorios;
+        }
+
+        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.RecordatorioActualizar(recordatorio);
+        }
+
+        public bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.RecordatorioEliminar(codigoCliente, consultoraId, recordatorioId);
+        }
+
+        #endregion
 
         #region ClienteDB
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
@@ -190,8 +240,10 @@ namespace Portal.Consultoras.BizLogic
                     continue;
                 }
 
+
                 //OBTENER CLIENTE TELEFONO
-                var resGetCliente = daClienteDB.GetCliente(clienteDB.ClienteID, contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
+                var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
+                resGetCliente = resGetCliente.Where(x => x.ClienteID != clienteDB.ClienteID).ToList();
 
                 if (resGetCliente.Count > 0)
                 {
@@ -274,6 +326,9 @@ namespace Portal.Consultoras.BizLogic
                         CodigoCliente = clienteDB.ClienteID
                     };
 
+                    var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
+                    clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
+
                     if (clienteDB.ClienteIDSB == 0) clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
                     else daCliente.UpdCliente(clienteSB);
                 }
@@ -313,6 +368,9 @@ namespace Portal.Consultoras.BizLogic
 
             //1. OBTENER CLIENTE CONSULTORA
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
+            lstConsultoraCliente.ToList()
+                .ForEach(c =>
+                    c.Recordatorios = RecordatorioListar(paisID, c.CodigoCliente, consultoraID));
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
@@ -335,7 +393,8 @@ namespace Portal.Consultoras.BizLogic
                             Origen = tblCliente.Origen,
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                            Contactos = tblCliente.Contactos
+                            Contactos = tblCliente.Contactos,
+                            Recordatorios = tblConsultoraCliente.Recordatorios
                         }).OrderBy(x => x.Nombres).ToList();
 
             return clientes;
@@ -375,9 +434,10 @@ namespace Portal.Consultoras.BizLogic
                         MensajeRespuesta = Constantes.ClienteValidacion.Message[valConsultora]
                     };
                 }
-                else if (contactoCliente.ClienteID > 0)
+                else
                 {
-                    var lstCliente = daClienteDB.GetCliente(contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
+                    lstCliente = lstCliente.Where(x => x.ClienteID != contactoCliente.ClienteID).ToList();
 
                     if (lstCliente.Count > 0)
                     {

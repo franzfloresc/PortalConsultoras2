@@ -47,6 +47,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.SelectByConsultora(paisID, consultoraID);
         }
 
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        {
+            return BLCliente.SelectByConsultoraByCodigo(paisID, consultoraID, ClienteID, codigoCliente);
+        }
+
         public BECliente SelectById(int paisID, long consultoraID, int clienteID)
         {
             return BLCliente.SelectById(paisID, consultoraID, clienteID);
@@ -154,6 +159,31 @@ namespace Portal.Consultoras.Service
         public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId)
         {
             return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
+        }
+
+        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        {
+            return BLCliente.MovimientoActualizar(paisId, movimiento);
+        }
+
+        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioInsertar(paisId, recordatorio);
+        }
+
+        public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, int clienteId, long consultoraId)
+        {
+            return BLCliente.RecordatorioListar(paisId, clienteId, consultoraId);
+        }
+
+        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioActualizar(paisId, recordatorio);
+        }
+
+        public bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId)
+        {
+            return BLCliente.RecordatorioEliminar(paisId, codigoCliente, consultoraId, recordatorioId);
         }
     }
 }

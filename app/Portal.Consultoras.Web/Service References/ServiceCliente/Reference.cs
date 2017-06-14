@@ -2836,6 +2836,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultora", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECliente[]> SelectByConsultoraAsync(int paisID, long consultoraID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraByCodigo", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraByCodigoResponse")]
+        Portal.Consultoras.Web.ServiceCliente.BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectByConsultoraByCodigo", ReplyAction="http://tempuri.org/IClienteService/SelectByConsultoraByCodigoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECliente> SelectByConsultoraByCodigoAsync(int paisID, long consultoraID, int ClienteID, long codigoCliente);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/SelectById", ReplyAction="http://tempuri.org/IClienteService/SelectByIdResponse")]
         Portal.Consultoras.Web.ServiceCliente.BECliente SelectById(int paisID, long consultoraID, int clienteID);
         
@@ -2992,6 +2998,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECliente[]> SelectByConsultoraAsync(int paisID, long consultoraID) {
             return base.Channel.SelectByConsultoraAsync(paisID, consultoraID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceCliente.BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente) {
+            return base.Channel.SelectByConsultoraByCodigo(paisID, consultoraID, ClienteID, codigoCliente);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.BECliente> SelectByConsultoraByCodigoAsync(int paisID, long consultoraID, int ClienteID, long codigoCliente) {
+            return base.Channel.SelectByConsultoraByCodigoAsync(paisID, consultoraID, ClienteID, codigoCliente);
         }
         
         public Portal.Consultoras.Web.ServiceCliente.BECliente SelectById(int paisID, long consultoraID, int clienteID) {

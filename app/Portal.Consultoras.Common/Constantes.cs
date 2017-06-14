@@ -770,5 +770,35 @@ namespace Portal.Consultoras.Common
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
+
+
+        public class MovimientoTipo
+        {
+            /// <summary>
+            /// Abono
+            /// </summary>
+            public const string Abono = "A";
+
+            /// <summary>
+            /// Cargo
+            /// </summary>
+            public const string Cargo = "C";
+
+            /// <summary>
+            /// Cargo belcorp, no editable desde la api
+            /// </summary>
+            public const string CargoBelcorp = "CB";
+
+            public static string[] Todos
+            {
+                get
+                {
+                    return new[]
+                    {
+                        Abono, Cargo, CargoBelcorp
+                    };
+                }
+            }
+        }
     }
 }
