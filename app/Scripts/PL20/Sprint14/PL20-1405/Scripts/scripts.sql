@@ -76,6 +76,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpChile
@@ -153,6 +252,105 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
 /*end*/
@@ -234,6 +432,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpCostaRica
@@ -311,6 +608,105 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
 /*end*/
@@ -392,6 +788,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpEcuador
@@ -469,6 +964,105 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
 /*end*/
@@ -550,6 +1144,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpMexico
@@ -627,6 +1320,105 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
 /*end*/
@@ -708,6 +1500,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpPeru
@@ -785,6 +1676,105 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
 /*end*/
@@ -866,6 +1856,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpSalvador
@@ -945,6 +2034,105 @@ BEGIN
 	ORDER BY FechaCreacion DESC
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
+END
+GO
 /*end*/
 
 USE BelcorpVenezuela
@@ -1022,5 +2210,104 @@ BEGIN
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
 	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ListarCuponConsultorasPorCuponId]
+@PaisId		INT,
+@CuponId	INT
+AS
+BEGIN
+	SELECT	CuponConsultoraId,
+			CodigoConsultora,
+			CampaniaId,
+			CuponId,
+			ValorAsociado,
+			EstadoCupon 
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId
+	ORDER BY FechaCreacion DESC
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[CrearCuponConsultora]
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioCreacion	varchar(50)
+AS
+BEGIN
+	INSERT INTO CuponConsultora(CodigoConsultora, CampaniaId, CuponId, ValorAsociado, EstadoCupon, EnvioCorreo, FechaCreacion, UsuarioCreacion)
+	VALUES(@CodigoConsultora, @CampaniaId, @CuponId, @ValorAsociado, 1, 0, GETDATE(), @UsuarioCreacion);
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+CREATE PROCEDURE [dbo].[ActualizarCuponConsultora]
+@CuponConsultoraId	INT,
+@CodigoConsultora	VARCHAR(50),
+@CampaniaId			INT,
+@CuponId			INT,
+@ValorAsociado		DECIMAL(18, 2),
+@UsuarioModificacion	varchar(50)
+AS
+BEGIN
+	UPDATE	CuponConsultora
+	SET		CodigoConsultora	= @CodigoConsultora,
+			CampaniaId			= @CampaniaId,
+			CuponId				= @CuponId,
+			ValorAsociado		= @ValorAsociado,
+			FechaModificacion	=  GETDATE(),
+			UsuarioModificacion = @UsuarioModificacion
+	WHERE	CuponConsultoraId	= @CuponConsultoraId
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
+
+CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
+@CuponId				INT,
+@CampaniaId				INT,
+@CuponConsultorasXml	XML
+AS
+BEGIN
+	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
+	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
+			cC.value('@ValorAsociado','DECIMAL(18,2)'),
+			@CampaniaId,
+			@CuponId,
+			1,
+			0,
+			'',
+			GETDATE()
+	FROM	@CuponConsultorasXml.nodes('/ROOT/CuponConsultora')n(cC);
 END
 GO
