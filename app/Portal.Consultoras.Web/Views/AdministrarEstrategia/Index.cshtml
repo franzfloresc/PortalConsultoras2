@@ -515,8 +515,8 @@
             var aux2 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
-            //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
-            if (aux1 == "4" || aux1 == "7" || aux1 == "8" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
+
+            if (aux1 == "4" || aux1 == "7" || aux1 == "20" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
             }
@@ -818,7 +818,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4  && estrategiaId !== 8 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
+                if (estrategiaId !== 4  && estrategiaId !== 20 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
                     alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
@@ -1439,7 +1439,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || tipo == '7' || tipo == '8' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
+            multiselect: (tipo == '4' || tipo == '7' || tipo == '20' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1813,7 +1813,7 @@
                     }
                     var aux2 = $('#ddlTipoEstrategia').find(':selected').data('id');
                     var aux3 = $('#ddlTipoEstrategia').find(':selected').data('codigo');
-                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 8 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
+                    if (aux2 !== 4 && aux2 !== 7 && aux2 !== 20 && aux2 !== 9 && aux2 !== 10 && aux2 !== 11) {
                         if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                             alert("Ingrese un orden para mostrar.");
                             return false;
