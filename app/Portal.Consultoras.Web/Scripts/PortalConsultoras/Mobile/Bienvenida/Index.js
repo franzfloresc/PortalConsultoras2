@@ -42,7 +42,11 @@ $(document).ready(function () {
 
 
     CargarCarouselEstrategias("");
-    CargarCarouselMasVendidos('mobile');
+
+    if (tieneMasVendidos === 1) {
+        CargarCarouselMasVendidos('mobile');
+    }
+
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
