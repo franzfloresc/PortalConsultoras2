@@ -7,6 +7,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -49,6 +50,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -91,6 +93,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -134,6 +137,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -177,6 +181,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -220,6 +225,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -263,6 +269,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -306,6 +313,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -349,6 +357,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -392,6 +401,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -435,6 +445,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -478,6 +489,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),
@@ -521,6 +533,7 @@ IF EXISTS(SELECT 1 FROM sys.procedures
 BEGIN
     DROP PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 END
+GO
 
 CREATE PROCEDURE dbo.GetCuponConsultoraByCodigoConsultoraCampaniaId
 @CodigoConsultora VARCHAR(50),

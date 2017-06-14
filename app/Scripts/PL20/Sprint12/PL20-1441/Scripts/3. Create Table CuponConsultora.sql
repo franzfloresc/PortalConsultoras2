@@ -4,7 +4,7 @@ USE BelcorpBolivia
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -31,7 +31,7 @@ USE BelcorpChile
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -58,7 +58,7 @@ USE BelcorpColombia
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -85,7 +85,7 @@ USE BelcorpCostaRica
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -112,7 +112,7 @@ USE BelcorpDominicana
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -139,7 +139,7 @@ USE BelcorpEcuador
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -166,7 +166,7 @@ USE BelcorpGuatemala
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -193,7 +193,7 @@ USE BelcorpMexico
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -220,7 +220,7 @@ USE BelcorpPanama
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -247,7 +247,7 @@ USE BelcorpPeru
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -274,7 +274,7 @@ USE BelcorpPuertoRico
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -301,7 +301,7 @@ USE BelcorpSalvador
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
@@ -328,7 +328,7 @@ USE BelcorpVenezuela
 GO
 
 IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
-		WHERE TABLE_NAME = N'dbo.CuponConsultora')
+		WHERE TABLE_NAME = N'CuponConsultora')
 BEGIN
   DROP TABLE dbo.CuponConsultora
 END
