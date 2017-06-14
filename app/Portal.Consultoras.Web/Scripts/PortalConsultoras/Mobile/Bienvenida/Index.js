@@ -1,6 +1,7 @@
-var arrayOfertasParaTi = [];
+ï»¿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {    
+$(document).ready(function () {
+
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
@@ -41,6 +42,11 @@ $(document).ready(function () {
 
 
     CargarCarouselEstrategias("");
+
+    if (tieneMasVendidos === 1) {
+        CargarCarouselMasVendidos('mobile');
+    }
+
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
@@ -95,7 +101,7 @@ function CrearPopShow() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    messageInfo("Ocurrió un error al intentar no mostrar el popup de showroom.");
+                    messageInfo("OcurriÃ³ un error al intentar no mostrar el popup de showroom.");
                 }
             }
         });
@@ -331,7 +337,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             CloseLoading();
             if (checkTimeout(data)) {
                 console.log(error);
-                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+                messageInfo('OcurriÃ³ un error al intentar validar el horario restringido o si el pedido estÃ¡ reservado. Por favor intÃ©ntelo en unos minutos.');
             }
         }
     });
@@ -370,9 +376,9 @@ function MostrarDemandaAnticipada() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al validar demanda anticipada.");
+                    alert("OcurriÃ³ un error al validar demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al validar la demanda anticipada.");
+                    alert("OcurriÃ³ un error al validar la demanda anticipada.");
                 }
             }
         }
@@ -408,9 +414,9 @@ function InsertarDemandaAnticipada(tipo) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("Ocurrió un error al aceptar la demanda anticipada.");
+                    alert("OcurriÃ³ un error al aceptar la demanda anticipada.");
                 } else {
-                    alert("Ocurrió un error al cancelar la demanda anticipada.");
+                    alert("OcurriÃ³ un error al cancelar la demanda anticipada.");
                 }
             }
         }
@@ -556,7 +562,61 @@ function TagManagerCarruselSiguiente() {
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
+    odd_mobile_google_analytics_promotion_click();
 });
+
+function odd_mobile_google_analytics_promotion_click() {
+    //debugger;
+    if ($('#BloqueMobileOfertaDia').length > 0) {
+        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
+        var name = "Oferta del dï¿½a - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+    }
+}
+function odd_mobile_google_analytics_addtocart() {
+    //debugger;
+    if ($('#BloqueMobileOfertaDia').length > 0) {
+        var id = $('#BloqueMobileOfertaDia').find("#cuv2-odd").val();
+        var name = $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var price = $('#BloqueMobileOfertaDia').find("#precio-odd").val();
+        var marca = $('#BloqueMobileOfertaDia').find("#marca-descripcion-odd").val();
+        var variant = $('#BloqueMobileOfertaDia').find("#tipoestrategia-descripcion-odd").val();
+        if (variant == "")
+            variant = "Estï¿½ndar";
+        dataLayer.push({
+            'event': 'addToCart',
+            'ecommerce': {
+                'add': {
+                    'actionField': { 'list': 'Oferta del dï¿½a' },
+                    'products': [{
+                        'name': name,
+                        'price': price,
+                        'brand': marca,
+                        'id': id,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'quantity': 1, 'dimension15': '100',
+                        'dimension16': 'Oferta del dï¿½a - Banner'
+                    }]
+                }
+            }
+        })
+    }
+}
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;

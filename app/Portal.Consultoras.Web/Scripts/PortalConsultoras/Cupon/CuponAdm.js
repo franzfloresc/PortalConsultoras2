@@ -11,7 +11,14 @@
         urlListarCampanias: urlListarCampanias,
         urlCrearCupon: urlCrearCupon,
         urlActualizarCupon: urlActualizarCupon,
-        urlListarCuponesPorCampania: urlListarCuponesPorCampania
+        urlCrearCuponConsultora: urlCrearCuponConsultora,
+        urlActualizarCuponConsultora: urlActualizarCuponConsultora,
+        urlListarCuponesPorCampania: urlListarCuponesPorCampania,
+        urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
+        urlCuponConsultoraCargaMasiva: urlCuponConsultoraCargaMasiva,
+        urlImagenEdit: urlImagenEdit,
+        urlImagenDelete: urlImagenDelete,
+        urlImagenDetail: urlImagenDetail
     };
     
     cuponAdmModule.ini(objInitializerCupon);

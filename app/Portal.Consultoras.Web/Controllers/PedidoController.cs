@@ -4141,12 +4141,60 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
-                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
+                    BEOfertaFinalConsultoraLog entidad = new BEOfertaFinalConsultoraLog();
+                    entidad.CUV = CUV;
+                    entidad.Cantidad = cantidad;
+                    entidad.TipoOfertaFinal = int.Parse(tipoOfertaFinal_Log);
+                    entidad.GAP = gap_Log;
+                    entidad.TipoRegistro = tipoRegistro;
+                    entidad.DesTipoRegistro = desTipoRegistro;
+
+                    svp.InsLogOfertaFinal(userData.PaisID, entidad);
                 }
                 return Json(new
                 {
                     success = true,
                     message = "El log ha sido registrado satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult InsertarOfertaFinalLogBulk(List<OfertaFinalConsultoraLogModel> lista)
+        {
+            try
+            {
+                var s = false;
+                var m = string.Empty;
+
+                if (lista.Any())
+                {
+                    List<BEOfertaFinalConsultoraLog> lista2 = new List<BEOfertaFinalConsultoraLog>();
+
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        svc.InsLogOfertaFinalBulk(userData.PaisID, lista2.ToArray());
+                    }
+
+                    s = true;
+                    m = "El log ha sido registrado satisfactoriamente.";
+                }
+                
+                return Json(new
+                {
+                    success = s,
+                    message = m,
                     extra = ""
                 });
             }
@@ -4198,9 +4246,11 @@ namespace Portal.Consultoras.Web.Controllers
                 //lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
                 //    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
-
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
-
+            if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
+            {
+                for (int i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
+            }
             if (lista.Count != 0)
             {
                 var detallePedido = ObtenerPedidoWebDetalle();
@@ -4297,8 +4347,7 @@ namespace Portal.Consultoras.Web.Controllers
             //        Simbolo = userData.Simbolo*/
             //    });
 
-            //}
-
+            //}     
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
@@ -4309,6 +4358,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var oddModel = this.GetOfertaDelDiaModel();
+                oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
+                foreach (var item in oddModel.ListaOfertas)
+                {
+                    item.TipoEstrategiaDescripcion = string.Empty;
+                    var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
+                    if (tipo_estrategia != null)
+                        item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
+                }
                 return Json(new
                 {
                     success = oddModel != null,

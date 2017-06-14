@@ -1,13 +1,12 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Cupon;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -669,6 +668,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad);
 
         [OperationContract]
+        List<BEEstrategia> GetMasVendidos(BEEstrategia entidad);
+
+        [OperationContract]
         List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad);
 
         [OperationContract]
@@ -1076,18 +1078,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
         
-        #region Cupon
-        [OperationContract]
-        void CrearCupon(BECupon cupon);
-
-        [OperationContract]
-        void ActualizarCupon(BECupon cupon);
-
-        [OperationContract]
-        List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
-
-        #endregion
-        
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
         
@@ -1126,6 +1116,30 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
+        [OperationContract]
+        void CrearCupon(BECupon cupon);
+
+        [OperationContract]
+        void ActualizarCupon(BECupon cupon);
+
+        [OperationContract]
+        List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
+
+        #endregion
+
+        #region Cupon Consultora
+
+        [OperationContract]
+        void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
+
+        [OperationContract]
+        void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
         #endregion
     }
 }
