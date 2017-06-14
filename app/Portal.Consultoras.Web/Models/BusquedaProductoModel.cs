@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -11,6 +9,7 @@ namespace Portal.Consultoras.Web.Models
         public List<Filtro> ListaFiltro { get; set; }
         public Ordenamiento Ordenamiento { get; set; }
         public int Limite { get; set; }
+        public int CampaniaID { get; set; }
     }
 
     public class Filtro

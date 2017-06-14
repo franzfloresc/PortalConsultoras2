@@ -7,6 +7,9 @@ var listatipo = "";
 var rangoPrecios = 0;
 var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
+var cantMostrados = 0;
+var cantTotal = 0;
+var isLoad = false;
 var listaFiltros = {
     ListaFiltro: new Array(),
     Ordenamiento: new Object()
@@ -15,12 +18,11 @@ var listaFiltros = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
 
-
     $("a[data-filtro-tipo]").click(function (event) {
-        OfertaObtenerProductos(this);
+        OfertaObtenerProductos(this, true);
     });
     
     $('#DialogMensajesBanner').dialog({
@@ -72,7 +74,7 @@ $(document).ready(function () {
     $("#divBorrarFiltros").click(function () {
         $(".content_filtro_range").html("");
         $(".content_filtro_range").html('<input class="range-slider" value="" style="width: 100%; display: none;" />');
-        CargarFiltroRangoPrecio();
+        //CargarFiltroRangoPrecio();
 
         /*Ordenamiento*/
         var ordenamiento = {
@@ -99,9 +101,26 @@ $(document).ready(function () {
         (this).blur();
     });
 
-    CargarFiltroRangoPrecio();
     OfertaCargarProductos(null);
-    
+        
+    $(window).scroll(function () {
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            $(".flecha_scroll").animate({
+                opacity: 0
+            }, 100, 'swing', function () {
+                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+                $(".flecha_scroll").delay(100);
+                $(".flecha_scroll").animate({
+                    opacity: 1
+                }, 100, 'swing');
+            });
+        } else {
+            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+        }
+
+        OfertaCargarScroll();
+    });
+
 });
 
 function CargarFiltroRangoPrecio() {
@@ -143,12 +162,20 @@ function CargarFiltroRangoPrecio() {
     $('.slider-container').css('width', '');
 }
 
-function OfertaObtenerProductos(filtro) {
+function OfertaObtenerProductos(filtro, clear) {
     var busquedaModel = OfertaFilter(filtro);
-    OfertaCargarProductos(busquedaModel);
+    OfertaCargarProductos(busquedaModel, clear);
 }
 
 function OfertaFilter(filtro) {
+
+    if (filtro == null) {
+        listaFiltros.Limite = cantMostrados;
+        return listaFiltros;
+    }
+
+    var campania = $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
+    listaFiltros.CampaniaID = parseInt(campania) || 0;
 
     var variante = $(filtro).attr("data-filtro-tipo") || "";
     var campo = $(filtro).attr("data-filtro-campo") || "";
@@ -212,66 +239,27 @@ function OfertaFilter(filtro) {
     }
 
     return listaFiltros;
-
-    //var busquedaModel = null;
-
-    //var listaFiltro = new Array();
-    //var ordenamiento = null;
-
-    ///*Ordenamiento*/
-    //var tipoOrdenamiento = "PRECIO";
-    //var valorOrdenamiento = $("#filter-sorting").val();
-
-    //ordenamiento = {
-    //    Tipo: tipoOrdenamiento,
-    //    Valor: valorOrdenamiento
-    //}
-    ///*FIN Ordenamiento*/
-
-    ///*Filtros de Busqueda*/
-
-    ///*RANGO PRECIOS*/
-    //var filtro = null;
-    //var filtroTipo = "RANGOPRECIOS";
-    //var filtroValores = new Array();
-
-    //if (rangoPrecios != 0) {
-    //    filtroValores = $.trim(rangoPrecios).split(',');
-    //    filtro = {
-    //        Tipo: filtroTipo,
-    //        Valores: filtroValores
-    //    };
-    //    listaFiltro.push(filtro);
-    //}
-    ///*FIN RANGO PRECIOS*/
-
-    //if (listaFiltro.length > 0) {
-    //    $("#divBorrarFiltros").show();
-    //} else {
-    //    $("#divBorrarFiltros").hide();
-    //}
-
-    //busquedaModel = {
-    //    ListaFiltro: listaFiltro,
-    //    Ordenamiento: ordenamiento
-    //};
-
-    //return busquedaModel;
 }
 
-function OfertaCargarProductos(busquedaModel) {
+function OfertaCargarProductos(busquedaModel, clear) {
     if (urlOfertaCargarProductos == '') {
         $("#divOfertaProductos").hide();
         return false;
     }
+    if (isLoad) {
+        return false;
+    }
+
+    isLoad = true;
+
     busquedaModel = busquedaModel || new Object();
     //AbrirLoad();
     $.ajaxSetup({
         cache: false
     });
 
-    $('#divOfertaProductos').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
-    $("#divOfertaProductos").show();
+    $('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
+    $("#divOfertaProductosLoad").show();
 
     jQuery.ajax({
         type: 'POST',
@@ -281,15 +269,21 @@ function OfertaCargarProductos(busquedaModel) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
-            //CerrarLoad();
+            CerrarLoad();
 
+            isLoad = false;
+            $("#divOfertaProductosLoad").hide();
             if (response.success == true) {
+                cantMostrados += response.lista.length;
+                cantTotal = response.cantidad;
+                isClear = clear || false;
                 OfertaArmarEstrategias(response);
-            } else {
-                messageInfoError(response.message);
-                if (busquedaModel.hidden == true) {
-                    $("#divOfertaProductos").hide();
-                }
+                return true;
+            }
+
+            messageInfoError(response.message);
+            if (busquedaModel.hidden == true) {
+                $("#divOfertaProductos").hide();
             }
         },
         error: function (response, error) {
@@ -426,5 +420,17 @@ function AgregarProductoAlCarrito(padre) {
             $(this).remove();
         });
     });
+
+}
+
+function OfertaCargarScroll() {
+    var footerH = $("footer").innerHeight() + 500;
+    if ($(window).scrollTop() + footerH > $(document).height()) {
+        if (cantMostrados < cantTotal && !isLoad) {
+            console.log('OfertaCargarScroll', isLoad);
+            document.body.scrollTop = $(document).height() - footerH;
+            OfertaObtenerProductos();
+        }
+    }
 
 }

@@ -18,9 +18,9 @@
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
-        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
         <input type="hidden" class="rsWAMensaje" value="" />
-        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+        <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
         <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
         <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
         <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -90,7 +90,7 @@
     }
 </div>
 
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';

@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
+using Portal.Consultoras.Web.Models;
 using System;
 using System.Configuration;
 using System.Web.Mvc;
@@ -10,14 +11,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
-            var model = IndexModel();
-            model.NumeroContacto = ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO].Trim();
-            if (model.EstadoAccion < 0)
+            try
             {
-                return RedirectToAction("Index", "Bienvenida");
+                ViewBag.EsMobile = 2;
+                var model = IndexModel();
+                if (model.EstadoAccion < 0)
+                {
+                    return RedirectToAction("Index", "Bienvenida");
+                }
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return View(model);
+            return RedirectToAction("Index", "Bienvenida");
         }
 
         public ActionResult Detalle(int id)
@@ -35,12 +45,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Inscripcion()
+        public ActionResult _Landing(int id)
         {
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
-                return RedirectToAction("Index", "Bienvenida");
-
-            return View();
+            try
+            {
+                ViewBag.EsMobile = 2;
+                return ViewLanding(id);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return PartialView("template-Landing", new RevistaDigitalModel());
+            }
         }
     }
 }
