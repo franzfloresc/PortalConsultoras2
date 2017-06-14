@@ -4323,6 +4323,8 @@ width:100%;
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     position:relative;
 }
+
+
 .previous_ofertas_mobile{
     display:block;
     top: 0;
@@ -8324,6 +8326,10 @@ a{
     text-decoration:underline;
 }
 
+.mensaje_horarioIngresoPedido a.CerrarBanner{
+    color: #000;
+}
+
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*SHOWROOM*/
@@ -11018,11 +11024,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     margin-top:2px;
 }
 .content_descripcion_set{
-       float: right;
+    float: right;
     /* width: auto; */
-     width:-moz-calc(100% - 60px);
+    /*width: -moz-calc(100% - 60px);
     width: calc(100% - 60px);
-   
+    width: -webkit-calc(100% - 60px);*/
 }
 .content_imagen_individual{
     float:left;

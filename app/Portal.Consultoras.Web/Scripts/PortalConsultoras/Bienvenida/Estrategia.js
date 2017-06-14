@@ -13,7 +13,7 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
 $(document).ready(function () {
-    $(document).on('click', '[data-tono-change]', function (e) {
+    $('body').on('click', '[data-tono-change]', function (e) {
         var accion = $(this).attr("data-tono-change");
 
         var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
@@ -585,21 +585,24 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {
-                var listaCuv = new Array();
                 var cuvs = $("[data-tono][data-tono-select]");
+                if (cuvs.length > 0) {
+                    $.each(cuvs,
+                        function(i, item) {
+                            var cuv = $(item).attr("data-tono-select");
+                            if (cuv != "") {
+                                datos.data.CUV2 = cuv;
+                                if (codigoEstrategia == "2003") {
+                                    datos.data.MarcaID = $(item).find("#Estrategia_hd_MarcaID").val();
+                                    datos.data.Precio2 = $(item).find("#Estrategia_hd_PrecioCatalogo").val();
+                                }
 
-                $.each(cuvs, function (i, item) {
-                    var cuv = $(item).attr("data-tono-select");
-                    if (cuv != "") {
-                        datos.data.CUV2 = cuv;
-                        if (codigoEstrategia == "2003") {
-                            datos.data.MarcaID = $(item).find("#Estrategia_hd_MarcaID").val();
-                            datos.data.Precio2 = $(item).find("#Estrategia_hd_PrecioCatalogo").val();
-                        }
-
-                        EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
-                    }
-                });
+                                EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
+                            }
+                        });
+                } else {
+                    EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
+                }
             }
             else {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);

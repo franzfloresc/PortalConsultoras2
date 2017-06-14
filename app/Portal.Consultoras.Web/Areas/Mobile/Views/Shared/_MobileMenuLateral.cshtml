@@ -21,15 +21,14 @@
            class="menu_mobile_belcorp @item.ClaseMenu @item.ClaseMenuItem" target="@item.PageTarget"
            href="@item.UrlItem" @item.OnClickFunt data-orden="@item.OrdenItem"
            id="lnk-prin-@item.Descripcion.GenerateLinkForGoogleTagManager()" data-codigo="@item.Codigo">
-            @*@if (item.UrlImagen != "")
+            @if (item.UrlImagen != "")
             {
                 <img src="@item.UrlImagen" alt="@item.Descripcion" />
             }
             else
             {
                 @item.Descripcion
-            }*@
-            @item.Descripcion
+            }
         </a>
     }
     else
