@@ -15,6 +15,7 @@
         urlActualizarCuponConsultora: urlActualizarCuponConsultora,
         urlListarCuponesPorCampania: urlListarCuponesPorCampania,
         urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
+        urlCuponConsultoraCargaMasiva: urlCuponConsultoraCargaMasiva,
         urlImagenEdit: urlImagenEdit,
         urlImagenDelete: urlImagenDelete,
         urlImagenDetail: urlImagenDetail

@@ -5,8 +5,11 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Text;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -260,6 +263,66 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        [HttpPost]
+        public JsonResult CuponConsultoraCargaMasiva(HttpPostedFileBase flCuponConsultora, int hdCampaniaIdFrmCargaMasiva, int hdCuponIdFrmCargaMasiva)
+        {
+            try
+            {
+                if (flCuponConsultora != null)
+                {
+                    string finalPath = string.Empty;
+                    GuardarArchivoEnCarpeta(flCuponConsultora, out finalPath);
+                    var listaCuponConsultoras = ObtenerListaCuponConsultora(finalPath);
+
+                    return Json(new { success = true, message = "Los datos fueron grabados." }, JsonRequestBehavior.AllowGet);
+                }
+                else {
+                    return Json(new { success = false, message = "Debe seleccionar un archivo" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
+        }
+
+        private void GuardarArchivoEnCarpeta(HttpPostedFileBase flCuponConsultora, out string finalPath)
+        {
+            string fileName = Path.GetFileName(flCuponConsultora.FileName);
+            string pathFolder = Server.MapPath("~/Content/FileCargaCuponConsultora");
+            if (!Directory.Exists(pathFolder))
+                Directory.CreateDirectory(pathFolder);
+            finalPath = Path.Combine(pathFolder, fileName);
+            flCuponConsultora.SaveAs(finalPath);
+        }
+
+        private List<BECuponConsultora> ObtenerListaCuponConsultora(string finalPath)
+        {
+            List<BECuponConsultora> ListaCuponConsultoras = new List<BECuponConsultora>();
+
+            using (StreamReader sr = new StreamReader(finalPath, Encoding.GetEncoding("iso-8859-1")))
+            {
+                string inputLine = "";
+                int count = 0;
+
+                while ((inputLine = sr.ReadLine()) != null)
+                {
+                    count++;
+                    if (count >= 2)
+                    {
+                        var values = inputLine.Split('|');
+                        if (values.Length > 0)
+                        {
+                            BECuponConsultora cuponConsultora = new BECuponConsultora();
+                            cuponConsultora.CodigoConsultora = values[0].Trim();
+                            cuponConsultora.ValorAsociado = Convert.ToDecimal(values[1].Trim());
+
+                            ListaCuponConsultoras.Add(cuponConsultora);
+                        }
+                    }
+                }
+            }
+
+            return ListaCuponConsultoras;
         }
 
         private List<CuponModel> ListarCuponesPorCampania(int paisId, int campaniaId)
