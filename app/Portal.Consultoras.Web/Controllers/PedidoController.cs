@@ -4198,9 +4198,11 @@ namespace Portal.Consultoras.Web.Controllers
                 //lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
                 //    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
-
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
-
+            if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
+            {
+                for (int i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
+            }
             if (lista.Count != 0)
             {
                 var detallePedido = ObtenerPedidoWebDetalle();
@@ -4297,8 +4299,7 @@ namespace Portal.Consultoras.Web.Controllers
             //        Simbolo = userData.Simbolo*/
             //    });
 
-            //}
-
+            //}     
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
