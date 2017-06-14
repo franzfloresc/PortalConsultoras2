@@ -249,11 +249,19 @@ namespace Portal.Consultoras.Web.Controllers
             return resultado;
         }
 
+        public bool TienePersonalizacion()
+        {
+            var showRoomEvento = userData.BeShowRoom;
+            var tienePersonalizacion = showRoomEvento != null ? showRoomEvento.TienePersonalizacion : false;
+            return tienePersonalizacion;
+        }
+
         public List<ShowRoomOfertaModel> ObtenerListaProductoShowRoom(int campaniaId, string codigoConsultora, bool esFacturacion = false)
         {
             var listaShowRoomOferta = new List<BEShowRoomOferta>();
             //var listaShowRoomOfertaModel = new List<ShowRoomOfertaModel>();
             var listaShowRoomOfertaFinal = new List<BEShowRoomOferta>();
+            var tienePersonalizacion = TienePersonalizacion();
 
             var listaDetalle = ObtenerPedidoWebDetalle();
 
@@ -273,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora).ToList();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, campaniaId, codigoConsultora, tienePersonalizacion).ToList();
                 var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
                 if (listaShowRoomOferta != null)

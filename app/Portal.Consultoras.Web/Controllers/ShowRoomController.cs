@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora).ToList();
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
             }
             
             if (!listaShowRoomOferta.Any())
@@ -147,8 +147,11 @@ namespace Portal.Consultoras.Web.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+                //ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
+                //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
+                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
@@ -196,6 +199,30 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lista = lst,
                 //lstConfig = lstConfig
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerParametroPersonalizacion(int PaisID)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(PaisID, Constantes.TablaLogica.Plan20).ToList();
+            }
+
+            var campaniaMinimaPersonalizacion = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionShowroom);
+                if (par != null)
+                {
+                    campaniaMinimaPersonalizacion = par.Codigo;
+                }
+            }
+
+            return Json(new
+            {
+                campaniaMinimaPersonalizacion
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -309,30 +336,28 @@ namespace Portal.Consultoras.Web.Controllers
                         select new
                         {
                             id = a.EventoID,
-                            cell = new[]
-                            {
-                                a.EventoID.ToString(),
-                                a.Nombre,
-                                a.Tema,
-                                a.DiasAntes.ToString(),
-                                a.DiasDespues.ToString(),
-                                a.NumeroPerfiles.ToString(),
-                                a.Imagen1,
-                                a.Imagen2,
-                                a.ImagenCabeceraProducto,
-                                a.ImagenVentaSetPopup,
-                                a.ImagenVentaTagLateral,
-                                a.ImagenPestaniaShowRoom,
-                                a.ImagenPreventaDigital,
-                                a.CampaniaID.ToString(),
-                                a.Descuento.ToString(),
-                                a.TextoEstrategia,
-                                a.OfertaEstrategia.ToString(),
-                                a.Estado.ToString(),
-                                a.TieneCategoria.ToString(),
-                                a.TieneCompraXcompra.ToString(),
-                                a.TieneSubCampania.ToString()
-                            }
+                            a.Nombre,
+                            a.Tema,
+                            DiasAntes = a.DiasAntes.ToString(),
+                            DiasDespues = a.DiasDespues.ToString(),
+                            NumeroPerfiles = a.NumeroPerfiles.ToString(),
+                            a.Imagen1,
+                            a.Imagen2,
+                            a.ImagenCabeceraProducto,
+                            a.ImagenVentaSetPopup,
+                            a.ImagenVentaTagLateral,
+                            a.ImagenPestaniaShowRoom,
+                            a.ImagenPreventaDigital,
+                            CampaniaID = a.CampaniaID.ToString(),
+                            Descuento = a.Descuento.ToString(),
+                            a.TextoEstrategia,
+                            OfertaEstrategia = a.OfertaEstrategia.ToString(),
+                            Estado = a.Estado.ToString(),
+                            TieneCategoria = a.TieneCategoria.ToString(),
+                            TieneCompraXcompra = a.TieneCompraXcompra.ToString(),
+                            TieneSubCampania = a.TieneSubCampania.ToString(),
+                            TienePersonalizacion = a.TienePersonalizacion
+                            //a.EventoID
                         }
                 };
 
@@ -2699,25 +2724,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(false))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var listaFinal = new List<ShowRoomOfertaModel>();
+                if (!ValidarIngresoShowRoom(false)) return ErrorJson("");
+                
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var urlCompartir = GetUrlCompartirFB();
                 var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                int cantidadTotal = listaProductos.Count;
+                listaProductos.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                listaFinal = listaProductos;
+                var listaNoSubCampania = listaProductos.Where(x => !x.EsSubCampania).ToList();
+                int totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
@@ -2725,7 +2741,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (filtroCategoria != null)
                     {
                         var arrayCategoria = filtroCategoria.Valores.ToArray();
-                        listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                        listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
                     }
 
                     var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
@@ -2733,11 +2749,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
                         var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaFinal = listaFinal.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+                        listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
                                      && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
-                }                
-
+                }
                 if (model.Ordenamiento != null)
                 {
                     if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
@@ -2745,55 +2760,38 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (model.Ordenamiento.Valor)
                         {
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaFinal = listaFinal.OrderBy(p => p.PrecioOferta).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioOferta).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
                                 break;
                             default:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                                 break;
                         }
-                    }
-                    
-                }
-                
-                if (model.Limite > 0)
-                    listaFinal = listaFinal.Take(model.Limite).ToList();
+                    }                    
+                }                
+                if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                //listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
+                var listaSubCampania = listaProductos.Where(x => x.EsSubCampania).ToList();
+                listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
 
-                int cantidad = listaFinal.Count;
-
-                foreach (var producto in listaFinal)
-                {
-                    if (producto.EsSubCampania)
-                    {
-                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
-                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
-                    }
-                    producto.UrlCompartir = GetUrlCompartirFB();
-                }
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    lista = listaFinal,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidad
+                    listaNoSubCampania = listaNoSubCampania,
+                    totalNoSubCampania = totalNoSubCampania,
+                    listaSubCampania = listaSubCampania
                 });
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }            
         }
 

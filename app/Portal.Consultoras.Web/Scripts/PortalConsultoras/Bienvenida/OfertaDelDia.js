@@ -736,13 +736,16 @@
             }
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
-            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
+
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
+            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
             var posicion = $(this).parents("[data-item]").attr("data-item-position");
             $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
             // asignar valores del ver detalle
         }
         else if (accion == CONS_TIPO_ACCION.REGRESAR) {
+
+            $('#divOddCarrusel').slick('refresh', false);
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
         }

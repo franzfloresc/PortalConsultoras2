@@ -225,19 +225,20 @@
     <hr class="clear" />
 </div>
 
+
+
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
-    <div class="content_belcorp" style="text-align:center;">
-        <div class="titulo_ofertas_home">
-            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-            <div class="texto_exclusivo">
-                EXCLUSIVAS S&Oacute;LO POR WEB
-            </div>
+    <div id="" class="contenedorCupon">
+        <div id="" class="contenedorCuponConocelo contenedor_cupon" style="display: none;">
+            Tienes un dscto exclusivo para ti, <br />
+            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
         </div>
-        <div class="linea_titulo_absoluto"></div>
-        <hr class="clear" />
-        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia"></div>
+        <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
+            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+        </div>
     </div>
+    <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -1141,6 +1142,7 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
+
     <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
         {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
         <div class="background-revistaSeccion"></div>
@@ -2334,6 +2336,13 @@
 
 </div>
 <!--FIN-->
+<!--POP UP DE CUPON-->
+
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
+
+<!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
@@ -2410,6 +2419,14 @@
 <!--FIN REVISTA DIGITAL-->
 
 @section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {
+                $(this).toggleClass('check_intriga');
+                
+            });
+        });
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
@@ -2510,6 +2527,14 @@
             $('div.contenedor_img_perfil').show();
         }
 
+        var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon = 1;
+        var esEmailActivo = '@Model.EmailActivo';
+        var baseUrl = "@Url.Content("~")";
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

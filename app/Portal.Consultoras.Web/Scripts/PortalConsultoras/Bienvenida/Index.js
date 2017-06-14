@@ -15,7 +15,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
-
+    
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -378,7 +378,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -389,7 +389,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -584,7 +584,7 @@ function agregarProductoAlCarrito(o) {
     var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
 
         $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -594,8 +594,8 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -992,7 +992,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 };
 function AgregarProductoLiquidacion(contenedor) {
-
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -1080,6 +1079,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
                             closeWaitingDialog();
                             HidePopupTonosTallas();
+
+                            ProcesarActualizacionMostrarContenedorCupon();
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
@@ -1094,6 +1095,15 @@ function AgregarProductoLiquidacion(contenedor) {
         }
     });
 };
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
 function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     waitingDialog({});
 
