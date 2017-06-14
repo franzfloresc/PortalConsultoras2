@@ -557,11 +557,11 @@
     min-height: 532px;
 }
 .detalle_set_banner{
+    position:absolute;
     width:auto;
     min-width:357px;
-    /*position:absolute;
     top:30px;
-    left:30px;*/
+    left:30px;
     background:white;
     z-index: 20;
     padding:60px 20px 10px 20px;
@@ -599,15 +599,11 @@
     text-align:center;
     margin-bottom: 11px;
 }
-.lan_content_body{
+.etiqueta_nuevo_ept{
     position: absolute;
     left: 30px;
     top: 29px;
-    background:white;
     z-index: 30;
-}
-.etiqueta_nuevo_ept{
-    float: left;
 }
 .fondo_imagen_set{
     width:140px;
@@ -1459,6 +1455,25 @@
 .btn_stroke:after {
     background: black;
 }
+
+/*BTN STROKE WHITE*/
+
+.btn_stroke_white {
+    background: transparent;
+    width: 260px;
+    border: 1px solid white;
+    color: white;
+    font-size: 13px;
+}
+.btn_stroke_white:hover a {
+    color: black;
+}
+.btn_stroke_white:after {
+    background: white;
+}
+
+
+        
 /* POPUP REVISTA DIGITAL */
 .popup_rd {
     height: 440px;
@@ -2158,51 +2173,120 @@
 }
 
 
- /* POP UP RD BLOQUEADO */
- .popup_rd_bloqueado {
- 	font-family: 'Lato';
-    background-color: #F6F6F6;
-    width: 100%;
-    max-width: 500px;
-    max-height: 590px;
-    height: auto;
+
+
+.home_rd1 {
+    background-color: transparent;
+}
+
+    .home_rd1 .content_belcorp {
+        box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .home_rd1 .btn_diagonal {
+        background: white;
+        width: 240px;
+        position: absolute;
+        top: 43px;
+        right: 30px;
+    }
+
+        .home_rd1 .btn_diagonal:after {
+            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+        }
+
+        .home_rd1 .btn_diagonal a {
+            color: black;
+            transition: all 0.2s ease-in-out;
+            font-size: 13px;
+            letter-spacing: 1.2px;
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .home_rd1 .btn_diagonal:hover a {
+            color: white;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .home_rd1 .btn_diagonal:hover a .rd_arrowright {
+                animation: bounceRight 1.2s infinite;
+            }
+
+    .home_rd1 .rd_arrowright {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        height: 12px;
+        width: 8px;
+    }
+
+@media screen and (max-width: 1220px) {
+    .home_rd1 .content_belcorp {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 2.4%;
+        margin-right: 2.4%;
+    }
+}
+
+
+
+/* CATÁLOGOS */
+.rd_catalogos {
+    background-color: black;
+    width: 530px;
+    height: 180px;
+    font-family: 'Lato';
+    font-size: 18px;
     position: relative;
-    top: 50%;
-    margin: auto;
-    margin-top: -295px;
-    padding: 40px;
-    text-align: center;
- }
- .popup_rd_bloqueado .box_producto {
- 	max-height: 305px;
-    height: auto;
- 	margin: 25px 0;
- 	background-color: #fff;
- }
- .popup_rd_bloqueado .popup_text {
- 	margin: 10px 48px;
-    font-size: 16px;
-    line-height: 20px;
-    color: black;
-    text-decoration: none;
-    transition: all 0.2s ease-in-out;
- }
- .popup_rd_bloqueado a {
- 	transition: all 0.2s ease-in-out;
- }
-.popup_rd_bloqueado a:hover {
-	font-weight: 700;
-	transition: all 0.2s ease-in-out;
 }
-.popup_rd_bloqueado .rd_ver_mas:after {
-    content: "";
-    background-image: url(../images/rd_arrowright.png);
-    background-repeat: no-repeat;
-    background-size: 10px 14px;
-    display: inline-block;
-    width: 10px;
-    position: absolute;
-    height: 14px;
-    margin-left: 8px;
-    margin-top: 4px;
-}
+
+    .rd_catalogos .rd_logo {
+        height: 180px;
+        width: 122px;
+    }
+
+        .rd_catalogos .rd_logo:after {
+            border-bottom: 180px solid #000;
+        }
+
+    .rd_catalogos .hblock_text {
+        left: 130px;
+        text-align: left;
+    }
+
+    .rd_catalogos .btn_diagonal {
+        top: 28px;
+        left: 0;
+        position: relative;
+    }
+
+    .rd_catalogos b {
+        font-size: 18px;
+    }
+    /* FIN CATÁLOGOS */
+
+
+    .rd_catalogos .btn_stroke_white {
+        background: transparent;
+        width: 240px;
+        border: 1px solid white;
+        color: white;
+        font-size: 13px;
+    }
+
+        .rd_catalogos .btn_stroke_white:hover a {
+            color: black;
+        }
+
+        .rd_catalogos .btn_stroke_white a {
+            color: white;
+        }
+
+        .rd_catalogos .btn_stroke_white:after {
+            background: white;
+        }

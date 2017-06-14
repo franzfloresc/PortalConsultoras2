@@ -68,7 +68,7 @@
         <!-- REVISTA DIGITAL -->
         @if (Model.MostrarRevistaDigital)
         {
-            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position:relative;">
+            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position:relative; display:none;">
                 <div>
                     <div style="height:127px; top:40px; position:relative; margin-bottom:16px;">
                         <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height:100%; float: left;" />
@@ -85,16 +85,46 @@
                     </div>
                 </div>
             </div>
+
+            <!-- INSCRITAS C-11 -->
+            <div class="revista_content" id="contentRevistaDigital" style=" position:relative;">
+                <div class="home_block_rd home_rd1 rd_catalogos">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                    </div>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">YULIANA, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                        <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?</div>
+                        <div class="btn_diagonal btn_stroke_white"><a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"></a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN INSCRITAS C-11 -->
+
+            <!-- INSCRITAS C-12 -->
+            <div class="home_block_rd home_rd1" style="background-color: transparent; text-align:left;">
+                <div class="content_belcorp" style="background-color: black;">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                    </div>
+                    <div class="hblock_text" style="padding-top: 34px;">
+                        <div class="hblock_tit" style="font-size:14px;">YULIANA, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div style="max-width: 70%; font-size:18px;">¿YA VISTE TUS OFERTAS DE LA C-12 EN ÉSIKA PARA MÍ? </div>
+                        <div class="btn_diagonal"><a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN INSCRITAS C-12 -->
         }
-        <!-- FIN REVISTA DIGITAL -->
+                <!-- FIN REVISTA DIGITAL -->
 
-        <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
-        <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
+                <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+                <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
-        @if (!ViewBag.EsConsultoraNueva)
-        {
-            <div class="revista_content" id="contenedorExpofertaMCR" style="display:none;">
-                <div style="text-align: center;
+                @if (!ViewBag.EsConsultoraNueva)
+                {
+                    <div class="revista_content" id="contenedorExpofertaMCR" style="display:none;">
+                        <div style="text-align: center;
                         font-family: 'lato';
                         font-size: 16pt;
                         color: black;
@@ -103,10 +133,10 @@
                         margin-top: 48px;
                         margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
                         <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" /></div>
+                    </div>
+                }
+                <hr class="clear" />
             </div>
-        }
-        <hr class="clear" />
-    </div>
 </div>
 
 <!--POP UP COMPARTIR POR CORREOS CATÁLOGOS-->
