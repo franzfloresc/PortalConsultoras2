@@ -706,10 +706,14 @@ function messageInfo(message, fnAceptar) {
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-        $('#popupInformacion .cerrar_popMobile').on('click', fnAceptar);
-    }
+    $('#popupInformacion .btn-aceptar').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
+    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
 }
 
 function messageInfoBueno(message, fnAceptar) {

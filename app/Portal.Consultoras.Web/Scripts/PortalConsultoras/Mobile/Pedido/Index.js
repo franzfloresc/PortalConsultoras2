@@ -80,6 +80,18 @@ $(document).ready(function () {
             return false;
         }
 
+        var clienteValido = true;
+        $.each(lstClientes, function (ind, cli) {
+            if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
+                AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
+                    showClienteDetalle(cli);
+                });
+                clienteValido = false;
+                return false;
+            }
+        });
+        if (!clienteValido) return false;
+
         var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
         if (cantidadProductos > 0) {
             AgregarProductoListado();
@@ -186,10 +198,22 @@ function showClienteDetalle(pcliente) {
                 if (pcliente == null) {
                     $("#ddlClientes").append(new Option(cliente.Nombre, cliente.ClienteID));
                     $("#ddlClientes").val(cliente.ClienteID);
+
+                    lstClientes.push(cliente);
                 }
                 else {
                     $.each($("#ddlClientes option"), function (ind, cli) {
-                        if ($(cli).val() == cliente.ClienteID) $(cli).text(cliente.Nombre);
+                        if ($(cli).val() == cliente.ClienteID) {
+                            $(cli).text(cliente.Nombre);
+                            return false;
+                        }
+                    });
+
+                    $.each(lstClientes, function (ind, cli) {
+                        if (cli.ClienteID == cliente.ClienteID) {
+                            cli.TieneTelefono = 1;
+                            return false;
+                        }
                     });
                 }
             };

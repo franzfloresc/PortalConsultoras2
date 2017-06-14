@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic
             return clientes;
         }
 
-        private BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
         {
             var cliente = new BECliente();
             var DACliente = new DACliente(paisID);

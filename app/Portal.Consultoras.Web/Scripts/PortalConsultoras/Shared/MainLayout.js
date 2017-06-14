@@ -286,11 +286,24 @@ function AbrirVentanaBelcorpChat(url) {
     ventanaChat.focus();
 }
 
-function messageInfoError(message, titulo) {
+function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
         $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
         $('#dialog_ErrorMainLayout').show();
+
+        $('#dialog_ErrorMainLayout .btn_ok').off('click');
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
     }
 }
 
