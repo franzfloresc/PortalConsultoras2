@@ -670,6 +670,8 @@ function CargarVerDetalleOF(objInput, e) {
     objEntidad.CUV = $(divPadre).find(".hdOfertaFinal" + "Cuv").val();
     objEntidad.UrlCompartirFB = $(divPadre).find(".hdOfertaFinal" + "UrlCompartirFB").val();
     objEntidad.NombreComercial = $(divPadre).find(".hdOfertaFinal" + "NombreComercial").val();
+    objEntidad.ID = $(divPadre).find(".hdOfertaFinal" + "ID").val();
+    objEntidad.TipoMeta = $(divPadre).find(".hdOfertaFinal" + "TipoMeta").val();
 
     SetHandlebars("#ofertaFinalVerDetalle-template", objEntidad, "#contenedor_popup_ofertaFinalVerDetalle");
 
@@ -891,7 +893,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
             origen = "Popup Oferta Final - Detalle";
             name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".Nombre").val();
 
-            //*****************logia de la pagina para el precio***************************
+            //*****************logica de la pagina para el precio***************************
             var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioValorizado").val();
             var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioValorizadoString").val();
             var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioCatalogoString").val();
@@ -938,25 +940,5 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
     }
 
     debugger;
-
-    //dataLayer.push({
-    //    'event': 'addToCart',
-    //    'ecommerce': {
-    //        'add': {
-    //            'actionField': { 'list': list },
-    //            'products': [{
-    //                'name': 'LBel UV Defense 365 Total Protector Corporal en Loción FPS50 80ml',
-    //                'price': '15.25',
-    //                'brand': 'Lbel',
-    //                'id': '13223',
-    //                'category': 'NO DISPONIBLE',
-    //                'variant': 'Lanzamiento',
-    //                'quantity': 1,
-    //                'position': 1, 'timeAddToCart': '100',
-    //                'origen': 'Popup Oferta Final - Listado'
-    //            }]
-    //        }
-    //    }
-    //});
 }
 
