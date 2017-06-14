@@ -852,7 +852,11 @@ namespace Portal.Consultoras.Web.Controllers
                                         using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                         {
                                             model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            rds.CampaniaID = model.CampaniaID;
+                                            model.RevistaDigital.SuscripcionAnteriorModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                         }
+
+                                        continue;
                                     }
 
                                     // model.FechaFinCampania; fecha de fin de  la campaña
@@ -860,42 +864,46 @@ namespace Portal.Consultoras.Web.Controllers
                                     // Validacion de la fecha de cierre de campaña y  del idestadoactividad
                                     // metodo GetDiasFaltantesFacturacion => model.FechaActualPais.Date >= model.FechaInicioCampania.Date
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
-                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
-                                        && model.FechaActualPais.Date < model.FechaInicioCampania.Date
-                                        )
+                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        model.RevistaDigital.TieneRDS = true;
-                                        //obtiene datos de Revista digital suscripcion.
-                                        var rds = new BERevistaDigitalSuscripcion
+                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date)
                                         {
-                                            PaisID = model.PaisID,
-                                            CodigoConsultora = model.CodigoConsultora
-                                        };
-                                        using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                        {
-                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            model.RevistaDigital.TieneRDS = true;
+                                            //obtiene datos de Revista digital suscripcion.
+                                            var rds = new BERevistaDigitalSuscripcion
+                                            {
+                                                PaisID = model.PaisID,
+                                                CodigoConsultora = model.CodigoConsultora
+                                            };
+                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                            {
+                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            }
+
+                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+
+                                            //se verifica que el usuario tiene una suscripcion activa
+                                            if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = true;
+                                            }
+                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = false;
+                                            }
+                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
+                                            }
                                         }
 
-                                        model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
-
-                                        //se verifica que el usuario tiene una suscripcion activa
-                                        if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = true;
-                                        }
-                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = false;
-                                        }
-                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
-                                        }
+                                        continue;
                                     }
 
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
                                     {
                                         model.RevistaDigital.TieneRDR = true;
+                                        continue;
                                     }
                                 }
 
