@@ -842,6 +842,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                                     {
+                                        model.RevistaDigital.TieneRDC = true;
+
                                         var rds = new BERevistaDigitalSuscripcion
                                         {
                                             PaisID = model.PaisID,
@@ -862,6 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         && model.FechaActualPais.Date < model.FechaInicioCampania.Date
                                         )
                                     {
+                                        model.RevistaDigital.TieneRDS = true;
                                         //obtiene datos de Revista digital suscripcion.
                                         var rds = new BERevistaDigitalSuscripcion
                                         {
@@ -888,6 +891,11 @@ namespace Portal.Consultoras.Web.Controllers
                                         {
                                             model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
                                         }
+                                    }
+
+                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                                    {
+                                        model.RevistaDigital.TieneRDR = true;
                                     }
                                 }
 

@@ -35,7 +35,10 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
         public string NumeroContacto { get; set; }
-        
+        public bool TieneRDR { get; set; }
+        public bool TieneRDC { get; set; }
+        public bool TieneRDS { get; set; }
+
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }
