@@ -1,7 +1,10 @@
 ﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities.Cupon;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -58,6 +61,33 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return listaCuponConsultoras;
+        }
+
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
+        {
+            string xml = CrearClienteXML(listaCuponConsultoras);
+
+            TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead };
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+            {
+                var DACuponConsultora = new DACuponConsultora(paisId);
+
+                DACuponConsultora.InsertarCuponConsultorasXML(cuponId, campaniaId, xml);
+                transactionScope.Complete();
+            }
+        }
+
+        private string CrearClienteXML(List<BECuponConsultora> listaCuponConsultoras)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (listaCuponConsultoras == null || listaCuponConsultoras.Count == 0) return "";
+
+            foreach (BECuponConsultora cuponConsultora in listaCuponConsultoras)
+            {
+                string xml = "<CuponConsultora CodigoConsultora='{0}' ValorAsociado='{1}'/>";
+                sb.Append(String.Format(xml, cuponConsultora.CodigoConsultora, cuponConsultora.ValorAsociado));
+            }
+            return String.Format("<ROOT>{0}</ROOT>", sb.ToString());
         }
     }
 }

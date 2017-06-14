@@ -1814,9 +1814,14 @@ namespace Portal.Consultoras.Service
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
 
-        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-            BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
+            BLPedidoWeb.InsLogOfertaFinal(PaisID, entidad);
+        }
+
+        public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
+        {
+            BLPedidoWeb.InsLogOfertaFinalBulk(PaisID, lista);
         }
 
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
@@ -2049,6 +2054,11 @@ namespace Portal.Consultoras.Service
         {
             var listaCuponConsultoras = BLCuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId);
             return listaCuponConsultoras;
+        }
+
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
+        {
+            BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
         }
 
         #endregion

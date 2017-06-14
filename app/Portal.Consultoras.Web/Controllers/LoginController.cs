@@ -1776,41 +1776,41 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
-            ConsultoraRegaloProgramaNuevasModel model2 = null;
+            ConsultoraRegaloProgramaNuevasModel result = null;
 
             try
             {
-                BEConsultoraRegaloProgramaNuevas beConsultoraRegaloPN;
+                BEConsultoraRegaloProgramaNuevas entidad;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    beConsultoraRegaloPN = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                    entidad = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
                 }
 
-                if (beConsultoraRegaloPN != null)
+                if (entidad != null)
                 {
                     var listaProductoCatalogo = new List<Producto>();
                     using (ProductoServiceClient svc = new ProductoServiceClient())
                     {
-                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, beConsultoraRegaloPN.CodigoSap, 3).ToList();
+                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                     }
 
                     if (listaProductoCatalogo.Any())
                     {
                         var productoCatalogo = listaProductoCatalogo.First();
-                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.NombreComercial;
-                        beConsultoraRegaloPN.PrecioCatalogo = productoCatalogo.PrecioValorizado;
-                        beConsultoraRegaloPN.PrecioOferta = productoCatalogo.PrecioCatalogo;
-                        beConsultoraRegaloPN.UrlImagenRegalo = productoCatalogo.Imagen;
-
-                        model2 = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(beConsultoraRegaloPN);
+                        entidad.DescripcionPremio = productoCatalogo.NombreComercial;
+                        entidad.PrecioCatalogo = productoCatalogo.PrecioCatalogo;
+                        entidad.PrecioValorizado = productoCatalogo.PrecioValorizado;
+                        entidad.UrlImagenRegalo = productoCatalogo.Imagen;
                     }
+
+                    result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
                 }
             }
             catch (Exception ex)
             {
             }
 
-            return model2;
+            return result;
         }
                                 
         private JsonResult ErrorJson(string message, bool allowGet = false)
