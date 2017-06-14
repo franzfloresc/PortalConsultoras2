@@ -2027,6 +2027,8 @@
                 <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="OPT" />
+                <input type="hidden" class="ID" value="{{ID}}" />
+                <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
             </div>
             <div class="content_left_ficha">
                 {{#if_eq FlagMostrarImg '1'}}
@@ -2280,7 +2282,7 @@
                         <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
 
             {{#each this.Detalle}}
-            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
+            <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{ID}}">
                 <div style="display: none;">
                     <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
                     <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -2306,6 +2308,8 @@
                     <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                     <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
+                    <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
+                    <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
 
                 </div>
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
@@ -2333,7 +2337,7 @@
                                 <a class="menos"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                             </div>
                         </div>
-                        <a class="boton_Agregalo_home agregarOfertaFinal">
+                        <a class="boton_Agregalo_home agregarOfertaFinal" onclick="of_google_analytics_addtocar('desktop','list',{{ID}},'{{TipoMeta}}')">
                             AGRÉGALO
                         </a>
                         <div class="clear"></div>
@@ -2361,7 +2365,7 @@
 </script>
 
 <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-    <div class="popup_ofertaFinal" style="padding:35px;"  data-item="">
+    <div class="popup_ofertaFinal" style="padding:35px;"  data-item="{{ID}}">
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
@@ -2376,6 +2380,12 @@
             <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
             <input type="hidden" class="Volumen" value="{{Volumen}}" />
             <input type="hidden" class="Palanca" value="OF" />
+            <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+            <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+            <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+            <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+            <input type="hidden" class="ID" value="{{ID}}" />
+            <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
         </div>
         <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
         <hr class="clear" />
@@ -2424,7 +2434,8 @@
                     <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                 </div>
             </div>
-            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;">
+            <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;" 
+               onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">
                 AGRÉGALO
             </a>
         </div>
