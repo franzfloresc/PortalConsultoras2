@@ -532,7 +532,10 @@ namespace Portal.Consultoras.ServiceContracts
         void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario);
 
         [OperationContract]
-        void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro);
+        void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad);
+
+        [OperationContract]
+        void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista);
 
         [OperationContract]
         IList<BEPedidoDD> GetPedidosIngresados(int paisID, string codigoUsuario, DateTime fechaIngreso, string codigoConsultora, int campaniaID, string codigoZona, bool indicadorActivo);

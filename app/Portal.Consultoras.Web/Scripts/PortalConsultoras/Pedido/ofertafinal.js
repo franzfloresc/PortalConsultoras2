@@ -93,7 +93,7 @@ $(document).ready(function () {
             return false;
         }
 
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
+        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         
         ActulizarValoresPopupOfertaFinal(add, true);
 
@@ -196,7 +196,7 @@ $(document).ready(function () {
             return false;
         }
 
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1);
+        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         ActulizarValoresPopupOfertaFinal(add, true);
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
         $("#contenedor_popup_ofertaFinalVerDetalle").hide();
@@ -302,7 +302,9 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta,objOf.Detalle);
     agregoOfertaFinal = tipoPopupMostrar == 1 ? 1 : agregoOfertaFinal;
     
-    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2);
+    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
+
+    AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -426,47 +428,54 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo) {
 
     if (oRegaloPN != null) {
         console.log(oRegaloPN);
-        var n = oRegaloPN.CodigoNivel;
-        if (n == '01' || n == '02' || n == '03') {
+        var msgRegalo = '';
+        var txtAyuda1 = '';
+        var nivel = oRegaloPN.CodigoNivel;
+       
+        if (nivel == '01' || nivel == '02' || nivel == '03') {
+            txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
                 }
                 else {
-                    msgRegaloPN = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
+                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
                 }
             }
             else {
-                msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
             }
         }
-        else if (n == '04' || n == '05' || n == '06') {
+        else if (nivel == '04' || nivel == '05' || nivel == '06') {
+            txtAyuda1 = '*En caso tu pedido no tenga observaciones y mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPoint;
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegaloPN = '<b>¡GANASTE UN' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN' + oRegaloPN.DescripcionRegalo + '!</b>';
                 }
                 else {
-                    msgRegaloPN = 'AGREGA ' + simbolo + ' ' + montoMeta + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                    msgRegalo = 'AGREGA ' + simbolo + ' ' + montoMeta + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                 }
             }
             else {
                 if (oRegaloPN.TippingPoint > 0) {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
                     }
                     else {
                         var r = (oRegaloPN.TippingPoint - montoTotal);
-                        msgRegaloPN = '<b>AGREGA ' + simbolo + ' ' + r.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                        r = parseFloat(r).toFixed(2);
+                        msgRegalo = '<b>AGREGA ' + simbolo + ' ' + r.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                     }
                 }
                 else {
-                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
                 }
             }
         }
 
         $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-        $('#msg-regalo-pn').html(msgRegaloPN);
+        $('#msg-regalo-pn').html(msgRegalo);
+        $('#txt-ayuda1-pn').html(txtAyuda1);
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
@@ -617,7 +626,7 @@ function ObtenerProductosOfertaFinal(tipoOfertaFinal) {
     };
 }
 
-function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipoRegistro) {
+function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipoRegistro, desTipoRegistro) {
     var param = {
         CUV: cuv,
         cantidad: cantidad,
@@ -629,6 +638,35 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        async: true,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success == true) {
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AjaxError(data, error);
+            }
+        }
+    });
+}
+
+
+function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
+    if (listaProductos.length == 0) return;
+
+    $.each(listaProductos, function (index, value) {
+
+    });
+
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
