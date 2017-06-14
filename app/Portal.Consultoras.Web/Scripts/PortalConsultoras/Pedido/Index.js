@@ -35,7 +35,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-
     //EPD-1564
     $("body").click(function (e) {        
         if (!$(e.target).closest('.ui-dialog').length) {
@@ -50,8 +49,6 @@ $(document).ready(function () {
         }
     })
     //FIn EPD-1564
-
-   
 
     /*
     EPD-1871

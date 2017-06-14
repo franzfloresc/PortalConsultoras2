@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.CustomHelpers;
+using System.Configuration;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -31,13 +32,17 @@ namespace Portal.Consultoras.Web.Controllers
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
+            string habilitarNemotecnico = ObtenerValorTablaLogica(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+
             var EstrategiaModel = new EstrategiaModel()
             {
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
                 ListaEtiquetas = DropDowListEtiqueta(),
-                UrlS3 = urlS3
+                UrlS3 = urlS3,
+                habilitarNemotecnico = habilitarNemotecnico == "1",
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(EstrategiaModel);
         }
@@ -871,20 +876,32 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByEstrategiaMatrizComercialImagen(estrategia, pagina, 10).ToList();
             }
 
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            var data = MapImages(lst, paisID);
+
+            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+        }
+
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        {
             string paisISO = Util.GetPaisISO(paisID);
             var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
             var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
 
             var data = lst.Select(p => new MatrizComercialImagen
             {
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                Foto = urlS3 + p.Foto
+                Foto = urlS3 + p.Foto,
+                NemoTecnico = p.NemoTecnico
             }).ToList();
 
-            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+            return data;
         }
 
         [HttpPost]
@@ -1389,7 +1406,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID)
+        public JsonResult InsertEstrategiaTemporal(int campaniaId, int tipoConfigurado, int estrategiaID, bool habilitarNemotecnico)
         {
             try
             {
@@ -1405,6 +1422,7 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
+                       
                         try
                         {
                             using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
@@ -1412,6 +1430,50 @@ namespace Portal.Consultoras.Web.Controllers
                                 svs.Url = ConfigurarUrlServiceProl();
                                 precioOferta = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
                             }
+
+                            if (habilitarNemotecnico)
+                            {
+                                List<RptProductoEstrategia> productoEstrategias = new List<RptProductoEstrategia>();
+                                string nemoTecnicoBusqueda = String.Empty;
+                                //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
+                                using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb())
+                                {
+                                    productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), String.Empty, opt.CUV2, userData.CodigoISO.ToString()).ToList();
+                                }
+
+                                List<string> nemotecnicosLista = new List<string>();
+                                int contadorNemotecnico = 0;
+                                string grupoPrevio = String.Empty;
+
+                                foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
+                                {
+                                    if ((productoEstrategia.codigo_estrategia == "2001" || productoEstrategia.codigo_estrategia == "2002") ||
+                                        (productoEstrategia.codigo_estrategia == "2003" && (grupoPrevio!= productoEstrategia.grupo)))
+                                    {
+                                        grupoPrevio = productoEstrategia.grupo;
+                                        string codigoSap = productoEstrategia.codigo_sap;
+                                        string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
+                                        nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
+                                    }
+                                
+                                }
+                                foreach (String nemoTecnico in nemotecnicosLista)
+                                {
+                                    if(contadorNemotecnico==0)
+                                        nemoTecnicoBusqueda += nemoTecnico;
+                                    else
+                                        nemoTecnicoBusqueda += "&" + nemoTecnico;
+                                    contadorNemotecnico++;
+                                }
+
+                                List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
+                                using (PedidoServiceClient ps = new PedidoServiceClient())
+                                {
+                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
+                                    opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
+                                }
+                            }
+
                         }
                         catch (Exception ex)
                         {

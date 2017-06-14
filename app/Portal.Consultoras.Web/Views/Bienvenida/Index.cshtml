@@ -249,7 +249,7 @@
             <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
         </div>
         <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
-            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
         </div>
     </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
@@ -2484,11 +2484,14 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
+
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
                 
             });
+
         });
+        
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -2556,6 +2559,8 @@
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
         var popupComunicado = '@Constantes.TipoPopUp.Comunicado';
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+        var popupCupon = '@Constantes.TipoPopUp.Cupon';
+        var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 

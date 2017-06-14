@@ -5,56 +5,56 @@
         getImagesBySapCodeAction: config.getImagesBySapCodeAction || '',
         getFiltrarEstrategiaAction: config.getFiltrarEstrategiaAction || '',
         uploadAction: config.uploadAction || '',
-        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction
+        getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction || '',
+        habilitarNemotecnico: config.habilitarNemotecnico || false,
+        getImagesByNemotecnico: config.getImagesByNemotecnico,
+        expValidacionNemotecnico: config.expValidacionNemotecnico
     };
 
     var _editData = {};
 
     var _paginadorClick = function (page) {
-        _obtenerImagenes(_editData, page).done(function () {
-            showDialog("matriz-comercial-dialog");
-            closeWaitingDialog();
-        });
+        var valNemotecnico = $('#txtBusquedaNemotecnico').val();
+        var fnObtenerImagenes = (_config.habilitarNemotecnico && valNemotecnico) ? _obtenerImagenesByNemotecnico : _obtenerImagenesByCodigoSAP;
+        fnObtenerImagenes(_editData, page, false).done(function () { closeWaitingDialog(); });
     };
 
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
 
+    var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+
+    var _limpiarFiltrosNemotecnico = function () {
+        $('#txtBusquedaNemotecnico').val('');
+        $('#chkTipoBusquedaNemotecnico').prop('checked', false);
+    };
+
+    var _matrizFileUploader = MatrizComercialFileUpload({ actualizarMatrizComercialAction: _config.actualizarMatrizComercialAction, habilitarNemotecnico: _config.habilitarNemotecnico, nemotecnico: _nemotecnico });
+
     var _crearFileUploadAdd = function (editData) {
         var itemData = { elementId: 'file-upload', IdMatrizComercialImagen: 0 };
-        _crearObjetoUpload(itemData, editData);
+        var params = _obtenerParamsFileUpload(itemData, editData);
+        _matrizFileUploader.crearFileUpload(params);
         $("#file-upload .qq-upload-button span").text("Nueva Imagen");
     };
 
-    var _crearObjetoUpload = function (itemData, editData) {
-        var uploader = new qq.FileUploader({
-            allowedExtensions: ['jpg', 'png', 'jpeg'],
-            element: document.getElementById(itemData.elementId),
-            action: _config.actualizarMatrizComercialAction,
-            params: {
-                IdMatrizComercial: editData.IdMatrizComercial,
-                IdMatrizComercialImagen: itemData.IdMatrizComercialImagen,
-                CodigoSAP: editData.CodigoSAP,
-                Foto: itemData.foto,
-                PaisID: editData.paisID
-            },
-            onComplete: _uploadComplete,
-            onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-            onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-        });
+    var _obtenerParamsFileUpload = function (itemData, editData) {
+        return {
+            elementId: itemData.elementId,
+            idMatrizComercial: editData.IdMatrizComercial,
+            idImagenMatriz: itemData.idImagenMatriz,
+            paisID: editData.paisID,
+            codigoSAP: editData.CodigoSAP,
+            onComplete: _uploadComplete
+        }
     };
 
     var _uploadComplete = function (id, fileName, response) {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
+            _limpiarFiltrosNemotecnico();
             if (response.success) {
                 _editData.IdMatrizComercial = response.idMatrizComercial;
-                if (response.isNewRecord) {
-                    //$('#list').trigger('reloadGrid');//refrescar la grilla con id generado
-                    //regenerar el file-upload-add para que use el id generado
-                    //$("#file-upload-add").empty();
-                    //_crearFileUploadAdd(_editData);
-                }
+                
                 $("#matriz-imagenes-paginacion").empty();
                 //actualiza para la carga de imagenes actualizada
                 _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
@@ -83,6 +83,7 @@
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
             showDialog("DialogAdministracionEstrategia");
             _editData.IdMatrizComercial = data.IdMatrizComercial;
+            _editData.CUV2 = data.CUV2;
 
             _crearFileUploadAdd(_editData);
 
@@ -272,18 +273,38 @@
         return $.post(_config.getImagesBySapCodeAction, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
     };
 
+    var _obtenerImagenesByNemotecnico = function (data, pagina, recargarPaginacion) {
+        var tipoBusqueda = $("#chkTipoBusquedaNemotecnico:checked").length === 1 ? 2 : 1;
+        var nemoTecnico = tipoBusqueda === 1 ? _nemotecnico.normalizarParametro($('#txtBusquedaNemotecnico').val()) : $('#txtBusquedaNemotecnico').val();
+        var params = { paisID: data.paisID, codigoSAP: data.CodigoSAP, nemoTecnico: nemoTecnico, tipoBusqueda: tipoBusqueda, pagina: pagina };
+
+        return $.post(_config.getImagesByNemotecnico, params).done(_obtenerImagenesSuccess(data, recargarPaginacion));
+    };
+
     var _obtenerImagenesSuccess = function (editData, recargarPaginacion) {
         return function (data, textStatus, jqXHR) {
             editData.imagenes = data.imagenes;
             _editData = editData;
-
+            if (recargarPaginacion) {
+                $("#matriz-imagenes-paginacion").empty();
+            }
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
             marcarCheckRegistro(_editData.imagen);
-        };
+
+            closeWaitingDialog();
+            return data;
+        }
     };
+
+    var _limpiarBusquedaNemotecnico = function () {
+        _limpiarFiltrosNemotecnico();
+        waitingDialog({});
+        _obtenerImagenesByCodigoSAP(_editData, 1, true);
+    };
+
     var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, codigoSAP: data.CodigoSAP, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
+        var params = { paisID: data.paisID, codigoSAP: data.CodigoSAP, pagina: pagina };
         return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
     };
     
@@ -292,9 +313,14 @@
             editData.imagenes = data.imagenes;
             _editData = editData;
             
+            if (recargarPaginacion) {
+                $("#matriz-imagenes-paginacion").empty();
+            }
+
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
             marcarCheckRegistro(_editData.imagen);
+            closeWaitingDialog();
         };
     };
 
@@ -315,6 +341,28 @@
 
     var _mostrarListaImagenes = function (editData) {
         SetHandlebars('#matriz-comercial-item-template', editData, '#matriz-comercial-images');
+        $(".qq-upload-list").css("display", "none");
+    };
+
+    var _validarNemotecnico = function () {
+        var msj = '';
+        var val = $('#txtBusquedaNemotecnico').val();
+        if (!val) {
+            msj += ' - Debe ingresar un Nemotecnico .\n';
+        }
+
+        return msj;
+    };
+
+    var _buscarNemotecnico = function () {
+        var validacionMsj = _validarNemotecnico();
+
+        if (validacionMsj) {
+            alert(validacionMsj);
+            return false;
+        }
+        waitingDialog({});
+        _obtenerImagenesByNemotecnico(_editData, 1, true);
     };
 
     var _clearFields = function () {
@@ -362,14 +410,17 @@
         else $('#div-revista-digital').hide();
 
     };
+
     var _limpiarCamposLanzamiento = function limpiarCamposLanzamiento(nombreCampo) {
         $("#nombre-" + nombreCampo).val("");
         $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
     };
+
     var _agregarCamposLanzamiento = function agregarCamposLanzamiento(nombreCampo, valor) {
         $("#nombre-" + nombreCampo).val(valor);
         $("#src-" + nombreCampo).attr("src", urlS3 + valor);
     };
+
     var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
@@ -444,18 +495,13 @@
                         $("#hdnCodigoSAP").val(data.codigoSAP);
                         $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
 
-                        //Carga de Imagenes
-                        _editData = {
-                            EstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id'),
-                            CUV2: $("#txtCUV2").val(),
-                            TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                            CodigoSAP: data.codigoSAP,
-                            CampaniaID: $("#ddlCampania").val(),
-                            IdMatrizComercial: data.idMatrizComercial,
-                            paisID: $("#ddlPais").val(),
-                            imagenes: [],
-                            imagen: null
-                        };
+                        _editData.CUV2 = $("#txtCUV2").val();
+                        _editData.CodigoSAP = data.codigoSAP;
+                        _editData.IdMatrizComercial = data.idMatrizComercial;
+                        _editData.imagenes = [];
+                        _editData.imagen = null;
+
+                        _limpiarFiltrosNemotecnico();
 
                         _crearFileUploadAdd(_editData);
 
@@ -468,7 +514,6 @@
                         $("#divInformacionAdicionalEstrategiaContenido").hide();
 
                         $('#mensajeErrorCUV2').val("");
-                        closeWaitingDialog();
                     } else {
                         $('#mensajeErrorCUV2').val(data.message);
                         alert($('#mensajeErrorCUV2').val());
@@ -508,6 +553,12 @@
         }
     }
 
+    var _actualizarParNemotecnico = function (val) {
+        _config.habilitarNemotecnico = val;
+        _matrizFileUploader.actualizarParNemotecnico(val);
+    };
+
+
     return {
         editar: function (id, event) {
             event.preventDefault();
@@ -517,6 +568,8 @@
                 isNuevo = false;
 
             if (id) {
+                estrategiaObj.limpiarFiltrosNemotecnico();
+
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
@@ -576,6 +629,11 @@
                 });
             }
             return false;
-        }
+        },
+        actualizarParNemotecnico: _actualizarParNemotecnico,
+        habilitarNemotecnico: _config.habilitarNemotecnico,
+        buscarNemotecnico: _buscarNemotecnico,
+        limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
     }
 };

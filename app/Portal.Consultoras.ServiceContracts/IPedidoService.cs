@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
-using Portal.Consultoras.Entities;
-using System.Data;
-using Portal.Consultoras.Entities.ShowRoom;
-using Portal.Consultoras.Entities.ReservaProl;
+﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.ShowRoom;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.ServiceModel;
+using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -203,10 +200,16 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdMatrizComercialImagen(BEMatrizComercialImagen entity);
 
         [OperationContract]
+        int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity);
+
+        [OperationContract]
         IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]
         IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP);
+
+        [OperationContract]
+        IList<BEMatrizComercialImagen> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros);
 
         [OperationContract]
         IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int pagina, int registros);
@@ -1065,13 +1068,32 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+
+        [OperationContract]
+        BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona);
+        
+        #region Cupon
+        [OperationContract]
+        void CrearCupon(BECupon cupon);
+
+        [OperationContract]
+        void ActualizarCupon(BECupon cupon);
+
+        [OperationContract]
+        List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
+
+        #endregion
         
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+
         [OperationContract]
-   
+        bool EnviarCorreoReservaProl(BEInputReservaProl input);
+
+        [OperationContract]
         int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
 
         [OperationContract]

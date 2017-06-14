@@ -21,6 +21,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
@@ -724,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
-                        #region TieneHana
+                        #region Hana
                         if (model.TieneHana == 1)
                         {
                             if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -761,13 +763,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-
                         #endregion
 
                         #region GPR
                         model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        #region OfertaDelDia
                         {
                             CalcularMotivoRechazo(model);
 
@@ -778,9 +778,8 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
-
                         #endregion
-
+ 
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -790,6 +789,17 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
+                        #region RegaloPN
+                        DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                        var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+
+                        if (esDiasFacturacion) 
+                        {
+                            model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                        }
+                        #endregion
+
+                        #region LoginFB
                         if (oBEUsuario.TieneLoginExterno)
                         {
                             model.TieneLoginExterno = true;
@@ -1706,7 +1716,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message = ""
             });
         }
-
+        
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
@@ -1758,6 +1768,45 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("UserUnknown");
         }
 
+        private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
+        {
+            ConsultoraRegaloProgramaNuevasModel model2 = null;
+
+            try
+            {
+                BEConsultoraRegaloProgramaNuevas beConsultoraRegaloPN;
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    beConsultoraRegaloPN = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                }
+
+                if (beConsultoraRegaloPN != null)
+                {
+                    var listaProductoCatalogo = new List<Producto>();
+                    using (ProductoServiceClient svc = new ProductoServiceClient())
+                    {
+                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, beConsultoraRegaloPN.CodigoSap, 3).ToList();
+                    }
+
+                    if (listaProductoCatalogo.Any())
+                    {
+                        var productoCatalogo = listaProductoCatalogo.First();
+                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.NombreComercial;
+                        beConsultoraRegaloPN.PrecioCatalogo = productoCatalogo.PrecioValorizado;
+                        beConsultoraRegaloPN.PrecioOferta = productoCatalogo.PrecioCatalogo;
+                        beConsultoraRegaloPN.UrlImagenRegalo = productoCatalogo.Imagen;
+
+                        model2 = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(beConsultoraRegaloPN);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return model2;
+        }
+                                
         private JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);

@@ -1,16 +1,16 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
+using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
-using Portal.Consultoras.Entities.Cupon;
-using Portal.Consultoras.Entities.RevistaDigital;
-using Portal.Consultoras.BizLogic.RevistaDigital;
 
 namespace Portal.Consultoras.Service
 {
@@ -35,7 +35,8 @@ namespace Portal.Consultoras.Service
         private BLConsultorasProgramaNuevas BLConsultorasProgramaNuevas;
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
-        private BLEstrategia blEstrategia;
+        private BLCupon BLCupon;
+        private BLEstrategia blEstrategia;        
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private BLCuponConsultora BLCuponConsultora;
 
@@ -61,7 +62,8 @@ namespace Portal.Consultoras.Service
             BLConsultorasProgramaNuevas = new BLConsultorasProgramaNuevas();
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
-            blEstrategia = new BLEstrategia();
+            BLCupon = new BLCupon();
+            blEstrategia = new BLEstrategia();            
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLCuponConsultora = new BLCuponConsultora();
         }
@@ -443,6 +445,11 @@ namespace Portal.Consultoras.Service
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             return new BLOfertaProducto().GetImagenesByCodigoSAP(paisID, codigoSAP);
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            return new BLOfertaProducto().GetImagenByNemotecnico(paisID, idMatrizImagen, cuv2, codigoSAP, estrategiaID, campaniaID, tipoEstrategiaID, nemotecnico, tipoBusqueda, numeroPagina, registros);
         }
 
         public int UpdMatrizComercialDescripcionMasivo(int paisID, List<BEMatrizComercial> lstmatriz, string UsuarioRegistro)
@@ -1931,13 +1938,11 @@ namespace Portal.Consultoras.Service
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
         
-
-
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             return new BLReservaProl().EjecutarReservaProl(input);
         }
-        
+
         public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().InsMatrizComercialImagen(entity);
@@ -1946,7 +1951,7 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
-	}
+	    }
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
@@ -1967,7 +1972,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().DeshacerPedidoValidado(usuario, tipo);
         }
-
+        
         public string GetTokenIndicadorPedidoAutentico(int paisID, string paisISO, string codigoRegion, string codigoZona)
         {
             return BLPedidoWeb.GetTokenIndicadorPedidoAutentico(paisID, paisISO, codigoRegion, codigoZona);
@@ -1976,6 +1981,16 @@ namespace Portal.Consultoras.Service
         public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
+
+        public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialNemotecnico(entity);
+        }
+
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            return new BLPedidoWeb().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
         }
 
         #region Cupon
@@ -1989,10 +2004,26 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
-
+        
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
         {
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        public void CrearCupon(BECupon cupon)
+        {
+            BLCupon.CrearCupon(cupon);
+        }
+
+        public void ActualizarCupon(BECupon cupon)
+        {
+            BLCupon.ActualizarCupon(cupon);
+        }
+
+        public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
+        {
+            var listaCupones = BLCupon.ListarCuponesPorCampania(paisId, campaniaId);
+            return listaCupones;
         }
 
         #endregion
@@ -2012,6 +2043,5 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-        
     }
 }

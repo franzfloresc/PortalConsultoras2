@@ -777,5 +777,15 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-2248*/
 
+        public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+            return Context.ExecuteReader(command);
+        }
+        
     }
 }

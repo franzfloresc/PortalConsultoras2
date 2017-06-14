@@ -1,4 +1,4 @@
-﻿
+﻿@using Mensajes = Portal.Consultoras.Common.Constantes.MatrizNemotecnicoMensajes
 <div id="DialogRegistroOfertaWeb" style="display: none;">
     <input type="hidden" id="hdTallaColorID" value="0" />
     <input type="hidden" id="hdCampaniaID" />
@@ -66,7 +66,24 @@
             </div>
         </div>    
         <div class="div-3 divPanelImagen" style="padding-bottom:0px; margin-bottom:0px">
-            <div>
+            <div id="matriz-comercial-header">
+                <div id="matriz-busqueda-nemotecnico">
+                    <a title="@HttpUtility.HtmlDecode(Mensajes.TooltipInformacionFormatoBusqueda)" class="search-button-field">
+                        <i class="material-icons">info</i>
+                    </a>
+                    <div class="busqueda-exacta">
+                        <label for="chkTipoBusquedaNemotecnico">@Mensajes.TextoBusquedaExacta</label>
+                        <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                    </div>
+
+                    <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="@Mensajes.PlaceHolderTextoNemotecnico" maxlength="100" type="text" />
+                    <a id="btnBuscarNemotecnico" title="@Mensajes.TextoBotonBuscar" class="search-button-field">
+                        <i class="material-icons">search</i>
+                    </a>
+                    <a id="btnLimpiarBusquedaNemotecnico" title="@Mensajes.TextoBotonLimpiar" class="search-button-field">
+                        <i class="material-icons">undo</i>
+                    </a>
+                </div>
                 <div id="matriz-imagenes-paginacion"></div>
             </div>
             <div class="titG">
@@ -83,7 +100,7 @@
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
         <div class="pdr_modal borde_redondeado aligncenter">
-            <img class="img-matriz-preview" src='{{Foto}}' id="img-matriz-{{@@index}}">
+            <img class="img-matriz-preview" title='{{NemoTecnico}}' src='{{Foto}}' id="img-matriz-{{@@index}}">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">

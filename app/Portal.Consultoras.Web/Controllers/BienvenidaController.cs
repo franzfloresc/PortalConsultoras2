@@ -126,14 +126,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
-
                 model.UrlImagenCompartirCatalogo = ConfigS3.GetUrlFileS3(carpetaPais, nombreImagenCatalogo, String.Empty);
                 model.PrimeraVez = userData.CambioClave;
                 model.Simbolo = userData.Simbolo;
                 model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
                 ViewBag.NombreConsultoraFAV = model.NombreConsultora.First().ToString().ToUpper() + model.NombreConsultora.ToLower().Substring(1);
                 int j = model.NombreConsultora.Trim().IndexOf(' ');
-                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim();
+                if (j >= 0) model.NombreConsultora = model.NombreConsultora.Substring(0, j).Trim(); 
 
                 model.PaisID = userData.PaisID;
                 model.IndicadorContrato = userData.IndicadorContrato;
@@ -150,7 +149,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CantProductosCarouselLiq = (configCarouselLiquidacion != null && configCarouselLiquidacion.Count > 0) ? Convert.ToInt32(configCarouselLiquidacion[0].Codigo) : 1;
                 model.BotonAnalytics = (datGaBoton.Count > 0) ? datGaBoton[0].Descripcion : "";
                 model.UrlFlexipagoCL = ConfigurationManager.AppSettings.Get("rutaFlexipagoCL");
-
                 if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
                     var tabla = new List<BETablaLogicaDatos>();
@@ -158,6 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         tabla = sac.GetTablaLogicaDatos(userData.PaisID, 60).ToList();
                     }
+
                     model.NroCampana = tabla.Find(X => X.TablaLogicaDatosID == 6001).Codigo;
 
                     if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
@@ -213,6 +212,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.ImagenUsuario = ConfigS3.GetUrlFileS3("ConsultoraImagen", userData.CodigoISO + "-" + userData.CodigoConsultora + ".png", "");
                 }
+                
 
                 int Visualizado = 1, ComunicadoVisualizado = 1;
 
@@ -230,12 +230,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.PaisID == 9)
                 {
                     model.limiteMinimoTelef = 5;
-                    model.limiteMaximoTelef = 15;
+                    model.limiteMaximoTelef = 15;                    
                 }
                 else if (userData.PaisID == 11)
                 {
                     model.limiteMinimoTelef = 7;
-                    model.limiteMaximoTelef = 9;
+                    model.limiteMaximoTelef = 9;                    
                 }
                 else if (userData.PaisID == 4)
                 {
@@ -1779,6 +1779,7 @@ namespace Portal.Consultoras.Web.Controllers
                         data = "",
                         message = "ShowRoomConsultora encontrada"
                     });
+
                 }
 
                 if (!userData.CargoEntidadesShowRoom) throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
@@ -1805,7 +1806,7 @@ namespace Portal.Consultoras.Web.Controllers
                         rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
                         mostrarShowRoomProductos = true;
                     }
-                        if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
+                    if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
 
                     //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
                     TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
@@ -1842,8 +1843,6 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "ShowRoomEvento no encontrado"
                     });
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -2163,6 +2162,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
                     TempData["MostrarPopupCuponGanaste"] = true;
+                    TempData["TipoPopup"] = Constantes.TipoPopUp.CuponForzado;
                 }
 
                 userData.EMailActivo = true;
@@ -2178,15 +2178,16 @@ namespace Portal.Consultoras.Web.Controllers
         private void EnviarCorreoActivacionCupon()
         {
             string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
-            CuponModel cuponModel = ObtenerDatosCupon();
-            string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url);
+            string montoLimite = ObtenerMontoLimiteDelCupon();
+            CuponConsultoraModel cuponModel = ObtenerDatosCupon();
+            string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite);
             string correo = userData.EMail;
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
         }
 
-        private CuponModel ObtenerDatosCupon()
+        private CuponConsultoraModel ObtenerDatosCupon()
         {
-            CuponModel cuponModel;
+            CuponConsultoraModel cuponModel;
             BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
 
             if (cuponResult != null)
@@ -2211,11 +2212,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
+        private string ObtenerMontoLimiteDelCupon()
+        {
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
+                list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 103).ToList();
+
+                var descripcion = list_segmentos.FirstOrDefault(x => x.Codigo == userData.CampaniaID.ToString()).Descripcion;
+                decimal montoLimite = (string.IsNullOrEmpty(descripcion) ? 0 : Convert.ToDecimal(descripcion));
+                string montoLimiteFormateado = String.Format("{0:0.00}", montoLimite);
+
+                return montoLimiteFormateado;
+            }
+        }
+
+        private CuponConsultoraModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponModel(codigoISO)
+            return new CuponConsultoraModel(codigoISO)
             {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
