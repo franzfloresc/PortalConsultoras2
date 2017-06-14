@@ -24,6 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECliente> SelectByConsultora(int paisID, long consultoraID);
 
         [OperationContract]
+        BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente);
+
+        [OperationContract]
         BECliente SelectById(int paisID, long consultoraID, int clienteID);
 
         [OperationContract]

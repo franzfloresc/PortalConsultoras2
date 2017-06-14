@@ -47,6 +47,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.SelectByConsultora(paisID, consultoraID);
         }
 
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        {
+            return BLCliente.SelectByConsultoraByCodigo(paisID, consultoraID, ClienteID, codigoCliente);
+        }
+
         public BECliente SelectById(int paisID, long consultoraID, int clienteID)
         {
             return BLCliente.SelectById(paisID, consultoraID, clienteID);

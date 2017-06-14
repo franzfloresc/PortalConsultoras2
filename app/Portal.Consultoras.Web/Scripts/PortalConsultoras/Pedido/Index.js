@@ -66,6 +66,8 @@ $(document).ready(function () {
         source: baseUrl + "Pedido/AutocompleteByCliente",
         minLength: 4,
         select: function (event, ui) {
+            currentClienteCreate = null;
+
             ui.item.ClienteID = ui.item.ClienteID || 0;
 
             if (gTipoUsuario == 2)  {
@@ -99,6 +101,7 @@ $(document).ready(function () {
                     $("#hdnClienteID_").val(cliente.ClienteID);
                     $("#txtClienteDescripcion").val(cliente.Nombre);
                     $("#hdfClienteDescripcion").val(cliente.Nombre);
+
                     //dataLayer.push({
                     //    'event': 'virtualEvent',
                     //    'category': 'Clientes',
@@ -113,11 +116,14 @@ $(document).ready(function () {
                 $("#txtClienteDescripcion").val(ui.item.Nombre);
                 $("#hdfClienteDescripcion").val(ui.item.Nombre);
 
+                currentClienteCreate = ui.item;
+
                 if (ui.item.TieneTelefono == 0) showClienteDetalle(ui.item, function (cliente) {
                     $("#hdfClienteID").val(cliente.ClienteID);
                     $("#hdnClienteID_").val(cliente.ClienteID);
                     $("#txtClienteDescripcion").val(cliente.Nombre);
                     $("#hdfClienteDescripcion").val(cliente.Nombre);
+
                     //dataLayer.push({
                     //    'event': 'virtualEvent',
                     //    'category': 'Clientes',
@@ -834,8 +840,23 @@ function InsertarProducto(form) {
                             }
                         }
                     });
-                } else {
-                AbrirMensaje(response.message);
+                }
+                else {
+                    var errorCliente = response.errorCliente || false;
+                    if (!errorCliente) {
+                        AbrirMensaje(response.message);
+                    }
+                    else {
+                        messageInfoError(response.message, null, function () {
+                            showClienteDetalle(currentClienteCreate, function (cliente) {
+                                currentInputClienteID.val(cliente.ClienteID);
+                                currentInputClienteNombre.val(cliente.Nombre);
+                                currentInputEdit.val(cliente.Nombre);
+
+                                currentInputEdit.blur();
+                            });
+                        });
+                    }
                 }
 
                 PedidoOnSuccess();
@@ -1984,6 +2005,8 @@ function HorarioRestringido(mostrarAlerta) {
 var currentInputEdit = null;
 var currentInputClienteID = null;
 var currentInputClienteNombre = null;
+var currentClienteEdit = null;
+var currentClienteCreate = null;
 
 function CargarAutocomplete() {
     var array = $(".classClienteNombre");
@@ -2009,7 +2032,11 @@ function CargarAutocomplete() {
                     currentInputClienteNombre = $('#' + hdfDes);
                     currentInputEdit = $(this);
 
+                    currentClienteEdit = null;
+
                     if (ui.item.TieneTelefono == 0) {
+                        currentClienteEdit = ui.item;
+
                         showClienteDetalle(ui.item, function (cliente) {
                             currentInputClienteID.val(cliente.ClienteID);
                             currentInputClienteNombre.val(cliente.Nombre);
@@ -2937,7 +2964,24 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
                 return false;
 
             if (data.success != true) {
-                messageInfoError(data.message);
+                var errorCliente = data.errorCliente || false;
+                if (!errorCliente) {
+                    messageInfoError(data.message);
+                }
+                else
+                {
+                    messageInfoError(data.message, null, function () {
+                        showClienteDetalle(currentClienteEdit, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
+
+                            currentInputEdit.blur();
+                        }, function () {
+                            if (currentInputEdit != null) currentInputEdit.focus();
+                        });
+                    });
+                }
                 return false;
             }
 
