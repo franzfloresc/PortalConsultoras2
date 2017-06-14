@@ -1,0 +1,25 @@
+﻿<div id="popup-mantenimiento-carga-cupon-consultora" style="display: none;">
+    <input type="hidden" id="hdCuponConsultoraId" value="" />
+    @using (Html.BeginForm("Action", "Controller", FormMethod.Post, new { id = "frmCargarConsultora", enctype = "multipart/form-data" }))
+    {
+        <div class="Content_modal">
+            <div class="div-3">
+                <div class="titC">
+                    Archivo:
+                </div>
+                <div class="selectA borde_redondeado" style="width: 65%;">
+                    <input type="file" id="flCuponConsultora" name="flCuponConsultora" />
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titC">
+                </div>
+                <div class="titAuto" style="text-align:left;">
+                    <div>Formato de archivo (*.csv):</div>
+                    <div>- Código Consultora</div>
+                    <div>- Valor Asociado</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

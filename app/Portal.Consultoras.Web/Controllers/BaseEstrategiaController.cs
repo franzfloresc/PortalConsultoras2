@@ -15,10 +15,13 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        public List<BEEstrategia> ConsultarEstrategias(string cuv)
+        public List<BEEstrategia> ConsultarEstrategias(string cuv, int origen)
         {
-            if (Session["ListadoEstrategiaPedido"] != null) return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
-
+            if (Session["ListadoMasVendidos"] != null && origen.Equals(Constantes.OrigenPedidoWeb.MobileHomeMasVendidos))
+                return (List<BEEstrategia>)Session["ListadoMasVendidos"];
+            else if (Session["ListadoEstrategiaPedido"] != null)
+                return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+            
             //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
             {
@@ -85,14 +88,14 @@ namespace Portal.Consultoras.Web.Controllers
             return listEstrategia;
         }
 
-        public EstrategiaPedidoModel EstrategiaGetDetalle(int id)
+        public EstrategiaPedidoModel EstrategiaGetDetalle(int id,int origen)
         {
             var estrategia = new EstrategiaPedidoModel();
             estrategia.Hermanos = new List<ProductoModel>();
 
             try
             {
-                var lista = ConsultarEstrategias("") ?? new List<BEEstrategia>();
+                var lista = ConsultarEstrategias("", origen) ?? new List<BEEstrategia>();
                 estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id) ?? new BEEstrategia());
                 estrategia.Hermanos = new List<ProductoModel>();
                 estrategia.PaisID = userData.PaisID;
@@ -261,9 +264,9 @@ namespace Portal.Consultoras.Web.Controllers
             var estrategia = new EstrategiaPedidoModel();
             try
             {
-                var lista = ConsultarEstrategias("") ?? new List<BEEstrategia>();
+                var lista = ConsultarEstrategias("", 0) ?? new List<BEEstrategia>();
                 estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.FirstOrDefault(e => e.CUV2 == cuv) ?? new BEEstrategia());
-                estrategia = EstrategiaGetDetalle(estrategia.EstrategiaID);
+                estrategia = EstrategiaGetDetalle(estrategia.EstrategiaID, 0);
             }
             catch (Exception ex)
             {
@@ -276,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
         {
-            var listaProducto = ConsultarEstrategias(cuv);
+            var listaProducto = ConsultarEstrategias(cuv, 0);
             var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
 
             var listaPedido = ObtenerPedidoWebDetalle();

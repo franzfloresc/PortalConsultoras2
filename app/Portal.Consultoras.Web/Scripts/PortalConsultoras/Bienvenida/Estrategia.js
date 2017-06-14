@@ -109,6 +109,7 @@ function CargarCarouselMasVendidos(origen) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
             ArmarCarouselMasVendidos(data);
             inicializarDivMasVendidos(origen);
         },
@@ -123,27 +124,27 @@ function inicializarDivMasVendidos(origen) {
 
     var slickArrows = {
         'mobile': {
-            prev: '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
+          , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
         },
         'desktop': {
             prev: '<a class="previous_ofertas"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
           , next: '<a class="previous_ofertas" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }
     };
-    //var desktopprev = '<a class="previous_ofertas js-slick-prev-liq"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>';
-    //var desktopnext = '<a class="previous_ofertas js-slick-next-liq" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>';
-    //var mobileprev = '<a class="previous_ofertas_mobile js-slick-prev" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>';
-    //var mobilenext = '<a class="previous_ofertas_mobile js-slick-next" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>';
-
+   
     $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
         infinite: true,
+        dots: false,
         vertical: false,
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
         arrows: true,
-        speed: 260,
+        centerMode: true,
+        variableWidth: false,
+        centerPadding: '0px',
+        speed: 300,
         prevArrow: slickArrows[origen].prev,
         nextArrow: slickArrows[origen].next,
         responsive: [
@@ -177,6 +178,7 @@ function inicializarDivMasVendidos(origen) {
 
 function ArmarCarouselMasVendidos(data) {
     data.Lista = EstructurarDataCarousel(data.Lista);
+    $("#divCarrouselMasVendidos").empty();
     SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
 }
 
@@ -916,6 +918,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
+                            CargarCarouselMasVendidos('desktop');
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 11) {
@@ -945,6 +948,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             }
                             else {
                                 CargarCarouselEstrategias(cuv);
+                                CargarCarouselMasVendidos('mobile');
                             }
                         }
 

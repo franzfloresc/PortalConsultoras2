@@ -1,6 +1,7 @@
 ﻿var arrayOfertasParaTi = [];
 
-$(document).ready(function () {    
+$(document).ready(function () {
+
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });

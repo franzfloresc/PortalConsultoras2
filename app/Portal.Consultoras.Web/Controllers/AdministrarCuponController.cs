@@ -131,7 +131,8 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = row.CuponId,
-                               Tipo = (row.Tipo == Constantes.CodigoTipoCupon.Monto.ToString() ? Constantes.NombreTipoCupon.Monto : Constantes.NombreTipoCupon.Porcentaje),
+                               TipoId = row.Tipo,
+                               Tipo = (row.Tipo.Trim() == Constantes.CodigoTipoCupon.Monto.ToString() ? Constantes.NombreTipoCupon.Monto : Constantes.NombreTipoCupon.Porcentaje),
                                Descripcion = row.Descripcion,
                                FechaCreacion = row.FechaCreacion.ToString("dd/MM/yyyy HH:mm"),
                                Estado = row.Estado
