@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data.RevistaDigital;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data.RevistaDigital;
 using Portal.Consultoras.Entities.RevistaDigital;
 using System;
 using System.Data;
@@ -26,7 +27,7 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.StackTrace);
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
                 return 0;
             }
         }
@@ -47,8 +48,9 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
                 return retorno;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
                 return 0;
             }
         }
@@ -68,8 +70,9 @@ namespace Portal.Consultoras.BizLogic.RevistaDigital
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.SaveLog(ex, entidad.CodigoConsultora, entidad.PaisID.ToString());
                 entity = new BERevistaDigitalSuscripcion();
             }
             return entity;

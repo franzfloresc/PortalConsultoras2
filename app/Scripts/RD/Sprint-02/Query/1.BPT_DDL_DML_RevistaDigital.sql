@@ -90,7 +90,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -121,13 +121,13 @@ begin
 	select @OrdenItem = OrdenItem + @factorAumento from Permiso where Descripcion = 'VENTA EXCLUSIVA WEB'
 	set @OrdenItem = isnull(@OrdenItem, 0)
 
-	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
+	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -161,9 +161,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -304,7 +304,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -338,10 +338,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -375,9 +375,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -517,7 +517,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -551,10 +551,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -588,9 +588,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -730,7 +730,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -764,10 +764,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -801,9 +801,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -943,7 +943,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -977,10 +977,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -1014,9 +1014,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -1156,7 +1156,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -1190,10 +1190,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -1227,9 +1227,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -1369,7 +1369,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -1403,10 +1403,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -1440,9 +1440,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -1582,7 +1582,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -1616,10 +1616,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -1653,9 +1653,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -1795,7 +1795,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -1829,10 +1829,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -1866,9 +1866,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -2008,7 +2008,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -2042,10 +2042,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -2079,9 +2079,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -2221,7 +2221,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -2255,10 +2255,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -2292,9 +2292,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -2434,7 +2434,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -2468,10 +2468,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -2505,9 +2505,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'
@@ -2647,7 +2647,7 @@ GO
 IF  not EXISTS ( SELECT 1 FROM ConfiguracionPais WHERE Codigo = 'RDS' )
 BEGIN
 	INSERT INTO ConfiguracionPais(Codigo,Excluyente,Descripcion,Estado)
-	VALUES('RDS', 0, 'Revista Digital Suscripción', 1)
+	VALUES('RDS', 0, 'Revista Digital Suscripción', 0)
 END
 GO
 
@@ -2681,10 +2681,10 @@ begin
 	SELECT @PermisoID = MAX(PermisoID) FROM Permiso
 	SET @PermisoID = isnull(@PermisoID, 0) + 1
 
-  	INSERT INTO Permiso
-  	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
-  	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
-  
+	INSERT INTO Permiso
+	(PermisoID, Descripcion, IdPadre, OrdenItem, UrlItem, PaginaNueva, Posicion, UrlImagen, EsSoloImagen, EsMenuEspecial, EsServicios, EsPrincipal, Codigo)
+	VALUES(@PermisoID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,0,0, 1, 'RevistaDigital')
+
 	INSERT INTO RolPermiso(RolID, PermisoID, Activo, Mostrar) VALUES(1,@PermisoID,1,1)
 
 	update Permiso
@@ -2718,9 +2718,9 @@ begin
 		and EsSB2=1
 		and OrdenItem >= @OrdenItem
 
-  	INSERT INTO MenuMobile
-  	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
-  	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
+	INSERT INTO MenuMobile
+	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,[Version],EsSB2, Codigo)
+	VALUES(@ID, 'ÉSIKA PARA MÍ', 0, @OrdenItem,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',0,'Menu','Mobile', 1, 'RevistaDigital')
 
 	update MenuMobile
 	set Codigo = 'FDTC'

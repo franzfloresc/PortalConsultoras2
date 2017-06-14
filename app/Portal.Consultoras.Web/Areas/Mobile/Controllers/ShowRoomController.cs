@@ -160,7 +160,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {      
                 var showRoomEventoModel = CargarValoresModel();
-
+                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
+                    return null;
+                
                 var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
                 showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null

@@ -138,6 +138,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var showRoomEventoModel = CargarValoresModel();
+                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
+                    return RedirectToAction("Index", "Bienvenida");
 
                 using (SACServiceClient svc = new SACServiceClient())
                 {

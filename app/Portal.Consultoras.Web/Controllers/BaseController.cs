@@ -582,6 +582,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
+            ViewBag.CantPedidosPendientes = 0;
+
             var lstModel = new List<MenuMobileModel>();
 
             if (userData.RolID != Constantes.Rol.Consultora)
@@ -2346,25 +2348,24 @@ namespace Portal.Consultoras.Web.Controllers
                 return accion;
             }
             /*
-            var accion = "";
-            var controlador = "";
             try
             {
-                tipo = Util.Trim(tipo);
-                if (tipo.ToLower() == "sr")
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
                 {
-                    controlador = isControlador == 1 ? "ShowRoom" : "";
-                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                        accion = "Index";
-                    else
-                        accion = "Intriga";
-
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
                 }
-                return (IsMobile() ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
 
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return accion;
             }
              * */

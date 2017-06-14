@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.CustomHelpers;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -737,6 +738,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(model.PrecioAnt))
+                    {
+                        if (model.Precio2 != model.PrecioAnt)
+                        {
+                            UpdateCacheListaOfertaFinal(model.CampaniaID);
+                        }
+                    }
+                }
+
                 return Json(new
                 {
                     success = true,
@@ -763,6 +775,43 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
+            }
+        }
+
+        private void UpdateCacheListaOfertaFinal(string campania)
+        {
+            try
+            {
+                string campNowNext = string.Empty;
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    campNowNext = svc.GetCampaniaActualAndSiguientePais(UserData().PaisID, UserData().CodigoISO);
+                }
+
+                if (!string.IsNullOrEmpty(campNowNext))
+                {
+                    string campNow = campNowNext;
+                    string campNext = "";
+
+                    if (campNowNext.IndexOf('|') >= 0)
+                    {
+                        var arr = campNowNext.Split('|');
+                        campNow = arr[0];
+                        campNext = arr[1];
+                    }
+
+                    if (campania == campNow || campania == campNext)
+                    {
+                        using (ProductoServiceClient svc = new ProductoServiceClient())
+                        {
+                            svc.UpdateCacheListaOfertaFinal(UserData().CodigoISO, int.Parse(campania));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
         }
 
@@ -930,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas)
+        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas, string campaniaID, string tipoEstrategiaCod)
         {
             try
             {
@@ -939,6 +988,14 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     resultado = sv.ActivarDesactivarEstrategias(UserData().PaisID, UserData().CodigoUsuario, EstrategiasActivas, EstrategiasDesactivas);
+                }
+
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    {
+                        UpdateCacheListaOfertaFinal(campaniaID);
+                    }
                 }
 
                 return Json(new

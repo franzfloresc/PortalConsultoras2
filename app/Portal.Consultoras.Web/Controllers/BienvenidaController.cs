@@ -2156,6 +2156,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
+                    SetUserData(userData);
                     controlador = "ShowRoom";
                     accion = AccionControlador("sr", true);
                 }
@@ -2165,12 +2166,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 userData.EMailActivo = true;
-                SetUserData(userData);
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
+
             return RedirectToAction(accion, controlador, new { area = area });
         }
 
