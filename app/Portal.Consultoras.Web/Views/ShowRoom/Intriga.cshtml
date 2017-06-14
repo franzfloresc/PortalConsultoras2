@@ -79,7 +79,9 @@
             <div class="texto_confirmacion">Confirma tu correo <br />y entérate primero</div>
             <div class="correo_showroon"><input type="text" value="@Model.EMail" id="txtIntrigaEmail"></div>
             <div class="correo_showroon icono_celular"><input type="text" value="@Model.Celular" id="txtIntrigaCelular" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"></div>
-            <div class="termino_condiciones_intriga">Estoy de acuerdo con los <a onclick="click_terminos_y_condiciones_form_intriga()" href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a></div>
+            <div class="termino_condiciones_intriga" style="display:inline-block; width:auto">Estoy de acuerdo con los </div>
+
+            <a onclick="click_terminos_y_condiciones_form_intriga()" href="@Model.UrlTerminosCondiciones" target="_blank" style="text-decoration:underline; display: inline-block;">términos y condiciones.</a>         
             <a class="btn_enviar_correo_intriga" id="btnIntrigaConfirmarCorreo">CONFIRMA TU CORREO</a>
         </div>
         <div id="divIntrigaEmailRespuestaOk">
@@ -285,6 +287,7 @@
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
 
                             $('.agregado.product-add').show();
+                            $(".liquidacion_rango_cantidad_pedido.ValidaNumeral.ValidaPasteNumeral").val("1");
                         }
                         else messageInfoError(response.message);
                     },
