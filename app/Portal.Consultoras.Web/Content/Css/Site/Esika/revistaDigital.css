@@ -1386,6 +1386,7 @@
 	width: 0;
 	height: 0;
 	clear: both;
+    z-index: 1;
 }
 .popup_saludo{
 	font-weight: 700;
@@ -1660,7 +1661,7 @@
     width:100%;
 }
 .content_gana_mas{
-    margin-top:10px;
+    margin-top:50px;
     position:relative;
 }
 .content_texto_gana{
@@ -1818,6 +1819,7 @@
     position: absolute;
     height: 20px;
     width: 20px;
+    z-index: 99;
 }
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
@@ -1828,6 +1830,7 @@
     position: absolute;
     height: 20px;
     width: 20px;
+    z-index: 99;
 }
 .descargarPreguntasRespuestas {
     border-bottom: 2px solid black;
@@ -2000,4 +2003,53 @@
     font-weight: bold;
     font-size: 2em;
     text-align: center;
+}
+
+.home_block_rd {
+    background-color: #e91b37;
+    color: white;
+    height: 120px;
+}
+.hblock {
+    background-color: black;
+    height: 120px;
+    width: 50%;
+    margin-left: 50%;
+    position: absolute;
+}
+.home_block_rd .rd_logo {
+    width: 260px;
+    height: 120px;
+    padding-top: 26px;
+}
+.home_block_rd .rd_logo:after {
+    border-left: 30px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 120px solid #000;
+}
+.hblock_text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 120px;
+    left: 300px;
+    font-size: 20px;
+    font-weight: 100;
+    padding-top: 24px;
+    line-height: 24px;
+}
+.hblock_tit {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.content_item_home_bpt {
+    background: white;
+    /*border: 1px solid #e7e1e1;*/
+    border: 1px #000000 solid;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    position: relative;
 }

@@ -192,10 +192,7 @@ $(document).ready(function () {
 });
 
 function CargarProductosShowRoom(busquedaModel) {
-
-    $.ajaxSetup({
-        cache: false
-    });
+    $.ajaxSetup({ cache: false });
 
     $('#divProductosShowRoom').html('<div style="text-align: center; min-height:150px;"><br><br><br><br>Cargando Productos ShowRoom<br><img src="' + urlLoad + '" /></div>');
     $("#divProductosShowRoom").show();
@@ -503,8 +500,7 @@ function CargarProductosShowRoomPromise(busquedaModel) {
 }
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
-    if (response.success) {
-        
+    if (response.success) {        
         if (aplicarFiltrosSubCampanias) {
             var listaProdShowRoomSubCampanias = response.lista.Find("EsSubCampania", true);
             SetHandlebars("#template-showroom-subcampania", listaProdShowRoomSubCampanias, "#contenedor-showroom-subcampanias");
@@ -522,7 +518,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
-
         }
 
         var listaProdShowRoomNoSubCampanias = response.lista.Find("EsSubCampania", false);
@@ -540,7 +535,6 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 ? value.Descripcion.substring(0, 30) + "..."
                 : value.Descripcion;
             }
-
 
             value.Posicion = index + 1;
             value.UrlDetalle = urlDetalleShowRoom + '/' + value.OfertaShowRoomID;

@@ -1,4 +1,6 @@
 ﻿
+var isClear = false;
+
 $(document).ready(function () {
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
@@ -6,7 +8,7 @@ $(document).ready(function () {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
-        tag = tag != "" && tag != "0" ? "1" : tag;
+        listaFiltros.CampaniaID = parseInt(tag) || 0;
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
@@ -34,17 +36,27 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    if ($('ul[data-tab="tab"] li a').length == 0) {
-        if (estadoAccion == 0) {
-            $('[data-tag-html="0"]').show();
-        }
-        else {
-            $('[data-tag-html="1"]').show();
-        }
+    if ($('[data-tag-html]').length == 1) {
+        $('[data-tag-html]').show();
+        if ($('[data-tag-html]').attr("data-tag-html") == '0') {
+            isLoad = true;
+        }        
     }
     else {
-        $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+        $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     }
+
+    //if ($('ul[data-tab="tab"] li a').length == 0) {
+    //    if (estadoAccion == 0) {
+    //        $('[data-tag-html="0"]').show();
+    //    }
+    //    else {
+    //        $('[data-tag-html="1"]').show();
+    //    }
+    //}
+    //else {
+    //    $('ul[data-tab="tab"] li a[data-tag="' + (0) + '"]').click();
+    //}
     
     RenderCarrusel();
 
@@ -54,29 +66,6 @@ $(document).ready(function () {
     if (location.href.toLowerCase().indexOf("/detalle/") > 0) {
         RDDetalleObtener();
     }
-
-    $(window).scroll(function () {
-
-        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-
-            $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
-
-
-        } else {
-
-            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
-        }
-
-    });
 
     $(".flecha_scroll").on('click', function (e) {
 
@@ -98,6 +87,13 @@ $(document).ready(function () {
 
     });
 
+    $(".flecha_scroll_mob").on('click', function (e) {
+
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#divTopFiltros').position().top - 60
+        }, 1000, 'swing');
+    });
    
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
@@ -149,17 +145,20 @@ function OfertaArmarEstrategias(response) {
         lista.push(objDetalle);
     }
 
-    $("#divOfertaProductos").html("");
+    //$("#divOfertaProductos").html("");
 
     response.Lista = lista;
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";    
+    response.CodigoEstrategia = "101";
 
     // Listado de producto
-    var htmlDiv = SetHandlebars("#estrategia-template", response, '#divOfertaProductos');
-    //$('#divOfertaProductos').append(htmlDiv);
+    var htmlDiv = SetHandlebars("#estrategia-template", response);
+    if (isClear) {
+        $('#divOfertaProductos').html("");
+    }
+    $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
@@ -170,11 +169,24 @@ function ResizeBoxContnet() {
         var image = $('.flex-container').find('img');
         image.each(function () {
             var that = $(this);
-            if (that.width() < 200) {
-                console.log(that.attr('src'));
-                that.closest('.content_item_home').find('.nombre_producto').css("maxWidth", "175px");
-                that.closest('.content_item_home').find('.producto_precio').css("minWidth", "175px");
-            }
+            that.on('load', function () {
+                console.log('image width : ' + $(this).width);
+                if (that.width() < 115) {
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "105px");
+                }
+                else if (that.width() < 150) {
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "140px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "140px");
+                }
+                else if (that.width() < 200) {
+
+                    that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "190px");
+                    that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "190px");
+                }
+            });
+
+           
         });
     } catch (e) {
         console.log(e);
