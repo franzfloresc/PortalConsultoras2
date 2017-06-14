@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using System.Linq;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -686,8 +687,9 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 }                                
             }
-            catch (Exception ex)
+            catch (FaultException ex)
             {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 showRoomEventoModel = new ShowRoomEventoModel();
             }            
 

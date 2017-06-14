@@ -14,9 +14,9 @@
         urlCrearCuponConsultora: urlCrearCuponConsultora,
         urlActualizarCuponConsultora: urlActualizarCuponConsultora,
         urlListarCuponesPorCampania: urlListarCuponesPorCampania,
+        urlImagenEdit: urlImagenEdit,
         urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
         urlCuponConsultoraCargaMasiva: urlCuponConsultoraCargaMasiva,
-        urlImagenEdit: urlImagenEdit,
         urlImagenDelete: urlImagenDelete,
         urlImagenDetail: urlImagenDetail
     };

@@ -488,7 +488,9 @@
 
             var params = {
                 EstrategiasActivas: estrategiasSeleccionadas.join(','),
-                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(',')
+                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(','),
+                campaniaID: $("#ddlCampania").val(),
+                tipoEstrategiaCod: $('#ddlTipoEstrategia :selected').data('codigo')
             };
 
             jQuery.ajax({
@@ -1956,7 +1958,8 @@
                         ImgFichaMobile: imgFichaMobile,
                         UrlVideoMobile: urlVideoMobile,
                         ImgFichaFondoDesktop: imgFichaFondoDesktop,
-                        ImgFichaFondoMobile: imgFichaFondoMobile
+                        ImgFichaFondoMobile: imgFichaFondoMobile,
+                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
                     };
                     jQuery.ajax({
                         type: 'POST',

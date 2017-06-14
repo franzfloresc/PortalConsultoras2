@@ -91,8 +91,9 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                cuponModel.MontoLimiteFormateado = ObtenerMontoLimiteDelCupon();
-                
+                if (cuponModel != null)
+                    cuponModel.MontoLimiteFormateado = ObtenerMontoLimiteDelCupon();
+
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -134,7 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (cuponResult != null)
                 cuponModel = MapearBECuponConsultoraACuponConsultoraModel(cuponResult);
             else
-                throw new Exception();
+                cuponModel = null;
 
             return cuponModel;
         }

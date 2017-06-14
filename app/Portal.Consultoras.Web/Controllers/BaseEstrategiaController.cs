@@ -4,12 +4,9 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -35,7 +32,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ValidarPeriodoFacturacion = true,
                 Simbolo = userData.Simbolo,
                 CodigoAgrupacion = ""
-            };            
+            };
+
             if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital)) entidad.CodigoAgrupacion = Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
             var listEstrategia = new List<BEEstrategia>();
@@ -50,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
-            
+
             Session["ListadoEstrategiaPedido"] = listEstrategia;
             return listEstrategia;
         }
@@ -103,7 +101,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Descripcion = estrategia.DescripcionCUV2.Split('|')[0];
                 estrategia.TextoLibre = Util.Trim(estrategia.TextoLibre);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
-                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+                estrategia.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2);
@@ -277,7 +275,7 @@ namespace Portal.Consultoras.Web.Controllers
             return estrategia;
         }
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "", int campaniaId = 0)
         {
             var listaProducto = ConsultarEstrategias(cuv, 0);
             var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
@@ -374,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            var isMobile = IsMobile();
+            bool isMobile = ViewBag.EsMobile == 2; // IsMobile();
             ListaProductoModel.ForEach(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
@@ -450,6 +448,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 estrategia.PuedeAgregar = 1;
+                estrategia.PuedeVerDetalle = estrategia.EstrategiaDetalle != null && 
+                                                ((estrategia.ListaDescripcionDetalle !=  null && estrategia.ListaDescripcionDetalle.Any()) ||
+                                                !estrategia.EstrategiaDetalle.UrlVideoDesktop.IsNullOrEmptyTrim());
+                estrategia.PuedeVerDetalleMob = estrategia.EstrategiaDetalle != null &&
+                                             ((estrategia.ListaDescripcionDetalle != null &&  estrategia.ListaDescripcionDetalle.Any()) ||
+                                              !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
 
             return ListaProductoModel;

@@ -84,6 +84,14 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    String.prototype.SubStrToMax = function (max, removeStrFinLength, strFin) {
+        if (this.length <= max) return this;
+
+        strFin = IfNull(strFin, '') == '' ? '...' : strFin;
+        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        return this.substr(0, max - removeLength) + strFin;
+    };
+
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
         var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
@@ -872,13 +880,12 @@ function LayoutMenuFin() {
     // validar si sale en dos lineas
     var hok = true;
     var idMenus = "#ulNavPrincipal > li";
-    do {
         $(".wrapper_header").css("max-width", "");
         $(".wrapper_header").css("width", "");
 
         $(".logo_esika").css("width", "");
         $(".menu_esika_b").css("width", "");
-        $(idMenus).css("margin-left", "5px");
+        $(idMenus).css("margin-left", "0px");
         $(".menu_new_esika").css("width", "");
 
         var wt = $(".wrapper_header").width();
@@ -903,10 +910,7 @@ function LayoutMenuFin() {
                 wr += $(menupadre).innerWidth();
             });
 
-            if (wt <= wr) {
-                break;
-            }
-
+            if (wt > wr) {
             wr = (wt - wr) / $(idMenus).length;
             wr = Math.min(wr, 20);
 
@@ -915,34 +919,9 @@ function LayoutMenuFin() {
                     $(menupadre).css("margin-left", wr + "px");
                 }
             });
+            }
+        }
 
-            break;
-        }
-
-        if (h > 61) {
-            $(idMenus).css("margin-left", "15px");
-            h = $(".wrapper_header").height();
-            if (h > 61) {
-                $($(idMenus).get(0)).css("margin-left", "10px");
-                h = $(".wrapper_header").height();
-            }
-            h = $(".wrapper_header").height();
-            if (h > 61) {
-                $($(idMenus).get(0)).css("margin-left", "5px");
-                h = $(".wrapper_header").height();
-            }
-        }
-        if (h > 61) {
-            wt = $(".wrapper_header").width();
-            var wh = $("header").width();
-            if (wh > wt) {
-                wt = parseInt((wh - wt) / 2);
-                $(".wrapper_header").css("max-width", (wh - wt) + "px");
-                h = $(".wrapper_header").height();
-                hok = h > 61;
-            }
-        }
-    } while (hok);
     // caso no entre en el menu
     // poner en dos renglones
 
@@ -1425,7 +1404,7 @@ function MostrarMenu(codigo, accion) {
     
 }
 
-function FunccionEjecutar(functionHide) {
+function FuncionEjecutar(functionHide) {
     functionHide = $.trim(functionHide);
     if (functionHide != "") {
         if (functionHide[functionHide.length - 1] != ")") {
@@ -1433,6 +1412,10 @@ function FunccionEjecutar(functionHide) {
         }
         setTimeout(functionHide, 100);
     }
+}
+
+function IfNull(input, replaceNull) {
+    return input == null ? replaceNull : input;
 }
 
 function odd_desktop_google_analytics_promotion_click() {
