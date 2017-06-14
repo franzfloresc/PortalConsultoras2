@@ -120,7 +120,7 @@ namespace Portal.Consultoras.BizLogic
             DACliente.InsCatalogoCampania(CodigoConsultora, CampaniaID);
         }
 
-
+        #region Movimiento
         public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
             var daCliente = new DACliente(paisId);
@@ -141,6 +141,22 @@ namespace Portal.Consultoras.BizLogic
 
             return movimientos;
         }
+
+
+        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        {
+            if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
+            {
+                return new Tuple<bool, string>(false, "Tipo de movimiento no permitido, Solo A, C, CB"); //todo: a recursos
+            }
+
+            var daCliente = new DACliente(paisId);
+            var result = daCliente.MovimientoActualizar(movimiento);
+
+            return new Tuple<bool, string>(result, string.Empty);
+        }
+        #endregion
+
         #region Recordatorio
         public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
@@ -174,6 +190,7 @@ namespace Portal.Consultoras.BizLogic
             var daCliente = new DACliente(paisId);
             return daCliente.RecordatorioEliminar(codigoCliente, consultoraId, recordatorioId);
         }
+
         #endregion
 
         #region ClienteDB
@@ -226,7 +243,7 @@ namespace Portal.Consultoras.BizLogic
 
                 //OBTENER CLIENTE TELEFONO
                 var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
-                resGetCliente = resGetCliente.Where(x=>x.ClienteID != clienteDB.ClienteID).ToList();
+                resGetCliente = resGetCliente.Where(x => x.ClienteID != clienteDB.ClienteID).ToList();
 
                 if (resGetCliente.Count > 0)
                 {
@@ -420,7 +437,7 @@ namespace Portal.Consultoras.BizLogic
                 else
                 {
                     var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
-                    lstCliente = lstCliente.Where(x=>x.ClienteID != contactoCliente.ClienteID).ToList();
+                    lstCliente = lstCliente.Where(x => x.ClienteID != contactoCliente.ClienteID).ToList();
 
                     if (lstCliente.Count > 0)
                     {
