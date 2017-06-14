@@ -276,6 +276,14 @@ namespace Portal.Consultoras.Web.Controllers
                     GuardarArchivoEnCarpeta(flCuponConsultora, out finalPath);
                     var listaCuponConsultoras = ObtenerListaCuponConsultora(finalPath);
 
+                    if (!listaCuponConsultoras.Any())
+                        return Json(new { success = false, message = "No hay datos para guardar" }, JsonRequestBehavior.AllowGet);
+
+                    using (PedidoServiceClient svClient = new PedidoServiceClient())
+                    {
+                        svClient.InsertarCuponConsultorasXML(userData.PaisID, hdCuponIdFrmCargaMasiva, hdCampaniaIdFrmCargaMasiva, listaCuponConsultoras.ToArray());
+                    }
+
                     return Json(new { success = true, message = "Los datos fueron grabados." }, JsonRequestBehavior.AllowGet);
                 }
                 else {

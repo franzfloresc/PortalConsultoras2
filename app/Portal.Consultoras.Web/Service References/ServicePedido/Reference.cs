@@ -8956,6 +8956,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool TieneLoginExternoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneMasVendidosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOferta2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10733,6 +10736,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneLoginExternoField.Equals(value) != true)) {
                     this.TieneLoginExternoField = value;
                     this.RaisePropertyChanged("TieneLoginExterno");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneMasVendidos {
+            get {
+                return this.TieneMasVendidosField;
+            }
+            set {
+                if ((this.TieneMasVendidosField.Equals(value) != true)) {
+                    this.TieneMasVendidosField = value;
+                    this.RaisePropertyChanged("TieneMasVendidos");
                 }
             }
         }
@@ -24657,6 +24673,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon", ReplyAction="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCuponResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECuponConsultora[]> ListarCuponConsultorasPorCuponAsync(int paisId, int cuponId);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML", ReplyAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXMLResponse")]
+        void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] listaCuponConsultoras);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML", ReplyAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXMLResponse")]
+        System.Threading.Tasks.Task InsertarCuponConsultorasXMLAsync(int paisId, int cuponId, int campaniaId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] listaCuponConsultoras);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetSeguimientoPostVenta", ReplyAction="http://tempuri.org/IPedidoService/GetSeguimientoPostVentaResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPostVenta[] GetSeguimientoPostVenta(int paisID, string numeroRecojo, int estadoId);
         
@@ -26897,6 +26919,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECuponConsultora[]> ListarCuponConsultorasPorCuponAsync(int paisId, int cuponId) {
             return base.Channel.ListarCuponConsultorasPorCuponAsync(paisId, cuponId);
+        }
+        
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] listaCuponConsultoras) {
+            base.Channel.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
+        }
+        
+        public System.Threading.Tasks.Task InsertarCuponConsultorasXMLAsync(int paisId, int cuponId, int campaniaId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora[] listaCuponConsultoras) {
+            return base.Channel.InsertarCuponConsultorasXMLAsync(paisId, cuponId, campaniaId, listaCuponConsultoras);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPostVenta[] GetSeguimientoPostVenta(int paisID, string numeroRecojo, int estadoId) {

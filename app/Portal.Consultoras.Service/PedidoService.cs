@@ -2051,6 +2051,11 @@ namespace Portal.Consultoras.Service
             return listaCuponConsultoras;
         }
 
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
+        {
+            BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
+        }
+
         #endregion
 
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)

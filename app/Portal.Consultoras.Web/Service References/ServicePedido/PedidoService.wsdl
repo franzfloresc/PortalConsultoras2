@@ -512,6 +512,12 @@
   <wsdl:message name="IPedidoService_ListarCuponConsultorasPorCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarCuponConsultorasPorCuponResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarCuponConsultorasXML_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarCuponConsultorasXML" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_InsertarCuponConsultorasXML_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarCuponConsultorasXMLResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetSeguimientoPostVenta_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSeguimientoPostVenta" />
   </wsdl:message>
@@ -2375,6 +2381,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon" message="tns:IPedidoService_ListarCuponConsultorasPorCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCuponResponse" message="tns:IPedidoService_ListarCuponConsultorasPorCupon_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertarCuponConsultorasXML">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" message="tns:IPedidoService_InsertarCuponConsultorasXML_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXMLResponse" message="tns:IPedidoService_InsertarCuponConsultorasXML_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetSeguimientoPostVenta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetSeguimientoPostVenta" message="tns:IPedidoService_GetSeguimientoPostVenta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetSeguimientoPostVentaResponse" message="tns:IPedidoService_GetSeguimientoPostVenta_OutputMessage" />
@@ -4138,6 +4148,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarCuponConsultorasPorCupon">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarCuponConsultorasXML">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
