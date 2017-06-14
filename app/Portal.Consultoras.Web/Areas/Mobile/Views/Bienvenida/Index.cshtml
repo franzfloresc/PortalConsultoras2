@@ -347,7 +347,10 @@
     </div>
 </div>
 <!--LOS MAS VENDIDOS-->
-@Html.Partial("MasVendidos")
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
@@ -1093,6 +1096,7 @@
                 var viewBagCampaniaActual = '@Model.CampaniaActual';
                 var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
                 var tieneCupon = '@Model.TieneCupon';
+                var tieneMasVendidos = @Model.TieneMasVendidos;
                 var paginaOrigenCupon = 2;
                 var esEmailActivo = '@Model.EmailActivo';
                 var paisISO = '@ViewBag.paisISO';

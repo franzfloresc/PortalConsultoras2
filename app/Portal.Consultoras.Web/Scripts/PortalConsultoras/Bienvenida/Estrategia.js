@@ -918,7 +918,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
-                            CargarCarouselMasVendidos('desktop');
+                            if (tieneMasVendidos === 1) {
+                                CargarCarouselMasVendidos('desktop');
+                            }
+                            
                             CargarResumenCampaniaHeader(true);
                         }
                         else if (tipoOrigenEstrategia == 11) {
@@ -948,7 +951,10 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             }
                             else {
                                 CargarCarouselEstrategias(cuv);
-                                CargarCarouselMasVendidos('mobile');
+
+                                if (tieneMasVendidos === 1) {
+                                    CargarCarouselMasVendidos('mobile');
+                                }
                             }
                         }
 

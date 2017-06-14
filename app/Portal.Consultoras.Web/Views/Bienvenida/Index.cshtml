@@ -242,7 +242,10 @@
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
 <!--NUEVA PALANCA-->
-@Html.Partial("MasVendidos")
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
@@ -2537,6 +2540,7 @@
         }
 
         var tieneCupon = '@Model.TieneCupon';
+        var tieneMasVendidos = @Model.TieneMasVendidos;
         var paginaOrigenCupon = 1;
         var esEmailActivo = '@Model.EmailActivo';
         var baseUrl = "@Url.Content("~")";

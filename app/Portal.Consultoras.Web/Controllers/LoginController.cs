@@ -728,6 +728,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                     model.TieneCDR = oBEUsuario.TieneCDR;
                     model.TieneCupon = oBEUsuario.TieneCupon;
+                    model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
 
                     #endregion
 
