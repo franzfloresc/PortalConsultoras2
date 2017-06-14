@@ -16,13 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = IndexModel();
-                if (model.EstadoAccion < 0)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
-                return View(model);
+                return IndexModel();
             }
             catch (Exception ex)
             {
@@ -32,22 +26,18 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(int id, int campaniaId)
         {
             try
             {
-                var model = DetalleModel(id);
-                if (model.EstrategiaID > 0)
-                {
-                    return View(model);
-                }
+                return DetalleModel(id, campaniaId);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "RevistaDigital");
         }
 
         public ActionResult _Landing(int id)

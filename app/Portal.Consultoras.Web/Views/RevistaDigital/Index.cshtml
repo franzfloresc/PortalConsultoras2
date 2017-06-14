@@ -28,7 +28,7 @@
 </div>
 
 <hr class="clear" />
-<input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
+
 @if (Model.ListaTabs.Count() > 1)
 {
     <div class="content_tabs_landing">
@@ -311,7 +311,6 @@
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
         var tipoOrigenEstrategia = 17;
-        var estadoAccion = '@Model.EstadoAccion';
         var conCampania = true;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
