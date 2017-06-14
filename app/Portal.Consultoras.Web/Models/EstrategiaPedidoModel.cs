@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
 
-        public string UrlCompartirFB { get; set; }
+        public string UrlCompartir { get; set; }
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
@@ -80,6 +80,9 @@ namespace Portal.Consultoras.Web.Models
         public int Origen { get; set; }
         public string OrigenUrl { get; set; }
         public string Codigo { get; set; }
+
+        public bool PuedeVerDetalle { get; set; }
+        public bool PuedeVerDetalleMob { get; set; }
 
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }

@@ -1379,5 +1379,10 @@ namespace Portal.Consultoras.Service
 
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
+
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
+        {
+            return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
+        }
     }
 }

@@ -4,26 +4,24 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
-using Portal.Consultoras.Web.ServicePROLConsultas;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using Org.BouncyCastle.Utilities;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseEstrategiaController : BaseController
     {
-        public List<BEEstrategia> ConsultarEstrategias(string cuv)
+        public List<BEEstrategia> ConsultarEstrategias(string cuv, int campaniaId = 0)
         {
-            if (Session["ListadoEstrategiaPedido"] != null) return (List<BEEstrategia>)Session["ListadoEstrategiaPedido"];
+            string varSession = "ListadoEstrategiaPedido" + (campaniaId > 0 ? campaniaId.ToString() : "");
+            if (Session[varSession] != null) return (List<BEEstrategia>)Session[varSession];
 
             //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
-                CampaniaID = userData.CampaniaID,
+                CampaniaID = campaniaId > 0 ? campaniaId : userData.CampaniaID,
                 ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
                 CUV2 = cuv ?? "",
                 Zona = userData.ZonaID.ToString(),
@@ -47,8 +45,9 @@ namespace Portal.Consultoras.Web.Controllers
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
-            
-            Session["ListadoEstrategiaPedido"] = listEstrategia;
+
+            Session[varSession] = listEstrategia;
+            //Session["ListadoEstrategiaPedido"] = listEstrategia;
             return listEstrategia;
         }
 
@@ -67,7 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Descripcion = estrategia.DescripcionCUV2.Split('|')[0];
                 estrategia.TextoLibre = Util.Trim(estrategia.TextoLibre);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
-                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+                estrategia.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2);
@@ -241,15 +240,15 @@ namespace Portal.Consultoras.Web.Controllers
             return estrategia;
         }
 
-        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "")
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModel(string cuv = "", int campaniaId = 0)
         {
-            var listaProducto = ConsultarEstrategias(cuv);
+            var listaProducto = ConsultarEstrategias(cuv, campaniaId);
             var ListaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
 
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            var isMobile = IsMobile();
+            bool isMobile = ViewBag.EsMobile == 2; // IsMobile();
             ListaProductoModel.ForEach(estrategia =>
             {
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
@@ -325,6 +324,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 estrategia.PuedeAgregar = 1;
+                estrategia.PuedeVerDetalle = estrategia.EstrategiaDetalle != null && 
+                                                ((estrategia.ListaDescripcionDetalle !=  null && estrategia.ListaDescripcionDetalle.Any()) ||
+                                                !estrategia.EstrategiaDetalle.UrlVideoDesktop.IsNullOrEmptyTrim());
+                estrategia.PuedeVerDetalleMob = estrategia.EstrategiaDetalle != null &&
+                                             ((estrategia.ListaDescripcionDetalle != null &&  estrategia.ListaDescripcionDetalle.Any()) ||
+                                              !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
 
             return ListaProductoModel;

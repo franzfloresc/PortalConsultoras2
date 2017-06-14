@@ -1596,29 +1596,51 @@
     }
 
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
-
-        limpiarPopUps();
-
+        var cISO = "@Model.CodigoIso";
         $('#divConsultarUbicacion').empty();
-        $('#divConsultarUbicacion').show();
+        if (cISO == 'CL' || cISO == 'MX')
+        {
+            LoadSpinner('divConsultarUbicacion');
+            $('#divConsultarUbicacion').show();
 
-        LoadSpinner('divConsultarUbicacion');
-        $('#divConsultarUbicacion').show();
+            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID}, function (html) {
 
-        $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
-        $("body").css({ "overflow-y": "hidden" });
+                $('#divConsultarUbicacion').html(html);
+                loadExtraData(solicitudPostulanteID);
 
-        $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
-
-            $('#divConsultarUbicacion').html(html);
-            loadExtraData(solicitudPostulanteID);
-
-        }).always(function () {
+            }).always(function () {
 
 
-        }).done(function () {
+            }).done(function () {
 
-        });
+            });
+        }
+        else {
+            LoadSpinner('divConsultarUbicacion');
+            $('#divConsultarUbicacion').show();
+
+            $("#divConsultarUbicacion").css({ "overflow-y": "scroll" });
+            $("body").css({ "overflow-y": "hidden" });
+
+            $.get('@Url.Action("ConsultarUbicacion", "Unete")', { id: solicitudPostulanteID, nombreCompleto: NombreCompleto, celular: Celular, pintarMalaZonificacion: pintarMalaZonificacion }, function (html) {
+
+                $('#divConsultarUbicacion').html(html);
+                //loadExtraData(solicitudPostulanteID);
+
+            }).always(function () {
+
+
+            }).done(function () {
+
+            });
+        }
+
+        //limpiarPopUps();
+
+        //$('#divConsultarUbicacion').empty();
+        //$('#divConsultarUbicacion').show();
+
+        
     }
 
     function generalLoading() {
