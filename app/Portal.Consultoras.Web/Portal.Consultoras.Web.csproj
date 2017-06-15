@@ -4079,6 +4079,7 @@
     <Content Include="Views\Login\SesionExpirada.cshtml" />
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4104,7 +4105,6 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
-    <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGana.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmar.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanaste.cshtml" />
