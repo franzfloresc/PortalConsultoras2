@@ -168,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new { success = false, message = "La consultora ya está registra para la campaña y cupón seleccionado." }, JsonRequestBehavior.AllowGet);
                 }
 
-                return Json(new { success = true, message = "El consultora fue creada." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "La consultora fue creada." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new { success = false, message = "La consultora a actualizar ya está registrada." }, JsonRequestBehavior.AllowGet);
                 }
 
-                return Json(new { success = true, message = "El consultora fue actualizada." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "La consultora fue actualizada." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
