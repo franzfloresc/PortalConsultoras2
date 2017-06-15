@@ -1576,7 +1576,7 @@
             <div class="clear"></div>
         </script>
 
-        <script id="producto-template" type="text/x-handlebars-template">
+<script id="producto-template" type="text/x-handlebars-template">
             {{#each this}}
             {{#if EliminadoTemporal}}
             {{else}}
@@ -1621,6 +1621,10 @@
                         </p>
                 <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
                     </span>
+                    {{else if_eq TipoEstrategiaCodigo '@Constantes.TipoEstrategiaCodigo.Lanzamiento'}}
+                        <span style="position:relative">
+                            <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 1}}</label>
+                        </span>
                     {{else}}
                     <span style="position:relative">
                 <label for="{{DescripcionCortadaProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionCortadaProd '|' 0}}</label>
