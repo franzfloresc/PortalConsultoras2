@@ -122,6 +122,7 @@
         });
 
         $(document).on("click", elements.btnCargarConsultoras, function () {
+            $(elements.flCuponConsultora).val('');
             showDialog(setting.popupMantenimientoCargaCuponConsultora);
         });
     }
@@ -349,10 +350,9 @@
                     alert(crearCuponConsultoraResponse.message);
                 }
             }
+
+            closeWaitingDialog();
         });
-
-        closeWaitingDialog();
-
     };
 
     var _actualizarCuponConsultora = function (mantCuponConsultoraDialog) {
@@ -381,10 +381,9 @@
                     alert(actualizarCuponConsultoraResponse.message);
                 }
             }
+
+            closeWaitingDialog();
         });
-
-        closeWaitingDialog();
-
     };
 
     var _resetearValoresPopupMantenimientoCupon = function () {
@@ -778,7 +777,6 @@
                 }
             },
             success: function (response) {
-                closeWaitingDialog();
                 if (checkTimeout(response)) {
                     if (response.success) {
                         _listarCuponConsultoras($(elements.hdCuponIdFrmCargaMasiva).val());
@@ -788,6 +786,8 @@
                         alert(response.message);
                     }
                 }
+
+                closeWaitingDialog();
             }
         });
     };
