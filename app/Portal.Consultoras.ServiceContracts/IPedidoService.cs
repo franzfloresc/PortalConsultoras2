@@ -1105,6 +1105,6 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos, string CodigoConcurso);
 
         [OperationContract]
-        BEResumen ObtenerResumen(int paisId, string codigoCampania, long consultoraId);
+        BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
     }
 }
