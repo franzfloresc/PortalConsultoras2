@@ -19,7 +19,8 @@
         urlCuponConsultoraCargaMasiva: urlCuponConsultoraCargaMasiva,
         urlImagenDelete: urlImagenDelete,
         urlImagenDetail: urlImagenDetail,
-        urlImagenEnable: urlImagenEnable
+        urlImagenEnable: urlImagenEnable,
+        urlImagenDisable: urlImagenDisable
     };
     
     cuponAdmModule.ini(objInitializerCupon);

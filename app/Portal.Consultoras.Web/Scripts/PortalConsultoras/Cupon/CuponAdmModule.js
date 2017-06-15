@@ -66,6 +66,7 @@
         UrlImagenDelete: '',
         UrlImagenDetail: '',
         UrlImagenEnable: '',
+        UrlImagenDisable: '',
         popupMantenimientoCupon: 'popup-mantenimiento-cupon',
         popupMantenimientoCuponConsultora: 'popup-mantenimiento-cupon-consultora',
         popupMantenimientoCargaCuponConsultora: 'popup-mantenimiento-carga-cupon-consultora',
@@ -474,14 +475,14 @@
     var _showActionsEventoCupon = function (cellvalue, options, rowObject) {
 
         var activar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Activar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenEnable + "' alt='Activar Cupón' title='Activar Cupón' border='0' /></a>";
-        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Desactivar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenDelete + "' alt='Desactivar Cupón' title='Desactivar Cupón' border='0' /></a>";
+        var desactivar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Desactivar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenDisable + "' alt='Desactivar Cupón' title='Desactivar Cupón' border='0' /></a>";
         var editar = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').Editar(" + options.rowId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "', '" + rowObject.Estado + "');\" >" + "<img src='" + setting.UrlImagenEdit + "' alt='Editar Cupón' title='Editar Cupón' border='0' /></a>";
         var verDetalle = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaCupones + "').VerDetalle(" + options.rowId + ", " + rowObject.TipoId + ", '" + rowObject.Tipo + "', '" + rowObject.Descripcion + "');\" >" + "<img src='" + setting.UrlImagenDetail + "' alt='Ver Detalle del Cupón' title='Ver Detalle del Cupón' border='0' style=\"width: 18px; height: 18px;\"/></a>";
         var resultado = "";
 
         if (rowObject.Estado) {
-            resultado += editar;
-            resultado += desactivar;
+            resultado += editar + ' ';
+            resultado += desactivar + ' ';
             resultado += verDetalle;
         } else {
             resultado += activar;
@@ -986,6 +987,7 @@
         setting.UrlImagenDelete = parameters.urlImagenDelete;
         setting.UrlImagenDetail = parameters.urlImagenDetail;
         setting.UrlImagenEnable = parameters.urlImagenEnable;
+        setting.UrlImagenDisable = parameters.urlImagenDisable;
 
         _bindEvents();
         _inicializarDialogs();
