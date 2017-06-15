@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -38,6 +39,9 @@ namespace Portal.Consultoras.Entities
         public string TipoConcurso { get; set; }
         [DataMember]
         public DateTime FechaVentaRetail { get; set; }
+        [DataMember]
+        public List<BEPremio> Premios { get; set; }
+
 
         public BEConsultoraConcurso(IDataRecord row)
         {
@@ -78,6 +82,11 @@ namespace Portal.Consultoras.Entities
                 TipoConcurso = Convert.ToString(row["TIP_CONC"]);
             if (DataRecord.HasColumn(row, "FEC_VIGE_RETA"))
                 FechaVentaRetail = Convert.ToDateTime(row["FEC_VIGE_RETA"]);
+        }
+
+        public BEConsultoraConcurso()
+        {
+            Premios = new List<BEPremio>();
         }
     }
 }
