@@ -737,10 +737,23 @@ function messageInfoMalo(message, fnAceptar) {
 function messageInfoError(message, fnAceptar) {
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionSB2Error .btn-aceptar').off('click');
-        $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').off('click');
+    $('#popupInformacionSB2Error .btn_ok_mobile').off('click');
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+    });
+
+    $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+        fnAceptar();
+    });
+
+    //if ($.isFunction(fnAceptar)) {
+    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
+    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
+    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
