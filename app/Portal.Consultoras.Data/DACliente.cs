@@ -151,6 +151,27 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public bool MovimientoActualizar(BEMovimiento movimiento)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Actualizar"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                Context.Database.AddInParameter(command, "@ClienteMovimientoId", DbType.Int32, movimiento.ClienteMovimientoId);
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, movimiento.ConsultoraId);
+                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, movimiento.CodigoCliente);                
+                Context.Database.AddInParameter(command, "@Monto", DbType.Decimal, movimiento.Monto);
+                Context.Database.AddInParameter(command, "@TipoMovimiento", DbType.String, movimiento.TipoMovimiento);
+                Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, movimiento.Fecha);
+                Context.Database.AddInParameter(command, "@Descripcion", DbType.String, movimiento.Descripcion);
+
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader.RecordsAffected == 1;
+                }
+            }
+        }
+
         public IDataReader MovimientosListar(int codigoCliente, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");

@@ -54,6 +54,8 @@ namespace Portal.Consultoras.Web.ServicePROL {
         
         private System.Threading.SendOrPostCallback wsValidacionEstrategiaOperationCompleted;
         
+        private System.Threading.SendOrPostCallback wsValidacionMasivaOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -127,6 +129,9 @@ namespace Portal.Consultoras.Web.ServicePROL {
         
         /// <remarks/>
         public event wsValidacionEstrategiaCompletedEventHandler wsValidacionEstrategiaCompleted;
+        
+        /// <remarks/>
+        public event wsValidacionMasivaCompletedEventHandler wsValidacionMasivaCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidarEstrategia", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -587,6 +592,53 @@ namespace Portal.Consultoras.Web.ServicePROL {
             if ((this.wsValidacionEstrategiaCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.wsValidacionEstrategiaCompleted(this, new wsValidacionEstrategiaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidacionMasiva", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public RespuestaProl wsValidacionMasiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+            object[] results = this.Invoke("wsValidacionMasiva", new object[] {
+                        ListProductos,
+                        ListCantidades,
+                        Listrecuperacion,
+                        codigoconsultora,
+                        montoMin,
+                        Zona,
+                        pais,
+                        campa,
+                        estadoconsultora,
+                        MontoMax});
+            return ((RespuestaProl)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+            this.wsValidacionMasivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, null);
+        }
+        
+        /// <remarks/>
+        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, object userState) {
+            if ((this.wsValidacionMasivaOperationCompleted == null)) {
+                this.wsValidacionMasivaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidacionMasivaOperationCompleted);
+            }
+            this.InvokeAsync("wsValidacionMasiva", new object[] {
+                        ListProductos,
+                        ListCantidades,
+                        Listrecuperacion,
+                        codigoconsultora,
+                        montoMin,
+                        Zona,
+                        pais,
+                        campa,
+                        estadoconsultora,
+                        MontoMax}, this.wsValidacionMasivaOperationCompleted, userState);
+        }
+        
+        private void OnwsValidacionMasivaOperationCompleted(object arg) {
+            if ((this.wsValidacionMasivaCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.wsValidacionMasivaCompleted(this, new wsValidacionMasivaCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1184,6 +1236,32 @@ namespace Portal.Consultoras.Web.ServicePROL {
         private object[] results;
         
         internal wsValidacionEstrategiaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public RespuestaProl Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((RespuestaProl)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void wsValidacionMasivaCompletedEventHandler(object sender, wsValidacionMasivaCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class wsValidacionMasivaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal wsValidacionMasivaCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

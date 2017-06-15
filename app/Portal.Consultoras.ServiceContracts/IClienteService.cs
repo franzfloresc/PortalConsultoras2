@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 
@@ -87,6 +88,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId);
+
+        [OperationContract]
+        Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
         bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);

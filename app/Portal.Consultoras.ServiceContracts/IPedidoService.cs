@@ -839,7 +839,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
-        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);        
+        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
         int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV);
@@ -1042,7 +1042,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
-        
+
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
 
@@ -1067,7 +1067,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
-        
+
         [OperationContract]
         BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
 
@@ -1076,7 +1076,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
-   
+
         [OperationContract]
         int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
 
@@ -1091,8 +1091,20 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
-            
+
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+
+        [OperationContract]
+        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos, string CodigoConcurso);
+
+        [OperationContract]
+        BEResumen ObtenerResumen(int paisId, string codigoCampania, long consultoraId);
     }
 }
