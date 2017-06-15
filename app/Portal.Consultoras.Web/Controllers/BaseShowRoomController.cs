@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using System.Linq;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -44,8 +45,11 @@ namespace Portal.Consultoras.Web.Controllers
                     if (userData.CloseBannerPL20) mostrarBanner = false;
                     else
                     {
-                        string message = string.Empty;
-                        if (ValidarPedidoReservado(out message)) mostrarBanner = false;
+                        using (var sv = new PedidoServiceClient())
+                        {
+                            var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
+                            if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
+                        }
                     }
                 }
 
@@ -683,8 +687,9 @@ namespace Portal.Consultoras.Web.Controllers
                     
                 }                                
             }
-            catch (Exception ex)
+            catch (FaultException ex)
             {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 showRoomEventoModel = new ShowRoomEventoModel();
             }            
 

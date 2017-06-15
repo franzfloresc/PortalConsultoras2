@@ -21715,7 +21715,7 @@ label.checkpop.c_on {
 
 .content_carrusel_ofertas {
     /* float: left; */
-    width: 90%;
+    width: 92%;
     margin: 0 auto;
     height: auto;
     /* margin-left: 2%; */
@@ -21816,10 +21816,9 @@ label.checkpop.c_on {
     text-align: center;
     border: 2px solid #000;
     font-size: 13px; 
-    width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);
-    width:-webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');
+    /*width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 } 
 
 .liquidacion_rango_home {
@@ -34182,11 +34181,12 @@ h1#penmostreo .campana {
 .content_ficha_producto {
     width: 300px;
     height: 300px;
+    text-align: center;
 }
 
-    .content_ficha_producto img {
-        width: 100%;
-   }
+.content_ficha_producto img {
+    max-height: 300px;
+}
 .content_right_ficha{
     float: RIGHT;
     width: 55%;
@@ -35127,10 +35127,9 @@ h1#penmostreo .campana {
     font-weight:300;
 }
 .btn_aregar_set {
-    width: -moz-calc(100% -80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');
+    width: -webkit-calc(100% - 80px);*/
     /*width: 82%;*/
     float: right;
     /* text-align: right; */
@@ -35781,10 +35780,9 @@ h1#penmostreo .campana {
     margin-bottom:14px;
 }
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta{
-    width:-moz-calc(100% -80px);
-    width:calc(100% - 80px);
-    width:-webkit-calc(100% - 80px);
-    width: -webkit-calc(~'100% - 80px');
+    /*width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 }
 /*.content_780_ODD .content_item_carrusel_ODD:last-child{
     float:right;
@@ -36124,22 +36122,24 @@ h1#penmostreo .campana {
     /*letter-spacing:2px;
     font-weight:700;*/
 }
-.titulo_gana{
+.titulo_gana {
     font-size: 13.7px;
     color: white;
     height: 46px;
-    font-weight: 700;
-    letter-spacing:0.5px;    
-    line-height:20px;
+    width: 90%;
+    letter-spacing: 0.5px;    
+    line-height: 20px;
     -moz-text-align-last: justify;    
     text-align-last: justify;
     text-align: justify;
-    padding-right: 10px;
-    margin-bottom: 5px;
+    padding-left: 15px;
+    margin-top: -15px;
+    margin-bottom: 25px;
 }
-.titulo_gana span{
-    font-size:20px;
+.titulo_gana span {
+    font-size: 20px;
     letter-spacing: 1.1px;
+    font-weight: 700;
 }
 .subtitulo_gana{
     font-family:'Lato';

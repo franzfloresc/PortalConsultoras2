@@ -60,7 +60,7 @@ namespace Portal.Consultoras.Common
         }
         public static void EnviarMailProcesoDescargaExcepcion(string titulo, string paisISO, string fechaProceso, string tipoProceso, string error, string errorExcepcion)
         {
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_proceso_descarga_excepcion.html";
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_descarga_excepcion.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
             htmlTemplate = htmlTemplate.Replace("#Pais#", paisISO);
@@ -76,8 +76,41 @@ namespace Portal.Consultoras.Common
             catch(Exception ex) { }
         }
 
+        public static void EnviarMailProcesoRecuperaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_recuperar_contrasenia.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Url#", url);
+            htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
+
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch { }
+        }
+
+        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo,
+            string parametros)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Url#", url);
+            htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
+            htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
+
+            try
+            {
+                Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
+            }
+            catch { }
+        }
+
         //1774
-        public static string CuerpoMensajePersonalizado(string url,string nombreconsultora, string param_querystring, bool tipopais)
+        public static string CuerpoMensajePersonalizado(string url, string nombreconsultora, string param_querystring, bool tipopais)
         {
             string s_html = string.Empty;
 
@@ -248,7 +281,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/4APfP0beByYE5yN/group-6.png\"></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Debes agregar una oferta web (no aplica para liquidación web)</td>");
+            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Debes agregar alguna oferta exclusiva web (no incluye ofertas de liquidación web)</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");

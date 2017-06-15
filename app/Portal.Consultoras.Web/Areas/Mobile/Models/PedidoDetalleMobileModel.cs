@@ -125,6 +125,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal MontoMinimo { get; set; }
         public decimal MontoMaximo { get; set; }
         /* SB20-565 - FINAL */
+        public bool AutoReservar { get; set; }
         public int TieneCupon { get; set; }
         public bool EmailActivo { get; set; }
         public string EMail { get; set; }

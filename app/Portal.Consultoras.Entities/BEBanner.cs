@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Runtime.Serialization;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using Portal.Consultoras.Common;
+using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
 {
@@ -60,8 +56,14 @@ namespace Portal.Consultoras.Entities
                 miCUVpedido = Convert.ToString(datarec["CuvPedido"]);
             if (DataRecord.HasColumn(datarec, "CantCuvPedido") && datarec["CantCuvPedido"] != DBNull.Value)
                 miCantCUVpedido = Convert.ToInt32(datarec["CantCuvPedido"]);
+
+            PaisesSegZona = new BEBannerSegmentoZona[0];
         }
-        public BEBanner() { }
+
+        public BEBanner()
+        {
+            PaisesSegZona = new BEBannerSegmentoZona[0];
+        }
 
         [DataMember]
         public int CampaniaID

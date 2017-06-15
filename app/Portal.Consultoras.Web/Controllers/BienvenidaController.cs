@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (Request.Browser.IsMobileDevice)
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
             var model = new BienvenidaHomeModel();
 
             try
@@ -135,6 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IndicadorContrato = userData.IndicadorContrato;
                 model.CambioClave = userData.CambioClave;
                 model.SobreNombre = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
+                model.SobreNombre = Util.Trim(model.SobreNombre).ToUpper();
                 model.CodigoConsultora = userData.CodigoConsultora;
                 model.CampaniaActual = userData.CampaniaID;
                 model.PrefijoPais = userData.CodigoISO;
@@ -276,11 +280,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
-                } 
+                }
 
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
@@ -336,7 +341,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
             }
-            else {
+            else
+            {
                 listaPopUps = ObtenerListaPopupsDesdeServicio();
 
                 if (listaPopUps.Any())
@@ -345,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
                 }
             }
-            
+
             return TipoPopUpMostrar;
         }
 
@@ -390,7 +396,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-                
+
                 if (popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -496,6 +502,20 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                {
+                    if (!userData.RevistaDigital.NoVolverMostrar)
+                    {
+                        if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 0
+                            || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == 2
+                                )
+                        {
+                            TipoPopUpMostrar = Constantes.TipoPopUp.RevistaDigitalSuscripcion;
+                            break;
+                        }
+                    }
+                    continue;
+                }
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
                     var cupon = ObtenerCuponDesdeServicio();
@@ -844,7 +864,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JSONGetMisDatos()
         {
-            BEUsuario beusuario = new BEUsuario();
+            var beusuario = new ServiceUsuario.BEUsuario();
             var model = new MisDatosModel();
 
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -1739,7 +1759,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.NoVolverMostrar)
                 {
                     return Json(new
                     {
@@ -2134,8 +2154,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (tipo == "sr")
                 {
+                    SetUserData(userData);
                     controlador = "ShowRoom";
-                    accion = AccionControlador("sr");
+                    accion = AccionControlador("sr", true);
                 }
                 else if (tipo == "cupon") {
                     EnviarCorreoActivacionCupon();
@@ -2144,12 +2165,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 userData.EMailActivo = true;
-                SetUserData(userData);
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
+
             return RedirectToAction(accion, controlador, new { area = area });
         }
 

@@ -1,5 +1,6 @@
 ﻿
 @using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
@@ -12,206 +13,61 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<!--MAQUETADO NUEVO-->
-<div class="content_belcorp">
-    <div class="logo_EPT_content">
-        <div class="logo_EPT"><img src="@Url.Content("~/Content/Images/RevistaDigital/logo_EPT.png")" /></div>
-    </div>
-    <div class="texto_usuario_ept">
-        @Html.Raw(Model.Titulo)
-        <span class="texto_light">@Model.TituloDescripcion</span>
+
+<div class="home_block_rd" style="margin-top: 61px;">
+    <div class="hblock"></div>
+    <div class="content_belcorp" style="background-color: black; padding: 0 !important">
+        <div class="rd_logo">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
+        </div>
+        <div class="hblock_text">
+            <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
+            <div style="width: 85%">@Model.TituloDescripcion</div>
+        </div>
     </div>
 </div>
+
 <hr class="clear" />
 <input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
-@if (Model.EstadoAccion > 0)
+@if (Model.ListaTabs.Count() > 1)
 {
     <div class="content_tabs_landing">
         <div class="content_tabs_bpt">
-            <ul class="tabs_pagos">
-                @foreach (var tabs in Model.ListaTabs)
+            <ul class="tabs_pagos" data-tab="tab">
+                @foreach (var tab in Model.ListaTabs)
                 {
-                    <li class="one">
-                        <a href="javascript:;" id="@tabs.Id">
-                            <div class="texto_tab_pagos">@tabs.Descripcion</div>
+                    <li>
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id">
+                            <div class="texto_tab_pagos">@tab.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
                 }
-                <hr id="barCursor" style="opacity: 1;">
+                <hr id="barCursor">
             </ul>
         </div>
     </div>
 }
-<div class="content_tabs_landing" style="display:none;">
-    <div class="content_tabs_bpt">
-        <ul class="tabs_pagos">
-            <li class="one">
-                <a href="javascript:;" id="VerVista1">
-                    <div class="texto_tab_pagos">COMPRAR CAMPAÑA 12</div>
-                    <div class="marcador_tab"></div>
-                </a>
-            </li>
-            <li class="two">
-                <a href="javascript:;" id="VerVista2">                   
-                    <div class="texto_tab_pagos">VER CAMPAÑA 13</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>
-            <li class="three">
-                <a href="javascript:;" id="VerVista3">
-                    <div class="texto_tab_pagos">QUÉ ES ESIKA PARA MÍ</div>
-                    <div class="marcador_tab oculto"></div>
-                </a>
-            </li>            
-            <hr id="barCursor" style="opacity: 1;">
-        </ul>
-    </div>
+
+@foreach (var tab in Model.ListaTabs)
+{
     <hr class="clear" />
-</div>
+    <div style="display: none;" data-tag-html="@tab.Id">
+        @if (tab.Id > 0)
+        {
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
+        }
+        else
+        {
+            @Html.Partial("~/Views/RevistaDigital/template-informativa.cshtml", Model)
+        }
+    </div>
+}
+
 <hr class="clear" />
-<div id="Vista1" style="display: none;">
-    <div class="catalogoPersonalizadoBloque">
-        <div class="content_belcorp">
-            <div class="content_slider_ept" id="divCarruselLan" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
-                @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
-            </div>
-        </div>
-    </div>
-    <hr class="clear" />
-    <div class="BloqueLandingRD">
-        <div class="content_belcorp">
-            <div>
-                <div class="titulo_pagina">MIS OFERTAS</div>
-                <div id="divFiltros">
-                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                        @foreach (var item in Model.FiltersByBrand)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
-                    </select>
-                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                        @foreach (var item in Model.FiltersBySorting)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
-                    </select>
-                </div>
-                @*<div class="content_buscador_landing">
-                        <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
-                        <a class="buscar_landing_ept">BUSCAR</a>
-                    </div>*@
-                <hr class="clear" />
-                <div id="divCantProductos" class="cantidad_productos_fav" style="float:none; text-align: right; margin-bottom:20px;">
-                    <div style="display:inline-block;">
-                        Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                    </div>
-                    <div style="display:inline-block; margin: 0 0 0 15px;">
-                        <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                            <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="clear" />
-            <div class="">
-                <hr class="clear" />
-                <div id="divOfertaProductos" style="text-align: center;"></div>
-                <hr class="clear" />
-            </div>
-        </div>
-        <hr class="clear" />
-    </div>
-    <!--FIN-->
-
-    <div id="divMensajeProductoAgregado" class="divAgregarShowRoom" style="display: none;">
-        <div class="titulo_producto_agregado">
-            ¡Has agregado <span id="spnNombreOfertaShowRoom">Hola</span> a tu pedido!
-        </div>
-        <div class="div_bonotes_producto">
-            <div class="child_center_botones">
-                <a class="volver_set" id="btnCerrarSet">VOLVER A SETS</a>
-                <a class="volver_set2" href="@Url.Action("Index","Pedido")" id="btnIrMipedido">VER MI PEDIDO</a>
-            </div>
-        </div>
-    </div>
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+    @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 </div>
-<hr class="clear" />
-<div id="Vista3" class="Vista3" style="display: none;">
-    <div class="content_gana_mas">
-        <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
-        
-        <div class="content_texto_gana">
-            <div style="width:406px;margin:0 auto;">
-                <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
-                <div>
-                    <div class="texto_resaltante_gana">GANA+</div>
-                    <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
-                </div>
-                <div>
-                    <div class="texto_resaltante_gana">VENDE+</div>
-                    <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
-                </div>
-                <div>
-                    <div class="texto_resaltante_gana">PUNTOS+</div>
-                    <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
-                </div>
-                <div class="legal_gana_mas">Comparación VS. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
-            </div>           
-        </div>
-        <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
-        <hr class="clear" />      
-    </div>
-    <div class="content_funciona_esika">
-        <div class="content_belcorp">
-            <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
-                <b>En esta campaña</b> te inscribes Ésika para mí, tu nueva revista online personalizada.
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
-                <b>A partir de C-11</b> recibirás unicamente la versión online de tu revista. En C-11 podrás visualizar las ofertas de la C-12 e ir planificando el pedido de la próxima campaña.
-
-            </div>
-            <div class="bloque_respuesta">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
-                <b>En C-12</b> podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus benficios.
-            </div>
-        </div>
-        <hr class="clear" />
-    </div>
-    <div class="content_belcorp">
-        <div class="titulo_funciona">preguntas frecuentes</div>
-        <div class="seccion_preguntas">
-            <div class="content_preguntas"><span>¿Qué es “Esika para mi”?</span></div>
-            <div class="content_preguntas"><span>¿Cómo hago para cancelar la inscripción?</span></div>
-            <div class="content_preguntas"><span>¿Cómo me inscribo en "Ésika para mi”?</span></div>
-            <div class="content_preguntas"><span>¿Cuál es el tiempo  mínimo de permanencia?</span></div>
-            <div class="content_preguntas"><span>¿Los productos que pido en Esika para mí, suman a mi pedido mínimo y para mis bonificaciones vigentes de la campaña?</span></div>
-            <div class="content_preguntas"><span>No encuentro las ofertas que tenía en la Guía de Negocio en “Ésika para mí”. ¿Dónde están?</span></div>
-            <div class="content_preguntas"><span>¿Ya me registre en “Ésika para mí” pero también quiero la revista impresa ¿Se puede?</span></div>
-            <div class="content_preguntas"><span>Por equivocación he dado click a la inscripción de “Ésika para mí” en el portal Somos Belcorp ¿Cómo la cancelo?</span></div>
-            <div class="content_preguntas"><span>¿Desde cuál campaña no recibiré mi Revista Impresa ¿Por qué?</span></div>
-            <div class="content_preguntas"><span>¿Por qué cancelaron mi revista impresa?</span></div>
-         </div>
-        <div class="titulo_no_inscrita">
-            ¿ya no quieres estar inscrita a ésika para mí?
-        </div>
-        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online ésika<br/> para mí Y volverás a recibir tu revista impresa en 2 campañas.</div>
-        <div class="advertencia_no_inscrita"> Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa<br/> dentro de dos campañas. Cualquier duda entrar en contacto con el servicio de atención al cliente de tu país.</div>
-        <a class="btn_cancelar_inscripcion">CANCELAR MI INSCRIPCIÓN</a>
-    </div>
-    
-</div>
-
-<div id="DialogMensajesBanner" style="display: none;">
-    <div class="message_text">
-        Ocurrió un error en la comunicación o la sesión ha expirado. Por favor vuelva a autenticarse.
-    </div>
-</div>
-
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 <script id="lanzamiento-template" type="text/x-handlebars-template">
@@ -224,9 +80,9 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -245,7 +101,7 @@
                 {{/if_eq}}
                 {{/if_eq}}
                 <div class="content_ficha_producto">
-                    <img id="fav_imagen_prod" src="{{FotoProducto01}}">
+                    <img id="fav_imagen_prod" src="{{FotoProducto01}}" style="max-width: 300px !important;">
                 </div>
                 <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
                     <div class="texto_compartelo">Compártelo con tus clientes</div>
@@ -439,20 +295,11 @@
     </div>
 </script>
 
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
 @section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#VerVista1").on("click", function () {
-                $('#Vista1').show();
-                $('#Vista3').hide();
-            });
-            $("#VerVista3").on("click", function () {
-                $('#Vista1').hide();
-                $('#Vista3').show();
-                $('.Vista3').css('padding-top', '105px');
-            });
-        });
-    </script>
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
@@ -463,11 +310,18 @@
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
         var tipoOrigenEstrategia = 17;
         var estadoAccion = '@Model.EstadoAccion';
+        var dosCam = 0;
+        try {
+            dosCam = '@Model.CampaniaMasDos';
+        } catch (e) {
+           console.log(e);
+        }
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

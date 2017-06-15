@@ -32,6 +32,7 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
     <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/flipclock.css")" rel="stylesheet" type="text/css" />
@@ -116,7 +117,7 @@
             </div>
                 -->
 
-            @if (!string.IsNullOrEmpty(ViewBag.FotoPe5rfil))
+            @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
                 <div class="foto_usuaria_mobile">
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto" />
@@ -726,6 +727,7 @@
     </div>
     
     @Scripts.Render("~/Scripts/Mobile")
+    @Scripts.Render("~/Scripts/MobileLayout")
 
     @if (ViewBag.MostrarOfertaDelDia == true) {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>

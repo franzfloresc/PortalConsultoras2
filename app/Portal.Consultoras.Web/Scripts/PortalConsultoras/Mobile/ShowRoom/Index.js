@@ -186,8 +186,11 @@ function filterShowRoomMobile() {
 }
 
 function CargarFiltroRangoPrecio() {
-    var precioMinFormat = DecimalToStringFormat(precioMin);
-    var precioMaxFormat = DecimalToStringFormat(precioMax);
+    var min = Math.floor(precioMin);
+    var max = Math.ceil(precioMax);
+
+    var precioMinFormat = DecimalToStringFormat(min);
+    var precioMaxFormat = DecimalToStringFormat(max);
 
     var mPremin = parseFloat(precioMin);
     var mPremax = parseFloat(precioMax);

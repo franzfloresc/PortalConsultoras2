@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -162,56 +160,57 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEGrupoBanner> SelectGrupoBanner(int campaniaID)
         {
             IList<BEGrupoBanner> grupos = (IList<BEGrupoBanner>)CacheManager<BEGrupoBanner>.GetData(ECacheItem.GruposBanner, campaniaID.ToString());
-            if (grupos == null)
+            if (grupos != null)
+                return grupos;
+
+            grupos = new List<BEGrupoBanner>();
+            using (IDataReader reader = DABanner.GetGrupoBannerByCampania(campaniaID))
             {
-                grupos = new List<BEGrupoBanner>();
-                using (IDataReader reader = DABanner.GetGrupoBannerByCampania(campaniaID))
+                while (reader.Read())
                 {
+                    var grupo = new BEGrupoBanner(reader);
+                    grupos.Add(grupo);
+                }
+
+                if (reader.NextResult())
+                {
+                    int GrupoBannerId, index = 0;
+                    var consultoras = new List<BEGrupoConsultora>();
                     while (reader.Read())
                     {
-                        var grupo = new BEGrupoBanner(reader);
-                        grupos.Add(grupo);
-                    }
-
-                    if (reader.NextResult())
-                    {
-                        int GrupoBannerId, index = 0;
-                        var consultoras = new List<BEGrupoConsultora>();
-                        while (reader.Read())
+                        GrupoBannerId = Convert.ToInt32(reader[0]);
+                        if (grupos[index].GrupoBannerID != GrupoBannerId)
                         {
-                            GrupoBannerId = Convert.ToInt32(reader[0]);
-                            if (grupos[index].GrupoBannerID != GrupoBannerId)
-                            {
-                                if (consultoras.Count > 0)
-                                    grupos[index].Consultoras = consultoras.ToArray();
+                            if (consultoras.Count > 0)
+                                grupos[index].Consultoras = consultoras.ToArray();
 
-                                consultoras.Clear();
+                            consultoras.Clear();
 
-                                while (index < grupos.Count && grupos[index].GrupoBannerID != GrupoBannerId)
-                                    index++;
+                            while (index < grupos.Count && grupos[index].GrupoBannerID != GrupoBannerId)
+                                index++;
 
-                                if (index >= grupos.Count)
-                                    break;
-                            }
-                            consultoras.Add(new BEGrupoConsultora(reader));
+                            if (index >= grupos.Count)
+                                break;
                         }
-
-                        if (consultoras.Count > 0)
-                            grupos[index].Consultoras = consultoras.ToArray();
-
-                        //List<BEGrupoConsultora> consultoras = new List<BEGrupoConsultora>();
-                        //while (reader.Read())
-                        //{
-                        //    BEGrupoConsultora consultora = new BEGrupoConsultora(reader);
-                        //    consultoras.Add(consultora);
-                        //}
-
-                        //foreach (var item in grupos)
-                        //    item.Consultoras = consultoras.FindAll(x => x.GrupoBannerID == item.GrupoBannerID).ToArray();
+                        consultoras.Add(new BEGrupoConsultora(reader));
                     }
+
+                    if (consultoras.Count > 0)
+                        grupos[index].Consultoras = consultoras.ToArray();
+
+                    //List<BEGrupoConsultora> consultoras = new List<BEGrupoConsultora>();
+                    //while (reader.Read())
+                    //{
+                    //    BEGrupoConsultora consultora = new BEGrupoConsultora(reader);
+                    //    consultoras.Add(consultora);
+                    //}
+
+                    //foreach (var item in grupos)
+                    //    item.Consultoras = consultoras.FindAll(x => x.GrupoBannerID == item.GrupoBannerID).ToArray();
                 }
-                CacheManager<BEGrupoBanner>.AddData(ECacheItem.GruposBanner, campaniaID.ToString(), grupos);
             }
+            CacheManager<BEGrupoBanner>.AddData(ECacheItem.GruposBanner, campaniaID.ToString(), grupos);
+
             return grupos;
         }
 
@@ -296,61 +295,70 @@ namespace Portal.Consultoras.BizLogic
         public IList<BEBanner> SelectBannerBienvenida(int campaniaID)
         {
             List<BEBanner> banners = (List<BEBanner>)CacheManager<BEBanner>.GetData(ECacheItem.BannersBienvenida, campaniaID.ToString());
-            if (banners == null)
+            if (banners != null)
+                return banners;
+
+            banners = new List<BEBanner>();
+            using (IDataReader reader = DABanner.GetBannerByCampaniaBienvenida(campaniaID))
             {
-                banners = new List<BEBanner>();
-                using (IDataReader reader = DABanner.GetBannerByCampaniaBienvenida(campaniaID))
+                while (reader.Read())
                 {
+                    var banner = new BEBanner(reader);
+                    banners.Add(banner);
+                }
+
+                if (banners.Count > 0 && reader.NextResult())
+                {
+                    int index = 0, bannerID;
+                    var paises = new List<int>();
+                    var paises2 = new List<BEBannerSegmentoZona>();
+
                     while (reader.Read())
                     {
-                        var banner = new BEBanner(reader);
-                        banners.Add(banner);
+                        bannerID = Convert.ToInt32(reader[0]);
+                        if (banners[index].BannerID != bannerID)
+                        {
+                            if (paises.Count > 0)
+                            {
+                                banners[index].Paises = paises.ToArray();
+                            }
+
+                            if (paises2.Count > 0)
+                            {
+                                banners[index].PaisesSegZona = paises2.ToArray();
+                            }
+
+                            paises.Clear();
+                            paises2.Clear();
+
+                            while (index < banners.Count && banners[index].BannerID != bannerID)
+                                index++;
+
+                            if (index >= banners.Count)
+                                break;
+                        }
+
+                        paises.Add(Convert.ToInt32(reader[1]));
+                        paises2.Add(new BEBannerSegmentoZona()
+                        {
+                            BannerId = Convert.ToInt32(reader[0]),
+                            PaisId = Convert.ToInt32(reader[1]),
+                            Segmento = Convert.ToInt32(reader[2]),
+                            ConfiguracionZona = Convert.ToString(reader[3])
+                        });
                     }
 
-                    if (banners.Count > 0 && reader.NextResult())
+                    if (paises.Count > 0)
                     {
-                        int index = 0, bannerID;
-                        var paises = new List<int>();
-                        var paises2 = new List<BEBannerSegmentoZona>();
-
-                        while (reader.Read())
-                        {
-                            bannerID = Convert.ToInt32(reader[0]);
-                            if (banners[index].BannerID != bannerID)
-                            {
-                                if (paises.Count > 0)
-                                {
-                                    banners[index].Paises = paises.ToArray();
-                                }
-
-                                if (paises2.Count > 0)
-                                {
-                                    banners[index].PaisesSegZona = paises2.ToArray();
-                                }
-
-                                paises.Clear();
-                                paises2.Clear();
-
-                                while (index < banners.Count && banners[index].BannerID != bannerID)
-                                    index++;
-
-                                if (index >= banners.Count)
-                                    break;
-                            }
-                            paises.Add(Convert.ToInt32(reader[1]));
-                            paises2.Add(new BEBannerSegmentoZona() { BannerId = Convert.ToInt32(reader[0]), PaisId = Convert.ToInt32(reader[1]), Segmento = Convert.ToInt32(reader[2]), ConfiguracionZona = Convert.ToString(reader[3]) });
-                        }
-
-                        if (paises.Count > 0)
-                        {
-                            banners[index].Paises = paises.ToArray();
-                            banners[index].PaisesSegZona = paises2.ToArray();
-                        }
+                        banners[index].Paises = paises.ToArray();
+                        banners[index].PaisesSegZona = paises2.ToArray();
                     }
                 }
-                banners.Sort(CompareBanner);
-                CacheManager<BEBanner>.AddData(ECacheItem.BannersBienvenida, campaniaID.ToString(), banners);
             }
+
+            banners.Sort(CompareBanner);
+            CacheManager<BEBanner>.AddData(ECacheItem.BannersBienvenida, campaniaID.ToString(), banners);
+
             return banners;
         }
 
@@ -361,7 +369,7 @@ namespace Portal.Consultoras.BizLogic
             IList<BEGrupoBanner> grupos = SelectGrupoBanner(campaniaID);
             var bannersByConsultora = new List<BEBannerInfo>();
             BEGrupoBanner grupo = null; BEGrupoConsultora consultora = null;
-
+            
             foreach (BEBanner banner in banners)
             {
                 if (banner.FlagConsultoraNueva)

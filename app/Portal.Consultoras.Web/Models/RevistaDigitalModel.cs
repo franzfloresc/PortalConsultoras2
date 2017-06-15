@@ -10,12 +10,17 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnteriorModel = new RevistaDigitalSuscripcionModel();
+            ListaProducto = new List<EstrategiaPedidoModel>();
+            ListaTabs = new List<ComunModel>();
             FiltersBySorting = new List<BETablaLogicaDatos>();
             FiltersByCategory = new List<BETablaLogicaDatos>();
             FiltersByBrand = new List<BETablaLogicaDatos>();
             FiltersByPublished = new List<BETablaLogicaDatos>();
+            NombreRevista = "QUÉ ES ESIKA PARA MÍ";
         }
 
+        public bool Success { get; set; }
         public int Activo { get; set; }
         public int EstadoSuscripcion { get; set; }
         public int EstadoAccion { get; set; }
@@ -23,15 +28,21 @@ namespace Portal.Consultoras.Web.Models
         public bool NoVolverMostrar { get; set; }
         public decimal PrecioMin { get; set; }
         public decimal PrecioMax { get; set; }
+        public string NombreRevista { get; set; }
         public string Titulo { get; set; }
         public string TituloDescripcion { get; set; }
         public bool IsMobile { get; set; }
+        public int CampaniaID { get; set; }
+        public int CampaniaMasUno { get; set; }
+        public int CampaniaMasDos { get; set; }
+        public string NumeroContacto { get; set; }
         
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }
         public List<BETablaLogicaDatos> FiltersByPublished { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnteriorModel { get; set; }
         public List<EstrategiaPedidoModel> ListaProducto { get; set; }
     }
 }

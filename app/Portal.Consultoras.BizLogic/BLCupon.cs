@@ -19,12 +19,12 @@ namespace Portal.Consultoras.BizLogic
             DACupon.ActualizarCupon(cupon);
         }
 
-        public List<BECupon> ListarCupones()
+        public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
         {
             List<BECupon> listaCupones = new List<BECupon>();
             var DACupon = new DACupon();
 
-            using (IDataReader reader = DACupon.ListarCupones())
+            using (IDataReader reader = DACupon.ListarCuponesPorCampania(paisId, campaniaId))
             {
                 while (reader.Read())
                 {

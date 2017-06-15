@@ -32,13 +32,24 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/AdministrarCupon/Partials/crearCupon.cshtml")
+<div class="wrap" id="contenedor-grilla-cupones" style="display: none;">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="tabla-cupones"></table>
+            <div id="pagerEvento"></div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("~/Views/AdministrarCupon/Partials/mantenimientoCupon.cshtml")
 
 <div id="loadingScreen"></div>
 <script type="text/javascript">
     var urlListarCampanias = '@Url.Action("ListarCampanias", "Campania")';
-    var urlCrearCupon = '@Url.Action("CrearCupon", "Cupon")';
-    var urlActualizarCupon = '@Url.Action("ActualizarCupon", "Cupon")';
+    var urlCrearCupon = '@Url.Action("CrearCupon", "AdministrarCupon")';
+    var urlActualizarCupon = '@Url.Action("ActualizarCupon", "AdministrarCupon")';
+    var urlListarCuponesPorCampania = '@Url.Action("ListarCuponesPorCampania", "AdministrarCupon")';
+    var urlImagenEdit = '@Url.Content("~/Content/Images/Edit.png")';
 </script>
 <script src="~/Scripts/PortalConsultoras/Campania/CampaniaModule.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cupon/CuponAdm.js"></script>

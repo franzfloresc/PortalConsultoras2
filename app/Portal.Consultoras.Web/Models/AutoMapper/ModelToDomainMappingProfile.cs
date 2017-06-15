@@ -20,7 +20,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<MatrizComercialModel, BEMatrizComercial>();
             
-            Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>();
+            Mapper.CreateMap<EstrategiaPedidoModel, BEEstrategia>()
+                .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
+                .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia));
+
+            Mapper.CreateMap<EstrategiaDetalleModelo, BEEstrategiaDetalle>();
+
+            Mapper.CreateMap<TipoEstrategiaModelo, BETipoEstrategia>()
+                .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo ? 1 : 0));
 
             Mapper.CreateMap<ProductoModel, Producto>()
                 .ForMember(t => t.IdMarca, f => f.MapFrom(c => c.MarcaID))
@@ -51,7 +58,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             .ForMember(t => t.TieneCompraXcompra, f => f.MapFrom(c => c.TieneCompraXcompra))
             .ForMember(t => t.TieneSubCampania, f => f.MapFrom(c => c.TieneSubCampania));
 
-            Mapper.CreateMap<MisDatosModel, BEUsuario>()
+            Mapper.CreateMap<MisDatosModel, ServiceUsuario.BEUsuario>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))
                 .ForMember(t => t.EMail, f => f.MapFrom(c => c.EMail))
                 .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono))
@@ -62,7 +69,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                 .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
+            Mapper.CreateMap<UsuarioModel, BEInputReservaProl>()
+                .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))
+                .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
+                .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
+
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
             Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+
         }
     }
 }
