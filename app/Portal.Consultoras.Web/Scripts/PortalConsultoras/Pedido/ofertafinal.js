@@ -256,9 +256,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
-   
+
     if (consultoraRegaloPN) {
-        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo)
+        var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
+        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, montoMeta, objOf.Simbolo)
     }
 
     $("#divOfertaFinal").show();
@@ -304,7 +305,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     
     AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
 
-    AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
+    //AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -351,10 +352,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var simbolo = $("#hdSimbolo").val();
 
     if (consultoraRegaloPN) {
-        var a = $("#msjOfertaFinal").attr("data-meta-monto");
-        var b = $("#divOfertaFinal > div").attr("data-meta-total");
-        var c = parseFloat(a) + parseFloat(b);
-        mostrarMensajeRegaloPN(tipoMeta, data.total, c, simbolo)
+        var aa = $("#msjOfertaFinal").attr("data-meta-monto");
+        var bb = $("#divOfertaFinal > div").attr("data-meta-total");
+        var montoMeta = parseFloat(aa) + parseFloat(bb);
+        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo)
     }
 
     if (tipoMeta == "MM") {
@@ -423,57 +424,60 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo) {
-    //debugger;
-    if (oRegaloPN == null) oRegaloPN = GetRegaloProgramaNuevas();
+    debugger;
+    if (oRegaloPN == null)
+        oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
         console.log(oRegaloPN);
-        var msgRegalo = '';
-        var txtAyuda1 = '';
+        var msgRegalo = "";
+        var txtAyuda1 = "";
         var nivel = oRegaloPN.CodigoNivel;
        
         if (nivel == '01' || nivel == '02' || nivel == '03') {
             txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                 }
                 else {
-                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
+                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '.'
+                    if (oRegaloPN.PrecioCatalogo > 0)
+                        msgRegalo += ' PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogoFormat + '</b>';
                 }
             }
             else {
-                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
             }
         }
         else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            txtAyuda1 = '*En caso tu pedido no tenga observaciones y mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPoint;
+            txtAyuda1 = '*En caso tu pedido no tenga observaciones y mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegalo = '<b>¡GANASTE UN' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN' + oRegaloPN.DescripcionPremio + '!</b>';
                 }
                 else {
-                    msgRegalo = 'AGREGA ' + simbolo + ' ' + montoMeta + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                    msgRegalo = 'AGREGA ' + simbolo + ' ' + montoMeta.toString() + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                 }
             }
             else {
                 if (oRegaloPN.TippingPoint > 0) {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                     }
                     else {
-                        var r = (oRegaloPN.TippingPoint - montoTotal);
-                        r = parseFloat(r).toFixed(2);
-                        msgRegalo = '<b>AGREGA ' + simbolo + ' ' + r.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionRegalo + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
+                        var rr = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
+                        msgRegalo = '<b>AGREGA ' + simbolo + ' ' + rr.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                     }
                 }
                 else {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                 }
             }
         }
 
-        $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "")
+            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
         $('#msg-regalo-pn').html(msgRegalo);
         $('#txt-ayuda1-pn').html(txtAyuda1);
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
@@ -657,33 +661,33 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
 }
 
 
-function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
-    if (listaProductos.length == 0) return;
+//function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
+//    if (listaProductos.length == 0) return;
 
-    $.each(listaProductos, function (index, value) {
+//    $.each(listaProductos, function (index, value) {
 
-    });
+//    });
 
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        async: true,
-        success: function (response) {
-            if (checkTimeout(response)) {
-                if (response.success == true) {
-                }
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                AjaxError(data, error);
-            }
-        }
-    });
-}
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(param),
+//        async: true,
+//        success: function (response) {
+//            if (checkTimeout(response)) {
+//                if (response.success == true) {
+//                }
+//            }
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                AjaxError(data, error);
+//            }
+//        }
+//    });
+//}
 
 function CargarVerDetalleOF(objInput, e) {
     idProdOf = idProdOf + 1;
@@ -976,7 +980,5 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
             }
         });
     }
-
-    debugger;
 }
 
