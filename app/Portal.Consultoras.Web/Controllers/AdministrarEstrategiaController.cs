@@ -535,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string mensaje = "", descripcion = "", precio = "", codigoSAP = ""; int enMatrizComercial = 1;
                 string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO; int idMatrizComercial = 0;
-               
+
                 string wsprecio = ""; ///GR-1060
 
                 if (lst.Count > 0)
@@ -605,10 +605,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int resultado = 0;
             int OrdenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
-
+            string _nroPedido = string.Empty;
             try
             {
+                //Fixed: hacking..
+                if (!string.IsNullOrEmpty(model.NumeroPedido) && model.NumeroPedido.Contains(","))
+                {
+                    _nroPedido = model.NumeroPedido;
+                    model.NumeroPedido = "0";
+                }
+
+                //Mapping..
                 BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
+
+
+                //Fixed revert: Para que realize el mapping correctamente, se devuelve el valor del modelo para que realize la iteracion posteriormente.
+                if (!string.IsNullOrEmpty(_nroPedido))
+                {
+                    model.NumeroPedido = _nroPedido;
+                    //_nroPedido = string.Empty;
+                }
+
+
                 entidad.PaisID = UserData().PaisID;
                 entidad.Orden = OrdenEstrategia;
                 entidad.UsuarioCreacion = UserData().CodigoUsuario;
@@ -616,7 +634,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null && 
+                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
                     (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
@@ -680,10 +698,13 @@ namespace Portal.Consultoras.Web.Controllers
                     model.NumeroPedido = "0";
 
                 List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                BEEstrategiaDetalle estrategiaDetalle =  new BEEstrategiaDetalle();
+                BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
                 foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
                     entidad.NumeroPedido = item;
+
+                    if (!string.IsNullOrEmpty(_nroPedido)) entidad.EstrategiaID = 0; //Fixed bug: _nropedido: 1,2,3 --> Solo Nuevos 
+
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         if (entidad.CodigoTipoEstrategia != null)
@@ -702,6 +723,9 @@ namespace Portal.Consultoras.Web.Controllers
                         
                     }
                 }
+
+                //Cleaning 
+                _nroPedido = string.Empty;
 
                 foreach (var producto in respuestaServiceCdr)
                 {
@@ -799,7 +823,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
@@ -1705,30 +1729,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BEEstrategia verficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
-            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
                 estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop))
                 estrategia.ImgFichaDesktop = SaveFileS3(estrategia.ImgFichaDesktop);
 
             //if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) || estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile)
             //    estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile))
                 estrategia.ImgFichaMobile = SaveFileS3(estrategia.ImgFichaMobile);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop))
                 estrategia.ImgFichaFondoDesktop = SaveFileS3(estrategia.ImgFichaFondoDesktop);
 
-            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) &&
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
 
