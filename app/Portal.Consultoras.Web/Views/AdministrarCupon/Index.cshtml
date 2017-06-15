@@ -24,7 +24,7 @@
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
                     </div>
                 </div>
-                <div class="div-3">
+                <div id="contenedor-boton-crear-cupon" class="div-3" style="display: none;">
                     <div class="input_search">
                         <input type="button" value="Crear" id="btnMostrarPopupMantCupon" name="" style="float: right; margin-right: 250px;">
                     </div>

@@ -73,7 +73,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -102,7 +102,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -251,7 +251,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -280,7 +280,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -429,7 +429,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -458,7 +458,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -607,7 +607,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -636,7 +636,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -785,7 +785,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -814,7 +814,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -963,7 +963,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -992,7 +992,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1141,7 +1141,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1170,7 +1170,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1319,7 +1319,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1348,7 +1348,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1497,7 +1497,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1526,7 +1526,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1675,7 +1675,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1704,7 +1704,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1853,7 +1853,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1882,7 +1882,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -2031,7 +2031,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -2060,7 +2060,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -2209,7 +2209,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -2238,7 +2238,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 

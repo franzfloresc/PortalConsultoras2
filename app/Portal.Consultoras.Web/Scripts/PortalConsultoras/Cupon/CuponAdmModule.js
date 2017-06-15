@@ -38,11 +38,13 @@
         contenedorGrillaCupones: '#contenedor-grilla-cupones',
         contenedorGrillaCuponConsultoras: '#contenedor-grilla-cupon-consultoras',
         tablaCupones: '#tabla-cupones',
+        tablaCuponConsultoras: '#tabla-cupon-consultoras',
         chckActivo: '#chckActivo',
         contenedorCheckActivo:'#contenedor-check-activo',
         contenedorEstadoCuponConsultora: '#contenedor-estado-cupon-consultora',
         contenedorCuponConsultora: '#contenedor-cupon-consultora',
         contenedorCupon: '#contenedor-cupon',
+        contenedorBotonCrearCupon: '#contenedor-boton-crear-cupon',
         spnCampania: '#spnCampania',
         spnTipo: '#spnTipo',
         spnDescripcion: '#spnDescripcion',
@@ -106,12 +108,14 @@
                 $(elements.ddlCampania).append($('<option/>', { value: "", text: "-- Seleccionar --" }));
             }
 
+            _validarMostrarContenedorBotonCrearCupon();
             _listarCuponesPorCampania();
         });
 
         $(document).on("change", elements.ddlCampania, function () {
             waitingDialog({});
 
+            _validarMostrarContenedorBotonCrearCupon();
             _listarCuponesPorCampania();
         });
 
@@ -187,7 +191,7 @@
             title: "Cupón",
             buttons:
             {
-                "Guardar": function () {
+                "Grabar": function () {
                     if ($(elements.hdCuponId).val() == "") {
                         _guardarCupon(mantCuponDialog);
                     } else {
@@ -212,7 +216,7 @@
             title: "Consultora",
             buttons:
             {
-                "Guardar": function () {
+                "Grabar": function () {
                     if ($(elements.hdCuponConsultoraId).val() == "") {
                         _guardarCuponConsultora(mantCuponConsultoraDialog);
                     } else {
@@ -237,7 +241,7 @@
             title: "Carga",
             buttons:
             {
-                "Guardar": function () {
+                "Grabar": function () {
                     _procesarCargaMasivaCuponConsultora();
                 },
                 "Cancelar": function () {
@@ -505,7 +509,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo', 'Descripción', 'Creación', ''],
+            colNames: ['Tipo', 'Descripción', 'Creación', 'Acción'],
             colModel: [
                 { name: 'Tipo', width: 50, editable: true, resizable: false },
                 { name: 'Descripcion', width: 80, editable: true, resizable: false },
@@ -568,7 +572,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Consultora', 'Valor Asociado', 'Estado', ''],
+            colNames: ['Consultora', 'Valor Asociado', 'Estado', 'Acción'],
             colModel: [
                 { name: 'Consultora', width: 50, editable: true, resizable: false },
                 { name: 'ValorAsociado', width: 80, editable: true, resizable: false },
@@ -708,6 +712,14 @@
     var _mostrarContenedorCupon = function () {
         $(elements.contenedorCupon).show();
         $(elements.contenedorCuponConsultora).hide();
+    };
+
+    var _validarMostrarContenedorBotonCrearCupon = function () {
+        if ($(elements.ddlPais).val() != '' && $(elements.ddlCampania).val() != '') {
+            $(elements.contenedorBotonCrearCupon).show();
+        } else {
+            $(elements.contenedorBotonCrearCupon).hide();
+        }
     };
 
     var _setearValoresEditarCupon = function (cuponId, tipo, descripcion, estado) {
