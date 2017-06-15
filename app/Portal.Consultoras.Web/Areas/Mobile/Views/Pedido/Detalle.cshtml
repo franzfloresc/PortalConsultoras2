@@ -537,7 +537,7 @@
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body=""> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
-        <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal">
+        <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
         <!---->
@@ -576,7 +576,7 @@
             <div class="bloque_carousel" style="margin-top:-90px;">
                 <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                     {{#each this.Detalle}}
-                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{ID}}">
                         <div style="display: none;">
                             <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
                             <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -601,6 +601,8 @@
                             <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                             <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
+                            <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
+                            <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
                         </div>
                         <div class="contenido_item_ofertaFinal">
                             <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="" >
@@ -628,7 +630,7 @@
                                         <div class="clear"></div>
                                     </div>
                                 </div>
-                                <a class="boton_Agregalo_home agregarOfertaFinal">
+                                <a class="boton_Agregalo_home agregarOfertaFinal" onclick="of_google_analytics_addtocar('mobile','list',{{ID}},'{{TipoMeta}}')">
                                     AGRÉGALO
                                 </a>
                                 <div class="clear"></div>
@@ -644,7 +646,7 @@
                     {{/each}}
                 </div>
             </div>
-            <a href="javascript:;" title="RESERVA TU PEDIDO" class="enlace_btnNoGracias btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
+            <a href="javascript:;" title="RESERVA TU PEDIDO" class="enlace_btnNoGracias btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                 RESERVA TU PEDIDO
             </a>
         </div>
@@ -658,7 +660,7 @@
 
 <!-- PL20 1287 - INICIO -->
     <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" data-item="" style="padding-bottom:0;">
+        <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
             <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
             <hr class="clear">
             <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -694,6 +696,13 @@
                     <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="Volumen" value="{{Volumen}}" />
                     <input type="hidden" class="Palanca" value="OF" />
+                    <input type="hidden" class="ID" value="{{ID}}" />
+                    <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+                    <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+                    <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                    <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                    <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                    <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 </div>
                 <a class="btn_compartir_ofertas"href="javascript: void(0);" data-compartir="WA">
                     <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
@@ -711,7 +720,8 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}">AGRÉGALO</a>
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{ID}}"
+                           onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                         <hr class="clear">
                     </div>
                 </div>

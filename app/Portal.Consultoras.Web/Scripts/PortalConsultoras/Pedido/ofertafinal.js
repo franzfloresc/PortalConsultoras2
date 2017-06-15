@@ -874,7 +874,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
             id       = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
             variant  = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();
             quantity = $("#divOfertaFinal").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
-        
+            if (variant == "") { variant = "Estándar"; }
             product = {
                 name: name,
                 price: price,
@@ -891,12 +891,11 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
 
         if (ubic == "detail") {
             origen = "Popup Oferta Final - Detalle";
-            name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".Nombre").val();
-
+            name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
             //*****************logica de la pagina para el precio***************************
-            var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioValorizado").val();
-            var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioValorizadoString").val();
-            var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".PrecioCatalogoString").val();
+            var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
+            var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
+            var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
             if (precio_valorizado > 0) {
                 price = precio_valorizado_string
             }
@@ -904,11 +903,80 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
                 price = precio_catalogo_string
             }
             //******************************
-            brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".MarcaNombre").val();
-            id = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".CUV").val();
-            variant = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find(".DescripcionEstrategia").val();
-            quantity = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
+            brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
+            id = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".CUV").val();
+            variant = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".DescripcionEstrategia").val();
+            quantity = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find("[data-input='cantidad']").val();
+            if (variant == "") { variant = "Estándar"; }
+            product = {
+                name: name,
+                price: price,
+                brand: brand,
+                id: id,
+                category: 'NO DISPONIBLE',
+                variant: variant,
+                quantity: quantity,
+                position: position,
+                timeAddToCart: '100',
+                origen: origen
+            }
+        }
+    }
 
+    if (entorno == "mobile") {
+        if (ubic == "list") {
+            origen = "Popup Oferta Final - Listado";
+            name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
+            //*****************logica de la pagina para el precio***************************
+            var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
+            var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
+            var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
+            if (precio_valorizado > 0) {
+                price = precio_valorizado_string
+            }
+            else {
+                price = precio_catalogo_string
+            }
+            //******************************
+            brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
+            id = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
+            variant = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();
+            quantity = $("#divOfertaFinal").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
+            //quantity = $("#divOfertaFinal").find("[data-input='cantidad']").val();
+            if (variant == "") { variant = "Estándar"; }
+            product = {
+                name: name,
+                price: price,
+                brand: brand,
+                id: id,
+                category: 'NO DISPONIBLE',
+                variant: variant,
+                quantity: quantity,
+                position: position,
+                timeAddToCart: '100',
+                origen: origen
+            }
+        }
+
+        if (ubic == "detail") {
+            origen = "Popup Oferta Final - Detalle";
+            name = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".Nombre").val();
+            //*****************logica de la pagina para el precio***************************
+            var precio_valorizado = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizado").val();
+            var precio_valorizado_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioValorizadoString").val();
+            var precio_catalogo_string = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".PrecioCatalogoString").val();
+            if (precio_valorizado > 0) {
+                price = precio_valorizado_string
+            }
+            else {
+                price = precio_catalogo_string
+            }
+            //******************************
+            brand = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".MarcaNombre").val();
+            id = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".CUV").val();
+            variant = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find(".DescripcionEstrategia").val();
+            quantity = $("#contenedor_popup_ofertaFinalVerDetalle").find("[data-item = " + element + "]").find("[data-input='cantidad']").val();
+            if (variant == "") { variant = "Estándar"; }
             product = {
                 name: name,
                 price: price,
@@ -938,7 +1006,64 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
             }
         });
     }
-
-    debugger;
 }
 
+function of_google_analytics_product_click(entorno, element, meta) {
+    var list;
+    var name, price, brand, id, variant, quantity, position;
+
+    list = "Oferta Final - ";
+    if (meta == "MM") { list = list + "Pedido Mínimo"; }
+    if (meta == "GM") { list = list + "Gana más"; }
+    if (meta == "") { list = list + "Descuento Adicional"; }
+
+    position = element + 1;
+
+    origen = "Popup Oferta Final - Listado";
+    name = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalNombreComercial").val();
+    //*****************logica de la pagina para el precio***************************
+    var precio_valorizado = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizado").val();
+    var precio_valorizado_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioValorizadoString").val();
+    var precio_catalogo_string = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalPrecioCatalogoString").val();
+    if (precio_valorizado > 0) {
+        price = precio_valorizado_string
+    }
+    else {
+        price = precio_catalogo_string
+    }
+    //******************************
+    brand = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionMarca").val();
+    id = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalCuv").val();
+    variant = $("#divOfertaFinal").find("[data-id = " + element + "]").find(".hdOfertaFinalDescripcionEstrategia").val();
+    quantity = $("#divOfertaFinal").find("[data-id = " + element + "]").find("[data-input='cantidad']").val();
+    if (variant == "") { variant = "Estándar"; }
+
+    dataLayer.push({
+        'event': 'productClick',
+        'ecommerce': {
+            'currencyCode': 'PEN',
+            'click': {
+                'actionField': { 'list': list },
+                'products': [{
+                    'name': name,
+                    'price': price,
+                    'brand': brand,
+                    'id': id,
+                    'category': 'NO DISPONIBLE',
+                    'variant': variant,
+                    'position': position
+                }]
+            }
+        }
+    });
+}
+
+function of_google_analytics_cerrar_popup() {
+    debugger;
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ingresa tu pedido',
+        'action': 'Oferta final',
+        'label': 'Cerrar Popup'
+    });    
+}

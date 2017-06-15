@@ -2236,7 +2236,7 @@
             <div class="content-texto-producto-alternativo" id="msg-regalo-pn">AGREGA S/. 30.00 PARA <b>GANARTE 1 MAGNAT Y ACCEDER A OFERTAS EXCLUSIVAS</b></div>
         </div>
         <div class="btn_cerrar_ofertaFinal">
-            <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal">
+            <a href="javascript:;" title="Cerrar" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -2315,7 +2315,7 @@
                 <div class="contenido_item_carrusel_ofertaFinal" style="height:295px;" >
                     <div class="nohely producto_img_home" style="height:115px;" data-tooltip-text="{{CUVPedidoNombre}}" data-verdetalle="" onclick="javascript:CargarVerDetalleOF(this, event);">
                         <img src="{{ImagenProductoSugerido}}" style="height: 100%;" data-tooltip-text="{{CUVPedidoNombre}}">
-                        <a class="ver_detalle_carrusel" style="bottom:23px;">VER DETALLE</a>
+                        <a class="ver_detalle_carrusel" style="bottom:23px;" onclick="of_google_analytics_product_click('desktop',{{ID}},'{{TipoMeta}}')">VER DETALLE</a>
                     </div>
                     <div class="producto_nombre_descripcion">
                         <div onclick="javascript:CargarVerDetalleOF(this, event);">
@@ -2354,7 +2354,7 @@
                         
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
+                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
                     </button>
                 </div>
@@ -2435,7 +2435,7 @@
                 </div>
             </div>
             <a class="boton_Agregalo_home ficha_btn_agregar agregarOfertaFinalVerDetalle" data-popup-verdetalle="{{id}}" style="width:238px;" 
-               onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">
+               onclick="of_google_analytics_addtocar('desktop','detail',{{ID}},'{{TipoMeta}}')">
                 AGRÉGALO
             </a>
         </div>
