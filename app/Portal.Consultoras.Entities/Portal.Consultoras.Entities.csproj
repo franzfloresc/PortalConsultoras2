@@ -66,6 +66,7 @@
     <Compile Include="BEMovimiento.cs" />
     <Compile Include="BEConsultoraConcurso.cs" />
     <Compile Include="BEConsultoraResumen.cs" />
+    <Compile Include="BEPremio.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />

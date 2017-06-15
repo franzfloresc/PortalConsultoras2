@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using Incentivos = Portal.Consultoras.Common.Constantes.Inventivo;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -44,6 +45,7 @@ namespace Portal.Consultoras.BizLogic
             DAConcurso DAConcurso = new DAConcurso(PaisID);
             DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso);
         }
+
         /// <summary>
         /// Obtener el puntaje del concurso que participa la consultora.
         /// </summary>
@@ -52,18 +54,80 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoConcurso"></param>
         /// <returns></returns>
-        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoConcurso)
+        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
         {
             List<BEConsultoraConcurso> PuntosXConcurso = new List<BEConsultoraConcurso>();
             DAConcurso DAConcurso = new DAConcurso(PaisID);
-            using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(CodigoCampania, CodigoConsultora, CodigoConcurso))
+            List<BEPremio> Premios = new List<BEPremio>();
+            try
             {
-                while (reader.Read())
+                using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(CodigoCampania, CodigoConsultora))
                 {
-                    BEConsultoraConcurso Concurso = new BEConsultoraConcurso(reader);
-                    PuntosXConcurso.Add(Concurso);
+                    while (reader.Read())
+                    {
+                        PuntosXConcurso.Add(new BEConsultoraConcurso(reader));
+                    }
+
+                    if (PuntosXConcurso.Any() && reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            Premios.Add(new BEPremio(reader));
+                        }
+                    }
+                    foreach (var item in PuntosXConcurso)
+                    {
+                        item.Premios = Premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+                    }
                 }
             }
+            catch (System.Exception)
+            {
+                PuntosXConcurso.Add(new BEConsultoraConcurso
+                {
+                    CodigoCampania = CodigoCampania,
+                    CodigoConcurso = "-1",
+                    Mensaje = Incentivos.TextoNoTenemosConcurso
+                });
+            }
+
+            if (!PuntosXConcurso.Any())
+            {
+                PuntosXConcurso.Add(new BEConsultoraConcurso
+                {
+                    CodigoCampania = CodigoCampania,
+                    CodigoConcurso = "-1",
+                    Mensaje = Incentivos.TextoNoTenemosConcurso
+                });
+            }
+            else
+            {
+                // Cargar información de incentivos.
+                foreach (var item in PuntosXConcurso)
+                {
+                    // Si el concurso tiene un solo premio y no ha llegado al puntaje minimo.
+                    if (item.Premios.Count == 1 && item.Premios.Any(p => p.PuntajeMinimo < item.PuntajeTotal))
+                    {
+                        item.Premios.FirstOrDefault().Mensaje = string.Format(Incentivos.TextoTeFaltan, item.PuntosFaltantesSiguienteNivel);
+                        break;
+                    }
+                    // Si el concurso tiene un solo premio y ha llegado al puntaje minimo.
+                    if (item.Premios.Count == 1 && item.Premios.Any(p => item.PuntajeTotal > p.PuntajeMinimo))
+                    {
+                        item.Premios.FirstOrDefault().Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, item.Premios.Select(p => p.PuntajeMinimo));
+                        break;
+                    }
+                    if (item.Premios.Count > 1)
+                    {
+                        foreach (var premio in item.Premios)
+                        {
+
+                        }
+                    }
+                    // SI el concurso tiene mas premios 
+                }
+            }
+
             return PuntosXConcurso;
         }
     }
