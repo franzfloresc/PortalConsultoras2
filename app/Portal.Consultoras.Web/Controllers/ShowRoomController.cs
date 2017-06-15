@@ -138,6 +138,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var showRoomEventoModel = CargarValoresModel();
+                showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
+                if (!showRoomEventoModel.ListaShowRoomOferta.Any())
+                    return RedirectToAction("Index", "Bienvenida");
 
                 using (SACServiceClient svc = new SACServiceClient())
                 {
@@ -149,7 +152,6 @@ namespace Portal.Consultoras.Web.Controllers
                 //ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
                 ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
                 ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
-                Session["TieneSubCampania"] = showRoomEventoModel.TieneSubCampania;
 
                 ViewBag.CloseBannerCompraPorCompra = userData.CloseBannerCompraPorCompra;
 
@@ -2723,27 +2725,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(false))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new List<ShowRoomOfertaModel>(),
-                        cantidadTotal = 0,
-                        cantidad = 0
-                    });
-                }
-
-                var listaFinal = new List<ShowRoomOfertaModel>();
+                if (!ValidarIngresoShowRoom(false)) return ErrorJson("");
+                
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
+                var urlCompartir = GetUrlCompartirFB();
                 var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                int cantidadTotal = listaProductos.Count;
+                listaProductos.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                listaFinal = listaProductos.Where(x => x.EsSubCampania == false).ToList();
-                var cantSubCamp = cantidadTotal - listaFinal.Count;
+                var listaNoSubCampania = listaProductos.Where(x => !x.EsSubCampania).ToList();
+                int totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
@@ -2751,7 +2742,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (filtroCategoria != null)
                     {
                         var arrayCategoria = filtroCategoria.Valores.ToArray();
-                        listaFinal = listaFinal.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
+                        listaNoSubCampania = listaNoSubCampania.Where(p => arrayCategoria.Contains(p.CodigoCategoria)).ToList();
                     }
 
                     var filtroRangoPrecio = model.ListaFiltro.FirstOrDefault(p => p.Tipo == Constantes.ShowRoomTipoFiltro.RangoPrecios);
@@ -2759,11 +2750,10 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var valorDesde = filtroRangoPrecio.Valores[0];
                         var valorHasta = filtroRangoPrecio.Valores[1];
-                        listaFinal = listaFinal.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
+                        listaNoSubCampania = listaNoSubCampania.Where(p => p.PrecioOferta >= Convert.ToDecimal(valorDesde)
                                      && p.PrecioOferta <= Convert.ToDecimal(valorHasta)).ToList();
                     }
-                }                
-
+                }
                 if (model.Ordenamiento != null)
                 {
                     if (model.Ordenamiento.Tipo == Constantes.ShowRoomTipoOrdenamiento.Precio)
@@ -2771,71 +2761,38 @@ namespace Portal.Consultoras.Web.Controllers
                         switch (model.Ordenamiento.Valor)
                         {
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaFinal = listaFinal.OrderBy(p => p.PrecioOferta).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.PrecioOferta).ToList();
                                 break;
                             case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaFinal = listaFinal.OrderByDescending(p => p.PrecioOferta).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderByDescending(p => p.PrecioOferta).ToList();
                                 break;
                             default:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                                listaNoSubCampania = listaNoSubCampania.OrderBy(p => p.Orden).ToList();
                                 break;
                         }
-                    }
-                    
-                }
-                
-                if (model.Limite > 0)
-                    listaFinal = listaFinal.Take(model.Limite).ToList();
+                    }                    
+                }                
+                if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                //listaFinal.Update(s=>s.Descripcion = Util.SubStrCortarNombre(s.Descripcion, 40));
-
-                int cantidad = listaFinal.Count;
-
-                /*
-                foreach (var producto in listaFinal)
-                {
-                    if (producto.EsSubCampania)
-                    {
-                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
-                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
-                    }
-                    producto.UrlCompartir = GetUrlCompartirFB();
-                }
-                 * */
-
-                if (Session["TieneSubCampania"] != null && Convert.ToBoolean(Session["TieneSubCampania"]))
-                {
-                    var xlistaSubCampania = listaProductos.Where(x => x.EsSubCampania == true).ToList();
-                    foreach (var producto in xlistaSubCampania)
-                    {
-                        var detalle = GetOfertaConDetalle(producto.OfertaShowRoomID);
-                        producto.ListaDetalleOfertaShowRoom = detalle.ListaDetalleOfertaShowRoom;
-                        producto.UrlCompartir = GetUrlCompartirFB();
-                        listaFinal.Add(producto);
-                    }
-                }
+                var listaSubCampania = listaProductos.Where(x => x.EsSubCampania).ToList();
+                listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
 
                 return Json(new
                 {
                     success = true,
                     message = "Ok",
-                    lista = listaFinal,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidad,
-                    cantSubCamp = cantSubCamp
+                    listaNoSubCampania = listaNoSubCampania,
+                    totalNoSubCampania = totalNoSubCampania,
+                    listaSubCampania = listaSubCampania
                 });
             }
             catch (Exception ex)
             {
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
-                });
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }            
         }
 

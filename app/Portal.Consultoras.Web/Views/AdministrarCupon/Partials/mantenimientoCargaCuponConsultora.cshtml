@@ -1,7 +1,9 @@
 ﻿<div id="popup-mantenimiento-carga-cupon-consultora" style="display: none;">
     <input type="hidden" id="hdCuponConsultoraId" value="" />
-    @using (Html.BeginForm("Action", "Controller", FormMethod.Post, new { id = "frmCargarConsultora", enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("CuponConsultoraCargaMasiva", "AdministrarCupon", FormMethod.Post, new { id = "frmCargarConsultora", enctype = "multipart/form-data" }))
     {
+        <input type="hidden" id="hdCampaniaIdFrmCargaMasiva" name="hdCampaniaIdFrmCargaMasiva" />
+        <input type="hidden" id="hdCuponIdFrmCargaMasiva" name="hdCuponIdFrmCargaMasiva" />
         <div class="Content_modal">
             <div class="div-3">
                 <div class="titC">

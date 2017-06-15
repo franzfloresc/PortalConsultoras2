@@ -16,7 +16,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -81,7 +81,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -146,7 +146,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -211,7 +211,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -276,7 +276,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -341,7 +341,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -406,7 +406,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -471,7 +471,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -536,7 +536,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -601,7 +601,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -666,7 +666,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -731,7 +731,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'
@@ -796,7 +796,7 @@ BEGIN
 	SET @EstrategiaCodigo = CASE @TipoEstrategia 
 		WHEN 4 THEN 'OPT'
 		WHEN 7 THEN 'ODD'
-		WHEN 8 THEN 'BS'
+		WHEN 20 THEN 'BS'
 		WHEN 9 THEN 'LAN'
 		WHEN 10 THEN 'OPM'
 		WHEN 11 THEN 'PAD'

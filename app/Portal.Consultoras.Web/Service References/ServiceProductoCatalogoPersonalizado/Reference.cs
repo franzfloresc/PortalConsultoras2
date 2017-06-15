@@ -946,6 +946,12 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUV", ReplyAction="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUVResponse" +
             "")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAppCatalogoByListaCUVAsync(string codigoIso, int campaniaId, string listaCuv);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinal", ReplyAction="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinalResponse")]
+        void UpdateCacheListaOfertaFinal(string codigoIso, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinal", ReplyAction="http://tempuri.org/IProductoService/UpdateCacheListaOfertaFinalResponse")]
+        System.Threading.Tasks.Task UpdateCacheListaOfertaFinalAsync(string codigoIso, int campaniaId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1021,6 +1027,14 @@ namespace Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado.Producto[]> ObtenerProductosAppCatalogoByListaCUVAsync(string codigoIso, int campaniaId, string listaCuv) {
             return base.Channel.ObtenerProductosAppCatalogoByListaCUVAsync(codigoIso, campaniaId, listaCuv);
+        }
+        
+        public void UpdateCacheListaOfertaFinal(string codigoIso, int campaniaId) {
+            base.Channel.UpdateCacheListaOfertaFinal(codigoIso, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task UpdateCacheListaOfertaFinalAsync(string codigoIso, int campaniaId) {
+            return base.Channel.UpdateCacheListaOfertaFinalAsync(codigoIso, campaniaId);
         }
     }
 }

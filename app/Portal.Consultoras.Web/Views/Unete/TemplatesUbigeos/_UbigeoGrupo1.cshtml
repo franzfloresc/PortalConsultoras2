@@ -358,7 +358,7 @@ else
             });
 
             $('#btnGrabarDireccion').click(function () {
-                if ($('#form0').valid()) {
+                if ($('#formTemplate').valid()) {
                     $('#btnModificarDireccion').show();
                     $('#btnGrabarDireccion').hide();
                     $('#btnCancelarEdicion').hide();
@@ -369,7 +369,7 @@ else
                     $('#btnEditarPosicion').attr('disabled', false);
                     $('#btnGuardarPosicion').attr('disabled', false);
                     $('#btnActualizarSeccion').attr('disabled', false);
-                    HabilitarDatosDireccion(0);
+                    //HabilitarDatosDireccion(0);
                 }
             });
 

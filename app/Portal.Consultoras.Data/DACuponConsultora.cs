@@ -89,5 +89,21 @@ namespace Portal.Consultoras.Data
             }
             catch (Exception ex) { throw ex; }
         }
+
+        public int InsertarCuponConsultorasXML(int cuponId, int campaniaId, string xml)
+        {
+            try
+            {
+                using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarCuponConsultoraCargaMasiva"))
+                {
+                    Context.Database.AddInParameter(command, "@CuponId", DbType.Int32, cuponId);
+                    Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+                    Context.Database.AddInParameter(command, "@CuponConsultorasXml", DbType.Xml, xml);
+
+                    return Context.ExecuteNonQuery(command);
+                }
+            }
+            catch (Exception ex) { throw ex; }
+        }
     }
 }

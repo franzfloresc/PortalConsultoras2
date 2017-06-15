@@ -614,9 +614,22 @@
             public const string Utilizado = "Utilizado";
         }
 
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }
+
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+	
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
         }
         
         public class ConfiguracionPais
@@ -639,17 +652,6 @@
             public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
-        }
-
-        public class CodigoTipoCupon
-        {
-            public const int Monto = 1;
-            public const int Porcentaje = 2;
-        }        
-        public class NombreTipoCupon
-        {
-            public const string Monto = "Monto";
-            public const string Porcentaje = "Porcentaje";
         }
 
         public class TipoOfertasPlan20

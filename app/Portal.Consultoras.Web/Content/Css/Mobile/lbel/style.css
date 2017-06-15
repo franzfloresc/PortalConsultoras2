@@ -4323,6 +4323,8 @@ width:100%;
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     position:relative;
 }
+
+
 .previous_ofertas_mobile{
     display:block;
     top: 0;
@@ -8324,6 +8326,10 @@ a{
     text-decoration:underline;
 }
 
+.mensaje_horarioIngresoPedido a.CerrarBanner{
+    color: #000;
+}
+
 /* FIN MENSAJES PEDIDO RECHAZADO */
 
 /*SHOWROOM*/
@@ -10191,14 +10197,19 @@ span.icon-advertencia{
     margin-top:15px;
 }
 .termino_condiciones_intriga, .termino_condiciones_cupon{
-    position:relative;
-    padding-left:18px;
-    margin:0 auto;
-    margin-top:20px;
-    font-family:'Lato';
-    font-size:10.5px;
-    max-width:260px;    
-   text-align: left;
+    position: relative;
+    padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    max-width: 260px;    
+    text-align: left;
+}
+.termino_condiciones_cupon {
+    position: relative;
+    padding-left: 18px;
+    margin-top:0;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
@@ -11013,11 +11024,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     margin-top:2px;
 }
 .content_descripcion_set{
-       float: right;
+    float: right;
     /* width: auto; */
-     width:-moz-calc(100% - 60px);
+    /*width: -moz-calc(100% - 60px);
     width: calc(100% - 60px);
-   
+    width: -webkit-calc(100% - 60px);*/
 }
 .content_imagen_individual{
     float:left;
@@ -11375,27 +11386,47 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     text-align:center;
     font-family:'Lato';
 }
-.titulo_gana{
-    font-size: 35px;
+.titulo_gana {
+    font-size: 10px;
     color: white;
     height: 46px;
+    letter-spacing: 0.5px;
+    -moz-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 5px;
+    width: 200px;
+    line-height: 15px;
+}
+.titulo_gana span {
+    font-size: 19px;
+    letter-spacing: 1.1px;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-top:28px;
 }
-.subtitulo_gana{
-    font-family:'Lato';
-    color:white;
-    font-size:14px;
-    /*font-weight:900;*/
-    letter-spacing:1.2px;   
+.subtitulo_gana {
+    font-family: 'Lato';
+    color: white;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    width: 196px;
+    margin: 0 auto;
+    margin-bottom: -5px;
+    -moz-text-align-last: justify;
+    text-align-last: justify;
+    text-align: justify;
 }
-.monto_gana{
-    font-family:'Lato';
-    font-size:48px;
-    color:white;
-    font-weight:700;
-    margin-top: -8px;
+.monto_gana {
+    font-family: 'Lato';
+    font-size: 94px;
+    color: white;
+    font-weight: 700;
+    margin-top: -35px;
+    float: left;
+    padding-left: 23px;
+    height: 107px;
+    letter-spacing: 4px;
 }
 .tipo_moneda{
     font-size:38px;    

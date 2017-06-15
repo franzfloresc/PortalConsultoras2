@@ -236,17 +236,15 @@
             <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
         </div>
         <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
-            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
         </div>
     </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
-<!--NUEVA PALANCA-->
 @if (Model.TieneMasVendidos == 1)
 {
     Html.RenderPartial("MasVendidos");
 }
-
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
 <div class="fondo_gris" id="divRevistaDigital"></div>
@@ -1437,9 +1435,9 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2230,9 +2228,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
