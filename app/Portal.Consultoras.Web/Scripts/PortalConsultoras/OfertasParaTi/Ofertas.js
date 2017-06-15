@@ -18,10 +18,14 @@ var listaFiltros = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
 
     $("a[data-filtro-tipo]").click(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
     
@@ -163,6 +167,7 @@ function CargarFiltroRangoPrecio() {
 }
 
 function OfertaObtenerProductos(filtro, clear) {
+
     var busquedaModel = OfertaFilter(filtro);
     OfertaCargarProductos(busquedaModel, clear);
 }
