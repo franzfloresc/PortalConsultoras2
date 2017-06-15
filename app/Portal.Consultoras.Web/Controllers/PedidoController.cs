@@ -506,17 +506,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     int ClienteID = Convert.ToInt32(model.ClienteID);
 
-                    using(ClienteServiceClient service = new ClienteServiceClient())
+                    if (ClienteID > 0)
                     {
-                        var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, ClienteID, 0);
-                        if(cliente.TieneTelefono == 0)
+                        using (ClienteServiceClient service = new ClienteServiceClient())
                         {
-                            return Json(new
+                            var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, ClienteID, 0);
+                            if (cliente.TieneTelefono == 0)
                             {
-                                success = false,
-                                message = "Debe actualizar los datos del cliente.",
-                                errorCliente = true
-                            });
+                                return Json(new
+                                {
+                                    success = false,
+                                    message = "Debe actualizar los datos del cliente.",
+                                    errorCliente = true
+                                });
+                            }
                         }
                     }
                 }
