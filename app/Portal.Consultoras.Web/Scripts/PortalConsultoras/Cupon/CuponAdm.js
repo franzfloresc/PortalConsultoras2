@@ -18,7 +18,8 @@
         urlListarCuponConsultorasPorCupon: urlListarCuponConsultorasPorCupon,
         urlCuponConsultoraCargaMasiva: urlCuponConsultoraCargaMasiva,
         urlImagenDelete: urlImagenDelete,
-        urlImagenDetail: urlImagenDetail
+        urlImagenDetail: urlImagenDetail,
+        urlImagenEnable: urlImagenEnable
     };
     
     cuponAdmModule.ini(objInitializerCupon);
