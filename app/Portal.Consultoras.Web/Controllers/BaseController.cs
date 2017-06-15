@@ -279,10 +279,17 @@ namespace Portal.Consultoras.Web.Controllers
 
             List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
             string ConcursosCodigos = string.Empty;
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
-            //}
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                try
+                {
+                    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
+                }
+                catch (Exception)
+                {
+                    Concursos = new List<BEConsultoraConcurso>();
+                }
+            }
             if (Concursos.Any())
             {
                 ConcursosCodigos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
@@ -295,15 +302,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
                 rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, ConcursosCodigos).ToList();
-                //rtpa = sv.CalculoMontosProl(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ds.Tables[0]).ToList();
-
             }
 
             rtpa = rtpa ?? new List<ObjMontosProl>();
             Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
             return rtpa;
         }
-
 
         protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)
         {
@@ -353,8 +357,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                string Concursos = lista[0].ListaConcursoIncentivos.Any() ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.codigoconcurso).ToArray()) : string.Empty;
-                string Puntajes = lista[0].ListaConcursoIncentivos.Any() ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.puntajeconcurso).ToArray()) : string.Empty;
+                string Concursos = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.codigoconcurso).ToArray()) : string.Empty;
+                string Puntajes = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.puntajeconcurso).ToArray()) : string.Empty;
 
                 BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
                 bePedidoWeb.PaisID = userData.PaisID;
@@ -367,8 +371,10 @@ namespace Portal.Consultoras.Web.Controllers
                 bePedidoWeb.MontoEscala = montoEscala;
 
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
-                // Aqui Insertar/Actualizar los puntos de la consultora.
-                //sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), Concursos, Puntajes);
+                // Insertar/Actualizar los puntos de la consultora.
+                if (lista[0].ListaConcursoIncentivos != null)
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), Concursos, Puntajes);
+
                 // poner en Session
                 Session["PedidoWeb"] = null;
                 userData.EjecutaProl = true;
@@ -1652,7 +1658,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                
+
                 //return new BarraConsultoraModel();
             }
 
