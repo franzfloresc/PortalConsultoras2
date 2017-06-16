@@ -684,5 +684,8 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
+
+        [OperationContract]
+        string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
     }
 }

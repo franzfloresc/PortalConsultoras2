@@ -941,7 +941,7 @@ div#tab_revistasdigital_mobile {
     left: -20px;
     top: 0;
     z-index: 102;
-    width: 25px;
+   
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
@@ -1020,7 +1020,7 @@ div#tab_revistasdigital_mobile {
     font-weight:700;
     letter-spacing:2px;
     position:relative;
-    margin-top:30px;
+    /*margin-top:30px;*/
 }
 .subtitulo_landing:after{
     content:'';
@@ -1620,12 +1620,12 @@ height: 100%;
 
 
 .revistadigital-detalle-titulo {
-    height: 50px;
+    height: 48px;
 }
 
 .revistadigital-detalle-titulo .logo_EPT_content{
         background:black;
-        height: 50px;
+        height: 48px;
         padding-top:0;
 }
 .revistadigital-detalle-titulo .logo_EPT_content span{
@@ -1634,7 +1634,7 @@ height: 100%;
         padding-left: 15%;
 }
 .revistadigital-detalle-titulo .texto_usuario_ept {
-    height: 50px;
+    height: 48px;
     padding-top: 0;
     background: rgba(177,19,20,1);
     background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
@@ -1684,3 +1684,94 @@ height: 100%;
             text-align: right;
             content: counter(item) ".";
         }
+
+.precio_tachado_bpt {
+    margin-right: 10px;
+    text-decoration: line-through;
+}
+
+
+.arrow_misofertas {
+    width: 72px;
+    margin: auto;
+    height: 72px;
+    background-color: white;
+    border-radius: 45px;
+    position: relative;
+    top: -36px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+    padding-top: 16px;
+    font-family: 'Lato';
+    margin-top: 10px;
+}
+
+.content_item_home_bpt {
+    background: white;
+    /*border: 1px solid #e7e1e1k;*/
+    /*border: 1px #000000 solid;*/
+    /*-webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);*/
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.producto_img_mobile_bpt {
+    height: 125px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.producto_img_mobile_bpt img {
+    width: auto;
+    height: 100%;
+}
+
+.producto_nombre_descripcion_bpt {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 16px;
+    height: auto;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    text-align: center;
+    color: black;
+}
+
+.producto_nombre_descripcion_bpt h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    font-weight: 300;
+    color: #000;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    text-transform:uppercase;
+}
+
+.producto_nombre_descripcion_bpt .nombre_producto_bpt {
+    padding: 0;
+    font-size: 13px;
+    font-family: 'Lato';
+    color: black;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+    height: 35px;
+    margin-top: 6px;
+    font-weight: 900;
+}
+
+.producto_precio_bpt {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    color: #000;
+    margin-bottom: 12px;
+}
