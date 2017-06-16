@@ -43,5 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CodigoUsuarioCreacion { get; set; }
 
         public List<PedidoWebClienteMobilModel> ListaPedidoWebDetalle { get; set; }
+
+        public List<ServiceCliente.BECliente> ListaClientes { get; set; }
     }
 }

@@ -88,5 +88,38 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
+
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int pedidoId)
+        {
+            var lista = new List<BEPedidoFacturado>();
+
+            var BLPais = new BLPais();
+
+            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            {
+                var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
+                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalleMobile(Campania, CodigoConsultora))
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoFacturado(reader);
+
+                        lista.Add(entidad);
+                    }
+            }
+            else
+            {
+                var DAHPedidoDetalle = new DAHPedidoDetalle();
+
+                lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoId);
+            }
+
+            return lista;
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            var DAPedidoWeb = new DAPedidoFacturado(paisID);
+            return DAPedidoWeb.UpdateClientePedidoFacturado(codigoPedido, ClienteID);
+        }
     }
 }

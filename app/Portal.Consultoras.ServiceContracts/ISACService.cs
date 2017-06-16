@@ -684,5 +684,11 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
+
+        [OperationContract]
+        List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int pedidoId);
+
+        [OperationContract]
+        int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
     }
 }

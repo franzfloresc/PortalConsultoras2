@@ -1381,5 +1381,15 @@ namespace Portal.Consultoras.Service
 
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
+
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int pedidoId)
+        {
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, Campania, CodigoConsultora, pedidoId);
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            return BLPedidoFacturado.UpdateClientePedidoFacturado(paisID, codigoPedido, ClienteID);
+        }
     }
 }
