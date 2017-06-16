@@ -419,7 +419,7 @@ else
         </div>
         <div class="saludo_paginacion">
             @*Valeria, te mostramos <b>1 de 6</b> ofertas*@
-            @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+            <p>@ViewBag.NombreConsultora,</p> te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
             {{#iff ../CantidadProductos '>' 1}}
             &nbsp;ofertas
             {{/iff}}
