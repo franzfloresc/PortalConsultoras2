@@ -600,10 +600,12 @@
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaVentaRetail" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
       <xs:element minOccurs="0" name="NivelSiguiente" type="xs:int" />
       <xs:element minOccurs="0" name="Participa" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEPremio" />
       <xs:element minOccurs="0" name="PuntajeTotal" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosFaltantesSiguienteNivel" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosRetail" type="xs:int" />
@@ -612,6 +614,54 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraConcurso" nillable="true" type="tns:BEConsultoraConcurso" />
+  <xs:complexType name="ArrayOfBEPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPremio" nillable="true" type="tns:BEPremio" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPremio" nillable="true" type="tns:ArrayOfBEPremio" />
+  <xs:complexType name="BEPremio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntajeMinimo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPremio" nillable="true" type="tns:BEPremio" />
+  <xs:complexType name="BEConsultoraResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadClientes" type="xs:int" />
+      <xs:element minOccurs="0" name="Deudas" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
+      <xs:element minOccurs="0" name="Pedido" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen" nillable="true" type="tns:BEConsultoraResumen" />
+  <xs:complexType name="BEConsultoraResumen.DeudasResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CantidadDeudores" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalDeuda" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen.DeudasResumen" nillable="true" type="tns:BEConsultoraResumen.DeudasResumen" />
+  <xs:complexType name="BEConsultoraResumen.PedidoResumen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cantidadclientes" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidadproductos" type="xs:int" />
+      <xs:element minOccurs="0" name="DescuentoProl" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorEnviado" type="xs:int" />
+      <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoEscala" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MotivoCreditoID" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraResumen.PedidoResumen" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
   <xs:complexType name="BEEtiqueta">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoGeneral" type="xs:int" />
