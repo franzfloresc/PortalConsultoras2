@@ -39,12 +39,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
-        public ActionResult _Landing(int id)
+        public ActionResult _Landing(int id, string tipo)
         {
             try
             {
                 ViewBag.EsMobile = 2;
-                return ViewLanding(id);
+                return ViewLanding(id, tipo);
             }
             catch (Exception ex)
             {

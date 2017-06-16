@@ -19,14 +19,13 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "") 
         {
-            var model =  new EstrategiaOutModel();
-               
-            var listModel = ConsultarEstrategiasModel(cuv);
-           
-            //if (GetCodigoEstrategia() == Constantes.TipoEstrategiaCodigo.RevistaDigital)
-            //{
-            //    listModel = FiltartEstrategiasSegunTipo(listModel);
-            //}
+            // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
+      
+            var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
+
+            var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
+
+            var model = new EstrategiaOutModel();
             model.Lista = listModel;
             model.CodigoEstrategia = GetCodigoEstrategia();
             model.Consultora = userData.Sobrenombre;

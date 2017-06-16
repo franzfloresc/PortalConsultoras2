@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Index", model);
         }
 
-        public ActionResult ViewLanding(int id)
+        public ActionResult ViewLanding(int id, string tipo)
         {
             var model = new RevistaDigitalModel();
             if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
@@ -57,7 +57,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
 
-            var listaProducto = ConsultarEstrategiasModel("", id, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+            var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
+
+            tipo = Util.Trim(tipo);
+            if (codAgrupa != "" && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                codAgrupa = "";
+
+            var listaProducto = ConsultarEstrategiasModel("", id, codAgrupa);
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 
@@ -175,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.Titulo = userData.UsuarioNombre.ToUpper();
 
-            string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
+            string cadenaActiva = model.IsMobile ? "COMPRAR C " : "COMPRAR CAMPAÑA ", cadenaBloqueado = model.IsMobile ? "VER C " : "VER CAMPAÑA ";
 
             if (userData.RevistaDigital.SuscripcionAnteriorModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
@@ -211,9 +217,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
             }
 
-            string cadenaOpt = " OPT ";
+            string cadenaOpt = model.IsMobile ? "COMPRAR OPT C " : "COMPRAR OPT CAMPAÑA ";
             model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
-            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2) });
+            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
             model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
             model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
 

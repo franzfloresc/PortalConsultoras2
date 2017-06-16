@@ -39,11 +39,11 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "RevistaDigital");
         }
 
-        public ActionResult _Landing(int id)
+        public ActionResult _Landing(int id, string tipo)
         {
             try
             {
-                return ViewLanding(id);
+                return ViewLanding(id, tipo);
             }
             catch (Exception ex)
             {
