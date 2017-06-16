@@ -2011,9 +2011,9 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
         }
 
-        public BEResumen ObtenerResumen(int paisId, string codigoCampania, long consultoraId)
+        public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
-            throw new NotImplementedException();
+            return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
     }
 }

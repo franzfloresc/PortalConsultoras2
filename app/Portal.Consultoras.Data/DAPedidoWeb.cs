@@ -784,5 +784,13 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-2248*/
 
+        public IDataReader GetResumenPorCampania(int consultoraId, int codigoCampania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraPedidoResumen");
+            Context.Database.AddInParameter(command, "@consultoraId", DbType.Int32, consultoraId);
+            Context.Database.AddInParameter(command, "@codigoCampania", DbType.Int32, codigoCampania);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }
