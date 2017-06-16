@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
-                        permiso.UrlItem = AccionControlador("sr", 1);
+                        permiso.UrlItem = AccionControlador("sr");
                     else
                         continue;
 
@@ -582,6 +582,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
+            ViewBag.CantPedidosPendientes = 0;
+
             var lstModel = new List<MenuMobileModel>();
 
             if (userData.RolID != Constantes.Rol.Consultora)
@@ -702,7 +704,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             menu.UrlImagen = "";
-                            menu.UrlItem = AccionControlador("sr", 1);
+                            menu.UrlItem = AccionControlador("sr", false, true);
                         }
                         else
                         {
@@ -2331,29 +2333,51 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        public string AccionControlador(string tipo, int isControlador = 0)
+        public string AccionControlador(string tipo, bool onlyAction = false, bool mobile = false)
         {
-            var accion = "";
-            var controlador = "";
+            string controlador = "", accion = "";
             try
             {
-                tipo = Util.Trim(tipo);
-                if (tipo.ToLower() == "sr")
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
                 {
-                    controlador = isControlador == 1 ? "ShowRoom" : "";
-                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                        accion = "Index";
-                    else
-                        accion = "Intriga";
-
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
                 }
-                return "/" + (IsMobile() ? "Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
 
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return accion;
             }
+            /*
+            try
+            {
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
+                {
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
+                }
+
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return accion;
+            }
+             * */
         }
 
         //public bool MostrarFAV()

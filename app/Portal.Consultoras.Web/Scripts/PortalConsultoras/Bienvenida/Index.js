@@ -173,7 +173,10 @@ $(document).ready(function () {
 
     CrearDialogs();
     CargarCarouselEstrategias("");
-    CargarCarouselMasVendidos('desktop');
+    if (tieneMasVendidos===1) {
+        CargarCarouselMasVendidos('desktop');
+    }
+    
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();

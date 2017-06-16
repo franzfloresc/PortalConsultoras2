@@ -51,8 +51,6 @@ $(document).ready(function () {
         }
     }
     
-    $(".footer_e").css("margin-bottom", "73px");
-
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
         var x = $(this);
@@ -203,8 +201,10 @@ $(document).ready(function () {
 
     if (closeBannerCompraPorCompra == "True") {
         $("#divBannerCompraPorCompra").hide();
+        $(".footer_e").css("margin-bottom", "0px");
     } else {
         $("#divBannerCompraPorCompra").show();
+        $(".footer_e").css("margin-bottom", "73px");
     }
 
     $(".swproddetcompra").on("click", function () {
@@ -374,6 +374,7 @@ function closeCompraPorCompra() {
         async: true,
         success: function (response) {            
             if (response.success == true) {
+                $(".footer_e").css("margin-bottom", "0px");
                 $("#divBannerCompraPorCompra").hide();
             } else messageInfoError(response.message);
         },

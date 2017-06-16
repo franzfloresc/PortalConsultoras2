@@ -98,5 +98,6 @@ namespace Portal.Consultoras.Web.Models
         public string ShowRoomBannerUrl { get; set; }
         public int CampaniaMasDos { get; set; }
         public int TieneCupon { get; set; }
+        public int TieneMasVendidos { get; set; }
     }
 }

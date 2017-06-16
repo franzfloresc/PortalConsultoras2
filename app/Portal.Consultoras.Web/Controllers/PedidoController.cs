@@ -4135,18 +4135,66 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro)
         {
             try
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
-                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
+                    BEOfertaFinalConsultoraLog entidad = new BEOfertaFinalConsultoraLog();
+                    entidad.CUV = CUV;
+                    entidad.Cantidad = cantidad;
+                    entidad.TipoOfertaFinal = int.Parse(tipoOfertaFinal_Log);
+                    entidad.GAP = gap_Log;
+                    entidad.TipoRegistro = tipoRegistro;
+                    entidad.DesTipoRegistro = desTipoRegistro;
+
+                    svp.InsLogOfertaFinal(userData.PaisID, entidad);
                 }
                 return Json(new
                 {
                     success = true,
                     message = "El log ha sido registrado satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult InsertarOfertaFinalLogBulk(List<OfertaFinalConsultoraLogModel> lista)
+        {
+            try
+            {
+                var s = false;
+                var m = string.Empty;
+
+                if (lista.Any())
+                {
+                    List<BEOfertaFinalConsultoraLog> lista2 = new List<BEOfertaFinalConsultoraLog>();
+
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        svc.InsLogOfertaFinalBulk(userData.PaisID, lista2.ToArray());
+                    }
+
+                    s = true;
+                    m = "El log ha sido registrado satisfactoriamente.";
+                }
+                
+                return Json(new
+                {
+                    success = s,
+                    message = m,
                     extra = ""
                 });
             }

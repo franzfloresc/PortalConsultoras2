@@ -332,7 +332,7 @@
         <div class="label_cupon contenedorCuponInfo">
             <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
             <div class="texto_cupon">
-                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+                Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
             </div>
         </div>
     </div>
@@ -347,7 +347,10 @@
     </div>
 </div>
 <!--LOS MAS VENDIDOS-->
-@Html.Partial("MasVendidos")
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
@@ -630,7 +633,6 @@
         </div>
     </div>
     <!-- FIN POPUP DEMANDA ANTICIPADA -->
-
     <div class="btn_agregarPedido">
         <form>
             <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
@@ -728,8 +730,8 @@
 </div>
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
 
     <script id="estrategia-template1" type="text/x-handlebars-template">
                 {{#each this as |item|}}
@@ -903,9 +905,9 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="{{CUV2}}" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -1075,7 +1077,7 @@
                 var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
                 var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
                 var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-                var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
+                var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
                 var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
                 var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 
@@ -1093,6 +1095,7 @@
                 var viewBagCampaniaActual = '@Model.CampaniaActual';
                 var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
                 var tieneCupon = '@Model.TieneCupon';
+                var tieneMasVendidos = @Model.TieneMasVendidos;
                 var paginaOrigenCupon = 2;
                 var esEmailActivo = '@Model.EmailActivo';
                 var paisISO = '@ViewBag.paisISO';

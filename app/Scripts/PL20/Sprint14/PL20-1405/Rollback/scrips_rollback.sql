@@ -35,6 +35,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpChile
@@ -71,6 +101,36 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO
 /*end*/
@@ -111,6 +171,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpCostaRica
@@ -147,6 +237,36 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO
 /*end*/
@@ -187,6 +307,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpEcuador
@@ -223,6 +373,36 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO
 /*end*/
@@ -263,6 +443,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpMexico
@@ -299,6 +509,36 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO
 /*end*/
@@ -339,6 +579,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpPeru
@@ -375,6 +645,36 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO
 /*end*/
@@ -415,6 +715,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpSalvador
@@ -453,6 +783,36 @@ BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
 END
 GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
+END
+GO
 /*end*/
 
 USE BelcorpVenezuela
@@ -489,5 +849,35 @@ GO
 IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponesPorCampania]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
 BEGIN
 	DROP PROCEDURE  [dbo].[ListarCuponesPorCampania]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCupones]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCupones]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ListarCuponConsultorasPorCuponId]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ListarCuponConsultorasPorCuponId]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[CrearCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[CrearCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[ActualizarCuponConsultora]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[ActualizarCuponConsultora]
+END
+GO
+
+IF EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = object_id(N'[dbo].[InsertarCuponConsultoraCargaMasiva]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+BEGIN
+	DROP PROCEDURE  [dbo].[InsertarCuponConsultoraCargaMasiva]
 END
 GO

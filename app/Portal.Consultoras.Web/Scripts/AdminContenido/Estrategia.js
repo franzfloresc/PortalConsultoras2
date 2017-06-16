@@ -168,6 +168,7 @@
             $("#ddlEtiqueta1").val(data.EtiquetaID);
             if (data.Precio != "0") {
                 $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
+            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
             } else {
                 $("#txtPrecio").val('');
             }
