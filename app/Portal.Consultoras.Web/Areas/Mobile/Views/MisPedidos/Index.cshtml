@@ -1,9 +1,21 @@
-﻿@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  
+        var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (!mobileConfiguracion.EsconderBotonAtras)
+        {
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
     MIS PEDIDOS
 </div>
 @if (Model.ListaPedidoCliente.Count == 0)

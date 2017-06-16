@@ -3101,12 +3101,20 @@ namespace Portal.Consultoras.Common
         /// <returns>Valor convertido</returns>
         public static T GetValue<T>(this IDataRecord row, string name)
         {
-            if (string.IsNullOrEmpty(name))
+            try
             {
-                throw new ArgumentNullException("Parametro enviado es nulo o vacio");
-            }
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException("nombre enviado es nulo o vacio");
+                }
 
-            return (T)row.GetValue(row.GetOrdinal(name));
+                return (T)row.GetValue(row.GetOrdinal(name));
+            }
+            catch (Exception ex)
+            {
+                var value = row.GetValue(row.GetOrdinal(name));
+                throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
+            }
         }
     }
 

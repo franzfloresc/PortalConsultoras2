@@ -33,17 +33,16 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarInsertarPuntosConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
-            Context.Database.AddInParameter(command, "@CodigoConcursos", DbType.String, CodigoConcursos);
+            Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcursos);
             Context.Database.AddInParameter(command, "@PuntosConcurso", DbType.String, PuntosConcurso);
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader ObtenerPuntosXConsultoraConcurso(string CodigoCampania, string CodigoConsultora, string CodigoConcurso)
+        public IDataReader ObtenerPuntosXConsultoraConcurso(string CodigoCampania, string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPuntosXConsultoraConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
-            Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcurso);
             return Context.ExecuteReader(command);
         }
     }

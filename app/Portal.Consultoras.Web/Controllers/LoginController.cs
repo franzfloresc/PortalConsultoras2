@@ -1732,7 +1732,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 
                 Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
                 {
-                    EsconderBotonAtras = model.EsAppMobile
+                    EsconderBotonAtras = model.EsAppMobile,
+                    ClienteID = model.ClienteID
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
@@ -1760,6 +1761,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
                             });
+                    case Constantes.IngresoExternoPagina.MisPedidos:
+                        return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

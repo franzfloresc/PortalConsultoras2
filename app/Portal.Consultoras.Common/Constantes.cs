@@ -163,7 +163,7 @@ namespace Portal.Consultoras.Common
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
-        
+
         public class TipoEstrategiaSet
         {
             public const string IndividualConTonos = "2001";
@@ -208,7 +208,7 @@ namespace Portal.Consultoras.Common
             // Tabla LOgica
 
             public const string TablaLogicaDatos = "TablaLogicaDatos";
-            
+
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
@@ -277,7 +277,7 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoomProductPage = 2531;
             public const int MobileShowRoomProductPageCarrusel = 2532;
             public const int MobileShowRoomProductPageTactica = 2533;
-            
+
             public const int MobileHomeOfertasParaTi = 2121;
 
             public const int MobilePedidoOfertasParaTi = 2221;
@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
-            
+
             /* Revista Digital */
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
@@ -319,7 +319,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
-            
+
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
@@ -342,7 +342,7 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-        
+
         public class TipoTutorial
         {
             public const int Video = 1;
@@ -355,7 +355,7 @@ namespace Portal.Consultoras.Common
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.Common
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado"; 
+            public const string MensajeFinalizado = "MensajeFinalizado";
         }
 
         public class ParametriaCDR
@@ -444,7 +444,7 @@ namespace Portal.Consultoras.Common
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
         }
-        
+
         public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
@@ -452,7 +452,7 @@ namespace Portal.Consultoras.Common
             public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelMobile = "Este producto está en Mi Negocio L’Bel con oferta especial.";
         }
-        
+
         public class PestanhasMisPagos
         {
             public const string EstadoCuenta = "EstadoCuenta";
@@ -484,7 +484,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
                 public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
-                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";                                   
+                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";
             }
 
             public class Mobile
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
                 public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
                 public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
-                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";               
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
             }
 
             public class TipoAplicacion
@@ -703,6 +703,7 @@ namespace Portal.Consultoras.Common
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
             public const string Pedido = "PEDIDO";
             public const string CompartirCatalogo = "COMPARTIRCATALOGO";
+            public const string MisPedidos = "MISPEDIDOS";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -799,6 +800,17 @@ namespace Portal.Consultoras.Common
                     };
                 }
             }
+        }
+
+        public class Inventivo
+        {
+            public const string TextoTeFaltan = "Te faltan {0}";
+            public const string TextoNoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
+            public const string TextoVasXPuntos = "VAS {0} PUNTOS.";
+            public const string TextoGANASTE = "¡GANASTE!";
+            public const string TextoTEFALTA = "¡TE FALTA!";
+            public const string TextoLlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
+            public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} y llévate el premio.";
         }
     }
 }
