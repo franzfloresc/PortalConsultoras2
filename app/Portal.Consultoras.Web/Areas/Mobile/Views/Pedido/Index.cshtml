@@ -90,10 +90,21 @@
                         </div>
                     </div>
                     <div class="contenedor_seleccionCliente">
-                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
+                        @if (string.IsNullOrEmpty(Model.Nombre))
+                        {
+                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
+                            <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
+                                AGREGAR CLIENTE <span>+</span>
+                            </a>
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
+                        }
+                        @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                         <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
-                        </a>
+                        </a>*@
                     </div>
                 </div>
             </div>

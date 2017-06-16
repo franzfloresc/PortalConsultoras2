@@ -16,5 +16,7 @@
         public string UrlCatalogo { get; set; }
 
         public bool EsAppMobile { get; set; }
+
+        public long ClienteID { get; set; }
     }
 }
