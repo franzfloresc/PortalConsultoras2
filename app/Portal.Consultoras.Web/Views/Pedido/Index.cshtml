@@ -2478,7 +2478,7 @@
                 var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
                 var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
                 var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
-                var urlPedido = '@Url.Action("Index","Pedido")';        
+                var urlPedido = '@Url.Action("Index","Pedido")';
                 var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
 
                 if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
@@ -2500,6 +2500,7 @@
                 var celular = '@Model.Celular';
 
                 var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
+                var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

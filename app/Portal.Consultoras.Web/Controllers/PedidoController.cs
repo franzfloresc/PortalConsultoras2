@@ -421,6 +421,8 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+                ViewBag.CodigoConsultora = userData.CodigoConsultora;
+
 
             }
             catch (FaultException ex)
@@ -4144,7 +4146,7 @@ namespace Portal.Consultoras.Web.Controllers
                     BEOfertaFinalConsultoraLog entidad = new BEOfertaFinalConsultoraLog();
                     entidad.CUV = CUV;
                     entidad.Cantidad = cantidad;
-                    entidad.TipoOfertaFinal = int.Parse(tipoOfertaFinal_Log);
+                    entidad.TipoOfertaFinal = tipoOfertaFinal_Log;
                     entidad.GAP = gap_Log;
                     entidad.TipoRegistro = tipoRegistro;
                     entidad.DesTipoRegistro = desTipoRegistro;
@@ -4180,11 +4182,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (lista.Any())
                 {
-                    List<BEOfertaFinalConsultoraLog> lista2 = new List<BEOfertaFinalConsultoraLog>();
+                    List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog = new List<BEOfertaFinalConsultoraLog>();
+
+                    foreach (var item in lista)
+                    {
+                        BEOfertaFinalConsultoraLog ofertaFinalLog = new BEOfertaFinalConsultoraLog();
+                        ofertaFinalLog.CampaniaID = item.CampaniaID;
+                        ofertaFinalLog.CodigoConsultora = item.CodigoConsultora;
+                        ofertaFinalLog.Cantidad = item.Cantidad;
+                        ofertaFinalLog.CUV = item.CUV;                                             
+                        ofertaFinalLog.GAP = item.GAP;
+                        ofertaFinalLog.TipoOfertaFinal = item.TipoOfertaFinal;
+                        ofertaFinalLog.TipoRegistro = item.TipoRegistro;
+                        ofertaFinalLog.DesTipoRegistro = item.DesTipoRegistro;
+                        listaOfertaFinalLog.Add(ofertaFinalLog);
+                    }
 
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
-                        svc.InsLogOfertaFinalBulk(userData.PaisID, lista2.ToArray());
+                        svc.InsLogOfertaFinalBulk(userData.PaisID, listaOfertaFinalLog.ToArray());
                     }
 
                     s = true;
