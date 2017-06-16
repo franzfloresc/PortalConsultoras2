@@ -11,14 +11,17 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcionVenta").val();
             
             dataLayer.push({
-                'event': 'promotionClick',                'ecommerce': {
+                'event': 'promotionClick',
+                'ecommerce': {
                     'promoView': [
                         {
                             'id': pEventoIDVenta,
                             'name': pnombreedescripcion + ' ' + pnombreeventodescripcion + ' ' + '- Compra ya',
                             'position': 'Desktop menu - 1',
                             'creative': 'Menu'
-                        }                    ]                }
+                        }
+                    ]
+                }
             });
 
         }
@@ -28,14 +31,16 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcion").val();
 
             dataLayer.push({
-                'event': 'promotionClick',                'ecommerce': {
+                'event': 'promotionClick',
+                'ecommerce': {
                     'promoView': [
                         {
                             'id': pEventoIDVenta,
                             'name': pnombreedescripcion + ' ' + pnombreeventodescripcion + ' ' + '- Entérate primero',
                             'position': 'Desktop menu - 1',
                             'creative': 'Menu'
-                        }                    ]
+                        }
+                    ]
                 }
             });
         }
