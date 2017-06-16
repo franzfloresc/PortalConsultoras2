@@ -1761,6 +1761,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
                             });
+                    case Constantes.IngresoExternoPagina.MisPedidos:
+                        return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

@@ -703,6 +703,7 @@ namespace Portal.Consultoras.Common
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
             public const string Pedido = "PEDIDO";
             public const string CompartirCatalogo = "COMPARTIRCATALOGO";
+            public const string MisPedidos = "MISPEDIDOS";
         }
 
         public class EstadoCuentaTipoMovimiento

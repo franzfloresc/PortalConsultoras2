@@ -40,6 +40,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.ListaPedidoCliente.Add(bePedidoWeb);
                 }
 
+                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+                if(mobileConfiguracion.ClienteID > 0)
+                {
+                    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
+                    {
+                        var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
+                        //cliente.ClienteID
+                    }
+                }
+
                 Session["Pedidos"] = model;
             }
             catch (FaultException ex)
