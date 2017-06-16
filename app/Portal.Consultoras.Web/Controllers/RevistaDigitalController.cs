@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -69,8 +68,8 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-
-                var listModel = ConsultarEstrategiasModel("", model.CampaniaID);
+                
+                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
 
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
@@ -78,6 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaFinal = listModel;
 
+                #region Filtros
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
                 {
                     listaFinal = new List<EstrategiaPedidoModel>();
@@ -119,7 +119,9 @@ namespace Portal.Consultoras.Web.Controllers
                         cont++;
                     }
                 }
-
+                #endregion
+                
+                #region Orden
                 if (model.Ordenamiento != null)
                 {
                     model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
@@ -139,6 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
+                #endregion
 
                 int cantidad = listaFinal.Count;
 
@@ -174,11 +177,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProductoDetalle(int id)
+        public JsonResult GetProductoDetalle(int id, int campaniaId)
         {
             try
             {
-                var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
+                if (EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new EstrategiaPedidoModel()
+                    });
+                }
+
+                var listaFinal = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
 
                 producto.PuedeAgregar = 1;

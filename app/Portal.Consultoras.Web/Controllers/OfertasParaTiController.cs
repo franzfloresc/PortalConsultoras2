@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Controllers;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var model =  new EstrategiaOutModel();
 
-            var listModel = ConsultarEstrategiasModel(cuv ?? "");
+            var listModel = ConsultarEstrategiasModel(cuv);
            
             if (GetCodigoEstrategia() == Constantes.TipoEstrategiaCodigo.RevistaDigital)
             {

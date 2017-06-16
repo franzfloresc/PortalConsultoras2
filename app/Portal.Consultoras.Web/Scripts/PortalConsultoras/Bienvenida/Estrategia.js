@@ -385,7 +385,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('#popupDetalleCarousel_packNuevas').show();
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
-        estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia) || "";
+        estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia);
         estrategia.Detalle = new Array();
         var btnDesabled = 0;
         if (estrategia.CodigoEstrategia != "") {

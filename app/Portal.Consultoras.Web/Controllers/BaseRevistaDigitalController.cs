@@ -46,7 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ViewLanding(int id)
         {
             var model = new RevistaDigitalModel();
-            if (id <= 0) return PartialView("template-Landing", model);
+            if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
 
             model.CampaniaID = id;
             model.Success = true;
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
 
-            var listaProducto = ConsultarEstrategiasModel("", id == userData.CampaniaID ? 0 : id);
+            var listaProducto = ConsultarEstrategiasModel("", id, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 
@@ -87,12 +87,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
             }
-            if (campaniaId < userData.CampaniaID)
+            if (EsCampaniaFalsa(campaniaId))
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
             }
 
-            var listaProducto = ConsultarEstrategiasModel("", campaniaId == userData.CampaniaID ? 0 : campaniaId);
+            var listaProducto = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
             model.EstrategiaDetalle = model.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
             if (model.EstrategiaID > 0)
@@ -100,6 +100,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return View(model);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+        }
+
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
         public RevistaDigitalModel ListarTabs(RevistaDigitalModel model = null)
