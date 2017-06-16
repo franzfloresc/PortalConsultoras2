@@ -9139,7 +9139,7 @@ span.icon-advertencia{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 15px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -9729,7 +9729,7 @@ span.icon-advertencia{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:17px;
+    line-height:20px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -11177,7 +11177,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 /*** FIN ******/
 
 .saludo_paginacion{
-   margin-top: 10px;
+   
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -11282,7 +11282,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 .content_cronometro{
     margin-top: 26px;
-    margin-bottom: -28px;
+    height: 25px;
+    /* margin-bottom: -28px; */;
 }
 .saludo_paginacion p {
 	margin:0;

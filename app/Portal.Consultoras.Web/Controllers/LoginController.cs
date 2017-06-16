@@ -1804,6 +1804,9 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.PrecioCatalogo = productoCatalogo.PrecioCatalogo;
                         entidad.PrecioValorizado = productoCatalogo.PrecioValorizado;
                         entidad.UrlImagenRegalo = productoCatalogo.Imagen;
+                        result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
+                        result.CodigoIso = model.CodigoISO;
+                        result.DescripcionPremio = result.DescripcionPremio.ToUpper();
                     }
 
                     result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);

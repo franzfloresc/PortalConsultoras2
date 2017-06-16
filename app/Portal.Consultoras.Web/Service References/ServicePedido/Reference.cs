@@ -17649,7 +17649,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private long OfertaFinalConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipoOfertaFinalField;
+        private string TipoOfertaFinalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoRegistroField;
@@ -17769,12 +17769,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipoOfertaFinal {
+        public string TipoOfertaFinal {
             get {
                 return this.TipoOfertaFinalField;
             }
             set {
-                if ((this.TipoOfertaFinalField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.TipoOfertaFinalField, value) != true)) {
                     this.TipoOfertaFinalField = value;
                     this.RaisePropertyChanged("TipoOfertaFinal");
                 }

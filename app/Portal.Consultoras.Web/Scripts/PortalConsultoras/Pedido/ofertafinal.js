@@ -305,7 +305,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     
     AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
 
-    //AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
+    AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -425,6 +425,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo) {
     if (oRegaloPN == null)
+
         oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
@@ -659,8 +660,8 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
 }
 
 
-//function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
-//    if (listaProductos.length == 0) return;
+function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
+    if (listaProductos.length == 0) return;
 
     var params = [];
 
@@ -672,30 +673,31 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         producto['Cantidad'] = 0;
         producto['TipoOfertaFinal'] = value.TipoMeta;
         producto['GAP'] = value.MontoMeta;
-        producto['TipoRegistro'] = 3;       
+        producto['TipoRegistro'] = 3;
         producto['DesTipoRegistro'] = 'Producto Expuesto';
         params.push(producto);
+    });
 
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(params),
-//        async: true,
-//        success: function (response) {
-//            if (checkTimeout(response)) {
-//                if (response.success == true) {
-//                }
-//            }
-//        },
-//        error: function (data, error) {
-//            if (checkTimeout(data)) {
-//                AjaxError(data, error);
-//            }
-//        }
-//    });
-//}
+        async: true,
+        success: function (response) {
+            if (checkTimeout(response)) {
+                if (response.success == true) {
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AjaxError(data, error);
+            }
+        }
+    });
+}
 
 function CargarVerDetalleOF(objInput, e) {
     idProdOf = idProdOf + 1;
