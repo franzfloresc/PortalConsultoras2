@@ -329,6 +329,29 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosNoFacturados(BEPedidoDDWeb BEPedidoDDWeb, int? tipoConsulta = null)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoNoFacturado");
+            //Tipoconsulta
+            if (tipoConsulta.HasValue)
+                Context.Database.AddInParameter(command, "@TipoConsulta", DbType.Int32, tipoConsulta);
+            //Campos Web
+            Context.Database.AddInParameter(command, "@WebPaisID", DbType.Int32, BEPedidoDDWeb.paisID);
+            Context.Database.AddInParameter(command, "@WebCampaniaID", DbType.Int32, BEPedidoDDWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@WebRegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
+            Context.Database.AddInParameter(command, "@WebZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
+            Context.Database.AddInParameter(command, "@WebCodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@WebEstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
+            Context.Database.AddInParameter(command, "@WebEsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
+            //Campos DD
+            Context.Database.AddInParameter(command, "@DDPrefijoPais", DbType.AnsiString, BEPedidoDDWeb.paisISO);
+            Context.Database.AddInParameter(command, "@DDCampaniaID", DbType.AnsiString, BEPedidoDDWeb.CampaniaID.ToString());
+            Context.Database.AddInParameter(command, "@DDRegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
+            Context.Database.AddInParameter(command, "@DDZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
+            Context.Database.AddInParameter(command, "@DDCodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetCuvProgramaNueva()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvProgramaNueva");
