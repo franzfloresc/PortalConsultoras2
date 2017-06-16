@@ -73,7 +73,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -102,7 +102,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -163,6 +163,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -251,7 +256,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -280,7 +285,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -341,6 +346,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -429,7 +439,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -458,7 +468,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -519,6 +529,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -607,7 +622,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -636,7 +651,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -697,6 +712,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -785,7 +805,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -814,7 +834,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -875,6 +895,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -963,7 +988,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -992,7 +1017,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1053,6 +1078,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -1141,7 +1171,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1170,7 +1200,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1231,6 +1261,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -1319,7 +1354,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1348,7 +1383,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1409,6 +1444,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -1497,7 +1537,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1526,7 +1566,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1587,6 +1627,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -1675,7 +1720,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1704,7 +1749,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1765,6 +1810,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -1853,7 +1903,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -1882,7 +1932,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -1943,6 +1993,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -2031,7 +2086,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -2060,7 +2115,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -2121,6 +2176,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),
@@ -2209,7 +2269,7 @@ BEGIN
 			FechaCreacion
 	FROM	Cupon
 	WHERE	CampaniaId = @CampaniaId
-	ORDER BY FechaCreacion DESC
+	ORDER BY FechaCreacion ASC
 END
 GO
 
@@ -2238,7 +2298,7 @@ BEGIN
 			EstadoCupon 
 	FROM	CuponConsultora
 	WHERE	CuponId = @CuponId
-	ORDER BY FechaCreacion DESC
+	ORDER BY CodigoConsultora ASC
 END
 GO
 
@@ -2299,6 +2359,11 @@ CREATE PROCEDURE [dbo].[InsertarCuponConsultoraCargaMasiva]
 @CuponConsultorasXml	XML
 AS
 BEGIN
+
+	DELETE
+	FROM	CuponConsultora
+	WHERE	CuponId = @CuponId AND CampaniaID = @CampaniaId
+
 	INSERT	INTO CuponConsultora(CodigoConsultora, ValorAsociado, CampaniaId, CuponId, EstadoCupon, EnvioCorreo, UsuarioCreacion, FechaCreacion)
 	SELECT	cC.value('@CodigoConsultora','VARCHAR(50)'), 
 			cC.value('@ValorAsociado','DECIMAL(18,2)'),

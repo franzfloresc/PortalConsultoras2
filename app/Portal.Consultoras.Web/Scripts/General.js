@@ -1081,7 +1081,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
             'action': 'Compartir',
             'target': ruta
         });
-
+        
         //****************************
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
@@ -1494,43 +1494,58 @@ function odd_desktop_google_analytics_product_impresion() {
     }
 }
 
-function odd_desktop_google_analytics_addtocart(tipo) {
-    //debugger;
-    if ($('#divOddCarruselDetalle').length > 0) {
-        var id = $('#divOddCarruselDetalle').find(".cuv2-odd").val();
-        var name = $('#divOddCarruselDetalle').find(".nombre-odd").val();
-        var price = $('#divOddCarruselDetalle').find(".precio-odd").val();
-        var marca = $('#divOddCarruselDetalle').find(".marca-descripcion-odd").val();
-        var variant = $('#divOddCarruselDetalle').find(".tipoestrategia-descripcion-odd").val();
-        var dimension16 = "";
-        if (variant == "")
-            variant = "Estándar";
-        if (tipo == "b")
-            dimension16 = "Oferta del día - Banner";
-        if (tipo == "d")
-            dimension16 = "Oferta del día - Detalle";
-        dataLayer.push({
-            'event': 'addToCart',
-            'ecommerce': {
-                'add': {
-                    'actionField': { 'list': 'Oferta del día' },
-                    'products': [{
-                        'name': name,
-                        'price': price,
-                        'brand': marca,
-                        'id': id,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'quantity': 1, 'dimension15': '100',
-                        'dimension16': dimension16
-                    }]
-                }
-            }
-        })
+function odd_desktop_google_analytics_addtocart(tipo,element) {
+    var id, name, price, marca, variant, quantity, dimension16;
+    if (tipo == "banner") {        
+        id = $('#banner-odd').find(".cuv2-odd").val();
+        name = $('#banner-odd').find(".nombre-odd").val();
+        price = $('#banner-odd').find(".precio-odd").val();
+        marca = $('#banner-odd').find(".marca-descripcion-odd").val();
+        variant = $('#banner-odd').find(".tipoestrategia-descripcion-odd").val();
+        quantity = 1;        
+        dimension16 = "Oferta del día - Banner";
     }
+    if (tipo == "list") {
+        id = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+    if (tipo == "detail") {
+        id = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+
+    if (variant == "") { variant = "Estándar"; }
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Oferta del día' },
+                'products': [{
+                    'name': name,
+                    'price': price,
+                    'brand': marca,
+                    'id': id,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'quantity': quantity, 'dimension15': '100',
+                    'dimension16': dimension16
+                }]
+            }
+        }
+    });
 }
+
 function odd_desktop_google_analytics_product_click(name, id, price, brand, variant, position) {
-    //debugger;
     position++;
     if (variant == null || variant == "")
         variant = "Estándar";

@@ -1779,6 +1779,7 @@ namespace Portal.Consultoras.Web.Controllers
         private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
             ConsultoraRegaloProgramaNuevasModel result = null;
+            pasoLog = "GetConsultoraRegaloProgramaNuevas";
 
             try
             {
@@ -1806,10 +1807,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
+                    result.CodigoIso = model.CodigoISO;
+                    result.DescripcionPremio = result.DescripcionPremio.ToUpper();
                 }
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
             }
 
             return result;
