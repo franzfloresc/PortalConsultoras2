@@ -424,12 +424,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo) {
-    debugger;
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
-        console.log(oRegaloPN);
         var msgRegalo = "";
         var txtAyuda1 = "";
         var nivel = oRegaloPN.CodigoNivel;
