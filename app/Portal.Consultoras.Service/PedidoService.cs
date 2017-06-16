@@ -2006,14 +2006,14 @@ namespace Portal.Consultoras.Service
             BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
         }
 
-        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoConcurso)
+        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
         {
-            return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora, CodigoConcurso);
+            return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
         }
 
-        public BEResumen ObtenerResumen(int paisId, string codigoCampania, long consultoraId)
+        public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
-            throw new NotImplementedException();
+            return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
     }
 }

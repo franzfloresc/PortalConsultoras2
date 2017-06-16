@@ -38,12 +38,11 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader ObtenerPuntosXConsultoraConcurso(string CodigoCampania, string CodigoConsultora, string CodigoConcurso)
+        public IDataReader ObtenerPuntosXConsultoraConcurso(string CodigoCampania, string CodigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerPuntosXConsultoraConcurso");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
-            Context.Database.AddInParameter(command, "@CodigoConcurso", DbType.String, CodigoConcurso);
             return Context.ExecuteReader(command);
         }
     }

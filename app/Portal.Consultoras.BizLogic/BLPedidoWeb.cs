@@ -2178,6 +2178,25 @@ namespace Portal.Consultoras.BizLogic
             return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
         }
         /*EPD-2248*/
+
+        public BEConsultoraResumen GetResumen(int paisId, int codigoConsultora, int codigoCampania)
+        {
+            var resumen = new BEConsultoraResumen();
+            var DAConsultora = new DAPedidoWeb(paisId);
+            using (IDataReader reader = DAConsultora.GetResumenPorCampania(codigoConsultora, codigoCampania))
+            {
+                do
+                {
+                    while (reader.Read())
+                    {
+                        resumen.Build(reader);
+                    }
+
+                } while (reader.NextResult());
+            }
+
+            return resumen;
+        }
     }
 
     internal class TemplateField
