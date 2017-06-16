@@ -1455,7 +1455,7 @@ height: 100%;
 .tit_preguntas {
     font-weight: 900;
     line-height: 17px;
-    margin: 20px 0;
+    margin: 20px 0 30px 0;
     letter-spacing: 1px;
 }
 .tit_beneficios_ept {
@@ -1471,7 +1471,7 @@ height: 100%;
 }
 .beneficios_ept_img {
     position: relative;
-    bottom: -22px;
+    /*bottom: -22px;*/
     z-index: -1;
     text-align: center;
 }
@@ -1487,6 +1487,7 @@ height: 100%;
 .box_comofunciona_ept {
     background-color: #EEEEEE;
     padding: 40px 20px;
+    margin-top:-22px;
 }
 .box_comofunciona_ept img {
     margin: 20px 0;
@@ -1581,6 +1582,9 @@ height: 100%;
     }
 }
 @media (min-width: 700px) {
+    .content_inscribirse{
+        margin-top:40px !important;
+    }
     .beneficios_ept_img {
         position: absolute;
         bottom: -15px;
@@ -1889,4 +1893,40 @@ height: 100%;
 }
 .rd_producto_bloqueado_tit {
     margin-bottom: 4px;
+}
+.texto_tab_pagos{
+    font-family:'Lato';
+}
+.content_inscribirse{
+    margin-top:20px;
+    margin-bottom: 50px;
+}
+.btn_inscribirse{
+    background:#e81c36;
+    font-family:Lato;
+    font-size:13px;
+    color:white;
+    width:100%;
+    max-width:320px;
+    height:45px;
+    margin:0 auto;
+    text-align:center;
+    line-height:44px;
+    display:block;
+}
+.terminos_inscribirse{
+    display:inline-block;
+    text-decoration:underline;
+}
+.texto_inscribirse{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-top:15px;
+}
+.subtexto_inscribirse{
+    font-family:'Lato';
+    font-size:11px;    
+    margin-top:27px;
+    color:gray;
 }
