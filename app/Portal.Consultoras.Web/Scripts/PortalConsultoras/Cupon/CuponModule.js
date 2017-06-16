@@ -94,7 +94,7 @@
 
     var bindEvents = function () {
 
-        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
+        $('div#Cupon1').off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
         });
 
