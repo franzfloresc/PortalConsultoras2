@@ -9863,11 +9863,12 @@ a{
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-    width: 49%;
+   
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
+     width: 38%;
 }
 
 .select-ffc {
@@ -9877,7 +9878,7 @@ a{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 15px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */

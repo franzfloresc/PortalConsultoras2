@@ -386,14 +386,11 @@
     }
 
     var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
-        if (emailOriginal == "") {
-            AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
-            return false;
-        }
         if (emailIngresado == "") {
             AbrirMensaje("Debe ingresar su correo", "VALIDACIÓN");
             return false;
         }
+        
         if (!aceptoTerCond) {
             AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
             return false;
