@@ -140,6 +140,17 @@ namespace Portal.Consultoras.Entities
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
+
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
+                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
+                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
+                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            //EPD-1919 FIN
+
+
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
@@ -405,6 +416,17 @@ namespace Portal.Consultoras.Entities
                 
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
+
+
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
+                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
+                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
+                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            //EPD-1919 FIN
+
 
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion") && row["FechaInicioFacturacion"] != DBNull.Value)
                 FechaInicioFacturacion = DbConvert.ToDateTime(row["FechaInicioFacturacion"]);
@@ -1151,6 +1173,15 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
 
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
+                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
+                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
+                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            //EPD-1919 FIN
+
         }
         /* R2392 - AHAA - LIDERES - FIN */
 
@@ -1233,6 +1264,16 @@ namespace Portal.Consultoras.Entities
                 msRpta4 = Convert.ToString(row["Rpta4"]);
             if (DataRecord.HasColumn(row, "FechaActualPais"))
                 FechaActualPais = Convert.ToDateTime(row["FechaActualPais"]);
+
+            //EPD-1919 INICIO            
+            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
+                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
+                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
+                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            //EPD-1919 FIN
+
         }
         /*R2520 - JICM - LIDERES - FIN*/
 
@@ -1242,5 +1283,14 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int MensajePedidoMobile { get; set; }
+
+        //EPD-1919 INICIO
+        [DataMember]
+        public bool TieneCDRExpress { get; set; }
+        [DataMember]
+        public string MensajeCDRExpress { get; set; }
+        [DataMember]
+        public string MensajeCDRExpressNueva { get; set; }
+        //EPD-1919 FIN
     }
 }

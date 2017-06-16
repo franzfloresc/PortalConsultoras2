@@ -44,5 +44,11 @@ namespace Portal.Consultoras.Web.Models
 
         public int limiteMinimoTelef { get; set; }
         public int limiteMaximoTelef { get; set; }
+
+        //EPD-1919 INICIO
+        public bool? TipoDespacho { get; set; }
+        public decimal FleteDespacho { get; set; }
+        public string MensajeDespacho { get; set; }
+        //EPD-1919 FIN
     }
 }

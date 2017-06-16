@@ -198,6 +198,8 @@
       <xs:element minOccurs="0" name="InvitacionRechazada" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Lider" type="xs:int" />
       <xs:element minOccurs="0" name="LogoLideres" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeCDRExpress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeCDRExpressNueva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajePedidoDesktop" type="xs:int" />
       <xs:element minOccurs="0" name="MensajePedidoMobile" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
@@ -245,6 +247,7 @@
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />

@@ -35888,3 +35888,46 @@ h1#penmostreo .campana {
 .reclamo_motivo_select:nth-child(2n) {
 	margin-right: 0;
 }
+
+
+/*EPD-1919 INICIO*/
+.content_tipo_despacho {
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: left;   
+}
+.cdr_tipo_despacho_icono {
+    padding-left: 35px; 
+    padding-bottom: 10px; 
+    padding-top: 2px; 
+    background: url(../../../Images/Esika/terminos.png) no-repeat; 
+    display: inline;
+}
+.cdr_tipo_despacho_icono_active {
+    padding-left: 35px; 
+    padding-bottom: 10px; 
+    padding-top: 2px;     
+    display: inline;
+    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
+    background-size: 75%;    
+}
+.cdr_color_consultora_nueva {
+    color: #d04437;
+}
+.cdr_color_consultora_antigua {
+    color: #205081;
+}
+.mensaje_informativo_despacho {
+    font-weight: bold;
+    /*color: #205081;*/
+    margin-bottom: 5px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: center; 
+    align-content : center;
+    display: block;
+}
+/*EPD-1919 FIN*/

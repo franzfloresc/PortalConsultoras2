@@ -726,6 +726,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                     model.TieneCDR = oBEUsuario.TieneCDR;
 
+                    model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919
+                    model.MensajeCDRExpress = oBEUsuario.MensajeCDRExpress; //EPD-1919 
+                    model.MensajeCDRExpressNueva = oBEUsuario.MensajeCDRExpressNueva; //EPD-1919 
+
                     #endregion
 
                     if (model.RolID == Constantes.Rol.Consultora)
