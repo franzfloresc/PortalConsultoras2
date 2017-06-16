@@ -151,6 +151,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
                 // mostrar popup de revista digital....
                 model.RevistaDigitalPopUpMostrar = userData.RevistaDigital.NoVolverMostrar;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.EstaSuscritaRDC = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             }
             catch (FaultException ex)
             {

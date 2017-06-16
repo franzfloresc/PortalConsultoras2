@@ -10,28 +10,29 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
-        public RevistaDigitalModel IndexModel()
+        public ActionResult IndexModel()
         {
             var model = new RevistaDigitalModel();
             model.EstadoAccion = -1;
             model.IsMobile = ViewBag.EsMobile == 2;
-            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+
+            if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.TieneRDS)
                 {
-                    return model;
+                    return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
                 }
 
                 if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
                 {
-                    return model;
+                    return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
                 }
             }
             
             model = ListarTabs(model);
 
-            if (model.EstadoAccion < 0) 
-                return model;
+            if (model.EstadoAccion < 0)
+                return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
 
             model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
@@ -39,13 +40,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
 
-            return model;
+            return View("Index", model);
         }
 
         public ActionResult ViewLanding(int id)
         {
             var model = new RevistaDigitalModel();
-            if (id <= 0) return PartialView("template-Landing", model);
+            if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
 
             model.CampaniaID = id;
             model.Success = true;
@@ -56,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
 
-            var listaProducto = ConsultarEstrategiasModel("", id == userData.CampaniaID ? 0 : id);
+            var listaProducto = ConsultarEstrategiasModel("", id, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
             var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
 
@@ -80,12 +81,30 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-Landing", model);
         }
 
-        public EstrategiaPedidoModel DetalleModel(int id)
+        public ActionResult DetalleModel(int id, int campaniaId = 0)
         {
-            var listaProducto = ConsultarEstrategiasModel();
+            if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+            if (EsCampaniaFalsa(campaniaId))
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+
+            var listaProducto = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
             model.EstrategiaDetalle = model.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
-            return model;
+            if (model.EstrategiaID > 0)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+        }
+
+        public bool EsCampaniaFalsa(int campaniaId)
+        {
+            return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
         public RevistaDigitalModel ListarTabs(RevistaDigitalModel model = null)
@@ -98,61 +117,49 @@ namespace Portal.Consultoras.Web.Controllers
             model.TituloDescripcion = "";
             string cadenaActiva = "COMPRAR CAMPAÑA ";
 
-            if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+            if (userData.RevistaDigital.TieneRDC)
             {
-                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida))
-                {
-                    model.EstadoAccion = 1;
-                    model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA<br />";
-                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                    model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
-                    model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                    return model;
-                }
-
-                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
-                {
-                    //model.EstadoAccion = 2;
-                    model = ListarTabsRD(model);
-                    return model;
-                }
-
-                if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
-                {
-                    model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                    model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
-                }
-                else
-                {
-                    model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                }
-
-                model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                model.EstadoAccion = 0;
+                model = ListarTabsRD(model);
                 return model;
             }
-            else
+
+            var addTagInfo = false;
+
+            if (userData.RevistaDigital.TieneRDS)
             {
-                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida))
+                if (!userData.RevistaDigital.TieneRDR)
                 {
-                    model.EstadoAccion = 1;
-                    model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA<br />";
-                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
-                    model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
+                    if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                    {
+                        model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                        model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    }
+                    else
+                    {
+                        model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                        model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                    }
+
+                    model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
+                    model.EstadoAccion = 0;
                     return model;
                 }
 
-                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
-                {
-                    //model.EstadoAccion = 2;
-                    model = ListarTabsRD(model);
-                    return model;
-                }
-
+                addTagInfo = true;
+            }
+            else if (!userData.RevistaDigital.TieneRDR)
+            {
                 model.EstadoAccion = -1;
                 return model;
-            }            
+            }
+
+            model.EstadoAccion = 1;
+            model.Titulo += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA<br />";
+            model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
+            if (addTagInfo) model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
+            
+            return model;
         }
 
         public RevistaDigitalModel ListarTabsRD(RevistaDigitalModel model = null)
@@ -161,56 +168,55 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstadoAccion = -1;
             model.ListaTabs = new List<ComunModel>();
 
-            if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital))
+            if (!userData.RevistaDigital.TieneRDC) return model;
+
+            if (userData.RevistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
                 return model;
-            
+
             model.Titulo = userData.UsuarioNombre.ToUpper();
 
-            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
-            {
-                model.EstadoAccion = 0;
-                model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
-                model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                return model;
-            }
-
-            if (userData.RevistaDigital.SuscripcionModel.CampaniaID <= 0 || userData.RevistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
-                return model;
-            
             string cadenaActiva = "COMPRAR CAMPAÑA ", cadenaBloqueado = "VER CAMAPAÑA ";
-            if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
-            {
-                model.EstadoAccion = 0;
-                model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
-                model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                return model;
-            }
 
-            model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-
-            if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
+            if (userData.RevistaDigital.SuscripcionAnteriorModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
-                model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIRÁ DE LA PRÓXIMA CAMPAÑA";
-                model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
-                model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                model.EstadoAccion = 1;
-                return model;
-            }
-
-            if (userData.RevistaDigital.SuscripcionModel.CampaniaID <= AddCampaniaAndNumero(userData.CampaniaID, -2))
-            {
+                model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                 model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
                 model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
                 model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2) });
                 model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
                 model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
-                model.EstadoAccion = 2;
                 return model;
             }
-           
+
+            if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                {
+                    model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                    model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                }
+                else if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
+                {
+                    model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIRÁ DE LA PRÓXIMA CAMPAÑA";
+                }
+                else
+                {
+                    return model;
+                }
+            }
+            else
+            {
+                model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+                model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
+            }
+
+            string cadenaOpt = " OPT ";
+            model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
+            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2) });
+            model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
+            model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
+
             return model;
         }
 

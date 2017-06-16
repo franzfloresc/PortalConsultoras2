@@ -20,12 +20,15 @@
         <div>
             <div class="titulo_pagina">MIS OFERTAS</div>
             <div id="divFiltros">
-                <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                    @foreach (var item in Model.FiltersByBrand)
-                    {
-                        <option value="@item.Codigo">@item.Descripcion</option>
-                    }
-                </select>
+                @if (Model.FiltersByBrand.Any())
+                {
+                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                        @foreach (var item in Model.FiltersByBrand)
+                        {
+                            <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                    </select>
+                }
                 <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
                     @foreach (var item1 in Model.FiltersBySorting)
                     {

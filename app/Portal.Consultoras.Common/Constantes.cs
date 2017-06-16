@@ -635,5 +635,11 @@ namespace Portal.Consultoras.Common
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
+
+        public class SessionNames
+        {
+            // Lista de estrategias en session para OPT y BPT 
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+        }
     }
 }

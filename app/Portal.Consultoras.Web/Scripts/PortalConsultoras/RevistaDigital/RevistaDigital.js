@@ -1,6 +1,5 @@
 ﻿
-var isClear = false;
-var conCampania = conCampania || false;
+var campaniaId = campaniaId || 0;
 
 $(document).ready(function () {
 
@@ -9,7 +8,7 @@ $(document).ready(function () {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
-        listaFiltros.CampaniaID = parseInt(tag) || 0;
+        campaniaId = parseInt(tag) || 0;
         var obj = $("[data-tag-html='" + tag + "']");
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
@@ -39,11 +38,7 @@ $(document).ready(function () {
 
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
-        if ($('[data-tag-html]').attr("data-tag-html") == '0') {
-            isLoad = true;
-        }
-
-        listaFiltros.CampaniaID = $('[data-tag-html]').attr("data-tag-html") || 0;
+        $(window).scroll();
     }
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();
@@ -142,26 +137,22 @@ function OfertaArmarEstrategias(response) {
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
-    response.CodigoEstrategia = "101";
+    //response.CodigoEstrategia = "101";
 
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response);
-    if (isClear) {
-        $('#divOfertaProductos').html("");
-    }
     $('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     $("#spnCantidadFiltro").html(response.cantidad);
     $("#spnCantidadTotal").html(response.cantidadTotal);
 }
+
 function ResizeBoxContnet() {
     try {
-        //debugger;
         var image = $('.flex-container').find('img');
         image.each(function () {
             var that = $(this);
             that.on('load', function () {
-                console.log('image width : ' + $(this).width);
                 if (that.width() < 115) {
                     that.closest('.content_item_home_bpt').find('.nombre_producto_bpt').css("maxWidth", "105px");
                     that.closest('.content_item_home_bpt').find('.producto_precio_bpt').css("minWidth", "105px");
