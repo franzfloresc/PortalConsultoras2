@@ -2352,7 +2352,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            return Request.Browser.IsMobileDevice;
+            string url = Request.Url.AbsolutePath.ToString();
+            if (url.Contains("mobile")) return true;
+            else return false;
         }
     }
 }
