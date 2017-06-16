@@ -1379,6 +1379,7 @@ height: 100%;
     width: 100%;
     position: absolute;
     line-height: 53px;
+    padding: 0;
 }
 .mpopup_textleg {
     text-align: center;
@@ -1839,7 +1840,8 @@ height: 100%;
     font-weight: 700;
     letter-spacing: 1px;
     line-height: 18px;
-    font-size: 14px;
+    font-size: 13px;
+    text-align: left;
 }
 
 .banner_pedido_masofertas {
@@ -1852,7 +1854,7 @@ height: 100%;
     line-height: 20px;
 }
 
-.btn_red {
+.btn_red, .btn_black_solid, .btn_white_stroke {
     margin: 30px 0;
 }
 
@@ -1866,12 +1868,25 @@ height: 100%;
         letter-spacing: 0.5px;
 }
 
-.btn_red .rd_arrowright {
+.rd_arrowright {
         position: relative;
-        height: 14px;
-        padding-left: 6px;
+        width: 8px;
+        top: -2px;
+        left: 5px;
 }
-
+.btn_black_solid a,  .btn_white_stroke a {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border: 1px solid black;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.btn_white_stroke a {
+    border-color: white;
+}
 .rd_producto_bloqueado {
     height: 75px;
     width: 100%;
@@ -1918,6 +1933,34 @@ height: 100%;
     display:inline-block;
     text-decoration:underline;
 }
+
+
+/*BLOQUE HOME INSCRITAS C-12*/
+.mob_home_bpt {
+    font-family: 'Lato';
+    text-align: center;
+}
+.rd_lanzamiento {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0 50px;
+}
+.rd_lanzamiento_producto {
+    width: 100%;
+	max-width: 320px;
+    margin: 20px 0;
+}
+.rd_verofertas {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.mob_carrusel_bpt {
+    background-color: #F2EEF0;
+    padding: 30px 0;
+    font-weight: 600;
+    }
 .texto_inscribirse{
     font-family:'Lato';
     font-size:11px;
