@@ -290,5 +290,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneCupon { get; set; }
 
         public int CampaniaActual { get; set; }
+
+        public int TieneMasVendidos { get; set; }
     }
 }
