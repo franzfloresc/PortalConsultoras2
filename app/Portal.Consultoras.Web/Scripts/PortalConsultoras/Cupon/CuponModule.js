@@ -94,7 +94,7 @@
 
     var bindEvents = function () {
 
-        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
+        $(document).on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
         });
 
