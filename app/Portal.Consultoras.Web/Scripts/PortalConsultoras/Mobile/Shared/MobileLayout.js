@@ -85,7 +85,7 @@ $(function () {
         $txtcantidad.val(cantidad);
     });
 
-    $("body").on("click", ".cantidad_mas_home", function () {
+    $("body").on("click", ".cantidad_mas_home", function () { 
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
