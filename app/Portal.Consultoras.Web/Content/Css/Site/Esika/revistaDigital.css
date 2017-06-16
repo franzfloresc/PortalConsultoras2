@@ -42,7 +42,7 @@
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-  width: auto;
+    max-width: 100% !important;
     height: 100%;
 }
 .revistadigital p.marca {

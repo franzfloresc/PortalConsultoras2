@@ -34185,6 +34185,7 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto img {
+    max-width: 100% !important;
     max-height: 300px;
 }
 .content_right_ficha{
