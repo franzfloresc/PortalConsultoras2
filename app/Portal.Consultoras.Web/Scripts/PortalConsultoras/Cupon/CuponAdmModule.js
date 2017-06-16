@@ -93,6 +93,7 @@
             $(elements.hdTipoIdCupon).val("");
             $(elements.hdCampaniaIdFrmCargaMasiva).val("");
             $(elements.hdCuponIdFrmCargaMasiva).val("");
+            _listarCuponesPorCampania();
         });
 
         $(document).on("change", elements.ddlPais, function () {
