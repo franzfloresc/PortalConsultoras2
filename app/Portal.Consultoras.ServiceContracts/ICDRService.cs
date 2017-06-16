@@ -79,6 +79,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BECDRWebDetalleReporte> GetCDRWebDetalleReporte(int PaisID, BECDRWeb entity);
 
+        //EPD-1919
+        [OperationContract]
+        BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity);
         //[OperationContract]
         //List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID);
     }
