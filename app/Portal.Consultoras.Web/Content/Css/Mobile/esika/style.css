@@ -11941,7 +11941,7 @@ a{
 }
 
 .saludo_paginacion{
-   margin-top: 10px;
+   
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -12046,7 +12046,7 @@ a{
 
 .content_cronometro{
     margin-top: 26px;
-    margin-bottom: -28px;
+    height: 25px;
 }
 .saludo_paginacion p {
 	margin:0;
