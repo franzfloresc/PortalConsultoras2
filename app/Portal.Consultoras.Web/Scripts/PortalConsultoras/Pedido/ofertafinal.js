@@ -662,16 +662,26 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
 //function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos) {
 //    if (listaProductos.length == 0) return;
 
-//    $.each(listaProductos, function (index, value) {
+    var params = [];
 
-//    });
+    $.each(listaProductos, function (index, value) {
+        var producto = {};
+        producto['CampaniaID'] = viewBagCampaniaActual;
+        producto['CodigoConsultora'] = viewBagCondigoConsultora;
+        producto['CUV'] = value.CUV;
+        producto['Cantidad'] = 0;
+        producto['TipoOfertaFinal'] = value.TipoMeta;
+        producto['GAP'] = value.MontoMeta;
+        producto['TipoRegistro'] = 3;       
+        producto['DesTipoRegistro'] = 'Producto Expuesto';
+        params.push(producto);
 
 //    jQuery.ajax({
 //        type: 'POST',
 //        url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',
 //        dataType: 'json',
 //        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(param),
+        data: JSON.stringify(params),
 //        async: true,
 //        success: function (response) {
 //            if (checkTimeout(response)) {

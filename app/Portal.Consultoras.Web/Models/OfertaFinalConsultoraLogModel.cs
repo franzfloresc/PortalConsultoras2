@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Models
 
         public DateTime Fecha { get; set; }
 
-        public int TipoOfertaFinal { get; set; }
+        public string TipoOfertaFinal { get; set; }
 
         public decimal GAP { get; set; }
 

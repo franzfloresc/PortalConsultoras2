@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Entities
         public DateTime Fecha { get; set; }
 
         [DataMember]
-        public int TipoOfertaFinal { get; set; }
+        public string TipoOfertaFinal { get; set; }
 
         [DataMember]
         public decimal GAP { get; set; }
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Entities
                 Fecha = Convert.ToDateTime(row["Fecha"]);
 
             if (DataRecord.HasColumn(row, "TipoOfertaFinal"))
-                TipoOfertaFinal = Convert.ToInt32(row["TipoOfertaFinal"]);
+                TipoOfertaFinal = Convert.ToString(row["TipoOfertaFinal"]);
 
             if (DataRecord.HasColumn(row, "GAP"))
                 GAP = Convert.ToDecimal(row["GAP"]);

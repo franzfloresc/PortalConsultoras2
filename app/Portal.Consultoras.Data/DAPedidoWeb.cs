@@ -673,7 +673,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, entidad.TipoOfertaFinal);
             Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, entidad.GAP);
             Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, entidad.TipoRegistro);
-            Context.Database.AddInParameter(command, "@DesTipoRegistro", DbType.Int32, entidad.DesTipoRegistro);
+            Context.Database.AddInParameter(command, "@DesTipoRegistro", DbType.String, entidad.DesTipoRegistro);
 
             Context.ExecuteNonQuery(command);
         }
