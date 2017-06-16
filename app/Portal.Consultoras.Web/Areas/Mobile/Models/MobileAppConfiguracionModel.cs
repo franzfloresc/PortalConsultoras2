@@ -13,5 +13,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         /// Establece si se mostrara o no el boton atras en las vistas
         /// </summary>
         public bool EsconderBotonAtras { get; set; }
+        public long ClienteID { get; set; }
     }
 }

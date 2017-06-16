@@ -1732,7 +1732,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 
                 Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
                 {
-                    EsconderBotonAtras = model.EsAppMobile
+                    EsconderBotonAtras = model.EsAppMobile,
+                    ClienteID = model.ClienteID
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
