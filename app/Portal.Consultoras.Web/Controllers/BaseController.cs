@@ -372,7 +372,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
                 // Insertar/Actualizar los puntos de la consultora.
-                if (lista[0].ListaConcursoIncentivos != null)
+                if (lista[0].ListaConcursoIncentivos != null && lista[0].ListaConcursoIncentivos.Any())
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), Concursos, Puntajes);
 
                 // poner en Session

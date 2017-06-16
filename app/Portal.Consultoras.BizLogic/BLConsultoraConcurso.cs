@@ -105,29 +105,19 @@ namespace Portal.Consultoras.BizLogic
                 // Cargar información de incentivos.
                 foreach (var item in PuntosXConcurso)
                 {
-                    // Si el concurso tiene un solo premio y no ha llegado al puntaje minimo.
-                    if (item.Premios.Count == 1 && item.Premios.Any(p => p.PuntajeMinimo < item.PuntajeTotal))
+                    foreach (var premio in item.Premios)
                     {
-                        item.Premios.FirstOrDefault().Mensaje = string.Format(Incentivos.TextoTeFaltan, item.PuntosFaltantesSiguienteNivel);
-                        break;
-                    }
-                    // Si el concurso tiene un solo premio y ha llegado al puntaje minimo.
-                    if (item.Premios.Count == 1 && item.Premios.Any(p => item.PuntajeTotal > p.PuntajeMinimo))
-                    {
-                        item.Premios.FirstOrDefault().Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, item.Premios.Select(p => p.PuntajeMinimo));
-                        break;
-                    }
-                    if (item.Premios.Count > 1)
-                    {
-                        foreach (var premio in item.Premios)
+                        if (item.PuntajeTotal >= premio.PuntajeMinimo)
                         {
-
+                            premio.Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, premio.PuntajeMinimo);
+                        }
+                        else if (item.PuntajeTotal < premio.PuntajeMinimo)
+                        {
+                            premio.Mensaje = string.Format(Incentivos.TextoTeFaltan, (premio.PuntajeMinimo - item.PuntajeTotal));
                         }
                     }
-                    // SI el concurso tiene mas premios 
                 }
             }
-
             return PuntosXConcurso;
         }
     }
