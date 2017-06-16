@@ -93,9 +93,11 @@ $(document).ready(function () {
             return false;
         }
 
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
+        if (tieneMasVendidos == 1)
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         
         ActulizarValoresPopupOfertaFinal(add, true);
+            
 
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
         if (tipoOrigen == "1") {
@@ -196,7 +198,9 @@ $(document).ready(function () {
             return false;
         }
 
-        AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
+        if (tieneMasVendidos == 1)
+            AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
+
         ActulizarValoresPopupOfertaFinal(add, true);
         $("#divCarruselOfertaFinal").find(".hdOfertaFinalCuv[value='" + cuv + "']").parents('[data-item="ofertaFinal"]').find('.agregado').show();
         $("#contenedor_popup_ofertaFinalVerDetalle").hide();
@@ -303,9 +307,11 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta,objOf.Detalle);
     agregoOfertaFinal = tipoPopupMostrar == 1 ? 1 : agregoOfertaFinal;
     
-    AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
+    if (tieneMasVendidos == 1) {
+        AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
 
-    AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
+        AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
+    }
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
