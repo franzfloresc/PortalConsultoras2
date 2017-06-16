@@ -593,11 +593,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUVPremio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoNivel" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DescripcionRegalo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
-      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
       <xs:element minOccurs="0" name="TippingPoint" type="xs:decimal" />
       <xs:element minOccurs="0" name="UrlImagenRegalo" nillable="true" type="xs:string" />
     </xs:sequence>
