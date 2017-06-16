@@ -111,11 +111,11 @@ namespace Portal.Consultoras.Entities
                 Pedido.MontoAhorroCatalogo = row.GetValue<decimal>("MontoAhorroCatalogo");
             if (row.HasColumn("MontoAhorroRevista"))
                 Pedido.MontoAhorroRevista = row.GetValue<decimal>("MontoAhorroRevista");
-            if (row.HasColumn("Cantidadclientes"))
-                Pedido.Cantidadclientes = row.GetValue<int>("Cantidadclientes");
+            if (row.HasColumn("CantidadclientesPedido"))
+                Pedido.Cantidadclientes = row.GetValue<int>("CantidadclientesPedido");
 
-            if (row.HasColumn("Cantidadproductos"))
-                Pedido.Cantidadproductos = row.GetValue<int>("Cantidadproductos");
+            if (row.HasColumn("CantidadproductosPedido"))
+                Pedido.Cantidadproductos = row.GetValue<int>("CantidadproductosPedido");
         }
     }
 }
