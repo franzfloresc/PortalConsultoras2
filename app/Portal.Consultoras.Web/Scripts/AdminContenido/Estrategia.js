@@ -419,20 +419,20 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                         }
                         else if (data.wsprecio == 0) {
                             if (data.precio == 0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                             else {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                         }
                         else if (data.wsprecio == -1) {
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                             alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
                         }
                         else if (data.wsprecio == -2) {
@@ -521,12 +521,14 @@
 
                 $("#hdEstrategiaID").val(id);
                
-
                 _clearFields();
                
                 var params = {
-                    EstrategiaID: $("#hdEstrategiaID").val()
+                    EstrategiaID: $("#hdEstrategiaID").val(),
+                    TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                    CampaniaID: $("#ddlCampania").val()
                 };
+
 
                 _editar(params, id);
             }

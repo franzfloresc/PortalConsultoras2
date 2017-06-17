@@ -101,6 +101,7 @@
     <Compile Include="DAContratoAceptacion.cs" />
     <Compile Include="DACrossSelling.cs" />
     <Compile Include="DACrossSellingProducto.cs" />
+    <Compile Include="DACuponConsultora.cs" />
     <Compile Include="DACuv.cs" />
     <Compile Include="DAEscalaDescuento.cs" />
     <Compile Include="DAEstadoCuenta.cs" />
