@@ -456,6 +456,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private decimal MontoDescuentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreClienteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -639,6 +642,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MontoDescuentoField.Equals(value) != true)) {
                     this.MontoDescuentoField = value;
                     this.RaisePropertyChanged("MontoDescuento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCliente {
+            get {
+                return this.NombreClienteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
+                    this.NombreClienteField = value;
+                    this.RaisePropertyChanged("NombreCliente");
                 }
             }
         }

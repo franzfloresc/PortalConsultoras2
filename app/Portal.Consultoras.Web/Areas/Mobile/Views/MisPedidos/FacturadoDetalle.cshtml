@@ -64,7 +64,7 @@
                             <div style="padding-top: 15px;"> 
                                 <span> Cliente: </span>
                                 <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()">
-                                    <option value="@item.ClienteID">@lst.Nombre</option>
+                                    <option value="@item.ClienteID">@item.Nombre</option>
                                     @if (Model.ListaClientes != null)
                                     {
                                         var valor = "";

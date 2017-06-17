@@ -201,7 +201,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                 ImporteTotal = pedidoDetalle.ImporteTotal,
                                 ImporteDescuento = pedidoDetalle.MontoDescuento,
                                 ImporteTotalPedido = pedidoDetalle.ImporteTotal - pedidoDetalle.MontoDescuento,
-                                ClienteID = Convert.ToInt16(pedidoDetalle.ClienteID)
+                                ClienteID = Convert.ToInt16(pedidoDetalle.ClienteID),
+                                Nombre = pedidoDetalle.NombreCliente
                             });
                     }
                 }
