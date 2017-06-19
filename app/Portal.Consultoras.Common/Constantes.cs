@@ -804,7 +804,7 @@ namespace Portal.Consultoras.Common
 
         public class Inventivo
         {
-            public const string TextoTeFaltan = "Te faltan {0}";
+            public const string TextoTeFaltan = "Te faltan {0} puntos";
             public const string TextoNoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
             public const string TextoVasXPuntos = "VAS {0} PUNTOS.";
             public const string TextoGANASTE = "¡GANASTE!";
