@@ -1913,7 +1913,7 @@ height: 100%;
     font-family:'Lato';
 }
 .content_inscribirse{
-    margin-top:20px;
+    
     margin-bottom: 50px;
 }
 .btn_inscribirse{
@@ -1928,6 +1928,7 @@ height: 100%;
     text-align:center;
     line-height:44px;
     display:block;
+    margin-top:20px;
 }
 .terminos_inscribirse{
     display:inline-block;
@@ -1972,4 +1973,27 @@ height: 100%;
     font-size:11px;    
     margin-top:27px;
     color:gray;
+}
+.content_inscribirte{
+    margin-top:10px;
+    background:#ececec;
+    padding-top:30px;
+    padding-bottom:10px;
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    padding-left:14px;
+    padding-right:14px;
+}
+.enterate_aqui{
+    display:block;
+    font-family:'Lato';
+    font-size:13px;
+    margin:0 auto;
+    margin-top:15px;
+    margin-bottom:20px;
+    text-align:center;
+    width:270px;
+    
+    
 }
