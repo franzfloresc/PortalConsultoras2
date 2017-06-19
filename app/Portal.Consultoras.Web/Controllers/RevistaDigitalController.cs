@@ -39,11 +39,11 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "RevistaDigital");
         }
 
-        public ActionResult _Landing(int id, string tipo)
+        public ActionResult _Landing(int id)
         {
             try
             {
-                return ViewLanding(id, tipo);
+                return ViewLanding(id);
             }
             catch (Exception ex)
             {
@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 var listModel = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
 
+                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
@@ -145,8 +146,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int cantidad = listaFinal.Count;
 
-                var cantMostrar = 10;
-                listaFinal = listaFinal.Skip(model.Limite).Take(cantMostrar).ToList();
+                //var cantMostrar = 10;
+                //listaFinal = listaFinal.Skip(model.CantMostrados).Take(cantMostrar).ToList();
 
                 listaFinal.ForEach(p =>
                 {
@@ -158,10 +159,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Ok",
                     lista = listaFinal,
+                    listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad
+                    cantidad = cantidad,
+                    campaniaId = model.CampaniaID
                 });
             }
             catch (Exception ex)

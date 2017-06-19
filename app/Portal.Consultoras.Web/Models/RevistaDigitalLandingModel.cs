@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
-    public class RevistaDigitalModel
+    public class RevistaDigitalLandingModel
     {
-        public RevistaDigitalModel()
+        public RevistaDigitalLandingModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
             SuscripcionAnteriorModel = new RevistaDigitalSuscripcionModel();

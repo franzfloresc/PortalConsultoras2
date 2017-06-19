@@ -43,51 +43,60 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Index", model);
         }
 
-        public ActionResult ViewLanding(int id, string tipo)
+        public ActionResult ViewLanding(int id)
         {
-            var model = new RevistaDigitalModel();
+            var model = new RevistaDigitalLandingModel();
             if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
 
             model.CampaniaID = id;
-            model.Success = true;
             model.IsMobile = ViewBag.EsMobile == 2;
 
             model.FiltersBySorting = new List<BETablaLogicaDatos>();
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
-
-            var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
-
-            tipo = Util.Trim(tipo);
-            if (codAgrupa != "" && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
-                codAgrupa = "";
-
-            var listaProducto = ConsultarEstrategiasModel("", id, codAgrupa);
-            model.ListaProducto = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            var listadoNoLanzamiento = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-
-            var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
+            
             model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            if (listaMarca.Any())
-            {
-                model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
-                foreach (var marca in listaMarca)
-                {
-                    model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
-                }
-            }
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.Cyzone.ToString(), Descripcion = "CYZONE" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.Esika.ToString(), Descripcion = "ÉSIKA" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.LBel.ToString(), Descripcion = "LBEL" });
 
-            if (listadoNoLanzamiento.Any())
-            {
-                model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
-                model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
-            }
+            //var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
+            //tipo = Util.Trim(tipo);
+            //if (codAgrupa != "" && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+            //    codAgrupa = "";
+
+            // verificar si se guarda en session cuando codAgrupa = "", en caso se guarde debe limpiar
+            //var listaProducto = ConsultarEstrategiasModel("", id, codAgrupa);
+            //model.ListaProductoLan = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
+            //model.ListaProductoLan.ForEach(l => l.UrlDetalle = Url.Action("Detalle", "RevistaDigital", new { area = (model.IsMobile && l.PuedeVerDetalleMob ? "Mobile" : ""), id = l.EtiquetaID, campaniaId = l.CampaniaID }));
+            //model.ListaProductoNoLan = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
+            //var listadoNoLanzamiento = model.ListaProductoNoLan;
+
+            //if (listadoNoLanzamiento.Any())
+            //{
+            //    var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
+            //    model.FiltersByBrand = new List<BETablaLogicaDatos>();
+            //    if (listaMarca.Any())
+            //    {
+            //        model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
+            //        foreach (var marca in listaMarca)
+            //        {
+            //            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
+            //        }
+            //    }
+
+            //    //model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
+            //    //model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
+            //}
+
+            model.Success = true;
             return PartialView("template-Landing", model);
         }
 
-        public ActionResult DetalleModel(int id, int campaniaId = 0)
+        public ActionResult DetalleModel(int id, int campaniaId)
         {
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
@@ -100,9 +109,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var listaProducto = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
             var model = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
-            model.EstrategiaDetalle = model.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
             if (model.EstrategiaID > 0)
             {
+                model.EstrategiaDetalle = model.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
                 return View(model);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -217,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
             }
 
-            string cadenaOpt = model.IsMobile ? "COMPRAR OPT C " : "COMPRAR OPT CAMPAÑA ";
+            string cadenaOpt = model.IsMobile ? "COMPRAR C " : "COMPRAR CAMPAÑA ";
             model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
             model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
             model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });

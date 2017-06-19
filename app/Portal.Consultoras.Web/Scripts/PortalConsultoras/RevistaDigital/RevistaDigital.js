@@ -25,6 +25,7 @@ $(document).ready(function () {
         //mantener seleccionado
         $('ul[data-tab="tab"] li a').find("div.marcador_tab").addClass("oculto");
         $(this).find("div.marcador_tab").removeClass("oculto");
+        $(window).scroll();
     });
 
     $('ul[data-tab="tab"] li a')
@@ -43,11 +44,6 @@ $(document).ready(function () {
     else {
         $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     }
-    
-    RenderCarrusel();
-
-    // para renderizar las vistas previas
-    $('#divCarruselLan').slick('slickGoTo', 0);
 
     if (location.href.toLowerCase().indexOf("/detalle/") > 0) {
         RDDetalleObtener();
@@ -118,10 +114,12 @@ function GetArrowNamePrev() {
     if (window.location.href.indexOf("Mobile") > -1) return "previous_mob.png";
     else return "previous.png";
 }
+
 function GetArrowNameNext() {
     if (window.location.href.indexOf("Mobile") > -1) return "next_mob.png";
     else return "next.png";
 }
+
 function OfertaArmarEstrategias(response) {
     var lista = EstructurarDataCarousel(response.lista);
 
@@ -131,6 +129,9 @@ function OfertaArmarEstrategias(response) {
         lista.push(objDetalle);
     }
 
+    filtroCampania[busquedaModel.CampaniaID].CantMostrados += 2;//response.lista.length;
+    filtroCampania[busquedaModel.CampaniaID].CantTotal = response.cantidad;
+
     //$("#divOfertaProductos").html("");
 
     response.Lista = lista;
@@ -139,12 +140,30 @@ function OfertaArmarEstrategias(response) {
     response.Consultora = usuarioNombre.toUpperCase()
     //response.CodigoEstrategia = "101";
 
+    var divProdLan = $("[data-tag-html=" + response.campaniaId + "]");
+    response.listaLan = response.listaLan || new Array();
+    response.AddLan = response.AddLan || 0; 
+    if (response.AddLan == 0) {
+        if (response.listaLan.length > 0) {
+            var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
+            divProdLan.find("#divCarruselLan").html(htmlLan);
+
+            RenderCarrusel(divProdLan);
+            // para renderizar las vistas previas
+            divProdLan.find('#divCarruselLan').slick('slickGoTo', 0);
+        }
+        else {
+            divProdLan.find("#divCarruselLan").remove();
+        }
+    }
+
+    var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     // Listado de producto
     var htmlDiv = SetHandlebars("#estrategia-template", response);
-    $('#divOfertaProductos').append(htmlDiv);
+    divProd.find('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
-    $("#spnCantidadFiltro").html(response.cantidad);
-    $("#spnCantidadTotal").html(response.cantidadTotal);
+    divProd.find("#spnCantidadFiltro").html(response.cantidad);
+    divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 }
 
 function ResizeBoxContnet() {
@@ -174,6 +193,7 @@ function ResizeBoxContnet() {
         console.log(e);
     }
 }
+
 function RDDetalleObtener() {
     $.ajaxSetup({
         cache: false
@@ -215,9 +235,9 @@ function RDDetalleObtener() {
     });
 }
 
-function RenderCarrusel() {
-    $('#divCarruselLan.slick-initialized').slick('unslick');
-    $('#divCarruselLan').not('.slick-initialized').slick({
+function RenderCarrusel(divProd) {
+    divProd.find('#divCarruselLan.slick-initialized').slick('unslick');
+    divProd.find('#divCarruselLan').not('.slick-initialized').slick({
         vertical: false,
         dots: false,
         infinite: true,

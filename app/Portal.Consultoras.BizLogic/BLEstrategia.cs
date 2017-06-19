@@ -257,6 +257,7 @@ namespace Portal.Consultoras.BizLogic
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
             estrategiasResult.ForEach(estrategia =>
             {
+                estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
