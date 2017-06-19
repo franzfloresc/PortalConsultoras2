@@ -15,6 +15,7 @@
           <xs:element minOccurs="0" name="FechaSuscripcion" type="xs:dateTime" />
           <xs:element minOccurs="0" name="IsoPais" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="RevistaDigitalSuscripcionID" type="xs:int" />
+      <xs:element minOccurs="0" name="TienePersonalizacion" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

@@ -152,7 +152,7 @@
  <div class="ubicacion_web ActivacionCorreo">
         
     </div>
-    <div class="content">
+    <div class="content" style="padding-top:20px">
         <div class="fondo_f9f9f9">
             <div class="content_belcorp">
                 <div class="fondo_negro_lateral"></div>
