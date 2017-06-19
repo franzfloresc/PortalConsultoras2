@@ -89,7 +89,7 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
-        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int pedidoId)
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId)
         {
             var lista = new List<BEPedidoFacturado>();
 
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.BizLogic
             if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
             {
                 var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
-                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalleMobile(Campania, CodigoConsultora))
+                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalleMobile(Campania, CodigoConsultora, ClienteID))
                     while (reader.Read())
                     {
                         var entidad = new BEPedidoFacturado(reader);

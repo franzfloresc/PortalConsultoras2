@@ -34,11 +34,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetPedidosFacturadosDetalleMobile(string Campania, string CodigoConsultora)
+        public IDataReader GetPedidosFacturadosDetalleMobile(string Campania, string CodigoConsultora, int ClienteID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadosDetalleMobile");
             Context.Database.AddInParameter(command, "@Campania", DbType.AnsiString, Campania);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
 
             return Context.ExecuteReader(command);
         }

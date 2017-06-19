@@ -136,6 +136,10 @@ else
             data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
             async: true,
             success: function (html) {
+                //debugger
+
+                //var h = html.ListaPedidoWebDetalle;
+
                 $("#divListaPedidoDetalle_" + campaniaID).html(html);
                 campaniaActual = campaniaID;
                 if (primerEnvio != 0) {
@@ -155,7 +159,6 @@ else
     }
 
     function UpdClientePedido() {
-        debugger
         var _Codigo = $("#cbolstClientes").val();
     
         var array = _Codigo.split('-');
