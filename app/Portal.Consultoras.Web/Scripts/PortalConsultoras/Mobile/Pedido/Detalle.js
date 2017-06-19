@@ -884,6 +884,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);
+                var cumpleOferta;
+                if (response.data.Reserva && response.data.ZonaValida && response.data.ObservacionInformativa) 
+                    cumpleOferta = CumpleOfertaFinalMostrar(montoPedido, montoEscala, 1, codigoMensajeProl, response.data.ListaObservacionesProl);
             }
         },
         error: function (data, error) {
