@@ -108,9 +108,17 @@ namespace Portal.Consultoras.BizLogic
             }
             else
             {
-                var DAHPedidoDetalle = new DAHPedidoDetalle();
+                var DAHPedido = new DAHPedido();
 
-                lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoId);
+                var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
+                var pedidoHana = listaPedidoHana.Where(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO" && p.CampaniaID == Convert.ToInt32(Campania)).FirstOrDefault();
+
+                if (pedidoHana != null)
+                {
+                    var DAHPedidoDetalle = new DAHPedidoDetalle();
+                    lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoHana.PedidoID);
+                    lista = lista.Where(x => x.ClienteID == ClienteID).ToList();
+                }
             }
 
             return lista;
