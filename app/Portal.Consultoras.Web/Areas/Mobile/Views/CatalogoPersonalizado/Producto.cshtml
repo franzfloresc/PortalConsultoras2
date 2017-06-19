@@ -5,7 +5,11 @@
     bool EsLebel = ViewBag.EsLebel;
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;FAVORITOS DE TUS CLIENTES
 </div>
 
@@ -63,26 +67,26 @@ else
     <div class="wrapper_resumen_mobile" style="padding-bottom: 96px;" data-item="catalogopersonalizado">
         <div class="content_oferta_guia_negocio">
             <div>
-                <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV"/>
-                <input type="hidden" id="hdCuvFichaProductoFAVSelect"/>
+                <input type="hidden" id="hdCuvFichaProductoFAV" value="@Model.CUV" />
+                <input type="hidden" id="hdCuvFichaProductoFAVSelect" />
                 <div style="display: none;">
-                    <input type="hidden" class="hdItemCuv" value="@Model.CUV"/>
-                    <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID"/>
-                    <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID"/>
-                    <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo"/>
-                    <input type="hidden" class="hdItemTipo" value="1"/>
-                    <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID"/>
-                    <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo"/>
-                    <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion"/>
-                    <input type="hidden" class="hdItemPagina" value="0"/>
-                    <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria"/>
-                    <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca"/>
-                    <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia"/>
-                    <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista"/>
-                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado"/>
-                    <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje"/>
-                    <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido"/>
-                    <input type="hidden" class="hdItemVolumen" value="@Model.Volumen"/>
+                    <input type="hidden" class="hdItemCuv" value="@Model.CUV" />
+                    <input type="hidden" class="hdItemTipoOfertaSisID" value="@Model.TipoOfertaSisID" />
+                    <input type="hidden" class="hdItemConfiguracionOfertaID" value="@Model.ConfiguracionOfertaID" />
+                    <input type="hidden" class="hdItemIndicadorMontoMinimo" value="@Model.IndicadorMontoMinimo" />
+                    <input type="hidden" class="hdItemTipo" value="1" />
+                    <input type="hidden" class="hdItemMarcaID" value="@Model.MarcaID" />
+                    <input type="hidden" class="hdItemPrecioUnidad" value="@Model.PrecioCatalogo" />
+                    <input type="hidden" class="hdItemDescripcionProd" value="@Model.Descripcion" />
+                    <input type="hidden" class="hdItemPagina" value="0" />
+                    <input type="hidden" class="hdItemDescripcionCategoria" value="@Model.DescripcionCategoria" />
+                    <input type="hidden" class="hdItemDescripcionMarca" value="@Model.DescripcionMarca" />
+                    <input type="hidden" class="hdItemDescripcionEstrategia" value="@Model.DescripcionEstrategia" />
+                    <input type="hidden" class="hdItemTipoOfertaRevista" value="@Model.TipoOfertaRevista" />
+                    <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado" />
+                    <input type="hidden" class="hdItemEsMaquillaje" value="@Model.EsMaquillaje" />
+                    <input type="hidden" class="hdItemRutaImagen" value="@Model.ImagenProductoSugerido" />
+                    <input type="hidden" class="hdItemVolumen" value="@Model.Volumen" />
                 </div>
 
                 <div class="content_imagen_ficha">
@@ -147,7 +151,7 @@ else
                     <div style="display: none;">
                         <input type="hidden" class="urlbasewsp" value="@Model.FBRuta" />
                     </div>
-                <hr class="clear"/>                    
+                    <hr class="clear" />
                 </div>
             </div>
         </div>
@@ -156,10 +160,10 @@ else
                 <div class="content_320">
                     <div class="content_cantidad_ficha_producto">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
-                            <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
+                    <a class="btn_agregar_ficha_producto" onclick="agregarCuvPedidoFichaProductoFAV(2)">AGRÉGALO</a>
                     <hr class="clear" />
                 </div>
             </div>
@@ -233,7 +237,7 @@ else
                 {
                     <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
                 }
-                
+
             </div>|
             <div class="marca_oferta048">{{DescripcionMarca}}</div>
             <div class="nombre_producto_048">{{Descripcion}}</div>

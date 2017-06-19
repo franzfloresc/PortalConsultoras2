@@ -13,7 +13,11 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div>
@@ -28,7 +32,7 @@
                 <div class="sub_titulo_noti">
                     <span>PEDIDO RECHAZADO DE</span>
                     <span>CAMPAÑA @Html.Raw(Model.CampaniaDescripcion)</span>
-                </div>               
+                </div>
             </div>
         </li>
     </ul>
@@ -65,13 +69,13 @@
             }
         </div>
     </div>
-    
+
     <hr class="clear" />
     @*<p class="firma_notificaciones">
-        Gracias,
-        <br />
-        Equipo de Belcorp.
-    </p>*@
+            Gracias,
+            <br />
+            Equipo de Belcorp.
+        </p>*@
     <br />
     <br />
 </div>
