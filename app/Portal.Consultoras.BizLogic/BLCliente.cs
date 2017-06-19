@@ -323,7 +323,9 @@ namespace Portal.Consultoras.BizLogic
                         Activo = true,
                         Telefono = telefonoFijo,
                         Celular = celular,
-                        CodigoCliente = clienteDB.ClienteID
+                        CodigoCliente = clienteDB.ClienteID,
+                        Favorito = clienteDB.Favorito,
+                        TipoContactoFavorito = clienteDB.TipoContactoFavorito
                     };
 
                     var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
