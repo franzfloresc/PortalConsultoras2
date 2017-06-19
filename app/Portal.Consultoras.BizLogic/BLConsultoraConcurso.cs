@@ -110,11 +110,12 @@ namespace Portal.Consultoras.BizLogic
                         premio.Importante = 0; 
                         if (item.PuntajeTotal >= premio.PuntajeMinimo)
                         {
-                            premio.Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, premio.PuntajeMinimo);
+                            premio.Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, premio.PuntajeMinimo);                            
                             premio.Importante = 1;
                         }
                         else if (item.PuntajeTotal < premio.PuntajeMinimo)
                         {
+                            premio.Descripcion = string.Format(Incentivos.TextoDescripcion, premio.Descripcion, premio.PuntajeMinimo).ToUpper();
                             premio.Mensaje = string.Format(Incentivos.TextoTeFaltan, (premio.PuntajeMinimo - item.PuntajeTotal));
                             premio.Importante = 2;
                         }

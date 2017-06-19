@@ -811,6 +811,7 @@ namespace Portal.Consultoras.Common
             public const string TextoTEFALTA = "¡TE FALTA!";
             public const string TextoLlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
             public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} y llévate el premio.";
+            public const string TextoDescripcion = "{0} POR {1} PUNTOS";
         }
     }
 }
