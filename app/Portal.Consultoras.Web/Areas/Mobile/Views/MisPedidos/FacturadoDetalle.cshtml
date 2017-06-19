@@ -61,7 +61,23 @@
                                 @(string.Format("{0:#,##0.00}", item.ImporteTotal).Replace(',', '.'))
                             }
                             <br />
-                            Descuento @Model.Simbolo
+                            <div style="padding-top: 15px;"> 
+                                <span> Cliente: </span>
+                                <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()">
+                                    <option value="@item.ClienteID">@item.Nombre</option>
+                                    @if (Model.ListaClientes != null)
+                                    {
+                                        var valor = "";
+                                        foreach (var lst in Model.ListaClientes)
+                                        {
+                                            valor = item.PedidoID + "-" + lst.ClienteID;
+                                            <option value="@valor">@lst.Nombre</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+
+                            @*Descuento @Model.Simbolo
                             @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
                             {
                                 @(string.Format("{0:#,##0}", item.ImporteDescuento).Replace(',', '.'))
@@ -83,7 +99,7 @@
                                         @(string.Format("{0:#,##0.00}", item.ImporteTotalPedido).Replace(',', '.'))
                                     }
                                 </b>
-                            </div>
+                            </div>*@
                         </div>
                         <span class="cantidad-numero"> @item.Cantidad </span>
                     </div>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfBEProveedorDespachoCobranza">
     <xs:sequence>
@@ -30,6 +31,47 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProveedorDespachoCobranza" nillable="true" type="tns:BEProveedorDespachoCobranza" />
+  <xs:complexType name="ArrayOfBEChatbotProactivaMensaje">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEChatbotProactivaMensaje" nillable="true" type="tns:BEChatbotProactivaMensaje" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEChatbotProactivaMensaje" nillable="true" type="tns:ArrayOfBEChatbotProactivaMensaje" />
+  <xs:complexType name="BEChatbotProactivaMensaje">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoUsuario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreMensaje" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Variables" nillable="true" type="q1:ArrayOfTupleOfstringstring" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEChatbotProactivaMensaje" nillable="true" type="tns:BEChatbotProactivaMensaje" />
+  <xs:complexType name="ArrayOfBEPedidoFacturado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoFacturado" nillable="true" type="tns:BEPedidoFacturado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoFacturado" nillable="true" type="tns:ArrayOfBEPedidoFacturado" />
+  <xs:complexType name="BEPedidoFacturado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaUltimaActualizacion" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoFacturado" nillable="true" type="tns:BEPedidoFacturado" />
   <xs:complexType name="BEBelcorpNoticia">
     <xs:sequence>
       <xs:element minOccurs="0" name="ArchivoPortada" nillable="true" type="xs:string" />
@@ -315,32 +357,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEstadoCuenta" nillable="true" type="tns:BEEstadoCuenta" />
-  <xs:complexType name="ArrayOfBEPedidoFacturado">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoFacturado" nillable="true" type="tns:BEPedidoFacturado" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoFacturado" nillable="true" type="tns:ArrayOfBEPedidoFacturado" />
-  <xs:complexType name="BEPedidoFacturado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Campania" type="xs:int" />
-      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoProducto" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTerritorio" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EstadoPedido" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FechaUltimaActualizacion" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
-      <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
-      <xs:element minOccurs="0" name="PrecioUnidad" type="xs:decimal" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoFacturado" nillable="true" type="tns:BEPedidoFacturado" />
   <xs:complexType name="ArrayOfBEConfiguracionValidacionNuevoPROL">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionValidacionNuevoPROL" nillable="true" type="tns:BEConfiguracionValidacionNuevoPROL" />

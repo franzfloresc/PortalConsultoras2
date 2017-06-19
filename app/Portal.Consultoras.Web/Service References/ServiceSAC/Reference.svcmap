@@ -26,9 +26,10 @@
     <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="52f945c3-9e65-44f3-bc94-82d80c2bc10e" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
     <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="cd424fea-ad3f-4a58-8e34-c91af813dbec" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
     <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="daa05c86-387b-4a19-a218-f465853a51a1" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="35730da4-f5d9-4fcf-bfba-4112b63ec4f9" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
-    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="bd72e86b-0291-4dba-8945-093ba88b6edc" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
     <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="dbc0b2a4-fcbe-46d4-afd6-ea61c627eb7c" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="35730da4-f5d9-4fcf-bfba-4112b63ec4f9" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
+    <MetadataFile FileName="SACService5.xsd" MetadataType="Schema" ID="5feb545d-93d6-45b9-808c-29129ff429d0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd5" />
+    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="bd72e86b-0291-4dba-8945-093ba88b6edc" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

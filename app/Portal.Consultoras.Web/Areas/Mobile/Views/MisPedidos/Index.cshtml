@@ -153,5 +153,34 @@ else
             }
         });
     }
+
+    function UpdClientePedido() {
+        debugger
+        var _Codigo = $("#cbolstClientes").val();
+    
+        var array = _Codigo.split('-');
+        var CodigoPedido = array[0];
+        var CodigoCliente = array[1];
+    
+        ShowLoading();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("ActualizarClientePedidoFacturado", "MisPedidos", new { area = "Mobile" })',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ CodigoPedido: CodigoPedido, CodigoCliente: CodigoCliente }),
+            async: true,
+            success: function (data) {
+                CloseLoading();
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    CloseLoading();
+                    console.log(data);
+                }
+            }
+        });
+    }
+
 </script>
 }

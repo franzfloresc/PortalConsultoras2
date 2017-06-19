@@ -233,8 +233,7 @@ namespace Portal.Consultoras.Data
                 }
             }
         }
-
-
+        
         public bool RecordatorioEliminar(long codigoCliente, long consultoraId, int recordatorioId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Eliminar"))

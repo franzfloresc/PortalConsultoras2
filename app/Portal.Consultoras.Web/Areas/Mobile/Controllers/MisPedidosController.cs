@@ -8,6 +8,7 @@ using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceSAC;
 
+
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class MisPedidosController : BaseMobileController
@@ -181,26 +182,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var service = new SACServiceClient())
                 {
-                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalle(userData.PaisID, campaniaID.ToString(), "0", "0", userData.CodigoConsultora, pedidoId);
+                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID.ToString(), userData.CodigoConsultora, pedidoId);
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
-                {
+                { 
                     if (pedidoDetalle.CUV.Trim().Length > 0 &&
                         pedidoDetalle.Descripcion.Trim().Length > 0)
                     {
                         model.ListaPedidoWebDetalle.Add(
                             new PedidoWebClienteMobilModel
                             {
+                                PedidoID = pedidoDetalle.PedidoId,
                                 CUV = pedidoDetalle.CUV,
                                 DescripcionProd = pedidoDetalle.Descripcion,
                                 Cantidad = pedidoDetalle.Cantidad,
                                 PrecioUnidad = pedidoDetalle.PrecioUnidad,
                                 ImporteTotal = pedidoDetalle.ImporteTotal,
                                 ImporteDescuento = pedidoDetalle.MontoDescuento,
-                                ImporteTotalPedido = pedidoDetalle.ImporteTotal - pedidoDetalle.MontoDescuento
+                                ImporteTotalPedido = pedidoDetalle.ImporteTotal - pedidoDetalle.MontoDescuento,
+                                ClienteID = Convert.ToInt16(pedidoDetalle.ClienteID),
+                                Nombre = pedidoDetalle.NombreCliente
                             });
                     }
+                }
+
+                using (var sv = new ServiceCliente.ClienteServiceClient())
+                {
+                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
                 }
             }
             catch (FaultException ex)
@@ -462,6 +471,49 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     success = false,
                     message = "No se pudo realizar el envió de correo, intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult ActualizarClientePedidoFacturado(string CodigoPedido, string CodigoCliente)
+        {
+            try
+            {
+                int PaisID = UserData().PaisID;
+                int result = 0;
+
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    result = sv.UpdateClientePedidoFacturado(PaisID, Convert.ToInt32(CodigoPedido), Convert.ToInt32(CodigoCliente));
+                }
+
+                if (result == 1)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Se actulizo satisfactoriamente el registro.",
+                        extra = ""
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se puede actulizar el registro.",
+                        extra = ""
+                    });
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
                     extra = ""
                 });
             }
