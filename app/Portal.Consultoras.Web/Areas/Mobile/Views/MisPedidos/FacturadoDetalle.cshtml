@@ -34,6 +34,7 @@
         <ul class="list-table-body">
             @foreach (var item in Model.ListaPedidoWebDetalle)
             {
+                var cant = Model.ListaPedidoWebDetalle.Count();
                 <li>
                     <div class="posr">
                         <div class="table-width">
@@ -63,18 +64,37 @@
                             <br />
                             <div style="padding-top: 15px;"> 
                                 <span> Cliente: </span>
-                                <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()">
-                                    <option value="@item.ClienteID">@item.Nombre</option>
-                                    @if (Model.ListaClientes != null)
-                                    {
-                                        var valor = "";
-                                        foreach (var lst in Model.ListaClientes)
+                                @if (cant == 1)
+                                {
+                                    <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()" disabled="disabled">
+                                        <option value="@item.ClienteID">@item.Nombre</option>
+                                        @if (Model.ListaClientes != null)
                                         {
-                                            valor = item.PedidoID + "-" + lst.ClienteID;
-                                            <option value="@valor">@lst.Nombre</option>
+                                            var valor = "";
+                                            foreach (var lst in Model.ListaClientes)
+                                            {
+                                                valor = item.PedidoID + "-" + lst.ClienteID;
+                                                <option value="@valor">@lst.Nombre</option>
+                                            }
                                         }
-                                    }
-                                </select>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()">
+                                        <option value="@item.ClienteID">@item.Nombre</option>
+                                        @if (Model.ListaClientes != null)
+                                        {
+                                            var valor = "";
+                                            foreach (var lst in Model.ListaClientes)
+                                            {
+                                                valor = item.PedidoID + "-" + lst.ClienteID;
+                                                <option value="@valor">@lst.Nombre</option>
+                                            }
+                                        }
+                                    </select>
+                                }
+
                             </div>
 
                             @*Descuento @Model.Simbolo
