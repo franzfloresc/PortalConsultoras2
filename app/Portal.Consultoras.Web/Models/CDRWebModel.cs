@@ -74,5 +74,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PaisModel> listaPaises { get; set; }
         public IEnumerable<ZonaModel> listaZonas { get; set; }
         public IEnumerable<RegionModel> listaRegiones { get; set; }
+        public IEnumerable<EstadoActividadModel> TiposConsultora { get; set; }
     }
 }

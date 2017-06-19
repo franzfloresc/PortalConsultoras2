@@ -549,6 +549,7 @@
     <Compile Include="Models\SolicitudClienteModel.cs" />
     <Compile Include="Models\SolicitudCreditoModel.cs" />
     <Compile Include="Models\StockCargaLogModel.cs" />
+    <Compile Include="Models\EstadoActividadModel.cs" />
     <Compile Include="Models\TipoEstrategiaModel.cs" />
     <Compile Include="Models\TipoEstrategiaModelo.cs" />
     <Compile Include="Models\TipoLinkModel.cs" />

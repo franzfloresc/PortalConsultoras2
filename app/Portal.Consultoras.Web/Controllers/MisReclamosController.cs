@@ -1343,6 +1343,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = DropDowListCampanias(PaisId),
                 listaRegiones = DropDownListRegiones(PaisId),
                 listaZonas = DropDownListZonas(PaisId),
+                //TiposConsultora = DropDownListEstadoActividad(PaisId),
                 PaisID = PaisId,
                 CampaniaID = CampaniaIDActual
             };
@@ -1350,7 +1351,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cdrWebModel);
         }
 
-        public ActionResult ConsultaCRDWebDetalleReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado, string Consulta)
+        public ActionResult ConsultaCRDWebDetalleReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID, 
+                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado, string Consulta, int? TipoConsultora)
         {
             if (ModelState.IsValid)
             {
@@ -1360,6 +1362,8 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
                 entidad.ConsultoraCodigo = CodigoConsultora;
                 entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+                entidad.TipoConsultora = TipoConsultora;//EPD-2582
+                
 
                 List<BECDRWebDetalleReporte> lst;
 
@@ -1451,6 +1455,20 @@ namespace Portal.Consultoras.Web.Controllers
                             items = lst.OrderBy(x => x.MotivoRechazo);
                             break;
 
+                        //EPD 2582 INICIO
+                        case "TipoConsultora":
+                            items = lst.OrderBy(x => x.TipoConsultora);
+                            break;
+
+                        case "TipoDespacho":
+                            items = lst.OrderBy(x => x.TipoDespacho);
+                            break;
+
+                        case "FleteDespacho":
+                            items = lst.OrderBy(x => x.FleteDespacho);
+                            break;
+                            //EPD 2582 FIN
+
                     }
                 }
                 else
@@ -1518,6 +1536,21 @@ namespace Portal.Consultoras.Web.Controllers
                             items = lst.OrderByDescending(x => x.MotivoRechazo);
                             break;
 
+
+                        //EPD-2582 INICIO
+                        case "TipoConsultora":
+                            items = lst.OrderByDescending(x => x.TipoConsultora);
+                            break;
+
+                        case "TipoDespacho":
+                            items = lst.OrderByDescending(x => x.TipoDespacho);
+                            break;
+
+                        case "FleteDespacho":
+                            items = lst.OrderByDescending(x => x.FleteDespacho);
+                            break;
+                            //EPD-2582 FIN
+
                     }
                 }
                 #endregion
@@ -1536,27 +1569,34 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.NroCDR,
                                cell = new string[]
                                {
-                                   a.NroCDR.ToString(),
-                                   a.ConsultoraCodigo.ToString(),
-                                   a.RegionCodigo.ToString(),
-                                   a.ZonaCodigo.ToString(),
-                                   a.SeccionCodigo.ToString(),
-                                   a.CampaniaOrigenPedido.ToString(),
-                                   a.FechaHoraSolicitud.ToString(),
-                                   a.FechaAtencion.ToString(),
-                                   a.EstadoDescripcion.ToString(),
-                                   a.CUV.ToString(),
+                                   (a.NroCDR??string.Empty).ToString(),
+                                   (a.ConsultoraCodigo??string.Empty).ToString(),
+                                   (a.RegionCodigo??string.Empty).ToString(),
+                                   (a.ZonaCodigo??string.Empty).ToString(),
+                                   (a.SeccionCodigo??string.Empty).ToString(),
+                                   (a.CampaniaOrigenPedido??string.Empty).ToString(),
+                                   (a.FechaHoraSolicitud??string.Empty).ToString(),
+                                   (a.FechaAtencion??string.Empty).ToString(),
+                                   (a.EstadoDescripcion??string.Empty).ToString(),
+                                   (a.CUV??string.Empty).ToString(),
                                    a.UnidadesFacturadas.ToString(),
                                    a.MontoFacturado.ToString(),
                                    a.UnidadesDevueltas.ToString(),
                                    a.MontoDevuelto.ToString(),
-                                   a.CUV2.ToString(),
+                                   (a.CUV2??string.Empty).ToString(),
                                    a.UnidadesEnviar.ToString(),
                                    a.MontoProductoEnviar.ToString(),
-                                   a.Operacion.ToString(),
-                                   a.Reclamo.ToString(),
-                                   a.EstadoDetalle.ToString(),
-                                   a.MotivoRechazo.ToString()
+                                   (a.Operacion??string.Empty).ToString(),
+                                   (a.Reclamo??string.Empty).ToString(),
+                                   (a.EstadoDetalle??string.Empty).ToString(),
+                                   (a.MotivoRechazo??string.Empty).ToString(),
+
+                                   //EPD-2582 INICIO
+                                   (a.TipoConsultora ?? string.Empty).ToString(),
+                                   (a.TipoDespacho??string.Empty).ToString(),
+                                   a.FleteDespacho.ToString()
+                                   //EPD-2582 FIN
+
                                    //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    //a.ZonaID.ToString()
                                 }
@@ -1567,7 +1607,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado, int? TipoConsultora)
         {
             BECDRWeb entidad = new BECDRWeb();
             entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
@@ -1575,6 +1615,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
             entidad.ConsultoraCodigo = CodigoConsultora;
             entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+            entidad.TipoConsultora = TipoConsultora;//EPD-2582
 
             IList<BECDRWebDetalleReporte> lst;
             using (CDRServiceClient sv = new CDRServiceClient())
@@ -1604,6 +1645,11 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Motivo", "Reclamo");
             dic.Add("Estado", "EstadoDetalle");
             dic.Add("Motivo Rechazo", "MotivoRechazo");
+            //EPD-2598 INICIo
+            dic.Add("Segmento Consultora", "TipoConsultora");
+            dic.Add("Indicador Despacho", "TipoDespacho");
+            dic.Add("Flete CDR", "FleteDespacho");
+            //EPD-2598 FIn
             Util.ExportToExcel<BECDRWebDetalleReporte>("ReporteCDRWebDetalleExcel", lst.ToList(), dic);
             return View();
         }

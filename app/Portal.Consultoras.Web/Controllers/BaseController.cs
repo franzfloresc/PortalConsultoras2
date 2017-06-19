@@ -2070,6 +2070,19 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
+        //EPD-2598 INICIO
+
+        //protected IEnumerable<EstadoActividadModel> DropDownListEstadoActividad(int PaisID)
+        //{
+        //    IList<BEConsultorasProgramaNuevas> lst;
+        //    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.sele(PaisID);
+        //    }
+        //    return Mapper.Map<IList<BEZona>, IEnumerable<EstadoActividadModel>>(lst);
+        //}
+        //EPD-2598  FIN
+
         public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
         {
             var listaZonas = DropDownListZonas(PaisID);

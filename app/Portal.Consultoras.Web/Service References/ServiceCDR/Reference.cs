@@ -80,6 +80,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.Nullable<bool> TipoDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> TipoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ZonaIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -335,6 +338,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.TipoDespachoField.Equals(value) != true)) {
                     this.TipoDespachoField = value;
                     this.RaisePropertyChanged("TipoDespacho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> TipoConsultora {
+            get {
+                return this.TipoConsultoraField;
+            }
+            set {
+                if ((this.TipoConsultoraField.Equals(value) != true)) {
+                    this.TipoConsultoraField = value;
+                    this.RaisePropertyChanged("TipoConsultora");
                 }
             }
         }
@@ -1841,6 +1857,9 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string FechaHoraSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> FleteDespachoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoDevueltoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1866,6 +1885,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionCodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UnidadesDevueltasField;
@@ -1994,6 +2019,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> FleteDespacho {
+            get {
+                return this.FleteDespachoField;
+            }
+            set {
+                if ((this.FleteDespachoField.Equals(value) != true)) {
+                    this.FleteDespachoField = value;
+                    this.RaisePropertyChanged("FleteDespacho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal MontoDevuelto {
             get {
                 return this.MontoDevueltoField;
@@ -2106,6 +2144,32 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.SeccionCodigoField, value) != true)) {
                     this.SeccionCodigoField = value;
                     this.RaisePropertyChanged("SeccionCodigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoConsultora {
+            get {
+                return this.TipoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoConsultoraField, value) != true)) {
+                    this.TipoConsultoraField = value;
+                    this.RaisePropertyChanged("TipoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoDespacho {
+            get {
+                return this.TipoDespachoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoDespachoField, value) != true)) {
+                    this.TipoDespachoField = value;
+                    this.RaisePropertyChanged("TipoDespacho");
                 }
             }
         }
