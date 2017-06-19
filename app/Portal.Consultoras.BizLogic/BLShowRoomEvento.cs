@@ -98,16 +98,27 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.CargarProductoCpc(eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             BEShowRoomEventoConsultora entidad = null;
             var DAPedidoWeb = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
+            if(!tienePersonalizacion)
+            {
+                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultora(campaniaID, codigoConsultora))
                 if (reader.Read())
                 {
                     entidad = new BEShowRoomEventoConsultora(reader);
                 }
+            }else
+            {
+                using (IDataReader reader = DAPedidoWeb.GetShowRoomConsultoraPersonalizacion(campaniaID, codigoConsultora))
+                if (reader.Read())
+                {
+                     entidad = new BEShowRoomEventoConsultora(reader);
+                }
+            }
+            
             return entidad;
         }
 
@@ -308,17 +319,29 @@ namespace Portal.Consultoras.BizLogic
             dataAccess.GuardarPerfilOfertaShowRoom(perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
             var lst = new List<BEShowRoomOferta>();
             var dataAccess = new DAShowRoomEvento(paisID);
 
-            using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
-                while (reader.Read())
-                {
-                    var entity = new BEShowRoomOferta(reader);
-                    lst.Add(entity);
-                }
+            if (!tienePersonalizacion)
+            {
+                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultora(campaniaID, codigoConsultora))
+                    while (reader.Read())
+                    {
+                        var entity = new BEShowRoomOferta(reader);
+                        lst.Add(entity);
+                    }
+            }else
+            {
+                using (IDataReader reader = dataAccess.GetShowRoomOfertasConsultoraPersonalizada(campaniaID, codigoConsultora))
+                    while (reader.Read())
+                    {
+                        var entity = new BEShowRoomOferta(reader);
+                        lst.Add(entity);
+                    }
+            }
+            
             return lst;
         }
 

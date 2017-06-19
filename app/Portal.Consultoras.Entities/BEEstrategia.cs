@@ -157,7 +157,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
         
-         [DataMember]
+        [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
@@ -191,7 +191,7 @@ namespace Portal.Consultoras.Entities
         public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
 
         [DataMember]
-        public BETipoEstrategia TipoEstrategia { get; set; }
+        public BETipoEstrategia TipoEstrategia { get; set; } 
         public BEEstrategia()
         { }
 

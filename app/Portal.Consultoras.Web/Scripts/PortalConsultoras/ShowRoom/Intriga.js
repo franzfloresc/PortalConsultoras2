@@ -35,6 +35,8 @@ $(document).ready(function () {
         $("#divIntrigaEmailRespuestaOk").hide();
         $("#divIntrigaEmailRespuestaConfirmar").hide();
         $("#divIntrigaProgramarAvisoDatos").show();
+        $(".termino_condiciones_intriga").removeClass('check_intriga');
+        intrigaAceptoTerminos = false;
     });
 
     $("[data-email-reenviar]").click(function (e) {
