@@ -117,7 +117,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     var DAHPedidoDetalle = new DAHPedidoDetalle();
                     lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoHana.PedidoID);
-                    lista = lista.Where(x => x.ClienteID == ClienteID).ToList();
+                    if (ClienteID > 0) lista = lista.Where(x => x.ClienteID == ClienteID).ToList();
                 }
             }
 
