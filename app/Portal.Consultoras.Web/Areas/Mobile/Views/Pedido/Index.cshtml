@@ -23,7 +23,7 @@
     <div class="banner_ingresoPedido">
         <div class="content_320 ingresoPedido">            
             @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-                if (!mobileConfiguracion.EsconderBotonAtras)
+                if (mobileConfiguracion.MostrarBotonAtras)
                 {
                     <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" style="display:normal" title="Regresar"></a>
                 }

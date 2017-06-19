@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
                     {
                         var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
-                        //cliente.ClienteID
+                        model.ClienteID = cliente.ClienteID;
                     }
                 }
 
@@ -180,9 +180,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Subtotal = pedidoWebMobile.Subtotal;
                 model.Flete = pedidoWebMobile.Flete;
 
+                var ClienteId = pedidosFacturados.ClienteID;
                 using (var service = new SACServiceClient())
                 {
-                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID.ToString(), userData.CodigoConsultora, pedidoId);
+                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID.ToString(), userData.CodigoConsultora, ClienteId, pedidoId);
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)
