@@ -27,7 +27,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Variables
 
         protected UsuarioModel userData;
-
+        protected string ConcursosCodigos = string.Empty;
         #endregion
 
         #region Constructor
@@ -278,7 +278,7 @@ namespace Portal.Consultoras.Web.Controllers
             #region Concursos
 
             List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
-            string ConcursosCodigos = string.Empty;
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
@@ -372,8 +372,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
                 // Insertar/Actualizar los puntos de la consultora.
-                if (lista[0].ListaConcursoIncentivos != null && lista[0].ListaConcursoIncentivos.Any())
-                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), Concursos, Puntajes);
+                if (lista[0].ListaConcursoIncentivos != null)
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), ConcursosCodigos, Puntajes);
 
                 // poner en Session
                 Session["PedidoWeb"] = null;
