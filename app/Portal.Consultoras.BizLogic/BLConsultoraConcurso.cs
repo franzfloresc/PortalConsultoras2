@@ -105,8 +105,12 @@ namespace Portal.Consultoras.BizLogic
                 // Cargar información de incentivos.
                 foreach (var item in PuntosXConcurso)
                 {
+                    if (item.NivelAlcanzado >0)
+                        item.Importante = 1;
+
                     foreach (var premio in item.Premios)
                     {
+                        
                         if (item.PuntajeTotal >= premio.PuntajeMinimo)
                         {
                             premio.Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, premio.PuntajeMinimo);

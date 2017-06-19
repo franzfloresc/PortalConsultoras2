@@ -41,6 +41,8 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaVentaRetail { get; set; }
         [DataMember]
         public List<BEPremio> Premios { get; set; }
+        [DataMember]
+        public int Importante { get; set; }
 
 
         public BEConsultoraConcurso(IDataRecord row)
