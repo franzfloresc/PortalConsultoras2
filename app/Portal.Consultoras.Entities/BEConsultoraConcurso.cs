@@ -66,6 +66,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NIV_ALCA"))
                 NivelAlcanzado = Convert.ToInt32(row["NIV_ALCA"]);
 
+            if (DataRecord.HasColumn(row, "NivelSiguiente"))
+                NivelSiguiente = Convert.ToInt32(row["NivelSiguiente"]);
+
             if (DataRecord.HasColumn(row, "PUN_FALT_NIVS"))
                 PuntosFaltantesSiguienteNivel = Convert.ToInt32(row["PUN_FALT_NIVS"]);
 

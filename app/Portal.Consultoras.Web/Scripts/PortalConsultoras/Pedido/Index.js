@@ -3448,18 +3448,17 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
 function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
     if (flagClienteDetalle) return true;
-
     if (isShown)
         return true;
 
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
- 
+
     if (cliAnt == cliNue) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;
     }
-
+    alert("ok")
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
 function InfoCommerceGoogleProductoRecomendados() {

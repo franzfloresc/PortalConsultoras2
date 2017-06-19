@@ -80,17 +80,19 @@ $(document).ready(function () {
             return false;
         }
 
-        var clienteValido = true;
-        $.each(lstClientes, function (ind, cli) {
-            if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
-                AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
-                    showClienteDetalle(cli);
-                });
-                clienteValido = false;
-                return false;
-            }
-        });
-        if (!clienteValido) return false;
+        //var clienteValido = true;
+        //if ($("#ddlClientes").val() != "0") {
+        //    $.each(lstClientes, function (ind, cli) {
+        //        if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
+        //            AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
+        //                showClienteDetalle(cli);
+        //            });
+        //            clienteValido = false;
+        //            return false;
+        //        }
+        //    });
+        //}
+        //if (!clienteValido) return false;
 
         var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
         if (cantidadProductos > 0) {
@@ -677,12 +679,25 @@ function InsertarProducto() {
                 CloseLoading();
                 return false;
             }
-
             if (data.success != true) {
+                CloseLoading();
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                 $("#btnAgregarProducto").show();
-                messageInfoError(data.message);
-                CloseLoading();
+
+                var errorCliente = data.errorCliente || false;
+                if (!errorCliente) {
+                    messageInfoError(data.message);   
+                }
+                else {
+                    $.each(lstClientes, function (ind, cli) {
+                        if (cli.ClienteID == $("#ddlClientes").val()) {
+                            messageInfoError(data.message, function () {
+                                showClienteDetalle(cli);
+                            });
+                            return false;
+                        }
+                    });
+                }
                 return false;
             }
 
