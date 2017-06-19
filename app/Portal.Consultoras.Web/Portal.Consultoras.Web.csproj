@@ -3997,7 +3997,7 @@
     <Content Include="Views\Login\Admin.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Views\Bienvenida\template-opt.cshtml" />
+    <Content Include="Views\Bienvenida\template-carrusel-opt.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
@@ -4017,6 +4017,7 @@
     <Content Include="Views\RevistaDigital\template-informativa.cshtml" />
     <Content Include="Views\RevistaDigital\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
+    <Content Include="Views\Bienvenida\template-seccion-opt.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

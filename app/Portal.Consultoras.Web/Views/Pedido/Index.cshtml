@@ -560,7 +560,7 @@
     <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
 
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
+        @*@if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
         }
@@ -578,7 +578,7 @@
                 <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
                 </div>
             </div>
-        </div>
+        </div>*@
     </div>
 
     <div class="clear"></div>
@@ -1761,6 +1761,7 @@
         {
             <div class="truco_bloqueo sim2"></div>
         }
+        @*<span>Pruebas de Mijael</span>*@
         <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
             <div>
                 {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
@@ -1806,7 +1807,7 @@
     </div>
 </script>
 
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+@Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 
         <script id="estrategia-template1" type="text/x-handlebars-template">
             {{#each this as |item|}}

@@ -1,0 +1,21 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.BienvenidaHomeModel
+
+<!-- INCION SECCION DE VENTA EXCLUSIVA -->
+<div class="content_belcorp" style="text-align:center;box-shadow:none;margin-top:0px;">
+    <div class="">
+        <div>
+            <div class="titulo_ofertas_home">
+                OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
+                <div class="texto_exclusivo">
+                    EXCLUSIVAS S&Oacute;LO POR WEB
+                </div>
+            </div>
+            <div class="linea_titulo_absoluto"></div>
+        </div>
+        <hr class="clear" />
+        <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+        <hr class="clear" />
+    </div>
+</div>
+<!-- FIN SECCION DE VENTA EXCLUSIVA -->
