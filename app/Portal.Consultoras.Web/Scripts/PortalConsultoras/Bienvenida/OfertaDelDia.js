@@ -704,10 +704,10 @@
 
     $("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
         var accion = $(this).attr("data-odd-accion").toUpperCase();
+        var cantidad = parseInt($(this).attr("data-odd-cantidad"));
         if (accion == CONS_TIPO_ACCION.VEROFERTA) {
             ResetearCantidadesDelPopup();
             if (showDisplayODD == 0) {
-                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
                 if (cantidad > 3) {
                     var posicion = "0";
                     $('#divOddCarrusel').slick('slickGoTo', posicion);
@@ -744,8 +744,9 @@
             // asignar valores del ver detalle
         }
         else if (accion == CONS_TIPO_ACCION.REGRESAR) {
-
-            $('#divOddCarrusel').slick('refresh', false);
+            if (cantidad > 3) {
+                $('#divOddCarrusel').slick('refresh', false);
+            }
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
         }
