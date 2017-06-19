@@ -84,7 +84,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, campaniaID, userData.ConsultoraID);
                 }
 
-                foreach (var pedidoDetalle in lstPedidoDetalle)
+                var lstPedidoDetallexCliente = lstPedidoDetalle.Where(p => p.ClienteID == Convert.ToInt16(pedidosRegistrados.ClienteID));
+
+                foreach (var pedidoDetalle in lstPedidoDetallexCliente)
                 {
                     model.ListaPedidoWebDetalle.Add(new PedidoWebClienteMobilModel
                     {
