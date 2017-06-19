@@ -20,6 +20,9 @@ namespace Portal.Consultoras.Entities
         public int PuntajeMinimo { get; set; }
         [DataMember]
         public int NumeroNivel { get; set; }
+        [DataMember]
+        public int Importante { get; set; }
+
 
         public BEPremio(IDataRecord row)
         {
