@@ -1732,7 +1732,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 
                 Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
                 {
-                    EsconderBotonAtras = model.EsAppMobile,
+                    MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID
                 };
 

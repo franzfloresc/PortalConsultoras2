@@ -11,7 +11,7 @@
 <div class="titulo_mobile">
     @{  
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (!mobileConfiguracion.EsconderBotonAtras)
+        if (mobileConfiguracion.MostrarBotonAtras)
         {
         <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
         }
