@@ -601,6 +601,7 @@
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaVentaRetail" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Importante" type="xs:int" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
       <xs:element minOccurs="0" name="NivelSiguiente" type="xs:int" />
@@ -625,6 +626,7 @@
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Importante" type="xs:int" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="NumeroNivel" type="xs:int" />
       <xs:element minOccurs="0" name="PuntajeMinimo" type="xs:int" />

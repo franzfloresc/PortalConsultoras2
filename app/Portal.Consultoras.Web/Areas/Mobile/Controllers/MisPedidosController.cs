@@ -20,9 +20,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
+                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+                if (mobileConfiguracion.ClienteID > 0)
+                {
+                    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
+                    {
+                        var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
+                        model.ClienteID = cliente.ClienteID;
+                    }
+                }
+
                 using(var service = new PedidoServiceClient())
                 {
-                    listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, 3, userData.CodigoConsultora).ToList();
+                    listaPedidos = service.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, model.ClienteID, 3, userData.CodigoConsultora).ToList();
                 }
 
                 foreach (var pedido in listaPedidos)
@@ -39,16 +49,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     bePedidoWeb.Subtotal = pedido.ImporteTotal - pedido.Flete;
 
                     model.ListaPedidoCliente.Add(bePedidoWeb);
-                }
-
-                var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-                if(mobileConfiguracion.ClienteID > 0)
-                {
-                    using (var sv = new Portal.Consultoras.Web.ServiceCliente.ClienteServiceClient())
-                    {
-                        var cliente = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, 0, mobileConfiguracion.ClienteID);
-                        model.ClienteID = cliente.ClienteID;
-                    }
                 }
 
                 Session["Pedidos"] = model;
@@ -70,6 +70,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new PedidoWebMobilModel();
             Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalle;
             Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetalleProducto;
+            Portal.Consultoras.Web.ServiceCliente.BEPedidoWebDetalle[] lstPedidoDetallexCliente;
 
             try
             {
@@ -84,7 +85,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lstPedidoDetalle = sv.GetClientesByCampania(userData.PaisID, campaniaID, userData.ConsultoraID);
                 }
 
-                var lstPedidoDetallexCliente = lstPedidoDetalle.Where(p => p.ClienteID == Convert.ToInt16(pedidosRegistrados.ClienteID));
+                if (pedidosRegistrados.ClienteID != 0)
+                    lstPedidoDetallexCliente = lstPedidoDetalle.Where(p => p.ClienteID == Convert.ToInt16(pedidosRegistrados.ClienteID)).ToArray();
+                else
+                    lstPedidoDetallexCliente = lstPedidoDetalle;
 
                 foreach (var pedidoDetalle in lstPedidoDetallexCliente)
                 {

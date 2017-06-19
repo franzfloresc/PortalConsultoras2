@@ -10869,6 +10869,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaVentaRetailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ImportanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10982,6 +10985,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaVentaRetailField.Equals(value) != true)) {
                     this.FechaVentaRetailField = value;
                     this.RaisePropertyChanged("FechaVentaRetail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Importante {
+            get {
+                return this.ImportanteField;
+            }
+            set {
+                if ((this.ImportanteField.Equals(value) != true)) {
+                    this.ImportanteField = value;
+                    this.RaisePropertyChanged("Importante");
                 }
             }
         }
@@ -11145,6 +11161,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ImportanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11198,6 +11217,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Importante {
+            get {
+                return this.ImportanteField;
+            }
+            set {
+                if ((this.ImportanteField.Equals(value) != true)) {
+                    this.ImportanteField = value;
+                    this.RaisePropertyChanged("Importante");
                 }
             }
         }
@@ -24462,10 +24494,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoAsync(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobileResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile", ReplyAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobileResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoWebMobileAsync(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoWebMobileAsync(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas", ReplyAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad);
@@ -26561,12 +26593,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetPedidosIngresadoFacturadoAsync(paisID, consultoraID, campaniaID, codigoConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora) {
-            return base.Channel.GetPedidosIngresadoFacturadoWebMobile(paisID, consultoraID, campaniaID, top, codigoConsultora);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[] GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora) {
+            return base.Channel.GetPedidosIngresadoFacturadoWebMobile(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoWebMobileAsync(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora) {
-            return base.Channel.GetPedidosIngresadoFacturadoWebMobileAsync(paisID, consultoraID, campaniaID, top, codigoConsultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]> GetPedidosIngresadoFacturadoWebMobileAsync(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora) {
+            return base.Channel.GetPedidosIngresadoFacturadoWebMobileAsync(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, Portal.Consultoras.Web.ServicePedido.BEConsultorasProgramaNuevas entidad) {

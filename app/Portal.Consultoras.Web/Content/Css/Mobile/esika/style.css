@@ -12028,11 +12028,11 @@ a{
 }
 
 #cbolstClientes {
+    margin: 20px auto 20px 8px;
     padding: 5px 8px;
     width: auto;
-    border: none;
+    border: 1px solid black;
     box-shadow: none;
     background-color: transparent;
     background-image: none;
-    appearance: none;
 }

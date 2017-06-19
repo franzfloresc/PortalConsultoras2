@@ -1924,7 +1924,7 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int top, string codigoConsultora)
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)
         {
             var listaResultado = new List<BEPedidoWeb>();
 
@@ -1939,7 +1939,7 @@ namespace Portal.Consultoras.BizLogic
 
             if (!BLPais.EsPaisHana(paisID))
             {
-                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(consultoraID, campaniaID, top))
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(consultoraID, campaniaID, clienteID, top))
                 {
                     while (reader.Read())
                     {
