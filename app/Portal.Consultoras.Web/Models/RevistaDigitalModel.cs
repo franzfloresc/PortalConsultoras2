@@ -36,6 +36,7 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
+        public int CantidadFilas { get; set; }
         public string NumeroContacto { get; set; }
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }

@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
 
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
+            model.CantidadFilas = 10;
 
             return View("Index", model);
         }

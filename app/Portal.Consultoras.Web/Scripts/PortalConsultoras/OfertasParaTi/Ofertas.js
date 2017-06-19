@@ -176,18 +176,18 @@ function OfertaCargarProductos(busquedaModel, clear) {
     if (busquedaModel.CampaniaID <= 0) return false;
     filtroCampania[busquedaModel.CampaniaID].IsLoad = true;
 
-    $.ajaxSetup({
-        cache: false
-    });
-
     divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
     if (filtroCampania[busquedaModel.CampaniaID].AddLan == 1) {
 
         OfertaCargarProductoRespuesta(filtroCampania[busquedaModel.CampaniaID].response, clear);
-        return false;
+        return true;
     }
+
+    $.ajaxSetup({
+        cache: false
+    });
 
     jQuery.ajax({
         type: 'POST',
@@ -214,20 +214,20 @@ function OfertaCargarProductos(busquedaModel, clear) {
 function OfertaCargarProductoRespuesta(response, clear) {
     CerrarLoad();
 
-    var divProd = $("[data-listado-campania=" + busquedaModel.CampaniaID + "]");
+    var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     divProd.find("#divOfertaProductosLoad").hide();
     if (response.success == true) {
         if (clear || false) {
             divProd.find('#divOfertaProductos').html("");
-            filtroCampania[busquedaModel.CampaniaID].CantMostrados = 0;
+            filtroCampania[busquedaModel.campaniaId].CantMostrados = 0;
         }
         //filtroCampania[busquedaModel.CampaniaID].CantMostrados += response.lista.length;
         //filtroCampania[busquedaModel.CampaniaID].CantTotal = response.cantidad;
         //filtroCampania[busquedaModel.CampaniaID].Listado = response.lista;
         OfertaArmarEstrategias(response);
-        filtroCampania[busquedaModel.CampaniaID].IsLoad = false;
-        filtroCampania[busquedaModel.CampaniaID].AddLan = 1;
-        filtroCampania[busquedaModel.CampaniaID].response = response;
+        filtroCampania[response.campaniaId].IsLoad = false;
+        filtroCampania[response.campaniaId].AddLan = 1;
+        filtroCampania[response.campaniaId].response = response;
         return true;
     }
 
