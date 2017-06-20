@@ -4018,6 +4018,7 @@
     <Content Include="Views\RevistaDigital\template-landing.cshtml" />
     <Content Include="Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
     <Content Include="Views\Bienvenida\template-seccion-opt.cshtml" />
+    <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
