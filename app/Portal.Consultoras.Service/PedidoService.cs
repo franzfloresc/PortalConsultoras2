@@ -1982,7 +1982,7 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
-	}
+	    }
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
