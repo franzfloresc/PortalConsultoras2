@@ -282,6 +282,14 @@ namespace Portal.Consultoras.Web.Controllers
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
 
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel?.EstadoRegistro ?? 0;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model?.EstadoRegistro ?? 0;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model?.EstadoRegistro ?? 0;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
@@ -516,13 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     continue;
                 }
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel?.EstadoRegistro ?? 0;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model?.EstadoRegistro ?? 0;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model?.EstadoRegistro ?? 0;
-                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
