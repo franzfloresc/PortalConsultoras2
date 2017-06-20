@@ -66,8 +66,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            Session["TieneSubCampania"] = showRoomEventoModel.TieneSubCampania;
-
             return showRoomEventoModel == null
                 ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
                 : View(showRoomEventoModel);
@@ -75,7 +73,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Intriga()
         {
-
             try
             {
                 if (!ValidarIngresoShowRoom(true))
@@ -178,8 +175,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     showRoomEventoModel.FiltersBySorting = svc.GetTablaLogicaDatos(userData.PaisID, 99).ToList();
                 }
 
-                ViewBag.PrecioMin = showRoomEventoModel.ListaShowRoomOferta.Min(p => p.PrecioOferta);
-                ViewBag.PrecioMax = showRoomEventoModel.ListaShowRoomOferta.Max(p => p.PrecioOferta);
+                var xlistaShowRoom = showRoomEventoModel.ListaShowRoomOferta.Where(x => x.EsSubCampania == false).ToList();
+
+                ViewBag.PrecioMin = xlistaShowRoom.Min(p => p.PrecioOferta);
+                ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
                 return showRoomEventoModel;                

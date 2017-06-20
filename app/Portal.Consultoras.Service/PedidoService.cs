@@ -36,8 +36,9 @@ namespace Portal.Consultoras.Service
         private BLMensajeMetaConsultora BLMensajeMetaConsultora;
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLEstrategia blEstrategia;
-        private BLCuponConsultora BLCuponConsultora;
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private BLCuponConsultora BLCuponConsultora;
+
 
         public PedidoService()
         {
@@ -61,8 +62,8 @@ namespace Portal.Consultoras.Service
             BLMensajeMetaConsultora = new BLMensajeMetaConsultora();
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
-            BLCuponConsultora = new BLCuponConsultora();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -1968,8 +1969,6 @@ namespace Portal.Consultoras.Service
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
         
-
-
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             return new BLReservaProl().EjecutarReservaProl(input);
@@ -2014,8 +2013,21 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
+
+
+
+        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
+        {
+            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
+        }
         
-        
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
+
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
@@ -2043,11 +2055,6 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
 
-        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
-        {
-            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
-        }
-
-        #endregion
+        
     }
 }

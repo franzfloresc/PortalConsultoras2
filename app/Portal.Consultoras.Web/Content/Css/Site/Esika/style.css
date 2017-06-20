@@ -33045,6 +33045,7 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto img {
+    max-width: 100% !important;
     max-height: 300px;
 }
 
@@ -35232,7 +35233,6 @@ h1#penmostreo .campana {
 .content_780_ODD .height_min{
     min-height:231px;
 }
-
 
 /*EPD-1204  INICIO*/
 .imagenConTexto {

@@ -2834,7 +2834,6 @@ function MostrarShowRoom() {
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
             contentType: 'application/json',
             success: function (response) {
-                
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;

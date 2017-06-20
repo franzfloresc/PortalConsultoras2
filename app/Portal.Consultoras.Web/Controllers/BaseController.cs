@@ -1110,13 +1110,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = false;
                 if (!ViewBag.MostrarODD)
                 {
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia;
+                    if (model.TieneOfertaDelDia)
                     {
                         if (!(
-                                (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                                || userData.IndicadorGPRSB == 0)
-                            || userData.CloseOfertaDelDia
+                                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                                || model.IndicadorGPRSB == 0)
+                            || model.CloseOfertaDelDia
                         )
                         {
                             ViewBag.TieneOfertaDelDia = false;
@@ -1131,8 +1131,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
-                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+                ViewBag.MensajePedidoDesktop = model.MensajePedidoDesktop;
+                ViewBag.MensajePedidoMobile = model.MensajePedidoMobile;
                 return model;
 
                 #endregion
@@ -2386,6 +2386,28 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return accion;
             }
+            /*
+            try
+            {
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
+                {
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
+                }
+
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return accion;
+            }
+             * */
         }
 
         //public bool MostrarFAV()

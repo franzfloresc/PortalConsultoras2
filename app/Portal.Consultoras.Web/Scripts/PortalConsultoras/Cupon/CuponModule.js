@@ -94,7 +94,7 @@
 
     var bindEvents = function () {
 
-        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
+        $('div#Cupon1').off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
         });
 
@@ -386,14 +386,11 @@
     }
 
     var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
-        if (emailOriginal == "") {
-            AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
-            return false;
-        }
         if (emailIngresado == "") {
             AbrirMensaje("Debe ingresar su correo", "VALIDACIÓN");
             return false;
         }
+        
         if (!aceptoTerCond) {
             AbrirMensaje("Debe aceptar los términos y condiciones", "VALIDACIÓN");
             return false;

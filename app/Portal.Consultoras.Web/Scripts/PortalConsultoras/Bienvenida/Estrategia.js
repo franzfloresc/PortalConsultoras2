@@ -6,6 +6,7 @@ var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 // 0. Sin popUp         1. Con popUp
 var conPopup = conPopup || "";
 
+var tieneOPT = false;
 var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
@@ -106,14 +107,16 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
+
     if (data.Lista.length == 0) {
         return false;
     }
 
     data.Lista = EstructurarDataCarousel(data.Lista);
+    tieneOPT = true;
     arrayOfertasParaTi = data.Lista;
-
-    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
+    
+    SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $('#divListaEstrategias').show();
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
@@ -127,11 +130,11 @@ function ArmarCarouselEstrategias(data) {
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
-    
 
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         return false;
     }
+
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
@@ -254,8 +257,6 @@ function ArmarCarouselEstrategias(data) {
     TagManagerCarruselInicio(data.Lista);
 
 };
-
-
 
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
@@ -465,6 +466,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     CerrarLoad();
     return true;
 };
+
 function EstrategiaMostrarMasTonos(menos) {
     if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21) {
         if (menos) {
@@ -489,6 +491,7 @@ function EstrategiaMostrarMasTonos(menos) {
 
     }
 }
+
 function CargarEstrategiaSet(cuv) {
     AbrirLoad();
     var detalle = new Array();
@@ -873,7 +876,6 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         try {
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             TagManagerClickAgregarProductoOfertaParaTI(datosEst);
-                            TagManagerClickAgregarProducto();
                         } catch (e) {
 
                         }

@@ -9877,11 +9877,12 @@ a{
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-    width: 49%;
+   
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
+     width: 38%;
 }
 
 .select-ffc {
@@ -9891,7 +9892,7 @@ a{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 15px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -10479,7 +10480,7 @@ a{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:17px;
+    line-height:20px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -10969,14 +10970,14 @@ a{
     text-align:center;
     margin-top:15px;
 }
-.termino_condiciones_intriga {
+.termino_condiciones_intriga, .termino_condiciones_cupon {
     position:relative;
     padding-left:18px;
     margin:0 auto;
     margin-top:20px;
     font-family:'Lato';
     font-size:10.5px;
-    width:248px;    
+    max-width:260px;    
     text-align: left;
 }
 .termino_condiciones_cupon {
@@ -11941,7 +11942,7 @@ a{
 }
 
 .saludo_paginacion{
-   margin-top: 10px;
+   
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -12062,8 +12063,9 @@ a{
 }
 
 .content_cronometro{
-    margin-top: 26px;
-    margin-bottom: -28px;
+     margin-top: 26px;
+    height: 25px;
+    /* margin-bottom: -28px; */;
 }
 .saludo_paginacion p {
 	margin:0;
