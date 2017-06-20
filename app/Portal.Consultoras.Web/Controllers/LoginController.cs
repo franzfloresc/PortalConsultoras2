@@ -852,8 +852,10 @@ namespace Portal.Consultoras.Web.Controllers
                                         using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                         {
                                             model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                            rds.CampaniaID = model.CampaniaID;
-                                            model.RevistaDigital.SuscripcionAnteriorModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            rds.CampaniaID = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), -1, model.NroCampanias);
+                                            model.RevistaDigital.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            rds.CampaniaID = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), -2, model.NroCampanias);
+                                            model.RevistaDigital.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                         }
 
                                         continue;
@@ -909,6 +911,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             }
                         }
+                        
                         catch (Exception)
                         {
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
@@ -1787,6 +1790,22 @@ namespace Portal.Consultoras.Web.Controllers
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+
+        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
+            int anioCampania = campania / 100;
+            int nroCampania = campania % 100;
+            int sumNroCampania = (nroCampania + numero) - 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
+
+            if (nroCampaniaResult < 1)
+            {
+                anioCampaniaResult = anioCampaniaResult - 1;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
+            }
+            return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
     }
 }

@@ -526,61 +526,13 @@
         }
     </div>
     <!--14092016 - FIN -->
-
-    <!-- PASE PEDIDO INSCRITAS C-11 -->
-    <div class="banner_pedido_rd">
-        <div class="cabecera_pedido_rd">
-            <div class="rd_logo">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-            </div>
-            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-        </div>
-        <div class="banner_pedido_masofertas">
-            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
-
-            <div class="btn_diagonal btn_stroke"><a href="#">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
-        </div>
-    </div>
-    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
-
-    <!-- PASE PEDIDO NO INSCRITAS C-11 -->
-    <div class="banner_pedido_rd">
-        <div class="cabecera_pedido_rd">
-            <div class="rd_logo">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-            </div>
-            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-        </div>
-        <div class="banner_pedido_masofertas">
-            <div class="banner_pedido_text">YULIANA, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
-
-            <div class="btn_diagonal btn_stroke"><a href="#">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
-        </div>
-    </div>
-    <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+    
+   
 
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
-        @*@if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div class="truco_bloqueo sim2"></div>
-        }
-        <div class="contenedor_carousel">
-            <h1>
-                OFERTAS
-                <b>PARA TI</b>
-                <b class="">@Model.SobreNombre</b>
-            </h1>
-            <div class="texto_exclusivo_web">
-                EXCLUSIVAS SÓLO POR WEB
-            </div>
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
-                </div>
-            </div>
-        </div>*@
+        
     </div>
-
+    
     <div class="clear"></div>
     <hr class="clear" />
 </div>
@@ -1756,55 +1708,95 @@
 
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{/iff}}">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
+    @if (ViewBag.TieneRDC)
+    {
+        if (ViewBag.EstadoSucripcionRDAnterior != 1 && ViewBag.EstadoSucripcionRD == 1)
         {
-            <div class="truco_bloqueo sim2"></div>
+            <!-- PASE PEDIDO INSCRITAS C-11 -->
+            <div class="banner_pedido_rd">
+                <div class="cabecera_pedido_rd">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                    </div>
+                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                </div>
+                <div class="banner_pedido_masofertas">
+                    <div class="banner_pedido_text">@Model.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
+
+                    <div class="btn_diagonal btn_stroke"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                </div>
+            </div>
+            <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
         }
-        @*<span>Pruebas de Mijael</span>*@
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content pedido{{else}}contenedor_carousel{{/iff}}">
-            <div>
-                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revistadigital-title overflowContenido">
-                    <div class="contenedor_cabecera_revistaDigital">
-                        <div class="fondo_franja"></div>
-                        <div class="contenedor_contenido_cabecera">
-                            <div class="cabecera_contenedor_logoMarca">
-                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+        else if (ViewBag.EstadoSucripcionRDAnterior == 1)
+        {
+
+        }
+        else
+        {
+            <!-- PASE PEDIDO NO INSCRITAS C-11 -->
+            <div class="banner_pedido_rd">
+                <div class="cabecera_pedido_rd">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                    </div>
+                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                </div>
+                <div class="banner_pedido_masofertas">
+                    <div class="banner_pedido_text">@Model.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
+
+                    <div class="btn_diagonal btn_stroke"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                </div>
+            </div>
+            <!-- FIN PASE PEDIDO INSCRITAS C-11 -->
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
+        }
+    }
+    else if (ViewBag.TieneRDR)
+    {
+        <div class="revistadigital">
+            @if (ViewBag.MostrarPedidosPendientes == "1")
+            {
+                <div class="truco_bloqueo sim2"></div>
+            }
+            <div class="revistadigital-content pedido">
+                <div>
+                    <div class="revistadigital-title overflowContenido">
+                        <div class="contenedor_cabecera_revistaDigital">
+                            <div class="fondo_franja"></div>
+                            <div class="contenedor_contenido_cabecera">
+                                <div class="cabecera_contenedor_logoMarca">
+                                    <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                                </div>
+                                <div class="cabecera_texto">{{Titulo}}</div>
                             </div>
-                            <div class="cabecera_texto">{{Titulo}}</div>
+                        </div>
+                        <div class="texto_ofertas_bonificaciones">
+                            {{TituloDescripcion}}
                         </div>
                     </div>
-                    <div class="texto_ofertas_bonificaciones">
-                        {{TituloDescripcion}} 
+                </div>
+                <hr class="clear" />
+                <div class="contenedor_productos">
+                    <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                    <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                     </div>
                 </div>
-                {{else}}
-                <h1>
-                    OFERTAS <b>PARA TI @Model.SobreNombre</b>
-                </h1>
-                <div class="texto_exclusivo_web">
-                    EXCLUSIVAS SÓLO POR WEB
+                <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
+                    <div class="fondo_boton"></div>
+                    <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                 </div>
-                {{/iff}}
+                <hr class="clear" />
             </div>
-            <hr class="clear" />
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
-                </div>
-            </div>
-            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                <div class="fondo_boton"></div>
-                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>            
-                @*<p>MÁS<br>OFERTAS<br>PARA TI</p>
-                <img src="http://d33wubrfki0l68.cloudfront.net/9f78b60edcb77ae2fa5836b03c3169e2218702f5/7bd70/img/p5.jpg">*@
-            </div>
-            {{/iff}}
-            <hr class="clear" />
         </div>
-    </div>
+
+    }
+    else
+    {
+        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
+    }
+    
 </script>
 
 @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")

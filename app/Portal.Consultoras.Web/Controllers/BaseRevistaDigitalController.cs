@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             string cadenaActiva = model.IsMobile ? "COMPRAR C " : "COMPRAR CAMPAÑA ", cadenaBloqueado = model.IsMobile ? "VER C " : "VER CAMPAÑA ";
 
-            if (userData.RevistaDigital.SuscripcionAnteriorModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            if (userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
                 model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                 model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";

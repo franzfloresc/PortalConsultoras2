@@ -454,7 +454,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
                 ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
                 ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior = userData.RevistaDigital.SuscripcionAnteriorModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 #endregion
 
