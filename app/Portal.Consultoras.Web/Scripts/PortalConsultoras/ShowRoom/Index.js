@@ -198,13 +198,41 @@ $(document).ready(function () {
 
     CargarFiltroRangoPrecio();
     CargarProductosShowRoom(null);
-
+    
     if (closeBannerCompraPorCompra == "True") {
         $("#divBannerCompraPorCompra").hide();
         $(".footer_e").css("margin-bottom", "0px");
     } else {
         $("#divBannerCompraPorCompra").show();
         $(".footer_e").css("margin-bottom", "73px");
+    }
+    
+    if (tieneCompraXCompra == "False") {
+        $(".footer_e").css("margin-bottom", "0px");
+    }
+    else {
+        if (itemsCompraXCompra == 0) {
+            $(".footer_e").css("margin-bottom", "0px");
+        }
+        else {
+            if (closeBannerCompraPorCompra == "True") {
+                $(".footer_e").css("margin-bottom", "0px");
+            }
+        }
+    }    
+
+    if (tieneSubCampania == "False") {
+        $(".footer_e").css("margin-bottom", "0px");
+    }
+    else {
+        if (itemsSubCampania == 0) {
+            $(".footer_e").css("margin-bottom", "0px");
+        }
+        else {
+            if (localStorage["cerrar_banner_sub_campanias"] == "true") {
+                $(".footer_e").css("margin-bottom", "0px");
+            }
+        }
     }
 
     $(".swproddetcompra").on("click", function () {
