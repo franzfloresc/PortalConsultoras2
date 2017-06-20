@@ -31,7 +31,6 @@ $(document).ready(function () {
 
     $('ul[data-tab="tab"] li a')
         .mouseover(function () {
-            //console.log($(this).position());
             $("#barCursor").css("opacity", "1");
             var left = Math.abs($(this).parents("ul").position().left - $(this).position().left);
             $("#barCursor").css("margin-left", (left) + "px");
@@ -123,28 +122,26 @@ function GetArrowNameNext() {
 
 function OfertaArmarEstrategias(response) {
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
-    if (response.CampaniaID <= 0) {
-        return false;
-    }
-    var lista = EstructurarDataCarousel(response.lista);
+    if (response.CampaniaID <= 0) return false;
 
-    if (lista.Posicion != undefined) {
-        var objDetalle = lista;
-        lista = new Array();
-        lista.push(objDetalle);
+    response.Completo = response.Completo || 0;
+    if (response.Completo == 0) {
+        response.lista = EstructurarDataCarousel(response.lista);
     }
-    
-    //$("#divOfertaProductos").html("");
 
-    response.Lista = lista;
+    if (response.lista.Posicion != undefined) {
+        var objDetalle = response.lista;
+        response.lista = new Array();
+        response.lista.push(objDetalle);
+    }
+
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
     response.Consultora = usuarioNombre.toUpperCase()
     //response.CodigoEstrategia = "101";
 
     // Listado Carrusel
-    response.AddLan = response.AddLan || 0; 
-    if (response.AddLan == 0) {
+    if (response.Completo == 0) {
         var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
         response.listaLan = response.listaLan || new Array();
         if (response.listaLan.length > 0) {
@@ -160,26 +157,103 @@ function OfertaArmarEstrategias(response) {
         }
     }
 
-    var cantListados = filtroCampania[response.CampaniaID].CantMostrados; //+= 2; //CantidadFilas;//response.lista.length;
+    var cantListados = filtroCampania[response.CampaniaID].CantMostrados;
     filtroCampania[response.CampaniaID].CantTotal = response.cantidad;
 
     var listaAdd = new Array();
-    $.each(response.Lista, function (ind, prod) {
-        if (prod.Posicion > cantListados && prod.Posicion <= prod.Posicion + CantidadFilas) {
-            listaAdd.push(prod);
+    
+    //var listado = response.lista;
+    //if (filtroCampania[response.CampaniaID].CantMostrados == 0) {
+    var listado = RDFiltrarLista(response);
+    //}
+
+    $.each(listado, function (ind, prod) {
+        if (ind >= cantListados && ind < cantListados + CantidadFilas) {
+            listaAdd.push(Clone(prod));
         }
     });
-    response.Lista = listaAdd;
+
     filtroCampania[response.CampaniaID].CantMostrados += listaAdd.length;
 
-    console.log(response.Lista);
     // Listado de producto
+    var modeloTemp = Clone(response);
+    modeloTemp.Lista = listaAdd;
     var divProd = $("[data-listado-campania=" + response.CampaniaID + "]");
-    var htmlDiv = SetHandlebars("#estrategia-template", response);
+    var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(response.cantidad);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
+    filtroCampania[response.CampaniaID].response.Completo = 1;
+}
+
+function RDFiltrarLista(response, busquedaModel) {
+
+    var listaFinal = Clone(response.lista);
+    var universo = new Array();
+    var cont = 0, contVal = 0;
+
+    var ListaFiltro = filtroCampania[response.CampaniaID].ListaFiltro || new Array();
+
+    if (ListaFiltro.length > 0) {
+        listaFinal = new Array();
+        $.each(ListaFiltro, function (indF, filtro) {
+            universo = cont == 0 ? Clone(response.lista) : listaFinal;
+            filtro.Tipo = $.trim(filtro.Tipo).toLowerCase();
+            contVal = 0;
+
+            var valores = filtro.Valores || new Array();
+            $.each(valores, function (indV, valor) {
+
+                var val = $.trim(valor).toLowerCase();
+                if (val == "" || val == "-") {
+                    listaFinal = contVal == 0 ? universo : listaFinal;
+                }
+                else {
+
+                    if (filtro.Tipo == "marca") {
+                        if (contVal <= 0) listaFinal = new Array();
+
+                        $.each(universo, function (indU, p) {
+                            if ($.trim(p.DescripcionMarca).toLowerCase()[0] == val[0]) {
+                                listaFinal.push(p);
+                            }
+                        });
+                    }
+                    else if (filtro.Tipo == "precio") {
+                        var listaValDet = val.split(',');
+                        var valorDesde = parseFloat(listaValDet[0]);
+                        var valorHasta = parseFloat(listaValDet[1]);
+
+                        if (contVal <= 0) listaFinal = new Array();
+                        $.each(universo, function (indU, p) {
+                            if (p.Precio2 >= valorDesde && p.Precio2 <= valorHasta) {
+                                listaFinal.push(p);
+                            }
+                        });
+                    }
+                    contVal++;
+
+                }
+            });
+
+        });
+    }
+
+    var ordenar = filtroCampania[response.CampaniaID].Ordenamiento || new Object();
+    ordenar.Tipo = $.trim(ordenar.Tipo).toLowerCase();
+    if (ordenar.Tipo != "" && listaFinal.length > 0) {
+        //var listaFinalx = new Array();
+        if (ordenar.Tipo == "precio") {
+            if (ordenar.Valor == mayormenor) {
+                listaFinal = listaFinal.sort(function (a, b) { return b.Precio2 - a.Precio2 });
+            }
+            else if (ordenar.Valor == menormayor) {
+                listaFinal = listaFinal.sort(function (a, b) { return a.Precio2 - b.Precio2 });
+            }
+        }
+    }
+    return listaFinal;
 }
 
 function ResizeBoxContnet() {

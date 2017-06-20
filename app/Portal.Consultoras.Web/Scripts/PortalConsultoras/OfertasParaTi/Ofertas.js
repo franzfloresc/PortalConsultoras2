@@ -14,8 +14,7 @@ var filtroIni = {
     CantMostrados: 0,
     CantTotal: -1,
     IsLoad: false,
-    Listado: new Array(),
-    AddLan: 0
+    Completo: 0
 };
 
 $(document).ready(function () {
@@ -78,16 +77,17 @@ $(document).ready(function () {
 });
 
 function OfertaObtenerProductos(filtro, clear) {
-    var busquedaModel = OfertaObtenerFiltro(filtro);
+    var busquedaModel = OfertaObtenerFiltro(filtro, clear);
     if (busquedaModel.CampaniaID > 0) {
-        filtroCampania[busquedaModel.CampaniaID] = busquedaModel;
         OfertaCargarProductos(busquedaModel, clear);
     }
 }
 
-function OfertaObtenerFiltro(filtro) {
+function OfertaObtenerFiltro(filtro, clear) {
 
+    var listaFiltros = Clone(filtroIni);
     if (filtro == null) {
+        // solo con el scroll
         listaFiltros = filtroCampania[campaniaId];
         if (listaFiltros != undefined) {
             return listaFiltros;
@@ -99,90 +99,120 @@ function OfertaObtenerFiltro(filtro) {
     campaniaId = parseInt(campaniaId) || 0;
     listaFiltros.CampaniaID = campaniaId;
 
+    var listadoFiltros = $(filtro).parents("#divFiltros").find("[data-filtro-campo]");
+
     var variante = $.trim($(filtro).attr("data-filtro-tipo"));
     var campo = $.trim($(filtro).attr("data-filtro-campo"));
     var accion = $.trim($(filtro).attr("data-filtro-accion"));
     if (variante == "borrar" || variante == "" || campo == "") {
 
-        $("[data-filtro-tipo='borrar']").parent().hide();
+        $(filtro).parent().hide();
 
-        $.each($("[data-filtro-tipo]"), function (indSel, select) {
+        $.each(listadoFiltros, function (indSel, select) {
             $(select).val($($(select).find("option").get(0)).val());
         });
 
-        filtroCampania[listaFiltros.CampaniaID] = listaFiltros;
         return listaFiltros;
     }
+    
+    if (listadoFiltros.length == 0) {
+        return new Array();
+    }
 
-    var valor = $(filtro).val(); // para este caso solo es tag html select
-        
+    if (filtroCampania[campaniaId] != undefined && clear) {
+        var aux = filtroCampania[campaniaId].ListaFiltro || new Array();
+        listaFiltros = aux.length > 0 ? filtroCampania[campaniaId] : Clone(filtroIni);
+    }
+    listaFiltros.CampaniaID = campaniaId;
+
     $("[data-filtro-tipo='borrar']").parent().show();
 
-    if (accion == "orden") {
-        listaFiltros.Ordenamiento = {
-            Tipo: campo,
-            Valor: valor
-        };
-        return listaFiltros;
-    }
-    
-    var posFiltro = -1;
-    $.each(listaFiltros.ListaFiltro, function (index, item) {
-        if (item.Tipo == campo) {
-            posFiltro = index;
+    $.each(listadoFiltros, function (indSel, select) {
+        variante = $.trim($(select).attr("data-filtro-tipo"));
+        campo = $.trim($(select).attr("data-filtro-campo"));
+        accion = $.trim($(select).attr("data-filtro-accion"));
+        var valor = $.trim($(select).val()); // para este caso solo es tag html select
+
+        if (valor == "-" || valor == "") {
+            return;
+        }
+
+        if (accion == "orden") {
+            listaFiltros.Ordenamiento = {
+                Tipo: campo,
+                Valor: valor
+            };
+            //return listaFiltros;
+        }
+        else {
+
+            var posFiltro = -1;
+            $.each(listaFiltros.ListaFiltro, function (index, item) {
+                if (item.Tipo == campo) {
+                    posFiltro = index;
+                }
+            });
+
+            if (posFiltro < 0) {
+                listaFiltros.ListaFiltro = new Array();
+                listaFiltros.ListaFiltro.push({
+                    Tipo: campo,
+                    Valores: [valor]
+                });
+                return listaFiltros;
+            }
+
+            if (variante == "multiple") {
+                var listaValores = listaFiltros.ListaFiltro[posFiltro].Valores || new Array();
+                listaValores.push(valor);
+                listaFiltros.ListaFiltro[posFiltro] = {
+                    Tipo: campo,
+                    Valores: listaValores
+                };
+            }
+            else if (variante == "fijo") {
+                listaFiltros.ListaFiltro[posFiltro] = {
+                    Tipo: campo,
+                    Valores: [valor]
+                };
+            }
         }
     });
-    
-    if (posFiltro < 0) {
-        listaFiltros.ListaFiltro = new Array();
-        listaFiltros.ListaFiltro.push({
-            Tipo: campo,
-            Valores: [valor]
-        });
-        return listaFiltros;
-    }
-
-    if (variante == "multiple") {
-        var listaValores = listaFiltros.ListaFiltro[posFiltro].Valores || new Array();
-        listaValores.push(valor);
-        listaFiltros.ListaFiltro[posFiltro] = {
-            Tipo: campo,
-            Valores: listaValores
-        };
-    }
-    else if (variante == "fijo") {
-        listaFiltros.ListaFiltro[posFiltro] = {
-            Tipo: campo,
-            Valores: [valor]
-        };
-    }
     return listaFiltros;
 }
 
 function OfertaCargarProductos(busquedaModel, clear) {
 
-    if (urlOfertaCargarProductos == '') {
-        //divProd.find("#divOfertaProductos").hide();
-        return false;
-    }
-
+    if (urlOfertaCargarProductos == '') return false;
+    
     busquedaModel = busquedaModel || Clone(filtroIni);
     busquedaModel.CampaniaID = busquedaModel.CampaniaID || campaniaId || 0;
 
-    if ((filtroCampania[busquedaModel.CampaniaID] || new Object()).IsLoad) return false;
+    if (busquedaModel.CampaniaID <= 0) return false;
+
+    if (filtroCampania[busquedaModel.CampaniaID] == undefined) {
+        filtroCampania[busquedaModel.CampaniaID] = Clone(busquedaModel);
+    }
+    else {
+        jQuery.extend(filtroCampania[busquedaModel.CampaniaID], Clone(busquedaModel));
+    }
+
+    if (filtroCampania[busquedaModel.CampaniaID].IsLoad) return false;
+    filtroCampania[busquedaModel.CampaniaID].IsLoad = true;
 
     var divProd = $("[data-listado-campania=" + busquedaModel.CampaniaID + "]");
-
-    if (busquedaModel.CampaniaID <= 0) return false;
-    filtroCampania[busquedaModel.CampaniaID].IsLoad = true;
 
     divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
-    if (filtroCampania[busquedaModel.CampaniaID].AddLan == 1) {
-
-        OfertaCargarProductoRespuesta(filtroCampania[busquedaModel.CampaniaID].response, clear);
-        return true;
+    if (filtroCampania[busquedaModel.CampaniaID] != undefined) {
+        if (filtroCampania[busquedaModel.CampaniaID].response != undefined) {
+            if (filtroCampania[busquedaModel.CampaniaID].response.Completo == 1) {
+                jQuery.extend(filtroCampania[busquedaModel.CampaniaID], Clone(busquedaModel));
+                OfertaCargarProductoRespuesta(filtroCampania[busquedaModel.CampaniaID].response, clear);
+                return true;
+            }
+        }
     }
 
     $.ajaxSetup({
@@ -219,15 +249,11 @@ function OfertaCargarProductoRespuesta(response, clear) {
     if (response.success == true) {
         if (clear || false) {
             divProd.find('#divOfertaProductos').html("");
-            filtroCampania[busquedaModel.campaniaId].CantMostrados = 0;
+            filtroCampania[response.campaniaId].CantMostrados = 0;
         }
-        //filtroCampania[busquedaModel.CampaniaID].CantMostrados += response.lista.length;
-        //filtroCampania[busquedaModel.CampaniaID].CantTotal = response.cantidad;
-        //filtroCampania[busquedaModel.CampaniaID].Listado = response.lista;
+        filtroCampania[response.campaniaId].response = response;
         OfertaArmarEstrategias(response);
         filtroCampania[response.campaniaId].IsLoad = false;
-        filtroCampania[response.campaniaId].AddLan = 1;
-        filtroCampania[response.campaniaId].response = response;
         return true;
     }
 
@@ -367,7 +393,7 @@ function OfertaCargarScroll() {
         var filtroCamp = filtroCampania[campaniaId];
         if (filtroCamp == undefined) filtroCamp = Clone(filtroIni);
 
-        if ((filtroCamp.CantMostrados < filtroCamp.CantTotal && !filtroCampania[busquedaModel.CampaniaID].IsLoad) || filtroCamp.CantTotal == -1) {
+        if ((filtroCamp.CantMostrados < filtroCamp.CantTotal && !filtroCamp.IsLoad) || filtroCamp.CantTotal == -1) {
             document.body.scrollTop = $(window).scrollTop();
             OfertaObtenerProductos();
         }

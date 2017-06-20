@@ -59,9 +59,9 @@ namespace Portal.Consultoras.Web.Controllers
             
             model.FiltersByBrand = new List<BETablaLogicaDatos>();
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.Cyzone.ToString(), Descripcion = "CYZONE" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.Esika.ToString(), Descripcion = "ÉSIKA" });
-            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = Constantes.Marca.LBel.ToString(), Descripcion = "LBEL" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "CYZONE", Descripcion = "CYZONE" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "ÉSIKA", Descripcion = "ÉSIKA" });
+            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
 
             //var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
