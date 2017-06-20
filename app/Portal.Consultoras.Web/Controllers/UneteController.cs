@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Longitud = solicitudPostulante.Longitud;
                     model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador|| CodigoISO== Pais.PuertoRico )
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador|| CodigoISO==Pais.Dominicana|| CodigoISO == Pais.PuertoRico )
                     {
                         try
                         {
@@ -1106,7 +1106,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.Referencia = solicitudPostulante.Referencia;
                     }
                 }
-                else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador || CodigoISO== Pais.PuertoRico)
+                else if (CodigoISO == Pais.CostaRica || CodigoISO == Pais.Panama || CodigoISO == Pais.Salvador )
                 {
                     ServiceUnete.ParametroUneteCollection lugaresNivel1 = new ServiceUnete.ParametroUneteCollection();
                     ServiceUnete.ParametroUneteCollection lugaresNivel2 = new ServiceUnete.ParametroUneteCollection();
