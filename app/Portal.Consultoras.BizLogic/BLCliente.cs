@@ -372,7 +372,7 @@ namespace Portal.Consultoras.BizLogic
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
             lstConsultoraCliente.ToList()
                 .ForEach(c =>
-                    c.Recordatorios = RecordatorioListar(paisID, (short)c.ClienteID, consultoraID));
+                    c.Recordatorios = RecordatorioListar(paisID, (short)c.ClienteID, consultoraID));//todo: optimizar
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
@@ -384,7 +384,7 @@ namespace Portal.Consultoras.BizLogic
                          on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
                         select new BEClienteDB
                         {
-                            ClienteID = tblCliente.ClienteID,
+                            ClienteID = tblConsultoraCliente.ClienteID,
                             Apellidos = tblCliente.Apellidos,
                             Nombres = tblCliente.Nombres,
                             Alias = tblCliente.Alias,
@@ -395,7 +395,14 @@ namespace Portal.Consultoras.BizLogic
                             Origen = tblCliente.Origen,
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                            Contactos = tblCliente.Contactos,
+                            Contactos = tblCliente.Contactos.Select(itemContacto => new BEClienteContactoDB
+                            {
+                                ContactoClienteID = itemContacto.ContactoClienteID,
+                                ClienteID = tblConsultoraCliente.ClienteID,
+                                TipoContactoID = itemContacto.TipoContactoID,
+                                Valor = itemContacto.Valor,
+                                Estado = itemContacto.Estado
+                            }).ToList(),
                             Recordatorios = tblConsultoraCliente.Recordatorios
                         }).OrderBy(x => x.Nombres).ToList();
 
@@ -541,6 +548,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var lstCliente = this.SelectByConsultora(paisID, cliente.ConsultoraID);
             lstCliente = lstCliente.Where(x => x.CodigoCliente != cliente.ClienteID).ToList();
+            lstCliente = lstCliente.Where(x => x.ClienteID != cliente.ClienteIDSB).ToList();
 
             var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.Nombres.ToUpper()).Count();
             if (nombreExiste > 0) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORANOMBREEXISTE;
