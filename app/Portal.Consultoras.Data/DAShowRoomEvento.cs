@@ -50,6 +50,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
             Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
             Context.Database.AddInParameter(command, "@TieneSubCampania", DbType.Boolean, showRoomEvento.TieneSubCampania);
+            Context.Database.AddInParameter(command, "@TienePersonalizacion", DbType.Boolean, showRoomEvento.TienePersonalizacion);
 
             int result = Context.ExecuteNonQuery(command);
 
@@ -81,6 +82,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TieneCategoria", DbType.Boolean, showRoomEvento.TieneCategoria);
             Context.Database.AddInParameter(command, "@TieneCompraXcompra", DbType.Boolean, showRoomEvento.TieneCompraXcompra);
             Context.Database.AddInParameter(command, "@TieneSubCampania", DbType.Boolean, showRoomEvento.TieneSubCampania);
+            Context.Database.AddInParameter(command, "@TienePersonalizacion", DbType.Boolean, showRoomEvento.TienePersonalizacion);
 
             Context.ExecuteNonQuery(command);
         }
@@ -185,6 +187,23 @@ namespace Portal.Consultoras.Data
             try
             {
                 using (DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomConsultora"))
+                {
+                    Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+                    Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+                    return Context.ExecuteReader(command);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IDataReader GetShowRoomConsultoraPersonalizacion(int campaniaID, string codigoConsultora)
+        {
+            try
+            {
+                using (DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomConsultoraPersonalizada"))
                 {
                     Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
                     Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
@@ -522,6 +541,15 @@ namespace Portal.Consultoras.Data
         public IDataReader GetShowRoomOfertasConsultora(int campaniaID, string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertasConsultora");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetShowRoomOfertasConsultoraPersonalizada(int campaniaID, string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("ShowRoom.GetShowRoomOfertasConsultoraPersonalizada");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
 

@@ -42,7 +42,7 @@
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-  width: auto;
+    max-width: 100% !important;
     height: 100%;
 }
 .revistadigital p.marca {
@@ -1682,7 +1682,7 @@
     width:100%;
 }
 .content_gana_mas{
-    margin-top:10px;
+    margin-top:50px;
     position:relative;
 }
 .content_texto_gana{
@@ -1840,6 +1840,7 @@
     position: absolute;
     height: 20px;
     width: 20px;
+    z-index: 99;
 }
 
 .box_pregunta_ept2 .tit_pregunta_ept2:after {
@@ -1850,6 +1851,7 @@
     position: absolute;
     height: 20px;
     width: 20px;
+    z-index: 99;
 }
 .descargarPreguntasRespuestas {
     border-bottom: 2px solid black;

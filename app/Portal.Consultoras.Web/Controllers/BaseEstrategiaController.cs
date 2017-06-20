@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.Descripcion = estrategia.DescripcionCUV2.Split('|')[0];
                 estrategia.TextoLibre = Util.Trim(estrategia.TextoLibre);
                 estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
-                estrategia.UrlCompartirFB = GetUrlCompartirFB();
+                estrategia.UrlCompartir = GetUrlCompartirFB();
 
                 var listaPedido = ObtenerPedidoWebDetalle();
                 estrategia.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2);

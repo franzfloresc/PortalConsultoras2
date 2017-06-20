@@ -87,6 +87,8 @@ namespace Portal.Consultoras.Entities.ShowRoom
 
         [DataMember]
         public bool TieneSubCampania { get; set; }
+        [DataMember]
+        public bool TienePersonalizacion { get; set; }
 
         public BEShowRoomEvento(IDataRecord datarec)
         {
@@ -139,7 +141,9 @@ namespace Portal.Consultoras.Entities.ShowRoom
             if (DataRecord.HasColumn(datarec, "TieneCompraXcompra") && datarec["TieneCompraXcompra"] != DBNull.Value)
                 TieneCompraXcompra = DbConvert.ToBoolean(datarec["TieneCompraXcompra"]);
             if (DataRecord.HasColumn(datarec, "TieneSubCampania") && datarec["TieneSubCampania"] != DBNull.Value)
-                TieneSubCampania = DbConvert.ToBoolean(datarec["TieneSubCampania"]);            
+                TieneSubCampania = DbConvert.ToBoolean(datarec["TieneSubCampania"]);
+            if (DataRecord.HasColumn(datarec, "TienePersonalizacion") && datarec["TienePersonalizacion"] != DBNull.Value)
+                TienePersonalizacion = DbConvert.ToBoolean(datarec["TienePersonalizacion"]);
         }
     }
 }
