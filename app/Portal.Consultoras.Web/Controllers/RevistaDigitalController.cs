@@ -25,11 +25,33 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Detalle(int id, int campaniaId)
+        [HttpPost]
+        public JsonResult DetalleTemporal(EstrategiaPedidoModel modelo)
         {
             try
             {
-                return DetalleModel(id, campaniaId);
+                modelo = modelo ?? new EstrategiaPedidoModel();
+                if (modelo.EstrategiaID > 0) Session["LanTemporal"] = modelo;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = modelo.EstrategiaID > 0
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Detalle()
+        {
+            try
+            {
+                var modelo = (EstrategiaPedidoModel)Session["LanTemporal"];
+                Session["LanTemporal"] = null;
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
@@ -39,11 +61,11 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "RevistaDigital");
         }
 
-        public ActionResult _Landing(int id, string tipo)
+        public ActionResult _Landing(int id)
         {
             try
             {
-                return ViewLanding(id, tipo);
+                return ViewLanding(id);
             }
             catch (Exception ex)
             {
@@ -71,82 +93,87 @@ namespace Portal.Consultoras.Web.Controllers
                 
                 var listModel = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
 
+                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
 
                 var listaFinal = listModel;
 
-                #region Filtros
-                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
-                {
-                    listaFinal = new List<EstrategiaPedidoModel>();
-                    var universo = new List<EstrategiaPedidoModel>();
-                    int cont = 0, contVal = 0;
-                    foreach (var filtro in model.ListaFiltro)
-                    {
-                        filtro.Valores = filtro.Valores ?? new List<string>();
-                        if (!filtro.Valores.Any()) continue;
+                #region Filtros y Orden
 
-                        universo = cont == 0 ? listModel : listaFinal;
-                        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
-                        contVal = 0;
-                        foreach (var valor in filtro.Valores)
-                        {
-                            var val = Util.Trim(valor).ToLower();
-                            if (val == "" || val == "-")
-                            {
-                                listaFinal = contVal == 0 ? universo : listaFinal;
-                                continue;
-                            }
+                //#region Filtros
+                //if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
+                //{
+                //    listaFinal = new List<EstrategiaPedidoModel>();
+                //    var universo = new List<EstrategiaPedidoModel>();
+                //    int cont = 0, contVal = 0;
+                //    foreach (var filtro in model.ListaFiltro)
+                //    {
+                //        filtro.Valores = filtro.Valores ?? new List<string>();
+                //        if (!filtro.Valores.Any()) continue;
 
-                            if (filtro.Tipo == "marca")
-                            {
-                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
-                            }
-                            else if (filtro.Tipo == "precio")
-                            {
-                                var listaValDet = val.Split(',');
-                                var valorDesde = Convert.ToDecimal(listaValDet[0]);
-                                var valorHasta = Convert.ToDecimal(listaValDet[1]);
+                //        universo = cont == 0 ? listModel : listaFinal;
+                //        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
+                //        contVal = 0;
+                //        foreach (var valor in filtro.Valores)
+                //        {
+                //            var val = Util.Trim(valor).ToLower();
+                //            if (val == "" || val == "-")
+                //            {
+                //                listaFinal = contVal == 0 ? universo : listaFinal;
+                //                continue;
+                //            }
 
-                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
-                            }
-                            contVal++;
-                        }
-                        cont++;
-                    }
-                }
-                #endregion
+                //            if (filtro.Tipo == "marca")
+                //            {
+                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
+                //                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
+                //            }
+                //            else if (filtro.Tipo == "precio")
+                //            {
+                //                var listaValDet = val.Split(',');
+                //                var valorDesde = Convert.ToDecimal(listaValDet[0]);
+                //                var valorHasta = Convert.ToDecimal(listaValDet[1]);
+
+                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
+                //                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
+                //            }
+                //            contVal++;
+                //        }
+                //        cont++;
+                //    }
+                //}
+                //#endregion
                 
-                #region Orden
-                if (model.Ordenamiento != null)
-                {
-                    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                    if (model.Ordenamiento.Tipo == "precio")
-                    {
-                        switch (model.Ordenamiento.Valor)
-                        {
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
-                                break;
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
-                                break;
-                            default:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
-                                break;
-                        }
-                    }
-                }
+                //#region Orden
+                //if (model.Ordenamiento != null)
+                //{
+                //    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
+                //    if (model.Ordenamiento.Tipo == "precio")
+                //    {
+                //        switch (model.Ordenamiento.Valor)
+                //        {
+                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
+                //                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
+                //                break;
+                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
+                //                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
+                //                break;
+                //            default:
+                //                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
+                //                break;
+                //        }
+                //    }
+                //}
+                //#endregion
+
                 #endregion
 
                 int cantidad = listaFinal.Count;
 
-                var cantMostrar = 10;
-                listaFinal = listaFinal.Skip(model.Limite).Take(cantMostrar).ToList();
+                //var cantMostrar = 10;
+                //listaFinal = listaFinal.Skip(model.CantMostrados).Take(cantMostrar).ToList();
 
                 listaFinal.ForEach(p =>
                 {
@@ -158,10 +185,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Ok",
                     lista = listaFinal,
+                    listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad
+                    cantidad = cantidad,
+                    campaniaId = model.CampaniaID
                 });
             }
             catch (Exception ex)

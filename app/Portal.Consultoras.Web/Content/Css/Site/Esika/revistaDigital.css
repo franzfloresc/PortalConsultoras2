@@ -564,7 +564,7 @@
     left:30px;
     background:white;
     z-index: 20;
-    padding:60px 20px 10px 20px;
+    /*padding:0px 20px 10px 20px;*/
 
 }
 .content_set_imagen_banner{
@@ -600,9 +600,10 @@
     margin-bottom: 11px;
 }
 .etiqueta_nuevo_ept{
-    position: absolute;
+    /*position: absolute;
     left: 30px;
-    top: 29px;
+    top: 29px;*/
+    text-align: left;
     z-index: 30;
 }
 .fondo_imagen_set{
@@ -2287,3 +2288,51 @@
         .rd_catalogos .btn_stroke_white:after {
             background: white;
         }
+
+
+ /* POP UP RD BLOQUEADO */
+ .popup_rd_bloqueado {
+ 	font-family: 'Lato';
+    background-color: #F6F6F6;
+    width: 100%;
+    max-width: 500px;
+    max-height: 590px;
+    position: relative;
+    top: 50%;
+    margin: auto;
+    margin-top: -295px;
+    padding: 40px;
+    text-align: center;
+ }
+ .popup_rd_bloqueado .box_producto {
+ 	max-height: 305px;
+ 	margin: 15px 0;
+ 	background-color: #fff;
+ }
+ .popup_rd_bloqueado .popup_text {
+ 	margin: 10px 48px;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+ }
+ .popup_rd_bloqueado a {
+ 	transition: all 0.2s ease-in-out;
+ }
+.popup_rd_bloqueado a:hover {
+	font-weight: 700;
+	transition: all 0.2s ease-in-out;
+}
+.popup_rd_bloqueado .rd_ver_mas:after {
+    content: "";
+    background-image: url(../images/rd_arrowright.png);
+    background-repeat: no-repeat;
+    background-size: 10px 14px;
+    display: inline-block;
+    width: 10px;
+    position: absolute;
+    height: 14px;
+    margin-left: 8px;
+    margin-top: 4px;
+}

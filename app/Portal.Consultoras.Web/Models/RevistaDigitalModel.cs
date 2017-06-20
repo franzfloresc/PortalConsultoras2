@@ -12,7 +12,8 @@ namespace Portal.Consultoras.Web.Models
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
             SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
             SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
-            ListaProducto = new List<EstrategiaPedidoModel>();
+            ListaProductoLan = new List<EstrategiaPedidoModel>();
+            ListaProductoNoLan = new List<EstrategiaPedidoModel>();
             ListaTabs = new List<ComunModel>();
             FiltersBySorting = new List<BETablaLogicaDatos>();
             FiltersByCategory = new List<BETablaLogicaDatos>();
@@ -36,6 +37,7 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
+        public int CantidadFilas { get; set; }
         public string NumeroContacto { get; set; }
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }
@@ -48,6 +50,7 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
-        public List<EstrategiaPedidoModel> ListaProducto { get; set; }
+        public List<EstrategiaPedidoModel> ListaProductoLan { get; set; }
+        public List<EstrategiaPedidoModel> ListaProductoNoLan { get; set; }
     }
 }

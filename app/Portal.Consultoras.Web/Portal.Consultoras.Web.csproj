@@ -525,6 +525,7 @@
     <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
+    <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -3027,7 +3028,6 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\OfertasParaTi\OfertasParaTi.js" />
     <Content Include="Scripts\PortalConsultoras\OfertasParaTi\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />

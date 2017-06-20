@@ -24,12 +24,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(EstrategiaPedidoModel modelo)
         {
             try
             {
                 ViewBag.EsMobile = 2;
-                return DetalleModel(id);
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
@@ -39,12 +39,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
-        public ActionResult _Landing(int id, string tipo)
+        public ActionResult _Landing(int id)
         {
             try
             {
                 ViewBag.EsMobile = 2;
-                return ViewLanding(id, tipo);
+                return ViewLanding(id);
             }
             catch (Exception ex)
             {

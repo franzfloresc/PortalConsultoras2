@@ -258,8 +258,6 @@ function ArmarCarouselEstrategias(data) {
 
 };
 
-
-
 function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedido" :
         tipoOrigenEstrategia == 2 ? "MobileHome" : tipoOrigenEstrategia == 21 ? "MobilePedido" : "";
@@ -342,10 +340,14 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 }
 
 function EstructurarDataCarousel(array) {
-    var isList = array.DescripcionCUV2 == undefined;
-    var lista = isList ? array : new Array();
-    if (!isList)
-        lista.push(array);
+    array = array || new Array();
+    var isList = array.length != undefined;
+    if (typeof array == "object") {
+        //var isList = array[0].DescripcionCUV2 != undefined;
+        var lista = isList ? array : new Array();
+        if (!isList)
+            lista.push(array);
+    }    
     
     var urlOfertaDetalle = $.trim(urlOfertaDetalle);
     $.each(lista, function (i, item) {
@@ -540,6 +542,8 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 divMensaje.find('[data-item-tag="fotofondo"]').remove();
                 divMensaje.find('[data-item-tag="verdetalle"]').remove();
                 divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
                 //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
             }
             
