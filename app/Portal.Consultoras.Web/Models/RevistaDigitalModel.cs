@@ -42,6 +42,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }
         public bool TieneRDS { get; set; }
+        public bool Mensaje1 { get; set; }
+        public bool MensajeTitulo { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }

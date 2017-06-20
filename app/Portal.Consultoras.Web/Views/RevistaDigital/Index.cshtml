@@ -37,7 +37,7 @@
                 @foreach (var tab in Model.ListaTabs)
                 {
                     <li>
-                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id">
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id" data-tab-tipo="@tab.ValorOpcional">
                             <div class="texto_tab_pagos">@tab.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
@@ -295,7 +295,7 @@
     </div>
 </script>
 
-@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model)
 @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml")
 
 <div class="flecha_scroll">

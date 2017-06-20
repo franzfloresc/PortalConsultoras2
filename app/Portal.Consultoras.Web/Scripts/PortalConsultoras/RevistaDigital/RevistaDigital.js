@@ -112,7 +112,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#divCarruselLan").on("click", "[data-item-tag='verdetalle']", function (e) {
+    $("body").on("click", "[data-item-tag='verdetalle']", function (e) {
         var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {
@@ -229,7 +229,7 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadFiltro").html(response.cantidad);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
     
-    //localStorage.setItem(lsListaRD, JSON.stringify(filtroCampania));
+    localStorage.setItem(lsListaRD, JSON.stringify(filtroCampania));
 }
 
 function RDFiltrarLista(response, busquedaModel) {
