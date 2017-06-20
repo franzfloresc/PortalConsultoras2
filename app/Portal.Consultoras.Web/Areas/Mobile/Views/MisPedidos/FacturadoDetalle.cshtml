@@ -34,7 +34,6 @@
         <ul class="list-table-body">
             @foreach (var item in Model.ListaPedidoWebDetalle)
             {
-                var cant = Model.ListaPedidoWebDetalle.Count();
                 <li>
                     <div class="posr">
                         <div class="table-width">
@@ -62,39 +61,9 @@
                                 @(string.Format("{0:#,##0.00}", item.ImporteTotal).Replace(',', '.'))
                             }
                             <br />
-                            <div class="caja" style="padding-top: 15px;"> 
+                            <div class="caja" style="padding-top: 15px;">
                                 <span> Cliente: </span>
-                                @if (cant == 1)
-                                {
-                                    <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()" disabled="disabled">
-                                        <option value="@item.ClienteID">@item.Nombre</option>
-                                        @if (Model.ListaClientes != null)
-                                        {
-                                            var valor = "";
-                                            foreach (var lst in Model.ListaClientes)
-                                            {
-                                                valor = item.PedidoID + "-" + lst.ClienteID;
-                                                <option value="@valor">@lst.Nombre</option>
-                                            }
-                                        }
-                                    </select>
-                                }
-                                else
-                                {
-                                    <select id="cbolstClientes" style="color: black !important" onchange="UpdClientePedido()">
-                                        <option value="@item.ClienteID">@item.Nombre</option>
-                                        @if (Model.ListaClientes != null)
-                                        {
-                                            var valor = "";
-                                            foreach (var lst in Model.ListaClientes)
-                                            {
-                                                valor = item.PedidoID + "-" + lst.ClienteID;
-                                                <option value="@valor">@lst.Nombre</option>
-                                            }
-                                        }
-                                    </select>
-                                }
-
+                                @Html.DropDownListFor(x => item.ClienteID, new SelectList(Model.ListaClientes, "ClienteID", "Nombre", item.ClienteID), new { @class = "cbolstClientes", @PedidoId = item.PedidoID })
                             </div>
 
                             @*Descuento @Model.Simbolo
@@ -172,3 +141,30 @@
         }
     </div>
 </div>
+
+<script>
+    $(".cbolstClientes").change(function (e) {
+        var CodigoCliente = $(this).val();
+        var CodigoPedido = $(this).attr("PedidoId");
+
+        ShowLoading();
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("ActualizarClientePedidoFacturado", "MisPedidos", new { area = "Mobile" })',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ CodigoPedido: CodigoPedido, CodigoCliente: CodigoCliente }),
+            async: true,
+            success: function (data) {
+                CloseLoading();
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    CloseLoading();
+                    console.log(data);
+                }
+            }
+        });
+    });
+</script>

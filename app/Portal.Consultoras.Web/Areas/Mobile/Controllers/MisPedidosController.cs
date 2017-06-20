@@ -216,7 +216,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 using (var sv = new ServiceCliente.ClienteServiceClient())
                 {
-                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+                    model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).OrderBy(x=>x.Nombre).ToList();
                 }
             }
             catch (FaultException ex)
