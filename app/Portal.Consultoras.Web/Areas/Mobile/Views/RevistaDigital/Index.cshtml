@@ -50,7 +50,7 @@
     <div style="display: none;" data-tag-html="@tab.Id">
         @if (tab.Id > 0)
         {
-            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id, tipo = tab.ValorOpcional })
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
         }
         else
         {

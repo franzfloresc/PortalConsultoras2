@@ -223,6 +223,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
         cache: false
     });
 
+    busquedaModel.IsMobile = isMobile();
     jQuery.ajax({
         type: 'POST',
         url: urlOfertaCargarProductos,

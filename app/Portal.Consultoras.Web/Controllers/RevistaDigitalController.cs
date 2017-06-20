@@ -90,7 +90,9 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-                
+
+                ViewBag.EsMobile = model.IsMobile ? 2 : 1;
+
                 var listModel = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
 
                 var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();

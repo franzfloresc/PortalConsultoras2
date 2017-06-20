@@ -10,8 +10,7 @@ namespace Portal.Consultoras.Web.Models
         public Ordenamiento Ordenamiento { get; set; }
         public int Limite { get; set; }
         public int CampaniaID { get; set; }
-        public int CantMostrados { get; set; }
-        public int CantTotal { get; set; }
+        public bool IsMobile { get; set; }
     }
 
     public class Filtro
