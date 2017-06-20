@@ -338,10 +338,14 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
 }
 
 function EstructurarDataCarousel(array) {
-    var isList = array.DescripcionCUV2 == undefined;
-    var lista = isList ? array : new Array();
-    if (!isList)
-        lista.push(array);
+    array = array || new Array();
+    var isList = array.length != undefined;
+    if (typeof array == "object") {
+        //var isList = array[0].DescripcionCUV2 != undefined;
+        var lista = isList ? array : new Array();
+        if (!isList)
+            lista.push(array);
+    }    
     
     var urlOfertaDetalle = $.trim(urlOfertaDetalle);
     $.each(lista, function (i, item) {

@@ -24,12 +24,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle(int id, int campaniaId)
+        public ActionResult Detalle(EstrategiaPedidoModel modelo)
         {
             try
             {
                 ViewBag.EsMobile = 2;
-                return DetalleModel(id, campaniaId);
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
