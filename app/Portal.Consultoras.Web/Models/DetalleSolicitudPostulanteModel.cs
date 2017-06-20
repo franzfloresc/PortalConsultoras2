@@ -79,7 +79,9 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "SV", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "PA", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "GT", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
-        [ExpressionRequiredIf("CodigoPais", "cR", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(?:[0-9]{0}|[0-9]{10}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^(?:[0-9]{0}|[0-9]{10}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
         [RequiredIf("CodigoPais", "CO,MX,EC", ErrorMessage = "Campo obligatorio")]
@@ -91,6 +93,8 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "PA", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "GT", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^([0-9]{10})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^([0-9]{10})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
