@@ -167,9 +167,13 @@ $(document).ready(function () {
         }
 
     });
-    
+
     CrearDialogs();
     CargarCarouselEstrategias("");
+    if (tieneMasVendidos===1) {
+        CargarCarouselMasVendidos('desktop');
+    }
+    
     CargarCarouselLiquidaciones();
     CargarMisCursos();
     CargarBanners();
@@ -1463,7 +1467,9 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
         var id = URL;
         var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
         window.open(url, '_blank');
-    } else {
+    } else if (Titulo.includes("_revistadigital_")) {
+        window.location = URL;
+    }else {
         window.open(URL, '_blank');
     }
     return false;

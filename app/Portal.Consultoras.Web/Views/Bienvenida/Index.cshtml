@@ -254,6 +254,10 @@
     </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
 <div class="fondo_gris" id="divRevistaDigital"></div>
@@ -2489,11 +2493,11 @@
                 $(this).toggleClass('check_intriga');
                 
             });
-
         });
         
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
@@ -2597,6 +2601,7 @@
                
 
         var tieneCupon = '@Model.TieneCupon';
+        var tieneMasVendidos = @Model.TieneMasVendidos;
         var paginaOrigenCupon = 1;
         var esEmailActivo = '@Model.EmailActivo';
         var baseUrl = "@Url.Content("~")";

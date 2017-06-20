@@ -416,6 +416,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool TieneLoginExternoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneMasVendidosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOferta2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2193,6 +2196,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneLoginExternoField.Equals(value) != true)) {
                     this.TieneLoginExternoField = value;
                     this.RaisePropertyChanged("TieneLoginExterno");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneMasVendidos {
+            get {
+                return this.TieneMasVendidosField;
+            }
+            set {
+                if ((this.TieneMasVendidosField.Equals(value) != true)) {
+                    this.TieneMasVendidosField = value;
+                    this.RaisePropertyChanged("TieneMasVendidos");
                 }
             }
         }

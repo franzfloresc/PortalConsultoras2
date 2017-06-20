@@ -10,6 +10,7 @@ var analyticsGuardarValidarEnviado = false;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
+var array_odd = [];
 var arrayProductosSugeridos = [];
 var numImagen = 1;
 var fnMovimientoTutorial;

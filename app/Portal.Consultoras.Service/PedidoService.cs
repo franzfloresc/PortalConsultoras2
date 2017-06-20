@@ -2,6 +2,7 @@
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
-using Portal.Consultoras.Entities.ReservaProl;
 
 namespace Portal.Consultoras.Service
 {
@@ -1191,6 +1191,11 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetEstrategiasPedido(entidad);
         }
 
+        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
+        {
+            return blEstrategia.GetMasVendidos(entidad);
+        }
+
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
         {
             return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
@@ -1809,9 +1814,14 @@ namespace Portal.Consultoras.Service
             return BLProcesoPedidoRechazado.ObtenerProcesoPedidoRechazadoGPR(paisID, campaniaID, consultoraID);
         }
         
-        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-            BLPedidoWeb.InsLogOfertaFinal(PaisID, CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
+            BLPedidoWeb.InsLogOfertaFinal(PaisID, entidad);
+        }
+
+        public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
+        {
+            BLPedidoWeb.InsLogOfertaFinalBulk(PaisID, lista);
         }
 
         public List<BEPedidoWeb> GetPedidosFacturadoSegunDias(int paisID, int campaniaID, long consultoraID, int maxDias)
@@ -2028,6 +2038,31 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
+        #region Cupon Consultoras
+
+        public void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.CrearCuponConsultora(paisId, cuponConsultora);
+        }
+
+        public void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.ActualizarCuponConsultora(paisId, cuponConsultora);
+        }
+
+        public List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId)
+        {
+            var listaCuponConsultoras = BLCuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId);
+            return listaCuponConsultoras;
+        }
+
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
+        {
+            BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
+        }
+
+        #endregion
+
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
@@ -2042,6 +2077,5 @@ namespace Portal.Consultoras.Service
         {
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
-
     }
 }

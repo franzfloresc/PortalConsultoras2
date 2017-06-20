@@ -42,7 +42,7 @@
             elementId: itemData.elementId,
             idMatrizComercial: editData.IdMatrizComercial,
             idImagenMatriz: itemData.idImagenMatriz,
-            paisID: editData.paisID,
+            paisID: $("#ddlPais").val(),
             codigoSAP: editData.CodigoSAP,
             onComplete: _uploadComplete
         }
@@ -54,7 +54,7 @@
             _limpiarFiltrosNemotecnico();
             if (response.success) {
                 _editData.IdMatrizComercial = response.idMatrizComercial;
-                
+
                 $("#matriz-imagenes-paginacion").empty();
                 //actualiza para la carga de imagenes actualizada
                 _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
@@ -101,172 +101,172 @@
     };
 
     var _obtenerFiltrarEstrategia = function (data, id) {
-        var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID};
+        var params = { EstrategiaID: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID };
         return $.post(_config.getFiltrarEstrategiaAction, params).done(_obtenerFiltrarEstrategiaSuccess(data, id));
     };
 
     var _obtenerFiltrarEstrategiaSuccess = function (editData, id) {
-     return function (data, textStatus, jqXHR) {
+        return function (data, textStatus, jqXHR) {
 
-        if (data.success == false) {
-            alert(data.message);
-            closeWaitingDialog();
-            return false;
-        }
-
-        $("#hdSimbolo").val(data.Simbolo);
-
-        if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
-        else $("#chkHabilitarOferta").attr("checked", false);
-
-        if (data.FlagDescripcion == "1") $("#chkVisible1").attr("checked", true);
-        else $("#chkVisible1").attr("checked", false);
-
-        if (data.FlagCEP == "1") $("#chkVisible2").attr("checked", true);
-        else $("#chkVisible2").attr("checked", false);
-
-        if (data.FlagCEP2 == "1") $("#chkVisible3").attr("checked", true);
-        else $("#chkVisible3").attr("checked", false);
-
-        if (data.FlagTextoLibre == "1") $("#chkVisible4").attr("checked", true);
-        else $("#chkVisible4").attr("checked", false);
-
-        if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
-        else $("#chkVisible5").attr("checked", false);
-
-        if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
-        else $("#hdColorFondo").val("#FFF");
-        ActivarDesactivarChecks();
-
-        $("#hdCampania").val($("#ddlCampania").val());
-        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-        $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
-        $("#hdnCodigoSAP").val(data.CodigoSAP);
-        _editData.CodigoSAP = data.CodigoSAP;
-        SeleccionarTipoOferta();
-
-        $("#txtAlcance").val($("#ddlPais option:selected").html());
-        $("#spanCampania").val($("#ddlCampania option:selected").html());
-        $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
-        $("#hdEstrategiaID").val(data.EstrategiaID);
-        $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
-        $("#hdCampania").val(data.CampaniaID);
-        $("#ddlCampaniaFin").val(data.CampaniaIDFin);
-        $("#hdNumeroPedido").val(data.NumeroPedido);
-        $("#imgSeleccionada").attr('src', rutaImagenVacia);
-
-        $("#divInformacionAdicionalEstrategiaContenido").hide();
-
-        $("#divImagenEstrategia").css("color", "white");
-        $("#divImagenEstrategia").css("background", "#00A2E8");
-        $("#divInformacionAdicionalEstrategia").css("color", "#702789");
-        $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
-
-        $("#txtLimite").val(data.LimiteVenta);
-        $("#txtDescripcion").val(data.DescripcionCUV2);
-        $("#txtCUV").val(data.CUV1);
-        $("#ddlEtiqueta1").val(data.EtiquetaID);
-        if (data.Precio != "0") {
-            $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
-            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
-        } else {
-            $("#txtPrecio").val('');
-        }
-        $("#txtCUV2").val(data.CUV2);
-        $("#ddlEtiqueta2").val(data.EtiquetaID2);
-        if (data.Precio2 != "0") {
-            $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
-        } else {
-            $("#txtPrecio2").val('');
-        }
-        $("#txtTextoLibre").val(data.TextoLibre);
-        $("#txtCantidad").val(data.Cantidad);
-        $("#hdZonas").val(data.Zona);
-
-        var strZonas = $("#hdZonas").val();
-        if (strZonas != "") {
-            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-            var strZonasArreglo = strZonas.split(",");
-            for (i = 0; i < strZonasArreglo.length; i++) {
-                $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+            if (data.success == false) {
+                alert(data.message);
+                closeWaitingDialog();
+                return false;
             }
-        } else {
-            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-            $("#chkSeleccionar").attr("checked", false);
-        }
 
-        var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
-        var aux2 = $("#hdEstrategiaCodigo").val();
+            $("#hdSimbolo").val(data.Simbolo);
 
-        if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
-            $("#txtOrden").val("");
-            $('#div-orden').hide();
+            if (data.Activo == "1") $("#chkHabilitarOferta").attr("checked", true);
+            else $("#chkHabilitarOferta").attr("checked", false);
 
-            $('#txt1-estrella').html('Oferta de Último Minuto');
-            $('#txt2-estrella').hide();
-        }
-        else {
-            $("#txtOrden").val(data.Orden);
-            $('#div-orden').show();
+            if (data.FlagDescripcion == "1") $("#chkVisible1").attr("checked", true);
+            else $("#chkVisible1").attr("checked", false);
 
-            $('#txt1-estrella').html('Mostrar estrella');
-            $('#txt2-estrella').show();
-        }
+            if (data.FlagCEP == "1") $("#chkVisible2").attr("checked", true);
+            else $("#chkVisible2").attr("checked", false);
 
-        if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
-            $("#ddlEtiqueta1").children('option').hide();
-            $("#ddlEtiqueta1").children("option[data-id='1']").show();
+            if (data.FlagCEP2 == "1") $("#chkVisible3").attr("checked", true);
+            else $("#chkVisible3").attr("checked", false);
 
-            $("#ddlEtiqueta2").children('option').hide();
-            $("#ddlEtiqueta2").children("option[data-id='3']").show();
-        }
-        else {
-            $("#ddlEtiqueta1").children('option').show();
-            $("#ddlEtiqueta2").children('option').show();
-        }
+            if (data.FlagTextoLibre == "1") $("#chkVisible4").attr("checked", true);
+            else $("#chkVisible4").attr("checked", false);
 
-        if (aux1 == "6") {
-            $('.OfertaUltimoMinuto').hide();
-        } else { $('.OfertaUltimoMinuto').show(); }
+            if (data.FlagCantidad == "1") $("#chkVisible5").attr("checked", true);
+            else $("#chkVisible5").attr("checked", false);
 
-        if (aux1 == "7") {
-            $('.Recomendados').hide();
+            if (data.ColorFondo != "") $("#hdColorFondo").val(data.ColorFondo);
+            else $("#hdColorFondo").val("#FFF");
+            ActivarDesactivarChecks();
 
-            $("#ddlEtiqueta1").children('option').hide();
-            $("#ddlEtiqueta1").children("option[data-id='1']").show();
+            $("#hdCampania").val($("#ddlCampania").val());
+            $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
+            $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
+            $("#hdnCodigoSAP").val(data.CodigoSAP);
+            _editData.CodigoSAP = data.CodigoSAP;
+            SeleccionarTipoOferta();
 
-            $("#ddlEtiqueta2").children('option').hide();
-            $("#ddlEtiqueta2").children("option[data-id='5']").show();
+            $("#txtAlcance").val($("#ddlPais option:selected").html());
+            $("#spanCampania").val($("#ddlCampania option:selected").html());
+            $("#spanTipoEstrategia").val($("#ddlTipoEstrategia option:selected").html().trim());
+            $("#hdEstrategiaID").val(data.EstrategiaID);
+            $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
+            $("#hdCampania").val(data.CampaniaID);
+            $("#ddlCampaniaFin").val(data.CampaniaIDFin);
+            $("#hdNumeroPedido").val(data.NumeroPedido);
+            $("#imgSeleccionada").attr('src', rutaImagenVacia);
 
-            $('#div-orden').hide();
-        }
+            $("#divInformacionAdicionalEstrategiaContenido").hide();
 
-        $('#file-upload').show();
+            $("#divImagenEstrategia").css("color", "white");
+            $("#divImagenEstrategia").css("background", "#00A2E8");
+            $("#divInformacionAdicionalEstrategia").css("color", "#702789");
+            $("#divInformacionAdicionalEstrategia").css("background", "#D0D0D0");
 
-        if (id != 0) {
-            var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
-            _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+            $("#txtLimite").val(data.LimiteVenta);
+            $("#txtDescripcion").val(data.DescripcionCUV2);
+            $("#txtCUV").val(data.CUV1);
+            $("#ddlEtiqueta1").val(data.EtiquetaID);
+            if (data.Precio != "0") {
+                $("#txtPrecio").val(parseFloat(data.Precio).toFixed(2));
+            $("#hdEstrategiaPrecioAnt").val(parseFloat(data.Precio2).toFixed(2));
+            } else {
+                $("#txtPrecio").val('');
+            }
+            $("#txtCUV2").val(data.CUV2);
+            $("#ddlEtiqueta2").val(data.EtiquetaID2);
+            if (data.Precio2 != "0") {
+                $("#txtPrecio2").val(parseFloat(data.Precio2).toFixed(2));
+            } else {
+                $("#txtPrecio2").val('');
+            }
+            $("#txtTextoLibre").val(data.TextoLibre);
+            $("#txtCantidad").val(data.Cantidad);
+            $("#hdZonas").val(data.Zona);
+
+            var strZonas = $("#hdZonas").val();
+            if (strZonas != "") {
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                var strZonasArreglo = strZonas.split(",");
+                for (i = 0; i < strZonasArreglo.length; i++) {
+                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                }
+            } else {
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                $("#chkSeleccionar").attr("checked", false);
+            }
+
+            var aux1 = $('#ddlTipoEstrategia').find(':selected').data('id');
+            var aux2 = $("#hdEstrategiaCodigo").val();
+
+            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+                $("#txtOrden").val("");
+                $('#div-orden').hide();
+
+                $('#txt1-estrella').html('Oferta de Último Minuto');
+                $('#txt2-estrella').hide();
+            }
+            else {
+                $("#txtOrden").val(data.Orden);
+                $('#div-orden').show();
+
+                $('#txt1-estrella').html('Mostrar estrella');
+                $('#txt2-estrella').show();
+            }
+
+            if (aux1 == "4" || aux1 == "5" || aux2 == "005" || aux2 == "007" || aux2 == "008") {
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                $("#ddlEtiqueta2").children('option').hide();
+                $("#ddlEtiqueta2").children("option[data-id='3']").show();
+            }
+            else {
+                $("#ddlEtiqueta1").children('option').show();
+                $("#ddlEtiqueta2").children('option').show();
+            }
+
+            if (aux1 == "6") {
+                $('.OfertaUltimoMinuto').hide();
+            } else { $('.OfertaUltimoMinuto').show(); }
+
+            if (aux1 == "7") {
+                $('.Recomendados').hide();
+
+                $("#ddlEtiqueta1").children('option').hide();
+                $("#ddlEtiqueta1").children("option[data-id='1']").show();
+
+                $("#ddlEtiqueta2").children('option').hide();
+                $("#ddlEtiqueta2").children("option[data-id='5']").show();
+
+                $('#div-orden').hide();
+            }
+
+            $('#file-upload').show();
+
+            if (id != 0) {
+                var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
+                _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+            };
+
+            if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
+            else $("#chkEstrella").attr("checked", false);
+            $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
+
+            _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
+            _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
+            //_agregarCamposLanzamiento('img-fondo-mobile', data.ImgFondoMobile);
+            _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFichaDesktop);
+            _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
+            _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
+            _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
+            $("#url-video-desktop").val(data.UrlVideoDesktop);
+            $("#url-video-mobile").val(data.UrlVideoMobile);
+
+            closeWaitingDialog();
+
+            return data;
         };
-
-        if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
-        else $("#chkEstrella").attr("checked", false);
-        $(".checksPedidosAsociados").append('<div class="selectP2 borde_redondeado"><input type="text" id="txtPedidoAsociado" value="' + data.NumeroPedido + '" readonly /></div>');
-
-        _agregarCamposLanzamiento('img-fondo-desktop', data.ImgFondoDesktop);
-        _agregarCamposLanzamiento('img-prev-desktop', data.ImgPrevDesktop);
-        //_agregarCamposLanzamiento('img-fondo-mobile', data.ImgFondoMobile);
-        _agregarCamposLanzamiento('img-ficha-desktop', data.ImgFichaDesktop);
-        _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
-        _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
-        _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
-        $("#url-video-desktop").val(data.UrlVideoDesktop);
-        $("#url-video-mobile").val(data.UrlVideoMobile);
-
-        closeWaitingDialog();
-
-        return data;
     };
-};
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
         var params = { paisID: data.paisID, estragiaId: data.EstrategiaID, cuv2: data.CUV2, CampaniaID: data.CampaniaID, TipoEstrategiaID: data.TipoEstrategiaID, pagina: pagina };
@@ -304,15 +304,15 @@
     };
 
     var _obtenerImagenesByCodigoSAP = function (data, pagina, recargarPaginacion) {
-        var params = { paisID: data.paisID, codigoSAP: data.CodigoSAP, pagina: pagina };
+        var params = { paisID: $("#ddlPais").val(), codigoSAP: data.CodigoSAP, pagina: pagina };
         return $.post(_config.getImagesByCodigoSAPAction, params).done(_obtenerImagenesByCodigoSAPSuccess(data, recargarPaginacion));
     };
-    
+
     var _obtenerImagenesByCodigoSAPSuccess = function (editData, recargarPaginacion) {
         return function (data, textStatus, jqXHR) {
             editData.imagenes = data.imagenes;
             _editData = editData;
-            
+
             if (recargarPaginacion) {
                 $("#matriz-imagenes-paginacion").empty();
             }
@@ -336,7 +336,7 @@
         }
 
         _paginador.paginar(numRegistros);
-        
+
     };
 
     var _mostrarListaImagenes = function (editData) {
@@ -470,20 +470,20 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                         }
                         else if (data.wsprecio == 0) {
                             if (data.precio == 0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                             else {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                         }
                         else if (data.wsprecio == -1) {
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                             alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
                         }
                         else if (data.wsprecio == -2) {
@@ -523,7 +523,7 @@
                         $("#txtPrecio").val("");
                         $("#txtCUV").val("");
                         try {
-                            for (var i = 1; i <= nroImagenes; i++) {
+                            for (var i = 1; i <= 10; i++) {
                                 idImagen = ('0' + i).substr(-2);
                                 objPreview = $('#preview' + i);
                                 objChkImagen = $('#chkImagenProducto' + idImagen);
@@ -539,7 +539,7 @@
                                 }
                                 objChkImagen.attr('checked', false);
                             }
-                        }catch (e) {
+                        } catch (e) {
                             console.error('error al procesar nroImagenes');
                         }
                         closeWaitingDialog();
@@ -573,9 +573,9 @@
                 waitingDialog({});
 
                 $("#hdEstrategiaID").val(id);
-               
+
                 _clearFields();
-               
+
                 var params = {
                     EstrategiaID: $("#hdEstrategiaID").val(),
                     TipoEstrategiaID: $("#ddlTipoEstrategia").val(),

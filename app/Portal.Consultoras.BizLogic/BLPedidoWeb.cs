@@ -1926,9 +1926,23 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-            new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
+            new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
+        }
+
+        public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(PaisID);
+
+            if (lista.Any())
+            {
+                foreach (var item in lista)
+                {
+                    if (item != null)
+                        DAPedidoWeb.InsLogOfertaFinal(item);
+                }
+            }
         }
 
         public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)

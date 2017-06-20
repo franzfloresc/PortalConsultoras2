@@ -4890,6 +4890,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     color:#000;
     font-weight:300!important;
     text-align:center;
+    margin-bottom:3px;
 }
 
 .descripcion_ofertaFinal{
@@ -4898,7 +4899,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-weight:700;
     text-align:center;
     margin-bottom: 18px;
-    margin-top: 18px;
+    /*margin-top: 18px;*/
     TEXT-TRANSFORM: uppercase;
 }
 .texto_complemento_oferta{
@@ -4975,6 +4976,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background-size:22px;
     padding-left: 40px;
     background-position: 10px 14px;
 }
@@ -26852,7 +26854,7 @@ position: relative; float: left;
 }
 .icono_check_alerta{
     background:url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
-    background-size:cover;
+    background-size: 80%;
 }
 .texto_mensaje_alerta {
     font-family: 'Lato';

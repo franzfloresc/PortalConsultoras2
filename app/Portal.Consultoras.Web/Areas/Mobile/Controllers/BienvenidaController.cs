@@ -137,6 +137,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.EmailActivo = userData.EMailActivo;
                 model.TieneCupon = userData.TieneCupon;
+                model.TieneMasVendidos = userData.TieneMasVendidos;
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 

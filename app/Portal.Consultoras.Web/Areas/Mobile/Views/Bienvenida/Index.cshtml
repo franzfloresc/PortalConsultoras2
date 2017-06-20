@@ -19,6 +19,7 @@
         }
     </style>
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 
@@ -345,6 +346,12 @@
         <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
     </div>
 </div>
+<!--LOS MAS VENDIDOS-->
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
+
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
     <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
@@ -1028,18 +1035,33 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
 <!--FIN-->
-@section scripts {
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".termino_condiciones_intriga").click(function () {
-                $(this).toggleClass('check_intriga');
-                if (typeof intrigaAceptoTerminos !== 'undefined') {
-                    intrigaAceptoTerminos = !intrigaAceptoTerminos;
-                }
-            });
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".termino_condiciones_intriga").click(function () {
+            $(this).toggleClass('check_intriga');
+            if (typeof intrigaAceptoTerminos !== 'undefined') {
+                intrigaAceptoTerminos = !intrigaAceptoTerminos;
+            }
         });
+    });
+            $(function () {
+                var rating = 1.6;
+                $(".rateyo-readonly-widg").rateYo({
+                    rating: rating,
+                    numStars: 5,
+                    precision: 2,
+                    minValue: 1,
+                    maxValue: 5,
+                    starWidth: "17px"
+                }).on("rateyo.change", function (e, data) {
+
+                    //console.log(data.rating);
+                });
+            });
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+            <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript">
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
@@ -1067,7 +1089,6 @@
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
 
-
         //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -1077,6 +1098,7 @@
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var tieneCupon = '@Model.TieneCupon';
+                var tieneMasVendidos = @Model.TieneMasVendidos;
         var paginaOrigenCupon = 2;
         var esEmailActivo = '@Model.EmailActivo';
         var paisISO = '@ViewBag.paisISO';
@@ -1087,7 +1109,8 @@
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
     <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    
 }

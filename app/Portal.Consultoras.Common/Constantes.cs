@@ -273,6 +273,7 @@
             public const int MobileShowRoomProductPageTactica = 2533;
             
             public const int MobileHomeOfertasParaTi = 2121;
+            public const int MobileHomeMasVendidos = 2123;
 
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
@@ -600,6 +601,14 @@
         {
             public const int Reservado = 1;
             public const int Activo = 2;
+            public const int Utilizado = 3;
+        }
+
+        public class NombreEstadoCupon
+        {
+            public const string Reservado = "Registrado";
+            public const string Activo = "Activado";
+            public const string Utilizado = "Utilizado";
         }
 
         public class CodigoTipoCupon
@@ -641,7 +650,7 @@
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-        
+
         public class TipoOfertasPlan20
         {
             public const int OfertaFinal = 35;
