@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Entities
     public class BEClienteRecordatorio
     {
         private int clienteRecordatorioId;
-        private long codigoCliente;
+        private short clienteId;
         private string descripcion;
         private DateTime fecha;
         private long consultoraId;
@@ -26,10 +26,10 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
-        public long CodigoCliente
+        public short ClienteId
         {
-            get { return codigoCliente; }
-            set { codigoCliente = value; }
+            get { return clienteId; }
+            set { clienteId = value; }
         }
 
         [DataMember]
@@ -65,8 +65,8 @@ namespace Portal.Consultoras.Entities
             if (datarec.HasColumn("ClienteRecordatorioId"))
                 clienteRecordatorioId = datarec.GetValue<int>("ClienteRecordatorioId");
 
-            if (datarec.HasColumn("CodigoCliente"))
-                codigoCliente = datarec.GetValue<long>("CodigoCliente");
+            if (datarec.HasColumn("ClienteId"))
+                clienteId = datarec.GetValue<short>("ClienteId");
 
             if (datarec.HasColumn("Descripcion"))
                 descripcion = datarec.GetValue<string>("Descripcion");

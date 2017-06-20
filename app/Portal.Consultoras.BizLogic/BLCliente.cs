@@ -164,7 +164,7 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.RecordatorioInsertar(recordatorio);
         }
 
-        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long clienteId, long consultoraId)
+        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, short clienteId, long consultoraId)
         {
             var recordatorios = new List<BEClienteRecordatorio>();
             var daCliente = new DACliente(paisId);
@@ -185,7 +185,7 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.RecordatorioActualizar(recordatorio);
         }
 
-        public bool RecordatorioEliminar(int paisId, long codigoCliente, long consultoraId, int recordatorioId)
+        public bool RecordatorioEliminar(int paisId, short codigoCliente, long consultoraId, int recordatorioId)
         {
             var daCliente = new DACliente(paisId);
             return daCliente.RecordatorioEliminar(codigoCliente, consultoraId, recordatorioId);
@@ -372,7 +372,7 @@ namespace Portal.Consultoras.BizLogic
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
             lstConsultoraCliente.ToList()
                 .ForEach(c =>
-                    c.Recordatorios = RecordatorioListar(paisID, c.CodigoCliente, consultoraID));
+                    c.Recordatorios = RecordatorioListar(paisID, (short)c.ClienteID, consultoraID));
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));

@@ -172,14 +172,14 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader MovimientosListar(int codigoCliente, long consultoraId)
+        public IDataReader MovimientosListar(int clienteId, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");
 
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, codigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
 
             return Context.ExecuteReader(command);
         }
@@ -192,7 +192,7 @@ namespace Portal.Consultoras.Data
                 command.CommandType = CommandType.StoredProcedure;
 
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, recordatorio.ConsultoraId);
-                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, recordatorio.CodigoCliente);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, recordatorio.ClienteId);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, recordatorio.Fecha);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, recordatorio.Descripcion);
 
@@ -203,14 +203,14 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader RecordatorioObtener(long codigoCliente, long consultoraId)
+        public IDataReader RecordatorioObtener(short clienteId, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Listar");
 
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, codigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.UInt16, clienteId);
 
             return Context.ExecuteReader(command);
         }
@@ -223,7 +223,7 @@ namespace Portal.Consultoras.Data
                 command.CommandType = CommandType.StoredProcedure;
 
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, recordatorio.ConsultoraId);
-                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, recordatorio.CodigoCliente);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, recordatorio.ClienteId);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, recordatorio.Fecha);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, recordatorio.Descripcion);
 
@@ -234,14 +234,14 @@ namespace Portal.Consultoras.Data
             }
         }
         
-        public bool RecordatorioEliminar(long codigoCliente, long consultoraId, int recordatorioId)
+        public bool RecordatorioEliminar(short clienteId, long consultoraId, int recordatorioId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Eliminar"))
             {
                 command.CommandType = CommandType.StoredProcedure;
 
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-                Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, codigoCliente);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
                 Context.Database.AddInParameter(command, "@ClienteRecordatorioId", DbType.Int16, recordatorioId);
 
                 using (var reader = Context.ExecuteReader(command))
