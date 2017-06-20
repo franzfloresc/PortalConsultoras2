@@ -627,13 +627,14 @@
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
-	 public class SessionNames
+
+	    public class SessionNames
         {
-            // Lista de estrategias en session para OPT y BPT 
-            public const string ListaEstrategia = "ListadoEstrategiaPedido";
-	}
+                // Lista de estrategias en session para OPT y BPT 
+                public const string ListaEstrategia = "ListadoEstrategiaPedido";
+	    }
 	
-        public class SessionNames
+        public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;
             public const int Activo = 1;

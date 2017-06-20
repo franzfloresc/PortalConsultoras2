@@ -523,7 +523,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model?.EstadoRegistro ?? 0;
                 ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model?.EstadoRegistro ?? 0;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
-                #endregion
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
