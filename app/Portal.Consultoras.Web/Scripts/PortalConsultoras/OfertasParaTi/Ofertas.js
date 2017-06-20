@@ -21,10 +21,14 @@ var filtroIni = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
 
     $("a[data-filtro-tipo]").click(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
         
@@ -219,9 +223,14 @@ function OfertaCargarProductos(busquedaModel, clear) {
         }
     }
 
+    busquedaModel = busquedaModel || new Object();
+    //AbrirLoad();
     $.ajaxSetup({
         cache: false
     });
+
+    $('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
+    $("#divOfertaProductosLoad").show();
 
     busquedaModel.IsMobile = isMobile();
     busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tag-tipo"));

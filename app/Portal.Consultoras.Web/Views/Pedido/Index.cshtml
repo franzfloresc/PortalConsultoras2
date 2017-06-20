@@ -227,6 +227,18 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div id="" class="contenedorCupon" style="width:100%;">
+                                    <div id="" class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color:black;">conócelo aquí</a></div>
+                                    </div>
+                                    <div id="" class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;">
+                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" alt="" /></div>
+                                        <div class="texto_cupon_monto">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+                                    </div>
+                                </div>
+                                
+                                <hr class="clear" />
                                 <hr class="separador_montos" />
                                 <div class="caja_montos_textos">
                                     <!--SB20-483 - INICIO -->
@@ -531,6 +543,23 @@
 
     <div id="divListaEstrategias" style="display:none;">
         
+        <div id="" class="contenedorCupon">
+            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+                Tienes un dscto exclusivo para ti,
+                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
+            </div>
+            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+        </div>
+        
+        <hr class="clear" />
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <div class="truco_bloqueo sim2"></div>
+        }
+        <div class="contenedor_carousel" id="contenedor_template_estrategia_cabecera">
+            
     </div>
     
     <div class="clear"></div>
@@ -991,6 +1020,10 @@
         <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
         <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
         <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+        
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
 
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
@@ -1176,6 +1209,8 @@
                 </div>
             </div>
     <!--FIN MODAL ACEPTAR PEDIDOS PENDIENTES-->
+
+            
 
     <!--TAPS-->
             <div class="tapsPedidos"></div>
@@ -1447,7 +1482,7 @@
                 {{/each}}
             </script>
         }
-
+        
         <script id="js-CarruselSugerido" type="text/x-handlebars-template">
             {{#each this}}
             <div class="sugerido" data-item="producto">
@@ -1532,7 +1567,7 @@
             <div class="clear"></div>
         </script>
 
-        <script id="producto-template" type="text/x-handlebars-template">
+<script id="producto-template" type="text/x-handlebars-template">
             {{#each this}}
             {{#if EliminadoTemporal}}
             {{else}}
@@ -1577,6 +1612,10 @@
                         </p>
                         <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
                     </span>
+                    {{else if_eq TipoEstrategiaCodigo '@Constantes.TipoEstrategiaCodigo.Lanzamiento'}}
+                        <span style="position:relative">
+                            <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 1}}</label>
+                        </span>
                     {{else}}
                     <span style="position:relative">
                         <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
@@ -2026,9 +2065,9 @@
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                 <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                 <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2308,7 +2347,7 @@
                     <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                     <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
-                    <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartir}}" />
                     <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVPedidoNombre}}" />
                     <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                     <input type="hidden" class="hdTipoMeta" value="{{TipoMeta}}" />
@@ -2371,9 +2410,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2436,6 +2475,7 @@
         </div>
         <hr class="clear" />
     </div>
+   
 </script>
 <!--
 <script type="text/javascript">
@@ -2492,7 +2532,16 @@
                 var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
 
                 var indicadorGPRSB = '@Model.IndicadorGPRSB';
-
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 11;
+                var esEmailActivo = '@Model.EmailActivo';
+                var baseUrl = "@Url.Content("~")";
+                var paisISO = '@ViewBag.paisISO';
+                var viewBagAmbiente = '@ViewBag.Ambiente';
+                var correo = '@Model.EMail';
+                var celular = '@Model.Celular';
             </script>
             @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")            
 

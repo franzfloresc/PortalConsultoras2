@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
-                        permiso.UrlItem = AccionControlador("sr", 1);
+                        permiso.UrlItem = AccionControlador("sr");
                     else
                         continue;
 
@@ -582,6 +582,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
+            ViewBag.CantPedidosPendientes = 0;
+
             var lstModel = new List<MenuMobileModel>();
 
             if (userData.RolID != Constantes.Rol.Consultora)
@@ -702,7 +704,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
 
                             menu.UrlImagen = "";
-                        menu.UrlItem = AccionControlador("sr", 1, true);
+                            menu.UrlItem = AccionControlador("sr", false, true);
                         }
                         else
                         {
@@ -1102,13 +1104,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = false;
                 if (!ViewBag.MostrarODD)
                 {
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia;
+                    if (model.TieneOfertaDelDia)
                     {
                         if (!(
-                                (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                                || userData.IndicadorGPRSB == 0)
-                            || userData.CloseOfertaDelDia
+                                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                                || model.IndicadorGPRSB == 0)
+                            || model.CloseOfertaDelDia
                         )
                         {
                             ViewBag.TieneOfertaDelDia = false;
@@ -1123,8 +1125,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
-                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
-                ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+                ViewBag.MensajePedidoDesktop = model.MensajePedidoDesktop;
+                ViewBag.MensajePedidoMobile = model.MensajePedidoMobile;
 
                 #endregion
 
@@ -1294,8 +1296,10 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         string codigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada : model.CodigoConsultora;
-                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora);
                         model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                        var tienePersonalizacion = model.BeShowRoom != null ? model.BeShowRoom.TienePersonalizacion : false;
+
+                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, tienePersonalizacion);
 
                         model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();
                         model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
@@ -2320,29 +2324,51 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
-        public string AccionControlador(string tipo, int isControlador = 0, bool mobile = false)
+        public string AccionControlador(string tipo, bool onlyAction = false, bool mobile = false)
         {
-            var accion = "";
-            var controlador = "";
+            string controlador = "", accion = "";
             try
             {
-                tipo = Util.Trim(tipo);
-                if (tipo.ToLower() == "sr")
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
                 {
-                    controlador = isControlador == 1 ? "ShowRoom" : "";
-                    if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                        accion = "Index";
-                    else
-                        accion = "Intriga";
-
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
                 }
-                return  (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
 
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return accion;
             }
+            /*
+            try
+            {
+                tipo = Util.Trim(tipo).ToLower();
+                switch (tipo)
+                {
+                    case "sr":
+                        controlador = "ShowRoom";
+                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        accion = esVenta ? "Index" : "Intriga";
+                        break;
+                }
+
+                if (onlyAction) return accion;
+                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return accion;
+            }
+             * */
         }
 
         //public bool MostrarFAV()

@@ -180,14 +180,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
-                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
                 ));
 
             #endregion

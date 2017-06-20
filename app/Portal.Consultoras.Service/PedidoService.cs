@@ -8,6 +8,7 @@ using System.Linq;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 
@@ -36,6 +37,8 @@ namespace Portal.Consultoras.Service
         private BLProcesoPedidoRechazado BLProcesoPedidoRechazado;
         private BLEstrategia blEstrategia;
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private BLCuponConsultora BLCuponConsultora;
+
 
         public PedidoService()
         {
@@ -60,6 +63,7 @@ namespace Portal.Consultoras.Service
             BLProcesoPedidoRechazado = new BLProcesoPedidoRechazado();
             blEstrategia = new BLEstrategia();
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLCuponConsultora = new BLCuponConsultora();
         }
 
         #region Reporte Lider
@@ -1506,9 +1510,9 @@ namespace Portal.Consultoras.Service
             return BLShowRoomEvento.CargarProductoCpc(paisId, eventoId, usuarioCreacion, listaShowRoomCompraPorCompra);
         }
 
-        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup)
@@ -1631,9 +1635,9 @@ namespace Portal.Consultoras.Service
             BLShowRoomEvento.GuardarPerfilOfertaShowRoom(paisId, perfilId, eventoId, campaniaId, cadenaCuv);
         }
 
-        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora)
+        public IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion)
         {
-            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora);
+            return BLShowRoomEvento.GetShowRoomOfertasConsultora(paisID, campaniaID, codigoConsultora, tienePersonalizacion);
         }
 
         public BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID)
@@ -1979,6 +1983,25 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
 
+        #region Cupon
+
+        public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
+        {
+            return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
+        }
+
+        public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
+        {
+            BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
+        }
+
+        #endregion
+
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
@@ -1993,5 +2016,7 @@ namespace Portal.Consultoras.Service
         {
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
+
+        
     }
 }
