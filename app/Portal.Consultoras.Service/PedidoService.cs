@@ -2013,20 +2013,11 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
         }
-
-
-
-        public int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad)
-        {
-            return BLPedidoWeb.InsIndicadorPedidoAutentico(paisID, entidad);
-        }
         
         public void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora)
         {
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
         }
-
-        #endregion
 
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
@@ -2043,8 +2034,6 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
         
-        #region Cupon
-
         public BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora)
         {
             return BLCuponConsultora.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponConsultora);
@@ -2054,7 +2043,5 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.UpdateCuponConsultoraEstadoCupon(paisId, cuponConsultora);
         }
-
-        
     }
 }

@@ -68,8 +68,6 @@
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />
     <Compile Include="BEMisPedidosAppCatalogo.cs" />
-    <Compile Include="BEConfiguracionPais.cs" />
-    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
     <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />

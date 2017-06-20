@@ -9389,6 +9389,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string LogoLideresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeCDRExpressField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeCDRExpressNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MensajePedidoDesktopField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9528,6 +9534,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneCDRExpressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCuponField;
@@ -10671,6 +10680,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeCDRExpress {
+            get {
+                return this.MensajeCDRExpressField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeCDRExpressField, value) != true)) {
+                    this.MensajeCDRExpressField = value;
+                    this.RaisePropertyChanged("MensajeCDRExpress");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeCDRExpressNueva {
+            get {
+                return this.MensajeCDRExpressNuevaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeCDRExpressNuevaField, value) != true)) {
+                    this.MensajeCDRExpressNuevaField = value;
+                    this.RaisePropertyChanged("MensajeCDRExpressNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MensajePedidoDesktop {
             get {
                 return this.MensajePedidoDesktopField;
@@ -11277,6 +11312,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneCDRField.Equals(value) != true)) {
                     this.TieneCDRField = value;
                     this.RaisePropertyChanged("TieneCDR");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneCDRExpress {
+            get {
+                return this.TieneCDRExpressField;
+            }
+            set {
+                if ((this.TieneCDRExpressField.Equals(value) != true)) {
+                    this.TieneCDRExpressField = value;
+                    this.RaisePropertyChanged("TieneCDRExpress");
                 }
             }
         }
@@ -25027,29 +25075,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EnviarCorreoReservaProl", ReplyAction="http://tempuri.org/IPedidoService/EnviarCorreoReservaProlResponse")]
         System.Threading.Tasks.Task<bool> EnviarCorreoReservaProlAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarDesglose", ReplyAction="http://tempuri.org/IPedidoService/InsertarDesgloseResponse")]
-        int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarDesglose", ReplyAction="http://tempuri.org/IPedidoService/InsertarDesgloseResponse")]
-        System.Threading.Tasks.Task<int> InsertarDesgloseAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RDSuscripcion", ReplyAction="http://tempuri.org/IPedidoService/RDSuscripcionResponse")]
         int RDSuscripcion(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RDSuscripcion", ReplyAction="http://tempuri.org/IPedidoService/RDSuscripcionResponse")]
         System.Threading.Tasks.Task<int> RDSuscripcionAsync(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse")]
-        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse")]
-        System.Threading.Tasks.Task<string> CargarSesionAndDeshacerPedidoValidadoAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
-        string DeshacerPedidoValidado(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
-        System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RDDesuscripcion", ReplyAction="http://tempuri.org/IPedidoService/RDDesuscripcionResponse")]
         int RDDesuscripcion(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad);
@@ -25062,6 +25092,24 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/RDGetSuscripcion", ReplyAction="http://tempuri.org/IPedidoService/RDGetSuscripcionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion> RDGetSuscripcionAsync(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarDesglose", ReplyAction="http://tempuri.org/IPedidoService/InsertarDesgloseResponse")]
+        int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarDesglose", ReplyAction="http://tempuri.org/IPedidoService/InsertarDesgloseResponse")]
+        System.Threading.Tasks.Task<int> InsertarDesgloseAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse")]
+        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/CargarSesionAndDeshacerPedidoValidadoResponse")]
+        System.Threading.Tasks.Task<string> CargarSesionAndDeshacerPedidoValidadoAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
+        string DeshacerPedidoValidado(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado", ReplyAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse")]
+        System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaId", ReplyAction="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaIdR" +
             "esponse")]
@@ -27189,36 +27237,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.EnviarCorreoReservaProlAsync(input);
         }
         
-        public int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
-            return base.Channel.InsertarDesglose(input);
-        }
-        
-        public System.Threading.Tasks.Task<int> InsertarDesgloseAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
-            return base.Channel.InsertarDesgloseAsync(input);
-        }
-        
         public int RDSuscripcion(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad) {
             return base.Channel.RDSuscripcion(entidad);
         }
         
         public System.Threading.Tasks.Task<int> RDSuscripcionAsync(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad) {
             return base.Channel.RDSuscripcionAsync(entidad);
-        }
-        
-        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo) {
-            return base.Channel.CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
-        }
-        
-        public System.Threading.Tasks.Task<string> CargarSesionAndDeshacerPedidoValidadoAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo) {
-            return base.Channel.CargarSesionAndDeshacerPedidoValidadoAsync(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
-        }
-        
-        public string DeshacerPedidoValidado(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
-            return base.Channel.DeshacerPedidoValidado(usuario, tipo);
-        }
-        
-        public System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
-            return base.Channel.DeshacerPedidoValidadoAsync(usuario, tipo);
         }
         
         public int RDDesuscripcion(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad) {
@@ -27235,6 +27259,30 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion> RDGetSuscripcionAsync(Portal.Consultoras.Web.ServicePedido.BERevistaDigitalSuscripcion entidad) {
             return base.Channel.RDGetSuscripcionAsync(entidad);
+        }
+        
+        public int InsertarDesglose(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
+            return base.Channel.InsertarDesglose(input);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertarDesgloseAsync(Portal.Consultoras.Web.ServicePedido.BEInputReservaProl input) {
+            return base.Channel.InsertarDesgloseAsync(input);
+        }
+        
+        public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo) {
+            return base.Channel.CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+        }
+        
+        public System.Threading.Tasks.Task<string> CargarSesionAndDeshacerPedidoValidadoAsync(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo) {
+            return base.Channel.CargarSesionAndDeshacerPedidoValidadoAsync(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
+        }
+        
+        public string DeshacerPedidoValidado(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
+            return base.Channel.DeshacerPedidoValidado(usuario, tipo);
+        }
+        
+        public System.Threading.Tasks.Task<string> DeshacerPedidoValidadoAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario, string tipo) {
+            return base.Channel.DeshacerPedidoValidadoAsync(usuario, tipo);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora) {
