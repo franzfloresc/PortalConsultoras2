@@ -212,7 +212,7 @@ namespace Portal.Consultoras.Data
             command.CommandType = CommandType.StoredProcedure;
 
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
-            Context.Database.AddInParameter(command, "@ClienteId", DbType.UInt16, clienteId);
+            Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, clienteId);
 
             return Context.ExecuteReader(command);
         }
