@@ -30,7 +30,7 @@ function RDPopupCerrar(tipo) {
     });
 }
 
-function RDSuscripcion() {
+function RDSuscripcion(accion) {
     AbrirLoad();
     InscripcionRDAnalytics();
     $.ajax({
@@ -44,15 +44,21 @@ function RDSuscripcion() {
                 return false;
 
             if (data.success == true) {
-                CerrarPopup("#PopRDSuscripcion");
-                $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                AbrirPopupFade("#PopRDInscrita");
-                SuscripcionExistosaRDAnalytics();
-                MostrarMenu(data.CodigoMenu);
-                if (!isMobile()) {
-                    CargarBanners();
+
+                accion = accion || 0;
+                if (accion == 0) {
+                    CerrarPopup("#PopRDSuscripcion");
+                    $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
+                    AbrirPopupFade("#PopRDInscrita");
+                    SuscripcionExistosaRDAnalytics();
+                    MostrarMenu(data.CodigoMenu);
+                    if (!isMobile()) {
+                        CargarBanners();
+                    }
                 }
-               
+                else if (accion == 1) {
+
+                }
             }
         },
         error: function (data, error) {

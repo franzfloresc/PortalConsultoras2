@@ -90,15 +90,21 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidad = 0
                     });
                 }
-                
-                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+
+                ViewBag.EsMobile = model.IsMobile ? 2 : 1;
+
+                var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
+
+                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
 
                 var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
-                int cantidadTotal = listModel.Count;
 
                 var listaFinal = listModel;
+                //listaFinal.AddRange(listModel);
+
+                int cantidadTotal = listModel.Count;
 
                 #region Filtros y Orden
 
@@ -145,7 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //    }
                 //}
                 //#endregion
-                
+
                 //#region Orden
                 //if (model.Ordenamiento != null)
                 //{

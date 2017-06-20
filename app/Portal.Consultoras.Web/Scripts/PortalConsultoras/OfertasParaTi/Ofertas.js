@@ -232,6 +232,8 @@ function OfertaCargarProductos(busquedaModel, clear) {
     $('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     $("#divOfertaProductosLoad").show();
 
+    busquedaModel.IsMobile = isMobile();
+    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tag-tipo"));
     jQuery.ajax({
         type: 'POST',
         url: urlOfertaCargarProductos,
@@ -276,7 +278,7 @@ function OfertaCargarProductoRespuesta(response, clear) {
 
 function OfertaObtenerDataLocal(campId) {
     indCampania = 0;
-    if (campId >= campaniaAnio * 100 + campaniaNro) {
+    if (campId > campaniaAnio * 100 + campaniaNro) {
         indCampania = 1;
     }
     return indCampania;

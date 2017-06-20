@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaPedido = ObtenerPedidoWebDetalle();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            bool isMobile = IsMobile();
+            bool isMobile = ViewBag.EsMobile == 2;// IsMobile();
             listaProductoModel.ForEach(estrategia =>
             {
                 estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";

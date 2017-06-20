@@ -47,10 +47,10 @@
 @foreach (var tab in Model.ListaTabs)
 {
     <hr class="clear" />
-    <div style="display: none;" data-tag-html="@tab.Id">
+    <div style="display: none;" data-tag-html="@tab.Id" data-tag-tipo="@tab.ValorOpcional">
         @if (tab.Id > 0)
         {
-            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id, tipo = tab.ValorOpcional })
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
         }
         else
         {
