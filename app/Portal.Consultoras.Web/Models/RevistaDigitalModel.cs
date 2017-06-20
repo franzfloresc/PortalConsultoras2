@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
-            SuscripcionAnteriorModel = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
             ListaProductoLan = new List<EstrategiaPedidoModel>();
             ListaProductoNoLan = new List<EstrategiaPedidoModel>();
             ListaTabs = new List<ComunModel>();
@@ -47,7 +47,8 @@ namespace Portal.Consultoras.Web.Models
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }
         public List<BETablaLogicaDatos> FiltersByPublished { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
-        public RevistaDigitalSuscripcionModel SuscripcionAnteriorModel { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
         public List<EstrategiaPedidoModel> ListaProductoLan { get; set; }
         public List<EstrategiaPedidoModel> ListaProductoNoLan { get; set; }
     }

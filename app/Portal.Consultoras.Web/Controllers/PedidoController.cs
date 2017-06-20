@@ -407,6 +407,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
 
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";

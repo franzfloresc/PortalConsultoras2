@@ -41,7 +41,7 @@
     var btnDesabled = 0;
     var btnDesabledClass = "";
 }
-<div class="wrapper_resumen_mobile" style="padding-bottom:96px;" data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar">    
+<div class="wrapper_resumen_mobile" style="padding-bottom:74px;" data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar">    
     <div class="content_oferta_guia_negocio">
         <div class="content_imagen_ficha">
             <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
@@ -365,6 +365,8 @@
             </div>
             <hr class="clear">
         </div>
+        
+        
         @if (Model.TextoLibre != "")
         {
             <div class="alerta_notificacion">@Model.TextoLibre</div>
@@ -386,6 +388,16 @@
                 <hr class="clear">
             </div>
         </div>
+    </div>
+    <div class="row">
+        <!--INSCRIBITE ESIKA-->
+        <div class="content_inscribirte">
+            INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-13<br/>
+            PODRÁS ACCEDER A OFERTAS COMO ESTA
+            <a href="#" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+            <a href="#" class="enterate_aqui">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
+        </div>
+        <!--FIN-->
     </div>
    
 </div>

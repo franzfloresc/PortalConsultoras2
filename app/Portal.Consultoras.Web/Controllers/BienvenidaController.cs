@@ -450,7 +450,12 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
                 }
                 model.TipoPopUpMostrar = TipoPopUpMostrar;
-
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 #endregion
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
