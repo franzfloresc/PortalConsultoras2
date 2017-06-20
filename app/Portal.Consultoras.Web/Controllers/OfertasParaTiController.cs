@@ -21,7 +21,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             // solo se llama en Home y Pedido, desktop y mobile, para los carruseles de opt o rd
       
-            var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
+            var codAgrupa = userData.RevistaDigital.TieneRDR || 
+                (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1) ? 
+                Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
 
             var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
 

@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
             SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
             ListaProducto = new List<EstrategiaPedidoModel>();
             ListaTabs = new List<ComunModel>();
             FiltersBySorting = new List<BETablaLogicaDatos>();

@@ -224,12 +224,6 @@
     <hr class="clear" />
 </div>
 
-
-
-
-
-
-
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div class="content_belcorp" style="text-align:center;">
@@ -245,14 +239,15 @@
     </div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
-
-
-<!--REVISTA DIGITAL -->
-<div class="fondo_gris" id="divRevistaDigital"></div>
+ <!--REVISTA DIGITAL -->
+<div class="fondo_gris content_belcorp" id="divRevistaDigital"></div>
 <!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
-<div class="content_belcorp" id="divProductosShowRoom"></div>
+<div class="content_belcorp" id="divProductosShowRoom">
+   
+</div>
 <!-- FIN-->
+
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
@@ -276,7 +271,6 @@
             <hr class="clear" />
 
         </div>
-
     </div>
 }
 
@@ -1150,7 +1144,7 @@
 <script id="template-estrategia-header" type="text/x-handlebars-template">
     @if(ViewBag.TieneRDC)
     {
-        if (ViewBag.EstadoSucripcionRDAnterior != 1 && ViewBag.EstadoSucripcionRD == 1)
+        if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
         {
             <!-- HOME BLOCK RD INSCRITAS C-11 -->
             <div class="home_block_rd home_rd1">
@@ -1169,7 +1163,7 @@
             <div style="height: 35px; background: #fff;"></div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-11 -->
             @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
-        }else if (ViewBag.EstadoSucripcionRDAnterior == 1)
+        }else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
         {
             <!-- HOME BLOCK RD INSCRITAS C-12 -->
             <div class="home_block_rd" style="margin-top: 90px;">
@@ -1193,6 +1187,15 @@
             </div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
             <!-- FALTA AGREGAR PRODUCTOS DE REVISTA DIGITAL QUE PODRAN SER AGREGADOS DESDE EL HOME -->
+            <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
+                <div class="background-revistaSeccion"></div>
+                <div class="revistadigital-content">
+                    <hr class="clear" />
+                    <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+                    <hr class="clear" />
+                    <div style="height: 35px; background: transparent;"></div>
+                </div>
+            </div>
         }
         else
         {
@@ -1204,7 +1207,7 @@
                     </div>
                     <div class="hblock_text">
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="width: 62%">CONOCE AHORA ESTA NOVEDAD Y LAS OFERTAS CON HASTA 65% DE DESCUENTO QUE TENEMOS PARA TI. C-@ViewBag.NumeroCampania</div>
+                        <div style="width: 62%">CONOCE AHORA ESTA NOVEDAD Y LAS OFERTAS CON HASTA 65% DE DESCUENTO QUE TENEMOS PARA TI.</div>
                         <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
                             <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a>
                         </div>
@@ -1249,7 +1252,6 @@
                 <div style="height: 35px; background: transparent;"></div>
             </div>
         </div>
-
         <!--FIN SECCION DE REVISTA DIGITAL REDUCIDA -->
     }
     else

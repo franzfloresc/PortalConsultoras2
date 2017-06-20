@@ -107,15 +107,17 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
+    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
+    $('#divListaEstrategias').show();
+
     if (data.Lista.length == 0) {
+        $('#divContenedorListaEstrategia').hide();
         return false;
     }
 
     data.Lista = EstructurarDataCarousel(data.Lista);
     arrayOfertasParaTi = data.Lista;
 
-    SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
-    $('#divListaEstrategias').show();
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
     //ResizeBoxContnet();
