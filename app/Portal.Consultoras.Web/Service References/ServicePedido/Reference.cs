@@ -23055,6 +23055,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ConsultoraSaldoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DocumentoIdentidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsRechazadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -23232,6 +23235,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ConsultoraSaldoField.Equals(value) != true)) {
                     this.ConsultoraSaldoField = value;
                     this.RaisePropertyChanged("ConsultoraSaldo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DocumentoIdentidad {
+            get {
+                return this.DocumentoIdentidadField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DocumentoIdentidadField, value) != true)) {
+                    this.DocumentoIdentidadField = value;
+                    this.RaisePropertyChanged("DocumentoIdentidad");
                 }
             }
         }
