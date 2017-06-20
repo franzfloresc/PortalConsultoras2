@@ -7391,6 +7391,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int SubTipoOfertaSisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoEstrategiaCodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoEstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8165,6 +8168,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.SubTipoOfertaSisIDField.Equals(value) != true)) {
                     this.SubTipoOfertaSisIDField = value;
                     this.RaisePropertyChanged("SubTipoOfertaSisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoEstrategiaCodigo {
+            get {
+                return this.TipoEstrategiaCodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoEstrategiaCodigoField, value) != true)) {
+                    this.TipoEstrategiaCodigoField = value;
+                    this.RaisePropertyChanged("TipoEstrategiaCodigo");
                 }
             }
         }
