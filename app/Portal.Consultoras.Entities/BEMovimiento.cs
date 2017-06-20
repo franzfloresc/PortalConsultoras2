@@ -27,15 +27,21 @@ namespace Portal.Consultoras.Entities
         public string TipoMovimiento { get; set; }
 
         [DataMember]
+        public short ClienteId { get; set; }
+
+        [DataMember]
         public long ConsultoraId { get; set; }
 
         [DataMember]
-        public long CodigoCliente { get; set; }
+        public long? CodigoCliente { get; set; }
 
         public BEMovimiento(IDataReader row)
         {
             if (row.HasColumn("ClienteMovimientoId"))
                 ClienteMovimientoId = row.GetValue<int>("ClienteMovimientoId");
+
+            if (row.HasColumn("ClienteId"))
+                ClienteId = row.GetValue<short>("ClienteId");
 
             if (row.HasColumn("ConsultoraId"))
                 ConsultoraId = row.GetValue<long>("ConsultoraId");

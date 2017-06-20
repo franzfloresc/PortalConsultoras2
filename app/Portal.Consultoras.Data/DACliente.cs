@@ -138,6 +138,7 @@ namespace Portal.Consultoras.Data
                 command.CommandType = CommandType.StoredProcedure;
 
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, movimiento.ConsultoraId);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, movimiento.ClienteId);
                 Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, movimiento.CodigoCliente);
                 Context.Database.AddInParameter(command, "@Monto", DbType.Decimal, movimiento.Monto);
                 Context.Database.AddInParameter(command, "@TipoMovimiento", DbType.String, movimiento.TipoMovimiento);
@@ -159,6 +160,7 @@ namespace Portal.Consultoras.Data
 
                 Context.Database.AddInParameter(command, "@ClienteMovimientoId", DbType.Int32, movimiento.ClienteMovimientoId);
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, movimiento.ConsultoraId);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, movimiento.ClienteId);
                 Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, movimiento.CodigoCliente);                
                 Context.Database.AddInParameter(command, "@Monto", DbType.Decimal, movimiento.Monto);
                 Context.Database.AddInParameter(command, "@TipoMovimiento", DbType.String, movimiento.TipoMovimiento);
@@ -172,7 +174,7 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader MovimientosListar(int clienteId, long consultoraId)
+        public IDataReader MovimientosListar(short clienteId, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");
 

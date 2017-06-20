@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Service
             return BLCliente.MovimientoInsertar(paisId, movimiento);
         }
 
-        public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, int clienteId, long consultoraId)
+        public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId)
         {
             return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
         }

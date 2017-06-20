@@ -127,7 +127,7 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.MovimientoInsertar(movimiento);
         }
 
-        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, int clienteId, long consultoraId)
+        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId)
         {
             var movimientos = new List<BEMovimiento>();
             var daCliente = new DACliente(paisId);
