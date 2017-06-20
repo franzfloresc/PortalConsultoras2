@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Common
             { "MX", "Estado" },
             { "PA", "Provincia" },
             { "PE", "Departamento" },
-            { "PR", "" },
+            { "PR", "Estado" },
             { "SV", "Departamento" },
             { "VE", "" }
         };
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Common
             { "MX", "Municipio" },
             { "PA", "Distrito" },
             { "PE", "Provincia" },
-            { "PR", "-" },
+            { "PR", "Municipio" },
             { "SV", "Municipio" },
             { "VE", "" }
         };
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Common
             { "MX", "" },
             { "PA", "Corregimiento" },
             { "PE", "Distrito" },
-            { "PR", "" },
+            { "PR", "Barrio" },
             { "SV", "Canton" },
             { "VE", "" }
         };
@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Common
             { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
             { "CO", "TemplatesUbigeos/_UbigeoGrupo1"},
             { "CR", "TemplatesUbigeos/_UbigeoGrupo4" },
-            { "DO", "TemplatesUbigeos/_UbigeoGrupo2" },
+            { "DO", "TemplatesUbigeos/_UbigeoGrupo7" },
             { "EC", "TemplatesUbigeos/_UbigeoGrupo5" },
             { "GT", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },

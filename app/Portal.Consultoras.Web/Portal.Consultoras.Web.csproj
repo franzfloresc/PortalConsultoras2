@@ -372,6 +372,7 @@
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaEcuador.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
     <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
@@ -4015,6 +4016,7 @@
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Unete\_ConsultarUbicacionCL.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo6.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
