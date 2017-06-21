@@ -15,6 +15,10 @@
         MOBILE_PEDIDO: 21,
         MOBILE_PEDIDO_DETALLE: 21
     };
+
+    var REGULAR_EXPRESSION = {
+        CORREO: /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/
+    };
     
     var elements = {
         PopupCuponGana: '#Cupon1',
@@ -157,13 +161,25 @@
         });
 
         $(document).on("keyup", elements.TxtCorreoIngresado, function () {
-            if ($(this).val().trim().length <= 0) {
+            var correo = $(this).val().trim();
+
+            if (!esFormatoCorreoValido(correo)) {
                 mostrarMensajeErrorCorreo();
             } else {
                 ocultarMensajeErrorCorreo();
             }
+            //if ($(this).val().trim().length <= 0) {
+            //    mostrarMensajeErrorCorreo();
+            //} else {
+            //    ocultarMensajeErrorCorreo();
+            //}
         });
     }
+
+    var esFormatoCorreoValido = function (correo) {
+        var regCorreo = new RegExp(REGULAR_EXPRESSION.CORREO);
+        return regCorreo.test(correo);
+    };
 
     var procesarVerOferta = function () {
         if (setting.Cupon) {
@@ -416,7 +432,7 @@
         //    ocultarMensajeErrorCelular();
         //}
 
-        if (emailIngresado == "") {
+        if (!esFormatoCorreoValido(emailIngresado)) {
             mostrarMensajeErrorCorreo();
             cantidadErrores++;
         } else {
