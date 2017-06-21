@@ -21,6 +21,9 @@ namespace Portal.Consultoras.Entities
         public string Descripcion { get; set; }
 
         [DataMember]
+        public string Nota { get; set; }
+
+        [DataMember]
         public DateTime Fecha { get; set; }
 
         [DataMember]
@@ -60,6 +63,9 @@ namespace Portal.Consultoras.Entities
 
             if (row.HasColumn("Descripcion"))
                 Descripcion = row.GetValue<string>("Descripcion");
+
+            if (row.HasColumn("Nota"))
+                Nota = row.GetValue<string>("Nota");
         }
     }
 }
