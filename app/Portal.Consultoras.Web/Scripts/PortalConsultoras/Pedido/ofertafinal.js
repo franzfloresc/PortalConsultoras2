@@ -259,7 +259,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
    
     if (consultoraRegaloPN) {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
-        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo)
+        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
     }
 
     $("#divOfertaFinal").show();
@@ -349,7 +349,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
-        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo)
+        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
     if (tipoMeta == "MM") {
@@ -417,7 +417,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     return data;
 }
 
-function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo, flag) {
+function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
