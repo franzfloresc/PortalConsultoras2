@@ -36215,3 +36215,11 @@ h1#penmostreo .campana {
 .fondo_gris_OF{
     background: #f5f5f5;
 }
+.txt-ayuda1-pn{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    margin-top:15px;
+    color:#6a6a6a;
+    margin-bottom:20px;
+}
