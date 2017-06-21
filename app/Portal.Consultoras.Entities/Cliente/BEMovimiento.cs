@@ -38,6 +38,9 @@ namespace Portal.Consultoras.Entities.Cliente
         [DataMember]
         public long? CodigoCliente { get; set; }
 
+        [DataMember]
+        public string CodigoCampania { get; set; }
+
         public BEMovimiento(IDataReader row)
         {
             if (row.HasColumn("ClienteMovimientoId"))
@@ -66,6 +69,10 @@ namespace Portal.Consultoras.Entities.Cliente
 
             if (row.HasColumn("Nota"))
                 Nota = row.GetValue<string>("Nota");
+
+
+            if (row.HasColumn("CampaniaCodigo"))
+                CodigoCampania = row.GetValue<string>("CampaniaCodigo");
         }
     }
 }
