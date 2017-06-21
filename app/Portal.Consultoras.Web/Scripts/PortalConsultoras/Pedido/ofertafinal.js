@@ -492,6 +492,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
         $('#msg-regalo-pn').html(msgRegalo);
         $('#txt-ayuda1-pn').html(txtAyuda1);
+        $('#txt-ayuda1-pn').show();
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
@@ -763,7 +764,7 @@ function GetRegaloProgramaNuevas() {
                 return false;
 
             if (response.success) {
-                console.log(response);
+                //console.log(response);
                 obj = response.data;
             }
             else {
