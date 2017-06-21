@@ -187,40 +187,40 @@ namespace Portal.Consultoras.Web.Controllers
                     lst = new List<BEPedidoDDWeb>();
                 }
 
-                //if (lst.Count != 0)
-                //{
-                //    int fila = 1;
-                //    List<BEPedidoDDWeb> temp = new List<BEPedidoDDWeb>();
+                if (lst.Count != 0)
+                {
+                    int fila = 1;
+                    List<BEPedidoDDWeb> temp = new List<BEPedidoDDWeb>();
 
-                //    foreach (var item in lst)
-                //    {
-                //        temp.Add(new BEPedidoDDWeb
-                //        {
-                //            NroRegistro = fila.ToString(),
-                //            FechaRegistro = item.FechaRegistro,
-                //            FechaReserva = item.FechaReserva,
-                //            CampaniaCodigo = item.CampaniaCodigo,
-                //            Seccion = item.Seccion,
-                //            ConsultoraCodigo = item.ConsultoraCodigo,
-                //            ConsultoraNombre = item.ConsultoraNombre,
-                //            ImporteTotal = item.ImporteTotal,
-                //            ImporteTotalConDescuento = item.ImporteTotalConDescuento,
-                //            UsuarioResponsable = item.UsuarioResponsable,
-                //            ConsultoraSaldo = item.ConsultoraSaldo,
-                //            OrigenNombre = item.OrigenNombre,
-                //            EstadoValidacionNombre = item.EstadoValidacionNombre,
-                //            paisISO = ISOWS,
-                //            TipoProceso = item.OrigenNombre,
-                //            Zona = item.Zona,
-                //            IndicadorEnviado = item.IndicadorEnviado,
-                //            PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
-                //            Region = item.Region,
-                //            MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
-                //        });
-                //        fila = fila + 1;
-                //    }
-                //    lst = temp;
-                //}
+                    foreach (var item in lst)
+                    {
+                        temp.Add(new BEPedidoDDWeb
+                        {
+                            NroRegistro = fila.ToString(),
+                            FechaRegistro = item.FechaRegistro,
+                            FechaReserva = item.FechaReserva,
+                            CampaniaCodigo = item.CampaniaCodigo,
+                            Seccion = item.Seccion,
+                            ConsultoraCodigo = item.ConsultoraCodigo,
+                            ConsultoraNombre = item.ConsultoraNombre,
+                            ImporteTotal = item.ImporteTotal,
+                            ImporteTotalConDescuento = item.ImporteTotalConDescuento,
+                            UsuarioResponsable = item.UsuarioResponsable,
+                            ConsultoraSaldo = item.ConsultoraSaldo,
+                            OrigenNombre = item.OrigenNombre,
+                            EstadoValidacionNombre = item.EstadoValidacionNombre,
+                            paisISO = ISOWS,
+                            TipoProceso = item.OrigenNombre,
+                            Zona = item.Zona,
+                            IndicadorEnviado = item.IndicadorEnviado,
+                            PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
+                            Region = item.Region,
+                            MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
+                        });
+                        fila = fila + 1;
+                    }
+                    lst = temp;
+                }
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
