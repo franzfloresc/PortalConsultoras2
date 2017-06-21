@@ -41,6 +41,39 @@ namespace Portal.Consultoras.Web.Controllers
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
             model.CantidadFilas = 10;
 
+            model.BtnInscribirse = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo;
+            
+            if (userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    model.MensajeIconoSuperior = true;
+                    model.MensajeTitulo = "PODRÁS AGREGAR ESTA OFERTA A PARTIR DE LA PRÓXIMA CAMPAÑA";
+                    model.BtnInscribirse = false;
+                }
+                else
+                {
+                    model.MensajeIconoSuperior = false;
+                    model.MensajeTitulo = "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                    model.BtnInscribirse = true;
+                }
+            }
+            else
+            {
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    model.MensajeIconoSuperior = true;
+                    model.MensajeTitulo = "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2);
+                    model.BtnInscribirse = false;
+                }
+                else
+                {
+                    model.MensajeIconoSuperior = false;
+                    model.MensajeTitulo = "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                    model.BtnInscribirse = true;
+                }
+            }
+            
             return View("Index", model);
         }
 

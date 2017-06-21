@@ -1210,7 +1210,12 @@
                     <div class="hblock_text">
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                         <div style="max-width: 70%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES VER TODAS TUS OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampania AQUÍ</div>
-                        <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                        <div class="btn_diagonal">
+                            <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                             </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1234,6 +1239,7 @@
                             <a href="@Url.Action("Index", "RevistaDigital")">
                                 VER TODAS MIS OFERTAS
                                 <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                             </a>
                         </div>
                     </div>
@@ -1263,7 +1269,9 @@
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                         <div style="width: 62%">CONOCE AHORA ESTA NOVEDAD Y LAS OFERTAS CON HASTA 65% DE DESCUENTO QUE TENEMOS PARA TI.</div>
                         <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a>
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                            </a>
                         </div>
                     </div>
                 </div>

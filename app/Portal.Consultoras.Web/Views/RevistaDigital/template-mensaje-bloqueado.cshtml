@@ -1,6 +1,4 @@
 ﻿
-@using Portal.Consultoras.Common
-
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
 <div class="Content_general_pop_up" id="divMensajeBloqueada" style="display: none;">
@@ -8,7 +6,7 @@
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: -35px;" href="javascript:;" data-popup-close="divMensajeBloqueada">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text"="">
         </a>
-        @if (Model.Mensaje1)
+        @if (Model.MensajeIconoSuperior)
         {
             <span class="icono_exclamacion"></span>
         }
@@ -16,7 +14,7 @@
         <hr class="clear" />
         <div class="box_producto" data-item-html="" style="overflow: hidden;"></div>
         <hr class="clear" />
-        @if (!Model.Mensaje1)
+        @if (Model.BtnInscribirse)
         {
             <div class="btn_diagonal"><a href="javascript: RDSuscripcion(1)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
         }

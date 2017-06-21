@@ -542,10 +542,6 @@
             public const string CatalogoPersonalizado = "FDTC";
         }
 
-            public const string RevistaDigitalReducida = "RDR";
-
-            public const int SinRegistroDB = 0;
-
         public class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";

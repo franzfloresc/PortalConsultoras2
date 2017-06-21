@@ -1,10 +1,11 @@
 ﻿
 var campaniaId = campaniaId || 0;
-var CantidadFilas = CantidadFilas || 2;
+var CantidadFilas = CantidadFilas || 10;
 var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 
 $(document).ready(function () {
+    
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");

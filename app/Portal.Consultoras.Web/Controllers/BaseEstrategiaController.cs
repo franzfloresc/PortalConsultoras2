@@ -290,7 +290,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModel.AddRange(listaDemas);
                     Session[Constantes.SessionNames.ListaEstrategia] = listModel;
                 }
-                else if (userData.RevistaDigital.TieneRDC)
+                else if (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
