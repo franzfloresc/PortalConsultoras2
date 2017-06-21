@@ -122,7 +122,7 @@ $(document).ready(function () {
         }
 
         $("#ddlCampania").removeAttr("disabled");
-        SolicitudEnviar();
+        SolicitudEnviar(false, true);
     });
 
     $(document).on('click', '[data-accion]', function () {
@@ -1133,95 +1133,60 @@ function DetalleEliminar(objItem) {
     });
 }
 
-function SolicitudEnviar() {
-    var ok = true;
+function ControlSetError(inputId, spanId, message) {
+	if (IfNull(message, '') == '') {
+		$(inputId).css('border-color', '#b5b5b5');
+		$(spanId).css('display', 'none');
+	}
+	else {
+		$(inputId).css('border-color', 'red');
+		$(spanId).css('display', '');
+		$(spanId).html(message);
+	}
+}
 
-    var correo = $.trim($("#txtEmail").val());
-    var celular = $.trim($("#txtTelefono").val());
+function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
+	var ok = true;
+	var correo = $.trim($("#txtEmail").val());
+	var celular = $.trim($("#txtTelefono").val());
+	ControlSetError('#txtEmail', '#spnEmailError', null);
+	ControlSetError('#txtTelefono', '#spnTelefonoError', null);
+	
+	if (IfNull(validarCorreoVacio, true) && correo == "") {
+		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+		ok = false;
+	}
+	if (IfNull(validarCelularVacio, true) && celular == "") {
+		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+		ok = false;
+	}
+	if (!ok) {
+		alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
+		return false;
+	}
 
-    if (correo == "" || celular == "") {
-        alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
-
-        if (correo == "") {
-            $("#spnEmailError").css("display", "");
-            $("#spnEmailError").html("*Correo Electrónico incorrecto");
-            $("#txtEmail").css("border-color", "red");
-        }        
-
-        if (celular == "") {
-            $("#spnTelefonoError").css("display", "");
-            $("#spnTelefonoError").html("*Celular incorrecto");
-            $("#txtTelefono").css("border-color", "red");
-        }
-
-        return false;
-    }
-    else {
-        $("#spnEmailError").css("display", "none");
-        $("#txtEmail").css("border-color", "#b5b5b5");
-
-        $("#spnTelefonoError").css("display", "none");
-        $("#txtTelefono").css("border-color", "#b5b5b5");
-    }
-
-    if (!validateEmail(correo)) {
-        $("#spnEmailError").css("display", "");
-        $("#spnEmailError").html("*Correo Electrónico incorrecto");
-        $("#txtEmail").css("border-color", "red");
+	if (correo != "" && !validateEmail(correo)) {
+		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
         ok = false;
     }
-    else {
-        $("#spnEmailError").css("display", "none");
-        $("#txtEmail").css("border-color", "#b5b5b5");
-    }
-
-    if (celular.length < 6) {
-        $("#spnTelefonoError").css("display", "");
-        $("#spnTelefonoError").html("*Celular incorrecto");
-        $("#txtTelefono").css("border-color", "red");
+	if (celular != "" && celular.length < 6) {
+		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
         ok = false;
-    }
-    else {
-        $("#spnTelefonoError").css("display", "none");
-        $("#txtTelefono").css("border-color", "#b5b5b5");
-    }
-
-    if (ok) {
-        var esTelefonoValido = ValidarTelefono(celular);
-        if (!esTelefonoValido) {
-            $("#spnTelefonoError").css("display", "");
-            $("#spnTelefonoError").html("*Este número de celular ya está siendo utilizado. Intenta con otro.");
-            $("#txtTelefono").css("border-color", "red");
-            ok = false;
-        }
-        else {
-            $("#spnTelefonoError").css("display", "none");
-            $("#txtTelefono").css("border-color", "#b5b5b5");
-        }
-    }
-
-    if (!ok) return false;
+	}
+	if (!ok) return false;
+	
+	if (celular != "" && !ValidarTelefono(celular)) {
+		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+		return false;
+	}
 
     var correoActual = $.trim($("#hdEmail").val());
-    if (correoActual != correo) {
-        var esCorreoValido = ValidarCorreoDuplicado(correo);
-
-        if (!esCorreoValido) {
-            $("#spnEmailError").css("display", "");
-            $("#spnEmailError").html("*Este correo ya está siendo utilizado. Intenta con otro");
-            $("#txtEmail").css("border-color", "red");
-            ok = false;
-        }
-        else {
-            $("#spnTelefonoError").css("display", "none");
-            $("#txtTelefono").css("border-color", "#b5b5b5");
-        }
+	if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
+		ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
+		return false;
     }
-
-    if (!ok) return false;
-
-    ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active");
-    if (!ok) {
+	
+	if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
     }
@@ -1246,8 +1211,7 @@ function SolicitudEnviar() {
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data))
-                return false;
+            if (!checkTimeout(data)) return false;
 
             if (data.success != true) {
                 alert_msg(data.message);
@@ -1402,48 +1366,35 @@ function ObtenerCantidadProductosByCodigoSsic(codigoSsic) {
 
 function ValidarTelefono() {
     var resultado = false;
-
-    var item = {
-        Telefono: $("#txtTelefono").val()
-    };
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
+		data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
         async: false,
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data))
-                resultado = false;
-            else
-                resultado = data.success;
+            if (!checkTimeout(data)) resultado = false;
+            else resultado = data.success;
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
+			checkTimeout(data);
         }
     });
-
     return resultado;
 }
 
 function ValidarCorreoDuplicado(correo) {
     var resultado = false;
-
-    var item = {
-        correo: correo
-    };
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/ValidarCorreoDuplicado',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
+		data: JSON.stringify({ correo: correo }),
         async: false,
         cache: false,
         success: function (data) {
@@ -1458,7 +1409,6 @@ function ValidarCorreoDuplicado(correo) {
             if (checkTimeout(data)) { }
         }
     });
-
     return resultado;
 }
 
