@@ -9139,7 +9139,7 @@ span.icon-advertencia{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 15px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -9729,7 +9729,7 @@ span.icon-advertencia{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:17px;
+    line-height:20px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -11177,7 +11177,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 /*** FIN ******/
 
 .saludo_paginacion{
-   margin-top: 10px;
+   
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -11282,7 +11282,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 .content_cronometro{
     margin-top: 26px;
-    margin-bottom: -28px;
+    height: 25px;
+    /* margin-bottom: -28px; */;
 }
 .saludo_paginacion p {
 	margin:0;
@@ -11387,18 +11388,19 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-family:'Lato';
 }
 .titulo_gana {
-    font-size: 10px;
-    color: white;
+        font-size: 10px;
+    color: #fff;
     height: 46px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     -moz-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 5px;
+    margin-top: 27px;
+    margin-bottom: 8px;
     width: 200px;
-    line-height: 15px;
+    line-height: 18px;
+    font-weight: 700;
 }
 .titulo_gana span {
     font-size: 19px;
@@ -11406,16 +11408,16 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-weight: 700;
 }
 .subtitulo_gana {
-    font-family: 'Lato';
-    color: white;
+   font-family: 'Lato';
+    color: #fff;
     font-size: 14px;
     letter-spacing: 1.2px;
     width: 196px;
     margin: 0 auto;
     margin-bottom: -5px;
     -moz-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
 }
 .monto_gana {
     font-family: 'Lato';
@@ -11439,7 +11441,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     line-height: 19px;
     color: black;
     font-weight: 700;
-    margin-top: 27px;
+    margin-top: 44px;
 }
 .texto_legal_mobile_c{
     font-family:'Lato';

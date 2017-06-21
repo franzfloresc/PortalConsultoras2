@@ -21472,6 +21472,67 @@ label.checkpop.c_on {
         text-decoration: underline;
 }
 
+ /*EPD-1204*/
+.boton_ultimos_movimientosVZ {
+    margin-top: 10px !important;
+}
+
+.btn_cerrar_popUpPagoOnlineVZ {
+    display: block;
+    width: 100%;
+    max-width: 29px;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    right: -43px;
+}
+
+    .btn_cerrar_popUpPagoOnlineVZ img {
+        width: 100%;
+        height: auto;
+        border: 0px;
+}
+
+.popup_pagoOnlineVZ{
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -253.5px auto 0 -311.5px;
+    background: #FFF;
+    width: 100%;
+    max-width: 623px;
+    height: auto;
+    /*max-height: 400P*/
+    padding-top: 10px;
+    padding-left: 13px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    z-index: 4;
+}
+
+    .popup_pagoOnlineVZ .contenido_popUp {
+        max-width: 566px;
+}
+
+.LugaresPago_VZ {
+    margin-bottom: 5px;
+}
+
+
+.content_left_pagos_VZ {
+    width: 100%;
+    height: auto;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/*EPD-1204*/
+
+
+
 .border-right {
     border-right: 1px solid black;
 }
@@ -34185,6 +34246,7 @@ h1#penmostreo .campana {
 }
 
 .content_ficha_producto img {
+    max-width: 100% !important;
     max-height: 300px;
 }
 .content_right_ficha{
@@ -36365,3 +36427,20 @@ h1#penmostreo .campana {
 .fondo_gris_OF{
     background: #f5f5f5;
 }
+
+/*EPD-1204  INICIO*/
+.imagenConTexto {
+    text-align: center;
+    width: 183px;
+    height: 45px;
+}
+
+.imagenConTexto img {
+    display: block;
+    margin: 0 auto;
+}
+
+.imagenConTexto p {    
+    color: red;    
+}
+/*EPD-1204  FIN*/
