@@ -5,9 +5,10 @@ Mobile      => 2: Index    | 21: Detalle Oferta
 var tipoOrigenPantalla = tipoOrigenPantalla || "";
 var urlOfertaCargarProductos = urlOfertaCargarProductos || '';
 var urlOfertaDetalle = urlOfertaDetalle || '';
-var filtroCampania = new Array();
 var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
+var lsListaRD = lsListaRD || "ListaRD";
+var filtroCampania = new Array();
 var filtroIni = {
     CampaniaID: 0,
     ListaFiltro: new Array(),
@@ -21,14 +22,10 @@ var filtroIni = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
-        cantMostrados = 0;
-        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
 
     $("a[data-filtro-tipo]").click(function (event) {
-        cantMostrados = 0;
-        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
         
@@ -140,6 +137,12 @@ function OfertaObtenerFiltro(filtro, clear) {
         var valor = $.trim($(select).val()); // para este caso solo es tag html select
 
         if (valor == "-" || valor == "") {
+            if (accion == "orden") {
+                listaFiltros.Ordenamiento = new Object();
+            }
+            else {
+                listaFiltros.ListaFiltro = new Array();
+            }
             return;
         }
 
@@ -221,6 +224,14 @@ function OfertaCargarProductos(busquedaModel, clear) {
                 return true;
             }
         }
+    }
+
+    var valLocalStorage = LocalStorageListado(lsListaRD + busquedaModel.CampaniaID, null, 1);
+    if (valLocalStorage != null) {
+        filtroCampania[indCampania] = JSON.parse(valLocalStorage);
+        jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
+        OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear);
+        return true;
     }
 
     busquedaModel = busquedaModel || new Object();
@@ -425,3 +436,18 @@ function OfertaCargarScroll() {
 
 }
 
+function LocalStorageListado(key, valor, accion) {
+    // accion => 0 insertar => 1 obtener => 2 eliminar
+    accion = accion || 0;
+
+    if (accion == 0) {
+        localStorage.setItem(key, valor);
+    }
+    else if (accion == 1) {
+        return localStorage.getItem(key);
+    }
+
+    if (accion == 3) {
+        localStorage.removeItem(key);
+    }
+}
