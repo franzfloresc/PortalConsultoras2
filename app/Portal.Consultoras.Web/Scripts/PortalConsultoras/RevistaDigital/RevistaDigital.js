@@ -1,7 +1,7 @@
 ﻿
 var campaniaId = campaniaId || 0;
 var CantidadFilas = CantidadFilas || 2;
-var lsListaRD = "ListaRD";
+var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 
 $(document).ready(function () {
@@ -182,6 +182,7 @@ function OfertaArmarEstrategias(response) {
 
     // Listado Carrusel
 
+    var cantProdFiltros = response.cantidadTotal;
     OfertaObtenerDataLocal(response.CampaniaID)
     if (filtroCampania[indCampania] != undefined) {
 
@@ -208,6 +209,8 @@ function OfertaArmarEstrategias(response) {
 
         var listado = RDFiltrarLista(response);
 
+        cantProdFiltros = listado.length;
+
         $.each(listado, function (ind, prod) {
             if (ind >= cantListados && ind < cantListados + CantidadFilas) {
                 listaAdd.push(Clone(prod));
@@ -218,6 +221,9 @@ function OfertaArmarEstrategias(response) {
 
         filtroCampania[indCampania].response.Completo = 1;
     }
+    else {
+        console.log('filtroCampania' + indCampania + " - " + response.CampaniaID);
+    }
     // Listado de producto
     var modeloTemp = Clone(response);
     modeloTemp.Lista = listaAdd || response.lista;
@@ -226,10 +232,10 @@ function OfertaArmarEstrategias(response) {
     var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     ResizeBoxContnet();
-    divProd.find("#spnCantidadFiltro").html(response.cantidad);
+    divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
     
-    localStorage.setItem(lsListaRD, JSON.stringify(filtroCampania));
+    LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));
 }
 
 function RDFiltrarLista(response, busquedaModel) {
