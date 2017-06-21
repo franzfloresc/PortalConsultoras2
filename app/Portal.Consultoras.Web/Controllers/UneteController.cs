@@ -1361,7 +1361,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var DirNumero = string.Empty;
                 var DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                             solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
-
+                DireccionConcatenada = DireccionConcatenada.Where(x => x.Trim() != string.Empty ).ToArray();
                 //DireccionConcatenada = DireccionConcatenada.Where(s => s != "").ToArray();
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
@@ -2162,9 +2162,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ObservacionParte2 = (evento.Observacion != null && evento.Observacion.Contains(MalaZonificacionString) && evento.Observacion.Split('|').Length > 1) ? evento.Observacion.Substring(evento.Observacion.Split('|')[0].Length + 1) : ""
                 });
             }
-
-            historialPostulanteModel.ListaEventos = historialPostulanteModel.ListaEventos.OrderByDescending(p => p.Fecha).Take(10).ToList();
-            historialPostulanteModel.ListaEventos.Add(new EventoPostulanteModel { Fecha = string.Format("{0:dd/MM/yyyy H:mm:ss}",FechaRegistro.ToDatetime()), TipoEventoId = EnumsEstadoPostulante.Registrada.ToInt(), Evento = estados.ToList().Where(e => e.Valor.Value == EnumsEstadoPostulante.Registrada.ToInt()).FirstOrDefault().Nombre });
+ 
             return PartialView("_HistorialPostulante", historialPostulanteModel);
         }
 
@@ -3847,7 +3845,9 @@ namespace Portal.Consultoras.Web.Controllers
                             : model.CodigoPais == Pais.Ecuador
                             ? model.LugarNivel3 + "|" + model.CalleOAvenida + "|" + model.LugarNivel4
                             : model.CodigoPais == Pais.Dominicana
-                            ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida  
+                            ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida
+                              : model.CodigoPais == Pais.PuertoRico
+                            ? model.NombreLugarNivel3 + "|" + model.CalleOAvenida
                             : model.CalleOAvenida + "|" + model.Numero,
 
                 NombreRegion = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
@@ -4111,7 +4111,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.LugarPadre = region;
                     solicitudPostulante.LugarHijo = comuna;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana)
                     {
                         try
                         {
