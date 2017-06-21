@@ -215,6 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
                             IndicadorEnviado = item.IndicadorEnviado,
                             PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
                             Region = item.Region,
+                            DocumentoIdentidad = item.DocumentoIdentidad,
                             MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
                         });
                         fila = fila + 1;
