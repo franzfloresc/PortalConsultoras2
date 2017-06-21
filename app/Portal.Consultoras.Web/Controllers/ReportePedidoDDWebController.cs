@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
-                            //((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+                            ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                             lst = sv.GetPedidosWebDDNoFacturados(
                                 new BEPedidoDDWeb
                                 {
@@ -694,7 +694,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    //((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
+                    ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                     lst = sv.GetPedidosWebDDNoFacturados(
                         new BEPedidoDDWeb
                         {
