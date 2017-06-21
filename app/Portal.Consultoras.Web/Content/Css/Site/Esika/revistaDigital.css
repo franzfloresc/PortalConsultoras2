@@ -1431,13 +1431,23 @@
 .btn_diagonal:hover::after {
   transform: translateY(40%) translateX(-38px) rotate(-75deg);
 }
+
+.rd_arrowright_blanco {
+    display: none
+}
+.btn_diagonal:hover .rd_arrowright {
+    display: none;
+}
+.btn_diagonal:hover .rd_arrowright_blanco {
+    display: block;
+}
 .btn_diagonal a {
-	height: 45px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	line-height: 45px;
-	transition: all 0.6s ease-in-out;
+    height: 45px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 45px;
+    transition: all 0.6s ease-in-out;
 }
 /*BTN STROKE BLACK*/
 .btn_stroke {
@@ -2079,7 +2089,7 @@
 .banner_pedido_rd {
     font-family: 'Lato';
     float: right;
-    width: 28.1%;
+    /*width: 28.1%;*/
     position: relative;
     background-color: #F6F6F6;
     height: auto;
@@ -2212,11 +2222,11 @@
             transition: all 0.2s ease-in-out;
         }
 
-            .home_rd1 .btn_diagonal:hover a .rd_arrowright {
+            .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
                 animation: bounceRight 1.2s infinite;
             }
 
-    .home_rd1 .rd_arrowright {
+    .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
         position: absolute;
         right: 16px;
         top: 16px;

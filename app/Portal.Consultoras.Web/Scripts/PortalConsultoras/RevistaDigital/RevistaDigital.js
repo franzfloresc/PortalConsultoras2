@@ -5,6 +5,7 @@ var lsListaRD = "ListaRD";
 var indCampania = indCampania || 0;
 
 $(document).ready(function () {
+    
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
