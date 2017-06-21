@@ -410,7 +410,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
                 ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
                 ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
                 ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NombreConsultora = userData.Sobrenombre;
