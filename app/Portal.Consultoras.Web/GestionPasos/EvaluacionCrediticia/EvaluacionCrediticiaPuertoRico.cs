@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Web.ServiceEvaluacionCrediticia;
 using Portal.Consultoras.Web.ServiceUnete;
+using System;
 
 namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 {
@@ -7,12 +8,13 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
     {
         public EvaluacionCrediticiaBE Evaluar(string codigoIso, SolicitudPostulante entidad)
         {
-            return new EvaluacionCrediticiaBE
+            EvaluacionCrediticiaBE evaluacionCrediticaBe;
+            int tipoDocumentoId = String.IsNullOrEmpty(entidad.TipoDocumento) ? 1 : int.Parse(entidad.TipoDocumento);
+            using (var sv = new EvaluacionCrediticiaServiceClient())
             {
-                //e
-                EnumEstadoCrediticio = EnumsEstadoBurocrediticio.PuedeSerConsultora,
-                Mensaje = EnumsEstadoBurocrediticio.PuedeSerConsultora.ToString()
-            };
+                evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCaribe(codigoIso,int.Parse(entidad.TipoDocumento), entidad.NumeroDocumento);
+            }
+            return evaluacionCrediticaBe;
         }
     }
 }

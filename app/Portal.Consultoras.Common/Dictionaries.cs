@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Common
             { "MX", "Estado" },
             { "PA", "Provincia" },
             { "PE", "Departamento" },
-            { "PR", "Estado" },
+            { "PR", "Municipio" },
             { "SV", "Departamento" },
             { "VE", "" }
         };
@@ -288,7 +288,7 @@ namespace Portal.Consultoras.Common
             { "MX", "Municipio" },
             { "PA", "Distrito" },
             { "PE", "Provincia" },
-            { "PR", "Municipio" },
+            { "PR", "Barrio" },
             { "SV", "Municipio" },
             { "VE", "" }
         };
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Common
             { "MX", "" },
             { "PA", "Corregimiento" },
             { "PE", "Distrito" },
-            { "PR", "Barrio" },
+            { "PR", "SubBarrio" },
             { "SV", "Canton" },
             { "VE", "" }
         };
@@ -381,7 +381,7 @@ namespace Portal.Consultoras.Common
             { "MX", "IFE" },
             { "PA", "DNI/RUC" },
             { "PE", "DNI/RUC" },
-            { "PR", "DNI/RUC" },
+            { "PR", "C" },
             { "SV", "DNI/RUC" },
             { "VE", "" }
         };
@@ -398,7 +398,7 @@ namespace Portal.Consultoras.Common
             { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
             { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
-            { "PR", "TemplatesUbigeos/_UbigeoGrupo4" },
+            { "PR", "TemplatesUbigeos/_UbigeoGrupo7" },
             { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "VE", "" }
         };
@@ -432,7 +432,7 @@ namespace Portal.Consultoras.Common
             { "MX", "DNI Aval" },
             { "PA", "DNI Aval" },
             { "PE", "DNI Aval" },
-            { "PR", "DNI Aval" },
+            { "PR", "" },
             { "SV", "DNI Aval" },
             { "VE", "" }
         };
