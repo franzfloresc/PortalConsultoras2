@@ -285,9 +285,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
                 ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
                 ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel?.EstadoRegistro ?? 0;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model?.EstadoRegistro ?? 0;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model?.EstadoRegistro ?? 0;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
 
                 // validar si se muestra Show Room en Bienvenida
