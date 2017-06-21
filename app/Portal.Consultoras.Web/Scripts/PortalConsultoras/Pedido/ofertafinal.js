@@ -445,7 +445,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
-       
+
         if (nivel == '01' || nivel == '02' || nivel == '03') {
             txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             if (tipoMeta == 'MM') {
@@ -492,6 +492,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
         $('#msg-regalo-pn').html(msgRegalo);
         $('#txt-ayuda1-pn').html(txtAyuda1);
+        $('#txt-ayuda1-pn').show();
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
@@ -763,7 +764,7 @@ function GetRegaloProgramaNuevas() {
                 return false;
 
             if (response.success) {
-                console.log(response);
+                //console.log(response);
                 obj = response.data;
             }
             else {
