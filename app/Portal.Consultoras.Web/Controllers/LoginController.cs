@@ -1796,11 +1796,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad != null)
                 {
                     var listaProductoCatalogo = new List<Producto>();
-                    using (ProductoServiceClient svc = new ProductoServiceClient())
+                    if (!string.IsNullOrEmpty(entidad.CodigoSap))
                     {
-                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
+                        using (ProductoServiceClient svc = new ProductoServiceClient())
+                        {
+                            listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
+                        }
                     }
-
+                    
                     if (listaProductoCatalogo.Any())
                     {
                         var productoCatalogo = listaProductoCatalogo.First();
