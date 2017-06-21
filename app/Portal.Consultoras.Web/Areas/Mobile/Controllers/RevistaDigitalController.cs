@@ -14,35 +14,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                var model = IndexModel();
-                if (model.EstadoAccion < 0)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
-                return View(model);
+                return IndexModel();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(EstrategiaPedidoModel modelo)
         {
             try
             {
-                var model = DetalleModel(id);
-                return View(model);
+                ViewBag.EsMobile = 2;
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
         public ActionResult _Landing(int id)

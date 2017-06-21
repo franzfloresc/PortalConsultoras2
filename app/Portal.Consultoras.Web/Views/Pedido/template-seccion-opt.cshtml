@@ -1,0 +1,25 @@
+﻿@model Portal.Consultoras.Web.Models.PedidoSb2Model
+
+<div class="caja_carousel_productos" id="divContenedorListaEstrategia">
+    @if (ViewBag.MostrarPedidosPendientes == "1")
+    {
+        <div class="truco_bloqueo sim2"></div>
+    }
+    <div class="contenedor_carousel">
+        <div>
+            <h1>
+                OFERTAS <b>PARA TI @Model.SobreNombre</b>
+            </h1>
+            <div class="texto_exclusivo_web">
+                EXCLUSIVAS SÓLO POR WEB
+            </div>
+        </div>
+        <hr class="clear" />
+        <div class="contenedor_productos">
+            <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+            <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+            </div>
+        </div>
+        <hr class="clear" />
+    </div>
+</div>

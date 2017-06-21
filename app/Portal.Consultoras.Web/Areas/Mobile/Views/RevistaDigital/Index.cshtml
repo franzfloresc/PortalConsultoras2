@@ -47,7 +47,7 @@
 @foreach (var tab in Model.ListaTabs)
 {
     <hr class="clear" />
-    <div style="display: none;" data-tag-html="@tab.Id">
+    <div style="display: none;" data-tag-html="@tab.Id" data-tag-tipo="@tab.ValorOpcional">
         @if (tab.Id > 0)
         {
             @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
@@ -115,7 +115,7 @@
                         {{/iff}}
                     </div>
                     <div class="clear"></div>
-                    <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+                    <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
                         AGR&Eacute;GALO
                     </a>
                     {{/iff}}
@@ -151,7 +151,6 @@
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
         var tipoOrigenEstrategia = 27;
-        var estadoAccion = '@Model.EstadoAccion';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

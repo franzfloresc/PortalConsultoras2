@@ -28,7 +28,7 @@
 </div>
 
 <hr class="clear" />
-<input type="hidden" name="estadoAccion" id="hdEstadoAccion" value="@Model.EstadoAccion" />
+
 @if (Model.ListaTabs.Count() > 1)
 {
     <div class="content_tabs_landing">
@@ -37,7 +37,7 @@
                 @foreach (var tab in Model.ListaTabs)
                 {
                     <li>
-                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id">
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id" data-tab-tipo="@tab.ValorOpcional">
                             <div class="texto_tab_pagos">@tab.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
@@ -66,7 +66,7 @@
 
 <hr class="clear" />
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
-    @Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+    @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 </div>
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
@@ -75,7 +75,7 @@
         <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
-        <div data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+        <div data-item="" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -214,7 +214,7 @@
                         <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>
                 {{#if MostrarTextoLibre}}
@@ -238,7 +238,7 @@
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
         </div>
-        <div class="contenido_popUp" data-item="packNueva" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+        <div class="contenido_popUp" data-item="packNueva" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
             <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div class="bloque_producto_packNuevas">
                 <div class="content_item_carrusel">
@@ -265,7 +265,7 @@
                         <div class="monto_ganancia_producto">
                             <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
                         </div>
-                        <a class="boton_Agregalo_home" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
                             AGRÉGALO
                         </a>
 
@@ -295,6 +295,9 @@
     </div>
 </script>
 
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model)
+@Html.Partial("~/Views/RevistaDigital/template-lan.cshtml")
+
 <div class="flecha_scroll">
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
@@ -303,19 +306,15 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var precioMin = '@Model.PrecioMin';
-        var precioMax = '@Model.PrecioMax';
         var urlOfertaDetalle = '@Url.Action("Detalle", "RevistaDigital")';
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("DetalleTemporal", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
         var tipoOrigenEstrategia = 17;
-        var estadoAccion = '@Model.EstadoAccion';
-        var dosCam = 0;
-        try {
-            dosCam = '@Model.CampaniaMasDos';
-        } catch (e) {
-           console.log(e);
-        }
+        var CantidadFilas = 2;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

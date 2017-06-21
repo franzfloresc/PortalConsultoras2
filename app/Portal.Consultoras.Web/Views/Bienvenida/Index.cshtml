@@ -179,8 +179,7 @@
         </div>
         <hr class="clear" />
         <div class="info_centro">
-            @{
-                string cabezaEscala = null, pieEscala = null;
+            @{string cabezaEscala = null, pieEscala = null;
                 if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
                     Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
@@ -254,13 +253,20 @@
     </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
+
+
 <!--FIN CAROUSEL OFERTAS PARA TI-->
-<!--REVISTA DIGITAL -->
-<div class="fondo_gris" id="divRevistaDigital"></div>
+ <!--REVISTA DIGITAL -->
+<div class="fondo_gris content_belcorp" id="divRevistaDigital">
+    
+</div>
 <!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
-<div class="content_belcorp" id="divProductosShowRoom"></div>
+<div class="content_belcorp" id="divProductosShowRoom">
+   
+</div>
 <!-- FIN-->
+
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
@@ -284,7 +290,6 @@
             <hr class="clear" />
 
         </div>
-
     </div>
 }
 
@@ -1192,51 +1197,124 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;box-shadow:none;margin-top:0px;">
-        {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-        <div class="background-revistaSeccion"></div>
-        {{/iff}}
-        <div class="{{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}revistadigital-content{{/iff}}">
-            <div>
-                {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-                <div class="revistadigital-title">
-                    <div class="logo-marca">
-                        <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+    @if(ViewBag.TieneRDC)
+    {
+        if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+        {
+            <!-- HOME BLOCK RD INSCRITAS C-11 -->
+            <div class="home_block_rd home_rd1">
+                <div class="content_belcorp" style="background-color: black;">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
                     </div>
-                    <div class="linea-separacion"></div>
-                    <div class="titulo_nuevaRevista">
-                        <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
-                            {{Titulo}}
-                        </span>
-                        <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
-                            {{TituloDescripcion}}
-                        </span>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div style="max-width: 70%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES VER TODAS TUS OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampania AQUÍ</div>
+                        <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
                     </div>
                 </div>
-                {{else}}
-                <div class="titulo_ofertas_home">
-                    OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-                    <div class="texto_exclusivo">
-                        EXCLUSIVAS S&Oacute;LO POR WEB
+            </div>
+            <hr class="clear" />
+            <div style="height: 35px; background: #fff;"></div>
+            <!-- FIN HOME BLOCK RD INSCRITAS C-11 -->
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
+        }else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+        {
+            <!-- HOME BLOCK RD INSCRITAS C-12 -->
+            <div class="home_block_rd" style="margin-top: 90px;">
+                <div class="hblock"></div>
+                <div class="content_belcorp" style="background-color: black;">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                    </div>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div style="width: 85%">ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.</div>
+                        <div class="btn_diagonal">
+                            <a href="@Url.Action("Index", "RevistaDigital")">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="linea_titulo_absoluto"></div>
-                {{/iff}}
+            </div>
+            <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
+            <!-- FALTA AGREGAR PRODUCTOS DE REVISTA DIGITAL QUE PODRAN SER AGREGADOS DESDE EL HOME -->
+            <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
+                <div class="background-revistaSeccion"></div>
+                <div class="revistadigital-content">
+                    <hr class="clear" />
+                    <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+                    <hr class="clear" />
+                    <div style="height: 35px; background: transparent;"></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <!-- HOME BLOCK RD NO INSCRITAS C-11 -->
+            <div class="home_block_rd home_rd1">
+                <div class="content_belcorp" style="background-color: black;">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                    </div>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div style="width: 62%">CONOCE AHORA ESTA NOVEDAD Y LAS OFERTAS CON HASTA 65% DE DESCUENTO QUE TENEMOS PARA TI.</div>
+                        <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <hr class="clear" />
-            <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
-            {{#iff (Trim CodigoEstrategia) '==' '@Constantes.TipoEstrategiaCodigo.RevistaDigital'}}
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index","RevistaDigital")'">
-                <div class="fondo_boton"></div>
-                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+            <div style="height: 35px; background: #fff;"></div>
+            <!-- FIN HOME BLOCK RD NO INSCRITAS C-11 -->
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
+        }
+    }
+    else if (ViewBag.TieneRDR)
+    {
+        <!--INCION SECCION DE REVISTA DIGITAL REDUCIDA -->
+        <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
+            <div class="background-revistaSeccion"></div>
+            <div class="revistadigital-content">
+                <div>
+                    <div class="revistadigital-title">
+                        <div class="logo-marca">
+                            <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+                        </div>
+                        <div class="linea-separacion"></div>
+                        <div class="titulo_nuevaRevista">
+                            <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                                {{Titulo}} 
+                            </span>
+                            <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                                {{TituloDescripcion}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+                <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
+                    <div class="fondo_boton"></div>
+                    <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                </div>
+                <hr class="clear" />
+                <div style="height: 35px; background: transparent;"></div>
             </div>
-            {{/iff}}
-            <hr class="clear" />
         </div>
-    </div>
+        <!--FIN SECCION DE REVISTA DIGITAL REDUCIDA -->
+    }
+    else
+    {
+        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml") 
+    }
 </script>
 
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+@Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -2351,7 +2429,7 @@
         <input type="hidden" id="spnShowRoomEvento" />
         <input type="hidden" id="spnShowRoomEventoDescripcion" />
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="CerrarPopShowroomIntriga()">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
         <div class="dias_intriga_home">FALTAN 5 DÍAS</div>
@@ -2372,7 +2450,7 @@
         <input type="hidden" id="spnShowRoomEventoVenta" />
         <input type="hidden" id="spnShowRoomEventoDescripcionVenta" />
         <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate text">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
 
@@ -2571,7 +2649,7 @@
 
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
-        var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital")';
+        var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
 

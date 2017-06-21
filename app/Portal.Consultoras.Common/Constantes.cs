@@ -629,6 +629,12 @@
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
+	    public class SessionNames
+        {
+                // Lista de estrategias en session para OPT y BPT 
+                public const string ListaEstrategia = "ListadoEstrategiaPedido";
+	    }
+	
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;

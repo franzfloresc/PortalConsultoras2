@@ -103,13 +103,13 @@
 </div>
 
 
-@Html.Partial("~/Views/Bienvenida/template-opt.cshtml")
+@Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
     var tipoOrigenEstrategia = 172;
-    var estadoAccion = 0;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 }

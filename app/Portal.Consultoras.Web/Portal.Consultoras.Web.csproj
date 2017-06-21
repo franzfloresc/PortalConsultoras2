@@ -533,6 +533,7 @@
     <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
+    <Compile Include="Models\RevistaDigitalLandingModel.cs" />
     <Compile Include="Models\RevistaDigitalModel.cs" />
     <Compile Include="Models\RevistaDigitalSuscripcionModel.cs" />
     <Compile Include="Models\RolModel.cs" />
@@ -3057,7 +3058,6 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\OfertasParaTi\OfertasParaTi.js" />
     <Content Include="Scripts\PortalConsultoras\OfertasParaTi\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
@@ -4061,7 +4061,7 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Views\Bienvenida\template-opt.cshtml" />
+    <Content Include="Views\Bienvenida\template-carrusel-opt.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
@@ -4087,9 +4087,13 @@
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa.cshtml" />
     <Content Include="Views\RevistaDigital\template-landing.cshtml" />
+    <Content Include="Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
+    <Content Include="Views\Bienvenida\template-seccion-opt.cshtml" />
     <Content Include="Views\Unete\_ConsultarUbicacionCL.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo6.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
+    <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
+    <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />

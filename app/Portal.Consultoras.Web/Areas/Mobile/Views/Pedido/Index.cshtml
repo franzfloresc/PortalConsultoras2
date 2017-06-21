@@ -190,6 +190,62 @@
 
         </div>
     </div>
+
+
+    <!-- PEDIDO INSCRITAS C-11 -->
+    <div class="banner_pedido_rd">
+        <div class="cabecera_pedido_rd">
+            <div class="rd_logo">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+            </div>
+            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+        </div>
+        <div class="banner_pedido_masofertas">
+            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
+            <div class="btn_red">
+                <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+            </div>
+        </div>
+    </div>
+    <!-- FIN PEDIDO INSCRITAS C-11 -->
+
+    <!-- PEDIDO INSCRITAS C-12 -->
+    <div class="banner_pedido_rd">
+        <div class="cabecera_pedido_rd">
+            <div class="rd_logo">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+            </div>
+            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+        </div>
+        <div class="banner_pedido_masofertas">
+            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
+            <div class="btn_red">
+                <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+            </div>
+        </div>
+        falta carrusel de ofertas
+    </div>
+    <!-- FIN PEDIDO INSCRITAS C-12 -->
+
+    <!-- PEDIDO NO INSCRITAS C-11 -->
+    <div class="content_320 ingresoPedidom">
+        <div class="banner_pedido_rd">
+            <div class="cabecera_pedido_rd">
+                <div class="rd_logo">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                </div>
+                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+            </div>
+            <div class="banner_pedido_masofertas">
+                <div class="banner_pedido_text">YULIANA, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
+                <div class="btn_red">
+                    <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- FIN PEDIDO NO INSCRITAS C-11 -->
+
     <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
@@ -397,7 +453,7 @@
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
