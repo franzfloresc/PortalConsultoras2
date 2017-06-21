@@ -113,6 +113,7 @@ function ArmarCarouselEstrategias(data) {
     $('#contenedor_template_estrategia_cabecera').show();
 
     if (data.Lista.length == 0) {
+        $('#divListaEstrategias').show();
         $('#divContenedorListaEstrategia').hide();
         return false;
     }
