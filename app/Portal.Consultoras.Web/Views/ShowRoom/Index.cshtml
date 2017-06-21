@@ -404,6 +404,10 @@
         var origenPedidoWebCarrusel = -1;
         var iconoLluvia = '@ViewBag.IconoLLuvia';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.DesktopShowRoomSubCampanias';
+        var tieneCompraXCompra = '@Model.TieneCompraXcompra';
+        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
+        var tieneSubCampania = '@Model.TieneSubCampania';
+        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
