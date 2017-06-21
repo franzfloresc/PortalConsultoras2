@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Runtime.Serialization;
 
-namespace Portal.Consultoras.Entities
+namespace Portal.Consultoras.Entities.Cliente
 {
     [DataContract]
     public class BEMovimiento

@@ -60,13 +60,15 @@
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
-    <Compile Include="BEClienteRecordatorio.cs" />
+    <Compile Include="Cliente\BEClienteRecordatorio.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
-    <Compile Include="BEMovimiento.cs" />
+    <Compile Include="Cliente\BEMovimiento.cs" />
     <Compile Include="BEConsultoraConcurso.cs" />
     <Compile Include="BEConsultoraResumen.cs" />
     <Compile Include="BEPremio.cs" />
+    <Compile Include="Cliente\BENota.cs" />
+    <Compile Include="Cliente\BEClienteDeudaRecordatorio.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />

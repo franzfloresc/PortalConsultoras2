@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cliente;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -103,5 +104,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
+
+        [OperationContract]
+        IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
     }
 }

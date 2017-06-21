@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Data;
 
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.Entities
 {

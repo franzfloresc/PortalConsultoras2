@@ -7,6 +7,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.Service
 {
@@ -184,6 +185,11 @@ namespace Portal.Consultoras.Service
         public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
         {
             return BLCliente.RecordatorioEliminar(paisId, clienteId, consultoraId, recordatorioId);
+        }
+
+        public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
+        {
+            return BLCliente.ObtenerDeudores(paisId, consultoraId);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.Entities
 {

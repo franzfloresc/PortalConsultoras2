@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -473,6 +474,28 @@ namespace Portal.Consultoras.BizLogic
             return clienteResponse;
         }
         #endregion
+
+
+        /// <summary>
+        /// Obtiene todos los clientes deudores
+        /// </summary>
+        /// <param name="paisId">Pais Id</param>
+        /// <param name="consultoraId">Consultora Id</param>
+        /// <returns>Lista de deudores</returns>
+        public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
+        {
+            var deudores = new List<BEClienteDeudaRecordatorio>();
+            var daCliente = new DACliente(paisId);
+
+            using (IDataReader reader = daCliente.DeudoresObtener(consultoraId))
+                while (reader.Read())
+                {
+                    var deuda = new BEClienteDeudaRecordatorio(reader);
+                    deudores.Add(deuda);
+                }
+
+            return deudores;
+        } 
 
         #region Metodos Privados
         private bool ValidateTelefono(int paisID, short tipoContactoID, string telefono)

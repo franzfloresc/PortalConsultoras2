@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cliente;
+using System;
 using System.Data;
 using System.Data.Common;
-using OpenSource.Library.DataAccess;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -255,6 +251,16 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public IDataReader DeudoresObtener(long consultoraId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraClienteDeudores");
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            Context.Database.AddInParameter(command, "@consultoraId", DbType.Int64, consultoraId);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }
 
