@@ -808,7 +808,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
                             }
-                            }
                         }
                         #endregion
 
