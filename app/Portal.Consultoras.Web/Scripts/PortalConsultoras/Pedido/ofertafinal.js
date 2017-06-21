@@ -262,7 +262,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     $("#btnGuardarPedido").hide();
 
     //debugger;
-    if (consultoraRegaloPN) {
+    if (consultoraRegaloPN == 'True') {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
         mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
     }
@@ -359,8 +359,8 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
 
-    if (consultoraRegaloPN) {
-        //debugger;
+    //debugger;
+    if (consultoraRegaloPN == 'True') {
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
@@ -492,6 +492,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
         $('#msg-regalo-pn').html(msgRegalo);
         $('#txt-ayuda1-pn').html(txtAyuda1);
+        $('#div-regalo-pn').show();
         $('#txt-ayuda1-pn').show();
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
