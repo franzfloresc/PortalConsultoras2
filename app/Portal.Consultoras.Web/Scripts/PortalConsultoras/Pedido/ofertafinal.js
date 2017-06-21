@@ -445,7 +445,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
-       
+
         if (nivel == '01' || nivel == '02' || nivel == '03') {
             txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             if (tipoMeta == 'MM') {
