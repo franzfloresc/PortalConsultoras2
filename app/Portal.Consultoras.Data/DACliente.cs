@@ -144,6 +144,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@TipoMovimiento", DbType.String, movimiento.TipoMovimiento);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, movimiento.Fecha);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, movimiento.Descripcion);
+                Context.Database.AddInParameter(command, "@Nota", DbType.String, movimiento.Nota);
 
                 using (var reader = Context.ExecuteReader(command))
                 {
@@ -166,6 +167,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@TipoMovimiento", DbType.String, movimiento.TipoMovimiento);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, movimiento.Fecha);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, movimiento.Descripcion);
+                Context.Database.AddInParameter(command, "@Nota", DbType.String, movimiento.Nota);
 
                 using (var reader = Context.ExecuteReader(command))
                 {
