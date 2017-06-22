@@ -2,7 +2,7 @@
 
 <script id="lanzamiento-carrusel-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-        <div class="content_item_ept" data-item="" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrevDesktop}}" data-estrategia="{{JSON2string lan}}">
+        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrevDesktop}}" data-estrategia="{{JSON2string lan}}">
             <div data-item-tag="body" class="lan_content_body">
                 <div class="detalle_set_banner" data-item-tag="contenido">
                     {{#iff lan.EstrategiaDetalle.ImgFichaDesktop '!=' ''}}

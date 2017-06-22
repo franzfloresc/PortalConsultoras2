@@ -32,7 +32,7 @@
             @foreach (var tabs in Model.ListaTabs)
             {
                 <li>
-                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id" data-tag-funt="RenderCarrusel()">
+                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
                         <div class="texto_tab_pagos">@tabs.Descripcion</div>
                         <div class="marcador_tab oculto"></div>
                     </a>
@@ -59,6 +59,7 @@
     </div>
 }
 
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <script id="estrategia-template" type="text/x-handlebars-template">
         {{#each this.Lista as |item|}}
@@ -149,8 +150,13 @@
         var precioMin = '@Model.PrecioMin';
         var precioMax = '@Model.PrecioMax';
         var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
         var tipoOrigenEstrategia = 27;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>

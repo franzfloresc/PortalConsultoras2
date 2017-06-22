@@ -1936,6 +1936,12 @@ height: 100%;
 }
 
 
+.tabs_pagos li a
+{
+    min-width: 30%;
+    max-width: 50%;
+    width: auto;
+}
 /*BLOQUE HOME INSCRITAS C-12*/
 .mob_home_bpt {
     font-family: 'Lato';

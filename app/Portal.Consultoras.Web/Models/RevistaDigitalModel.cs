@@ -42,9 +42,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }
         public bool TieneRDS { get; set; }
-        public bool MensajeIconoSuperior { get; set; }
-        public bool BtnInscribirse { get; set; }
-        public string MensajeTitulo { get; set; }
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }

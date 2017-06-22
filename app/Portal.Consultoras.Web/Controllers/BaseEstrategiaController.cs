@@ -346,7 +346,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             listaProducto = listaProducto ?? new List<BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
-            
+            return ConsultarEstrategiasModelFormato(listaProductoModel);
+        }
+
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<EstrategiaPedidoModel> listaProductoModel)
+        {
             if (!listaProductoModel.Any())
                 return listaProductoModel;
 
