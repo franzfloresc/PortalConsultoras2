@@ -11,12 +11,12 @@
         <div class="texto_cupon_datos">SÓLO ACTUALIZA TUS DATOS <br /><b> ¡Y ACTIVA EL CUPÓN!</b></div>
         <div class="correo_showroon seccion-correo">
             <input type="hidden" id="hdEmailOriginal" value="@Model.EMail">
-            <input type="text" id="txtEmailIngresado" placeholder="Ingresa tu correo" value="@Model.EMail">
+            <input type="text" id="txtEmailIngresado" placeholder="Ingresa tu correo" value="@Model.EMail" maxlength="50" onpaste="return false;" ondrop="return false;">
             <div class="mensaje_alerta_cupon1">Tu correo no es válido</div>
             <div class="icono_alerta_cupon"></div>
         </div>
         <div class="correo_showroon icono_celular seccion-celular">
-            <input type="text" id="txtCelular" placeholder="Ingresa tu celular " value="@Model.Celular">
+            <input type="text" id="txtCelular" placeholder="Ingresa tu celular " value="@Model.Celular" maxlength="20" onpaste="return false;" ondrop="return false;" min="0">
             <div class="mensaje_alerta_cupon1">Tu correo no es válido</div>
             <div class="icono_alerta_cupon"></div>
         </div>

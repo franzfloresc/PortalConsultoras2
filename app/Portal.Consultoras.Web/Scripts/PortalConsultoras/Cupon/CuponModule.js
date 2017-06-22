@@ -17,7 +17,7 @@
     };
 
     var REGULAR_EXPRESSION = {
-        CORREO: /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/
+        CORREO: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     };
     
     var elements = {
@@ -168,11 +168,30 @@
             } else {
                 ocultarMensajeErrorCorreo();
             }
-            //if ($(this).val().trim().length <= 0) {
-            //    mostrarMensajeErrorCorreo();
-            //} else {
-            //    ocultarMensajeErrorCorreo();
-            //}
+        });
+
+        $(document).on("keyup", elements.TxtCelular, function (e) {
+            if (!(e.keyCode >= 48 && e.keyCode <= 57 || e.keyCode >= 96 && e.keyCode <= 105)) {
+                if (e.keyCode >= 37 && e.keyCode <= 40) {
+                    return false;
+                }
+
+                var contenido = $(this).val();
+                var nuevoContenido = '';
+
+                if (contenido.length > 0) {
+                    var next = 1;
+                    for (var i = 0; i < contenido.length; i++) {
+                        var valor = contenido.substring(i, next);
+                        if ($.isNumeric(valor)) {
+                            nuevoContenido += valor;
+                        }
+                        next++;
+                    }
+
+                    $(this).val(nuevoContenido);
+                }
+            }
         });
     }
 
