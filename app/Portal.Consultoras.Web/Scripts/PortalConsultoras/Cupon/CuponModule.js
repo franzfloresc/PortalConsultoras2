@@ -103,7 +103,7 @@
 
     var bindEvents = function () {
 
-        $('div#Cupon1').off().on("click", "div#chckTerminosCondiciones", function () {
+        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
             if ($(this).hasClass('borde_seleccion_alerta')) {
                 ocultarMensajeTerminosCondiciones();
@@ -426,12 +426,23 @@
         }
 
         if (!esFormatoCorreoValido(emailIngresado)) {
+        //if (emailOriginal == "") {
+        //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
+        //    cantidadErrores++;
+        //}
+        //if (celular == "") {
+        //    mostrarMensajeErrorCelular();
+        //    return false;
+        //}else{
+        //    ocultarMensajeErrorCelular();
+        //}
+
             mostrarMensajeErrorCorreo();
             cantidadErrores++;
         } else {
             ocultarMensajeErrorCorreo();
         }
-        
+
         if (!aceptoTerCond) {
             mostrarMensajeErrorTerminosCondiciones();
             cantidadErrores++;

@@ -118,12 +118,7 @@
         @{
             string verUltmPagos = Model.PaisID == 3 || Model.PaisID == 4 || Model.PaisID == 12 || Model.PaisID == 6 || Model.PaisID == 11 ? "0" : "1";
             string ultPg, vermas;
-            string clasePagoOnlineVZ = "";
-            string clasePagoUltMovVZ = "";
-
-
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
-            if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
         }
         <div class="titulo_home_img"></div>
         <div class="titulo_home_belcorp">
@@ -141,7 +136,7 @@
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
 
-        <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos @clasePagoUltMovVZ" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
+        <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
 
         @if (Model.PaisID == 3) //Chile
         {
@@ -159,15 +154,6 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Facturación Electrónica" class="boton_facturacion_e btn_100_facturacion" href="@Url.Action("Index", "FacturaElectronica")" target="_blank"> FACTURACI&Oacute;N ELECTR&Oacute;NICA</a> <!-- AGREGAR LA CLASES="btn_100_facturacion"-->
         }
-        else if (Model.PaisID == 14) //Venezuela EPD-1204
-        {
-            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" 
-               title="Pago en Línea" class="btn_paga_online btn_100_paga" 
-               href="javascript:;" onclick="onclickObtenerLugaresPagoVZ();" 
-               style="@clasePagoOnlineVZ"> PAGA EN L&Iacute;NEA</a>
-
-        }
-
         <hr class="clear" />
 
     </div>
@@ -959,42 +945,6 @@
     <!-- POPUP COMUNICADOS -->
     <div id="popupComunicados" style="display:none;"></div>
     <!-- FIN POPUP COMUNICADOS -->
-
-    <!--EDP-1204 INICIO-->
-    @*<div  id="popUpPagoOnlineVZ" class="popup_pagoOnlineVZ" style="display:none;">
-        <div class="contenido_popUp">
-            <div data-tag-html="@Constantes.PestanhasMisPagos.LugaresPago">
-                <div class="LugaresPago_VZ">
-                    <div class="content_left_pagos_VZ">
-                        <div>
-                            <div class="titulo_detalle_pago">
-                                <div class="titulo_detalle_lugares_img"></div>
-                                <div>LUGARES<b> DE PAGO</b></div>
-                            </div>
-                            <hr class="clear" />
-                            <div class="bancos_pagos">Ingresa con un click a los lugares de pagos de su preferencia</div>
-                            <div id="divContenidoLugarPago">
-                                <div>
-                                    <br />
-                                    Cargando lugares de pago...<br /><img src="@Url.Content("~/Content/Images/Loading.gif")" />
-                                    <br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="clear" />
-            </div>
-        </div>
-        <div class="btn_cerrar_popUpPagoOnlineVZ">
-            <a href="javascript:;" id="cerrarPopUpPagoOnlineVZ">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-    </div>*@
-    <!--EDP-1204 FIN comentado Cambio de requerimiento-->
-
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 <!--POP UP FOTO CARGADA-->
@@ -2468,19 +2418,6 @@
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
 
-<!--EPD-1204 INICIO-->
-<script id="js-LugaresPago" type="text/x-handlebars-template">
-    {{#each this.listaLugaresPago as |lugar|}}
-    <div>
-        <a href="{{lugar.UrlSitio}}" class="logos_bancos" target="_blank" onclick="EventoAnalytics('{{lugar.Nombre}}', 2)">
-            <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
-        </a>
-    </div>
-    {{/each}}
-</script>
-<!--EPD-1204 FIN-->
-
-
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
@@ -2594,7 +2531,6 @@
 
             $('div.contenedor_img_perfil').show();
         }
-               
 
         var tieneCupon = '@Model.TieneCupon';
         var paginaOrigenCupon = 1;

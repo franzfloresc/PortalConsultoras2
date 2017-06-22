@@ -259,7 +259,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
    
     if (consultoraRegaloPN) {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
-        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo)
+        mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
     }
 
     $("#divOfertaFinal").show();
@@ -346,10 +346,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var simbolo = $("#hdSimbolo").val();
 
     if (consultoraRegaloPN) {
-        var aa = $("#msjOfertaFinal").attr("data-meta-monto");
-        var bb = $("#divOfertaFinal > div").attr("data-meta-total");
-        var montoMeta = parseFloat(aa) + parseFloat(bb);
-        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo)
+        var a = $("#msjOfertaFinal").attr("data-meta-monto");
+        var b = $("#divOfertaFinal > div").attr("data-meta-total");
+        var c = parseFloat(a) + parseFloat(b);
+        mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
     if (tipoMeta == "MM") {
@@ -417,41 +417,44 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     return data;
 }
 
-function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo, flag) {
-    if (oRegaloPN == null)
-        oRegaloPN = GetRegaloProgramaNuevas();
+function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
+    if (oRegaloPN == null) oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
-        var msgRegalo = "";
-        var txtAyuda1 = "";
+        var msgRegalo = ""
+        var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
 
         //debugger;
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
+        if (n == '01' || n == '02' || n == '03') {
 
-        if (nivel == '01' || nivel == '02' || nivel == '03') {
-            txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
+        //debugger;
+        var montoMeta = 0;
+        if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
+        else montoMeta = montoSaldo;
+
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
                 }
                 else {
-                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '.'
-                    if (oRegaloPN.PrecioCatalogo > 0)
-                        msgRegalo += ' PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogoFormat + '</b>';
+                    msgRegaloPN = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
                 }
             }
             else {
-                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             }
         }
-        else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            txtAyuda1 = '*En caso tu pedido no tenga observaciones y mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
+        else if (n == '04' || n == '05' || n == '06') {
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
                 else {
                     msgRegalo = 'AGREGA ' + simbolo + ' ' + montoSaldo.toString() + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
@@ -460,7 +463,8 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo, flag) 
             else {
                 if (oRegaloPN.TippingPoint > 0) {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                        msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                        disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                     }
                     else {
                         var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
@@ -468,15 +472,27 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoMeta, simbolo, flag) 
                     }
                 }
                 else {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
             }
         }
 
-        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "")
-            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
-        $('#msg-regalo-pn').html(msgRegalo);
-        $('#txt-ayuda1-pn').html(txtAyuda1);
+        $('#img-regalo-pn').hide();
+        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
+        $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            $('#img-regalo-pn').show();
+        }
+        else {
+            $('#msg-regalo-pn').css('padding-top', '15px');
+        }
+
+        $('#msg-regalo-pn2').html(msgRegalo);   // mobile
+        if (disclaimer != "") {
+            $('#txt-disclaimer-pn').html(disclaimer);
+        }
+        $('#div-regalo-pn').show();
+        $('#txt-disclaimer-pn').show();
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
