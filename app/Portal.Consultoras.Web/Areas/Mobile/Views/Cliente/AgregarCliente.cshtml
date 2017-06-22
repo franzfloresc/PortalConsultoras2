@@ -2,58 +2,168 @@
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @model ClienteMobileModel
 
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
-    <h4 class="modal-title" id="liOpcionCliente">Agregar Cliente</h4>
+<style>
+    #divValidationSummary{
+        color:red
+    }
+    .clienteMensajeEditar {
+        display: table;
+        padding-left:20px;
+        padding-right:20px;
+    }
+
+    .clienteMensajeEditar span {
+        vertical-align: middle;
+        display: table-cell;
+        padding-right: 5px;
+    }
+</style>
+
+<div class="btn_cerrar_agregarUnidades">
+    <a href="javascript:;" onclick="CloseAgregarCliente();">
+        <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+        <span class="texto_btn_cerrar">CERRAR</span>
+    </a>
 </div>
-
-<div class="row text-left">
-    <form id="frmAgregarCliente" role="form" class="form-controls-grey">
-        <div class="col-xs-12">
-            @Html.HiddenFor(model => model.ClienteID)
-            @Html.HiddenFor(model => model.FlagValidate)
-            <input id="hdNombreClienteAnterior" type="hidden" value="@Model.Nombre"/>
-            
-            <div class="form-group">
-                @Html.LabelFor(model => model.Nombre, new { @class = "upper" })
-                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Nombre)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Email, new { @class = "upper" })
-                <small>(opcional)</small>
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-            <div class="block-center text-center">
-                <a id="btnGuardar" type="submit" class="btn btn-line-action btn-wfijo btn-round">Guardar Cliente</a>
-            </div>
-        </div>
-    </form>
-</div>
-
-@helper Script()
+@if (Model.ClienteID == 0)
+{ 
+    <h6>AGREGAR <b>CLIENTE</b></h6>
+}
+else
 {
+    <h6>MODIFICAR <b>CLIENTE</b></h6>
+    <div class="clienteMensajeEditar">
+        <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+        <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+    </div>
+    <br />
+}
+
+@*<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-close-belcorp"></i></button>
+    @if (Model.ClienteID == 0)
+    {
+        <h4 class="modal-title" id="liOpcionCliente">Agregar Cliente</h4>
+    }
+    else
+    {
+        <h4 class="modal-title" id="liOpcionCliente">Modificar Cliente</h4>
+        <br />
+        <div class="clienteMensajeEditar">
+            <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+            <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+        </div>
+        <br />
+    }
+</div>*@
+<form id="frmAgregarCliente">
+    @Html.HiddenFor(model => model.ClienteID)
+    @Html.HiddenFor(model => model.CodigoCliente)
+
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Nombre)
+    </div>
+
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Telefono, new { placeholder = "Teléfono Fijo", maxlength = "20", @class = "input-number", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Telefono)
+    </div>
+
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Celular, new { placeholder = "Celular", maxlength = "20", @class = "input-number", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Celular)
+    </div>
+
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Email, new { placeholder = "Correo Electrónico (Opcional)", maxlength = "80", autocomplete = "off" })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+    <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" id="btnGuardar" />
+
+    <br />
+    <div id="divValidationSummary"></div>
+</form>
+
+    @*<div class="row text-left">
+            <form id="frmAgregarCliente" role="form" class="form-controls-grey">
+                <div class="col-xs-12">
+                    @Html.HiddenFor(model => model.ClienteID)
+                    @Html.HiddenFor(model => model.CodigoCliente)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nombre, new { @class = "upper" })
+                        @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Nombre)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telefono, new { @class = "upper" })
+                        @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Celular, new { @class = "upper" })
+                        @Html.TextBoxFor(model => model.Celular, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "upper" })
+                        <small>(opcional)</small>
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+                    <div class="block-center text-center">
+                        <a id="btnGuardar" type="submit" class="btn btn-line-action btn-wfijo btn-round">Guardar Cliente</a>
+                    </div>
+                    <br />
+                    <div id="divValidationSummary"></div>
+                </div>
+            </form>
+        </div>*@
+
+    @*@helper Script()
+        {*@
     <script type="text/javascript">
-        $(document).ready(function () {
+        $.validator.unobtrusive.parse("#frmAgregarCliente");
+
+        $(".input-number").keypress(function (e) {
+            $(this).val($(this).val().replace(/[^\d].+/, ""));
+            if ((event.which < 48 || event.which > 57)) event.preventDefault();
+        });
+
+        $('#divAgregarCliente').modal({ backdrop: 'static', keyboard: false })
+
+        //$(document).ready(function () {
             $("#btnGuardar").on("click", function (e) {
                 e.preventDefault();
-                if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
-                    $("#FlagValidate").val("0");
-                else
-                    $("#FlagValidate").val("1");
+
+                $("#divValidationSummary").html("");
+                if (jQuery.trim($('#Telefono').val()) == "" && jQuery.trim($('#Celular').val()) == "") {
+                    $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
+
+                    if (!$("#frmAgregarCliente").valid()) return;
+
+                    return;
+                }
+
+                //if ($('#hdNombreClienteAnterior').val().toUpperCase() == $('#Nombre').val().toUpperCase())
+                //    $("#FlagValidate").val("0");
+                //else
+                //    $("#FlagValidate").val("1");
+
+                if (!$("#frmAgregarCliente").valid()) return;
 
                 var item = {
                     ClienteID: $("#ClienteID").val(),
+                    CodigoCliente: $("#CodigoCliente").val(),
                     Nombre: $('#Nombre').val(),
                     Email: $('#Email').val(),
-                    FlagValidate: $("#FlagValidate").val()
+                    Telefono: $('#Telefono').val(),
+                    Celular: $('#Celular').val(),
+                    //FlagValidate: $("#FlagValidate").val()
                 };
-
-                if (!$("#frmAgregarCliente").valid()) {
-                    return false;
-                }
 
                 ShowLoading();
 
@@ -68,14 +178,20 @@
                         if (checkTimeout(data)) {
                             if (data.success == true) {
                                 CloseLoading();
-                                messageInfo(data.message);
-                                RealizarLuegoGuardarCliente(data.extra);
+
+                                item.CodigoCliente = data.extra.split("|")[0];
+                                item.ClienteID = data.extra.split("|")[1];
+
+                                messageInfo(data.message, function () {
+                                    if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
+                                });
+                                //RealizarLuegoGuardarCliente(data.extra);
                                 CloseAgregarCliente();
                             }
                             else {
                                 CloseLoading();
                                 messageInfo(data.message);
-                                CloseAgregarCliente();
+                                //CloseAgregarCliente();
                             }
                         }
                     },
@@ -83,13 +199,17 @@
                         if (checkTimeout(data)) {
                             messageInfo(data.message);
                             CloseLoading();
-                            CloseAgregarCliente();
+                            //CloseAgregarCliente();
                         }
                     }
                 });
             });
-        });
-    </script>
-}
 
-@{Html.AddScript("AgregarClienteScript", Script());}
+        function CloseAgregarCliente() {
+            //$("#divAgregarCliente").hide();
+            $("#divAgregarCliente").modal("hide");
+        }
+    </script>
+@*}
+
+@{Html.AddScript("AgregarClienteScript", Script());}*@
