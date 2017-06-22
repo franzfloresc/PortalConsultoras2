@@ -26,31 +26,22 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult DetalleTemporal(EstrategiaPedidoModel modelo)
+        public JsonResult GuardarProductoTemporal(EstrategiaPedidoModel modelo)
         {
-            try
-            {
-                modelo = modelo ?? new EstrategiaPedidoModel();
-                if (modelo.EstrategiaID > 0) Session["LanTemporal"] = modelo;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
+            Session[Constantes.SessionNames.ProductoTemporal] = modelo;
 
             return Json(new
             {
-                success = modelo.EstrategiaID > 0
+                success = true
             }, JsonRequestBehavior.AllowGet);
 
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var modelo = (EstrategiaPedidoModel)Session["LanTemporal"];
-                Session["LanTemporal"] = null;
+                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
                 return DetalleModel(modelo);
             }
             catch (Exception ex)
@@ -72,6 +63,19 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return PartialView("template-Landing", new RevistaDigitalModel());
             }
+        }
+
+        public ActionResult MensajeBloqueado()
+        {
+            try
+            {
+                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
         }
 
         [HttpPost]

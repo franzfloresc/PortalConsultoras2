@@ -119,6 +119,18 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
+function RDPageInformativa() {
+    $('#popupDetalleCarousel_packNuevas').hide();
+    $('#popupDetalleCarousel_lanzamiento').hide();
+    $("#divMensajeBloqueada").hide();
+    $(window).scrollTop(0);
+    $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+    isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
+    if (isDetalle) {
+        window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
+    }
+}
+
 function RDSuscripcionRedireccionar() {
     SaberMasRDAnalytics();
     var url = urlRevistaDigital;

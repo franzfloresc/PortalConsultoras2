@@ -442,7 +442,9 @@ function LocalStorageListado(key, valor, accion) {
     accion = accion || 0;
 
     if (accion == 0) {
-        localStorage.setItem(key, valor);
+        if (valor != undefined) {
+            localStorage.setItem(key, valor);
+        }
     }
     else if (accion == 1) {
         return localStorage.getItem(key);

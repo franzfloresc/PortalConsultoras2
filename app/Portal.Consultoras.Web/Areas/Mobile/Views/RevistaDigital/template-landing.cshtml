@@ -1,5 +1,4 @@
 ﻿
-@using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
@@ -11,47 +10,57 @@
         </div>
     </div>
 </div>
-<div class="arrow_misofertas flecha_scroll_mob">MÁS<br />OFERTAS<br /><img style="margin-top: 5px;" "" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
+<div class="arrow_misofertas flecha_scroll_mob">MÁS<br />OFERTAS<br /><img style="margin-top: 5px;" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
 <hr class="clear" />
-<div class="subtitulo_landing">MIS OFERTAS</div>
+<div data-listado-campania="@Model.CampaniaID">
+    <div>
 
-<div class="wrapper_resumen_mobile" id="divTopFiltros">
-    <div id="orderby-filter" style="display: block;">
-        <div id="content-orderby" style="margin: 15px 0; text-align: center;">
-            @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
-                <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
-            <div id="divFiltros">
-                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                    @foreach (var item in Model.FiltersByBrand)
-                    {
-                        <option value="@item.Codigo">@item.Descripcion</option>
-                    }
-                </select>
-                <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
-                    @foreach (var item1 in Model.FiltersBySorting)
-                    {
-                        <option value="@item1.Codigo">@item1.Descripcion</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <hr class="clear">
-        <div id="summary-filters">
-            <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
-                <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span> productos</span>
-            </div>
+        <div class="subtitulo_landing">MIS OFERTAS</div>
 
-            <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
+        <div class="wrapper_resumen_mobile" id="divTopFiltros">
+            <div id="orderby-filter" style="display: block;">
+                <div id="content-orderby" style="margin: 15px 0; text-align: center;">
+                    @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
+                        <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
+                    <div id="divFiltros">
+                        <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                            @foreach (var item in Model.FiltersByBrand)
+                            {
+                                <option value="@item.Codigo">@item.Descripcion</option>
+                            }
+                        </select>
+                        <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
+                            @foreach (var item1 in Model.FiltersBySorting)
+                            {
+                                <option value="@item1.Codigo">@item1.Descripcion</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <hr class="clear">
+                <div id="summary-filters">
+                    <div id="div-result-number" style="margin-left: 0; float: left; width: 65%; font-size: 13px;">
+                        <span id="result-number">Mostrando <span id="spnCantidadFiltro"></span> de <span id="spnCantidadTotal"></span> productos</span>
+                    </div>
+
+                    <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                        <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar">Borrar Filtros</a>
+                    </div>
+                    <br><br>
+                </div>
             </div>
-            <br><br>
         </div>
     </div>
-</div>
-<hr class="clear" />
-
-<div class="wrapper_resumen_mobile ">
-    <div id="divOfertaProductos" class="ofertaProductoslanding flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+    <hr class="clear" />
+    <div>
+        <hr class="clear" />
+        <div class="wrapper_resumen_mobile ">
+            <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" class="ofertaProductoslanding flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+        </div>
+        <hr class="clear" />
+        <div id="divOfertaProductosLoad" style="text-align: center; min-height:150px;padding: 50px; display: none;">Cargando Productos<br></div>
+        <hr class="clear" />
+    </div>
 </div>
 <!--Fin seccion landing-->
 <hr class="clear" />
