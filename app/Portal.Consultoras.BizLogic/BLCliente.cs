@@ -159,7 +159,7 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Recordatorio
-        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             var daCliente = new DACliente(paisId);
             return daCliente.RecordatorioInsertar(recordatorio);
@@ -195,7 +195,7 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Notas
-        public bool NotaInsertar(int paisId, BENota nota)
+        public long NotaInsertar(int paisId, BENota nota)
         {
             var daCliente = new DACliente(paisId);
             return daCliente.NotaInsertar(nota);
@@ -368,7 +368,23 @@ namespace Portal.Consultoras.BizLogic
                     var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
                     clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
 
-                    if (clienteDB.ClienteIDSB == 0) clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
+                    if (clienteDB.ClienteIDSB == 0)
+                    {
+                        clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
+
+                        foreach (var nota in clienteDB.Notas)
+                        {
+                            var notaId = NotaInsertar(paisID, new BENota
+                            {
+                                ClienteId = (short)clienteDB.ClienteIDSB,
+                                ConsultoraId = clienteDB.ConsultoraID,
+                                Descripcion = nota.Descripcion,
+                                Fecha = nota.Fecha
+                            });
+
+                            clienteDB.Notas.Concat(new[] { new BENota { ClienteNotaId = notaId } });
+                        }
+                    }
                     else daCliente.UpdCliente(clienteSB);
                 }
                 else
@@ -392,10 +408,12 @@ namespace Portal.Consultoras.BizLogic
                     ClienteID = clienteDB.ClienteID,
                     ConsultoraID = clienteDB.ConsultoraID,
                     ClienteIDSB = clienteDB.ClienteIDSB,
+                    Notas = clienteDB.Notas,
                     CodigoRespuesta = Constantes.ClienteValidacion.Code.SUCCESS,
                     MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS]
                 });
             }
+
 
             return lstResponse;
         }

@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Service
             return BLCliente.MovimientoActualizar(paisId, movimiento);
         }
 
-        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             return BLCliente.RecordatorioInsertar(paisId, recordatorio);
         }
@@ -189,7 +189,7 @@ namespace Portal.Consultoras.Service
             return BLCliente.ObtenerDeudores(paisId, consultoraId);
         }
 
-        public bool NotaInsertar(int paisId, BENota nota)
+        public long NotaInsertar(int paisId, BENota nota)
         {
             return BLCliente.NotaInsertar(paisId, nota);
         }

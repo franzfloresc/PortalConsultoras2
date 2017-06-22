@@ -94,7 +94,7 @@ namespace Portal.Consultoras.ServiceContracts
         Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
-        bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+        int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
         IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId);
@@ -109,7 +109,7 @@ namespace Portal.Consultoras.ServiceContracts
         IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
 
         [OperationContract]
-        bool NotaInsertar(int paisId, BENota nota);
+        long NotaInsertar(int paisId, BENota nota);
 
         [OperationContract]
         IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId);

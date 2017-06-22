@@ -187,8 +187,9 @@ namespace Portal.Consultoras.Data
         }
 
 
-        public bool RecordatorioInsertar(BEClienteRecordatorio recordatorio)
+        public int RecordatorioInsertar(BEClienteRecordatorio recordatorio)
         {
+            int identity = 0;
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Insertar"))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -200,9 +201,19 @@ namespace Portal.Consultoras.Data
 
                 using (var reader = Context.ExecuteReader(command))
                 {
-                    return reader.RecordsAffected == 1;
+                    while (reader.Read())
+                    {
+                        var value = reader[0].ToString();
+
+                        if (!int.TryParse(value, out identity))
+                        {
+                            throw new ArgumentException("No se pudo convertir el valor a short" + reader);
+                        };
+                    }
                 }
             }
+
+            return identity;
         }
 
         public IDataReader RecordatorioObtener(long consultoraId)
@@ -235,7 +246,7 @@ namespace Portal.Consultoras.Data
                 }
             }
         }
-        
+
         public bool RecordatorioEliminar(short clienteId, long consultoraId, int recordatorioId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteRecordatorio_Eliminar"))
@@ -252,7 +263,7 @@ namespace Portal.Consultoras.Data
                 }
             }
         }
-        
+
         public bool NotaEliminar(short clienteId, long consultoraId, long clienteNotaId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteNota_Eliminar"))
@@ -300,8 +311,9 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public bool NotaInsertar(BENota nota)
+        public long NotaInsertar(BENota nota)
         {
+            long identity = 0;
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteNota_Insertar"))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -313,11 +325,20 @@ namespace Portal.Consultoras.Data
 
                 using (var reader = Context.ExecuteReader(command))
                 {
-                    return reader.RecordsAffected == 1;
+                    while (reader.Read())
+                    {
+                        var value = reader[0].ToString();
+                        if (!long.TryParse(value, out identity))
+                        {
+                            throw new ArgumentException("No se pudo convertir el valor a short" + reader);
+                        };
+                    }
                 }
             }
+
+            return identity;
         }
-        
+
         public IDataReader DeudoresObtener(long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraClienteDeudores");
