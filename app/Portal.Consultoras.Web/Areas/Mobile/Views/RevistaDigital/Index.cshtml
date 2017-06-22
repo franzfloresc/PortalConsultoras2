@@ -59,6 +59,7 @@
     </div>
 }
 
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 <div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <script id="estrategia-template" type="text/x-handlebars-template">
         {{#each this.Lista as |item|}}
