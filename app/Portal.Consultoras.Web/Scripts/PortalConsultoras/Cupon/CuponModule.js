@@ -15,6 +15,10 @@
         MOBILE_PEDIDO: 21,
         MOBILE_PEDIDO_DETALLE: 21
     };
+
+    var REGULAR_EXPRESSION = {
+        CORREO: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    };
     
     var elements = {
         PopupCuponGana: '#Cupon1',
@@ -157,13 +161,25 @@
         });
 
         $(document).on("keyup", elements.TxtCorreoIngresado, function () {
-            if ($(this).val().trim().length <= 0) {
+            var correo = $(this).val().trim();
+
+            if (!esFormatoCorreoValido(correo)) {
                 mostrarMensajeErrorCorreo();
             } else {
                 ocultarMensajeErrorCorreo();
             }
         });
+
+        $(document).on("keyup", elements.TxtCelular, function (e) {
+            var celular = $(this).val();
+            validarCelular(celular);
+        });
     }
+
+    var esFormatoCorreoValido = function (correo) {
+        var regCorreo = new RegExp(REGULAR_EXPRESSION.CORREO);
+        return regCorreo.test(correo);
+    };
 
     var procesarVerOferta = function () {
         if (setting.Cupon) {
@@ -405,6 +421,11 @@
     var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
         var cantidadErrores = 0;
 
+        if (!validarCelular(celular)) {
+            cantidadErrores++;
+        }
+
+        if (!esFormatoCorreoValido(emailIngresado)) {
         //if (emailOriginal == "") {
         //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
         //    cantidadErrores++;
@@ -416,7 +437,6 @@
         //    ocultarMensajeErrorCelular();
         //}
 
-        if (emailIngresado == "") {
             mostrarMensajeErrorCorreo();
             cantidadErrores++;
         } else {
@@ -432,6 +452,26 @@
         
         return (cantidadErrores == 0);
     }
+
+    var validarCelular = function (celular) {
+        if (celular.length > 0) {
+            if ($.isNumeric(celular)) {
+                if (celular > 0) {
+                    ocultarMensajeErrorCelular();
+                } else {
+                    mostrarMensajeErrorCelular();
+                    return false;
+                }
+            } else {
+                mostrarMensajeErrorCelular();
+                return false;
+            }
+        } else {
+            ocultarMensajeErrorCelular();
+        }
+
+        return true;
+    };
 
     var mostrarPopupGanaste = function () {
         var simbolo = "%";

@@ -5082,6 +5082,7 @@ a.subir_carousel, a.bajar_carousel {
     color: #000;
     font-weight: 300!important;
     text-align: center;
+    margin-bottom:3px;
 }
 
 .descripcion_ofertaFinal {
@@ -5090,7 +5091,7 @@ a.subir_carousel, a.bajar_carousel {
     font-weight: 700;
     text-align: center;
     margin-bottom: 18px;
-    margin-top: 18px;
+    /*margin-top: 18px;*/
     TEXT-TRANSFORM: uppercase;
 }
 .texto_complemento_oferta{
@@ -5168,6 +5169,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background-size:22px;
     padding-left: 40px;
     background-position: 10px 14px;
 }
@@ -27908,7 +27910,7 @@ display: block;
 
 .icono_check_alerta {
     background: url(../../../Images/Esika/icono_check_esika.png) center center no-repeat;
-    background-size: cover;
+    background-size: 80%;
 }
 
 .texto_mensaje_alerta {
@@ -36364,4 +36366,13 @@ h1#penmostreo .campana {
 }
 .fondo_gris_OF{
     background: #f5f5f5;
+}
+
+.txt-ayuda1-pn{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    margin-top:15px;
+    color:#6a6a6a;
+    margin-bottom:20px;
 }

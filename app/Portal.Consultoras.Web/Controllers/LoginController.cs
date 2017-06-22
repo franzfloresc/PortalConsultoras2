@@ -797,12 +797,16 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region RegaloPN
-                        DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                        var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
-
-                        if (esDiasFacturacion) 
+                        var regaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
+                        if (regaloProgramaNuevasFlag == "1") 
                         {
-                            model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                            DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                            var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+
+                            if (esDiasFacturacion)
+                            {
+                                model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                            }
                         }
                         #endregion
 
