@@ -47,7 +47,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 r.RegionID	
 
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -146,7 +146,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -243,7 +243,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -342,7 +342,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -438,7 +438,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID		
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -534,7 +534,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -632,7 +632,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -731,7 +731,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -827,7 +827,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  AS 'MotivoRechazo',
 r.RegionID		
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -924,7 +924,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID	
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -1023,7 +1023,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID
 --EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -1121,7 +1121,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
@@ -1218,7 +1218,7 @@ CASE WHEN (select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRe
 						 ELSE isnull((select Descripcion from Cdrwebdescripcion where CodigoSSIC=b.MotivoRechazo),'') END  as 'MotivoRechazo',
 r.RegionID		
 	--EPD-2582 01/06/2017 INICIO
-	,case WHEN ea.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
+	,case WHEN c.IdEstadoActividad = 2 then 'Nueva' else 'Otros' end TipoConsultora
 	,case WHEN isnull(a.TipoDespacho,0) = 1 then 'Express' else 'Regular' end TipoDespacho--'Express' --select @@version
 	,isnull(a.FleteDespacho,0.00) FleteDespacho--115.00 FleteDespacho
 	--,a.TipoDespacho TipoDespacho
