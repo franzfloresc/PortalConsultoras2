@@ -422,7 +422,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
-                model.TieneMasVendidos = userData.TieneMasVendidos;
+                //model.TieneMasVendidos = userData.TieneMasVendidos;
             }
             catch (FaultException ex)
             {
@@ -3990,9 +3990,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
+                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -4031,7 +4031,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.Simbolo = userData.Simbolo;
+                model.Simbolo = userData.Simbolo;                
 
                 return Json(new
                 {
@@ -4143,6 +4143,8 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
                     BEOfertaFinalConsultoraLog entidad = new BEOfertaFinalConsultoraLog();
+                    entidad.CampaniaID = userData.CampaniaID;
+                    entidad.CodigoConsultora = userData.CodigoConsultora;
                     entidad.CUV = CUV;
                     entidad.Cantidad = cantidad;
                     entidad.TipoOfertaFinal = tipoOfertaFinal_Log;
@@ -4186,12 +4188,12 @@ namespace Portal.Consultoras.Web.Controllers
                     foreach (var item in lista)
                     {
                         BEOfertaFinalConsultoraLog ofertaFinalLog = new BEOfertaFinalConsultoraLog();
-                        ofertaFinalLog.CampaniaID = item.CampaniaID;
-                        ofertaFinalLog.CodigoConsultora = item.CodigoConsultora;
-                        ofertaFinalLog.Cantidad = item.Cantidad;
-                        ofertaFinalLog.CUV = item.CUV;                                             
-                        ofertaFinalLog.GAP = item.GAP;
+                        ofertaFinalLog.CampaniaID = userData.CampaniaID;
+                        ofertaFinalLog.CodigoConsultora = userData.CodigoConsultora;
+                        ofertaFinalLog.CUV = item.CUV; 
+                        ofertaFinalLog.Cantidad = item.Cantidad;                         
                         ofertaFinalLog.TipoOfertaFinal = item.TipoOfertaFinal;
+                        ofertaFinalLog.GAP = item.GAP;
                         ofertaFinalLog.TipoRegistro = item.TipoRegistro;
                         ofertaFinalLog.DesTipoRegistro = item.DesTipoRegistro;
                         listaOfertaFinalLog.Add(ofertaFinalLog);
