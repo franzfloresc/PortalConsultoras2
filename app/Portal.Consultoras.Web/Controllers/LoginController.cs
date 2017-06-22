@@ -157,8 +157,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
 
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-                                    
-                                    if(userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
+
+                                    if (userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
                                     return SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
                                 }
                                 else
@@ -516,7 +516,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (oBEUsuario != null)
                 {
-                    #region 
+                    #region
                     model = new UsuarioModel();
                     model.EstadoPedido = oBEUsuario.EstadoPedido;
                     model.NombrePais = oBEUsuario.NombrePais;
@@ -819,15 +819,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var config = new BEConfiguracionPais
                             {
-                                Detalle = new BEConfiguracionPaisDetalle {
+                                Detalle = new BEConfiguracionPaisDetalle
+                                {
                                     PaisID = model.PaisID,
                                     CodigoConsultora = model.CodigoConsultora,
                                     CodigoRegion = model.CodigorRegion,
                                     CodigoZona = model.CodigoZona,
                                     CodigoSeccion = model.SeccionAnalytics
-                                }                               
+                                }
                             };
-                            
+
                             using (UsuarioServiceClient sv = new UsuarioServiceClient())
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
@@ -1016,7 +1017,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo) != null)
             {
-                mensajeParcial = "Superaste tu línea de crédito de " + model.Simbolo + " " + Util.DecimalToStringFormat(model.MontoMaximo, model.CodigoISO);
+                mensajeParcial = model.PaisID == 4 ? "Superaste tu monto máximo de " + model.Simbolo + " " + Util.DecimalToStringFormat(model.MontoMaximo, model.CodigoISO) : "Superaste tu línea de crédito de " + model.Simbolo + " " + Util.DecimalToStringFormat(model.MontoMaximo, model.CodigoISO);
             }
             else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock) != null)
             {
@@ -1731,7 +1732,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null) return RedirectToAction("UserUnknown");
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
-                
+
                 Session.Add("IngresoExterno", model.Version ?? "");
 
                 switch (model.Pagina.ToUpper())
