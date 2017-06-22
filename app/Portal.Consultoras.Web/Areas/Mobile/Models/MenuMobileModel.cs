@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class MenuMobileModel
     {
         public MenuMobileModel()
@@ -29,6 +31,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public string Version { get; set; }
 
+        public string Codigo { get; set; }
+
         public IList<MenuMobileModel> SubMenu { get; set; }
+        
+        public string PageTarget { get; set; }
+        public string ClaseSubMenu { get; set; }
+        public string OnClickFunt { get; set; }
+        public string ClaseMenu { get; set; }
+        public string ClaseMenuItem { get; set; }
     }
 }

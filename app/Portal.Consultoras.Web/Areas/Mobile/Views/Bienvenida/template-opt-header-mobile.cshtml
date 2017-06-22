@@ -1,0 +1,43 @@
+﻿<script id="template-estrategia-header" type="text/x-handlebars-template">
+    <div class="{{#iff (Trim CodigoEstrategia) '==' '101'}}revistadigital{{else}}content_belcorp{{/iff}}" style="text-align:center;">
+        <div class="{{#iff (Trim CodigoEstrategia) '==' '101'}}revistadigital-content{{/iff}}">
+            <div>
+                {{#iff (Trim CodigoEstrategia) '==' '101'}}
+                <div class="revistadigital-title">
+                    <div class="contenedor_cabecera_revistaDigital">
+                        <div class="fondo_franja"></div>
+                        <div class="linea-negra"></div>
+                        <div class="contenedor_contenido_cabecera">
+                            <div class="cabecera_contenedor_logoMarca">
+                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
+                            </div>
+                            <div class="cabecera_texto">{{Titulo}}</div>
+                        </div>
+                    </div>
+                    <div class="texto_ofertas_bonificaciones">
+                        <span>{{TituloDescripcion}}</span>
+                    </div>
+                </div>
+                {{else}}
+                <div class="titulo_ofertas_home">
+                    OFERTAS <b>PARA TI {{Consultora}}</b>
+                    <div class="texto_exclusivo">
+                        EXCLUSIVO SÓLO POR WEB
+                    </div>
+                </div>
+                {{/iff}}
+            </div>
+            <hr class="clear" />
+            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+            </div>
+            {{#iff (Trim CodigoEstrategia) '==' '101'}}
+            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                <div class="fondo_boton"></div>
+                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+            </div>
+            {{/iff}}
+            <hr class="clear" />
+        </div>
+    </div>
+</script>

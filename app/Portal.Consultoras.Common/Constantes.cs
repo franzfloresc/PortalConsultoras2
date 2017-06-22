@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.SQS.Model;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -124,22 +117,22 @@ namespace Portal.Consultoras.Common
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            public const int PersonalizacionShowroom = 9850;
         }
-
-
+        
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
             public const string TelefonoRequerido = "TelefonoRequerido";
         }
+
         public class TipoNivelesRiesgo
         {
             public const string Bajo = "BAJO";
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-
-
+        
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -175,7 +168,7 @@ namespace Portal.Consultoras.Common
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
 
         }
 
@@ -220,24 +213,24 @@ namespace Portal.Consultoras.Common
 
         public class OrigenPedidoWeb
         {
-
-            // Primer Dígito
+            // Primer Dígito -- Plataforma
             // 1: Desktop                   2: Mobile
 
-            // Segundo Dígito
+            // Segundo Dígito -- Pantalla
             // 1: Home                      2: Pedido
             // 3: Liquidacion               4: Catalogo Personalizado
             // 5: ShowRoom                  9: General
-            // 6: OfertaParaTi              6: OfertaParaTi
+            // 6: OfertaParaTi
+            // 7: RevistaDigital
 
-            // Tercer Dígito
+            // Tercer Dígito -- Sección dentro de la Pantalla
             // 1: Banners                   2: Ofertas para ti
             // 3: Catalogo Personalizado    4: Liquidacion
             // 5: Producto Sugerido         6: Oferta Final
             // 7: ShowRoom                  8: Consultora Online
-            // 9: Oferta del dia
-            // 1: index                     1: Index
-            // 2: OfertaParaTi Detalle      2: OfertaParaTi Detalle
+            // 9: Oferta del dia            0: Revista Digital
+            // 1: index
+            // 2: OfertaParaTi Detalle
 
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
@@ -298,8 +291,35 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
+            
+            /* Revista Digital */
+            public const int RevistaDigitalDesktopLanding = 1711;
+            public const int RevistaDigitalDesktopLandingCarrusel = 1721;
+            public const int RevistaDigitalDesktopLandingPopUp = 1712;
+            public const int RevistaDigitalDesktopProductPage = 1731;
+            public const int RevistaDigitalMobileLanding = 2711;
+            public const int RevistaDigitalMobileLandingCarrusel = 2721;
+            public const int RevistaDigitalMobileLandingPopUp = 2712;
+            public const int RevistaDigitalMobileProductPage = 2731;
+
+            public const int RevistaDigitalDesktopHomeSeccion = 1101;
+            public const int RevistaDigitalDesktopHomePopUp = 1102;
+            public const int RevistaDigitalDesktopHomeLanzamiento = 1103;
+
+            public const int RevistaDigitalMobileHomeSeccion = 2101;
+            public const int RevistaDigitalMobileHomePopUp = 2102;
+            public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            
+            public const int RevistaDigitalDesktopPedidoSeccion = 1201;
+            public const int RevistaDigitalDesktopPedidoPopUp = 1202;
+            public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
+
+            public const int RevistaDigitalMobilePedidoSeccion = 2201;
+            public const int RevistaDigitalMobilePedidoPopUp = 2202;
+            public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+            /* FIN Revista Digital */
         }
-        
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -376,6 +396,7 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+
         public class TipoPopUp
         {
             public const int VideoIntroductorio = 1;
@@ -386,6 +407,9 @@ namespace Portal.Consultoras.Common
             public const int ActualizarDatos = 6;
             public const int Flexipago = 7;
             public const int Comunicado = 8;
+            public const int RevistaDigitalSuscripcion = 9;
+            public const int Cupon = 10;
+            public const int CuponForzado = 11;
         }
 
         // Constantes de los motivos de GPR.
@@ -508,6 +532,18 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+        public class MenuCodigo
+        {
+            public const string RevistaShowRoom = "ShowRoom";
+            public const string MiNegocio = "MiNegocio";
+            public const string RevistaDigital = "RevistaDigital";
+            public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
+            public const string CatalogoPersonalizado = "FDTC";
+        }
+
+            public const string RevistaDigitalReducida = "RDR";
+
+            public const int SinRegistroDB = 0;
 
         public class IngresoExternoPagina
         {
@@ -553,6 +589,14 @@ namespace Portal.Consultoras.Common
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
+        }
+        
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
+            public const string RevistaDigitalSuscripcion = "RDS";
         }
 
         public class TooltipLoginUsuario
@@ -569,7 +613,7 @@ namespace Portal.Consultoras.Common
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-
+        
         public class TooltipLoginPassword
         {
             public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
@@ -582,6 +626,33 @@ namespace Portal.Consultoras.Common
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int SinRegistroDB = 0;
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
+
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
+        }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
         }
     }
 }

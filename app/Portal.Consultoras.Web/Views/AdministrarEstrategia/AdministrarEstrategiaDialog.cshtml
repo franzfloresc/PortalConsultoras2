@@ -11,6 +11,7 @@
     <input type="hidden" id="hdColorFondo" value="#FFF" />
     <input type="hidden" id="hdCodigoPrograma" value="">
     <input type="hidden" id="hdNumeroPedido" value="">
+    <input type="hidden" id="hdEstrategiaPrecioAnt" />
     <div class="Content_modal">
 
         <div class="div-3">
@@ -35,15 +36,15 @@
         </div>
         <div class="div-3 Content_modal" style="margin-left: 12px; width: 92%; padding-top: 10px; padding-bottom: 0;">
             <div style="color: white;">
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px;">
                     Información CUV Oferta
                 </div>
-                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; background: #00A2E8; margin-left: -3px; border-left: 1px #D0D0D0 solid; border-top-right-radius: 10px;">
                     Precio Valorizado
                 </div>
             </div>
             <div>
-                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
                     <div style="display: inline-block;">CUV2:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtCUV2" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
@@ -53,7 +54,7 @@
                         <input type="text" id="txtPrecio2" maxlength="10" class="ValidaNumeral" style="width: 60px;" />
                     </div>
                 </div>
-                <div style="display: inline-block; width: 48%; text-align: center; padding: 8px; margin-right: -3px;">
+                <div style="display: inline-block; width: 47%; text-align: center; padding: 8px; margin-right: -3px;">
                     <div style="display: inline-block;">CUV:</div>
                     <div style="display: inline-block;">
                         <input type="text" id="txtCUV" maxlength="5" class="ValidaNumeral" style="width: 60px;" />
@@ -102,7 +103,7 @@
                 </div>
             </div>
             <div class="fontColorAdm">
-                <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
                     <h4>Carrusel Desktop</h4>
                     <div style="display: inline-block; width: 100%;">
                         <input type="hidden" id="nombre-img-fondo-desktop" />
@@ -111,6 +112,7 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">929 x 552 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
@@ -120,9 +122,10 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-prev-desktop" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">130 x 130 pixeles</div>
                     </div>
                 </div>
-                <div class="fontColorAdm" style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
+                <div class="fontColorAdm" style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
                     <h4 style="display: none">Carrusel Mobile</h4>
                     <div style="display: none; width: 100%">
                         <input type="hidden" id="nombre-img-fondo-mobile" />
@@ -131,12 +134,13 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-fondo-mobile" class="img-matriz-preview2" data-id="">
                         </div>
+                        
                     </div>
                 </div>
             </div>
             <div class="clear-fix"></div>
             <div class="fontColorAdm">
-                <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
                     <h4>Ficha Desktop</h4>
                     <div style="display: inline-block; width: 100%;">
                         <input type="hidden" id="nombre-img-ficha-fondo-desktop" />
@@ -145,6 +149,7 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-desktop" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">1920 x 370 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
@@ -154,15 +159,16 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-desktop" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">121 x 32 pixeles</div>
                     </div>
                     
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
-                        <label style="width: 130px;display: inline-block;">URL Video: </label>
-                        <input type="text" id="url-video-desktop" />
+                        <label style="width: 245px;display: inline-block;">Key Video: <span style="font-size: 11px"> https://www.youtube.com/watch?v=</span></label>
+                        <input type="text" id="url-video-desktop" style="width: 90px"/>
                     </div>
                 </div>
-                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
+                <div style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
                     <h4>Ficha Mobile</h4>
                     <div style="display: inline-block; width: 100%">
                         <input type="hidden" id="nombre-img-ficha-fondo-mobile" />
@@ -171,6 +177,7 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-fondo-mobile" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">1024 x 280 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%">
@@ -180,11 +187,12 @@
                         <div class="pdr_modal2 borde_redondeado alignrigth">
                             <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-ficha-mobile" class="img-matriz-preview2" data-id="">
                         </div>
+                        <div class="inforRdText">121 x 32 pixeles</div>
                     </div>
                     <br /><br />
                     <div style="display: inline-block; width: 100%;">
-                        <label style="width: 130px;display: inline-block;">URL Video: </label>
-                        <input type="text" id="url-video-mobile" />
+                        <label style="width: 245px;display: inline-block;">Key Video: <span style="font-size: 11px"> https://www.youtube.com/watch?v=</span></label>
+                        <input type="text" id="url-video-mobile"  style="width: 90px"/>
                     </div>
                 </div>
             </div>

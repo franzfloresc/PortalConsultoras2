@@ -9,7 +9,7 @@ jQuery(document).ready(function () {
     });
 
     $("header").resize(function () {
-        LayoutHeader();
+        LayoutMenu();
     });
 
     if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -84,6 +84,14 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    String.prototype.SubStrToMax = function (max, removeStrFinLength, strFin) {
+        if (this.length <= max) return this;
+
+        strFin = IfNull(strFin, '') == '' ? '...' : strFin;
+        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        return this.substr(0, max - removeLength) + strFin;
+    };
+
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
         var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
@@ -152,6 +160,7 @@ jQuery(document).ready(function () {
         });
         return array;
     };
+
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
@@ -227,6 +236,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString("");
             });
 
+            Handlebars.registerHelper('Trim', function (cadena) {
+                cadena = $.trim(cadena);
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -255,6 +269,40 @@ jQuery(document).ready(function () {
         }
     }
 
+    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
+        if (!Handlebars.helpers.iff)
+            HandlebarsRegisterHelper();
+
+        if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
+            return false;
+        }
+
+        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        jQuery.get(urlTemplate, function (dataTemplate) {
+            dataTemplate = $.trim(dataTemplate);
+            //console.log(dataTemplate);
+            if (dataTemplate == "") {
+                return false;
+            }
+
+            if (dataTemplate.substr(0, 2) == "/*") {
+                dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
+            }
+
+            if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
+                dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
+            }
+
+            var template = Handlebars.compile(dataTemplate);
+            var htmlDiv = template(modelo);
+            idHtml = $.trim(idHtml);
+            if (idHtml == "") return htmlDiv;
+            $(idHtml).html(htmlDiv);
+        });
+
+        return "";
+
+    }
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -521,6 +569,11 @@ function IsValidUrl(value) {
         return true;
     else
         return false;
+}
+
+function isMobile() {
+    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+    return isUrlMobile;
 }
 
 function isInt(n) {
@@ -808,16 +861,75 @@ function xMensajeEstadoPedido(estado) {
 }
 
 function LayoutHeader() {
-    console.log(1);
     LayoutHeaderFin();
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
 }
-
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();    
+    var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutMenu() {
+    LayoutMenuFin();
+    $(document).ajaxStop(function () {
+        LayoutMenuFin();
+    });
+}
+function LayoutMenuFin() {
+    // validar si sale en dos lineas
+    var hok = true;
+    var idMenus = "#ulNavPrincipal > li";
+        $(".wrapper_header").css("max-width", "");
+        $(".wrapper_header").css("width", "");
+
+        $(".logo_esika").css("width", "");
+        $(".menu_esika_b").css("width", "");
+        $(idMenus).css("margin-left", "0px");
+        $(".menu_new_esika").css("width", "");
+
+        var wt = $(".wrapper_header").width();
+        var wl = $(".logo_esika").innerWidth();
+        var wr = $(".menu_esika_b").innerWidth();
+        $(".wrapper_header").css("max-width", wt + "px");
+        $(".wrapper_header").css("width", wt + "px");
+
+        $(".logo_esika").css("width", wl + "px");
+        $(".menu_esika_b").css("width", wr + "px");
+
+        wt = wt - wl - wr;
+        $(".menu_new_esika").css("width", wt + "px");
+
+        hok = false;
+
+        var h = $(".wrapper_header").height();
+
+        if (h <= 61 && $(idMenus).length > 0) {
+            wr = 0;
+            $.each($(idMenus), function (ind, menupadre) {
+                wr += $(menupadre).innerWidth();
+            });
+
+            if (wt > wr) {
+            wr = (wt - wr) / $(idMenus).length;
+            wr = Math.min(wr, 20);
+
+            $.each($(idMenus), function (ind, menupadre) {
+                if (ind > 0 && ind + 1 < $(idMenus).length) {
+                    $(menupadre).css("margin-left", wr + "px");
+                }
+            });
+            }
+        }
+
+    // caso no entre en el menu
+    // poner en dos renglones
+
+    if ($(".wrapper_header").height() > 61) {
+        console.log("menu en mas de una linea");
+    }
+
+    LayoutHeader();
 }
 function ResizeMensajeEstadoPedido() {
 
@@ -961,6 +1073,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        //google marca analytics        
+
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Facebook',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
 
@@ -969,7 +1091,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
+        //google marca analytics        
 
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Whatsapp',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
         $("#HiddenRedesSocialesWA")[0].click();
         //document.getElementById('HiddenRedesSocialesWA').click();
@@ -1055,6 +1186,20 @@ function EnviarCorreoPedidoReservado() {
     });
 }
 /*** Fin EPD-2378 ***/
+
+function AbrirPopupFade(ident) {
+    $(ident).fadeIn();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopupFade(ident) {
+    $(ident).fadeOut();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
+
 
 function GuardarIndicadorPedidoAutentico() {
     if (fingerprintOk == 0) {
@@ -1230,4 +1375,45 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
         }
     }
 }
-/**/
+
+function OcultarMenu(codigo) {
+    MostrarMenu(codigo, 0);
+}
+
+function MostrarMenu(codigo, accion) {
+    codigo = $.trim(codigo);
+    if (codigo == "") {
+        return false;
+    }
+    var menu = $("#ulNavPrincipal").find("[data-codigo='" + codigo + "']");
+    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
+    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
+
+    if (menu.length == 0) {
+        // puede implementarse para los iconos de la parte derecha
+        return false;
+    }
+    if (accion == 0) {
+        $(menu).addClass("oculto");
+    }
+    else {
+        $(menu).removeClass("oculto");
+    }
+
+    LayoutMenu();
+    
+}
+
+function FuncionEjecutar(functionHide) {
+    functionHide = $.trim(functionHide);
+    if (functionHide != "") {
+        if (functionHide[functionHide.length - 1] != ")") {
+            functionHide = functionHide + "()";
+        }
+        setTimeout(functionHide, 100);
+    }
+}
+
+function IfNull(input, replaceNull) {
+    return input == null ? replaceNull : input;
+}

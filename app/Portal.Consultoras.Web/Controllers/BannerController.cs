@@ -505,141 +505,76 @@ namespace Portal.Consultoras.Web.Controllers
              */
 
             bool issuccess = true;
-            List<BEBannerInfo> lstBannerInfo = null;
-            List<BEBannerInfo> lstBannerInfoTemp = null;
             List<BEBannerInfo> lstFinalInfo = new List<BEBannerInfo>();
             try
             {
-
-                /*RE2544 - CS*/
-                int SegmentoID;
-                if (userData.CodigoISO == "VE")
+                int SegmentoBanner;
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
                 {
-                    SegmentoID = userData.SegmentoID;
+                    SegmentoBanner = userData.SegmentoID;
                 }
                 else
                 {
-                    SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                    SegmentoBanner = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-                int PaisId = userData.PaisID, CampaniaId = userData.CampaniaID, ZonaId = userData.ZonaID,
-                    /*Se comenta la linea por problemas con el tipo de consultora de EsJoven que no muestra ningun Banner. Se cambia la logica a pedido de Belcorp.*/
-                    //SegmentoBanner = userData.EsJoven == 1 ? 99 : SegmentoID;/*RE2544 - CS*/ //R2161 
-                SegmentoBanner = SegmentoID; //Correctivo 2544 (CSR) - Error Banners Inferiores.
-                string zonaIDStr = ","+ZonaId.ToString().Trim()+",";
-                string CodigoConsultora = userData.CodigoConsultora;
-                bool ConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
-                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
 
+                List<BEBannerInfo> lstBannerInfoTemp = new List<BEBannerInfo>();
                 using (ContenidoServiceClient svc1 = new ContenidoServiceClient())
                 {
-                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(PaisId, CampaniaId, CodigoConsultora, ConsultoraNueva).ToList();
+                    lstBannerInfoTemp = svc1.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == 2).ToList();
                 }
 
+                string zonaIDStr = "," + userData.ZonaID.ToString().Trim() + ",";
                 lstBannerInfoTemp.Where(p => p.ConfiguracionZona != string.Empty).Update(p => p.ConfiguracionZona = "," + p.ConfiguracionZona + ",");
-                //ListadoTodos
-                List<BEBannerInfo> lstBannerInfoPorZona = new List<BEBannerInfo>();
-                
 
-                lstBannerInfoPorZona = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(zonaIDStr)).ToList();
-                lstBannerInfo = new List<BEBannerInfo>();
-                lstBannerInfo = lstBannerInfoPorZona.Where(p => p.Segmento == -1 || p.Segmento == SegmentoBanner).ToList();
+                lstBannerInfoTemp = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(zonaIDStr)).ToList();
+                List<BEBannerInfo> lstBannerInfo = lstBannerInfoTemp.Where(p => p.Segmento == -1 || p.Segmento == SegmentoBanner).ToList();
 
-                //actualiza los ID de los banners para que se puedan mostrar en la pagina de bienvenida
                 foreach (BEBannerInfo item in lstBannerInfo)
                 {
-                    //if (item.GrupoBannerID == 2 || item.GrupoBannerID == 3 || item.GrupoBannerID == 4 || item.GrupoBannerID == 5 || item.GrupoBannerID == 11)
-                    //    item.GrupoBannerID = 2;
-                    //if (item.GrupoBannerID == 12 || item.GrupoBannerID == 13)
-                    //    item.GrupoBannerID = 3;
-                    //if (item.GrupoBannerID == 14 || item.GrupoBannerID == 15 || item.GrupoBannerID == 16 || item.GrupoBannerID == 17 || item.GrupoBannerID == 18 || item.GrupoBannerID == 19 || item.GrupoBannerID == 20 || item.GrupoBannerID == 21)
-                    //    item.GrupoBannerID = 4;
-                    //if (item.GrupoBannerID == 22 || item.GrupoBannerID == 23 || item.GrupoBannerID == 26)
-                    //    item.GrupoBannerID = 5;
                     if (item.GrupoBannerID == 151)
                         item.GrupoBannerID = -5;
-                    if (item.GrupoBannerID == 152)
+                    else if (item.GrupoBannerID == 152)
                         item.GrupoBannerID = -6;
-                    if (item.GrupoBannerID == 153)
+                    else if (item.GrupoBannerID == 153)
                         item.GrupoBannerID = -7;
                 }
 
-                //----------------------------------
-                List<BEBannerInfo> ban_temp_inter = new List<BEBannerInfo>();
-                ban_temp_inter = lstBannerInfo.Where(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4).ToList();
+                #region Select -5,-6,-7
+                List<BEBannerInfo> ban_temp_inter = lstBannerInfo.Where(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4).ToList();
 
                 if (ban_temp_inter.Count > 0)
                 {
                     lstBannerInfo.RemoveAll(p => p.GrupoBannerID > -8 && p.GrupoBannerID < -4);
 
-                    List<BEBannerInfo> inter_temp_1_SB2 = new List<BEBannerInfo>();
-                    List<BEBannerInfo> inter_temp_2_SB2 = new List<BEBannerInfo>();
-                    List<BEBannerInfo> inter_temp_3_SB2 = new List<BEBannerInfo>();
-                    //List<BEBannerInfo> inter_temp_2 = new List<BEBannerInfo>();
-                    //List<BEBannerInfo> inter_temp_3 = new List<BEBannerInfo>();
-                    //List<BEBannerInfo> inter_temp_4 = new List<BEBannerInfo>();
+                    List<BEBannerInfo> inter_temp_1_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).ToList(); //.OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+                    List<BEBannerInfo> inter_temp_2_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -6).ToList(); //.OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
+                    List<BEBannerInfo> inter_temp_3_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -7).ToList(); //.OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
 
-                    inter_temp_1_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
-                    inter_temp_2_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -6).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
-                    inter_temp_3_SB2 = ban_temp_inter.Where(p => p.GrupoBannerID == -7).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).ToList();
-
-                    //inter_temp_1 = ban_temp_inter.Where(p => p.GrupoBannerID == -5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
-                    //inter_temp_2 = ban_temp_inter.Where(p => p.GrupoBannerID == 3).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
-                    //inter_temp_3 = ban_temp_inter.Where(p => p.GrupoBannerID == 4).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
-                    //inter_temp_4 = ban_temp_inter.Where(p => p.GrupoBannerID == 5).OrderByDescending(p => p.ConfiguracionZona).OrderByDescending(p => p.Segmento).Take(1).ToList();
-
-                    if (inter_temp_1_SB2.Count > 0)
+                    if (inter_temp_1_SB2.Any())
                     {
                         lstBannerInfo.AddRange(inter_temp_1_SB2);
                     }
 
-                    if (inter_temp_2_SB2.Count > 0)
+                    if (inter_temp_2_SB2.Any())
                     {
                         lstBannerInfo.AddRange(inter_temp_2_SB2);
                     }
 
-                    if (inter_temp_3_SB2.Count > 0)
+                    if (inter_temp_3_SB2.Any())
                     {
                         lstBannerInfo.AddRange(inter_temp_3_SB2);
                     }
-                    //if (inter_temp_2.Count > 0)
-                    //{
-                    //    lstBannerInfo.AddRange(inter_temp_2);
-                    //}
-
-                    //if (inter_temp_3.Count > 0)
-                    //{
-                    //    lstBannerInfo.AddRange(inter_temp_3);
-                    //}
-
-                    //if (inter_temp_4.Count > 0)
-                    //{
-                    //    lstBannerInfo.AddRange(inter_temp_4);
-                    //}
                 }
+                #endregion
 
-                //----------------------------------
-
-                #region Mejoras
-                //Ordenamiento
+                #region Ordenamiento
                 if (lstBannerInfo.Count > 0)
                 {
-                    // Ordena y agrega los banner Principales
-                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden));
-                    // Agrega los banner Intermedios
-                    //lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID != 1 && x.GrupoBannerID != 6 &&
-                    //     x.GrupoBannerID != 7 && x.GrupoBannerID != 8 && x.GrupoBannerID != 9 && x.GrupoBannerID != 24 && x.GrupoBannerID != 25));
-                    // Ordena y agrega los banner Bajos
-                    lstBannerInfoTemp = new List<BEBannerInfo>(); ;
-                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -5).OrderBy(x => x.Orden).ToList());
-                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -6).OrderBy(x => x.Orden).ToList());
-                    lstBannerInfoTemp.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -7).OrderBy(x => x.Orden).ToList());
-
-                    //lstBannerInfo.Where((x, i) => i == 0).Update(x => x.GrupoBannerID = 6);
-                    //lstBannerInfo.Where((x, i) => i == 1).Update(x => x.GrupoBannerID = 8);
-                    //lstBannerInfo.Where((x, i) => i == 2).Update(x => x.GrupoBannerID = 7);
-                    //lstBannerInfo.Where((x, i) => i == 3).Update(x => x.GrupoBannerID = 9);
-
-                    lstFinalInfo.AddRange(lstBannerInfoTemp);
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -5 ).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -6 ).OrderBy(x => x.Orden).ToList());
+                    lstFinalInfo.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == -7 ).OrderBy(x => x.Orden).ToList());
                 }
                 #endregion
 
@@ -656,15 +591,46 @@ namespace Portal.Consultoras.Web.Controllers
                 issuccess = false;
             }
 
-            // 1664
-            var carpetaPais = Globals.UrlBanner;
             if (lstFinalInfo != null)
-                if (lstFinalInfo.Count > 0) lstFinalInfo.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(carpetaPais, x.Archivo, Globals.RutaImagenesBanners));
+                if (lstFinalInfo.Any())
+                    lstFinalInfo.ForEach(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));
+
+            var lstFinalModel = Mapper.Map<List<BannerInfoModel>>(lstFinalInfo);
+
+            lstFinalModel.ForEach(item=> {
+                item.Clase = "";
+                if (item.Titulo.Trim().ToLower().Contains("_revistadigital_"))
+                {
+                    item.PaginaNueva = 0;
+                    item.Codigo = Constantes.MenuCodigo.RevistaDigital;
+                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                            if (userData.RevistaDigital.NoVolverMostrar)
+                            {
+                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
+                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                {
+                                    item.Clase = "oculto";
+                                }
+                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
+                                {
+                                    item.Clase = "oculto";
+                                }
+                            }
+                            else
+                            {
+                                item.Clase = "oculto";
+                            }
+                }
+
+            });
+
+            lstFinalModel = lstFinalModel.Where(m => m.Clase != "oculto").ToList();
 
             return Json(new
             {
                 success = issuccess,
-                data = lstFinalInfo
+                data = lstFinalModel
             });
         }
 

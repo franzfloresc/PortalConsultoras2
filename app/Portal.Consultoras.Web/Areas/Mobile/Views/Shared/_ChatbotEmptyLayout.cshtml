@@ -18,6 +18,8 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Lbel/CssSB2Mobile")
     }
+    <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
+
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -169,9 +171,7 @@
                     if ($(e.target).is(':visible')) {
 
                         var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                        if (functionHide != "") {
-                            setTimeout(functionHide + "()", 100);
-                        }
+                        FuncionEjecutar(functionHide);
                         $(e.target).hide();
                         $('body').css({ 'overflow-y': 'scroll' });
                     }
@@ -182,9 +182,7 @@
                 var popupClose = $("#" + $(this).attr("data-popup-close")) || $(this).parent("[data-popup-main]");
 
                 var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-                if (functionHide != "") {
-                    setTimeout(functionHide + "()", 100);
-                }
+                FuncionEjecutar(functionHide);
                 $(popupClose).hide();
                 $('body').css({ 'overflow-y': 'scroll' });
             });

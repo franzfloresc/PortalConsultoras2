@@ -15,13 +15,12 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.CustomHelpers;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarEstrategiaController : BaseController
     {
-        //
-        // GET: /AdministrarEstrategia/
 
         public ActionResult Index()
         {
@@ -698,16 +697,19 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.NumeroPedido = item;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        if (entidad.CodigoTipoEstrategia != null)
                         {
-                            estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                            
-                        }
-                        if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
-                        {
-                            entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+                            }
+                            if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            }
                         }
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                        
                     }
                 }
 
@@ -733,6 +735,17 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
+                    }
+                }
+
+                if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(model.PrecioAnt))
+                    {
+                        if (model.Precio2 != model.PrecioAnt)
+                        {
+                            UpdateCacheListaOfertaFinal(model.CampaniaID);
+                        }
                     }
                 }
 
@@ -762,6 +775,43 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
+            }
+        }
+
+        private void UpdateCacheListaOfertaFinal(string campania)
+        {
+            try
+            {
+                string campNowNext = string.Empty;
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    campNowNext = svc.GetCampaniaActualAndSiguientePais(UserData().PaisID, UserData().CodigoISO);
+                }
+
+                if (!string.IsNullOrEmpty(campNowNext))
+                {
+                    string campNow = campNowNext;
+                    string campNext = "";
+
+                    if (campNowNext.IndexOf('|') >= 0)
+                    {
+                        var arr = campNowNext.Split('|');
+                        campNow = arr[0];
+                        campNext = arr[1];
+                    }
+
+                    if (campania == campNow || campania == campNext)
+                    {
+                        using (ProductoServiceClient svc = new ProductoServiceClient())
+                        {
+                            svc.UpdateCacheListaOfertaFinal(UserData().CodigoISO, int.Parse(campania));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
         }
 
@@ -929,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas)
+        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas, string campaniaID, string tipoEstrategiaCod)
         {
             try
             {
@@ -938,6 +988,14 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     resultado = sv.ActivarDesactivarEstrategias(UserData().PaisID, UserData().CodigoUsuario, EstrategiasActivas, EstrategiasDesactivas);
+                }
+
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    {
+                        UpdateCacheListaOfertaFinal(campaniaID);
+                    }
                 }
 
                 return Json(new
@@ -1026,8 +1084,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public List<BEEstrategia> ConsultarEstrategias()
         {
-            var usuario = ObtenerUsuarioConfiguracion();
-
             List<BEEstrategia> lst;
 
             var entidad = new BEEstrategia();
@@ -1036,8 +1092,8 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ConsultoraID = userData.ConsultoraID.ToString();
             entidad.CUV2 = "";
             entidad.Zona = userData.ZonaID.ToString();
-            entidad.ZonaHoraria = usuario.ZonaHoraria;
-            entidad.FechaInicioFacturacion = usuario.FechaInicioFacturacion;
+            entidad.ZonaHoraria = userData.ZonaHoraria;
+            entidad.FechaInicioFacturacion = userData.FechaFinCampania;
 
             using (var sv = new PedidoServiceClient())
             {
@@ -1214,6 +1270,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ComunModel> lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas = 0;
                 int cantidadEstrategiasSinConfigurar = 0;
+                int tipoEstrategia = Convert.ToInt32(EstrategiaID);
 
                 try
                 {
@@ -1356,33 +1413,6 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
                     }
 
-                    //string listaCuv = "";
-                    //int contador = 0;
-                    //foreach (var opt in lst)
-                    //{
-                    //    if (!string.IsNullOrEmpty(opt.CUV2))
-                    //    {
-                    //        listaCuv += opt.CUV2 + "|";
-                    //        contador++;
-                    //    }
-                    //}
-                    //listaCuv = listaCuv == "" ? "" : listaCuv.Substring(0, listaCuv.Length - 1);
-
-                    //var listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    //try
-                    //{
-
-                    //    using (WsGestionWeb sv = new WsGestionWeb())
-                    //    {
-                    //        listaRespuestaCuv = sv.GetConsultaPrecioValorizado(campaniaId.ToString(), listaCuv,
-                    //            userData.CodigoISO).ToList();
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    //}
-
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
@@ -1401,8 +1431,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (precioOferta > 0)
                             opt.Precio2 = precioOferta;
-
-                        //var cuvServiceProl = listaRespuestaCuv.FirstOrDefault(p => p.cuv == opt.CUV2) ?? new RptPrecioValorizado();
 
                         //sera el precio tachado ya que la propiedad PrecioTachado es de tipo String
                         opt.Precio = 0; //cuvServiceProl.importevalorizado;
@@ -1687,25 +1715,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         public BEEstrategia verficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop)
+            if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
                 estrategia.ImgFondoDesktop = SaveFileS3(estrategia.ImgFondoDesktop);
 
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop)
+            if (!String.IsNullOrEmpty(estrategia.ImgPrevDesktop) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgPrevDesktop) || estrategia.ImgPrevDesktop != estrategiaDetalle.ImgPrevDesktop))
                 estrategia.ImgPrevDesktop = SaveFileS3(estrategia.ImgPrevDesktop);
 
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop)
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaDesktop) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaDesktop) || estrategia.ImgFichaDesktop != estrategiaDetalle.ImgFichaDesktop))
                 estrategia.ImgFichaDesktop = SaveFileS3(estrategia.ImgFichaDesktop);
 
             //if (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoMobile) || estrategia.ImgFondoMobile != estrategiaDetalle.ImgFondoMobile)
             //    estrategia.ImgFondoMobile = SaveFileS3(estrategia.ImgFondoMobile);
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile)
+
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaMobile) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaMobile) || estrategia.ImgFichaMobile != estrategiaDetalle.ImgFichaMobile))
                 estrategia.ImgFichaMobile = SaveFileS3(estrategia.ImgFichaMobile);
 
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop)
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoDesktop) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoDesktop) || estrategia.ImgFichaFondoDesktop != estrategiaDetalle.ImgFichaFondoDesktop))
                 estrategia.ImgFichaFondoDesktop = SaveFileS3(estrategia.ImgFichaFondoDesktop);
 
-            if (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile)
+            if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
+
             return estrategia;
         }
         public string SaveFileS3(string imagenEstrategia)

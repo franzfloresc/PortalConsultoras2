@@ -13,16 +13,30 @@
          display: none;
     }
     </style>
+<link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI
+<div class="titulo_mobile" style="">
+    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
+    @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
+    {
+        <div class="revistadigital-detalle-titulo">
+            <div class="logo_EPT_content"><span>VOLVER</span></div>
+            <div class="texto_usuario_ept">ÉSIKA PARA MÍ</div>
+        </div>
+    }
+    else
+    {
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
+    }    
 </div>
-<div class="" style="border-bottom:0">
-    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-    <div class="pestana_lbel"></div><!--PESTANA LBEL-->   
-</div>
+@if (Model.Codigo != Constantes.MenuCodigo.RevistaDigital)
+{
+    <div class="" style="border-bottom:0">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    </div>
+}
 @{ 
     var btnDesabled = 0;
     var btnDesabledClass = "";
@@ -33,18 +47,33 @@
             <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
         </div>
         <div class="marca_oferta048">@Model.DescripcionMarca</div>
-        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
-        @if (Model.Precio > 0)
+    <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        
+        @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
         {
-            <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
-        }        
-        <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+               
+            <div class="precio_bpt">
+                @if (Model.Precio > 0)
+                {
+                <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
+                }     
+                <b>@Model.Simbolo @Model.PrecioString</b>
+            </div>
+        }
+        else
+        {
+            if (Model.Precio > 0)
+             {
+                 <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
+             }        
+            <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+        }
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="@Model.CUV2" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartirFB" />
+            <input type="hidden" class="rsFBRuta" value="@Model.UrlCompartir" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="@Model.UrlCompartirFB" />
+            <input type="hidden" class="rsWARuta" value="@Model.UrlCompartir" />
             <input type="hidden" class="rsFBRutaImagen" value="@Model.FotoProducto01" />
             <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
             <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
@@ -102,49 +131,53 @@
             {
                 var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
                 var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
-                <div class="titulo_contenido">CONTENIDO</div>
-                <div class="@claseItem">
-                    @foreach (var Hermano in Model.Hermanos)
-                    {
-                        <div>
-                            <div class="@claseItem3" data-tono=""  data-tono-select="" data-tono-digitable="@Hermano.Digitable">
-                                <div style="display: none;">
-                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
-                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
-                                </div>
-                                <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                    <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
-                                    <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                                </div>
-                                @if (Hermano.Digitable == 1)
-                                {
-                                    <div class="content_tonos_producto">
-                                        <div class="tono_select_opt">
-                                            <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                                <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                                <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                                <hr class="clear" />
-                                            </div>
-                                            <div class="content_tonos_select" style="display:none;">
-                                                @foreach (var Tono in Hermano.Hermanos)
-                                                {
-                                                    btnDesabled = 1;
-                                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                                        <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
-                                                        <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
-                                                        <hr class="clear" />
-                                                    </div>
-                                                }
-                                            </div>
-                                        </div>
-                                        <hr class="clear">
-                                    </div>
-                                }
-                                <hr class="clear" />
-                            </div>
-                        </div>
-                    }
-                </div>
+                if (Model.Hermanos != null && Model.Hermanos.Any())
+                 {
+                     <div class="titulo_contenido">CONTENIDO</div>
+                     <div class="@claseItem">
+                         @foreach (var Hermano in Model.Hermanos)
+                         {
+                             <div>
+                                 <div class="@claseItem3" data-tono=""  data-tono-select="" data-tono-digitable="@Hermano.Digitable">
+                                     <div style="display: none;">
+                                         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
+                                         <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
+                                     </div>
+                                     <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
+                                         <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                         <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
+                                     </div>
+                                     @if (Hermano.Digitable == 1)
+                                     {
+                                         <div class="content_tonos_producto">
+                                             <div class="tono_select_opt">
+                                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                                     <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                                     <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
+                                                     <hr class="clear" />
+                                                 </div>
+                                                 <div class="content_tonos_select" style="display:none;">
+                                                     @foreach (var Tono in Hermano.Hermanos)
+                                                     {
+                                                         btnDesabled = 1;
+                                                         <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
+                                                             <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
+                                                             <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
+                                                             <hr class="clear" />
+                                                         </div>
+                                                     }
+                                                 </div>
+                                             </div>
+                                             <hr class="clear">
+                                         </div>
+                                     }
+                                     <hr class="clear" />
+                                 </div>
+                             </div>
+                         }
+                     </div>
+                 }
+                
             }
             </div>
         }
@@ -364,19 +397,6 @@
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
-        var origenRetorno = '';
-        if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })'
-        }
-        else if ('@Model.Origen' == '@Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi') {
-            origenRetorno = '@Url.Action("Index", "Pedido", new { area = "Mobile" })'
-        }
+        var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
-    @*ALAN LA CLASES PARA AÑADIR SON A LA MISMA ALTURA QUE EL DIV "tono_select_opt"
-    ".tono_escogido"-> añadir cuando ya se escogio el tono
-    "tono_no_seleccionado" -> CUANDO SE DA AGREGAR Y NO SE HA SELECCIONADO TONO A TODOS LOS COMBOS Q FALTAN
-    *@
-
 }

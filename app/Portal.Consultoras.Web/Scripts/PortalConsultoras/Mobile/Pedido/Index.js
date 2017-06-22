@@ -19,7 +19,9 @@ $(document).ready(function () {
         $('#PopSugerido').hide();
 
         if (codigo == "") {
-            VisibleEstrategias(true);
+            if (typeof tieneOPT !== 'undefined' && tieneOPT) {
+                VisibleEstrategias(true);
+            }
             $("#divResumenPedido").show();
             $("footer").show();
             $(".footer-page").css({ "margin-bottom": "0px" });
@@ -545,63 +547,6 @@ function AgregarProductoListado() {
         }
     });
 };
-function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-
-    /*
-    if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
-    }
-    */
-
-    var restringido = true;
-
-    $.ajaxSetup({ cache: false });
-    jQuery.ajax({
-        type: 'GET',
-        url: urlReservadoOEnHorarioRestringido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            if (!checkTimeout(data)) {
-                return false;
-            }
-
-            if (data.success == false) {
-                restringido = false;
-                return false;
-            }
-
-            if (data.pedidoReservado) {
-                var fnRedireccionar = function () {
-                    ShowLoading();
-                    location.href = urlValidadoPedido;
-                }
-                if (mostrarAlerta == true) {
-                    CloseLoading();
-                    messageInfo(data.message);
-                }
-                else fnRedireccionar();
-            }
-            else if (mostrarAlerta == true) {
-                messageInfo(data.message);
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                console.log(error);
-                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
-        }
-    });
-    return restringido;
-};
 
 function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
@@ -700,7 +645,7 @@ function InsertarProducto() {
             if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
 
             $("#hdCuvEnSession").val("");
-
+            ProcesarActualizacionMostrarContenedorCupon();
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
             dataLayer.push({
                 'event': 'addToCart',
@@ -720,7 +665,6 @@ function InsertarProducto() {
                     }
                 }
             });
-
         },
         error: function (data, error) {
             CloseLoading();
@@ -1280,4 +1224,12 @@ function TagManagerCarruselSiguiente() {
 function maxLengthCheck(object, cantidadMaxima) {
     if (object.value.length > cantidadMaxima)
         object.value = object.value.slice(0, cantidadMaxima);
+}
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
 }
