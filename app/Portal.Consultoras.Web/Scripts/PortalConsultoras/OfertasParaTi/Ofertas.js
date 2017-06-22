@@ -245,7 +245,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
     $("#divOfertaProductosLoad").show();
 
     busquedaModel.IsMobile = isMobile();
-    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tag-tipo"));
+    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
     jQuery.ajax({
         type: 'POST',
         url: urlOfertaCargarProductos,
