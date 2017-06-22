@@ -595,28 +595,29 @@
     }
 
     var mostrarPopupGanasteAlConfirmarCorreo = function () {
-        var keepAsking = false;
+        var keepAsking = true;
         var timerId = setInterval(function () {
-            if (keepAsking) {
+            if (!keepAsking) {
                 clearInterval(timerId);
-            }
-            if (setting.Cupon) {
-                mostrarPopupGanaste();
-                keepAsking = true;
+            } else {
+                if (setting.Cupon) {
+                    mostrarPopupGanaste();
+                    keepAsking = false;
+                }
             }
         }, 2000);
     }
 
     var mostrarPopupGanaDesdeGestorDePopups = function () {
-        var keepAsking = false;
+        var keepAsking = true;
         var timerId = setInterval(function () {
-            if (keepAsking) {
+            if (!keepAsking) {
                 clearInterval(timerId);
-            }
-            if (setting.Cupon) {
-                procesarGana();
-                mostrarPopupGana();
-                keepAsking = true;
+            } else {
+                if (setting.Cupon) {
+                    procesarGana();
+                    keepAsking = false;
+                }
             }
         }, 2000);
     }
