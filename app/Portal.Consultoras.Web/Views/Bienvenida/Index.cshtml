@@ -242,15 +242,6 @@
 
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
-    <div id="" class="contenedorCupon">
-        <div id="" class="contenedorCuponConocelo contenedor_cupon" style="display: none;">
-            Tienes un dscto exclusivo para ti, <br />
-            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
-        </div>
-        <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
-            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-        </div>
-    </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
 
@@ -1209,7 +1200,7 @@
                     </div>
                     <div class="hblock_text">
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="max-width: 70%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES VER TODAS TUS OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampania AQUÍ</div>
+                        <div style="max-width: 70%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES VER TODAS TUS OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampaniaMasUno AQUÍ</div>
                         <div class="btn_diagonal">
                             <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
                                 <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
@@ -1222,19 +1213,21 @@
             <hr class="clear" />
             <div style="height: 35px; background: #fff;"></div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-11 -->
-            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
-        }else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
+                new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+        }
+        else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
         {
             <!-- HOME BLOCK RD INSCRITAS C-12 -->
-            <div class="home_block_rd" style="margin-top: 90px;">
+            <div class="home_block_rd home_rd" style="position:relative; z-index:1">
                 <div class="hblock"></div>
                 <div class="content_belcorp" style="background-color: black;">
                     <div class="rd_logo">
                         <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
                     </div>
                     <div class="hblock_text">
-                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                        <div style="width: 85%">ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.</div>
+                        <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div style="width: 70%">AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE CAMPAÑA @ViewBag.NumeroCampania Y VER LAS DE CAMPAÑA @ViewBag.NumeroCampaniaMasUno</div>
                         <div class="btn_diagonal">
                             <a href="@Url.Action("Index", "RevistaDigital")">
                                 VER TODAS MIS OFERTAS
@@ -1244,13 +1237,30 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
+            <hr class="clear" />
+            <div class="clear"></div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
             <!-- FALTA AGREGAR PRODUCTOS DE REVISTA DIGITAL QUE PODRAN SER AGREGADOS DESDE EL HOME -->
             <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
                 <div class="background-revistaSeccion"></div>
                 <div class="revistadigital-content">
+                    <div>
+                        <div class="revistadigital-title">
+                            <div class="logo-marca">
+                                <img src="@Url.Content("~/Content/Images/esika-para-mi-img.svg")" alt="Ésika Para Mí" />
+                            </div>
+                            <div class="linea-separacion"></div>
+                            <div class="titulo_nuevaRevista">
+                                <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
+                                    {{Titulo}}
+                                </span>
+                                <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
+                                    {{TituloDescripcion}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                     <hr class="clear" />
                     <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
                     <hr class="clear" />
@@ -1280,7 +1290,8 @@
             <hr class="clear" />
             <div style="height: 35px; background: #fff;"></div>
             <!-- FIN HOME BLOCK RD NO INSCRITAS C-11 -->
-            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml")
+            @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
+                new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
         }
     }
     else if (ViewBag.TieneRDR)
@@ -1319,7 +1330,8 @@
     }
     else
     {
-        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml") 
+        @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
+            new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
 </script>
 
