@@ -406,6 +406,7 @@ function RDDetalleObtener() {
         });
     }
     SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
+    $("#divOfertaProductos").find('[data-item-tag="verdetalle"]').removeAttr("onclick");
     //divProd.find('#divOfertaProductos').append(htmlDiv);
 
     //OfertaArmarEstrategias(obj);
@@ -483,4 +484,16 @@ function RenderCarrusel(divProd) {
             slick.$nextArrow.find("img[data-prev]").show();
         }
     });
+}
+
+function RDPageInformativa() {
+    $('#popupDetalleCarousel_packNuevas').hide();
+    $('#popupDetalleCarousel_lanzamiento').hide();
+    $("#divMensajeBloqueada").hide();
+    $(window).scrollTop(0);
+    $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+    isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
+    if (isDetalle) {
+        window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
+    }
 }
