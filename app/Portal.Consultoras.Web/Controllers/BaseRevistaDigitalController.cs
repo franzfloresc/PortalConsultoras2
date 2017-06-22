@@ -41,6 +41,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
             model.CantidadFilas = 10;
 
+            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
             return View("Index", model);
         }
 
@@ -114,6 +116,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (modelo.EstrategiaID > 0)
             {
                 modelo.EstrategiaDetalle = modelo.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
+
+                var lista = new List<EstrategiaPedidoModel>() { modelo };
+                modelo = ConsultarEstrategiasModelFormato(lista)[0];
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -233,6 +238,43 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
             model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
             model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
+
+            return model;
+        }
+
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
+        {
+            var model = new MensajeProductoBloqueadoModel();
+            if (userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+            {
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    model.MensajeIconoSuperior = true;
+                    model.MensajeTitulo = "PODRÁS AGREGAR ESTA OFERTA A PARTIR DE LA PRÓXIMA CAMPAÑA";
+                    model.BtnInscribirse = false;
+                }
+                else
+                {
+                    model.MensajeIconoSuperior = false;
+                    model.MensajeTitulo = "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                    model.BtnInscribirse = true;
+                }
+            }
+            else
+            {
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    model.MensajeIconoSuperior = true;
+                    model.MensajeTitulo = "PODRÁS AGREGAR OFERTAS COMO ESTA EN LA CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2);
+                    model.BtnInscribirse = false;
+                }
+                else
+                {
+                    model.MensajeIconoSuperior = false;
+                    model.MensajeTitulo = "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                    model.BtnInscribirse = true;
+                }
+            }
 
             return model;
         }

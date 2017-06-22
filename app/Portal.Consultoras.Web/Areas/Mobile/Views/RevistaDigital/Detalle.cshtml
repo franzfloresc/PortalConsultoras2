@@ -78,7 +78,6 @@
    
 </div>
 <div style="background:#F6F6F6; padding:30px;">
-    @*<div class="nombre_titulo_set_detalle">MI PACK KADIA SPORT</div>*@
     <div id="divOfertaProductos"></div>
     @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
     {
@@ -90,10 +89,19 @@
     }
 </div>
 
-<div class="rd_producto_bloqueado">
-    <div class="rd_producto_bloqueado_tit"><img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />PODRÁS AGREGARLA EN LA C-12</div>
-    <a href="">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" height="12" /></a>
-</div>
+@if ((Model.ClaseBloqueada ?? "") != "")
+{
+    <div class="rd_producto_bloqueado">
+        <div class="rd_producto_bloqueado_tit">
+            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />
+            PODRÁS AGREGARLA EN LA C-@ViewBag.CampaniaMasDos
+        </div>
+        <a href="javascript: RDPageInformativa();" >
+            ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ 
+            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" height="12" />
+        </a>
+    </div>
+}
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 @section scripts{
@@ -102,5 +110,6 @@
     var tipoOrigenEstrategia = 272;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
 }

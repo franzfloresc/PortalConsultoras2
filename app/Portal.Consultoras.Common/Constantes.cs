@@ -628,7 +628,8 @@
         {
                 // Lista de estrategias en session para OPT y BPT 
                 public const string ListaEstrategia = "ListadoEstrategiaPedido";
-	    }
+                public const string ProductoTemporal = "ProductoTemporal";
+        }
 	
         public class EstadoRDSuscripcion
         {

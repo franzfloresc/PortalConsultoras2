@@ -1,5 +1,6 @@
 ﻿
 @using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
 
 @model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
@@ -44,7 +45,6 @@
                         <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
                     </div>
                 }
-                @*<div class="tag_nuevo">NUEVO</div>*@
                 <div class="descripcion_text">
                     <div class="tit_revista_producto">@Model.DescripcionResumen</div>
                     @if (Model.DescripcionDetalle != "")
@@ -56,15 +56,7 @@
                                 {
                                     <li>@DescDetalle.Trim()</li>
                                 }
-                            </ol> 
-                           
-                            @*<b>1</b> Es la primera fragancia femenina de la exitosa línea Kalos.
-                            <br />
-                            <b>2</b> Tiene un aroma floral frutal de alta duración.
-                            <br />
-                            <b>3</b> Su envase es moderno y exclusivo.
-                            <br />
-                            <b>4</b> Véndele a las parejas de quienes te compran Kalos Sport y a mujeres llenas de energía.*@
+                            </ol>
                         </div>
                     }
                     <hr class="clear">
@@ -87,7 +79,7 @@
         <div class="lanzamiento-view-detalle">
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage"></div>
         </div>
-        @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+        @if ((Model.EstrategiaDetalle.UrlVideoDesktop ?? "") != "")
         {
             <div class="revista_producto_video" style="width: 60%">
                 @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
@@ -97,6 +89,7 @@
         }
     </div>
 </div>
+@Html.Action("MensajeBloqueado", "RevistaDigital")
 <div class="flecha_scroll">
     <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
     </a>

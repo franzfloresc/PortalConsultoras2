@@ -377,7 +377,20 @@ function EstrategiaVerDetalle(id, origen) {
         origen = $("#divListadoEstrategia").attr("data-OrigenPedidoWeb") || origenPedidoWebEstrategia || 0;
     }
     origen = $.trim(origen) || 0;
-    window.location = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+    var url = "/Mobile/OfertasParaTi/Detalle?id=" + id + "&&origen=" + origen;
+    try {
+        if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
+            var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
+            var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
+            var obj = GetProductoStorage(cuv, campania);
+            obj.CUV2 = $.trim(obj.CUV2);
+            if (obj.CUV2 != "") {
+                if (GuardarProductoTemporal(obj))
+                    return window.location = url;
+            }
+        }
+    } catch (e) {}
+    window.location = url;
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {

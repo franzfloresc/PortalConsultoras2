@@ -14,8 +14,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public List<BEEstrategia> ConsultarEstrategias(string cuv = "", int campaniaId = 0, string codAgrupacion = "")
         {
-            string varSession = Constantes.SessionNames.ListaEstrategia + (campaniaId > 0 ? campaniaId.ToString() : "");
-            if (Session[varSession] != null) return (List<BEEstrategia>)Session[varSession];
+            string varSession = Constantes.SessionNames.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
+            if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
 
             //var usuario = ObtenerUsuarioConfiguracion();            
             var entidad = new BEEstrategia
@@ -64,9 +64,21 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var lista = ConsultarEstrategias();
-                cuv = Util.Trim(cuv);
-                estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
+                if (Session[Constantes.SessionNames.ProductoTemporal] != null)
+                {
+                    estrategia = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+
+                    var lista = new List<EstrategiaPedidoModel>() { estrategia };
+                    estrategia = ConsultarEstrategiasModelFormato(lista)[0];
+                }
+                
+                if (estrategia == null || estrategia == default(EstrategiaPedidoModel))
+                {
+                    var lista = ConsultarEstrategias();
+                    cuv = Util.Trim(cuv);
+                    estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
+                }
+
                 estrategia.Hermanos = new List<ProductoModel>();
                 estrategia.PaisID = userData.PaisID;
                 estrategia.DescripcionCUV2 = Util.Trim(estrategia.DescripcionCUV2);
@@ -83,12 +95,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string joinCuv = "";
 
+                estrategia.CampaniaID = estrategia.CampaniaID > 0 ? estrategia.CampaniaID : userData.CampaniaID;
+
                 if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
                 {
                     var listaHermanosE = new List<BEProducto>();
                     using (ODSServiceClient svc = new ODSServiceClient())
                     {
-                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, estrategia.CUV2).ToList();
+                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, estrategia.CampaniaID, estrategia.CUV2).ToList();
                     }
 
                     foreach (var item in listaHermanosE)
@@ -119,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaAppCatalogo = new List<Producto>();
                 using (ProductoServiceClient svc = new ProductoServiceClient())
                 {
-                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, userData.CampaniaID, joinCuv).ToList();
+                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, estrategia.CampaniaID, joinCuv).ToList();
                 }
 
                 if (!listaAppCatalogo.Any()) return estrategia;
@@ -153,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaHermanos = listaHermanos.OrderBy(p=>p.CodigoProducto).ToList();
 
                     var idPk = 1;
-                    listaHermanos.Update(h => h.ID = idPk++);
+                    listaHermanos.ForEach(h => h.ID = idPk++);
 
                     idPk = 0;
                     foreach (var item in listaProducto)
@@ -187,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
                     {
-                        listaHermanos.Update(h => h.Digitable = 0);
+                        listaHermanos.ForEach(h => h.Digitable = 0);
                     }
                     else if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
@@ -346,7 +360,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             listaProducto = listaProducto ?? new List<BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
-            
+            return ConsultarEstrategiasModelFormato(listaProductoModel);
+        }
+
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<EstrategiaPedidoModel> listaProductoModel)
+        {
             if (!listaProductoModel.Any())
                 return listaProductoModel;
 

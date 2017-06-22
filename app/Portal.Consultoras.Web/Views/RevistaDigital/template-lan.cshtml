@@ -2,7 +2,7 @@
 
 <script id="lanzamiento-carrusel-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-        <div class="content_item_ept" data-item="" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrevDesktop}}" data-estrategia="{{JSON2string lan}}">
+        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrevDesktop}}" data-estrategia="{{JSON2string lan}}">
             <div data-item-tag="body" class="lan_content_body">
                 <div class="detalle_set_banner" data-item-tag="contenido">
                     {{#iff lan.EstrategiaDetalle.ImgFichaDesktop '!=' ''}}
@@ -38,6 +38,7 @@
                         </div>
                     </div>
                     <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        {{#iff PuedeAgregar '!=' '0'}}
                         {{#if ../Mobile}}
                             <div class="liquidacion_rango_home">
                                 <a class="cantidad_menos_home" tabindex="0"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -58,6 +59,9 @@
                            onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{lan.EstrategiaID}}', TipoEstrategiaID: '{{lan.TipoEstrategiaID}}', Posicion: {{lan.Orden}}, FlagNueva: '{{lan.FlagNueva}}' }, this); ">
                             AGRÉGALO
                         </a>
+                        {{/iff}}
+                        {{#if ../Mobile}}
+                        {{else}}
                         <div class="clear"></div>
                         <div style="padding-top: 9px; height: 15px;">
                             <div class="agregado product-add" style="text-align: right; display: {{#if lan.IsAgregado }}block;{{else}}none;{{/if}}">
@@ -65,10 +69,21 @@
                                 <div class="icono"></div>
                             </div>
                         </div>
+                        {{/if}}
                     </div>
-                    <a class="btn_mas_info_set rd_ver_mas" data-item-tag="verdetalle" href="javascript:;">
+
+                    {{#if ../Mobile}}
+                    <div class="btn_negro" style="text-align: center;">
+                        <a data-item-accion="verdetalle" href="javascript:;">
+                            VER MÁS DE ESTE PRODUCTO
+                            <img class="rd_arrowright" src="/Content/Images/RevistaDigital/rd_arrowright.png">
+                        </a>
+                    </div>
+                    {{else}}
+                    <a class="btn_mas_info_set rd_ver_mas" data-item-accion="verdetalle" href="javascript:;">
                         ver más de este producto
                     </a>
+                    {{/if}}
                 </div>
             </div>
             {{#iff lan.EstrategiaDetalle.ImgFondoDesktop '!=' ''}}
