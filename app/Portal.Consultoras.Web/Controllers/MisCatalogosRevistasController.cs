@@ -44,6 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro; 
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NombreConsultora = userData.Sobrenombre;
+            ViewBag.NumeroCampania = userData.CampaniaID % 100;
             return View(clienteModel);
         }
 

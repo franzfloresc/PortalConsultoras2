@@ -69,7 +69,10 @@
                             <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"></a>
+                            <div class="btn_diagonal btn_stroke_white"><a href="#">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -84,14 +87,19 @@
                         <div class="rd_logo">
                             <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
                         </div>
-                        <div class="hblock_text" style="padding-top: 34px;">
+                        <div class="hblock_text" style="padding-top: 34px;">ViewBag.NumeroCampania
                             <div class="hblock_tit" style="font-size: 14px;">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-12 EN ÉSIKA PARA MÍ? </div>
-                            <div class="btn_diagonal"><a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a>
+                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
+                            <div class="btn_diagonal"><a href="#">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                                          <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
+                <hr class="clear" />
+                <div style="height: 35px; background: #fff;"></div>
                 <!-- FIN INSCRITAS C-12 -->
             }
             else
@@ -106,7 +114,10 @@
                             <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"></a>
+                            <div class="btn_diagonal btn_stroke_white"><a href="#">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
                             </div>
                         </div>
                     </div>

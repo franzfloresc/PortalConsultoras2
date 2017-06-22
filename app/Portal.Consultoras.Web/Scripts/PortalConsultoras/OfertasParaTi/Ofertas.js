@@ -245,7 +245,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
     $("#divOfertaProductosLoad").show();
 
     busquedaModel.IsMobile = isMobile();
-    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tag-tipo"));
+    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
     jQuery.ajax({
         type: 'POST',
         url: urlOfertaCargarProductos,
@@ -442,7 +442,9 @@ function LocalStorageListado(key, valor, accion) {
     accion = accion || 0;
 
     if (accion == 0) {
-        localStorage.setItem(key, valor);
+        if (valor != undefined) {
+            localStorage.setItem(key, valor);
+        }
     }
     else if (accion == 1) {
         return localStorage.getItem(key);

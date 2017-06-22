@@ -289,6 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
                 ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;

@@ -1363,6 +1363,8 @@ height: 100%;
     max-width: 320px;
     margin: 4% 0;
 }
+
+
 .btn_bpt {
     margin: 15px 0 5px;
     font-size: 14px;
@@ -1392,7 +1394,7 @@ height: 100%;
 }
 .mpopup_rd .mpopup_nomostrar {
     position: absolute;
-    bottom: 10px;
+    bottom: -20px;
     text-align: center;
     left: 50%;
     margin-left: -75px;
@@ -1854,7 +1856,7 @@ height: 100%;
     line-height: 20px;
 }
 
-.btn_red, .btn_black_solid, .btn_white_stroke {
+.btn_red, .btn_black_solid, .btn_white_stroke, .btn_negro {
     margin: 30px 0;
 }
 
@@ -1863,6 +1865,16 @@ height: 100%;
         text-decoration: none;
         padding: 15px 25px;
         border: 1px solid #e81c36;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-family: 'Lato';
+}
+.btn_negro a {
+        color: black;
+        text-decoration: none;
+        padding: 15px 25px;
+        border: 1px solid black;
         font-size: 13px;
         font-weight: 700;
         letter-spacing: 0.5px;
@@ -1936,6 +1948,12 @@ height: 100%;
 }
 
 
+.tabs_pagos li a
+{
+    min-width: 30%;
+    max-width: 50%;
+    width: auto;
+}
 /*BLOQUE HOME INSCRITAS C-12*/
 .mob_home_bpt {
     font-family: 'Lato';
@@ -1959,7 +1977,7 @@ height: 100%;
 }
 .mob_carrusel_bpt {
     background-color: #F2EEF0;
-    padding: 30px 0;
+    padding-bottom: 30px;
     font-weight: 600;
     }
 .texto_inscribirse{

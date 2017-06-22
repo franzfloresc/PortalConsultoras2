@@ -191,61 +191,6 @@
         </div>
     </div>
 
-
-    <!-- PEDIDO INSCRITAS C-11 -->
-    <div class="banner_pedido_rd">
-        <div class="cabecera_pedido_rd">
-            <div class="rd_logo">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-            </div>
-            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-        </div>
-        <div class="banner_pedido_masofertas">
-            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
-            <div class="btn_red">
-                <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-            </div>
-        </div>
-    </div>
-    <!-- FIN PEDIDO INSCRITAS C-11 -->
-
-    <!-- PEDIDO INSCRITAS C-12 -->
-    <div class="banner_pedido_rd">
-        <div class="cabecera_pedido_rd">
-            <div class="rd_logo">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-            </div>
-            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-        </div>
-        <div class="banner_pedido_masofertas">
-            <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA 12</b>?</div>
-            <div class="btn_red">
-                <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-            </div>
-        </div>
-        falta carrusel de ofertas
-    </div>
-    <!-- FIN PEDIDO INSCRITAS C-12 -->
-
-    <!-- PEDIDO NO INSCRITAS C-11 -->
-    <div class="content_320 ingresoPedidom">
-        <div class="banner_pedido_rd">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                </div>
-                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-            <div class="banner_pedido_masofertas">
-                <div class="banner_pedido_text">YULIANA, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
-                <div class="btn_red">
-                    <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- FIN PEDIDO NO INSCRITAS C-11 -->
-
     <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
@@ -265,29 +210,8 @@
 
 
     <!--INICIO CARRUSEL-->
-    <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-        <div class="row contenedorCupon" id="">
-            <div class="label_cupon contenedorCuponConocelo">
-                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
-                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
-            </div>
-            <div class="label_cupon contenedorCuponInfo">
-                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
-                <div class="texto_cupon">
-                    Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-                </div>
-            </div>
-        </div>
-        <div class="titulo_ofertas_home">
-            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-            <div class="texto_exclusivo">
-                EXCLUSIVO SÓLO POR WEB
-            </div>
-        </div>
-        <!--CONTENEDOR ITEM CARRUSEL-->
-        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-            <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-        </div>
+    <div id="divListaEstrategias" style="display: none;">
+        <div id="contenedor_template_estrategia_cabecera"></div> 
     </div>
     <!--FIN CARRUSEL-->
 
@@ -791,8 +715,8 @@
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
     </script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }
