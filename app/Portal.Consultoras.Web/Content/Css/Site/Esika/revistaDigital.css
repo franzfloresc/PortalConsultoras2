@@ -1408,6 +1408,7 @@
 	letter-spacing: 0.5px;
 	line-height: 15px;
 }
+
 /* BTN DIAGONAL*/
 .btn_diagonal{
 	overflow: hidden;
@@ -1431,6 +1432,26 @@
 .btn_diagonal:hover::after {
   transform: translateY(40%) translateX(-38px) rotate(-75deg);
 }
+/* boton rojo */
+.rd_btn_rojo {
+    background: #e81c36;
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+}
+.rd_btn_rojo:after {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+}
+/* fin boton rojo*/
 
 .rd_arrowright_blanco {
     display: none

@@ -9,6 +9,10 @@ $(document).ready(function () {
     
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
+    var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
+    estador = estador == 1 ? estador : 0;
+    $("[data-estadoregistro" + estador + "]").show();
+
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
