@@ -108,17 +108,53 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
+            model.ListaClientes.Insert(0, new BECliente { ClienteID = -1, Nombre = "NUEVO CLIENTE +" });
+
+            //model.ListaClientes.ForEach(x => x.Nombre = x.Nombre.ToUpper());
+
+            //Session["ListaClientes"] = model.ListaClientes;
 
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
 
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
+            ViewBag.MobileApp = (Session["MobileAppConfiguracion"] == null ? false : true);
             var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-            var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
-            model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
+            //var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
+            //model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
+            model.ClienteId = mobileConfiguracion.ClienteID;
+
+            if (ViewBag.MobileApp)
+            {
+                var clienteSeleccionado = model.ListaClientes.Where(x => x.ClienteID == mobileConfiguracion.ClienteID).FirstOrDefault();
+                model.Nombre = (clienteSeleccionado == null ? string.Empty : clienteSeleccionado.Nombre);
+            }
 
             return View(model);
         }
+
+        //[HttpGet]
+        //public ActionResult AutocompleteByCliente(string term)
+        //{
+        //    List<BECliente> clientes = new List<BECliente>();
+
+        //    if (Session["ListaClientes"] != null)
+        //    {
+        //        clientes = new List<BECliente>((List<BECliente>)Session["ListaClientes"]);
+
+        //        if (!string.IsNullOrEmpty(term))
+        //        {
+        //            clientes = clientes.Where(x => x.Nombre.Contains(term.ToUpper())).ToList();
+        //            clientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora.ToUpper() });
+
+        //            if (!userData.NombreConsultora.ToUpper().Contains(term.ToUpper())) clientes.RemoveAt(0);
+        //        }
+
+        //        clientes.Insert(0, new BECliente { ClienteID = -1, Nombre = "NUEVO CLIENTE +" });
+        //    }
+
+        //    return Json(clientes, JsonRequestBehavior.AllowGet);
+        //}
         
         public ActionResult Detalle(bool autoReservar = false)
         {

@@ -7,7 +7,6 @@
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
-
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
@@ -18,6 +17,7 @@
         }
     </style>
 }
+
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
@@ -30,6 +30,23 @@
             }
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
+                @Html.Hidden("txtClienteId", Model.ClienteId)
+                @if (ViewBag.MobileApp)
+                { 
+                    <input type="text" id="txtClienteNombre" placeholder="Selecciona un cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+                }
+                else
+                {
+                    <input type="text" id="txtClienteNombre" placeholder="Selecciona un cliente" class="PedidoClienteNombre" />
+                }
+                @*@if (string.IsNullOrEmpty(Model.Nombre))
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo",  @disabled = "disabled" })
+                }*@
                 <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
@@ -89,8 +106,8 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div class="contenedor_seleccionCliente">
-                        @if (string.IsNullOrEmpty(Model.Nombre))
+                    @*<div class="contenedor_seleccionCliente">*@
+                        @*@if (string.IsNullOrEmpty(Model.Nombre))
                         {
                             @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                             <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
@@ -100,12 +117,12 @@
                         else
                         {
                             @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
-                        }
+                        }*@
                         @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                         <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
                         </a>*@
-                    </div>
+                    @*</div>*@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
@@ -744,6 +761,7 @@
 
     var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
     var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+    var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
     </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
