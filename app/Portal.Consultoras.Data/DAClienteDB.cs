@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 using Portal.Consultoras.Entities;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -31,16 +32,16 @@ namespace Portal.Consultoras.Data
             GC.SuppressFinalize(httpClient);
         }
 
-        public List<BEClienteDB> GetClienteByClienteID(string Clientes)
+        public async Task<List<BEClienteDB>> GetClienteByClienteID(string Clientes)
         {
             List<BEClienteDB> result = new List<BEClienteDB>();
 
             string getRequestUri = string.Format("{0}?Clientes={1}", requestUri, Clientes);
-            HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
+            HttpResponseMessage response = await httpClient.GetAsync(getRequestUri);
 
             if (response.IsSuccessStatusCode)
             {
-                var strResult = response.Content.ReadAsStringAsync().Result;
+                var strResult = await response.Content.ReadAsStringAsync();
                 beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
                 if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEClienteDB>>();
             }

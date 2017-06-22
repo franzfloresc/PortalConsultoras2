@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cliente;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
@@ -96,12 +97,28 @@ namespace Portal.Consultoras.ServiceContracts
         bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
-        IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, short clienteId, long consultoraId);
+        IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId);
 
         [OperationContract]
         bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]
         bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
+
+        [OperationContract]
+        IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
+
+        [OperationContract]
+        bool NotaInsertar(int paisId, BENota nota);
+
+        [OperationContract]
+        IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId);
+
+        [OperationContract]
+        bool NotaActualizar(int paisId, BENota nota);
+
+        [OperationContract]
+        bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+        
     }
 }

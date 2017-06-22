@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.Entities
 {
@@ -64,5 +65,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
+
+        [DataMember]
+        public IEnumerable<BENota> Notas { get; set; }
     }
 }
