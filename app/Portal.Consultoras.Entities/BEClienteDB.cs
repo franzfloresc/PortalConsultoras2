@@ -65,5 +65,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
+
+        [DataMember]
+        public IEnumerable<BENota> Notas { get; set; }
     }
 }

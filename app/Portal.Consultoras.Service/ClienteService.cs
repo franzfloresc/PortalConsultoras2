@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {
@@ -172,9 +169,9 @@ namespace Portal.Consultoras.Service
             return BLCliente.RecordatorioInsertar(paisId, recordatorio);
         }
 
-        public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, short clienteId, long consultoraId)
+        public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId)
         {
-            return BLCliente.RecordatorioListar(paisId, clienteId, consultoraId);
+            return BLCliente.RecordatorioListar(paisId, consultoraId);
         }
 
         public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
@@ -190,6 +187,26 @@ namespace Portal.Consultoras.Service
         public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
         {
             return BLCliente.ObtenerDeudores(paisId, consultoraId);
+        }
+
+        public bool NotaInsertar(int paisId, BENota nota)
+        {
+            return BLCliente.NotaInsertar(paisId, nota);
+        }
+
+        public IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId)
+        {
+            return BLCliente.NotaListar(paisId, consultoraId);
+        }
+
+        public bool NotaActualizar(int paisId, BENota nota)
+        {
+            return BLCliente.NotaActualizar(paisId, nota);
+        }
+
+        public bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        {
+            return BLCliente.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
     }
 }

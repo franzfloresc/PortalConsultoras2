@@ -69,8 +69,7 @@ namespace Portal.Consultoras.Entities.Cliente
 
             if (row.HasColumn("Nota"))
                 Nota = row.GetValue<string>("Nota");
-
-
+            
             if (row.HasColumn("CampaniaCodigo"))
                 CodigoCampania = row.GetValue<string>("CampaniaCodigo");
         }
