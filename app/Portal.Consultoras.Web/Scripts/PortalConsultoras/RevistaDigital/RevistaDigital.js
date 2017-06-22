@@ -115,7 +115,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click", "[data-item-tag='verdetalle']", function (e) {
+    $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
         //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
@@ -171,14 +171,13 @@ function OfertaArmarEstrategias(response) {
             var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
             response.listaLan = response.listaLan || new Array();
             if (response.listaLan.length > 0) {
-                if (response.Mobile) {
-                    $.each(response.listaLan, function (ind, tem) {
-                        tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
-                        tem.EstrategiaDetalle.ImgFichaDesktop = "";
-                        tem.EstrategiaDetalle.ImgFondoDesktop = "";
-                        tem.PuedeAgregar = 0;
-                    });
-                }
+                $.each(response.listaLan, function (ind, tem) {
+                    tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
+                    tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
+                    tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.PuedeAgregar = response.Mobile ? 0 : 1;
+                });
+                
                 var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
                 divProdLan.find("#divCarruselLan").html(htmlLan);
 
@@ -406,7 +405,8 @@ function RDDetalleObtener() {
         });
     }
     SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
-    $("#divOfertaProductos").find('[data-item-tag="verdetalle"]').removeAttr("onclick");
+    $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
+    $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
     //divProd.find('#divOfertaProductos').append(htmlDiv);
 
     //OfertaArmarEstrategias(obj);
