@@ -171,27 +171,8 @@
         });
 
         $(document).on("keyup", elements.TxtCelular, function (e) {
-            if (!(e.keyCode >= 48 && e.keyCode <= 57 || e.keyCode >= 96 && e.keyCode <= 105)) {
-                if (e.keyCode >= 37 && e.keyCode <= 40) {
-                    return false;
-                }
-
-                var contenido = $(this).val();
-                var nuevoContenido = '';
-
-                if (contenido.length > 0) {
-                    var next = 1;
-                    for (var i = 0; i < contenido.length; i++) {
-                        var valor = contenido.substring(i, next);
-                        if ($.isNumeric(valor)) {
-                            nuevoContenido += valor;
-                        }
-                        next++;
-                    }
-
-                    $(this).val(nuevoContenido);
-                }
-            }
+            var celular = $(this).val();
+            validarCelular(celular);
         });
     }
 
@@ -440,16 +421,9 @@
     var confirmarDatosEsValido = function (emailOriginal, emailIngresado, celular, aceptoTerCond) {
         var cantidadErrores = 0;
 
-        //if (emailOriginal == "") {
-        //    AbrirMensaje("Debe ingresar su correo actual", "VALIDACIÓN");
-        //    cantidadErrores++;
-        //}
-        //if (celular == "") {
-        //    mostrarMensajeErrorCelular();
-        //    return false;
-        //}else{
-        //    ocultarMensajeErrorCelular();
-        //}
+        if (!validarCelular(celular)) {
+            cantidadErrores++;
+        }
 
         if (!esFormatoCorreoValido(emailIngresado)) {
             mostrarMensajeErrorCorreo();
@@ -467,6 +441,26 @@
         
         return (cantidadErrores == 0);
     }
+
+    var validarCelular = function (celular) {
+        if (celular.length > 0) {
+            if ($.isNumeric(celular)) {
+                if (celular > 0) {
+                    ocultarMensajeErrorCelular();
+                } else {
+                    mostrarMensajeErrorCelular();
+                    return false;
+                }
+            } else {
+                mostrarMensajeErrorCelular();
+                return false;
+            }
+        } else {
+            ocultarMensajeErrorCelular();
+        }
+
+        return true;
+    };
 
     var mostrarPopupGanaste = function () {
         var simbolo = "%";
