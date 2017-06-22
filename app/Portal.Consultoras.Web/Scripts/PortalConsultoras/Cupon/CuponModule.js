@@ -517,9 +517,9 @@
                 }
                 else {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
-                        mensaje = "Agrega alguna oferta exclusiva web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b>";
+                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + simbolo + " " + valor + "</b></span>";
                     } else {
-                        mensaje = "Agrega alguna oferta exclusiva web para<br>hacer <b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b>";
+                        mensaje = "Agrega alguna oferta exclusiva web para hacer <span class=\'contenedor-texto-agregar\'><b style='font-weight: 900'>válido tu dscto de " + valor + simbolo + "</b></span>";
                     }
                 }
 

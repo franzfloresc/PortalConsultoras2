@@ -12089,6 +12089,13 @@ a{
     font-size:12.5px;
     text-align:left;
 }
+
+@media (min-width: 440px) {
+    .contenedor-texto-agregar{
+       display: block;
+    }
+}
+
 .texto_cupon_black{
     color:black;
     font-family:'Lato';
@@ -12096,6 +12103,7 @@ a{
     padding-left:30px;
     font-size:12.5px;
     float:left;
+    width: calc(100% - 120px);
 }
 .link_cupon_home{
     display:block;
