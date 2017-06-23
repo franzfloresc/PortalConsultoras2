@@ -103,13 +103,21 @@ function CargarCarouselEstrategias(cuv) {
 };
 
 function CargarCarouselMasVendidos(origen) {
+    var dataMasVendidos = get_local_storage("data_mas_vendidos");
+    if (dataMasVendidos != null) {
+        $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+        ArmarCarouselMasVendidos(dataMasVendidos);
+        inicializarDivMasVendidos(origen);
+        return;
+    }
     $.ajax({
         type: 'GET',
         url: baseUrl + 'OfertasMasVendidos/ObtenerOfertas',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+            set_local_storage(data, "data_mas_vendidos");
+            $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');            
             ArmarCarouselMasVendidos(data);
             inicializarDivMasVendidos(origen);
         },

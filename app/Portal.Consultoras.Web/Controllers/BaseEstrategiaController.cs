@@ -54,9 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public List<BEEstrategia> ConsultarMasVendidos()
-        {
-            if (Session["ListadoMasVendidos"] != null) return (List<BEEstrategia>)Session["ListadoMasVendidos"];
-          
+        {          
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -82,7 +80,6 @@ namespace Portal.Consultoras.Web.Controllers
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
 
-            Session["ListadoMasVendidos"] = listEstrategia;
             return listEstrategia;
         }
 
