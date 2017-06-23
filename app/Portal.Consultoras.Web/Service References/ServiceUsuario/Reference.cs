@@ -949,12 +949,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string LogoLideresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeCDRExpressField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeCDRExpressNuevaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MensajePedidoDesktopField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1096,7 +1090,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TieneCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool TieneCDRExpressField;
+        private int TieneCuponField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneHanaField;
@@ -2237,32 +2231,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeCDRExpress {
-            get {
-                return this.MensajeCDRExpressField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeCDRExpressField, value) != true)) {
-                    this.MensajeCDRExpressField = value;
-                    this.RaisePropertyChanged("MensajeCDRExpress");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeCDRExpressNueva {
-            get {
-                return this.MensajeCDRExpressNuevaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeCDRExpressNuevaField, value) != true)) {
-                    this.MensajeCDRExpressNuevaField = value;
-                    this.RaisePropertyChanged("MensajeCDRExpressNueva");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int MensajePedidoDesktop {
             get {
                 return this.MensajePedidoDesktopField;
@@ -2874,14 +2842,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool TieneCDRExpress {
+        public int TieneCupon {
             get {
-                return this.TieneCDRExpressField;
+                return this.TieneCuponField;
             }
             set {
-                if ((this.TieneCDRExpressField.Equals(value) != true)) {
-                    this.TieneCDRExpressField = value;
-                    this.RaisePropertyChanged("TieneCDRExpress");
+                if ((this.TieneCuponField.Equals(value) != true)) {
+                    this.TieneCuponField = value;
+                    this.RaisePropertyChanged("TieneCupon");
                 }
             }
         }

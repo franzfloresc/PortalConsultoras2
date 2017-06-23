@@ -725,6 +725,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.IndicadorBloqueoCDR = oBEUsuario.IndicadorBloqueoCDR;
                     model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                     model.TieneCDR = oBEUsuario.TieneCDR;
+                    model.TieneCupon = oBEUsuario.TieneCupon;
 
                     model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919
                     model.MensajeCDRExpress = oBEUsuario.MensajeCDRExpress; //EPD-1919 

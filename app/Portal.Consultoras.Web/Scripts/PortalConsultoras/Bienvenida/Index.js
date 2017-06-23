@@ -15,7 +15,7 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
-
+    
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -48,6 +48,7 @@ $(document).ready(function () {
             });
         });
     });
+
 
     ////EDP-1564
     $('.contenedor_fondo_popup').click(function (e) {
@@ -251,6 +252,9 @@ $(document).ready(function () {
         return false;
     });
 
+
+
+
     $("#cerrarVideoIntroductorio").click(function () {
         if (primeraVezVideo) {
             mostrarUbicacionTutorial(true, true);
@@ -378,7 +382,7 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.js-agregar-liquidacion', function (e) {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -389,7 +393,7 @@ $(document).ready(function () {
         var contenedor = $(this).parents(".content_item_carrusel");
         AgregarProductoLiquidacion(contenedor);
     });
-    $(document).on('click', '.js-agregar-liquidacion-tallacolor', function () {
+    $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion-tallacolor', function () {
         if (ReservadoOEnHorarioRestringido())
             return false;
 
@@ -584,7 +588,7 @@ function agregarProductoAlCarrito(o) {
     var imagenProducto = $('.imagen_producto', contenedorItem);
 
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
 
         $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -594,8 +598,8 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -992,7 +996,6 @@ function EstructurarDataCarouselLiquidaciones(array) {
     return array;
 };
 function AgregarProductoLiquidacion(contenedor) {
-
     var inputCantidad = $(contenedor).find("#txtCantidad").val();
     if (!$.isNumeric(inputCantidad)) {
         AbrirMensaje("Ingrese un valor numérico.");
@@ -1080,6 +1083,8 @@ function AgregarProductoLiquidacion(contenedor) {
 
                             closeWaitingDialog();
                             HidePopupTonosTallas();
+
+                            ProcesarActualizacionMostrarContenedorCupon();
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
@@ -1094,6 +1099,15 @@ function AgregarProductoLiquidacion(contenedor) {
         }
     });
 };
+
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
 function CargarProductoLiquidacionPopup(objProducto, objHidden) {
     waitingDialog({});
 
@@ -1447,7 +1461,9 @@ function SetGoogleAnalyticsBannerPrincipal(URL, TrackText, Id, Posicion, Titulo)
         var id = URL;
         var url = baseUrl + "MiAcademia/Cursos?idcurso=" + id;
         window.open(url, '_blank');
-    } else {
+    } else if (Titulo.includes("_revistadigital_")) {
+        window.location = URL;
+    }else {
         window.open(URL, '_blank');
     }
     return false;
@@ -3396,6 +3412,46 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
         'action': action, 'label': 'Cerrar Popup'
     });
 }
+
+
+//EPD-1204 INICIO
+function onclickObtenerLugaresPagoVZ() {       
+    localStorage.setItem("redirectFromIndex", "1");
+    document.location.href = '/MisPagos';
+    
+    
+}
+
+function getLugarPagoVZ() {
+    
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + "MisPagos/ListarLugaresPago",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({}),
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+                }
+            },
+            error: function (data, error) {
+                $("#divContenidoLugarPago").html("");
+                if (checkTimeout(data)) {
+                    AbrirMensaje(data.message);
+                }
+            }
+        });
+}
+
+$("#cerrarPopUpPagoOnlineVZ").on("click", function () {
+    PopupCerrar("popUpPagoOnlineVZ");
+});
+
+
+//EPD-1204 FIN
 
 /*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
 function click_zona_oscura_PopShowroomVenta() {
