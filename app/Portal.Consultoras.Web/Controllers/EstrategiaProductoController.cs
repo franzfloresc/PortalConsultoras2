@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+
         public ActionResult DetalleProducto()
         {
             return View();
