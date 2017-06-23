@@ -6,7 +6,8 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 
 $(document).ready(function () {
-    
+    "use strict";
+
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
@@ -53,7 +54,7 @@ $(document).ready(function () {
         $(window).scroll();
     }
     else {
-        $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+        $('ul[data-tab="tab"] li a[data-tag="' + campaniaCodigo + '"]').click();
     }
 
     if (isDetalle) {
@@ -179,11 +180,11 @@ function OfertaArmarEstrategias(response) {
             response.listaLan = response.listaLan || new Array();
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
-                    tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
-                    tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
-                    tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
-                    tem.EstrategiaDetalle.ImgPrevDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
+                    tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
+                    tem.EstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
+                    tem.EstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.EstrategiaDetalle.ImgFichaMobile : tem.EstrategiaDetalle.ImgFichaDesktop;
+                    tem.EstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
                 });
                 
                 var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);

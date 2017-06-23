@@ -32,17 +32,17 @@
     </div>
     <div class="content_detalle_set_bpt">
         <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
-        @if (Model.EstrategiaDetalle.ImgFichaFondoDesktop != "")
+        @if (Model.EstrategiaDetalle.ImgFichaFondoMobile != "")
         {
-            <img src="@Model.EstrategiaDetalle.ImgFichaFondoDesktop" alt="" style="height: 280px;"/>
+            <img src="@Model.EstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;"/>
         }        
     </div>
     
     <div class="wrapper_resumen_mobile">
-        @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
+        @if (Model.EstrategiaDetalle.ImgFichaMobile != "")
         {
             <div class="etiqueta_nuevo_bpt">
-                <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
+                <img src="@Model.EstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
             </div>
         }
         
@@ -71,7 +71,7 @@
             </a>
         </div>
     </div>
-    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+    @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
     {
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
@@ -79,11 +79,11 @@
 </div>
 <div style="background:#F6F6F6; padding:30px;">
     <div id="divOfertaProductos"></div>
-    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+    @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
     {
         <div class="" style="padding-top:30px;" id="divDiveo">
             <div class="video-responsive-bpt">
-                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
             </div>
         </div>
     }
@@ -95,6 +95,7 @@
 }
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';

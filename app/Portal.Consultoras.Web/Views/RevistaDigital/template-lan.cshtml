@@ -2,25 +2,19 @@
 
 <script id="lanzamiento-carrusel-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrevDesktop}}" data-estrategia="{{JSON2string lan}}">
+        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrev}}" data-estrategia="{{JSON2string lan}}">
             <div data-item-tag="body" class="lan_content_body">
                 <div class="detalle_set_banner" data-item-tag="contenido">
-                    {{#iff lan.EstrategiaDetalle.ImgFichaDesktop '!=' ''}}
+                    {{#iff lan.EstrategiaDetalle.ImgEtiqueta '!=' ''}}
                     <div>
                         <div class="etiqueta_nuevo_ept">
-                            <img src="{{lan.EstrategiaDetalle.ImgFichaDesktop}}" alt="" style="max-height:50px;" />
+                            <img src="{{lan.EstrategiaDetalle.ImgEtiqueta}}" alt="" style="max-height:50px;" />
                         </div>
                     </div>
                     {{/iff}}
-                    {{#if ../Mobile}}
-                        <div class="content_set_imagen_banner" data-item-tag="foto" onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}});">
-                            <img src="{{lan.FotoProducto01}}" alt="" />
-                        </div>
-                    {{else}}
-                        <div class="content_set_imagen_banner" data-item-tag="foto">
-                            <img src="{{lan.FotoProducto01}}" alt="" />
-                        </div>
-                    {{/if}}
+                    <div class="content_set_imagen_banner" data-item-tag="foto" {{#if ../Mobile}} onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}}); {{/if}}">
+                        <img src="{{lan.FotoProducto01}}" alt="" />
+                    </div>
                     <div data-item-tag="descripcion">
                         {{#iff lan.DescripcionResumen '!=' ''}}
                             <div class="titulo_set_banner_ept">{{lan.DescripcionResumen}}</div>
@@ -86,9 +80,9 @@
                     {{/if}}
                 </div>
             </div>
-            {{#iff lan.EstrategiaDetalle.ImgFondoDesktop '!=' ''}}
+            {{#iff lan.EstrategiaDetalle.ImgFondo '!=' ''}}
                 <div class="imagen_fondo" data-item-tag="fotofondo">
-                    <img src="{{lan.EstrategiaDetalle.ImgFondoDesktop}}" alt="" />
+                    <img src="{{lan.EstrategiaDetalle.ImgFondo}}" alt="" />
                 </div>
             {{/iff}}
         </div>

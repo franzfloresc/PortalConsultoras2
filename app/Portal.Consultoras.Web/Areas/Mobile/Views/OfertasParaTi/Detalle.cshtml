@@ -225,18 +225,9 @@
 @if (Model.ClaseBloqueada != "")
 {
     @Html.Action("MensajeBloqueado", "RevistaDigital")
-    @*<div class="row">
-        <div class="content_inscribirte">
-            INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-@ViewBag.CampaniaMasDos<br />
-            PODRÁS ACCEDER A OFERTAS COMO ESTA
-            <div style="display:none;" data-estadoregistro0="">
-                <a href="javascript: RDSuscripcion();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-            </div>
-            <a href="javascript: RDPageInformativa();" class="enterate_aqui" style="text-decoration:underline;">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
-        </div>
-    </div>*@
 }
 
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
 @section scripts{
     <script type="text/javascript">
 

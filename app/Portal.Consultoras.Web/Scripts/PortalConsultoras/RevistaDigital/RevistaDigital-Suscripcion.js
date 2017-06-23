@@ -44,12 +44,7 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success == true) {
-
-                if (isMobile()) {
-                    RDPageInformativa();
-                    return;
-                }
-
+                
                 accion = accion || 0;
                 if (accion == 2) {
                     $("[data-estadoregistro]").attr("data-estadoregistro", "1");
@@ -60,7 +55,7 @@ function RDSuscripcion(accion) {
                 }
 
                 $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                $("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
+                //$("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
 
                 if (accion == 0) {
                     CerrarPopup("#PopRDSuscripcion");
@@ -145,13 +140,13 @@ function RDInformacion() {
 
 function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
-    var url = urlRevistaDigital;
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Index"); //urlRevistaDigital
     window.location = url;
 }
 
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
-    var url = urlRevistaDigital;
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital"); //urlRevistaDigital;
     var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
     window.location.reload();
