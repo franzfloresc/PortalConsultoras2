@@ -1104,7 +1104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="ChateaConEBA.html" />
     <Content Include="AppDeCatalogos.html" />
     <Content Include="Content\Banderas\AR.png" />
