@@ -74,7 +74,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
                 .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
 
-            Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
+                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
+
             Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
 
         }
