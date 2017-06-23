@@ -3044,6 +3044,7 @@
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProducto\DetalleProducto.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Facebook.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Normal.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Main.js" />

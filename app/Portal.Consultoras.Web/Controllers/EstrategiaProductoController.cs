@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -13,9 +14,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
-        public ActionResult DetalleProducto()
+
+        [HttpPost]
+        public ActionResult DetalleProducto(EstrategiaPedidoModel item)
         {
-            return View();
+            EstrategiaOutModel model = new EstrategiaOutModel {Item = item};
+            return View(model);
         }
     }
 }

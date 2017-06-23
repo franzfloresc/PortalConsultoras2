@@ -3,7 +3,7 @@
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
          class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+            <div onclick="javascript:VerDetalleProductoMasVendidos({{EstrategiaID}});">
                 <div class="producto_img_home">
                     <img src="{{FotoProducto01}}" class="imagen_producto">
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
