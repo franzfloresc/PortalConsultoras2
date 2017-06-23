@@ -1,4 +1,5 @@
-﻿namespace Portal.Consultoras.Common
+﻿using System.Collections.Generic;
+namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
