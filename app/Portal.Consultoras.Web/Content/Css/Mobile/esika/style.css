@@ -12218,7 +12218,7 @@ a{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:16px;
+    margin-top:8px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12290,7 +12290,7 @@ a{
 .info_recuerda_cupon{
     float: left;
     width: 100%;
-    margin-top: 17px;
+    margin-top: 15px;
     font-family: 'Lato';
     font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */

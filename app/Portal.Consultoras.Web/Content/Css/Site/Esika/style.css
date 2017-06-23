@@ -23,7 +23,9 @@
     font-weight: normal;
     font-style: normal;
 }
-
+body{
+    font-family:Arial;
+}
 body > img {
     display: none;
 }
@@ -36113,28 +36115,28 @@ h1#penmostreo .campana {
     background:url(../../../Images/PL20/fondo_cupon1.png) no-repeat;
 }
 .content_monto_cupon{
-    float:left;
-    width: 43%;
-    padding-right: 3%;
-    padding-top:40px;
-    padding-left:54px;
-    font-family:'Lato';
-    /*letter-spacing:2px;
-    font-weight:700;*/
+    float: left;
+    width: 38%;
+    padding-right: 2%;
+    padding-top: 40px;
+    margin-left: 27px;
+    font-family: 'Lato';
+    box-sizing: border-box;
 }
 .titulo_gana {
     font-size: 13.7px;
     color: white;
     height: 46px;
-    width: 90%;
-    letter-spacing: 0.5px;    
+    /*width: 90%;*/
+    letter-spacing: 0.5px;
     line-height: 20px;
-    -moz-text-align-last: justify;    
-    text-align-last: justify;
-    text-align: justify;
-    padding-left: 15px;
-    margin-top: -15px;
-    margin-bottom: 25px;
+    -moz-text-align-last: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+    /* padding-left: 15px; */
+    margin-top: -8px;
+    margin-bottom: 18px;
+    text-align: center;
 }
 .titulo_gana span {
     font-size: 20px;
@@ -36142,17 +36144,16 @@ h1#penmostreo .campana {
     font-weight: 700;
 }
 .subtitulo_gana{
-    font-family:'Lato';
-    font-weight:700;
-    color:white;
-    font-size:14px;
-    /*font-weight:900;*/
-    letter-spacing:1.2px;
-    -moz-text-align-last: justify;
-    -webkit-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
-    padding-right: 10px;   
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 14px;
+    /* font-weight: 900; */
+    letter-spacing: 1.2px;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+    /* padding-right: 10px; */
+    text-align: center;   
 }
 .monto_gana{
     font-family: 'Lato';
@@ -36160,10 +36161,11 @@ h1#penmostreo .campana {
     color: white;
     font-weight: 700;
     margin-top: -36px;
-    float: left;
+    /* float: left; */
     width: 124px;
     height: 126px;
     text-align: right;
+    display: inline-block;
 }
 .tipo_moneda{
     font-size:38px;    
@@ -36171,13 +36173,15 @@ h1#penmostreo .campana {
 .tipo_porcentaje{
     color: white;
     font-size: 73px;
-    float: right;
+    float: d;
+    display: inline-block;
     font-weight: 700;
     margin-top: -21px;
     letter-spacing: 1px;
     width: 63px;
     text-align: right;
-    margin-right: 9px;
+    /* margin-right: 9px; */
+    margin-bottom: 13px;
 }
 .legal_cupon{
     margin-top: 19px;
@@ -36188,7 +36192,7 @@ h1#penmostreo .campana {
 }
 .content_cupon_datos{
     float:left;
-    width:56%;
+    width:57%;
     padding:25px 60px 0 42px;
     position:relative;
 }
