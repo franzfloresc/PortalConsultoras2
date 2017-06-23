@@ -3036,6 +3036,7 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\BestSeller\BestSellerCommentModule.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
@@ -3044,6 +3045,7 @@
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaProducto\DetalleProducto.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Facebook.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Normal.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Main.js" />

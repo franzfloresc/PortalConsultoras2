@@ -182,7 +182,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
