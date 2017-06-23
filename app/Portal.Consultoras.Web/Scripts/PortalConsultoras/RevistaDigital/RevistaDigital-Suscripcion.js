@@ -8,7 +8,7 @@ function RDPopupCerrar(tipo) {
     AbrirLoad();
     if (tipo == 1) {
         CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
-        location.href = "/";
+        location.href = location.href;
         return false;
     }
 
@@ -44,6 +44,11 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success == true) {
+
+                if (isMobile()) {
+                    RDPageInformativa();
+                    return;
+                }
 
                 accion = accion || 0;
                 if (accion == 2) {
@@ -138,7 +143,7 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
-function RDSuscripcionRedireccionar() {
+function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = urlRevistaDigital;
     window.location = url;
@@ -147,8 +152,9 @@ function RDSuscripcionRedireccionar() {
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
     var url = urlRevistaDigital;
-    var divPosition = '#divAnularSuscripcion';
+    var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
+    window.location.reload();
 }
 
 function MostrarTerminos() {

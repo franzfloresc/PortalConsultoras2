@@ -1854,6 +1854,7 @@ height: 100%;
 .banner_pedido_text {
     font-size: 16px;
     line-height: 20px;
+    text-transform: uppercase;
 }
 
 .btn_red, .btn_black_solid, .btn_white_stroke, .btn_negro {
@@ -1873,9 +1874,9 @@ height: 100%;
 .btn_negro a {
         color: black;
         text-decoration: none;
-        padding: 15px 25px;
+        padding: 15px 3%;
         border: 1px solid black;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 700;
         letter-spacing: 0.5px;
 }
@@ -1900,7 +1901,7 @@ height: 100%;
     border-color: white;
 }
 .rd_producto_bloqueado {
-    height: 75px;
+    min-height: 75px;
     width: 100%;
     background-color: black;
     position: fixed;
@@ -1910,7 +1911,7 @@ height: 100%;
     color: white;
     font-family: 'Lato';
     letter-spacing: 1px;
-    padding-top: 13px;
+    padding: 10px 0 ;
     box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
 }
 .rd_producto_bloqueado a {
@@ -1948,12 +1949,6 @@ height: 100%;
 }
 
 
-.tabs_pagos li a
-{
-    min-width: 30%;
-    max-width: 50%;
-    width: auto;
-}
 /*BLOQUE HOME INSCRITAS C-12*/
 .mob_home_bpt {
     font-family: 'Lato';

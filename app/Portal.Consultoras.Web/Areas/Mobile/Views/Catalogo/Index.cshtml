@@ -75,97 +75,117 @@
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
         <div class="titulo_catalogo" data-titulo="" >REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
-        <div class="content_revistas_mobile">
-            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
-            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
-            <a id="lbPortadaGana" href="javascript:;" onclick="MostrarMiRevista();">
-                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
-            </a>
+        <div class="content_revistas_mob">
+        @if (@ViewBag.TieneRDC == true)
+        {
+            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            {
+                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+                <hr class="clear" />
+                <!-- CATÁLOGOS INSCRITAS C-11-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-11-->
+            }
+            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            {
+                <!-- CATÁLOGOS INSCRITAS C-12-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ?</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+                <!-- CATÁLOGOS INSCRITAS C-12-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+            }
+        }
+        else if (@ViewBag.TieneRDR == true)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+            <hr class="clear" />
+
+            <!-- INICIO SECCION REVISTA REDUCIDA -->
+            <div id="tab_revistasdigital_mobile" style="display: none;">
+                <div class="contenedor_seccionRevistaDigital">
+                    <div class="seccionRevistaDigital_logo_marca">
+                        <img src="/Content/Images/esika-para-mi-img.svg" alt="Ésika para mí" />
+                    </div>
+                    <div class="contenido_seccionRevistaDigital">
+                        <span>TU REVISTA ONLINE PERSONALIZADA</span>
+                        <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                    </div>
+                    <div class="revistadigital contenedor_botonVerMasOfertas">
+                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                            <div class="fondo_boton"></div>
+                            <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+            <!-- FIN SECCION REVISTA REDUCIDA-->
+        }
+        else
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+        }
+           
         </div>
     </div>
     <!--FIN TAB REVISTA-->
     <!--TAB REVISTA DIGITAL-->
-    @if (Model.MostrarRevistaDigital)
-    {
-        <div id="tab_revistasdigital_mobile" data-tag-html="Revistas" style="display:none;">
-            <div class="contenedor_seccionRevistaDigital">
-                <div class="seccionRevistaDigital_logo_marca">
-                    <img src="/Content/Images/esika-para-mi-img.svg" alt="Ésika para mí" />
-                </div>
-                <div class="contenido_seccionRevistaDigital">
-                    <span>TU REVISTA ONLINE PERSONALIZADA</span>
-                    <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
-                </div>
-                <div class="revistadigital contenedor_botonVerMasOfertas">
-                    <div class="boxoffer" style="cursor: pointer; position: relative !important;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
-                        <div class="fondo_boton"></div>
-                        <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
-                    </div>
-                    <br /><br />
-                </div>
-            </div>
-        </div>
-        <hr class="clear" />
+  
+        
 
-
-
-        <!-- CATÁLOGOS INSCRITAS C-11-->
-        <div class="wrapper_resumen_mobile">
-            <div class="banner_pedido_rd">
-                <div class="cabecera_pedido_rd">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                    </div>
-                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                </div>
-                <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b></div>
-                    <div class="btn_red">
-                        <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIN CATÁLOGOS INSCRITAS C-11-->
-
-        <!-- CATÁLOGOS INSCRITAS C-12-->
-        <div class="wrapper_resumen_mobile">
-            <div class="banner_pedido_rd">
-                <div class="cabecera_pedido_rd">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                    </div>
-                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                </div>
-                <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text">YULIANA, ¿YA VISTE TUS <b>OFERTAS DE LA C-12 EN ÉSIKA PARA MÍ?</b></div>
-                    <div class="btn_red">
-                        <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIN CATÁLOGOS INSCRITAS C-12-->
-
-         <!-- CATÁLOGOS INSCRITAS C-12-->
-        <div class="wrapper_resumen_mobile">
-            <div class="banner_pedido_rd">
-                <div class="cabecera_pedido_rd">
-                    <div class="rd_logo">
-                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
-                    </div>
-                    <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                </div>
-                <div class="banner_pedido_masofertas">
-                    <div class="banner_pedido_text">YULIANA, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
-                    <div class="btn_red">
-                        <a href="#">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- FIN CATÁLOGOS INSCRITAS C-12-->
-    }
     <!--FIN TAB REVISTA DIGITAL-->
 </div>
 
@@ -284,11 +304,9 @@
 
 @section styles{
 
-    <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
-    @if (Model.MostrarRevistaDigital)
-    {
-        <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-    }
+    <link href="@Url.Content("~/Content/Css/Mobile/jquery.tag-editor.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+
 
     <style type="text/css">
         body {

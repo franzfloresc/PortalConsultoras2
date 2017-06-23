@@ -31,7 +31,7 @@
             @foreach (var tabs in Model.ListaTabs)
             {
                 <li>
-                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
+                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id" style="width:@(100/Model.ListaTabs.Count())%">
                         <div class="texto_tab_pagos">@tabs.Descripcion</div>
                         <div class="marcador_tab oculto"></div>
                     </a>
@@ -152,6 +152,7 @@
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding';
         var tipoOrigenEstrategia = 27;
         var CantidadFilas = @Model.CantidadFilas;

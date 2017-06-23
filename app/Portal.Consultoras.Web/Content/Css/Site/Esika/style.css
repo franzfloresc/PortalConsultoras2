@@ -21196,6 +21196,22 @@ label.checkpop.c_on {
     color:#e81c36;
     font-weight: 400;
 }
+.texto_exclusivo_pedido_bpt {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: #000;
+    font-weight: 600;
+}
+
+.texto_exclusivo_bpt {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #000;
+    font-weight: 600;
+}
+
 .previous_ofertas {
     height: 329px;
     top: 0;

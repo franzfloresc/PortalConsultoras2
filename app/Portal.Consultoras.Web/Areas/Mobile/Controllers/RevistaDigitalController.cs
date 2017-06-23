@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
                 return DetalleModel(modelo);
             }
@@ -54,5 +53,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return PartialView("template-Landing", new RevistaDigitalModel());
             }
         }
+
+        public ActionResult MensajeBloqueado()
+        {
+            try
+            {
+                ViewBag.EsMobile = 2;
+                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
+        }
+
     }
 }

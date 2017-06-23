@@ -4955,6 +4955,14 @@ table > thead > tr > th {
     font-weight: 400;
 }
 
+.texto_exclusivo_bpt {
+    font-size: 13px;
+    letter-spacing: 4.8px;
+    color: #000;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
 .banner_inferior_mobile {
     max-width: 390px;
     margin: 0 auto;

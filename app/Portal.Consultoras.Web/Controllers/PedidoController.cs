@@ -1460,23 +1460,39 @@ namespace Portal.Consultoras.Web.Controllers
                     olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
-                var codigoEstrategia = "";
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+
+                try
                 {
-                    codigoEstrategia =
-                        sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
-                }
-                if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia 
-                    || Constantes.TipoEstrategiaCodigo.OfertasParaMi == codigoEstrategia 
-                    || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso == codigoEstrategia))
-                {
-                    if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida) 
-                        || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                    var codigoEstrategia = "";
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "Para agregar este producto tienes que estar incrita a la revista digital.", TieneSugerido = 0 });
-                        return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                        codigoEstrategia =
+                            sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                    }
+                    if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi ==
+                                                     codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ==
+                                                     codigoEstrategia))
+                    {
+                        if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                              || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                        {
+                            olstProductoModel.Add(new ProductoModel()
+                            {
+                                MarcaID = 0,
+                                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                                TieneSugerido = 0
+                            });
+                            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                        }
                     }
                 }
+                catch (Exception e)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
+                }
+                
 
 
                 var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();

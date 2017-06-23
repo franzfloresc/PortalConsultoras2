@@ -1366,7 +1366,9 @@
 }
 
 
-
+.rd_btn{
+    height:45px;
+}
 .rd_logo {
 	background: rgba(233,27,55,1);
 	background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
@@ -2094,6 +2096,7 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .content_item_home_bpt {
@@ -2154,6 +2157,7 @@
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 70px;
+    text-transform: uppercase;
 }
 
 .banner_pedido_masofertas .btn_diagonal {
@@ -2200,11 +2204,11 @@
 }
 
 
-@media screen and (max-width: 1092px) {
+/*@media screen and (max-width: 1092px) {
     .banner_pedido_rd {
         width: 30.9% !important;
     }
-}
+}*/
 
 .home_rd1 {
     background-color: #FFF;

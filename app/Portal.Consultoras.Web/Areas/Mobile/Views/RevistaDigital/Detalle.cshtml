@@ -89,18 +89,9 @@
     }
 </div>
 
-@if ((Model.ClaseBloqueada ?? "") != "")
+@if (Model.ClaseBloqueada != "")
 {
-    <div class="rd_producto_bloqueado">
-        <div class="rd_producto_bloqueado_tit">
-            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/exclamacion_blanco.png")" style="margin-right: 10px;" />
-            PODRÁS AGREGARLA EN LA C-@ViewBag.CampaniaMasDos
-        </div>
-        <a href="javascript: RDPageInformativa();" >
-            ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ 
-            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" height="12" />
-        </a>
-    </div>
+    @Html.Action("MensajeBloqueado", "RevistaDigital")
 }
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
@@ -111,5 +102,6 @@
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
 }

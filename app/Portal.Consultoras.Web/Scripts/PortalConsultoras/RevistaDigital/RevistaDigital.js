@@ -124,6 +124,9 @@ $(document).ready(function () {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
         var obj = GetProductoStorage(cuv, campania);
+        if (obj == undefined) {
+            return;
+        }
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {            
             var guardo = GuardarProductoTemporal(obj);
@@ -179,6 +182,7 @@ function OfertaArmarEstrategias(response) {
                     tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
                     tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
                     tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.EstrategiaDetalle.ImgPrevDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
                 });
                 
