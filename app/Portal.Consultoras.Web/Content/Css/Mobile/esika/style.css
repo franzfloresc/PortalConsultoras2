@@ -12064,7 +12064,7 @@ a{
     font-weight:bold;*/
     margin-bottom:15px;
     margin-top:5px;
-    background-position: right 3px center !important;
+    background-position: right 10px center !important;
     background-repeat:no-repeat !important;
     padding-right:45px
 }
@@ -12086,7 +12086,7 @@ a{
     -moz-box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
     box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
     max-height: 600px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 .ui-autocomplete > li {

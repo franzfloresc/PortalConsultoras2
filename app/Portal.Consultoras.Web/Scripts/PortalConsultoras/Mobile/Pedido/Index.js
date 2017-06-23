@@ -12,9 +12,22 @@ $(document).ready(function () {
             $(this).autocomplete('close');
     });
 
+    $('#txtClienteNombre').keyup(function (e) {
+        if (e.keyCode == 8) {
+            if ($.trim($(this).val()) == "") $("#txtClienteId").val("0");
+        }
+    });
+
     $("#txtClienteNombre").css("background-image", "url('" + urlImagenListaCliente + "')")
     $('#txtClienteNombre').autocomplete({
         minLength: 0,
+        autoFocus: true,
+        open: function (event, ui) {
+            $('#txtClienteNombre').attr("placeholder", "Buscar...")
+        },
+        close: function (event, ui) {
+            $('#txtClienteNombre').attr("placeholder", "Cliente")
+        },
         focus: function (event, ui) {
             if (AutocompleteLastLI != null) AutocompleteLastLI.removeClass("ui-state-focus");
 
@@ -24,7 +37,7 @@ $(document).ready(function () {
             return false;
         },
         select: function (event, ui) {
-            $("#txtClienteId").val("");
+            $("#txtClienteId").val("0");
 
             if (ui.item.cliente.ClienteID == -1)
             {
@@ -154,6 +167,12 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
+        var cliente = $.trim($("#txtClienteNombre").val());
+        if (cliente == "") {
+            AbrirMensaje("Seleccione un cliente.");
+            return false;
+        }
+
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
