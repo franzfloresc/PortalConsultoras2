@@ -2077,5 +2077,18 @@ namespace Portal.Consultoras.Service
         {
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
+
+
+        #region Producto Comentario
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
+        }
+
+        public int AprobarProductoComentario(int paisID, int prodComentarioId, long prodComentarioDetalleId)
+        {
+            return blEstrategia.AprobarProductoComentarioDetalle(paisID, prodComentarioId, prodComentarioDetalleId);
+        }
+        #endregion
     }
 }
