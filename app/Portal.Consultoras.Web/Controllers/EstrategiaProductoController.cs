@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Portal.Consultoras.Web.Models;
+using System;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EstrategiaProductoController : BaseController
     {
-        // GET: EstrategiaProducto
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult DetalleProducto(EstrategiaPedidoModel item)
+        public JsonResult DetalleProducto(EstrategiaPedidoModel item)
         {
-            EstrategiaOutModel model = new EstrategiaOutModel {Item = item};
-            return View(model);
+            try
+            {
+                EstrategiaOutModel model = new EstrategiaOutModel { Item = item };
+                return Json(new { success = true, data = model });
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
     }
 }
