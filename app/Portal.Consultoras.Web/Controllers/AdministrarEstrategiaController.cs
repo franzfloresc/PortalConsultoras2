@@ -619,7 +619,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
         {
-            int resultado = 0;
             int OrdenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
 
             try
@@ -630,118 +629,13 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.UsuarioCreacion = UserData().CodigoUsuario;
                 entidad.UsuarioModificacion = UserData().CodigoUsuario;
 
-                var respuestaServiceCdr = new List<RptProductoEstrategia>();
+                List<RptProductoEstrategia> respuestaServiceCdr = GetProductosConfigura(model, entidad);
 
-                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null && 
-                    (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi))
-                {
-                    try
-                    {
-                        short id = 98;
-                        var getProductosConfigura = (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()];
-                        if (getProductosConfigura == null)
-                        {
-                            getProductosConfigura = new List<BETablaLogicaDatos>();
-                            using (SACServiceClient sv = new SACServiceClient())
-                            {
-                                getProductosConfigura = sv.GetTablaLogicaDatos(userData.PaisID, id).ToList();
-                            }
-                            getProductosConfigura = getProductosConfigura ?? new List<BETablaLogicaDatos>();
-                            Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()] = getProductosConfigura;
-                        }
+                SetTieneVariedad(model, entidad, respuestaServiceCdr);
 
-                        if (getProductosConfigura.Any())
-                        {
-                            var valida = getProductosConfigura.Find(d => d.TablaLogicaDatosID == 9802) ?? new BETablaLogicaDatos();
-                            if (Convert.ToInt32(valida.Codigo) <= entidad.CampaniaID)
-                            {
-                                using (WsGestionWeb sv = new WsGestionWeb())
-                                {
-                                    respuestaServiceCdr = sv.GetEstrategiaProducto(entidad.CampaniaID.ToString(), userData.CodigoConsultora, entidad.CUV2, userData.CodigoISO).ToList();
-                                }
+                InsertarEstrategiaPorNumeroPedido(model, entidad);
 
-                                respuestaServiceCdr = respuestaServiceCdr ?? new List<RptProductoEstrategia>();
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-                        respuestaServiceCdr = new List<RptProductoEstrategia>();
-                    }
-                }
-
-                if (respuestaServiceCdr.Any())
-                {
-                    entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
-                    if (entidad.CodigoEstrategia == "2001")
-                    {
-                        var listaHermanosE = new List<BEProducto>();
-                        using (ODSServiceClient svc = new ODSServiceClient())
-                        {
-                            listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, entidad.CUV1).ToList();
-                        }
-                        listaHermanosE = listaHermanosE ?? new List<BEProducto>();
-                        entidad.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
-                    }
-                    else if (entidad.CodigoEstrategia == "2003")
-                    {
-                        entidad.TieneVariedad = 1;
-                    }
-                }
-
-                if (string.IsNullOrEmpty(model.NumeroPedido))
-                    model.NumeroPedido = "0";
-
-                List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                BEEstrategiaDetalle estrategiaDetalle =  new BEEstrategiaDetalle();
-                foreach (int item in NumeroPedidosAsociados) /*R20160301*/
-                {
-                    entidad.NumeroPedido = item;
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        if (entidad.CodigoTipoEstrategia != null)
-                        {
-                            if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
-                            {
-                                estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                            }
-                            if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
-                            {
-                                entidad = verficarArchivos(entidad, estrategiaDetalle);
-                            }
-                        }
-                        entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
-                        
-                    }
-                }
-
-                foreach (var producto in respuestaServiceCdr)
-                {
-                    var entidadPro = new BEEstrategiaProducto();
-                    entidadPro.PaisID = entidad.PaisID;
-                    entidadPro.EstrategiaID = entidad.EstrategiaID;
-                    entidadPro.Campania = entidad.CampaniaID;
-                    entidadPro.CUV = producto.cuv;
-                    entidadPro.Grupo = producto.grupo;
-                    entidadPro.Orden = producto.orden;
-                    entidadPro.CUV2 = entidad.CUV2;
-                    entidadPro.SAP = producto.codigo_sap;
-                    entidadPro.Cantidad = producto.cantidad;
-                    entidadPro.Precio = producto.precio_unitario;
-                    entidadPro.PrecioValorizado = producto.precio_valorizado;
-                    entidadPro.Digitable = producto.digitable;
-                    entidadPro.CodigoEstrategia = producto.codigo_estrategia;
-                    entidadPro.CodigoError = producto.codigo_error;
-                    entidadPro.CodigoErrorObs = producto.obs_error;
-
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
-                    }
-                }
+                InsertarEstrategiaProducto(entidad, respuestaServiceCdr);
 
                 if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
                 {
@@ -780,6 +674,135 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
+            }
+        }
+
+        private List<RptProductoEstrategia> GetProductosConfigura(RegistrarEstrategiaModel model, BEEstrategia entidad)
+        {
+            var respuestaServiceCdr = new List<RptProductoEstrategia>();
+
+            if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
+                   (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
+                   model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
+                   model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
+                   model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
+                   model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
+            {               
+
+                try
+                {
+                    short id = 98;
+                    var getProductosConfigura = (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()];
+                    if (getProductosConfigura == null)
+                    {
+                        getProductosConfigura = new List<BETablaLogicaDatos>();
+                        using (SACServiceClient sv = new SACServiceClient())
+                        {
+                            getProductosConfigura = sv.GetTablaLogicaDatos(userData.PaisID, id).ToList();
+                        }
+                        getProductosConfigura = getProductosConfigura ?? new List<BETablaLogicaDatos>();
+                        Session[Constantes.ConstSession.TablaLogicaDatos + id.ToString()] = getProductosConfigura;
+                    }
+
+                    if (getProductosConfigura.Any())
+                    {
+                        var valida = getProductosConfigura.Find(d => d.TablaLogicaDatosID == 9802) ?? new BETablaLogicaDatos();
+                        if (Convert.ToInt32(valida.Codigo) <= entidad.CampaniaID)
+                        {
+                            using (WsGestionWeb sv = new WsGestionWeb())
+                            {
+                                respuestaServiceCdr = sv.GetEstrategiaProducto(entidad.CampaniaID.ToString(), userData.CodigoConsultora, entidad.CUV2, userData.CodigoISO).ToList();
+                            }
+
+                            respuestaServiceCdr = respuestaServiceCdr ?? new List<RptProductoEstrategia>();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    respuestaServiceCdr = new List<RptProductoEstrategia>();
+                }
+            }
+
+            return respuestaServiceCdr;
+        }
+
+        private void SetTieneVariedad(RegistrarEstrategiaModel model, BEEstrategia entidad, List<RptProductoEstrategia> respuestaServiceCdr)
+        {
+            if (respuestaServiceCdr.Any())
+            {
+                entidad.CodigoEstrategia = respuestaServiceCdr[0].codigo_estrategia;
+                if (entidad.CodigoEstrategia == "2001")
+                {
+                    var listaHermanosE = new List<BEProducto>();
+                    using (ODSServiceClient svc = new ODSServiceClient())
+                    {
+                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, entidad.CUV1).ToList();
+                    }
+                    listaHermanosE = listaHermanosE ?? new List<BEProducto>();
+                    entidad.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                }
+                else if (entidad.CodigoEstrategia == "2003")
+                {
+                    entidad.TieneVariedad = 1;
+                }
+            }
+        }
+
+        private void InsertarEstrategiaPorNumeroPedido(RegistrarEstrategiaModel model, BEEstrategia entidad)
+        {
+            if (string.IsNullOrEmpty(model.NumeroPedido))
+                model.NumeroPedido = "0";
+
+            List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
+            BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
+            foreach (int item in NumeroPedidosAsociados) /*R20160301*/
+            {
+                entidad.NumeroPedido = item;
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    if (entidad.CodigoTipoEstrategia != null)
+                    {
+                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        {
+                            estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+                        }
+                        if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        {
+                            entidad = verficarArchivos(entidad, estrategiaDetalle);
+                        }
+                    }
+                    entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+
+                }
+            }
+        }
+
+        private void InsertarEstrategiaProducto(BEEstrategia entidad, List<RptProductoEstrategia> respuestaServiceCdr)
+        {
+            foreach (var producto in respuestaServiceCdr)
+            {
+                var entidadPro = new BEEstrategiaProducto();
+                entidadPro.PaisID = entidad.PaisID;
+                entidadPro.EstrategiaID = entidad.EstrategiaID;
+                entidadPro.Campania = entidad.CampaniaID;
+                entidadPro.CUV = producto.cuv;
+                entidadPro.Grupo = producto.grupo;
+                entidadPro.Orden = producto.orden;
+                entidadPro.CUV2 = entidad.CUV2;
+                entidadPro.SAP = producto.codigo_sap;
+                entidadPro.Cantidad = producto.cantidad;
+                entidadPro.Precio = producto.precio_unitario;
+                entidadPro.PrecioValorizado = producto.precio_valorizado;
+                entidadPro.Digitable = producto.digitable;
+                entidadPro.CodigoEstrategia = producto.codigo_estrategia;
+                entidadPro.CodigoError = producto.codigo_error;
+                entidadPro.CodigoErrorObs = producto.obs_error;
+
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
+                }
             }
         }
 

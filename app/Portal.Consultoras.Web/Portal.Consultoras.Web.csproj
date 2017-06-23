@@ -268,6 +268,7 @@
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
+    <Compile Include="Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
@@ -2751,6 +2752,7 @@
     <Content Include="Content\Images\PL20\fondo_oferta.jpg" />
     <Content Include="Content\Images\PL20\fondo_pop.png" />
     <Content Include="Content\Images\PL20\fondo_triangular.png" />
+    <Content Include="Content\Images\PL20\icono_agregar.png" />
     <Content Include="Content\Images\PL20\icono_cupon.png" />
     <Content Include="Content\Images\PL20\icono_pop_up_cupon.png" />
     <Content Include="Content\Images\PL20\left_compra.png" />
@@ -4076,6 +4078,7 @@
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo6.cshtml" />
     <Content Include="Views\Bienvenida\template-mas-vendidos-mobile.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCargaCuponConsultora.cshtml" />
+    <Content Include="Views\EstrategiaProducto\DetalleProducto.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
