@@ -3813,6 +3813,10 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
+    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
