@@ -18,15 +18,15 @@ $(document).ready(function () {
         }
     });
 
-    $("#txtClienteNombre").css("background-image", "url('" + urlImagenListaCliente + "')")
+    $("#txtClienteNombre").css("background-image", "url('" + urlImagenListaCliente + "')");
     $('#txtClienteNombre').autocomplete({
         minLength: 0,
         autoFocus: true,
         open: function (event, ui) {
-            $('#txtClienteNombre').attr("placeholder", "Buscar...")
+            $('#txtClienteNombre').attr("placeholder", "Buscar...");
         },
         close: function (event, ui) {
-            $('#txtClienteNombre').attr("placeholder", "Cliente")
+            $('#txtClienteNombre').attr("placeholder", "Cliente");
         },
         focus: function (event, ui) {
             if (AutocompleteLastLI != null) AutocompleteLastLI.removeClass("ui-state-focus");
