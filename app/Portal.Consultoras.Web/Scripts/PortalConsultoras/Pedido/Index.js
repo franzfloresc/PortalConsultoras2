@@ -850,11 +850,24 @@ function InsertarProducto(form) {
                         }
                     }
                 });
-            } else {
-                AbrirMensaje(response.message);
             }
+            else {
+                var errorCliente = response.errorCliente || false;
+                if (!errorCliente) {
+                    AbrirMensaje(response.message);
+                }
+                else {
+                    messageInfoError(response.message, null, function () {
+                        showClienteDetalle(currentClienteCreate, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
 
-
+                            currentInputEdit.blur();
+                        });
+                    });
+                }
+            }
 
             PedidoOnSuccess();
 
@@ -864,7 +877,7 @@ function InsertarProducto(form) {
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
                 //console.error(xh);
-        }
+          }
         }
     });
 }
