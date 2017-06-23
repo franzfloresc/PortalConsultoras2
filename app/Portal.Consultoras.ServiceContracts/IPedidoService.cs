@@ -1147,7 +1147,7 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
 
         [OperationContract]
-        int AprobarProductoComentario(int paisID, int prodComentarioId, long prodComentarioResumenId);
+        int AprobarProductoComentario(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
     }
 }

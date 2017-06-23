@@ -529,17 +529,17 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    if (entidad.ProdComentarioResumenId == 0)
+                    if (entidad.ProdComentarioId == 0)
                     {
-                        BEProductoComentarioResumen oProdComentario = new BEProductoComentarioResumen();
+                        BEProductoComentario oProdComentario = new BEProductoComentario();
                         oProdComentario.CodigoSAP = entidad.CodigoSAP;
                         oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
-                        entidad.ProdComentarioResumenId = DAEstrategia.InsertarProductoComentario(oProdComentario);
+                        entidad.ProdComentarioId = DAEstrategia.InsertarProductoComentario(oProdComentario);
                     }
 
                     result = DAEstrategia.InsertarProductoComentarioDetalle(entidad);
 
-                    DAEstrategia.UpdTotalProductoComentario(entidad.ProdComentarioResumenId);
+                    DAEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
 
                     oTransactionScope.Complete();
                 }
@@ -553,16 +553,16 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public int AprobarProductoComentarioDetalle(int paisID, int prodComentarioId, long prodComentarioDetalleId)
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             var DAEstrategia = new DAEstrategia(paisID);
             int result;
 
             try
             {
-                result = DAEstrategia.AprobarProductoComentarioDetalle(prodComentarioDetalleId);
+                result = DAEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
 
-                DAEstrategia.UpdAprobadosProductoComentario(prodComentarioId);
+                DAEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
             }
 
             catch (Exception)

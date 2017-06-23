@@ -6,10 +6,10 @@ using Portal.Consultoras.Common;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEProductoComentarioResumen
+    public class BEProductoComentario
     {
         [DataMember]
-        public int ProdComentarioResumenId { get; set; }
+        public int ProdComentarioId { get; set; }
 
         [DataMember]
         public string CodigoSAP { get; set; }
@@ -24,15 +24,18 @@ namespace Portal.Consultoras.Entities
         public int CantAprobados { get; set; }
 
         [DataMember]
+        public int CantRecomendados { get; set; }
+
+        [DataMember]
         public DateTime FechaRegistro { get; set; }
 
-        public BEProductoComentarioResumen()
+        public BEProductoComentario()
         { }
 
-        public BEProductoComentarioResumen(IDataRecord row)
+        public BEProductoComentario(IDataRecord row)
         {
-            if (row.HasColumn("ProdComentarioResumenId"))
-                ProdComentarioResumenId = Convert.ToInt32(row["ProdComentarioResumenId"]);
+            if (row.HasColumn("ProdComentarioId"))
+                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
 
             if (row.HasColumn("CodigoSAP"))
                 CodigoSAP = Convert.ToString(row["CodigoSAP"]);
@@ -45,6 +48,9 @@ namespace Portal.Consultoras.Entities
 
             if (row.HasColumn("CantAprobados"))
                 CantAprobados = Convert.ToInt32(row["CantAprobados"]);
+
+            if (row.HasColumn("CantRecomendados"))
+                CantRecomendados = Convert.ToInt32(row["CantRecomendados"]);
 
             if (row.HasColumn("FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);

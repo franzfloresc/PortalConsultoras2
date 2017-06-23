@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Data
         }
 
 
-        public int InsertarProductoComentario(BEProductoComentarioResumen entidad)
+        public int InsertarProductoComentario(BEProductoComentario entidad)
         {
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertProductoComentario"))
@@ -435,7 +435,7 @@ namespace Portal.Consultoras.Data
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertProductoComentarioDetalle"))
             {
-                Context.Database.AddInParameter(command, "@ProdComentarioResumenId", DbType.Int64, entidad.ProdComentarioResumenId);
+                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int64, entidad.ProdComentarioId);
                 Context.Database.AddInParameter(command, "@Valorizado", DbType.Int16, entidad.Valorizado);
                 Context.Database.AddInParameter(command, "@Comentario", DbType.String, entidad.Comentario);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
@@ -447,20 +447,29 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetProductoComentarioResumenByCodSap(string codigoSAP)
+        public IDataReader GetProductoComentarioByCodSap(string codigoSAP)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioResumenByCodSap"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
             {
                 Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
                 return Context.ExecuteReader(command);
             }
         }
 
-        public bool UpdTotalProductoComentario(int prodComentarioResumenId)
+        public IDataReader GetListaProductoComentarioDetalle(string codigoSAP)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdTotalProductoComentarioResumen"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalle"))
             {
-                Context.Database.AddInParameter(command, "@ProdComentarioResumenId", DbType.Int32, prodComentarioResumenId);
+                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public bool UpdCantidadProductoComentario(int prodComentarioId)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadProductoComentario"))
+            {
+                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
                 return true;
             }
         }
@@ -476,11 +485,12 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public bool UpdAprobadosProductoComentario(int prodComentarioResumenId)
+        public bool UpdAprobadosProductoComentario(int prodComentarioId, bool esRecomendado)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAprobadosProductoComentarioResumen"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAprobadosProductoComentario"))
             {
-                Context.Database.AddInParameter(command, "@ProdComentarioResumenId", DbType.Int32, prodComentarioResumenId);
+                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
+                Context.Database.AddInParameter(command, "@EsRecomendado", DbType.Boolean, esRecomendado);
                 return true;
             }
         }

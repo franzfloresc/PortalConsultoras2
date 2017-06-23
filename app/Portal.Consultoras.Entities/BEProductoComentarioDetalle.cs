@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Entities
         public long ProdComentarioDetalleId { get; set; }
 
         [DataMember]
-        public int ProdComentarioResumenId { get; set; }
+        public int ProdComentarioId { get; set; }
 
         [DataMember]
         public Int16 Valorizado { get; set; }
@@ -55,8 +55,8 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("ProdComentarioDetalleId"))
                 ProdComentarioDetalleId = Convert.ToInt64(row["ProdComentarioDetalleId"]);
 
-            if (row.HasColumn("ProdComentarioResumenId"))
-                ProdComentarioResumenId = Convert.ToInt32(row["ProdComentarioResumenId"]);
+            if (row.HasColumn("ProdComentarioId"))
+                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
 
             if (row.HasColumn("Valorizado"))
                 Valorizado = Convert.ToInt16(row["Valorizado"]);

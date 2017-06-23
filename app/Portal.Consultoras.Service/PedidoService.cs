@@ -2085,9 +2085,9 @@ namespace Portal.Consultoras.Service
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
 
-        public int AprobarProductoComentario(int paisID, int prodComentarioId, long prodComentarioDetalleId)
+        public int AprobarProductoComentario(int paisID, BEProductoComentarioDetalle entidad)
         {
-            return blEstrategia.AprobarProductoComentarioDetalle(paisID, prodComentarioId, prodComentarioDetalleId);
+            return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
         #endregion
     }
