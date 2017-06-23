@@ -7,7 +7,6 @@
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
-
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
@@ -18,6 +17,7 @@
         }
     </style>
 }
+
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
@@ -30,7 +30,24 @@
             }
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
-                <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                @Html.Hidden("txtClienteId", Model.ClienteId)
+                @if (ViewBag.MobileApp)
+                { 
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+                }
+                else
+                {
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
+                }
+                @*@if (string.IsNullOrEmpty(Model.Nombre))
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo",  @disabled = "disabled" })
+                }*@
+                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>
@@ -89,8 +106,8 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div class="contenedor_seleccionCliente">
-                        @if (string.IsNullOrEmpty(Model.Nombre))
+                    @*<div class="contenedor_seleccionCliente">*@
+                        @*@if (string.IsNullOrEmpty(Model.Nombre))
                         {
                             @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                             <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
@@ -100,12 +117,12 @@
                         else
                         {
                             @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
-                        }
+                        }*@
                         @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                         <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
                         </a>*@
-                    </div>
+                    @*</div>*@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
@@ -233,6 +250,18 @@
 
     <!--INICIO CARRUSEL-->
     <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+        <div class="row contenedorCupon" id="">
+            <div class="label_cupon contenedorCuponConocelo">
+                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
+                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+            </div>
+            <div class="label_cupon contenedorCuponInfo">
+                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
+                <div class="texto_cupon">
+                    Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+                </div>
+            </div>
+        </div>
         <div class="titulo_ofertas_home">
             OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
             <div class="texto_exclusivo">
@@ -412,8 +441,8 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -574,9 +603,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -694,6 +723,10 @@
     </div>
 </script>
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -744,7 +777,22 @@
 
     var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
     var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+    var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
+
+    var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon  = 21;
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+    var tipoOrigenEstrategia = 21;
+    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
     </script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

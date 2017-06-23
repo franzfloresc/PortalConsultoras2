@@ -39,7 +39,7 @@ $(document).ready(function () {
 
             if ($('[data-popup-main]').is(':visible')) {
                 var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
                 CerrarPopup('[data-popup-main]');
             }
 
@@ -75,7 +75,7 @@ $(document).ready(function () {
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).is(':visible')) {
                 var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
                 CerrarPopup(e.target);
             }
         }
@@ -87,7 +87,7 @@ $(document).ready(function () {
             if ($(e.target).is(':visible')) {
 
                 var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
 
                 CerrarPopup(e.target);
             }
@@ -99,7 +99,7 @@ $(document).ready(function () {
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        FunccionEjecutar(functionHide);
+        FuncionEjecutar(functionHide);
 
         CerrarPopup(popupClose);
     });
@@ -1026,7 +1026,7 @@ function agregarProductoAlCarrito(o) {
         imagenProducto = $('.imagen_producto', $(o).parents("[data-item]"));
     }
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
 
         $.each(carrito, function (indC, car) {
             if ($(car).offset().left > 0) {
@@ -1042,8 +1042,8 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -1125,3 +1125,24 @@ function messageConfirmacion(title, message, fnAceptar) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
     }
 }
+         
+function closeOfertaDelDia() {    
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success)
+            {
+                $('#OfertaDelDia').hide();
+                LayoutHeader();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+

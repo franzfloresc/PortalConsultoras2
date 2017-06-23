@@ -89,14 +89,14 @@
 
         if (listaSubCampania != null && listaSubCampania.Count > 0)
         {
-            var precioOferta = listaSubCampania[0].PrecioOferta;
+            var precioOferta = listaSubCampania[0].FormatoPrecioOferta;
             var descripcion = listaSubCampania[0].Descripcion;
             if (descripcion != null && descripcion.Length > 41)
             {
                 descripcion = descripcion.Substring(0, 40) + " ...";
             }
 
-            <div class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania">
+            <div class="banner_especial_showroom" style="background: @Model.ColorFondoContenidoOfertaSubCampania;display:none">
                 <div id="CerrarOfertaEspecial"> <button type="button" class="CerrarOfertaEspecial"> X</button> </div>
                 <div class="promocion_especial_header">
                     <div class="titulo_promocion_showroom" style="background: url(@Model.ImagenFondoTituloOfertaSubCampania) no-repeat right top">
@@ -140,7 +140,7 @@
                     descripcion = descripcion.Substring(0, 40) + " ...";
                 }
 
-                <div class="content_banner_compra" id="divBannerCompraPorCompra">
+                <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;">
                     <div class="titulo_promocion">PROMOCIÓN</div>
                     <div class="content_interno_banner">
                         <div style="width: 65%; margin: 0 auto;">

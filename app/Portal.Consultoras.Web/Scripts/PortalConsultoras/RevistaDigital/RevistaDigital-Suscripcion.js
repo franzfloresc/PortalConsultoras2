@@ -15,7 +15,7 @@ function RDPopupCerrar(tipo) {
     CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
     
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'RevistaDigital/PopupCerrar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -34,7 +34,7 @@ function RDSuscripcion() {
     AbrirLoad();
     InscripcionRDAnalytics();
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'RevistaDigital/Suscripcion',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -66,7 +66,7 @@ function RDDesuscripcion() {
     AbrirLoad();
     CancelarSuscripcionRDAnalytics();
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'RevistaDigital/Desuscripcion',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -76,7 +76,12 @@ function RDDesuscripcion() {
                 return false;
 
             if (data.success == true) {
-                location.href = "/";
+                //location.href = "/";
+                $('#divAnularSuscripcion').hide();
+                $('#divMensajeAnularSuscripcion').show();
+                $('html, body').animate({
+                    scrollTop: $(window).scrollTop() - 200
+                }, 1000, 'swing');
             }
         },
         error: function (data, error) {
@@ -91,7 +96,7 @@ function RDPopupNoVolverMostrar() {
     CerrarPopup("#PopRDSuscripcion");
     AbrirLoad();
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'RevistaDigital/PopupNoVolverMostrar',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -154,7 +159,7 @@ function InscripcionRDAnalytics() {
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
-            'promoView': {
+            'promoClick': {
                 'promotions': [
                     {
                         'id': '1',

@@ -1,121 +1,184 @@
 ﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Configuration;
+using System.Data;
+using System.Data.Common;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 using Portal.Consultoras.Entities;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
-    public class DAClienteDB
+    public class DAClienteDB : DataAccess
     {
-        private HttpClient httpClient = null;
-        private string requestUri = "api/Cliente";
-        private BEAPISB2Response beAPISB2Response;
-        private string ServiceResponse_SUCCESS = "0000";
-
         public DAClienteDB()
+            : base(EDbSource.Cliente)
         {
-            httpClient = new HttpClient();
-            string baseAddress = ConfigurationManager.AppSettings["UrlApiSB2"];
-            httpClient.BaseAddress = new Uri(baseAddress);
-            httpClient.DefaultRequestHeaders.Accept.Clear();
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            beAPISB2Response = new BEAPISB2Response();
-        }
-        ~DAClienteDB()
-        {
-            GC.SuppressFinalize(httpClient);
         }
 
-        public List<BEClienteDB> GetClienteByClienteID(string Clientes)
-        {
-            List<BEClienteDB> result = new List<BEClienteDB>();
-
-            string getRequestUri = string.Format("{0}?Clientes={1}", requestUri, Clientes);
-            HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var strResult = response.Content.ReadAsStringAsync().Result;
-                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEClienteDB>>();
-            }
-
-            return result;
-        }
-
-        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
-        {
-            List<BEClienteDB> result = new List<BEClienteDB>();
-
-            string getRequestUri = string.Format("{0}?TipoContactoID={1}&Valor={2}", requestUri, TipoContactoID, Valor);
-            HttpResponseMessage response = httpClient.GetAsync(getRequestUri).GetAwaiter().GetResult();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var strResult = response.Content.ReadAsStringAsync().Result;
-                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = ((Newtonsoft.Json.Linq.JArray)beAPISB2Response.Respuesta).ToObject<List<BEClienteDB>>();
-            }
-
-            return result;
-        }
-
+        #region Cliente
         public long InsertCliente(BEClienteDB cliente)
         {
-            long result = 0;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertCliente");
 
-            HttpContent contentPost = new StringContent(JsonConvert.SerializeObject(cliente), System.Text.Encoding.UTF8, "application/json");
+            Context.Database.AddInParameter(command, "@Apellidos", DbType.String, cliente.Apellidos);
+            Context.Database.AddInParameter(command, "@Nombres", DbType.String, cliente.Nombres);
+            Context.Database.AddInParameter(command, "@Alias", DbType.String, cliente.Alias);
+            Context.Database.AddInParameter(command, "@Foto", DbType.String, cliente.Foto);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.String, cliente.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Sexo", DbType.String, cliente.Sexo);
+            Context.Database.AddInParameter(command, "@Documento", DbType.String, cliente.Documento);
+            Context.Database.AddInParameter(command, "@Origen", DbType.String, cliente.Origen);
 
-            HttpResponseMessage response = httpClient.PostAsync(requestUri, contentPost).GetAwaiter().GetResult();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var strResult = response.Content.ReadAsStringAsync().Result;
-                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (long)beAPISB2Response.Respuesta;
-            }
-
-            return result;
+            return Convert.ToInt64(Context.ExecuteScalar(command));
         }
 
         public bool UpdateCliente(BEClienteDB cliente)
         {
-            bool result = false;
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateCliente");
 
-            HttpContent contentPost = new StringContent(JsonConvert.SerializeObject(cliente), System.Text.Encoding.UTF8, "application/json");
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, cliente.ClienteID);
+            Context.Database.AddInParameter(command, "@Apellidos", DbType.String, cliente.Apellidos);
+            Context.Database.AddInParameter(command, "@Nombres", DbType.String, cliente.Nombres);
+            Context.Database.AddInParameter(command, "@Alias", DbType.String, cliente.Alias);
+            Context.Database.AddInParameter(command, "@Foto", DbType.String, cliente.Foto);
+            Context.Database.AddInParameter(command, "@FechaNacimiento", DbType.String, cliente.FechaNacimiento);
+            Context.Database.AddInParameter(command, "@Sexo", DbType.String, cliente.Sexo);
+            Context.Database.AddInParameter(command, "@Documento", DbType.String, cliente.Documento);
+            Context.Database.AddInParameter(command, "@Origen", DbType.String, cliente.Origen);
 
-            HttpResponseMessage response = httpClient.PutAsync(requestUri, contentPost).GetAwaiter().GetResult();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var strResult = response.Content.ReadAsStringAsync().Result;
-                beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-                if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
-            }
-
-            return result;
+            return Context.ExecuteNonQuery(command) > 0;
         }
 
-        //public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
-        //{
-        //    bool result = false;
+        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
+        {
+            var list = new List<BEClienteDB>();
 
-        //    string deleteRequestUri = string.Format("{0}/Delete/contactoCliente?ContactoClienteID={1}&ClienteID={2}&TipoContactoID={3}&Valor={4}", requestUri, contactoCliente.ContactoClienteID, contactoCliente.ClienteID, contactoCliente.TipoContactoID, contactoCliente.Valor);
-        //    HttpResponseMessage response = httpClient.DeleteAsync(deleteRequestUri).GetAwaiter().GetResult();
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCliente");
 
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        var strResult = response.Content.ReadAsStringAsync().Result;
-        //        beAPISB2Response = JsonConvert.DeserializeObject<BEAPISB2Response>(strResult);
-        //        if (beAPISB2Response.Codigo == ServiceResponse_SUCCESS) result = (bool)beAPISB2Response.Respuesta;
-        //    }
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, TipoContactoID);
+            Context.Database.AddInParameter(command, "@Valor", DbType.String, Valor);
 
-        //    return result;
-        //}
+            using (var reader = Context.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    var entity = new BEClienteDB
+                    {
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
+                        Apellidos = GetDataValue<string>(reader, "Apellidos"),
+                        Nombres = GetDataValue<string>(reader, "Nombres"),
+                        Alias = GetDataValue<string>(reader, "Alias"),
+                        Foto = GetDataValue<string>(reader, "Foto"),
+                        FechaNacimiento = GetDataValue<string>(reader, "FechaNacimiento"),
+                        Sexo = GetDataValue<string>(reader, "Sexo"),
+                        Documento = GetDataValue<string>(reader, "Documento"),
+                        Origen = GetDataValue<string>(reader, "Origen"),
+                    };
+
+                    list.Add(entity);
+                }
+            }
+
+            return list;
+        }
+
+        public List<BEClienteContactoDB> GetClienteByClienteID(string Clientes)
+        {
+            var list = new List<BEClienteContactoDB>();
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByClienteID");
+
+            Context.Database.AddInParameter(command, "@Clientes", DbType.String, Clientes);
+
+            using (var reader = Context.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    var entity = new BEClienteContactoDB
+                    {
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
+                        Apellidos = GetDataValue<string>(reader, "Apellidos"),
+                        Nombres = GetDataValue<string>(reader, "Nombres"),
+                        Alias = GetDataValue<string>(reader, "Alias"),
+                        Foto = GetDataValue<string>(reader, "Foto"),
+                        FechaNacimiento = GetDataValue<string>(reader, "FechaNacimiento"),
+                        Sexo = GetDataValue<string>(reader, "Sexo"),
+                        Documento = GetDataValue<string>(reader, "Documento"),
+                        Origen = GetDataValue<string>(reader, "Origen"),
+
+                        ContactoClienteID = GetDataValue<long>(reader, "ContactoClienteID"),
+                        TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
+                        Valor = GetDataValue<string>(reader, "Valor")
+                    };
+
+                    list.Add(entity);
+                }
+            }
+
+            return list;
+        }
+        #endregion
+
+        #region Contacto
+        public bool InsertContactoCliente(BEClienteContactoDB contactoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertContactoCliente");
+
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
+            Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public bool UpdateContactoCliente(BEClienteContactoDB contactoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateContactoCliente");
+
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
+            Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteContactoCliente");
+
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public List<BEClienteContactoDB> GetContactoCliente(BEClienteContactoDB contactoCliente)
+        {
+            var list = new List<BEClienteContactoDB>();
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetContactoCliente");
+
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
+
+            using (var reader = Context.ExecuteReader(command))
+            {
+                while (reader.Read())
+                {
+                    var entity = new BEClienteContactoDB
+                    {
+                        TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
+                        Valor = GetDataValue<string>(reader, "Valor")
+                    };
+
+                    list.Add(entity);
+                }
+            }
+
+            return list;
+        }
+        #endregion
     }
 }

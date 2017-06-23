@@ -471,7 +471,9 @@
 
             var params = {
                 EstrategiasActivas: estrategiasSeleccionadas.join(','),
-                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(',')
+                EstrategiasDesactivas: estrategiasNoSeleccionadas.join(','),
+                campaniaID: $("#ddlCampania").val(),
+                tipoEstrategiaCod: $('#ddlTipoEstrategia :selected').data('codigo')
             };
 
             jQuery.ajax({
@@ -499,7 +501,7 @@
             $("#btnActivarDesactivar").hide();
             $("#btnNuevoMasivo").hide();
             //if (aux1 == "001" || aux1 == "005" || aux1 == "007" || aux1 == "008")
-            if (aux1 == "4" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
+            if (aux1 == "4" || aux1 == "7" || aux2 == "005" || aux2 == "007" || aux2 == "008" ) {
                 $("#btnActivarDesactivar").show();
                 $("#btnNuevoMasivo").show();
             }
@@ -794,7 +796,7 @@
                 return false;
             } else {
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4 && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11) {
+                if (estrategiaId !== 4  && estrategiaId !== 9 && estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7) {
                     alert("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
@@ -969,6 +971,7 @@
                 data: JSON.stringify(params),
                 async: true,
                 success: function (data) {
+                    
                     var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
                     $('#mensajeErrorCUV').val("");
 
@@ -977,20 +980,20 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                         }
                         else if (data.wsprecio == 0) {
                             if (data.precio == 0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                             else {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
+                                //$("#txtPrecio2")[0].disabled = true;
                             }
                         }
                         else if (data.wsprecio == -1) {
-                            $("#txtPrecio2")[0].disabled = true;
+                            //$("#txtPrecio2")[0].disabled = true;
                             alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
                         }
                         else if (data.wsprecio == -2) {
@@ -1041,7 +1044,7 @@
                         $("#txtPrecio").val("");
                         $("#txtCUV").val("");
 
-                        for (var i = 1; i <= nroImagenes; i++) {
+                        /*for (var i = 1; i <= nroImagenes; i++) {
                             idImagen = ('0' + i).substr(-2);
                             objPreview = $('#preview' + i);
                             objChkImagen = $('#chkImagenProducto' + idImagen);
@@ -1056,7 +1059,7 @@
                                 objChkImagen.attr('disabled', true);
                             }
                             objChkImagen.attr('checked', false);
-                        }
+                        }*/
 
                         closeWaitingDialog();
                     }
@@ -1414,7 +1417,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == '4' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
+            multiselect: (tipo == '4' || tipo == '7' || codigo == "005" || codigo == "007" || codigo == "008") ? true : false,
             colNames: ['EstrategiaID', 'Orden', '#', 'Pedido Asociado', 'Precio', 'CUV2', 'Descripción', 'Limite Venta', 'Código SAP', 'ImagenURL', 'Foto', ''],
             colModel: [
                 { name: 'EstrategiaID', index: 'EstrategiaID', width: 20, editable: true, resizable: false, hidden: true },
@@ -1524,9 +1527,9 @@
     }
 
     function ShowActions(cellvalue, options, rowObject) {
-        var cellValueInt = parseInt(rowObject[10]);
+      
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenEdit + "' alt='Editar Estrategia' title='Editar Estrategia' border='0' /></a>";
-        if (cellValueInt == "1") {
+        if (rowObject[10] == "1") {
             Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "',event);\" >" + "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Estrategia' title='Deshabilitar Estrategia' border='0' /></a>";
         }
         return Des;
@@ -1826,7 +1829,6 @@
                             return false;
                         }
                     }
-
                     if ($("#hdZonas").val() == "") {
                         alert("Debe seleccionar el alcance de la estrategia.");
                         return false;
@@ -1959,7 +1961,8 @@
                         ImgFichaMobile: imgFichaMobile,
                         UrlVideoMobile: urlVideoMobile,
                         ImgFichaFondoDesktop: imgFichaFondoDesktop,
-                        ImgFichaFondoMobile: imgFichaFondoMobile
+                        ImgFichaFondoMobile: imgFichaFondoMobile,
+                        PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
                     };
                     jQuery.ajax({
                         type: 'POST',

@@ -1391,5 +1391,10 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoFacturado.UpdateClientePedidoFacturado(paisID, codigoPedido, ClienteID);
         }
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
+        {
+            return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
+
+        }
     }
 }

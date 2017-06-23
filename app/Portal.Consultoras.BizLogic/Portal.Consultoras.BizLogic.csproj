@@ -87,6 +87,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLClienteDB.cs" />
+    <Compile Include="BLCuponConsultora.cs" />
     <Compile Include="BLConfiguracionPais.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />

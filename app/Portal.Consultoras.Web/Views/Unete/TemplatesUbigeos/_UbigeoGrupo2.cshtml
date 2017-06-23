@@ -4,7 +4,7 @@
 
 @* Template para México *@
 
-@*<div class="div-3">
+<div class="div-3">
 
         <div class="selectP2 seleccion_pagina textboxSB2">
             @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1, Dictionaries.LabelLugar1[Model.CodigoPais], new { @class = "field_85 textboxSB" })
@@ -75,10 +75,10 @@
         <div class="validation">
             @Html.ValidationMessageFor(m => Model.Numero)
         </div>
-    </div>*@
+    </div>
 
 
-<div class="contenedor_camposUbigeo">
+@*<div class="contenedor_camposUbigeo">
     <label>@Dictionaries.LabelLugar1[Model.CodigoPais]:</label>
     <div class="contenedor_campoFormulario">
         @Html.DropDownListFor(m => Model.LugarNivel1, Model.LugaresNivel1)
@@ -227,7 +227,7 @@
 
     $('#btnGrabarDireccion').click(function () {
         
-        if ($('#form0').valid()) {
+        if ($('#formTemplate').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
             $('#btnCancelarEdicion').hide();
@@ -238,7 +238,7 @@
             $('#btnEditarPosicion').attr('disabled', false);
             $('#btnGuardarPosicion').attr('disabled', false);
             $('#btnActualizarSeccion').attr('disabled', false);
-            HabilitarDatosDireccion(0);
+            //HabilitarDatosDireccion(0);
         }
     });
 
@@ -285,5 +285,4 @@
 
         });
     });
-    //# sourceURL===_Ubigeogrupo3.cshtml
-</script>
+</script>*@

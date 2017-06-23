@@ -52,9 +52,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Binaries\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="OpenSource.Library.DataAccess">
       <HintPath>..\Binaries\OpenSource.Library.DataAccess.dll</HintPath>
     </Reference>
@@ -66,7 +63,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Services" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,12 +84,12 @@
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
+    <Compile Include="DAClienteDB.cs" />
     <Compile Include="DACalculoPROL.cs" />
     <Compile Include="DABotmakerApiLog.cs" />
     <Compile Include="DAConcurso.cs" />
     <Compile Include="DAPalabraInvalida.cs" />
     <Compile Include="DAProductoPalabra.cs" />
-    <Compile Include="DAClienteDB.cs" />
     <Compile Include="DAComunicado.cs" />
     <Compile Include="DAConfiguracionPais.cs" />
     <Compile Include="DAConfiguracionPaisDetalle.cs" />
@@ -110,6 +106,7 @@
     <Compile Include="DAContratoAceptacion.cs" />
     <Compile Include="DACrossSelling.cs" />
     <Compile Include="DACrossSellingProducto.cs" />
+    <Compile Include="DACuponConsultora.cs" />
     <Compile Include="DACuv.cs" />
     <Compile Include="DAEscalaDescuento.cs" />
     <Compile Include="DAEstadoCuenta.cs" />

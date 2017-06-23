@@ -17,6 +17,6 @@
 
         public bool EsAppMobile { get; set; }
 
-        public long ClienteID { get; set; }
+        public int ClienteID { get; set; }
     }
 }

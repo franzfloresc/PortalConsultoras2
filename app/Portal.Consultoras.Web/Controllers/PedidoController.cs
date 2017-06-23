@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -412,6 +413,17 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
+
+                model.CampaniaActual = userData.CampaniaID;
+                model.Simbolo = userData.Simbolo;
+                #region Cupon
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo;
+                #endregion
+                ViewBag.paisISO = userData.CodigoISO;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             }
             catch (FaultException ex)
@@ -4029,9 +4041,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
+                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -4070,7 +4082,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.Simbolo = userData.Simbolo;
+                model.Simbolo = userData.Simbolo;                
 
                 return Json(new
                 {

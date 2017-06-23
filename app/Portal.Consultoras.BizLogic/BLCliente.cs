@@ -159,18 +159,18 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Recordatorio
-        public bool RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             var daCliente = new DACliente(paisId);
             return daCliente.RecordatorioInsertar(recordatorio);
         }
 
-        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, short clienteId, long consultoraId)
+        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long consultoraId)
         {
             var recordatorios = new List<BEClienteRecordatorio>();
             var daCliente = new DACliente(paisId);
 
-            using (IDataReader reader = daCliente.RecordatorioObtener(clienteId, consultoraId))
+            using (IDataReader reader = daCliente.RecordatorioObtener(consultoraId))
                 while (reader.Read())
                 {
                     var recordatorio = new BEClienteRecordatorio(reader);
@@ -186,10 +186,46 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.RecordatorioActualizar(recordatorio);
         }
 
-        public bool RecordatorioEliminar(int paisId, short codigoCliente, long consultoraId, int recordatorioId)
+        public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
         {
             var daCliente = new DACliente(paisId);
-            return daCliente.RecordatorioEliminar(codigoCliente, consultoraId, recordatorioId);
+            return daCliente.RecordatorioEliminar(clienteId, consultoraId, recordatorioId);
+        }
+
+        #endregion
+
+        #region Notas
+        public long NotaInsertar(int paisId, BENota nota)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.NotaInsertar(nota);
+        }
+
+        public List<BENota> NotaListar(int paisId, long consultoraId)
+        {
+            var notas = new List<BENota>();
+            var daCliente = new DACliente(paisId);
+
+            using (IDataReader reader = daCliente.NotaObtener(consultoraId))
+                while (reader.Read())
+                {
+                    var nota = new BENota(reader);
+                    notas.Add(nota);
+                }
+
+            return notas;
+        }
+
+        public bool NotaActualizar(int paisId, BENota nota)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.NotaActualizar(nota);
+        }
+
+        public bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        {
+            var daCliente = new DACliente(paisId);
+            return daCliente.NotaEliminar(clienteId, consultoraId, clienteNotaId);
         }
 
         #endregion
@@ -199,7 +235,7 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEClienteResponse> lstResponse = new List<BEClienteResponse>();
             var daCliente = new DACliente(paisID);
-            var daClienteDB = new DAClienteDB();
+            var daClienteDB = new BLClienteDB();
             var clienteSB = new BECliente();
 
             foreach (var clienteDB in clientes)
@@ -332,7 +368,23 @@ namespace Portal.Consultoras.BizLogic
                     var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
                     clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
 
-                    if (clienteDB.ClienteIDSB == 0) clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
+                    if (clienteDB.ClienteIDSB == 0)
+                    {
+                        clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
+
+                        foreach (var nota in clienteDB.Notas)
+                        {
+                            var notaId = NotaInsertar(paisID, new BENota
+                            {
+                                ClienteId = (short)clienteDB.ClienteIDSB,
+                                ConsultoraId = clienteDB.ConsultoraID,
+                                Descripcion = nota.Descripcion,
+                                Fecha = nota.Fecha
+                            });
+
+                            clienteDB.Notas.Concat(new[] { new BENota { ClienteNotaId = notaId } });
+                        }
+                    }
                     else daCliente.UpdCliente(clienteSB);
                 }
                 else
@@ -356,10 +408,12 @@ namespace Portal.Consultoras.BizLogic
                     ClienteID = clienteDB.ClienteID,
                     ConsultoraID = clienteDB.ConsultoraID,
                     ClienteIDSB = clienteDB.ClienteIDSB,
+                    Notas = clienteDB.Notas,
                     CodigoRespuesta = Constantes.ClienteValidacion.Code.SUCCESS,
                     MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS]
                 });
             }
+
 
             return lstResponse;
         }
@@ -367,17 +421,21 @@ namespace Portal.Consultoras.BizLogic
         public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
-            var daClienteDB = new DAClienteDB();
+            var daClienteDB = new BLClienteDB();
 
             //1. OBTENER CLIENTE CONSULTORA
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
-            lstConsultoraCliente.ToList()
-                .ForEach(c =>
-                    c.Recordatorios = RecordatorioListar(paisID, (short)c.ClienteID, consultoraID));//todo: optimizar
+
+            var recordatorios = RecordatorioListar(paisID, consultoraID);
+            var notas = NotaListar(paisID, consultoraID);
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
             var lstCliente = daClienteDB.GetClienteByClienteID(strclientes);
+            //var taskCliente = daClienteDB.GetClienteByClienteID(strclientes);
+            //Task.WaitAll(taskCliente);
+
+            //var lstCliente = taskCliente.Result;
 
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
@@ -404,7 +462,8 @@ namespace Portal.Consultoras.BizLogic
                                 Valor = itemContacto.Valor,
                                 Estado = itemContacto.Estado
                             }).ToList(),
-                            Recordatorios = tblConsultoraCliente.Recordatorios
+                            Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID),
+                            Notas = notas.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID)
                         }).OrderBy(x => x.Nombres).ToList();
 
             return clientes;
@@ -495,7 +554,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return deudores;
-        } 
+        }
 
         #region Metodos Privados
         private bool ValidateTelefono(int paisID, short tipoContactoID, string telefono)

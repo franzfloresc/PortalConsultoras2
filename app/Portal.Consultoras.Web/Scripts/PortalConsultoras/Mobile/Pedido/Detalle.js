@@ -77,6 +77,8 @@ function CargarPedido(firstLoad) {
             $(".tooltip_noOlvidesGuardarTuPedido").show();
             $(".btn_guardarPedido").show();
             $("footer").hide();
+
+            cuponModule.actualizarContenedorCupon();
             
             if (firstLoad && autoReservar) { EjecutarPROL(); }
         },
@@ -454,6 +456,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                         }
                     }
                 });
+                cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {

@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -108,14 +109,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
+            model.ListaClientes.Insert(0, new BECliente { ClienteID = -1, Nombre = "NUEVO CLIENTE +" });
+
+            //model.ListaClientes.ForEach(x => x.Nombre = x.Nombre.ToUpper());
+
+            //Session["ListaClientes"] = model.ListaClientes;
 
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
 
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
+            ViewBag.MobileApp = (Session["MobileAppConfiguracion"] == null ? false : true);
             var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
-            var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
-            model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
+            //var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
+            //model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
+            model.ClienteId = mobileConfiguracion.ClienteID;
+
+            if (ViewBag.MobileApp)
+            {
+                var clienteSeleccionado = model.ListaClientes.Where(x => x.ClienteID == mobileConfiguracion.ClienteID).FirstOrDefault();
+                model.Nombre = (clienteSeleccionado == null ? string.Empty : clienteSeleccionado.Nombre);
+            }
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             return View(model);
         }
@@ -280,7 +302,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
-            
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
+
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
                       

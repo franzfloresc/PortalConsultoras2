@@ -73,6 +73,11 @@
     @Html.HiddenFor(m => Model.NombreLugarNivel5)
     @Html.HiddenFor(m => Model.ContaValorNivel3)
 
+    var template = "TemplatesUbigeos/_UbigeoGrupo6";
+    if (Model.CodigoPais == "MX")
+    {
+        template = "TemplatesUbigeos/_UbigeoGrupo2";
+    }
 
     <div class="popup_eliminarCliente popup_EditarUbi">
         <div class="btn_cerrar_agregarUnidades">
@@ -84,7 +89,7 @@
         <h6><b>Direcci&oacute;n del Solicitante</b></h6>
         <div class="contenido_popUp eliminarCliente">
     
-            @Html.Partial(Dictionaries.TemplateUbigeos[Model.CodigoPais], Model);
+            @Html.Partial(template, Model);
 
             <div class="btn_grupo_eliminarCliente" style="width:90%; margin-left:5%; display:inline-block; margin-top:10px;">
 

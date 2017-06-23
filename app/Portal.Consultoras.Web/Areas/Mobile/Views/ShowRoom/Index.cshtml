@@ -182,6 +182,7 @@
 
 <div class="titulo_showroom_mobile">
     <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
+<<<<<<< HEAD
         T&eacute;rminos y condiciones de la @Model.Nombre<br />
         @Model.Tema
     </a>
@@ -219,8 +220,8 @@
                 </div>
             </div>
         </div>
-                                        }
-                                    }
+    }
+}
 <!--MODAL AGREGAR PEDIDO-->
 <div id="divMensajeProductoAgregado" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-alert ">
@@ -284,6 +285,41 @@
 }
 else
 {
+    if (Model.TieneCompraXcompra)
+    {
+        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
+        {
+            <div class="content_promocion">
+                <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
+                <div class="content_desplegable_banner" id="BannerCompra">
+                    <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra">
+                        <div class="content_banner_img">
+                            <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
+                        </div>
+                        <div class="content_banner_right">
+                            <div class="texto_banner_compra">
+                                <b style="margin-top: 10px;">
+                                    @{
+                                        var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                                        if (descripcion != null && descripcion.Length > 41)
+                                        {
+                                            descripcion = descripcion.Substring(0, 40) + " ...";
+                                        }
+                                    }
+                                    @descripcion
+                                </b>
+                                <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta </b>
+                                <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
+                            </div>
+                            @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
+                        </div>
+                        <hr class="clear" />
+                    </div>
+                </div>
+            </div>
+         }
+     }
+
     <!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
     <div class="PopMobile1" id="PopCompra" data-popup-main="">
         <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
@@ -423,7 +459,7 @@ else
         </div>
         <div class="saludo_paginacion">
             @*Valeria, te mostramos <b>1 de 6</b> ofertas*@
-            @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+            <p>@ViewBag.NombreConsultora,</p> te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
             {{#iff ../CantidadProductos '>' 1}}
             &nbsp;ofertas
             {{/iff}}
@@ -471,5 +507,6 @@ else
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
+        var tieneCompraXCompra = '@Model.TieneCompraXcompra';
     </script>
 }

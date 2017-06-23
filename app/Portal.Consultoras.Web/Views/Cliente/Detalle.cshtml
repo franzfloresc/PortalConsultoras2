@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.ClienteModel
+﻿@using System.Globalization
+@model Portal.Consultoras.Web.Models.ClienteModel
 <style>
     .clienteMensajeEditar {
         display: table;
@@ -27,11 +28,19 @@
     else
     {
         <h6>EDITAR <b>CLIENTE</b></h6>
-        <div class="clienteMensajeEditar">
-            <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-            <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-        </div>
-        <br />
+
+        String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
+        DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
+
+        if (DateTime.Now.Date <= FechaCliente)
+        {
+            <div class="clienteMensajeEditar">
+                <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+                <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+            </div>
+            <br />
+        }
     }
 }
 <form action="" method="post">

@@ -13,13 +13,13 @@
             <div class="panel panel-line-info border_bababa">
                 <div class="panel-heading" role="tab">
                     <h4 class="panel-title upper">
-                        <a role="button" class="esconderPrecio" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@(item2.ClienteID)" aria-expanded="false" aria-controls="collapseOne">
+                        <a role="button" class="esconderPrecio" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@(string.Format("{0}_{1}", item2.CampaniaID, item2.ClienteID))" aria-expanded="false" aria-controls="collapseOne">
                             <i class="icon-plus-belcorp"></i> @Html.DisplayTextFor(modelItem => @item2.Nombre)
                             <div class="panel-title-total">@Model.Simbolo @totalPedido</div>
                         </a>
                     </h4>
                 </div>
-                <div id="collapseOne_@(item2.ClienteID)" class="panel-collapse @collapse" role="tabpanel" aria-labelledby="headingOne">
+                <div id="collapseOne_@(string.Format("{0}_{1}", item2.CampaniaID, item2.ClienteID))" class="panel-collapse @collapse" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body posr">
                         <div class="list-table-new">
                             <ul class="list-table-title upper">

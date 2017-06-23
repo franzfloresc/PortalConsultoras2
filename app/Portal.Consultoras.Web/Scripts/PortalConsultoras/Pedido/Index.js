@@ -21,7 +21,7 @@ var tipoOrigen = '1';
 var FlagEnviarCorreo = false; //EPD-23787
 
 $(document).ready(function () {
- 
+
     ReservadoOEnHorarioRestringido(false);
 
     AnalyticsBannersInferioresImpression();
@@ -415,6 +415,7 @@ $(document).ready(function () {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
             }
 
+            ProcesarActualizacionMostrarContenedorCupon();
             $("#btnAgregar").removeAttr("disabled");
         } else {
             CerrarSplash();
@@ -858,6 +859,8 @@ function InsertarProducto(form) {
                         });
                     }
                 }
+
+
 
                 PedidoOnSuccess();
 
@@ -2163,6 +2166,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             CerrarSplash();
 
             window.OfertaDelDia.CargarODDEscritorio();
+            ProcesarActualizacionMostrarContenedorCupon();
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -3875,3 +3879,10 @@ function ConfirmarModificar() {
     return false;
 }
 
+function ProcesarActualizacionMostrarContenedorCupon() {
+    if (paginaOrigenCupon) {
+        if (cuponModule) {
+            cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
