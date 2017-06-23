@@ -160,14 +160,17 @@ function RDMostrarPosicion() {
         $('ul[data-tab="tab"] li a[data-tag="' + campaniaCodigo + '"]').click();
 
         var varPosicion = window.location.hash.split("#");
-        varPosicion = varPosicion.length > 1 ? varPosicion[1] : "";
+        if (varPosicion.length > 1) {
+            varPosicion = varPosicion[1];
     
-        if (isInt(varPosicion)) {
-            $('ul[data-tab="tab"] li a[data-tag="' + varPosicion + '"]').click();
-        }
-        else {
-            $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-            // poner el scroll en el div
+            if (isInt(varPosicion)) {
+                $('ul[data-tab="tab"] li a[data-tag="' + varPosicion + '"]').click();
+            }
+            else {
+                $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+                // poner el scroll en el div
+            }
+
         }
     }
 

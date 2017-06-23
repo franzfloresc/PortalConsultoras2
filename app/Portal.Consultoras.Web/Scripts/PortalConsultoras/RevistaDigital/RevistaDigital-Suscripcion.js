@@ -11,6 +11,11 @@ function RDPopupCerrar(tipo) {
         location.href = location.href;
         return false;
     }
+    if (tipo == 2) {
+        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        CerrarPopup("#PopRDSuscripcion");
+        return true;
+    }
 
     CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
     
@@ -44,7 +49,7 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success == true) {
-                
+
                 accion = accion || 0;
                 if (accion == 2) {
                     $("[data-estadoregistro]").attr("data-estadoregistro", "1");
@@ -70,6 +75,8 @@ function RDSuscripcion(accion) {
                 AbrirPopupFade("#PopRDInscrita");
                 SuscripcionExistosaRDAnalytics();
             }
+            else
+                AbrirMensaje(data.message);
         },
         error: function (data, error) {
             CerrarLoad();
@@ -108,6 +115,8 @@ function RDDesuscripcion(accion) {
                     scrollTop: $(window).scrollTop() - 200
                 }, 1000, 'swing');
             }
+            else
+                AbrirMensaje(data.message);
         },
         error: function (data, error) {
             CerrarLoad();

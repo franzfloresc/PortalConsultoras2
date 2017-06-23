@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Models
             FiltersByCategory = new List<BETablaLogicaDatos>();
             FiltersByBrand = new List<BETablaLogicaDatos>();
             FiltersByPublished = new List<BETablaLogicaDatos>();
-            NombreRevista = "SABER MÁS DE {0}ESIKA PARA MÍ";
+            NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
         }
 
         public bool Success { get; set; }
