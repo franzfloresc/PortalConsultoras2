@@ -346,9 +346,9 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var simbolo = $("#hdSimbolo").val();
 
     if (consultoraRegaloPN) {
-        var a = $("#msjOfertaFinal").attr("data-meta-monto");
-        var b = $("#divOfertaFinal > div").attr("data-meta-total");
-        var c = parseFloat(a) + parseFloat(b);
+        var aa = $("#msjOfertaFinal").attr("data-meta-monto");
+        var bb = $("#divOfertaFinal > div").attr("data-meta-total");
+        var montoMeta = parseFloat(aa) + parseFloat(bb);
         mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
@@ -418,10 +418,11 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
-    if (oRegaloPN == null) oRegaloPN = GetRegaloProgramaNuevas();
+    if (oRegaloPN == null)
+        oRegaloPN = GetRegaloProgramaNuevas();
 
     if (oRegaloPN != null) {
-        var msgRegalo = ""
+        var msgRegalo = "";
         var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
 
@@ -429,28 +430,25 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
-        if (n == '01' || n == '02' || n == '03') {
 
-        //debugger;
-        var montoMeta = 0;
-        if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
-        else montoMeta = montoSaldo;
-
+        if (nivel == '01' || nivel == '02' || nivel == '03') {
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
-                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                     disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
                 }
                 else {
-                    msgRegaloPN = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionRegalo + '. PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogo + '</b>';
+                    msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '.'
+                    if (oRegaloPN.PrecioCatalogo > 0)
+                        msgRegalo += ' PUEDES VENDERLO A ' + simbolo + ' ' + oRegaloPN.PrecioCatalogoFormat + '</b>';
                 }
             }
             else {
-                msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                 disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             }
         }
-        else if (n == '04' || n == '05' || n == '06') {
+        else if (nivel == '04' || nivel == '05' || nivel == '06') {
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
@@ -463,7 +461,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             else {
                 if (oRegaloPN.TippingPoint > 0) {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                         disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                     }
                     else {
@@ -472,7 +470,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                     }
                 }
                 else {
-                    msgRegaloPN = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionRegalo + '!</b>';
+                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                     disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
             }
@@ -480,13 +478,14 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
 
         $('#img-regalo-pn').hide();
         if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
-        $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
             $('#img-regalo-pn').show();
         }
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
         }
 
+        $('#msg-regalo-pn').html(msgRegalo);
         $('#msg-regalo-pn2').html(msgRegalo);   // mobile
         if (disclaimer != "") {
             $('#txt-disclaimer-pn').html(disclaimer);
