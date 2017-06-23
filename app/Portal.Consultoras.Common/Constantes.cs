@@ -173,6 +173,7 @@
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "020";
 
         }
 
