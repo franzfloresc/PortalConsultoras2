@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
@@ -63,12 +64,27 @@
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
     <Compile Include="BEClienteResponse.cs" />
+    <Compile Include="DEPalabra.cs" />
+    <Compile Include="DEChatbotProactivaMensaje.cs" />
+    <Compile Include="BEConfiguracionPais.cs" />
+    <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
+    <Compile Include="DEChatbotProactivaResultado.cs" />
+    <Compile Include="BEChatbotMensajeProactiva.cs" />
+    <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
     <Compile Include="BEIndicadorPedidoAutentico.cs" />
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
+    <Compile Include="BEMenuApp.cs" />
+    <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
+    <Compile Include="ReservaProl\BEInputReservaProl.cs" />
+    <Compile Include="BEPedidoWebDetalleInvariant.cs" />
+    <Compile Include="BEPedidoWebResult.cs" />
+    <Compile Include="ReservaProl\BEResultadoReservaProl.cs" />
+    <Compile Include="BEValidacionModificacionPedido.cs" />
+    <Compile Include="BECatalogoRevista.cs" />
     <Compile Include="BEValidaLoginSB2.cs" />
     <Compile Include="BEEstrategiaProducto.cs" />
     <Compile Include="BEProductoAppCatalogo.cs" />
@@ -178,6 +194,8 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="Cupon\BECuponConsultora.cs" />
+    <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
@@ -274,6 +292,7 @@
     <Compile Include="ShowRoom\BEShowRoomPersonalizacion.cs" />
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
+    <Compile Include="BEUsuarioConfiguracion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">

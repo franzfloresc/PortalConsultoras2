@@ -125,15 +125,46 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoSAP { get; set; }
         [DataMember]
-        public int  EnMatrizComercial { get; set; }
+        public int EnMatrizComercial { get; set; }
         [DataMember]
         public string CodigoEstrategia { get; set; }
         [DataMember]
         public int TieneVariedad { get; set; }
+
+        /// <summary>
+        /// Url para compartir, es llenado en el servicio de estrategia
+        /// GetEstrategiasPedido
+        /// </summary>
+        [DataMember]
+        public string URLCompartir { get; set; }
+
+        /// <summary>
+        /// [Filtro] para la validacion del periodo de facturacion
+        /// Si es true, verifica que la fecha actual sea mayor que la del inicio de facturacion
+        /// </summary>
+        [DataMember]
+        public bool ValidarPeriodoFacturacion { get; set; }
+        
+        /// <summary>
+        /// [Filtro] del usuario
+        /// </summary>
+        [DataMember]
+        public double ZonaHoraria { get; set; }
+
+        /// <summary>
+        /// [Filtro] del usuario
+        /// </summary>
+        [DataMember]
+        public DateTime FechaInicioFacturacion { get; set; }
+        
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
+
+        [DataMember]
+        public string CodigoAgrupacion { get; set; }
+
         // Campos solo para la estrategia de lanzamiento...
         [DataMember]
         public string ImgFondoDesktop { get; set; }
@@ -155,6 +186,14 @@ namespace Portal.Consultoras.Entities
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
         public string CodigoTipoEstrategia { get; set; }
+        
+        [DataMember]
+        public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
+
+        [DataMember]
+        public BETipoEstrategia TipoEstrategia { get; set; } 
+        public BEEstrategia()
+        { }
 
         public BEEstrategia(IDataRecord row, bool partial)
         {
@@ -181,6 +220,8 @@ namespace Portal.Consultoras.Entities
                 CodigoProducto = row["CodigoProducto"].ToString();
 
         }
+
+        
         public BEEstrategia(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
@@ -338,6 +379,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = row["FotoProducto01"].ToString();
+
+            EstrategiaDetalle = new BEEstrategiaDetalle(row);
+            TipoEstrategia = new BETipoEstrategia(row);
         }
     }
     // 1747 - Inicio

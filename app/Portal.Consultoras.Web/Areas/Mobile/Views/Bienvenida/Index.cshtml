@@ -1,4 +1,5 @@
-﻿@using Portal.Consultoras.Common
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Areas.Mobile.Models
 
 @model BienvenidaModel
@@ -14,9 +15,11 @@
     <style type="text/css">
         body {
             background: #FFF !important;
+         
         }
     </style>
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -319,6 +322,19 @@
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+    <div class="row contenedorCupon" id="">
+        <div class="label_cupon contenedorCuponConocelo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">Tienes un dscto exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="label_cupon contenedorCuponInfo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+        </div>
+    </div>
     <div class="titulo_ofertas_home">
         OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
         <div class="texto_exclusivo">
@@ -610,7 +626,6 @@
         </div>
     </div>
     <!-- FIN POPUP DEMANDA ANTICIPADA -->
-
     <div class="btn_agregarPedido">
         <form>
             <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
@@ -653,16 +668,74 @@
         </div>
         <!-- FIN POPUP VIDEO INTRODUCTORIO -->
 
-        <script id="estrategia-template" type="text/x-handlebars-template">
-            {{#each this as |item|}}
-            <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-                 {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
-                <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-                <div class="content_item_home">
-                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}}, @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi);" {{/iff}}>
-                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
-                            <div class="producto_img_mobile">
-                                <img src="{{FotoProducto01}}" />
+<!--POP UP REVISTA DIGITAL-->
+<div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" data-popup-function-hide="RDPopupCerrar(0)">
+    <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" data-popup-close="" href="javascript:;" >
+            <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
+        </a>
+        <div class="mpopup_rd_cabecera">
+            <div class="mrd_logo">
+                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+            </div>
+            <div class="mpopup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+        </div>
+
+        <div class="mpopup_rd_content">
+            <div class="mpopup_saludo">@Model.NombreConsultora, crece tus ganancias con ofertas únicas para ti. Reemplazando:</div>
+            <div class="mpopup_inscripcion">
+                <img src="/Content/Images/RevistaDigital/mpopup_inscripcion.png" width="100%">
+            </div>
+            <div class="mpopup_text">
+                <div><span class="mtit">GANA <span style="font-size: 17px; margin-right: 10px;">+</span></span> Hasta 65% descuento</div>
+                <div><span class="mtit">VENDE <span style="font-size: 17px; margin-right: 4px;">+</span></span> Productos que tus clientes piden</div>
+            </div>
+            <div class="btn_bpt btn_red"><a href="javascript: RDSuscripcion();">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+            <div class="mpopup_textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
+        </div>
+        <div class="mpopup_nomostrar">
+            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a ver este mensaje">No volver a ver este mensaje</a>
+        </div>
+    </div>
+</div>
+<!-- FIN POPUP REVISTA DIGITAL -->
+
+<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+<div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;font-family: 'Lato' !important" data-popup-main="" data-popup-function-hide="RDPopupCerrar(1)">
+    <div class="mpopup_rd mob_rd_confirmacion" data-popup-body="">
+        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript:;" data-popup-close="">
+            <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
+        </a>
+        <div class="mpopup_rd_cabecera">
+            <div class="mrd_logo">
+                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+            </div>
+            <div class="mpopup_tit">¡FELICIDADES ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE!</div>
+        </div>
+
+        <div class="mpopup_rd_content">
+            <div class="mpopup_text">@Model.NombreConsultora, ingresa a Ésika para mí la próxima campaña y a partir de la C-@Model.CampaniaMasDos, tu revista online reemplazará a tu revista impresa.</div>
+            <div class="btn_bpt btn_transparent"><a href="javascript: RDSuscripcionRedireccionar();">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
+            <div class="mpopup_textleg">Para cancelar tu inscripción <a href="javascript: RDRedireccionarDesuscripcion();">haz click aquí</a></div>
+        </div>
+        <img class="rd_consultora" src="/Content/Images/RevistaDigital/mob_rd_consultora.png"/>
+    </div>
+</div>
+<!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
+
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
+
+    <script id="estrategia-template1" type="text/x-handlebars-template">
+                {{#each this as |item|}}
+                <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
+                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
+                    <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+                    <div class="content_item_home">
+                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}}, @Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi);" {{/iff}}>
+                            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
+                                <div class="producto_img_mobile">
+                                    <img src="{{FotoProducto01}}" />
                                 </div>
                                 {{#if_eq FlagMostrarImg '1'}}
                                 {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
@@ -750,14 +823,14 @@
                             <div class="clear"></div>
                             <div style="padding-top:9px; height: 15px;">
                                 <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                                AGREGADO
-                                <div class="icono"></div>
+                                    AGREGADO
+                                    <div class="icono"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            {{/each}}
+                {{/each}}
         </script>
 
         <!--SHOWROOM: modal popup -->
@@ -825,9 +898,9 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="{{CUV2}}" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -945,12 +1018,26 @@
                 </div>
             </div>
         </script>
+<!--POP UP CUPONES-->
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
+<!--FIN-->
         @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".termino_condiciones_intriga").click(function () {
+                    $(this).toggleClass('check_intriga');
+                    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    }
+                });
+            });
+        </script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">
 
-                var urlFiltrarEstrategiasPedido = '@Url.Action("FiltrarEstrategiaPedido", "AdministrarEstrategia", new { area = "" })';
                 var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
                 var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
                 var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
@@ -968,18 +1055,36 @@
                 var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
                 var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
                 var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+                var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+                var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+                var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 
                 var tipoOrigenEstrategia = 2;
                 var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
+                var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
+
 
                 //EPD-1837
                 var vbFotoPerfil = '@ViewBag.FotoPerfil';
                 if (vbFotoPerfil != null && vbFotoPerfil != "") {
                     $('.content_foto').show();
                 }
+
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 2;
+                var esEmailActivo = '@Model.EmailActivo';
+                var paisISO = '@ViewBag.paisISO';
+                var viewBagAmbiente = '@ViewBag.Ambiente';
+                var correo = '@Model.EMail';
+                var celular = '@Model.Celular';
             </script>
 
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         }

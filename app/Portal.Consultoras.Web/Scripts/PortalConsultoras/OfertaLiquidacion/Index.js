@@ -578,17 +578,6 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
 
-    /*
-    if (mostrarAlerta) {
-        if (typeof gTipoUsuario !== 'undefined') {
-            if (gTipoUsuario == '2') {
-                alert('Acceso restringido, aun no puede agregar pedidos');
-                return true;
-            }
-        }
-    }
-    */
-
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -673,7 +662,7 @@ function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
-    var carrito = $('.campana');
+    var carrito = $('.campana.cart_compras');
 
     $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -683,8 +672,8 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
+        'top': carrito.offset().top,
+        'left': carrito.offset().left,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
         'opacity': 0.5

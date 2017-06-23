@@ -5,7 +5,6 @@ var tipoOrigen = '2';
 var esPedidoValidado = false;
 
 $(document).ready(function () {
-
     ReservadoOEnHorarioRestringido(false);
     $('body').on('click', ".icono_kitNuevas a", function (e) {
         var mostrar = $(this).next();
@@ -38,7 +37,7 @@ function ValidarKitNuevas() {
         success: function (data) {
             if (!checkTimeout(data)) return false;
             if (!data.success) messageInfo('Ocurrió un error de conexion al intentar cargar el pedido. Por favor inténtelo mas tarde.');
-            else CargarPedido();
+            else CargarPedido(true);
         },
         error: function (error) {
             console.log(error);
@@ -47,7 +46,7 @@ function ValidarKitNuevas() {
     });
 }
 
-function CargarPedido() {
+function CargarPedido(firstLoad) {
     var obj = {
         sidx: "",
         sord: "",
@@ -77,6 +76,10 @@ function CargarPedido() {
             $(".tooltip_noOlvidesGuardarTuPedido").show();
             $(".btn_guardarPedido").show();
             $("footer").hide();
+
+            cuponModule.actualizarContenedorCupon();
+            
+            if (firstLoad && autoReservar) { EjecutarPROL(); }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -210,8 +213,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(CampaniaID, PedidoID, PedidoDetalle
 }
 
 function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, EsBackOrder) {
-
-    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val());
+    var cantidadActual = parseInt($('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val());
     var cantidadAnterior = parseInt($('#CantidadTemporal_' + PedidoDetalleID).val());
 
     if (cantidadActual == cantidadAnterior || cantidadActual == NaN || cantidadAnterior == NaN)
@@ -222,7 +224,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
         $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
         return false;
     }
-
+    
     if (cantidadActual <= 0) {
         messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
         $('#Cantidad_' + PedidoDetalleID).val(cantidadAnterior);
@@ -333,10 +335,9 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
 }
 
 function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CantidadModi, CUV, EsBackOrder) {
-
     var CliID = $('#ClienteID_' + PedidoDetalleID).val();
     var CliDes = $('#ClienteNombre_' + PedidoDetalleID).val();
-    var Cantidad = $('#Cantidad_' + PedidoDetalleID).val();
+    var Cantidad = $('#Cantidad_' + PedidoDetalleID).val() == "" ? 0 : $('#Cantidad_' + PedidoDetalleID).val();
     var CantidadAnti = $('#CantidadTemporal_' + PedidoDetalleID).val();
     var DesProd = $('#DescripcionProducto_' + PedidoDetalleID).html();
 
@@ -349,7 +350,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         messageInfoMalo('Por favor ingrese una cantidad válida.');
         return false;
     }
-
+    
     if (Cantidad == 0) {
         messageInfoMalo('Por favor ingrese una cantidad mayor a cero.');
         return false;
@@ -452,6 +453,7 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                         }
                     }
                 });
+                cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
             },
             error: function (data, error) {
@@ -602,47 +604,6 @@ function PedidoDetalleEliminarTodo() {
             }
         }
     });
-}
-
-function ReservadoOEnHorarioRestringido(mostrarAlerta) {
-    mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
-    var restringido = true;
-
-    $.ajaxSetup({ cache: false });
-    jQuery.ajax({
-        type: 'GET',
-        url: urlReservadoOEnHorarioRestringido,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-
-            if (checkTimeout(data)) {
-                if (data.success == false)
-                    restringido = false;
-                else {
-                    if (data.pedidoReservado) {
-                        var fnRedireccionar = function () {
-                            ShowLoading();
-                            location.href = urlPedidoValidado;
-                        }
-                        if (mostrarAlerta == true) 
-                            AbrirMensaje(data.message, '', fnRedireccionar);
-
-                        else fnRedireccionar();
-
-                    }
-                    else if (mostrarAlerta == true) AbrirMensaje(data.message);
-                }
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {                
-                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
-        }
-    });
-    return restringido;
 }
 
 function HorarioRestringido(mostrarAlerta) {
@@ -851,7 +812,6 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-    debugger
     cuvOfertaProl = cuvOfertaProl || "";
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -921,7 +881,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                debugger
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
                 RespuestaEjecutarServicioPROL(response, false);

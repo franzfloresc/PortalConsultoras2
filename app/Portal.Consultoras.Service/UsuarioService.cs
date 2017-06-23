@@ -661,12 +661,36 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
         }
 
+        public List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(entidad);
+        }
+
+        public bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad)
+        {
+            var bl = new BLConfiguracionPaisDetalle();
+            return bl.Validar(entidad);
+        }
+        
         //EPD-1836
         public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
         {
             int paisID = GetPaisID(paisISO);
             var BLUsuario = new BLUsuario();
             return BLUsuario.InsUsuarioPostulante(paisID, paisISO, entidad);
+        }
+        
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RecuperarContrasenia(paisId, correo);
+        }
+
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
         }
 
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
@@ -705,6 +729,13 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba,
+            int aceptacionConsultoraDA)
+        {
+            return new BLUsuario().ObtenerUsuarioConfiguracion(paisID, consultoraID, campania, usuarioPrueba,
+                aceptacionConsultoraDA);
         }
 
         /*

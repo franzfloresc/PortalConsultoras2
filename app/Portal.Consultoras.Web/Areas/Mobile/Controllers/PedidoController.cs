@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -112,10 +113,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
 
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
             return View(model);
         }
         
-        public ActionResult Detalle()
+        public ActionResult Detalle(bool autoReservar = false)
         {
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
@@ -140,6 +150,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var model = new PedidoDetalleMobileModel();
+            model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = userData.CampaniaID.ToString();
@@ -274,7 +285,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
-            
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
+
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
                       

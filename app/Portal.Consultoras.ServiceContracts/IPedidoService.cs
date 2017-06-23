@@ -7,6 +7,9 @@ using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;
 using Portal.Consultoras.Entities.ShowRoom;
+using Portal.Consultoras.Entities.ReservaProl;
+using Portal.Consultoras.Entities.Cupon;
+using Portal.Consultoras.Entities.RevistaDigital;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -34,6 +37,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoWebDetalle Insert(BEPedidoWebDetalle pedidowebdetalle);
+
+        [OperationContract]
+        BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle);
 
         [OperationContract]
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
@@ -810,7 +816,7 @@ namespace Portal.Consultoras.ServiceContracts
         int CargarProductoCpc(int paisId, int eventoId, string usuarioCreacion, List<BEShowRoomCompraPorCompra> listaShowRoomCompraPorCompra);
 
         [OperationContract]
-        BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora);
+        BEShowRoomEventoConsultora GetShowRoomConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
 
         [OperationContract]
         void UpdateShowRoomConsultoraMostrarPopup(int paisID, int campaniaID, string codigoConsultora, bool mostrarPopup);
@@ -882,7 +888,7 @@ namespace Portal.Consultoras.ServiceContracts
         void GuardarPerfilOfertaShowRoom(int paisId, int perfilId, int eventoId, int campaniaId, string cadenaCuv);
 
         [OperationContract]
-        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora);
+        IList<BEShowRoomOferta> GetShowRoomOfertasConsultora(int paisID, int campaniaID, string codigoConsultora, bool tienePersonalizacion);
 
         [OperationContract]
         BEShowRoomOferta GetShowRoomOfertaById(int paisID, int ofertaShowRoomID);
@@ -1042,6 +1048,12 @@ namespace Portal.Consultoras.ServiceContracts
         int ShowRoomProgramarAviso(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
+
+        [OperationContract]
+        BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
+
+        [OperationContract]
         int UpdShowRoomEventoConsultoraEmailRecibido(int paisID, BEShowRoomEventoConsultora entity);
 
         [OperationContract]
@@ -1053,5 +1065,43 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int InsIndicadorPedidoAutentico(int paisID, BEIndicadorPedidoAutentico entidad);
+        
+        [OperationContract]
+        BEResultadoReservaProl CargarSesionAndEjecutarReservaProl(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
+        [OperationContract]
+        BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
+        [OperationContract]
+        bool EnviarCorreoReservaProl(BEInputReservaProl input);
+   
+        [OperationContract]
+        int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int RDDesuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad);
+
+        [OperationContract]
+        int InsertarDesglose(BEInputReservaProl input);
+
+        [OperationContract]
+        string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
+            
+        [OperationContract]
+        string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        #region Cupon
+
+        [OperationContract]
+        BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEstadoCupon(int paisId, BECuponConsultora cuponConsultora);
+
+        [OperationContract]
+        void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
+
+        #endregion
     }
 }
