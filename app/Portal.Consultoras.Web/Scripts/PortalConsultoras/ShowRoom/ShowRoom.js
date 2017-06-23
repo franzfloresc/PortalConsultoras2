@@ -564,6 +564,7 @@ function recortarPalabra(palabra, tamanio) {
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
     if (response.success) {        
         if (aplicarFiltrosSubCampanias) {
+            response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
             $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
@@ -697,3 +698,23 @@ $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", functi
         (this).blur();
     }
 });
+
+function validarUnidadesPermitidas(listaShowRoomOferta) {
+    var lista = [];
+    if (listaShowRoomOferta != null) {
+        if (listaShowRoomOferta.length > 0) {
+            $.each(listaShowRoomOferta,
+                function (index, value) {
+                    if (value.EsSubCampania == true) {
+                        if (value.UnidadesPermitidasRestantes > 0) {
+                            lista.push(value);
+                        }
+                    }
+                    else {
+                        lista.push(value);
+                    }
+                });
+        }
+    }
+    return lista;
+}
