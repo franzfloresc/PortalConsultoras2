@@ -1335,7 +1335,7 @@
 }
 
 .lanzamiento-view-detalle{
-    width: 35%;
+    width: 38%;
     display: inline-block;
     text-align: center;
 }
@@ -1343,8 +1343,9 @@
 .lanzamiento-view-detalle .revistadigital-landing {
     width: 100%;
 }
-.lanzamiento-view-detalle .content_item_carrusel{
+.lanzamiento-view-detalle .content_item_carrusel {
     height: auto;
+    width: 100%;
 }
 .lanzamiento-view-detalle .nombre_producto{
     max-width: 100%;

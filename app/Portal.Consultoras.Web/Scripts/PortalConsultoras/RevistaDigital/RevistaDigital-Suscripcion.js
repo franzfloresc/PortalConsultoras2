@@ -140,7 +140,7 @@ function RDInformacion() {
 
 function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Index"); //urlRevistaDigital
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
     window.location = url;
 }
 

@@ -938,10 +938,9 @@ div#tab_revistasdigital_mobile {
 .texto_usuario_ept:before {
     content: '';
     position: absolute;
-    left: -20px;
+    left: -19px;
     top: 0;
     z-index: 102;
-   
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
