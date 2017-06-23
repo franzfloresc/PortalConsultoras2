@@ -10,8 +10,8 @@
     <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <style>
-        .SubHeader{
-            display:none;
+        .SubHeader {
+            display: none;
         }
     </style>
 }
@@ -289,8 +289,8 @@
                     </div>
                 </div>
             </div>
-        </div> 
-    </div>    
+        </div>
+    </div>
 </div>
 <!--FIN-->
 <!--COMENTATIOS-->
@@ -306,9 +306,9 @@
                 <option>NUEVOS</option>
             </select>
             <div class="texto_filtros_bestSeller">ORDENAR POR</div>
-        </div>          
+        </div>
         <div class="contentAgregarComentarios">
-            <!--AGREGA COMENTARIOS-->  
+            <!--AGREGA COMENTARIOS-->
             <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
             <!--AÑADIENDO COMENTARIOS-->
             <div class="contentValoracion">
@@ -322,7 +322,7 @@
                         <a href="#" class="respuesta_pregunta">SI</a>
                         <a href="#" class="respuesta_pregunta">NO</a>
                     </div>
-                    
+
                 </div>
                 <div class="content_detalle_comentarios">
                     <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto"> </textarea>
@@ -341,10 +341,10 @@
             </div>
             <!--FIN-->
         </div>
-        <!--FIN-->  
-        <!--COMENTARIOS DE USUARIO--> 
+        <!--FIN-->
+        <!--COMENTARIOS DE USUARIO-->
         <div class="content_comentario_usuario">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
+            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
             <div class="datos_usuario_comentario">
                 <div class="puntuacion_usuario_visible"></div>
                 <div class="nombre_usuario_comentario">Sandra Arce</div>
@@ -368,23 +368,6 @@
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
-            $(".texto_agregarComentarios").on("click", function () {
-                $('.texto_agregarComentarios').hide();
-                $('.contentValoracion').show();
-                //$('.promocion_especial_header').css("background", "#fff6f4");               
-            });
-            $(".cancelar_comentario").on("click", function () {
-                $('.texto_agregarComentarios').show();
-                $('.contentValoracion').hide();                       
-            });
-            $(".enviar_comentario_Seller").on("click", function () {
-                $('.contentValoracion').hide();
-                $('.content_confirmacion_comentario').show();                         
-            });
-            $(".btn_cerrar_comentario").on("click", function () {
-                $('.content_confirmacion_comentario').hide();
-                $('.texto_agregarComentarios').show();
-            });
             $('.content_carrusel_best.slick-initialized').slick('unslick');
             $('.content_carrusel_best').not('.slick-initialized').slick({
                 slidesToShow: 4,
@@ -400,21 +383,21 @@
                 nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
         });
-        $(function () { 
+        $(function () {
             var rating = 1.6;
             $(".rateyo-readonly-widg").rateYo({
-                rating: rating,               
+                rating: rating,
                 precision: 2,
                 minValue: 1,
-                maxValue: 5,                
+                maxValue: 5,
                 starWidth: "17px",
                 readOnly: true
             })
             $(".rateyo-readonly-comentarios").rateYo({
-                rating: 4.5,               
+                rating: 4.5,
                 precision: 2,
                 minValue: 1,
-                maxValue: 5,                
+                maxValue: 5,
                 starWidth: "33px",
                 readOnly: true
             })
@@ -436,10 +419,14 @@
                 readOnly: true
             })
         });
+        $(document).ready(function () {
+            bestSellerCommentModule.ini({
 
+            });
+        });
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script> 
-    
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
 }

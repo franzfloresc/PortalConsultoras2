@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -515,6 +516,61 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAEstrategia = new DAEstrategia(paisID);
             return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
+        }
+
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var DAEstrategia = new DAEstrategia(paisID);
+            var oTransactionOptions = new TransactionOptions();
+            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+            try
+            {
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    if (entidad.ProdComentarioResumenId == 0)
+                    {
+                        BEProductoComentarioResumen oProdComentario = new BEProductoComentarioResumen();
+                        oProdComentario.CodigoSAP = entidad.CodigoSAP;
+                        oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
+                        entidad.ProdComentarioResumenId = DAEstrategia.InsertarProductoComentario(oProdComentario);
+                    }
+
+                    result = DAEstrategia.InsertarProductoComentarioDetalle(entidad);
+
+                    DAEstrategia.UpdTotalProductoComentario(entidad.ProdComentarioResumenId);
+
+                    oTransactionScope.Complete();
+                }
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, int prodComentarioId, long prodComentarioDetalleId)
+        {
+            var DAEstrategia = new DAEstrategia(paisID);
+            int result;
+
+            try
+            {
+                result = DAEstrategia.AprobarProductoComentarioDetalle(prodComentarioDetalleId);
+
+                DAEstrategia.UpdAprobadosProductoComentario(prodComentarioId);
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
         }
 
     }
