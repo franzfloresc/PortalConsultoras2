@@ -534,6 +534,7 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
         public class MenuCodigo
         {
             public const string RevistaShowRoom = "ShowRoom";
@@ -541,6 +542,120 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
+        }
+
+        public const string RevistaDigitalReducida = "RDR";
+
+        public const int SinRegistroDB = 0;
+
+        public class IngresoExternoPagina
+        {
+            public const string EstadoCuenta = "ESTADOCUENTA";
+            public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
+            public const string PedidoDetalle = "PEDIDODETALLE";
+            public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
+            public const string CompartirCatalogo = "COMPARTIRCATALOGO";
+        }
+
+        public class EstadoCuentaTipoMovimiento
+        {
+            public const int Abono = 2;
+            public const int Cargo = 1;
+        }
+
+        public class TamaniosImagenIssuu
+        {
+            public const string ThumbSmall = "_thumb_small";
+            public const string ThumbMedium = "_thumb_medium";
+            public const string ThumbLarge = "_thumb_large";
+        }
+
+        public class CatalogoImagenDefault
+        {
+            public const string Catalogo = "https://www.somosbelcorp.com/Content/Images/catalogo_no_disponible.jpg";
+            public const string Revista = "https://www.somosbelcorp.com/Content/Images/revista_no_disponible.jpg";
+        }
+
+        public class CatalogoUrlDefault
+        {
+            public const string Esika = "http://www.esika.biz";
+            public const string Lbel = "http://www.lbel.com";
+            public const string Cyzone = "http://www.cyzone.com";
+        }
+
+        public class RevistaNombre
+        {
+            public const string Esika = "Guía de Negocio Ésika";
+            public const string Lbel = "Mi Negocio L’Bel";
+        }
+
+        public class MensajesError
+        {
+            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
+        }
+
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
+            public const string RevistaDigitalSuscripcion = "RDS";
+        }
+
+        public class TooltipLoginUsuario
+        {
+            public const string BO = "Tu código de consultora,<br/>Carné de Identidad<br/>o correo electrónico.";
+            public const string CL = "Tu número de RUT<br/>(sin puntos ni guión).<br/>Ejem:12345678k<br/>o correo electrónico.";
+            public const string CO = "Tu número de cédula de ciudadanía,<br/>o correo electrónico.";
+            public const string DO = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
+            public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
+            public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
+            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
+            public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
+            public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
+            public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
+        }
+
+        public class TooltipLoginPassword
+        {
+            public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
+            public const string CL = "Si es la primera vez que ingresas, es<br/>tu código de consultora de 7 dígitos<br/>(incluido el 0 inicial, si lo tuviera).";
+            public const string CO = "El número de tu<br/>cédula de identidad.";
+            public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
+            public const string EC = "El número de tu<br/>cédula de identidad.";
+            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
+            public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
+            public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
+            public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
+            public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int SinRegistroDB = 0;
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
+
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
+        }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
         }
         
         #region Clientes
@@ -681,121 +796,11 @@ namespace Portal.Consultoras.Common
         }
         #endregion
         
-        public class IngresoExternoPagina
-        {
-            public const string EstadoCuenta = "ESTADOCUENTA";
-            public const string SeguimientoPedido = "SEGUIMIENTOPEDIDO";
-            public const string PedidoDetalle = "PEDIDODETALLE";
-            public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
-            public const string CompartirCatalogo = "COMPARTIRCATALOGO";
-        }
-
-        public class EstadoCuentaTipoMovimiento
-        {
-            public const int Abono = 2;
-            public const int Cargo = 1;
-        }
-
-        public class TamaniosImagenIssuu
-        {
-            public const string ThumbSmall = "_thumb_small";
-            public const string ThumbMedium = "_thumb_medium";
-            public const string ThumbLarge = "_thumb_large";
-        }
-
-        public class CatalogoImagenDefault
-        {
-            public const string Catalogo = "https://www.somosbelcorp.com/Content/Images/catalogo_no_disponible.jpg";
-            public const string Revista = "https://www.somosbelcorp.com/Content/Images/revista_no_disponible.jpg";
-        }
-
-        public class CatalogoUrlDefault
-        {
-            public const string Esika = "http://www.esika.biz";
-            public const string Lbel = "http://www.lbel.com";
-            public const string Cyzone = "http://www.cyzone.com";
-        }
-
-        public class RevistaNombre
-        {
-            public const string Esika = "Guía de Negocio Ésika";
-            public const string Lbel = "Mi Negocio L’Bel";
-        }
-
-        public class MensajesError
-        {
-            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
-            public const string CargarProductosShowRoom = "Error al cargar los productos.";
-        }
-        
-        public class ConfiguracionPais
-        {
-            public const string RevistaDigital = "RD";
-            public const string RevistaDigitalReducida = "RDR";
-            public const string RevistaDigitalSuscripcion = "RDS";
-        }
-
-        public class TooltipLoginUsuario
-        {
-            public const string BO = "Tu código de consultora,<br/>Carné de Identidad<br/>o correo electrónico.";
-            public const string CL = "Tu número de RUT<br/>(sin puntos ni guión).<br/>Ejem:12345678k<br/>o correo electrónico.";
-            public const string CO = "Tu número de cédula de ciudadanía,<br/>o correo electrónico.";
-            public const string DO = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
-            public const string EC = "Tu número de cédula de identidad<br/>o correo electrónico.";
-            public const string MX = "Tu código de consultora,<br/>INE o correo electrónico.";
-            public const string PA = "Tu código de consultora,<br/>documento de identidad<br/>o correo electrónico.";
-            public const string PE = "Tu código de consultora,<br/>DNI o correo electronico.";
-            public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
-            public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
-            public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
-        }
-        
-        public class TooltipLoginPassword
-        {
-            public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
-            public const string CL = "Si es la primera vez que ingresas, es<br/>tu código de consultora de 7 dígitos<br/>(incluido el 0 inicial, si lo tuviera).";
-            public const string CO = "El número de tu<br/>cédula de identidad.";
-            public const string DO = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad<br/>(sin guiones).";
-            public const string EC = "El número de tu<br/>cédula de identidad.";
-            public const string MX = "Los 4 últimos dígitos de<br/>tu código de consultora.";
-            public const string PE = "Si es la primera vez que<br/>ingresas, es tu número<br/>de DNI.";
-            public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
-            public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
-            public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
-        }
-
 	    public class SessionNames
         {
                 // Lista de estrategias en session para OPT y BPT 
                 public const string ListaEstrategia = "ListadoEstrategiaPedido";
                 public const string ProductoTemporal = "ProductoTemporal";
-        }
-	
-        public class EstadoRDSuscripcion
-        {
-            public const int SinRegistroDB = 0;
-            public const int Activo = 1;
-            public const int Desactivo = 2;
-            public const int NoPopUp = 3;
-        }
-
-        public struct TablaLogica
-        {
-            public const int Plan20 = 98;
-        }
-
-        public class EstadoCupon
-        {
-            public const int Reservado = 1;
-            public const int Activo = 2;
-        }
-
-        public class TipoOfertasPlan20
-        {
-            public const int OfertaFinal = 35;
-            public const int Showroom = 44;
-            public const int OPT = 45;
-            public const int ODD = 46;
-        }
+        }	
     }
 }
