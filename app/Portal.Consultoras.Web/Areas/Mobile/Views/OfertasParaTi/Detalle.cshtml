@@ -215,7 +215,8 @@
                 {
                     btnDesabledClass = "btn_desactivado_general";
                 }
-                <a class="btn_agregar_ficha_producto @btnDesabledClass @Model.ClaseBloqueada" data-bloqueada="@Model.ClaseBloqueada" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID' , TipoEstrategiaID: '@Model.TipoEstrategiaID' , Posicion: '@Model.Orden' , FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
+                <a class="btn_agregar_ficha_producto @btnDesabledClass" id="tbnAgregarProducto" 
+                   onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID' , TipoEstrategiaID: '@Model.TipoEstrategiaID' , Posicion: '@Model.Orden' , FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
                 <hr class="clear">
             </div>
         </div>
@@ -223,7 +224,8 @@
 }
 @if (Model.ClaseBloqueada != "")
 {
-    <div class="row">
+    @Html.Action("MensajeBloqueado", "RevistaDigital")
+    @*<div class="row">
         <div class="content_inscribirte">
             INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-@ViewBag.CampaniaMasDos<br />
             PODRÁS ACCEDER A OFERTAS COMO ESTA
@@ -232,7 +234,7 @@
             </div>
             <a href="javascript: RDPageInformativa();" class="enterate_aqui" style="text-decoration:underline;">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
         </div>
-    </div>
+    </div>*@
 }
 
 @section scripts{

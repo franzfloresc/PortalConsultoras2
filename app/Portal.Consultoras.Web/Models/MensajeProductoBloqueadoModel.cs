@@ -8,5 +8,6 @@ namespace Portal.Consultoras.Web.Models
         public bool MensajeIconoSuperior { get; set; }
         public bool BtnInscribirse { get; set; }
         public string MensajeTitulo { get; set; }
+        public bool IsMobile { get; set; }
     }
 }

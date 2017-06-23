@@ -45,6 +45,11 @@ function RDSuscripcion(accion) {
 
             if (data.success == true) {
 
+                if (isMobile()) {
+                    RDPageInformativa();
+                    return;
+                }
+
                 accion = accion || 0;
                 if (accion == 2) {
                     $("[data-estadoregistro]").attr("data-estadoregistro", "1");
