@@ -211,6 +211,7 @@
             MONTO TOTAL :
         </span>
 
+<<<<<<< HEAD
         @{
             string cabezaEscala = null, pieEscala = null;
             string lbl1Ganancia = null, lbl2Ganancia = null;
@@ -583,7 +584,7 @@
                             <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
-                            <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
+                            <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartir}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                             <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
                         </div>
@@ -650,6 +651,7 @@
             {{#iff PrecioValorizado '>' '0'}}
             <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
             {{/iff}}
+<<<<<<< HEAD
             <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
         </div>
         {{#iff DescripcionRelacionado '!=' ''}}
@@ -700,6 +702,9 @@
 </script>
 <!-- PL20 1287 - FIN -->
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
 
 @section Scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -750,7 +755,18 @@
         var origenPagina = 2;
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         var autoReservar = ('@Model.AutoReservar'.toLowerCase() == 'true');
+        var tieneCupon = '@Model.TieneCupon';
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var paginaOrigenCupon = 21;
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

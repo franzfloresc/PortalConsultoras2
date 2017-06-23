@@ -10130,6 +10130,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturado", ReplyAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturadoResponse")]
         System.Threading.Tasks.Task<int> UpdateClientePedidoFacturadoAsync(int paisID, int codigoPedido, int ClienteID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse")]
+        string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais", ReplyAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse")]
+        System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoISO);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -11258,6 +11264,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task<int> UpdateClientePedidoFacturadoAsync(int paisID, int codigoPedido, int ClienteID) {
             return base.Channel.UpdateClientePedidoFacturadoAsync(paisID, codigoPedido, ClienteID);
+        }
+        
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO) {
+            return base.Channel.GetCampaniaActualAndSiguientePais(paisID, codigoISO);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetCampaniaActualAndSiguientePaisAsync(int paisID, string codigoISO) {
+            return base.Channel.GetCampaniaActualAndSiguientePaisAsync(paisID, codigoISO);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {

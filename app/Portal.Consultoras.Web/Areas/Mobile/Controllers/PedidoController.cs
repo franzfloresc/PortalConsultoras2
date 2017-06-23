@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -129,32 +130,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var clienteSeleccionado = model.ListaClientes.Where(x => x.ClienteID == mobileConfiguracion.ClienteID).FirstOrDefault();
                 model.Nombre = (clienteSeleccionado == null ? string.Empty : clienteSeleccionado.Nombre);
             }
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             return View(model);
         }
-
-        //[HttpGet]
-        //public ActionResult AutocompleteByCliente(string term)
-        //{
-        //    List<BECliente> clientes = new List<BECliente>();
-
-        //    if (Session["ListaClientes"] != null)
-        //    {
-        //        clientes = new List<BECliente>((List<BECliente>)Session["ListaClientes"]);
-
-        //        if (!string.IsNullOrEmpty(term))
-        //        {
-        //            clientes = clientes.Where(x => x.Nombre.Contains(term.ToUpper())).ToList();
-        //            clientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora.ToUpper() });
-
-        //            if (!userData.NombreConsultora.ToUpper().Contains(term.ToUpper())) clientes.RemoveAt(0);
-        //        }
-
-        //        clientes.Insert(0, new BECliente { ClienteID = -1, Nombre = "NUEVO CLIENTE +" });
-        //    }
-
-        //    return Json(clientes, JsonRequestBehavior.AllowGet);
-        //}
         
         public ActionResult Detalle(bool autoReservar = false)
         {
@@ -316,7 +302,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             /* SB20-565 - FIN */
 
             ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
-            
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
+
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
                       

@@ -97,10 +97,10 @@
         $('#btnModificarDireccion').attr('disabled', false);
         $('#btnGrabarDireccion').attr('disabled', false);
         $('#btnActualizarSeccion').attr('disabled', false);
-        if (map) {
-            var center = map.center;
+        //if (map) {
+            //var center = map.center;
 
-            var MiMarkerMorado = GetMarkerMorado();
+            //var MiMarkerMorado = GetMarkerMorado();
             // post
             var data = {
                 id: $('#SolicitudPostulanteID').val(),
@@ -123,22 +123,22 @@
             generalLoading();
 
             $.post('@Url.Action("ConsultarUbicacion", "Unete")', data, function (actualizado) {
-                if (actualizado) {
-                    //  modal.dialog('close');
-                    $('#divConsultarUbicacion').hide();
-                    $('#divConfirmarPosicion').hide();
-                    $("body").css({ "overflow-y": "auto" });
-                    //fnGrilla();
-                    document.getElementById('btnBuscar').click();
-                }
-            }).complete(function () {
-                // closeWaitingDialog({});
-                generalCloseLoading();
-                $('#btnEditarPosicion').hide();
-                $('#btnGrabarPosicion').show();
-                $('#btnGrabarPosicion').attr('disabled', false);
-            });
-        }
+            if (actualizado) {
+                //  modal.dialog('close');
+                $('#divConsultarUbicacion').hide();
+                $('#divConfirmarPosicion').hide();
+                $("body").css({ "overflow-y": "auto" });
+                //fnGrilla();
+                document.getElementById('btnBuscar').click();
+            }
+        }).complete(function () {
+            // closeWaitingDialog({});
+            generalCloseLoading();
+            $('#btnEditarPosicion').hide();
+            $('#btnGrabarPosicion').show();
+            $('#btnGrabarPosicion').attr('disabled', false);
+        });
+    //}
     });
-    //# sourceURL===_ConfirmarPosicion.cshtml
+    
 </script>

@@ -1,4 +1,6 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+﻿@using System.Globalization
+
+@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.Areas.Mobile.Helpers
 @model ClienteMobileModel
 
@@ -32,11 +34,19 @@
 else
 {
     <h6>MODIFICAR <b>CLIENTE</b></h6>
-    <div class="clienteMensajeEditar">
-        <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-        <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-    </div>
-    <br />
+
+    String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
+    DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+    String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
+
+    if (DateTime.Now.Date <= FechaCliente)
+    {
+        <div class="clienteMensajeEditar">
+            <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+            <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+        </div>
+        <br />
+    }
 }
 
 @*<div class="modal-header">

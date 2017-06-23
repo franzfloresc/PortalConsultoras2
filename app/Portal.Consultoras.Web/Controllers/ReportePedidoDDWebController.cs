@@ -354,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.EstadoValidacionNombre.ToString(),               
                                    a.IndicadorEnviado,
                                    a.TipoProceso,
-                                   a.MotivoRechazo
+                                   FomatearMontoDecimalGPR(a.MotivoRechazo)
                                 }
                            }
                 };
@@ -362,6 +362,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+
+        private string FomatearMontoDecimalGPR(string MotivoRechazo)
+        {
+            string TextoDecimal = MotivoRechazo;
+            if (MotivoRechazo.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+            {
+                decimal MontoDecimal = Convert.ToDecimal(MotivoRechazo.Substring(MotivoRechazo.IndexOf(':') + 1).Replace(" ", string.Empty));
+
+                MotivoRechazo = MotivoRechazo.Remove(MotivoRechazo.IndexOf(':'));
+                TextoDecimal = string.Format("{0}: {1}", MotivoRechazo, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+            }
+            return TextoDecimal;
+        }
+
         public ActionResult ConsultarPedidosDDWebDetalle(string sidx, string sord, int page, int rows, string vPaisISO, string vCampania, string vConsultoraCodigo, string vTipoProceso)
         {
             if (ModelState.IsValid)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Data;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -357,6 +355,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
+
             banners.Sort(CompareBanner);
             CacheManager<BEBanner>.AddData(ECacheItem.BannersBienvenida, campaniaID.ToString(), banners);
 
@@ -370,10 +369,7 @@ namespace Portal.Consultoras.BizLogic
             IList<BEGrupoBanner> grupos = SelectGrupoBanner(campaniaID);
             var bannersByConsultora = new List<BEBannerInfo>();
             BEGrupoBanner grupo = null; BEGrupoConsultora consultora = null;
-
-            //banners = banners.Where(b => b.PaisesSegZona.Any(p => p.PaisId == paisID)).ToList();
-            //grupos = grupos.Where(b => b.Consultoras.Any(y => y.ConsultoraCodigo == codigoConsultora && y.PaisID == paisID)).ToList();
-
+            
             foreach (BEBanner banner in banners)
             {
                 if (banner.FlagConsultoraNueva)

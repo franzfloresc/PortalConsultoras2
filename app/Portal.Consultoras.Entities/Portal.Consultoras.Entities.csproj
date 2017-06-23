@@ -202,6 +202,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />

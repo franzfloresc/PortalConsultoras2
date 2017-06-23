@@ -95,6 +95,12 @@
   <wsdl:message name="ISACService_UpdateClientePedidoFacturado_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateClientePedidoFacturadoResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePaisResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1156,6 +1162,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" message="tns:ISACService_UpdateClientePedidoFacturado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturadoResponse" message="tns:ISACService_UpdateClientePedidoFacturado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCampaniaActualAndSiguientePais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" message="tns:ISACService_GetCampaniaActualAndSiguientePais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse" message="tns:ISACService_GetCampaniaActualAndSiguientePais_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -1922,6 +1932,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateClientePedidoFacturado">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniaActualAndSiguientePais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3546,6 +3565,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateClientePedidoFacturado">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCampaniaActualAndSiguientePais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

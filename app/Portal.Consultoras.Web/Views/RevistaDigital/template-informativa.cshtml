@@ -1,0 +1,107 @@
+﻿@using System.Configuration
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+
+<div class="content_gana_mas">
+    <div class="content_revista_izquierda"><img src="@Url.Content("~/Content/Images/RevistaDigital/revista_izquierda.png")" /></div>
+
+    <div class="content_texto_gana">
+        <div style="width:406px;margin:0 auto;">
+            <div class="titulo_gana_landing">INCREMENTA EN MÁS DE 20%* TUS GANANCIAS CON TU REVISTA ONLINE: </div>
+            <div>
+                <div class="texto_resaltante_gana">GANA+</div>
+                <div class="texto_descripcion_resaltante">Hasta 65% dscto todas las campañas.</div>
+            </div>
+            <div>
+                <div class="texto_resaltante_gana">VENDE+</div>
+                <div class="texto_descripcion_resaltante">Encuentra los productos que tus clientes siempre te piden.</div>
+            </div>
+            <div>
+                <div class="texto_resaltante_gana">PUNTOS+</div>
+                <div class="texto_descripcion_resaltante">Todos los productos que compras en Ésika para mí también suman puntos.</div>
+            </div>
+        </div>
+    </div>
+    <div class="content_revista_derecha"><img src="@Url.Content("~/Content/Images/RevistaDigital/celular_revista.png")" /></div>
+    <hr class="clear" />
+</div>
+<div class="content_funciona_esika">
+    <div class="content_belcorp">
+        <div class="titulo_funciona">¿cómo funciona ésika para mí?</div>
+        <div class="bloque_respuesta">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono1.png")" /><br />
+            <b>En esta campaña</b> te inscribes a Ésika para mí, tu nueva revista online personalizada.
+        </div>
+        <div class="bloque_respuesta">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono2.png")" /><br />
+            <b>A partir de C-@Model.CampaniaMasDos </b>recibirás unicamente la versión online de tu revista. En C-@Model.CampaniaMasUno podrás visualizar las ofertas de la C-@Model.CampaniaMasDos e ir planificando el pedido de la próxima campaña.
+
+        </div>
+        <div class="bloque_respuesta">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/icono3.png")" /><br />
+            <b>En C-@Model.CampaniaMasDos </b>podrás comprar tus ofertas de Ésika para mí y disfrutar todos sus beneficios.
+        </div>
+    </div>
+    <hr class="clear" />
+</div>
+<div class="content_belcorp">
+    <div class="titulo_funciona">preguntas frecuentes</div>
+    <div class="ept_preguntasRespuestas_accordion">
+        <div class="box_pregunta_ept">
+            <div class="tit_pregunta_ept">¿Qué es “Ésika para mí”? </div>
+            <div class="text_respuesta_ept">Es tu revista online personalizada, con las mejores y exclusivas ofertas que se acomodan a tus preferencias y de tu negocio. Son las ofertas que sí o sí tus clientes te pedirán.</div>
+        </div>
+        <div class="box_pregunta_ept">
+            <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” tienen algún descuento adicional? ¿O es su precio final lo que sale en el momento de la compra?</div>
+            <div class="text_respuesta_ept">El precio que ves en “Ésika para mí” es el precio neto consultora, es el precio que deberás pagar una vez facturado tu pedido.</div>
+        </div>
+        <div class="box_pregunta_ept">
+            <div class="tit_pregunta_ept">¿Las ofertas de “Ésika para mí” suman puntos a mi pedido? ¿Cuántos?</div>
+            <div class="text_respuesta_ept">Sí, todas tus compras de ofertas en “Ésika para mí” suman puntos para los concursos y bonificaciones vigentes que tengas en ese momento.</div>
+        </div>
+    </div>
+    <div class="ept_preguntasRespuestas_accordion2">
+        <div class="box_pregunta_ept2">
+            <div class="tit_pregunta_ept2">Mi amiga y yo tenemos el mismo producto, pero los precios son distintos. ¿Por qué?</div>
+            <div class="text_respuesta_ept2">“Ésika para mí” ofrece ofertas personalizadas en función a tu historial de compra y preparará para ti las mejores ofertas en función a esto. De esta manera, las ofertas que figuren en tu “Ésika para mí” tendrán mayor probabilidad de venta, porque ya tienes clientes que seguramente estén interesados en estos.</div>
+        </div>
+        <div class="box_pregunta_ept2">
+            <div class="tit_pregunta_ept2">¿Cuál es mi ganancia por la venta de los productos de “Ésika para mí”?</div>
+            <div class="text_respuesta_ept2">Todos los precios son no comisionables (funciona como revista). La ganancia es el precio de catálogo del producto menos el precio de la revista online.</div>
+        </div>
+        <div class="box_pregunta_ept2">
+            <div class="tit_pregunta_ept2">¿Por qué cancelaron mi revista impresa?</div>
+            <div class="text_respuesta_ept2">Si no has recibido la revista impresa, es porque te debes haber suscrito por algunos de nuestros medios. En caso no desees recibir los beneficios de “Esika para mí”, puedes desafiliarte directamente desde Somosbelcorp. com en la sección ¿Qué és Ésika para mí? o llamando al call center de tu país. Una vez solicites retirarte de “Ésika para mí”, recibirás tu revista regular 2 campañas después.</div>
+        </div>
+    </div>
+    <hr class="clear" />
+
+    <div class="descargarPreguntasRespuestas">
+        <a href="@ConfigurationManager.AppSettings["UrlPreguntasFrecuentesRD"].Trim()" target="_blank">+ MÁS PREGUNTAS FRECUENTES</a>
+    </div>
+
+    <div id="divAnularSuscripcion">
+        <div class="titulo_no_inscrita">
+            ¿ya no quieres estar inscrita a ésika para mí?
+        </div>
+        <div class="texto_no_inscrita">al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.</div>
+        <div class="advertencia_no_inscrita">
+            Tienes hasta el cierre de campaña para cancelar tu inscripción y garantizar la recepción de tu revista impresa dentro de dos campañas.
+            Cualquier duda llama a @Model.NumeroContacto o haz click
+            <a href="#" style="display: inline-block; text-decoration: underline;" class="belcorpChat">aquí</a>
+        </div>
+        <div class="btn_diagonal btn_stroke"> <a class="" href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a> </div>
+        <hr class="clear" />
+        <div class="legal_gana_mas">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. <br />Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
+    </div>
+    <div id="divMensajeAnularSuscripcion" style="display: none">
+        <div class="titulo_no_inscrita">
+            haz anulado tu inscripción con éxito
+        </div>
+        <div class="texto_no_inscrita">
+            al anular tu inscripción dejarás de recibir tu revista online <b>ésika para mí</b> Y volverás a recibir tu revista impresa en 2 campañas.
+        </div>
+        <hr class="clear" />
+        <div class="legal_gana_mas"></div>
+    </div>
+</div>

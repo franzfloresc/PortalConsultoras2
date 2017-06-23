@@ -235,7 +235,7 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEClienteResponse> lstResponse = new List<BEClienteResponse>();
             var daCliente = new DACliente(paisID);
-            var daClienteDB = new DAClienteDB();
+            var daClienteDB = new BLClienteDB();
             var clienteSB = new BECliente();
 
             foreach (var clienteDB in clientes)
@@ -421,7 +421,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
-            var daClienteDB = new DAClienteDB();
+            var daClienteDB = new BLClienteDB();
 
             //1. OBTENER CLIENTE CONSULTORA
             var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
@@ -431,10 +431,11 @@ namespace Portal.Consultoras.BizLogic
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
-            var taskCliente = daClienteDB.GetClienteByClienteID(strclientes);
-            Task.WaitAll(taskCliente);
+            var lstCliente = daClienteDB.GetClienteByClienteID(strclientes);
+            //var taskCliente = daClienteDB.GetClienteByClienteID(strclientes);
+            //Task.WaitAll(taskCliente);
 
-            var lstCliente = taskCliente.Result;
+            //var lstCliente = taskCliente.Result;
 
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente

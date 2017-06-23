@@ -1503,8 +1503,8 @@ namespace Portal.Consultoras.BizLogic
 
                                         htmlTemplate = htmlTemplate.Replace("#TELEFONO1#", telefono1);
                                         htmlTemplate = htmlTemplate.Replace("#TELEFONO2#", "");
-                                        htmlTemplate = htmlTemplate.Replace("#CODIGO_USUARIO#", codusuario);
-                                        htmlTemplate = htmlTemplate.Replace("#PASSWORD#", consultoraEmail.Clave);
+                                        //htmlTemplate = htmlTemplate.Replace("#CODIGO_USUARIO#", codusuario);
+                                        //htmlTemplate = htmlTemplate.Replace("#PASSWORD#", consultoraEmail.Clave);
                                         htmlTemplate = htmlTemplate.Replace("#PRIMER_NOMBRE#", consultoraEmail.NombreCompleto);
                                         htmlTemplate = htmlTemplate.Replace("#NOMBRE_CONTACTO#", gznombre);
                                         htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);

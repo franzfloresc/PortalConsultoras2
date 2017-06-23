@@ -690,5 +690,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
+
+        [OperationContract]
+        string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
     }
 }

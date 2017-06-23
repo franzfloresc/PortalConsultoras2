@@ -142,6 +142,8 @@
 
 @Html.HiddenFor(m => Model.LugarNivel1)
 @Html.HiddenFor(m => Model.LugarNivel2)
+@Html.HiddenFor(m => Model.LugarNivel3)
+@Html.HiddenFor(m => Model.LugarNivel4)
 
 <script>
     var NombreLugarNivel1Ant = '';
@@ -217,7 +219,7 @@
     });
 
     $('#btnGrabarDireccion').click(function () {
-        if ($('#form0').valid()) {
+        if ($('#formTemplate').valid()) {
             $('#btnModificarDireccion').show();
             $('#btnGrabarDireccion').hide();
             $('#btnCancelarEdicion').hide();
@@ -228,7 +230,7 @@
             $('#btnEditarPosicion').attr('disabled', false);
             $('#btnGuardarPosicion').attr('disabled', false);
             $('#btnActualizarSeccion').attr('disabled', false);
-            HabilitarDatosDireccion(0);
+            //HabilitarDatosDireccion(0);
         }
     });
 

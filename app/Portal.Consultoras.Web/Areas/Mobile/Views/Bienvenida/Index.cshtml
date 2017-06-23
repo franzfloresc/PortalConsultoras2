@@ -322,6 +322,19 @@
 </div>
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+    <div class="row contenedorCupon" id="">
+        <div class="label_cupon contenedorCuponConocelo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">Tienes un dscto exclusivo para ti, 
+            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
+        </div>
+        <div class="label_cupon contenedorCuponInfo">
+            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
+            <div class="texto_cupon">
+                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
+            </div>
+        </div>
+    </div>
     <div class="titulo_ofertas_home">
         OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
         <div class="texto_exclusivo">
@@ -613,7 +626,6 @@
         </div>
     </div>
     <!-- FIN POPUP DEMANDA ANTICIPADA -->
-
     <div class="btn_agregarPedido">
         <form>
             <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
@@ -711,8 +723,8 @@
 </div>
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
-@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
 
     <script id="estrategia-template1" type="text/x-handlebars-template">
                 {{#each this as |item|}}
@@ -886,9 +898,9 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="{{CUV2}}" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
                     <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
                     <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -1006,8 +1018,23 @@
                 </div>
             </div>
         </script>
+<!--POP UP CUPONES-->
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
+<!--FIN-->
         @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".termino_condiciones_intriga").click(function () {
+                    $(this).toggleClass('check_intriga');
+                    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    }
+                });
+            });
+        </script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript">
 
@@ -1028,7 +1055,7 @@
                 var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
                 var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
                 var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-                var urlInformacionSuscripcion = '@Url.Action("Inscripcion", "RevistaDigital", new { area = "Mobile" })';
+                var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
                 var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
                 var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 
@@ -1042,10 +1069,22 @@
                 if (vbFotoPerfil != null && vbFotoPerfil != "") {
                     $('.content_foto').show();
                 }
+
+                var viewBagCampaniaActual = '@Model.CampaniaActual';
+                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+                var tieneCupon = '@Model.TieneCupon';
+                var paginaOrigenCupon = 2;
+                var esEmailActivo = '@Model.EmailActivo';
+                var paisISO = '@ViewBag.paisISO';
+                var viewBagAmbiente = '@ViewBag.Ambiente';
+                var correo = '@Model.EMail';
+                var celular = '@Model.Celular';
             </script>
 
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
-
+<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         }
