@@ -883,6 +883,7 @@
             width: 800,
             draggable: true,
             title: "Registro / Edición Ofertas Liquidación",
+            open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
                 "Guardar": function () {

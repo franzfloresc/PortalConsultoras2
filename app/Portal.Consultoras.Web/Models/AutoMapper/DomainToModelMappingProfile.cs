@@ -190,13 +190,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
                 .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
-                //.ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
                 .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
                 .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
-                .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
                 .ForMember(t => t.CodigoSap, f => f.MapFrom(c => c.CodigoSap))
+                .ForMember(t => t.DescripcionRegalo, f => f.MapFrom(c => c.DescripcionRegalo))
                 .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
-                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
+                .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
                 .ForMember(t => t.UrlImagenRegalo, f => f.MapFrom(c => c.UrlImagenRegalo));
                 
             Mapper.CreateMap<BEPermiso, PermisoModel>()

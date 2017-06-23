@@ -797,12 +797,16 @@ namespace Portal.Consultoras.Web.Controllers
                         #endregion
 
                         #region RegaloPN
-                        DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
-                        var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
-
-                        if (esDiasFacturacion) 
+                        var regaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
+                        if (regaloProgramaNuevasFlag == "1") 
                         {
-                            model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                            DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                            var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+
+                            if (esDiasFacturacion)
+                            {
+                                model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                            }
                         }
                         #endregion
 
@@ -1777,35 +1781,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
         {
-            ConsultoraRegaloProgramaNuevasModel result = null;
+            ConsultoraRegaloProgramaNuevasModel model2 = null;
 
             try
             {
-                BEConsultoraRegaloProgramaNuevas entidad;
+                BEConsultoraRegaloProgramaNuevas beConsultoraRegaloPN;
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
-                    entidad = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                    beConsultoraRegaloPN = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
                 }
 
-                if (entidad != null)
+                if (beConsultoraRegaloPN != null)
                 {
                     var listaProductoCatalogo = new List<Producto>();
                     using (ProductoServiceClient svc = new ProductoServiceClient())
                     {
-                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
+                        listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, beConsultoraRegaloPN.CodigoSap, 3).ToList();
                     }
 
                     if (listaProductoCatalogo.Any())
                     {
                         var productoCatalogo = listaProductoCatalogo.First();
-                        entidad.DescripcionPremio = productoCatalogo.NombreComercial;
-                        entidad.PrecioCatalogo = productoCatalogo.PrecioCatalogo;
-                        entidad.PrecioValorizado = productoCatalogo.PrecioValorizado;
-                        entidad.UrlImagenRegalo = productoCatalogo.Imagen;
+                        beConsultoraRegaloPN.DescripcionRegalo = productoCatalogo.NombreComercial;
+                        beConsultoraRegaloPN.PrecioCatalogo = productoCatalogo.PrecioValorizado;
+                        beConsultoraRegaloPN.PrecioOferta = productoCatalogo.PrecioCatalogo;
+                        beConsultoraRegaloPN.UrlImagenRegalo = productoCatalogo.Imagen;
 
-                        result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
-                        result.CodigoIso = model.CodigoISO;
-                        result.DescripcionPremio = result.DescripcionPremio.ToUpper();
+                        model2 = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(beConsultoraRegaloPN);
                     }
                 }
             }
@@ -1813,7 +1815,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
             }
 
-            return result;
+            return model2;
         }
                                 
         private JsonResult ErrorJson(string message, bool allowGet = false)

@@ -198,13 +198,53 @@ $(document).ready(function () {
 
     CargarFiltroRangoPrecio();
     CargarProductosShowRoom(null);
-
+    
     if (closeBannerCompraPorCompra == "True") {
         $("#divBannerCompraPorCompra").hide();
         $(".footer_e").css("margin-bottom", "0px");
     } else {
         $("#divBannerCompraPorCompra").show();
         $(".footer_e").css("margin-bottom", "73px");
+    }
+    
+    var cerrar_banner_sub_campanias = false;
+    var ver_subcamapania = false;
+    var ver_compraxcompra = false;
+    
+    if (localStorage["cerrar_banner_sub_campanias"]) {
+        cerrar_banner_sub_campanias = true;
+    }
+    if (tieneSubCampania == "True" && itemsSubCampania > 0 && cerrar_banner_sub_campanias == false) {
+        ver_subcamapania = true;
+    }
+    if (tieneCompraXCompra == "True" && itemsCompraXCompra > 0 && closeBannerCompraPorCompra == "False") {
+        ver_compraxcompra = true;
+    }
+    if (ver_subcamapania == false && ver_compraxcompra == false) {
+        $(".footer_e").css("margin-bottom", "0px");
+    }
+    else if (ver_subcamapania == true && ver_compraxcompra == true) {
+        $("#divBannerCompraPorCompra").hide();
+        var stilo = $('.banner_especial_showroom').attr("style");
+        if (stilo != null) {
+            var stilo = stilo.replace("display:none", "display:block");
+            $('.banner_especial_showroom').attr("style", stilo);
+            $('.banner_especial_showroom').show();
+        }
+        $(".footer_e").css("margin-bottom", "73px");
+    }
+    else if (ver_subcamapania == true) {
+        $("#divBannerCompraPorCompra").hide();
+        var stilo = $('.banner_especial_showroom').attr("style");
+        if (stilo != null) {
+            var stilo = stilo.replace("display:none", "display:block");
+            $('.banner_especial_showroom').attr("style", stilo);
+            $('.banner_especial_showroom').show();
+        }
+    }
+    else if (ver_compraxcompra == true) {
+        $('.banner_especial_showroom').hide();
+        $("#divBannerCompraPorCompra").show();                
     }
 
     $(".swproddetcompra").on("click", function () {

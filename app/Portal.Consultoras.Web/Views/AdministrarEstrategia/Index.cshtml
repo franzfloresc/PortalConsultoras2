@@ -1742,6 +1742,7 @@
             },
             draggable: false,
             title: "Registro de Estrategias",
+            open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
                 "Guardar": function () {
@@ -2028,6 +2029,7 @@
             width: 500,
             draggable: false,
             title: "Seleccione el alcance de la estrategia",
+            open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
                 "Guardar": function () {
