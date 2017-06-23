@@ -2,7 +2,7 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalModel
 
-<div class="content_320 ingresoPedidom">
+<div class="content_320 ingresoPedidom" data-estadoregistro="@Model.EstadoSuscripcion">
     <div class="box_beneficios_ept">
         <div class="tit_preguntas">INGRESA A ÉSIKA PARA MÍ EN LA PRÓXIMA CAMPAÑA Y CRECE EN MÁS DE 20%* TUS GANANCIAS:</div>
         <div class="beneficios_ept">
@@ -20,9 +20,9 @@
         <div class="beneficios_ept_img"><img width="100%" src="@Url.Content("~/Content/Images/RevistaDigital/mpopup_inscripcion.png")" /></div>
     </div>
     <!--BOTON INSCRIBIRSE-->
-    <div class="content_inscribirse">
-        <a href="javascript: RDSuscripcion();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-        <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="#" class="terminos_inscribirse">términos y condiciones</a></div>
+    <div class="content_inscribirse" style="display:none;" data-estadoregistro0="">
+        <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+        <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript:;" class="terminos_inscribirse">términos y condiciones</a></div>
         <div class="subtexto_inscribirse">Comparación VS. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Periodo evaluado: Dic. 2016 - Abr. 2017(Perú y Chile).</div>
     </div>
     <!--FIN-->
@@ -69,7 +69,16 @@
     </div>
 </div>
 
-<div class="box_cancelarInscripcion_ept" id="divAnularSuscripcion">
+<div class="box_cancelarInscripcion_ept" id="divSuscripcion" data-estadoregistro0="" style="display: none">
+    <div class="content_320 ingresoPedidom">
+        <div class="tit_preguntas">INSCRÍBETE A ÉSIKA PARA MÍ</div>
+        <p> Incrementa tus ganancias en más de 20% reemplazando tu revista impresa por tu revista online</p>
+    </div>
+    <a href="javascript: RDSuscripcion(2);" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+    <div class="texto_inscribirse">Al inscribirte estas aceptando los <a href="javascript:;" class="terminos_inscribirse">términos y condiciones</a></div>
+</div>
+
+<div class="box_cancelarInscripcion_ept" id="divAnularSuscripcion" data-estadoregistro1="" style="display: none">
     <div class="content_320 ingresoPedidom">
         <div class="tit_preguntas">¿YA NO QUIERES ESTAR INSCRITA A ÉSIKA PARA MÍ?</div>
         <p> Tienes hasta el cierre de campaña para cancelar tu inscripción. Al anular tu inscripción dejarás de recibir tu revista online y <b>volverás a recibir tu revista impresa en 2 campañas.</b></p>
@@ -80,7 +89,7 @@
         </p>
     </div>
     <div class="btn_cancelarInscripcion_ept">
-        <a href="javascript: RDDesuscripcion();">CANCELAR MI INSCRIPCIÓN</a>
+        <a href="javascript: RDDesuscripcion(2);">CANCELAR MI INSCRIPCIÓN</a>
     </div>
     <div class="text_legal_ept">*Comparación vs. consultoras que no compraron ofertas digitales de www.somosbelcorp.com. Período evaluado: Dic. 2016 – Abr. 2017 (Perú y Chile).</div>
 </div>

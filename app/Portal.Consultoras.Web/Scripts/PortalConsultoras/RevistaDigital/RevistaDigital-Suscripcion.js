@@ -8,7 +8,7 @@ function RDPopupCerrar(tipo) {
     AbrirLoad();
     if (tipo == 1) {
         CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
-        location.href = "/";
+        location.href = location.href;
         return false;
     }
 
@@ -138,7 +138,7 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
-function RDSuscripcionRedireccionar() {
+function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = urlRevistaDigital;
     window.location = url;
@@ -147,8 +147,9 @@ function RDSuscripcionRedireccionar() {
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
     var url = urlRevistaDigital;
-    var divPosition = '#divAnularSuscripcion';
+    var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
+    window.location.reload();
 }
 
 function MostrarTerminos() {

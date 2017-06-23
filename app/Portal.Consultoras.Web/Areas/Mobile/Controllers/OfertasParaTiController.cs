@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 modelo.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+            ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return View(modelo);
         }
 
