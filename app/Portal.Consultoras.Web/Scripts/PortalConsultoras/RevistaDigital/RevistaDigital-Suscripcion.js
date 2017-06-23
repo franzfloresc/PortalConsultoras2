@@ -8,7 +8,7 @@ function RDPopupCerrar(tipo) {
     AbrirLoad();
     if (tipo == 1) {
         CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
-        location.href = "/";
+        location.href = location.href;
         return false;
     }
 
@@ -45,20 +45,35 @@ function RDSuscripcion(accion) {
 
             if (data.success == true) {
 
+                if (isMobile()) {
+                    RDPageInformativa();
+                    return;
+                }
+
                 accion = accion || 0;
+                if (accion == 2) {
+                    $("[data-estadoregistro]").attr("data-estadoregistro", "1");
+                    $("[data-estadoregistro0]").hide();
+                    $("[data-estadoregistro1]").show();
+                    SuscripcionExistosaRDAnalytics();
+                    return true;
+                }
+
+                $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
+                $("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
+
                 if (accion == 0) {
                     CerrarPopup("#PopRDSuscripcion");
-                    $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                    AbrirPopupFade("#PopRDInscrita");
-                    SuscripcionExistosaRDAnalytics();
                     MostrarMenu(data.CodigoMenu);
                     if (!isMobile()) {
                         CargarBanners();
                     }
                 }
                 else if (accion == 1) {
-
+                    CerrarPopup("#divMensajeBloqueada");
                 }
+                AbrirPopupFade("#PopRDInscrita");
+                SuscripcionExistosaRDAnalytics();
             }
         },
         error: function (data, error) {
@@ -68,7 +83,7 @@ function RDSuscripcion(accion) {
     });
 }
 
-function RDDesuscripcion() {
+function RDDesuscripcion(accion) {
     AbrirLoad();
     CancelarSuscripcionRDAnalytics();
     $.ajax({
@@ -82,6 +97,15 @@ function RDDesuscripcion() {
                 return false;
 
             if (data.success == true) {
+
+                accion = accion || 0;
+                if (accion == 2) {
+                    $("[data-estadoregistro]").attr("data-estadoregistro", "2");
+                    $("[data-estadoregistro1]").hide();
+                    $("[data-estadoregistro0]").show();
+                    return true;
+                }
+
                 //location.href = "/";
                 $('#divAnularSuscripcion').hide();
                 $('#divMensajeAnularSuscripcion').show();
@@ -119,19 +143,20 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
-function RDSuscripcionRedireccionar() {
+function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = urlRevistaDigital;
     window.location = url;
-    //CerrarPopup("#PopRDInscrita");
 }
+
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
     var url = urlRevistaDigital;
-    var divPosition = '#divAnularSuscripcion';
+    var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
-    //CerrarPopup("#PopRDInscrita");
+    window.location.reload();
 }
+
 function MostrarTerminos() {
     var win = window.open(urlTerminosCondicionesRD, '_blank');
     if (win) {

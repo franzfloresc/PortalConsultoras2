@@ -9,6 +9,10 @@ $(document).ready(function () {
     
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
+    var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
+    estador = estador == 1 ? estador : 0;
+    $("[data-estadoregistro" + estador + "]").show();
+
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
         // mostrar el tab correcto
@@ -120,6 +124,9 @@ $(document).ready(function () {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
         var obj = GetProductoStorage(cuv, campania);
+        if (obj == undefined) {
+            return;
+        }
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {            
             var guardo = GuardarProductoTemporal(obj);
@@ -175,6 +182,7 @@ function OfertaArmarEstrategias(response) {
                     tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
                     tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
                     tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.EstrategiaDetalle.ImgPrevDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
                 });
                 

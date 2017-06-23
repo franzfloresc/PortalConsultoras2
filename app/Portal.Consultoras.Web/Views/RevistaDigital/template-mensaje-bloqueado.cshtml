@@ -13,10 +13,11 @@
         <hr class="clear" />
         <div class="box_producto" data-item-html="" style="overflow: hidden;"></div>
         <hr class="clear" />
-        @if (Model.BtnInscribirse)
-        {
-            <div class="btn_diagonal"><a href="javascript: RDSuscripcion(1)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-        }
+
+        <div class="rd_btn" style="display:none;" data-estadoregistro0="">
+            <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(1)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+        </div>
+        
         <div class="popup_text">¿TIENES DUDAS?</div>
         <a href="javascript: RDPageInformativa();" class="popup_text rd_ver_mas">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
     </div>
